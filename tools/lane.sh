@@ -192,6 +192,10 @@ refresh_seed() {
     # -f: the seed holds nothing of anyone's, and an import stopped part-way can leave project.godot rewritten.
     quiet git -C "$source_dir" checkout -q -f --detach "$seed_ref"
   fi
+  # The engine core is a submodule: a worktree doesn't bring it, so the seed gets it here (init_core).
+  if [ -f "$source_dir/.gitmodules" ] && grep -q 'addons/dnd_core' "$source_dir/.gitmodules"; then
+    init_core "$source_dir" || say "the engine core could not be checked out in the seed: run git -C $source_dir submodule update --init" >&2
+  fi
   # Every refresh: main's untracked .import files that the seed doesn't have yet (the tracked ones came with the
   # checkout). They hold the import settings of the art beside them: without them Godot imports that art again in the
   # seed, with default settings for art merged into main since. One the seed already has is kept, since Godot rewrites
@@ -262,6 +266,21 @@ refresh() {
     > /dev/null 2>&1 || true
 }
 
+## The engine core (addons/dnd_core, a git submodule) checked out in <dir>, a worktree of this repo (the seed or a lane): its git
+## objects borrowed from the main checkout's copy (--reference: no download when the commit is one main has) and its Git LFS
+## objects from the main copy's LFS store (lfs.storage: no download either). A fresh submodule has no LFS filter of its own, so
+## it is installed here and the models and textures are checked out as real files, not pointers. Core edits go on a branch inside
+## it (git switch -c <name>). Needs the network only for the submodule's ref advertisement, never for the objects main has.
+init_core() {
+  local dir="$1" ref=() store="$main/.git/modules/addons/dnd_core/lfs" core="$1/addons/dnd_core"
+  [ -e "$main/addons/dnd_core/.git" ] && ref=(--reference "$main/addons/dnd_core")
+  rm -rf "$core"
+  git -C "$dir" submodule update --init --quiet ${ref[@]+"${ref[@]}"} > /dev/null 2>&1 || return 1
+  git -C "$core" lfs install --local > /dev/null 2>&1 || true
+  [ ! -d "$store" ] || git -C "$core" config lfs.storage "$store"
+  git -C "$core" lfs checkout > /dev/null 2>&1 || return 1
+}
+
 new_lane() {
   local name="$1" branch="$2" base="${3:-main}" dest before target
   dest="$(lane_dir "$name")"
@@ -312,15 +331,9 @@ new_lane() {
   [ "$extra" = "0" ] || git ls-files --others --exclude-standard -z | xargs -0 rm -f
   refresh
   # The engine core is a git submodule (addons/dnd_core, the engine handbook). The copy of main's files brought a gitfile that
-  # points into main's .git, so the folder is cleared and checked out for this lane, borrowing the objects main's copy already has
-  # (no download when the lane's commit of the core is one main has). Core edits go on a branch inside it (git switch -c <name>).
+  # points into another worktree's git dir, so the folder is cleared and checked out for this lane (init_core).
   if [ -f "$dest/.gitmodules" ] && grep -q 'addons/dnd_core' "$dest/.gitmodules"; then
-    rm -rf "$dest/addons/dnd_core"
-    local ref=()
-    [ -e "$main/addons/dnd_core/.git" ] && ref=(--reference "$main/addons/dnd_core")
-    if ! git -C "$dest" submodule update --init --quiet ${ref[@]+"${ref[@]}"} > /dev/null 2>&1; then
-      say "the engine core (addons/dnd_core) could not be checked out: run git -C $dest submodule update --init"
-    fi
+    init_core "$dest" || say "the engine core (addons/dnd_core) could not be checked out: run git -C $dest submodule update --init"
   fi
   say "$dest on $branch: $differ file(s) checked out from the branch, $extra extra file(s) removed"
   say "disk free: $before GB before, $(free_gb) GB after (other lanes write meanwhile)"
