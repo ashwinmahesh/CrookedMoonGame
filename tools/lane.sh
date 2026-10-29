@@ -46,6 +46,9 @@ esac
 [ -d "$root" ] || { say "LANE_ROOT $root isn't a folder" >&2; exit 2; }
 root="$(cd "$root" && pwd)"   # absolute: git -C "$main" would read a relative path as one inside the main checkout
 # What lanes clone from: the main checkout, or the seed when the lanes live on another volume.
+# The seed is a worktree at `main` by default; LANE_SEED_REF=<branch or commit> makes it at that instead (the foundation's seed
+# was made at the `foundation` branch, before the build thread had merged it into main; a plain refresh then moves it to main).
+seed_ref="${LANE_SEED_REF:-main}"
 source_dir="$main"
 [ "$(stat -f %d "$root")" = "$(stat -f %d "$main")" ] || source_dir="$root/seed"
 
@@ -178,7 +181,7 @@ seed_needs_refresh() {
 ## make import).
 refresh_seed() {
   if [ ! -d "$source_dir" ]; then
-    quiet git -C "$main" worktree add -q --detach "$source_dir" main
+    quiet git -C "$main" worktree add -q --detach "$source_dir" "$seed_ref"
     git -C "$main" worktree lock --reason "seed for lanes on the removable SSD" "$source_dir"
     hold_seed_import
     # main's import cache: a plain copy, since clones can't cross volumes.
@@ -187,7 +190,7 @@ refresh_seed() {
   else
     hold_seed_import
     # -f: the seed holds nothing of anyone's, and an import stopped part-way can leave project.godot rewritten.
-    quiet git -C "$source_dir" checkout -q -f --detach main
+    quiet git -C "$source_dir" checkout -q -f --detach "$seed_ref"
   fi
   # Every refresh: main's untracked .import files that the seed doesn't have yet (the tracked ones came with the
   # checkout). They hold the import settings of the art beside them: without them Godot imports that art again in the
