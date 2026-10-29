@@ -1,0 +1,456 @@
+extends Control
+## The title screen (plan §5.6 Start step): New game (choose up to four from the roster to travel, the rest wait at camp;
+## one custom hero the player makes joins the roster: owner, 2026-10-06), Continue (the newest save), Load, Skirmish
+## and the Character Lab (ui/skirmish/, with the achievements), the combat arena, and Quit.
+## Foundation copy of Curse of Strahd's title (docs/PLACEHOLDERS.md): its Barovia text, art motion and tutorial are taken out.
+
+
+var _creation: CreationScreen = null
+## The new game's choice: roster ids travelling ("hero" for the custom hero), and the hero once made.
+var _picked: Array[String] = []
+var _hero: Character = null
+## The new game's difficulty (combat/difficulty.gd), picked on the page after the party.
+var _difficulty := Difficulty.DEFAULT
+## How heroes grow in the new game, picked on the same page: "milestone" or "xp" (story/xp.gd).
+var _levelling := Xp.MILESTONE
+var _mobile_scroll: ScrollContainer
+var _mobile_roster_columns := 0
+var _box: VBoxContainer
+## Which page of the title is showing ("title", "new_game", "difficulty"): Escape steps back a page. The saves open
+## on a page of their own (ui/screens/saves_screen.gd), which takes its own Escape.
+var _view := "title"
+
+
+const GAME_SCENE := "res://scenes/game.tscn"
+var _preloading := false           ## the game scene is loading on a worker thread (see _ready)
+
+
+func _ready() -> void:
+	# The title never starts paused: a menu opened in a fight pauses the tree, and a scene change keeps it paused.
+	get_tree().paused = false
+	InputActions.ensure()
+	Cursors.install()
+	Cursors.show("pointer")
+	# The window the player picked in Settings, only when this is the game's own title (never a capture inside it).
+	# Also then: the game scene and the scripts it needs (over a second to compile on the Mac Mini) load on a worker
+	# thread while the title is up, so New game and Continue start that much sooner (P3).
+	(func() -> void:
+		if is_inside_tree() and get_tree().current_scene == self:
+			GameSettings.apply_display()
+			_preloading = ResourceLoader.load_threaded_request(GAME_SCENE, "", true) == OK).call_deferred()
+	Audio.play_music("title")
+	set_anchors_preset(Control.PRESET_FULL_RECT)
+	var bg := ColorRect.new()
+	bg.color = Look.color("void")
+	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(bg)
+	# Key art (art/ui/title_backdrop.png, a placeholder until the look is set), darkened toward the left where the menu sits.
+	var art := TextureRect.new()
+	art.texture = load("res://art/ui/title_backdrop.png") as Texture2D
+	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	art.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(art)
+	var shade := TextureRect.new()
+	var grad := Gradient.new()
+	grad.set_color(0, Color(Look.color("void"), 0.92))
+	grad.set_color(1, Color(Look.color("void"), 0.85 if MobileDevice.enabled() else 0.0))
+	grad.set_offset(1, 0.62)
+	var gt := GradientTexture2D.new()
+	gt.gradient = grad
+	gt.fill_to = Vector2(1, 0)
+	shade.texture = gt
+	shade.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	shade.stretch_mode = TextureRect.STRETCH_SCALE
+	shade.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(shade)
+	_box = VBoxContainer.new()
+	_box.anchor_top = 0.5
+	_box.anchor_bottom = 0.5
+	_box.offset_left = 110
+	_box.offset_right = 110 + 560
+	_box.offset_top = -340
+	_box.add_theme_constant_override("separation", 12)
+	if MobileDevice.enabled():
+		var scroll := ScrollContainer.new()
+		var area := MobileDevice.safe_rect().grow(-12)
+		scroll.position = area.position
+		scroll.size = area.size
+		scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		add_child(scroll)
+		_box.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+		_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		scroll.add_child(_box)
+		_mobile_scroll = scroll
+		get_viewport().size_changed.connect(_mobile_reflow)
+	else:
+		add_child(_box)
+	_title()
+
+
+func _title() -> void:
+	_mobile_finish.call_deferred()
+	_view = "title"
+	for c in _box.get_children():
+		c.queue_free()
+	var t := UiKit.label("The Crooked Moon", 42 if MobileDevice.enabled() else 72, "flame")
+	t.add_theme_font_override("font", UiKit.display_font())
+	t.add_theme_constant_override("outline_size", 10)
+	t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_box.add_child(t)
+	var ornament := UiKit.divider(220.0 if MobileDevice.enabled() else 460.0)
+	if MobileDevice.enabled():
+		ornament.custom_minimum_size.y = 28
+		ornament.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	_box.add_child(ornament)
+	var sub := UiKit.label("The moon hangs crooked tonight.", 22, "parchment")
+	sub.add_theme_font_override("font", UiKit.display_font())
+	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_box.add_child(sub)
+	_box.add_child(_gap(4 if MobileDevice.enabled() else 14))
+	var slots := SaveSystem.list_slots()
+	var cont := UiKit.button("Continue", func() -> void: _load(str(slots[0]["slot"])), 24)
+	cont.disabled = slots.is_empty()
+	if not slots.is_empty():
+		var prime := UiParts.primary_button("Continue", func() -> void: _load(str(slots[0]["slot"])))
+		prime.add_theme_font_size_override("font_size", 24)
+		prime.size_flags_horizontal = Control.SIZE_FILL
+		cont.free()
+		cont = prime
+	_box.add_child(cont)
+	if MobileDevice.enabled() and not MobilePracticeRecovery.read().is_empty():
+		_box.add_child(MobileUi.button("Resume practice battle", func() -> void:
+			if MobilePracticeRecovery.request():
+				get_tree().change_scene_to_file("res://scenes/combat/arena.tscn")))
+	_box.add_child(UiKit.button("New game", _new_game, 24))
+	var load := UiKit.button("Load", _show_loads, 24)
+	load.disabled = slots.is_empty()
+	_box.add_child(load)
+	_box.add_child(UiKit.button("Skirmish and Character Lab", func() -> void: get_tree().change_scene_to_file("res://scenes/skirmish.tscn"), 18))
+	_box.add_child(UiKit.button("Combat arena", func() -> void: get_tree().change_scene_to_file("res://scenes/combat/arena.tscn"), 18))
+	_box.add_child(UiKit.button("Credits", _credits, 18))
+	if not MobileDevice.enabled():
+		_box.add_child(UiKit.button("Quit", func() -> void: get_tree().quit(), 18))
+
+
+## Who made what (art/credits.json): the SRD's attribution, the art, and every credited track and sound.
+func _credits() -> void:
+	var layer := CanvasLayer.new()
+	layer.layer = 30
+	layer.name = "Credits"
+	add_child(layer)
+	var frame := MobilePage.build(layer, "Credits", layer.queue_free) if MobileDevice.enabled() else UiKit.screen_frame(layer, "Credits", Vector2(1100, 760))
+	var body := VBoxContainer.new()
+	body.add_theme_constant_override("separation", 8)
+	var data := JSON.parse_string(FileAccess.get_file_as_string("res://art/credits.json")) as Dictionary
+	for sec: Variant in data["sections"]:
+		var lines := (sec as Dictionary)["lines"] as Array
+		if lines.is_empty():
+			continue
+		body.add_child(UiParts.section(str((sec as Dictionary)["title"])))
+		for line: Variant in lines:
+			body.add_child(MobileUi.text(str(line)) if MobileDevice.enabled() else UiKit.label(str(line), 15, "vellum", 1000))
+	if MobileDevice.enabled():
+		frame.add_child(body)
+		return
+	var pane := UiParts.pane(14)
+	pane.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	pane.add_child(UiParts.fill_scroll(body))
+	frame.add_child(pane)
+	frame.add_child(UiParts.primary_button("Close", func() -> void: layer.queue_free()))
+
+
+func _gap(h: float) -> Control:
+	var c := Control.new()
+	c.custom_minimum_size = Vector2(0, h)
+	return c
+
+
+func _new_game() -> void:
+	_mobile_finish.call_deferred()
+	_view = "new_game"
+	for c in _box.get_children():
+		c.queue_free()
+	var roster := Pregens.roster_ids()
+	if _picked.is_empty():
+		for id in roster:
+			if _picked.size() < StoryState.PARTY_CAP:
+				_picked.append(id)
+	_box.add_child(UiKit.title("Who boards the train?"))
+	_box.add_child(UiKit.label("Choose up to four to travel. The rest wait at camp, and you can swap them in on the road. Or make a hero of your own.", 15, "parchment", minf(560, MobileDevice.safe_rect().size.x - 28) if MobileDevice.enabled() else 560))
+	var grid := GridContainer.new()
+	grid.columns = 4
+	if MobileDevice.enabled():
+		grid.columns = 1 if MobileDevice.compact() else 2
+		_mobile_roster_columns = grid.columns
+	grid.add_theme_constant_override("h_separation", 8)
+	grid.add_theme_constant_override("v_separation", 8)
+	for id in roster:
+		var data := Compendium.shared().get_entry("pregens", id)
+		grid.add_child(_roster_card(id, id, str(data.get("name", id)), _class_line(str(data.get("summary", ""))),
+			"%s\n\n%s" % [str(data.get("summary", "")), str(data.get("hook", ""))]))
+	if _hero != null:
+		grid.add_child(_roster_card("hero", CombatToken.art_for(_hero), _hero.name, _hero.class_summary(), "Your own hero."))
+	else:
+		grid.add_child(_make_hero_card())
+	_box.add_child(grid)
+	var total := roster.size() + (1 if _hero != null else 0)
+	var want := mini(StoryState.PARTY_CAP, total)
+	var row: BoxContainer = VBoxContainer.new() if MobileDevice.enabled() and MobileDevice.safe_rect().size.x < 450 else HBoxContainer.new()
+	row.add_theme_constant_override("separation", 10)
+	var back := UiParts.primary_button("Back", _title)
+	back.tooltip_text = "Back to the title (Esc)"
+	row.add_child(back)
+	if _hero != null:
+		var own := UiKit.button("Change your hero", _open_hero, 16)
+		own.tooltip_text = "Make changes to your own hero: looks, voice, class and the rest."
+		row.add_child(own)
+	if not MobileDevice.enabled():
+		row.add_child(UiParts.gap())
+	var go := UiParts.primary_button("Go on with these %d" % _picked.size() if _picked.size() != 1 else "Go on alone", _pick_difficulty)
+	go.disabled = _picked.size() != want
+	go.tooltip_text = "" if not go.disabled else "Choose %d to travel." % want
+	row.add_child(go)
+	_box.add_child(row)
+
+
+## The first sentence of a pregen's summary: species, class and background ("Goliath Paladin (Oath of Devotion), Noble.").
+static func _class_line(summary: String) -> String:
+	var i := summary.find(". ")
+	return summary.substr(0, i + 1) if i >= 0 else summary
+
+
+## The card that opens the hero creator, shown until a hero is made.
+func _make_hero_card() -> Control:
+	if MobileDevice.enabled():
+		return MobileUi.button("Create your own hero", _open_hero)
+	var col := VBoxContainer.new()
+	col.add_theme_constant_override("separation", 3)
+	col.add_child(UiParts.framed_portrait("hero_01", 110.0))
+	var n := UiKit.label("Your own hero", 15, "gilt_light", 118)
+	n.add_theme_font_override("font", UiKit.display_font())
+	col.add_child(n)
+	col.add_child(UiKit.label("Make a character of your own: looks, voice, class.", 11, "parchment", 118))
+	var card := UiParts.click_row(col, _open_hero, false, func() -> Control: return UiParts.rules_tip("Your own hero",
+		"Create", "Make a character of your own, from looks and voice to class. They join the roster like anyone else."))
+	card.custom_minimum_size = Vector2(132, 0)
+	return card
+
+
+## One roster member as a card the player clicks to choose (lit) or leave at camp.
+func _roster_card(key: String, art: String, title: String, line: String, hook: String) -> Control:
+	if MobileDevice.enabled():
+		var row := HBoxContainer.new()
+		row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_theme_constant_override("separation", 12)
+		row.add_child(UiParts.framed_portrait(art, 80))
+		var body := VBoxContainer.new()
+		body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(body)
+		var choose := MobileUi.button(title, func() -> void:
+			if key in _picked:
+				_picked.erase(key)
+			elif _picked.size() < StoryState.PARTY_CAP:
+				_picked.append(key)
+			_new_game())
+		choose.toggle_mode = true
+		choose.button_pressed = key in _picked
+		body.add_child(choose)
+		body.add_child(MobileUi.text("Travelling" if key in _picked else "At camp", "gilt_light"))
+		body.add_child(MobileUi.text(hook))
+		return row
+	var col := VBoxContainer.new()
+	col.add_theme_constant_override("separation", 3)
+	col.add_child(UiParts.framed_portrait(art, 110.0))
+	var n := UiKit.label(title, 15, "gilt_light", 118)
+	n.add_theme_font_override("font", UiKit.display_font())
+	col.add_child(n)
+	col.add_child(UiKit.label(line, 11, "parchment", 118))
+	var on := key in _picked
+	var card := UiParts.click_row(col, func() -> void:
+		if key in _picked:
+			_picked.erase(key)
+		elif _picked.size() < StoryState.PARTY_CAP:
+			_picked.append(key)
+		_new_game(), on, func() -> Control: return UiParts.rules_tip(title, "Travelling" if on else "At camp", hook))
+	card.custom_minimum_size = Vector2(132, 0)
+	return card
+
+
+## How hard the Hollow is (F1): the last page before the game begins (ui/menu/difficulty_page.gd).
+func _pick_difficulty() -> void:
+	_mobile_finish.call_deferred()
+	_view = "difficulty"
+	for c in _box.get_children():
+		c.queue_free()
+	DifficultyPage.build(_box, _difficulty, _set_difficulty, _new_game, _begin, _levelling, _set_levelling)
+
+
+func _set_difficulty(id: String) -> void:
+	_difficulty = id
+	_pick_difficulty()
+
+
+func _set_levelling(id: String) -> void:
+	_levelling = id
+	_pick_difficulty()
+
+
+## The chosen travel; the rest of the roster waits at camp.
+func _begin() -> void:
+	var party: Array[Character] = []
+	var bench: Array[Character] = []
+	var order: Array[String] = Pregens.roster_ids()
+	order.append("hero")
+	for key in order:
+		var ch: Character = _hero if key == "hero" else null
+		if key != "hero":
+			ch = Pregens.build(key, 1)
+			ch.finish_long_rest()
+		if ch == null:
+			continue
+		if key in _picked:
+			party.append(ch)
+		else:
+			bench.append(ch)
+	_start(party, bench)
+
+
+## The custom hero's creator; the hero joins the roster, and is picked to travel.
+func _open_hero() -> void:
+	var others: Array[String] = []
+	for id in _picked:
+		if id != "hero":
+			others.append(id)
+	_creation = CreationScreen.new()
+	_box.visible = false
+	add_child(_creation)
+	_creation.finished.connect(func(made: Array[Character]) -> void:
+		_hero = made[0]
+		if not "hero" in _picked:
+			if _picked.size() >= StoryState.PARTY_CAP:
+				_picked.pop_back()
+			_picked.append("hero")
+		_creation.queue_free()
+		_creation = null
+		_box.visible = true
+		_new_game())
+	_creation.cancelled.connect(func() -> void:
+		_creation.queue_free()
+		_creation = null
+		_box.visible = true
+		_new_game())
+	_creation.open_hero(others)
+
+
+## A fresh playthrough: the party at level 1 at the game's first place (world/game_root.gd FIRST_LOCATION).
+func _start(party: Array[Character], bench: Array[Character] = []) -> void:
+	GameState.reset()
+	Dice.reseed_random()   # every new game rolls its own dice
+	SaveSystem.current_slot = ""    # a new game has no save slot until its first save
+	var st := GameState.story
+	for ch in party:
+		st.party.append(ch)
+	for ch in bench:
+		st.bench.append(ch)
+	st.gold = 10.0
+	st.options["difficulty"] = _difficulty
+	st.options[Xp.OPTION] = _levelling
+	st.location = ""
+	get_tree().change_scene_to_file("res://scenes/game.tscn")
+
+
+## Load: the saves on a page of their own over the title, since the column has no room for a list (lane 16).
+func _show_loads() -> void:
+	# Back to the title redraws it: a save deleted on the page may have been Continue's.
+	SavesScreen.open_on(self, SavesScreen.Mode.LOAD, func() -> void: get_tree().change_scene_to_file(GAME_SCENE), _box) \
+		.closed.connect(_title)
+
+
+func _exit_tree() -> void:
+	Cursors.uninstall()
+	# The game scene loading in the background is taken in before the title goes, whether for the game (which needs
+	# it anyway) or for quitting (a load the engine's shutdown cuts off reports errors).
+	if _preloading:
+		_preloading = false
+		ResourceLoader.load_threaded_get(GAME_SCENE)
+
+
+## Escape steps back a page: to the party pick from the difficulty, else to the title (the hero creator and the saves'
+## page handle their own).
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") and _creation == null and _view != "title":
+		get_viewport().set_input_as_handled()
+		if _view == "difficulty":
+			_new_game()
+		else:
+			_title()
+
+
+func _load(slot: String) -> void:
+	if SaveSystem.load_slot(slot) == OK:
+		get_tree().change_scene_to_file("res://scenes/game.tscn")
+
+
+## The capture tool's sequence: the title, the roster pick, and the hero creator's Appearance tabs and Review.
+func capture_shots(tool: Node, out: String) -> void:
+	await tool.call("wait_frames", 10)
+	tool.call("_shot", out + "_1_title.png")
+	_new_game()
+	await tool.call("wait_frames", 10)
+	tool.call("_shot", out + "_2_new_game.png")
+	_pick_difficulty()
+	await tool.call("wait_frames", 10)
+	tool.call("_shot", out + "_3_difficulty.png")
+	_levelling = Xp.EXPERIENCE   # the same page with Experience picked
+	_pick_difficulty()
+	await tool.call("wait_frames", 10)
+	tool.call("_shot", out + "_3b_difficulty_xp.png")
+	_levelling = Xp.MILESTONE
+	_pick_difficulty()
+	_open_hero()
+	var b := _creation.b()
+	b.set_class("fighter")
+	_creation.call("_suit_outfit")
+	var app := (b.build["appearance"] as Dictionary).duplicate()
+	app.merge({"head": "elfin", "hair": "wavy", "skin": "olive", "hair_colour": "auburn"}, true)
+	b.set_appearance(app)
+	_creation.step = CharacterBuilder.Step.APPEARANCE
+	for t: String in AppearancePanel.TABS:
+		_creation.set("_appearance_tab", t)
+		_creation.call("_draw")
+		await tool.call("wait_frames", 20)
+		tool.call("_shot", out + "_4_appearance_%s.png" % t.to_snake_case().replace("&", "and").replace("__", "_"))
+	_creation.step = CharacterBuilder.Step.REVIEW
+	_creation.call("_draw")
+	await tool.call("wait_frames", 10)
+	tool.call("_shot", out + "_5_review.png")
+
+
+func _mobile_finish() -> void:
+	if not MobileDevice.enabled() or not is_instance_valid(_box):
+		return
+	for control: Control in _box.find_children("*", "Control", true, false):
+		if control is Label:
+			var label := control as Label
+			label.custom_minimum_size.x = 0
+			label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			label.add_theme_font_size_override("font_size", UiScale.text(36 if label.text == "The Crooked Moon" else 18))
+		elif control is Button:
+			var button := control as Button
+			button.custom_minimum_size = Vector2(0, maxf(48, button.custom_minimum_size.y))
+			button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			button.add_theme_font_size_override("font_size", UiScale.text(18))
+
+
+func _mobile_reflow() -> void:
+	if is_instance_valid(_mobile_scroll):
+		var safe := MobileDevice.safe_rect().grow(-12)
+		_mobile_scroll.position = safe.position
+		_mobile_scroll.size = safe.size
+		if _view == "new_game" and _mobile_roster_columns != (1 if MobileDevice.compact() else 2):
+			var keep := _mobile_scroll.scroll_vertical
+			_new_game()
+			_mobile_scroll.set_deferred("scroll_vertical", keep)

@@ -1,0 +1,92 @@
+; Engine configuration file.
+; The Crooked Moon — Godot 4.7.2, typed GDScript. See CLAUDE.md for agent rules.
+
+config_version=5
+
+[application]
+
+config/name="The Crooked Moon"
+config/icon="res://art/ui/app_icon.png"
+config/description="A turn-based tactical party RPG of the whole Crooked Moon campaign, on the 2024 D&D rules."
+run/main_scene="res://scenes/main_menu.tscn"
+run/max_fps.ios=30
+config/features=PackedStringArray("4.7", "Forward Plus")
+config/use_custom_user_dir.template=true
+config/custom_user_dir_name.template="The Crooked Moon Fan Game"
+boot_splash/show_image=false
+boot_splash/bg_color=Color(0.1, 0.0667, 0.2, 1)
+
+[autoload]
+
+PatchLoader="*res://addons/dnd_core/core/patch_loader.gd"
+ErrorWatch="*res://addons/dnd_core/core/error_watch.gd"
+EventBus="*res://addons/dnd_core/core/event_bus.gd"
+Dice="*res://addons/dnd_core/core/dice.gd"
+GameState="*res://addons/dnd_core/core/game_state.gd"
+SaveSystem="*res://addons/dnd_core/core/save_system.gd"
+SceneRouter="*res://addons/dnd_core/core/scene_router.gd"
+ModeController="*res://addons/dnd_core/core/mode_controller.gd"
+Audio="*res://addons/dnd_core/core/audio.gd"
+UiFeel="*res://addons/dnd_core/ui/common/ui_feel.gd"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=2
+gdscript/warnings/inferred_declaration=0
+gdscript/warnings/unsafe_property_access=1
+gdscript/warnings/unsafe_method_access=1
+
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=900
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation.ios=6
+
+[rendering]
+
+renderer/rendering_method="forward_plus"
+renderer/rendering_method.ios="mobile"
+rendering_device/driver.ios="metal"
+anti_aliasing/quality/msaa_3d=2
+anti_aliasing/quality/msaa_3d.ios=0
+anti_aliasing/quality/screen_space_aa=2
+anti_aliasing/quality/screen_space_aa.ios=1
+scaling_3d/scale.ios=0.75
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=4
+lights_and_shadows/positional_shadow/soft_shadow_filter_quality=4
+lights_and_shadows/positional_shadow/atlas_size=8192
+lights_and_shadows/positional_shadow/atlas_size.ios=2048
+textures/canvas_textures/default_texture_filter=0
+
+[shader_globals]
+
+look_soft={
+"type": "float",
+"value": 0.0
+}
+world_wet={
+"type": "float",
+"value": 0.0
+}
+world_snow={
+"type": "float",
+"value": 0.0
+}
+world_time={
+"type": "float",
+"value": 0.0
+}
+world_sky={
+"type": "color",
+"value": Color(0.1, 0.15, 0.25, 1)
+}
+see_window={
+"type": "vec4",
+"value": Vector4(0, 0, 0, 0)
+}
+see_window_eye={
+"type": "vec4",
+"value": Vector4(0, 0, 0, 0)
+}
