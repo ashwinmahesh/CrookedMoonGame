@@ -1,0 +1,33 @@
+# Git LFS from the first commit (plan section 10.1): every generated picture, sprite, portrait, texture, plant card,
+# vista, cutscene still, bust, voice clip and sourced sound goes through LFS, so the repo and every lane share one
+# store. Godot's .import sidecars, .tres resources and the small JSON tables stay in plain git. Never `git lfs migrate`
+# and never `git add --renormalize`: stage only the files you changed (make lfs-quiet clears timestamp noise).
+art/generated/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/generated/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+art/generated/**/*.webp filter=lfs diff=lfs merge=lfs -text
+art/generated/**/*.mp4 filter=lfs diff=lfs merge=lfs -text
+art/sprites/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/portraits/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/creator/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/textures/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/textures/**/*.webp filter=lfs diff=lfs merge=lfs -text
+# The title backdrop, the travel map and the other big menu pictures.
+art/ui/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/ui/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+# Voice clips (audio/voice, keyed by speaker and text hash) and the sound and music packs (art/sourced/<pack>/).
+audio/voice/**/*.mp3 filter=lfs diff=lfs merge=lfs -text
+audio/voice/**/*.ogg filter=lfs diff=lfs merge=lfs -text
+art/sourced/**/*.wav filter=lfs diff=lfs merge=lfs -text
+art/sourced/**/*.ogg filter=lfs diff=lfs merge=lfs -text
+art/sourced/**/*.mp3 filter=lfs diff=lfs merge=lfs -text
+# The leaf cards and the plant models built from them.
+art/plants/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/plants/**/*.glb filter=lfs diff=lfs merge=lfs -text
+# The game's own 3D models.
+art/models/**/*.glb filter=lfs diff=lfs merge=lfs -text
+# The painted backdrops past a map's edge.
+art/vistas/**/*.png filter=lfs diff=lfs merge=lfs -text
+# Cutscene stills (full screen) and dialogue busts (cut-out WebP with alpha).
+art/cutscenes/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/cutscenes/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+art/busts/**/*.webp filter=lfs diff=lfs merge=lfs -text
