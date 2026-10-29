@@ -44,7 +44,7 @@
       "4444444333344444555555555555555555",
       "4444443323333444455555444444555555",
       "4444333323333444444444444444555555",
-      "4443333323333454444444333444455555",
+      "4443333323333344444444333444455555",
       "4433333212222233333333222333445555",
       "4333332221222222222222222222344555",
       "4333322221222222222222222222344444",
@@ -345,7 +345,41 @@
     }
   ],
   "npcs": [],
-  "encounters": [],
+  "encounters": [
+    {
+      "id": "hillside_scarecrows",
+      "trigger": "examine:test_scarecrow",
+      "when": "not flag.test_scarecrows_beaten",
+      "monsters": [
+        {
+          "monster": "scarecrow",
+          "cell": [
+            12,
+            10
+          ],
+          "name": "Scarecrow"
+        },
+        {
+          "monster": "scarecrow",
+          "cell": [
+            12,
+            13
+          ],
+          "name": "Scarecrow"
+        },
+        {
+          "monster": "scarecrow",
+          "cell": [
+            16,
+            10
+          ],
+          "name": "Scarecrow"
+        }
+      ],
+      "surprise": "",
+      "flag": "test_scarecrows_beaten"
+    }
+  ],
   "narration": {
     "enter": "enter:test_hillside"
   },
