@@ -1,9 +1,9 @@
 extends Node
 ## Phase 0's exit capture (plan section 10.4): the foundation's test hillside seen from the play camera, as the game shows it.
-## The placeholder party arrives at twilight, walks up the hill to the cottage under the clock, and the same place is shot again
-## at midnight (lanterns only). Three more shots show it tilted to the horizon and whole from above.
+## The placeholder party arrives at seven in the evening, walks up the hill to the cottage under the clock, and the same place is
+## shot again at midnight (lanterns only). Three more shots show it tilted to the horizon and whole from above.
 ##   make capture NAME=hillside/first          (this scene is the default of make capture)
-## Shots: <out>_1_arrival.png, _2_walking.png, _3_cottage.png, _4_midnight.png, _5_tilt.png, _6_whole.png.
+## Shots: <out>_1_arrival.png, _2_walking.png, _3_cottage.png, _4_midnight.png, _5_tilt.png, _6_whole.png, _7_fight.png.
 
 const GAME := preload("res://world/game_root.gd")
 const LOCATION := "test_hillside"
@@ -40,9 +40,10 @@ func capture_shots(tool: Node, out: String) -> void:
 	await tool.call("wait_frames", 40)
 	tool.call("_shot", out + "_3_cottage.png")
 	print("capture: the party walked to %s; the clock reads %d minutes of the day" % [view.leader().cell, st.minute_of_day])
-	st.minute_of_day = 0   # midnight
+	st.minute_of_day = 0   # midnight (the engine has one night mood so far; the hours of the eternal night are plan E2)
 	view.update_daylight()
 	view.atmosphere.settle()
+	game.call("_refresh")   # the explore bar reads the clock
 	await tool.call("wait_frames", 40)
 	tool.call("_shot", out + "_4_midnight.png")
 	var rig := view.rig
@@ -57,6 +58,12 @@ func capture_shots(tool: Node, out: String) -> void:
 	rig.snap_to_target()
 	await tool.call("wait_frames", 30)
 	tool.call("_shot", out + "_6_whole.png")
+	# A fight on the same land: the scarecrow on the bench wakes, and the heroes fight it from the meadow.
+	rig.horizon = 0.0
+	rig.follow = null
+	view.start_encounter("hillside_scarecrows")
+	await tool.call("wait_frames", 120)
+	tool.call("_shot", out + "_7_fight.png")
 
 
 ## The loading card and the place title are up for a moment on arrival; a capture of the place itself waits them out.
