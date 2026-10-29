@@ -1,0 +1,103 @@
+extends TestCase
+## The engine boundary (the engine handbook, new_game.md section 4): rules/, combat/, the story engine core, the UI and the
+## world code live in the shared dnd_core repo (the submodule at addons/dnd_core), and the public engine must not name this
+## campaign: its book is paid content and the repo is public. Every code line (comment-only lines are skipped) that names a
+## Crooked Moon id, place or character counts as a hit; tests/fixtures/engine_campaign_baseline.json holds today's hits per
+## file (this game's own baseline; the engine's old Curse of Strahd names are counted by that game's test, not here). A file
+## may only lose hits: a new one fails, and a file that got cleaner must lower its entry so the baseline only shrinks. The
+## campaign modules of story/ are not engine and are listed in CAMPAIGN_MODULES.
+## Regenerate the baseline after cleaning up: ENGINE_NAMES_WRITE=1 make test FILES=test_engine_names.gd prints it.
+
+const BASELINE := "res://tests/fixtures/engine_campaign_baseline.json"
+## The engine lives in the dnd_core submodule; the baseline keeps its paths from the core's own root (rules/..., story/...).
+const CORE := "res://addons/dnd_core/"
+const ENGINE_DIRS: Array[String] = ["res://addons/dnd_core/rules", "res://addons/dnd_core/combat", "res://addons/dnd_core/story",
+	"res://addons/dnd_core/ui", "res://addons/dnd_core/world", "res://addons/dnd_core/core", "res://addons/dnd_core/skirmish"]
+
+## Files of story/ that are the campaign itself (they are this game's, not dnd_core's).
+const CAMPAIGN_MODULES: Array[String] = [
+	"res://story/crooked_moon_campaign.gd", "res://story/endings.gd",
+]
+
+const NAMES: Array[String] = ["crooked_moon", "crookedmoon", "wickermoor", "druskenvald", "ghostlight", "avantris", "foxwillow",
+	"hartsblight", "skitterdeep", "maidenmist", "murkwater", "wytchwood", "crimson_monastery", "drowned_crossroads", "memorys_rest",
+	"roving_rookery", "fools_day", "crooked_nightmare", "wickers_vigil", "moonfall", "oak_of_many_faces", "wicker_man", "horned_king",
+	"fated_tarot", "fateweaving", "threads_of_fate", "crooked_house", "crooked_tree", "crooked_man", "crooked_queen", "kehlenn",
+	"coldwake", "tobin_hayward", "silas_vane", "delphine_ravelle", "houndstooth", "cordelia_skein", "phillip_druskenvald",
+	"adela_druskenvald", "mister_crossroads", "rowans_rise", "dawns_gate"]
+
+
+func _files(dir: String, out: Array[String]) -> void:
+	var d := DirAccess.open(dir)
+	if d == null:
+		return
+	for sub in d.get_directories():
+		_files("%s/%s" % [dir, sub], out)
+	for f in d.get_files():
+		if f.ends_with(".gd"):
+			out.append("%s/%s" % [dir, f])
+
+
+func _hits(path: String) -> int:
+	var n := 0
+	for line in FileAccess.get_file_as_string(path).split("\n"):
+		var code := line.strip_edges()
+		if code.begins_with("#") or code.is_empty():
+			continue
+		code = code.to_lower()
+		for word in NAMES:
+			if code.contains(word):
+				n += 1
+				break
+	return n
+
+
+func _scan() -> Dictionary:
+	var files: Array[String] = []
+	for dir in ENGINE_DIRS:
+		_files(dir, files)
+	files.sort()
+	var out := {}
+	for f in files:
+		if f in CAMPAIGN_MODULES:
+			continue
+		var n := _hits(f)
+		if n > 0:
+			out[f.trim_prefix(CORE)] = n
+	return out
+
+
+func test_engine_files_name_no_new_campaign_ids() -> void:
+	var now := _scan()
+	if OS.get_environment("ENGINE_NAMES_WRITE") == "1":
+		print("ENGINE_BASELINE ", JSON.stringify(now, "\t", true))
+		return
+	var base := JSON.parse_string(FileAccess.get_file_as_string(BASELINE)) as Dictionary
+	var total := 0
+	for f: String in now:
+		total += int(now[f])
+		var allowed := int(base.get(f, 0))
+		if int(now[f]) > allowed:
+			fail("%s names the campaign on %d code line(s), %d allowed. Engine code takes ids from data or a campaign module hook (the engine handbook)." % [f, int(now[f]), allowed])
+	assert_true(total >= 0)
+
+
+func test_baseline_only_shrinks() -> void:
+	if OS.get_environment("ENGINE_NAMES_WRITE") == "1":
+		return
+	var now := _scan()
+	var base := JSON.parse_string(FileAccess.get_file_as_string(BASELINE)) as Dictionary
+	for f: String in base:
+		var have := int(now.get(f, 0))
+		if have < int(base[f]):
+			fail("%s is down to %d name line(s) (baseline %d): lower its entry in %s, or delete it at 0." % [f, have, int(base[f]), BASELINE])
+
+
+func test_this_game_has_its_own_baseline_and_names_itself() -> void:
+	assert_true(FileAccess.file_exists(BASELINE), "tests/fixtures/engine_campaign_baseline.json is this game's own baseline")
+	assert_true("crooked_moon" in NAMES and "wickermoor" in NAMES, "the name list is this game's")
+
+
+func test_campaign_modules_exist() -> void:
+	for f in CAMPAIGN_MODULES:
+		assert_true(FileAccess.file_exists(f), "%s is listed as a campaign module but is gone: update CAMPAIGN_MODULES" % f)
