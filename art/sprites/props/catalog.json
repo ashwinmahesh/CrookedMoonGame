@@ -1,0 +1,4785 @@
+{
+  "about": "PLACEHOLDER (docs/PLACEHOLDERS.md): Which prop art (manifest.json in this folder) dresses each thing in data/locations, read by world/look/set_dressing.gd (docs/art/set_dressing.md). A location prop or container is looked up by its id in `ids` first, then by its `model` in `models`; with neither it uses the art of the same name as its model, else `container_default` for containers. A value is an art id, or {art, mount, scale} to override how it hangs (`big`: it keeps its real size in a tight spot, as a building-sized piece does; the horses), or null for an invisible spot (something already drawn, or a view). `on_wall` is the art used when the thing stands on a wall square (shelves against a wall). Doors take the first `doors.rules` entry whose words are in their id or label. `floors` gives a place its own ground texture; `low_cover.<place>` and `<place>_run` dress its '=' squares. An entry with `building: true` stands in for the whole house on its square (a windmill, a bell tower) and, like the houses, opens a window round the party where it hides it (SeeThrough); `see_through: true` does the same for a tall piece of stone or timber (a colossus, a hut), and `fade: true` fades a tall piece like the trees instead. `scales` sizes a piece wherever it stands (stairs fill their square); `fronts` gives furniture a front view that stands flat against a wall beside it. `rooms` gives a location's areas their own floor and wall by words in the area's name (a bathroom's tiles); `place_looks` overrides a whole place's floor, wall, difficult ground and `rock_walls` (cliffs instead of trees) and, beside it, `tree_walls` (rectangles [[x0, y0], [x1, y1]] of wall squares drawn as trees all the same in the Modern look: a mountain's wooded lower slopes under its bare crags). `feet` is each standing piece's real height (a person is 6 ft; 1 unit = 5 ft): the piece is drawn at that size, and `feet` is the height of its picture at real size (low, deep things such as beds include the top you see from above). A piece wider than `big_width` units at that size (a cottage, a tent, a wagon) keeps its size whatever the room and clears the trees and the board's own scenery around it. `glows` are pieces drawn unshaded, giving light rather than taking it. `double_doors` are exit art drawn once across a doorway two squares wide (outside interiors: the keep's great doors). `rooms` applies to interiors and dungeons only; `outdoor_rooms` are the few rules for outdoor maps (jetties are planks). `runs_along` lists long, thin pieces (a fence) that lie along a run of low cover going up the map instead of facing south. `map_marks` draws a building-sized 3D piece on the minimap over the squares it stands on (fill, rim, stripes of its canvas, round or square, at `scale` of its footprint). `theme_rooms` are a board theme's own room styles, checked first (a farmhouse bedroom is plaster and planks); a place_looks entry with `keep` keeps its look in every room (a cave, the Amber Temple). Room words match an area's name before its id. `low_cover_rooms` dress a room's '=' squares by words in its name (`single`, `run`, `wall_run`), unless the place has its own set. `furnish` fills rooms out with what a room of its kind holds (world/look/furnish.gd).",
+  "container_default": "chest",
+  "models": {
+    "light_curtain_call": null,
+    "hearth": "fireplace",
+    "window": "window_tall",
+    "bookcase": "book_shelf",
+    "shelf": "shelves",
+    "shelves": {
+      "art": "shelves",
+      "on_wall": "shelves_wall"
+    },
+    "case": "cabinet_glass",
+    "letter": "letters_table",
+    "letters": "letters_table",
+    "papers": "letters_table",
+    "pamphlet": "letters_table",
+    "book": "lectern",
+    "ledger": "lectern",
+    "crow": "crow_barrel",
+    "table_round": "table",
+    "cupboard": {
+      "art": "sideboard",
+      "front": "chest_of_drawers_front"
+    },
+    "drawer": "desk",
+    "statue_headless": null,
+    "fog_bank": {
+      "art": "fog_bank",
+      "scale": 0.7
+    },
+    "silver_heap": {
+      "art": "gold_heap",
+      "heap": "silver"
+    },
+    "gold_hoard": {
+      "art": "gold_heap",
+      "heap": "gold"
+    },
+    "rope": null,
+    "rags": "refuse_mound",
+    "altar": "altar_church",
+    "bar": "bar_counter",
+    "barred_door": "door_barred",
+    "bridge": "bridge_parapet",
+    "cage": "cage_covered",
+    "chair": "rocking_chair",
+    "chairs": "armchair",
+    "church_front": "church_doors",
+    "dais": null,
+    "door": "door_house",
+    "gate": "gate_wooden",
+    "grave": "grave_open",
+    "ledge": null,
+    "manor_front": "manor_door",
+    "notice_board": {
+      "art": "notice_board",
+      "on_wall": "notice_papers"
+    },
+    "palisade": null,
+    "rocks": "boulder",
+    "sign": "hanging_sign",
+    "stairs": "stair_riser",
+    "tree_marked": "pine_clawed",
+    "cart": "handcart",
+    "shutters": "window_shuttered",
+    "horse": {
+      "art": "horse",
+      "big": true
+    },
+    "black_horse": {
+      "art": "black_horse",
+      "big": true
+    }
+  },
+  "ids": {
+    "edge_cottage_shutters": "cottage",
+    "gate_statues": null,
+    "dungeon_well": "well_stone",
+    "library_odd_shelf": "book_shelf",
+    "boarded_houses": "boarded_window",
+    "boarded_windows": "boarded_window",
+    "ceiling_marks": null,
+    "church_facade": null,
+    "clawed_front_door": "door_clawed",
+    "collapsed_barn": "barn_collapsed",
+    "door_locks": "door_barred",
+    "drag_marks": "drag_marks",
+    "lake_view": null,
+    "mansion_claw_marks": "claw_marks",
+    "mary_window": "window_lit",
+    "tavern_tally_board": "tally_board",
+    "undercroft_bones": "bones",
+    "undercroft_door_gouges": "claw_marks",
+    "luvash_wagon_door": null,
+    "arrigal_wagon_door": null,
+    "rictavio_wagon_outside": null,
+    "festival_dais": null,
+    "mansion_front_door": null,
+    "st_andrals_facade": null,
+    "mansion_facade": null,
+    "bell_tower": {
+      "art": "bell_tower",
+      "building": true
+    },
+    "stitched_sentry": "scarecrow_stitched",
+    "scarecrow_west": "scarecrow",
+    "scarecrow_mid": "scarecrow",
+    "scarecrow_east": "scarecrow",
+    "frost_bed": "garden_bed",
+    "chapel_sunburst": "sunburst",
+    "surgery_table": "surgery_table",
+    "spinning_wheel": "spinning_wheel",
+    "offering_box": "strongbox",
+    "hag_oven": "oven_brick",
+    "withered_vines": "vines",
+    "east_vines": "vines",
+    "wizards_casks": "cask_rack",
+    "wizards_rack": "cask_rack",
+    "fermenting_vats": "great_vat",
+    "cask_racks": "cask_rack",
+    "wicker_cages": "wicker_cage",
+    "cage_post": "wicker_cage",
+    "barrow_mounds": "barrow",
+    "standing_stones": "standing_stones",
+    "ritual_offerings": "offering_circle",
+    "west_slit_n": null,
+    "west_slit_s": null,
+    "cracked_colossus": {
+      "art": "colossus",
+      "see_through": true
+    },
+    "lz_boat": "rowboat",
+    "lz_nets": "fishing_nets",
+    "roc_nest": "roc_nest",
+    "vrt_door_ward": {
+      "art": "tower_vr",
+      "building": true,
+      "scale": 1.3
+    },
+    "bottle_racks": "bottle_rack",
+    "old_bottles": "bottle_rack",
+    "bottling_shelf": {
+      "art": "shelves",
+      "front": "wine_shelf_front"
+    },
+    "old_vintage_rack": {
+      "art": "shelves",
+      "front": "wine_shelf_front"
+    },
+    "restricted_shelves": {
+      "art": "book_shelf",
+      "front": "shelves_front_b"
+    },
+    "stacks_shelves": {
+      "art": "book_shelf",
+      "front": "shelves_front_b"
+    },
+    "den_stag_head": "stag_head",
+    "den_stuffed_wolf_a": "stuffed_wolf",
+    "den_stuffed_wolf_b": "stuffed_wolf",
+    "den_stuffed_wolf_c": "stuffed_wolf",
+    "hall_hearth": "fireplace_sword",
+    "hall_carvings": "carved_paneling",
+    "kitchen_stove": "oven_brick",
+    "dining_hearth": "fireplace_valley",
+    "hall_family_portrait": "family_portrait",
+    "upper_armor_west": "armor_wolf_helm",
+    "upper_armor_east": "armor_wolf_helm",
+    "study_skeleton": "skeleton_leather",
+    "conservatory_hearth": "fireplace_dancers",
+    "master_portrait": "portrait_couple",
+    "bath_barrel": "barrel_spigot",
+    "clawfoot_tub": "tub_wooden",
+    "nursery_crib": "crib_shroud",
+    "nursemaid_mirror": "mirror_full",
+    "third_storage_shelves": {
+      "art": "shelves",
+      "front": "linen_shelves_front"
+    },
+    "spare_doll": "doll_yellow",
+    "shrine_shackles": "skeleton_shackles",
+    "prison_skeleton": "skeleton_shackles",
+    "initiate_pallets": "straw_pallet",
+    "reliquary_niches": "wall_alcoves",
+    "den_mother_night": "statue_mother_night",
+    "frozen_pilgrim": "frozen_traveller",
+    "sanctum_braziers": "brazier_cold",
+    "marina_bier": "bier",
+    "den_silver_chains": "wall_chains",
+    "court_lady_portrait": "portrait_tatyana",
+    "crg_dining_portrait": "portrait_tatyana",
+    "court_bedside_portrait": "portrait_tatyana",
+    "court_study_portrait": "portrait_tatyana",
+    "spires_jester_portrait": "portrait_jester",
+    "cat_names_wall": "names_wall",
+    "cat_champion_plaque": "bronze_plaque",
+    "cat_mad_dog_banners": "banner_regiment",
+    "larders_key_board": "key_board",
+    "crg_drawbridge_chains": "drawbridge",
+    "court_treasury_heaps": "gold_heap",
+    "court_treasury_hoard": "gold_spill",
+    "spires_heart_drip": "blood_pool",
+    "larders_bone_lamp": "skull_chandelier",
+    "larders_lift_cage": "lift_cage",
+    "larders_lift_cage_foot": "lift_cage",
+    "spires_cauldron": "cauldron",
+    "larders_cauldron": "cauldron",
+    "cat_sergei_font": "stone_font",
+    "spires_four_vessels": "glass_vessels",
+    "spires_bat_perches": "bat_perch",
+    "spires_bat_perches_b": "bat_perch",
+    "spires_guardian_a": "gargoyle",
+    "spires_guardian_b": "gargoyle",
+    "spires_guardian_c": "gargoyle",
+    "spires_hollow_guardian": "gargoyle",
+    "court_throne": "throne",
+    "crg_black_carriage": "black_carriage",
+    "crg_black_carriage_waiting": "black_carriage",
+    "crg_carriage_horse": {
+      "art": "black_horse",
+      "big": true
+    },
+    "crg_carriage_horse_waiting": {
+      "art": "black_horse",
+      "big": true
+    },
+    "crg_chapel_saint": "saint_defaced",
+    "larders_bone_throne": "bone_throne",
+    "larders_bone_table": "bone_table",
+    "larders_iron_case": "iron_maiden",
+    "cat_conjurer_reliquary": "reliquary_sealed",
+    "crg_faces_relief_1": "stone_faces",
+    "larders_bone_table_1": "bone_table",
+    "larders_bone_chair_1": "bone_chair",
+    "crg_faces_relief_2": "stone_faces",
+    "larders_bone_table_2": "bone_table",
+    "larders_bone_chair_2": "bone_chair",
+    "crg_faces_relief_3": "stone_faces",
+    "larders_bone_table_3": "bone_table",
+    "larders_bone_chair_3": "bone_chair",
+    "crg_faces_relief_4": "stone_faces",
+    "larders_bone_table_4": "bone_table",
+    "larders_bone_chair_4": "bone_chair",
+    "crg_faces_relief_5": "stone_faces",
+    "larders_bone_table_5": "bone_table",
+    "larders_bone_chair_5": "bone_chair",
+    "raven_oak": {
+      "art": "broad_oak_bough",
+      "fade": true
+    },
+    "lzt_climbing_pine": {
+      "art": "hunters_tree_stand",
+      "fade": true
+    },
+    "ambush_lookout_tree": {
+      "art": "hunters_tree_stand",
+      "fade": true
+    },
+    "pact_ledger": {
+      "art": "copper_ledger"
+    },
+    "pilgrim_candles_3": {
+      "art": "offering_candles"
+    },
+    "pilgrim_candles_5": {
+      "art": "offering_candles"
+    }
+  },
+  "low_cover": {
+    "wild": [
+      "boulder",
+      "stump",
+      "log",
+      "bramble_a",
+      "woodpile"
+    ],
+    "town": [
+      "crate",
+      "barrel",
+      "barrel",
+      "wagon",
+      "market_stall",
+      "woodpile"
+    ],
+    "manor": [
+      "table_books",
+      "armchair",
+      "table_chairs",
+      "settee",
+      "candelabra"
+    ],
+    "manor_run": [
+      "table"
+    ],
+    "manor_wall_run": [
+      "book_shelf",
+      "sideboard"
+    ],
+    "townhouse_run": [
+      "table"
+    ],
+    "house_run": [
+      "table"
+    ],
+    "church": [
+      "pew"
+    ],
+    "church_run": [
+      "pew"
+    ],
+    "tavern_run": [
+      "bar_counter"
+    ],
+    "inn_run": [
+      "bar_counter"
+    ],
+    "shop_run": [
+      "shop_counter"
+    ],
+    "shop_wall_run": [
+      "shelves"
+    ],
+    "townhouse": [
+      "table_chairs",
+      "armchair",
+      "book_shelf",
+      "sideboard",
+      "table_books"
+    ],
+    "house": [
+      "table_meal",
+      "bed",
+      "barrel",
+      "table_meal"
+    ],
+    "attic": [
+      "crate",
+      "trunk",
+      "sheeted_furniture",
+      "bed_small",
+      "barrel"
+    ],
+    "tavern": [
+      "table_meal",
+      "table_chairs",
+      "barrel",
+      "table_chairs",
+      "table_meal"
+    ],
+    "inn": [
+      "table_meal",
+      "table_chairs",
+      "barrel",
+      "table_chairs",
+      "table_meal"
+    ],
+    "shop": [
+      "crate_stack",
+      "barrel",
+      "shop_counter",
+      "crate"
+    ],
+    "tent": [
+      "cushions",
+      "trunk",
+      "cushions",
+      "chest_painted"
+    ],
+    "dungeon": [
+      "boulder",
+      "barrel",
+      "crate"
+    ],
+    "town_run": [
+      "fence"
+    ],
+    "road_ambush": [
+      "wall_low"
+    ],
+    "road_ambush_run": [
+      "wall_low"
+    ]
+  },
+  "difficult": {
+    "wild": [
+      "bramble_a",
+      "bramble_b"
+    ],
+    "dungeon": [
+      "rubble"
+    ],
+    "interior": [
+      "rubble"
+    ],
+    "shrine_yard": [
+      "bramble_a",
+      "bramble_b"
+    ],
+    "stream_ford": [
+      "rubble"
+    ],
+    "barrow_moor": [
+      "reeds",
+      "bramble_a"
+    ],
+    "mountain_pass": [
+      "snowdrift",
+      "ice_patch"
+    ],
+    "bog_causeway": [
+      "reeds",
+      "bramble_b"
+    ],
+    "frozen_tarn": [
+      "snowdrift",
+      "ice_patch"
+    ]
+  },
+  "doors": {
+    "default": "door_wood",
+    "rules": [
+      [
+        [
+          "mirror"
+        ],
+        "mirror_full"
+      ],
+      [
+        [
+          "curtain"
+        ],
+        "curtain"
+      ],
+      [
+        [
+          "portcullis"
+        ],
+        "portcullis"
+      ],
+      [
+        [
+          "crypt gate",
+          "crypt_gate"
+        ],
+        "crypt_gate"
+      ],
+      [
+        [
+          "gate"
+        ],
+        "gate_iron"
+      ],
+      [
+        [
+          "doors"
+        ],
+        "door_double"
+      ],
+      [
+        [
+          "hand"
+        ],
+        "door_carved"
+      ],
+      [
+        [
+          "bookcase"
+        ],
+        "door_bookcase"
+      ]
+    ],
+    "ids": {}
+  },
+  "exits": {
+    "rules": [
+      [
+        [
+          "fortress entry"
+        ],
+        null
+      ],
+      [
+        [
+          "fortress door"
+        ],
+        "door_barred"
+      ],
+      [
+        [
+          "lift cage"
+        ],
+        null
+      ],
+      [
+        [
+          "hatch"
+        ],
+        "roof_hatch"
+      ],
+      [
+        [
+          "stairs down",
+          "stair down",
+          "down to",
+          "secret stair"
+        ],
+        "stair_down"
+      ],
+      [
+        [
+          "stairs up",
+          "stair up",
+          "up to",
+          "stairs",
+          "stair"
+        ],
+        "stair_riser"
+      ],
+      [
+        [
+          "flap"
+        ],
+        "curtain"
+      ],
+      [
+        [
+          "window"
+        ],
+        null
+      ],
+      [
+        [
+          "church"
+        ],
+        "church_doors"
+      ]
+    ],
+    "outdoor_default": "door_house",
+    "indoor_default": "door_wood"
+  },
+  "floors": {},
+  "fronts": {
+    "book_shelf": {
+      "art": "book_shelf_front",
+      "depth": 0.4
+    },
+    "bookshelf": {
+      "art": "book_shelf_front",
+      "depth": 0.4
+    },
+    "shelves": {
+      "art": "shelves_front",
+      "depth": 0.4
+    },
+    "wardrobe": {
+      "art": "wardrobe_front",
+      "depth": 0.5
+    },
+    "cabinet_glass": {
+      "art": "cabinet_glass_front",
+      "depth": 0.4
+    },
+    "sideboard": {
+      "art": "sideboard_front",
+      "depth": 0.45
+    },
+    "pipe_organ": {
+      "art": "pipe_organ_front",
+      "depth": 0.5
+    },
+    "dressing_table": {
+      "art": "dressing_table_front",
+      "depth": 0.4,
+      "body": false
+    },
+    "desk": {
+      "art": "desk_front",
+      "depth": 0.45,
+      "body": false
+    },
+    "bar_counter": {
+      "art": "bar_front",
+      "depth": 0.45
+    },
+    "shop_counter": {
+      "art": "counter_front",
+      "depth": 0.45
+    },
+    "workbench": {
+      "art": "workbench_front",
+      "depth": 0.45,
+      "body": false
+    },
+    "cask_rack": {
+      "art": "cask_rack_front",
+      "depth": 0.5
+    },
+    "cabinet_small": {
+      "art": "cabinet_small_front",
+      "depth": 0.35
+    },
+    "clock_standing": {
+      "art": "clock_tall",
+      "depth": 0.3
+    }
+  },
+  "scales": {
+    "stair_riser": 1.3
+  },
+  "town_walls": {},
+  "rooms": [
+    [
+      [
+        "stable",
+        "stall",
+        "byre"
+      ],
+      {
+        "floor": "dungeon/packed_earth",
+        "wall": "interior/attic_boards"
+      }
+    ],
+    [
+      [
+        "treasury",
+        "hoard"
+      ],
+      {
+        "floor": "dungeon/stone_floor",
+        "wall": "dungeon/stone_wall"
+      }
+    ],
+    [
+      [
+        "bath"
+      ],
+      {
+        "floor": "interior/tile_floor",
+        "wall": "interior/tile_wall"
+      }
+    ],
+    [
+      [
+        "kitchen",
+        "bakery",
+        "pantry",
+        "larder",
+        "scullery"
+      ],
+      {
+        "floor": "interior/kitchen_flags",
+        "wall": "interior/kitchen_wall"
+      }
+    ],
+    [
+      [
+        "den of wolves",
+        "library",
+        "study",
+        "office",
+        "stacks",
+        "reading room",
+        "dining",
+        "tasting room"
+      ],
+      {
+        "floor": "interior/parquet",
+        "wall": "interior/wood_panel"
+      }
+    ],
+    [
+      [
+        "entrance",
+        "foyer",
+        "entry hall",
+        "main hall",
+        "great hall",
+        "upper hall",
+        "landing",
+        "gallery",
+        "hall of heroes"
+      ],
+      {
+        "floor": "interior/marble_floor"
+      }
+    ],
+    [
+      [
+        "nursery",
+        "children"
+      ],
+      {
+        "floor": "interior/wood_planks",
+        "wall": "interior/wallpaper_nursery"
+      }
+    ],
+    [
+      [
+        "conservatory"
+      ],
+      {
+        "floor": "interior/tile_floor",
+        "wall": "interior/wallpaper_green"
+      }
+    ],
+    [
+      [
+        "bedroom",
+        "suite",
+        "'s room",
+        "parlour",
+        "parlor"
+      ],
+      {
+        "floor": "interior/carpet",
+        "wall": "interior/wallpaper_green"
+      }
+    ],
+    [
+      [
+        "crypt",
+        "vault",
+        "undercroft",
+        "mausoleum",
+        "dragon's rest",
+        "tomb",
+        "sanctum",
+        "vestige"
+      ],
+      {
+        "floor": "dungeon/stone_floor",
+        "wall": "dungeon/stone_wall"
+      }
+    ],
+    [
+      [
+        "cells",
+        "barracks",
+        "guardroom",
+        "armory",
+        "gatehouse",
+        "dormitory",
+        "winch"
+      ],
+      {
+        "floor": "dungeon/stone_floor",
+        "wall": "dungeon/damp_brick"
+      }
+    ],
+    [
+      [
+        "surgery",
+        "infirmary",
+        "foundling ward"
+      ],
+      {
+        "floor": "interior/tile_floor",
+        "wall": "interior/whitewash"
+      }
+    ],
+    [
+      [
+        "workshop",
+        "workroom",
+        "press floor",
+        "storeroom",
+        "storage"
+      ],
+      {
+        "floor": "interior/workshop_boards"
+      }
+    ],
+    [
+      [
+        "attic",
+        "garret"
+      ],
+      {
+        "floor": "interior/attic_boards",
+        "wall": "interior/damp_plaster"
+      }
+    ]
+  ],
+  "place_looks": {},
+  "feet": {
+    "altar_church": 4.5,
+    "altar_stone": 4.5,
+    "armchair": 4.5,
+    "armor_stand": 6,
+    "armor_wolf_helm": 7,
+    "bar_counter": 4.5,
+    "bar_front": 3.5,
+    "barn_collapsed": 14,
+    "barrel": 3.5,
+    "barrel_spigot": 5,
+    "barrow": 8,
+    "bathtub": 3.5,
+    "beacon_cradle": 6,
+    "bed": 4,
+    "bed_canopy": 8,
+    "bed_small": 4,
+    "bier": 4,
+    "bird_case": 5,
+    "bones": 2,
+    "book_shelf": 7,
+    "book_shelf_front": 7,
+    "bookshelf": 7,
+    "boulder": 3.5,
+    "brazier": 3.5,
+    "brazier_green": 3.5,
+    "bridge_parapet": 3.5,
+    "cabinet_glass": 6.5,
+    "cabinet_glass_front": 6.5,
+    "cabinet_small": 4,
+    "cabinet_small_front": 4,
+    "cage_covered": 5,
+    "cage_hanging": 7,
+    "cairn": 3,
+    "campfire": 2.5,
+    "candelabra": 5,
+    "carcass": 2.5,
+    "cart_broken": 5,
+    "cask_rack": 5,
+    "cask_rack_front": 5,
+    "chair_high": 4.5,
+    "charms": 6,
+    "chest": 3,
+    "chest_iron": 3,
+    "chest_of_drawers_front": 4,
+    "chest_painted": 3,
+    "clock_standing": 7,
+    "clock_tall": 7,
+    "coats": 6,
+    "coffin": 4,
+    "colossus": 30,
+    "cottage": 16,
+    "counter_front": 3.5,
+    "crate": 3,
+    "crib": 3.5,
+    "crib_shroud": 3.5,
+    "crow_barrel": 4,
+    "desk": 4.5,
+    "desk_front": 3.5,
+    "doll": 2,
+    "doll_yellow": 2,
+    "dollhouse": 4.5,
+    "dressing_table": 5.5,
+    "dressing_table_front": 5.5,
+    "druid_totem": 10,
+    "fence": 3.5,
+    "fishing_nets": 6,
+    "footlocker": 2.5,
+    "frozen_birds": 3,
+    "frozen_traveller": 4,
+    "gallows": 15,
+    "grave_mound": 2.5,
+    "gravestone": 3,
+    "gulthias_tree": 30,
+    "handcart": 4,
+    "harp": 6,
+    "harpsichord": 4.5,
+    "hay_bale": 2.5,
+    "horse": 7,
+    "jewel_box": 3.5,
+    "lantern_post": 9,
+    "lectern": 4,
+    "letters_table": 3.5,
+    "linen_shelves_front": 6.5,
+    "log": 2.5,
+    "market_stall": 9,
+    "milestone": 3,
+    "millstone": 2.5,
+    "mobile": 6,
+    "music_box": 3.5,
+    "notice_board": 8,
+    "oil_lamp": 4,
+    "perch": 5,
+    "pew": 4,
+    "pipe_organ": 9,
+    "pipe_organ_front": 9,
+    "poppet": 1.5,
+    "puppet_theatre": 6,
+    "receipt_table": 3.5,
+    "reeds": 4,
+    "refuse_mound": 3,
+    "ribbon_tree": 18,
+    "roc_nest": 3.5,
+    "rocking_chair": 4,
+    "rocking_horse": 3.5,
+    "rowboat": 3,
+    "sack": 2.5,
+    "satchel": 1,
+    "scarecrow": 7,
+    "scarecrow_stitched": 7,
+    "settee": 4,
+    "sheeted_furniture": 5.5,
+    "shelves": 6.5,
+    "shelves_front": 6.5,
+    "shelves_front_b": 6.5,
+    "shop_counter": 4.5,
+    "shrine_small": 6,
+    "sideboard": 5,
+    "sideboard_front": 3.5,
+    "signpost": 8,
+    "signpost_broken": 6,
+    "skeleton_leather": 3.5,
+    "soul_bags": 6,
+    "spinning_wheel": 4,
+    "stair_riser": 6,
+    "standing_stones": 10,
+    "statue_head": 1.5,
+    "statue_knight": 7,
+    "statue_mother_night": 8,
+    "statue_saint": 9,
+    "stocks": 4.5,
+    "stocks_broken": 3.5,
+    "stone_bench": 2.5,
+    "strongbox": 2,
+    "stuffed_wolf": 4,
+    "stump": 2.5,
+    "surgery_table": 4,
+    "sword_leaning": 4,
+    "table": 3.5,
+    "table_chairs": 4.5,
+    "table_set": 4,
+    "tent": 14,
+    "torch": 7,
+    "toy_chest": 3.5,
+    "trunk": 3,
+    "tub_wooden": 3.5,
+    "vardo": 10,
+    "vines": 5,
+    "wagon": 9,
+    "wall_low": 3,
+    "wardrobe": 7,
+    "wardrobe_front": 7,
+    "well": 8,
+    "well_stone": 4,
+    "wicker_cage": 7,
+    "wicker_sun": 18,
+    "woodpile": 4,
+    "workbench": 4.5,
+    "workbench_front": 3.5,
+    "black_carriage": 9,
+    "black_horse": 7,
+    "bone_chair": 4.5,
+    "bone_throne": 6.5,
+    "bone_table": 3.5,
+    "coffin_plinth": 4,
+    "gargoyle": 5,
+    "glass_vessels": 6,
+    "gold_heap": 3,
+    "heart_of_sorrow": 10,
+    "iron_maiden": 7,
+    "lift_cage": 8,
+    "reliquary_sealed": 2.5,
+    "saint_defaced": 8,
+    "skull_chandelier": 5,
+    "stone_font": 3.5,
+    "throne": 6,
+    "cauldron": 3.5,
+    "bat_perch": 6,
+    "great_tent": 22,
+    "stewpot": 5,
+    "reading_table": 2.9,
+    "cushions": 2.1,
+    "lantern_stand": 7.25,
+    "incense_burner": 2.55,
+    "bedroll": 1.7,
+    "candle_cluster": 1.55,
+    "book_stack": 1.7,
+    "drying_herbs": 2.25,
+    "cookpot": 3.15,
+    "basket": 1.5,
+    "shawl_line": 3.75,
+    "stall": 6.3,
+    "stall_horse": 7.1,
+    "trough": 2.15,
+    "tack": 4.0,
+    "cheeses": 2.5,
+    "umbrella_stand": 5.0,
+    "broom": 6.0,
+    "rope_coils": 2.5,
+    "sewing_basket": 1.0,
+    "crate_stack": 3.3,
+    "sack_pile": 2.0,
+    "table_meal": 3.0,
+    "table_books": 2.9,
+    "bench": 2.1,
+    "floor_books": 0.6,
+    "bucket_brush": 1.6,
+    "washstand": 4.6,
+    "festival_cloth": 4.7,
+    "coffin_lid": 6.5,
+    "lute": 4.2,
+    "great_vat": 7.0,
+    "bottle_rack": 7.5,
+    "footstool": 1.4,
+    "knitting_basket": 1.0,
+    "instrument_tray": 3.3,
+    "weapon_rack": 9.0,
+    "holy_water_crate": 2.3,
+    "stake_bundle": 3.5,
+    "map_table": 4.0,
+    "charred_furniture": 2.2,
+    "slate_stack": 1.5,
+    "hunters_tree_stand": 20.4,
+    "broad_oak_bough": 23.7,
+    "brazier_cold": 3.0,
+    "offering_pile": 1.0
+  },
+  "big_width": 1.6,
+  "models3d": {
+    "about": "3D pieces from art/models (blender/models_3d.py, docs/art/models.md) that stand in for 2D art, by art id; a value can be {board theme: model, \"*\": model} (wooden stairs indoors, stone ones elsewhere) or a list of variants the board picks from by square (pines, boulders). Only the places listed use them (\"*\": everywhere, owner sign-off 2026-10-06). walls: a wall surface whose painted panelling gets 3D panels on every open face.",
+    "places": [
+      "*"
+    ],
+    "bend": {
+      "cottage": 1.4,
+      "barn_collapsed": 1.0,
+      "windmill": 1.3,
+      "bell_tower": 1.1,
+      "tower_vr": 1.1
+    },
+    "art": {
+      "book_shelf": "bookcase",
+      "book_shelf_front": "bookcase",
+      "bookshelf": "bookcase",
+      "desk": "desk",
+      "desk_front": "desk",
+      "chair_high": "chair_high",
+      "armchair": "armchair",
+      "settee": "settee",
+      "table": "table",
+      "table_chairs": "table_chairs",
+      "candelabra": "candelabra",
+      "fireplace": "fireplace",
+      "fireplace_windmill": "fireplace_windmill",
+      "fireplace_dancers": "fireplace_dancers",
+      "stair_riser": {
+        "*": "stairs_up_stone",
+        "manor": "stairs_up",
+        "townhouse": "stairs_up",
+        "house": "stairs_up",
+        "attic": "stairs_up",
+        "tavern": "stairs_up",
+        "inn": "stairs_up",
+        "shop": "stairs_up",
+        "tent": "stairs_up"
+      },
+      "stair_down": {
+        "*": "stairs_down_stone",
+        "manor": "stairs_down",
+        "townhouse": "stairs_down",
+        "house": "stairs_down",
+        "attic": "stairs_down",
+        "tavern": "stairs_down",
+        "inn": "stairs_down",
+        "shop": "stairs_down",
+        "tent": "stairs_down"
+      },
+      "door_wood": "door_wood",
+      "barrel": "barrel",
+      "crate": "crate",
+      "chest": "chest",
+      "chest_back": "chest",
+      "chest_iron": "chest_iron",
+      "strongbox": "strongbox",
+      "trunk": "trunk",
+      "footlocker": "footlocker",
+      "bed": "bed",
+      "bed_small": "bed_small",
+      "wardrobe": "wardrobe",
+      "wardrobe_front": "wardrobe",
+      "sideboard": "sideboard",
+      "sideboard_front": "sideboard",
+      "shelves": "shelves",
+      "shelves_front": "shelves",
+      "pew": "pew",
+      "lectern": "lectern",
+      "table_set": "table_set",
+      "letters_table": "letters_table",
+      "coffin": "coffin",
+      "door_house": "door_house",
+      "door_double": "door_double",
+      "door_carved": "door_carved",
+      "church_doors": "church_doors",
+      "gate_iron": "gate_iron",
+      "portcullis": "portcullis",
+      "curtain": "curtain",
+      "window_tall": "window_tall",
+      "window_stained": "window_stained",
+      "window_shuttered": "window_shuttered",
+      "wagon": "wagon",
+      "market_stall": "market_stall",
+      "shop_counter": "shop_counter",
+      "counter_front": "shop_counter",
+      "bar_counter": "bar_counter",
+      "woodpile": "woodpile",
+      "workbench": "workbench",
+      "workbench_front": "workbench",
+      "notice_board": "notice_board",
+      "crypt": "crypt",
+      "gravestone": "gravestone",
+      "cask_rack": "cask_rack",
+      "cask_rack_front": "cask_rack",
+      "well": "well",
+      "well_stone": "well_stone",
+      "bridge_parapet": "bridge_parapet",
+      "signpost": "signpost",
+      "cart_broken": "cart_broken",
+      "pine": [
+        "pine_a",
+        "pine_b",
+        "pine_c"
+      ],
+      "pine_clawed": "pine_clawed",
+      "dead_tree": [
+        "dead_tree_a",
+        "dead_tree_b"
+      ],
+      "bramble_a": "bramble_a",
+      "bramble_b": "bramble_b",
+      "boulder": [
+        "boulder_a",
+        "boulder_b"
+      ],
+      "log": "log",
+      "stump": "stump",
+      "rubble": "rubble",
+      "cairn": "cairn",
+      "snowdrift": "snowdrift",
+      "ice_patch": "ice_patch",
+      "reeds": "reeds",
+      "leaves": "leaves",
+      "grave_mound": "grave_mound",
+      "hay_bale": "hay_bale",
+      "garden_bed": "garden_bed",
+      "vines": "vines",
+      "statue_knight": "statue_knight",
+      "armor_stand": "armor_stand",
+      "armor_wolf_helm": "armor_wolf_helm",
+      "statue_saint": "statue_saint",
+      "statue_head": "statue_head",
+      "statue_mother_night": "statue_mother_night",
+      "scarecrow": "scarecrow",
+      "scarecrow_stitched": "scarecrow_stitched",
+      "stuffed_wolf": "stuffed_wolf",
+      "carcass": "carcass",
+      "skeleton_leather": "skeleton_leather",
+      "doll": "doll",
+      "doll_yellow": "doll_yellow",
+      "poppet": "poppet",
+      "crow_barrel": "crow_barrel",
+      "charms": "charms",
+      "soul_bags": "soul_bags",
+      "frozen_traveller": "frozen_traveller",
+      "frozen_birds": "frozen_birds",
+      "roc_nest": "roc_nest",
+      "dragon_bones": "dragon_bones",
+      "mobile": "mobile",
+      "coats": "coats",
+      "sheeted_furniture": "sheeted_furniture",
+      "refuse_mound": "refuse_mound",
+      "bones": "bones",
+      "sword_leaning": "sword_leaning",
+      "jewel_box": "jewel_box",
+      "music_box": "music_box",
+      "cage_hanging": "cage_hanging",
+      "wicker_cage": "wicker_cage",
+      "painting": "painting",
+      "painting_row": "painting_row",
+      "family_portrait": "family_portrait",
+      "portrait_couple": "portrait_couple",
+      "mirror": "mirror",
+      "mirror_full": "mirror_full",
+      "tally_board": "tally_board",
+      "notes_wall": "notes_wall",
+      "notice_papers": "notice_papers",
+      "hanging_sign": "hanging_sign",
+      "drawings": "drawings",
+      "relief": "relief",
+      "arch_carved": "arch_carved",
+      "carved_paneling": "carved_paneling",
+      "wall_alcoves": "wall_alcoves",
+      "brick_wall": "brick_wall",
+      "sunburst": "sunburst",
+      "tapestry": "tapestry",
+      "banner_dragon": "banner_dragon",
+      "stag_head": "stag_head",
+      "trophy_wolf": "trophy_wolf",
+      "skeleton_shackles": "skeleton_shackles",
+      "wall_chains": "wall_chains",
+      "jars": "jars",
+      "gear_brake": "gear_brake",
+      "winch": "winch",
+      "dumbwaiter": "dumbwaiter",
+      "robe_pegs": "robe_pegs",
+      "uniforms": "uniforms",
+      "crest": "crest",
+      "shelves_wall": "shelves_wall",
+      "satchel": "satchel",
+      "sack": "sack",
+      "cabinet_glass": "cabinet_glass",
+      "shrine_small": "shrine_small",
+      "brazier": "brazier",
+      "brazier_green": "brazier_green",
+      "perch": "perch",
+      "campfire": "campfire",
+      "wall_low": "wall_low",
+      "chest_painted": "chest_painted",
+      "altar_church": "altar_church",
+      "altar_stone": "altar_stone",
+      "rocking_chair": "rocking_chair",
+      "handcart": "handcart",
+      "bed_canopy": "bed_canopy",
+      "dressing_table": "dressing_table",
+      "milestone": "milestone",
+      "cabinet_small": "cabinet_small",
+      "toy_chest": "toy_chest",
+      "cabinet_glass_front": "cabinet_glass",
+      "dressing_table_front": "dressing_table",
+      "cabinet_small_front": "cabinet_small",
+      "harpsichord": "harpsichord",
+      "bathtub": "bathtub",
+      "crib": "crib",
+      "stocks": "stocks",
+      "fence": "fence",
+      "pipe_organ": "pipe_organ",
+      "surgery_table": "surgery_table",
+      "wine_vat": "wine_vat",
+      "tub_wooden": "tub_wooden",
+      "barrel_spigot": "barrel_spigot",
+      "bier": "bier",
+      "wine_press": "wine_press",
+      "millstone": "millstone",
+      "receipt_table": "receipt_table",
+      "stone_bench": "stone_bench",
+      "lantern_post": "lantern_post",
+      "rowboat": "rowboat",
+      "dollhouse": "dollhouse",
+      "puppet_theatre": "puppet_theatre",
+      "harp": "harp",
+      "rocking_horse": "rocking_horse",
+      "spinning_wheel": "spinning_wheel",
+      "cage_covered": "cage_covered",
+      "crib_shroud": "crib_shroud",
+      "fishing_nets": "fishing_nets",
+      "signpost_broken": "signpost_broken",
+      "stocks_broken": "stocks_broken",
+      "oil_lamp": "oil_lamp",
+      "pipe_organ_front": "pipe_organ",
+      "stove": "stove",
+      "oven_brick": "oven_brick",
+      "fireplace_sword": "fireplace_sword",
+      "fireplace_valley": "fireplace_valley",
+      "manor_door": "manor_door",
+      "door_barred": "door_barred",
+      "door_clawed": "door_clawed",
+      "gate_wooden": "gate_wooden",
+      "boarded_window": "boarded_window",
+      "shop_window": "shop_window",
+      "window_lit": "window_lit",
+      "straw_pallet": "straw_pallet",
+      "straw": "straw",
+      "bone_scatter": "bone_scatter",
+      "grave_open": "grave_open",
+      "jetty": "jetty",
+      "rug_wolf": "rug_wolf",
+      "tiger_rug": "tiger_rug",
+      "rug_runner": "rug_runner",
+      "cottage": "cottage",
+      "tent": "tent",
+      "barn_collapsed": "barn_collapsed",
+      "vardo": "vardo",
+      "windmill": "windmill",
+      "bell_tower": "bell_tower",
+      "tower_vr": "tower_vr",
+      "standing_stones": "standing_stones",
+      "gallows": "gallows",
+      "barrow": "barrow",
+      "beacon_cradle": "beacon_cradle",
+      "glass_ring": "glass_ring",
+      "colossus": "colossus",
+      "statue_faceless": "statue_faceless",
+      "wicker_sun": "wicker_sun",
+      "ribbon_tree": "ribbon_tree",
+      "gate_pillar": "gate_pillar",
+      "door_bookcase": "door_bookcase",
+      "clock_tall": "clock_tall",
+      "torch": "torch",
+      "crater": "crater",
+      "bones_water": "bones_water",
+      "throne": "throne",
+      "gargoyle": "gargoyle",
+      "black_carriage": "black_carriage",
+      "saint_defaced": "saint_defaced",
+      "bone_throne": "bone_throne",
+      "bone_chair": "bone_chair",
+      "bone_table": "bone_table",
+      "iron_maiden": "iron_maiden",
+      "reliquary_sealed": "reliquary_sealed",
+      "coffin_plinth": "coffin_plinth",
+      "lift_cage": "lift_cage",
+      "cauldron": "cauldron",
+      "stone_font": "stone_font",
+      "glass_vessels": "glass_vessels",
+      "bat_perch": "bat_perch",
+      "gold_heap": "gold_heap",
+      "skull_chandelier": "skull_chandelier",
+      "portrait_tatyana": "portrait_tatyana",
+      "portrait_jester": "portrait_jester",
+      "dragon_skull": "dragon_skull",
+      "stone_faces": "stone_faces",
+      "names_wall": "names_wall",
+      "bronze_plaque": "bronze_plaque",
+      "banner_regiment": "banner_regiment",
+      "key_board": "key_board",
+      "wine_rack_bricked": "wine_rack_bricked",
+      "great_doors": "great_doors",
+      "drawbridge": "drawbridge",
+      "roof_hatch": "roof_hatch",
+      "gold_spill": "gold_spill",
+      "great_tent": "great_tent",
+      "stewpot": "stewpot",
+      "reading_table": "reading_table",
+      "reading_table_back": "reading_table",
+      "cushions": "cushions",
+      "cushions_back": "cushions",
+      "lantern_stand": "lantern_stand",
+      "incense_burner": "incense_burner",
+      "bedroll": "bedroll",
+      "bedroll_back": "bedroll",
+      "candle_cluster": "candle_cluster",
+      "book_stack": "book_stack",
+      "book_stack_back": "book_stack",
+      "drying_herbs": "drying_herbs",
+      "cookpot": "cookpot",
+      "cookpot_back": "cookpot",
+      "basket": "basket",
+      "wine_tray": "wine_tray",
+      "shawl_line": "shawl_line",
+      "stall": "stall",
+      "stall_back": "stall",
+      "stall_horse": "stall_horse",
+      "stall_horse_back": "stall_horse",
+      "trough": "trough",
+      "trough_back": "trough",
+      "tack": "tack",
+      "pot_rack": "pot_rack",
+      "cheeses": "cheeses",
+      "umbrella_stand": "umbrella_stand",
+      "broom": "broom",
+      "relics": "relics",
+      "rope_coils": "rope_coils",
+      "oil_shelf": "oil_shelf",
+      "sewing_basket": "sewing_basket",
+      "valley_map": "valley_map",
+      "crate_stack": "crate_stack",
+      "sack_pile": "sack_pile",
+      "table_meal": "table_meal",
+      "table_books": "table_books",
+      "bench": "bench",
+      "lantern_bracket": "lantern_bracket",
+      "floor_books": "floor_books",
+      "bucket_brush": "bucket_brush",
+      "shelf_goods": "shelf_goods",
+      "bench_back": "bench",
+      "washstand": "washstand",
+      "bunting": "bunting",
+      "festival_cloth": "festival_cloth",
+      "toy_shelf": "toy_shelf",
+      "coffin_lid": "coffin_lid",
+      "crucifix": "crucifix",
+      "lute": "lute",
+      "great_vat": "great_vat",
+      "bottle_rack": "bottle_rack",
+      "tool_rack": "tool_rack",
+      "cup_hooks": "cup_hooks",
+      "footstool": "footstool",
+      "knitting_basket": "knitting_basket",
+      "sill_sword": "sill_sword",
+      "sill_cups": "sill_cups",
+      "surplice": "surplice",
+      "curtain_hooks": "curtain_hooks",
+      "charcoal_suns": "charcoal_suns",
+      "instrument_tray": "instrument_tray",
+      "weapon_rack": "weapon_rack",
+      "fallen_frames": "fallen_frames",
+      "portrait_turned": "portrait_turned",
+      "holy_water_crate": "holy_water_crate",
+      "stake_bundle": "stake_bundle",
+      "map_table": "map_table",
+      "nail_spiral": "nail_spiral",
+      "fallen_beam": "fallen_beam",
+      "charred_furniture": "charred_furniture",
+      "ash_heap": "ash_heap",
+      "slate_stack": "slate_stack",
+      "cloak_pegs": "cloak_pegs",
+      "hunters_tree_stand": "hunters_tree_stand",
+      "broad_oak_bough": "broad_oak_bough",
+      "brazier_cold": "brazier_cold",
+      "offering_pile": "offering_pile",
+      "chained_bookcase": "chained_bookcase",
+      "jester_plaster": "jester_plaster"
+    },
+    "walls": {
+      "interior/wainscot_wall": "wainscot",
+      "interior/wood_panel": "panelling",
+      "interior/carved_panel": "panelling",
+      "interior/plaster_wall": "wall_trim",
+      "interior/wallpaper_green": "wall_trim",
+      "interior/wallpaper_nursery": "wall_trim",
+      "interior/damp_plaster": "wall_trim",
+      "interior/whitewash": "wall_trim",
+      "interior/kitchen_wall": "wall_trim"
+    }
+  },
+  "building_kit": {
+    "about": "Town houses from the building kit (art/models/kit, blender/building_kit.py, docs/art/building_kit.md): the style each place's houses are built in (its own, else its board theme's); a place or theme not named keeps the plain boxes. The house that holds a church's doors is built in the church style (stone, buttresses, lancets and a bell tower). cores: the house's wall behind the modules (a texture set, or none for a dark core where boards cover it). roofs: thatch or slate for small houses and for grand ones (grand_area squares or more). paints: the colours Vallaki's clapboard houses are painted, one per house. cut_away: whether a town house or Castle Ravenloft's walls cut down when they stand between the camera and the party (off: owner 2026-10-13); off, they stand and open a window round the party (SeeThrough).",
+    "cut_away": false,
+    "themes": {
+      "village": "timber",
+      "town": "clapboard",
+      "shrine_yard": "stone"
+    },
+    "places": {},
+    "cores": {
+      "timber": "kit/plaster",
+      "clapboard": "",
+      "stone": "church/stone_wall",
+      "church": "church/stone_wall"
+    },
+    "roofs": {
+      "timber": {
+        "small": "thatch",
+        "grand": "slate"
+      },
+      "clapboard": {
+        "small": "slate",
+        "grand": "slate"
+      },
+      "stone": {
+        "small": "slate",
+        "grand": "slate"
+      },
+      "church": {
+        "small": "slate",
+        "grand": "slate"
+      }
+    },
+    "grand_area": 30,
+    "paints": [
+      "moon_blue",
+      "slate",
+      "blood_deep",
+      "bog",
+      "bone_dark",
+      "ash_violet",
+      "rust",
+      "night"
+    ],
+    "bend": {
+      "about": "Natural shapes for buildings (natural maps B1, owner 2026-10-19: \"We can give buildings natural shapes instead of their straight lines\"; BuildingBend, docs/art/building_kit.md): a building's points are moved once when it is built, so its walls lean and bow, its corners drift, a timber house's upper storey juts, the ridge sags and the eaves wave: a wall never more than its style's reach sideways (a quarter of a square, half for timber walls: Ashwin's pick, 2026-10-19), a roof (overhead) a quarter square further at its ridge. reach: how far a style's walls may go, in squares (default 0.25). styles: how far each style bends, 1 the most (a Barovian timber cottage); places: a place's own amount over its style's (Castle Ravenloft's outer yards stay as raised by power, the Abbey and Argynvostholt are old and tired); overhang: how far a style's upper storey juts out at full amount. A town's yard walls and palisade take the style's amount too. The Classic look never bends.",
+      "styles": {
+        "timber": 1.0,
+        "clapboard": 0.95,
+        "stone": 0.7,
+        "church": 0.5
+      },
+      "places": {
+        "castle_ravenloft_gates": 0.0,
+        "castle_ravenloft_overlook": 0.0,
+        "abbey_of_st_markovia": 0.8,
+        "argynvostholt": 0.8
+      },
+      "reach": {
+        "timber": 0.5
+      },
+      "overhang": {
+        "timber": 0.07
+      }
+    },
+    "interiors": {
+      "about": "Interiors: the style a place's rooms are built in, by the start of its id, else by board theme. A lone wall square inside a room is a pillar in that style (kit_pillar_<style>); every open face of a cut-away wall gets the style's coping along its top and, where no panelling does, its face module (kit_<style>_coping, kit_<style>_face). full_walls (W8, Modern look only): rooms get full-height walls, height by style, which open a window round the party where they hide it (SeeThrough); cut_away: they drop to the cut-away height toward the camera instead (off: owner 2026-10-17, \"walls collapse down when looking from certain angles\"); thin_walls (Natural Maps Plan I1, owner 2026-10-19): the side of a wall that faces a room is set back into the wall square by inset (0.35 of a square), so a wall between two rooms stands a foot and a half thick, not a whole square, and the places named in not (starts of ids: the caves, which have their own walls) keep whole squares; ground: what lies outside the building by style, and outside: a place's own (its ground, how many storeys below it lies, its walls' height); a dungeon's outside is rock.",
+      "places": {
+        "castle_ravenloft": "castle",
+        "amber_temple": "amber"
+      },
+      "themes": {
+        "church": "church",
+        "dungeon": "dungeon",
+        "attic": "timber",
+        "tavern": "timber",
+        "shop": "timber",
+        "house": "timber",
+        "inn": "timber",
+        "manor": "manor",
+        "townhouse": "manor",
+        "tent": "tent"
+      },
+      "full_walls": true,
+      "cut_away": false,
+      "thin_walls": {
+        "inset": 0.35,
+        "not": [
+          "werewolf_den",
+          "ghakis_lair",
+          "amber_deep"
+        ]
+      },
+      "ground": {
+        "manor": "village/grass",
+        "timber": "village/cobbles",
+        "church": "village/grass",
+        "castle": "castle/courtyard",
+        "amber": "mountain/cliff",
+        "tent": "village/grass"
+      },
+      "outside": {
+        "death_house_ground": {
+          "ground": "village/cobbles"
+        },
+        "death_house_upper": {
+          "ground": "village/cobbles",
+          "below": 1
+        },
+        "death_house_third": {
+          "ground": "village/cobbles",
+          "below": 2
+        },
+        "death_house_attic": {
+          "ground": "village/cobbles",
+          "below": 3
+        },
+        "vallaki_": {
+          "ground": "vallaki/cobbled_square"
+        },
+        "burgomaster_mansion": {
+          "ground": "village/cobbles"
+        },
+        "blood_of_the_vine": {
+          "ground": "village/cobbles"
+        },
+        "mad_marys_house": {
+          "ground": "village/cobbles"
+        },
+        "bildraths_mercantile": {
+          "ground": "village/cobbles"
+        },
+        "village_church": {
+          "ground": "village/grass"
+        },
+        "argynvostholt_upper": {
+          "ground": "village/grass",
+          "below": 1
+        },
+        "old_bonegrinder_loft": {
+          "ground": "village/grass",
+          "below": 1
+        },
+        "castle_ravenloft_spires": {
+          "ground": "castle/courtyard",
+          "below": 4
+        },
+        "castle_ravenloft_court": {
+          "ground": "castle/courtyard"
+        },
+        "castle_ravenloft_main_floor": {
+          "ground": "castle/courtyard"
+        },
+        "amber_temple_entrance": {
+          "ground": "mountain/snow"
+        }
+      }
+    },
+    "castle": {
+      "about": "Castle Ravenloft from outside (W19, CastleBuilder, Modern look only), by place: rect is the castle's part of the map [x, z, w, d] (its wall squares are the castle; walls outside it stay as they were); wall and keep are the curtain walls' and the keep's heights; keeps are rects of keep squares; blocks are more of the castle past the map's edge [x, z, w, d, height]; towers are round towers {at: [x, z] in squares, r, h, from (above 0 a turret rising out of the keep, below 0 a tower rising out of the drop), spire: cone, needle or none}; parapets are rects whose wall squares are a low wall (the cliff road's edge); heights are rects [x, z, w, d, height] of walls of their own height (a raised roof's parapet); cliffs false makes the void a drop off the castle's roofs, its masonry going down `below` under every square beside it instead of rock; bridges are rects of the squares that span the chasm (timbers under them, no cliffs); walks true makes the place's built raised squares (raised floor digits with elevation stacked on them) the wall walk and its stairs, in the castle's stone (W7).",
+      "places": {
+        "castle_ravenloft_gates": {
+          "walks": true,
+          "rect": [
+            0,
+            0,
+            39,
+            34
+          ],
+          "wall": 6.0,
+          "keep": 10.5,
+          "keeps": [
+            [
+              7,
+              0,
+              26,
+              9
+            ]
+          ],
+          "bridges": [
+            [
+              18,
+              24,
+              4,
+              6
+            ]
+          ],
+          "towers": [
+            {
+              "at": [
+                1.0,
+                23.0
+              ],
+              "r": 1.0,
+              "h": 8.5
+            },
+            {
+              "at": [
+                38.0,
+                23.0
+              ],
+              "r": 1.0,
+              "h": 8.5
+            },
+            {
+              "at": [
+                17.9,
+                23.25
+              ],
+              "r": 1.05,
+              "h": 8.2
+            },
+            {
+              "at": [
+                22.1,
+                23.25
+              ],
+              "r": 1.05,
+              "h": 8.2
+            },
+            {
+              "at": [
+                10.0,
+                23.3
+              ],
+              "r": 0.95,
+              "h": 7.6
+            },
+            {
+              "at": [
+                30.0,
+                23.3
+              ],
+              "r": 0.95,
+              "h": 7.6
+            },
+            {
+              "at": [
+                7.5,
+                22.9
+              ],
+              "r": 0.85,
+              "h": 7.4
+            },
+            {
+              "at": [
+                32.5,
+                22.9
+              ],
+              "r": 0.85,
+              "h": 7.4
+            },
+            {
+              "at": [
+                0.55,
+                0.55
+              ],
+              "r": 0.85,
+              "h": 8.0
+            },
+            {
+              "at": [
+                38.45,
+                0.55
+              ],
+              "r": 0.85,
+              "h": 8.0
+            },
+            {
+              "at": [
+                18.0,
+                8.0
+              ],
+              "r": 0.85,
+              "h": 12.6,
+              "spire": "needle"
+            },
+            {
+              "at": [
+                22.0,
+                8.0
+              ],
+              "r": 0.85,
+              "h": 12.6,
+              "spire": "needle"
+            },
+            {
+              "at": [
+                8.0,
+                8.0
+              ],
+              "r": 0.8,
+              "h": 12.4,
+              "from": 10.0,
+              "spire": "needle"
+            },
+            {
+              "at": [
+                32.0,
+                8.0
+              ],
+              "r": 0.8,
+              "h": 12.4,
+              "from": 10.0,
+              "spire": "needle"
+            },
+            {
+              "at": [
+                12.0,
+                3.5
+              ],
+              "r": 1.6,
+              "h": 15.0,
+              "from": 10.0
+            },
+            {
+              "at": [
+                27.5,
+                3.5
+              ],
+              "r": 1.6,
+              "h": 14.0,
+              "from": 10.0
+            },
+            {
+              "at": [
+                20.0,
+                2.5
+              ],
+              "r": 1.3,
+              "h": 19.0,
+              "from": 10.0,
+              "spire": "needle"
+            }
+          ],
+          "parapets": [
+            [
+              0,
+              24,
+              39,
+              10
+            ]
+          ]
+        },
+        "castle_ravenloft_overlook": {
+          "rect": [
+            0,
+            0,
+            26,
+            7
+          ],
+          "wall": 6.0,
+          "keep": 10.5,
+          "keeps": [
+            [
+              0,
+              0,
+              26,
+              2
+            ]
+          ],
+          "blocks": [
+            [
+              -4,
+              -7,
+              34,
+              7,
+              12.5
+            ]
+          ],
+          "towers": [
+            {
+              "at": [
+                25.7,
+                6.2
+              ],
+              "r": 0.8,
+              "h": 7.4
+            },
+            {
+              "at": [
+                0.3,
+                6.2
+              ],
+              "r": 0.8,
+              "h": 7.4
+            },
+            {
+              "at": [
+                5.0,
+                -3.0
+              ],
+              "r": 1.7,
+              "h": 17.0,
+              "from": 12.0
+            },
+            {
+              "at": [
+                19.0,
+                -3.5
+              ],
+              "r": 1.5,
+              "h": 21.0,
+              "from": 12.0,
+              "spire": "needle"
+            },
+            {
+              "at": [
+                12.0,
+                -1.0
+              ],
+              "r": 0.8,
+              "h": 15.0,
+              "from": 12.0,
+              "spire": "needle"
+            }
+          ]
+        },
+        "castle_ravenloft_spires_roofs": {
+          "wall": 1.6,
+          "keep": 1.6,
+          "heights": [
+            [
+              24,
+              0,
+              12,
+              13,
+              2.6
+            ]
+          ],
+          "cliffs": false,
+          "below": 16.0,
+          "towers": [
+            {
+              "at": [
+                9.0,
+                5.0
+              ],
+              "r": 0.95,
+              "h": 6.5,
+              "spire": "needle"
+            },
+            {
+              "at": [
+                14.0,
+                9.5
+              ],
+              "r": 0.5,
+              "h": 4.2
+            },
+            {
+              "at": [
+                21.5,
+                1.6
+              ],
+              "r": 1.4,
+              "h": 13.0,
+              "from": -16.0,
+              "spire": "needle"
+            },
+            {
+              "at": [
+                21.5,
+                9.4
+              ],
+              "r": 1.3,
+              "h": 11.0,
+              "from": -16.0
+            },
+            {
+              "at": [
+                16.6,
+                18.0
+              ],
+              "r": 2.0,
+              "h": 15.0,
+              "from": -16.0
+            },
+            {
+              "at": [
+                30.0,
+                17.2
+              ],
+              "r": 2.2,
+              "h": 19.0,
+              "from": -16.0,
+              "spire": "needle"
+            },
+            {
+              "at": [
+                -2.0,
+                6.0
+              ],
+              "r": 1.5,
+              "h": 12.0,
+              "from": -16.0
+            },
+            {
+              "at": [
+                38.0,
+                6.0
+              ],
+              "r": 1.6,
+              "h": 14.0,
+              "from": -16.0,
+              "spire": "needle"
+            }
+          ]
+        },
+        "daerns_fortress_roof": {
+          "wall": 1.3,
+          "keep": 1.3,
+          "cliffs": false,
+          "below": 6.0
+        }
+      }
+    }
+  },
+  "clutter": {
+    "about": "Decals laid over floors and walls by rule (world/look/clutter.gd, docs/art/decals.md): per board theme, or per place by the start of its id. decals: decal ids or sheet names (art/textures/decals/manifest.json); on: floor, edge (beside a wall), difficult, boundary (beside rough ground: mud fringes where cobbles meet mud), wall or wall_foot (an open face of a wall); chance per square; size in world units; max per board; tint darkens or colours a mark; gloss makes it wet (puddles glint). A rule with scatter instead names kit models (blender/building_kit.py kit_scatter_*) strewn on the ground the same way. rooms: words in an area's name or id that a rule is kept to (straw only in a stable).",
+    "themes": {
+      "village": [
+        {
+          "decals": [
+            "floor_puddles"
+          ],
+          "on": "floor",
+          "chance": 0.035,
+          "size": [
+            0.8,
+            1.6
+          ],
+          "max": 25,
+          "tint": [
+            0.72,
+            0.76,
+            0.86
+          ]
+        },
+        {
+          "decals": [
+            "floor_leaves"
+          ],
+          "on": "floor",
+          "chance": 0.04,
+          "size": [
+            0.6,
+            1.1
+          ],
+          "max": 30
+        },
+        {
+          "decals": [
+            "floor_mud"
+          ],
+          "on": "boundary",
+          "chance": 0.45,
+          "size": [
+            0.8,
+            1.3
+          ],
+          "max": 80
+        },
+        {
+          "decals": [
+            "floor_mud",
+            "floor_puddles"
+          ],
+          "on": "difficult",
+          "chance": 0.3,
+          "size": [
+            0.9,
+            1.5
+          ],
+          "max": 40,
+          "tint": [
+            0.72,
+            0.76,
+            0.86
+          ]
+        },
+        {
+          "decals": [
+            "floor_cracks"
+          ],
+          "on": "floor",
+          "chance": 0.02,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 12
+        },
+        {
+          "decals": [
+            "wall_moss"
+          ],
+          "on": "wall_foot",
+          "chance": 0.12,
+          "size": [
+            0.6,
+            0.9
+          ],
+          "max": 30
+        },
+        {
+          "scatter": [
+            "kit_scatter_pebbles",
+            "kit_scatter_stones"
+          ],
+          "on": "edge",
+          "chance": 0.08,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 60
+        },
+        {
+          "scatter": [
+            "kit_scatter_twigs",
+            "kit_scatter_debris"
+          ],
+          "on": "floor",
+          "chance": 0.02,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 15
+        }
+      ],
+      "town": [
+        {
+          "decals": [
+            "floor_puddles"
+          ],
+          "on": "floor",
+          "chance": 0.035,
+          "size": [
+            0.8,
+            1.6
+          ],
+          "max": 25,
+          "tint": [
+            0.72,
+            0.76,
+            0.86
+          ]
+        },
+        {
+          "decals": [
+            "floor_leaves"
+          ],
+          "on": "floor",
+          "chance": 0.04,
+          "size": [
+            0.6,
+            1.1
+          ],
+          "max": 30
+        },
+        {
+          "decals": [
+            "floor_mud"
+          ],
+          "on": "boundary",
+          "chance": 0.45,
+          "size": [
+            0.8,
+            1.3
+          ],
+          "max": 80
+        },
+        {
+          "decals": [
+            "floor_mud",
+            "floor_puddles"
+          ],
+          "on": "difficult",
+          "chance": 0.3,
+          "size": [
+            0.9,
+            1.5
+          ],
+          "max": 40,
+          "tint": [
+            0.72,
+            0.76,
+            0.86
+          ]
+        },
+        {
+          "decals": [
+            "floor_cracks"
+          ],
+          "on": "floor",
+          "chance": 0.02,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 12
+        },
+        {
+          "decals": [
+            "wall_moss"
+          ],
+          "on": "wall_foot",
+          "chance": 0.12,
+          "size": [
+            0.6,
+            0.9
+          ],
+          "max": 30
+        },
+        {
+          "scatter": [
+            "kit_scatter_pebbles"
+          ],
+          "on": "edge",
+          "chance": 0.06,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 60
+        }
+      ],
+      "forest": [
+        {
+          "decals": [
+            "floor_leaves"
+          ],
+          "on": "floor",
+          "chance": 0.07,
+          "size": [
+            0.7,
+            1.3
+          ],
+          "max": 50
+        },
+        {
+          "decals": [
+            "floor_mud"
+          ],
+          "on": "difficult",
+          "chance": 0.3,
+          "size": [
+            0.9,
+            1.5
+          ],
+          "max": 40
+        },
+        {
+          "decals": [
+            "floor_mud"
+          ],
+          "on": "boundary",
+          "chance": 0.3,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 50
+        },
+        {
+          "decals": [
+            "floor_puddles"
+          ],
+          "on": "floor",
+          "chance": 0.025,
+          "size": [
+            0.8,
+            1.5
+          ],
+          "max": 15,
+          "tint": [
+            0.72,
+            0.76,
+            0.86
+          ]
+        },
+        {
+          "scatter": [
+            "kit_scatter_twigs",
+            "kit_scatter_roots",
+            "kit_scatter_stones"
+          ],
+          "on": "floor",
+          "chance": 0.08,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 60
+        },
+        {
+          "scatter": [
+            "kit_scatter_mushrooms"
+          ],
+          "on": "edge",
+          "chance": 0.06,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 20
+        }
+      ],
+      "road": [
+        {
+          "decals": [
+            "floor_leaves"
+          ],
+          "on": "floor",
+          "chance": 0.07,
+          "size": [
+            0.7,
+            1.3
+          ],
+          "max": 50
+        },
+        {
+          "decals": [
+            "floor_mud"
+          ],
+          "on": "difficult",
+          "chance": 0.3,
+          "size": [
+            0.9,
+            1.5
+          ],
+          "max": 40
+        },
+        {
+          "decals": [
+            "floor_mud"
+          ],
+          "on": "boundary",
+          "chance": 0.3,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 50
+        },
+        {
+          "decals": [
+            "floor_puddles"
+          ],
+          "on": "floor",
+          "chance": 0.025,
+          "size": [
+            0.8,
+            1.5
+          ],
+          "max": 15,
+          "tint": [
+            0.72,
+            0.76,
+            0.86
+          ]
+        },
+        {
+          "scatter": [
+            "kit_scatter_pebbles",
+            "kit_scatter_stones",
+            "kit_scatter_twigs"
+          ],
+          "on": "floor",
+          "chance": 0.05,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 60
+        }
+      ],
+      "camp": [
+        {
+          "decals": [
+            "floor_leaves"
+          ],
+          "on": "floor",
+          "chance": 0.07,
+          "size": [
+            0.7,
+            1.3
+          ],
+          "max": 50
+        },
+        {
+          "decals": [
+            "floor_mud"
+          ],
+          "on": "difficult",
+          "chance": 0.3,
+          "size": [
+            0.9,
+            1.5
+          ],
+          "max": 40
+        },
+        {
+          "decals": [
+            "floor_mud"
+          ],
+          "on": "boundary",
+          "chance": 0.3,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 50
+        },
+        {
+          "decals": [
+            "floor_puddles"
+          ],
+          "on": "floor",
+          "chance": 0.025,
+          "size": [
+            0.8,
+            1.5
+          ],
+          "max": 15,
+          "tint": [
+            0.72,
+            0.76,
+            0.86
+          ]
+        }
+      ],
+      "riverside": [
+        {
+          "decals": [
+            "floor_leaves"
+          ],
+          "on": "floor",
+          "chance": 0.07,
+          "size": [
+            0.7,
+            1.3
+          ],
+          "max": 50
+        },
+        {
+          "decals": [
+            "floor_mud"
+          ],
+          "on": "difficult",
+          "chance": 0.3,
+          "size": [
+            0.9,
+            1.5
+          ],
+          "max": 40
+        },
+        {
+          "decals": [
+            "floor_mud"
+          ],
+          "on": "boundary",
+          "chance": 0.3,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 50
+        },
+        {
+          "decals": [
+            "floor_puddles"
+          ],
+          "on": "floor",
+          "chance": 0.025,
+          "size": [
+            0.8,
+            1.5
+          ],
+          "max": 15,
+          "tint": [
+            0.72,
+            0.76,
+            0.86
+          ]
+        },
+        {
+          "scatter": [
+            "kit_scatter_stones",
+            "kit_scatter_pebbles",
+            "kit_scatter_twigs"
+          ],
+          "on": "floor",
+          "chance": 0.05,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 60
+        }
+      ],
+      "wilderness": [
+        {
+          "decals": [
+            "floor_leaves"
+          ],
+          "on": "floor",
+          "chance": 0.07,
+          "size": [
+            0.7,
+            1.3
+          ],
+          "max": 50
+        },
+        {
+          "decals": [
+            "floor_mud"
+          ],
+          "on": "difficult",
+          "chance": 0.3,
+          "size": [
+            0.9,
+            1.5
+          ],
+          "max": 40
+        },
+        {
+          "decals": [
+            "floor_mud"
+          ],
+          "on": "boundary",
+          "chance": 0.3,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 50
+        },
+        {
+          "decals": [
+            "floor_puddles"
+          ],
+          "on": "floor",
+          "chance": 0.025,
+          "size": [
+            0.8,
+            1.5
+          ],
+          "max": 15,
+          "tint": [
+            0.72,
+            0.76,
+            0.86
+          ]
+        },
+        {
+          "scatter": [
+            "kit_scatter_stones",
+            "kit_scatter_pebbles",
+            "kit_scatter_twigs"
+          ],
+          "on": "floor",
+          "chance": 0.06,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 60
+        }
+      ],
+      "manor": [
+        {
+          "decals": [
+            "floor_stains"
+          ],
+          "on": "floor",
+          "chance": 0.03,
+          "size": [
+            0.6,
+            1.1
+          ],
+          "max": 15
+        },
+        {
+          "decals": [
+            "floor_dust"
+          ],
+          "on": "edge",
+          "chance": 0.12,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 40
+        },
+        {
+          "decals": [
+            "floor_cracks"
+          ],
+          "on": "floor",
+          "chance": 0.015,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 8
+        },
+        {
+          "decals": [
+            "wall_cracks"
+          ],
+          "on": "wall",
+          "chance": 0.04,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 15
+        },
+        {
+          "decals": [
+            "wall_damp"
+          ],
+          "on": "wall",
+          "chance": 0.03,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 10
+        },
+        {
+          "decals": [
+            "floor_dust"
+          ],
+          "on": "floor",
+          "chance": 0.3,
+          "size": [
+            0.8,
+            1.5
+          ],
+          "max": 60,
+          "tint": [
+            0.42,
+            0.4,
+            0.38
+          ],
+          "rooms": [
+            "holt great",
+            "holt entry",
+            "holt west",
+            "holt servants"
+          ]
+        }
+      ],
+      "townhouse": [
+        {
+          "decals": [
+            "floor_stains"
+          ],
+          "on": "floor",
+          "chance": 0.03,
+          "size": [
+            0.6,
+            1.1
+          ],
+          "max": 15
+        },
+        {
+          "decals": [
+            "floor_dust"
+          ],
+          "on": "edge",
+          "chance": 0.12,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 40
+        },
+        {
+          "decals": [
+            "floor_cracks"
+          ],
+          "on": "floor",
+          "chance": 0.015,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 8
+        },
+        {
+          "decals": [
+            "wall_cracks"
+          ],
+          "on": "wall",
+          "chance": 0.04,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 15
+        },
+        {
+          "decals": [
+            "wall_damp"
+          ],
+          "on": "wall",
+          "chance": 0.03,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 10
+        }
+      ],
+      "tavern": [
+        {
+          "decals": [
+            "floor_straw"
+          ],
+          "on": "floor",
+          "chance": 0.05,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 20
+        },
+        {
+          "decals": [
+            "floor_stains"
+          ],
+          "on": "floor",
+          "chance": 0.05,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 20
+        },
+        {
+          "decals": [
+            "floor_dust"
+          ],
+          "on": "edge",
+          "chance": 0.1,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 30
+        },
+        {
+          "decals": [
+            "wall_soot"
+          ],
+          "on": "wall",
+          "chance": 0.03,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 8
+        },
+        {
+          "decals": [
+            "floor_straw"
+          ],
+          "on": "floor",
+          "rooms": [
+            "stable"
+          ],
+          "chance": 0.6,
+          "size": [
+            0.8,
+            1.4
+          ],
+          "max": 70
+        }
+      ],
+      "shop": [
+        {
+          "decals": [
+            "floor_straw"
+          ],
+          "on": "floor",
+          "chance": 0.05,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 20
+        },
+        {
+          "decals": [
+            "floor_stains"
+          ],
+          "on": "floor",
+          "chance": 0.05,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 20
+        },
+        {
+          "decals": [
+            "floor_dust"
+          ],
+          "on": "edge",
+          "chance": 0.1,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 30
+        },
+        {
+          "decals": [
+            "wall_soot"
+          ],
+          "on": "wall",
+          "chance": 0.03,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 8
+        }
+      ],
+      "house": [
+        {
+          "decals": [
+            "floor_straw"
+          ],
+          "on": "floor",
+          "chance": 0.05,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 20
+        },
+        {
+          "decals": [
+            "floor_stains"
+          ],
+          "on": "floor",
+          "chance": 0.05,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 20
+        },
+        {
+          "decals": [
+            "floor_dust"
+          ],
+          "on": "edge",
+          "chance": 0.1,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 30
+        },
+        {
+          "decals": [
+            "wall_soot"
+          ],
+          "on": "wall",
+          "chance": 0.03,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 8
+        },
+        {
+          "decals": [
+            "floor_dust"
+          ],
+          "on": "floor",
+          "chance": 0.45,
+          "size": [
+            0.8,
+            1.5
+          ],
+          "max": 70,
+          "rooms": [
+            "bakery",
+            "millstone"
+          ]
+        }
+      ],
+      "inn": [
+        {
+          "decals": [
+            "floor_straw"
+          ],
+          "on": "floor",
+          "chance": 0.05,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 20
+        },
+        {
+          "decals": [
+            "floor_stains"
+          ],
+          "on": "floor",
+          "chance": 0.05,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 20
+        },
+        {
+          "decals": [
+            "floor_dust"
+          ],
+          "on": "edge",
+          "chance": 0.1,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 30
+        },
+        {
+          "decals": [
+            "wall_soot"
+          ],
+          "on": "wall",
+          "chance": 0.03,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 8
+        }
+      ],
+      "tent": [
+        {
+          "decals": [
+            "floor_straw"
+          ],
+          "on": "floor",
+          "chance": 0.05,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 20
+        },
+        {
+          "decals": [
+            "floor_stains"
+          ],
+          "on": "floor",
+          "chance": 0.05,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 20
+        },
+        {
+          "decals": [
+            "floor_dust"
+          ],
+          "on": "edge",
+          "chance": 0.1,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 30
+        },
+        {
+          "decals": [
+            "wall_soot"
+          ],
+          "on": "wall",
+          "chance": 0.03,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 8
+        }
+      ],
+      "church": [
+        {
+          "decals": [
+            "floor_cracks"
+          ],
+          "on": "floor",
+          "chance": 0.04,
+          "size": [
+            0.6,
+            1.1
+          ],
+          "max": 20
+        },
+        {
+          "decals": [
+            "floor_moss"
+          ],
+          "on": "edge",
+          "chance": 0.08,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 25
+        },
+        {
+          "decals": [
+            "floor_dust"
+          ],
+          "on": "edge",
+          "chance": 0.08,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 25
+        },
+        {
+          "decals": [
+            "wall_damp"
+          ],
+          "on": "wall",
+          "chance": 0.06,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 20
+        },
+        {
+          "decals": [
+            "wall_moss"
+          ],
+          "on": "wall_foot",
+          "chance": 0.04,
+          "size": [
+            0.5,
+            0.8
+          ],
+          "max": 12
+        },
+        {
+          "scatter": [
+            "kit_scatter_pebbles"
+          ],
+          "on": "edge",
+          "chance": 0.04,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 15
+        }
+      ],
+      "dungeon": [
+        {
+          "decals": [
+            "floor_cracks"
+          ],
+          "on": "floor",
+          "chance": 0.05,
+          "size": [
+            0.6,
+            1.1
+          ],
+          "max": 30
+        },
+        {
+          "decals": [
+            "floor_moss"
+          ],
+          "on": "floor",
+          "chance": 0.05,
+          "size": [
+            0.5,
+            1.0
+          ],
+          "max": 30
+        },
+        {
+          "decals": [
+            "floor_puddles"
+          ],
+          "on": "floor",
+          "chance": 0.025,
+          "size": [
+            0.6,
+            1.2
+          ],
+          "max": 15,
+          "tint": [
+            0.72,
+            0.76,
+            0.86
+          ]
+        },
+        {
+          "decals": [
+            "floor_stains"
+          ],
+          "on": "floor",
+          "chance": 0.04,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 20
+        },
+        {
+          "decals": [
+            "floor_blood"
+          ],
+          "on": "floor",
+          "chance": 0.012,
+          "size": [
+            0.6,
+            1.1
+          ],
+          "max": 6
+        },
+        {
+          "decals": [
+            "floor_dust"
+          ],
+          "on": "edge",
+          "chance": 0.08,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 25
+        },
+        {
+          "decals": [
+            "wall_damp"
+          ],
+          "on": "wall",
+          "chance": 0.1,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 40
+        },
+        {
+          "decals": [
+            "wall_moss"
+          ],
+          "on": "wall_foot",
+          "chance": 0.06,
+          "size": [
+            0.5,
+            0.8
+          ],
+          "max": 20
+        },
+        {
+          "scatter": [
+            "kit_scatter_pebbles",
+            "kit_scatter_bones",
+            "kit_scatter_debris"
+          ],
+          "on": "edge",
+          "chance": 0.07,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 40
+        },
+        {
+          "scatter": [
+            "kit_scatter_mushrooms"
+          ],
+          "on": "edge",
+          "chance": 0.025,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 8
+        }
+      ],
+      "attic": [
+        {
+          "decals": [
+            "floor_dust"
+          ],
+          "on": "floor",
+          "chance": 0.12,
+          "size": [
+            0.6,
+            1.1
+          ],
+          "max": 40
+        },
+        {
+          "decals": [
+            "floor_dust"
+          ],
+          "on": "edge",
+          "chance": 0.2,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 40
+        },
+        {
+          "decals": [
+            "floor_straw"
+          ],
+          "on": "floor",
+          "chance": 0.04,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 12
+        },
+        {
+          "scatter": [
+            "kit_scatter_debris"
+          ],
+          "on": "floor",
+          "chance": 0.04,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 15
+        }
+      ],
+      "shrine_yard": [
+        {
+          "decals": [
+            "floor_leaves"
+          ],
+          "on": "floor",
+          "chance": 0.05,
+          "size": [
+            0.6,
+            1.1
+          ],
+          "max": 30
+        },
+        {
+          "decals": [
+            "floor_moss"
+          ],
+          "on": "edge",
+          "chance": 0.12,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 30
+        },
+        {
+          "decals": [
+            "floor_cracks"
+          ],
+          "on": "floor",
+          "chance": 0.03,
+          "size": [
+            0.6,
+            1.0
+          ],
+          "max": 15
+        },
+        {
+          "decals": [
+            "floor_mud"
+          ],
+          "on": "difficult",
+          "chance": 0.3,
+          "size": [
+            0.9,
+            1.4
+          ],
+          "max": 30
+        },
+        {
+          "decals": [
+            "wall_moss"
+          ],
+          "on": "wall_foot",
+          "chance": 0.12,
+          "size": [
+            0.5,
+            0.9
+          ],
+          "max": 30
+        },
+        {
+          "scatter": [
+            "kit_scatter_pebbles",
+            "kit_scatter_stones",
+            "kit_scatter_twigs"
+          ],
+          "on": "edge",
+          "chance": 0.06,
+          "size": [
+            0.8,
+            1.2
+          ],
+          "max": 60
+        }
+      ]
+    },
+    "places": {}
+  },
+  "outdoor_rooms": [
+    [
+      [
+        "jetty",
+        "pier",
+        "dock",
+        "boardwalk",
+        "wharf"
+      ],
+      {
+        "floor": "interior/wood_planks"
+      }
+    ]
+  ],
+  "double_doors": [
+    "great_doors"
+  ],
+  "glows": [],
+  "hand_placed": {
+    "about": "Things placed by hand (Natural Maps Plan I3, interiors, Modern look only). loose: the pieces a person sets down rather than lines up (a barrel, a crate, a chair, a basket, a stack of books): each stands off its square's middle by between half of `shift` of a square and all of it, and turned by between half of `turn` degrees and all of it, seeded by the square and never out of it. Pieces people line up (pews, beds, shelves, wardrobes, counters, tables against a wall) are not listed and keep their lines. one_piece: a straight run of three or more low-cover squares of one of these (a long table) is built as one long piece, its ends as modelled and its middle stretched, instead of a row of short ones; a run with something of the location's on it stays a row.",
+    "shift": 0.2,
+    "turn": 15,
+    "loose": [
+      "armchair",
+      "barrel",
+      "basket",
+      "bone_chair",
+      "bones",
+      "book_stack",
+      "bucket_brush",
+      "candle_cluster",
+      "cauldron",
+      "cheeses",
+      "chair_high",
+      "cookpot",
+      "crate",
+      "crate_stack",
+      "cushions",
+      "doll",
+      "doll_yellow",
+      "floor_books",
+      "footstool",
+      "hay_bale",
+      "holy_water_crate",
+      "incense_burner",
+      "instrument_tray",
+      "jewel_box",
+      "knitting_basket",
+      "letters_table",
+      "lute",
+      "music_box",
+      "poppet",
+      "receipt_table",
+      "rocking_chair",
+      "rope_coils",
+      "sack",
+      "sack_pile",
+      "satchel",
+      "sewing_basket",
+      "slate_stack",
+      "stewpot",
+      "strongbox",
+      "table_books",
+      "table_meal",
+      "tub_wooden",
+      "wine_tray",
+      "woodpile"
+    ],
+    "one_piece": [
+      "table"
+    ]
+  },
+  "runs_along": [
+    "fence",
+    "wall_low"
+  ],
+  "map_marks": {
+    "great_tent": {
+      "fill": "crimson",
+      "rim": "candle",
+      "stripes": [
+        "crimson",
+        "plum",
+        "blood",
+        "candle",
+        "bruise",
+        "plum"
+      ],
+      "shape": "round",
+      "scale": 0.82
+    },
+    "tent": {
+      "fill": "plum",
+      "rim": "candle",
+      "stripes": [
+        "plum",
+        "blood",
+        "candle"
+      ],
+      "shape": "round",
+      "scale": 0.8
+    },
+    "vardo": {
+      "fill": "blood",
+      "rim": "candle",
+      "scale": 0.8
+    },
+    "wagon": {
+      "fill": "umber",
+      "rim": "tan",
+      "scale": 0.8
+    },
+    "market_stall": {
+      "fill": "crimson",
+      "rim": "ivory",
+      "scale": 0.85
+    }
+  },
+  "furnish": {
+    "about": "Lived-in rooms (world/look/furnish.gd, docs/art/interiors.md): what a room of its kind holds, besides the things its location names. rooms: [[words in the area's name, else its id], {wall, floor, centre: [art], rug: surface}], first match; themes: the board theme's set where no room matches. A wall piece goes on about `wall_fill` of the free wall faces, a floor piece on about `floor_fill` of the free squares along a wall (never in a passage one square wide), a low thing on about `centre_fill` of the open floor (never two side by side), a rug under the middle of a room whose rule names one; never beside doors, exits, spawns, lights or people, nor on a wall square holding the location's own things. Pieces in `lit` (lanterns, candles) give a little light, at most `lights_per_room` in a room. sets: named sets an area picks with `furnish: \"<set>\"` instead of its kind (a burned hall's debris); a rule or set may give its own wall_fill, floor_fill and centre_fill.",
+    "rooms": [
+      [
+        [
+          "hunter"
+        ],
+        {
+          "floor": [
+            "holy_water_crate",
+            "stake_bundle",
+            "crate",
+            "holy_water_crate"
+          ]
+        }
+      ],
+      [
+        [
+          "infirmary"
+        ],
+        {
+          "wall": [
+            "curtain_hooks"
+          ]
+        }
+      ],
+      [
+        [
+          "stable",
+          "stall",
+          "byre"
+        ],
+        {
+          "wall": [
+            "tack",
+            "lantern_bracket"
+          ],
+          "floor": [
+            "hay_bale",
+            "sack_pile",
+            "barrel",
+            "bucket_brush"
+          ],
+          "centre": [
+            "hay_bale",
+            "bucket_brush",
+            "sack_pile"
+          ]
+        }
+      ],
+      [
+        [
+          "kitchen",
+          "bakery",
+          "scullery",
+          "cookhouse"
+        ],
+        {
+          "wall": [
+            "drying_herbs",
+            "pot_rack",
+            "shelf_goods",
+            "jars",
+            "shelves_wall"
+          ],
+          "floor": [
+            "sack_pile",
+            "basket",
+            "barrel",
+            "tub_wooden",
+            "crate_stack",
+            "bucket_brush"
+          ],
+          "centre": [
+            "table_meal",
+            "basket",
+            "sack_pile",
+            "bucket_brush"
+          ]
+        }
+      ],
+      [
+        [
+          "larder",
+          "pantry",
+          "storeroom",
+          "store room",
+          "storage",
+          "cellar",
+          "stores",
+          "fermenting",
+          "bottling",
+          "cask",
+          "vintage"
+        ],
+        {
+          "wall": [
+            "jars",
+            "shelf_goods",
+            "shelves_wall"
+          ],
+          "floor": [
+            "barrel",
+            "crate_stack",
+            "sack_pile",
+            "sack",
+            "cheeses"
+          ],
+          "centre": [
+            "crate_stack",
+            "sack_pile",
+            "barrel"
+          ]
+        }
+      ],
+      [
+        [
+          "library",
+          "study",
+          "office",
+          "reading",
+          "stacks",
+          "scriptorium"
+        ],
+        {
+          "wall": [
+            "painting",
+            "painting_row",
+            "family_portrait",
+            "lantern_bracket"
+          ],
+          "floor": [
+            "book_stack",
+            "table_books",
+            "candelabra",
+            "book_stack"
+          ],
+          "centre": [
+            "table_books",
+            "floor_books",
+            "armchair"
+          ],
+          "rug": "interior/carpet"
+        }
+      ],
+      [
+        [
+          "nursery",
+          "children",
+          "playroom"
+        ],
+        {
+          "wall": [
+            "painting",
+            "drawings"
+          ],
+          "floor": [
+            "doll",
+            "rocking_horse",
+            "toy_chest"
+          ],
+          "centre": [
+            "doll",
+            "rocking_horse",
+            "floor_books"
+          ],
+          "rug": "interior/rug"
+        }
+      ],
+      [
+        [
+          "servant",
+          "quarters",
+          "barracks",
+          "dormitory",
+          "bunk",
+          "guardroom"
+        ],
+        {
+          "wall": [
+            "robe_pegs",
+            "uniforms",
+            "lantern_bracket"
+          ],
+          "floor": [
+            "footlocker",
+            "chest",
+            "sack",
+            "bench",
+            "washstand"
+          ],
+          "centre": [
+            "bench",
+            "bucket_brush",
+            "footlocker"
+          ]
+        }
+      ],
+      [
+        [
+          "bedroom",
+          "bedchamber",
+          "'s room",
+          "suite",
+          "guest room",
+          "rooms"
+        ],
+        {
+          "wall": [
+            "painting",
+            "mirror",
+            "portrait_couple",
+            "robe_pegs",
+            "shawl_line"
+          ],
+          "floor": [
+            "trunk",
+            "chest",
+            "candle_cluster",
+            "footlocker",
+            "bench",
+            "washstand"
+          ],
+          "centre": [
+            "floor_books",
+            "basket",
+            "bench"
+          ],
+          "rug": "interior/rug"
+        }
+      ],
+      [
+        [
+          "parlour",
+          "parlor",
+          "sitting",
+          "drawing room",
+          "den"
+        ],
+        {
+          "wall": [
+            "painting",
+            "portrait_couple",
+            "mirror",
+            "family_portrait",
+            "lantern_bracket"
+          ],
+          "floor": [
+            "candelabra",
+            "book_stack",
+            "armchair",
+            "table_books"
+          ],
+          "centre": [
+            "table_books",
+            "armchair",
+            "floor_books"
+          ],
+          "rug": "interior/carpet"
+        }
+      ],
+      [
+        [
+          "dining",
+          "tasting room",
+          "feast"
+        ],
+        {
+          "wall": [
+            "painting",
+            "tapestry",
+            "painting_row",
+            "lantern_bracket"
+          ],
+          "floor": [
+            "candelabra",
+            "wine_tray",
+            "bench"
+          ],
+          "rug": "interior/carpet",
+          "centre": [
+            "table_meal",
+            "bench"
+          ]
+        }
+      ],
+      [
+        [
+          "taproom",
+          "common room",
+          "tavern",
+          "bar"
+        ],
+        {
+          "wall": [
+            "stag_head",
+            "painting",
+            "notice_papers",
+            "robe_pegs",
+            "lantern_bracket",
+            "shelf_goods"
+          ],
+          "floor": [
+            "barrel",
+            "crate_stack",
+            "sack_pile",
+            "bench",
+            "table_meal"
+          ],
+          "centre": [
+            "table_meal",
+            "bench",
+            "table_chairs"
+          ]
+        }
+      ],
+      [
+        [
+          "workshop",
+          "workroom",
+          "smithy",
+          "forge",
+          "press"
+        ],
+        {
+          "wall": [
+            "shelves_wall",
+            "robe_pegs",
+            "shelf_goods",
+            "lantern_bracket"
+          ],
+          "floor": [
+            "crate_stack",
+            "woodpile",
+            "barrel",
+            "sack_pile",
+            "bucket_brush"
+          ],
+          "centre": [
+            "crate_stack",
+            "sack_pile",
+            "bucket_brush"
+          ]
+        }
+      ],
+      [
+        [
+          "shop",
+          "store",
+          "mercantile"
+        ],
+        {
+          "wall": [
+            "shelves_wall",
+            "jars",
+            "shelf_goods",
+            "oil_shelf"
+          ],
+          "floor": [
+            "crate_stack",
+            "barrel",
+            "sack_pile",
+            "basket",
+            "rope_coils"
+          ],
+          "centre": [
+            "crate_stack",
+            "barrel",
+            "basket",
+            "sack_pile"
+          ]
+        }
+      ],
+      [
+        [
+          "chapel",
+          "nave",
+          "shrine",
+          "altar",
+          "vestry",
+          "sacristy",
+          "chancel"
+        ],
+        {
+          "wall": [
+            "lantern_bracket"
+          ],
+          "floor": [
+            "bench",
+            "candelabra",
+            "floor_books",
+            "bench"
+          ]
+        }
+      ],
+      [
+        [
+          "crypt",
+          "tomb",
+          "vault",
+          "catacomb",
+          "undercroft",
+          "ossuary",
+          "mausoleum"
+        ],
+        {
+          "wall": [
+            "cobwebs"
+          ],
+          "floor": [
+            "bones",
+            "candle_cluster",
+            "bones",
+            "bone_scatter"
+          ],
+          "centre": [
+            "bone_scatter",
+            "candle_cluster"
+          ]
+        }
+      ],
+      [
+        [
+          "cell",
+          "dungeon",
+          "prison",
+          "torture",
+          "oubliette",
+          "gaol"
+        ],
+        {
+          "wall": [
+            "wall_chains",
+            "skeleton_shackles"
+          ],
+          "floor": [
+            "bones",
+            "sack",
+            "bucket_brush",
+            "bone_scatter"
+          ],
+          "centre": [
+            "bone_scatter",
+            "bucket_brush"
+          ]
+        }
+      ],
+      [
+        [
+          "attic",
+          "loft",
+          "garret"
+        ],
+        {
+          "wall": [
+            "cobwebs"
+          ],
+          "floor": [
+            "crate_stack",
+            "trunk",
+            "sack_pile",
+            "sheeted_furniture",
+            "crate"
+          ],
+          "centre": [
+            "crate_stack",
+            "sheeted_furniture",
+            "trunk",
+            "floor_books"
+          ]
+        }
+      ],
+      [
+        [
+          "hall",
+          "foyer",
+          "entrance",
+          "landing",
+          "gallery",
+          "vestibule"
+        ],
+        {
+          "wall": [
+            "painting",
+            "painting_row",
+            "family_portrait",
+            "tapestry",
+            "lantern_bracket"
+          ],
+          "floor": [
+            "candelabra",
+            "chair_high",
+            "bench"
+          ],
+          "rug": "interior/carpet",
+          "centre": [
+            "candelabra",
+            "armchair"
+          ]
+        }
+      ],
+      [
+        [
+          "conservatory",
+          "music"
+        ],
+        {
+          "wall": [
+            "painting",
+            "mirror"
+          ],
+          "floor": [
+            "candelabra",
+            "armchair"
+          ],
+          "rug": "interior/rug",
+          "centre": [
+            "armchair"
+          ]
+        }
+      ],
+      [
+        [
+          "nest"
+        ],
+        {
+          "floor": [
+            "straw"
+          ],
+          "centre": [
+            "straw"
+          ]
+        }
+      ]
+    ],
+    "themes": {
+      "manor": {
+        "wall": [
+          "painting",
+          "family_portrait",
+          "portrait_couple",
+          "mirror",
+          "lantern_bracket"
+        ],
+        "floor": [
+          "candelabra",
+          "chair_high",
+          "chest",
+          "book_stack"
+        ],
+        "centre": [
+          "table_books",
+          "armchair",
+          "floor_books"
+        ]
+      },
+      "townhouse": {
+        "wall": [
+          "painting",
+          "portrait_couple",
+          "mirror",
+          "shelf_goods"
+        ],
+        "floor": [
+          "chest",
+          "candle_cluster",
+          "basket",
+          "bench"
+        ],
+        "centre": [
+          "basket",
+          "bench"
+        ]
+      },
+      "house": {
+        "wall": [
+          "drying_herbs",
+          "robe_pegs",
+          "shelves_wall",
+          "shelf_goods",
+          "pot_rack"
+        ],
+        "floor": [
+          "sack_pile",
+          "basket",
+          "barrel",
+          "chest",
+          "bench",
+          "bucket_brush"
+        ],
+        "centre": [
+          "table_meal",
+          "basket",
+          "bucket_brush",
+          "sack_pile"
+        ]
+      },
+      "tavern": {
+        "wall": [
+          "stag_head",
+          "painting",
+          "robe_pegs",
+          "lantern_bracket",
+          "shelf_goods"
+        ],
+        "floor": [
+          "barrel",
+          "crate_stack",
+          "sack_pile",
+          "bench"
+        ],
+        "centre": [
+          "table_meal",
+          "bench"
+        ]
+      },
+      "inn": {
+        "wall": [
+          "stag_head",
+          "painting",
+          "robe_pegs",
+          "lantern_bracket",
+          "shelf_goods"
+        ],
+        "floor": [
+          "barrel",
+          "crate_stack",
+          "sack_pile",
+          "bench"
+        ],
+        "centre": [
+          "table_meal",
+          "bench"
+        ]
+      },
+      "shop": {
+        "wall": [
+          "shelves_wall",
+          "jars",
+          "shelf_goods",
+          "oil_shelf"
+        ],
+        "floor": [
+          "crate_stack",
+          "barrel",
+          "sack_pile",
+          "basket",
+          "rope_coils"
+        ],
+        "centre": [
+          "crate_stack",
+          "barrel",
+          "basket"
+        ]
+      },
+      "attic": {
+        "wall": [
+          "cobwebs"
+        ],
+        "floor": [
+          "crate_stack",
+          "trunk",
+          "sack_pile",
+          "sheeted_furniture"
+        ],
+        "centre": [
+          "crate_stack",
+          "trunk",
+          "floor_books"
+        ]
+      },
+      "church": {
+        "wall": [
+          "lantern_bracket"
+        ],
+        "floor": [
+          "candle_cluster",
+          "candelabra",
+          "bench"
+        ]
+      }
+    },
+    "wall_fill": 0.9,
+    "floor_fill": 0.8,
+    "centre_fill": 0.28,
+    "lights_per_room": 2,
+    "lit": [
+      "lantern_bracket",
+      "candle_cluster",
+      "lantern_stand",
+      "candelabra"
+    ],
+    "sets": {
+      "burned": {
+        "floor": [
+          "fallen_beam",
+          "charred_furniture",
+          "ash_heap",
+          "rubble",
+          "fallen_beam",
+          "ash_heap"
+        ],
+        "centre": [
+          "ash_heap",
+          "fallen_beam",
+          "charred_furniture",
+          "rubble"
+        ],
+        "floor_fill": 0.75,
+        "centre_fill": 0.5
+      },
+      "burned_gallery": {
+        "floor": [
+          "fallen_frames",
+          "fallen_beam",
+          "ash_heap",
+          "fallen_frames",
+          "rubble"
+        ],
+        "centre": [
+          "fallen_frames",
+          "ash_heap",
+          "fallen_beam"
+        ],
+        "floor_fill": 0.75,
+        "centre_fill": 0.5
+      },
+      "den": {
+        "floor": [
+          "straw",
+          "straw_pallet",
+          "bones",
+          "rug_wolf",
+          "straw"
+        ],
+        "centre": [
+          "straw",
+          "bones"
+        ],
+        "floor_fill": 0.7,
+        "centre_fill": 0.35
+      },
+      "library_bare": {
+        "wall": [
+          "painting",
+          "painting_row",
+          "family_portrait",
+          "lantern_bracket"
+        ],
+        "floor": [
+          "book_stack",
+          "table_books",
+          "candelabra",
+          "book_stack"
+        ],
+        "centre": [
+          "table_books",
+          "floor_books",
+          "armchair"
+        ]
+      },
+      "tended_vault": {
+        "floor": [
+          "candle_cluster",
+          "leaves",
+          "candelabra",
+          "leaves"
+        ],
+        "centre": [
+          "leaves",
+          "candle_cluster"
+        ],
+        "floor_fill": 0.6,
+        "centre_fill": 0.35
+      },
+      "amber_hall": {
+        "floor": [
+          "rubble",
+          "bones",
+          "candle_cluster",
+          "rubble",
+          "bones"
+        ],
+        "centre": [
+          "rubble",
+          "bones"
+        ],
+        "floor_fill": 0.65,
+        "centre_fill": 0.4
+      },
+      "frozen_reading": {
+        "wall": [
+          "chained_bookcase"
+        ],
+        "floor": [
+          "book_stack",
+          "floor_books",
+          "lectern",
+          "book_stack"
+        ],
+        "centre": [
+          "floor_books",
+          "book_stack"
+        ],
+        "floor_fill": 0.7,
+        "centre_fill": 0.35
+      },
+      "library_stacks": {
+        "floor": [
+          "book_stack",
+          "floor_books"
+        ],
+        "centre": [
+          "floor_books",
+          "book_stack"
+        ],
+        "floor_fill": 0.6,
+        "centre_fill": 0.3
+      },
+      "buried_study": {
+        "wall": [
+          "drawings",
+          "notice_papers"
+        ],
+        "floor": [
+          "book_stack",
+          "floor_books",
+          "letters_table",
+          "book_stack"
+        ],
+        "centre": [
+          "floor_books",
+          "book_stack"
+        ],
+        "wall_fill": 1.0,
+        "floor_fill": 0.8,
+        "centre_fill": 0.45
+      },
+      "offerings": {
+        "floor": [
+          "offering_pile",
+          "gold_heap",
+          "offering_pile"
+        ],
+        "centre": [
+          "offering_pile",
+          "gold_heap"
+        ],
+        "floor_fill": 0.75,
+        "centre_fill": 0.5
+      },
+      "wardens_cells": {
+        "floor": [
+          "bed_small",
+          "footlocker",
+          "candle_cluster",
+          "bed_small"
+        ],
+        "floor_fill": 0.7
+      },
+      "cold_sanctum": {
+        "floor": [
+          "brazier_cold",
+          "rubble",
+          "rubble"
+        ],
+        "centre": [
+          "rubble",
+          "bones"
+        ],
+        "floor_fill": 0.45,
+        "centre_fill": 0.2
+      },
+      "guard_pallets": {
+        "floor": [
+          "straw_pallet",
+          "straw_pallet",
+          "footlocker",
+          "straw_pallet"
+        ],
+        "floor_fill": 0.8
+      },
+      "prison_cells": {
+        "wall": [
+          "wall_chains"
+        ],
+        "floor": [
+          "straw",
+          "bucket_brush",
+          "straw"
+        ],
+        "centre": [
+          "straw"
+        ],
+        "wall_fill": 1.0,
+        "floor_fill": 0.8,
+        "centre_fill": 0.4
+      },
+      "cauldron_room": {
+        "wall": [
+          "drying_herbs",
+          "pot_rack"
+        ],
+        "floor": [
+          "sack_pile",
+          "bones",
+          "basket",
+          "cookpot"
+        ],
+        "centre": [
+          "bones",
+          "basket"
+        ],
+        "floor_fill": 0.7,
+        "centre_fill": 0.3
+      },
+      "stone_gallery": {
+        "floor": [
+          "candelabra",
+          "statue_head"
+        ],
+        "floor_fill": 0.35
+      },
+      "webbed_ballroom": {
+        "wall": [
+          "cobwebs",
+          "tapestry"
+        ],
+        "floor": [
+          "sheeted_furniture",
+          "chair_high",
+          "candelabra"
+        ],
+        "centre": [
+          "sheeted_furniture"
+        ],
+        "wall_fill": 0.5,
+        "floor_fill": 0.35,
+        "centre_fill": 0.2
+      },
+      "dragons_den": {
+        "floor": [
+          "rubble",
+          "ice_patch",
+          "snowdrift"
+        ],
+        "centre": [
+          "ice_patch",
+          "rubble"
+        ],
+        "floor_fill": 0.3,
+        "centre_fill": 0.15
+      },
+      "faded_parlour": {
+        "wall": [
+          "painting",
+          "family_portrait",
+          "mirror",
+          "lantern_bracket"
+        ],
+        "floor": [
+          "candelabra",
+          "book_stack"
+        ],
+        "centre": [
+          "armchair",
+          "settee"
+        ],
+        "wall_fill": 0.4,
+        "floor_fill": 0.3,
+        "centre_fill": 0.25
+      },
+      "dragon_hoard": {
+        "floor": [
+          "gold_heap",
+          "bones",
+          "rubble",
+          "ash_heap"
+        ],
+        "centre": [
+          "bones",
+          "gold_heap",
+          "ash_heap"
+        ],
+        "floor_fill": 0.4,
+        "centre_fill": 0.15
+      },
+      "scorched_cave": {
+        "floor": [
+          "rubble",
+          "ash_heap",
+          "bones",
+          "rubble"
+        ],
+        "centre": [
+          "ash_heap",
+          "rubble"
+        ],
+        "floor_fill": 0.4,
+        "centre_fill": 0.15
+      },
+      "wine_store": {
+        "wall": [
+          "jars"
+        ],
+        "floor": [
+          "barrel",
+          "barrel_spigot",
+          "crate_stack"
+        ],
+        "centre": [
+          "barrel",
+          "wine_tray"
+        ],
+        "wall_fill": 0.3,
+        "floor_fill": 0.5,
+        "centre_fill": 0.2
+      }
+    }
+  },
+  "theme_rooms": {
+    "about": "Room styles for one board theme, checked before the general `rooms`: a farmhouse's bedrooms are plaster and planks, not a manor's carpet and wallpaper. A dungeon's halls, galleries and chambers stay stone (the Region Variety Plan: the dragon's gallery was laid in checker marble).",
+    "house": [
+      [
+        [
+          "bedroom",
+          "'s room",
+          "suite",
+          "guest room",
+          "bedchamber",
+          "parlour",
+          "parlor"
+        ],
+        {
+          "floor": "interior/wood_planks",
+          "wall": "interior/plaster_wall"
+        }
+      ]
+    ],
+    "attic": [
+      [
+        [
+          "landing",
+          "stairhead",
+          "hall",
+          "nest",
+          "corner",
+          "room"
+        ],
+        {
+          "floor": "interior/attic_boards",
+          "wall": "interior/damp_plaster"
+        }
+      ]
+    ],
+    "dungeon": [
+      [
+        [
+          "hall",
+          "gallery",
+          "entrance",
+          "entry",
+          "foyer",
+          "landing",
+          "chamber"
+        ],
+        {
+          "floor": "dungeon/stone_floor",
+          "wall": "dungeon/stone_wall"
+        }
+      ]
+    ]
+  },
+  "low_cover_rooms": [
+    [
+      [
+        "arrow slit"
+      ],
+      {
+        "single": [
+          "wall_low"
+        ],
+        "run": [
+          "wall_low"
+        ]
+      }
+    ],
+    [
+      [
+        "sanctum"
+      ],
+      {
+        "single": [
+          "brazier_cold"
+        ],
+        "run": [
+          "brazier_cold"
+        ]
+      }
+    ],
+    [
+      [
+        "hall of echoes",
+        "reading hall"
+      ],
+      {
+        "single": [
+          "desk"
+        ],
+        "run": [
+          "desk"
+        ]
+      }
+    ],
+    [
+      [
+        "reading room"
+      ],
+      {
+        "single": [
+          "lectern"
+        ],
+        "run": [
+          "lectern"
+        ]
+      }
+    ],
+    [
+      [
+        "servants' hall",
+        "refectory",
+        "mess hall"
+      ],
+      {
+        "single": [
+          "table_set"
+        ],
+        "run": [
+          "table_set"
+        ]
+      }
+    ],
+    [
+      [
+        "foundling",
+        "orphan"
+      ],
+      {
+        "single": [
+          "crib"
+        ],
+        "run": [
+          "crib"
+        ]
+      }
+    ],
+    [
+      [
+        "stable",
+        "stall",
+        "byre"
+      ],
+      {
+        "single": [
+          "hay_bale",
+          "trough",
+          "sack"
+        ],
+        "run": [
+          "hay_bale"
+        ]
+      }
+    ],
+    [
+      [
+        "kitchen",
+        "bakery",
+        "scullery",
+        "cookhouse"
+      ],
+      {
+        "single": [
+          "workbench",
+          "barrel",
+          "tub_wooden",
+          "sack_pile",
+          "table_meal"
+        ],
+        "run": [
+          "workbench"
+        ]
+      }
+    ],
+    [
+      [
+        "larder",
+        "pantry",
+        "storeroom",
+        "store room",
+        "storage",
+        "stores"
+      ],
+      {
+        "single": [
+          "barrel",
+          "crate_stack",
+          "sack_pile"
+        ],
+        "run": [
+          "crate"
+        ],
+        "wall_run": [
+          "shelves"
+        ]
+      }
+    ],
+    [
+      [
+        "library",
+        "study",
+        "office",
+        "reading",
+        "stacks",
+        "scriptorium"
+      ],
+      {
+        "single": [
+          "desk",
+          "armchair",
+          "table_books",
+          "letters_table"
+        ],
+        "run": [
+          "table"
+        ],
+        "wall_run": [
+          "book_shelf"
+        ]
+      }
+    ],
+    [
+      [
+        "nursery",
+        "children",
+        "playroom"
+      ],
+      {
+        "single": [
+          "toy_chest",
+          "rocking_horse",
+          "crib"
+        ]
+      }
+    ],
+    [
+      [
+        "servant",
+        "quarters",
+        "barracks",
+        "dormitory",
+        "bunk",
+        "guardroom"
+      ],
+      {
+        "single": [
+          "bed_small",
+          "footlocker",
+          "table_chairs"
+        ],
+        "run": [
+          "bed_small"
+        ]
+      }
+    ],
+    [
+      [
+        "dining",
+        "tasting room",
+        "feast"
+      ],
+      {
+        "single": [
+          "table_meal",
+          "table_chairs",
+          "sideboard"
+        ],
+        "run": [
+          "table_set"
+        ]
+      }
+    ],
+    [
+      [
+        "taproom",
+        "common room",
+        "tavern",
+        "bar"
+      ],
+      {
+        "single": [
+          "table_meal",
+          "table_chairs",
+          "barrel",
+          "table_chairs"
+        ],
+        "run": [
+          "bar_counter"
+        ],
+        "wall_run": [
+          "bar_counter"
+        ]
+      }
+    ],
+    [
+      [
+        "workshop",
+        "workroom",
+        "smithy",
+        "forge"
+      ],
+      {
+        "single": [
+          "workbench",
+          "crate",
+          "barrel"
+        ],
+        "run": [
+          "workbench"
+        ]
+      }
+    ],
+    [
+      [
+        "attic",
+        "loft",
+        "garret"
+      ],
+      {
+        "single": [
+          "crate",
+          "trunk",
+          "sheeted_furniture",
+          "sack"
+        ]
+      }
+    ],
+    [
+      [
+        "bottling"
+      ],
+      {
+        "single": [
+          "bottle_rack"
+        ],
+        "run": [
+          "bottle_rack"
+        ]
+      }
+    ],
+    [
+      [
+        "cask"
+      ],
+      {
+        "single": [
+          "cask_rack",
+          "barrel"
+        ],
+        "run": [
+          "cask_rack"
+        ]
+      }
+    ],
+    [
+      [
+        "nest"
+      ],
+      {
+        "single": [
+          "straw_pallet"
+        ],
+        "run": [
+          "straw_pallet"
+        ]
+      }
+    ],
+    [
+      [
+        "the pen",
+        "den children"
+      ],
+      {
+        "single": [
+          "straw_pallet"
+        ],
+        "run": [
+          "straw_pallet"
+        ]
+      }
+    ],
+    [
+      [
+        "ballroom"
+      ],
+      {
+        "single": [
+          "fallen_beam"
+        ],
+        "run": [
+          "fallen_beam"
+        ]
+      }
+    ]
+  ]
+}

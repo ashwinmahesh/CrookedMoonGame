@@ -1,0 +1,157 @@
+{
+  "_note": "Random magic item placement (story/treasure.gd, ADR 0012). The party's level in each region (from the region design docs) decides the rarities, following the 2024 DMG's treasure guidance: tier 1 (levels 1-4) mostly common and uncommon items, tier 2 (levels 5-10) mostly uncommon and rare with the odd very rare one. A location can name its own level with \"treasure_level\". No common items (owner, 2026-10-08: early commons become uncommon, later ones rarer): the DMG's common share goes to uncommon.",
+  "region_levels": {
+    "test_grounds": 1
+  },
+  "rarity_by_level": [
+    {
+      "max_level": 2,
+      "weights": {
+        "uncommon": 100
+      }
+    },
+    {
+      "max_level": 4,
+      "weights": {
+        "uncommon": 95,
+        "rare": 5
+      }
+    },
+    {
+      "max_level": 7,
+      "weights": {
+        "uncommon": 75,
+        "rare": 25
+      }
+    },
+    {
+      "max_level": 10,
+      "weights": {
+        "uncommon": 55,
+        "rare": 38,
+        "very_rare": 7
+      }
+    },
+    {
+      "max_level": 20,
+      "weights": {
+        "uncommon": 25,
+        "rare": 45,
+        "very_rare": 25,
+        "legendary": 5
+      }
+    }
+  ],
+  "_shop_note": "Merchants' magic stock (story/trade.gd magic_stock; Ashwin, 2026-10-14): an item shows once the party's milestone level reaches its rarity's level here (common and uncommon from the start), the tiers found treasure follows (docs/story/found_magic_items.md), so a level 1 party in the village finds nothing rare for sale. Prices are Sane Magical Prices (magic_prices.json).",
+  "shop_levels": {
+    "rare": 5,
+    "very_rare": 9,
+    "legendary": 10
+  },
+  "items_per_location": {
+    "none": 10,
+    "one": 40,
+    "two": 50,
+    "extra_if_containers": 3,
+    "extra_chance": 50
+  },
+  "potions_per_location": {
+    "none": 25,
+    "one": 50,
+    "two": 25,
+    "healing": 60
+  },
+  "_loot_note": "Owner, 2026-10-12: loot felt light. A place with chests now holds 0-2 random magic items (1.4 on average) plus one more half the time with three or more chests, and 0-2 potions besides: a healing potion for the party's tier (healing share in percent) or else any potion of the place's rarity. Story fights leave coins by each foe's Challenge Rating and a find, as road fights do (RoadSpoils).",
+  "theme_full_weight": 8,
+  "_theme_note": "A roll picks a rarity, then a theme (arcana, armaments, implements, relics) evenly, then an item in it by weight. A theme whose pool at that rarity weighs less than theme_full_weight gets a share in proportion, so a theme with one or two items doesn't hand them out in a quarter of all rolls (owner, 2026-10-12).",
+  "group_weights": {
+    "spell_scroll": 4,
+    "potion": 3
+  },
+  "_distinct_note": "Each lasting magic item turns up once (Ashwin, 2026-10-17: the Amulet of the Devout was found six times). Random treasure never rolls a kind of item the story places anywhere (a find, a hoard, a gift or a reward) or one already rolled this playthrough or carried by the party (story/treasure.gd taken_kinds). A kind (Treasure.kind_of): a +1, +2 or +3 of one item, or variants that work the same way (Belt of Giant Strength, Ring of Resistance, Bag of Tricks, Instruments of the Bards), are one kind, except the `distinct_variants`, which do different things; a plain +N weapon, armor or shield counts by its base (`kind_by_base`: a +1 and a +2 Longsword are one kind, a +1 Rapier another); any other item made on a base by its template. Consumables (potions, scrolls, ammunition, oils, dusts) repeat. tests/unit/test_loot_distinct.gd checks the story's own placements.",
+  "distinct_variants": [
+    "ioun_stone",
+    "figurine_of_wondrous_power"
+  ],
+  "kind_by_base": [
+    "weapon_plus",
+    "armor_plus",
+    "shield_plus"
+  ],
+  "_support_note": "Found treasure leans to combat (Ashwin, 2026-10-17: the magic items we find should be combat focused, with a mix for every class). These items do nothing in a fight (travel, carrying, scouting, social and household magic); a random roll weighs each at `support_weight` of an ordinary item's chance, so they still turn up now and then. The audit behind the list: docs/story/magic_item_audit.md.",
+  "support_weight": 0.25,
+  "support_items": [
+    "adamantine_weapon",
+    "alchemy_jug",
+    "bag_of_holding",
+    "blemished_idol_of_good_fortunes",
+    "broom_of_flying",
+    "budding_blossom_rod",
+    "cap_of_water_breathing",
+    "cloak_of_the_manta_ray",
+    "decanter_of_endless_water",
+    "driftglobe",
+    "efficient_quiver",
+    "eyes_of_minute_seeing",
+    "eyes_of_the_eagle",
+    "figurine_of_wondrous_power_silver_raven",
+    "gloves_of_thievery",
+    "hat_of_disguise",
+    "helm_of_comprehending_languages",
+    "immovable_rod",
+    "magewrights_gloves",
+    "mariners_armor",
+    "orb_of_divination_detection",
+    "pipes_of_the_sewers",
+    "ring_of_swimming",
+    "robe_of_useful_items",
+    "rope_of_climbing",
+    "silver_harper_pin",
+    "spell_slingers_puppet",
+    "thespians_playbill",
+    "thiefs_thimble",
+    "trident_of_fish_command",
+    "wand_of_freshness",
+    "wand_of_magic_detection",
+    "wand_of_secrets",
+    "arcane_chatelaine",
+    "bag_of_beans",
+    "boots_of_levitation",
+    "chime_of_opening",
+    "daerns_instant_fortress",
+    "dimensional_shackles",
+    "figurine_of_wondrous_power_ebony_fly",
+    "figurine_of_wondrous_power_ivory_goats",
+    "folding_boat",
+    "gem_of_seeing",
+    "golden_harper_pin",
+    "handy_haversack",
+    "horseshoes_of_speed",
+    "ioun_stone_sustenance",
+    "mages_manacle",
+    "portable_hole",
+    "ring_of_animal_influence",
+    "ring_of_x_ray_vision",
+    "secret_keepers_circlet",
+    "wand_of_enemy_detection",
+    "amulet_of_the_planes",
+    "carpet_of_flying_3x5",
+    "carpet_of_flying_4x6",
+    "carpet_of_flying_5x7",
+    "carpet_of_flying_6x9",
+    "crystal_ball",
+    "horseshoes_of_a_zephyr",
+    "manual_of_golems",
+    "marvelous_pigments",
+    "mirror_of_life_trapping",
+    "rod_of_security",
+    "apparatus_of_kwalish",
+    "crystal_ball_of_telepathy",
+    "crystal_ball_of_true_seeing",
+    "cubic_gate",
+    "sovereign_glue",
+    "sphere_of_annihilation",
+    "talisman_of_the_sphere",
+    "well_of_many_worlds"
+  ]
+}

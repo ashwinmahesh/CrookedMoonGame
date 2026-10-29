@@ -1,0 +1,576 @@
+{
+  "about": "PLACEHOLDER (docs/PLACEHOLDERS.md): What lies past a map's edge, seen when the camera tilts toward the horizon past its farthest zoom (Improvement Ideas W13, Vista, docs/art/atmosphere.md 'Vistas'). places: where each outdoor location lies on the travel art (fractions, x east, y south; from data/travel, with the places it leaves out set near their neighbours), so landmarks stand at their true bearing. castle: Castle Ravenloft on its crag (where it stands, the farthest it shows from, its art; its `from` lays a place's own numbers over it as a landmark's do: the Amber Temple's doors, the farthest place that sees it, stand high over the cloud sea and see it far below, drawn larger and sunk deeper). landmarks: each region's own painted landmark (the vault's Region Variety Plan; tools/art/build_vistas.py), shown from places within `within` of it and farther than `near` (a mountain isn't seen from its own slopes), the nearest four at most (Vista.MAX_LANDMARKS), none in front of another; `from` lays a place's own numbers over a landmark's where that place's map knows better than the travel art (Vista.seen_from): `bearing` (degrees clockwise from north), `far`, `height`, `sink`. The tilted camera only ever looks along a diagonal, so a landmark (or the castle) it wouldn't frame stands turned into the arc it frames round the nearest diagonal, on its own side of it, and one that would hide another stands just past it (Vista.on_skyline). The Abbey, due north of Krezk on the travel art, stands north-north-east of Krezk's maps, up the mountain its track climbs, a little higher than elsewhere (sink 1), on its crag above the far ridges; Krezk stands south-south-west of the Abbey's, down its switchback, lifted (sink -3) so its walls show over the rim of the Abbey's land. lake: Lake Zarovich (where, how big, and from how far it shows). styles: the mountains round the valley for each set of plants (art/plants/flora.json), four ridges from the farthest to the nearest, each [height, rise, roughness, haze] in world units on a ring radius units out (the farthest tops out about 4 to 5 degrees above the tilted camera's eye, leaving the top quarter of the frame to the sky), with snow above snow_line and a fringe of trees on the nearer ridges (treeline).",
+  "radius": 230.0,
+  "places": {
+    "test_hillside": [
+      0.5,
+      0.5
+    ]
+  },
+  "castle": {
+    "at": [
+      9.0,
+      9.0
+    ],
+    "within": 0.0,
+    "distance": 170.0,
+    "height": 34.0,
+    "sink": 6.0,
+    "art": "art/vistas/none.png"
+  },
+  "landmarks": {},
+  "lake": {
+    "at": [
+      9.0,
+      9.0
+    ],
+    "within": 0.0,
+    "distance": 95.0,
+    "size": [
+      80.0,
+      46.0
+    ]
+  },
+  "styles": {
+    "woods": {
+      "layers": [
+        [
+          14,
+          9,
+          1.6,
+          0.8
+        ],
+        [
+          9,
+          6,
+          2.6,
+          0.6
+        ],
+        [
+          4,
+          4,
+          4.5,
+          0.38
+        ],
+        [
+          -1,
+          3,
+          8.0,
+          0.16
+        ]
+      ],
+      "snow_line": 22,
+      "treeline": 1.0
+    },
+    "village": {
+      "layers": [
+        [
+          14,
+          9,
+          1.6,
+          0.8
+        ],
+        [
+          9,
+          6,
+          2.6,
+          0.6
+        ],
+        [
+          4,
+          4,
+          4.5,
+          0.38
+        ],
+        [
+          -1,
+          3,
+          8.0,
+          0.16
+        ]
+      ],
+      "snow_line": 22,
+      "treeline": 0.8
+    },
+    "autumn": {
+      "layers": [
+        [
+          13,
+          8,
+          1.6,
+          0.8
+        ],
+        [
+          8,
+          6,
+          2.6,
+          0.6
+        ],
+        [
+          3,
+          4,
+          4.5,
+          0.38
+        ],
+        [
+          -1,
+          3,
+          8.0,
+          0.16
+        ]
+      ],
+      "snow_line": 24,
+      "treeline": 0.9
+    },
+    "graves": {
+      "layers": [
+        [
+          13,
+          8,
+          1.8,
+          0.8
+        ],
+        [
+          8,
+          6,
+          3.0,
+          0.6
+        ],
+        [
+          4,
+          4,
+          5.0,
+          0.38
+        ],
+        [
+          -1,
+          3,
+          8.0,
+          0.16
+        ]
+      ],
+      "snow_line": 60,
+      "treeline": 0.5
+    },
+    "vineyard": {
+      "layers": [
+        [
+          12,
+          7,
+          1.4,
+          0.82
+        ],
+        [
+          7,
+          5,
+          2.2,
+          0.62
+        ],
+        [
+          3,
+          3,
+          3.5,
+          0.4
+        ],
+        [
+          -1,
+          2,
+          6.0,
+          0.18
+        ]
+      ],
+      "snow_line": 60,
+      "treeline": 0.6
+    },
+    "heath": {
+      "layers": [
+        [
+          11,
+          6,
+          1.4,
+          0.84
+        ],
+        [
+          6,
+          4,
+          2.2,
+          0.66
+        ],
+        [
+          2,
+          3,
+          3.5,
+          0.44
+        ],
+        [
+          -1,
+          2,
+          6.0,
+          0.22
+        ]
+      ],
+      "snow_line": 60,
+      "treeline": 0.2
+    },
+    "sick": {
+      "layers": [
+        [
+          13,
+          8,
+          1.8,
+          0.8
+        ],
+        [
+          8,
+          6,
+          3.0,
+          0.6
+        ],
+        [
+          4,
+          4,
+          5.0,
+          0.38
+        ],
+        [
+          -1,
+          3,
+          8.0,
+          0.16
+        ]
+      ],
+      "snow_line": 60,
+      "treeline": 0.4
+    },
+    "spectral": {
+      "layers": [
+        [
+          14,
+          9,
+          1.8,
+          0.78
+        ],
+        [
+          9,
+          6,
+          3.0,
+          0.58
+        ],
+        [
+          4,
+          4,
+          5.0,
+          0.36
+        ],
+        [
+          -1,
+          3,
+          8.0,
+          0.16
+        ]
+      ],
+      "snow_line": 18,
+      "treeline": 0.3
+    },
+    "rock": {
+      "layers": [
+        [
+          17,
+          10,
+          2.2,
+          0.76
+        ],
+        [
+          11,
+          7,
+          3.4,
+          0.56
+        ],
+        [
+          5,
+          5,
+          5.5,
+          0.36
+        ],
+        [
+          0,
+          3,
+          8.0,
+          0.16
+        ]
+      ],
+      "snow_line": 24,
+      "treeline": 0.3
+    },
+    "rock_snow": {
+      "layers": [
+        [
+          18,
+          11,
+          2.4,
+          0.72
+        ],
+        [
+          12,
+          8,
+          3.4,
+          0.52
+        ],
+        [
+          6,
+          6,
+          5.0,
+          0.34
+        ],
+        [
+          1,
+          4,
+          7.0,
+          0.16
+        ]
+      ],
+      "snow_line": 14,
+      "treeline": 0.15
+    },
+    "forest": {
+      "layers": [
+        [
+          14,
+          9,
+          1.6,
+          0.8
+        ],
+        [
+          9,
+          6,
+          2.6,
+          0.6
+        ],
+        [
+          4,
+          4,
+          4.5,
+          0.38
+        ],
+        [
+          -1,
+          3,
+          8.0,
+          0.16
+        ]
+      ],
+      "snow_line": 22,
+      "treeline": 0.9
+    },
+    "lake": {
+      "layers": [
+        [
+          13,
+          8,
+          1.6,
+          0.82
+        ],
+        [
+          8,
+          5,
+          2.4,
+          0.62
+        ],
+        [
+          3,
+          3,
+          4.5,
+          0.4
+        ],
+        [
+          -1,
+          2,
+          8.0,
+          0.18
+        ]
+      ],
+      "snow_line": 21,
+      "treeline": 0.8
+    },
+    "mountain": {
+      "layers": [
+        [
+          17,
+          10,
+          1.8,
+          0.76
+        ],
+        [
+          11,
+          7,
+          2.8,
+          0.56
+        ],
+        [
+          5,
+          5,
+          4.5,
+          0.36
+        ],
+        [
+          0,
+          3,
+          7.0,
+          0.16
+        ]
+      ],
+      "snow_line": 19,
+      "treeline": 0.5
+    },
+    "snow": {
+      "layers": [
+        [
+          18,
+          11,
+          2.0,
+          0.72
+        ],
+        [
+          12,
+          8,
+          3.0,
+          0.52
+        ],
+        [
+          6,
+          6,
+          4.5,
+          0.34
+        ],
+        [
+          1,
+          4,
+          7.0,
+          0.16
+        ]
+      ],
+      "snow_line": 10,
+      "treeline": 0.2
+    },
+    "baratok": {
+      "layers": [
+        [
+          18,
+          11,
+          2.0,
+          0.72
+        ],
+        [
+          12,
+          8,
+          3.0,
+          0.52
+        ],
+        [
+          6,
+          6,
+          4.5,
+          0.34
+        ],
+        [
+          1,
+          4,
+          7.0,
+          0.16
+        ]
+      ],
+      "snow_line": 10,
+      "treeline": 0.2
+    },
+    "marsh": {
+      "layers": [
+        [
+          11,
+          6,
+          1.5,
+          0.84
+        ],
+        [
+          6,
+          4,
+          2.4,
+          0.66
+        ],
+        [
+          2,
+          3,
+          4.0,
+          0.44
+        ],
+        [
+          -1,
+          2,
+          7.0,
+          0.22
+        ]
+      ],
+      "snow_line": 60,
+      "treeline": 0.6
+    },
+    "blight": {
+      "layers": [
+        [
+          13,
+          8,
+          1.8,
+          0.8
+        ],
+        [
+          8,
+          6,
+          3.0,
+          0.6
+        ],
+        [
+          4,
+          4,
+          5.0,
+          0.38
+        ],
+        [
+          -1,
+          3,
+          8.0,
+          0.16
+        ]
+      ],
+      "snow_line": 60,
+      "treeline": 0.4
+    },
+    "castle": {
+      "layers": [
+        [
+          15,
+          9,
+          2.0,
+          0.76
+        ],
+        [
+          9,
+          7,
+          3.2,
+          0.56
+        ],
+        [
+          4,
+          5,
+          5.0,
+          0.34
+        ],
+        [
+          -1,
+          4,
+          8.0,
+          0.14
+        ]
+      ],
+      "snow_line": 60,
+      "treeline": 0.3
+    }
+  }
+}

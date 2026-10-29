@@ -1,0 +1,354 @@
+{
+  "id": "test_hillside",
+  "name": "The Test Hillside",
+  "region": "test_grounds",
+  "summary": "The foundation's test place: a hillside above a creek, a cottage on a level bench, a fence and a gate, woods on both sides. Built as a place first (land, height, water, woods, a house) and laid into the rules grid afterwards.",
+  "text": "A hill leans up into the dark, with a creek cutting down its western side and a cottage sitting on a shelf of level ground. Somebody has built a fence along the front of the shelf and left a gap in it.",
+  "map": {
+    "rows": [
+      "##################################",
+      "#....~w~....######################",
+      "####..w...................########",
+      "####.~w~..................########",
+      "####..~w~.................########",
+      "####...w.~................########",
+      "####..~.w.................########",
+      "######.~w~...................##.##",
+      "######..w....................###.#",
+      "######.~w~.......###..........####",
+      "######..~w~......###.==......#.###",
+      "######...w...==......=.......##.##",
+      "######..~w~.............=....###.#",
+      "######...w.......................#",
+      "######..~w~......................#",
+      "######...~w=======..=======......#",
+      "#####.....w.~....................#",
+      "####.#...~.w.~.........~~........#",
+      "######....~.w.~........~~~.......#",
+      "#####......~.w.~........~.=......#",
+      "####........~.~.~................#",
+      "####...=.....~.~.~...............#",
+      "####........=.~.w.~.........#.##.#",
+      "####...........~.w.~..=.....##.###",
+      "####............~.w..........##.##",
+      "#................~w~........#.##.#",
+      "#.................w.........##.###",
+      "##################w###############"
+    ],
+    "elevation": [
+      "5556665655555555555666665555554455",
+      "5555554555555555555666655555555555",
+      "5555554555444555555666555555555555",
+      "4555554444444455555555555555555555",
+      "4444444344444445555555555555555555",
+      "4444444333344444555555555555555555",
+      "4444443323333444455555444444555555",
+      "4444333323333444444444444444555555",
+      "4443333323333454444444333444455555",
+      "4433333212222233333333222333445555",
+      "4333332221222222222222222222344555",
+      "4333322221222222222222222222344444",
+      "3333222221222222222222222222344444",
+      "3333222221222222222222222222333333",
+      "3322222221222222222222222222333333",
+      "3222222222122222222222222222233332",
+      "2222222223233332222111112222222222",
+      "2222222223323322221111111222222222",
+      "1111222222332222211111112222222211",
+      "1111122222222122211111112222221111",
+      "1111112222222211111111112222211111",
+      "0001111222222210111111122222211110",
+      "0000111122221111011111122222111100",
+      "0000011111111111101111122221111000",
+      "0000011111111000000111111111111000",
+      "0000001111000000000011111111110000",
+      "0000000000000000000011111111100000",
+      "0000000000000000000001111110000000"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "meadow",
+      "name": "The meadow below the bench",
+      "cells": [
+        [
+          10,
+          16
+        ],
+        [
+          32,
+          26
+        ]
+      ]
+    },
+    {
+      "id": "bench",
+      "name": "The bench",
+      "cells": [
+        [
+          10,
+          9
+        ],
+        [
+          27,
+          14
+        ]
+      ]
+    },
+    {
+      "id": "gully",
+      "name": "The creek and its gully",
+      "cells": [
+        [
+          5,
+          1
+        ],
+        [
+          10,
+          15
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      22,
+      25
+    ],
+    "from_creek": [
+      14,
+      22
+    ]
+  },
+  "exits": [],
+  "props": [
+    {
+      "id": "test_cottage",
+      "cell": [
+        17,
+        9
+      ],
+      "kind": "examine",
+      "label": "The cottage",
+      "model": "cottage",
+      "span": [
+        3,
+        2
+      ],
+      "facing": "south"
+    },
+    {
+      "id": "test_lantern_post",
+      "cell": [
+        18,
+        14
+      ],
+      "kind": "decor",
+      "label": "A lantern on a post",
+      "model": "lantern_post"
+    },
+    {
+      "id": "test_well",
+      "cell": [
+        21,
+        13
+      ],
+      "kind": "examine",
+      "label": "The well",
+      "model": "well_stone"
+    },
+    {
+      "id": "test_scarecrow",
+      "cell": [
+        14,
+        12
+      ],
+      "kind": "examine",
+      "label": "A scarecrow",
+      "model": "scarecrow",
+      "facing": "south"
+    },
+    {
+      "id": "test_hay",
+      "cell": [
+        24,
+        12
+      ],
+      "kind": "decor",
+      "label": "A hay bale",
+      "model": "hay_bale"
+    },
+    {
+      "id": "test_garden",
+      "cell": [
+        20,
+        12
+      ],
+      "kind": "decor",
+      "label": "A garden bed",
+      "model": "garden_bed"
+    },
+    {
+      "id": "test_fence_1",
+      "cell": [
+        11,
+        15
+      ],
+      "kind": "decor",
+      "model": "fence",
+      "facing": "south"
+    },
+    {
+      "id": "test_fence_2",
+      "cell": [
+        12,
+        15
+      ],
+      "kind": "decor",
+      "model": "fence",
+      "facing": "south"
+    },
+    {
+      "id": "test_fence_3",
+      "cell": [
+        13,
+        15
+      ],
+      "kind": "decor",
+      "model": "fence",
+      "facing": "south"
+    },
+    {
+      "id": "test_fence_4",
+      "cell": [
+        14,
+        15
+      ],
+      "kind": "decor",
+      "model": "fence",
+      "facing": "south"
+    },
+    {
+      "id": "test_fence_5",
+      "cell": [
+        15,
+        15
+      ],
+      "kind": "decor",
+      "model": "fence",
+      "facing": "south"
+    },
+    {
+      "id": "test_fence_6",
+      "cell": [
+        16,
+        15
+      ],
+      "kind": "decor",
+      "model": "fence",
+      "facing": "south"
+    },
+    {
+      "id": "test_fence_7",
+      "cell": [
+        17,
+        15
+      ],
+      "kind": "decor",
+      "model": "fence",
+      "facing": "south"
+    },
+    {
+      "id": "test_fence_8",
+      "cell": [
+        20,
+        15
+      ],
+      "kind": "decor",
+      "model": "fence",
+      "facing": "south"
+    },
+    {
+      "id": "test_fence_9",
+      "cell": [
+        21,
+        15
+      ],
+      "kind": "decor",
+      "model": "fence",
+      "facing": "south"
+    },
+    {
+      "id": "test_fence_10",
+      "cell": [
+        22,
+        15
+      ],
+      "kind": "decor",
+      "model": "fence",
+      "facing": "south"
+    },
+    {
+      "id": "test_fence_11",
+      "cell": [
+        23,
+        15
+      ],
+      "kind": "decor",
+      "model": "fence",
+      "facing": "south"
+    },
+    {
+      "id": "test_fence_12",
+      "cell": [
+        24,
+        15
+      ],
+      "kind": "decor",
+      "model": "fence",
+      "facing": "south"
+    },
+    {
+      "id": "test_fence_13",
+      "cell": [
+        25,
+        15
+      ],
+      "kind": "decor",
+      "model": "fence",
+      "facing": "south"
+    },
+    {
+      "id": "test_fence_14",
+      "cell": [
+        26,
+        15
+      ],
+      "kind": "decor",
+      "model": "fence",
+      "facing": "south"
+    }
+  ],
+  "containers": [],
+  "lights": [
+    {
+      "cell": [
+        18,
+        14
+      ],
+      "kind": "candle",
+      "bright_ft": 10,
+      "dim_ft": 20
+    }
+  ],
+  "npcs": [],
+  "encounters": [],
+  "narration": {
+    "enter": "enter:test_hillside"
+  },
+  "rest": "risky",
+  "rest_text": "The hill listens while you try to sleep."
+}
