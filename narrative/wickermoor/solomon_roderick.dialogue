@@ -1,0 +1,42 @@
+# Drafted by Gemini (R11 batch b3), edited. solomon_roderick's first conversation.
+
+~ start
+set solomon_roderick_met
+Narrator: Stone dust hangs thick in the yard, sharp as powdered chalk on your tongue. Solomon sets down a heavy iron mallet and steps between you and a small girl sorting chisels.
+solomon_roderick [neutral]: Keep your boots off the dressed slate. If you want a headstone or a lintel, speak plain.
+-> menu
+
+~ menu
+solomon_roderick [neutral]: State your business. Daylight never comes, and the stone doesn't cut itself.
+* Ask about gravestones and stonework -> shop_open
+* Ask about his masonry and the quarries -> work
+* Ask about Wickermoor Village -> village
+* Ask why he gives so much to the Brightsingers -> rumour
+* [Insight DC 14] Note the way he watches the dark corners -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ shop_open
+solomon_roderick [neutral]: Good granite and sound tools. Touch only what you can pay for.
+-> menu
+
+~ work
+solomon_roderick [neutral]: My crews cut the ridge quarry, and I carve what lasts. Sofia tallies the chalk marks for me, better head for numbers than half my men.
+solomon_roderick [smile]: Keep at the ledger, little bird, I'll be right here.
+-> menu
+
+~ village
+solomon_roderick [weary]: Most folk here kneel to the old tree and the Mayor's Green Queen. Stone outlasts bark, if you ask me, though nobody does.
+-> menu
+
+~ rumour
+solomon_roderick [neutral]: Young Weston's choir sings of morning and clean hands. When you've got a child to raise under that grinning moon, a song about dawn is worth good coin.
+-> menu
+
+~ secret_ok
+Narrator: His scarred thumb rubs an old chisel mark on his forearm, and his cold brown eyes track a bent shadow by the lane.
+solomon_roderick [afraid]: Every town has rot under the floorboards. Watch the folk who walk with their necks tilted and smile at the hill, I've seen their master in my sleep since I was Sofia's age.
+-> menu
+
+~ secret_fail
+solomon_roderick [angry]: Staring won't lower my prices. Buy what you need or clear the yard.
+-> menu

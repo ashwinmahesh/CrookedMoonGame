@@ -1,0 +1,43 @@
+# Drafted by Gemini (R11 batch b5), edited. eleanor_heyling's first conversation.
+
+~ start
+set eleanor_heyling_met
+Narrator: Tall stacks of calfskin folios lean like chimneys around a desk cluttered with crusted inkwells. A gaunt woman squints at you over wire-rimmed spectacles, a smudge of gall ink across her chin.
+eleanor_heyling [weary]: If you are looking for almanacs, third shelf on the left, mind the loose floorboard. And please do not slam the door, Sheridan has just got the kettle to boil.
+-> menu
+
+~ menu
+* Ask about her bookshop and research -> about_work
+* Ask about her family in Wickermoor -> about_village
+* Browse their wares -> shop_open
+* Ask what she has been reading lately -> rumour
+* [Arcana DC 14] Examine the scorched marginalia on her open ledger -> check_ok | check_fail
+* Take our leave -> END
+
+~ about_work
+eleanor_heyling [neutral]: I deal in vellum, iron-gall ink, and verified histories, see Grimshaw's Third Compendium, page forty-two. I refuse to part with a single volume until I have read it cover to cover myself.
+eleanor_heyling [sly]: One must know what teeth a book has before handing it to a stranger.
+-> menu
+
+~ about_village
+eleanor_heyling [sad]: My late sister left me three children to raise in this damp hollow. In truth, Margery and Algernon do most of the minding when I lose track of the clocktower bells.
+-> menu
+
+~ shop_open
+eleanor_heyling [neutral]: Wipe your hands on your coat first, if you please. The parchment is dry, and the ink is freshly mixed.
+shop
+-> menu
+
+~ rumour
+eleanor_heyling [weary]: The parish records before the seventy-third year have had their bindings cut with a pruning knife. Someone in Wickermoor is very keen that we forget who planted that oak in the Round.
+-> menu
+
+~ check_ok
+Narrator: The letters on her desk do not merely sit on the page: they squirm toward her ink-stained fingertips like iron filings to a lodestone, leaving faint frost on the blotter.
+eleanor_heyling [afraid]: Close the cover, quickly. Some chapters in Druskenvald read you back once you've given them your candlelight, and they never let you sleep.
+-> menu
+
+~ check_fail
+Narrator: She snaps a heavy ledger shut over her notes, sending up a small puff of paper dust and dried lavender.
+eleanor_heyling [neutral]: Private correspondence and tallies, nothing for the public shelf. My eyes are simply tired from the small print.
+-> menu

@@ -1,0 +1,94 @@
+{
+  "id": "wickermoor_shop_tailor",
+  "name": "A Stitch in Time",
+  "region": "wickermoor",
+  "summary": "A Stitch in Time, a room of Wickermoor Village.",
+  "text": "The inside of A Stitch in Time: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "##############",
+      "#............#",
+      "#............#",
+      "#.==========.#",
+      "#............#",
+      "#..........=.#",
+      "#..........=.#",
+      "#.==.....==..#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "##############"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "A Stitch in Time",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          12,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      6,
+      9
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        6,
+        11
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_shop_tailor",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [],
+  "npcs": [
+    {
+      "npc": "thomasin_ardor",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/thomasin_ardor:start"
+    }
+  ],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        10,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

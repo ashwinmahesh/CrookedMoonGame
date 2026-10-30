@@ -1,0 +1,37 @@
+# Drafted by Gemini (R11 batch b4), edited. thomasin_ardor's first conversation.
+
+~ start
+set thomasin_ardor_met
+Narrator: Pins glint in a velvet cushion, and the room is hushed save for the crisp snip of shears. Thomasin measures your cloak with one cool, unblinking glance.
+thomasin_ardor [neutral]: Welcome to A Stitch in Time. Wipe the moor-mud from your boots before you step upon the drop-cloth, if you please.
+-> menu
+
+~ menu
+thomasin_ardor [neutral]: How may I be of service to you?
+* Browse their wares -> shop_open
+* Ask about the silk patterns pinned to the wall -> work
+* Ask why the villagers rarely linger here -> village
+* [Perception DC 14] Examine the pale scars and hare-pin at her collar -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ shop_open
+thomasin_ardor [smile]: Look closely at the seams on your travels, and bring me any strange cloth you find. I can mend homespun or cobble a split boot while you wait.
+shop
+-> menu
+
+~ work
+thomasin_ardor [sad]: Those are courtly cuts I drafted for velvet and silver thread. Folk here only ever order grey wool coats and mourning bands.
+-> menu
+
+~ village
+thomasin_ardor [weary]: Small towns enjoy small tales, and I do not care to chatter at the well. They call me proud, which leaves me peace to sew.
+-> menu
+
+~ secret_ok
+Narrator: Beneath her high lace collar runs a neat, surgical seam across her throat, pinned with a tiny pewter hare bearing antlers.
+thomasin_ardor [neutral]: I fell through a greenhouse pane as a girl, and Master Randall stitched my life back together. He says his quiet friends have great need of my needle.
+-> menu
+
+~ secret_fail
+thomasin_ardor [neutral]: It is only an old childhood scratch and a trinket from a kind neighbour. Nothing that concerns a passing customer.
+-> menu

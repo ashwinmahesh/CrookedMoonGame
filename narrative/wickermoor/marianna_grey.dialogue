@@ -1,0 +1,46 @@
+# Drafted by Gemini (R11 batch b1), edited. marianna_grey's first conversation.
+
+~ start
+set marianna_grey_met
+Narrator: Warm hay, liniment, and horse-sweat sweeten the dark of the stable, where a broad-shouldered woman braids a mule's mane with steady fingers.
+marianna_grey [neutral]: Mind the grey mare's hind leg, she startles at cloaks. If you need a stall or a mount, say so plain.
+* Ask about her life in the stables -> about_work
+* Ask what she thinks of the village -> about_village
+* Ask about stabling and hiring a horse -> shop_open
+* Ask if the animals have been restless -> rumour
+* [Insight DC 13] Ask how she gets on with Alda Farnum -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ about_work
+marianna_grey [neutral]: Two silver a night for stabling, brushed and fed right. I sleep up the ladder over the stalls, and a horse never lied to me yet.
+-> menu
+
+~ about_village
+marianna_grey [weary]: Too much talk in the square about roots and blood for my liking. I keep a dried sunflower by the hayloft door and ask the Patient Lady for dry straw and quiet nights.
+-> menu
+
+~ shop_open
+marianna_grey [neutral]: Tell me what beast or tack you have need of.
+-> menu
+
+~ rumour
+marianna_grey [afraid]: The mules come back from the north ditch lathered and shaking, with burrs twisted into knots no bramble ever made. Something out there runs on two legs and smells like winter.
+-> menu
+
+~ secret_ok
+Narrator: Her calloused thumb rubs the branded tag on a bridle, her shoulders softening with quiet gratitude.
+marianna_grey [sad]: Miss Alda acts sharp with her silver, sure, but she sends hot soup up my ladder when the frost bites and tells me to learn the inn's cellars. I do not know why she bothers with the likes of me.
+-> menu
+
+~ secret_fail
+Narrator: She turns back to the manger and lifts a heavy sack of oats with one arm.
+marianna_grey [neutral]: Miss Alda pays on the hour and leaves my beasts be. That is plenty.
+-> menu
+
+~ menu
+* Ask about her life in the stables -> about_work
+* Ask what she thinks of the village -> about_village
+* Ask about stabling and hiring a horse -> shop_open
+* Ask if the animals have been restless -> rumour
+* [Insight DC 13] Ask how she gets on with Alda Farnum -> secret_ok | secret_fail
+* Take our leave -> END

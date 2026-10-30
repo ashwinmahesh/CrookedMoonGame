@@ -1,0 +1,165 @@
+{
+  "id": "wickermoor_mayors_house",
+  "name": "The Mayor's House",
+  "region": "wickermoor",
+  "summary": "The Mayor's House, a room of Wickermoor Village.",
+  "text": "The inside of The Mayor's House: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "############################",
+      "#..........................#",
+      "#..........................#",
+      "#..==========.....====.....#",
+      "#..........................#",
+      "#..........................#",
+      "#..........................#",
+      "#....==..==...........##.###",
+      "#..........................#",
+      "#..........................#",
+      "#..........................#",
+      "#..........................#",
+      "#############..#############",
+      "#.............#............#",
+      "#..========...#............#",
+      "#.............#..==...==...#",
+      "#..........................#",
+      "#.............#............#",
+      "#..======.....#............#",
+      "#.............#............#",
+      "#..........................#",
+      "############################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Mayor's House",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          26,
+          20
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      13,
+      19
+    ],
+    "from_clock": [
+      24,
+      7
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        13,
+        21
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_mayors_house",
+      "label": "Out to the village"
+    },
+    {
+      "id": "clock_stair",
+      "cell": [
+        24,
+        8
+      ],
+      "to": "wickermoor_clock_chamber",
+      "spawn": "from_stair",
+      "label": "The clocktower stair"
+    }
+  ],
+  "props": [
+    {
+      "id": "mayors_house_forms",
+      "cell": [
+        5,
+        14
+      ],
+      "kind": "examine",
+      "label": "Forms in baskets and boxes",
+      "model": "papers"
+    },
+    {
+      "id": "mayors_house_desk",
+      "cell": [
+        22,
+        15
+      ],
+      "kind": "examine",
+      "label": "The mayor's desk",
+      "model": "table_round"
+    },
+    {
+      "id": "mayors_house_portrait",
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "examine",
+      "label": "A portrait of the founder, face turned to the wall",
+      "model": "book"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "wendel_somerton",
+      "cell": [
+        4,
+        15
+      ],
+      "dialogue": "wickermoor/wendel_somerton:start"
+    },
+    {
+      "npc": "myrtle_somerton",
+      "cell": [
+        20,
+        4
+      ],
+      "dialogue": "wickermoor/myrtle_somerton:start"
+    },
+    {
+      "npc": "rose_somerton",
+      "cell": [
+        6,
+        6
+      ],
+      "dialogue": "wickermoor/children:rose"
+    }
+  ],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        21,
+        7
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

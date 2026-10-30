@@ -1,0 +1,147 @@
+{
+  "id": "wickermoor_constable_station",
+  "name": "The Constable's Station",
+  "region": "wickermoor",
+  "summary": "The Constable's Station, a room of Wickermoor Village.",
+  "text": "The inside of The Constable's Station: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "####################",
+      "#..................#",
+      "#..................#",
+      "#..======....=====.#",
+      "#..................#",
+      "#..................#",
+      "#...........==.....#",
+      "#..................#",
+      "#..................#",
+      "#########..#########",
+      "#....#....#....#...#",
+      "#.=..#.=..#.=..#=..#",
+      "#....#....#....#...#",
+      "#....#....#....#...#",
+      "#....#....#....#...#",
+      "####################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Constable's Station",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          18,
+          14
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      9,
+      13
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        9,
+        15
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_constable_station",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [
+    {
+      "id": "constable_station_board",
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "examine",
+      "label": "The notice board",
+      "model": "notice_board"
+    },
+    {
+      "id": "constable_station_stove",
+      "cell": [
+        17,
+        3
+      ],
+      "kind": "examine",
+      "label": "The stove and kettle",
+      "model": "hearth"
+    },
+    {
+      "id": "constable_station_cell_a",
+      "cell": [
+        3,
+        12
+      ],
+      "kind": "examine",
+      "label": "A barred cell",
+      "model": "barred_door"
+    },
+    {
+      "id": "constable_station_cell_c",
+      "cell": [
+        13,
+        12
+      ],
+      "kind": "examine",
+      "label": "A barred cell",
+      "model": "barred_door"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "doris_squire",
+      "cell": [
+        5,
+        5
+      ],
+      "dialogue": "wickermoor/doris_squire:start"
+    },
+    {
+      "npc": "howie_butterman",
+      "cell": [
+        15,
+        5
+      ],
+      "dialogue": "wickermoor/howie_butterman:start"
+    }
+  ],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        15,
+        5
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

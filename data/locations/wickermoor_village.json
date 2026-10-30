@@ -1,0 +1,943 @@
+{
+  "areas": [
+    {
+      "id": "wm_round",
+      "name": "The Founder's Round",
+      "cells": [
+        [
+          23,
+          17
+        ],
+        [
+          37,
+          31
+        ]
+      ]
+    },
+    {
+      "id": "wm_north",
+      "name": "The north row",
+      "cells": [
+        [
+          19,
+          8
+        ],
+        [
+          49,
+          17
+        ]
+      ]
+    },
+    {
+      "id": "wm_moor_road",
+      "name": "The moor road",
+      "cells": [
+        [
+          16,
+          0
+        ],
+        [
+          50,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "wm_estate_hill",
+      "name": "The estate's hill",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          15,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "wm_west",
+      "name": "The west quarter",
+      "cells": [
+        [
+          2,
+          12
+        ],
+        [
+          15,
+          33
+        ]
+      ]
+    },
+    {
+      "id": "wm_southwest",
+      "name": "The south-west lanes",
+      "cells": [
+        [
+          2,
+          34
+        ],
+        [
+          27,
+          45
+        ]
+      ]
+    },
+    {
+      "id": "wm_east",
+      "name": "The east side",
+      "cells": [
+        [
+          48,
+          17
+        ],
+        [
+          58,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "wm_south",
+      "name": "The south side",
+      "cells": [
+        [
+          28,
+          35
+        ],
+        [
+          50,
+          46
+        ]
+      ]
+    },
+    {
+      "id": "wm_river",
+      "name": "The Silverbell's bank",
+      "cells": [
+        [
+          0,
+          45
+        ],
+        [
+          59,
+          49
+        ]
+      ]
+    }
+  ],
+  "encounters": [
+    {
+      "id": "wm_first_sacrifice",
+      "trigger": "dialogue",
+      "flag": "wm_first_sacrifice_done",
+      "quest": {
+        "id": "wickermoor_arrival",
+        "stage": "welcome"
+      },
+      "monsters": [
+        {
+          "monster": "wolf",
+          "cell": [
+            47,
+            25
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            44,
+            23
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            43,
+            21
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            46,
+            23
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            41,
+            24
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            43,
+            25
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "dire_wolf",
+          "cell": [
+            46,
+            20
+          ],
+          "name": "The pack leader",
+          "facing": "west"
+        }
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "id": "green_queen_inn",
+      "cell": [
+        25,
+        30
+      ],
+      "to": "wickermoor_green_queen_inn",
+      "spawn": "default",
+      "label": "Enter The Green Queen Inn"
+    },
+    {
+      "id": "trading_post",
+      "cell": [
+        21,
+        23
+      ],
+      "to": "wickermoor_trading_post",
+      "spawn": "default",
+      "label": "Enter Tolliver's Trading Post"
+    },
+    {
+      "id": "mayors_house",
+      "cell": [
+        38,
+        30
+      ],
+      "to": "wickermoor_mayors_house",
+      "spawn": "default",
+      "label": "Enter The Mayor's House"
+    },
+    {
+      "id": "barber_shop",
+      "cell": [
+        22,
+        16
+      ],
+      "to": "wickermoor_barber_shop",
+      "spawn": "default",
+      "label": "Enter Graham's Barber Shop"
+    },
+    {
+      "id": "constable_station",
+      "cell": [
+        44,
+        16
+      ],
+      "to": "wickermoor_constable_station",
+      "spawn": "default",
+      "label": "Enter The Constable's Station"
+    },
+    {
+      "id": "post_office",
+      "cell": [
+        34,
+        7
+      ],
+      "to": "wickermoor_post_office",
+      "spawn": "default",
+      "label": "Enter The Post Office"
+    },
+    {
+      "id": "dovecote",
+      "cell": [
+        43,
+        6
+      ],
+      "to": "wickermoor_dovecote",
+      "spawn": "default",
+      "label": "Enter The Dovecote"
+    },
+    {
+      "id": "schoolhouse",
+      "cell": [
+        6,
+        18
+      ],
+      "to": "wickermoor_schoolhouse",
+      "spawn": "default",
+      "label": "Enter The Schoolhouse"
+    },
+    {
+      "id": "bookstore",
+      "cell": [
+        13,
+        22
+      ],
+      "to": "wickermoor_bookstore",
+      "spawn": "default",
+      "label": "Enter The Antique Bookstore"
+    },
+    {
+      "id": "apothecary",
+      "cell": [
+        10,
+        34
+      ],
+      "to": "wickermoor_apothecary",
+      "spawn": "default",
+      "label": "Enter The Apothecary"
+    },
+    {
+      "id": "funeral_home",
+      "cell": [
+        46,
+        39
+      ],
+      "to": "wickermoor_funeral_home",
+      "spawn": "default",
+      "label": "Enter Shade Funeral Home"
+    },
+    {
+      "id": "shop_bakery",
+      "cell": [
+        34,
+        16
+      ],
+      "to": "wickermoor_shop_bakery",
+      "spawn": "default",
+      "label": "Enter Bread by Holly"
+    },
+    {
+      "id": "shop_tailor",
+      "cell": [
+        28,
+        16
+      ],
+      "to": "wickermoor_shop_tailor",
+      "spawn": "default",
+      "label": "Enter A Stitch in Time"
+    },
+    {
+      "id": "shop_smithy",
+      "cell": [
+        5,
+        36
+      ],
+      "to": "wickermoor_shop_smithy",
+      "spawn": "default",
+      "label": "Enter The Smithy"
+    },
+    {
+      "id": "shop_wickery",
+      "cell": [
+        16,
+        35
+      ],
+      "to": "wickermoor_shop_wickery",
+      "spawn": "default",
+      "label": "Enter The Wickery"
+    },
+    {
+      "id": "shop_butcher",
+      "cell": [
+        10,
+        41
+      ],
+      "to": "wickermoor_shop_butcher",
+      "spawn": "default",
+      "label": "Enter Harga's Meats"
+    },
+    {
+      "id": "shop_masonry",
+      "cell": [
+        51,
+        22
+      ],
+      "to": "wickermoor_shop_masonry",
+      "spawn": "default",
+      "label": "Enter Roderick Masonry"
+    },
+    {
+      "id": "shop_carpentry",
+      "cell": [
+        51,
+        27
+      ],
+      "to": "wickermoor_shop_carpentry",
+      "spawn": "default",
+      "label": "Enter The Carpentry Workshop"
+    },
+    {
+      "id": "road_to_estate",
+      "cell": [
+        14,
+        10
+      ],
+      "to": "travel",
+      "label": "Up the hill to the estate",
+      "when": "flag.wm_welcomed",
+      "sets_quest": {
+        "id": "wickermoor_arrival",
+        "stage": "dinner",
+        "from": [
+          "free_roam"
+        ]
+      }
+    },
+    {
+      "id": "moor_road",
+      "cell": [
+        30,
+        1
+      ],
+      "to": "travel",
+      "label": "The moor road"
+    },
+    {
+      "id": "south_bridge",
+      "cell": [
+        30,
+        47
+      ],
+      "to": "travel",
+      "label": "The footbridge south"
+    }
+  ],
+  "id": "wickermoor_village",
+  "map": {
+    "elevation": [
+      "667888888888876544333333333333333333333445666654433333333333",
+      "778888888888887654333333333333333333334456666665443333333333",
+      "888888888888888765433333333333333333334566666666543333333333",
+      "888888888888888875433333333333333333334566666666543333333333",
+      "888888888888888876433333333333333333334566666666543333333333",
+      "888888888888888876433333333333333333334566666665433333333333",
+      "888888888888888886543333333333333333333456666655433333333333",
+      "888888888888888887543333333333333333333345555544333333333333",
+      "888888888888888887543333333333333333333334444443333333333333",
+      "888888888888888887543333333333333333333333333333333333333333",
+      "888888888888888876433333333333333333333333333333333333333333",
+      "888888888888888876433333333333333333333333333333333333333333",
+      "788888888888888765333333333333333333333333333333333333333333",
+      "678888888888877654333333333333333333333333333333333333333333",
+      "567788888877665443333333333333333333333333333333333333333333",
+      "455677777665544333333333333333333333333333333333333333333333",
+      "334455655544333333333333333333333333333333333333333333333333",
+      "333334443333332222222223333333333333222222222222222222222222",
+      "222333333322222222222233333333333333322222222222222222222222",
+      "222222222222222222222233333333333333322222222222222222222222",
+      "222222222222222222222333333333333333322222222222222222222222",
+      "222222222222222222222333333333333333332222222222222222222222",
+      "222222222222222222222233333333333333332222222222222222222222",
+      "222222222222222222222233333333333333333222222222222222222222",
+      "222222222222222222222233333333333333333222222222222222222222",
+      "222222222222222222222233333333333333332222222222222222222222",
+      "222222222222222222222233333333333333332222222222222222222222",
+      "222222222222222222222223333333333333322222222222222222222222",
+      "222222222222222222222222333333333333322222222222222222222222",
+      "222222222222222222222222233333333332222222222222222222222222",
+      "222222222222222222222222222333333222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "111111111111111111111111111111111111111111111111111111111111",
+      "111111111111111111111111111111111111111111111111111111111111",
+      "111111111111111111111111111111111111111111111111111111111111",
+      "111111111111111110000000000001110000111111111111111111111111",
+      "000000000000000000000000000000000000000000000000000000000000",
+      "000000000000000000000000000000000000000000000000000000000000",
+      "000000000000000000000000000000000000000000000000000000000000"
+    ],
+    "light": "dim",
+    "outdoors": true,
+    "rows": [
+      "##...................................~~.....................",
+      "##.============..~.~.~.~.~.~.~.~.~.~.~~~.~.~.~.~............",
+      "###=..........=..........~~.................................",
+      "###=.########.=..........~~....#######....####..............",
+      "##.=.########.=........##......#######....####..............",
+      "##.=.########.=........##......#######....####.....##.......",
+      "##.=.########.=.......###......#######....####....####...###",
+      "#..=.########.=........#.......#######............####...###",
+      "#..=.########.=....................................##....###",
+      "#..=..........=............####........===========......####",
+      "#~~==========....##........####........=#########=......####",
+      "#~~..............##.######.####.######.=#########=.....#####",
+      "##..................######.####.######.=#########=.....#####",
+      "##.========.........######.####.######.=#########=......####",
+      "###=######=.........######.####.######.=#########=......####",
+      "###=######=.........######.####.######.=#########=......####",
+      "###=######=.####....######.####.######.=#########=......####",
+      "###=######=.####.......................=.........=......####",
+      "###=######=.####.......................=====.=====.#########",
+      "###=......=.####...................................########.",
+      "###====.===.####.................................###########",
+      "###.........##########...........................#########.#",
+      "###.........##########.............................#######..",
+      "###==========...######...........................###########",
+      "###=........=...######...........................##......###",
+      "##.=.######.=...######.............................#########",
+      "##.=.######.=...######.............................#########",
+      "##.=.######.=...##########............##########...#########",
+      "#..=.######.=...##########............##########...#########",
+      "...=.######.=##.##########............##########==.#########",
+      "...=........=##.##########............##########==.#########",
+      "...=====.====##.##########............##########........#==#",
+      "#.............#.##########............##########........#==#",
+      "###.............##########............##########...##...####",
+      "######..#####.........................##########...##...####",
+      "######..#####.#####.............................==.##...###.",
+      "######..#####.#####====.=====...................==.##...###.",
+      "######..#####.#####=........=............................#..",
+      "######..#####.#####=#######.=####.#####............##...##..",
+      "###...........#####=########=####.#####.....######.##...##..",
+      "###...........#####=#######.=####.#####.....######.##.#####.",
+      "###..#..#####......=#######.=####.#####.....######..===#===.",
+      "######..#####......=........=####.#####.....######..=#####=#",
+      "#############......==========...............######..=#####=#",
+      "#############...........................##..######..=#####=#",
+      "#############.........wwwwwww..........###......~~..=#####=w",
+      "w######===.====..wwwwwwwwwwww...wwww....###.....~~ww=~~====w",
+      "wwwwwwwwwwwwwwwwwwwwwwwwwwwww...wwwwwwwwwwwwwwwwwwwww~~wwwww",
+      "wwwwwwwwwwwwwwwwwwwwww###.......wwwwwwwwwwwwwwwwwwwwwwwwww.w",
+      "wwwwwwwwwwwwwwwwww######...........wwwwwwwwwwwwwwww........."
+    ],
+    "theme": "village"
+  },
+  "name": "Wickermoor Village",
+  "npcs": [
+    {
+      "npc": "old_rusty",
+      "cell": [
+        28,
+        24
+      ],
+      "dialogue": "wickermoor/old_rusty:start",
+      "path": [
+        [
+          28,
+          24
+        ],
+        [
+          32,
+          23
+        ],
+        [
+          31,
+          26
+        ]
+      ],
+      "pause": 4
+    },
+    {
+      "npc": "sister_rain",
+      "cell": [
+        33,
+        23
+      ],
+      "dialogue": "wickermoor/sister_rain:start",
+      "facing": "west"
+    },
+    {
+      "npc": "jeremiah_stover",
+      "cell": [
+        37,
+        22
+      ],
+      "dialogue": "wickermoor/jeremiah_stover:start"
+    },
+    {
+      "npc": "gaston_doray",
+      "cell": [
+        19,
+        15
+      ],
+      "dialogue": "wickermoor/gaston_doray:start"
+    },
+    {
+      "npc": "hilda_brom",
+      "cell": [
+        48,
+        28
+      ],
+      "dialogue": "wickermoor/hilda_brom:start"
+    },
+    {
+      "npc": "weston_murdoch",
+      "cell": [
+        7,
+        30
+      ],
+      "dialogue": "wickermoor/weston_murdoch:start"
+    },
+    {
+      "npc": "joan_murdoch",
+      "cell": [
+        4,
+        27
+      ],
+      "dialogue": "wickermoor/joan_murdoch:start"
+    },
+    {
+      "npc": "peter_murdoch",
+      "cell": [
+        11,
+        26
+      ],
+      "dialogue": "wickermoor/children:peter"
+    },
+    {
+      "npc": "charlotte_murdoch",
+      "cell": [
+        11,
+        28
+      ],
+      "dialogue": "wickermoor/children:charlotte"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        23,
+        37
+      ],
+      "dialogue": "wickermoor/marianna_grey:start"
+    },
+    {
+      "npc": "dani_jenkin",
+      "cell": [
+        15,
+        12
+      ],
+      "dialogue": "wickermoor/children:dani"
+    }
+  ],
+  "props": [
+    {
+      "id": "wm_statue",
+      "cell": [
+        30,
+        19
+      ],
+      "kind": "examine",
+      "label": "The Founder's statue",
+      "model": "statue_headless"
+    },
+    {
+      "id": "wm_oak",
+      "cell": [
+        30,
+        29
+      ],
+      "kind": "examine",
+      "label": "The Oak of Many Faces",
+      "model": "tree_marked",
+      "span": [
+        2,
+        2
+      ]
+    },
+    {
+      "id": "wm_oak_roots",
+      "cell": [
+        28,
+        31
+      ],
+      "kind": "decor",
+      "label": "The oak's roots"
+    },
+    {
+      "id": "wm_clocktower",
+      "cell": [
+        45,
+        28
+      ],
+      "kind": "examine",
+      "label": "The clocktower",
+      "span": [
+        2,
+        2
+      ]
+    },
+    {
+      "id": "wm_pavilion",
+      "cell": [
+        17,
+        10
+      ],
+      "kind": "examine",
+      "label": "The pavilion",
+      "model": "gate"
+    },
+    {
+      "id": "wm_inn_sign",
+      "cell": [
+        24,
+        26
+      ],
+      "kind": "examine",
+      "label": "The Green Queen's sign",
+      "model": "sign"
+    },
+    {
+      "id": "wm_notice_board",
+      "cell": [
+        36,
+        25
+      ],
+      "kind": "examine",
+      "label": "The notice board",
+      "model": "notice_board",
+      "call": "wickermoor/mayor_welcome:start",
+      "approach": 12,
+      "call_when": "flag.wm_first_sacrifice_done and not flag.wm_welcomed"
+    },
+    {
+      "id": "wm_well",
+      "cell": [
+        22,
+        19
+      ],
+      "kind": "examine",
+      "label": "The well",
+      "model": "well_stone",
+      "call": "wickermoor/arrival:start",
+      "approach": 12,
+      "call_when": "not flag.wm_first_sacrifice_done and not flag.wm_welcomed"
+    },
+    {
+      "id": "wm_bonfire",
+      "cell": [
+        55,
+        14
+      ],
+      "kind": "decor",
+      "label": "A bone bonfire, banked"
+    },
+    {
+      "id": "wm_hare_effigy",
+      "cell": [
+        12,
+        14
+      ],
+      "kind": "examine",
+      "label": "A wicker hare",
+      "model": "scarecrow"
+    },
+    {
+      "id": "wm_turnip_1",
+      "cell": [
+        27,
+        17
+      ],
+      "kind": "decor",
+      "label": "A carved turnip over a door"
+    },
+    {
+      "id": "wm_turnip_2",
+      "cell": [
+        33,
+        17
+      ],
+      "kind": "decor",
+      "label": "A carved turnip over a door"
+    },
+    {
+      "id": "wm_stable_horse",
+      "cell": [
+        22,
+        42
+      ],
+      "kind": "examine",
+      "label": "The stable's horses",
+      "model": "horse"
+    },
+    {
+      "id": "wm_cart",
+      "cell": [
+        36,
+        21
+      ],
+      "kind": "examine",
+      "label": "A farm cart",
+      "model": "cart"
+    },
+    {
+      "id": "wm_graves",
+      "cell": [
+        46,
+        37
+      ],
+      "kind": "examine",
+      "label": "Plots of the dead",
+      "model": "grave"
+    },
+    {
+      "id": "wm_pyethymer_gate",
+      "cell": [
+        55,
+        41
+      ],
+      "kind": "examine",
+      "label": "The chained gate",
+      "model": "gate"
+    },
+    {
+      "id": "wm_sacrifice_doll",
+      "cell": [
+        30,
+        27
+      ],
+      "kind": "decor",
+      "label": "A bound shape on a stake",
+      "when": "not flag.wm_first_sacrifice_done"
+    },
+    {
+      "id": "wm_church_ruin",
+      "cell": [
+        7,
+        27
+      ],
+      "kind": "examine",
+      "label": "The abandoned church"
+    },
+    {
+      "id": "wm_man_in_marble",
+      "cell": [
+        8,
+        24
+      ],
+      "kind": "examine",
+      "label": "A scowling marble knight",
+      "model": "statue_headless"
+    }
+  ],
+  "region": "wickermoor",
+  "rest": "risky",
+  "rest_text": "The village sleeps with one eye open.",
+  "spawns": {
+    "default": [
+      6,
+      21
+    ],
+    "from_wreck": [
+      6,
+      21
+    ],
+    "from_moor": [
+      30,
+      2
+    ],
+    "from_bridge": [
+      30,
+      45
+    ],
+    "from_estate": [
+      14,
+      11
+    ],
+    "from_green_queen_inn": [
+      26,
+      30
+    ],
+    "from_trading_post": [
+      22,
+      23
+    ],
+    "from_mayors_house": [
+      37,
+      30
+    ],
+    "from_barber_shop": [
+      22,
+      17
+    ],
+    "from_constable_station": [
+      44,
+      17
+    ],
+    "from_post_office": [
+      34,
+      8
+    ],
+    "from_dovecote": [
+      43,
+      7
+    ],
+    "from_schoolhouse": [
+      6,
+      19
+    ],
+    "from_bookstore": [
+      13,
+      23
+    ],
+    "from_apothecary": [
+      10,
+      33
+    ],
+    "from_funeral_home": [
+      46,
+      38
+    ],
+    "from_shop_bakery": [
+      34,
+      17
+    ],
+    "from_shop_tailor": [
+      28,
+      17
+    ],
+    "from_shop_smithy": [
+      6,
+      36
+    ],
+    "from_shop_wickery": [
+      16,
+      34
+    ],
+    "from_shop_butcher": [
+      10,
+      40
+    ],
+    "from_shop_masonry": [
+      50,
+      22
+    ],
+    "from_shop_carpentry": [
+      50,
+      27
+    ],
+    "from_inn_yard": [
+      24,
+      34
+    ]
+  },
+  "summary": "The hub: a village round a trodden square, an oak of carved faces, a clocktower, the Silverbell along the south and the crooked estate on its hill.",
+  "text": "Timber-framed houses with steep roofs crowd round a trodden square where a faceless statue stands on one side and a gnarled oak, bark carved all over with faces, on the other. A clocktower rises over the village and the river runs dark along its southern edge."
+}

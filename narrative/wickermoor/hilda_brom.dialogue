@@ -1,0 +1,36 @@
+# Drafted by Gemini (R11 batch b6), edited. hilda_brom's first conversation.
+
+~ start
+set hilda_brom_met
+Narrator: Woodsmoke and dried blood drift from the heavy pelts across her shoulders as she tests a broadhead arrow against her thumb.
+hilda_brom [neutral]: You walk loud enough to wake every crow between here and the bog. State your business quick, or step out of my light.
+-> menu
+
+~ menu
+* Browse her wares -> shop_open
+* Ask about her hunting work for the Mayor -> work
+* Ask about the Old Ways and the woods -> village
+* [Insight DC 14] Ask what quarry she truly fears to track -> bear_ok | bear_fail
+* Take our leave -> END
+
+~ shop_open
+hilda_brom [smile]: Ha, got coin after all? Take your pick of smoked haunch and winter fur, or hire my boots if you fear the mire.
+shop
+-> menu
+
+~ work
+hilda_brom [neutral]: Somerton pays me to drag runaways back to the Oak of Many Faces. Once a trail is warm, nothing on two legs or four shakes me off.
+-> menu
+
+~ village
+hilda_brom [smile]: Town folk huddle by their bonfires, praying the dark stays out. Me, I keep the Green Queen's custom: take only what bleeds, and leave the heart for the roots.
+-> menu
+
+~ bear_ok
+Narrator: Her scarred fingers tighten on the bowstring until the sinew creaks, her eyes flicking toward the black treeline.
+hilda_brom [afraid]: There is a great spirit bear walking the deep ridge, calling me to shed my skin and run on four paws forever. Some nights I want to answer, and that freezes my marrow.
+-> menu
+
+~ bear_fail
+hilda_brom [sly]: Ha, listen to the new dead playing woodsman! Only thing I fear is a blunt knife and a wet tinderbox.
+-> menu

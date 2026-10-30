@@ -1,0 +1,36 @@
+# Drafted by Gemini (R11 batch b4), edited. weston_murdoch's first conversation.
+
+~ start
+set weston_murdoch_met
+Narrator: Sawdust and damp mortar scent the half-roofed chapel. A sandy-haired young man lowers his mallet, his smile bright enough to warm the cold stones.
+weston_murdoch [smile]: Come in, friends, and rest your travel-sore feet! The roof still leaks a bit, but the Brightsingers turn no soul away from the song.
+-> menu
+
+~ menu
+weston_murdoch [smile]: Tell me, brothers and sisters, what weighs upon you tonight?
+* Ask for a Brightsinger blessing for the road -> service_open
+* Ask about his work rebuilding the chapel -> work
+* Ask how the village takes to his preaching -> village
+* [Insight DC 14] Notice his flinch when the Oak of Many Faces is named -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ service_open
+weston_murdoch [smile]: Bow your heads and let the Dawn-Bird's grace mend what the dark has bruised. So long as breath remains, no soul is beyond a second verse.
+-> menu
+
+~ work
+weston_murdoch [smile]: My Joan and our little ones, Peter and Charlotte, haul shingles right alongside me. Every nail we drive is a promise that mercy has a home here.
+-> menu
+
+~ village
+weston_murdoch [weary]: Mayor Somerton prefers his old roots and blood-custom, and he looks sideways at our hymns. Still, fearful hearts grow tired of harsh gods.
+-> menu
+
+~ secret_ok
+Narrator: His fingers tighten on the hammer shaft, his knuckles whitening as he looks toward the square where the great carved oak stands.
+weston_murdoch [sad]: I preach redemption because I must believe in it, friend. My own mother and father died on the headsman's block, and I will not let their sin be my children's heritage.
+-> menu
+
+~ secret_fail
+weston_murdoch [smile]: Only a chill draft through the rafters, friend. A man cannot look at that grim tree in the square without wishing for warmer light.
+-> menu

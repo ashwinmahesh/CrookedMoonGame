@@ -1,0 +1,180 @@
+{
+  "id": "wickermoor_green_queen_inn",
+  "name": "The Green Queen Inn",
+  "region": "wickermoor",
+  "summary": "The Green Queen Inn, a room of Wickermoor Village.",
+  "text": "The inside of The Green Queen Inn: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "##############################",
+      "#.........#.......#__________#",
+      "#.=======.#.......#__________#",
+      "#.........#.......#__________#",
+      "#.................#__________#",
+      "#.===.....#........__________#",
+      "#.........#.......#__________#",
+      "#.........#..................#",
+      "#####.#####...............#.##",
+      "#.........................####",
+      "#...........=============....#",
+      "#............................#",
+      "#............................#",
+      "#.=..........==...==...==....#",
+      "#.=..........................#",
+      "#.=..........................#",
+      "#............==...==...==....#",
+      "#....==......................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "##############################"
+    ],
+    "theme": "tavern",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Green Queen Inn",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          28,
+          20
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      14,
+      19
+    ],
+    "from_stairs": [
+      27,
+      7
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        14,
+        21
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_green_queen_inn",
+      "label": "Out to the village"
+    },
+    {
+      "id": "stairs_up",
+      "cell": [
+        27,
+        8
+      ],
+      "to": "wickermoor_green_queen_inn_upper",
+      "spawn": "from_stairs",
+      "label": "Stairs up"
+    },
+    {
+      "id": "yard_door",
+      "cell": [
+        29,
+        15
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_inn_yard",
+      "label": "The stable yard"
+    }
+  ],
+  "props": [
+    {
+      "id": "green_queen_inn_bar",
+      "cell": [
+        16,
+        10
+      ],
+      "kind": "examine",
+      "label": "The bar",
+      "model": "bar"
+    },
+    {
+      "id": "green_queen_inn_hearth",
+      "cell": [
+        3,
+        10
+      ],
+      "kind": "examine",
+      "label": "The taproom hearth",
+      "model": "hearth"
+    },
+    {
+      "id": "green_queen_inn_stage",
+      "cell": [
+        23,
+        3
+      ],
+      "kind": "examine",
+      "label": "The little stage",
+      "model": "dais"
+    },
+    {
+      "id": "green_queen_inn_kitchen",
+      "cell": [
+        4,
+        3
+      ],
+      "kind": "examine",
+      "label": "The kitchen counters",
+      "model": "cupboard"
+    },
+    {
+      "id": "green_queen_inn_rumour_board",
+      "cell": [
+        12,
+        19
+      ],
+      "kind": "examine",
+      "label": "A board of rumours",
+      "model": "notice_board",
+      "dialogue": "wickermoor/rumours:r01"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "alda_farnum",
+      "cell": [
+        15,
+        9
+      ],
+      "dialogue": "wickermoor/alda_farnum:start"
+    }
+  ],
+  "rest": "safe",
+  "lights": [
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        22,
+        7
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+# Drafted by Gemini (R11 batch b4), edited. oswick_frey's first conversation.
+
+~ start
+set oswick_frey_met
+Narrator: Warm beeswax and dried lavender sweeten the cramped shop. A red-haired man wheels his chair smoothly down a pegged timber ramp, grinning from ear to ear.
+oswick_frey [smile]: Mind your shins on the tallow-vats and welcome! I am Wick Frey, and if it burns on a string, I dip it.
+-> menu
+
+~ menu
+oswick_frey [smile]: Now then, what brings fresh faces under my rafters?
+* Browse their wares -> shop_open
+* Ask about the ramps and his rooftop perch -> work
+* Ask who comes by the chandlery -> village
+* [Insight DC 13] Notice how often he glances toward the schoolhouse -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ shop_open
+oswick_frey [smile]: Ritual tapers are free to the Old Ways faithful, mind, though strangers pay in coin for good mutton-fat and beeswax.
+shop
+-> menu
+
+~ work
+oswick_frey [smile]: Built the chair with the wheelwright and rigged the pulley to the roof myself. From up top, you can watch every lantern round the Founder's Round.
+-> menu
+
+~ village
+oswick_frey [neutral]: Everyone needs light in a land without dawn. Even Master F-Finneas from the schoolhouse stops by for reading candles, when his ink runs low.
+-> menu
+
+~ secret_ok
+Narrator: A dozen spare tapers on his workbench are wrapped in neat paper tied with twine, each marked with the schoolmaster's initial.
+oswick_frey [sad]: You saw those, did you? Finneas reads till his eyes ache, so I pour him the smokeless clover-wax, though my tongue knots up whenever he thanks me.
+-> menu
+
+~ secret_fail
+oswick_frey [smile]: A man likes to keep an eye on the square, that is all. Best seat in Wickermoor for catching the gossip.
+-> menu

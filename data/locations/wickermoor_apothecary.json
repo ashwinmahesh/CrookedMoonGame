@@ -1,0 +1,127 @@
+{
+  "id": "wickermoor_apothecary",
+  "name": "The Apothecary",
+  "region": "wickermoor",
+  "summary": "The Apothecary, a room of Wickermoor Village.",
+  "text": "The inside of The Apothecary: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "################",
+      "#..............#",
+      "#.=====..=====.#",
+      "#........=====.#",
+      "#...........==.#",
+      "#..............#",
+      "#######..#######",
+      "#..............#",
+      "#..............#",
+      "#.=====..=====.#",
+      "#..............#",
+      "#..............#",
+      "#..............#",
+      "################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Apothecary",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          14,
+          12
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      7,
+      11
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        7,
+        13
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_apothecary",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [
+    {
+      "id": "apothecary_alembic",
+      "cell": [
+        11,
+        3
+      ],
+      "kind": "examine",
+      "label": "A bubbling alembic",
+      "model": "case"
+    },
+    {
+      "id": "apothecary_jars",
+      "cell": [
+        3,
+        2
+      ],
+      "kind": "examine",
+      "label": "Jars and drying bundles",
+      "model": "shelves"
+    },
+    {
+      "id": "apothecary_table",
+      "cell": [
+        3,
+        9
+      ],
+      "kind": "examine",
+      "label": "A cleared workbench",
+      "model": "table_round"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "morgan",
+      "cell": [
+        4,
+        8
+      ],
+      "dialogue": "wickermoor/morgan:start"
+    }
+  ],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        12,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

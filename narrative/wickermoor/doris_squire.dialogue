@@ -1,0 +1,46 @@
+# Drafted by Gemini (R11 batch b1), edited. doris_squire's first conversation.
+
+~ start
+set doris_squire_met
+Narrator: Iron keys clink against her belt, and the smell of cold tallow and scrubbed stone hangs round her like a cloak.
+doris_squire [neutral]: Strangers. Keep your blades sheathed in the Round and we will get on fine.
+* Ask about the law in Wickermoor -> about_work
+* Ask about the village -> about_village
+* Ask about the law and the jail -> shop_open
+* Ask about the oak in the square -> rumour
+* [Perception DC 14] Glance at the small paper tucked under her blotter -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ about_work
+doris_squire [neutral]: Three barred cells behind me, fines for brawling, banishment for grand theft. Spill blood in murder and the Mayor takes your head before the Oak of Many Faces.
+-> menu
+
+~ about_village
+doris_squire [weary]: Good folk mostly, when they are not spooked by moor-fog or preaching at each other in the mud. Do your business before the late bells and stay on the lantern paths.
+-> menu
+
+~ shop_open
+doris_squire [neutral]: If you want honest coin, there is the bounty board.
+-> menu
+
+~ rumour
+doris_squire [neutral]: Every face in that bark was a name on the parish roll once. The roots drink deep after a sentence, and the moss stays red for a week.
+-> menu
+
+~ secret_ok
+Narrator: Beneath a brass sunflower weight lies a scrap of foolscap written in neat verse about rain on quiet wheat.
+doris_squire [angry]: Eyes on my face, traveler, not on my desk. A woman is allowed a bit of quiet ink between lockups.
+-> menu
+
+~ secret_fail
+Narrator: Her broad hand covers the blotter like a slate slab dropping into place.
+doris_squire [neutral]: Charge sheets are for the watch, not for tourists.
+-> menu
+
+~ menu
+* Ask about the law in Wickermoor -> about_work
+* Ask about the village -> about_village
+* Ask about the law and the jail -> shop_open
+* Ask about the oak in the square -> rumour
+* [Perception DC 14] Glance at the small paper tucked under her blotter -> secret_ok | secret_fail
+* Take our leave -> END

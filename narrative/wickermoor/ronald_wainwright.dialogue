@@ -1,0 +1,40 @@
+# Drafted by Gemini (R11 batch b2), edited. ronald_wainwright's first conversation.
+
+~ start
+set ronald_wainwright_met
+Narrator: He stands by the heavy timber post like part of the framing, smelling of pipe tallow and wet wool.
+ronald_wainwright [neutral]: Evening to you. Mind the step by the barrels, the wood stays slick.
+* Ask about his guard work here -> about_self
+* Ask what he thinks of Wickermoor Village -> about_village
+* Ask about the three children downstairs -> rumour
+* [Perception DC 12] Notice the worn charms on his coat -> charm_ok | charm_fail
+* Take our leave -> END
+
+~ menu
+ronald_wainwright [neutral]: I am right here if you need pointing somewhere.
+* Ask about his guard work here -> about_self
+* Ask what he thinks of Wickermoor Village -> about_village
+* Ask about the three children downstairs -> rumour
+* [Perception DC 12] Notice the worn charms on his coat -> charm_ok | charm_fail
+* Take our leave -> END
+
+~ about_self
+ronald_wainwright [neutral]: Wilma tells me where to stand, and I stand there until the bell changes. Most folks behave once they see the pair of us.
+-> menu
+
+~ about_village
+ronald_wainwright [neutral]: It is a quiet hollow if you leave the old trees be and honour the Green Queen. The Oak in the Round has watched over worse nights than this.
+-> menu
+
+~ rumour
+ronald_wainwright [smile]: Zachariah whittled a wooden hare yesterday and Eddie tried to trade it to Mr. Tolliver for peppermints. Good lads, and Victoria keeps them in line.
+-> menu
+
+~ charm_ok
+Narrator: Braided oak twine and three small wooden tokens hang inside his cuff, polished smooth by his thumb.
+ronald_wainwright [weary]: One knot for each child down in the cellar, prayed over at the Founder's Round. A man cannot watch every shadow, so he asks the Queen to watch too.
+-> menu
+
+~ charm_fail
+ronald_wainwright [neutral]: Just an old wool coat, friend. Keeps the moor chill off my shoulders.
+-> menu

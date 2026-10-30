@@ -1,0 +1,41 @@
+# Drafted by Gemini (R11 batch b5), edited. mori_shade's first conversation.
+
+~ start
+set mori_shade_met
+Narrator: The scent of dried rosemary and freshly turned peat clings to the woman in black. Her white hair gleams like bone under the lantern light.
+mori_shade [neutral]: Step softly, newly arrived. You stand upon ground that has welcomed many before you, and will hold many more before the moon wanes.
+-> menu
+
+~ menu
+* Ask about her work as undertaker -> about_work
+* Ask about the faiths of Wickermoor -> about_village
+* Ask about burial and a proper rest -> shop_open
+* Ask for a piece of old valley lore -> rumour
+* [Religion DC 13] Ask about the ferryman's token at her collar -> check_ok | check_fail
+* Take our leave -> END
+
+~ about_work
+mori_shade [neutral]: When a companion falls in Druskenvald, the soil does not easily let them go. I wash the brow, fold the hands, and pay the earth its proper due.
+mori_shade [weary]: Old Yorgrim down at the cemetery taught me the spade-work when I first woke here. Every soul deserves a quiet pillow, whatever they were before.
+-> menu
+
+~ about_village
+mori_shade [neutral]: The Mayor's folk feed the Oak of Many Faces with blood, while the Brightsingers try to sing the dark away. I keep to the Strangers' way: we owe the Ferryman a polite nod and a clean ledger.
+-> menu
+
+~ shop_open
+mori_shade [neutral]: Tell me whose memory we are tending, and we shall see them properly laid to rest.
+-> menu
+
+~ rumour
+mori_shade [sad]: Do not pluck the white violets that grow round the base of the Founder's Round. Their roots drink deep from those who died without a name, and they weep on your fingers.
+-> menu
+
+~ check_ok
+Narrator: She touches the tarnished brass oar pinned to her lapel, her voice dropping to the hush of river reeds.
+mori_shade [smile]: You know the Vagrant's mark, then. He rowed us all across the dark water once, and he watches still to see if we waste the second breath he gave us.
+-> menu
+
+~ check_fail
+mori_shade [neutral]: It is only an old keepsake from the riverbank, traveller. A reminder that every road ends at the water's edge.
+-> menu

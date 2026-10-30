@@ -1,0 +1,40 @@
+# Drafted by Gemini (R11 batch b1), edited. howie_butterman's first conversation.
+
+~ start
+set howie_butterman_met
+Narrator: He tips his cap with two fingers, grinning like a terrier that has already dug up the bone.
+howie_butterman [smile]: Evening to you, friends, and welcome to the Founder's Round. Deputy Howie Butterman at your service, here to keep the peace and point newcomers the right way.
+* Ask about his work with the watch -> about_work
+* Ask about the village and its faiths -> about_village
+* Ask if there has been any trouble -> rumour
+* [Insight DC 14] Watch how eagerly he studies your group -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ about_work
+howie_butterman [smile]: Constable Squire handles the heavy scowling and the cell keys, and I handle the friendly word on the cobbles. Folk tell old Howie things they would never say across a desk.
+-> menu
+
+~ about_village
+howie_butterman [neutral]: Most of us hold to the Old Ways and the oak in the square, though you will see sunflowers on a few lintels and songbird ribbons down the lane. It takes all sorts to fill a parish.
+-> menu
+
+~ rumour
+howie_butterman [sly]: Now that you arrived with Lord Phillip and Lady Adela, things are bound to stir. If you fancy stretching your legs, the old barrow path past the heather has had strange lights all week.
+-> menu
+
+~ secret_ok
+Narrator: When he leans in, a dried hare's foot on a leather cord slips from under his collar, and his pulse jumps with bright, hungry excitement.
+howie_butterman [smile]: We have been waiting on proper travelers to walk in with the gentry. You mark my words, the woods are ready for a change of season.
+-> menu
+
+~ secret_fail
+Narrator: He adjusts his collar with a brisk tug and offers an easy, practiced wink.
+howie_butterman [smile]: Do not mind me staring, friends. New faces are rare as dry boots round here.
+-> menu
+
+~ menu
+* Ask about his work with the watch -> about_work
+* Ask about the village and its faiths -> about_village
+* Ask if there has been any trouble -> rumour
+* [Insight DC 14] Watch how eagerly he studies your group -> secret_ok | secret_fail
+* Take our leave -> END

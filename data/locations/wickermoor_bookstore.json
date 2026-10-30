@@ -1,0 +1,151 @@
+{
+  "id": "wickermoor_bookstore",
+  "name": "The Antique Bookstore",
+  "region": "wickermoor",
+  "summary": "The Antique Bookstore, a room of Wickermoor Village.",
+  "text": "The inside of The Antique Bookstore: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "##############",
+      "#............#",
+      "#.====..====.#",
+      "#............#",
+      "#.====..====.#",
+      "#............#",
+      "#............#",
+      "######..######",
+      "#............#",
+      "#..===..===..#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "##############"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Antique Bookstore",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          12,
+          12
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      6,
+      11
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        6,
+        13
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_bookstore",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [
+    {
+      "id": "bookstore_stacks",
+      "cell": [
+        3,
+        2
+      ],
+      "kind": "examine",
+      "label": "Narrow aisles of books",
+      "model": "bookcase"
+    },
+    {
+      "id": "bookstore_ladder",
+      "cell": [
+        10,
+        4
+      ],
+      "kind": "examine",
+      "label": "A rolling ladder",
+      "model": "bookcase"
+    },
+    {
+      "id": "bookstore_writing",
+      "cell": [
+        4,
+        9
+      ],
+      "kind": "examine",
+      "label": "A table of pens and paper",
+      "model": "table_round"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "eleanor_heyling",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/eleanor_heyling:start"
+    },
+    {
+      "npc": "margery_heyling",
+      "cell": [
+        9,
+        5
+      ],
+      "dialogue": "wickermoor/children:margery"
+    },
+    {
+      "npc": "algernon_heyling",
+      "cell": [
+        10,
+        5
+      ],
+      "dialogue": "wickermoor/children:algernon"
+    },
+    {
+      "npc": "sheridan_heyling",
+      "cell": [
+        4,
+        5
+      ],
+      "dialogue": "wickermoor/children:sheridan"
+    }
+  ],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        10,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

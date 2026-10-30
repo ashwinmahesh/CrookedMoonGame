@@ -1,0 +1,94 @@
+{
+  "id": "wickermoor_shop_smithy",
+  "name": "The Smithy",
+  "region": "wickermoor",
+  "summary": "The Smithy, a room of Wickermoor Village.",
+  "text": "The inside of The Smithy: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "##############",
+      "#............#",
+      "#............#",
+      "#.==========.#",
+      "#............#",
+      "#..........=.#",
+      "#..........=.#",
+      "#.==.....==..#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "##############"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Smithy",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          12,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      6,
+      9
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        6,
+        11
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_shop_smithy",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [],
+  "npcs": [
+    {
+      "npc": "jean_myriel",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/jean_myriel:start"
+    }
+  ],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        10,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+# Drafted by Gemini (R11 batch b4), edited. mrs_oakum's first conversation.
+
+~ start
+set mrs_oakum_met
+Narrator: The tang of cold tallow and wet dog hangs about her apron. She keeps her head down, paring grey fat from a knucklebone with a notched knife.
+mrs_oakum [weary]: If you want prime cuts, talk to the master up front. I only scrape the troughs and haul the bone-bucket out back.
+-> menu
+
+~ menu
+mrs_oakum [neutral]: Speak quick if you need something. The clock don't wait on idle tongues.
+* Ask what keeps her working out back -> work
+* Ask what she makes of Wickermoor Village -> village
+* Ask if she has heard any strange talk -> rumour
+* [Medicine DC 14] Note the raw chain-scars around her wrists -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ work
+mrs_oakum [weary]: It suits me fine. Folks leave me be, and I get the gristle and marrow-ends to carry home before the Evening bell rings.
+mrs_oakum [afraid]: Once that bell tolls, I lock myself out on the high scrub till Twilight comes round.
+-> menu
+
+~ village
+mrs_oakum [neutral]: Folk here pray to their big thirsty tree and think the hedges will keep the dark out. A fence only keeps in what wants to stay.
+-> menu
+
+~ rumour
+mrs_oakum [sad]: Something foul is seeping out of the Skitterdeep mine, up north-west in the crags. The creek water tastes of copper and bad fever, and the beasts know it.
+-> menu
+
+~ secret_ok
+Narrator: Coarse grey hairs bristle along the scarred skin of her forearms, and her breath catches at the scent of raw liver on the block.
+mrs_oakum [afraid]: Keep your eyes to yourself, stranger. A heavy chain and a sack of butcher's offal is all that keeps my teeth out of this town come dark.
+-> menu
+
+~ secret_fail
+mrs_oakum [angry]: Best not stare at a working woman's hands while she holds a cleaver, friend. Mind your own business.
+-> menu

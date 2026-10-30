@@ -1,0 +1,47 @@
+# Drafted by Gemini (R11 batch b1), edited. alda_farnum's first conversation.
+
+~ start
+set alda_farnum_met
+Narrator: The hearth smells of spiced cider and wet wool, though the woman behind the polished bar smells of lavender water and brass coin.
+alda_farnum [smile]: Step in out of the damp, my dears, and mind the mud on the runner. You have the look of guests who can afford a hot bath and a proper bed.
+* Ask about rooms and the inn -> about_work
+* Ask about Wickermoor Village -> about_village
+* Browse their wares -> shop_open
+* Ask what folk are talking about lately -> rumour
+* [Perception DC 14] Study her jewelry and the books behind the bar -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ about_work
+alda_farnum [smile]: Single room is one gold piece, a triple is two, and both come with a hot bath and breakfast at Twilight. We have a stage for players and four sturdy beasts in the stable if the road calls.
+-> menu
+
+~ about_village
+alda_farnum [neutral]: Wickermoor runs on custom and small favors, darlings. Keep on the right side of Mayor Somerton's paperwork, pay your tab before dawnless morning, and the Green Queen will smile on you.
+-> menu
+
+~ shop_open
+alda_farnum [smile]: Let us see what comforts your purse is ready for tonight.
+services
+-> menu
+
+~ rumour
+alda_farnum [sly]: Half the parish has been coughing up marsh-damp, and two lads from the south lane never came home from the heather. Bad for tempers, wonderful for the sale of hot toddies.
+-> menu
+
+~ secret_ok
+Narrator: Silver hares with tiny branched antlers swing from her ears, and beside her account ledger sits a cracked leather book stained with dried sap.
+alda_farnum [sly]: Sharp eyes, sweetheart, though staring does not buy a drink. An innkeeper has to keep track of every debt owed in this hollow, old ones included.
+-> menu
+
+~ secret_fail
+Narrator: She clicks her brass abacus shut before you can read a single name on her open page.
+alda_farnum [smile]: Looking for a discount written in the margins, love? My prices are quite fixed.
+-> menu
+
+~ menu
+* Ask about rooms and the inn -> about_work
+* Ask about Wickermoor Village -> about_village
+* Browse their wares -> shop_open
+* Ask what folk are talking about lately -> rumour
+* [Perception DC 14] Study her jewelry and the books behind the bar -> secret_ok | secret_fail
+* Take our leave -> END

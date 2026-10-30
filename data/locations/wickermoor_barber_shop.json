@@ -1,0 +1,135 @@
+{
+  "id": "wickermoor_barber_shop",
+  "name": "Graham's Barber Shop",
+  "region": "wickermoor",
+  "summary": "Graham's Barber Shop, a room of Wickermoor Village.",
+  "text": "The inside of Graham's Barber Shop: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "##############",
+      "#............#",
+      "#..........=.#",
+      "#..==...==.=.#",
+      "#............#",
+      "#####........#",
+      "#............#",
+      "#.=====.====.#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "##############"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "Graham's Barber Shop",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          12,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      6,
+      9
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        6,
+        11
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_barber_shop",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [
+    {
+      "id": "barber_shop_chair_one",
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "examine",
+      "label": "The first barber's chair",
+      "model": "chair"
+    },
+    {
+      "id": "barber_shop_chair_two",
+      "cell": [
+        8,
+        3
+      ],
+      "kind": "examine",
+      "label": "The second barber's chair",
+      "model": "chair"
+    },
+    {
+      "id": "barber_shop_still",
+      "cell": [
+        11,
+        2
+      ],
+      "kind": "examine",
+      "label": "A still, gurgling",
+      "model": "case"
+    },
+    {
+      "id": "barber_shop_broom",
+      "cell": [
+        2,
+        7
+      ],
+      "kind": "examine",
+      "label": "A broom, carefully leaned",
+      "model": "rope"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "randall_graham",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/randall_graham:start"
+    }
+  ],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        10,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

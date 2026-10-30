@@ -1,0 +1,133 @@
+{
+  "id": "wickermoor_post_office",
+  "name": "The Post Office",
+  "region": "wickermoor",
+  "summary": "The Post Office, a room of Wickermoor Village.",
+  "text": "The inside of The Post Office: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "################",
+      "#.============.#",
+      "#..............#",
+      "#..............#",
+      "#.===========..#",
+      "#..............#",
+      "####...........#",
+      "#..............#",
+      "#..===...===...#",
+      "#..............#",
+      "#..............#",
+      "#..............#",
+      "#..............#",
+      "################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Post Office",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          14,
+          12
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      7,
+      11
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        7,
+        13
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_post_office",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [
+    {
+      "id": "post_office_pigeonholes",
+      "cell": [
+        4,
+        4
+      ],
+      "kind": "examine",
+      "label": "Pigeonholes and parcels",
+      "model": "shelves"
+    },
+    {
+      "id": "post_office_rafters",
+      "cell": [
+        13,
+        2
+      ],
+      "kind": "examine",
+      "label": "The rafters",
+      "model": "crow"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "theodora_mayville",
+      "cell": [
+        7,
+        3
+      ],
+      "dialogue": "wickermoor/theodora_mayville:start"
+    },
+    {
+      "npc": "geneva_fairchild",
+      "cell": [
+        4,
+        9
+      ],
+      "dialogue": "wickermoor/geneva_fairchild:start"
+    },
+    {
+      "npc": "peeping_albert",
+      "cell": [
+        13,
+        2
+      ],
+      "dialogue": "wickermoor/peeping_albert:start"
+    }
+  ],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        12,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

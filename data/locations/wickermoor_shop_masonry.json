@@ -1,0 +1,102 @@
+{
+  "id": "wickermoor_shop_masonry",
+  "name": "Roderick Masonry",
+  "region": "wickermoor",
+  "summary": "Roderick Masonry, a room of Wickermoor Village.",
+  "text": "The inside of Roderick Masonry: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "##############",
+      "#............#",
+      "#............#",
+      "#.==========.#",
+      "#............#",
+      "#..........=.#",
+      "#..........=.#",
+      "#.==.....==..#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "##############"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "Roderick Masonry",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          12,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      6,
+      9
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        6,
+        11
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_shop_masonry",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [],
+  "npcs": [
+    {
+      "npc": "solomon_roderick",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/solomon_roderick:start"
+    },
+    {
+      "npc": "sofia_roderick",
+      "cell": [
+        9,
+        8
+      ],
+      "dialogue": "wickermoor/children:sofia"
+    }
+  ],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        10,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

@@ -77,7 +77,7 @@ hei = hei.filter(ImageFilter.GaussianBlur(S * 1.1))
 for (cx, cy, rx, ry) in [(1, 20, 2.2, 9), (1, 40, 2.4, 8), (58, 14, 2.4, 9), (58, 30, 2.2, 7), (57, 44, 3, 5), (4, 46, 5, 4), (20, 48, 5, 2.2), (40, 48.6, 5, 2), (0, 4, 3, 5)]:
     blob(L, cx, cy, rx, ry, WOODS, wobble=0.25, seed=int(cx * 7 + cy))
 # stands of trees inside
-for (cx, cy, r) in [(14, 20, 1.8), (46, 38, 2), (26, 40, 1.6), (52, 7, 1.8), (24, 6, 1.6), (6, 31, 1.6)]:
+for (cx, cy, r) in [(14, 20, 1.8), (41, 46, 1.6), (26, 40, 1.6), (52, 7, 1.8), (24, 6, 1.6), (14, 31, 1.6)]:
     blob(L, cx, cy, r, r * 1.2, WOODS, wobble=0.3, seed=int(cx * 3 + cy))
 # the Silverbell: wandering along the south edge, east to west, a footbridge gap left in the south road at x 30
 for x in range(0, W * S):
@@ -100,7 +100,7 @@ B = {
     "post":       (31, 3, 37, 7),     # V20
     "dovecote":   (42, 3, 45, 6),     # V21 a round tower on its mound
     "pavilion":   (17, 10, 18, 11),   # V28 a gazebo
-    "church":     (4, 24, 11, 30),    # V19 roofless walls, new framing
+    "church":     (5, 25, 10, 29),    # V19 roofless walls, new framing
     "school":     (4, 14, 9, 18),     # V8
     "books":      (12, 16, 15, 22),   # V23 narrow and tall
     "smithy":     (2, 34, 5, 38),     # V16
@@ -129,7 +129,7 @@ fence(52, 41, 58, 46, gap=[(55, 41)])
 # stone heaps in the mason's yard, log piles and stumps at the carpenter's, brambles at the lanes' ends
 for (cx, cy) in [(50, 21), (50, 24), (58, 24)]:
     blob(L, cx, cy, 0.9, 0.9, ROCK, wobble=0.3, seed=cx + cy)
-for (cx, cy) in [(50, 28), (58, 31), (49, 35)]:
+for (cx, cy) in [(49, 30), (58, 32), (49, 36)]:
     blob(L, cx, cy, 1, 0.8, FENCE, wobble=0.2, seed=cx + cy)
 for (cx, cy) in [(54, 47), (2, 11), (26, 3), (38, 1), (49, 46)]:
     blob(L, cx, cy, 1.3, 1, BRAMBLE, wobble=0.35, seed=cx + cy)

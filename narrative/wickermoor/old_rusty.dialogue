@@ -1,0 +1,36 @@
+# Drafted by Gemini (R11 batch b3), edited. old_rusty's first conversation.
+
+~ start
+set old_rusty_met
+Narrator: Birch twigs scrape across cold cobbles in a slow, steady rhythm. Old Rusty peers out from a tangle of red-grey hair, smelling of damp leaves and hearth smoke.
+old_rusty [neutral]: Step on a crack, break the moon's back. Wipe your boots before you tread the Round, strangers.
+-> menu
+
+~ menu
+old_rusty [weary]: Leaves fall down, faces look down. What do you want with an old broom?
+* Ask what he does here -> work
+* Ask about the oak and the square -> village
+* Ask what he mutters about at night -> rumour
+* [Insight DC 14] Watch his eyes when he looks toward the hill -> secret_ok | secret_fail
+* Leave him to his sweeping -> END
+
+~ work
+old_rusty [sly]: Sweep the stone, keep the bone. The village feeds the belly, the broom feeds the square, and the dirt never sleeps.
+-> menu
+
+~ village
+old_rusty [neutral]: The stone man has no face to lie with. The old oak has too many, and every one of them is thirsty when the axe comes down.
+-> menu
+
+~ rumour
+old_rusty [afraid]: Six chimes from the tower, one for each hour. When the antlers grow on the little brown hare, lock your shutter and say your prayer.
+-> menu
+
+~ secret_ok
+Narrator: His knuckles whiten on the ash handle whenever his gaze drifts toward the crooked gable high on the ridge. An old white scar splits his scalp beneath the wild hair.
+old_rusty [afraid]: Crooked beam, crooked stair, nobody left to sit in the chair. Don't go up the hill, don't knock on the door.
+-> menu
+
+~ secret_fail
+old_rusty [neutral]: Wind in the gorse, nothing worse. Mind where you put your heels, I just swept there.
+-> menu

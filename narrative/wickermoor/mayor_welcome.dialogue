@@ -1,0 +1,84 @@
+# R11: Mayor Somerton comes out to greet Lord Phillip once the Round is quiet. Started by wm_mayor_scene (a call prop) after wm_first_sacrifice_done.
+# He asks pardon for the interruption, praises or forgives the party by what happened to the goat, offers the village, and then Phillip takes his leave.
+
+~ start
+appear wendel_somerton
+Narrator: A big timber-framed house on the square opens its door, and a round man in a three-piece suit that strains at every button bustles out across the dirt, a cane in one hand and a bowler in the other.
+wendel_somerton [smile]: Lord Phillip! Lady Adela! And what a way to be greeted. You have caught us in the middle of a very old custom, I'm afraid, and I do beg pardon for the commotion.
+phillip_druskenvald: Mayor. Mr. Somerton, is it? We were told your village was quiet.
+wendel_somerton: Quiet, my lord, quite, but for tonight. The oak drinks from the herds, once a year, so the hunting stays good and the barns stay full. A sacred tradition, nothing more.
+if flag.goat_fate == "eaten"
+Narrator: He mops his bald head with a handkerchief and looks, for the first time, at the strangers who stood by and let the thing happen.
+wendel_somerton [smile]: And you, good travelers, were kind enough to let the rite alone. The Green Queen takes note of respect. She will grant you vigor tonight, and I do hope you feel it.
+-> welcome_after
+endif
+if flag.goat_fate == "caught"
+wendel_somerton: Saved the little fellow, did you? Well, well. The oak will drink from the beasts of the field whatever you do, and a goat is a goat. We'll say no more of it.
+Narrator: His smile holds, but his handkerchief has gone to his forehead, and he does not stop mopping.
+-> welcome_after
+endif
+wendel_somerton: Cut it loose, did you? The rite is the village's, you understand, and the Queen does not forgive a spoiled offering as easily as I do. I shall say a word to the neighbors.
+-> welcome_after
+
+~ welcome_after
+quest wickermoor_arrival welcome
+* Ask him what the custom is for -> ask_custom
+* [Insight DC 17] Watch him: he is more rattled than he lets on -> insight_ok | insight_fail
+* Ask about the village, and where to sleep -> offer
+* Say nothing more -> offer
+
+~ ask_custom
+wendel_somerton: A blood offering to the Green Queen, who keeps the Hollow's herds and hunts. Tradition, tradition. We've done it since before the clocktower, and the harvests have never once failed us.
+-> welcome_after
+
+~ insight_ok
+Narrator: His eyes slide to the east road and back, and a muscle jumps in his jaw. He is a man hiding something to please a lord.
+set mayor_admitted_troubles
+wendel_somerton: Er. Some of our people have been, ah, taking sick lately. And a few have gone off without a word. Nothing to trouble his lordship with.
+-> welcome_after
+
+~ insight_fail
+Narrator: He looks like exactly what he is, a mayor with a very good suit and a very full evening.
+-> welcome_after
+
+~ offer
+wendel_somerton: The Druskenvald estate is quite ready for you, my lord. Pristine, staffed, a fine gift from the village. And for your friends, the Green Queen Inn, the one decent lodging in the Hollow. Alda Farnum keeps it.
+* [Persuasion DC 15] Ask him plainly what is going wrong in the village -> press_ok | press_fail
+* [Intimidation DC 15] Tell him we saw what that thing in the square was, and we want the truth -> press_ok | press_fail
+* Thank him and let it go -> parting
+
+~ press_ok
+Narrator: The mayor's smile goes thin, and then goes altogether, and under it is a tired man in a tight suit.
+wendel_somerton: More disappearances, more fevers, more funerals than there ought to be. I'd rather not say more in front of the lord. Come to my office when it is open, and I will tell you what I know.
+set mayor_admitted_troubles
+-> parting
+
+~ press_fail
+wendel_somerton: Oh, I'm sure I don't know what you can mean. A village is a village, good people. It has its seasons.
+-> parting
+
+~ parting
+phillip_druskenvald [weary]: Mayor, I do hope you'll forgive us. It has been a long road, and I find I am dreadfully tired. Darling, shall we go up and see this gift of yours?
+adela_druskenvald: Oh, swell. Philly, don't pout, the house will be darling. Friends, you'll come to dinner tomorrow, won't you, once we've seen the rooms?
+* [Insight DC 15] Something is wrong with Phillip, and it is not just the road -> uneasy_ok | uneasy_fail
+* Say we'd be glad to come -> accept
+
+~ uneasy_ok
+Narrator: Phillip's smile has been put on a half-beat late, and the hand on his cane is white at the knuckles. He is looking at the oak.
+set phillip_uneasy_noticed
+-> accept
+
+~ uneasy_fail
+-> accept
+
+~ accept
+phillip_druskenvald [smile]: Splendid. Ten gold a head for the inn, on me. The estate, tomorrow evening, and we shall have a grand old time.
+gold +40
+quest wickermoor_arrival parting
+Narrator: You watch two small figures, one twirling a cane, walk up the winding path toward the crooked manor on its hill, the windows lit and every line askew.
+leave phillip_druskenvald
+leave adela_druskenvald
+vanish wendel_somerton
+set wm_welcomed
+quest wickermoor_arrival free_roam
+Narrator: In the round below, the oak's carved faces lie in the moonlight, and one of them, you would swear, turns to watch them go.

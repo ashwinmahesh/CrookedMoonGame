@@ -1,0 +1,134 @@
+{
+  "id": "wickermoor_shop_carpentry",
+  "name": "The Carpentry Workshop",
+  "region": "wickermoor",
+  "summary": "The Carpentry Workshop, a room of Wickermoor Village.",
+  "text": "The inside of The Carpentry Workshop: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "##############",
+      "#............#",
+      "#............#",
+      "#.==========.#",
+      "#............#",
+      "#..........=.#",
+      "#..........=.#",
+      "#.==.....==..#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "##############"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Carpentry Workshop",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          12,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      6,
+      9
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        6,
+        11
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_shop_carpentry",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [],
+  "npcs": [
+    {
+      "npc": "beatrice_wells",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/beatrice_wells:start"
+    },
+    {
+      "npc": "branden_wells",
+      "cell": [
+        9,
+        5
+      ],
+      "dialogue": "wickermoor/branden_wells:start"
+    },
+    {
+      "npc": "robin_wells",
+      "cell": [
+        3,
+        8
+      ],
+      "dialogue": "wickermoor/children:robin"
+    },
+    {
+      "npc": "lark_wells",
+      "cell": [
+        4,
+        8
+      ],
+      "dialogue": "wickermoor/children:lark"
+    },
+    {
+      "npc": "jay_wells",
+      "cell": [
+        10,
+        8
+      ],
+      "dialogue": "wickermoor/children:jay"
+    },
+    {
+      "npc": "wren_wells",
+      "cell": [
+        11,
+        8
+      ],
+      "dialogue": "wickermoor/children:wren"
+    }
+  ],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        10,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

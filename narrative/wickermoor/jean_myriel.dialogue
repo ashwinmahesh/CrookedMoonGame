@@ -1,0 +1,37 @@
+# Drafted by Gemini (R11 batch b4), edited. jean_myriel's first conversation.
+
+~ start
+set jean_myriel_met
+Narrator: Heat rolls from the hearth, smelling of quenched iron and coal smoke. The squat smith checks the edge of his neatly trimmed beard in a polished buckler.
+jean_myriel [smile]: Step in out of the damp, strangers. Whether you need a mule shod, a blade silvered, or a bit of gold twisted pretty, my anvil is hot.
+-> menu
+
+~ menu
+jean_myriel [neutral]: What can I hammer out for you today?
+* Browse their wares -> shop_open
+* Ask how he came to settle in Wickermoor -> work
+* Ask about the mood in the village -> village
+* [Arcana DC 14] Inspect the dark red patina inside his fuller-grooves -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ shop_open
+jean_myriel [smile]: Take your time looking. The iron is honest, even if the shapes are a touch livelier than country folk like.
+shop
+-> menu
+
+~ work
+jean_myriel [weary]: Left my old mountain town by night because the elders called my scrollwork wicked. Here, so long as I mend their ploughshares, nobody asks why my candlesticks have thorns.
+-> menu
+
+~ village
+jean_myriel [sly]: Half the town wants silver charms against the moor, and the other half wantspadlocks against their neighbours. Good business for a smith either way.
+-> menu
+
+~ secret_ok
+Narrator: The quench-barrel beside the anvil smells faintly of rust and old salt, not plain rainwater.
+jean_myriel [sly]: Sharp eyes. I learned my tempering among the Crimson Rose, where we quenched good steel in a drop of willing blood, though I stick to pig's blood here.
+-> menu
+
+~ secret_fail
+jean_myriel [smile]: Just mountain slag in the ore, friend. Gives the steel a rosy tint when the fire runs hot.
+-> menu

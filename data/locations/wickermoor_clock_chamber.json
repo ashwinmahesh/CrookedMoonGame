@@ -1,0 +1,100 @@
+{
+  "id": "wickermoor_clock_chamber",
+  "name": "The Clock Chamber",
+  "region": "wickermoor",
+  "summary": "The Clock Chamber, a room of Wickermoor Village.",
+  "text": "The inside of The Clock Chamber: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "############",
+      "#..........#",
+      "#..........#",
+      "#..........#",
+      "#..........#",
+      "#....==....#",
+      "#....==....#",
+      "#..........#",
+      "#####......#",
+      "#..........#",
+      "#..........#",
+      "############"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Clock Chamber",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          10,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      5,
+      9
+    ],
+    "from_stair": [
+      5,
+      10
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        5,
+        11
+      ],
+      "to": "wickermoor_mayors_house",
+      "spawn": "from_clock",
+      "label": "Down the stair"
+    }
+  ],
+  "props": [
+    {
+      "id": "clock_chamber_works",
+      "cell": [
+        5,
+        5
+      ],
+      "kind": "examine",
+      "label": "The clock's works",
+      "model": "case"
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        9,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

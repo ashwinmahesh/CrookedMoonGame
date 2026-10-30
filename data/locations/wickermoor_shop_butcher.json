@@ -1,0 +1,110 @@
+{
+  "id": "wickermoor_shop_butcher",
+  "name": "Harga's Meats",
+  "region": "wickermoor",
+  "summary": "Harga's Meats, a room of Wickermoor Village.",
+  "text": "The inside of Harga's Meats: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "##############",
+      "#............#",
+      "#............#",
+      "#.==========.#",
+      "#............#",
+      "#..........=.#",
+      "#..........=.#",
+      "#.==.....==..#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "##############"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "Harga's Meats",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          12,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      6,
+      9
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        6,
+        11
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_shop_butcher",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [],
+  "npcs": [
+    {
+      "npc": "siv_harga",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/siv_harga:start"
+    },
+    {
+      "npc": "mrs_oakum",
+      "cell": [
+        9,
+        5
+      ],
+      "dialogue": "wickermoor/mrs_oakum:start"
+    },
+    {
+      "npc": "ulf_harga",
+      "cell": [
+        3,
+        8
+      ],
+      "dialogue": "wickermoor/children:ulf"
+    }
+  ],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        10,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

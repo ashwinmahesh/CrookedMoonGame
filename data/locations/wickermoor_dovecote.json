@@ -1,0 +1,106 @@
+{
+  "id": "wickermoor_dovecote",
+  "name": "The Dovecote",
+  "region": "wickermoor",
+  "summary": "The Dovecote, a room of Wickermoor Village.",
+  "text": "The inside of The Dovecote: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "############",
+      "############",
+      "###......###",
+      "##.==..==.##",
+      "##........##",
+      "##...=....##",
+      "##....=...##",
+      "##........##",
+      "##.=....=.##",
+      "###......###",
+      "############",
+      "############"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Dovecote",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          10,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      5,
+      8
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        5,
+        10
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_dovecote",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [
+    {
+      "id": "dovecote_coops",
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "examine",
+      "label": "Stacked coops",
+      "model": "cage"
+    },
+    {
+      "id": "dovecote_perches",
+      "cell": [
+        8,
+        3
+      ],
+      "kind": "examine",
+      "label": "Perches thick with feathers",
+      "model": "crow"
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        9,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

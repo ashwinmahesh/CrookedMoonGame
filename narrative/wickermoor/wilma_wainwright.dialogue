@@ -1,0 +1,40 @@
+# Drafted by Gemini (R11 batch b2), edited. wilma_wainwright's first conversation.
+
+~ start
+set wilma_wainwright_met
+Narrator: Down by the cellar steps smells of boiled cabbage, damp wool, and iron oil. A brisk woman keeps one hand near her club and an ear cocked toward the floorboards.
+wilma_wainwright [neutral]: Wipe your boots before you tread mud across Mr. Tolliver's floorboards. Looking is free, touching is fine, and making trouble answers to Ronald and me.
+* Ask about her work and the children downstairs -> about_self
+* Ask how the village keeps safe in the dark -> about_village
+* Ask what happened to the children's families -> rumour
+* [Insight DC 13] Watch her face when she speaks of the dark -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ menu
+wilma_wainwright [neutral]: Speak plain if you need something, I have three youngsters below and soup on the stove.
+* Ask about her work and the children downstairs -> about_self
+* Ask how the village keeps safe in the dark -> about_village
+* Ask what happened to the children's families -> rumour
+* [Insight DC 13] Watch her face when she speaks of the dark -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ about_self
+wilma_wainwright [smile]: Mr. Tolliver gives us the basement and an honest wage to mind the post. It keeps a dry roof over Victoria, Eddie, and little Zachariah, Green Queen bless them.
+-> menu
+
+~ about_village
+wilma_wainwright [neutral]: We keep to the Old Ways, bar the shutters at the late bells, and mind the Founder's Round. Strangers who respect custom do well enough here.
+-> menu
+
+~ rumour
+wilma_wainwright [sad]: Those three little ones lost their folks to what comes at night out on the moor. That is all I am saying with young ears under the boards.
+-> menu
+
+~ secret_ok
+Narrator: Her knuckles whiten on her belt, and her eyes flick toward the six quarters of the valley beyond the walls.
+wilma_wainwright [afraid]: There are six great hungers out in this valley, and they do not leave bones to bury. Keep your lanterns lit if you walk past the stones.
+-> menu
+
+~ secret_fail
+wilma_wainwright [angry]: Do not go prying after grief that is none of your business. The children are fed and warm, and that is what counts.
+-> menu

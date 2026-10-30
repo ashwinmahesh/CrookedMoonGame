@@ -1,0 +1,36 @@
+# Drafted by Gemini (R11 batch b4), edited. joan_murdoch's first conversation.
+
+~ start
+set joan_murdoch_met
+Narrator: Loose paper sheets flutter in her hands, smelling of fresh printer's ink and lavender soap. Her beaming smile fixes on you before you can take a step back.
+joan_murdoch [smile]: Oh, fresh faces in the square, praise the song! Take a hymn-sheet, take two, my husband Weston is just inside tuning up the rafters!
+-> menu
+
+~ menu
+joan_murdoch [smile]: Have you a moment to hear how the Morning Choir lifts the spirit?
+* Ask about the hymn-sheets she is handing out -> work
+* Ask how her family fares in Wickermoor -> village
+* Ask what she hears from the townsfolk -> rumour
+* [Persuasion DC 13] Gently ask why she presses the faith so hard -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ work
+joan_murdoch [smile]: I copy every verse by candlelight while Peter and Charlotte practice their harmonies. If folk only hum the tune while churning butter, the light gets a foothold!
+-> menu
+
+~ village
+joan_murdoch [smile]: People shut their shutters at first, bless them, they are shy as field mice. Give me another month of knocking and we will have every pew packed tight.
+-> menu
+
+~ rumour
+joan_murdoch [weary]: Poor Mrs. Oakum from the butcher's shop bolted like a startled hare when I offered her a pamphlet at dusk. Half this town acts as though a kind word might bite.
+-> menu
+
+~ secret_ok
+Narrator: For a breath her bright grin softens, and she smooths a crumpled corner of the songbook with ink-stained thumbs.
+joan_murdoch [sad]: If we do not fill this town with music, the gloom will swallow my children whole. A mother will knock on every door in the realm before she lets the dark have her family.
+-> menu
+
+~ secret_fail
+joan_murdoch [smile]: Why, because a good song is meant to be shared, dear heart! Keep that sheet dry in your pocket and sing it when the road gets long.
+-> menu

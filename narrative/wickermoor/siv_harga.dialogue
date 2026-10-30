@@ -1,0 +1,42 @@
+# Drafted by Gemini (R11 batch b3), edited. siv_harga's first conversation.
+
+~ start
+set siv_harga_met
+Narrator: Scrubbed pine tables smell of coarse salt and winter savory, with not a fly in sight. Siv wipes a broad cleaver on clean linen, her heavy blonde braids pinned back from a calm, weathered face.
+siv_harga [neutral]: Good greeting to you. The meat is hung proper and bled clean, if your pack needs provisioning.
+-> menu
+
+~ menu
+siv_harga [neutral]: Speak what you need. A sharp blade and an honest weight save everyone time.
+* Browse their wares -> shop_open
+* Ask about her trade and her household -> work
+* Ask about her faith in the Patient Lady -> village
+* Ask what the beasts in the pens have been doing -> rumour
+* [Animal Handling DC 13] Ask if it is true she speaks with the livestock -> check_ok | check_fail
+* Take our leave -> END
+
+~ shop_open
+siv_harga [neutral]: Salted mutton, smoked bacon, and marrow bones. It will keep you standing on the moor.
+shop
+-> menu
+
+~ work
+siv_harga [smile]: I buy from the hill crofters, keep the pens clean out back, and go home to Holly's warm bread and our two girls. A house with flour on the table and meat in the smoke-room lacks very little.
+-> menu
+
+~ village
+siv_harga [neutral]: Before the knife touches the throat, I ask the Patient Lady to take the beast's breath gently. The Green Queen wants blood on roots, my Lady only asks that nothing suffer for our supper.
+-> menu
+
+~ rumour
+siv_harga [weary]: Holly stays at the ovens too late, counting chimes and staring at the calendar chalk. If anyone brings trouble near my door while her heart is heavy, they will meet the cleaver.
+-> menu
+
+~ check_ok
+Narrator: Behind the shop wall, a penned wether gives a low bleat and presses its wool against the boards at the sound of her voice.
+siv_harga [sly]: Folks talk foolishness because I keep my voice down and don't beat a frightened sheep. Still, the ewes won't face the northern hills this week, and a sheep knows a wolf with antlers before a man does.
+-> menu
+
+~ check_fail
+siv_harga [sly]: Perhaps the old rams tell me all the parish gossip, and perhaps I just know when a beast has bad teeth.
+-> menu

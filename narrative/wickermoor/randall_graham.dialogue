@@ -1,0 +1,48 @@
+# Drafted by Gemini (R11 batch b2), edited. randall_graham's first conversation.
+
+~ start
+set randall_graham_met
+Narrator: Sharp white spirit, bay rum, and warm soap mingle in the little parlour. A burly sandy-bearded man strops a razor with an easy, neighbourly grin.
+randall_graham [smile]: Well now, fresh faces in the hollow! Sit yourselves down for a trim, a stitch, or a splash of my own clear shine to chase the damp out.
+* Ask for a haircut, stitches, or a drink -> shop_open
+* Ask about his trade as barber and surgeon -> about_self
+* Ask who else in town we ought to meet -> about_village
+* Ask what news passes through the barber's chair -> rumour
+* [Perception DC 14] Glance at the second chair and the unswept hair -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ menu
+randall_graham [smile]: Take a weight off your boots, friends. Randall's chair is always open.
+* Ask for a haircut, stitches, or a drink -> shop_open
+* Ask about his trade as barber and surgeon -> about_self
+* Ask who else in town we ought to meet -> about_village
+* Ask what news passes through the barber's chair -> rumour
+* [Perception DC 14] Glance at the second chair and the unswept hair -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ shop_open
+randall_graham [smile]: Hold still and breathe easy, my hand is the steadiest in Wickermoor and the jug is right beside the basin.
+services
+-> menu
+
+~ about_self
+randall_graham [smile]: A village this size needs one fellow to trim beards, pull bad molars, and sew up a split brow. Folks talk freer with a warm towel round their chin.
+-> menu
+
+~ about_village
+randall_graham [neutral]: You should look in on young Thomasin the tailor, a bright soul who listens well to old wisdom. This hollow remembers its roots deeper than the city folk think.
+-> menu
+
+~ rumour
+randall_graham [sly]: They say the old powers in the woods are stirring under the crone's moon, hungry for what was stolen from them. Best keep on the right side of the forest.
+-> menu
+
+~ secret_ok
+Narrator: Nicked into the wood under the second chair's arm is a tiny hare crowned with antlers, and Randall nudges a lock of clipped hair away from your boot.
+randall_graham [sly]: Ah, step clear of the clippings, friend, it brings sour luck to let a customer's hair blow out the door. Everything trimmed under my roof stays safe downstairs.
+-> menu
+
+~ secret_fail
+Narrator: Randall sweeps the floorboards into a lidded pail with a single brisk stroke of his broom.
+randall_graham [smile]: Nothing to see on the floor but split ends and moor dust, friend.
+-> menu

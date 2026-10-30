@@ -1,0 +1,42 @@
+# Drafted by Gemini (R11 batch b3), edited. beatrice_wells's first conversation.
+
+~ start
+set beatrice_wells_met
+Narrator: The smell of fresh pine shavings and warm linseed oil spills from the open workshop. Beatrice planes a curved beam in time to a bright, three-part tune hummed from the rafters.
+beatrice_wells [smile]: Mind the sawdust, friends, and come right in! Every joint has a song in it if you cut the mortise true.
+-> menu
+
+~ menu
+beatrice_wells [smile]: Now then, what can the Wells bench build or mend for you tonight?
+* Browse their wares -> shop_open
+* Ask about her carpentry and the family -> work
+* Ask about the new chapel she is building -> village
+* Ask what catches her eye in the village buildings -> rumour
+* [Perception DC 13] Glance at the charcoal sketches pinned under her bench -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ shop_open
+beatrice_wells [smile]: Spokes, handles, chests, or stout ash poles, all seasoned dry and sung over!
+shop
+-> menu
+
+~ work
+beatrice_wells [smile]: Branden turns the lathe, the four little ones sweep and fetch the pegs, and I shape the frames. A workshop that sings together never splits the grain.
+-> menu
+
+~ village
+beatrice_wells [neutral]: Brother Weston asked us to raise the new Brightsinger chapel with high, clear eaves. Half the Old Ways folk mutter as they pass, but good oak answers to any honest chisel.
+-> menu
+
+~ rumour
+beatrice_wells [sly]: Look up at that old house on the hill when the moon catches the roof. Not a single rafter sits square, yet the whole pitch leans together without a creak.
+-> menu
+
+~ secret_ok
+Narrator: Beneath the chapel plans lie dozens of frantic charcoal drawings, each repeating the same impossible, crooked dovetail joint.
+beatrice_wells [weary]: Look at that angle, it ought to collapse under its own weight, yet it holds like iron. If I could just puzzle out how the builder bent the king-post, my chapel spire would touch the stars.
+-> menu
+
+~ secret_fail
+beatrice_wells [smile]: Only timber tallies and choir sheets under there, friend, nothing half so grand as the finished roof will be.
+-> menu

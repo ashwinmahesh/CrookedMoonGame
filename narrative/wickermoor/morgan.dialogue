@@ -1,0 +1,48 @@
+# Drafted by Gemini (R11 batch b2), edited. morgan's first conversation.
+
+~ start
+set morgan_met
+Narrator: Bundles of dried yarrow and bog-mint brush your shoulders, and glass vials clink softly on crooked shelves. Morgan looks up with faraway green eyes, fingers stained violet with crushed roots.
+morgan [smile]: Oh, come in, mind the low beam by the door. I was just labelling the willow-water, or perhaps I already finished that an hour ago.
+* Browse their wares -> shop_open
+* Ask about their remedies and work -> about_self
+* Ask how long they have lived in Wickermoor -> about_village
+* Ask about the stranger vials on the back shelf -> rumour
+* [Medicine DC 13] Notice the gaps in their ledger notes -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ menu
+morgan [neutral]: Was there another draught you needed, or did we only just begin talking?
+* Browse their wares -> shop_open
+* Ask about their remedies and work -> about_self
+* Ask how long they have lived in Wickermoor -> about_village
+* Ask about the stranger vials on the back shelf -> rumour
+* [Medicine DC 13] Notice the gaps in their ledger notes -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ shop_open
+morgan [smile]: The red bottles mend torn flesh properly, and the herb bundles mostly comfort the locals, though comfort does half the curing.
+shop
+-> menu
+
+~ about_self
+morgan [neutral]: I have no beds for the sick, only bottles and poultices to carry home. People tell me their aches, and I try to remember which jar eased them last time.
+-> menu
+
+~ about_village
+morgan [weary]: Everyone in the hollow has an old name and an older grave to tend. Sometimes I wonder what sort of name I had before the moor took me in.
+-> menu
+
+~ rumour
+morgan [sly]: Some nights I brew tinctures that let a drinker see through mist or hear what the dead whisper in the thatch. I never quite recall who taught me the measure.
+-> menu
+
+~ secret_ok
+Narrator: The open ledger on Morgan's counter has whole pages torn short, with ink trails stopping mid-word as if the hand simply froze.
+morgan [sad]: Funny thing, the clock strikes one bell and when I blink it is striking the next. I woke here small and alone, and the years between still slip through my fingers.
+-> menu
+
+~ secret_fail
+Narrator: Morgan gently closes the stained ledger under a bundle of dried chamomile.
+morgan [smile]: Do not mind my messy handwriting, nobody in the hollow can read apothecary scrawl anyway.
+-> menu

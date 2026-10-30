@@ -1,0 +1,40 @@
+# Drafted by Gemini (R11 batch b1), edited. myrtle_somerton's first conversation.
+
+~ start
+set myrtle_somerton_met
+Narrator: She smells of starch and dried chamomile, her hands folded neat over her apron while her gaze flicks toward the nursery stairs.
+myrtle_somerton [neutral]: Good evening. If you are looking for Wendel, he keeps his hours in the office, though I ask that you keep your voices low near little Rose's door.
+* Ask after her family and daily life -> about_work
+* Ask how she finds life in Wickermoor -> about_village
+* Ask if the neighbors have been well -> rumour
+* [Insight DC 13] Notice the tension in her hands when she mentions the children -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ about_work
+myrtle_somerton [weary]: Being the mayor's wife means keeping the silver bright and making sure Wendel does not promise the parish away to flatter quality. My real work is keeping Rose at her lessons and indoors.
+-> menu
+
+~ about_village
+myrtle_somerton [neutral]: It is a respectable village when folk mind their own hearths. I tell Wendel that all this fuss over old trees and midnight bells only gives the simple folk bad dreams.
+-> menu
+
+~ rumour
+myrtle_somerton [sad]: Too many shutters have stayed barred past the third bell this month. The baker's apprentice has a rattle in his chest that no kettle of broth seems to touch.
+-> menu
+
+~ secret_ok
+Narrator: Her knuckles whiten on her apron hem, and you see iron pins driven into the windowsill beside a child's wooden doll.
+myrtle_somerton [afraid]: People do not just wander off into the gorse when they know the paths from birth, no matter what the constable writes down. I bolt Rose's shutters before the first bell, and I do not open them for anyone.
+-> menu
+
+~ secret_fail
+Narrator: She smooths her skirt with a brisk pat and offers a tight, proper nod.
+myrtle_somerton [neutral]: A mother is always careful in damp weather, that is all. The moor air is hard on small lungs.
+-> menu
+
+~ menu
+* Ask after her family and daily life -> about_work
+* Ask how she finds life in Wickermoor -> about_village
+* Ask if the neighbors have been well -> rumour
+* [Insight DC 13] Notice the tension in her hands when she mentions the children -> secret_ok | secret_fail
+* Take our leave -> END

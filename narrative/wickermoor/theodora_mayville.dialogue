@@ -1,0 +1,42 @@
+# Drafted by Gemini (R11 batch b5), edited. theodora_mayville's first conversation.
+
+~ start
+set theodora_mayville_met
+Narrator: The post office smells of sealing wax, damp feathers, and old parchment. A fat grey pigeon on the postmaster's shoulder swivels its head to fix you with an unblinking orange eye.
+theodora_mayville [smile]: Welcome to Wickermoor's post, travellers. If you have word for the wider valley, my birds and wagons will see it carried safe.
+-> menu
+
+~ menu
+* Ask about the postal service -> about_work
+* Ask what she makes of Wickermoor -> about_village
+* Send a letter or parcel -> shop_open
+* Ask if any strange news has come through -> rumour
+* [Perception DC 14] Study her gloved left hand and the watchful bird -> check_ok | check_fail
+* Take our leave -> END
+
+~ about_work
+theodora_mayville [neutral]: A letter is a fragile thing in the dark, isn't it? Folks pour their whole hearts onto a scrap of paper and trust me to mend the distance.
+theodora_mayville [smile]: I read the addresses, bind the twine, and make sure every soul gets the exact message they need to hear.
+-> menu
+
+~ about_village
+theodora_mayville [sly]: Oh, the village is quaint enough, with their bonfires and their precious old oak. They pray so hard to the woods, poor dears, never looking up at what flies overhead.
+-> menu
+
+~ shop_open
+theodora_mayville [smile]: Let's see what needs carrying, then. Mind the wax, it's fresh off the flame.
+-> menu
+
+~ rumour
+theodora_mayville [weary]: Folk down the lane complain that answers from distant kin don't sound quite like their loved ones anymore. Grief muddles the memory, I tell them, and the night air changes us all.
+-> menu
+
+~ check_ok
+Narrator: Beneath the neat calfskin of her left glove, the knuckles bend at an extra, backward joint, stiff and scaly. Beside her ear, the golden pigeon earring gleams as the live bird tracks {name}'s every breath.
+theodora_mayville [sly]: You've a sharp eye, stranger. Best keep it on the road ahead, lest the dust get in it.
+-> menu
+
+~ check_fail
+Narrator: She smooths her brown apron with her gloved hand, the very picture of a tidy country clerk. The pigeon merely ruffles its crop and settles against her white-blond hair.
+theodora_mayville [smile]: Did you smudge your sleeve on the inkpot, dear? Do be careful.
+-> menu

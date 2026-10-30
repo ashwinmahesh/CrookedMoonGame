@@ -1,0 +1,46 @@
+# Drafted by Gemini (R11 batch b1), edited. wendel_somerton's first conversation.
+
+~ start
+set wendel_somerton_met
+Narrator: Waxed paper and peppermint hair-oil fill the snug office, where the Mayor taps his emerald-headed cane against a stack of fresh forms.
+wendel_somerton [smile]: Ah, our distinguished visitors, right on time between Twilight and Nightfall. In here we may dispense with square-side ceremony and attend to proper municipal order.
+* Ask about his duties as Mayor -> about_work
+* Ask about the Old Ways and Wickermoor -> about_village
+* Ask about records, forms and permits -> shop_open
+* Ask what reports have crossed his desk -> rumour
+* [Insight DC 14] Ask who advises him on the old parish customs -> secret_ok | secret_fail
+* Take our leave -> END
+
+~ about_work
+wendel_somerton [smile]: Every permit stamped, every boundary dispute filed in triplicate, and Lord Phillip shall see a model parish. A village without ledgers is merely a camp in the heather.
+-> menu
+
+~ about_village
+wendel_somerton [neutral]: As speaker for the Old Ways, I see that the Green Queen receives her traditional dues and the Oak is respected. The smaller faiths have their little corners, of course, under my benevolent eye.
+-> menu
+
+~ shop_open
+wendel_somerton [smile]: I have the official register of permits, deeds, and municipal rewards right here.
+-> menu
+
+~ rumour
+wendel_somerton [weary]: Three separate complaints of night-singing near the standing stones, and a petition about blighted turnips. People blame ancient curses when they have simply neglected their drainage ditches.
+-> menu
+
+~ secret_ok
+Narrator: He puffs out his waistcoat, fondling the jewelled oak-leaf pin at his lapel as though reciting someone else's lesson.
+wendel_somerton [sly]: Between ourselves, Alda and young Butterman have been marvelous at unearthing the older rites from the parish chests. They assure me the old horned-hare processions will impress the gentry no end.
+-> menu
+
+~ secret_fail
+Narrator: He straightens his bowler hat on the peg and squares a bundle of parchment with loud taps.
+wendel_somerton [smile]: A mayor relies on his own seasoned judgment, my friends, and forty years of sound filing.
+-> menu
+
+~ menu
+* Ask about his duties as Mayor -> about_work
+* Ask about the Old Ways and Wickermoor -> about_village
+* Ask about records, forms and permits -> shop_open
+* Ask what reports have crossed his desk -> rumour
+* [Insight DC 14] Ask who advises him on the old parish customs -> secret_ok | secret_fail
+* Take our leave -> END

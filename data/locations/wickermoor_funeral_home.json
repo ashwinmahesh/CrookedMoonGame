@@ -1,0 +1,119 @@
+{
+  "id": "wickermoor_funeral_home",
+  "name": "Shade Funeral Home",
+  "region": "wickermoor",
+  "summary": "Shade Funeral Home, a room of Wickermoor Village.",
+  "text": "The inside of Shade Funeral Home: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "####################",
+      "#..................#",
+      "#...======..=====..#",
+      "#..................#",
+      "#..................#",
+      "#..==..........==..#",
+      "#..................#",
+      "#..................#",
+      "#########..#########",
+      "#..................#",
+      "#..................#",
+      "#..=====....=====..#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "####################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "Shade Funeral Home",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          18,
+          14
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      9,
+      13
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        9,
+        15
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_funeral_home",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [
+    {
+      "id": "funeral_home_coffins",
+      "cell": [
+        4,
+        2
+      ],
+      "kind": "examine",
+      "label": "A row of coffins",
+      "model": "case"
+    },
+    {
+      "id": "funeral_home_lectern",
+      "cell": [
+        12,
+        2
+      ],
+      "kind": "examine",
+      "label": "A lectern",
+      "model": "book"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "mori_shade",
+      "cell": [
+        9,
+        6
+      ],
+      "dialogue": "wickermoor/mori_shade:start"
+    }
+  ],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        15,
+        5
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "id": "wickermoor_trading_post",
+  "name": "Tolliver's Trading Post",
+  "region": "wickermoor",
+  "summary": "Tolliver's Trading Post, a room of Wickermoor Village.",
+  "text": "The inside of Tolliver's Trading Post: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "######################",
+      "#....................#",
+      "#....................#",
+      "#...==...==...==.....#",
+      "#....................#",
+      "#..======........==..#",
+      "#................==..#",
+      "#....................#",
+      "##########..##########",
+      "#....................#",
+      "#....................#",
+      "#..========...=====..#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "######################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "Tolliver's Trading Post",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          20,
+          14
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      10,
+      13
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        10,
+        15
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_trading_post",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [
+    {
+      "id": "trading_post_shelves",
+      "cell": [
+        4,
+        3
+      ],
+      "kind": "examine",
+      "label": "Shelves of staples",
+      "model": "shelves"
+    },
+    {
+      "id": "trading_post_oddities",
+      "cell": [
+        14,
+        3
+      ],
+      "kind": "examine",
+      "label": "A cabinet of oddities",
+      "model": "case"
+    },
+    {
+      "id": "trading_post_counter",
+      "cell": [
+        10,
+        11
+      ],
+      "kind": "examine",
+      "label": "The counter",
+      "model": "table_round"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "baltus_tolliver",
+      "cell": [
+        10,
+        10
+      ],
+      "dialogue": "wickermoor/baltus_tolliver:start"
+    },
+    {
+      "npc": "wilma_wainwright",
+      "cell": [
+        4,
+        4
+      ],
+      "dialogue": "wickermoor/wilma_wainwright:start"
+    },
+    {
+      "npc": "ronald_wainwright",
+      "cell": [
+        17,
+        4
+      ],
+      "dialogue": "wickermoor/ronald_wainwright:start"
+    },
+    {
+      "npc": "victoria_wainwright",
+      "cell": [
+        7,
+        6
+      ],
+      "dialogue": "wickermoor/children:victoria"
+    },
+    {
+      "npc": "eddie_wainwright",
+      "cell": [
+        8,
+        6
+      ],
+      "dialogue": "wickermoor/children:eddie"
+    },
+    {
+      "npc": "zachariah_wainwright",
+      "cell": [
+        9,
+        6
+      ],
+      "dialogue": "wickermoor/children:zachariah"
+    }
+  ],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        16,
+        5
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

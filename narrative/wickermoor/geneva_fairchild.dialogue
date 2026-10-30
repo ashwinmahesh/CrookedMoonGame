@@ -1,0 +1,37 @@
+# Drafted by Gemini (R11 batch b5), edited. geneva_fairchild's first conversation.
+
+~ start
+set geneva_fairchild_met
+Narrator: A breathless young woman sorts stacks of tied letters with ink-stained fingers, her leather satchel still damp from the moorland mist.
+geneva_fairchild [smile]: Oh, good evening! You caught me right between runs. Miss Theodora lets me mind the counter whenever I'm not out walking the valley roads.
+-> menu
+
+~ menu
+* Ask how she came to work the post -> about_self
+* Ask about the roads around Wickermoor -> about_village
+* Ask about the local folk -> rumour
+* [Insight DC 13] Notice why she keeps glancing anxiously at the return bin -> check_ok | check_fail
+* Take our leave -> END
+
+~ about_self
+geneva_fairchild [smile]: Look at my eyes, lilac as spring heather. The village grandmothers used to cross their fingers at me and mutter about bad luck.
+geneva_fairchild [neutral]: Miss Theodora took me in and told me a rare colour is a gift, not a curse. I owe her my whole living.
+-> menu
+
+~ about_village
+geneva_fairchild [neutral]: Wickermoor is safe enough inside the lanterns, though Mayor Somerton's folk can be stern about the old customs. Once you pass the Founder's Round, though, the mist plays tricks on the footpaths.
+-> menu
+
+~ rumour
+geneva_fairchild [weary]: Whatever you do, don't whistle after the clocktower strikes the third hour. The birds in the rafters get terribly restless when folks whistle out of tune.
+-> menu
+
+~ check_ok
+Narrator: Her thumb worries the corner of an opened envelope addressed in her own neat hand, though the ink inside has been scraped and rewritten.
+geneva_fairchild [afraid]: It's nothing, truly, only I wrote to my cousin in the low valley last month, and the reply speaks of a quarrel we never had. Even the seal feels cold, like tallow.
+-> menu
+
+~ check_fail
+Narrator: She sweeps the stray envelopes into her canvas sack and buckles it tight with a brisk nod.
+geneva_fairchild [smile]: Just making sure the post marks are dry before the wagon leaves. Miss Theodora hates a smeared address.
+-> menu

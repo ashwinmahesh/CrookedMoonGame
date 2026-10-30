@@ -1,0 +1,115 @@
+{
+  "id": "wickermoor_schoolhouse",
+  "name": "The Schoolhouse",
+  "region": "wickermoor",
+  "summary": "The Schoolhouse, a room of Wickermoor Village.",
+  "text": "The inside of The Schoolhouse: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "################",
+      "#.....====.....#",
+      "#..............#",
+      "#..====..====..#",
+      "#..............#",
+      "#..====..====..#",
+      "#..............#",
+      "#..====..====..#",
+      "#..............#",
+      "#..............#",
+      "#..............#",
+      "################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Schoolhouse",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          14,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      7,
+      9
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        7,
+        11
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_schoolhouse",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [
+    {
+      "id": "schoolhouse_map",
+      "cell": [
+        7,
+        1
+      ],
+      "kind": "examine",
+      "label": "A hand-lettered map of the Hollow",
+      "model": "papers"
+    },
+    {
+      "id": "schoolhouse_desks",
+      "cell": [
+        4,
+        3
+      ],
+      "kind": "examine",
+      "label": "Small desks",
+      "model": "table_round"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "finneas_trout",
+      "cell": [
+        7,
+        2
+      ],
+      "dialogue": "wickermoor/finneas_trout:start"
+    }
+  ],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        12,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}
