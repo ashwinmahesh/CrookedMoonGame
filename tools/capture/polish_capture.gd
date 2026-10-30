@@ -31,7 +31,8 @@ func capture_shots(tool: Node, out: String) -> void:
 	view.atmosphere.settle()
 	var atmo := view.atmosphere
 	var post := atmo.get("_post") as ShaderMaterial
-	var strings := view.board.find_children("*LightString*", "", true, false)
+	var strings := get_tree().root.find_children("*", "Node3D", true, false).filter(func(n: Node) -> bool: return n is LightString)
+	print("polish: %d lantern strings" % strings.size())
 	var rig := view.rig
 	rig.follow = null
 	for spot: Array in [["cottage", Vector3(17.5, 0, 14.5), 11.0], ["pond", Vector3(15.5, 0, 20.0), 9.0]]:
