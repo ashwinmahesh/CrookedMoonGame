@@ -184,3 +184,53 @@ func test_ghostly_rails_grapples_whoever_the_locomotive_passes_through() -> void
 	assert_true(engine.cell.x < 14, "the engine moved along them")
 	assert_true(hero.creature.has_condition(&"grappled"), "the hero it passed through is held")
 	assert_false(far.creature.has_condition(&"grappled"), "the far one is not")
+
+
+# --- R11-R12: Teleport, Dark Teleport and Tooth Theft ----------------------------------------------------------------------
+
+func test_ketgrinn_teleports_beside_a_hero_it_cant_walk_to() -> void:
+	var e := _field()
+	var ketgrinn := e.add(TestCombat.monster("ketgrinn"), &"enemy", Vector2i(1, 1))
+	var hero := TestCombat.hero(e, "hedda_ironvow", Vector2i(13, 1), 3)
+	TestCombat.start_with(e, ketgrinn)
+	e.ai.play_turn(ketgrinn)
+	assert_true(e.distance(ketgrinn, hero) <= 5, "it stands beside the hero (%d ft)" % e.distance(ketgrinn, hero))
+
+
+func test_ketgrinn_walks_when_it_can() -> void:
+	var e := _field()
+	var ketgrinn := e.add(TestCombat.monster("ketgrinn"), &"enemy", Vector2i(1, 1))
+	var hero := TestCombat.hero(e, "hedda_ironvow", Vector2i(6, 1), 3)
+	TestCombat.start_with(e, ketgrinn)
+	e.ai.play_turn(ketgrinn)
+	assert_true(e.distance(ketgrinn, hero) <= 5 and ketgrinn.cell.x < 6, "it walked there (cell %s)" % ketgrinn.cell)
+
+
+func test_the_lurker_does_not_teleport_in_bright_light() -> void:
+	var e := _field()
+	var lurker := e.add(TestCombat.monster("lurker_in_the_dark"), &"enemy", Vector2i(1, 1))
+	var hero := TestCombat.hero(e, "hedda_ironvow", Vector2i(19, 1), 3)
+	e.ambient_light = "bright"
+	TestCombat.start_with(e, lurker)
+	e.ai.play_turn(lurker)
+	assert_true(e.distance(lurker, hero) > 10, "in bright light it can only run (%d ft off)" % e.distance(lurker, hero))
+	var e2 := _field()
+	var lurker2 := e2.add(TestCombat.monster("lurker_in_the_dark"), &"enemy", Vector2i(1, 1))
+	var hero2 := TestCombat.hero(e2, "hedda_ironvow", Vector2i(19, 1), 3)
+	e2.ambient_light = "dim"
+	TestCombat.start_with(e2, lurker2)
+	e2.ai.play_turn(lurker2)
+	assert_true(e2.distance(lurker2, hero2) <= 10, "out of bright light it steps through to the hero (%d ft)" % e2.distance(lurker2, hero2))
+
+
+func test_tooth_theft_takes_one_tooth_and_saves_only_once() -> void:
+	var e := _field()
+	var swarm := e.add(TestCombat.monster("boogleswarm"), &"enemy", Vector2i(5, 5))
+	var hero := TestCombat.hero(e, "hedda_ironvow", Vector2i(4, 5), 1)
+	TestCombat.start_with(e, hero)
+	var rd := {"do": "tooth_theft", "params": {"save": {"ability": "con", "dc": 30}, "auto_success_if_already_lost": true, "implant": true}}
+	e.monster_actions._rider(swarm, hero, rd, {}, "Bite")
+	assert_eq(int(hero.creature.get_meta(BestiaryFeatures.TEETH_LOST_META, 0)), 1, "DC 30: a tooth is lost")
+	e.monster_actions._rider(swarm, hero, rd, {}, "Bite")
+	assert_eq(int(hero.creature.get_meta(BestiaryFeatures.TEETH_LOST_META, 0)), 1, "and no second one")
+	assert_true(hero.id in (swarm.get_meta(BestiaryFeatures.TEETH_META) as Array), "the swarm wears it")
