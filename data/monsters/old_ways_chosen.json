@@ -1,0 +1,213 @@
+{
+  "id": "old_ways_chosen",
+  "name": "Old Ways Chosen",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. The book makes it Medium or Small; entered as Medium.",
+    "page": 520
+  },
+  "size": "medium",
+  "type": "humanoid",
+  "alignment": "neutral",
+  "ac": 12,
+  "initiative": 2,
+  "hp": {
+    "average": 88,
+    "dice": "16d8+16"
+  },
+  "speed": {
+    "walk": 40
+  },
+  "abilities": {
+    "str": 8,
+    "dex": 14,
+    "con": 13,
+    "int": 8,
+    "wis": 18,
+    "cha": 16
+  },
+  "skills": {
+    "deception": 6,
+    "performance": 6,
+    "religion": 2
+  },
+  "senses": {},
+  "passive_perception": 14,
+  "languages": [
+    "Common"
+  ],
+  "gear": [
+    "Animal Mask",
+    "Daggers (6)"
+  ],
+  "cr": 5,
+  "xp": 1800,
+  "proficiency_bonus": 3,
+  "traits": [
+    {
+      "id": "animal_mask",
+      "name": "Animal Mask",
+      "action": "passive",
+      "summary": "While grappling it, a creature can tear off its mask (action or an Attack-action attack, DC 12 Athletics); without the mask it can't cast, loses Concentration and its Song DCs drop by 4.",
+      "text": "The mask carries the chosen's power. A creature grappling the chosen can remove the mask as an action, or as one of its attacks during the Attack action, with a successful DC 12 Strength (Athletics) check. Without the mask the chosen can't cast spells, its Concentration on any spell ends, and the save DC of its Songs of the Old Ways is reduced by 4.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "ritual_dagger",
+          "count": 3
+        }
+      ],
+      "summary": "Three Ritual Dagger attacks."
+    },
+    {
+      "id": "ritual_dagger",
+      "name": "Ritual Dagger",
+      "kind": "melee_or_ranged",
+      "attack": {
+        "bonus": 7,
+        "reach": 5,
+        "range": [
+          20,
+          60
+        ]
+      },
+      "damage": [
+        {
+          "average": 6,
+          "dice": "1d4+4",
+          "type": "piercing"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "radiant",
+          "when": "Necrotic instead, the chosen's choice"
+        }
+      ],
+      "summary": "+7, reach 5 ft or range 20/60 ft, 1d4+4 Piercing plus 2d6 Radiant or Necrotic (its choice).",
+      "text": "A ritual blade, used in the hand or thrown: 6 (1d4 + 4) Piercing damage plus 7 (2d6) Radiant or Necrotic damage, chosen by the chosen."
+    },
+    {
+      "id": "blessing_of_the_harvest",
+      "name": "Blessing of the Harvest (Song)",
+      "kind": "special",
+      "do": "area_heal",
+      "recharge": "5-6",
+      "area": {
+        "shape": "emanation",
+        "size": 30,
+        "allies": true
+      },
+      "summary": "Song, Recharge 5-6 (shared with its other songs). Allies it chooses within 30 ft regain 4d4+4 Hit Points.",
+      "text": "Each creature of the chosen's choice in a 30-foot Emanation around it regains 14 (4d4 + 4) Hit Points. It sings only one song per recharge; all three songs share the same Recharge 5-6."
+    },
+    {
+      "id": "song_of_sacrifice",
+      "name": "Song of Sacrifice (Song)",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "con",
+        "dc": 14,
+        "success": "half"
+      },
+      "targets": {
+        "range": 30,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 40,
+          "dice": "9d8",
+          "type": "necrotic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "paralyzed",
+          "until": "source_turn_end"
+        }
+      ],
+      "summary": "Song, Recharge 5-6 (shared). One creature within 30 ft: DC 14 Con save, 9d8 Necrotic (half on a success) and Paralyzed until the end of the chosen's next turn on a failure.",
+      "text": "Constitution save, DC 14, one creature within 30 feet. Failure: 40 (9d8) Necrotic damage, and the target is Paralyzed until the end of the chosen's next turn. Success: half damage only. The DC is 4 lower without the mask."
+    },
+    {
+      "id": "wicker_chant",
+      "name": "Wicker Chant (Song)",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "dex",
+        "dc": 14,
+        "success": "half"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 20,
+        "choose": true
+      },
+      "targets": {
+        "range": 20
+      },
+      "damage": [
+        {
+          "average": 31,
+          "dice": "9d6",
+          "type": "fire"
+        }
+      ],
+      "summary": "Song, Recharge 5-6 (shared). Creatures it chooses within 20 ft: DC 14 Dex save, 9d6 Fire (half on a success).",
+      "text": "Dexterity save, DC 14, each creature of the chosen's choice in a 20-foot Emanation around it. Failure: 31 (9d6) Fire damage. Success: half damage. The DC is 4 lower without the mask."
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting (Requires Animal Mask)",
+      "kind": "spellcasting",
+      "summary": "Wisdom, DC 15, +7: Druidcraft and Minor Illusion at will; Entangle and a level 4 Scorching Ray twice a day each. Needs the mask.",
+      "text": "The chosen casts one of these spells with Wisdom (spell save DC 15, +7 to hit), needing no Material components except its Animal Mask. At will: Druidcraft, Minor Illusion. 2/day each: Entangle, Scorching Ray (level 4 version)."
+    }
+  ],
+  "spellcasting": {
+    "ability": "wis",
+    "dc": 15,
+    "attack": 7,
+    "at_will": [
+      "druidcraft",
+      "minor_illusion"
+    ],
+    "per_day": {
+      "2": [
+        "entangle",
+        "scorching_ray"
+      ]
+    },
+    "levels": {
+      "scorching_ray": 4
+    }
+  },
+  "bonus_actions": [
+    {
+      "id": "jump",
+      "name": "Jump (Requires Animal Mask)",
+      "kind": "special",
+      "do": "cast",
+      "cast": [
+        "jump"
+      ],
+      "summary": "Casts Jump (same components and ability as its Spellcasting). Needs the mask.",
+      "text": "The chosen casts Jump, using the same components and spellcasting ability as its Spellcasting. It needs the Animal Mask."
+    }
+  ],
+  "ai_profile": "support",
+  "art": "cultist",
+  "summary": "A masked follower of the old gods who stabs with ritual blades, sings healing and killing songs, and casts nature magic through its mask."
+}

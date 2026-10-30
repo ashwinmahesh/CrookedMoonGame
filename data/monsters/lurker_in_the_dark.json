@@ -1,0 +1,151 @@
+{
+  "id": "lurker_in_the_dark",
+  "name": "Lurker in the Dark",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 515,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "medium",
+  "type": "fey",
+  "alignment": "neutral evil",
+  "ac": 14,
+  "initiative": 4,
+  "hp": {
+    "average": 65,
+    "dice": "10d8+20"
+  },
+  "speed": {
+    "walk": 30,
+    "climb": 30
+  },
+  "abilities": {
+    "str": 18,
+    "dex": 14,
+    "con": 14,
+    "int": 11,
+    "wis": 13,
+    "cha": 16
+  },
+  "saves": {
+    "dex": 4,
+    "wis": 3
+  },
+  "skills": {
+    "deception": 5,
+    "intimidation": 5,
+    "perception": 3,
+    "stealth": 6
+  },
+  "resistances": [
+    "bludgeoning"
+  ],
+  "condition_immunities": [
+    "grappled",
+    "restrained"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 13,
+  "languages": [
+    "Common",
+    "one other language"
+  ],
+  "cr": 4,
+  "xp": 1100,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "nightmarish_contortion",
+      "name": "Nightmarish Contortion",
+      "action": "passive",
+      "summary": "Fits into a 1-foot cube and through gaps 1 inch wide at no extra movement cost.",
+      "text": "The lurker can squeeze into a space as small as a 1-foot Cube, and pass through a gap only 1 inch wide without spending extra movement.",
+      "implemented": "text"
+    },
+    {
+      "id": "spider_climb",
+      "name": "Spider Climb",
+      "action": "passive",
+      "summary": "Climbs walls and ceilings with no ability check.",
+      "text": "The lurker can climb difficult surfaces, ceilings included, without an ability check.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "spider_climb"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "ward_of_innocence",
+      "name": "Ward of Innocence",
+      "action": "passive",
+      "summary": "Can't attack, or willingly move within 10 ft of, a creature holding a stuffed animal once owned by a child.",
+      "text": "The lurker cannot attack a creature holding a stuffed animal that a child once owned, nor willingly move to a space within 10 feet of such a creature.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "claw",
+          "count": 2
+        }
+      ],
+      "summary": "Two Claw attacks."
+    },
+    {
+      "id": "claw",
+      "name": "Claw",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 9,
+          "dice": "1d10+4",
+          "type": "slashing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 14,
+          "max_size": "medium",
+          "limit": 2,
+          "restrain": true
+        }
+      ],
+      "summary": "+6, reach 10 ft, 1d10+4 Slashing; a Medium or smaller target is Grappled (escape DC 14) and Restrained until it escapes."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "dark_teleport",
+      "name": "Dark Teleport",
+      "kind": "special",
+      "do": "dark_teleport",
+      "save": {
+        "ability": "cha",
+        "dc": 13,
+        "success": "none"
+      },
+      "targets": {
+        "range": 120
+      },
+      "summary": "Not in Bright Light: teleports up to 120 ft to an unoccupied space it can see (unseen if that space isn't in Bright Light either); a creature it grapples makes a DC 13 Cha save or goes with it.",
+      "text": "Usable only while the lurker is not in Bright Light. It teleports up to 120 feet to an unoccupied space; if the destination is not in Bright Light it needn't see it. A creature the lurker is grappling must succeed on a DC 13 Charisma saving throw or teleport with it to the nearest unoccupied space to the destination."
+    }
+  ],
+  "ai_profile": "skirmisher",
+  "summary": "A gaunt grey fey that squeezes through impossible gaps, seizes a victim with long clawed hands and teleports from dark to dark, dragging the prey along; a child's stuffed toy keeps it away."
+}

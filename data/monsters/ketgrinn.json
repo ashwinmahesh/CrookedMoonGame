@@ -1,0 +1,210 @@
+{
+  "id": "ketgrinn",
+  "name": "Ketgrinn",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 513,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "medium",
+  "type": "fey",
+  "alignment": "chaotic neutral",
+  "ac": 13,
+  "initiative": 3,
+  "hp": {
+    "average": 65,
+    "dice": "10d8+20"
+  },
+  "speed": {
+    "walk": 40,
+    "climb": 40
+  },
+  "abilities": {
+    "str": 12,
+    "dex": 17,
+    "con": 14,
+    "int": 16,
+    "wis": 10,
+    "cha": 18
+  },
+  "saves": {
+    "dex": 5,
+    "cha": 6
+  },
+  "skills": {
+    "deception": 8,
+    "perception": 2,
+    "persuasion": 8,
+    "stealth": 5
+  },
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 12,
+  "languages": [
+    "Common",
+    "Sylvan"
+  ],
+  "telepathy": 100,
+  "cr": 4,
+  "xp": 1100,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "magic_resistance",
+      "name": "Magic Resistance",
+      "action": "passive",
+      "summary": "Advantage on saving throws against spells and other magical effects.",
+      "text": "The ketgrinn has Advantage on saving throws against spells and other magical effects.",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:spell"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "mimicry",
+      "name": "Mimicry",
+      "action": "passive",
+      "summary": "Imitates any voice it has heard or stolen; a DC 14 Wis (Insight) check spots it (DC 19 for a stolen voice).",
+      "text": "The ketgrinn can copy any voice it has heard, including one it has stolen with Consume Voice. A listener who succeeds on a DC 14 Wisdom (Insight) check knows it is an imitation; for a stolen voice the DC is 19.",
+      "implemented": "text"
+    },
+    {
+      "id": "riddle_bound",
+      "name": "Riddle Bound",
+      "action": "passive",
+      "summary": "Influence action: pose it a riddle and succeed on a DC 16 Cha (Deception) check and it is Incapacitated until the start of your next turn; each riddle raises the DC by 1 for 24 hours.",
+      "text": "As an Influence action a creature can put a riddle to the ketgrinn and make a DC 16 Charisma (Deception) check. On a success the ketgrinn is Incapacitated until the start of that creature's next turn. Each riddle asked raises the DC of later riddles by 1 for 24 hours.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "claw",
+          "count": 1
+        },
+        {
+          "action": "claw",
+          "count": 1,
+          "or": [
+            "consume_voice"
+          ]
+        }
+      ],
+      "summary": "Two Claw attacks; one may be Consume Voice instead."
+    },
+    {
+      "id": "claw",
+      "name": "Claw",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 9,
+          "dice": "2d4+4",
+          "type": "slashing"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "psychic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "until": "source_turn_end",
+          "modifiers": [
+            {
+              "stat": "disadvantage",
+              "on": "save:all"
+            }
+          ]
+        }
+      ],
+      "summary": "+6, 2d4+4 Slashing plus 2d6 Psychic; the target has Disadvantage on the next save the ketgrinn makes it roll before the end of the ketgrinn's next turn."
+    },
+    {
+      "id": "consume_voice",
+      "name": "Consume Voice",
+      "kind": "save",
+      "save": {
+        "ability": "cha",
+        "dc": 14,
+        "success": "half"
+      },
+      "targets": {
+        "range": 5,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 18,
+          "dice": "4d8",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "until": "permanent",
+          "repeat_save": {
+            "ability": "cha",
+            "dc": 14,
+            "when": "end",
+            "bind_after": 3
+          },
+          "modifiers": [
+            {
+              "stat": "flag",
+              "value": "voice_stolen"
+            }
+          ]
+        }
+      ],
+      "summary": "One creature within 5 ft, DC 14 Cha save: 4d8 Psychic (half on a success) and its voice is stolen, so it can't speak or make a sound; it saves again each turn, and three failures make the loss last until the ketgrinn dies.",
+      "text": "While its voice is stolen the target cannot speak or make any verbal sound. It repeats the save at the end of each of its turns, ending the effect on a success; if it fails three of these saves the loss is permanent, and the voice returns only when the ketgrinn dies."
+    },
+    {
+      "id": "invisibility",
+      "name": "Invisibility",
+      "kind": "spellcasting",
+      "cast": [
+        "invisibility"
+      ],
+      "summary": "Casts Invisibility on itself (Cha, no components)."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "teleport",
+      "name": "Teleport",
+      "kind": "special",
+      "do": "teleport",
+      "targets": {
+        "range": 40
+      },
+      "summary": "Teleports up to 40 ft to an unoccupied space it can see."
+    }
+  ],
+  "spellcasting": {
+    "ability": "cha",
+    "at_will": [
+      "invisibility"
+    ]
+  },
+  "ai_profile": "skirmisher",
+  "summary": "A grinning cat-fey that scratches with psychic claws, steals voices, blinks away and slips out of sight; a hard riddle sends its mind spinning."
+}

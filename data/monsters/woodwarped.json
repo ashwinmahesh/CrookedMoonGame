@@ -1,0 +1,187 @@
+{
+  "id": "woodwarped",
+  "name": "Woodwarped",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Its Splintered Propagation copy is described in the reaction; the notes file lists it as a code need.",
+    "page": 540
+  },
+  "size": "medium",
+  "type": "plant",
+  "alignment": "neutral evil",
+  "ac": 14,
+  "initiative": -1,
+  "hp": {
+    "average": 82,
+    "dice": "11d8+33"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 18,
+    "dex": 8,
+    "con": 17,
+    "int": 1,
+    "wis": 10,
+    "cha": 3
+  },
+  "resistances": [
+    "bludgeoning",
+    "piercing"
+  ],
+  "condition_immunities": [
+    "deafened",
+    "exhaustion",
+    "frightened"
+  ],
+  "senses": {
+    "blindsight": 60
+  },
+  "passive_perception": 10,
+  "languages": [],
+  "cr": 4,
+  "xp": 1100,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "axe_vulnerability",
+      "name": "Axe Vulnerability",
+      "action": "passive",
+      "summary": "Takes extra damage (Vulnerability) from Slashing damage by a battleaxe, greataxe or handaxe.",
+      "text": "Slashing damage dealt by a Battleaxe, a Greataxe or a Handaxe is doubled against the woodwarped. Other Slashing damage is not.",
+      "implemented": "text"
+    },
+    {
+      "id": "frightened_immunity_exception",
+      "name": "Frightened Immunity (Axes Excepted)",
+      "action": "passive",
+      "summary": "Immune to Frightened, except from creatures holding an axe.",
+      "text": "The woodwarped can't be Frightened, unless the creature frightening it is holding an axe.",
+      "implemented": "text"
+    },
+    {
+      "id": "aversion_to_axes",
+      "name": "Aversion to Axes",
+      "action": "passive",
+      "summary": "At its turn's start, if it sees a creature holding a battleaxe, greataxe or handaxe, it is Frightened until its next turn begins.",
+      "text": "When the woodwarped's turn begins and it can see a creature holding a Battleaxe, a Greataxe or a Handaxe, it has the Frightened condition until the start of its next turn.",
+      "implemented": "text"
+    },
+    {
+      "id": "thorns",
+      "name": "Thorns",
+      "action": "passive",
+      "summary": "At the start of its turns, creatures it grapples or that grapple it take 2d4 Piercing.",
+      "text": "At the start of each of its turns the woodwarped deals 5 (2d4) Piercing damage to any creature it is grappling and to any creature grappling it.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "claw",
+          "count": 2
+        }
+      ],
+      "summary": "Two Claw attacks."
+    },
+    {
+      "id": "claw",
+      "name": "Claw",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "1d6+4",
+          "type": "slashing"
+        },
+        {
+          "average": 4,
+          "dice": "1d8",
+          "type": "poison"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 14,
+          "max_size": "medium",
+          "limit": 2,
+          "hold_damage": {
+            "dice": "2d4",
+            "type": "piercing"
+          }
+        }
+      ],
+      "summary": "+6, 1d6+4 Slashing plus 1d8 Poison; a Medium or smaller target is Grappled (escape DC 14), one hold per claw.",
+      "text": "Hit: 7 (1d6 + 4) Slashing plus 4 (1d8) Poison damage. A Medium or smaller target is Grappled (escape DC 14) by one of its two claws."
+    },
+    {
+      "id": "thorn_spray",
+      "name": "Thorn Spray",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "dex",
+        "dc": 13,
+        "success": "half"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 15
+      },
+      "targets": {
+        "range": 15
+      },
+      "damage": [
+        {
+          "average": 14,
+          "dice": "4d6",
+          "type": "piercing"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "minute",
+          "repeat_save": {
+            "ability": "dex",
+            "dc": 13,
+            "when": "end"
+          }
+        }
+      ],
+      "summary": "Recharge 5-6. 15-ft emanation, DC 13 Dex save (Disadvantage if grappled by it): 4d6 Piercing and Poisoned (save again each turn end; ends after a minute); half damage on a success.",
+      "text": "Dexterity save, DC 13, for each creature within 15 feet, with Disadvantage if the woodwarped has it Grappled. Failure: 14 (4d6) Piercing damage and the target is Poisoned; it repeats the save at the end of each of its turns, and after a minute it succeeds on its own. Success: half damage only."
+    }
+  ],
+  "reactions": [
+    {
+      "id": "splintered_propagation",
+      "name": "Splintered Propagation",
+      "kind": "special",
+      "do": "split_on_slash",
+      "uses": {
+        "count": 1,
+        "per": "day"
+      },
+      "trigger": "It takes Slashing damage that isn't from a battleaxe, greataxe or handaxe.",
+      "summary": "Once a day, when hit by non-axe Slashing damage, a Small copy with 10 Hit Points and only the Claw action grows in a free space within 5 ft and acts on the original's Initiative.",
+      "text": "A fragment breaks off and quickly grows into a new woodwarped in an unoccupied space within 5 feet. The new one is Small, has 10 Hit Points, has only the Claw action and no Splintered Propagation, and takes its turn on the original's Initiative."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A wooden mimic of a victim's body grown from root and vine; it grapples and sprays thorns, grows a new copy from non-axe cuts, and fears axes.",
+  "art": "needle_blight"
+}

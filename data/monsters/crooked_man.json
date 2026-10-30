@@ -1,0 +1,222 @@
+{
+  "id": "crooked_man",
+  "name": "Crooked Man",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 496,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "medium",
+  "type": "undead",
+  "alignment": "neutral evil",
+  "ac": 17,
+  "initiative": 9,
+  "hp": {
+    "average": 221,
+    "dice": "26d8+104"
+  },
+  "speed": {
+    "walk": 40
+  },
+  "abilities": {
+    "str": 22,
+    "dex": 18,
+    "con": 19,
+    "int": 13,
+    "wis": 14,
+    "cha": 19
+  },
+  "saves": {
+    "dex": 9,
+    "wis": 7
+  },
+  "skills": {
+    "deception": 9,
+    "perception": 7,
+    "stealth": 9
+  },
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "exhaustion",
+    "poisoned"
+  ],
+  "senses": {
+    "blindsight": 60
+  },
+  "passive_perception": 17,
+  "languages": [
+    "Common",
+    "one other language"
+  ],
+  "cr": 14,
+  "xp": 11500,
+  "proficiency_bonus": 5,
+  "traits": [
+    {
+      "id": "aversion_to_self_sacrifice",
+      "name": "Aversion to Self-Sacrifice",
+      "action": "passive",
+      "summary": "Takes 20 Necrotic if it sees a creature willingly take damage or a condition in someone else's place or for their benefit.",
+      "text": "The crooked man takes 20 Necrotic damage if he can see a creature willingly take damage or gain a condition in place of someone else, or to someone else's benefit.",
+      "implemented": "text"
+    },
+    {
+      "id": "magic_resistance",
+      "name": "Magic Resistance",
+      "action": "passive",
+      "summary": "Advantage on saving throws against spells and other magical effects.",
+      "text": "The crooked man has Advantage on saving throws against spells and other magical effects.",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:spell"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "crooked_claw",
+          "count": 2,
+          "or": [
+            "snap_limb"
+          ]
+        }
+      ],
+      "summary": "Two Crooked Claws, one of which can be Snap Limb; Confusion too if it has it.",
+      "text": "The crooked man makes two Crooked Claw attacks and can replace one of them with a use of Snap Limb. He can also use Confusion if it is available."
+    },
+    {
+      "id": "crooked_claw",
+      "name": "Crooked Claw",
+      "kind": "melee",
+      "attack": {
+        "bonus": 11,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 15,
+          "dice": "2d8+6",
+          "type": "slashing"
+        },
+        {
+          "average": 21,
+          "dice": "6d6",
+          "type": "psychic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 16,
+          "max_size": "medium",
+          "limit": 2,
+          "restrain": true
+        }
+      ],
+      "summary": "+11, 2d8+6 Slashing plus 6d6 Psychic; a Medium or smaller target is Grappled on a claw (escape DC 16, two claws) and Restrained.",
+      "text": "15 (2d8 + 6) Slashing damage plus 21 (6d6) Psychic damage. A Medium or smaller target has the Grappled condition (escape DC 16) from one of his two claws, and is Restrained until the grapple ends."
+    },
+    {
+      "id": "snap_limb",
+      "name": "Snap Limb",
+      "kind": "save",
+      "save": {
+        "ability": "con",
+        "dc": 19,
+        "success": "half"
+      },
+      "targets": {
+        "range": 5,
+        "count": 1,
+        "requires": [
+          "grappled"
+        ]
+      },
+      "damage": [
+        {
+          "average": 35,
+          "dice": "10d6",
+          "type": "force"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "broken_limb",
+          "params": {
+            "choice": "crooked_man",
+            "heals": {
+              "days": 40,
+              "or": "any magical healing or Regeneration"
+            },
+            "arm": {
+              "disadvantage": "attack",
+              "cant_hold": true
+            },
+            "leg": {
+              "speed": "half",
+              "dash_save": {
+                "ability": "dex",
+                "dc": 15,
+                "fail": "prone"
+              }
+            },
+            "wing": {
+              "fly_speed": 0
+            }
+          }
+        }
+      ],
+      "summary": "DC 19 Con save, one creature he is grappling: 10d6 Force (half on a success) and on a failure a broken arm, leg or wing of his choice.",
+      "text": "Constitution Saving Throw: DC 19, one creature the crooked man is grappling that has limbs that can break. Failure: 35 (10d6) Force damage, and the bones (or the like) of one of the target's limbs, his choice, break. The limb heals in 40 days or when the creature regains any Hit Points from magic or Regeneration. Broken arm: Disadvantage on attack rolls, and it can't hold or manipulate anything with that limb. Broken leg: Speed halved, and if it takes the Dash action it must succeed on a DC 15 Dexterity saving throw or fall Prone. Broken wing: Fly Speed reduced to 0. Success: half damage only."
+    },
+    {
+      "id": "confusion",
+      "name": "Confusion (1/Day)",
+      "kind": "spellcasting",
+      "uses": {
+        "count": 1,
+        "per": "day"
+      },
+      "cast": [
+        "confusion"
+      ],
+      "summary": "Once a day casts Confusion (Charisma, DC 17, no Material components).",
+      "text": "The crooked man casts Confusion, needing no Material components and using Charisma as his spellcasting ability (spell save DC 17). Once a day."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "blinking_teleport",
+      "name": "Blinking Teleport",
+      "kind": "special",
+      "do": "blinking_teleport",
+      "targets": {
+        "range": 60
+      },
+      "summary": "Turns Invisible for 1 minute and teleports up to 60 ft to a space he can see; the Invisibility ends as soon as he deals damage.",
+      "text": "The crooked man has the Invisible condition for 1 minute and teleports to an unoccupied space he can see within 60 feet. The condition ends right after he deals any damage."
+    }
+  ],
+  "spellcasting": {
+    "ability": "cha",
+    "dc": 17,
+    "per_day": {
+      "1": [
+        "confusion"
+      ]
+    }
+  },
+  "ai_profile": "skirmisher",
+  "summary": "The twisted ghost of a betrayer: he blinks through the dark, grips foes in his claws and snaps their limbs, and cannot bear to see anyone sacrifice themselves."
+}

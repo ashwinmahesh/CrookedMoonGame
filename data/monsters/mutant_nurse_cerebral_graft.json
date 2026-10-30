@@ -1,0 +1,192 @@
+{
+  "id": "mutant_nurse_cerebral_graft",
+  "name": "Mutant Nurse (Cerebral Graft)",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Variant by Mutation action: this block has Cerebral Graft.",
+    "page": 517
+  },
+  "size": "medium",
+  "type": "aberration",
+  "alignment": "lawful evil",
+  "ac": 13,
+  "initiative": 3,
+  "hp": {
+    "average": 63,
+    "dice": "14d8"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 15,
+    "dex": 16,
+    "con": 11,
+    "int": 14,
+    "wis": 17,
+    "cha": 11
+  },
+  "saves": {
+    "str": 4,
+    "wis": 5,
+    "cha": 2
+  },
+  "skills": {
+    "medicine": 5,
+    "perception": 7,
+    "stealth": 7
+  },
+  "resistances": [
+    "poison",
+    "psychic"
+  ],
+  "senses": {
+    "truesight": 30
+  },
+  "passive_perception": 17,
+  "languages": [
+    "Common",
+    "Deep Speech"
+  ],
+  "cr": 3,
+  "xp": 700,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "anchoring_mask",
+      "name": "Anchoring Mask",
+      "action": "passive",
+      "summary": "Wears a porcelain mask (AC 15, HP 15, immune to Poison and Psychic); without it, it runs for the mask or the nearest creature and attacks, or idles or smashes things.",
+      "text": "The nurse wears a porcelain mask with AC 15 and 15 Hit Points that is immune to Poison and Psychic damage. If the nurse starts its turn without its mask, it must move as far as it can toward the mask if it can get it back, or else toward the closest creature it can see or hear, and it must attack that creature. If it can't see or hear any other creature, it either stands still doing nothing or wrecks objects nearby (an even chance of each).",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "stab",
+          "count": 2
+        },
+        {
+          "action": "inject",
+          "count": 1
+        }
+      ],
+      "summary": "Two Stabs; if one hits, it can Inject.",
+      "text": "The nurse makes two Stab attacks. If it hits a creature with a Stab, it can use Inject on that creature when Inject is ready."
+    },
+    {
+      "id": "stab",
+      "name": "Stab",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 5,
+          "dice": "1d4+3",
+          "type": "piercing"
+        },
+        {
+          "average": 3,
+          "dice": "1d6",
+          "type": "poison"
+        }
+      ],
+      "summary": "+5, 1d4+3 Piercing plus 1d6 Poison.",
+      "text": "A needle-sharp stab: 5 (1d4 + 3) Piercing damage plus 3 (1d6) Poison damage."
+    },
+    {
+      "id": "inject",
+      "name": "Inject",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "con",
+        "dc": 13,
+        "success": "half"
+      },
+      "targets": {
+        "range": 5,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "3d6",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "permanent"
+        },
+        {
+          "do": "fail_by_margin",
+          "params": {
+            "margin": 5,
+            "condition": "unconscious",
+            "ends": "damage taken or a creature within 5 ft uses an action to shake it awake"
+          }
+        }
+      ],
+      "summary": "Recharge 5-6. A creature the nurse just hit with a Stab: DC 13 Con save, 3d6 Psychic (half on a success), Poisoned for 1 hour; failing by 5 or more also leaves it Unconscious.",
+      "text": "Constitution save, DC 13, one creature the nurse hit with a Stab this turn. Failure: 10 (3d6) Psychic damage, and the target has the Poisoned condition for 1 hour. Failing by 5 or more also leaves the Poisoned target Unconscious until it takes damage or a creature within 5 feet spends an action to shake it awake. Success: half damage only."
+    },
+    {
+      "id": "cerebral_graft",
+      "name": "Cerebral Graft (Mutation)",
+      "kind": "save",
+      "save": {
+        "ability": "int",
+        "dc": 13,
+        "success": "half"
+      },
+      "targets": {
+        "range": 30,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 11,
+          "dice": "2d10",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "stunned",
+          "until": "target_turn_end"
+        }
+      ],
+      "summary": "Mutation. One creature within 30 ft: DC 13 Int save, 2d10 Psychic (half on a success) and Stunned until the end of its next turn on a failure.",
+      "text": "A grafted scrap of psionic brain lashes out. Intelligence save, DC 13, one creature within 30 feet. Failure: 11 (2d10) Psychic damage, and the target is Stunned until the end of its next turn. Success: half damage only."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "catalyst",
+      "name": "Catalyst",
+      "kind": "special",
+      "do": "catalyst",
+      "uses": {
+        "count": 1,
+        "per": "short"
+      },
+      "summary": "Once per Short or Long Rest: until its next turn, Speed doubled, one extra Stab per Multiattack, and +2 AC.",
+      "text": "The nurse injects itself with a stimulant (usable again after a Short or Long Rest). Until the start of its next turn its Speed is doubled, it makes one extra Stab when it takes the Multiattack action, and it gains a +2 bonus to AC."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A masked hospital caretaker twisted by a graft: it stabs and injects poison, and its mutation burns the mind of a creature at range."
+}

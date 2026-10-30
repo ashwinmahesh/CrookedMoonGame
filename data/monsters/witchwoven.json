@@ -1,0 +1,107 @@
+{
+  "id": "witchwoven",
+  "name": "Witchwoven",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Familiar block (CR 1). Bond ritual: 10 minutes with materials worth 100+ gp (a ruby wrapped in a wicker cage); the Familiar Bond rules (bonded sympathy, channel magic, telepathic connection, 1-hour revival) are on page 580 and are listed once in the notes file.",
+    "page": 593
+  },
+  "size": "tiny",
+  "type": "construct",
+  "alignment": "neutral",
+  "ac": 13,
+  "initiative": 3,
+  "hp": {
+    "average": 21,
+    "dice": "6d4+6"
+  },
+  "speed": {
+    "walk": 20
+  },
+  "abilities": {
+    "str": 6,
+    "dex": 17,
+    "con": 12,
+    "int": 10,
+    "wis": 14,
+    "cha": 10
+  },
+  "skills": {
+    "nature": 4,
+    "stealth": 5
+  },
+  "vulnerabilities": [
+    "fire"
+  ],
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "deafened",
+    "exhaustion",
+    "paralyzed",
+    "petrified",
+    "poisoned"
+  ],
+  "senses": {
+    "blindsight": 60
+  },
+  "passive_perception": 12,
+  "languages": [
+    "Understands Sylvan but can't speak"
+  ],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "actions": [
+    {
+      "id": "cursed_scratch",
+      "name": "Cursed Scratch",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 6,
+          "dice": "1d6+3",
+          "type": "piercing"
+        },
+        {
+          "average": 3,
+          "dice": "1d6",
+          "type": "necrotic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "until": "source_turn_start",
+          "modifiers": [
+            {
+              "stat": "disadvantage",
+              "on": "attack"
+            }
+          ]
+        }
+      ],
+      "summary": "+5, 1d6+3 Piercing plus 1d6 Necrotic; the target has Disadvantage on attack rolls until the witchwoven's next turn."
+    }
+  ],
+  "reactions": [
+    {
+      "id": "protective_bond",
+      "name": "Protective Bond",
+      "kind": "special",
+      "do": "shield_ally_damage",
+      "trigger": "A creature it sees within 60 ft takes damage.",
+      "summary": "When a creature it can see within 60 ft takes damage, that creature gains Resistance to the damage and the witchwoven takes 3d6 Force."
+    }
+  ],
+  "ai_profile": "support",
+  "summary": "A twig-and-twine doll that scratches with a curse and takes part of a friend's wound onto itself.",
+  "art": "twig_blight",
+  "art_height": 0.5
+}

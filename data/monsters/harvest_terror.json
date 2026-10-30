@@ -1,0 +1,309 @@
+{
+  "id": "harvest_terror",
+  "name": "The Harvest Terror",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 560,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Block on the facing page (PDF 563). Spell save DC 15 and +7 to hit are computed (Charisma +4, proficiency +3); the book gives no spellcasting numbers."
+  },
+  "size": "large",
+  "type": "fiend",
+  "tags": [
+    "demon"
+  ],
+  "alignment": "chaotic evil",
+  "ac": 16,
+  "initiative": 10,
+  "hp": {
+    "average": 105,
+    "dice": "10d10+50"
+  },
+  "speed": {
+    "walk": 30,
+    "fly": 90
+  },
+  "abilities": {
+    "str": 19,
+    "dex": 19,
+    "con": 20,
+    "int": 13,
+    "wis": 15,
+    "cha": 18
+  },
+  "saves": {
+    "dex": 7,
+    "con": 8
+  },
+  "skills": {
+    "deception": 10,
+    "perception": 8,
+    "stealth": 7
+  },
+  "resistances": [
+    "cold",
+    "fire",
+    "lightning"
+  ],
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened",
+    "poisoned"
+  ],
+  "senses": {
+    "blindsight": 30,
+    "darkvision": 120
+  },
+  "passive_perception": 18,
+  "languages": [
+    "all"
+  ],
+  "telepathy": 120,
+  "cr": 6,
+  "xp": 2300,
+  "proficiency_bonus": 3,
+  "traits": [
+    {
+      "id": "demonic_mimicry",
+      "name": "Demonic Mimicry",
+      "action": "passive",
+      "summary": "Copies any voice or sound it has heard; a listener sees through it with a DC 18 Wisdom (Insight) check.",
+      "text": "The terror can imitate voices and noises it has heard. A listener can tell the imitation for what it is with a successful DC 18 Wisdom (Insight) check.",
+      "implemented": "text"
+    },
+    {
+      "id": "legendary_resistance",
+      "name": "Legendary Resistance (3/Day)",
+      "action": "special",
+      "summary": "Three times a day, a failed saving throw becomes a success.",
+      "text": "When the terror fails a saving throw, it can choose to succeed instead, 3 times a day.",
+      "implemented": "engine"
+    },
+    {
+      "id": "magic_resistance",
+      "name": "Magic Resistance",
+      "action": "passive",
+      "summary": "Advantage on saving throws against spells and other magical effects.",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:spell"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "unraveling_song",
+      "name": "Unraveling Song",
+      "action": "special",
+      "summary": "Its one weakness to Charm: an Influence action playing or singing its old song Charms it until the end of that creature's next turn.",
+      "text": "Its Charmed immunity has one gap. As an Influence action a creature can play or sing the favourite song of the scarecrow that was Jericho Sticks, \"Coal-Eyed Birds\"; the terror is then Charmed until the end of that creature's next turn. The charm ends early if that creature damages the terror or forces it to make a saving throw.",
+      "implemented": "text"
+    },
+    {
+      "id": "regional_lair",
+      "name": "Regional Effects (Lair)",
+      "action": "special",
+      "summary": "Within a mile of its lair: its enemies have Disadvantage on Stealth checks, and everyone but the terror has Disadvantage on Deception checks made to keep a secret.",
+      "text": "Regional effects, within 1 mile of the Fields of the Crow while the terror lives and keeps its lair there. Amber Eyes: watching crows give the terror's enemies Disadvantage on Dexterity (Stealth) checks. Spilled Secrets: creatures other than the terror have Disadvantage on Charisma (Deception) checks made to keep a secret. Both end the moment it dies or moves its lair.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "claw",
+          "count": 1
+        },
+        {
+          "action": "scythe",
+          "count": 1
+        }
+      ],
+      "summary": "One Claw and one Scythe."
+    },
+    {
+      "id": "claw",
+      "name": "Claw",
+      "kind": "melee",
+      "attack": {
+        "bonus": 7,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 8,
+          "dice": "1d8+4",
+          "type": "slashing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "prone",
+          "until": "permanent",
+          "max_size": "medium"
+        }
+      ],
+      "summary": "+7, reach 5 ft, 1d8+4 Slashing; a Medium or smaller target falls Prone."
+    },
+    {
+      "id": "scythe",
+      "name": "Scythe",
+      "kind": "melee",
+      "attack": {
+        "bonus": 7,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 9,
+          "dice": "1d10+4",
+          "type": "slashing"
+        },
+        {
+          "average": 4,
+          "dice": "1d8",
+          "type": "psychic"
+        }
+      ],
+      "summary": "+7, reach 10 ft, 1d10+4 Slashing plus 1d8 Psychic."
+    },
+    {
+      "id": "dirge_of_secrets",
+      "name": "Dirge of Secrets",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "wis",
+        "dc": 15,
+        "success": "half"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 30
+      },
+      "targets": {
+        "range": 30
+      },
+      "damage": [
+        {
+          "average": 11,
+          "dice": "2d10",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "until": "minute",
+          "modifiers": [
+            {
+              "stat": "disadvantage",
+              "on": "attack"
+            },
+            {
+              "stat": "disadvantage",
+              "on": "check:all"
+            }
+          ],
+          "repeat_save": {
+            "ability": "wis",
+            "dc": 15,
+            "when": "end"
+          }
+        }
+      ],
+      "summary": "Recharge 5-6. Everyone within 30 ft: DC 15 Wis save or 2d10 Psychic and Disadvantage on ability checks and attack rolls (save again each turn; a minute at most). Half damage on a success.",
+      "text": "A hymn of stolen confidences rolls out from the terror. Each creature within 30 feet makes a DC 15 Wisdom save: on a failure it takes 11 (2d10) Psychic damage and has Disadvantage on ability checks and attack rolls, repeating the save at the end of each of its turns; after a minute it is free. A success takes half damage and has no further effect."
+    },
+    {
+      "id": "devour_secrets",
+      "name": "Devour Secrets",
+      "kind": "save",
+      "save": {
+        "ability": "wis",
+        "dc": 15,
+        "success": "half"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 20
+      },
+      "targets": {
+        "range": 20
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "until": "target_turn_end",
+          "modifiers": [
+            {
+              "stat": "speed_set",
+              "value": 0
+            }
+          ]
+        }
+      ],
+      "summary": "Legendary only, once a round. Everyone within 20 ft: DC 15 Wis save (Disadvantage if it gave up a secret to the terror) or 2d6 Psychic and Speed 0 until the end of its next turn; half damage on a success.",
+      "text": "The terror's beak gapes and swallows what people have hidden. Each creature within 20 feet makes a DC 15 Wisdom save, at Disadvantage if it has handed the terror one of its secrets. A failure takes 7 (2d6) Psychic damage and has Speed 0 until the end of its next turn; a success takes half damage. Hit or miss, the terror can't do this again until its next turn begins."
+    }
+  ],
+  "legendary_actions": {
+    "per_round": 3,
+    "options": [
+      {
+        "id": "averting_winds",
+        "name": "Averting Winds",
+        "cost": 1,
+        "spell": "wind_wall",
+        "summary": "Casts Wind Wall (not in a creature's space), no components, Charisma.",
+        "text": "The terror casts Wind Wall with no components, using Charisma. The wall can't be placed in a creature's space."
+      },
+      {
+        "id": "crows_swoop",
+        "name": "Crow's Swoop",
+        "cost": 1,
+        "move": true,
+        "half": true,
+        "summary": "Moves up to half its Speed with no Opportunity Attacks."
+      },
+      {
+        "id": "devour_secrets",
+        "name": "Devour Secrets",
+        "cost": 1,
+        "action": "devour_secrets",
+        "once": true,
+        "summary": "20-ft emanation, DC 15 Wis save: 2d6 Psychic and Speed 0 (Disadvantage if the target gave up a secret). Once a round."
+      }
+    ]
+  },
+  "legendary_resistance": 3,
+  "spellcasting": {
+    "ability": "cha",
+    "dc": 15,
+    "attack": 7,
+    "at_will": [
+      "wind_wall"
+    ]
+  },
+  "ai_profile": "skirmisher",
+  "art": "scarecrow",
+  "art_height": 1.6,
+  "summary": "A crow-headed wicker demon with four black wings: it flies, claws and scythes, wails a dirge that dulls a whole party and eats secrets in a ring around itself; the song of the scarecrow it wears can charm it."
+}

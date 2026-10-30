@@ -1,0 +1,179 @@
+{
+  "id": "vermin_familiar_centipede",
+  "name": "Vermin Familiar (Centipede)",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 534,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. One id per incarnation; the book prints one block with Centipede, Pigeon and Weasel options."
+  },
+  "size": "tiny",
+  "type": "fey",
+  "alignment": "neutral evil",
+  "ac": 14,
+  "initiative": 4,
+  "hp": {
+    "average": 31,
+    "dice": "7d4+14"
+  },
+  "speed": {
+    "walk": 30,
+    "climb": 30,
+    "burrow": 30
+  },
+  "abilities": {
+    "str": 6,
+    "dex": 19,
+    "con": 14,
+    "int": 6,
+    "wis": 16,
+    "cha": 15
+  },
+  "saves": {
+    "str": 0,
+    "cha": 4
+  },
+  "skills": {
+    "deception": 6,
+    "perception": 5,
+    "stealth": 8
+  },
+  "senses": {
+    "darkvision": 60,
+    "tremorsense": 30
+  },
+  "passive_perception": 15,
+  "languages": [
+    "Common",
+    "Sylvan"
+  ],
+  "cr": 2,
+  "xp": 450,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "disparate_incarnation",
+      "name": "Disparate Incarnation",
+      "action": "passive",
+      "summary": "This familiar is incarnated as a centipede, which sets its other traits and its Incarnated Assault.",
+      "text": "A vermin familiar takes the body of a pest: Centipede, Pigeon or Weasel. This one is the Centipede, which decides its other traits and actions.",
+      "implemented": "text"
+    },
+    {
+      "id": "fear_of_canines",
+      "name": "Fear of Canines",
+      "action": "passive",
+      "summary": "Seeing a dog, wolf or other canine at its turn's start leaves it Frightened until its next turn, with Disadvantage on saves.",
+      "text": "If the familiar can see a dog, wolf or other canine at the start of its turn it is Frightened until the start of its next turn, and while Frightened this way it has Disadvantage on saving throws.",
+      "implemented": "text"
+    },
+    {
+      "id": "spider_climb",
+      "name": "Spider Climb",
+      "action": "passive",
+      "summary": "Climbs walls and ceilings with no ability check.",
+      "text": "The familiar can climb difficult surfaces, ceilings included, without an ability check.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "spider_climb"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "vermin_telepathy",
+      "name": "Vermin Telepathy",
+      "action": "passive",
+      "summary": "Controls Beasts and swarms of its own incarnation (and the matching fey swarms) within 120 ft by telepathy.",
+      "text": "By a special telepathy the familiar can magically control Beasts and swarms that match its incarnation within 120 feet of it: centipedes, pigeons or weasels (normal and giant), and Boogleswarms, Skitterswarms and Squabswarms.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "rend",
+          "count": 2
+        }
+      ],
+      "summary": "Two Rend attacks."
+    },
+    {
+      "id": "rend",
+      "name": "Rend",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "1d6+4",
+          "type": "piercing"
+        },
+        {
+          "average": 3,
+          "dice": "1d6",
+          "type": "psychic"
+        }
+      ],
+      "summary": "+6, 1d6+4 Piercing plus 1d6 Psychic."
+    },
+    {
+      "id": "incarnated_assault",
+      "name": "Incarnated Assault: Infectious Sting",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "con",
+        "dc": 12,
+        "success": "half"
+      },
+      "targets": {
+        "range": 5,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "3d6",
+          "type": "poison"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "conditions": [
+            "paralyzed"
+          ],
+          "until": "source_turn_end"
+        }
+      ],
+      "summary": "Recharge 5-6. One creature it can see within 5 ft, DC 12 Con save: 3d6 Poison (half on a success); on a failure the target is Poisoned and, while so, Paralyzed until the end of the familiar's next turn."
+    },
+    {
+      "id": "invisibility",
+      "name": "Invisibility",
+      "kind": "spellcasting",
+      "cast": [
+        "invisibility"
+      ],
+      "summary": "Casts Invisibility on itself (Wis, no components)."
+    }
+  ],
+  "spellcasting": {
+    "ability": "wis",
+    "at_will": [
+      "invisibility"
+    ]
+  },
+  "ai_profile": "skirmisher",
+  "art": "rat"
+}

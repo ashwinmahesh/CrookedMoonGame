@@ -1,0 +1,158 @@
+{
+  "id": "reveler_of_song_drum",
+  "name": "Reveler of Song (Drum)",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Drum form (plays the frame drum).",
+    "page": 525
+  },
+  "size": "medium",
+  "type": "fiend",
+  "alignment": "chaotic evil",
+  "ac": 15,
+  "initiative": 3,
+  "hp": {
+    "average": 97,
+    "dice": "15d8+30"
+  },
+  "speed": {
+    "walk": 40
+  },
+  "abilities": {
+    "str": 15,
+    "dex": 16,
+    "con": 14,
+    "int": 11,
+    "wis": 12,
+    "cha": 20
+  },
+  "saves": {
+    "dex": 6,
+    "cha": 8
+  },
+  "skills": {
+    "acrobatics": 6,
+    "perception": 4,
+    "performance": 11
+  },
+  "resistances": [
+    "cold",
+    "fire"
+  ],
+  "immunities": [
+    "poison",
+    "thunder"
+  ],
+  "condition_immunities": [
+    "deafened",
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 14,
+  "languages": [
+    "Common"
+  ],
+  "telepathy": 120,
+  "cr": 6,
+  "xp": 2300,
+  "proficiency_bonus": 3,
+  "traits": [
+    {
+      "id": "compelled_contest",
+      "name": "Compelled Contest",
+      "action": "special",
+      "summary": "Can't refuse a musical contest: a Performance check with an instrument (Influence) sets the save DC; failing costs 20 Psychic and a Stun.",
+      "text": "The reveler can't turn down a contest of skill with Musical Instruments. As an Influence action, a creature can make a Charisma (Performance) check with a Musical Instrument; the reveler must succeed on a Charisma save with a DC equal to the check's total, or take 20 Psychic damage and be Stunned until the end of that creature's next turn.",
+      "implemented": "text"
+    },
+    {
+      "id": "dancing_step",
+      "name": "Dancing Step",
+      "action": "passive",
+      "summary": "Doesn't provoke Opportunity Attacks when it leaves an enemy's reach.",
+      "text": "Leaving an enemy's reach never provokes Opportunity Attacks from the reveler.",
+      "implemented": "text"
+    },
+    {
+      "id": "ensemble_form",
+      "name": "Ensemble Form (Drum)",
+      "action": "passive",
+      "summary": "This is the Drum form: it plays the frame drum.",
+      "text": "The reveler takes one form: Drone, Drum or Bell. The form sets some traits and actions and the instrument it plays (hurdy-gurdy, frame drum, handbells). This block is the Drum form.",
+      "implemented": "data"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "instrumental_blast",
+          "count": 2
+        }
+      ],
+      "summary": "Two Instrumental Blasts."
+    },
+    {
+      "id": "instrumental_blast",
+      "name": "Instrumental Blast",
+      "kind": "melee_or_ranged",
+      "attack": {
+        "bonus": 8,
+        "reach": 5,
+        "range": [
+          90
+        ]
+      },
+      "damage": [
+        {
+          "average": 14,
+          "dice": "2d8+5",
+          "type": "thunder"
+        }
+      ],
+      "summary": "+8, reach 5 ft or range 90 ft, 2d8+5 Thunder.",
+      "text": "A blast of thunderous music, up close or from afar: 14 (2d8 + 5) Thunder damage."
+    },
+    {
+      "id": "infectious_rhythm",
+      "name": "Infectious Rhythm (Drum Only)",
+      "kind": "save",
+      "save": {
+        "ability": "wis",
+        "dc": 16,
+        "success": "half"
+      },
+      "targets": {
+        "range": 30,
+        "count": 2,
+        "sees_source": false
+      },
+      "damage": [
+        {
+          "average": 18,
+          "dice": "4d8",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "apply_spell",
+          "params": {
+            "spell": "ottos_irresistible_dance",
+            "concentration": false
+          }
+        }
+      ],
+      "summary": "Up to two creatures it sees within 30 ft: DC 16 Wis save, 4d8 Psychic (half on a success); a failure sets them dancing (Irresistible Dance, no Concentration needed).",
+      "text": "Wisdom save, DC 16, up to two creatures the reveler can see within 30 feet. Failure: 18 (4d8) Psychic damage, and the target is under the Irresistible Dance spell, which needs no Concentration to keep up. Success: half damage only."
+    }
+  ],
+  "ai_profile": "skirmisher",
+  "summary": "A fiend who fights as a musician, blasting thunder from every direction, here with a drum whose rhythm drives two victims into a deadly dance."
+}

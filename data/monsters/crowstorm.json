@@ -1,0 +1,198 @@
+{
+  "id": "crowstorm",
+  "name": "Crowstorm",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 497,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "large",
+  "swarm_of": "tiny",
+  "type": "fiend",
+  "tags": [
+    "swarm"
+  ],
+  "alignment": "chaotic evil",
+  "ac": 13,
+  "initiative": 5,
+  "hp": {
+    "average": 44,
+    "dice": "8d6+16"
+  },
+  "speed": {
+    "walk": 10,
+    "fly": 60
+  },
+  "abilities": {
+    "str": 10,
+    "dex": 16,
+    "con": 14,
+    "int": 15,
+    "wis": 14,
+    "cha": 16
+  },
+  "skills": {
+    "perception": 4,
+    "stealth": 5
+  },
+  "resistances": [
+    "bludgeoning",
+    "cold",
+    "fire",
+    "piercing",
+    "slashing"
+  ],
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "frightened",
+    "grappled",
+    "paralyzed",
+    "petrified",
+    "poisoned",
+    "prone",
+    "restrained",
+    "stunned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 14,
+  "languages": [
+    "Abyssal",
+    "Common"
+  ],
+  "telepathy": 120,
+  "cr": 3,
+  "xp": 700,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "false_crows",
+      "name": "False Crows",
+      "action": "passive",
+      "summary": "Can't enter a space with a drawn or painted crow image or a crafted crow effigy; whoever holds one has Advantage on saves the swarm forces.",
+      "text": "The swarm will not enter a space that holds a drawn or painted image, or a crafted effigy, of a crow. A creature holding such an icon has Advantage on the saving throws the swarm makes it roll.",
+      "implemented": "text"
+    },
+    {
+      "id": "swarm",
+      "name": "Swarm",
+      "action": "passive",
+      "summary": "Shares spaces with other creatures, fits through any gap a crow fits; can't heal or gain Temporary Hit Points.",
+      "text": "The swarm can move into and stay in another creature's space, and other creatures can enter its space. It can pass through any opening wide enough for one Tiny crow. The swarm can't regain Hit Points and can't gain Temporary Hit Points.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "swarm"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "wing_bind",
+      "name": "Wing Bind",
+      "action": "passive",
+      "summary": "A non-Fiend with a Fly Speed that starts its turn within 30 ft: DC 13 Wis save or its Fly Speed is 0 until the swarm's next turn.",
+      "text": "A creature that is not a Fiend and has a Fly Speed makes a DC 13 Wisdom saving throw when it starts its turn in a 30-foot Emanation around the swarm. On a failure its Fly Speed is 0 until the start of the swarm's next turn. (The aura zeroes Fly Speed on whoever fails; creatures without one lose nothing.)",
+      "aura": {
+        "radius": 30,
+        "trigger": "start_turn",
+        "save": {
+          "ability": "wis",
+          "dc": 13
+        },
+        "until": "source_turn_start",
+        "modifiers": [
+          {
+            "stat": "speed_set",
+            "kind": "fly",
+            "value": 0
+          }
+        ],
+        "affects": "others"
+      },
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "peck",
+      "name": "Peck",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 12,
+          "dice": "2d8+3",
+          "type": "piercing",
+          "when": "while the swarm isn't Bloodied",
+          "if": "not_bloodied"
+        },
+        {
+          "average": 7,
+          "dice": "1d8+3",
+          "type": "piercing",
+          "when": "instead, while the swarm is Bloodied",
+          "if": "bloodied"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "until": "source_turn_start",
+          "modifiers": [
+            {
+              "stat": "disadvantage",
+              "on": "attack"
+            }
+          ]
+        }
+      ],
+      "summary": "+5, 2d8+3 Piercing (1d8+3 once Bloodied); the target has Disadvantage on attack rolls until the swarm's next turn."
+    },
+    {
+      "id": "cacophony",
+      "name": "Cacophony",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "wis",
+        "dc": 13,
+        "success": "half"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 30
+      },
+      "targets": {
+        "range": 30
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "3d6",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "frightened",
+          "until": "source_turn_start"
+        }
+      ],
+      "summary": "Recharge 5-6. Each creature within 30 ft, DC 13 Wis save: 3d6 Psychic and Frightened until the swarm's next turn (half damage on a success)."
+    }
+  ],
+  "ai_profile": "swarm",
+  "summary": "A swirling cloud of fiendish crows that pecks, screams its victims into fear and grounds anything that flies; images of crows hold it off.",
+  "art": "swarm_of_ravens",
+  "art_height": 1.3
+}

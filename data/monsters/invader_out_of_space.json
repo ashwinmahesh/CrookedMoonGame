@@ -1,0 +1,201 @@
+{
+  "id": "invader_out_of_space",
+  "name": "Invader Out of Space",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 510,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "medium",
+  "type": "aberration",
+  "alignment": "neutral evil",
+  "ac": 18,
+  "initiative": 4,
+  "hp": {
+    "average": 156,
+    "dice": "24d8+48"
+  },
+  "speed": {
+    "walk": 40
+  },
+  "abilities": {
+    "str": 14,
+    "dex": 18,
+    "con": 15,
+    "int": 14,
+    "wis": 12,
+    "cha": 19
+  },
+  "saves": {
+    "int": 6,
+    "wis": 5,
+    "cha": 8
+  },
+  "skills": {
+    "arcana": 6,
+    "intimidation": 8,
+    "stealth": 8
+  },
+  "resistances": [
+    "psychic"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 11,
+  "languages": [
+    "Deep Speech"
+  ],
+  "telepathy": 120,
+  "cr": 11,
+  "xp": 7200,
+  "proficiency_bonus": 4,
+  "traits": [
+    {
+      "id": "alien_mind",
+      "name": "Alien Mind",
+      "action": "passive",
+      "summary": "A creature that tries to read its mind or deals it Psychic damage must make a DC 16 Int save or be Stunned for 1 minute (new save at the end of each of its turns).",
+      "text": "If a creature tries to read the invader's mind or deals Psychic damage to it, that creature must succeed on a DC 16 Intelligence saving throw or have the Stunned condition for 1 minute. It repeats the save at the end of each of its turns, ending the effect on itself on a success.",
+      "implemented": "text"
+    },
+    {
+      "id": "gliding_levitation",
+      "name": "Gliding Levitation",
+      "action": "passive",
+      "summary": "Hovers 6 inches up and leaves no tracks; ignores Difficult Terrain from ground conditions, moves over liquids, takes no fall damage.",
+      "text": "The invader hovers 6 inches above the ground and leaves no tracks. It ignores Difficult Terrain caused by conditions on the ground, can move over liquids, and takes no damage from falling.",
+      "implemented": "text"
+    },
+    {
+      "id": "magic_resistance",
+      "name": "Magic Resistance",
+      "action": "passive",
+      "summary": "Advantage on saving throws against spells and other magical effects.",
+      "text": "The invader has Advantage on saving throws against spells and other magical effects.",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:spell"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "weak_constitution",
+      "name": "Weak Constitution",
+      "action": "passive",
+      "summary": "Disadvantage on saves to avoid or end the Poisoned condition; if Poisoned at the start of its turn it takes 20 Necrotic.",
+      "text": "The invader has Disadvantage on saving throws to avoid or end the Poisoned condition. If the invader is Poisoned at the start of its turn, it takes 20 Necrotic damage.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "disrupting_touch",
+          "count": 3
+        }
+      ],
+      "summary": "Three Disrupting Touch attacks, and Unnerving Glare too if it is ready.",
+      "text": "The invader makes three Disrupting Touch attacks and uses Unnerving Glare if it is available."
+    },
+    {
+      "id": "disrupting_touch",
+      "name": "Disrupting Touch",
+      "kind": "melee",
+      "attack": {
+        "bonus": 8,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 15,
+          "dice": "2d10+4",
+          "type": "force"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "reduce_to_dust",
+          "params": {
+            "on": "kill_or_destroy",
+            "keeps": "magic items and worn or carried equipment"
+          }
+        }
+      ],
+      "summary": "+8, 2d10+4 Force; a creature it kills or an object it destroys becomes fine gray dust (magic items and equipment are left behind).",
+      "text": "15 (2d10 + 4) Force damage. A creature killed or an object destroyed by this damage is reduced to a fine gray dust. Magic items, and any equipment worn or carried by a creature turned to dust, are not disintegrated."
+    },
+    {
+      "id": "unnerving_glare",
+      "name": "Unnerving Glare",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "wis",
+        "dc": 16,
+        "success": "none"
+      },
+      "targets": {
+        "range": 60,
+        "count": 1
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "incapacitated",
+          "until": "source_turn_start"
+        }
+      ],
+      "summary": "Recharge 5-6. One creature it sees within 60 ft: DC 16 Wis save or Incapacitated until the start of its next turn.",
+      "text": "Wisdom Saving Throw: DC 16, one creature the invader can see within 60 feet. Failure: the target has the Incapacitated condition until the start of the invader's next turn."
+    }
+  ],
+  "reactions": [
+    {
+      "id": "otherworldly_slip",
+      "name": "Otherworldly Slip",
+      "kind": "special",
+      "do": "otherworldly_slip",
+      "trigger": "The invader takes damage.",
+      "save": {
+        "ability": "int",
+        "dc": 16,
+        "success": "half"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 30
+      },
+      "damage": [
+        {
+          "average": 16,
+          "dice": "3d10",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "until": "target_turn_end",
+          "modifiers": [
+            {
+              "stat": "speed_percent",
+              "value": 50
+            }
+          ]
+        }
+      ],
+      "summary": "When it takes damage, teleports up to 60 ft to a free space it sees, and can burst a 30-ft Emanation where it left or arrived: DC 16 Int save, 3d10 Psychic (half on a success) and Speed halved on a failure.",
+      "text": "Trigger: the invader takes damage. Response: the invader teleports to an unoccupied space it can see within 60 feet and can cause the following. Intelligence Saving Throw: DC 16, each creature in a 30-foot Emanation originating from the space where the invader vanished or appeared (its choice). Failure: 16 (3d10) Psychic damage, and the target's Speed is halved until the end of its next turn. Success: half damage only."
+    }
+  ],
+  "ai_profile": "skirmisher",
+  "summary": "A robed, silent star-traveller that disintegrates foes to gray dust with its touch, blinks away when hurt and stuns minds that probe it; poison is its weakness."
+}

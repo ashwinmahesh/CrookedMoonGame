@@ -1,0 +1,163 @@
+{
+  "id": "devils_glove",
+  "name": "Devil's Glove",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Familiar block (CR 1). Bond ritual: 10 minutes with materials worth 100+ gp (rare wood chips); the Familiar Bond rules (bonded sympathy, channel magic, telepathic connection, 1-hour revival) are on page 580 and are listed once in the notes file.",
+    "page": 583
+  },
+  "size": "tiny",
+  "type": "plant",
+  "alignment": "unaligned",
+  "ac": 13,
+  "initiative": 0,
+  "hp": {
+    "average": 27,
+    "dice": "6d4+12"
+  },
+  "speed": {
+    "walk": 30,
+    "climb": 30
+  },
+  "abilities": {
+    "str": 14,
+    "dex": 10,
+    "con": 15,
+    "int": 3,
+    "wis": 8,
+    "cha": 4
+  },
+  "condition_immunities": [
+    "deafened",
+    "frightened",
+    "poisoned"
+  ],
+  "senses": {
+    "blindsight": 60
+  },
+  "passive_perception": 9,
+  "languages": [
+    "Understands Common but can't speak"
+  ],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "scent_of_death",
+      "name": "Scent of Death",
+      "action": "passive",
+      "summary": "Creatures that can smell have Advantage on Perception checks to find it.",
+      "text": "Creatures that can smell have Advantage on Wisdom (Perception) checks to find the devil's glove.",
+      "implemented": "text"
+    },
+    {
+      "id": "spider_climb",
+      "name": "Spider Climb",
+      "action": "passive",
+      "summary": "Climbs walls and ceilings with no ability check.",
+      "text": "The devil's glove climbs difficult surfaces, ceilings included, without an ability check.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "spider_climb"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "tendril",
+      "name": "Tendril",
+      "kind": "melee",
+      "attack": {
+        "bonus": 4,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 4,
+          "dice": "1d4+2",
+          "type": "bludgeoning"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "necrotic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "attach",
+          "params": {
+            "auto_hit": false,
+            "blocks_other_tendrils": true,
+            "detach_cost_ft": 5,
+            "detach_by_target_action": true
+          }
+        },
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "target_turn_start"
+        }
+      ],
+      "summary": "+4, 1d4+2 Bludgeoning plus 2d6 Necrotic; it attaches (and makes no Tendril attack on anyone else) and the target is Poisoned until its next turn if it can smell it.",
+      "text": "Hit: 4 (1d4 + 2) Bludgeoning plus 7 (2d6) Necrotic damage, and the glove attaches to the target. While attached it can't use Tendril on other targets, and a target that can smell it is Poisoned until the start of its next turn. The glove detaches by spending 5 feet of movement; the target, or a creature within 5 feet of it, can pull it off with an action."
+    },
+    {
+      "id": "decaying_bloom",
+      "name": "Decaying Bloom",
+      "kind": "save",
+      "uses": {
+        "count": 2,
+        "per": "day"
+      },
+      "save": {
+        "ability": "con",
+        "dc": 12,
+        "success": "half"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 10
+      },
+      "targets": {
+        "range": 10
+      },
+      "damage": [
+        {
+          "average": 9,
+          "dice": "2d8",
+          "type": "necrotic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "until": "source_turn_start",
+          "modifiers": [
+            {
+              "stat": "flag",
+              "value": "cant_regain_hp"
+            }
+          ]
+        }
+      ],
+      "summary": "Twice a day: 10-ft emanation, DC 12 Con save or 2d8 Necrotic and no Hit Point recovery until its next turn; half damage on a success."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "symbiosis",
+      "name": "Symbiosis",
+      "kind": "special",
+      "do": "symbiosis",
+      "summary": "Bonds with a willing creature it touches: the creature needs no food or drink and has Advantage on saves to avoid or end Poisoned. Ends on either one's death, by its choice, or on re-use."
+    }
+  ],
+  "ai_profile": "support",
+  "summary": "A tiny fungal hand that clings with a necrotic tendril, blooms rot around it and, bonded, feeds its master and wards off poison."
+}

@@ -1,0 +1,117 @@
+{
+  "id": "nameless_thing",
+  "name": "Nameless Thing",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Familiar block (CR 1). Bond ritual: 10 minutes with materials worth 100+ gp (meteorite fragments); the Familiar Bond rules (bonded sympathy, channel magic, telepathic connection, 1-hour revival) are on page 580 and are listed once in the notes file.",
+    "page": 590
+  },
+  "size": "tiny",
+  "type": "aberration",
+  "alignment": "neutral",
+  "ac": 13,
+  "initiative": 2,
+  "hp": {
+    "average": 17,
+    "dice": "5d4+5"
+  },
+  "speed": {
+    "walk": 10,
+    "fly": 40,
+    "hover": true
+  },
+  "abilities": {
+    "str": 6,
+    "dex": 14,
+    "con": 12,
+    "int": 16,
+    "wis": 10,
+    "cha": 9
+  },
+  "skills": {
+    "arcana": 5,
+    "perception": 2,
+    "stealth": 4
+  },
+  "immunities": [
+    "psychic"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "frightened"
+  ],
+  "senses": {
+    "blindsight": 30
+  },
+  "passive_perception": 12,
+  "languages": [
+    "Deep Speech"
+  ],
+  "telepathy": 30,
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "flyby",
+      "name": "Flyby",
+      "action": "passive",
+      "summary": "Doesn't provoke Opportunity Attacks when it flies out of an enemy's reach.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "flyby"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "psychic_strike",
+      "name": "Psychic Strike",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 9,
+          "dice": "1d12+3",
+          "type": "psychic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "frightened",
+          "until": "source_turn_start"
+        }
+      ],
+      "summary": "+5, 1d12+3 Psychic; the target is Frightened until the start of the nameless thing's next turn."
+    },
+    {
+      "id": "invisibility",
+      "name": "Invisibility",
+      "kind": "spellcasting",
+      "cast": [
+        "invisibility"
+      ],
+      "do": "cast",
+      "summary": "Casts Invisibility on itself (no components, Intelligence); once per Long Rest it can extend the spell to a creature it is touching, and the spell ends if either creature breaks it or they stop touching.",
+      "text": "The nameless thing casts Invisibility on itself with no components, using Intelligence as its spellcasting ability. It can extend the spell to a creature it is touching; the spell ends early if either creature ends it on itself or if the nameless thing stops touching the other. Once it has extended the spell this way, it cannot do so again until it finishes a Long Rest."
+    }
+  ],
+  "spellcasting": {
+    "ability": "int",
+    "dc": 13,
+    "attack": 5,
+    "at_will": [
+      "invisibility"
+    ]
+  },
+  "ai_profile": "support",
+  "summary": "An alien mind in a tiny body: it wounds with psychic frights and turns invisible, sharing the trick with a touched friend."
+}

@@ -1,0 +1,206 @@
+{
+  "id": "dream_eater",
+  "name": "Dream Eater",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 500,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "large",
+  "type": "monstrosity",
+  "alignment": "neutral evil",
+  "ac": 15,
+  "initiative": 2,
+  "hp": {
+    "average": 180,
+    "dice": "19d10+76"
+  },
+  "speed": {
+    "walk": 30,
+    "climb": 30,
+    "fly": 80
+  },
+  "abilities": {
+    "str": 18,
+    "dex": 14,
+    "con": 18,
+    "int": 8,
+    "wis": 16,
+    "cha": 19
+  },
+  "saves": {
+    "dex": 6,
+    "wis": 7
+  },
+  "skills": {
+    "perception": 7,
+    "stealth": 6
+  },
+  "condition_immunities": [
+    "charmed",
+    "frightened"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 17,
+  "languages": [
+    "understands Common but can't speak"
+  ],
+  "cr": 10,
+  "xp": 5900,
+  "proficiency_bonus": 4,
+  "traits": [
+    {
+      "id": "flyby",
+      "name": "Flyby",
+      "action": "passive",
+      "summary": "Doesn't provoke Opportunity Attacks when it flies out of an enemy's reach.",
+      "text": "The dream eater provokes no Opportunity Attack when it flies out of an enemy's reach.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "flyby"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "moth_ward",
+      "name": "Moth Ward",
+      "action": "passive",
+      "summary": "A creature holding a moth's wing automatically succeeds on saves against Hypnotic Wings.",
+      "text": "A creature holding a moth's wing automatically succeeds on saving throws against the dream eater's Hypnotic Wings.",
+      "implemented": "text"
+    },
+    {
+      "id": "spider_climb",
+      "name": "Spider Climb",
+      "action": "passive",
+      "summary": "Climbs walls and ceilings with no ability check.",
+      "text": "The dream eater can climb difficult surfaces, ceilings included, without an ability check.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "spider_climb"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "talons",
+          "count": 2
+        }
+      ],
+      "summary": "Two Talons attacks, and Devour Dreams too.",
+      "text": "The dream eater makes two Talons attacks and can use Devour Dreams."
+    },
+    {
+      "id": "talons",
+      "name": "Talons",
+      "kind": "melee",
+      "attack": {
+        "bonus": 8,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 11,
+          "dice": "2d6+4",
+          "type": "slashing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 14,
+          "max_size": "medium",
+          "limit": 2,
+          "restrain": true
+        }
+      ],
+      "summary": "+8, 2d6+4 Slashing; a Medium or smaller target is Grappled on a talon (escape DC 14, two talons) and Restrained.",
+      "text": "11 (2d6 + 4) Slashing damage. A Medium or smaller target has the Grappled condition (escape DC 14) from one of two talons, and is Restrained until the grapple ends."
+    },
+    {
+      "id": "devour_dreams",
+      "name": "Devour Dreams",
+      "kind": "save",
+      "save": {
+        "ability": "cha",
+        "dc": 16,
+        "success": "half"
+      },
+      "targets": {
+        "range": 5,
+        "count": 1,
+        "requires": [
+          "grappled",
+          "incapacitated"
+        ]
+      },
+      "damage": [
+        {
+          "average": 18,
+          "dice": "4d8",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "ability_drain",
+          "ability": "cha",
+          "dice": "1d6"
+        }
+      ],
+      "summary": "DC 16 Cha save by a creature it grips, or an Incapacitated one within 5 ft (Incapacitated ones fail): 4d8 Psychic (half on a success) and on a failure Charisma drops by 1d6; at 0 Charisma the victim stays Incapacitated until a Greater Restoration, Heal or Wish.",
+      "text": "The dream eater unfurls its tongue and drinks the dreams from a mind. Charisma Saving Throw: DC 16, a creature it is grappling or an Incapacitated creature within 5 feet of it (Incapacitated creatures fail automatically). Failure: 18 (4d8) Psychic damage, and the creature's Charisma score decreases by 1d6. A creature reduced to 0 Charisma this way does not recover lost Charisma on a Long Rest and has the Incapacitated condition until its mind is restored by Greater Restoration, Heal or Wish. Success: half damage only."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "hypnotic_wings",
+      "name": "Hypnotic Wings",
+      "kind": "save",
+      "do": "bonus_save",
+      "save": {
+        "ability": "wis",
+        "dc": 16,
+        "success": "none"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 30
+      },
+      "targets": {
+        "range": 30
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "incapacitated",
+          "until": "source_turn_start",
+          "modifiers": [
+            {
+              "stat": "speed_set",
+              "value": 0
+            }
+          ]
+        }
+      ],
+      "summary": "Its wings blaze with rainbow light until its next turn (Bright Light 30 ft, Dim 30 ft more); DC 16 Wis save for everyone in the Bright Light or be Incapacitated with Speed 0.",
+      "text": "The dream eater's wings shine with dazzling rainbow colors until the start of its next turn, giving off Bright Light in a 30-foot Emanation and Dim Light for 30 feet beyond. Wisdom Saving Throw: DC 16, each creature in the Bright Light. Failure: until the start of the dream eater's next turn, the target has the Incapacitated condition and its Speed is 0."
+    }
+  ],
+  "ai_profile": "skirmisher",
+  "art": "giant_owl",
+  "summary": "An owl-bodied horror that grips prey in its talons, dazzles crowds with rainbow wings and drinks away dreams and Charisma; a moth's wing breaks its spell."
+}

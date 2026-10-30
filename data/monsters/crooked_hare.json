@@ -1,0 +1,107 @@
+{
+  "id": "crooked_hare",
+  "name": "Crooked Hare",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Familiar block (CR 1). Bond ritual: 10 minutes with materials worth 100+ gp (something stolen or won by trickery); the Familiar Bond rules (bonded sympathy, channel magic, telepathic connection, 1-hour revival) are on page 580 and are listed once in the notes file.",
+    "page": 582
+  },
+  "size": "tiny",
+  "type": "fey",
+  "alignment": "chaotic neutral",
+  "ac": 13,
+  "initiative": 3,
+  "hp": {
+    "average": 21,
+    "dice": "6d4+6"
+  },
+  "speed": {
+    "walk": 30,
+    "fly": 50
+  },
+  "abilities": {
+    "str": 6,
+    "dex": 16,
+    "con": 13,
+    "int": 10,
+    "wis": 14,
+    "cha": 16
+  },
+  "skills": {
+    "deception": 5,
+    "history": 2,
+    "sleight_of_hand": 5,
+    "stealth": 5
+  },
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 12,
+  "languages": [
+    "Common",
+    "Sylvan"
+  ],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "trackless_step",
+      "name": "Trackless Step",
+      "action": "passive",
+      "summary": "Leaves no tracks, or those of a Large-or-smaller creature it chooses; can share this with a creature within 5 ft.",
+      "text": "The hare leaves no tracks, or the tracks of any Large or smaller creature it likes. Unless it is Incapacitated, it can share this effect with one other creature within 5 feet at no action cost.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "twisting_bite",
+      "name": "Twisting Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 5,
+          "dice": "1d4+3",
+          "type": "piercing"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "poison"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "timed_curse",
+          "save": {
+            "ability": "cha",
+            "dc": 11
+          },
+          "params": {
+            "hours": 24,
+            "effects": [
+              {
+                "stat": "disadvantage",
+                "on": "attack"
+              },
+              {
+                "stat": "disadvantage",
+                "on": "check:cha"
+              }
+            ]
+          }
+        }
+      ],
+      "summary": "+5, 1d4+3 Piercing plus 2d6 Poison; DC 11 Cha save or cursed for 24 hours (Disadvantage on attack rolls and Charisma checks).",
+      "text": "Hit: 5 (1d4 + 3) Piercing plus 7 (2d6) Poison damage. A creature hit makes a DC 11 Charisma save or is cursed for 24 hours: its limbs twist and jerk, giving it Disadvantage on attack rolls and on Charisma-based ability checks."
+    }
+  ],
+  "ai_profile": "support",
+  "summary": "An antlered, winged hare that steals things for fun; its bite carries a day-long curse of clumsiness and awkwardness."
+}

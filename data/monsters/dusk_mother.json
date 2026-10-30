@@ -1,0 +1,320 @@
+{
+  "id": "dusk_mother",
+  "name": "The Dusk Mother",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 553,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Lair XP is 75,000 (the block lists 62,000 outside it)."
+  },
+  "size": "large",
+  "type": "undead",
+  "alignment": "neutral evil",
+  "ac": 19,
+  "initiative": 16,
+  "hp": {
+    "average": 315,
+    "dice": "30d10+150"
+  },
+  "speed": {
+    "walk": 5,
+    "fly": 50,
+    "hover": true
+  },
+  "abilities": {
+    "str": 1,
+    "dex": 14,
+    "con": 20,
+    "int": 12,
+    "wis": 14,
+    "cha": 24
+  },
+  "saves": {
+    "int": 8,
+    "wis": 9,
+    "cha": 14
+  },
+  "skills": {
+    "intimidation": 14,
+    "perception": 9,
+    "stealth": 9
+  },
+  "resistances": [
+    "acid",
+    "bludgeoning",
+    "cold",
+    "fire",
+    "lightning",
+    "piercing",
+    "slashing",
+    "thunder"
+  ],
+  "immunities": [
+    "necrotic",
+    "poison",
+    "psychic"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened",
+    "grappled",
+    "paralyzed",
+    "petrified",
+    "poisoned",
+    "prone",
+    "restrained",
+    "stunned"
+  ],
+  "senses": {
+    "truesight": 120
+  },
+  "passive_perception": 19,
+  "languages": [
+    "understands all languages but can't speak"
+  ],
+  "cr": 24,
+  "xp": 62000,
+  "proficiency_bonus": 7,
+  "traits": [
+    {
+      "id": "deaths_shroud",
+      "name": "Death's Shroud",
+      "action": "passive",
+      "summary": "She is always Invisible, even to Truesight and Blindsight; only a creature that has been at 0 Hit Points at least once in its life can see her.",
+      "text": "The mother always has the Invisible condition, and Blindsight, Truesight and similar effects don't reveal her. A creature that has been reduced to 0 Hit Points at least once in its life sees her normally.",
+      "implemented": "text"
+    },
+    {
+      "id": "incorporeal_movement",
+      "name": "Incorporeal Movement",
+      "action": "passive",
+      "summary": "Moves through creatures and objects as Difficult Terrain; 5 (1d10) Force if it ends a turn inside one.",
+      "text": "It passes through creatures and objects as though they were Difficult Terrain, and takes 5 (1d10) Force damage if it ends its turn inside an object.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "incorporeal_movement"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "legendary_resistance",
+      "name": "Legendary Resistance (4/Day, or 5/Day in Lair)",
+      "action": "special",
+      "summary": "4 times a day (5 in its lair), a failed saving throw becomes a success.",
+      "text": "When it fails a saving throw, it can choose to succeed instead, 4 times a day or 5 times in its lair.",
+      "implemented": "engine"
+    },
+    {
+      "id": "magic_resistance",
+      "name": "Magic Resistance",
+      "action": "passive",
+      "summary": "Advantage on saving throws against spells and other magical effects.",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:spell"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "steadfast_matron",
+      "name": "Steadfast Matron",
+      "action": "passive",
+      "summary": "Undead she chooses (not herself) within 60 ft have Advantage on saving throws; lost while she is Incapacitated.",
+      "text": "Undead creatures of her choice, other than herself, inside a 60-foot emanation from her have Advantage on saving throws. She loses this while Incapacitated.",
+      "implemented": "text"
+    },
+    {
+      "id": "undeniable_guilt",
+      "name": "Undeniable Guilt",
+      "action": "passive",
+      "summary": "At the start of her turn, if she sees an object once owned by her living children, or sees or hears their spirits, she is Incapacitated until her next turn starts and must move as far from it as she can.",
+      "text": "If at the start of her turn she can see a possession once owned by her living children, or can see or hear their spirits, she is Incapacitated until the start of her next turn and must move as far from the object or spirits as she can.",
+      "implemented": "text"
+    },
+    {
+      "id": "regional_lair",
+      "name": "Regional Lair Effects",
+      "action": "passive",
+      "summary": "While it lives and keeps its lair, the land round it carries two effects: Enduring Dirge; Thoughts of Loss.",
+      "text": "Enduring Dirge: within 1 mile of the lair, creatures with Intelligence above 4 who speak a language absently sing nursery rhymes or funeral songs. Thoughts of Loss: within 1 mile of the lair, a living creature finishing a Short Rest makes a DC 15 Cha save or gets no benefit from it. Both end at once if the mother dies or moves her lair.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "shears",
+          "count": 3
+        }
+      ],
+      "summary": "Three Shears attacks."
+    },
+    {
+      "id": "shears",
+      "name": "Shears",
+      "kind": "melee",
+      "attack": {
+        "bonus": 14,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 25,
+          "dice": "4d8+7",
+          "type": "force"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "exhaustion",
+          "params": {
+            "levels": 1,
+            "until": "rest",
+            "only_if": "the creature has been hit by two or more Shears attacks this turn"
+          }
+        }
+      ],
+      "summary": "+14, reach 5 ft, 4d8+7 Force; a creature hit by two or more Shears in one turn gains a level of Exhaustion.",
+      "text": "Oversized shears: 25 (4d8 + 7) Force damage. A creature hit by two or more Shears attacks in the same turn gains 1 level of Exhaustion."
+    },
+    {
+      "id": "mournful_tolling",
+      "name": "Mournful Tolling",
+      "kind": "save",
+      "uses": {
+        "count": 1,
+        "per": "day"
+      },
+      "save": {
+        "ability": "wis",
+        "dc": 22,
+        "success": "half"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 30
+      },
+      "targets": {
+        "range": 30,
+        "not_types": [
+          "construct",
+          "undead"
+        ]
+      },
+      "damage": [
+        {
+          "average": 77,
+          "dice": "14d10",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "stunned",
+          "until": "source_turn_end"
+        }
+      ],
+      "summary": "1/day. Everything within 30 ft makes a DC 22 Wis save: 14d10 Psychic that ignores Resistance (half on a success) and Stunned until the end of her next turn. Constructs, Undead and anyone ever raised from the dead are unaffected.",
+      "text": "She tolls her bell. Each creature in a 30-foot emanation makes a DC 22 Wisdom save (Constructs, Undead and creatures that have ever been raised from the dead pass on their own). On a failure the creature takes 77 (14d10) Psychic damage, which ignores Resistance, and is Stunned until the end of her next turn; a success halves the damage."
+    },
+    {
+      "id": "endless_keening",
+      "name": "Endless Keening",
+      "kind": "save",
+      "save": {
+        "ability": "con",
+        "dc": 22,
+        "success": "half"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 30
+      },
+      "targets": {
+        "range": 30,
+        "not_types": [
+          "construct",
+          "undead"
+        ]
+      },
+      "damage": [
+        {
+          "average": 28,
+          "dice": "8d6",
+          "type": "necrotic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "drop_to_zero",
+          "params": {
+            "if_fail_by": 5
+          }
+        }
+      ],
+      "summary": "Legendary only, once a round. Each creature within 30 ft that isn't Deafened makes a DC 22 Con save: 8d6 Necrotic that ignores Resistance (half on a success); failing by 5 or more drops it to 0 Hit Points.",
+      "text": "She keens. Each creature in a 30-foot emanation that isn't Deafened (Constructs, Undead and anyone ever raised from the dead pass on their own) makes a DC 22 Constitution save, taking 28 (8d6) Necrotic damage, ignoring Resistance, on a failure or half on a success. A creature that fails by 5 or more drops to 0 Hit Points. Not again until her next turn begins."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "soul_doll",
+      "name": "Soul Doll",
+      "kind": "special",
+      "do": "soul_doll",
+      "targets": {
+        "range": 5,
+        "count": 1
+      },
+      "summary": "Draws the soul of a creature she killed in the last minute into a Tiny ceramic doll (AC 15, HP half the victim's maximum, Vulnerable to Thunder, immune to Poison); if the doll breaks, the soul rises as her Shadow.",
+      "text": "She picks the corpse of a creature she killed within the last minute. Its soul becomes a Tiny ceramic doll of the creature: AC 15, Hit Points equal to half the creature's maximum, Vulnerability to Thunder, Immunity to Poison. The soul can dimly see and hear, and telepaths can speak with it. If the doll is destroyed the soul rises as a Shadow under her control. The creature can't be returned to life unless a Wish frees the soul or the shadow it became is destroyed."
+    }
+  ],
+  "legendary_actions": {
+    "per_round": 3,
+    "in_lair": 4,
+    "options": [
+      {
+        "id": "drift",
+        "name": "Drift",
+        "cost": 1,
+        "move": true,
+        "once": true,
+        "do": "drift_chill",
+        "summary": "Moves up to her Speed without Opportunity Attacks; each creature whose space she enters takes 3d10 Cold (once a turn) and has Disadvantage on its next attack roll before the end of its next turn. Once a round.",
+        "text": "She drifts up to her Speed without provoking Opportunity Attacks. A creature whose space she enters takes 16 (3d10) Cold damage (once per turn) and has Disadvantage on the next attack roll it makes before the end of its next turn."
+      },
+      {
+        "id": "endless_keening",
+        "name": "Endless Keening",
+        "cost": 1,
+        "action": "endless_keening",
+        "once": true,
+        "summary": "30-ft emanation, DC 22 Con save: 8d6 Necrotic; failing by 5 or more drops a creature to 0. Once a round."
+      },
+      {
+        "id": "snip",
+        "name": "Snip",
+        "cost": 1,
+        "action": "shears",
+        "summary": "One Shears attack."
+      }
+    ]
+  },
+  "legendary_resistance": 4,
+  "legendary_resistance_in_lair": 5,
+  "ai_profile": "skirmisher",
+  "art": "banshee",
+  "art_height": 1.7,
+  "summary": "A grieving, unseen mother: only those who have been at death's door can see her; she shears, tolls a stunning bell, keens a party to its knees and keeps the souls she takes as dolls."
+}

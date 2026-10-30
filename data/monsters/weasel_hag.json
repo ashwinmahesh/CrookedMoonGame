@@ -1,0 +1,238 @@
+{
+  "id": "weasel_hag",
+  "name": "Weasel Hag",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 537,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "medium",
+  "type": "fey",
+  "alignment": "neutral evil",
+  "ac": 15,
+  "initiative": 5,
+  "hp": {
+    "average": 82,
+    "dice": "11d8+33"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 18,
+    "dex": 16,
+    "con": 16,
+    "int": 13,
+    "wis": 14,
+    "cha": 16
+  },
+  "saves": {
+    "con": 6,
+    "wis": 5
+  },
+  "skills": {
+    "deception": 7,
+    "insight": 6,
+    "perception": 4,
+    "stealth": 5
+  },
+  "resistances": [
+    "psychic"
+  ],
+  "condition_immunities": [
+    "frightened"
+  ],
+  "senses": {
+    "darkvision": 120
+  },
+  "passive_perception": 14,
+  "languages": [
+    "Common",
+    "Infernal",
+    "Sylvan"
+  ],
+  "cr": 4,
+  "xp": 1100,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "biting_gift",
+      "name": "Biting Gift",
+      "action": "passive",
+      "summary": "A tooth freely offered to her must be accepted and leaves her Charmed for 24 hours, or until the giver or its allies damage her or force her to save.",
+      "text": "If a creature willingly offers the hag one of its teeth, she must take it and is Charmed for 24 hours, or until that creature or its allies damage her or make her roll a saving throw.",
+      "implemented": "text"
+    },
+    {
+      "id": "coven_magic",
+      "name": "Coven Magic",
+      "action": "passive",
+      "summary": "Within 30 ft of two other hags, casts one of Augury, Find Familiar, Identify, Locate Object, Lucky Charm or Unseen Servant (Int, no Material components), each once per Long Rest.",
+      "text": "While at least two hag allies are within 30 feet of her, the hag can cast one of these spells with no Material components and the spell's normal casting time, using Intelligence: Augury, Find Familiar, Identify, Locate Object, Lucky Charm (it lasts until she casts it again or ends it, no action needed), Unseen Servant. After casting one this way she can't cast it again with this trait until she finishes a Long Rest.",
+      "implemented": "text"
+    },
+    {
+      "id": "magic_resistance",
+      "name": "Magic Resistance",
+      "action": "passive",
+      "summary": "Advantage on saving throws against spells and other magical effects.",
+      "text": "The hag has Advantage on saving throws against spells and other magical effects.",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:spell"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "bite",
+          "count": 1
+        },
+        {
+          "action": "spellcasting",
+          "count": 1
+        }
+      ],
+      "summary": "One Bite and one at-will spell from Spellcasting."
+    },
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 8,
+          "dice": "1d8+4",
+          "type": "piercing"
+        },
+        {
+          "average": 10,
+          "dice": "3d6",
+          "type": "psychic"
+        }
+      ],
+      "summary": "+6, 1d8+4 Piercing plus 3d6 Psychic."
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "kind": "spellcasting",
+      "summary": "Cha, DC 13: Blindness/Deafness, Detect Magic and Ray of Enfeeblement at will; Confusion and Dream once a day each.",
+      "text": "Casts with Charisma (spell save DC 13), needing no Material components. At will: Blindness/Deafness, Detect Magic, Ray of Enfeeblement. 1/day each: Confusion, Dream. Her Multiattack may use only the at-will spells."
+    },
+    {
+      "id": "waking_terrors",
+      "name": "Waking Terrors",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "wis",
+        "dc": 13,
+        "success": "half"
+      },
+      "targets": {
+        "range": 30,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 21,
+          "dice": "6d6",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "frightened",
+          "until": "minute",
+          "repeat_save": {
+            "ability": "wis",
+            "dc": 13,
+            "when": "end"
+          }
+        },
+        {
+          "do": "nightmare_allies",
+          "params": {
+            "until": "frightened ends",
+            "allies_seen_as": "enemies",
+            "compelled_to_harm": false
+          }
+        }
+      ],
+      "summary": "Recharge 5-6. One creature she can see within 30 ft, DC 13 Wis save (Disadvantage if she holds one of its teeth): 6d6 Psychic (half on a success) and Frightened, seeing its allies as nightmare enemies though not forced to attack them; it saves again each turn and after 1 minute it ends."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "shape_shift",
+      "name": "Shape-Shift",
+      "kind": "special",
+      "do": "shape_shift",
+      "summary": "Becomes a Tiny weasel (Speed 30 ft., Climb 30 ft.) or a Small or Medium Humanoid, or returns to her true form.",
+      "text": "She changes into a Tiny weasel or a Small or Medium Humanoid, or back to her true form. Her statistics other than her weasel Speed and her size stay the same, and what she wears or carries doesn't change with her."
+    }
+  ],
+  "spellcasting": {
+    "ability": "cha",
+    "dc": 13,
+    "at_will": [
+      "blindness_deafness",
+      "detect_magic",
+      "ray_of_enfeeblement"
+    ],
+    "per_day": {
+      "1": [
+        "confusion",
+        "dream"
+      ]
+    }
+  },
+  "forms": {
+    "base": "true",
+    "change": "bonus_action",
+    "blocked_in": [],
+    "shapes": [
+      {
+        "id": "weasel",
+        "name": "Weasel",
+        "size": "tiny",
+        "speed": {
+          "walk": 30,
+          "climb": 30
+        },
+        "art": "weasel",
+        "summary": "A Tiny weasel (Speed 30 ft., Climb 30 ft.): her statistics stay the same apart from size and Speed."
+      },
+      {
+        "id": "disguise",
+        "name": "Humanoid",
+        "size": "medium",
+        "speed": {
+          "walk": 30
+        },
+        "art_from_npc": true,
+        "kind": "disguise",
+        "summary": "A Small or Medium Humanoid: her statistics stay the same apart from size."
+      }
+    ]
+  },
+  "ai_profile": "spellcaster",
+  "summary": "A tooth-collecting hag who bites with psychic venom, curses with minor spells and floods a victim's mind with waking nightmares; a tooth freely given charms her.",
+  "art": "night_hag",
+  "reveal": "hag"
+}

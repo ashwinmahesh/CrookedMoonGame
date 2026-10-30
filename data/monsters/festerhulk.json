@@ -1,0 +1,161 @@
+{
+  "id": "festerhulk",
+  "name": "Festerhulk",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 502,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "huge",
+  "type": "undead",
+  "alignment": "neutral evil",
+  "ac": 14,
+  "initiative": -1,
+  "hp": {
+    "average": 207,
+    "dice": "18d12+90"
+  },
+  "speed": {
+    "walk": 40
+  },
+  "abilities": {
+    "str": 25,
+    "dex": 9,
+    "con": 20,
+    "int": 3,
+    "wis": 6,
+    "cha": 3
+  },
+  "skills": {
+    "perception": 2
+  },
+  "immunities": [
+    "necrotic",
+    "poison"
+  ],
+  "condition_immunities": [
+    "exhaustion",
+    "poisoned",
+    "stunned",
+    "unconscious"
+  ],
+  "senses": {
+    "blindsight": 60
+  },
+  "passive_perception": 12,
+  "languages": [
+    "understands Common and Giant but can't speak"
+  ],
+  "cr": 11,
+  "xp": 7200,
+  "proficiency_bonus": 4,
+  "traits": [
+    {
+      "id": "fungal_step",
+      "name": "Fungal Step",
+      "action": "passive",
+      "summary": "Ignores Difficult Terrain made by plants or fungi.",
+      "text": "The festerhulk ignores Difficult Terrain caused by plants or fungi.",
+      "implemented": "text"
+    },
+    {
+      "id": "spore_cloud",
+      "name": "Spore Cloud",
+      "action": "passive",
+      "summary": "At the end of its turns, everything within 5 ft takes 3d6 Necrotic and is Poisoned until the end of its next turn; a Giant or Humanoid killed by it rises 24 hours later (Festerhulk, or Zombie).",
+      "text": "At the end of each of the festerhulk's turns, each creature in a 5-foot Emanation around it takes 10 (3d6) Necrotic damage and has the Poisoned condition until the end of its next turn. A Giant or Humanoid killed by this damage rises as a new creature 24 hours later: a Festerhulk if it was a Giant, a Zombie if it was a Humanoid.",
+      "aura": {
+        "radius": 5,
+        "trigger": "own_turn_end",
+        "damage": {
+          "dice": "3d6",
+          "type": "necrotic"
+        },
+        "riders": [
+          {
+            "do": "condition",
+            "condition": "poisoned",
+            "until": "target_turn_end"
+          }
+        ]
+      },
+      "implemented": "engine"
+    },
+    {
+      "id": "sunlight_hypersensitivity",
+      "name": "Sunlight Hypersensitivity",
+      "action": "passive",
+      "summary": "Takes 10 Radiant if it starts its turn in sunlight, and has Disadvantage on attack rolls and ability checks while in it.",
+      "text": "The festerhulk takes 10 Radiant damage if it starts its turn in sunlight. While in sunlight it has Disadvantage on attack rolls and ability checks.",
+      "sunlight": "hypersensitivity",
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "fetid_slam",
+          "count": 2
+        }
+      ],
+      "summary": "Two Fetid Slams, and Slime Mold too if it is ready.",
+      "text": "The festerhulk makes two Fetid Slam attacks and uses Slime Mold if it is available."
+    },
+    {
+      "id": "fetid_slam",
+      "name": "Fetid Slam",
+      "kind": "melee",
+      "attack": {
+        "bonus": 11,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 20,
+          "dice": "2d12+7",
+          "type": "bludgeoning"
+        },
+        {
+          "average": 13,
+          "dice": "3d8",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "+11, reach 10 ft, 2d12+7 Bludgeoning plus 3d8 Necrotic.",
+      "text": "20 (2d12 + 7) Bludgeoning damage plus 13 (3d8) Necrotic damage."
+    },
+    {
+      "id": "slime_mold",
+      "name": "Slime Mold (1/Day)",
+      "kind": "special",
+      "do": "slime_mold",
+      "uses": {
+        "count": 1,
+        "per": "day"
+      },
+      "summon": {
+        "choices": [
+          {
+            "monster": "black_pudding",
+            "count": 1
+          }
+        ],
+        "arrive": 0
+      },
+      "targets": {
+        "range": 20
+      },
+      "summary": "Once a day disgorges a ravenous slime mold into a free space within 20 ft: a Black Pudding that is a Medium Plant, acting on its initiative and dying after an hour.",
+      "text": "The festerhulk spews a mass of ravenous slime mold into an unoccupied space within 20 feet. The mass uses the Black Pudding stat block, except that it is a Plant and Medium. It acts on the festerhulk's Initiative. It, and any masses it Splits into, dry up and die after 1 hour."
+    }
+  ],
+  "ai_profile": "brute",
+  "art": "ogre",
+  "art_height": 3.0,
+  "summary": "A giant's corpse run by fungus: it pounds with huge rotting fists, chokes its surroundings with poison spores and spits out a hungry slime mold; sunlight sickens it."
+}

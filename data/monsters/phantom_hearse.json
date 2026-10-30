@@ -1,0 +1,285 @@
+{
+  "id": "phantom_hearse",
+  "name": "Phantom Hearse",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours.",
+    "page": 521
+  },
+  "size": "huge",
+  "type": "undead",
+  "alignment": "chaotic evil",
+  "ac": 15,
+  "initiative": 2,
+  "hp": {
+    "average": 110,
+    "dice": "13d12+26"
+  },
+  "speed": {
+    "walk": 60
+  },
+  "abilities": {
+    "str": 6,
+    "dex": 15,
+    "con": 14,
+    "int": 3,
+    "wis": 12,
+    "cha": 18
+  },
+  "skills": {
+    "athletics": 6,
+    "perception": 5
+  },
+  "resistances": [
+    "acid",
+    "bludgeoning",
+    "cold",
+    "fire",
+    "lightning",
+    "piercing",
+    "slashing",
+    "thunder"
+  ],
+  "immunities": [
+    "necrotic",
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened",
+    "grappled",
+    "paralyzed",
+    "petrified",
+    "poisoned",
+    "prone",
+    "restrained"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 15,
+  "languages": [
+    "Common",
+    "one other language"
+  ],
+  "cr": 9,
+  "xp": 5000,
+  "proficiency_bonus": 4,
+  "traits": [
+    {
+      "id": "breathless_warding",
+      "name": "Breathless Warding",
+      "action": "passive",
+      "summary": "A creature holding its breath is Invisible to it; if hurt, DC 15 Con save or it gasps and is seen until its next turn.",
+      "text": "A creature that holds its breath has the Invisible condition as far as the hearse is concerned. If it takes damage while holding its breath, it must succeed on a DC 15 Constitution save or let out its breath and become visible to the hearse until the start of its next turn, when it can hold its breath again.",
+      "implemented": "text"
+    },
+    {
+      "id": "incorporeal_movement",
+      "name": "Incorporeal Movement",
+      "action": "passive",
+      "summary": "Moves through creatures and objects as Difficult Terrain; 5 (1d10) Force if it ends a turn inside one.",
+      "text": "The hearse can pass through creatures and objects as though they were Difficult Terrain, and takes 5 (1d10) Force damage if it ends its turn inside an object.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "incorporeal_movement"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "ghostly_coachman",
+          "count": 1
+        },
+        {
+          "action": "ghostly_coachman",
+          "count": 1,
+          "or": [
+            "trample"
+          ]
+        }
+      ],
+      "summary": "Two Ghostly Coachman attacks; one can be a Trample."
+    },
+    {
+      "id": "ghostly_coachman",
+      "name": "Ghostly Coachman",
+      "kind": "melee_or_ranged",
+      "attack": {
+        "bonus": 8,
+        "reach": 10,
+        "range": [
+          60
+        ]
+      },
+      "damage": [
+        {
+          "average": 13,
+          "dice": "2d8+4",
+          "type": "cold"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "until": "source_turn_start",
+          "modifiers": [
+            {
+              "stat": "flag",
+              "value": "no_healing"
+            }
+          ]
+        }
+      ],
+      "summary": "+8, reach 10 ft or range 60 ft, 2d8+4 Cold; the target can't regain Hit Points until the hearse's next turn.",
+      "text": "A coachman's whip or phantom shot: 13 (2d8 + 4) Cold damage, and a creature hit can't regain Hit Points until the start of the hearse's next turn."
+    },
+    {
+      "id": "trample",
+      "name": "Trample",
+      "kind": "save",
+      "do": "charge_through",
+      "recharge": "5-6",
+      "save": {
+        "ability": "dex",
+        "dc": 16,
+        "success": "half"
+      },
+      "area": {
+        "shape": "path",
+        "size": 60
+      },
+      "targets": {
+        "in_path": true
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "3d6",
+          "type": "cold"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "grapple",
+          "escape_dc": 14,
+          "max_size": "medium",
+          "restrain": true
+        }
+      ],
+      "summary": "Recharge 5-6. Moves up to its Speed in a straight line; each creature whose space it enters: DC 16 Dex save, 3d6 Cold (half on a success); a Medium or smaller failure is Grappled (escape DC 14) and Restrained.",
+      "text": "The hearse moves up to its Speed in a straight line. Dexterity save, DC 16, each creature whose space it enters. Failure: 10 (3d6) Cold damage, and a Medium or smaller target is Grappled (escape DC 14) and Restrained until the grapple ends. Success: half damage only."
+    },
+    {
+      "id": "tolling_bell",
+      "name": "Tolling Bell",
+      "kind": "save",
+      "uses": {
+        "count": 1,
+        "per": "day"
+      },
+      "save": {
+        "ability": "wis",
+        "dc": 16,
+        "success": "half"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 30,
+        "choose": true
+      },
+      "targets": {
+        "range": 30,
+        "sees_source": true
+      },
+      "damage": [
+        {
+          "average": 44,
+          "dice": "8d10",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "until": "source_turn_start",
+          "modifiers": [
+            {
+              "stat": "speed_percent",
+              "value": 50
+            }
+          ]
+        }
+      ],
+      "summary": "1/Day. Creatures it chooses and sees in a 30-ft emanation: DC 16 Wis save, 8d10 Psychic (half on a success) and Speed halved until its next turn on a failure.",
+      "text": "Wisdom save, DC 16, each creature of the hearse's choice that it can see in a 30-foot Emanation around it. Failure: 44 (8d10) Psychic damage, and the creature's Speed is halved until the start of the hearse's next turn. Success: half damage only."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "entomb",
+      "name": "Entomb",
+      "kind": "save",
+      "do": "swallow",
+      "save": {
+        "ability": "str",
+        "dc": 16,
+        "success": "none"
+      },
+      "targets": {
+        "range": 10,
+        "count": 1,
+        "requires": [
+          "grappled"
+        ]
+      },
+      "on_fail": [
+        {
+          "do": "swallow",
+          "params": {
+            "name": "coffin",
+            "damage": {
+              "dice": "6d6",
+              "type": "necrotic",
+              "when": "start of the hearse's turn"
+            },
+            "exhaustion_per_turn": 1,
+            "conditions": [
+              "blinded",
+              "restrained"
+            ],
+            "cover": "total",
+            "capacity": 3,
+            "release": {
+              "damage_in_one_turn": 20,
+              "save": {
+                "ability": "con",
+                "dc": 12
+              },
+              "release_all": true,
+              "land_within": 5,
+              "prone": true
+            },
+            "on_death": {
+              "fall_prone_in_its_space": true
+            }
+          }
+        }
+      ],
+      "summary": "A creature it has Grappled (up to three at once): DC 16 Str save or sealed in a coffin (Blinded, Restrained, total cover, 6d6 Necrotic and 1 Exhaustion each turn).",
+      "text": "Strength save, DC 16, one creature the hearse is grappling (it can hold up to three entombed at a time). Failure: the target is sealed in a coffin inside the hearse and is no longer Grappled. Entombed, it is Blinded and Restrained, has Total Cover against anything outside, and at the start of each of the hearse's turns takes 21 (6d6) Necrotic damage and gains 1 level of Exhaustion. If the hearse takes 20 or more damage in one turn from creatures inside coffins, it must make a DC 12 Constitution save at the end of that turn or release all of them, each landing Prone within 5 feet. If the hearse dies, entombed creatures drop Prone in its space."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A ghostly coach of the dead that runs people down, shuts them in spectral coffins to waste away, and strikes from its box with cold whips and shots."
+}

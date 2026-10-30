@@ -1,0 +1,133 @@
+{
+  "id": "skitterswarm",
+  "name": "Skitterswarm",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours.",
+    "page": 531
+  },
+  "size": "medium",
+  "type": "fey",
+  "swarm_of": "tiny",
+  "tags": [
+    "swarm"
+  ],
+  "alignment": "neutral",
+  "ac": 12,
+  "initiative": 2,
+  "hp": {
+    "average": 19,
+    "dice": "3d8+6"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 15,
+    "dex": 14,
+    "con": 14,
+    "int": 7,
+    "wis": 10,
+    "cha": 8
+  },
+  "resistances": [
+    "bludgeoning",
+    "piercing",
+    "slashing"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "frightened",
+    "grappled",
+    "paralyzed",
+    "petrified",
+    "prone",
+    "restrained",
+    "stunned"
+  ],
+  "senses": {
+    "blindsight": 20
+  },
+  "passive_perception": 10,
+  "languages": [
+    "Understands Common and Sylvan but can't speak"
+  ],
+  "cr": 0.5,
+  "xp": 100,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "body_burrowing",
+      "name": "Body Burrowing",
+      "action": "passive",
+      "summary": "Sees a Humanoid corpse at its turn's start: must move toward it, then stay in it for an hour (the flesh rots).",
+      "text": "If the swarm can see the corpse of a Humanoid when its turn begins, it must move as far toward it as its Speed allows. Once inside the corpse's space it has to stay there for an hour, after which the flesh putrefies.",
+      "implemented": "text"
+    },
+    {
+      "id": "swarm",
+      "name": "Swarm",
+      "action": "passive",
+      "summary": "Shares spaces with other creatures, fits through any centipede-sized gap; can't heal or gain Temporary Hit Points.",
+      "text": "The swarm can move into and stay in another creature's space and vice versa, and passes through any opening wide enough for one Tiny centipede. It can't regain Hit Points or gain Temporary Hit Points.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "swarm"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "vile_vermin",
+      "name": "Vile Vermin",
+      "action": "passive",
+      "summary": "A creature starting its turn in the swarm's space: DC 12 Con save or a magical contagion (no Hit Point recovery until cured).",
+      "text": "Constitution save, DC 12, for any creature that starts its turn in the swarm's space. On a failure the creature carries a magical contagion and can't regain Hit Points. It repeats the save after each Long Rest and when an effect that ends the Poisoned condition targets it, recovering on a success. On a success it is immune to the Vile Vermin of all skitterswarms for 24 hours.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "infesting_bite",
+      "name": "Infesting Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 4,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "piercing",
+          "if": "not_bloodied"
+        },
+        {
+          "average": 3,
+          "dice": "1d6",
+          "type": "piercing",
+          "if": "bloodied"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "ongoing_damage",
+          "params": {
+            "dice": "1d6",
+            "type": "necrotic",
+            "timing": "turn_start",
+            "until": "healed",
+            "also_ends_on": "poisoned_cure"
+          }
+        }
+      ],
+      "summary": "+4, 2d6 Piercing (1d6 when Bloodied); the target is infested and takes 1d6 Necrotic at the start of each of its turns until it regains Hit Points or an effect ends Poisoned on it.",
+      "text": "Hit: 7 (2d6) Piercing damage, or 3 (1d6) while the swarm is Bloodied. A centipede burrows into a creature hit: it takes 3 (1d6) Necrotic damage at the start of each of its turns until it regains Hit Points or something that ends the Poisoned condition targets it."
+    }
+  ],
+  "ai_profile": "swarm",
+  "summary": "A churning mass of fey centipedes drawn to corpses; each bite plants a worm that keeps gnawing, and its presence blocks healing.",
+  "art": "swarm_of_insects"
+}

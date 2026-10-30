@@ -1,0 +1,256 @@
+{
+  "id": "hypnovulfen",
+  "name": "Hypnovulfen",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 509,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "large",
+  "type": "monstrosity",
+  "alignment": "chaotic evil",
+  "ac": 17,
+  "initiative": 3,
+  "hp": {
+    "average": 253,
+    "dice": "22d10+132"
+  },
+  "speed": {
+    "walk": 60
+  },
+  "abilities": {
+    "str": 24,
+    "dex": 16,
+    "con": 22,
+    "int": 14,
+    "wis": 16,
+    "cha": 22
+  },
+  "saves": {
+    "dex": 8,
+    "wis": 8
+  },
+  "skills": {
+    "perception": 8,
+    "stealth": 8
+  },
+  "senses": {
+    "blindsight": 60
+  },
+  "passive_perception": 18,
+  "languages": [
+    "Common",
+    "Sylvan"
+  ],
+  "cr": 15,
+  "xp": 13000,
+  "proficiency_bonus": 5,
+  "traits": [
+    {
+      "id": "magic_resistance",
+      "name": "Magic Resistance",
+      "action": "passive",
+      "summary": "Advantage on saving throws against spells and other magical effects.",
+      "text": "The hypnovulfen has Advantage on saving throws against spells and other magical effects.",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:spell"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "bite",
+          "count": 1
+        },
+        {
+          "action": "claw",
+          "count": 1
+        }
+      ],
+      "summary": "One Bite and one Claw attack, and Swallow too.",
+      "text": "The hypnovulfen makes one Bite attack and one Claw attack, and it can use Swallow."
+    },
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 12,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 18,
+          "dice": "2d10+7",
+          "type": "piercing"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "psychic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 17,
+          "max_size": "medium",
+          "limit": 1,
+          "restrain": true
+        }
+      ],
+      "summary": "+12, 2d10+7 Piercing plus 2d6 Psychic; a Medium or smaller target is Grappled in its jaws (escape DC 17) and Restrained.",
+      "text": "18 (2d10 + 7) Piercing damage plus 7 (2d6) Psychic damage. A Medium or smaller target has the Grappled condition (escape DC 17), and is Restrained until the grapple ends."
+    },
+    {
+      "id": "claw",
+      "name": "Claw",
+      "kind": "melee",
+      "attack": {
+        "bonus": 12,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 14,
+          "dice": "2d6+7",
+          "type": "piercing"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "psychic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "prone",
+          "max_size": "large",
+          "until": "permanent"
+        }
+      ],
+      "summary": "+12, 2d6+7 Piercing plus 2d6 Psychic; a Large or smaller target falls Prone.",
+      "text": "14 (2d6 + 7) Piercing damage plus 7 (2d6) Psychic damage. A Large or smaller target has the Prone condition."
+    },
+    {
+      "id": "swallow",
+      "name": "Swallow",
+      "kind": "save",
+      "save": {
+        "ability": "str",
+        "dc": 20,
+        "success": "none"
+      },
+      "targets": {
+        "range": 5,
+        "count": 1,
+        "max_size": "medium",
+        "requires": [
+          "grappled"
+        ]
+      },
+      "on_fail": [
+        {
+          "do": "swallow",
+          "params": {
+            "max_held": 1,
+            "release_grapple": true,
+            "conditions": [
+              "blinded",
+              "restrained"
+            ],
+            "cover": "total",
+            "damage": {
+              "dice": "6d6",
+              "type": "psychic",
+              "when": "start of each of the swallower's turns"
+            },
+            "on_kill": {
+              "heal_self": 25,
+              "absorbs": "memories"
+            },
+            "regurgitate": {
+              "damage_in_one_turn": 30,
+              "from": "the swallowed creature",
+              "save": {
+                "ability": "con",
+                "dc": 16,
+                "when": "end of that turn"
+              },
+              "lands_within_ft": 10,
+              "prone": true
+            },
+            "on_swallower_death": {
+              "free": true,
+              "escape_cost_ft": 15,
+              "exit_prone": true
+            }
+          }
+        }
+      ],
+      "summary": "DC 20 Str save, one Medium or smaller creature it is grappling, one at a time: swallowed (Blinded, Restrained, total cover, 6d6 Psychic each of its turns; a kill heals it 25). 30 damage in a turn from inside forces a DC 16 Con save or it coughs the creature up.",
+      "text": "Strength Saving Throw: DC 20, one Medium or smaller creature Grappled by the hypnovulfen (only one creature can be swallowed at a time). Failure: the hypnovulfen swallows the target, which is no longer Grappled. While swallowed, a creature has the Blinded and Restrained conditions, has Total Cover against attacks and other effects from outside, and takes 21 (6d6) Psychic damage at the start of each of the hypnovulfen's turns. If the creature dies from this damage, the hypnovulfen absorbs its memories and regains 25 Hit Points. If the hypnovulfen takes 30 or more damage in a single turn from the swallowed creature, it must succeed on a DC 16 Constitution saving throw at the end of that turn or regurgitate the creature, which falls Prone in a space within 10 feet. If the hypnovulfen dies, a swallowed creature is no longer Restrained and can climb out of the corpse by using 15 feet of movement, exiting Prone."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "hypnotic_gaze",
+      "name": "Hypnotic Gaze",
+      "kind": "save",
+      "do": "bonus_save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "wis",
+        "dc": 19,
+        "success": "none"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 30
+      },
+      "targets": {
+        "range": 30
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "charmed",
+          "until": "minute",
+          "conditions": [
+            "incapacitated"
+          ],
+          "repeat_save": {
+            "ability": "wis",
+            "dc": 19,
+            "when": "end"
+          }
+        },
+        {
+          "do": "forced_approach",
+          "params": {
+            "toward": "source",
+            "route": "safest",
+            "while": "charmed",
+            "ends_on_damage": true
+          }
+        }
+      ],
+      "summary": "Recharge 5-6. 30-ft cone, DC 19 Wis save (a creature holding a loved one's keepsake succeeds on its own): Charmed and Incapacitated, walking toward it, until it takes damage; new save at the end of each of its turns, 1 minute at most.",
+      "text": "Wisdom Saving Throw: DC 19, each creature in a 30-foot Cone. A creature holding a keepsake from a loved one succeeds automatically. Failure: the creature has the Charmed condition until it takes damage. While Charmed this way, it has the Incapacitated condition and must move as close to the hypnovulfen as it can by the safest route. It repeats the save at the end of each of its turns, ending the effect on itself on a success; after 1 minute it succeeds automatically."
+    }
+  ],
+  "ai_profile": "brute",
+  "art": "dire_wolf",
+  "summary": "A giant stalking wolf that mesmerizes prey with the face of a loved one, grapples it in huge jaws and swallows it to feed on its memories."
+}

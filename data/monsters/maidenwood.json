@@ -1,0 +1,183 @@
+{
+  "id": "maidenwood",
+  "name": "Maidenwood",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours.",
+    "page": 516
+  },
+  "size": "huge",
+  "type": "plant",
+  "alignment": "chaotic evil",
+  "ac": 15,
+  "initiative": -1,
+  "hp": {
+    "average": 103,
+    "dice": "9d12+45"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 22,
+    "dex": 8,
+    "con": 20,
+    "int": 10,
+    "wis": 12,
+    "cha": 16
+  },
+  "skills": {
+    "deception": 7,
+    "stealth": 7
+  },
+  "vulnerabilities": [
+    "fire"
+  ],
+  "resistances": [
+    "bludgeoning",
+    "piercing"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 11,
+  "languages": [
+    "Common",
+    "Druidic",
+    "Sylvan"
+  ],
+  "cr": 9,
+  "xp": 5000,
+  "proficiency_bonus": 4,
+  "traits": [
+    {
+      "id": "undoing_gift",
+      "name": "Undoing Gift (1/Day)",
+      "action": "passive",
+      "summary": "Must accept and eat an apple offered to it or to its lure; it then takes 10d10 Poison and is Poisoned for 1 minute.",
+      "text": "The maidenwood has to take and eat an apple that is offered to it or to its lure. When it does, it takes 55 (10d10) Poison damage and has the Poisoned condition for 1 minute.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "tendril",
+          "count": 1
+        },
+        {
+          "action": "tendril",
+          "count": 1,
+          "or": [
+            "chew"
+          ]
+        }
+      ],
+      "summary": "Two Tendril attacks; one can be a Chew instead."
+    },
+    {
+      "id": "tendril",
+      "name": "Tendril",
+      "kind": "melee",
+      "attack": {
+        "bonus": 10,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 15,
+          "dice": "2d8+6",
+          "type": "bludgeoning"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 16,
+          "max_size": "large",
+          "limit": 2,
+          "restrain": true
+        }
+      ],
+      "summary": "+10, reach 10 ft, 2d8+6 Bludgeoning; a Large or smaller target is Grappled (escape DC 16) and Restrained (one of two tendrils).",
+      "text": "A lashing tendril: 15 (2d8 + 6) Bludgeoning damage. A Large or smaller target is Grappled (escape DC 16) by one of two tendrils and Restrained until the grapple ends."
+    },
+    {
+      "id": "chew",
+      "name": "Chew",
+      "kind": "melee",
+      "attack": {
+        "bonus": 10,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 11,
+          "dice": "1d10+6",
+          "type": "piercing"
+        },
+        {
+          "average": 18,
+          "dice": "4d8",
+          "type": "piercing",
+          "when": "target is Restrained"
+        }
+      ],
+      "summary": "+10, 1d10+6 Piercing, plus 4d8 more if the target is Restrained.",
+      "text": "The grinding maw: 11 (1d10 + 6) Piercing damage, and a Restrained target takes an extra 18 (4d8) Piercing damage."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "lure",
+      "name": "Lure",
+      "kind": "save",
+      "do": "lure",
+      "save": {
+        "ability": "int",
+        "dc": 15,
+        "success": "none"
+      },
+      "targets": {
+        "range": 30,
+        "count": 1,
+        "from": "lure"
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "charmed",
+          "until": "source_turn_start"
+        },
+        {
+          "do": "approach_lure",
+          "params": {
+            "advantage_for_source": true,
+            "ends_on_damage": "end_of_turn"
+          }
+        }
+      ],
+      "summary": "Shapes or retracts a Small or Medium humanoid lure on a tendril; one creature within 30 ft of the lure: DC 15 Int save or Charmed, walking to the lure.",
+      "text": "The maidenwood grows its lure into a Small or Medium humanoid figure, or pulls it back in. It can speak through the lure and move it anywhere within its tendrils' reach. Intelligence save, DC 15, one creature within 30 feet of the lure. Failure: the target is Charmed until the start of the maidenwood's next turn and must move as close to the lure as it can; the maidenwood has Advantage on attack rolls against it. If the charmed target takes damage, the charm ends at the end of that turn."
+    }
+  ],
+  "reactions": [
+    {
+      "id": "absorb_magic",
+      "name": "Absorb Magic",
+      "kind": "special",
+      "do": "absorb_magic",
+      "trigger": "It succeeds on a save against a spell or magical effect, or a spell attack misses it.",
+      "summary": "Reaction: gains 10 Temporary Hit Points after shrugging off magic.",
+      "text": "Trigger: the maidenwood succeeds on a saving throw against a spell or other magical effect, or a spell attack roll misses it. Response: it gains 10 Temporary Hit Points."
+    }
+  ],
+  "ai_profile": "brute",
+  "art": "tree_blight",
+  "summary": "A witch-cursed stump on root legs that lures prey with a lifelike figure, then pins them in its tendrils and chews."
+}

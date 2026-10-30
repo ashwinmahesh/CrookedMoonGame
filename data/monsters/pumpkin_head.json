@@ -1,0 +1,184 @@
+{
+  "id": "pumpkin_head",
+  "name": "Pumpkin Head",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 523,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "medium",
+  "type": "fiend",
+  "alignment": "chaotic evil",
+  "ac": 13,
+  "initiative": 2,
+  "hp": {
+    "average": 55,
+    "dice": "10d8+10"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 17,
+    "dex": 14,
+    "con": 13,
+    "int": 6,
+    "wis": 10,
+    "cha": 14
+  },
+  "skills": {
+    "deception": 6,
+    "stealth": 4
+  },
+  "resistances": [
+    "necrotic"
+  ],
+  "vulnerabilities": [
+    "fire"
+  ],
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 10,
+  "languages": [
+    "Understands Common plus one other language, but only speaks using Mimicry"
+  ],
+  "cr": 3,
+  "xp": 700,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "mimicry",
+      "name": "Mimicry",
+      "action": "passive",
+      "summary": "Speaks only in the voice of the person it replaced, or of anyone it used Personality Consumption on; a DC 14 Wis (Insight) check spots it.",
+      "text": "The pumpkin head can imitate the voice of the person it replaced, or of anyone it has used Personality Consumption on. A listener tells it is an imitation only by succeeding on a DC 14 Wisdom (Insight) check.",
+      "implemented": "text"
+    },
+    {
+      "id": "sorrowful_memento",
+      "name": "Sorrowful Memento",
+      "action": "passive",
+      "summary": "Disadvantage on D20 Tests while it can see a creature holding a possession of the person it replaced.",
+      "text": "If the pumpkin head can see a creature holding something that belonged to the person it replaced, it makes D20 Tests with Disadvantage.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "claw",
+          "count": 1
+        },
+        {
+          "action": "pitchfork",
+          "count": 1
+        }
+      ],
+      "summary": "One Claw and one Pitchfork attack, and Personality Consumption if it is available."
+    },
+    {
+      "id": "claw",
+      "name": "Claw",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 6,
+          "dice": "1d6+3",
+          "type": "slashing"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "+5, 1d6+3 Slashing plus 2d6 Necrotic."
+    },
+    {
+      "id": "pitchfork",
+      "name": "Pitchfork",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "1d8+3",
+          "type": "piercing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "pull",
+          "feet": 5,
+          "max_size": "medium"
+        }
+      ],
+      "summary": "+5, reach 10 ft, 1d8+3 Piercing; it can pull (or push) a Medium or smaller target 5 ft.",
+      "text": "On a hit against a Medium or smaller creature the pumpkin head may push it 5 feet or pull it 5 feet. (Entered as a pull; the push choice is not modelled.)"
+    },
+    {
+      "id": "personality_consumption",
+      "name": "Personality Consumption",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "int",
+        "dc": 12,
+        "success": "none"
+      },
+      "targets": {
+        "range": 30,
+        "count": 1
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "stunned",
+          "until": "target_turn_end"
+        },
+        {
+          "do": "ability_drain",
+          "ability": "int",
+          "dice": "1d4"
+        },
+        {
+          "do": "replace_with_copy",
+          "params": {
+            "monster": "pumpkin_head",
+            "delay": "1d8 hours",
+            "types": [
+              "humanoid"
+            ],
+            "prevented_by": "burning the body",
+            "when": "slain by this action"
+          }
+        }
+      ],
+      "summary": "Recharge 5-6. One creature it can see within 30 ft, DC 12 Int save: Stunned until the end of its next turn and Intelligence drops by 1d4 (0 kills it); a slain Humanoid becomes a new Pumpkin Head 1d8 hours later unless the body is burned."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A fiend-animated scarecrow wearing a stolen face and voice: it claws, hooks victims in with a pitchfork and eats minds, replacing the slain with copies of itself.",
+  "art": "scarecrow"
+}

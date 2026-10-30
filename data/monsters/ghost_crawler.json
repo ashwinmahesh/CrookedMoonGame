@@ -1,0 +1,144 @@
+{
+  "id": "ghost_crawler",
+  "name": "Ghost Crawler",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Familiar block (CR 1). Bond ritual: 10 minutes with materials worth 100+ gp (silk threads soaked in wine); the Familiar Bond rules (bonded sympathy, channel magic, telepathic connection, 1-hour revival) are on page 580 and are listed once in the notes file.",
+    "page": 585
+  },
+  "size": "tiny",
+  "type": "undead",
+  "alignment": "unaligned",
+  "ac": 13,
+  "initiative": 3,
+  "hp": {
+    "average": 25,
+    "dice": "10d4"
+  },
+  "speed": {
+    "walk": 30,
+    "climb": 30
+  },
+  "abilities": {
+    "str": 2,
+    "dex": 16,
+    "con": 10,
+    "int": 1,
+    "wis": 10,
+    "cha": 2
+  },
+  "skills": {
+    "stealth": 5
+  },
+  "senses": {
+    "darkvision": 30
+  },
+  "passive_perception": 10,
+  "languages": [
+    "Understands Common but can't speak"
+  ],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "ephemeral_body",
+      "name": "Ephemeral Body",
+      "action": "passive",
+      "summary": "Squeezes through gaps an inch wide at no extra cost.",
+      "text": "The crawler moves through spaces as narrow as an inch without paying extra movement.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "amorphous"
+        }
+      ],
+      "implemented": "text"
+    },
+    {
+      "id": "seers_strand",
+      "name": "Seer's Strand",
+      "action": "passive",
+      "summary": "Sees and hears through the space of its Ether Webs as if it stood there.",
+      "text": "The crawler sees and hears through any space holding its Ether Webs as if it were in that space (a special sense).",
+      "implemented": "text"
+    },
+    {
+      "id": "spider_climb",
+      "name": "Spider Climb",
+      "action": "passive",
+      "summary": "Climbs walls and ceilings with no ability check.",
+      "text": "The crawler climbs difficult surfaces, ceilings included, without an ability check.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "spider_climb"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "web_walker",
+      "name": "Web Walker",
+      "action": "passive",
+      "summary": "Ignores web movement limits and knows where any creature touching the same web is.",
+      "text": "The crawler ignores movement restrictions from webs and knows the location of any other creature in contact with the same web.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "bite",
+          "count": 2
+        }
+      ],
+      "summary": "Two Bite attacks."
+    },
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 5,
+          "dice": "1d4+3",
+          "type": "piercing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "source_turn_start"
+        }
+      ],
+      "summary": "+5, 1d4+3 Piercing; the target is Poisoned until the crawler's next turn."
+    },
+    {
+      "id": "ether_webs",
+      "name": "Ether Webs",
+      "kind": "special",
+      "do": "ether_webs",
+      "uses": {
+        "count": 2,
+        "per": "day"
+      },
+      "summary": "Twice a day: fills a 5-ft cube with invisible webs for 8 hours (collapses if not anchored between solid masses or across a surface); the crawler knows where anyone touching them is, on the same plane.",
+      "text": "The crawler fills a 5-foot cube with Invisible, ephemeral webs that last 8 hours. Webs not anchored between two solid masses (walls, trees) or layered over a floor, wall or ceiling collapse and vanish. Whenever a creature touches the webbing, the crawler knows where that creature is for as long as they share a plane."
+    }
+  ],
+  "ai_profile": "support",
+  "summary": "A ghostly spider that bites with poison and lays invisible webs it can see through, a camp alarm and scout.",
+  "art": "giant_spider",
+  "art_height": 0.5
+}

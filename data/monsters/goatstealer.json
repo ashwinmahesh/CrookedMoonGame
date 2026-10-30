@@ -1,0 +1,118 @@
+{
+  "id": "goatstealer",
+  "name": "Goatstealer",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Familiar block (CR 1). Bond ritual: 10 minutes with materials worth 100+ gp (incense and spoiled meat); the Familiar Bond rules (bonded sympathy, channel magic, telepathic connection, 1-hour revival) are on page 580 and are listed once in the notes file.",
+    "page": 586
+  },
+  "size": "small",
+  "type": "monstrosity",
+  "alignment": "unaligned",
+  "ac": 12,
+  "initiative": 2,
+  "hp": {
+    "average": 22,
+    "dice": "4d6+8"
+  },
+  "speed": {
+    "walk": 40
+  },
+  "abilities": {
+    "str": 14,
+    "dex": 15,
+    "con": 14,
+    "int": 3,
+    "wis": 12,
+    "cha": 8
+  },
+  "skills": {
+    "perception": 5,
+    "stealth": 6,
+    "survival": 5
+  },
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 15,
+  "languages": [],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "pack_tactics",
+      "name": "Pack Tactics",
+      "action": "passive",
+      "summary": "Advantage on attack rolls against a target that has a non-Incapacitated ally of this creature within 5 ft.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "pack_tactics"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "stench",
+      "name": "Stench",
+      "action": "passive",
+      "summary": "Creatures starting a turn within 5 ft: DC 12 Con save or Poisoned until their next turn; a success gives an hour's immunity.",
+      "text": "Constitution save, DC 12, for any creature that starts its turn within 5 feet. Failure: Poisoned until the start of its next turn. Success: immune to all goatstealers' Stench for 1 hour.",
+      "implemented": "engine",
+      "aura": {
+        "radius": 5,
+        "trigger": "start_turn",
+        "save": {
+          "ability": "con",
+          "dc": 12
+        },
+        "condition": "poisoned",
+        "until": "target_turn_start",
+        "immune_on_success": true,
+        "affects": "others"
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 4,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 5,
+          "dice": "1d6+2",
+          "type": "piercing"
+        },
+        {
+          "average": 3,
+          "dice": "1d6",
+          "type": "poison"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 12,
+          "max_size": "medium",
+          "limit": 1,
+          "hold_damage": {
+            "dice": "1d6",
+            "type": "poison"
+          }
+        }
+      ],
+      "summary": "+4, 1d6+2 Piercing plus 1d6 Poison; a Medium or smaller target is Grappled (escape DC 12) and takes 1d6 Poison at the start of each of the goatstealer's turns.",
+      "text": "Hit: 5 (1d6 + 2) Piercing plus 3 (1d6) Poison damage. A Medium or smaller target is Grappled (escape DC 12); until the grapple ends, at the start of each of the goatstealer's turns the target takes 3 (1d6) Poison damage."
+    }
+  ],
+  "ai_profile": "support",
+  "summary": "A hairless, reeking livestock-hunter that bites, poisons and hangs on, strongest in a pack.",
+  "art": "jackal"
+}

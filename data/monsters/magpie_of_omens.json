@@ -1,0 +1,131 @@
+{
+  "id": "magpie_of_omens",
+  "name": "Magpie of Omens",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Familiar block (CR 1). Bond ritual: 10 minutes with materials worth 100+ gp (crystal or gemstone shards); the Familiar Bond rules (bonded sympathy, channel magic, telepathic connection, 1-hour revival) are on page 580 and are listed once in the notes file.",
+    "page": 588
+  },
+  "size": "tiny",
+  "type": "fey",
+  "alignment": "neutral",
+  "ac": 13,
+  "initiative": 3,
+  "hp": {
+    "average": 25,
+    "dice": "10d4"
+  },
+  "speed": {
+    "walk": 10,
+    "fly": 50
+  },
+  "abilities": {
+    "str": 2,
+    "dex": 17,
+    "con": 10,
+    "int": 5,
+    "wis": 12,
+    "cha": 6
+  },
+  "skills": {
+    "perception": 3
+  },
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 13,
+  "languages": [],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "flyby",
+      "name": "Flyby",
+      "action": "passive",
+      "summary": "Doesn't provoke Opportunity Attacks when it flies out of an enemy's reach.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "flyby"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "beak",
+          "count": 2
+        }
+      ],
+      "summary": "Two Beak attacks."
+    },
+    {
+      "id": "beak",
+      "name": "Beak",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 5,
+          "dice": "1d4+3",
+          "type": "piercing"
+        },
+        {
+          "average": 3,
+          "dice": "1d6",
+          "type": "radiant"
+        }
+      ],
+      "summary": "+5, 1d4+3 Piercing plus 1d6 Radiant."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "bonded_voice",
+      "name": "Bonded Voice",
+      "kind": "special",
+      "do": "bonded_voice",
+      "summary": "Forms or dissolves a bond with a willing creature within 5 ft; the bonded creature can speak through the magpie in its own voice and language (birdlike lilt). Ends on the creature's death or a new bond."
+    }
+  ],
+  "reactions": [
+    {
+      "id": "one_for_sorrow",
+      "name": "One for Sorrow",
+      "kind": "special",
+      "do": "roll_penalty_die",
+      "uses": {
+        "count": 1,
+        "per": "day"
+      },
+      "trigger": "A creature within 30 ft makes a D20 Test with Advantage.",
+      "summary": "Once a day: when a creature within 30 ft makes a D20 Test with Advantage, it rolls 1d6 and subtracts it from the total."
+    },
+    {
+      "id": "two_for_joy",
+      "name": "Two for Joy",
+      "kind": "special",
+      "do": "roll_bonus_die",
+      "uses": {
+        "count": 2,
+        "per": "day"
+      },
+      "trigger": "The magpie or another creature within 30 ft makes an ability check or saving throw.",
+      "summary": "Twice a day: when the magpie or a creature within 30 ft makes an ability check or save, it rolls 1d4 and adds it to the total."
+    }
+  ],
+  "ai_profile": "support",
+  "summary": "A black-and-white bird of fortune: it pecks with bright radiance and lends or takes luck from nearby rolls.",
+  "art": "raven"
+}

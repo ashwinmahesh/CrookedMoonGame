@@ -1,0 +1,164 @@
+{
+  "id": "corn_dolly",
+  "name": "Corn Dolly",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Familiar block (CR 1). Bond ritual: 10 minutes with materials worth 100+ gp (a curved blade plated in gold); the Familiar Bond rules (bonded sympathy, channel magic, telepathic connection, 1-hour revival) are on page 580 and are listed once in the notes file.",
+    "page": 581
+  },
+  "size": "tiny",
+  "type": "construct",
+  "alignment": "neutral",
+  "ac": 10,
+  "initiative": 0,
+  "hp": {
+    "average": 38,
+    "dice": "11d4+11"
+  },
+  "speed": {
+    "walk": 20
+  },
+  "abilities": {
+    "str": 3,
+    "dex": 10,
+    "con": 12,
+    "int": 12,
+    "wis": 8,
+    "cha": 16
+  },
+  "skills": {
+    "perception": 1
+  },
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "exhaustion",
+    "frightened",
+    "poisoned"
+  ],
+  "passive_perception": 11,
+  "languages": [
+    "Understands Common but can't speak"
+  ],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "husk_body",
+      "name": "Husk Body",
+      "action": "passive",
+      "summary": "Squeezes through gaps an inch wide at no extra cost.",
+      "text": "The corn dolly moves through spaces as narrow as an inch without paying extra movement.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "amorphous"
+        }
+      ],
+      "implemented": "text"
+    },
+    {
+      "id": "uneasy_visage",
+      "name": "Uneasy Visage",
+      "action": "passive",
+      "summary": "While someone holds it, creatures within 10 ft have Disadvantage on Insight checks against the holder.",
+      "text": "Its painted face unsettles onlookers: while a creature is holding the corn dolly, creatures within 10 feet have Disadvantage on Wisdom (Insight) checks made against that creature.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "husk_cut",
+      "name": "Husk Cut",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 1,
+          "dice": "1",
+          "type": "slashing"
+        },
+        {
+          "average": 4,
+          "dice": "1d8",
+          "type": "psychic"
+        }
+      ],
+      "summary": "+5, 1 Slashing plus 1d8 Psychic."
+    },
+    {
+      "id": "blank_stare",
+      "name": "Blank Stare",
+      "kind": "save",
+      "save": {
+        "ability": "wis",
+        "dc": 13,
+        "success": "half"
+      },
+      "targets": {
+        "range": 30,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "3d6",
+          "type": "psychic"
+        }
+      ],
+      "summary": "One creature it sees within 30 ft: DC 13 Wis save or 3d6 Psychic (half on a success)."
+    },
+    {
+      "id": "sowing_dread",
+      "name": "Sowing Dread",
+      "kind": "save",
+      "uses": {
+        "count": 2,
+        "per": "day"
+      },
+      "save": {
+        "ability": "wis",
+        "dc": 13,
+        "success": "none"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 15
+      },
+      "targets": {
+        "range": 15,
+        "enemies_only": true
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "frightened",
+          "until": "target_turn_end"
+        }
+      ],
+      "summary": "Twice a day: 15-ft cone, creatures of its choice make a DC 13 Wis save or are Frightened until the end of their next turn."
+    }
+  ],
+  "reactions": [
+    {
+      "id": "silent_protector",
+      "name": "Silent Protector",
+      "kind": "special",
+      "do": "take_failed_save",
+      "uses": {
+        "count": 1,
+        "per": "short"
+      },
+      "trigger": "A creature within 60 ft fails a saving throw against an effect that deals no damage.",
+      "summary": "Recharges on a Short or Long Rest. When a creature within 60 ft fails a save against an effect that does no damage, the dolly suffers the effect instead."
+    }
+  ],
+  "ai_profile": "support",
+  "summary": "A husk doll that guards its holder: it cuts and stares with psychic dread, scares groups, and takes an ally's failed save on itself."
+}

@@ -1,0 +1,136 @@
+{
+  "id": "bat_hound",
+  "name": "Bat Hound",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 488,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "medium",
+  "type": "monstrosity",
+  "alignment": "neutral evil",
+  "ac": 13,
+  "initiative": 3,
+  "hp": {
+    "average": 27,
+    "dice": "5d8+5"
+  },
+  "speed": {
+    "walk": 40,
+    "climb": 40
+  },
+  "abilities": {
+    "str": 16,
+    "dex": 12,
+    "con": 13,
+    "int": 4,
+    "wis": 15,
+    "cha": 10
+  },
+  "skills": {
+    "perception": 6,
+    "survival": 6
+  },
+  "senses": {
+    "blindsight": 60
+  },
+  "passive_perception": 16,
+  "languages": [
+    "Understands Common plus one other language but can't speak"
+  ],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "barred_by_water",
+      "name": "Barred by Water",
+      "action": "passive",
+      "summary": "Can't willingly enter running water or the air up to 20 ft above it; starting its turn in running water: 10 Acid and Frightened until its next turn.",
+      "text": "The hound will not step into running water, nor into a space up to 20 feet above running water. If it starts its turn in running water it takes 10 Acid damage and is Frightened until the start of its next turn.",
+      "implemented": "text"
+    },
+    {
+      "id": "glide",
+      "name": "Glide",
+      "action": "passive",
+      "summary": "While able to act and not in heavy armor, glides 5 ft sideways for each 1 ft it drops.",
+      "text": "If it is not Incapacitated and not wearing heavy armor, the hound spreads its membranous wings and moves 5 feet horizontally for every 1 foot it descends in the air.",
+      "implemented": "text"
+    },
+    {
+      "id": "spider_climb",
+      "name": "Spider Climb",
+      "action": "passive",
+      "summary": "Climbs walls and ceilings with no ability check.",
+      "text": "The hound can climb difficult surfaces, ceilings included, without an ability check.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "spider_climb"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 8,
+          "dice": "1d10+3",
+          "type": "piercing"
+        },
+        {
+          "average": 3,
+          "dice": "1d6",
+          "type": "necrotic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "heal_self",
+          "type": "necrotic"
+        },
+        {
+          "do": "grapple",
+          "escape_dc": 13,
+          "max_size": "medium"
+        }
+      ],
+      "summary": "+5, 1d10+3 Piercing plus 1d6 Necrotic; it heals by the Necrotic damage, and a Medium or smaller target is Grappled (escape DC 13).",
+      "text": "The bite also heals the hound by the Necrotic damage dealt when the target is a creature, and grapples a Medium or smaller target (escape DC 13)."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "outmaneuver",
+      "name": "Outmaneuver",
+      "kind": "special",
+      "do": "dash_or_disengage",
+      "summary": "Takes both Dash and Disengage; this turn it moves a creature it is grappling at no extra cost.",
+      "text": "The hound takes the Dash action and the Disengage action, and until the end of the turn it needn't spend extra movement to drag a creature it is grappling."
+    }
+  ],
+  "reactions": [
+    {
+      "id": "safe_descent",
+      "name": "Safe Descent",
+      "kind": "special",
+      "do": "safe_descent",
+      "trigger": "The hound takes damage from a fall and isn't in heavy armor.",
+      "summary": "Reaction: spreads its wings so a fall deals it no damage."
+    }
+  ],
+  "ai_profile": "pack_hunter",
+  "summary": "A vampire's winged hunting hound that bites to heal itself, grabs stragglers and hauls them off; running water keeps it away.",
+  "art": "mastiff"
+}

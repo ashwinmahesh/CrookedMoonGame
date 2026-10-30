@@ -1,0 +1,183 @@
+{
+  "id": "gobblegeist",
+  "name": "Gobblegeist",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 505,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "huge",
+  "type": "monstrosity",
+  "alignment": "neutral evil",
+  "ac": 16,
+  "initiative": 2,
+  "hp": {
+    "average": 114,
+    "dice": "12d12+36"
+  },
+  "speed": {
+    "walk": 30,
+    "fly": 80
+  },
+  "abilities": {
+    "str": 20,
+    "dex": 14,
+    "con": 16,
+    "int": 5,
+    "wis": 16,
+    "cha": 8
+  },
+  "skills": {
+    "perception": 6,
+    "stealth": 5
+  },
+  "senses": {
+    "darkvision": 120
+  },
+  "passive_perception": 16,
+  "languages": [],
+  "cr": 8,
+  "xp": 3900,
+  "proficiency_bonus": 3,
+  "traits": [
+    {
+      "id": "flyby",
+      "name": "Flyby",
+      "action": "passive",
+      "summary": "Doesn't provoke Opportunity Attacks when it flies out of an enemy's reach.",
+      "text": "The gobblegeist provokes no Opportunity Attack when it flies out of an enemy's reach.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "flyby"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "repelled_by_stars",
+      "name": "Repelled by Stars",
+      "action": "passive",
+      "summary": "Can't willingly move to within 10 ft of a seven-pointed star drawn on a surface or woven from wicker.",
+      "text": "The gobblegeist can't willingly move to a space within 10 feet of a seven-pointed star drawn on a surface or woven from wicker.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "beak",
+          "count": 2,
+          "or": [
+            "talons"
+          ]
+        }
+      ],
+      "summary": "Two Beak attacks; one can be a Talons attack.",
+      "text": "The gobblegeist makes two Beak attacks. It can replace one of them with a Talons attack."
+    },
+    {
+      "id": "beak",
+      "name": "Beak",
+      "kind": "melee",
+      "attack": {
+        "bonus": 8,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 9,
+          "dice": "1d8+5",
+          "type": "piercing"
+        },
+        {
+          "average": 10,
+          "dice": "3d6",
+          "type": "necrotic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "drain_max_hp",
+          "type": "necrotic"
+        },
+        {
+          "do": "heal_self",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "+8, 1d8+5 Piercing plus 3d6 Necrotic; the target's Hit Point maximum drops by the Necrotic damage and the gobblegeist heals by the same.",
+      "text": "9 (1d8 + 5) Piercing damage plus 10 (3d6) Necrotic damage. The target's Hit Point maximum is reduced by the Necrotic damage it took, and the gobblegeist regains that many Hit Points."
+    },
+    {
+      "id": "talons",
+      "name": "Talons",
+      "kind": "melee",
+      "attack": {
+        "bonus": 8,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 14,
+          "dice": "2d8+5",
+          "type": "piercing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 15,
+          "max_size": "large",
+          "limit": 1,
+          "restrain": true
+        }
+      ],
+      "summary": "+8, 2d8+5 Piercing; a Large or smaller target is Grappled in both talons (escape DC 15) and Restrained.",
+      "text": "14 (2d8 + 5) Piercing damage. A Large or smaller target has the Grappled condition (escape DC 15) from both talons, and is Restrained until the grapple ends."
+    },
+    {
+      "id": "eye_beam",
+      "name": "Eye Beam",
+      "kind": "save",
+      "save": {
+        "ability": "dex",
+        "dc": 14,
+        "success": "none"
+      },
+      "area": {
+        "shape": "line",
+        "size": 120,
+        "width": 5
+      },
+      "targets": {
+        "range": 120
+      },
+      "damage": [
+        {
+          "average": 6,
+          "dice": "1d12",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "stunned",
+          "until": "source_turn_start"
+        }
+      ],
+      "summary": "120-ft line, 5 ft wide, DC 14 Dex save: 1d12 Psychic and Stunned until the start of its next turn.",
+      "text": "Dexterity Saving Throw: DC 14, each creature in a 120-foot-long, 5-foot-wide Line. Failure: 6 (1d12) Psychic damage, and the target has the Stunned condition until the start of the gobblegeist's next turn."
+    }
+  ],
+  "ai_profile": "skirmisher",
+  "art": "roc",
+  "art_height": 3.0,
+  "summary": "A huge one-eyed bird that stuns with a beam from its eye, drinks blood to heal and carries off victims in its talons; a seven-pointed star keeps it away."
+}

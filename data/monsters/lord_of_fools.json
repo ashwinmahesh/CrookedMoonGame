@@ -1,0 +1,311 @@
+{
+  "id": "lord_of_fools",
+  "name": "The Lord of Fools",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 566,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Block on the facing page (PDF 569). Spell save DC 19 is the book's; +11 to hit with spells is computed (Charisma +6, proficiency +5). Vicious Mockery is given as 4d6 Psychic in the book."
+  },
+  "size": "huge",
+  "type": "fiend",
+  "alignment": "chaotic evil",
+  "ac": 16,
+  "initiative": 13,
+  "hp": {
+    "average": 190,
+    "dice": "20d12+60"
+  },
+  "speed": {
+    "walk": 50
+  },
+  "abilities": {
+    "str": 20,
+    "dex": 16,
+    "con": 20,
+    "int": 16,
+    "wis": 14,
+    "cha": 23
+  },
+  "saves": {
+    "wis": 7,
+    "cha": 11
+  },
+  "skills": {
+    "deception": 11,
+    "intimidation": 11,
+    "perception": 7,
+    "performance": 11
+  },
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "frightened",
+    "poisoned"
+  ],
+  "senses": {
+    "truesight": 120
+  },
+  "passive_perception": 17,
+  "languages": [
+    "all"
+  ],
+  "telepathy": 120,
+  "cr": 13,
+  "xp": 10000,
+  "proficiency_bonus": 5,
+  "traits": [
+    {
+      "id": "bitter_medicine",
+      "name": "Bitter Medicine",
+      "action": "special",
+      "summary": "A Bonus Action to belittle his humor with a DC 16 Charisma (Deception) check gives him Disadvantage on attacks against anyone but that creature until its next turn starts.",
+      "text": "As a Bonus Action a creature can wave off or mock his attempts at humor. If it succeeds on a DC 16 Charisma (Deception) check, the lord has Disadvantage on attack rolls against any target other than that creature until the start of that creature's next turn.",
+      "implemented": "text"
+    },
+    {
+      "id": "infinite_jest",
+      "name": "Infinite Jest",
+      "action": "passive",
+      "summary": "Makes an illusory Small jester in his space that he can move 60 ft on his turn for free and see, speak and handle objects through.",
+      "text": "He conjures the illusion of a Small Humanoid jester in his own space. While he isn't Incapacitated he can move it up to 60 feet on his turn (no action needed), and can perceive and speak through it as if he stood in its space. It is insubstantial but can handle objects as though it had Strength 10.",
+      "implemented": "text"
+    },
+    {
+      "id": "legendary_resistance",
+      "name": "Legendary Resistance (3/Day)",
+      "action": "special",
+      "summary": "Three times a day, a failed saving throw becomes a success.",
+      "text": "When the lord fails a saving throw, it can choose to succeed instead, 3 times a day.",
+      "implemented": "engine"
+    },
+    {
+      "id": "reactive",
+      "name": "Reactive",
+      "action": "passive",
+      "summary": "Can take one Reaction on every turn of combat, not only once a round.",
+      "text": "The lord can take a Reaction on every turn of combat, his own included.",
+      "implemented": "text"
+    },
+    {
+      "id": "regional_lair",
+      "name": "Regional Effects (Lair)",
+      "action": "special",
+      "summary": "Within a mile of his lair: filling carnival snacks are everywhere (they don't feed), and checks and saves to avoid being knocked Prone have Disadvantage.",
+      "text": "Regional effects, within 1 mile of the Fool's Revel carnival while the lord lives and keeps his lair there. Empty Treats: carnival snack food turns up even in unlikely places; it is delicious but gives no nourishment, though a creature that eats it feels no effect of starvation for 24 hours (the effects still apply). Pratfalls: ability checks and saving throws made to avoid the Prone condition have Disadvantage. Both end the moment he dies or moves his lair.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "ribbon",
+          "count": 1,
+          "or": [
+            "joy_buzzer"
+          ]
+        },
+        {
+          "action": "ribbon",
+          "count": 1,
+          "or": [
+            "joy_buzzer"
+          ]
+        }
+      ],
+      "summary": "Two attacks, Ribbon or Joy Buzzer in any mix; with Project Image cast he can make melee Joy Buzzers from the image's space."
+    },
+    {
+      "id": "ribbon",
+      "name": "Ribbon",
+      "kind": "melee",
+      "attack": {
+        "bonus": 10,
+        "reach": 15
+      },
+      "damage": [
+        {
+          "average": 12,
+          "dice": "2d6+5",
+          "type": "slashing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 15,
+          "max_size": "large",
+          "limit": 6,
+          "restrain": true
+        }
+      ],
+      "summary": "+10, reach 15 ft, 2d6+5 Slashing; a Large or smaller target is Grappled (escape DC 15, one of six ribbons) and Restrained."
+    },
+    {
+      "id": "joy_buzzer",
+      "name": "Joy Buzzer",
+      "kind": "melee_or_ranged",
+      "attack": {
+        "bonus": 10,
+        "reach": 5,
+        "range": [
+          60
+        ]
+      },
+      "damage": [
+        {
+          "average": 24,
+          "dice": "3d12+5",
+          "type": "lightning"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "until": "source_turn_end",
+          "modifiers": [
+            {
+              "stat": "flag",
+              "value": "no_reactions"
+            }
+          ]
+        }
+      ],
+      "summary": "+10, reach 5 ft or range 60 ft, 3d12+5 Lightning; the target can't take Reactions until the end of his next turn. His jester image darts to the target, then returns to his space.",
+      "text": "The jester image zips to the target and gives it a shock. A hit deals 24 (3d12 + 5) Lightning damage and the target can't take Reactions until the end of the lord's next turn. Hit or miss, the image then vanishes and reappears in the lord's space."
+    },
+    {
+      "id": "exploding_pie",
+      "name": "Exploding Pie",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "dex",
+        "dc": 18,
+        "success": "half"
+      },
+      "area": {
+        "shape": "sphere",
+        "size": 20
+      },
+      "targets": {
+        "range": 100
+      },
+      "damage": [
+        {
+          "average": 16,
+          "dice": "3d10",
+          "type": "acid"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "blinded",
+          "until": "source_turn_end"
+        }
+      ],
+      "summary": "Recharge 5-6. A 20-ft-radius sphere centered within 100 ft: DC 18 Dex save or 3d10 Acid and Blinded until the end of his next turn; half damage on a success."
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "kind": "spellcasting",
+      "summary": "Charisma, DC 19: Hideous Laughter, Project Image (a Small jester) and Vicious Mockery (4d6) at will; Irresistible Dance and Magnificent Mansion once each a day.",
+      "text": "He casts one of these, needing no Material components (Charisma, spell save DC 19). At will: Hideous Laughter, Project Image (appearing as a Small Humanoid jester), Vicious Mockery (4d6 Psychic damage). 1/day each: Irresistible Dance, Magnificent Mansion."
+    },
+    {
+      "id": "ribbon_dance",
+      "name": "Ribbon Dance",
+      "kind": "save",
+      "save": {
+        "ability": "str",
+        "dc": 18,
+        "success": "half"
+      },
+      "targets": {
+        "range": 15,
+        "requires": [
+          "grappled"
+        ]
+      },
+      "damage": [
+        {
+          "average": 22,
+          "dice": "4d10",
+          "type": "bludgeoning"
+        }
+      ],
+      "summary": "Legendary only, once a round. Every creature he is grappling: DC 18 Str save or 4d10 Bludgeoning; half on a success."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "ribbon_step",
+      "name": "Ribbon Step",
+      "kind": "special",
+      "do": "teleport",
+      "summary": "Vanishes in confetti and teleports to an unoccupied space he can see within 30 ft."
+    }
+  ],
+  "legendary_actions": {
+    "per_round": 3,
+    "options": [
+      {
+        "id": "frolic",
+        "name": "Frolic",
+        "cost": 1,
+        "move": true,
+        "half": true,
+        "do": "frolic",
+        "summary": "Moves up to half his Speed, no Opportunity Attacks, through creatures' spaces at no extra cost; a creature whose space he enters takes 2d6 Psychic (once a turn)."
+      },
+      {
+        "id": "jokes_on_you_dance",
+        "name": "Joke's on You (Irresistible Dance)",
+        "cost": 1,
+        "spell": "ottos_irresistible_dance",
+        "summary": "Casts Irresistible Dance through his Spellcasting."
+      },
+      {
+        "id": "jokes_on_you_mockery",
+        "name": "Joke's on You (Vicious Mockery)",
+        "cost": 1,
+        "spell": "vicious_mockery",
+        "summary": "Casts Vicious Mockery through his Spellcasting."
+      },
+      {
+        "id": "ribbon_dance",
+        "name": "Ribbon Dance",
+        "cost": 1,
+        "action": "ribbon_dance",
+        "once": true,
+        "summary": "Everything he is grappling: DC 18 Str save or 4d10 Bludgeoning. Once a round."
+      }
+    ]
+  },
+  "legendary_resistance": 3,
+  "spellcasting": {
+    "ability": "cha",
+    "dc": 19,
+    "attack": 11,
+    "at_will": [
+      "tashas_hideous_laughter",
+      "project_image",
+      "vicious_mockery"
+    ],
+    "per_day": {
+      "1": [
+        "ottos_irresistible_dance",
+        "mordenkainens_magnificent_mansion"
+      ]
+    }
+  },
+  "ai_profile": "spellcaster",
+  "summary": "A towering fiendish ringmaster who grabs with six ribbons, zaps through a roaming jester image, pelts with exploding pies and spells of mockery and forced dancing, and gets a reaction every turn; he rages at anyone who won't laugh."
+}

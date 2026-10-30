@@ -1,0 +1,160 @@
+{
+  "id": "deepdreck",
+  "name": "Deepdreck",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 498,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "medium",
+  "type": "monstrosity",
+  "alignment": "neutral evil",
+  "ac": 15,
+  "initiative": 3,
+  "hp": {
+    "average": 75,
+    "dice": "10d8+30"
+  },
+  "speed": {
+    "walk": 40,
+    "burrow": 40
+  },
+  "abilities": {
+    "str": 18,
+    "dex": 16,
+    "con": 16,
+    "int": 9,
+    "wis": 12,
+    "cha": 6
+  },
+  "skills": {
+    "perception": 3,
+    "stealth": 5
+  },
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 120,
+    "tremorsense": 120
+  },
+  "passive_perception": 13,
+  "languages": [
+    "Common",
+    "one other language"
+  ],
+  "cr": 4,
+  "xp": 1100,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "explosive_death",
+      "name": "Explosive Death",
+      "action": "passive",
+      "summary": "Explodes when it dies: 15-ft Emanation, DC 14 Dex save, 3d8 Poison (half on a success).",
+      "text": "The deepdreck explodes when it dies. Dexterity Saving Throw: DC 14, each creature in a 15-foot Emanation originating from the deepdreck. Failure: 13 (3d8) Poison damage. Success: half damage.",
+      "death_burst": {
+        "radius": 15,
+        "save": {
+          "ability": "dex",
+          "dc": 14
+        },
+        "damage": {
+          "dice": "3d8",
+          "type": "poison"
+        }
+      },
+      "implemented": "data"
+    },
+    {
+      "id": "fragrance_aversion",
+      "name": "Fragrance Aversion",
+      "action": "passive",
+      "summary": "Disadvantage on attack rolls and saving throws within 10 ft of burning incense or a creature wearing Perfume.",
+      "text": "The deepdreck has Disadvantage on attack rolls and saving throws while within 10 feet of burning incense or a creature wearing Perfume.",
+      "implemented": "text"
+    },
+    {
+      "id": "tunneler",
+      "name": "Tunneler",
+      "action": "passive",
+      "summary": "Burrows through solid rock at half its Burrow Speed, leaving a 5-ft-wide tunnel.",
+      "text": "The deepdreck can burrow through solid rock at half its Burrow Speed and leaves a tunnel 5 feet across behind it.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "claw",
+          "count": 2,
+          "or": [
+            "putrid_emission"
+          ]
+        }
+      ],
+      "summary": "Two attacks, Claw or Putrid Emission in any mix."
+    },
+    {
+      "id": "claw",
+      "name": "Claw",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "1d6+4",
+          "type": "slashing"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "poison"
+        }
+      ],
+      "summary": "+6, 1d6+4 Slashing plus 2d6 Poison.",
+      "text": "7 (1d6 + 4) Slashing damage plus 7 (2d6) Poison damage."
+    },
+    {
+      "id": "putrid_emission",
+      "name": "Putrid Emission",
+      "kind": "ranged",
+      "attack": {
+        "bonus": 6,
+        "range": [
+          60
+        ]
+      },
+      "damage": [
+        {
+          "average": 8,
+          "dice": "1d8+4",
+          "type": "poison"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "source_turn_start"
+        }
+      ],
+      "summary": "Ranged +6, 60 ft, 1d8+4 Poison; Poisoned until the start of its next turn.",
+      "text": "8 (1d8 + 4) Poison damage, and the target has the Poisoned condition until the start of the deepdreck's next turn."
+    }
+  ],
+  "ai_profile": "brute",
+  "art": "ghoul",
+  "summary": "A cursed miner bloated with poison gas that claws, spits poison, tunnels through stone and bursts in a toxic cloud when slain; sweet scents leave it dazed."
+}

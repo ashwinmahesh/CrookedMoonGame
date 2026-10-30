@@ -1,0 +1,330 @@
+{
+  "id": "beast_of_blight",
+  "name": "The Beast of Blight",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 544,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Block on the facing page (PDF 547). Spell save DC 13 and +5 to hit with spells are computed (Wisdom +1, proficiency +4); the book names Wisdom as the ability but gives no DC."
+  },
+  "size": "gargantuan",
+  "type": "fey",
+  "alignment": "neutral evil",
+  "ac": 15,
+  "initiative": 12,
+  "hp": {
+    "average": 155,
+    "dice": "10d20+50"
+  },
+  "speed": {
+    "walk": 60
+  },
+  "abilities": {
+    "str": 24,
+    "dex": 18,
+    "con": 21,
+    "int": 7,
+    "wis": 12,
+    "cha": 13
+  },
+  "saves": {
+    "wis": 5,
+    "cha": 5
+  },
+  "skills": {
+    "arcana": 6,
+    "athletics": 11,
+    "perception": 9
+  },
+  "immunities": [
+    "necrotic",
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened",
+    "paralyzed",
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 120
+  },
+  "passive_perception": 19,
+  "languages": [
+    "Common",
+    "Elvish",
+    "Sylvan"
+  ],
+  "cr": 10,
+  "xp": 5900,
+  "proficiency_bonus": 4,
+  "traits": [
+    {
+      "id": "fungal_step",
+      "name": "Fungal Step",
+      "action": "passive",
+      "summary": "Ignores Difficult Terrain made by plants or fungi.",
+      "text": "Difficult Terrain caused by plants or fungi doesn't slow the beast.",
+      "implemented": "text"
+    },
+    {
+      "id": "legendary_resistance",
+      "name": "Legendary Resistance (3/Day)",
+      "action": "special",
+      "summary": "Three times a day, a failed saving throw becomes a success.",
+      "text": "When the beast fails a saving throw, it can choose to succeed instead, 3 times a day.",
+      "implemented": "engine"
+    },
+    {
+      "id": "unraveled_longing",
+      "name": "Unraveled Longing",
+      "action": "passive",
+      "summary": "Seeing the likeness of her lost love at the start of her turn: 10 Psychic damage and Disadvantage on D20 Tests until her next turn.",
+      "text": "If the beast can see a likeness of her long-lost love at the start of her turn, she takes 10 Psychic damage and has Disadvantage on D20 Tests until the start of her next turn.",
+      "implemented": "text"
+    },
+    {
+      "id": "regional_lair",
+      "name": "Regional Effects (Lair)",
+      "action": "special",
+      "summary": "Within 6 miles of her lair foraging is hard and conjured food is halved; within a mile loose objects rot fast (Vulnerable to Necrotic) and the window to raise the dead halves.",
+      "text": "Regional effects while the beast lives and keeps her lair in the rotten forest cave. Fouling Blight (within 6 miles): ability checks to forage for food or water have Disadvantage, and magic that makes food or water makes half as much. Rapid Decay (within 1 mile): objects that aren't worn or carried have Vulnerability to Necrotic damage, and the time in which a dead creature can be brought back to life is halved. Both end the moment she dies or moves her lair.",
+      "implemented": "text"
+    }
+  ],
+  "phases": [
+    {
+      "id": "blighted_overgrowth",
+      "name": "Blighted Overgrowth",
+      "when": {
+        "bloodied": true
+      },
+      "summary": "Bloodied: the rot takes over. She has Disadvantage on attacks, Spew Blight recharges every turn, and she heals 20 each turn unless fire hurt her.",
+      "text": "While the beast is Bloodied she has Disadvantage on attack rolls, her Spew Blight action recharges at the start of each of her turns, and if she has at least 1 Hit Point at the start of her turn she regains 20 Hit Points. If she takes Fire damage, she doesn't regain Hit Points at the start of her next turn.",
+      "traits_add": [
+        {
+          "id": "blighted_overgrowth",
+          "name": "Blighted Overgrowth",
+          "action": "passive",
+          "summary": "While Bloodied: Disadvantage on attack rolls, Spew Blight recharges every turn, +20 Hit Points at the start of each turn (not after taking Fire damage).",
+          "text": "While the beast is Bloodied she has Disadvantage on attack rolls, her Spew Blight action recharges at the start of her turn, and if she has at least 1 Hit Point at the start of her turn she regains 20 Hit Points. If she takes Fire damage she doesn't regain Hit Points at the start of her next turn.",
+          "modifiers": [
+            {
+              "stat": "disadvantage",
+              "on": "attack"
+            }
+          ],
+          "implemented": "text"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "claw",
+          "count": 2
+        }
+      ],
+      "summary": "Two Claws."
+    },
+    {
+      "id": "claw",
+      "name": "Claw",
+      "kind": "melee",
+      "attack": {
+        "bonus": 11,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 18,
+          "dice": "2d10+7",
+          "type": "slashing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 17,
+          "max_size": "large",
+          "limit": 2
+        }
+      ],
+      "charge": {
+        "feet": 20,
+        "damage": [
+          {
+            "average": 7,
+            "dice": "2d6",
+            "type": "poison"
+          }
+        ]
+      },
+      "summary": "+11, reach 10 ft, 2d10+7 Slashing; a Large or smaller target is Grappled (escape DC 17, one of two claws). After a 20-ft charge, +2d6 Poison."
+    },
+    {
+      "id": "project_image",
+      "name": "Project Image",
+      "kind": "spellcasting",
+      "cast": [
+        "project_image"
+      ],
+      "summary": "Casts Project Image (Wisdom, no components); while it lasts she can use Spew Blight and Rot Stride as if standing in the image's space.",
+      "text": "She casts Project Image with no components, using Wisdom. For as long as the spell lasts she can use Spew Blight and the Rot Stride Bonus Action as though she stood in the image's space."
+    },
+    {
+      "id": "spew_blight",
+      "name": "Spew Blight",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "dex",
+        "dc": 17,
+        "success": "half"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 60
+      },
+      "targets": {
+        "range": 60
+      },
+      "damage": [
+        {
+          "average": 18,
+          "dice": "4d8",
+          "type": "necrotic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "minute",
+          "repeat_save": {
+            "ability": "dex",
+            "dc": 17,
+            "when": "end"
+          }
+        }
+      ],
+      "summary": "Recharge 5-6. 60-ft cone, DC 17 Dex save: 4d8 Necrotic and Poisoned (save again each turn; a minute at most); half damage on a success."
+    },
+    {
+      "id": "hallucinate",
+      "name": "Hallucinate",
+      "kind": "save",
+      "save": {
+        "ability": "con",
+        "dc": 17,
+        "success": "none"
+      },
+      "targets": {
+        "range": 60,
+        "count": 1
+      },
+      "on_fail": [
+        {
+          "do": "cast_on",
+          "params": {
+            "spell": "confusion",
+            "until": "source_turn_start"
+          }
+        }
+      ],
+      "summary": "Legendary only, once a round. One creature within 60 ft: DC 17 Con save or under the Confusion spell until the start of her next turn."
+    },
+    {
+      "id": "impale",
+      "name": "Impale",
+      "kind": "save",
+      "save": {
+        "ability": "str",
+        "dc": 19,
+        "success": "half"
+      },
+      "targets": {
+        "range": 10,
+        "count": 1,
+        "requires": [
+          "grappled"
+        ]
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "3d6",
+          "type": "piercing"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "grapple",
+          "escape_dc": 17,
+          "limit": 2,
+          "restrain": true
+        }
+      ],
+      "summary": "Legendary only, once a round. A creature she is grappling: DC 19 Str save or 3d6 Piercing and held on a rib (Grappled, escape DC 17, Restrained); half damage on a success. Two ribs at once.",
+      "text": "She drives a creature she is grappling onto an exposed rib. DC 19 Strength save: a failure takes 10 (3d6) Piercing damage and is Grappled by the rib (escape DC 17) and Restrained until the grapple ends; a success takes half damage. She can hold two creatures on ribs at once, and can't do this again until her next turn starts."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "rot_stride",
+      "name": "Rot Stride",
+      "kind": "special",
+      "do": "teleport",
+      "summary": "Teleports to an unoccupied space within 60 ft, if she starts or ends in fungus or rotting matter."
+    }
+  ],
+  "legendary_actions": {
+    "per_round": 3,
+    "options": [
+      {
+        "id": "hallucinate",
+        "name": "Hallucinate",
+        "cost": 1,
+        "action": "hallucinate",
+        "once": true,
+        "summary": "One creature within 60 ft: DC 17 Con save or Confusion until her next turn starts. Once a round."
+      },
+      {
+        "id": "impale",
+        "name": "Impale",
+        "cost": 1,
+        "action": "impale",
+        "once": true,
+        "summary": "A creature she grapples: DC 19 Str save or 3d6 Piercing and impaled (Restrained). Once a round."
+      },
+      {
+        "id": "trample",
+        "name": "Trample",
+        "cost": 1,
+        "move": true,
+        "half": true,
+        "do": "trample_through",
+        "summary": "Moves up to half her Speed with no Opportunity Attacks; each Large or smaller creature in a space she enters makes a DC 19 Str save or falls Prone."
+      }
+    ]
+  },
+  "legendary_resistance": 3,
+  "spellcasting": {
+    "ability": "wis",
+    "dc": 13,
+    "attack": 5,
+    "at_will": [
+      "project_image"
+    ]
+  },
+  "ai_profile": "brute",
+  "art": "tree_blight",
+  "art_height": 5.0,
+  "summary": "A towering rotting stag-beast of fey blight: grappling claws, a cone of poisonous spores, steps through fungus and a projected twin, and once Bloodied she heals unless fire stops her."
+}

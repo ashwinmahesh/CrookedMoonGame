@@ -1,0 +1,269 @@
+{
+  "id": "kackle",
+  "name": "Kackle",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 511,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "medium",
+  "type": "undead",
+  "alignment": "chaotic evil",
+  "ac": 16,
+  "initiative": 3,
+  "hp": {
+    "average": 67,
+    "dice": "15d8"
+  },
+  "speed": {
+    "walk": 5,
+    "fly": 60,
+    "hover": true
+  },
+  "abilities": {
+    "str": 6,
+    "dex": 17,
+    "con": 10,
+    "int": 10,
+    "wis": 14,
+    "cha": 18
+  },
+  "skills": {
+    "stealth": 6
+  },
+  "resistances": [
+    "acid",
+    "bludgeoning",
+    "cold",
+    "fire",
+    "lightning",
+    "piercing",
+    "slashing",
+    "thunder"
+  ],
+  "immunities": [
+    "necrotic",
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened",
+    "grappled",
+    "paralyzed",
+    "petrified",
+    "poisoned",
+    "prone",
+    "restrained"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 12,
+  "languages": [
+    "Common",
+    "one other language"
+  ],
+  "cr": 7,
+  "xp": 2900,
+  "proficiency_bonus": 3,
+  "gear": [
+    "Hooded Lantern"
+  ],
+  "traits": [
+    {
+      "id": "incorporeal_movement",
+      "name": "Incorporeal Movement",
+      "action": "passive",
+      "summary": "Moves through creatures and objects as Difficult Terrain; 5 (1d10) Force if it ends a turn inside one.",
+      "text": "The kackle passes through creatures and objects as though they were Difficult Terrain, and takes 5 (1d10) Force damage if it ends its turn inside an object.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "incorporeal_movement"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "lantern_vulnerability",
+      "name": "Lantern Vulnerability",
+      "action": "passive",
+      "summary": "Its lantern (AC 15, immune to Poison and Psychic) can be hit; damage to the lantern deals half that amount as Force damage to the kackle.",
+      "text": "The kackle's lantern has AC 15 and Immunity to Poison and Psychic damage. Any damage the lantern takes deals half that amount of Force damage to the kackle.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "lantern_flame_blue",
+      "name": "Lantern Flame (Blue)",
+      "kind": "melee_or_ranged",
+      "attack": {
+        "bonus": 7,
+        "reach": 5,
+        "range": [
+          90
+        ]
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "1d6+4",
+          "type": "cold"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "restrained",
+          "until": "target_turn_end"
+        }
+      ],
+      "summary": "Blue flame: melee or ranged +7 (reach 5 ft, range 90 ft), 1d6+4 Cold and Restrained until the end of the target's next turn.",
+      "text": "Melee or Ranged Attack Roll: +7, reach 5 feet or range 90 feet. Hit (blue lantern): 7 (1d6 + 4) Cold damage, and the target has the Restrained condition until the end of its next turn."
+    },
+    {
+      "id": "lantern_flame_green",
+      "name": "Lantern Flame (Green)",
+      "kind": "melee_or_ranged",
+      "attack": {
+        "bonus": 7,
+        "reach": 5,
+        "range": [
+          90
+        ]
+      },
+      "damage": [
+        {
+          "average": 20,
+          "dice": "3d10+4",
+          "type": "necrotic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "until": "target_turn_end",
+          "modifiers": [
+            {
+              "stat": "speed_set",
+              "value": 0
+            }
+          ]
+        }
+      ],
+      "summary": "Green flame: melee or ranged +7, 3d10+4 Necrotic and the target's Speed is 0 until the end of its next turn.",
+      "text": "Melee or Ranged Attack Roll: +7, reach 5 feet or range 90 feet. Hit (green lantern): 20 (3d10 + 4) Necrotic damage, and the target's Speed is 0 until the end of its next turn."
+    },
+    {
+      "id": "lantern_flame_purple",
+      "name": "Lantern Flame (Purple)",
+      "kind": "melee_or_ranged",
+      "attack": {
+        "bonus": 7,
+        "reach": 5,
+        "range": [
+          90
+        ]
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "1d12+4",
+          "type": "psychic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "frightened",
+          "until": "target_turn_end"
+        }
+      ],
+      "summary": "Purple flame: melee or ranged +7, 1d12+4 Psychic and the target is Frightened until the end of its next turn.",
+      "text": "Melee or Ranged Attack Roll: +7, reach 5 feet or range 90 feet. Hit (purple lantern): 10 (1d12 + 4) Psychic damage, and the target has the Frightened condition until the end of its next turn."
+    },
+    {
+      "id": "lantern_flame_red",
+      "name": "Lantern Flame (Red)",
+      "kind": "melee_or_ranged",
+      "attack": {
+        "bonus": 7,
+        "reach": 5,
+        "range": [
+          90
+        ]
+      },
+      "damage": [
+        {
+          "average": 15,
+          "dice": "2d10+4",
+          "type": "fire"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "burning",
+          "dice": "1d10",
+          "type": "fire"
+        }
+      ],
+      "summary": "Red flame: melee or ranged +7, 2d10+4 Fire and the target starts burning, taking 1d10 Fire a turn instead of the usual burning damage.",
+      "text": "Melee or Ranged Attack Roll: +7, reach 5 feet or range 90 feet. Hit (red lantern): 15 (2d10 + 4) Fire damage, and the target starts burning, taking 5 (1d10) Fire damage instead of the regular burning damage."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "flickering_teleport",
+      "name": "Flickering Teleport",
+      "kind": "special",
+      "do": "flickering_teleport",
+      "save": {
+        "ability": "dex",
+        "dc": 15,
+        "success": "half"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 5
+      },
+      "targets": {
+        "range": 60
+      },
+      "damage": [
+        {
+          "average": 13,
+          "dice": "3d8",
+          "type": "cold",
+          "when": "lantern blue"
+        },
+        {
+          "average": 13,
+          "dice": "3d8",
+          "type": "necrotic",
+          "when": "lantern green"
+        },
+        {
+          "average": 13,
+          "dice": "3d8",
+          "type": "psychic",
+          "when": "lantern purple"
+        },
+        {
+          "average": 13,
+          "dice": "3d8",
+          "type": "fire",
+          "when": "lantern red"
+        }
+      ],
+      "summary": "Teleports up to 60 ft to a space it sees, then may change its lantern's color and burst a 5-ft Emanation at its destination: DC 15 Dex save, 3d8 of the current color's damage (half on a success).",
+      "text": "The kackle teleports up to 60 feet to an unoccupied space it can see. It can then change its lantern color, and it can cause the following. Dexterity Saving Throw: DC 15, each creature in a 5-foot Emanation originating from the space it arrives in. Failure: 13 (3d8) damage of the same type as the current Lantern Flame color (Cold blue, Necrotic green, Psychic purple, Fire red). Success: half damage."
+    }
+  ],
+  "ai_profile": "skirmisher",
+  "art": "will_o_wisp",
+  "art_height": 1.1,
+  "summary": "A cackling ghost carrying a lantern of ghost-flame whose color picks its curse (cold and bound, withering, fear or fire); it blinks about the field, and smashing its lantern hurts it."
+}

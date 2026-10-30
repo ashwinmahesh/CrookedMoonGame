@@ -1,0 +1,378 @@
+{
+  "id": "grinning_sinner",
+  "name": "The Grinning Sinner",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 558,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Block on the facing page (PDF 561). His Speed is 60 ft while standing on his coffin (Coffin Rider); the schema's speed key holds the walking 30."
+  },
+  "size": "large",
+  "type": "humanoid",
+  "tags": [
+    "lizardfolk",
+    "warlock"
+  ],
+  "alignment": "neutral evil",
+  "ac": 15,
+  "initiative": 11,
+  "hp": {
+    "average": 152,
+    "dice": "16d10+64"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 19,
+    "dex": 16,
+    "con": 19,
+    "int": 14,
+    "wis": 16,
+    "cha": 20
+  },
+  "saves": {
+    "str": 8,
+    "cha": 9
+  },
+  "skills": {
+    "arcana": 10,
+    "deception": 9,
+    "intimidation": 9
+  },
+  "resistances": [
+    "necrotic"
+  ],
+  "condition_immunities": [
+    "charmed"
+  ],
+  "senses": {
+    "darkvision": 120
+  },
+  "passive_perception": 13,
+  "languages": [
+    "Common",
+    "Infernal",
+    "Primordial (Aquan)"
+  ],
+  "cr": 9,
+  "xp": 5000,
+  "proficiency_bonus": 4,
+  "traits": [
+    {
+      "id": "coffin_rider",
+      "name": "Coffin Rider",
+      "action": "passive",
+      "summary": "Standing on his coffin (immune to all damage) he rides a ghostly wave at Speed 60 ft and walks over liquids as if solid.",
+      "text": "The sinner owns a magic coffin that is Immune to all damage. While he stands on it, it carries him on a ghostly wave of swamp water at a Speed of 60 feet and he can cross liquids as if they were solid ground.",
+      "implemented": "text"
+    },
+    {
+      "id": "curse_bottle",
+      "name": "Curse Bottle",
+      "action": "passive",
+      "summary": "His spells run through a bottle of cursed magic (AC 15, HP 25, Immune to all damage but Force); a long rest makes a new one.",
+      "text": "The sinner carries a bottle holding cursed magic: AC 15, 25 Hit Points, and Immunity to every damage type except Force. If it is destroyed he can magically make another when he finishes a Long Rest. His Spellcasting needs the bottle.",
+      "implemented": "text"
+    },
+    {
+      "id": "legendary_resistance",
+      "name": "Legendary Resistance (3/Day)",
+      "action": "special",
+      "summary": "Three times a day, a failed saving throw becomes a success.",
+      "text": "When the sinner fails a saving throw, it can choose to succeed instead, 3 times a day.",
+      "implemented": "engine"
+    },
+    {
+      "id": "overweening_pride",
+      "name": "Overweening Pride",
+      "action": "special",
+      "summary": "A Bonus Action insult to his pirate renown: DC 15 Wis save or 10 Psychic and Disadvantage on attacks against anyone but the insulter.",
+      "text": "As a Bonus Action a creature can sneer at his skill and renown as a pirate captain. The sinner must succeed on a DC 15 Wisdom save or take 10 Psychic damage and have Disadvantage on attack rolls against any target other than that creature.",
+      "implemented": "text"
+    },
+    {
+      "id": "regional_lair",
+      "name": "Regional Effects (Lair)",
+      "action": "special",
+      "summary": "Within a mile of his lair: healing dice are nudged (even +1, odd -1), and a natural 1 on a D20 Test costs 1d4 on the creature's next D20 Test.",
+      "text": "Regional effects, within 1 mile of the derelict riverboat casino while the sinner lives and keeps his lair there. Fate's Wheel: a die rolled to restore Hit Points that shows an even number gets +1, an odd number -1. Run of Bad Luck: a creature that rolls a 1 on a D20 Test subtracts 1d4 from its next D20 Test. Both end the moment he dies or moves his lair.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "hex_grasp",
+          "count": 1,
+          "or": [
+            "blunderbuss"
+          ]
+        },
+        {
+          "action": "hex_grasp",
+          "count": 1,
+          "or": [
+            "blunderbuss",
+            "bane_cast"
+          ]
+        }
+      ],
+      "summary": "Two attacks with Hex Grasp or Blunderbuss in any mix; one can be a cast of Bane."
+    },
+    {
+      "id": "hex_grasp",
+      "name": "Hex Grasp",
+      "kind": "melee",
+      "attack": {
+        "bonus": 9,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 12,
+          "dice": "2d6+5",
+          "type": "necrotic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "until": "source_turn_start",
+          "modifiers": [
+            {
+              "stat": "disadvantage",
+              "on": "attack"
+            }
+          ]
+        },
+        {
+          "do": "disadvantage_ability_checks",
+          "params": {
+            "ability": "one of the sinner's choice",
+            "until": "source_turn_start"
+          }
+        }
+      ],
+      "summary": "+9, reach 5 ft, 2d6+5 Necrotic; the target is cursed until his next turn (Disadvantage on attacks and on checks of one ability he picks).",
+      "text": "A hit also curses a creature until the start of the sinner's next turn or until he curses it again. While cursed the target has Disadvantage on attack rolls and on ability checks using one ability the sinner chooses."
+    },
+    {
+      "id": "blunderbuss",
+      "name": "Blunderbuss",
+      "kind": "ranged",
+      "attack": {
+        "bonus": 9,
+        "range": [
+          30,
+          90
+        ]
+      },
+      "damage": [
+        {
+          "average": 18,
+          "dice": "3d8+5",
+          "type": "force"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "push",
+          "feet": 10,
+          "max_size": "large"
+        }
+      ],
+      "summary": "+9, range 30/90 ft, 3d8+5 Force; a Large or smaller target is pushed up to 10 ft."
+    },
+    {
+      "id": "bane_cast",
+      "name": "Bane (Spellcasting)",
+      "kind": "spellcasting",
+      "cast": [
+        "bane"
+      ],
+      "summary": "Replaces one attack of the Multiattack: casts Bane through the Curse Bottle."
+    },
+    {
+      "id": "jacks_anguish",
+      "name": "Curse Blast: Jack's Anguish",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "wis",
+        "dc": 17,
+        "success": "half"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 30
+      },
+      "targets": {
+        "range": 30
+      },
+      "damage": [
+        {
+          "average": 11,
+          "dice": "2d10",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "frightened",
+          "until": "minute",
+          "repeat_save": {
+            "ability": "wis",
+            "dc": 17,
+            "when": "end"
+          }
+        }
+      ],
+      "summary": "Recharge 5-6 (shared with Shadowy Friends). 30-ft cone, DC 17 Wis save: 2d10 Psychic and Frightened (save again each turn; a minute at most); half damage on a success.",
+      "text": "One of the two curses the blunderbuss can spit (they share a single recharge). A magenta wail rolls out in a 30-foot cone: DC 17 Wisdom save, 11 (2d10) Psychic damage and Frightened on a failure, repeating the save each turn for up to a minute; half damage on a success."
+    },
+    {
+      "id": "shadowy_friends",
+      "name": "Curse Blast: Shadowy Friends",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "dex",
+        "dc": 17,
+        "success": "none"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 15
+      },
+      "targets": {
+        "range": 15
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "paralyzed",
+          "until": "source_turn_end"
+        },
+        {
+          "do": "ends_on_damage",
+          "params": {
+            "condition": "paralyzed"
+          }
+        }
+      ],
+      "summary": "Recharge 5-6 (shared with Jack's Anguish). 15-ft cone, DC 17 Dex save or Paralyzed until the end of his next turn (damage ends it early).",
+      "text": "The other curse: a wave of shadow in a 15-foot cone wraps its victims. DC 17 Dexterity save or Paralyzed until the end of the sinner's next turn; a Paralyzed creature that takes damage is freed at once."
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting (Requires Curse Bottle)",
+      "kind": "spellcasting",
+      "summary": "Charisma, DC 17, only while the Curse Bottle stands: Bane, Bestow Curse, Major Image, Remove Curse at will; Animate Dead, Creation, Darkness once each a day.",
+      "text": "He casts one of these through the Curse Bottle (and no other Material components), Charisma, spell save DC 17. At will: Bane, Bestow Curse, Major Image, Remove Curse. 1/day each: Animate Dead, Creation, Darkness."
+    },
+    {
+      "id": "barbed_curse",
+      "name": "Barbed Curse",
+      "kind": "save",
+      "save": {
+        "ability": "wis",
+        "dc": 17,
+        "success": "none"
+      },
+      "targets": {
+        "range": 30,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 6,
+          "dice": "1d12",
+          "type": "force"
+        }
+      ],
+      "summary": "Legendary only. One creature within 30 ft that he cursed or that is under his Bane: DC 17 Wis save or 1d12 Force."
+    },
+    {
+      "id": "jinxed_ground",
+      "name": "Jinxed Ground",
+      "kind": "save",
+      "save": {
+        "ability": "cha",
+        "dc": 17,
+        "success": "none"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 20
+      },
+      "targets": {
+        "range": 20
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "prone",
+          "until": "permanent"
+        }
+      ],
+      "summary": "Legendary only, once a round. Everyone within 20 ft: DC 17 Cha save or knocked Prone."
+    }
+  ],
+  "legendary_actions": {
+    "per_round": 3,
+    "options": [
+      {
+        "id": "barbed_curse",
+        "name": "Barbed Curse",
+        "cost": 1,
+        "action": "barbed_curse",
+        "summary": "A creature within 30 ft that he cursed or that is under his Bane: DC 17 Wis save or 1d12 Force."
+      },
+      {
+        "id": "grinning_grasp",
+        "name": "Grinning Grasp",
+        "cost": 1,
+        "teleport": true,
+        "ft": 30,
+        "action": "hex_grasp",
+        "once": true,
+        "summary": "Teleports up to 30 ft and makes one Hex Grasp before or after; not again until his next turn."
+      },
+      {
+        "id": "jinxed_ground",
+        "name": "Jinxed Ground",
+        "cost": 1,
+        "action": "jinxed_ground",
+        "once": true,
+        "summary": "20-ft emanation, DC 17 Cha save or Prone. Once a round."
+      }
+    ]
+  },
+  "legendary_resistance": 3,
+  "spellcasting": {
+    "ability": "cha",
+    "dc": 17,
+    "attack": 9,
+    "at_will": [
+      "bane",
+      "bestow_curse",
+      "major_image",
+      "remove_curse"
+    ],
+    "per_day": {
+      "1": [
+        "animate_dead",
+        "creation",
+        "darkness"
+      ]
+    }
+  },
+  "ai_profile": "spellcaster",
+  "summary": "A crocodile-folk pirate warlock on a ghostly coffin wave: hexing grasps and a blunderbuss that spits curses, spells that depend on his curse bottle, and a pride that an insult can turn against him."
+}

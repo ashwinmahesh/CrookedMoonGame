@@ -1,0 +1,367 @@
+{
+  "id": "jinxed_leviathan",
+  "name": "The Jinxed Leviathan",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 565,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Lair XP is 62,000 (the block lists 50,000 outside it)."
+  },
+  "size": "gargantuan",
+  "type": "monstrosity",
+  "alignment": "unaligned",
+  "ac": 21,
+  "initiative": 16,
+  "hp": {
+    "average": 437,
+    "dice": "25d20+175"
+  },
+  "speed": {
+    "walk": 40,
+    "swim": 80
+  },
+  "abilities": {
+    "str": 30,
+    "dex": 14,
+    "con": 25,
+    "int": 6,
+    "wis": 12,
+    "cha": 21
+  },
+  "saves": {
+    "str": 17,
+    "con": 14,
+    "wis": 8
+  },
+  "skills": {
+    "perception": 8,
+    "stealth": 9
+  },
+  "resistances": [
+    "force",
+    "necrotic"
+  ],
+  "condition_immunities": [
+    "frightened"
+  ],
+  "senses": {
+    "darkvision": 120
+  },
+  "passive_perception": 18,
+  "languages": [
+    "understands Draconic but can't speak"
+  ],
+  "cr": 23,
+  "xp": 50000,
+  "proficiency_bonus": 7,
+  "traits": [
+    {
+      "id": "amphibious",
+      "name": "Amphibious",
+      "action": "passive",
+      "summary": "Breathes air and water.",
+      "text": "The leviathan can breathe both air and water.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "water_breathing"
+        }
+      ],
+      "implemented": "text"
+    },
+    {
+      "id": "legendary_resistance",
+      "name": "Legendary Resistance (4/Day, or 5/Day in Lair)",
+      "action": "special",
+      "summary": "4 times a day (5 in its lair), a failed saving throw becomes a success.",
+      "text": "When it fails a saving throw, it can choose to succeed instead, 4 times a day or 5 times in its lair.",
+      "implemented": "engine"
+    },
+    {
+      "id": "returned_curse",
+      "name": "Returned Curse",
+      "action": "passive",
+      "summary": "A curse of its own on a creature holding an idol of Snake Eye Jack blessed by one of his devoted followers fails: the leviathan takes 20 Radiant and has Disadvantage on D20 Tests until the end of its next turn.",
+      "text": "If it curses a creature holding a Snake Eye Jack idol blessed by one of his devoted followers, that creature is unaffected by the curse, and the leviathan takes 20 Radiant damage and has Disadvantage on D20 Tests until the end of its next turn.",
+      "implemented": "text"
+    },
+    {
+      "id": "regional_lair",
+      "name": "Regional Lair Effects",
+      "action": "passive",
+      "summary": "While it lives and keeps its lair, the land round it carries two effects: Hanging Hex; Murky Waters.",
+      "text": "Hanging Hex: within 1 mile of the lair, when a creature other than the leviathan rolls a 1 or a 20 on a D20 Test, its next D20 Test has Disadvantage and can't have Advantage. Murky Waters: within 1 mile of the lair the swamp water is cloudy, and creatures in the water have Advantage on Dexterity (Stealth) checks. Both end at once if the leviathan dies or moves its lair.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "bite",
+          "count": 1
+        },
+        {
+          "action": "tail",
+          "count": 1
+        }
+      ],
+      "summary": "One Bite and one Tail attack."
+    },
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 17,
+        "reach": 15
+      },
+      "damage": [
+        {
+          "average": 23,
+          "dice": "2d12+10",
+          "type": "piercing"
+        },
+        {
+          "average": 13,
+          "dice": "3d8",
+          "type": "force"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 20,
+          "restrain": true,
+          "limit": 1
+        }
+      ],
+      "summary": "+17, reach 15 ft, 2d12+10 Piercing plus 3d8 Force; the target is Grappled and Restrained (escape DC 20).",
+      "text": "Huge jaws: 23 (2d12 + 10) Piercing plus 13 (3d8) Force damage. The target is Grappled (escape DC 20) and, until it escapes, Restrained."
+    },
+    {
+      "id": "tail",
+      "name": "Tail",
+      "kind": "melee",
+      "attack": {
+        "bonus": 17,
+        "reach": 20
+      },
+      "damage": [
+        {
+          "average": 23,
+          "dice": "3d8+10",
+          "type": "bludgeoning"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "prone",
+          "max_size": "huge",
+          "until": "permanent"
+        },
+        {
+          "do": "push",
+          "feet": 20,
+          "max_size": "huge"
+        }
+      ],
+      "summary": "+17, reach 20 ft, 3d8+10 Bludgeoning; a Huge or smaller target falls Prone and is pushed 20 ft away.",
+      "text": "A lashing tail: 23 (3d8 + 10) Bludgeoning damage. A Huge or smaller target is knocked Prone and pushed up to 20 feet straight away."
+    },
+    {
+      "id": "accursed_breath",
+      "name": "Accursed Breath",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "dex",
+        "dc": 22,
+        "success": "half"
+      },
+      "area": {
+        "shape": "line",
+        "size": 120,
+        "width": 10
+      },
+      "targets": {
+        "range": 120
+      },
+      "damage": [
+        {
+          "average": 78,
+          "dice": "12d12",
+          "type": "necrotic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "jinx_curse",
+          "params": {
+            "disadvantage_on": "d20_tests",
+            "no_healing": true,
+            "until": "target_voluntarily_fails_a_save_forced_by_an_enemy"
+          }
+        }
+      ],
+      "summary": "Recharge 5-6. A 120-ft line: DC 22 Dex save, 12d12 Necrotic (half on a success) and a failed save curses: Disadvantage on D20 Tests and no healing, ended by choosing to fail an enemy's save.",
+      "text": "It breathes a line of black curse, 120 feet long and 10 wide. Each creature makes a DC 22 Dexterity save, taking 78 (12d12) Necrotic damage on a failure or half on a success. A creature that fails is cursed: it has Disadvantage on D20 Tests and can't regain Hit Points. It can end the curse early by choosing to fail a saving throw forced on it by one of its enemies."
+    },
+    {
+      "id": "swallow",
+      "name": "Swallow",
+      "kind": "special",
+      "do": "swallow",
+      "save": {
+        "ability": "dex",
+        "dc": 25,
+        "success": "none"
+      },
+      "targets": {
+        "range": 15,
+        "count": 1,
+        "max_size": "large",
+        "requires": [
+          "grappled"
+        ]
+      },
+      "on_fail": [
+        {
+          "do": "swallow",
+          "params": {
+            "max_swallowed": 4,
+            "conditions": [
+              "blinded",
+              "restrained"
+            ],
+            "total_cover": true,
+            "damage": {
+              "average": 24,
+              "dice": "7d6",
+              "type": "force"
+            },
+            "when": "swallowed_start_of_turn",
+            "regurgitate": {
+              "damage_threshold_in_one_turn": 50,
+              "save": {
+                "ability": "con",
+                "dc": 25
+              },
+              "lands_within": 10,
+              "prone": true
+            },
+            "on_death": "swallowed creatures are freed (Restrained ends) and leave the corpse for 15 ft of movement, Prone"
+          }
+        }
+      ],
+      "summary": "One Large or smaller creature it has Grappled: DC 25 Dex save or swallowed (up to four at once): Blinded, Restrained, total cover, 7d6 Force each turn it starts inside.",
+      "text": "A Large or smaller creature the leviathan has Grappled makes a DC 25 Dexterity save. On a failure it is swallowed and no longer Grappled. A swallowed creature is Blinded and Restrained, has Total Cover against anything outside, and takes 24 (7d6) Force damage at the start of each of its turns. The leviathan can hold four at once. If it takes 50 or more damage in one turn from creatures inside, it makes a DC 25 Constitution save at the end of that turn or spits them all out within 10 feet, Prone. When it dies, swallowed creatures are no longer Restrained and can climb out using 15 feet of movement, Prone."
+    },
+    {
+      "id": "swamp_surge",
+      "name": "Swamp Surge",
+      "kind": "save",
+      "save": {
+        "ability": "str",
+        "dc": 20,
+        "success": "half"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 20
+      },
+      "targets": {
+        "range": 20
+      },
+      "damage": [
+        {
+          "average": 21,
+          "dice": "6d6",
+          "type": "bludgeoning"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "until": "target_turn_end",
+          "modifiers": [
+            {
+              "stat": "speed_set",
+              "kind": "walk",
+              "value": 0
+            }
+          ]
+        }
+      ],
+      "summary": "Legendary only, once a round. 20-ft emanation, DC 20 Str save: 6d6 Bludgeoning and Speed 0 until the end of its next turn (half damage on a success).",
+      "text": "A swell of muddy water and grasping roots. Each creature in a 20-foot emanation makes a DC 20 Strength save, taking 21 (6d6) Bludgeoning damage and having its Speed set to 0 until the end of its next turn on a failure, or half damage on a success. Not again until the leviathan's next turn begins."
+    }
+  ],
+  "reactions": [
+    {
+      "id": "jinxed_hide",
+      "name": "Jinxed Hide",
+      "kind": "special",
+      "do": "jinxed_hide",
+      "trigger": "A creature within 60 ft hits the leviathan with an attack roll or targets it with a spell.",
+      "save": {
+        "ability": "wis",
+        "dc": 20,
+        "success": "none"
+      },
+      "targets": {
+        "range": 60,
+        "count": 1
+      },
+      "on_fail": [
+        {
+          "do": "jinx_curse",
+          "params": {
+            "disadvantage_on": "d20_tests",
+            "no_healing": true,
+            "until": "target_turn_end"
+          }
+        }
+      ],
+      "summary": "Reaction: the attacker or spell-caster makes a DC 20 Wis save or is cursed until the end of its next turn: Disadvantage on D20 Tests and no healing."
+    }
+  ],
+  "legendary_actions": {
+    "per_round": 3,
+    "in_lair": 4,
+    "options": [
+      {
+        "id": "devour",
+        "name": "Devour",
+        "cost": 1,
+        "action": "swallow",
+        "summary": "Uses Swallow."
+      },
+      {
+        "id": "swamp_surge",
+        "name": "Swamp Surge",
+        "cost": 1,
+        "action": "swamp_surge",
+        "once": true,
+        "summary": "20-ft emanation, DC 20 Str save: 6d6 Bludgeoning and Speed 0. Once a round."
+      },
+      {
+        "id": "tail_sweep",
+        "name": "Tail Sweep",
+        "cost": 1,
+        "move": true,
+        "half": true,
+        "action": "tail",
+        "summary": "Moves up to half its Speed without Opportunity Attacks and makes one Tail attack."
+      }
+    ]
+  },
+  "legendary_resistance": 4,
+  "legendary_resistance_in_lair": 5,
+  "ai_profile": "brute",
+  "summary": "A hexed swamp alligator of colossal size: it grabs and swallows heroes whole, lashes with a long tail, breathes a curse that stops healing and curses anyone who strikes it."
+}

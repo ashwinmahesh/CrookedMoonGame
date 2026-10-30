@@ -1,0 +1,219 @@
+{
+  "id": "night_creature",
+  "name": "Night Creature",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 519,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "large",
+  "type": "fiend",
+  "alignment": "neutral evil",
+  "ac": 15,
+  "initiative": 2,
+  "hp": {
+    "average": 75,
+    "dice": "10d10+20"
+  },
+  "speed": {
+    "walk": 40,
+    "climb": 40
+  },
+  "abilities": {
+    "str": 18,
+    "dex": 15,
+    "con": 14,
+    "int": 8,
+    "wis": 12,
+    "cha": 14
+  },
+  "saves": {
+    "str": 6
+  },
+  "skills": {
+    "survival": 5
+  },
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 11,
+  "languages": [
+    "Common",
+    "one other language"
+  ],
+  "cr": 4,
+  "xp": 1100,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "blood_stalker",
+      "name": "Blood Stalker",
+      "action": "passive",
+      "summary": "Advantage on Wisdom checks to find or track a creature that is missing any Hit Points.",
+      "text": "The night creature has Advantage on Wisdom checks made to locate or follow a creature that has lost any Hit Points.",
+      "implemented": "text"
+    },
+    {
+      "id": "salt_susceptibility",
+      "name": "Salt Susceptibility",
+      "action": "passive",
+      "summary": "Vulnerable to damage from a weapon wiped with salt (a Bonus Action; it lasts 1 minute or until the weapon hits a creature).",
+      "text": "The night creature has Vulnerability to damage from weapons wiped with salt. A creature can use a Bonus Action to wipe salt onto a weapon; it stays coated for 1 minute or until it hits a creature.",
+      "implemented": "text"
+    },
+    {
+      "id": "spider_climb",
+      "name": "Spider Climb",
+      "action": "passive",
+      "summary": "Climbs walls and ceilings with no ability check.",
+      "text": "The night creature can climb difficult surfaces, ceilings included, without an ability check.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "spider_climb"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "sunlight_hypersensitivity",
+      "name": "Sunlight Hypersensitivity",
+      "action": "passive",
+      "summary": "Takes 20 Radiant if it starts its turn in sunlight; in sunlight, Disadvantage on attack rolls and ability checks.",
+      "text": "The night creature takes 20 Radiant damage if it starts its turn in sunlight, and while in sunlight it has Disadvantage on attack rolls and ability checks. (Druskenvald has no sun: this fires only against Daylight, Sunbeam and the like.)",
+      "sunlight": "hypersensitivity",
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "claw",
+          "count": 1
+        },
+        {
+          "action": "bite",
+          "count": 1
+        }
+      ],
+      "summary": "One Claw attack and a Bite."
+    },
+    {
+      "id": "claw",
+      "name": "Claw",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "1d6+4",
+          "type": "slashing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 14,
+          "max_size": "medium",
+          "limit": 2
+        }
+      ],
+      "summary": "+6, 1d6+4 Slashing; a Medium or smaller target is Grappled (escape DC 14)."
+    },
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "save",
+      "save": {
+        "ability": "con",
+        "dc": 14,
+        "success": "none"
+      },
+      "targets": {
+        "range": 5,
+        "count": 1,
+        "requires": [
+          "willing",
+          "grappled",
+          "incapacitated",
+          "restrained"
+        ]
+      },
+      "damage": [
+        {
+          "average": 6,
+          "dice": "1d4+4",
+          "type": "piercing"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "necrotic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "drain_max_hp",
+          "type": "necrotic"
+        },
+        {
+          "do": "heal_self",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "One willing, Grappled, Incapacitated or Restrained creature within 5 ft, DC 14 Con save: 1d4+4 Piercing plus 2d6 Necrotic; its Hit Point maximum drops by the Necrotic damage and the night creature heals that much."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "shape_shift",
+      "name": "Shape-Shift",
+      "kind": "special",
+      "do": "shape_shift",
+      "summary": "Away from sunlight, becomes a Medium Humanoid or returns to its true form; other statistics stay the same.",
+      "text": "If it isn't in sunlight, the night creature changes into a Medium Humanoid or back into its true form. Its statistics other than size stay the same, and what it wears or carries doesn't change with it."
+    }
+  ],
+  "forms": {
+    "base": "true",
+    "change": "bonus_action",
+    "blocked_in": [
+      "sunlight"
+    ],
+    "shapes": [
+      {
+        "id": "humanoid",
+        "name": "Humanoid",
+        "size": "medium",
+        "speed": {
+          "walk": 40,
+          "climb": 40
+        },
+        "art_from_npc": true,
+        "kind": "disguise",
+        "summary": "A Medium Humanoid: its statistics stay the same apart from size."
+      }
+    ]
+  },
+  "ai_profile": "brute",
+  "summary": "A hulking fiendish brute that holds its victim and drinks their life, passing as a man until it strikes; salt on a blade hurts it and sunlight burns it.",
+  "art": "vampire_spawn",
+  "art_height": 2.1,
+  "reveal": "fiend"
+}

@@ -1,0 +1,203 @@
+{
+  "id": "gloomwood",
+  "name": "Gloomwood",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 504,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "huge",
+  "type": "plant",
+  "alignment": "chaotic evil",
+  "ac": 17,
+  "initiative": -1,
+  "hp": {
+    "average": 161,
+    "dice": "17d12+51"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 23,
+    "dex": 8,
+    "con": 17,
+    "int": 12,
+    "wis": 16,
+    "cha": 12
+  },
+  "saves": {
+    "wis": 7,
+    "cha": 5
+  },
+  "skills": {
+    "perception": 7,
+    "stealth": 3
+  },
+  "resistances": [
+    "bludgeoning",
+    "piercing"
+  ],
+  "immunities": [
+    "necrotic"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 17,
+  "languages": [
+    "Common",
+    "Sylvan"
+  ],
+  "cr": 10,
+  "xp": 5900,
+  "proficiency_bonus": 4,
+  "traits": [
+    {
+      "id": "blighted_aura",
+      "name": "Blighted Aura",
+      "action": "passive",
+      "summary": "The ground in a 20-ft Emanation is Difficult Terrain; a creature that ends its turn there takes 1d10 Necrotic.",
+      "text": "The ground in a 20-foot Emanation around the gloomwood is Difficult Terrain, overgrown with mushrooms and fungus. A creature that ends its turn in the Emanation takes 5 (1d10) Necrotic damage.",
+      "implemented": "text"
+    },
+    {
+      "id": "carved_past",
+      "name": "Carved Past",
+      "action": "special",
+      "summary": "An action with a Dagger or Woodcarver's Tools to carve its old forest's Sylvan name into its trunk stops its Fungal Fling and Spore Stomp until it finishes a Long Rest.",
+      "text": "As an action, a creature can use a Dagger or Woodcarver's Tools to carve the Sylvan name of the gloomwood's ancient home into its trunk. Until the gloomwood finishes a Long Rest, it can't use its Fungal Fling or Spore Stomp actions.",
+      "implemented": "text"
+    },
+    {
+      "id": "fungal_step",
+      "name": "Fungal Step",
+      "action": "passive",
+      "summary": "Ignores Difficult Terrain made by plants or fungi.",
+      "text": "The gloomwood ignores Difficult Terrain caused by plants or fungi.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "slam",
+          "count": 2,
+          "or": [
+            "fungal_fling"
+          ]
+        }
+      ],
+      "summary": "Two attacks, Slam or Fungal Fling in any mix."
+    },
+    {
+      "id": "slam",
+      "name": "Slam",
+      "kind": "melee",
+      "attack": {
+        "bonus": 10,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 13,
+          "dice": "2d6+6",
+          "type": "bludgeoning"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "necrotic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 16,
+          "max_size": "medium",
+          "limit": 2,
+          "restrain": true
+        }
+      ],
+      "summary": "+10, reach 10 ft, 2d6+6 Bludgeoning plus 2d6 Necrotic; a Medium or smaller target is Grappled in a branch (escape DC 16, two branches) and Restrained.",
+      "text": "13 (2d6 + 6) Bludgeoning damage plus 7 (2d6) Necrotic damage. A Medium or smaller target has the Grappled condition (escape DC 16) from one of two branches, and is Restrained until the grapple ends."
+    },
+    {
+      "id": "fungal_fling",
+      "name": "Fungal Fling",
+      "kind": "ranged",
+      "attack": {
+        "bonus": 10,
+        "range": [
+          60,
+          180
+        ]
+      },
+      "damage": [
+        {
+          "average": 23,
+          "dice": "5d6+6",
+          "type": "bludgeoning"
+        },
+        {
+          "average": 10,
+          "dice": "3d6",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "Ranged +10, 60/180 ft, 5d6+6 Bludgeoning plus 3d6 Necrotic.",
+      "text": "23 (5d6 + 6) Bludgeoning damage plus 10 (3d6) Necrotic damage."
+    },
+    {
+      "id": "spore_stomp",
+      "name": "Spore Stomp",
+      "kind": "special",
+      "do": "spore_stomp",
+      "recharge": "5-6",
+      "attack": {
+        "bonus": 10,
+        "reach": 5
+      },
+      "save": {
+        "ability": "con",
+        "dc": 15,
+        "success": "half"
+      },
+      "area": {
+        "shape": "sphere",
+        "size": 20
+      },
+      "damage": [
+        {
+          "average": 17,
+          "dice": "2d10+6",
+          "type": "bludgeoning",
+          "when": "the attack's target, on a hit"
+        },
+        {
+          "average": 36,
+          "dice": "8d8",
+          "type": "poison",
+          "when": "every creature in the 20-ft sphere around the target, hit or miss; half on a successful save"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "target_turn_end"
+        }
+      ],
+      "summary": "Recharge 5-6. Melee +10: 2d10+6 Bludgeoning on a hit; hit or miss, everyone in a 20-ft sphere around the target makes a DC 15 Con save or takes 8d8 Poison (half on a success) and is Poisoned until the end of its next turn.",
+      "text": "Melee Attack Roll: +10, reach 5 feet. Hit: 17 (2d10 + 6) Bludgeoning damage. Hit or Miss: each creature within a 20-foot Sphere centered on the target makes a Constitution saving throw (DC 15). Failure: 36 (8d8) Poison damage, and the target has the Poisoned condition until the end of its next turn. Success: half damage only."
+    }
+  ],
+  "ai_profile": "brute",
+  "art": "tree_blight",
+  "summary": "A blighted treant that rots the ground around it, flings fungus, grips foes in its branches and stomps out a cloud of poison spores; carving its home forest's name quiets it."
+}

@@ -1,0 +1,278 @@
+{
+  "id": "white_worm",
+  "name": "The White Worm",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 575,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Lair XP is 25,000 (the block lists 22,000 outside it)."
+  },
+  "size": "gargantuan",
+  "type": "aberration",
+  "alignment": "chaotic evil",
+  "ac": 18,
+  "initiative": 10,
+  "hp": {
+    "average": 330,
+    "dice": "20d20+120"
+  },
+  "speed": {
+    "walk": 50,
+    "burrow": 30,
+    "swim": 50
+  },
+  "abilities": {
+    "str": 28,
+    "dex": 7,
+    "con": 22,
+    "int": 7,
+    "wis": 19,
+    "cha": 21
+  },
+  "saves": {
+    "con": 12,
+    "wis": 10
+  },
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened"
+  ],
+  "senses": {
+    "tremorsense": 60,
+    "truesight": 60
+  },
+  "passive_perception": 14,
+  "languages": [
+    "understands all languages but can't speak"
+  ],
+  "telepathy": 120,
+  "cr": 19,
+  "xp": 22000,
+  "proficiency_bonus": 6,
+  "traits": [
+    {
+      "id": "inscrutable_mind",
+      "name": "Inscrutable Mind",
+      "action": "passive",
+      "summary": "A creature that tries to read its mind makes a DC 19 Int save or is Stunned (repeats each turn; ends after a minute).",
+      "text": "Prying into the worm's mind stuns the intruder unless it passes a DC 19 Intelligence save. The Stunned creature repeats the save at the end of each of its turns and succeeds on its own after 1 minute.",
+      "implemented": "text"
+    },
+    {
+      "id": "legendary_resistance",
+      "name": "Legendary Resistance (3/Day, or 4/Day in Lair)",
+      "action": "special",
+      "summary": "3 times a day (4 in its lair), a failed saving throw becomes a success.",
+      "text": "When it fails a saving throw, it can choose to succeed instead, 3 times a day or 4 times in its lair.",
+      "implemented": "engine"
+    },
+    {
+      "id": "poisoned_knowledge",
+      "name": "Poisoned Knowledge",
+      "action": "passive",
+      "summary": "If it uses Devour Mind on a creature that knows the special star-path sequence, at the start of that creature's next turn the worm takes 50 Psychic and Devour Mind ends.",
+      "text": "A host who knows the particular sequence of constellations and their path across the sky poisons the worm: at the start of that host's next turn the worm takes 50 Psychic damage and Devour Mind ends.",
+      "implemented": "text"
+    },
+    {
+      "id": "tunneler",
+      "name": "Tunneler",
+      "action": "passive",
+      "summary": "Burrows through solid rock at half its Burrow Speed, leaving a 10-ft-wide tunnel.",
+      "text": "It can burrow through solid rock at half its Burrow Speed and leaves a tunnel 10 feet across behind it.",
+      "implemented": "text"
+    },
+    {
+      "id": "regional_lair",
+      "name": "Regional Lair Effects",
+      "action": "passive",
+      "summary": "While it lives and keeps its lair, the land round it carries two effects: Alien Growth; Psychic Phantoms.",
+      "text": "Alien Growth: within 1 mile of the lair, Gricks, Purple Worms and Wormhost Surgeons are common. Psychic Phantoms: within 1 mile of the lair, a creature that finishes a Long Rest must pass a DC 15 Wis save or gain no benefit from it. Both end at once if the worm dies or moves its lair.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "bite",
+          "count": 1
+        },
+        {
+          "action": "psychic_caress",
+          "count": 2
+        }
+      ],
+      "summary": "One Bite and Psychic Caress on one or two creatures."
+    },
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 15,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 25,
+          "dice": "3d10+9",
+          "type": "piercing"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "force"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 19,
+          "max_size": "large",
+          "limit": 1
+        }
+      ],
+      "summary": "+15, reach 10 ft, 3d10+9 Piercing plus 2d6 Force; a Large or smaller target is Grappled (escape DC 19).",
+      "text": "A crushing bite: 25 (3d10 + 9) Piercing plus 7 (2d6) Force damage. A Large or smaller target is Grappled (escape DC 19)."
+    },
+    {
+      "id": "psychic_caress",
+      "name": "Psychic Caress",
+      "kind": "save",
+      "save": {
+        "ability": "int",
+        "dc": 19,
+        "success": "half"
+      },
+      "targets": {
+        "range": 60,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 17,
+          "dice": "5d6",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "frightened",
+          "until": "source_turn_start"
+        }
+      ],
+      "summary": "One creature within 60 ft: DC 19 Int save, 5d6 Psychic (half on a success) and Frightened until the worm's next turn on a failure.",
+      "text": "Alien thoughts brush a creature the worm can see within 60 feet. It makes a DC 19 Intelligence save, taking 17 (5d6) Psychic damage and becoming Frightened until the start of the worm's next turn on a failure, or half damage on a success."
+    },
+    {
+      "id": "devour_mind",
+      "name": "Devour Mind",
+      "kind": "special",
+      "do": "devour_mind",
+      "uses": {
+        "count": 1,
+        "per": "day"
+      },
+      "targets": {
+        "range": 60,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 88,
+          "dice": "16d10",
+          "type": "psychic"
+        }
+      ],
+      "summary": "1/day. Vanishes into the mind of a creature within 60 ft and eats its memories: 16d10 Psychic at the end of each of the host's turns, until the host drops, wins a mental duel, is freed of possession, or hurts it.",
+      "text": "The worm disappears into the mind of a creature it can see within 60 feet (not one under Mind Blank or Protection from Evil and Good). While inside it can't act, and at the end of each of the host's turns the host takes 88 (16d10) Psychic damage. A host dropped to 0 Hit Points by this is Stable but loses every memory for good (only Wish restores them); the worm then reappears within 60 feet and the effect ends. It also ends if the host spends an action on a mental duel (a DC 20 Int, Wis or Cha check; on a success the worm needs a Cha save against the check total or Devour Mind ends), if possession is ended by magic like Dispel Evil and Good, or when the host takes damage: the worm takes half of it as Psychic and must pass a Cha save against that damage or be expelled."
+    },
+    {
+      "id": "spawn_parasites",
+      "name": "Spawn Parasites",
+      "kind": "save",
+      "cost": 1,
+      "save": {
+        "ability": "con",
+        "dc": 20,
+        "success": "none"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 60
+      },
+      "targets": {
+        "range": 60
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "permanent"
+        },
+        {
+          "do": "ongoing_damage",
+          "params": {
+            "when": "target_turn_start",
+            "damage": [
+              {
+                "average": 7,
+                "dice": "2d6",
+                "type": "necrotic"
+              },
+              {
+                "average": 7,
+                "dice": "2d6",
+                "type": "psychic"
+              }
+            ],
+            "until": "poisoned_ends_or_10_poison_damage",
+            "dies_at_zero_and_rises_in_hours": 24,
+            "rises_as": "wormhost_surgeon"
+          }
+        }
+      ],
+      "summary": "Legendary only, once a round. 60-ft cone, DC 20 Con save or infested: Poisoned, taking 2d6 Necrotic and 2d6 Psychic each turn; one killed this way rises as a Wormhost Surgeon.",
+      "text": "A spray of pale worms in a 60-foot cone. A creature that fails the DC 20 Constitution save is infested and Poisoned; at the start of its turns it takes 7 (2d6) Necrotic plus 7 (2d6) Psychic damage. A creature this drops to 0 Hit Points dies and rises 24 hours later as a Wormhost Surgeon. Any effect that ends the Poisoned condition, or 10 or more Poison damage dealt to the host, kills the worms. Hit or miss, not again until the worm's next turn begins."
+    }
+  ],
+  "legendary_actions": {
+    "per_round": 3,
+    "in_lair": 4,
+    "options": [
+      {
+        "id": "slither",
+        "name": "Slither",
+        "cost": 1,
+        "move": true,
+        "summary": "Moves up to its Speed without Opportunity Attacks."
+      },
+      {
+        "id": "spawn_parasites",
+        "name": "Spawn Parasites",
+        "cost": 1,
+        "action": "spawn_parasites",
+        "once": true,
+        "summary": "60-ft cone, DC 20 Con save or infested with brain-eating worms. Once a round."
+      },
+      {
+        "id": "strike",
+        "name": "Strike",
+        "cost": 1,
+        "action": "bite",
+        "once": true,
+        "summary": "One Bite attack. Once a round."
+      }
+    ]
+  },
+  "legendary_resistance": 3,
+  "legendary_resistance_in_lair": 4,
+  "ai_profile": "brute",
+  "summary": "A pallid, mountain-sized grub from beyond the stars: it grips with its jaws, burns minds with its touch, swallows a hero's memories whole and fills the field with parasites."
+}

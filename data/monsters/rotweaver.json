@@ -1,0 +1,130 @@
+{
+  "id": "rotweaver",
+  "name": "Rotweaver",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. The book prints the name as Rot Weaver in places.",
+    "page": 528
+  },
+  "size": "medium",
+  "type": "fey",
+  "alignment": "chaotic evil",
+  "ac": 13,
+  "initiative": 2,
+  "hp": {
+    "average": 38,
+    "dice": "7d8+7"
+  },
+  "speed": {
+    "walk": 40
+  },
+  "abilities": {
+    "str": 16,
+    "dex": 15,
+    "con": 13,
+    "int": 10,
+    "wis": 16,
+    "cha": 8
+  },
+  "immunities": [
+    "necrotic",
+    "poison"
+  ],
+  "condition_immunities": [
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 13,
+  "languages": [
+    "Common",
+    "Sylvan"
+  ],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "fungal_step",
+      "name": "Fungal Step",
+      "action": "passive",
+      "summary": "Ignores Difficult Terrain made by plants or fungi.",
+      "text": "Difficult Terrain caused by plants or fungi costs the rotweaver no extra movement.",
+      "implemented": "text"
+    },
+    {
+      "id": "hunting_horn",
+      "name": "Hunting Horn",
+      "action": "passive",
+      "summary": "Carries a hunting horn (AC 16, HP 10, immune to Necrotic, Poison and Psychic damage).",
+      "text": "The rotweaver carries a hunting horn, a separate object with AC 16, 10 Hit Points and immunity to Necrotic, Poison and Psychic damage.",
+      "implemented": "text"
+    },
+    {
+      "id": "iron_binding",
+      "name": "Iron Binding",
+      "action": "passive",
+      "summary": "With iron wrapped round it (a bracelet, Manacles or Chain), it can move, take an action, or take a Bonus Action, but not all three.",
+      "text": "If the rotweaver has iron wrapped around a part of its body, such as an iron bracelet, Manacles or a Chain (any of them counts as Manacles), it can move, take an action, or take a Bonus Action in a turn, but not all three.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "staff",
+      "name": "Staff",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "1d8+3",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "+5, 1d8+3 Necrotic.",
+      "text": "A rotted staff: 7 (1d8 + 3) Necrotic damage."
+    },
+    {
+      "id": "call_the_rot",
+      "name": "Call the Rot (Requires Hunting Horn)",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "con",
+        "dc": 13,
+        "success": "half"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 30
+      },
+      "targets": {
+        "range": 30
+      },
+      "damage": [
+        {
+          "average": 11,
+          "dice": "2d10",
+          "type": "necrotic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "target_turn_end"
+        }
+      ],
+      "summary": "Recharge 5-6, needs the horn. 30-ft cone, DC 13 Con save: 2d10 Necrotic (half on a success) and Poisoned until the end of its next turn on a failure; the call carries 300 ft and kills plants (not creatures) in the cone.",
+      "text": "Constitution save, DC 13, each creature in a 30-foot Cone, blown on the hunting horn. Failure: 11 (2d10) Necrotic damage, and the target is Poisoned until the end of its next turn. Success: half damage only. Pass or fail, the horn call can be heard 300 feet away and every non-creature plant in the Cone dies of fungus and rot."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A fey thrall turned hunter by rot: it strikes with a staff and blows a horn whose call poisons and withers."
+}

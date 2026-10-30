@@ -1,0 +1,298 @@
+{
+  "id": "galloping_headsman",
+  "name": "The Galloping Headsman",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 555,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Lair XP is 22,000 (the block lists 20,000 outside it)."
+  },
+  "size": "large",
+  "type": "undead",
+  "alignment": "lawful evil",
+  "ac": 19,
+  "initiative": 15,
+  "hp": {
+    "average": 220,
+    "dice": "21d10+105"
+  },
+  "speed": {
+    "walk": 60
+  },
+  "abilities": {
+    "str": 22,
+    "dex": 17,
+    "con": 20,
+    "int": 11,
+    "wis": 14,
+    "cha": 18
+  },
+  "saves": {
+    "wis": 8,
+    "cha": 10
+  },
+  "skills": {
+    "athletics": 12,
+    "intimidation": 10,
+    "perception": 8
+  },
+  "resistances": [
+    "necrotic"
+  ],
+  "immunities": [
+    "fire",
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "frightened",
+    "exhaustion",
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 120
+  },
+  "passive_perception": 18,
+  "languages": [
+    "Common"
+  ],
+  "telepathy": 120,
+  "cr": 18,
+  "xp": 20000,
+  "proficiency_bonus": 6,
+  "traits": [
+    {
+      "id": "binding_skull",
+      "name": "Binding Skull",
+      "action": "passive",
+      "summary": "A creature holding its original skull makes the headsman Vulnerable to that creature's damage and gives it Disadvantage on checks and attack rolls against that creature.",
+      "text": "Anyone carrying the headsman's original skull becomes its bane. The headsman takes Vulnerability to every kind of damage that creature deals to it, and rolls its ability checks and attack rolls against that creature with Disadvantage.",
+      "implemented": "text"
+    },
+    {
+      "id": "legendary_resistance",
+      "name": "Legendary Resistance (3/Day, or 4/Day in Lair)",
+      "action": "special",
+      "summary": "3 times a day (4 in its lair), a failed saving throw becomes a success.",
+      "text": "When it fails a saving throw, it can choose to succeed instead, 3 times a day or 4 times in its lair.",
+      "implemented": "engine"
+    },
+    {
+      "id": "magic_resistance",
+      "name": "Magic Resistance",
+      "action": "passive",
+      "summary": "Advantage on saving throws against spells and other magical effects.",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:spell"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "regional_lair",
+      "name": "Regional Lair Effects",
+      "action": "passive",
+      "summary": "While it lives and keeps its lair, the land round it carries two effects: Encroaching Doom; Interminable Journey.",
+      "text": "Encroaching Doom: within 6 miles of the lair, creatures have Disadvantage on saves made to avoid or end the Frightened condition, unless the headsman caused it. Interminable Journey: within 6 miles of the lair, paths warp and stretch and travel pace outside combat is halved. Both end at once if the headsman dies or moves its lair.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "headsmans_axe",
+          "count": 2
+        },
+        {
+          "action": "hooves",
+          "count": 1
+        }
+      ],
+      "summary": "Two Headsman's Axe attacks and one Hooves attack."
+    },
+    {
+      "id": "headsmans_axe",
+      "name": "Headsman's Axe",
+      "kind": "melee",
+      "attack": {
+        "bonus": 12,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 19,
+          "dice": "2d12+6",
+          "type": "slashing"
+        },
+        {
+          "average": 16,
+          "dice": "3d10",
+          "type": "fire"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "decapitate",
+          "params": {
+            "on_natural": 20,
+            "needs": "a head",
+            "save": {
+              "ability": "con",
+              "dc": 20
+            },
+            "on_fail": "dies if it cannot live without a head",
+            "immune_if": [
+              "takes none of the damage",
+              "has legendary actions",
+              "huge or larger"
+            ],
+            "immune_extra_damage": {
+              "average": 28,
+              "dice": "8d6",
+              "type": "force"
+            }
+          }
+        }
+      ],
+      "summary": "+12, reach 5 ft, 2d12+6 Slashing plus 3d10 Fire; on a natural 20 the target makes a DC 20 Con save or is beheaded.",
+      "text": "A flaming axe stroke: 19 (2d12 + 6) Slashing plus 16 (3d10) Fire. If the attack roll was a 20 and the target has a head, it makes a DC 20 Constitution save or is decapitated, dying if it can't live without a head. A target that took none of the damage, has Legendary Actions, or is Huge or larger is immune to this, and takes 28 (8d6) extra Force damage from the hit instead."
+    },
+    {
+      "id": "hooves",
+      "name": "Hooves",
+      "kind": "melee",
+      "attack": {
+        "bonus": 12,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 24,
+          "dice": "4d8+6",
+          "type": "bludgeoning"
+        }
+      ],
+      "charge": {
+        "feet": 20,
+        "damage": [
+          {
+            "average": 9,
+            "dice": "2d8",
+            "type": "necrotic"
+          }
+        ],
+        "on_hit": [
+          {
+            "do": "condition",
+            "condition": "prone"
+          }
+        ]
+      },
+      "summary": "+12, 4d8+6 Bludgeoning; after a 20-ft run, 2d8 more Necrotic and the target falls Prone.",
+      "text": "A trampling kick: 24 (4d8 + 6) Bludgeoning. If the headsman moved at least 20 feet right before the hit, the target also takes 9 (2d8) Necrotic damage and is knocked Prone."
+    },
+    {
+      "id": "flaming_skull",
+      "name": "Flaming Skull",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "dex",
+        "dc": 20,
+        "success": "half"
+      },
+      "area": {
+        "shape": "line",
+        "size": 90,
+        "width": 10
+      },
+      "targets": {
+        "range": 90
+      },
+      "damage": [
+        {
+          "average": 63,
+          "dice": "14d8",
+          "type": "fire"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "burning"
+        }
+      ],
+      "summary": "Recharge 5-6. Hurls its skull down a 90-ft line: DC 20 Dex save, 14d8 Fire (half on a success); creatures hit start burning.",
+      "text": "It throws its burning skull, which comes back to its hand. Every creature in a 90-foot line, 10 feet wide, makes a DC 20 Dexterity save, taking 63 (14d8) Fire damage on a failure or half on a success. Whether it saves or not, a target starts burning (the engine only sets a failed save burning; see the notes)."
+    },
+    {
+      "id": "rancorous_gaze",
+      "name": "Rancorous Gaze",
+      "kind": "save",
+      "save": {
+        "ability": "wis",
+        "dc": 18,
+        "success": "none"
+      },
+      "targets": {
+        "range": 90,
+        "count": 1
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "frightened",
+          "until": "minute",
+          "repeat_save": {
+            "ability": "wis",
+            "dc": 18,
+            "when": "end"
+          }
+        }
+      ],
+      "summary": "Legendary only, once a round. One creature within 90 ft: DC 18 Wis save or Frightened for a minute, saving again at the end of each of its turns.",
+      "text": "It stares down a creature it can see within 90 feet. The target makes a DC 18 Wisdom save or is Frightened, repeating the save at the end of each of its turns; after 1 minute it succeeds on its own. Hit or miss, the headsman can't use this again until its next turn begins."
+    }
+  ],
+  "legendary_actions": {
+    "per_round": 3,
+    "in_lair": 4,
+    "options": [
+      {
+        "id": "move",
+        "name": "Move",
+        "cost": 1,
+        "move": true,
+        "half": true,
+        "summary": "Moves up to half its Speed without Opportunity Attacks."
+      },
+      {
+        "id": "rancorous_gaze",
+        "name": "Rancorous Gaze",
+        "cost": 1,
+        "action": "rancorous_gaze",
+        "once": true,
+        "summary": "One creature within 90 ft: DC 18 Wis save or Frightened. Once a round."
+      },
+      {
+        "id": "relentless_execution",
+        "name": "Relentless Execution",
+        "cost": 1,
+        "do": "relentless_execution",
+        "once": true,
+        "summary": "One Headsman's Axe attack with Advantage; against a Frightened target a natural 19 counts as a 20. Once a round.",
+        "text": "It swings its axe once with Advantage. If the target is Frightened, a 19 on the d20 is treated as a 20. Not again until its next turn begins."
+      }
+    ]
+  },
+  "legendary_resistance": 3,
+  "legendary_resistance_in_lair": 4,
+  "ai_profile": "brute",
+  "art": "nightmare",
+  "summary": "A headless, flame-wreathed horseman: it hacks twice with a fiery axe, tramples, hurls its burning skull down a line and cows a hero at a time with its stare."
+}

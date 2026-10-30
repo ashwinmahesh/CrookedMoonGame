@@ -1,0 +1,127 @@
+{
+  "id": "hospital_horror",
+  "name": "Hospital Horror",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 507,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "medium",
+  "type": "aberration",
+  "alignment": "chaotic evil",
+  "ac": 13,
+  "initiative": 3,
+  "hp": {
+    "average": 30,
+    "dice": "4d8+12"
+  },
+  "speed": {
+    "walk": 40,
+    "climb": 30
+  },
+  "abilities": {
+    "str": 18,
+    "dex": 16,
+    "con": 16,
+    "int": 7,
+    "wis": 9,
+    "cha": 6
+  },
+  "saves": {
+    "str": 6,
+    "dex": 5
+  },
+  "skills": {
+    "acrobatics": 5,
+    "athletics": 6
+  },
+  "resistances": [
+    "acid",
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 9,
+  "languages": [
+    "understands Common and Deep Speech but can't speak"
+  ],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "aversion_to_needles",
+      "name": "Aversion to Needles",
+      "action": "passive",
+      "summary": "Taking Piercing damage gives it Disadvantage on attack rolls until the end of its next turn.",
+      "text": "If the horror takes Piercing damage, it has Disadvantage on attack rolls until the end of its next turn.",
+      "implemented": "text"
+    },
+    {
+      "id": "pack_tactics",
+      "name": "Pack Tactics",
+      "action": "passive",
+      "summary": "Advantage on an attack roll against a target that has a non-Incapacitated ally of this creature within 5 ft.",
+      "text": "The horror has Advantage on an attack roll against a creature if at least one of its allies is within 5 feet of that creature and the ally doesn't have the Incapacitated condition.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "pack_tactics"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "graft_blade",
+          "count": 2
+        }
+      ],
+      "summary": "Two Graft Blade attacks."
+    },
+    {
+      "id": "graft_blade",
+      "name": "Graft Blade",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "1d6+4",
+          "type": "slashing"
+        }
+      ],
+      "summary": "+6, 1d6+4 Slashing.",
+      "text": "7 (1d6 + 4) Slashing damage."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "stim_burst",
+      "name": "Stim Burst",
+      "kind": "special",
+      "do": "stim_burst",
+      "summary": "Takes the Dash action and can jump up to 30 ft by spending 10 ft of movement.",
+      "text": "The horror takes the Dash action and can jump up to 30 feet by spending 10 feet of movement."
+    }
+  ],
+  "ai_profile": "pack_hunter",
+  "art": "zombie",
+  "summary": "A patient mutilated into a raging, many-bladed thing that swarms with others and leaps on prey; needles rattle what wits it has left."
+}

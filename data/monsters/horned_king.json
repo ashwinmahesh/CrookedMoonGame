@@ -1,0 +1,332 @@
+{
+  "id": "horned_king",
+  "name": "The Horned King",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 562,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Block on the facing page (PDF 565). The block has no Secret (the story hides Phillip Druskenvald inside). Spell save DC 20 is the book's; +12 to hit with spells is computed (Charisma +6, proficiency +6)."
+  },
+  "size": "gargantuan",
+  "type": "fiend",
+  "alignment": "neutral evil",
+  "ac": 19,
+  "initiative": 14,
+  "hp": {
+    "average": 217,
+    "dice": "14d20+70"
+  },
+  "speed": {
+    "walk": 50,
+    "fly": 100
+  },
+  "abilities": {
+    "str": 22,
+    "dex": 14,
+    "con": 20,
+    "int": 10,
+    "wis": 10,
+    "cha": 22
+  },
+  "saves": {
+    "str": 12,
+    "wis": 6,
+    "con": 11
+  },
+  "skills": {
+    "athletics": 12,
+    "intimidation": 12,
+    "perception": 12
+  },
+  "resistances": [
+    "cold",
+    "fire"
+  ],
+  "immunities": [
+    "poison",
+    "psychic"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "frightened",
+    "poisoned"
+  ],
+  "senses": {
+    "truesight": 120
+  },
+  "passive_perception": 22,
+  "languages": [
+    "all"
+  ],
+  "telepathy": 120,
+  "cr": 17,
+  "xp": 18000,
+  "proficiency_bonus": 6,
+  "traits": [
+    {
+      "id": "enduring_restoration",
+      "name": "Enduring Restoration",
+      "action": "passive",
+      "summary": "Killed, its body falls to ash and it lives on as an intangible, Invisible spirit in its forest, unable to take a new body for 10d10 years.",
+      "text": "If the Horned King dies, its body disappears in a cloud of ash. It becomes an intangible, Invisible spirit in its home forest and cannot form a new physical body for 10d10 years.",
+      "implemented": "text"
+    },
+    {
+      "id": "legendary_resistance",
+      "name": "Legendary Resistance (5/Day)",
+      "action": "special",
+      "summary": "Five times a day, a failed saving throw becomes a success.",
+      "text": "When the Horned King fails a saving throw, it can choose to succeed instead, 5 times a day.",
+      "implemented": "engine"
+    },
+    {
+      "id": "magic_resistance",
+      "name": "Magic Resistance",
+      "action": "passive",
+      "summary": "Advantage on saving throws against spells and other magical effects.",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:spell"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "regional_lair",
+      "name": "Regional Effects (Lair)",
+      "action": "special",
+      "summary": "Within a mile of its lair: acting on a sinful impulse against a friendly or indifferent creature grants +10 max and current HP until a long rest (once per long rest, known to all), and saving throws against curses have Disadvantage.",
+      "text": "Regional effects, within 1 mile of the clearing and its twisted tree while the Horned King lives and keeps its lair there. Sweet Temptation: a creature that acts on a sinful impulse to the harm of a Friendly or Indifferent creature raises its Hit Point maximum and current Hit Points by 10 until it finishes a Long Rest; creatures know this, and it can't happen again until after the next Long Rest. Tenacious Curses: saving throws against curses have Disadvantage. Both end the moment it dies or moves its lair.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "cursed_strike",
+          "count": 2
+        },
+        {
+          "action": "cursed_strike",
+          "count": 1,
+          "or": [
+            "terrorizing_breath"
+          ]
+        }
+      ],
+      "summary": "Three Cursed Strikes; one can be replaced by Terrorizing Breath."
+    },
+    {
+      "id": "cursed_strike",
+      "name": "Cursed Strike",
+      "kind": "melee",
+      "attack": {
+        "bonus": 12,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 17,
+          "dice": "2d10+6",
+          "type": "bludgeoning"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "necrotic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "until": "source_turn_end",
+          "modifiers": [
+            {
+              "stat": "penalty_die",
+              "dice": "1d4",
+              "on": [
+                "attack",
+                "save:all",
+                "check:all"
+              ]
+            }
+          ]
+        },
+        {
+          "do": "crit_range_vs_cursed",
+          "params": {
+            "crit_range": 19
+          }
+        }
+      ],
+      "summary": "+12 (a 19 or 20 is a Critical Hit against a cursed target), reach 10 ft, 2d10+6 Bludgeoning, Piercing or Slashing (his pick) plus 2d6 Necrotic; the target is cursed until the end of his next turn (-1d4 on D20 Tests).",
+      "text": "A hit deals 17 (2d10 + 6) damage of his choice of Bludgeoning, Piercing or Slashing plus 7 (2d6) Necrotic. A creature it hits is cursed until the end of his next turn and subtracts 1d4 from its D20 Tests. Against a cursed target his attack roll scores a Critical Hit on a 19 or 20."
+    },
+    {
+      "id": "breath_of_corruption",
+      "name": "Breath of Corruption",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "dex",
+        "dc": 19,
+        "success": "half"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 60
+      },
+      "targets": {
+        "range": 60
+      },
+      "damage": [
+        {
+          "average": 21,
+          "dice": "6d6",
+          "type": "necrotic"
+        },
+        {
+          "average": 21,
+          "dice": "6d6",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "exhaustion",
+          "params": {
+            "levels": 1,
+            "max": 5,
+            "until": "target_turn_end"
+          }
+        }
+      ],
+      "summary": "Recharge 5-6. 60-ft cone, DC 19 Dex save: 6d6 Necrotic plus 6d6 Psychic and 1 Exhaustion level that ends at the end of the target's next turn; half damage on a success."
+    },
+    {
+      "id": "terrorizing_breath",
+      "name": "Terrorizing Breath",
+      "kind": "save",
+      "save": {
+        "ability": "wis",
+        "dc": 19,
+        "success": "none"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 60
+      },
+      "targets": {
+        "range": 60
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "frightened",
+          "until": "minute",
+          "repeat_save": {
+            "ability": "wis",
+            "dc": 19,
+            "when": "end"
+          }
+        }
+      ],
+      "summary": "60-ft cone, DC 19 Wis save or Frightened (save again each turn; a minute at most)."
+    },
+    {
+      "id": "taste_of_wickedness",
+      "name": "Taste of Wickedness",
+      "kind": "save",
+      "save": {
+        "ability": "cha",
+        "dc": 20,
+        "success": "none"
+      },
+      "targets": {
+        "range": 15,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 16,
+          "dice": "3d10",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "heal_self",
+          "type": "psychic"
+        },
+        {
+          "do": "end_curse",
+          "params": {
+            "chosen_by": "the Horned King",
+            "count": 1,
+            "of": "the Horned King's curses on the target"
+          }
+        }
+      ],
+      "summary": "Legendary only. One cursed creature he sees within 15 ft: DC 20 Cha save or 3d10 Psychic; he heals the same and ends one of his curses on it."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "sense_desire",
+      "name": "Sense Desire",
+      "kind": "special",
+      "do": "cast",
+      "cast": [
+        "detect_thoughts"
+      ],
+      "summary": "Casts Detect Thoughts (Charisma, DC 20, no components)."
+    }
+  ],
+  "legendary_actions": {
+    "per_round": 3,
+    "options": [
+      {
+        "id": "taste_of_wickedness",
+        "name": "Taste of Wickedness",
+        "cost": 1,
+        "action": "taste_of_wickedness",
+        "summary": "A cursed creature within 15 ft: DC 20 Cha save or 3d10 Psychic; he heals that much and lifts one of his curses from it."
+      },
+      {
+        "id": "temptation",
+        "name": "Temptation",
+        "cost": 1,
+        "do": "temptation",
+        "once": true,
+        "summary": "Offers a creature within 120 ft Heroic Inspiration or 20 Hit Points; if it accepts, it gets it but is cursed for 1 minute and he resists all damage that creature deals. Once a round.",
+        "text": "He speaks to a creature he can see within 120 feet and offers it either Heroic Inspiration or 20 restored Hit Points. If it accepts it gains the benefit but is cursed for a minute; while it is cursed the Horned King has Resistance to all damage that creature deals. He can't tempt again until his next turn starts."
+      },
+      {
+        "id": "trample",
+        "name": "Trample",
+        "cost": 1,
+        "move": true,
+        "half": true,
+        "action": "cursed_strike",
+        "once": true,
+        "summary": "Moves up to half his Speed and makes one Cursed Strike. Once a round."
+      }
+    ]
+  },
+  "legendary_resistance": 5,
+  "spellcasting": {
+    "ability": "cha",
+    "dc": 20,
+    "attack": 12,
+    "at_will": [
+      "detect_thoughts"
+    ]
+  },
+  "ai_profile": "brute",
+  "summary": "Sin made flesh as a winged, horned giant: three cursing strikes, a corrupting breath and a cone of terror, a tongue that feeds on curses, and an offer of reward that binds whoever takes it."
+}

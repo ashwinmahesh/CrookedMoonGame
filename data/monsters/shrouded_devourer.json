@@ -1,0 +1,182 @@
+{
+  "id": "shrouded_devourer",
+  "name": "Shrouded (Devourer)",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Variant: Devourer (the book gives one block with three variants; each has its own id). ",
+    "page": 530
+  },
+  "size": "medium",
+  "type": "undead",
+  "alignment": "chaotic evil",
+  "ac": 13,
+  "initiative": 3,
+  "hp": {
+    "average": 33,
+    "dice": "6d8+6"
+  },
+  "speed": {
+    "walk": 5,
+    "fly": 30,
+    "hover": true
+  },
+  "abilities": {
+    "str": 5,
+    "dex": 14,
+    "con": 12,
+    "int": 6,
+    "wis": 12,
+    "cha": 16
+  },
+  "skills": {
+    "perception": 3,
+    "stealth": 4
+  },
+  "resistances": [
+    "acid",
+    "bludgeoning",
+    "cold",
+    "fire",
+    "lightning",
+    "piercing",
+    "slashing",
+    "thunder"
+  ],
+  "immunities": [
+    "necrotic",
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened",
+    "grappled",
+    "paralyzed",
+    "petrified",
+    "prone",
+    "restrained"
+  ],
+  "senses": {
+    "blindsight": 60
+  },
+  "passive_perception": 13,
+  "languages": [
+    "Common",
+    "one other language"
+  ],
+  "cr": 4,
+  "xp": 1100,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "mist_form",
+      "name": "Mist Form",
+      "action": "passive",
+      "summary": "Can stop in a creature's space; slips through gaps an inch wide at no extra cost.",
+      "text": "The shrouded may enter another creature's space and stay there, and squeezes through spaces as narrow as an inch without paying extra movement.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "enters_spaces"
+        },
+        {
+          "stat": "flag",
+          "value": "amorphous"
+        }
+      ],
+      "implemented": "text"
+    },
+    {
+      "id": "corrupting_mist",
+      "name": "Corrupting Mist",
+      "action": "passive",
+      "summary": "A creature starting its turn in its space: DC 13 Con save or 3d6 Necrotic (half on a success); a Humanoid killed this way rises as a shrouded.",
+      "text": "Constitution save, DC 13, for a creature that starts its turn in the shrouded's space. On a failure it takes 10 (3d6) Necrotic damage, half on a success. The soul of a Humanoid killed by this damage becomes a new shrouded at the start of the shrouded's next turn, acting on that Initiative, and the Humanoid cannot be revived until the new shrouded is destroyed.",
+      "implemented": "text"
+    },
+    {
+      "id": "graveyard_warding",
+      "name": "Graveyard Warding",
+      "action": "passive",
+      "summary": "Can't move through a space with a barrier or line of iron (a wrought-iron fence, a line of iron filings).",
+      "text": "A barrier or line of iron is impassable to the shrouded, and the barrier reaches a mile up.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "corrupting_touch",
+          "count": 2,
+          "or": [
+            "consuming_bite"
+          ]
+        }
+      ],
+      "summary": "Two melee attacks, each a Corrupting Touch or a Consuming Bite."
+    },
+    {
+      "id": "corrupting_touch",
+      "name": "Corrupting Touch",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 6,
+          "dice": "1d6+3",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "+5, 1d6+3 Necrotic.",
+      "text": "A touch that withers the soul: 6 (1d6 + 3) Necrotic damage."
+    },
+    {
+      "id": "consuming_bite",
+      "name": "Consuming Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 5,
+          "dice": "1d4+3",
+          "type": "bludgeoning"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 13,
+          "max_size": "medium",
+          "limit": 1,
+          "hold_damage": {
+            "dice": "3d6",
+            "type": "necrotic"
+          }
+        },
+        {
+          "do": "heal_from_hold",
+          "params": {
+            "dice": "3d6",
+            "type": "necrotic"
+          }
+        }
+      ],
+      "summary": "+5, reach 10, 1d4+3 Bludgeoning; a Medium or smaller target is Grappled (escape DC 13) and at the start of its turn takes 3d6 Necrotic while the shrouded heals the same.",
+      "text": "A gaping, drinking maw: 5 (1d4 + 3) Bludgeoning damage from 10 feet away. A Medium or smaller target is Grappled (escape DC 13). At the start of a Grappled target's turn it takes 10 (3d6) Necrotic damage and the shrouded regains Hit Points equal to that amount."
+    }
+  ],
+  "ai_profile": "swarm",
+  "summary": "A drinking fog of dead souls that reaches out to grapple a victim and feed on them as it holds them.",
+  "art": "wraith"
+}

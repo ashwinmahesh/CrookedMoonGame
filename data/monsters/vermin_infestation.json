@@ -1,0 +1,192 @@
+{
+  "id": "vermin_infestation",
+  "name": "Vermin Infestation",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours.",
+    "page": 535
+  },
+  "size": "medium",
+  "type": "fey",
+  "swarm_of": "tiny",
+  "tags": [
+    "swarm"
+  ],
+  "alignment": "chaotic evil",
+  "ac": 14,
+  "initiative": 4,
+  "hp": {
+    "average": 39,
+    "dice": "6d8+12"
+  },
+  "speed": {
+    "walk": 30,
+    "climb": 30,
+    "burrow": 30
+  },
+  "abilities": {
+    "str": 14,
+    "dex": 19,
+    "con": 14,
+    "int": 6,
+    "wis": 16,
+    "cha": 15
+  },
+  "saves": {
+    "str": 4,
+    "cha": 4
+  },
+  "skills": {
+    "deception": 6,
+    "perception": 5,
+    "stealth": 8
+  },
+  "resistances": [
+    "bludgeoning",
+    "piercing",
+    "slashing"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "frightened",
+    "grappled",
+    "paralyzed",
+    "petrified",
+    "prone",
+    "restrained",
+    "stunned"
+  ],
+  "senses": {
+    "blindsight": 30,
+    "darkvision": 60,
+    "tremorsense": 30
+  },
+  "passive_perception": 15,
+  "languages": [
+    "Common",
+    "Sylvan"
+  ],
+  "cr": 3,
+  "xp": 700,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "infighting",
+      "name": "Infighting",
+      "action": "passive",
+      "summary": "Influence action: hinting that its parts conspire, with a DC 15 Charisma (Deception) success, deals it 10 Necrotic.",
+      "text": "As an Influence action, a creature that suggests the swarm's components are plotting against each other and succeeds on a DC 15 Charisma (Deception) check deals 10 Necrotic damage to the swarm.",
+      "implemented": "text"
+    },
+    {
+      "id": "spider_climb",
+      "name": "Spider Climb",
+      "action": "passive",
+      "summary": "Climbs walls and ceilings with no ability check.",
+      "text": "The swarm climbs difficult surfaces, ceilings included, without an ability check.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "spider_climb"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "swarm",
+      "name": "Swarm",
+      "action": "passive",
+      "summary": "Shares spaces with other creatures, fits through any Tiny-sized gap; can't heal or gain Temporary Hit Points.",
+      "text": "The swarm can move into and stay in another creature's space and vice versa, and passes through any opening wide enough for a Tiny creature. It can't regain Hit Points or gain Temporary Hit Points.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "swarm"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "shred",
+      "name": "Shred",
+      "kind": "melee_or_ranged",
+      "attack": {
+        "bonus": 6,
+        "reach": 5,
+        "range": [
+          20,
+          60
+        ]
+      },
+      "damage": [
+        {
+          "average": 14,
+          "dice": "4d4+4",
+          "type": "piercing",
+          "if": "not_bloodied"
+        },
+        {
+          "average": 9,
+          "dice": "2d4+4",
+          "type": "piercing",
+          "if": "bloodied"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 14,
+          "max_size": "medium",
+          "limit": 1
+        },
+        {
+          "do": "held_turn_table",
+          "params": {
+            "die": "1d6",
+            "when": "start of the held creature's turn",
+            "table": [
+              {
+                "rolls": [
+                  1,
+                  2
+                ],
+                "id": "centipede_sting",
+                "damage": "1d8",
+                "type": "poison",
+                "condition": "poisoned",
+                "until": "target_turn_start"
+              },
+              {
+                "rolls": [
+                  3,
+                  4
+                ],
+                "id": "pigeon_cry",
+                "damage": "3d6",
+                "type": "psychic"
+              },
+              {
+                "rolls": [
+                  5,
+                  6
+                ],
+                "id": "weasel_drain",
+                "damage": "1d10",
+                "type": "necrotic",
+                "drain_max_hp": true
+              }
+            ]
+          }
+        }
+      ],
+      "summary": "+6, reach 5 or range 20/60, 4d4+4 Piercing (2d4+4 when Bloodied); a Medium or smaller target in its space is Grappled (escape DC 14, one at a time) and suffers a d6 effect each turn: 1-2 Poison and Poisoned, 3-4 Psychic, 5-6 Necrotic that also lowers max HP.",
+      "text": "Hit: 14 (4d4 + 4) Piercing damage, or 9 (2d4 + 4) while the swarm is Bloodied. A Medium or smaller target in the swarm's space is Grappled (escape DC 14); the swarm holds one creature at a time. At the start of each of the held creature's turns, roll a d6. 1-2 Centipede Sting: 4 (1d8) Poison damage and Poisoned until the start of its next turn. 3-4 Pigeon Cry: 10 (3d6) Psychic damage. 5-6 Weasel Drain: 5 (1d10) Necrotic damage, and the target's Hit Point maximum drops by the damage taken."
+    }
+  ],
+  "ai_profile": "swarm",
+  "summary": "A quarrelling mass of centipedes, pigeons and weasels that strikes from range and in melee, then holds a victim in the churn and tortures them at random.",
+  "art": "swarm_of_rats"
+}

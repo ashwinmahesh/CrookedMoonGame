@@ -1,0 +1,211 @@
+{
+  "id": "house_of_horror",
+  "name": "House of Horror",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 508,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "gargantuan",
+  "type": "construct",
+  "alignment": "neutral evil",
+  "ac": 17,
+  "initiative": 5,
+  "hp": {
+    "average": 217,
+    "dice": "14d20+70"
+  },
+  "speed": {
+    "walk": 10
+  },
+  "abilities": {
+    "str": 22,
+    "dex": 10,
+    "con": 20,
+    "int": 5,
+    "wis": 16,
+    "cha": 7
+  },
+  "saves": {
+    "cha": 3
+  },
+  "skills": {
+    "athletics": 11,
+    "deception": 8
+  },
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "exhaustion",
+    "grappled",
+    "petrified",
+    "poisoned",
+    "prone",
+    "restrained"
+  ],
+  "senses": {
+    "blindsight": 60
+  },
+  "passive_perception": 13,
+  "languages": [
+    "understands Common and one other language but can't speak"
+  ],
+  "cr": 13,
+  "xp": 10000,
+  "proficiency_bonus": 5,
+  "traits": [
+    {
+      "id": "construction",
+      "name": "Construction",
+      "action": "passive",
+      "summary": "Creatures can enter and walk through the house as a building; it attacks from any surface or object inside its space, has no Disadvantage on ranged attacks from foes being within 5 ft, and 30 damage in a turn to one 5-ft section forces a DC 18 Con save or a hole opens.",
+      "text": "Creatures can enter the house's space and move through it like an ordinary building. The house makes its attacks from any surface or object in its space that is not being worn or carried. It does not have Disadvantage on ranged attack rolls because an enemy is within 5 feet of it. If a creature deals 30 or more damage in a single turn to a 5-foot section of the house's structure, the house must succeed on a DC 18 Constitution saving throw or a 5-foot opening appears in that space until the start of that creature's next turn.",
+      "implemented": "text"
+    },
+    {
+      "id": "exorcism_susceptibility",
+      "name": "Exorcism Susceptibility",
+      "action": "passive",
+      "summary": "Targeted by Dispel Evil and Good, it is Stunned (DC 15 Cha save at each turn's end, 1 minute at most); a Magic action from inside, throwing Holy Water at it with a DC 20 Charisma check, does the same.",
+      "text": "If the house is targeted by a Dispel Evil and Good spell, it has the Stunned condition. At the end of each of its turns it can make a DC 15 Charisma saving throw, ending the condition on itself on a success; after 1 minute it succeeds automatically. As a Magic action, a creature inside the house that throws a flask of Holy Water against the house and succeeds on a DC 20 Charisma check affects the house in the same way.",
+      "implemented": "text"
+    },
+    {
+      "id": "soul_trap",
+      "name": "Soul Trap",
+      "action": "passive",
+      "summary": "A Humanoid that dies inside has its soul trapped until the house dies; only True Resurrection or Wish can return it.",
+      "text": "A Humanoid that dies within the house has its soul trapped there until the house dies. The creature can't be returned to life by any means short of a True Resurrection or Wish spell.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "structure_slam",
+          "count": 3,
+          "or": [
+            "object_fling"
+          ]
+        },
+        {
+          "action": "agonized_souls",
+          "count": 1
+        }
+      ],
+      "summary": "Three attacks, Structure Slam or Object Fling in any mix, and Agonized Souls.",
+      "text": "The house makes three attacks, using Structure Slam or Object Fling in any combination, and uses Agonized Souls."
+    },
+    {
+      "id": "structure_slam",
+      "name": "Structure Slam",
+      "kind": "melee",
+      "attack": {
+        "bonus": 11,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 15,
+          "dice": "2d8+6",
+          "type": "bludgeoning"
+        },
+        {
+          "average": 9,
+          "dice": "2d8",
+          "type": "force"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 16,
+          "max_size": "large",
+          "limit": 2,
+          "restrain": false
+        }
+      ],
+      "summary": "+11, 2d8+6 Bludgeoning plus 2d8 Force; a Large or smaller target is Grappled (escape DC 16) by furniture, objects or fixtures, up to two at a time.",
+      "text": "15 (2d8 + 6) Bludgeoning damage plus 9 (2d8) Force damage. A Large or smaller target has the Grappled condition (escape DC 16). The house can grapple up to two creatures at a time, using animated furniture, objects or fixtures such as stair railings."
+    },
+    {
+      "id": "object_fling",
+      "name": "Object Fling",
+      "kind": "ranged",
+      "attack": {
+        "bonus": 11,
+        "range": [
+          20,
+          60
+        ]
+      },
+      "damage": [
+        {
+          "average": 11,
+          "dice": "2d4+6",
+          "type": "bludgeoning",
+          "when": "or Piercing, the house's choice"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "prone",
+          "max_size": "large",
+          "until": "permanent"
+        }
+      ],
+      "summary": "Ranged +11, 20/60 ft, 2d4+6 Bludgeoning or Piercing (its choice); a Large or smaller target falls Prone.",
+      "text": "11 (2d4 + 6) Bludgeoning or Piercing damage, the house's choice. A Large or smaller target has the Prone condition."
+    },
+    {
+      "id": "agonized_souls",
+      "name": "Agonized Souls",
+      "kind": "save",
+      "save": {
+        "ability": "wis",
+        "dc": 16,
+        "success": "half"
+      },
+      "targets": {
+        "range": 10,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 36,
+          "dice": "8d8",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "The house's trapped souls torment one creature within 10 ft: DC 16 Wis save, 8d8 Necrotic (half on a success).",
+      "text": "The house's stolen souls torment a victim. Wisdom Saving Throw: DC 16, a creature within 10 feet of the house. Failure: 36 (8d8) Necrotic damage. Success: half damage."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "alter_structure",
+      "name": "Alter Structure",
+      "kind": "special",
+      "do": "alter_structure",
+      "save": {
+        "ability": "dex",
+        "dc": 18,
+        "success": "none"
+      },
+      "targets": {
+        "range": 5
+      },
+      "summary": "Reshapes the house, moving walls, doors, floors and other features; a creature within 5 ft of a changing feature can make a DC 18 Dex save to choose its side of it or step to the nearest free space instead of falling.",
+      "text": "The house reshapes itself to change the placement of walls, doors, floors and other features of its construction. When one of these features appears or disappears, a creature within 5 feet of it can make a DC 18 Dexterity saving throw. On a success the creature chooses which side of the feature it ends up on, or moves to the nearest unoccupied space to avoid falling."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A cursed, living house with a building's whole interior as its body: it hurls furniture, grips intruders with fixtures, rearranges its walls and tortures with its trapped souls; an exorcism stuns it."
+}

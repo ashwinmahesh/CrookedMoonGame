@@ -1,0 +1,354 @@
+{
+  "id": "barrow_king",
+  "name": "The Barrow King",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 543,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Lair XP is 50,000 (the block lists 41,000 outside it). The spellcasting save DC 22 and attack +14 are worked out from Cha +7 and PB +7, since the block names Charisma but gives no number."
+  },
+  "size": "large",
+  "type": "undead",
+  "alignment": "lawful evil",
+  "ac": 20,
+  "initiative": 16,
+  "hp": {
+    "average": 414,
+    "dice": "36d10+216"
+  },
+  "speed": {
+    "walk": 40
+  },
+  "abilities": {
+    "str": 24,
+    "dex": 14,
+    "con": 22,
+    "int": 16,
+    "wis": 18,
+    "cha": 24
+  },
+  "saves": {
+    "dex": 9,
+    "wis": 11
+  },
+  "skills": {
+    "intimidation": 14,
+    "perception": 11
+  },
+  "resistances": [
+    "cold",
+    "fire",
+    "lightning"
+  ],
+  "immunities": [
+    "necrotic",
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened",
+    "poisoned",
+    "stunned"
+  ],
+  "gear": [
+    "plate_armor",
+    "shield"
+  ],
+  "senses": {
+    "truesight": 120
+  },
+  "passive_perception": 21,
+  "languages": [
+    "Common"
+  ],
+  "cr": 22,
+  "xp": 41000,
+  "proficiency_bonus": 7,
+  "traits": [
+    {
+      "id": "legendary_resistance",
+      "name": "Legendary Resistance (4/Day, or 5/Day in Lair)",
+      "action": "special",
+      "summary": "4 times a day (5 in its lair), a failed saving throw becomes a success.",
+      "text": "When it fails a saving throw, it can choose to succeed instead, 4 times a day or 5 times in its lair.",
+      "implemented": "engine"
+    },
+    {
+      "id": "magic_resistance",
+      "name": "Magic Resistance",
+      "action": "passive",
+      "summary": "Advantage on saving throws against spells and other magical effects.",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:spell"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "marshal_undead",
+      "name": "Marshall Undead",
+      "action": "passive",
+      "summary": "Undead he chooses (not himself) within 60 ft of him have Advantage on attack rolls and saving throws; lost while he is Incapacitated.",
+      "text": "Undead creatures of his choice, other than himself, inside a 60-foot emanation from him have Advantage on attack rolls and saving throws. He loses this while Incapacitated.",
+      "implemented": "text"
+    },
+    {
+      "id": "name_of_rest",
+      "name": "Name of Rest",
+      "action": "passive",
+      "summary": "Against a weapon inscribed with the runic form of his original name his AC is 10, and he has Disadvantage on attacks against a creature holding one.",
+      "text": "His AC is 10 against attack rolls made with a weapon inscribed with the runic form of his original name, and he has Disadvantage on attack rolls against any creature holding such a weapon.",
+      "implemented": "text"
+    },
+    {
+      "id": "regional_lair",
+      "name": "Regional Lair Effects",
+      "action": "passive",
+      "summary": "While it lives and keeps its lair, the land round it carries two effects: Empire of Desecration; Necrotic Shroud.",
+      "text": "Empire of Desecration: a Hallow spell cast within 1 mile of the lair fails, though the resources used aren't wasted. Necrotic Shroud: a living creature within 1 mile of the lair that regains Hit Points by finishing a Long Rest regains at most half its Hit Point maximum. Both end at once if the king dies or moves his lair.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "soul_blade",
+          "count": 2
+        },
+        {
+          "action": "soul_blade",
+          "count": 1,
+          "or": [
+            "life_drain"
+          ]
+        }
+      ],
+      "summary": "Three Soul Blade attacks; he can swap one for Life Drain."
+    },
+    {
+      "id": "soul_blade",
+      "name": "Soul Blade",
+      "kind": "melee_or_ranged",
+      "attack": {
+        "bonus": 14,
+        "reach": 5,
+        "range": [
+          40,
+          80
+        ]
+      },
+      "damage": [
+        {
+          "average": 17,
+          "dice": "3d6+7",
+          "type": "slashing"
+        },
+        {
+          "average": 13,
+          "dice": "3d8",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "+14, reach 5 ft or range 40/80 ft, 3d6+7 Slashing plus 3d8 Necrotic; the blade flies back to his hand after a ranged attack.",
+      "text": "A spectral blade, swung or thrown: 17 (3d6 + 7) Slashing plus 13 (3d8) Necrotic damage. After a ranged attack, hit or miss, it returns to his hand at once."
+    },
+    {
+      "id": "life_drain",
+      "name": "Life Drain",
+      "kind": "save",
+      "save": {
+        "ability": "con",
+        "dc": 22,
+        "success": "none"
+      },
+      "targets": {
+        "range": 5,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 16,
+          "dice": "2d8+7",
+          "type": "necrotic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "drain_max_hp",
+          "type": "necrotic"
+        },
+        {
+          "do": "raise_thrall",
+          "params": {
+            "monster": "wight",
+            "types": [
+              "humanoid"
+            ],
+            "after_hours": 24,
+            "under_control_of": "source"
+          }
+        }
+      ],
+      "summary": "One creature within 5 ft: DC 22 Con save or 2d8+7 Necrotic and its Hit Point maximum drops by the same amount; a Humanoid it kills rises a day later as his Wight.",
+      "text": "A touch that eats life. The target makes a DC 22 Constitution save, taking 16 (2d8 + 7) Necrotic damage on a failure, and its Hit Point maximum falls by the damage taken. A Humanoid slain by this rises 24 hours later as a Wight under the king's control, unless it is restored to life or its body is destroyed."
+    },
+    {
+      "id": "blade_storm",
+      "name": "Blade Storm",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "dex",
+        "dc": 22,
+        "success": "half"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 20
+      },
+      "targets": {
+        "range": 20
+      },
+      "damage": [
+        {
+          "average": 35,
+          "dice": "10d6",
+          "type": "force"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "prone",
+          "until": "permanent"
+        }
+      ],
+      "summary": "Recharge 5-6. Creatures of his choice within 20 ft: DC 22 Dex save, 10d6 Force and Prone (half damage on a success).",
+      "text": "His blade whirls in an arc around him. Each creature of his choice in a 20-foot emanation makes a DC 22 Dexterity save, taking 35 (10d6) Force damage and falling Prone on a failure, or half damage on a success."
+    },
+    {
+      "id": "lords_call",
+      "name": "Lord's Call",
+      "kind": "special",
+      "do": "summon",
+      "summon": {
+        "choices": [
+          {
+            "monster": "wight",
+            "count": 2,
+            "where": "any"
+          }
+        ],
+        "arrive": 0
+      },
+      "summary": "Legendary only, once a round. Calls two Wights into free spaces within 30 ft; they act right after him and vanish after an hour, or when he dies or calls again.",
+      "text": "He summons two Wights into unoccupied spaces he can see within 30 feet. They obey him and act immediately after him on his Initiative count. A wight vanishes after 1 hour, when it or the king dies, or when he uses this action again. A creature that starts its turn within 5 feet of one of these wights makes a DC 15 Wisdom save or is Frightened until the start of its next turn. Not again until his next turn begins."
+    },
+    {
+      "id": "death_grasp",
+      "name": "Death Grasp",
+      "kind": "save",
+      "save": {
+        "ability": "str",
+        "dc": 22,
+        "success": "none"
+      },
+      "targets": {
+        "range": 100,
+        "count": 1
+      },
+      "on_fail": [
+        {
+          "do": "pull",
+          "feet": 40
+        },
+        {
+          "do": "condition",
+          "until": "target_turn_end",
+          "modifiers": [
+            {
+              "stat": "speed_percent",
+              "value": 50
+            }
+          ]
+        }
+      ],
+      "summary": "Legendary only. One creature he can see within 100 ft: DC 22 Str save or a skeletal arm drags it up to 40 ft closer and halves its Speed until the end of its next turn.",
+      "text": "A ghostly skeletal arm grabs a creature the king can see within 100 feet. It makes a DC 22 Strength save or is pulled up to 40 feet toward him, and its Speed is halved until the end of its next turn."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "undying_mount",
+      "name": "Undying Mount",
+      "kind": "spellcasting",
+      "recharge": "5-6",
+      "cast": [
+        "phantom_steed"
+      ],
+      "summary": "Recharge 5-6. Casts Phantom Steed (Cha, no components); the steed takes no damage from area effects, and the spell ends if he casts it again.",
+      "text": "He casts Phantom Steed with no components, using Charisma. The steed takes no damage from area effects, and the spell ends early if he casts it again."
+    }
+  ],
+  "reactions": [
+    {
+      "id": "parry",
+      "name": "Parry",
+      "kind": "special",
+      "trigger": "The king is hit by an attack roll while holding a weapon or shield.",
+      "summary": "Reaction: +7 AC against one attack that hit him, possibly turning the hit into a miss.",
+      "text": "Trigger: he is hit by an attack roll while holding a weapon or shield. Response: he adds 7 to his AC against that attack, which can make it miss.",
+      "ac_bonus": 7
+    }
+  ],
+  "legendary_actions": {
+    "per_round": 3,
+    "in_lair": 4,
+    "options": [
+      {
+        "id": "death_grasp",
+        "name": "Death Grasp",
+        "cost": 1,
+        "action": "death_grasp",
+        "summary": "One creature within 100 ft: DC 22 Str save or pulled up to 40 ft closer and Speed halved."
+      },
+      {
+        "id": "grim_charge",
+        "name": "Grim Charge",
+        "cost": 1,
+        "move": true,
+        "action": "soul_blade",
+        "summary": "He (or his mount) moves up to his Speed, then makes one Soul Blade attack."
+      },
+      {
+        "id": "lords_call",
+        "name": "Lord's Call",
+        "cost": 1,
+        "action": "lords_call",
+        "once": true,
+        "summary": "Summons two Wights within 30 ft. Once a round."
+      }
+    ]
+  },
+  "legendary_resistance": 4,
+  "legendary_resistance_in_lair": 5,
+  "spellcasting": {
+    "ability": "cha",
+    "dc": 22,
+    "attack": 14,
+    "at_will": [
+      "phantom_steed"
+    ]
+  },
+  "ai_profile": "brute",
+  "art": "wight",
+  "art_height": 1.8,
+  "summary": "An armoured undead king who throws and recalls a soul-eating blade, drains life, whirls in a storm of steel, drags heroes in with a skeletal arm and raises his wights to follow."
+}

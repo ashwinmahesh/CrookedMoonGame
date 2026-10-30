@@ -1,0 +1,248 @@
+{
+  "id": "keeper_of_the_blight",
+  "name": "Keeper of the Blight",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours.",
+    "page": 512
+  },
+  "size": "large",
+  "type": "fey",
+  "alignment": "chaotic evil",
+  "ac": 16,
+  "initiative": 3,
+  "hp": {
+    "average": 97,
+    "dice": "13d10+26"
+  },
+  "speed": {
+    "walk": 50
+  },
+  "abilities": {
+    "str": 14,
+    "dex": 16,
+    "con": 14,
+    "int": 11,
+    "wis": 20,
+    "cha": 12
+  },
+  "tags": [
+    "druid"
+  ],
+  "skills": {
+    "arcana": 6,
+    "medicine": 8,
+    "stealth": 6
+  },
+  "immunities": [
+    "necrotic",
+    "poison"
+  ],
+  "condition_immunities": [
+    "exhaustion",
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 15,
+  "languages": [
+    "Common",
+    "Sylvan"
+  ],
+  "cr": 6,
+  "xp": 2300,
+  "proficiency_bonus": 3,
+  "traits": [
+    {
+      "id": "blight_dependent",
+      "name": "Blight Dependent",
+      "action": "passive",
+      "summary": "An effect that ends Poisoned on it costs it 3d6 Force and Disadvantage on D20 Tests until the end of its next turn.",
+      "text": "If something targets the keeper with an effect that would end the Poisoned condition, the keeper takes 10 (3d6) Force damage and has Disadvantage on D20 Tests until the end of its next turn. The fungus that feeds it is being purged.",
+      "implemented": "text"
+    },
+    {
+      "id": "fungal_step",
+      "name": "Fungal Step",
+      "action": "passive",
+      "summary": "Ignores Difficult Terrain made by plants or fungi.",
+      "text": "Difficult Terrain caused by plants or fungi costs the keeper no extra movement.",
+      "implemented": "text"
+    },
+    {
+      "id": "rotting_ritual_rotation",
+      "name": "Rotting Ritual (choice)",
+      "action": "passive",
+      "summary": "Each turn it picks one ritual effect, never the same one two turns running.",
+      "text": "Its Multiattack ends in a Rotting Ritual, one of Frenzying Spores, Blight Spawn or Devouring Fungus. It can't pick the effect it used last time.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "blight_staff",
+          "count": 2,
+          "or": [
+            "spore_spray"
+          ]
+        },
+        {
+          "action": "frenzying_spores",
+          "count": 1,
+          "or": [
+            "blight_spawn",
+            "devouring_fungus"
+          ]
+        }
+      ],
+      "summary": "Two attacks (Blight Staff or Spore Spray, any mix) and a Rotting Ritual.",
+      "text": "The keeper makes two attacks with Blight Staff or Spore Spray in any mix, and works one Rotting Ritual effect. It can't repeat the ritual effect it used last."
+    },
+    {
+      "id": "blight_staff",
+      "name": "Blight Staff",
+      "kind": "melee",
+      "attack": {
+        "bonus": 8,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 9,
+          "dice": "1d8+5",
+          "type": "bludgeoning"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "+8, 1d8+5 Bludgeoning plus 2d6 Necrotic.",
+      "text": "A rotted staff swung hard: 9 (1d8 + 5) Bludgeoning damage plus 7 (2d6) Necrotic damage."
+    },
+    {
+      "id": "spore_spray",
+      "name": "Spore Spray",
+      "kind": "ranged",
+      "attack": {
+        "bonus": 8,
+        "range": [
+          60
+        ]
+      },
+      "damage": [
+        {
+          "average": 9,
+          "dice": "2d8",
+          "type": "poison"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "source_turn_end"
+        }
+      ],
+      "summary": "+8, range 60 ft, 2d8 Poison; a creature hit is Poisoned until the end of the keeper's next turn.",
+      "text": "A cloud of spores flung at a target within 60 feet: 9 (2d8) Poison damage, and a creature hit has the Poisoned condition until the end of the keeper's next turn."
+    },
+    {
+      "id": "frenzying_spores",
+      "name": "Frenzying Spores (Rotting Ritual)",
+      "kind": "save",
+      "save": {
+        "ability": "wis",
+        "dc": 16,
+        "success": "half"
+      },
+      "targets": {
+        "range": 30,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "3d6",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "forced_reaction_attack",
+          "params": {
+            "chooser": "source",
+            "needs_target_in_reach_or_range": true
+          }
+        }
+      ],
+      "summary": "Ritual option. One creature within 30 ft: DC 16 Wis save, 3d6 Psychic (half on a success); on a failure it must at once use its Reaction to attack a creature the keeper picks.",
+      "text": "Wisdom save, DC 16, one creature the keeper sees within 30 feet. Failure: 10 (3d6) Psychic damage, and the target must immediately spend its Reaction on a melee or ranged attack against a creature the keeper chooses that is within the attack's reach or range. Success: half damage only."
+    },
+    {
+      "id": "blight_spawn",
+      "name": "Blight Spawn (Rotting Ritual)",
+      "kind": "special",
+      "do": "summon_minion",
+      "summon": {
+        "choices": [
+          {
+            "monster": "rotweaver",
+            "count": 1
+          }
+        ],
+        "arrive": 0
+      },
+      "summary": "Ritual option. Calls a hornless Rotweaver into a free space within 30 ft; it acts right after the keeper for 1 minute.",
+      "text": "The keeper conjures a Rotweaver (without its Hunting Horn) in an empty space within 30 feet. The rotweaver takes its turn straight after the keeper on the same Initiative count and obeys it. It vanishes after 1 minute, or when it or the keeper dies."
+    },
+    {
+      "id": "devouring_fungus",
+      "name": "Devouring Fungus (Rotting Ritual)",
+      "kind": "special",
+      "do": "terrain_zone",
+      "area": {
+        "shape": "emanation",
+        "size": 60
+      },
+      "summary": "Ritual option. Fungus carpets 60 ft around the keeper for 1 minute: Difficult Terrain, and anyone inside is Poisoned.",
+      "text": "Fungus that feeds on life sprouts in a 60-foot radius around the keeper. The area is Difficult Terrain and any creature inside has the Poisoned condition. It lasts 1 minute, until the keeper uses this effect again, or until the keeper dies."
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "kind": "spellcasting",
+      "summary": "Wisdom, DC 16, +8: Druidcraft and Ray of Sickness at will; Blight once a day.",
+      "text": "The keeper casts one of these spells, needing no Material components and using Wisdom (spell save DC 16, +8 to hit). At will: Druidcraft, Ray of Sickness. 1/day: Blight."
+    }
+  ],
+  "spellcasting": {
+    "ability": "wis",
+    "dc": 16,
+    "attack": 8,
+    "at_will": [
+      "druidcraft",
+      "ray_of_sickness"
+    ],
+    "per_day": {
+      "1": [
+        "blight"
+      ]
+    }
+  },
+  "minions": {
+    "when_it_falls": "vanish"
+  },
+  "ai_profile": "spellcaster",
+  "art": "druid",
+  "art_height": 2.1,
+  "summary": "A fey druid eaten from within by rot: it fights with a rotten staff and spore spray and works a different fungal ritual every turn."
+}

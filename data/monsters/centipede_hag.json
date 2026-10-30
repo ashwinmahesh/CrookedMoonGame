@@ -1,0 +1,219 @@
+{
+  "id": "centipede_hag",
+  "name": "Centipede Hag",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 492,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "medium",
+  "type": "fey",
+  "alignment": "neutral evil",
+  "ac": 17,
+  "initiative": 7,
+  "hp": {
+    "average": 178,
+    "dice": "21d8+84"
+  },
+  "speed": {
+    "walk": 30,
+    "climb": 30
+  },
+  "abilities": {
+    "str": 20,
+    "dex": 16,
+    "con": 18,
+    "int": 16,
+    "wis": 18,
+    "cha": 21
+  },
+  "saves": {
+    "int": 7,
+    "con": 8,
+    "cha": 9
+  },
+  "skills": {
+    "deception": 9,
+    "intimidation": 9,
+    "medicine": 12,
+    "perception": 8,
+    "stealth": 7
+  },
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 18,
+  "languages": [
+    "Common",
+    "Deep Speech",
+    "Sylvan"
+  ],
+  "cr": 10,
+  "xp": 5900,
+  "proficiency_bonus": 4,
+  "traits": [
+    {
+      "id": "coven_magic",
+      "name": "Coven Magic",
+      "action": "passive",
+      "summary": "With two hag allies within 30 ft, casts one of six utility spells, each once per Long Rest.",
+      "text": "While within 30 feet of at least two hag allies, the hag can cast Augury, Find Familiar, Identify, Locate Object, Lucky Charm or Unseen Servant, with no Material components, the spell's normal casting time and Intelligence as its spellcasting ability. Lucky Charm lasts until the hag casts it again or chooses to end it, no action needed. After casting a spell this way, the hag must finish a Long Rest before casting that same spell with this trait again.",
+      "implemented": "text"
+    },
+    {
+      "id": "scoured_filth",
+      "name": "Scoured Filth",
+      "action": "passive",
+      "summary": "Soapy water burns it: a splashed bucket or flask counts as a vial of Acid, and sitting fully in it costs 20 Acid at turn start.",
+      "text": "Soapy water burns the hag. A bucket or flask of it splashed on her works as a vial of Acid. If she is fully immersed in soapy water at the start of her turn, she takes 20 Acid damage.",
+      "implemented": "text"
+    },
+    {
+      "id": "spider_climb",
+      "name": "Spider Climb",
+      "action": "passive",
+      "summary": "Climbs walls and ceilings with no ability check.",
+      "text": "The hag can climb difficult surfaces, ceilings included, without an ability check.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "spider_climb"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "bite",
+          "count": 2,
+          "or": [
+            "spellcasting"
+          ]
+        },
+        {
+          "action": "warping_caress",
+          "count": 1
+        }
+      ],
+      "summary": "Two Bites, or Spellcasting to cast Contagion; Warping Caress too.",
+      "text": "The hag makes two Bite attacks or uses Spellcasting to cast Contagion. She can also use Warping Caress."
+    },
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 9,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 14,
+          "dice": "2d8+5",
+          "type": "piercing"
+        },
+        {
+          "average": 4,
+          "dice": "1d8",
+          "type": "necrotic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "source_turn_start"
+        }
+      ],
+      "summary": "+9, 2d8+5 Piercing plus 1d8 Necrotic; Poisoned until the start of the hag's next turn.",
+      "text": "14 (2d8 + 5) Piercing damage plus 4 (1d8) Necrotic damage, and the target has the Poisoned condition until the start of the hag's next turn."
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "kind": "spellcasting",
+      "summary": "Charisma, DC 17, no Material components: Contagion, Disguise Self (24 hours), Hold Person, Invisibility (self) at will; Insect Plague (level 8) and Polymorph once a day each.",
+      "text": "She casts one of these spells, needing no Material components and using Charisma as her spellcasting ability (spell save DC 17). At will: Contagion, Disguise Self (the disguise lasts 24 hours), Hold Person, Invisibility (self only). 1/day each: Insect Plague (cast as a level 8 spell), Polymorph."
+    },
+    {
+      "id": "warping_caress",
+      "name": "Warping Caress",
+      "kind": "save",
+      "save": {
+        "ability": "con",
+        "dc": 17,
+        "success": "half"
+      },
+      "targets": {
+        "range": 5,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 19,
+          "dice": "4d6+5",
+          "type": "necrotic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "exhaustion",
+          "params": {
+            "levels": 1,
+            "max": 6
+          }
+        },
+        {
+          "do": "warped_body",
+          "params": {
+            "disadvantage": [
+              "check:str",
+              "check:dex",
+              "save:str",
+              "save:dex"
+            ],
+            "until": "exhaustion_gone"
+          }
+        }
+      ],
+      "summary": "DC 17 Con save, one creature within 5 ft: 4d6+5 Necrotic (half on a success) and on a failure 1 Exhaustion and a warped body (Disadvantage on Str and Dex checks and saves) until Exhaustion is gone.",
+      "text": "Constitution Saving Throw: DC 17, one creature within 5 feet. Failure: 19 (4d6 + 5) Necrotic damage, and the target gains 1 Exhaustion level. Until its Exhaustion is back to 0, its body is warped and it has Disadvantage on ability checks and saving throws that use Strength or Dexterity. Success: half damage only. Either way, if a Humanoid dies from this action, the hag can spend 2 days of work to shape the corpse into a Deepdreck, or join it with a horse's corpse to make a Fleshdobbin."
+    }
+  ],
+  "spellcasting": {
+    "ability": "cha",
+    "dc": 17,
+    "attack": 9,
+    "at_will": [
+      "contagion",
+      "disguise_self",
+      "hold_person",
+      "invisibility"
+    ],
+    "per_day": {
+      "1": [
+        "insect_plague",
+        "polymorph"
+      ]
+    },
+    "levels": {
+      "insect_plague": 8
+    }
+  },
+  "ai_profile": "spellcaster",
+  "art": "night_hag",
+  "summary": "A filth-loving hag of pestilence who bites with venom, spreads disease and twists victims' bodies; soapy water burns her like acid."
+}

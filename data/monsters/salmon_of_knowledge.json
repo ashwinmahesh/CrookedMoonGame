@@ -1,0 +1,139 @@
+{
+  "id": "salmon_of_knowledge",
+  "name": "Salmon of Knowledge",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Familiar block (CR 1). Bond ritual: 10 minutes with materials worth 100+ gp (crushed opal); the Familiar Bond rules (bonded sympathy, channel magic, telepathic connection, 1-hour revival) are on page 580 and are listed once in the notes file.",
+    "page": 592
+  },
+  "size": "tiny",
+  "type": "elemental",
+  "alignment": "neutral",
+  "ac": 13,
+  "initiative": 3,
+  "hp": {
+    "average": 25,
+    "dice": "10d4"
+  },
+  "speed": {
+    "walk": 5,
+    "fly": 30,
+    "hover": true,
+    "swim": 30
+  },
+  "abilities": {
+    "str": 5,
+    "dex": 16,
+    "con": 10,
+    "int": 14,
+    "wis": 18,
+    "cha": 10
+  },
+  "skills": {
+    "arcana": 4,
+    "history": 6,
+    "insight": 6,
+    "perception": 6
+  },
+  "resistances": [
+    "psychic"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "frightened"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 16,
+  "languages": [
+    "Understands all languages but can't speak"
+  ],
+  "telepathy": 60,
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "orb_of_water",
+      "name": "Orb of Water",
+      "action": "passive",
+      "summary": "Wrapped in a sphere of flowing water that lets it fly (hover) and gives Resistance to Fire; a grappler can pull it out, and the orb moves 20 ft toward it each turn.",
+      "text": "A sphere of flowing water moves with the salmon. While inside it, the salmon flies (hovering) and has Resistance to Fire damage. A creature grappling the salmon may pull it out of the orb. At the start of each of the salmon's turns the orb moves up to 20 feet toward it, and if the orb enters its space, the Grappled condition on the salmon ends.",
+      "implemented": "text"
+    },
+    {
+      "id": "water_breathing",
+      "name": "Water Breathing",
+      "action": "passive",
+      "summary": "Can breathe only underwater.",
+      "text": "The salmon can breathe only underwater.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "water_spray",
+          "count": 1
+        },
+        {
+          "action": "water_spray",
+          "count": 1,
+          "or": [
+            "prophetic_guidance"
+          ]
+        }
+      ],
+      "summary": "Two Water Sprays; it may replace one with Prophetic Guidance."
+    },
+    {
+      "id": "water_spray",
+      "name": "Water Spray",
+      "kind": "ranged",
+      "attack": {
+        "bonus": 5,
+        "range": [
+          20,
+          60
+        ]
+      },
+      "damage": [
+        {
+          "average": 6,
+          "dice": "1d6+3",
+          "type": "cold"
+        }
+      ],
+      "summary": "+5, range 20/60, 1d6+3 Cold."
+    },
+    {
+      "id": "prophetic_guidance",
+      "name": "Prophetic Guidance",
+      "kind": "special",
+      "do": "roll_bonus_die",
+      "uses": {
+        "count": 2,
+        "per": "day"
+      },
+      "summary": "Twice a day: a creature it sees within 30 ft gains foresight for a minute; once, when it fails a D20 Test, it rolls 1d4 and adds it to the total."
+    }
+  ],
+  "reactions": [
+    {
+      "id": "echo_from_the_current",
+      "name": "Echo from the Current",
+      "kind": "special",
+      "do": "borrow_modifier",
+      "trigger": "A creature within 5 ft makes an Intelligence or Wisdom check.",
+      "summary": "When a creature within 5 ft makes an Intelligence or Wisdom check, it may use the salmon's Wisdom modifier (+4) in place of its own."
+    }
+  ],
+  "ai_profile": "support",
+  "summary": "A shimmering fish in a floating orb of water that sprays cold and lends foresight and wisdom to a friend's rolls."
+}

@@ -1,0 +1,195 @@
+{
+  "id": "fleshdobbin",
+  "name": "Fleshdobbin",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 503,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "large",
+  "type": "monstrosity",
+  "alignment": "chaotic evil",
+  "ac": 16,
+  "initiative": 2,
+  "hp": {
+    "average": 104,
+    "dice": "11d10+44"
+  },
+  "speed": {
+    "walk": 50
+  },
+  "abilities": {
+    "str": 20,
+    "dex": 15,
+    "con": 19,
+    "int": 7,
+    "wis": 14,
+    "cha": 10
+  },
+  "saves": {
+    "str": 8
+  },
+  "skills": {
+    "athletics": 8,
+    "intimidation": 6,
+    "perception": 5
+  },
+  "immunities": [
+    "psychic"
+  ],
+  "condition_immunities": [
+    "exhaustion",
+    "paralyzed",
+    "petrified"
+  ],
+  "senses": {
+    "blindsight": 60
+  },
+  "passive_perception": 15,
+  "languages": [
+    "Common"
+  ],
+  "cr": 6,
+  "xp": 2300,
+  "proficiency_bonus": 3,
+  "gear": [
+    "Chain Mail",
+    "Glaive"
+  ],
+  "traits": [
+    {
+      "id": "bridle_binding",
+      "name": "Bridle Binding",
+      "action": "passive",
+      "summary": "A bridle put on it (treated like Manacles) leaves it Charmed while worn, and it can't remove the bridle itself.",
+      "text": "If a creature fits a bridle on the fleshdobbin (handled like securing Manacles), the fleshdobbin is Charmed for as long as it wears the bridle and cannot take the bridle off on its own.",
+      "implemented": "text"
+    },
+    {
+      "id": "immutable_form",
+      "name": "Immutable Form",
+      "action": "passive",
+      "summary": "Can't shape-shift.",
+      "text": "The fleshdobbin cannot change shape.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "claw",
+          "count": 1
+        },
+        {
+          "action": "wailing_halberd",
+          "count": 1
+        }
+      ],
+      "summary": "One Claw and one Wailing Halberd attack."
+    },
+    {
+      "id": "claw",
+      "name": "Claw",
+      "kind": "melee",
+      "attack": {
+        "bonus": 8,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 8,
+          "dice": "1d6+5",
+          "type": "piercing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "prone",
+          "max_size": "large",
+          "until": "permanent"
+        }
+      ],
+      "summary": "+8, reach 10 ft, 1d6+5 Piercing; a Large or smaller target falls Prone."
+    },
+    {
+      "id": "wailing_halberd",
+      "name": "Wailing Halberd",
+      "kind": "melee",
+      "attack": {
+        "bonus": 8,
+        "reach": 15
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "1d10+5",
+          "type": "slashing"
+        },
+        {
+          "average": 5,
+          "dice": "1d10",
+          "type": "psychic"
+        }
+      ],
+      "weapon": true,
+      "summary": "+8, reach 15 ft, 1d10+5 Slashing plus 1d10 Psychic."
+    },
+    {
+      "id": "shriek",
+      "name": "Shriek",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "wis",
+        "dc": 15,
+        "success": "half"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 30
+      },
+      "targets": {
+        "range": 30
+      },
+      "damage": [
+        {
+          "average": 28,
+          "dice": "8d6",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "frightened",
+          "until": "minute",
+          "repeat_save": {
+            "ability": "wis",
+            "dc": 15,
+            "when": "end"
+          }
+        }
+      ],
+      "summary": "Recharge 5-6. 30-ft cone, DC 15 Wis save: 8d6 Psychic and Frightened (save again at the end of each of its turns; after 1 minute it ends); half damage on a success."
+    }
+  ],
+  "reactions": [
+    {
+      "id": "parry",
+      "name": "Parry",
+      "kind": "special",
+      "trigger": "A creature it can see hits it with a melee attack roll while it wields a Melee weapon.",
+      "summary": "Reaction: +3 AC against one melee attack that hit it, possibly turning the hit into a miss.",
+      "ac_bonus": 3
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A knight and his horse fused into one claw-handed horror: it tramples with a long-reach halberd and screams foes into terror, but a bridle turns it back into a steed.",
+  "art": "nightmare"
+}

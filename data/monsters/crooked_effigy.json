@@ -1,0 +1,112 @@
+{
+  "id": "crooked_effigy",
+  "name": "Crooked Effigy",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 495,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "medium",
+  "type": "plant",
+  "alignment": "chaotic evil",
+  "ac": 14,
+  "initiative": 1,
+  "hp": {
+    "average": 45,
+    "dice": "6d8+18"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 16,
+    "dex": 13,
+    "con": 16,
+    "int": 9,
+    "wis": 16,
+    "cha": 9
+  },
+  "saves": {
+    "str": 5,
+    "wis": 5
+  },
+  "skills": {
+    "perception": 5,
+    "stealth": 5,
+    "survival": 5
+  },
+  "resistances": [
+    "bludgeoning",
+    "piercing"
+  ],
+  "vulnerabilities": [
+    "fire"
+  ],
+  "senses": {
+    "blindsight": 60
+  },
+  "passive_perception": 15,
+  "languages": [
+    "Common",
+    "Sylvan"
+  ],
+  "cr": 2,
+  "xp": 450,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "crooked_thorns",
+      "name": "Crooked Thorns",
+      "action": "passive",
+      "summary": "At the start of its turns, 1d10 Psychic to any creature it is grappling or that is grappling it.",
+      "text": "At the start of each of the effigy's turns, it deals 5 (1d10) Psychic damage to any creature it is grappling and to any creature that is grappling it. (The Impale action carries the damage to a creature the effigy holds; the other case is the code's.)",
+      "implemented": "text"
+    },
+    {
+      "id": "old_bindings",
+      "name": "Old Bindings",
+      "action": "passive",
+      "summary": "Takes an extra 10 Force damage when hit by an attack roll made with Smith's Tools or Tinker's Tools.",
+      "text": "The effigy takes an extra 10 Force damage when it is hit by an attack roll made with Smith's Tools or Tinker's Tools, which count as a Club or a Light Hammer for the attack.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "impale",
+      "name": "Impale",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 8,
+          "dice": "1d10+3",
+          "type": "piercing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 13,
+          "max_size": "medium",
+          "limit": 2,
+          "restrain": true,
+          "hold_damage": {
+            "dice": "1d10",
+            "type": "psychic"
+          }
+        }
+      ],
+      "summary": "+5, 1d10+3 Piercing; a Medium or smaller target is Grappled on a branch arm (escape DC 13, two arms) and Restrained.",
+      "text": "8 (1d10 + 3) Piercing damage. A Medium or smaller target has the Grappled condition (escape DC 13) from one of its two branch arms, and is Restrained until the grapple ends. A creature it holds takes the Crooked Thorns damage at the start of the effigy's turns."
+    }
+  ],
+  "ai_profile": "brute",
+  "art": "twig_blight",
+  "art_height": 1.2,
+  "summary": "A bark-and-thorn servant of the Crooked Queen that spears foes on its branch arms and holds them against its thorns."
+}

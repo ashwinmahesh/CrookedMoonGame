@@ -1,0 +1,195 @@
+{
+  "id": "alpengrendel",
+  "name": "Alpengrendel",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 487,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "large",
+  "type": "giant",
+  "alignment": "chaotic evil",
+  "ac": 15,
+  "initiative": 1,
+  "hp": {
+    "average": 85,
+    "dice": "9d10+36"
+  },
+  "speed": {
+    "walk": 40,
+    "climb": 40
+  },
+  "abilities": {
+    "str": 20,
+    "dex": 12,
+    "con": 18,
+    "int": 9,
+    "wis": 14,
+    "cha": 10
+  },
+  "saves": {
+    "dex": 4
+  },
+  "skills": {
+    "athletics": 8,
+    "perception": 5,
+    "survival": 5
+  },
+  "resistances": [
+    "fire"
+  ],
+  "immunities": [
+    "cold"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 15,
+  "languages": [
+    "Common",
+    "Giant"
+  ],
+  "cr": 6,
+  "xp": 2300,
+  "proficiency_bonus": 3,
+  "traits": [
+    {
+      "id": "aversion_to_faith",
+      "name": "Aversion to Faith",
+      "action": "passive",
+      "summary": "Disadvantage on attacks while standing on consecrated ground, or against anyone holding or wearing a Holy Symbol.",
+      "text": "The alpengrendel makes attack rolls with Disadvantage while it is in a consecrated area, and also when it attacks a creature that holds or wears a Holy Symbol.",
+      "implemented": "text"
+    },
+    {
+      "id": "regeneration",
+      "name": "Regeneration",
+      "action": "passive",
+      "summary": "Regains 10 HP at the start of its turn; Acid or Lightning damage stops that for its next turn. It dies only if it starts a turn at 0 HP and fails to regenerate.",
+      "text": "At the start of each of its turns it regains 10 Hit Points. If it took Acid or Lightning damage, the trait does nothing at the start of its next turn. Reaching 0 Hit Points does not kill it: it dies only if it starts a turn at 0 Hit Points and does not regenerate. (The block's `regenerates` key does the healing; the survive-at-0 rule is not built.)",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "claws",
+          "count": 1
+        },
+        {
+          "action": "tusks",
+          "count": 1
+        }
+      ],
+      "summary": "One Claws attack and one Tusks attack."
+    },
+    {
+      "id": "claws",
+      "name": "Claws",
+      "kind": "melee",
+      "attack": {
+        "bonus": 8,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 12,
+          "dice": "2d6+5",
+          "type": "slashing"
+        },
+        {
+          "average": 5,
+          "dice": "1d10",
+          "type": "cold"
+        }
+      ],
+      "summary": "+8, 2d6+5 Slashing plus 1d10 Cold."
+    },
+    {
+      "id": "tusks",
+      "name": "Tusks",
+      "kind": "melee",
+      "attack": {
+        "bonus": 8,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 9,
+          "dice": "1d8+5",
+          "type": "piercing"
+        },
+        {
+          "average": 5,
+          "dice": "1d10",
+          "type": "cold"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "prone",
+          "max_size": "medium",
+          "until": "permanent"
+        }
+      ],
+      "summary": "+8, 1d8+5 Piercing plus 1d10 Cold; a Medium or smaller target falls Prone."
+    },
+    {
+      "id": "frost_breath",
+      "name": "Frost Breath",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "con",
+        "dc": 15,
+        "success": "half"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 30
+      },
+      "targets": {
+        "range": 30
+      },
+      "damage": [
+        {
+          "average": 21,
+          "dice": "6d6",
+          "type": "cold"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "until": "source_turn_start",
+          "modifiers": [
+            {
+              "stat": "speed_percent",
+              "value": 50
+            },
+            {
+              "stat": "disadvantage",
+              "on": "attack"
+            }
+          ]
+        }
+      ],
+      "summary": "Recharge 5-6. 30-ft cone, DC 15 Con save: 6d6 Cold (half on a success); on a failure Speed is halved and attacks have Disadvantage until the grendel's next turn."
+    }
+  ],
+  "regenerates": {
+    "hp": 10,
+    "stopped_by": [
+      "acid",
+      "lightning"
+    ]
+  },
+  "ai_profile": "brute",
+  "summary": "A hulking, frost-furred mountain brute that claws, gores and breathes killing cold, shrugging off wounds unless acid or lightning stops its healing."
+}

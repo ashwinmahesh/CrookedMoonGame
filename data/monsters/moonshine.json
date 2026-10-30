@@ -1,0 +1,179 @@
+{
+  "id": "moonshine",
+  "name": "Moonshine",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Familiar block (CR 1). Bond ritual: 10 minutes with materials worth 100+ gp (broken glass and powdered onyx); the Familiar Bond rules (bonded sympathy, channel magic, telepathic connection, 1-hour revival) are on page 580 and are listed once in the notes file.",
+    "page": 589
+  },
+  "size": "tiny",
+  "type": "undead",
+  "alignment": "neutral",
+  "ac": 13,
+  "initiative": 3,
+  "hp": {
+    "average": 22,
+    "dice": "5d4+10"
+  },
+  "speed": {
+    "walk": 5,
+    "fly": 30,
+    "hover": true
+  },
+  "abilities": {
+    "str": 1,
+    "dex": 16,
+    "con": 14,
+    "int": 11,
+    "wis": 13,
+    "cha": 9
+  },
+  "resistances": [
+    "acid",
+    "bludgeoning",
+    "cold",
+    "fire",
+    "lightning",
+    "necrotic",
+    "piercing",
+    "slashing",
+    "thunder"
+  ],
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "exhaustion",
+    "grappled",
+    "paralyzed",
+    "petrified",
+    "poisoned",
+    "prone",
+    "restrained",
+    "unconscious"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 11,
+  "languages": [
+    "Common",
+    "one other language"
+  ],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "detect_life",
+      "name": "Detect Life",
+      "action": "passive",
+      "summary": "Senses the direction of creatures within 60 ft that aren't Constructs or Undead.",
+      "text": "The moonshine magically senses the direction of living creatures up to 60 feet away that aren't Constructs or Undead.",
+      "implemented": "text"
+    },
+    {
+      "id": "ephemeral",
+      "name": "Ephemeral",
+      "action": "passive",
+      "summary": "Can't wear or carry anything.",
+      "text": "The moonshine can't wear or carry anything.",
+      "implemented": "text"
+    },
+    {
+      "id": "illumination",
+      "name": "Illumination",
+      "action": "passive",
+      "summary": "Sheds Bright Light 15 ft and Dim Light another 15 ft.",
+      "text": "The moonshine sheds Bright Light in a 15-foot radius and Dim Light for 15 feet beyond.",
+      "implemented": "text"
+    },
+    {
+      "id": "incorporeal_movement",
+      "name": "Incorporeal Movement",
+      "action": "passive",
+      "summary": "Moves through creatures and objects as Difficult Terrain; 5 (1d10) Force if it ends a turn inside one.",
+      "text": "The moonshine passes through creatures and objects as though they were Difficult Terrain, and takes 5 (1d10) Force damage if it ends its turn inside an object.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "incorporeal_movement"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "gloomy_touch",
+          "count": 2
+        }
+      ],
+      "summary": "Two Gloomy Touch attacks."
+    },
+    {
+      "id": "gloomy_touch",
+      "name": "Gloomy Touch",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "1d8+3",
+          "type": "psychic"
+        }
+      ],
+      "summary": "+5, 1d8+3 Psychic."
+    },
+    {
+      "id": "siphon_life",
+      "name": "Siphon Life",
+      "kind": "save",
+      "uses": {
+        "count": 2,
+        "per": "day"
+      },
+      "save": {
+        "ability": "con",
+        "dc": 11,
+        "success": "none"
+      },
+      "targets": {
+        "range": 5,
+        "count": 1,
+        "not_types": [
+          "construct",
+          "undead"
+        ]
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "stunned",
+          "until": "source_turn_end"
+        },
+        {
+          "do": "heal_chosen",
+          "params": {
+            "dice": "1d6",
+            "range": 30,
+            "who": "the moonshine or a creature of its choice"
+          }
+        }
+      ],
+      "summary": "Twice a day: one living creature it sees within 5 ft makes a DC 11 Con save or is Stunned until the end of the moonshine's next turn, and the moonshine or a creature of its choice within 30 ft regains 1d6 Hit Points."
+    }
+  ],
+  "ai_profile": "support",
+  "summary": "A kindly dead soul who lingers as a lamp: it lights the dark, senses the living, touches for psychic harm and siphons a foe's strength.",
+  "art": "will_o_wisp"
+}

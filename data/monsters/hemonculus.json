@@ -1,0 +1,181 @@
+{
+  "id": "hemonculus",
+  "name": "Hemonculus",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Familiar block (CR 1). Bond ritual: 10 minutes with materials worth 100+ gp (fresh blood and gem dust); the Familiar Bond rules (bonded sympathy, channel magic, telepathic connection, 1-hour revival) are on page 580 and are listed once in the notes file.",
+    "page": 587
+  },
+  "size": "tiny",
+  "type": "fiend",
+  "alignment": "neutral evil",
+  "ac": 13,
+  "initiative": 3,
+  "hp": {
+    "average": 27,
+    "dice": "6d4+12"
+  },
+  "speed": {
+    "walk": 20,
+    "fly": 40
+  },
+  "abilities": {
+    "str": 6,
+    "dex": 16,
+    "con": 14,
+    "int": 7,
+    "wis": 10,
+    "cha": 6
+  },
+  "skills": {
+    "athletics": 2,
+    "stealth": 7
+  },
+  "resistances": [
+    "cold",
+    "fire"
+  ],
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "frightened",
+    "poisoned"
+  ],
+  "senses": {
+    "blindsight": 60
+  },
+  "passive_perception": 10,
+  "languages": [
+    "Common"
+  ],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "blood_sense",
+      "name": "Blood Sense",
+      "action": "passive",
+      "summary": "Knows where any Bloodied creature within 60 ft is, unless it is a Construct or Undead.",
+      "text": "The hemonculus knows the location of every Bloodied creature within 60 feet that isn't a Construct or Undead.",
+      "implemented": "text"
+    },
+    {
+      "id": "flyby",
+      "name": "Flyby",
+      "action": "passive",
+      "summary": "Doesn't provoke Opportunity Attacks when it flies out of an enemy's reach.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "flyby"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "magic_resistance",
+      "name": "Magic Resistance",
+      "action": "passive",
+      "summary": "Advantage on saving throws against spells and other magical effects.",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:spell"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "claw",
+      "name": "Claw",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 5,
+          "dice": "1d4+3",
+          "type": "slashing"
+        },
+        {
+          "average": 3,
+          "dice": "1d6",
+          "type": "necrotic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "attach",
+          "params": {
+            "auto_hit": true,
+            "detach_cost_ft": 5,
+            "detach_by_target_action": true
+          }
+        }
+      ],
+      "summary": "+5, 1d4+3 Slashing plus 1d6 Necrotic; it attaches, and while attached its Claw attacks against that target hit automatically.",
+      "text": "Hit: 5 (1d4 + 3) Slashing plus 3 (1d6) Necrotic damage, and the hemonculus attaches to the target. While attached its Claw attacks against that target automatically hit. It detaches by spending 5 feet of movement; the target or a creature within 5 feet of it can pull it off as an action."
+    },
+    {
+      "id": "exsanguinate",
+      "name": "Exsanguinate",
+      "kind": "save",
+      "uses": {
+        "count": 1,
+        "per": "day"
+      },
+      "save": {
+        "ability": "con",
+        "dc": 13,
+        "success": "half"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 15
+      },
+      "targets": {
+        "range": 15,
+        "enemies_only": true
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "3d6",
+          "type": "necrotic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "until": "source_turn_start",
+          "modifiers": [
+            {
+              "stat": "flag",
+              "value": "cant_regain_hp"
+            }
+          ]
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "heal_if_attached",
+          "params": {
+            "type": "necrotic"
+          }
+        }
+      ],
+      "summary": "Once a day: 15-ft emanation, creatures of its choice make a DC 13 Con save or take 3d6 Necrotic (half on a success) and can't regain Hit Points until its next turn; if it is attached to a victim it regains HP equal to that victim's Necrotic damage."
+    }
+  ],
+  "ai_profile": "support",
+  "summary": "A blood-formed fiendling that clings to a victim and drains it, spies out the wounded, and slips away from reach.",
+  "art": "bat"
+}

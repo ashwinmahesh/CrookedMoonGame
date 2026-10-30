@@ -1,0 +1,200 @@
+{
+  "id": "lake_dredger",
+  "name": "Lake Dredger",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours.",
+    "page": 514
+  },
+  "size": "huge",
+  "type": "undead",
+  "alignment": "neutral evil",
+  "ac": 12,
+  "initiative": 0,
+  "hp": {
+    "average": 157,
+    "dice": "15d12+60"
+  },
+  "speed": {
+    "walk": 20,
+    "swim": 50
+  },
+  "abilities": {
+    "str": 22,
+    "dex": 10,
+    "con": 18,
+    "int": 4,
+    "wis": 12,
+    "cha": 4
+  },
+  "skills": {
+    "stealth": 8
+  },
+  "resistances": [
+    "necrotic",
+    "psychic"
+  ],
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "exhaustion",
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 11,
+  "languages": [],
+  "cr": 9,
+  "xp": 5000,
+  "proficiency_bonus": 4,
+  "traits": [
+    {
+      "id": "depicted_demise",
+      "name": "Depicted Demise",
+      "action": "passive",
+      "summary": "Takes 20 Force at the start of its turn if it can see a creature holding a drawing, painting or carving of it.",
+      "text": "At the start of the dredger's turn it takes 20 Force damage if it can see a creature holding a made likeness of the dredger, such as a drawing, a painting or a carving.",
+      "implemented": "text"
+    },
+    {
+      "id": "silt_stealth",
+      "name": "Silt Stealth",
+      "action": "passive",
+      "summary": "Advantage on Stealth checks among water plants or seaweed.",
+      "text": "The dredger has Advantage on Dexterity (Stealth) checks made in an area with aquatic plants or seaweed.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "bite",
+          "count": 1
+        },
+        {
+          "action": "tail",
+          "count": 1
+        }
+      ],
+      "summary": "One Bite and one Tail."
+    },
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 10,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 15,
+          "dice": "2d8+6",
+          "type": "piercing"
+        },
+        {
+          "average": 4,
+          "dice": "1d8",
+          "type": "necrotic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 16,
+          "max_size": "large",
+          "restrain": true
+        }
+      ],
+      "summary": "+10, reach 10 ft, 2d8+6 Piercing plus 1d8 Necrotic; a Large or smaller target is Grappled (escape DC 16) and Restrained.",
+      "text": "A rotting maw: 15 (2d8 + 6) Piercing damage plus 4 (1d8) Necrotic damage. A Large or smaller target is Grappled (escape DC 16) and stays Restrained until the grapple ends."
+    },
+    {
+      "id": "tail",
+      "name": "Tail",
+      "kind": "melee",
+      "attack": {
+        "bonus": 10,
+        "reach": 15
+      },
+      "damage": [
+        {
+          "average": 24,
+          "dice": "4d8+6",
+          "type": "bludgeoning"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "prone",
+          "max_size": "huge",
+          "until": "permanent"
+        }
+      ],
+      "summary": "+10, reach 15 ft, 4d8+6 Bludgeoning; a Huge or smaller target falls Prone.",
+      "text": "A sweeping tail: 24 (4d8 + 6) Bludgeoning damage, and a Huge or smaller target is knocked Prone."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "swallow",
+      "name": "Swallow",
+      "kind": "save",
+      "do": "swallow",
+      "save": {
+        "ability": "dex",
+        "dc": 18,
+        "success": "none"
+      },
+      "targets": {
+        "range": 10,
+        "count": 1,
+        "max_size": "large",
+        "requires": [
+          "grappled"
+        ]
+      },
+      "on_fail": [
+        {
+          "do": "swallow",
+          "params": {
+            "damage": {
+              "dice": "6d6",
+              "type": "necrotic",
+              "when": "start of the dredger's turn"
+            },
+            "conditions": [
+              "restrained"
+            ],
+            "cover": "three_quarters",
+            "capacity": 1,
+            "escape": {
+              "cost": "action",
+              "damage": {
+                "dice": "2d10",
+                "type": "piercing"
+              },
+              "emerge_within": 5
+            },
+            "on_death": {
+              "free_after_feet": 15,
+              "exit_prone": true
+            }
+          }
+        }
+      ],
+      "summary": "One Large or smaller creature it has Grappled: DC 18 Dex save or swallowed (Restrained, three-quarters cover, 6d6 Necrotic each turn); holds one at a time.",
+      "text": "Dexterity save, DC 18, one Large or smaller creature the dredger is grappling (it can hold only one swallowed creature at a time). Failure: the target is swallowed and is no longer Grappled. Inside, it is Restrained, has Three-Quarters Cover against anything outside, and takes 21 (6d6) Necrotic damage at the start of each of the dredger's turns. As an action it can cut out through the ribs, taking 11 (2d10) Piercing and landing within 5 feet of the dredger. If the dredger dies, the swallowed creature is freed and crawls out using 15 feet of movement, ending Prone."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A drowned whale-sized horror of rotting flesh and cracked ribs that grabs prey in its bite, sweeps with its tail and swallows what it holds."
+}

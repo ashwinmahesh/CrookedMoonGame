@@ -1,0 +1,111 @@
+{
+  "id": "dingpot",
+  "name": "Dingpot",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Familiar block (CR 1). Bond ritual: 10 minutes with materials worth 100+ gp (spices and rose quartz); the Familiar Bond rules (bonded sympathy, channel magic, telepathic connection, 1-hour revival) are on page 580 and are listed once in the notes file.",
+    "page": 584
+  },
+  "size": "tiny",
+  "type": "construct",
+  "alignment": "neutral good",
+  "ac": 15,
+  "initiative": 2,
+  "hp": {
+    "average": 22,
+    "dice": "4d4+12"
+  },
+  "speed": {
+    "walk": 10,
+    "fly": 20,
+    "hover": true
+  },
+  "abilities": {
+    "str": 6,
+    "dex": 14,
+    "con": 16,
+    "int": 10,
+    "wis": 12,
+    "cha": 12
+  },
+  "skills": {
+    "medicine": 3,
+    "perception": 3
+  },
+  "immunities": [
+    "fire",
+    "poison"
+  ],
+  "condition_immunities": [
+    "poisoned"
+  ],
+  "senses": {
+    "blindsight": 30
+  },
+  "passive_perception": 13,
+  "languages": [
+    "Common",
+    "one other language"
+  ],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "boil_and_bubble",
+      "name": "Boil and Bubble",
+      "action": "passive",
+      "summary": "While not Incapacitated, can heat water in its pot to boiling.",
+      "text": "While the dingpot isn't Incapacitated, it can warm the water in its vessel to a boil.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "steam_spray",
+      "name": "Steam Spray",
+      "kind": "ranged",
+      "attack": {
+        "bonus": 4,
+        "range": [
+          60
+        ]
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "2d4+2",
+          "type": "fire"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "until": "source_turn_start",
+          "modifiers": [
+            {
+              "stat": "disadvantage",
+              "on": "attack"
+            }
+          ]
+        }
+      ],
+      "summary": "+4, range 60, 2d4+2 Fire (water gives no Resistance); the target has Disadvantage on its next attack roll before the dingpot's next turn."
+    },
+    {
+      "id": "brew",
+      "name": "Brew",
+      "kind": "special",
+      "do": "brew_draught",
+      "uses": {
+        "count": 1,
+        "per": "day"
+      },
+      "summary": "Once a day: makes an elixir that keeps 24 hours, either a Healing Draught (Bonus Action to drink: 1d6+1 Hit Points) or a Lucky Draught (Bonus Action to drink: for 10 minutes reroll one failed ability check or save; it ends once a reroll succeeds).",
+      "text": "The dingpot brews one magical elixir in its vessel, potent for 24 hours. Healing Draught: a creature that drinks it as a Bonus Action regains 4 (1d6 + 1) Hit Points. Lucky Draught: a creature that drinks it as a Bonus Action gains luck for 10 minutes; when it fails an ability check or saving throw it may reroll the d20 and use the new roll, and once that makes a roll succeed the effect ends."
+    }
+  ],
+  "ai_profile": "support",
+  "summary": "A cheerful floating cauldron that scalds with steam and brews a daily healing or luck potion."
+}

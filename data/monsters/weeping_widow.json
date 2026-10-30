@@ -1,0 +1,201 @@
+{
+  "id": "weeping_widow",
+  "name": "The Weeping Widow",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 572,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Block on the facing page (PDF 575). She fights beside Hugo, a Serum Brute she can ride (Alacrity moves them)."
+  },
+  "size": "medium",
+  "type": "aberration",
+  "alignment": "lawful evil",
+  "ac": 15,
+  "initiative": 8,
+  "hp": {
+    "average": 104,
+    "dice": "19d8+19"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 10,
+    "dex": 14,
+    "con": 12,
+    "int": 20,
+    "wis": 16,
+    "cha": 16
+  },
+  "saves": {
+    "int": 8,
+    "wis": 6
+  },
+  "skills": {
+    "arcana": 8,
+    "history": 8,
+    "medicine": 9,
+    "religion": 8
+  },
+  "resistances": [
+    "poison",
+    "psychic"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "frightened",
+    "poisoned",
+    "unconscious"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 13,
+  "languages": [
+    "Common",
+    "Elvish",
+    "Giant"
+  ],
+  "telepathy": 120,
+  "cr": 8,
+  "xp": 3900,
+  "proficiency_bonus": 3,
+  "traits": [
+    {
+      "id": "legendary_resistance",
+      "name": "Legendary Resistance (3/Day)",
+      "action": "special",
+      "summary": "Three times a day, a failed saving throw becomes a success.",
+      "text": "When the widow fails a saving throw, it can choose to succeed instead, 3 times a day.",
+      "implemented": "engine"
+    },
+    {
+      "id": "reopened_memories",
+      "name": "Reopened Memories",
+      "action": "passive",
+      "summary": "Seeing a memento of her husband at the start of her turn: Disadvantage on D20 Tests and only 2 legendary action uses until her next turn.",
+      "text": "At the start of her turn, if she can see a keepsake of her husband or some other reminder that makes her face what she has lost, she has Disadvantage on D20 Tests and can spend only 2 of her legendary action uses until her next turn starts.",
+      "implemented": "text"
+    },
+    {
+      "id": "regional_lair",
+      "name": "Regional Effects (Lair)",
+      "action": "special",
+      "summary": "Within a mile of her lair: Disadvantage on Intelligence checks to recall painful or emotional memories, and sleepers or those in a trance remember no details of their dreams.",
+      "text": "Regional effects, within 1 mile of the sanitarium while the widow lives and keeps her lair there. Dulled Memories: creatures have Disadvantage on Intelligence checks made to recall information tied to painful or emotional memories. Faded Dreams: a creature that sleeps or Trances keeps only vague impressions of its dreams. Both end the moment she dies or moves her lair.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "injection",
+          "count": 2
+        }
+      ],
+      "summary": "Two Injections."
+    },
+    {
+      "id": "injection",
+      "name": "Injection",
+      "kind": "melee_or_ranged",
+      "attack": {
+        "bonus": 8,
+        "reach": 5,
+        "range": [
+          60
+        ]
+      },
+      "damage": [
+        {
+          "average": 1,
+          "dice": "1",
+          "type": "piercing"
+        },
+        {
+          "average": 10,
+          "dice": "3d6",
+          "type": "poison"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "target_turn_end"
+        },
+        {
+          "do": "injection",
+          "params": {
+            "once_each_per_turn": true,
+            "while": "the target is Poisoned by this hit",
+            "options": [
+              {
+                "id": "hyperphobic_stimulant",
+                "effect": "Frightened; at the start of its turn a DC 16 Wis save or it Dashes away from the widow by the safest shortest route"
+              },
+              {
+                "id": "soporific_infusion",
+                "effect": "DC 16 Con save; failure: Speed halved, one action or Bonus Action per turn, one attack only; failure by 5 or more: Unconscious for 1 minute, until damaged or shaken awake"
+              },
+              {
+                "id": "thaumaturgic_inhibitor",
+                "effect": "a spell it casts needs a DC 16 Con save or fails (the slot is kept)"
+              }
+            ]
+          }
+        }
+      ],
+      "summary": "+8, reach 5 ft or range 60 ft, 1 Piercing plus 3d6 Poison; the target is Poisoned until the end of its next turn and she picks one extra effect (fear and flight, sleepiness, or spell failure).",
+      "text": "A needle loaded with a medical cruelty. A hit deals 1 Piercing and 10 (3d6) Poison damage and Poisons the target until the end of its next turn. While it is Poisoned she picks one of three effects (each once a turn): Hyperphobic Stimulant (Frightened; at the start of its turn a DC 16 Wisdom save or it must Dash away from her), Soporific Infusion (DC 16 Constitution save or Speed halved and only an action or a Bonus Action each turn with a single attack; failing by 5 or more it falls Unconscious for a minute, until damaged or shaken awake), or Thaumaturgic Inhibitor (a spell it casts fails on a failed DC 16 Constitution save, without spending the slot)."
+    },
+    {
+      "id": "hypertrophic_injections",
+      "name": "Hypertrophic Injections",
+      "kind": "special",
+      "do": "hypertrophic_injections",
+      "targets": {
+        "range": 5,
+        "count": 1
+      },
+      "summary": "Legendary only, once a round. Herself or an ally within 5 ft gets one boost: Advantage on attacks to the end of its next turn, one condition cleansed, or 10 Hit Points.",
+      "text": "She doses herself or an ally within 5 feet with one of: Aggression (Advantage on attack rolls until the end of its next turn), Fortitude (one of Charmed, Frightened, Grappled, Paralyzed, Poisoned, Restrained or Stunned ends on the target), Vigor (the target regains 10 Hit Points). She can't do this again until her next turn starts."
+    }
+  ],
+  "legendary_actions": {
+    "per_round": 3,
+    "options": [
+      {
+        "id": "alacrity",
+        "name": "Alacrity",
+        "cost": 1,
+        "move": true,
+        "half": true,
+        "summary": "She, or the creature she is riding, moves up to half its Speed with no Opportunity Attacks."
+      },
+      {
+        "id": "dose",
+        "name": "Dose",
+        "cost": 1,
+        "action": "injection",
+        "once": true,
+        "summary": "One Injection attack; not again until her next turn."
+      },
+      {
+        "id": "hypertrophic_injections",
+        "name": "Hypertrophic Injections",
+        "cost": 1,
+        "do": "hypertrophic_injections",
+        "once": true,
+        "summary": "Herself or an ally within 5 ft: Advantage on attacks, a condition ended, or 10 Hit Points. Once a round."
+      }
+    ]
+  },
+  "legendary_resistance": 3,
+  "ai_profile": "support",
+  "summary": "A fallen priestess-turned-experimenter who fights with poisoned needles at range, loads each prick with fear, sleep or spell-failure, and keeps her allies dosed; a reminder of her husband breaks her focus."
+}

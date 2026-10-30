@@ -1,0 +1,162 @@
+{
+  "id": "bayou_beast",
+  "name": "Bayou Beast",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 489,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "large",
+  "type": "elemental",
+  "alignment": "unaligned",
+  "ac": 14,
+  "initiative": 0,
+  "hp": {
+    "average": 105,
+    "dice": "10d10+50"
+  },
+  "speed": {
+    "walk": 30,
+    "swim": 30
+  },
+  "abilities": {
+    "str": 20,
+    "dex": 10,
+    "con": 20,
+    "int": 5,
+    "wis": 10,
+    "cha": 6
+  },
+  "skills": {
+    "stealth": 6
+  },
+  "resistances": [
+    "fire"
+  ],
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "exhaustion",
+    "grappled",
+    "paralyzed",
+    "poisoned",
+    "prone",
+    "restrained",
+    "unconscious"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 10,
+  "languages": [
+    "Understands Primordial (Aquan) but can't speak"
+  ],
+  "cr": 6,
+  "xp": 2300,
+  "proficiency_bonus": 3,
+  "traits": [
+    {
+      "id": "spirits_susceptibility",
+      "name": "Spirits Susceptibility",
+      "action": "passive",
+      "summary": "Each bottle of alcohol splashed on it deals 9 (2d8) Force and sets its Speed to 0 until the end of its next turn.",
+      "text": "Alcohol washes the jinx seals away. For every bottle splashed over the elemental it takes 9 (2d8) Force damage and its Speed drops to 0 until the end of its next turn.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "hexed_slam",
+          "count": 2
+        }
+      ],
+      "summary": "Two Hexed Slams."
+    },
+    {
+      "id": "hexed_slam",
+      "name": "Hexed Slam",
+      "kind": "melee",
+      "attack": {
+        "bonus": 8,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 18,
+          "dice": "3d8+5",
+          "type": "bludgeoning"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "save": {
+            "ability": "wis",
+            "dc": 16
+          },
+          "until": "source_turn_start",
+          "modifiers": [
+            {
+              "stat": "penalty_die",
+              "dice": "1d4",
+              "on": [
+                "attack",
+                "save:all"
+              ]
+            }
+          ]
+        }
+      ],
+      "summary": "+8, reach 10 ft, 3d8+5 Bludgeoning; DC 16 Wis save or cursed until its next turn (-1d4 on attack rolls and saving throws).",
+      "text": "A creature that is hit makes a DC 16 Wisdom saving throw or is cursed until the start of the elemental's next turn. While cursed it subtracts 1d4 from its attack rolls and saving throws."
+    },
+    {
+      "id": "swamp_grasp",
+      "name": "Swamp Grasp",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "str",
+        "dc": 16,
+        "success": "none"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 20
+      },
+      "targets": {
+        "range": 20
+      },
+      "damage": [
+        {
+          "average": 11,
+          "dice": "2d10",
+          "type": "poison"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "restrained",
+          "until": "minute",
+          "escape": {
+            "skill": "athletics",
+            "dc": 16
+          }
+        }
+      ],
+      "summary": "Recharge 5-6. Each creature on the ground within 20 ft, DC 16 Str save: 2d10 Poison and Restrained for 1 minute (an action and a DC 16 Athletics check, by it or a neighbour, frees it).",
+      "text": "Swamp water and plants coil round every creature standing on the ground within 20 feet. Failure: 11 (2d10) Poison damage and Restrained for 1 minute, or until the elemental is Incapacitated or dies. The target, or a creature within 5 feet of it, can use an action to make a DC 16 Strength (Athletics) check and end the Restrained condition on a success."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A swamp spirit bound into a heap of rotting plants by jinx seals: it slams cursed blows and drags everything nearby into the mire. Alcohol washes its seals away.",
+  "art": "shambling_mound"
+}
