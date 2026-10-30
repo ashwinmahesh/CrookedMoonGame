@@ -28,7 +28,7 @@ func _init(encounter: Encounter) -> void:
 const PART_PATHS: Array[String] = ["res://combat/crooked/cm_species.gd", "res://combat/crooked/cm_feats.gd",
 	"res://combat/crooked/cm_grave_and_grim.gd", "res://combat/crooked/cm_blood_and_jest.gd", "res://combat/crooked/cm_warriors.gd",
 	"res://combat/crooked/cm_casters.gd", "res://combat/crooked/cm_scholars.gd", "res://combat/crooked/cm_spells_a.gd",
-	"res://combat/crooked/cm_spells_b.gd", "res://combat/crooked/cm_bargains.gd"]
+	"res://combat/crooked/cm_spells_b.gd", "res://combat/crooked/cm_bargains.gd", "res://combat/bestiary/bestiary_features.gd"]
 
 
 ## The part that owns the hotbar action, queued kind or sustained mode `id`, or null.

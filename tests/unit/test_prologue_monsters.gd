@@ -87,3 +87,100 @@ func test_the_stokers_soul_burn_scorches_whoever_stands_close() -> void:
 	e.end_turn()
 	assert_true(near.creature.hp < near_hp, "5 ft from the stoker at the end of its turn: Necrotic damage")
 	assert_eq(far.creature.hp, far_hp, "out of reach: untouched")
+
+
+# --- The bestiary's own code (combat/bestiary/bestiary_features.gd, a part of CrookedFeatures) -------------------------
+
+func test_the_bestiary_is_a_part_of_the_games_features() -> void:
+	var e := _field()
+	assert_true(e.game is CrookedFeatures, "the game names its features module")
+	assert_true((e.game as CrookedFeatures).parts.any(func(p: GameFeatures) -> bool: return p is BestiaryFeatures), "and the bestiary is in it")
+
+
+func test_a_hostile_haints_first_turn_is_a_wail() -> void:
+	var e := _field()
+	var haint := e.add(TestCombat.monster("wayward_haint"), &"enemy", Vector2i(5, 5))
+	var hero := TestCombat.hero(e, "hedda_ironvow", Vector2i(4, 5), 1)
+	TestCombat.start_with(e, haint)
+	var hp := hero.creature.hp
+	e.ai.play_turn(haint)
+	assert_eq(hero.creature.hp, hp, "the first turn hurts no one")
+	assert_true(haint.has_meta(BestiaryFeatures.WAILED_META), "it wailed")
+	e.end_turn()
+	for c in e.order:
+		if c != haint and c != hero:
+			e.end_turn()
+	assert_true(e.current() == haint or e.current() == hero, "the round came round")
+
+
+func test_draining_regret_stops_at_five_levels_and_remembers_them() -> void:
+	var e := _field()
+	var haint := e.add(TestCombat.monster("wayward_haint"), &"enemy", Vector2i(5, 5))
+	var hero := TestCombat.hero(e, "hedda_ironvow", Vector2i(4, 5), 1)
+	TestCombat.start_with(e, hero)
+	var rd := {"do": "exhaustion", "params": {"levels": 1, "max": 5, "until": "rest"}}
+	hero.creature.exhaustion = 3
+	for i in 4:
+		e.monster_actions._rider(haint, hero, rd, {}, "Draining Regret")
+	assert_eq(hero.creature.exhaustion, 5, "never past 5")
+	assert_eq(int(hero.creature.get_meta(BestiaryFeatures.REST_EXHAUSTION_META, 0)), 2, "the two levels it gave are counted for the rest")
+
+
+func test_the_stoker_burns_a_corpse_it_sees() -> void:
+	var e := _field()
+	var stoker := e.add(TestCombat.monster("soulfire_stoker"), &"enemy", Vector2i(12, 5))
+	var hero := TestCombat.hero(e, "hedda_ironvow", Vector2i(2, 12), 3)
+	var dead := e.add(TestCombat.monster("ghost"), &"enemy", Vector2i(9, 5))
+	TestCombat.start_with(e, stoker)
+	dead.creature.dead = true
+	dead.creature.hp = 0
+	e.ai.play_turn(stoker)
+	assert_true(dead.has_meta(BestiaryFeatures.ASHED_META), "the body is ash")
+	assert_true(e.distance(stoker, dead) <= 5, "the stoker went to it")
+
+
+func test_a_can_eaten_feeds_the_locomotive_and_lets_out_an_echo() -> void:
+	var e := _field()
+	var engine := e.add(TestCombat.monster("ghostlight_locomotive"), &"enemy", Vector2i(12, 5))
+	var hero := TestCombat.hero(e, "hedda_ironvow", Vector2i(2, 12), 3)
+	var cans := BestiaryFeatures.place_soul_cans(e, [Vector2i(9, 6)] as Array[Vector2i])
+	TestCombat.start_with(e, hero)
+	_hurt(e, engine, 30)
+	var before := engine.creature.hp
+	e.end_turn()
+	while e.current() != engine:
+		e.end_turn()
+	assert_true(cans[0].destroyed, "the can is gone")
+	assert_eq(engine.creature.hp, before + 20, "20 Hit Points from it")
+	var echoes := e.combatants.filter(func(c: Combatant) -> bool: return c.has_meta(BestiaryFeatures.ECHO_META))
+	assert_eq(echoes.size(), 1, "an echo rose from it")
+	assert_eq((echoes[0] as Combatant).creature.hp, 7, "at half Hit Points")
+	assert_eq(str((echoes[0] as Combatant).get_meta("summoner")), engine.id, "and fights beside the engine")
+
+
+func test_a_smashed_can_lets_out_an_echo_without_feeding_it() -> void:
+	var e := _field()
+	var engine := e.add(TestCombat.monster("ghostlight_locomotive"), &"enemy", Vector2i(16, 9))
+	var hero := TestCombat.hero(e, "hedda_ironvow", Vector2i(2, 2), 3)
+	var cans := BestiaryFeatures.place_soul_cans(e, [Vector2i(3, 2)] as Array[Vector2i])
+	TestCombat.start_with(e, hero)
+	e.objects.smash(cans[0], "smashed")
+	var echoes := e.combatants.filter(func(c: Combatant) -> bool: return c.has_meta(BestiaryFeatures.ECHO_META))
+	assert_eq(echoes.size(), 1, "the haint's echo")
+	assert_eq(engine.creature.hp, engine.creature.max_hp(), "and the engine got nothing")
+
+
+func test_ghostly_rails_grapples_whoever_the_locomotive_passes_through() -> void:
+	var e := _field()
+	# (100 ft of Speed, so that half of it covers the extra cost of crossing a creature's space: its whole body is inside the hero's square for four steps)
+	var data := Compendium.shared().monster_data("ghostlight_locomotive").duplicate(true)
+	(data["speed"] as Dictionary)["walk"] = 100
+	var engine := e.add(Monster.from_data(data), &"enemy", Vector2i(14, 4))
+	var hero := TestCombat.hero(e, "hedda_ironvow", Vector2i(13, 5), 3)
+	var far := TestCombat.hero(e, "ilse_varga", Vector2i(2, 12), 3)
+	TestCombat.start_with(e, hero)
+	var r := e.legendary.use(engine, "ghostly_rails", null, Vector2i(9, 4))
+	assert_true(r.ok, "the rails run: %s" % r.reason)
+	assert_true(engine.cell.x < 14, "the engine moved along them")
+	assert_true(hero.creature.has_condition(&"grappled"), "the hero it passed through is held")
+	assert_false(far.creature.has_condition(&"grappled"), "the far one is not")
