@@ -1,0 +1,86 @@
+{
+  "id": "creeping_rot",
+  "name": "Creeping Rot",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 3,
+  "school": "necromancy",
+  "classes": [
+    "druid",
+    "ranger",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 90
+  },
+  "components": {
+    "v": true,
+    "s": true
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 1
+  },
+  "targets": {
+    "kind": "creature_or_object",
+    "count": 4,
+    "description": "a creature or nonmagical plant you can see, plus up to three more within 30 feet of the first (each hit by only one tendril)"
+  },
+  "save": "con",
+  "save_success": "half",
+  "auto_fail_types": [
+    "plant"
+  ],
+  "damage": [
+    {
+      "dice": "3d8",
+      "type": "necrotic",
+      "scales": false
+    }
+  ],
+  "upcast": {
+    "targets": 1,
+    "text": "One more tendril leaps from the first target to another target for each slot level above 3; the damage does not change."
+  },
+  "effects": [
+    {
+      "effect": "condition",
+      "params": {
+        "on": "fail",
+        "condition": "poisoned",
+        "repeat_save": "end_of_turn",
+        "turn_damage": {
+          "dice": "1d8",
+          "type": "necrotic",
+          "when": "start",
+          "upcast": false
+        }
+      }
+    },
+    {
+      "effect": "custom",
+      "params": {
+        "id": "sa_creeping_rot",
+        "on": "cast",
+        "nonmagical_plants": true,
+        "secondary_range_ft": 30,
+        "secondary_targets": 3,
+        "in_fight": "the others must be within 30 ft of the first target; plants out of fights only"
+      }
+    }
+  ],
+  "tags": [
+    "damage",
+    "debuff"
+  ],
+  "summary": "90 ft, Con save: 3d8 Necrotic and Poisoned for 1 minute (1d8 Necrotic at each of its turn starts, save ends); three tendrils leap to more targets within 30 ft; Plants fail automatically.",
+  "text": "You send tendrils of black and gray rot at a target you can see within 90 feet. Three more tendrils then leap from that target to as many as three other targets of your choice, each within 30 feet of the first target. A target can be a creature or a nonmagical plant that is not a creature, such as a tree or shrub; each can be hit by only one tendril. A creature target makes a Constitution saving throw. On a failure it takes 3d8 Necrotic damage and has the Poisoned condition for the duration; on a success it takes half as much damage and nothing else. A creature Poisoned this way takes 1d8 Necrotic damage at the start of each of its turns, and repeats the save at the end of each of its turns, ending the spell on itself on a success. A Plant creature automatically fails the first save, and a nonmagical plant that is not a creature simply withers and dies. Duration 1 minute (no Concentration). Using a Higher-Level Spell Slot: one more tendril leaps to another target for each slot level above 3."
+}

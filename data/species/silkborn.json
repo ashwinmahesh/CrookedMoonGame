@@ -1,0 +1,107 @@
+{
+  "id": "silkborn",
+  "name": "Silkborn",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 2"
+  },
+  "summary": "Spider-kin of the subterranean province of Nerukhet, jewelled and many-eyed, who climb any surface, weave spells and turn blows aside with their carapace.",
+  "creature_type": "humanoid",
+  "sizes": [
+    "medium"
+  ],
+  "speed": 30,
+  "darkvision": 60,
+  "spellcasting_ability_choice": [
+    "int",
+    "wis",
+    "cha"
+  ],
+  "traits": [
+    {
+      "id": "bejeweled_carapace",
+      "name": "Bejeweled Carapace",
+      "summary": "Reaction when hit by an attack roll: add your Proficiency Bonus to your AC against that attack; once per Short Rest.",
+      "text": "When an attack roll hits you, you can take a Reaction to add your Proficiency Bonus to your Armor Class against that attack, possibly making it miss. Once you use this trait you cannot use it again until you finish a Short or Long Rest.",
+      "action": "reaction",
+      "resource": {
+        "id": "bejeweled_carapace",
+        "name": "Bejeweled Carapace",
+        "max": 1,
+        "recharge": "short"
+      },
+      "policy": "auto",
+      "implemented": "engine"
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "See in Dim Light within 60 feet as if it were Bright Light, and in Darkness as if it were Dim Light.",
+      "text": "You have Darkvision with a range of 60 feet.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "darkvision",
+          "value": 60
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "silken_legacy",
+      "name": "Silken Legacy",
+      "summary": "Thaumaturgy; Find Familiar (a jewelled insect or spider) from level 3 and Web from level 5, each free once per Long Rest and without Material components.",
+      "text": "You know the Thaumaturgy cantrip. At character level 3 you always have Find Familiar prepared (the familiar takes the form of a jewelled insect or arachnid), and at level 5 you always have Web prepared. You can cast each once without a spell slot and without Material components, regaining that use when you finish a Long Rest, and you can also cast them with any spell slots you have of the right level. Intelligence, Wisdom or Charisma is your spellcasting ability for them (choose when you select this species).",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "spell",
+          "value": "thaumaturgy",
+          "ability": "choice"
+        },
+        {
+          "stat": "spell",
+          "value": "find_familiar",
+          "ability": "choice",
+          "always_prepared": true,
+          "uses": {
+            "count": 1,
+            "recharge": "long"
+          },
+          "at_level": 3
+        },
+        {
+          "stat": "spell",
+          "value": "web",
+          "ability": "choice",
+          "always_prepared": true,
+          "uses": {
+            "count": 1,
+            "recharge": "long"
+          },
+          "at_level": 5
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "silkborn_spider_climb",
+      "name": "Spider Climb",
+      "summary": "Climb Speed equal to your Speed; climb difficult surfaces and ceilings with your hands free and no check.",
+      "text": "You have a Climb Speed equal to your Speed. You can climb difficult surfaces, including along ceilings, without needing an ability check and while leaving your hands free.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "speed_set",
+          "kind": "climb",
+          "value": "walk"
+        },
+        {
+          "stat": "flag",
+          "value": "spider_climb"
+        }
+      ],
+      "implemented": "data"
+    }
+  ]
+}

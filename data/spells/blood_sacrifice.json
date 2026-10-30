@@ -1,0 +1,73 @@
+{
+  "id": "blood_sacrifice",
+  "name": "Blood Sacrifice",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 2,
+  "school": "necromancy",
+  "classes": [
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "bonus_action"
+  },
+  "range": {
+    "kind": "self"
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a drop of your own blood"
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 1,
+    "concentration": false
+  },
+  "targets": {
+    "kind": "self"
+  },
+  "upcast": {
+    "damage": "1d6",
+    "text": "The Necrotic damage you take when you cast it and the extra damage your spells deal both rise by 1d6 for each slot level above 2."
+  },
+  "effects": [
+    {
+      "effect": "modifiers",
+      "params": {
+        "target": "self",
+        "modifiers": [
+          {
+            "stat": "flag",
+            "value": "blood_sacrifice"
+          }
+        ]
+      }
+    },
+    {
+      "effect": "custom",
+      "params": {
+        "id": "sa_blood_sacrifice",
+        "target": "self",
+        "on": "cast",
+        "self_damage": "1d6",
+        "self_damage_type": "necrotic",
+        "unpreventable": true,
+        "spell_extra_dice": "1d6",
+        "spell_extra_type": "same_as_spell",
+        "extra_targets": 1,
+        "per_slot": "1d6"
+      }
+    }
+  ],
+  "tags": [
+    "buff",
+    "damage"
+  ],
+  "summary": "Bonus Action: take 1d6 unpreventable Necrotic; for 1 minute each damaging spell you cast deals an extra 1d6 (its own type) to one target.",
+  "text": "You sacrifice part of your life force to sharpen your magic. When you cast this spell you take 1d6 Necrotic damage that cannot be reduced or prevented in any way. For the next minute, whenever you cast a spell that deals damage, one target of that spell (your choice) takes an extra 1d6 damage of the same type as the spell's normal damage (your choice if the spell deals several types). It needs no Concentration. Using a Higher-Level Spell Slot: the damage you take and the extra damage your spells deal both increase by 1d6 for each slot level above 2."
+}

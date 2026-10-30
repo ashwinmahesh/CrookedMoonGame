@@ -1,0 +1,98 @@
+{
+  "id": "harvestborn",
+  "name": "Harvestborn",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 2"
+  },
+  "summary": "Scarecrow constructs of Enoch, made with care and filled with green magic, who deal death at harvest time, heal through the soil and never need to sleep.",
+  "creature_type": "construct",
+  "sizes": [
+    "medium"
+  ],
+  "speed": 30,
+  "spellcasting_ability_choice": [
+    "int",
+    "wis",
+    "cha"
+  ],
+  "traits": [
+    {
+      "id": "culling",
+      "name": "Culling",
+      "summary": "When you damage a Bloodied creature, add 1d12 Necrotic damage; Proficiency Bonus times per Long Rest.",
+      "text": "When you damage a Bloodied creature (one at or below half its Hit Point maximum) you can deal an extra 1d12 Necrotic damage to it. You can use this trait a number of times equal to your Proficiency Bonus and regain all expended uses when you finish a Long Rest.",
+      "action": "passive",
+      "resource": {
+        "id": "culling",
+        "name": "Culling",
+        "max": "pb",
+        "recharge": "long"
+      },
+      "uses_resource": "culling",
+      "policy": "auto",
+      "implemented": "engine"
+    },
+    {
+      "id": "gift_of_the_green",
+      "name": "Gift of the Green",
+      "summary": "Bonus Action: touch the ground and pick a creature also touching the ground within 30 feet; it may spend and roll a Hit Point Die and heal that + your Proficiency Bonus.",
+      "text": "As a Bonus Action you touch the ground and choose a creature within 30 feet of you that is also touching the ground. That creature can expend and roll one Hit Point Die and regain Hit Points equal to the roll plus your Proficiency Bonus. You can use this trait a number of times equal to your Proficiency Bonus. You regain one expended use when you finish a Short Rest and all expended uses when you finish a Long Rest.",
+      "action": "bonus_action",
+      "resource": {
+        "id": "gift_of_the_green",
+        "name": "Gift of the Green",
+        "max": "pb",
+        "recharge": "short_one"
+      },
+      "implemented": "engine"
+    },
+    {
+      "id": "jack_o_lantern",
+      "name": "Jack-O-Lantern",
+      "summary": "You know Dancing Lights; Intelligence, Wisdom or Charisma is its spellcasting ability (chosen with the species).",
+      "text": "You know the Dancing Lights cantrip. Intelligence, Wisdom or Charisma is your spellcasting ability for it (choose when you select this species).",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "spell",
+          "value": "dancing_lights",
+          "ability": "choice"
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "scarecrow_nature",
+      "name": "Scarecrow Nature",
+      "summary": "You don't need air, food or drink.",
+      "text": "You do not require air, food or drink.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "no_food_or_water"
+        },
+        {
+          "stat": "flag",
+          "value": "no_air"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "watchful_rest",
+      "name": "Watchful Rest",
+      "summary": "You don't sleep and magic can't put you to sleep; a Long Rest takes 4 hours spent motionless but awake.",
+      "text": "You do not need to sleep and magic cannot put you to sleep. You can finish a Long Rest in 4 hours if you spend those hours in an inactive, motionless state during which you stay conscious.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "trance"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "id": "harrowing_ballad",
+  "name": "Harrowing Ballad",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 2,
+  "school": "enchantment",
+  "classes": [
+    "bard",
+    "sorcerer",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "bonus_action"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 120
+  },
+  "components": {
+    "v": true,
+    "s": true
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 1,
+    "concentration": true
+  },
+  "targets": {
+    "kind": "creature",
+    "count": 1,
+    "description": "a creature you can see; only a creature with Intelligence 4 or higher can be affected"
+  },
+  "requires_sight": true,
+  "save": "int",
+  "save_success": "none",
+  "upcast": {
+    "damage": "1d6"
+  },
+  "effects": [
+    {
+      "effect": "condition",
+      "params": {
+        "repeat_save": "end_of_turn",
+        "condition": "charmed",
+        "primary_condition": "charmed",
+        "turn_damage": {
+          "dice": "1d6",
+          "type": "psychic",
+          "when": "start"
+        }
+      }
+    },
+    {
+      "effect": "modifiers",
+      "params": {
+        "repeat_save": "end_of_turn",
+        "primary_condition": "charmed",
+        "modifiers": [
+          {
+            "stat": "disadvantage",
+            "on": "check:perception"
+          },
+          {
+            "stat": "disadvantage",
+            "on": "concentration"
+          }
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "control",
+    "damage"
+  ],
+  "summary": "A creature with Intelligence 4 or more makes an Int save or is Charmed by a song only it hears: 1d6 Psychic at each of its turn starts, Disadvantage on Perception checks and Concentration saves.",
+  "text": "You pour a mind-eroding song into a creature you can see within 120 feet. If it has an Intelligence score of 4 or higher it makes an Intelligence saving throw or is Charmed for the duration (a creature with Intelligence 3 or lower is unaffected). While Charmed this way it hears a rapidly repeating ballad that only it can hear: it takes 1d6 Psychic damage at the start of each of its turns, and it has Disadvantage on Wisdom (Perception) checks and on Constitution saving throws to maintain Concentration. It repeats the save at the end of each of its turns, ending the spell on a success. Concentration, up to 1 minute. Using a Higher-Level Spell Slot: the damage increases by 1d6 for each slot level above 2."
+}

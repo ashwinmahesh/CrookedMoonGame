@@ -1,0 +1,75 @@
+{
+  "id": "graveborn",
+  "name": "Graveborn",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 2"
+  },
+  "summary": "Ghoul-like undead from the frozen battlefields of Syndramas, shaped for war, cold-proof and hungry for flesh, with Drakkonite in their bones.",
+  "creature_type": "undead",
+  "sizes": [
+    "medium"
+  ],
+  "speed": 30,
+  "darkvision": 60,
+  "traits": [
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "See in Dim Light within 60 feet as if it were Bright Light, and in Darkness as if it were Dim Light.",
+      "text": "You have Darkvision with a range of 60 feet.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "darkvision",
+          "value": 60
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "devour_corpse",
+      "name": "Devour Corpse",
+      "summary": "Spoiled food is as good as fresh; a minute spent eating a corpse (Small or larger, not a Construct) heals a rolled Hit Point Die + Con modifier, once per Short Rest.",
+      "text": "You can eat spoiled and rotten food as if it were fresh. If you spend 1 minute eating flesh from the corpse of a creature that is Small or larger and is not a Construct, roll one of your Hit Point Dice without expending it (even if you have none left) and regain Hit Points equal to the roll plus your Constitution modifier (minimum 1). Once you regain Hit Points this way you cannot do so again until you finish a Short or Long Rest.",
+      "action": "special",
+      "resource": {
+        "id": "devour_corpse",
+        "name": "Devour Corpse",
+        "max": 1,
+        "recharge": "short"
+      },
+      "implemented": "engine"
+    },
+    {
+      "id": "frozen_waste",
+      "name": "Frozen Waste",
+      "summary": "Resistance to Cold damage.",
+      "text": "You have Resistance to Cold damage.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "resistance",
+          "value": "cold"
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "infused_drakkonite",
+      "name": "Infused Drakkonite",
+      "summary": "When you damage a creature, ignore its Resistances and add Necrotic damage equal to your Proficiency Bonus; once per Short Rest.",
+      "text": "When you damage a creature you can choose to ignore any Resistances it has, and it also takes extra Necrotic damage equal to your Proficiency Bonus. Once you use this trait you cannot use it again until you finish a Short or Long Rest.",
+      "action": "passive",
+      "resource": {
+        "id": "infused_drakkonite",
+        "name": "Infused Drakkonite",
+        "max": 1,
+        "recharge": "short"
+      },
+      "uses_resource": "infused_drakkonite",
+      "policy": "auto",
+      "implemented": "engine"
+    }
+  ]
+}

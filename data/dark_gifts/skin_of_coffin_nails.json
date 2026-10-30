@@ -1,0 +1,88 @@
+{
+  "id": "skin_of_coffin_nails",
+  "name": "Skin of Coffin Nails",
+  "vestige": "an unknowable power",
+  "summary": "Resistance to one of Bludgeoning, Piercing or Slashing, and your Critical Hits of that type become normal. The price: water turns it to Vulnerability.",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 6"
+  },
+  "benefit": {
+    "text": "Your body becomes as unyielding as the iron nails that seal away the dead.",
+    "features": [
+      {
+        "id": "iron_grit",
+        "name": "Iron Grit",
+        "summary": "Resistance to Bludgeoning, Piercing or Slashing (your pick, changeable after a Short or Long Rest); Critical Hits of that type are normal hits.",
+        "text": "You gain Resistance to Bludgeoning, Piercing or Slashing damage (your choice when you take this bargain). You can change the damage type to one of the other two options when you finish a Short or Long Rest. When you suffer a Critical Hit from the chosen damage type, it becomes a normal hit instead.",
+        "action": "passive",
+        "choice": {
+          "id": "damage_type",
+          "kind": "option",
+          "count": 1,
+          "replaceable": "short_rest",
+          "options": [
+            {
+              "id": "bludgeoning",
+              "name": "Bludgeoning",
+              "summary": "Resistance to Bludgeoning damage.",
+              "text": "Resistance to Bludgeoning damage.",
+              "action": "passive",
+              "modifiers": [
+                {
+                  "stat": "resistance",
+                  "value": "bludgeoning"
+                }
+              ],
+              "implemented": "data"
+            },
+            {
+              "id": "piercing",
+              "name": "Piercing",
+              "summary": "Resistance to Piercing damage.",
+              "text": "Resistance to Piercing damage.",
+              "action": "passive",
+              "modifiers": [
+                {
+                  "stat": "resistance",
+                  "value": "piercing"
+                }
+              ],
+              "implemented": "data"
+            },
+            {
+              "id": "slashing",
+              "name": "Slashing",
+              "summary": "Resistance to Slashing damage.",
+              "text": "Resistance to Slashing damage.",
+              "action": "passive",
+              "modifiers": [
+                {
+                  "stat": "resistance",
+                  "value": "slashing"
+                }
+              ],
+              "implemented": "data"
+            }
+          ]
+        },
+        "implemented": "engine"
+      }
+    ]
+  },
+  "cost": {
+    "text": "The waters of the world no longer embrace you, as if spiting your defiance.",
+    "flaw": "Water makes you rust: slow, short of breath and brittle.",
+    "features": [
+      {
+        "id": "watery_doom",
+        "name": "Watery Doom",
+        "summary": "Immersion in water, or a soaking of 1+ gallon (rain counts), halves your Speed and breath-holding and turns your Iron Grit Resistance into Vulnerability until a rest.",
+        "text": "When you are immersed in water, or splashed with at least 1 gallon of water (a bucket, or being rained on), your skin tightens and grows rusty until you finish a Short or Long Rest. During that time your Speed and the time you can hold your breath are halved, and your Resistance to the damage type chosen for Iron Grit becomes Vulnerability instead. Other liquids can trigger this too, at the game's discretion.",
+        "action": "passive",
+        "implemented": "engine"
+      }
+    ]
+  },
+  "implemented": "engine"
+}

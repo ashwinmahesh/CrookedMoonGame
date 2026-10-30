@@ -1,0 +1,106 @@
+{
+  "id": "azureborn",
+  "name": "Azureborn",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 2"
+  },
+  "summary": "Harpy-like seers of Astramar, feathered and winged, who fly from the first day, read the stars and cheat the order of a fight's opening.",
+  "creature_type": "humanoid",
+  "sizes": [
+    "medium"
+  ],
+  "speed": 30,
+  "darkvision": 60,
+  "spellcasting_ability_choice": [
+    "int",
+    "wis",
+    "cha"
+  ],
+  "traits": [
+    {
+      "id": "azureborn_flight",
+      "name": "Flight",
+      "summary": "Fly Speed equal to your Speed (not usable in Medium or Heavy armour in this game).",
+      "text": "You have a Fly Speed equal to your Speed. Game rule: you cannot fly while wearing Medium or Heavy armour (the speed_set modifier has no armour filter, so the engine must apply this).",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "speed_set",
+          "kind": "fly",
+          "value": "walk"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "azure_legacy",
+      "name": "Azure Legacy",
+      "summary": "Guidance; Augury from level 3, free once per Long Rest and without its Material component (Intelligence, Wisdom or Charisma).",
+      "text": "You know the Guidance cantrip. At character level 3 you always have Augury prepared and can cast it once without a spell slot or Material components, regaining that use when you finish a Long Rest. You can also cast it with any spell slots you have of the right level. Intelligence, Wisdom or Charisma is your spellcasting ability for it (choose when you select this species).",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "spell",
+          "value": "guidance",
+          "ability": "choice"
+        },
+        {
+          "stat": "spell",
+          "value": "augury",
+          "ability": "choice",
+          "always_prepared": true,
+          "uses": {
+            "count": 1,
+            "recharge": "long"
+          },
+          "at_level": 3
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "See in Dim Light within 60 feet as if it were Bright Light, and in Darkness as if it were Dim Light.",
+      "text": "You have Darkvision with a range of 60 feet.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "darkvision",
+          "value": 60
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "glimpse_fate",
+      "name": "Glimpse Fate",
+      "summary": "When you roll Initiative and aren't surprised, pick up to your Proficiency Bonus creatures you can see; they roll Initiative with Advantage. Once per Short Rest.",
+      "text": "When you roll Initiative, if you are not surprised, you can choose a number of creatures you can see equal to your Proficiency Bonus. Those creatures have Advantage on their Initiative rolls. Once you use this trait you cannot use it again until you finish a Short or Long Rest.",
+      "action": "free",
+      "resource": {
+        "id": "glimpse_fate",
+        "name": "Glimpse Fate",
+        "max": 1,
+        "recharge": "short"
+      },
+      "policy": "auto",
+      "implemented": "engine"
+    },
+    {
+      "id": "winds_of_magic",
+      "name": "Winds of Magic",
+      "summary": "Bonus Action: Dash and add 10 feet to your Fly Speed until the end of the turn; Proficiency Bonus times per Long Rest.",
+      "text": "As a Bonus Action you take the Dash action and your Fly Speed increases by 10 feet until the end of the turn. You can use this trait a number of times equal to your Proficiency Bonus and regain all expended uses when you finish a Long Rest.",
+      "action": "bonus_action",
+      "resource": {
+        "id": "winds_of_magic",
+        "name": "Winds of Magic",
+        "max": "pb",
+        "recharge": "long"
+      },
+      "implemented": "engine"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "id": "consuming_pyre",
+  "name": "Consuming Pyre",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 4,
+  "school": "evocation",
+  "classes": [
+    "druid",
+    "paladin",
+    "warlock"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 90
+  },
+  "components": {
+    "v": true,
+    "s": true
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 1,
+    "concentration": true
+  },
+  "targets": {
+    "kind": "creature",
+    "count": 1,
+    "description": "a creature you can see"
+  },
+  "save": "dex",
+  "save_success": "half",
+  "damage": [
+    {
+      "dice": "2d8",
+      "type": "fire",
+      "scales": false
+    },
+    {
+      "dice": "2d8",
+      "type_choice": [
+        "necrotic",
+        "radiant"
+      ],
+      "scales": false
+    }
+  ],
+  "choice": {
+    "kind": "damage_type",
+    "label": "Second flame",
+    "from": [
+      "necrotic",
+      "radiant"
+    ]
+  },
+  "effects": [
+    {
+      "effect": "modifiers",
+      "params": {
+        "on": "fail",
+        "repeat_save": "manual",
+        "modifiers": [
+          {
+            "stat": "flag",
+            "value": "consuming_pyre"
+          }
+        ]
+      }
+    },
+    {
+      "effect": "custom",
+      "params": {
+        "id": "sa_consuming_pyre",
+        "on": "fail",
+        "turn_start_damage": [
+          "2d8 fire",
+          "2d8 choice"
+        ],
+        "ash_on_kill": true
+      }
+    }
+  ],
+  "sustain": [
+    {
+      "do": "game",
+      "mode": "sa_consuming_pyre",
+      "cost": "action",
+      "owner": "target",
+      "targeting": "none",
+      "not_this_turn": false,
+      "label": "Consuming Pyre: smother the flames",
+      "sub": "an action: the burning creature saves again",
+      "help": "The burning creature takes an action to repeat the Dexterity save (a creature within 5 ft of it can do the same from its own hotbar); a success ends the spell.",
+      "requires_effect": true
+    }
+  ],
+  "tags": [
+    "damage"
+  ],
+  "summary": "Dex save: 2d8 Fire plus 2d8 Necrotic or Radiant (your pick), half on a success; on a failure it burns again at each of its turn starts until someone spends an action to let it save again.",
+  "text": "You make a creature you can see within 90 feet burst into consuming, relentless flames. The target makes a Dexterity saving throw. On a failure it takes 2d8 Fire damage plus 2d8 Necrotic or Radiant damage (choose when you cast the spell) and the flames linger; on a success it takes half as much damage and nothing more. While the flames linger the creature takes the same damage (2d8 Fire and 2d8 of the chosen type) again at the start of each of its turns. The target, or another creature within reach of it, can take an action to let the target repeat the saving throw, ending the spell on a success. A creature killed by this spell's damage is reduced to ash, along with any nonmagical equipment it wears or carries. Concentration, up to 1 minute. The spell has no higher-slot benefit."
+}

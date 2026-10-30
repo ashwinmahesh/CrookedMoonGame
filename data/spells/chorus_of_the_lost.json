@@ -1,0 +1,79 @@
+{
+  "id": "chorus_of_the_lost",
+  "name": "Chorus of the Lost",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 2,
+  "school": "necromancy",
+  "classes": [
+    "bard",
+    "cleric",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 60
+  },
+  "area": {
+    "shape": "sphere",
+    "size": 15
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a silver bell worth 10+ GP",
+    "m_cost_gp": 10
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 1,
+    "concentration": true
+  },
+  "targets": {
+    "kind": "area",
+    "description": "each creature in the Sphere"
+  },
+  "save": "wis",
+  "save_success": "half",
+  "area_targets": "all",
+  "damage": [
+    {
+      "dice": "2d6",
+      "type": "psychic"
+    }
+  ],
+  "upcast": {
+    "damage": "1d6"
+  },
+  "effects": [
+    {
+      "effect": "condition",
+      "params": {
+        "on": "fail",
+        "condition": "frightened",
+        "repeat_save": "end_of_turn"
+      }
+    },
+    {
+      "effect": "condition",
+      "params": {
+        "on": "success",
+        "condition": "frightened",
+        "until": "target_turn_end"
+      }
+    }
+  ],
+  "tags": [
+    "damage",
+    "control"
+  ],
+  "summary": "15-ft Sphere at 60 ft, Wis save: 2d6 Psychic and Frightened for the spell (save ends each turn); a success halves the damage and Frightens only to the end of its next turn.",
+  "text": "You call up the eerie song and wailing of lost souls from a point you can see within 60 feet. Each creature in a 15-foot-radius Sphere centered there makes a Wisdom saving throw. On a failure the target takes 2d6 Psychic damage and has the Frightened condition for the duration. On a success it takes half as much damage and is Frightened only until the end of its next turn. A Frightened target repeats the save at the end of each of its turns, ending the spell on itself on a success. The silver bell (worth at least 10 GP) is not consumed. Concentration, up to 1 minute. Using a Higher-Level Spell Slot: the damage increases by 1d6 for each slot level above 2."
+}

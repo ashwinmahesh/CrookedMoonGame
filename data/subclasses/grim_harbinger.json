@@ -1,0 +1,162 @@
+{
+  "id": "grim_harbinger",
+  "name": "Grim Harbinger",
+  "class": "ranger",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 3"
+  },
+  "summary": "A herald of doom who seals a creature's fate with extra Necrotic damage and a spectral hound called the Grim, which fights at the ranger's side.",
+  "role_tags": [
+    "striker",
+    "companion"
+  ],
+  "always_prepared": {
+    "3": [
+      "bane"
+    ],
+    "5": [
+      "hold_person"
+    ],
+    "9": [
+      "fear"
+    ],
+    "13": [
+      "intrusive_despair"
+    ],
+    "17": [
+      "dream"
+    ]
+  },
+  "features": [
+    {
+      "level": 3,
+      "feature": {
+        "id": "grim_harbinger_spells",
+        "name": "Grim Harbinger Spells",
+        "summary": "Bane always prepared; Hold Person (5), Fear (9), Intrusive Despair (13) and Dream (17) later.",
+        "text": "From the Ranger level shown you always have the listed spell prepared: Bane (3), Hold Person (5), Fear (9), Intrusive Despair (13), Dream (17).",
+        "implemented": "data"
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "omen_of_doom",
+        "name": "Omen of Doom",
+        "summary": "Bonus Action: doom a creature within 90 ft for 1 hour (once a turn your hit adds 1d6 Necrotic) and call a Grim, a spectral hound that obeys you. Wis-mod uses per Short Rest.",
+        "text": "As a Bonus Action you pick a creature you can see within 90 feet and seal its doom for 1 hour. Once per turn, when you hit the doomed creature with an attack, it takes an extra 1d6 Necrotic damage. A ghostly creature called the Grim (usually a black spectral hound) also appears in an unoccupied space within 30 feet of the target. It is Friendly to you and your allies and obeys your commands. It vanishes if you die, when the doomed creature dies, when it drops to 0 Hit Points, or when you use this feature again (the doom can't be moved to a new target). You can use this feature a number of times equal to your Wisdom modifier (minimum 1) and regain all uses on a Short or Long Rest; you can also spend a spell slot (no action) to get one use back. The Grim in combat: it acts on your turn, moving and using its Reaction on its own, but its only action is Dodge unless you command it: with a Bonus Action to take an action from its stat block, as part of the Bonus Action you use for Omen of Doom, or by giving up one of your attacks when you take the Attack action so it uses Ominous Rend. If you are Incapacitated, the Grim acts on its own and isn't limited to Dodge. GRIM STAT BLOCK: Medium Undead, Neutral. AC 13 + your Wisdom modifier. HP 5 + five times your Ranger level (Hit Dice d8 equal to your Ranger level). Speed 40 ft. Str 16 (+3, save +3), Dex 16 (+3, +3), Con 14 (+2, +2), Int 14 (+2, +2), Wis 10 (+0, +0), Cha 10 (+0, +0). Immune to Necrotic damage and to the Frightened, Grappled, Petrified, Poisoned, Prone and Restrained conditions. Darkvision 60 ft, Passive Perception 10, understands the languages you know. PB equals your Proficiency Bonus. Traits: Incorporeal Movement (moves through creatures and objects as through Difficult Terrain; takes 1d10 Force damage if it ends its turn inside an object); Shared Fate (add your Proficiency Bonus to its ability checks and saving throws). Actions: Ominous Rend (melee attack, bonus = your spell attack modifier, reach 5 ft; hit: 1d6 + 3 + your Wisdom modifier Necrotic damage, and a creature is Frightened until the start of your next turn). Reactions: Baleful Howl (trigger: a creature moves out of the Grim's reach; the creature makes a Wisdom save against your spell save DC; failure: its Speed is 0 until the end of the turn).",
+        "action": "bonus_action",
+        "resource": {
+          "id": "omen_of_doom",
+          "name": "Omen of Doom",
+          "max": "mod:wis",
+          "min": 1,
+          "recharge": "short"
+        },
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 7,
+      "feature": {
+        "id": "graveyard_hunter",
+        "name": "Graveyard Hunter",
+        "summary": "Harbinger of Doom: the Grim's Ominous Rend deals an extra 1d6 Necrotic on a hit.",
+        "text": "Harbinger of Doom (level 7). The Grim's Ominous Rend deals an extra 1d6 Necrotic damage on a hit.",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 7,
+      "feature": {
+        "id": "mortal_reminder",
+        "name": "Mortal Reminder",
+        "summary": "Harbinger of Doom: when you damage the doomed creature, you can change the damage type to Necrotic.",
+        "text": "Harbinger of Doom (level 7). When you deal damage to a creature doomed by your Omen of Doom, you can change that damage to Necrotic.",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 7,
+      "feature": {
+        "id": "mounting_dread",
+        "name": "Mounting Dread",
+        "summary": "Harbinger of Doom: Necrotic damage dealt by you or the Grim ignores Resistance.",
+        "text": "Harbinger of Doom (level 7). Necrotic damage dealt by you or by the Grim ignores Resistance to Necrotic damage.",
+        "modifiers": [
+          {
+            "stat": "ignore_resistance",
+            "value": "necrotic"
+          }
+        ],
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 11,
+      "feature": {
+        "id": "ghastly_hound",
+        "name": "Ghastly Hound",
+        "summary": "Grave Bond: the Grim has Resistance to Bludgeoning, Piercing and Slashing damage.",
+        "text": "Grave Bond (level 11). The Grim gains Resistance to Bludgeoning, Piercing and Slashing damage.",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 11,
+      "feature": {
+        "id": "grave_fortitude",
+        "name": "Grave Fortitude",
+        "summary": "Grave Bond: you have Resistance to Necrotic damage.",
+        "text": "Grave Bond (level 11). You have Resistance to Necrotic damage.",
+        "modifiers": [
+          {
+            "stat": "resistance",
+            "value": "necrotic"
+          }
+        ],
+        "implemented": "data"
+      }
+    },
+    {
+      "level": 11,
+      "feature": {
+        "id": "inescapable_fate",
+        "name": "Inescapable Fate",
+        "summary": "Grave Bond: Reaction when the doomed creature succeeds on a save: it rerolls with Disadvantage and uses the new roll; once it forces a failure, not again until this Omen ends.",
+        "text": "Grave Bond (level 11). When the target of your Omen of Doom succeeds on a saving throw, you can use your Reaction to force it to reroll the save with Disadvantage and use the new roll. Once you make a save fail with this benefit, you can't use it again until the current Omen of Doom ends.",
+        "action": "reaction",
+        "policy": "auto",
+        "policy_cost": "free",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 15,
+      "feature": {
+        "id": "jaws_of_doom",
+        "name": "Jaws of Doom",
+        "summary": "Sealed Fate: the Grim's Ominous Rend deals another extra 1d6 Necrotic (2d6 extra in all).",
+        "text": "Sealed Fate (level 15), while your Omen of Doom is active. The Grim's Ominous Rend deals an extra 1d6 Necrotic damage on top of Graveyard Hunter, for 2d6 extra damage in all.",
+        "implemented": "text"
+      }
+    },
+    {
+      "level": 15,
+      "feature": {
+        "id": "marked_for_death",
+        "name": "Marked for Death",
+        "summary": "Sealed Fate: when you use Omen of Doom, the target makes a Cha save or has Vulnerability to the Grim's damage and your Omen's extra damage until the Omen ends; once per Long Rest, or restore with a level 4+ slot.",
+        "text": "Sealed Fate (level 15). When you use Omen of Doom you can force the target to make a Charisma saving throw against your spell save DC. On a failed save, until the current Omen of Doom ends, the target has Vulnerability to damage dealt by the Grim and to the extra damage you deal with Omen of Doom. Once you use this you can't use it again until you finish a Long Rest; you can also get the use back by spending a spell slot of level 4 or higher (no action).",
+        "resource": {
+          "id": "marked_for_death",
+          "name": "Marked for Death",
+          "max": 1,
+          "recharge": "long"
+        },
+        "implemented": "text"
+      }
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "id": "cursed_cacophony",
+  "name": "Cursed Cacophony",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 3,
+  "school": "enchantment",
+  "classes": [
+    "bard",
+    "sorcerer",
+    "warlock"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "ritual": true,
+  "range": {
+    "kind": "special"
+  },
+  "components": {
+    "s": true,
+    "m": "a sheet of music"
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 10,
+    "concentration": true
+  },
+  "targets": {
+    "kind": "creature",
+    "count": 1,
+    "description": "a creature you are familiar with on the same plane of existence"
+  },
+  "save": "wis",
+  "save_success": "none",
+  "effects": [
+    {
+      "effect": "modifiers",
+      "params": {
+        "on": "fail",
+        "repeat_save": "manual",
+        "modifiers": [
+          {
+            "stat": "disadvantage",
+            "on": [
+              "attack",
+              "save:all",
+              "check:all"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "effect": "custom",
+      "params": {
+        "id": "sa_cursed_cacophony",
+        "on": "fail",
+        "resave": "first failed D20 Test each turn, straight roll"
+      }
+    }
+  ],
+  "tags": [
+    "debuff"
+  ],
+  "summary": "A creature you know on your plane makes a Wis save or is cursed for up to 10 minutes: Disadvantage on D20 Tests; its first failed D20 Test each turn lets it save again.",
+  "text": "You focus on a creature you are familiar with that is on the same plane of existence as you. The target makes a Wisdom saving throw or is cursed for the duration. While cursed it hears haunting, discordant music and has Disadvantage on D20 Tests. The first time on a turn that the cursed creature fails a D20 Test, it repeats the save against this spell with neither Advantage nor Disadvantage, ending the spell early on a success. Once a target fails its save against this spell you cannot target it with a ritual casting of the spell for 24 hours. Casting time: Action or Ritual. Range: special (see the creature named, however far, in the same world). Concentration, up to 10 minutes."
+}

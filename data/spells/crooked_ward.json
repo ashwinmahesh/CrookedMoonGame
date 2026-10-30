@@ -1,0 +1,115 @@
+{
+  "id": "crooked_ward",
+  "name": "Crooked Ward",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 3,
+  "school": "abjuration",
+  "classes": [
+    "druid",
+    "ranger",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "touch"
+  },
+  "area": {
+    "shape": "sphere",
+    "size": 30
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a five-pointed wicker star"
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 10,
+    "concentration": true
+  },
+  "targets": {
+    "kind": "area",
+    "description": "an immobile surface you touch; the Sphere springs from that point"
+  },
+  "upcast": {
+    "text": "Concentration lasts up to 1 hour with a level 4 slot and up to 8 hours with a level 5 slot. With a level 6 or higher slot it needs no Concentration and lasts 24 hours.",
+    "durations": [
+      {
+        "slot": 4,
+        "kind": "hours",
+        "amount": 1,
+        "concentration": true
+      },
+      {
+        "slot": 5,
+        "kind": "hours",
+        "amount": 8,
+        "concentration": true
+      },
+      {
+        "slot": 6,
+        "kind": "hours",
+        "amount": 24,
+        "concentration": false
+      }
+    ]
+  },
+  "zone": {
+    "triggers": [
+      "enter",
+      "start_turn"
+    ],
+    "affects": "all",
+    "once_per_turn": true,
+    "save": "wis",
+    "effects": [
+      {
+        "effect": "condition",
+        "params": {
+          "condition": "frightened",
+          "until": "target_turn_start",
+          "on": "fail"
+        }
+      },
+      {
+        "effect": "custom",
+        "params": {
+          "id": "sa_crooked_ward",
+          "on": "fail",
+          "only_types": [
+            "aberration",
+            "fey",
+            "fiend",
+            "monstrosity",
+            "undead"
+          ]
+        }
+      }
+    ],
+    "inside": {
+      "modifiers": [
+        {
+          "stat": "disadvantage",
+          "on": "check:all"
+        },
+        {
+          "stat": "disadvantage",
+          "on": "attack"
+        }
+      ]
+    }
+  },
+  "tags": [
+    "control",
+    "defense",
+    "debuff"
+  ],
+  "summary": "Touch a fixed surface: an unseen 30-ft Sphere where Aberrations, Fey, Fiends, Monstrosities and Undead have Disadvantage on checks and attacks and must save (Wis) or be Frightened.",
+  "text": "You touch an immobile surface and mark a symbol that causes agony in twisted creatures. An Invisible Sphere of 30-foot radius springs out from the point you touch. Each Aberration, Fey, Fiend, Monstrosity or Undead in the Sphere has Disadvantage on ability checks and attack rolls. When such a creature enters the Sphere for the first time on a turn, or starts its turn there, it must succeed on a Wisdom saving throw or have the Frightened condition until the start of its next turn. Concentration, up to 10 minutes. Using a Higher-Level Spell Slot: Concentration can last up to 1 hour with a level 4 slot or up to 8 hours with a level 5 slot; with a level 6 or higher slot the spell needs no Concentration and lasts 24 hours. Creatures of those types on your own side (an Ashborn, Deepborn, Graveborn or Relicborn hero) are affected too: the game warns when you cast it with one in the area."
+}

@@ -1,0 +1,80 @@
+{
+  "id": "puppet_master",
+  "name": "Puppet Master",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 4,
+  "school": "enchantment",
+  "classes": [
+    "bard",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 60
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a marionette string"
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 1,
+    "concentration": true
+  },
+  "targets": {
+    "kind": "creature",
+    "count": 1,
+    "description": "a creature you can see"
+  },
+  "requires_sight": true,
+  "save": "wis",
+  "save_success": "none",
+  "effects": [
+    {
+      "effect": "condition",
+      "params": {
+        "repeat_save": "end_of_turn",
+        "condition": "charmed",
+        "primary_condition": "charmed"
+      }
+    },
+    {
+      "effect": "modifiers",
+      "params": {
+        "repeat_save": "end_of_turn",
+        "primary_condition": "charmed",
+        "modifiers": [
+          {
+            "stat": "flag",
+            "value": "crowned",
+            "caster": true
+          }
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "control"
+  ],
+  "sustain": [
+    {
+      "do": "maintain",
+      "cost": "bonus_action",
+      "upkeep": true,
+      "label": "Puppet Master: keep control",
+      "sub": "Bonus Action",
+      "help": "Each of your later turns needs a Bonus Action or the spell ends. Pick the creature the marionette must attack next (Enter: no one)."
+    }
+  ],
+  "summary": "A creature makes a Wis save or is Charmed on magical strings and must make a melee attack against a creature you choose on each of its turns.",
+  "text": "One creature you can see within 60 feet makes a Wisdom saving throw or is Charmed for the duration, magical marionette strings fastened to its body. On each of its turns it must use its action to make a melee attack against a creature other than itself that you choose with your mind, moving to reach that creature first if it needs to. If you choose no one, or the chosen creature is not within its reach after it moves, it acts normally that turn. It repeats the save at the end of each of its turns, ending the spell on itself on a success. On each of your later turns you must take a Bonus Action to keep control of it, or the spell ends."
+}

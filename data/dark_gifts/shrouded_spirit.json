@@ -1,0 +1,52 @@
+{
+  "id": "shrouded_spirit",
+  "name": "Shrouded Spirit",
+  "vestige": "an unknowable power",
+  "summary": "Resistance to Necrotic and Advantage on saves against Undead magic. The price: a pound of raw flesh a day, and detection reads you as Undead.",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 6"
+  },
+  "benefit": {
+    "text": "The pall of death drapes over you like the Shroud of Druskenvald and turns the Undead's worst away.",
+    "features": [
+      {
+        "id": "inured_to_undeath",
+        "name": "Inured to Undeath",
+        "summary": "Resistance to Necrotic damage; Advantage on saves against spells and effects created by Undead.",
+        "text": "You have Resistance to Necrotic damage, and you have Advantage on saving throws against spells and effects created by Undead.",
+        "action": "passive",
+        "modifiers": [
+          {
+            "stat": "resistance",
+            "value": "necrotic"
+          }
+        ],
+        "implemented": "engine"
+      }
+    ]
+  },
+  "cost": {
+    "text": "The shroud that protects you also draws you nearer to the Undead's cold embrace.",
+    "flaw": "You hunger for flesh, and holy senses take you for one of the dead.",
+    "features": [
+      {
+        "id": "unholy_appetite",
+        "name": "Unholy Appetite",
+        "summary": "You must eat a pound of raw flesh (it needn't be fresh) each day or suffer Malnutrition.",
+        "text": "You must consume one pound of raw flesh per day (it need not be fresh) or suffer Malnutrition.",
+        "action": "passive",
+        "implemented": "engine"
+      },
+      {
+        "id": "withering_soul",
+        "name": "Withering Soul",
+        "summary": "Features that detect creature type, such as Divine Sense or Detect Evil and Good, treat you as Undead.",
+        "text": "Features that detect your creature type, such as a Paladin's Divine Sense or the Detect Evil and Good spell, treat you as Undead if your creature type is not Undead already.",
+        "action": "passive",
+        "implemented": "engine"
+      }
+    ]
+  },
+  "implemented": "engine"
+}

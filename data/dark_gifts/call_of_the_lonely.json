@@ -1,0 +1,52 @@
+{
+  "id": "call_of_the_lonely",
+  "name": "Call of the Lonely",
+  "vestige": "an unknowable power",
+  "summary": "Once per Long Rest, when unseen, call a Doppelganger companion for 1 hour. The price: your frightened allies.",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 6"
+  },
+  "benefit": {
+    "text": "When hope had withered on the branch, something answered. You never need be alone again.",
+    "features": [
+      {
+        "id": "never_alone",
+        "name": "Never Alone",
+        "summary": "When no other creature sees you, a Bonus Action calls a Doppelganger companion for 1 hour; once per Long Rest.",
+        "text": "When no other creature can see you, you can use a Bonus Action to call a companion into an unoccupied space within 10 feet of you. It looks like a person or a vague silhouette and uses the Doppelganger stat block. It is Friendly toward you, acts as your ally, and takes its turn on your Initiative in combat. It disappears after 1 hour, when it dies, when you die, or when you use an action to dismiss it politely; when it disappears it drops anything it was wearing or carrying. Once you use this Bonus Action you cannot use it again until you finish a Long Rest.",
+        "action": "bonus_action",
+        "resource": {
+          "id": "never_alone",
+          "name": "Never Alone",
+          "max": 1,
+          "recharge": "long"
+        },
+        "implemented": "engine"
+      },
+      {
+        "id": "precocious_friend",
+        "name": "Precocious Friend",
+        "summary": "The companion sometimes turns up with trinkets, Cursed Curios or other items.",
+        "text": "The companion sometimes appears carrying trinkets, Cursed Curios or other items. It may or may not tell you where it got them. If it took one from someone who misses it or wants it back, that can cause you trouble.",
+        "action": "passive",
+        "implemented": "text"
+      }
+    ]
+  },
+  "cost": {
+    "text": "The companion loves you and nobody else can stand it, or you, while it is out.",
+    "flaw": "Your companion is deeply unsettling to your allies.",
+    "features": [
+      {
+        "id": "unsettling_presence",
+        "name": "Unsettling Presence",
+        "summary": "While the companion is out, non-hostile creatures that see you or it risk a DC 15 Wisdom save or are Frightened.",
+        "text": "While your companion is summoned, you and it give off a frightful air. A creature that is not Hostile toward you and starts its turn able to see you or the companion must succeed on a DC 15 Wisdom saving throw or have the Frightened condition until the start of its next turn.",
+        "action": "passive",
+        "implemented": "engine"
+      }
+    ]
+  },
+  "implemented": "engine"
+}

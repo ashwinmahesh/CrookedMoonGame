@@ -1,0 +1,126 @@
+{
+  "id": "crimson_sorcery",
+  "name": "Crimson Sorcery",
+  "class": "sorcerer",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 3"
+  },
+  "summary": "A sorcerer of blood and life essence: a Blood Well that boosts damage and healing, a blood-healer's spell list, and a body that can melt into a pool of blood.",
+  "role_tags": [
+    "healer",
+    "striker"
+  ],
+  "always_prepared": {
+    "3": [
+      "aid",
+      "blood_bolt",
+      "cure_wounds",
+      "inflict_wounds",
+      "blood_sacrifice"
+    ],
+    "5": [
+      "crimson_harvest",
+      "vampiric_touch"
+    ],
+    "7": [
+      "death_ward",
+      "sacrificial_siphon"
+    ],
+    "9": [
+      "field_of_reaping",
+      "mass_cure_wounds"
+    ]
+  },
+  "features": [
+    {
+      "level": 3,
+      "feature": {
+        "id": "blood_well",
+        "name": "Blood Well",
+        "summary": "One charge: add 1d8 to the total when you deal damage or restore Hit Points to one target; it returns on a Long Rest or when a creature takes 10+ Necrotic from you at once.",
+        "text": "You hold a reserve of vital energy, the Blood Well, which powers your magic and other abilities of this subclass. When you deal damage or restore Hit Points to a creature, you can spend your Blood Well to add 1d8 to the total for one target. You regain the spent Blood Well when you finish a Long Rest, or when a creature takes 10 or more Necrotic damage from you at one time.",
+        "resource": {
+          "id": "blood_well",
+          "name": "Blood Well",
+          "max": 1,
+          "recharge": "long"
+        },
+        "policy": "auto",
+        "policy_modes": [
+          "ask",
+          "auto",
+          "never"
+        ],
+        "policy_cost": "the Blood Well",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "crimson_spells",
+        "name": "Crimson Spells",
+        "summary": "Aid, Blood Bolt, Cure Wounds, Inflict Wounds and Blood Sacrifice always prepared; more at levels 5, 7 and 9.",
+        "text": "From the Sorcerer level shown you always have these spells prepared: Aid, Blood Bolt, Cure Wounds, Inflict Wounds, Blood Sacrifice (3); Crimson Harvest, Vampiric Touch (5); Death Ward, Sacrificial Siphon (7); Field of Reaping, Mass Cure Wounds (9).",
+        "implemented": "data"
+      }
+    },
+    {
+      "level": 6,
+      "feature": {
+        "id": "pool_of_blood",
+        "name": "Pool of Blood",
+        "summary": "Bonus Action, spend the Blood Well: for up to 1 hour become a pool of blood (with your gear): Speed 10, Climb and Swim 10, Resistance to B/P/S, Prone immunity, Advantage on Str/Dex/Con saves, squeeze through cracks; no talking, handling, attacking or casting.",
+        "text": "As a Bonus Action you spend your Blood Well to dissolve, with everything you wear and carry, into a pool of blood for 1 hour. It ends early if you drop to 0 Hit Points or you end it (no action). As a pool you use your own statistics with these changes: your Speed is 10 feet; you gain Climb and Swim Speeds equal to your Speed and can climb difficult surfaces, ceilings included, without an ability check; you have Resistance to Bludgeoning, Piercing and Slashing damage; you are immune to the Prone condition; you have Advantage on Strength, Dexterity and Constitution saving throws; you can pass through small holes, narrow openings and mere cracks; you can enter and occupy another creature's space; you can't drop, use or interact with anything you carry or hold; and you can't talk, manipulate objects, attack or cast spells. (Game rule: outside fights it lets you slip under doors or through grates; in a fight it is an escape.)",
+        "action": "bonus_action",
+        "uses_resource": "blood_well",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 6,
+      "feature": {
+        "id": "scarlet_vigor",
+        "name": "Scarlet Vigor",
+        "summary": "Resistance to Necrotic damage; after a Short Rest, spend the Blood Well to lose one level of Exhaustion.",
+        "text": "You have Resistance to Necrotic damage. Also, when you finish a Short Rest you can spend your Blood Well to reduce your Exhaustion level, if any, by 1.",
+        "modifiers": [
+          {
+            "stat": "resistance",
+            "value": "necrotic"
+          }
+        ],
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 14,
+      "feature": {
+        "id": "vital_siphoning",
+        "name": "Vital Siphoning",
+        "summary": "Bonus Action, spend a Hit Point Die: Blood Boil (regain the Blood Well) or Crimson Pulse (spend the Blood Well so your next Metamagic this turn costs no Sorcery Points).",
+        "text": "As a Bonus Action you can spend one Hit Point Die and pick one benefit. Blood Boil: you regain the use of your Blood Well. Crimson Pulse: you spend your Blood Well, and the next Metamagic option you use this turn costs no Sorcery Points.",
+        "action": "bonus_action",
+        "implemented": "text"
+      }
+    },
+    {
+      "level": 18,
+      "feature": {
+        "id": "sanguine_feast",
+        "name": "Sanguine Feast",
+        "summary": "Magic action: creatures of your choice within 30 ft make a Con save or take 5d8 Necrotic (half on a success; Disadvantage if your Blood Well is spent); you regain Hit Points equal to the damage roll. Once per Long Rest, or 5 Sorcery Points.",
+        "text": "As a Magic action you lash any creatures of your choice within 30 feet with tendrils of blood. Each target makes a Constitution saving throw (against your spell save DC), taking 5d8 Necrotic damage on a failure or half as much on a success. If your Blood Well is already spent when you use this, the targets have Disadvantage on the save. If at least one creature takes damage, you regain Hit Points equal to the damage roll. After you use it you can't use it again until you finish a Long Rest, unless you spend 5 Sorcery Points to use it again.",
+        "action": "action",
+        "resource": {
+          "id": "sanguine_feast",
+          "name": "Sanguine Feast",
+          "max": 1,
+          "recharge": "long"
+        },
+        "implemented": "text"
+      }
+    }
+  ]
+}

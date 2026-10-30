@@ -1,0 +1,86 @@
+{
+  "id": "might_of_the_old",
+  "name": "Might of the Old",
+  "vestige": "an unknowable power",
+  "summary": "Strength +2 (max 22) and, once per Long Rest, Strength 25 for a minute. The price: Dexterity -2 and bark skin, Vulnerable to fire.",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 6"
+  },
+  "benefit": {
+    "modifiers": [
+      {
+        "stat": "ability",
+        "ability": "str",
+        "value": 2,
+        "max": 22
+      }
+    ],
+    "text": "The oldest forests of Druskenvald pour their strength into you. Ancient Might: your Strength score increases by 2, to a maximum of 22.",
+    "features": [
+      {
+        "id": "primeval_strength",
+        "name": "Primeval Strength",
+        "summary": "Bonus Action, once per Long Rest: Strength 25 for 1 minute and double damage to objects.",
+        "text": "As a Bonus Action you call on the might of the ancients to raise your Strength score to 25 for 1 minute, during which you deal double damage to objects. Once you use this Bonus Action you cannot use it again until you finish a Long Rest.",
+        "action": "bonus_action",
+        "resource": {
+          "id": "primeval_strength",
+          "name": "Primeval Strength",
+          "max": 1,
+          "recharge": "long"
+        },
+        "activation": {
+          "cost": "bonus",
+          "resource": "primeval_strength",
+          "targeting": "none",
+          "duration": {
+            "kind": "minutes",
+            "amount": 1
+          },
+          "effects": [
+            {
+              "effect": "modifiers",
+              "params": {
+                "target": "self",
+                "modifiers": [
+                  {
+                    "stat": "ability_min",
+                    "ability": "str",
+                    "value": 25
+                  },
+                  {
+                    "stat": "flag",
+                    "value": "siege_monster"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "implemented": "engine"
+      }
+    ]
+  },
+  "cost": {
+    "modifiers": [
+      {
+        "stat": "ability",
+        "ability": "dex",
+        "value": -2
+      }
+    ],
+    "text": "That unchanging power pins you in place. Your Dexterity score decreases by 2.",
+    "features": [
+      {
+        "id": "pyres_price",
+        "name": "Pyre's Price",
+        "summary": "Using Primeval Strength gives you bark-like skin and Vulnerability to Fire damage until your next Long Rest.",
+        "text": "When you activate Primeval Strength, your skin takes on a bark-like texture, and you have Vulnerability to Fire damage from then on. Your skin returns to normal, and the Vulnerability ends, when you finish a Long Rest.",
+        "action": "passive",
+        "implemented": "engine"
+      }
+    ]
+  },
+  "implemented": "engine"
+}

@@ -1,0 +1,105 @@
+{
+  "id": "philosopher",
+  "name": "Philosopher",
+  "class": "wizard",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 3"
+  },
+  "summary": "An alchemical wizard whose Dissolution kills leave Quintessence, a powder that pays costly components, deepens spell slots and finally becomes a philosopher's stone.",
+  "role_tags": [
+    "caster",
+    "utility"
+  ],
+  "features": [
+    {
+      "level": 3,
+      "feature": {
+        "id": "alchemical_knowledge",
+        "name": "Alchemical Knowledge",
+        "summary": "Alchemist's Supplies with proficiency, usable as an Arcane Focus, and usable in place of the normal tool to craft a magic item.",
+        "text": "You gain a set of Alchemist's Supplies and are proficient with it; you can use it as an Arcane Focus. You can also use Alchemist's Supplies instead of the normal tool when you craft a magic item. (The game has no crafting screen yet, so only the proficiency and focus matter; the supplies are not added to your pack.)",
+        "action": "passive",
+        "implemented": "data",
+        "modifiers": [
+          {
+            "stat": "proficiency",
+            "kind": "tool",
+            "value": "alchemists_supplies"
+          }
+        ]
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "quintessence",
+        "name": "Quintessence",
+        "summary": "You know Dissolution. A creature it drops to 0 HP is destroyed; a Small or larger body leaves 1 measure of Quintessence (cap 2 x Int modifier, min 2), spent as 100 gp of Material components, 50 gp of scribing or crafting, or to turn a spell's damage type to Force.",
+        "text": "You have learned the process of dissolution. You know the Dissolution cantrip. A creature or object you reduce to 0 Hit Points with it is destroyed; if the target was Small or larger it dissolves into one measure (1 ounce) of crystalline powder called Quintessence. You can hold at most twice your Intelligence modifier in Quintessence (minimum 2 measures); if you make more, the oldest measure vanishes. You can use Quintessence you are touching in these ways. Material Component: when you cast a spell you can expend Quintessence to serve as its Material components up to 100 gp in value per measure expended. Reagent: when you scribe a spell into your spellbook, or craft a magic item with Alchemist's Supplies, you can expend Quintessence to serve as 50 gp of material per measure. Vitriolic Enhancement: when you cast a spell that deals damage, you can expend 1 Quintessence as an extra Material component to change one damage type the spell deals to Force. (Game rules: a dissolved body still drops its loot, so no quest item is lost to a kill; a 300 gp component such as Revivify's diamond takes three measures.)",
+        "action": "special",
+        "implemented": "engine",
+        "modifiers": [
+          {
+            "stat": "spell",
+            "value": "dissolution",
+            "ability": "int"
+          }
+        ]
+      }
+    },
+    {
+      "level": 6,
+      "feature": {
+        "id": "albedo",
+        "name": "Albedo",
+        "summary": "When you cast with a slot, expend 1 Quintessence as a Material component to raise the slot level by 1 (up to 9); at most half your Proficiency Bonus (rounded up) per spell.",
+        "text": "You can purify your Quintessence to amplify your spells. When you cast a spell using a spell slot, you can expend 1 Quintessence as a Material component to raise the slot's level by 1, up to level 9. The most Quintessence you can expend this way on one spell is half your Proficiency Bonus, rounded up.",
+        "action": "special",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 10,
+      "feature": {
+        "id": "citrinitas",
+        "name": "Citrinitas",
+        "summary": "Creation and Fabricate always prepared, each castable once per Long Rest without a slot and as an action; Quintessence multiplies Creation's duration.",
+        "text": "You can now use Quintessence to create, not merely to purify. You always have Creation and Fabricate prepared, and you can cast each once without a spell slot, regaining the ability when you finish a Long Rest. Cast with this feature, the spell can be cast as an action instead of its normal casting time. You can also cast them normally with spell slots of the right level. In addition, when you cast Creation you can expend up to your Intelligence modifier (minimum 1) in Quintessence to multiply the spell's duration by 1 plus the number of measures expended.",
+        "action": "special",
+        "implemented": "engine",
+        "modifiers": [
+          {
+            "stat": "spell",
+            "value": "creation",
+            "always_prepared": true,
+            "uses": {
+              "count": 1,
+              "recharge": "long"
+            }
+          },
+          {
+            "stat": "spell",
+            "value": "fabricate",
+            "always_prepared": true,
+            "uses": {
+              "count": 1,
+              "recharge": "long"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "level": 14,
+      "feature": {
+        "id": "rubedo",
+        "name": "Rubedo",
+        "summary": "Beyond level 13: after a rest, spend 10 Quintessence to make a philosopher's stone (AC 19, 20 HP) that boosts save DCs, turns a failed save into a success, stops ageing and stands in for your body.",
+        "text": "The culmination of your work lets you distil your knowledge into physical form. When you finish a Short or Long Rest you can expend 10 Quintessence to create a philosopher's stone, a translucent red crystal. It is a Tiny magical object with AC 19, 20 Hit Points and Immunity to all damage except Force. If you create a second stone, the first vanishes. While you carry the stone it gives you these benefits. Amplification: when you cast a spell you can expend up to 2 Quintessence as an extra Material component to raise that spell's save DC by the same amount. Equivalent Exchange: when you fail a saving throw you can use your Reaction and expend 5 Quintessence to succeed on the save instead. Longevity: you stop aging and suffer no effects of old age, including dying of it. Sympathy: the stone counts as part of your body for the Scrying spell and for spells that restore you to life if you die; it serves as the Material component for such a spell (if any) and is destroyed when the spell is cast.",
+        "action": "special",
+        "implemented": "text"
+      }
+    }
+  ]
+}

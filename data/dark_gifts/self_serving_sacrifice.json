@@ -1,0 +1,79 @@
+{
+  "id": "self_serving_sacrifice",
+  "name": "Self-Serving Sacrifice",
+  "vestige": "an unknowable power",
+  "summary": "Swap places with a creature taking a Critical Hit or falling to 0, and eventually cast True Resurrection by dying. The price: every rest drains Hit Dice from all near you.",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 6"
+  },
+  "benefit": {
+    "text": "You can snatch others from the jaws of death, though your own grip lingers too tightly.",
+    "features": [
+      {
+        "id": "critical_savior",
+        "name": "Critical Savior",
+        "summary": "Reaction, 120 ft: when a creature takes a Critical Hit or drops to 0 HP, swap places with it; you take d6s of Force, it is healed that much. Once per Short or Long Rest.",
+        "text": "When a creature within 120 feet of you is subjected to a Critical Hit or is reduced to 0 Hit Points, you can use your Reaction to magically switch places with it; each of you teleports to the other's space. Roll a number of d6s equal to half your level. You take Force damage equal to the total rolled, you gain Heroic Inspiration, and your Exhaustion level, if any, is reduced by 1. The target regains Hit Points equal to the total rolled and gains 1 Exhaustion level. You cannot use this feature again until you finish a Short or Long Rest.",
+        "action": "reaction",
+        "policy": "ask",
+        "resource": {
+          "id": "critical_savior",
+          "name": "Critical Savior",
+          "max": 1,
+          "recharge": "short"
+        },
+        "implemented": "engine",
+        "policy_modes": [
+          "ask",
+          "auto",
+          "never"
+        ]
+      },
+      {
+        "id": "final_sacrifice",
+        "name": "Final Sacrifice",
+        "summary": "Cast True Resurrection with no slot or components; you die for good and your spirit may haunt the one you saved.",
+        "text": "You can cast True Resurrection through this bargain with no spell slot and no spell components. Intelligence, Wisdom or Charisma is your spellcasting ability for it (choose when you take this bargain). When you cast it this way you die, and nothing can prevent it. Your soul is bound to torment the creature you returned to life, and you cannot be raised from the dead by any means. Whenever that creature takes a Long Rest, it must roll a d20 halfway through the rest. On a 1, your soul takes the form of a Wraith within 100 feet of the creature and tries to kill it. The Wraith vanishes after 8 hours or when it dies. Once the Wraith has appeared, it cannot appear again for 30 days.",
+        "action": "action",
+        "choice": {
+          "id": "spellcasting_ability",
+          "kind": "spellcasting_ability",
+          "count": 1,
+          "from": [
+            "int",
+            "wis",
+            "cha"
+          ]
+        },
+        "modifiers": [
+          {
+            "stat": "spell",
+            "value": "true_resurrection",
+            "ability": "@spellcasting_ability",
+            "uses": {
+              "count": 1,
+              "recharge": "none"
+            }
+          }
+        ],
+        "implemented": "engine"
+      }
+    ]
+  },
+  "cost": {
+    "text": "Every rest in your company costs those around you something dear.",
+    "flaw": "Your presence drains the vigor from everyone near you.",
+    "features": [
+      {
+        "id": "draining_presence",
+        "name": "Draining Presence",
+        "summary": "When you finish a Short or Long Rest, each creature within 100 ft loses one Hit Point Die, before Short Rest healing.",
+        "text": "When you finish a Short or Long Rest, each creature within 100 feet of you loses one Hit Point Die (before any Hit Dice are spent, in the case of a Short Rest).",
+        "action": "passive",
+        "implemented": "engine"
+      }
+    ]
+  },
+  "implemented": "engine"
+}

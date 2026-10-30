@@ -1,0 +1,73 @@
+{
+  "id": "ghastly_charge",
+  "name": "Ghastly Charge",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 6,
+  "school": "necromancy",
+  "classes": [
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "self"
+  },
+  "area": {
+    "shape": "line",
+    "size": 90,
+    "width": 20
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a scrap of a banner"
+  },
+  "duration": {
+    "kind": "instantaneous"
+  },
+  "targets": {
+    "kind": "area",
+    "description": "each creature of your choice in the Line"
+  },
+  "save": "wis",
+  "save_success": "half",
+  "area_targets": "enemies",
+  "damage": [
+    {
+      "dice": "5d12",
+      "type": "necrotic"
+    }
+  ],
+  "upcast": {
+    "damage": "1d12"
+  },
+  "effects": [
+    {
+      "effect": "condition",
+      "params": {
+        "on": "fail",
+        "condition": "frightened",
+        "until": "caster_turn_start"
+      }
+    },
+    {
+      "effect": "custom",
+      "params": {
+        "on": "fail",
+        "id": "flee_reaction"
+      }
+    }
+  ],
+  "tags": [
+    "damage",
+    "control"
+  ],
+  "summary": "90 x 20-ft Line from you, Wis save: 5d12 Necrotic (half on a success); on a failure the target is Frightened until your next turn and flees from you with its Reaction.",
+  "text": "You call forth the spirits of long-dead knights, who charge forward from you in a Line 90 feet long and 20 feet wide, then vanish. Each creature of your choice in the Line makes a Wisdom saving throw. On a failure the target takes 5d12 Necrotic damage, has the Frightened condition until the start of your next turn, and must immediately use its Reaction, if it has one, to move as far from you as it can, by the safest route. On a success it takes half as much damage and nothing else. Using a Higher-Level Spell Slot: the damage increases by 1d12 for each slot level above 6."
+}

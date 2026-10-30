@@ -1,0 +1,95 @@
+{
+  "id": "curseborn",
+  "name": "Curseborn",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 2"
+  },
+  "summary": "Wolf-like folk born from the cursed fog of Edwardia, bound to the Grey: fast, clawed, able to curse a foe's luck or force their own save to succeed at a price.",
+  "creature_type": "humanoid",
+  "sizes": [
+    "medium"
+  ],
+  "speed": 35,
+  "darkvision": 60,
+  "traits": [
+    {
+      "id": "cursed_claws",
+      "name": "Cursed Claws",
+      "summary": "Claw Unarmed Strikes (1d6 Slashing, Str or Dex); on a hit, curse the target until the start of your next turn so it has Disadvantage on D20 Tests; Proficiency Bonus times per Long Rest.",
+      "text": "You have claws you can use for Unarmed Strikes, which deal 1d6 Slashing damage on a hit; you can use Strength or Dexterity for the attack and damage rolls. When you hit a creature with your claws you can curse it until the start of your next turn: it trails wisps of fog and has Disadvantage on D20 Tests. You can curse a creature a number of times equal to your Proficiency Bonus and regain all expended uses when you finish a Long Rest.",
+      "action": "passive",
+      "resource": {
+        "id": "cursed_claws",
+        "name": "Cursed Claws",
+        "max": "pb",
+        "recharge": "long"
+      },
+      "uses_resource": "cursed_claws",
+      "policy": "auto",
+      "modifiers": [
+        {
+          "stat": "weapon_override",
+          "items": [
+            "unarmed_strike"
+          ],
+          "die": "1d6",
+          "ability": "dex",
+          "damage_type": "slashing"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "See in Dim Light within 60 feet as if it were Bright Light, and in Darkness as if it were Dim Light.",
+      "text": "You have Darkvision with a range of 60 feet.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "darkvision",
+          "value": 60
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "grey_balance",
+      "name": "Grey Balance",
+      "summary": "Reaction when you fail a saving throw: succeed instead, then have Disadvantage on D20 Tests until the end of your next turn; once per Long Rest.",
+      "text": "When you fail a saving throw you can take a Reaction to succeed on it instead. When you do, you have Disadvantage on D20 Tests until the end of your next turn. You can use this trait once and regain it when you finish a Long Rest.",
+      "action": "reaction",
+      "resource": {
+        "id": "grey_balance",
+        "name": "Grey Balance",
+        "max": 1,
+        "recharge": "long"
+      },
+      "policy": "ask",
+      "policy_modes": [
+        "ask",
+        "auto",
+        "never"
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "lupine_sense",
+      "name": "Lupine Sense",
+      "summary": "Proficiency in Investigation, Perception or Survival.",
+      "text": "You gain proficiency in one of these skills of your choice: Investigation, Perception or Survival.",
+      "action": "passive",
+      "choice": {
+        "kind": "skill",
+        "count": 1,
+        "from": [
+          "investigation",
+          "perception",
+          "survival"
+        ]
+      },
+      "implemented": "data"
+    }
+  ]
+}

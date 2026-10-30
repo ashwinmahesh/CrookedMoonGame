@@ -1,0 +1,102 @@
+{
+  "id": "cult_initiate",
+  "name": "Cult Initiate",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 5"
+  },
+  "category": "origin",
+  "repeatable": false,
+  "summary": "Learn two Warlock cantrips and a level 1 Warlock spell you can cast free once per Short or Long Rest; swap one spell at each level.",
+  "ability_increase": {
+    "points": 1,
+    "max": 20,
+    "min_level": 4
+  },
+  "benefits": [
+    {
+      "id": "cult_two_cantrips",
+      "name": "Two Cantrips",
+      "summary": "Learn two cantrips from the Warlock list; pick Int, Wis or Cha as this feat's spellcasting ability.",
+      "text": "You learn two cantrips of your choice from the Warlock spell list. Intelligence, Wisdom or Charisma is your spellcasting ability for this feat's spells (choose when you take the feat).",
+      "action": "passive",
+      "choices": [
+        {
+          "id": "cantrips",
+          "kind": "cantrip",
+          "count": 2,
+          "filter": {
+            "list": "@list",
+            "level": 0
+          },
+          "replaceable": "level_up",
+          "replace_max": 1,
+          "replace_group": "Cult Initiate"
+        },
+        {
+          "id": "spellcasting_ability",
+          "kind": "spellcasting_ability",
+          "count": 1,
+          "from": [
+            "int",
+            "wis",
+            "cha"
+          ]
+        }
+      ],
+      "modifiers": [
+        {
+          "stat": "spell",
+          "value": "@cantrips",
+          "ability": "@spellcasting_ability"
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "cult_level_1_spell",
+      "name": "Level 1 Spell",
+      "summary": "A level 1 Warlock spell is always prepared; cast it once without a slot, regaining it on a Short or Long Rest.",
+      "text": "Choose a level 1 spell from the Warlock spell list. You always have it prepared. You can cast it once without a spell slot, regaining that free casting when you finish a Short or Long Rest, and you can also cast it using any spell slots you have.",
+      "action": "passive",
+      "choice": {
+        "id": "level_1_spell",
+        "kind": "spell",
+        "count": 1,
+        "filter": {
+          "list": "@list",
+          "level": 1
+        },
+        "replaceable": "level_up",
+        "replace_max": 1,
+        "replace_group": "Cult Initiate"
+      },
+      "modifiers": [
+        {
+          "stat": "spell",
+          "value": "@level_1_spell",
+          "ability": "@spellcasting_ability",
+          "always_prepared": true,
+          "uses": {
+            "count": 1,
+            "recharge": "short"
+          }
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "cult_spell_change",
+      "name": "Spell Change",
+      "summary": "Each time you gain a level, swap one of this feat's spells for another of the same level from the Warlock list.",
+      "text": "Whenever you gain a new level, you can replace one of the spells you chose for this feat with a different spell of the same level from the Warlock spell list.",
+      "action": "special",
+      "implemented": "data"
+    }
+  ],
+  "params": {
+    "lists": [
+      "warlock"
+    ]
+  }
+}

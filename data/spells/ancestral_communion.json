@@ -1,0 +1,63 @@
+{
+  "id": "ancestral_communion",
+  "name": "Ancestral Communion",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 1,
+  "school": "divination",
+  "classes": [
+    "cleric",
+    "druid",
+    "ranger",
+    "sorcerer"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "self"
+  },
+  "components": {
+    "v": true,
+    "s": true
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 1,
+    "concentration": true
+  },
+  "targets": {
+    "kind": "self"
+  },
+  "effects": [
+    {
+      "effect": "modifiers",
+      "params": {
+        "target": "self",
+        "modifiers": [
+          {
+            "stat": "flag",
+            "value": "ancestral_communion"
+          }
+        ]
+      }
+    },
+    {
+      "effect": "custom",
+      "params": {
+        "id": "sa_ancestral_communion",
+        "target": "self",
+        "on": "cast",
+        "each_turn_start": true,
+        "if_lacking": true
+      }
+    }
+  ],
+  "tags": [
+    "buff"
+  ],
+  "summary": "Concentration, 1 minute: you gain Heroic Inspiration when you cast it and at the start of each of your turns if you lack it.",
+  "text": "You invoke the wisdom of your ancestors to gain insight into your trials. When you cast the spell, and again at the start of each of your turns while it lasts, you gain Heroic Inspiration if you don't already have it. Concentration, up to 1 minute."
+}

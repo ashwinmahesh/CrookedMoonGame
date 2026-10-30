@@ -1,0 +1,63 @@
+{
+  "id": "isolation",
+  "name": "Isolation",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 3,
+  "school": "enchantment",
+  "classes": [
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 120
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a small metal cube"
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 1,
+    "concentration": true
+  },
+  "targets": {
+    "kind": "creature",
+    "count": 1,
+    "description": "a creature you can see"
+  },
+  "requires_sight": true,
+  "save": "wis",
+  "save_success": "none",
+  "effects": [
+    {
+      "effect": "modifiers",
+      "params": {
+        "repeat_save": "end_of_turn",
+        "modifiers": [
+          {
+            "stat": "flag",
+            "value": "isolated"
+          },
+          {
+            "stat": "flag",
+            "value": "cant_see"
+          }
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "control",
+    "debuff"
+  ],
+  "summary": "Wis save or the creature is wrapped in total isolation: every other creature is Invisible to it (even to Blindsight and Truesight) and it cannot tell where wounds come from; save ends.",
+  "text": "A creature you can see within 120 feet makes a Wisdom saving throw or has its mind shrouded in the dread of total isolation. For the duration, every other creature has the Invisible condition toward it, and it cannot see through that, not with Blindsight, Truesight or magic such as See Invisibility, and it cannot perceive other creatures with any other sense either. It moves around other creatures, or explains away not passing through their spaces (a door reads as shut, or as a wall, if a creature stands in the way). It still feels pain but cannot tell what hurt it when another creature caused the injury. It repeats the save at the end of each of its turns, ending the spell on itself on a success. Concentration, up to 1 minute."
+}

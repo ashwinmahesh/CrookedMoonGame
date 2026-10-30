@@ -1,0 +1,79 @@
+{
+  "id": "wings_of_whispers",
+  "name": "Wings of Whispers",
+  "vestige": "an unknowable power",
+  "summary": "Bonus Action flight for 10 minutes in a whirl of shadow-crows. The price: the crows stay and whisper your secrets.",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 6"
+  },
+  "benefit": {
+    "text": "Secrets you may call upon, in the form of ravens and crows, bear you aloft.",
+    "features": [
+      {
+        "id": "murderous_flight",
+        "name": "Murderous Flight",
+        "summary": "Bonus Action: Fly Speed equal to your Speed, with hover, for 10 minutes in a 20-ft whirl of shadow-crows. Once per Short or Long Rest, or take 1 Exhaustion to use it again.",
+        "text": "As a Bonus Action you magically gain a Fly Speed equal to your Speed (and you can hover) for 10 minutes. During this time a mass of shadows takes the shape of a murder of crows and ravens (they are not truly creatures). The birds appear in a 20-foot Emanation originating from you and take flight and whirl around you when you fly. Once you use this feature you cannot do so again until you finish a Short or Long Rest, unless you gain 1 Exhaustion level to use it again early. The flight is not allowed in Medium or Heavy armour (plan decision).",
+        "action": "bonus_action",
+        "resource": {
+          "id": "murderous_flight",
+          "name": "Murderous Flight",
+          "max": 1,
+          "recharge": "short"
+        },
+        "activation": {
+          "cost": "bonus",
+          "resource": "murderous_flight",
+          "targeting": "none",
+          "duration": {
+            "kind": "minutes",
+            "amount": 10
+          },
+          "effects": [
+            {
+              "effect": "modifiers",
+              "params": {
+                "target": "self",
+                "modifiers": [
+                  {
+                    "stat": "speed_set",
+                    "kind": "fly",
+                    "value": "walk",
+                    "when": {
+                      "armor": "none"
+                    }
+                  },
+                  {
+                    "stat": "speed_set",
+                    "kind": "fly",
+                    "value": "walk",
+                    "when": {
+                      "armor": "light"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "implemented": "engine"
+      }
+    ]
+  },
+  "cost": {
+    "text": "The birds that bear you up stay with you, and tell everyone what they know.",
+    "flaw": "Your secrets are on the crows' tongues for any to hear.",
+    "features": [
+      {
+        "id": "whispered_secrets",
+        "name": "Whispered Secrets",
+        "summary": "The crows stay until your next rest: Disadvantage on Stealth checks, and others have Advantage on Insight and Perception checks against you.",
+        "text": "The birds that appear when you activate Murderous Flight remain and keep following you until you finish a Short or Long Rest. While they are present, you have Disadvantage on Dexterity (Stealth) checks, and the birds whisper your secrets into other creatures' minds, giving them Advantage on Wisdom (Insight or Perception) checks made against you.",
+        "action": "passive",
+        "implemented": "engine"
+      }
+    ]
+  },
+  "implemented": "engine"
+}

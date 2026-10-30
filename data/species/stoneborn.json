@@ -1,0 +1,78 @@
+{
+  "id": "stoneborn",
+  "name": "Stoneborn",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 2"
+  },
+  "summary": "Gargoyle-like constructs carved in Pholsense and blessed by the Silver Path, who glide on stone wings, strike with borrowed radiance and harden against weapons.",
+  "creature_type": "construct",
+  "sizes": [
+    "medium",
+    "small"
+  ],
+  "speed": 30,
+  "traits": [
+    {
+      "id": "stoneborn_flight",
+      "name": "Flight",
+      "summary": "Fly Speed equal to half your Speed (not usable in Medium or Heavy armour in this game).",
+      "text": "You have a Fly Speed equal to half your Speed (15 feet at Speed 30). Game rule: you cannot fly while wearing Medium or Heavy armour (the speed_set modifier has no armour filter, so the engine must apply this).",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "speed_set",
+          "kind": "fly",
+          "value": 15
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "argent_gleam",
+      "name": "Argent Gleam",
+      "summary": "Bonus Action, once per Long Rest, one of: Path's Grace (cast Bless without Material components) or Zealous Charge (Dash; the first attack roll you make this turn, hit or miss, deals an extra 2d6 Radiant damage to its target).",
+      "text": "As a Bonus Action you channel a mote of the Silver Path's light in one of two ways. Path's Grace: you cast the Bless spell, needing no Material components. Zealous Charge: you take the Dash action, and the first time you make an attack roll before the end of your turn, the target takes an extra 2d6 Radiant damage whether the attack hits or misses. Once you use this Bonus Action you cannot do so again until you finish a Long Rest.",
+      "action": "bonus_action",
+      "resource": {
+        "id": "argent_gleam",
+        "name": "Argent Gleam",
+        "max": 1,
+        "recharge": "long"
+      },
+      "implemented": "engine"
+    },
+    {
+      "id": "silver_bulwark",
+      "name": "Silver Bulwark",
+      "summary": "Reaction when you take Bludgeoning, Piercing or Slashing damage: Resistance to all three until the start of your next turn (including the triggering hit). Once per Short Rest.",
+      "text": "When you take Bludgeoning, Piercing or Slashing damage you can take a Reaction to call on the Silver Path and gain Resistance to those three damage types until the start of your next turn; the Resistance applies to the triggering damage too. Once you use this trait you cannot use it again until you finish a Short or Long Rest.",
+      "action": "reaction",
+      "resource": {
+        "id": "silver_bulwark",
+        "name": "Silver Bulwark",
+        "max": 1,
+        "recharge": "short"
+      },
+      "policy": "auto",
+      "implemented": "engine"
+    },
+    {
+      "id": "watchful_senses",
+      "name": "Watchful Senses",
+      "summary": "Proficiency in Insight, Perception or Survival.",
+      "text": "You gain proficiency in Insight, Perception or Survival (your choice).",
+      "action": "passive",
+      "choice": {
+        "kind": "skill",
+        "count": 1,
+        "from": [
+          "insight",
+          "perception",
+          "survival"
+        ]
+      },
+      "implemented": "data"
+    }
+  ]
+}

@@ -1,0 +1,331 @@
+{
+  "id": "druskenvald_dweller",
+  "name": "Druskenvald Dweller",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 4"
+  },
+  "summary": "You hail from one of the thirteen baneful provinces of Druskenvald, whose skills and culture shaped your early life.",
+  "ability_scores": [
+    "str",
+    "dex",
+    "con",
+    "int",
+    "wis",
+    "cha"
+  ],
+  "feat": "alert",
+  "skills": [
+    "survival"
+  ],
+  "equipment": [
+    {
+      "id": "a",
+      "items": [
+        {
+          "id": "smiths_tools",
+          "qty": 1,
+          "choice": "artisan"
+        },
+        {
+          "id": "map",
+          "qty": 1
+        },
+        {
+          "id": "travelers_clothes",
+          "qty": 1
+        }
+      ],
+      "gp": 10
+    },
+    {
+      "id": "b",
+      "gp": 50
+    }
+  ],
+  "feat_choice": {
+    "filter": {
+      "category": "origin"
+    }
+  },
+  "features": [
+    {
+      "id": "home_province",
+      "name": "Home Province",
+      "summary": "Choose your home province; it sets one extra skill and one tool.",
+      "text": "Choose the province you come from. It decides the second skill and the tool you learned: Ardengloom (History, Herbalism Kit), Astramar (Arcana, Navigator's Tools), Bubonia (Medicine, Poisoner's Kit), Chernabos (Deception, Calligrapher's Supplies), Edwardia (Investigation, Tinker's Tools), Enoch (Nature, Leatherworker's Tools), Kalero (Performance, a Musical Instrument), Olmarsh (Arcana, Cartographer's Tools), Nerukhet (Persuasion, Weaver's Tools), Pholsense (Religion, Mason's Tools), Picco (Performance, Woodcarver's Tools), Syndramas (Athletics, Cook's Utensils), Zulrogg (Survival, Herbalism Kit). Survival comes with the background, so a Zulrogg Dweller picks any other skill. By default pick the province your species comes from.",
+      "action": "passive",
+      "choice": {
+        "id": "province",
+        "kind": "option",
+        "count": 1,
+        "options": [
+          {
+            "id": "province_ardengloom",
+            "name": "Ardengloom",
+            "summary": "Home province Ardengloom: History, and Herbalism Kit.",
+            "text": "Home province Ardengloom: History, and Herbalism Kit.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "history"
+              },
+              {
+                "stat": "proficiency",
+                "kind": "tool",
+                "value": "herbalism_kit"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "province_astramar",
+            "name": "Astramar",
+            "summary": "Home province Astramar: Arcana, and Navigator's Tools.",
+            "text": "Home province Astramar: Arcana, and Navigator's Tools.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "arcana"
+              },
+              {
+                "stat": "proficiency",
+                "kind": "tool",
+                "value": "navigators_tools"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "province_bubonia",
+            "name": "Bubonia",
+            "summary": "Home province Bubonia: Medicine, and Poisoner's Kit.",
+            "text": "Home province Bubonia: Medicine, and Poisoner's Kit.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "medicine"
+              },
+              {
+                "stat": "proficiency",
+                "kind": "tool",
+                "value": "poisoners_kit"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "province_chernabos",
+            "name": "Chernabos",
+            "summary": "Home province Chernabos: Deception, and Calligrapher's Supplies.",
+            "text": "Home province Chernabos: Deception, and Calligrapher's Supplies.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "deception"
+              },
+              {
+                "stat": "proficiency",
+                "kind": "tool",
+                "value": "calligraphers_supplies"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "province_edwardia",
+            "name": "Edwardia",
+            "summary": "Home province Edwardia: Investigation, and Tinker's Tools.",
+            "text": "Home province Edwardia: Investigation, and Tinker's Tools.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "investigation"
+              },
+              {
+                "stat": "proficiency",
+                "kind": "tool",
+                "value": "tinkers_tools"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "province_enoch",
+            "name": "Enoch",
+            "summary": "Home province Enoch: Nature, and Leatherworker's Tools.",
+            "text": "Home province Enoch: Nature, and Leatherworker's Tools.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "nature"
+              },
+              {
+                "stat": "proficiency",
+                "kind": "tool",
+                "value": "leatherworkers_tools"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "province_kalero",
+            "name": "Kalero",
+            "summary": "Home province Kalero: Performance, and a Musical Instrument of your choice.",
+            "text": "Home province Kalero: Performance, and a Musical Instrument of your choice.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "performance"
+              }
+            ],
+            "implemented": "data",
+            "choice": {
+              "id": "instrument",
+              "kind": "tool",
+              "count": 1,
+              "filter": {
+                "tool_kind": "musical_instrument"
+              }
+            }
+          },
+          {
+            "id": "province_olmarsh",
+            "name": "Olmarsh",
+            "summary": "Home province Olmarsh: Arcana, and Cartographer's Tools.",
+            "text": "Home province Olmarsh: Arcana, and Cartographer's Tools.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "arcana"
+              },
+              {
+                "stat": "proficiency",
+                "kind": "tool",
+                "value": "cartographers_tools"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "province_nerukhet",
+            "name": "Nerukhet",
+            "summary": "Home province Nerukhet: Persuasion, and Weaver's Tools.",
+            "text": "Home province Nerukhet: Persuasion, and Weaver's Tools.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "persuasion"
+              },
+              {
+                "stat": "proficiency",
+                "kind": "tool",
+                "value": "weavers_tools"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "province_pholsense",
+            "name": "Pholsense",
+            "summary": "Home province Pholsense: Religion, and Mason's Tools.",
+            "text": "Home province Pholsense: Religion, and Mason's Tools.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "religion"
+              },
+              {
+                "stat": "proficiency",
+                "kind": "tool",
+                "value": "masons_tools"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "province_picco",
+            "name": "Picco",
+            "summary": "Home province Picco: Performance, and Woodcarver's Tools.",
+            "text": "Home province Picco: Performance, and Woodcarver's Tools.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "performance"
+              },
+              {
+                "stat": "proficiency",
+                "kind": "tool",
+                "value": "woodcarvers_tools"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "province_syndramas",
+            "name": "Syndramas",
+            "summary": "Home province Syndramas: Athletics, and Cook's Utensils.",
+            "text": "Home province Syndramas: Athletics, and Cook's Utensils.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "athletics"
+              },
+              {
+                "stat": "proficiency",
+                "kind": "tool",
+                "value": "cooks_utensils"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "province_zulrogg",
+            "name": "Zulrogg",
+            "summary": "Home province Zulrogg: Survival (already yours, so any other skill instead), and Herbalism Kit.",
+            "text": "Home province Zulrogg: Survival (already yours, so any other skill instead), and Herbalism Kit.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "tool",
+                "value": "herbalism_kit"
+              }
+            ],
+            "implemented": "data",
+            "choice": {
+              "id": "other_skill",
+              "kind": "skill",
+              "count": 1
+            }
+          }
+        ]
+      },
+      "implemented": "data"
+    }
+  ]
+}

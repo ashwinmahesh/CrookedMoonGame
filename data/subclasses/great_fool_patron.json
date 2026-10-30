@@ -1,0 +1,130 @@
+{
+  "id": "great_fool_patron",
+  "name": "Great Fool Patron",
+  "class": "warlock",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 3"
+  },
+  "summary": "A pact with a jolly, nonsensical being of revelry: Vicious Mockery on demand, silly curses, and mockery that bites back.",
+  "role_tags": [
+    "control",
+    "support"
+  ],
+  "always_prepared": {
+    "3": [
+      "disguise_self",
+      "tashas_hideous_laughter",
+      "rope_trick",
+      "spiritual_weapon",
+      "vicious_mockery"
+    ],
+    "5": [
+      "blink",
+      "stinking_cloud"
+    ],
+    "7": [
+      "phantasmal_killer",
+      "puppet_master"
+    ],
+    "9": [
+      "bigbys_hand",
+      "mislead"
+    ]
+  },
+  "features": [
+    {
+      "level": 3,
+      "feature": {
+        "id": "great_fool_spells",
+        "name": "Great Fool Spells",
+        "summary": "Disguise Self, Hideous Laughter, Rope Trick, Spiritual Weapon and Vicious Mockery always prepared; more at levels 5, 7 and 9.",
+        "text": "From the Warlock level shown you always have these spells prepared: Disguise Self, Hideous Laughter, Rope Trick, Spiritual Weapon, Vicious Mockery (3); Blink, Stinking Cloud (5); Phantasmal Killer, Puppet Master (7); Arcane Hand, Mislead (9).",
+        "implemented": "data"
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "killing_joke",
+        "name": "Killing Joke",
+        "summary": "Reaction when a creature you see within 60 ft takes damage or fails a save: cast Vicious Mockery on it. Cha-mod uses; one back per Short Rest, all on a Long Rest.",
+        "text": "When a creature you can see within 60 feet of you takes damage or fails a saving throw, you can use your Reaction to cast Vicious Mockery on that creature. You can use this Reaction a number of times equal to your Charisma modifier (minimum 1). You regain one spent use when you finish a Short Rest and all spent uses when you finish a Long Rest. (Game rule: Automatic fires only on foes.)",
+        "action": "reaction",
+        "resource": {
+          "id": "killing_joke",
+          "name": "Killing Joke",
+          "max": "mod:cha",
+          "min": 1,
+          "recharge": "short_one"
+        },
+        "policy": "auto",
+        "policy_modes": [
+          "ask",
+          "auto",
+          "never"
+        ],
+        "policy_cost": "a Killing Joke use",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 6,
+      "feature": {
+        "id": "jesters_japes",
+        "name": "Jester's Japes",
+        "summary": "Magic action: a creature within 60 ft makes a Cha save or gets a 1-minute curse (Flower Spurt Blinded, Clown Shoes, Honk Honk, Jolly Arms); once per Short Rest.",
+        "text": "As a Magic action you target a creature you can see within 60 feet; it must succeed on a Charisma saving throw against your spell save DC or suffer one curse of your choice. Flower Spurt: it is sprayed in the eyes and has the Blinded condition. Clown Shoes: its Speed is halved and it has Disadvantage on ability checks and saving throws that use Dexterity. Honk Honk: every movement makes noises (honks, chimes, squeaks) audible out to 100 feet, and it can't benefit from the Invisible condition. Jolly Arms: its weapons and Unarmed Strikes, natural weapons included, look comically soft and it deals half damage with weapon attacks and Unarmed Strikes. The curse lasts 1 minute; the creature repeats the save at the end of each of its turns, ending the curse on a success. Once you use this feature you can't use it again until you finish a Short or Long Rest.",
+        "action": "action",
+        "resource": {
+          "id": "jesters_japes",
+          "name": "Jester's Japes",
+          "max": 1,
+          "recharge": "short"
+        },
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 10,
+      "feature": {
+        "id": "mocking_banter",
+        "name": "Mocking Banter",
+        "summary": "Reaction when a creature damages you: it makes a Wis save or takes Psychic damage equal to the damage you took (half on a success); once per Short Rest.",
+        "text": "When a creature damages you, you can use your Reaction to force it to make a Wisdom saving throw against your spell save DC. On a failed save it takes Psychic damage equal to the damage you took from the triggering hit, or half as much on a successful one. Once you use this Reaction you can't use it again until you finish a Short or Long Rest.",
+        "action": "reaction",
+        "resource": {
+          "id": "mocking_banter",
+          "name": "Mocking Banter",
+          "max": 1,
+          "recharge": "short"
+        },
+        "policy": "ask",
+        "policy_modes": [
+          "ask",
+          "auto",
+          "never"
+        ],
+        "policy_cost": "the once-per-rest use",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 14,
+      "feature": {
+        "id": "send_in_the_clowns",
+        "name": "Send in the Clowns",
+        "summary": "Magic action: three ghostly fools make up to three melee spell attacks against creatures within 60 ft (2d10 Psychic, then Frightened or Prone); repeatable with your action for 1 minute; once per Long Rest.",
+        "text": "As a Magic action you summon three translucent, intangible ghostly fools (clowns, jesters or similar). Make up to three melee spell attacks against creatures within 60 feet of you. On a hit a target takes 2d10 Psychic damage and has the Frightened condition until the end of its next turn, or the Prone condition (your choice). On later turns you can use your action to repeat the attacks. The fools last 1 minute, or until you are Incapacitated or die. Once you use this feature you can't use it again until you finish a Long Rest.",
+        "action": "action",
+        "resource": {
+          "id": "send_in_the_clowns",
+          "name": "Send in the Clowns",
+          "max": 1,
+          "recharge": "long"
+        },
+        "implemented": "text"
+      }
+    }
+  ]
+}

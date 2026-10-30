@@ -1,0 +1,60 @@
+{
+  "id": "bestial_awakening",
+  "name": "Bestial Awakening",
+  "vestige": "an unknowable power",
+  "summary": "Polymorph, free once per Long Rest on yourself. The price: silvered weapons ignore your Resistances, and silver stops your healing.",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 6"
+  },
+  "benefit": {
+    "text": "The wild world howls for you, and you may answer it by taking a beast's shape.",
+    "features": [
+      {
+        "id": "beast_skin",
+        "name": "Beast Skin",
+        "summary": "Polymorph is always prepared; once per Long Rest cast it free on yourself only.",
+        "text": "You always have Polymorph prepared. Once per Long Rest you can cast it with no spell slot and no components, but only on yourself. You can also cast it with spell slots you have, on any target as normal. Intelligence, Wisdom or Charisma is your spellcasting ability for the free casting (choose when you take this bargain).",
+        "action": "passive",
+        "choice": {
+          "id": "spellcasting_ability",
+          "kind": "spellcasting_ability",
+          "count": 1,
+          "from": [
+            "int",
+            "wis",
+            "cha"
+          ]
+        },
+        "modifiers": [
+          {
+            "stat": "spell",
+            "value": "polymorph",
+            "ability": "@spellcasting_ability",
+            "uses": {
+              "count": 1,
+              "recharge": "long"
+            },
+            "always_prepared": true
+          }
+        ],
+        "implemented": "engine"
+      }
+    ]
+  },
+  "cost": {
+    "text": "Silver burns you worse than the sharpest fang ever could.",
+    "flaw": "Silver sears you: it strips away your defences and your body will not mend while it clings.",
+    "features": [
+      {
+        "id": "searing_silver",
+        "name": "Searing Silver",
+        "summary": "Silvered weapons ignore your Resistances and Immunities; silver damage or touch stops your healing until a rest.",
+        "text": "Damage from a silvered weapon ignores every Resistance and Immunity you have. If you take damage from a silvered weapon, or touch silver with your bare skin (or its equivalent), you cannot regain Hit Points until you finish a Short or Long Rest.",
+        "action": "passive",
+        "implemented": "engine"
+      }
+    ]
+  },
+  "implemented": "engine"
+}

@@ -1,0 +1,59 @@
+{
+  "id": "crimson_ritualist",
+  "name": "Crimson Ritualist",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 5"
+  },
+  "category": "origin",
+  "repeatable": false,
+  "summary": "Learn the Blood Bolt cantrip, and bleed Hit Point Dice into a vial at a Long Rest that someone can drink to heal.",
+  "ability_increase": {
+    "points": 1,
+    "max": 20,
+    "min_level": 4
+  },
+  "benefits": [
+    {
+      "id": "blood_lash",
+      "name": "Blood Lash",
+      "summary": "You learn the Blood Bolt cantrip; Intelligence, Wisdom or Charisma is its spellcasting ability.",
+      "text": "You learn the Blood Bolt cantrip. Intelligence, Wisdom or Charisma is your spellcasting ability for it (choose when you take this feat).",
+      "action": "passive",
+      "choices": [
+        {
+          "id": "spellcasting_ability",
+          "kind": "spellcasting_ability",
+          "count": 1,
+          "from": [
+            "int",
+            "wis",
+            "cha"
+          ]
+        }
+      ],
+      "modifiers": [
+        {
+          "stat": "spell",
+          "value": "blood_bolt",
+          "ability": "@spellcasting_ability"
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "bottled_life",
+      "name": "Bottled Life",
+      "summary": "After a Long Rest, a 1-minute ritual spends up to PB Hit Point Dice into a vial; a Bonus Action to drink it heals the rolled dice plus the drinker's Constitution modifier.",
+      "text": "When you finish a Long Rest you can perform a 1-minute ritual that moves some of your life essence into a vessel. Expend a number of Hit Point Dice up to your Proficiency Bonus and bleed into a vial of water or another liquid. As a Bonus Action, a creature can drink the vial: it rolls the Hit Dice you expended and regains Hit Points equal to the total rolled plus its Constitution modifier. The vial stays potent until you finish your next Long Rest.",
+      "action": "special",
+      "resource": {
+        "id": "bottled_life",
+        "name": "Bottled Life",
+        "max": 1,
+        "recharge": "long"
+      },
+      "implemented": "engine"
+    }
+  ]
+}

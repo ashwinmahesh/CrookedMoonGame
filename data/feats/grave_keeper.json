@@ -1,0 +1,40 @@
+{
+  "id": "grave_keeper",
+  "name": "Grave Keeper",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 5"
+  },
+  "category": "origin",
+  "repeatable": false,
+  "summary": "One Channel Divinity use that makes Turn Undead (save DC 8 + Wis + PB), and a 10-minute rite that keeps a small corpse from rising as Undead.",
+  "ability_increase": {
+    "points": 1,
+    "max": 20,
+    "min_level": 4
+  },
+  "benefits": [
+    {
+      "id": "divine_channel",
+      "name": "Divine Channel",
+      "summary": "Gain one use of Channel Divinity for Turn Undead (DC 8 + Wisdom modifier + PB), or one more use on a class that already has it.",
+      "text": "You gain one use of the Cleric's Channel Divinity feature, and with it you can produce the Turn Undead effect. If you already have Channel Divinity, this use is added to the feature of one class you choose. The save DC for this benefit is 8 + your Wisdom modifier + your Proficiency Bonus. Channel Divinity uses come back one per Short Rest and all on a Long Rest.",
+      "action": "special",
+      "resource": {
+        "id": "grave_keeper_channel",
+        "name": "Channel Divinity (Grave Keeper)",
+        "max": 1,
+        "recharge": "short_one"
+      },
+      "implemented": "engine"
+    },
+    {
+      "id": "last_rites",
+      "name": "Last Rites",
+      "summary": "A 10-minute rite using at least 10 gp of incense, oils, linen or the like keeps a Medium or smaller corpse from becoming Undead.",
+      "text": "You can perform a ritual lasting 10 minutes on the corpse of a Medium or smaller creature, using up trappings worth at least 10 gp (incense, oils, linen wraps and the like). The prepared corpse can never rise as Undead.",
+      "action": "special",
+      "implemented": "engine"
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "id": "horned_king_patron",
+  "name": "Horned King Patron",
+  "class": "warlock",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 3"
+  },
+  "summary": "A warlock whose pact with the Horned King brings witchcraft: curses laid on luck and fate, a Bestow Curse that needs no Concentration and a crown of horns that charms, shames or terrifies.",
+  "role_tags": [
+    "control",
+    "striker"
+  ],
+  "always_prepared": {
+    "3": [
+      "animal_friendship",
+      "bane",
+      "spike_growth",
+      "suggestion"
+    ],
+    "5": [
+      "bestow_curse",
+      "fly"
+    ],
+    "7": [
+      "phantasmal_killer",
+      "polymorph"
+    ],
+    "9": [
+      "dominate_person",
+      "scrying"
+    ]
+  },
+  "features": [
+    {
+      "level": 3,
+      "feature": {
+        "id": "horned_king_spells",
+        "name": "Horned King Spells",
+        "summary": "Animal Friendship, Bane, Spike Growth and Suggestion always prepared; more at levels 5, 7 and 9.",
+        "text": "When you reach a Warlock level shown, you always have these spells prepared: Animal Friendship, Bane, Spike Growth and Suggestion (3); Bestow Curse and Fly (5); Phantasmal Killer and Polymorph (7); Dominate Person and Scrying (9).",
+        "action": "passive",
+        "implemented": "data"
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "witch_mark",
+        "name": "Witch Mark",
+        "summary": "At a Long Rest put one of your action-time prepared Warlock spells into a Tiny object; whoever holds it can cast it once as a Magic action with your numbers. It fades on use or at your next Long Rest.",
+        "text": "When you finish a Long Rest you can imbue magic into a nonmagical Tiny object you are holding. Choose one of your prepared Warlock spells that has a casting time of an action. A creature holding the marked object can take a Magic action to cast that spell, using your Charisma modifier, spell attack bonus and spell save DC. The mark fades when the spell is cast from it, or when you finish a Long Rest.",
+        "action": "special",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "malediction",
+        "name": "Malediction",
+        "summary": "Magic action on a creature within 60 ft, or a Reaction when one targets you with an attack or spell: curse it until the end of its next turn (Agony, Hate or Rot). Cha-modifier uses per Long Rest.",
+        "text": "You call on the Horned King's malice to bend luck and fate. As a Magic action you can curse a creature you can see within 60 feet of you until the end of its next turn. Or, when a creature within that range targets you with an attack roll or a spell, you can use your Reaction to curse it. Either way you choose one curse. Agony: the target has Disadvantage on its next attack roll or on its next Constitution saving throw to maintain Concentration (your choice). Hate: the target has Disadvantage on its next Intelligence, Wisdom or Charisma saving throw (your choice). Rot: the next time the target takes damage it takes an extra 1d10 Necrotic damage, and it cannot regain Hit Points until the end of its next turn. You can use Malediction a number of times equal to your Charisma modifier (minimum 1) and regain all expended uses when you finish a Long Rest.",
+        "action": "action",
+        "policy": "ask",
+        "policy_modes": [
+          "ask",
+          "auto",
+          "never"
+        ],
+        "policy_cost": "your Reaction and a use",
+        "implemented": "engine",
+        "resource": {
+          "id": "malediction",
+          "name": "Malediction",
+          "max": "mod:cha",
+          "min": 1,
+          "recharge": "long"
+        },
+        "choice": {
+          "id": "curse",
+          "kind": "option",
+          "count": 1,
+          "creation": false,
+          "options": [
+            {
+              "id": "agony",
+              "name": "Agony",
+              "summary": "Disadvantage on its next attack roll or Concentration save (your choice).",
+              "implemented": "engine"
+            },
+            {
+              "id": "hate",
+              "name": "Hate",
+              "summary": "Disadvantage on its next Intelligence, Wisdom or Charisma save (your choice).",
+              "implemented": "engine"
+            },
+            {
+              "id": "rot",
+              "name": "Rot",
+              "summary": "Its next damage taken adds 1d10 Necrotic, and it cannot heal until the end of its next turn.",
+              "implemented": "engine"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "level": 6,
+      "feature": {
+        "id": "spiteful_curse",
+        "name": "Spiteful Curse",
+        "summary": "Once per Long Rest, Malediction can cast Bestow Curse free (60 ft, 1 minute, no Concentration); if the target saves, a Malediction curse lands instead and the use is kept.",
+        "text": "When you use Malediction you can instead cast Bestow Curse once without a spell slot, as the action or Reaction of that feature, and you regain this ability when you finish a Long Rest. If the target succeeds on its saving throw against the spell, your use of this feature is not expended. Cast this way, the spell has a range of 60 feet and lasts 1 minute with no Concentration needed. If the target succeeds on its save, choose one of the Malediction curses; the target suffers that curse instead.",
+        "action": "special",
+        "implemented": "engine",
+        "resource": {
+          "id": "spiteful_curse",
+          "name": "Spiteful Curse",
+          "max": 1,
+          "recharge": "long"
+        }
+      }
+    },
+    {
+      "level": 10,
+      "feature": {
+        "id": "horned_king_patron_crown_of_horns",
+        "name": "Crown of Horns",
+        "summary": "Bonus Action, 1 minute (once per Long Rest, or spend a Pact Magic slot): once a turn +1d8 Necrotic on damage, and a 20-ft aura that charms, shames or terrifies one creature a turn.",
+        "text": "As a Bonus Action you can manifest the Horned King's might for 1 minute. A visible mark appears on you for the duration, such as a crown of horns above your head or great antlers. Once you use this Bonus Action you cannot use it again until you finish a Long Rest, unless you expend a Pact Magic spell slot (no action required) to restore the use. Dark Heart: once on each of your turns when you damage a creature, it takes an extra 1d8 Necrotic damage. King of All: you radiate an aura of power in a 20-foot Emanation from you. When you activate this feature, and at the start of each of your turns, you can choose a creature you can see in the aura; it must succeed on a Charisma saving throw against your spell save DC or suffer one of these effects (your choice) until the start of your next turn. Enticement: the target has the Charmed condition. Wickedness: the target has Disadvantage on attack rolls and ability checks. Terror: the target has the Frightened condition and must move away from you by the safest route on its turn unless there is nowhere to move.",
+        "action": "bonus_action",
+        "implemented": "engine",
+        "resource": {
+          "id": "horned_king_patron_crown_of_horns",
+          "name": "Crown of Horns",
+          "max": 1,
+          "recharge": "long"
+        }
+      }
+    },
+    {
+      "level": 14,
+      "feature": {
+        "id": "gather_the_coven",
+        "name": "Gather the Coven",
+        "summary": "Beyond level 13: a 1-hour ritual bonds up to six willing creatures, who share a Malediction curse, a teleport to their side and extra Necrotic damage while your Crown is active.",
+        "text": "You can share the Horned King's power with creatures you deem worthy. Perform a 1-hour ritual (it can be done during a rest) to bond with up to six willing creatures, who must stay within 10 feet of you throughout. You can end the bond for any number of them (no action required), and it ends when you die. The bond grants these benefits. Witchcraft: choose one of the curses from Malediction; each bonded creature can use that Reaction option once and regains the ability when it finishes a Long Rest. Fly By Night: as a Bonus Action, choose one bonded creature; if you and it are on the same plane you teleport to the nearest unoccupied space next to it. You can do this once and regain the ability when you finish a Short or Long Rest; if your Crown of Horns is active when you do it, the use is not expended. Hand of the King: while your Crown of Horns is active, the first time a bonded creature damages another creature during its turn, the target takes an extra 1d10 Necrotic damage.",
+        "action": "special",
+        "implemented": "text"
+      }
+    }
+  ]
+}

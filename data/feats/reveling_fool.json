@@ -1,0 +1,58 @@
+{
+  "id": "reveling_fool",
+  "name": "Reveling Fool",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 5"
+  },
+  "category": "origin",
+  "repeatable": false,
+  "summary": "A jester's mask and costume give you a new identity that can get away with small offences against the high-born, and Hideous Laughter is free once per Long Rest.",
+  "ability_increase": {
+    "points": 1,
+    "max": 20,
+    "min_level": 4
+  },
+  "benefits": [
+    {
+      "id": "fools_mask",
+      "name": "Fool's Mask",
+      "summary": "In a jovial mask and a fool's, jester's or clown's costume you take on a new identity and can get away with minor transgressions against people of rank or authority.",
+      "text": "While you wear a jovial mask and a fool's, jester's or clown's costume you take on a new identity that hides your own. In that guise you can get away with minor transgressions against people in positions of authority or station.",
+      "action": "special",
+      "implemented": "engine"
+    },
+    {
+      "id": "jesters_repartee",
+      "name": "Jester's Repartee",
+      "summary": "Hideous Laughter always prepared; cast it once per Long Rest without a slot or Material components (Intelligence, Wisdom or Charisma).",
+      "text": "You always have the Hideous Laughter spell prepared. You can cast it once without Material components or a spell slot, regaining that use when you finish a Long Rest, and you can also cast it using any spell slots you have. Intelligence, Wisdom or Charisma is your spellcasting ability for it (choose when you take this feat).",
+      "action": "passive",
+      "choices": [
+        {
+          "id": "spellcasting_ability",
+          "kind": "spellcasting_ability",
+          "count": 1,
+          "from": [
+            "int",
+            "wis",
+            "cha"
+          ]
+        }
+      ],
+      "modifiers": [
+        {
+          "stat": "spell",
+          "value": "tashas_hideous_laughter",
+          "ability": "@spellcasting_ability",
+          "always_prepared": true,
+          "uses": {
+            "count": 1,
+            "recharge": "long"
+          }
+        }
+      ],
+      "implemented": "data"
+    }
+  ]
+}

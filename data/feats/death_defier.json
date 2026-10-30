@@ -1,0 +1,47 @@
+{
+  "id": "death_defier",
+  "name": "Death Defier",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 5"
+  },
+  "category": "general",
+  "repeatable": false,
+  "summary": "+1 Constitution, your Constitution modifier on Death Saving Throws, and once per Long Rest an outright kill or a drop to 0 without damage leaves you at HP equal to your level.",
+  "benefits": [
+    {
+      "id": "cling_to_life",
+      "name": "Cling to Life",
+      "summary": "Add your Constitution modifier (minimum 1) to Death Saving Throws.",
+      "text": "You add your Constitution modifier (minimum of 1) to your Death Saving Throws.",
+      "action": "passive",
+      "implemented": "engine"
+    },
+    {
+      "id": "enduring_vitality",
+      "name": "Enduring Vitality",
+      "summary": "Once per Long Rest, an effect that would kill you outright without Death Saves, or drop you to 0 HP without dealing damage, leaves you at HP equal to your level instead.",
+      "text": "If an effect would kill you outright without Death Saving Throws, or would reduce you directly to 0 Hit Points without dealing damage, you are instead reduced to a number of Hit Points equal to your level. You can't use this again until you finish a Long Rest.",
+      "action": "reaction",
+      "policy": "auto",
+      "resource": {
+        "id": "enduring_vitality",
+        "name": "Enduring Vitality",
+        "max": 1,
+        "recharge": "long"
+      },
+      "implemented": "engine"
+    }
+  ],
+  "prerequisites": {
+    "level": 4,
+    "text": "Level 4 or higher"
+  },
+  "ability_increase": {
+    "from": [
+      "con"
+    ],
+    "points": 1,
+    "max": 20
+  }
+}

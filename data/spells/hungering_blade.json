@@ -1,0 +1,64 @@
+{
+  "id": "hungering_blade",
+  "name": "Hungering Blade",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 1,
+  "school": "necromancy",
+  "classes": [
+    "paladin",
+    "ranger",
+    "warlock"
+  ],
+  "casting_time": {
+    "unit": "bonus_action"
+  },
+  "range": {
+    "kind": "self"
+  },
+  "components": {
+    "v": true,
+    "s": true
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 1
+  },
+  "targets": {
+    "kind": "self"
+  },
+  "choice": {
+    "kind": "option",
+    "label": "Empower",
+    "from": [
+      "weapon",
+      "unarmed"
+    ],
+    "labels": {
+      "weapon": "The weapon in your hand",
+      "unarmed": "Your Unarmed Strikes"
+    }
+  },
+  "effects": [
+    {
+      "effect": "modifiers",
+      "params": {
+        "target": "self",
+        "modifiers": [
+          {
+            "stat": "flag",
+            "value": "hungering_blade"
+          }
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "buff",
+    "damage"
+  ],
+  "summary": "For 1 minute (no Concentration), the first hit each turn with the empowered weapon or an Unarmed Strike adds Necrotic damage equal to your spellcasting modifier and gives you that many Temporary Hit Points.",
+  "text": "You imbue a weapon you are holding, or your Unarmed Strikes, with ravenous negative energy for 1 minute; the spell does not need Concentration. The first time on each turn that you hit a creature with an attack using the empowered weapon or an Unarmed Strike, the target takes Necrotic damage equal to your spellcasting ability modifier, and you gain Temporary Hit Points equal to the Necrotic damage dealt."
+}

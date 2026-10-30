@@ -1,0 +1,68 @@
+{
+  "id": "eye_burn",
+  "name": "Eye Burn",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "policy": "ask",
+  "policy_modes": [
+    "ask",
+    "auto",
+    "never"
+  ],
+  "level": 0,
+  "school": "transmutation",
+  "classes": [
+    "druid",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "reaction",
+    "trigger": "a creature you can see within 30 feet targets you with an attack roll"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 30
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a smear of camphor"
+  },
+  "duration": {
+    "kind": "rounds",
+    "amount": 1
+  },
+  "targets": {
+    "kind": "creature",
+    "count": 1,
+    "description": "the creature attacking you"
+  },
+  "save": "con",
+  "save_success": "special",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "id": "sa_eye_burn",
+        "on": "cast",
+        "when": "an attack roll against you hits",
+        "fail": "Blinded to the end of the turn (Disadvantage on that roll)",
+        "success": "minus 1d4 on that roll",
+        "immune_hours": 24,
+        "auto_pass_if": [
+          "blindsight",
+          "condition_immunity:blinded"
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "defense",
+    "debuff"
+  ],
+  "summary": "Reaction when a creature within 30 ft targets you with an attack: Con save or Blinded to the end of the turn; on a success it subtracts 1d4 from that attack roll. It then resists your Eye Burn for 24 hours.",
+  "text": "You sting the eyes of a creature that is attacking you. As a Reaction when a creature you can see within 30 feet targets you with an attack roll, it makes a Constitution saving throw (a creature with Blindsight or Immunity to the Blinded condition succeeds automatically). On a failure it has the Blinded condition until the end of the turn. On a success it must subtract 1d4 from the triggering attack roll. The target automatically succeeds on its saves against your later castings of this spell for 24 hours. Cantrip, no scaling."
+}

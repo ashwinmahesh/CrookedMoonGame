@@ -1,0 +1,133 @@
+{
+  "id": "sinner",
+  "name": "Sinner",
+  "class": "rogue",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 3"
+  },
+  "summary": "A scoundrel rogue whose Sneak Attack dice also roll a jinx, who fights with a jinxed pistol, deck or dice and borrows luck from the people they hit.",
+  "role_tags": [
+    "striker",
+    "control"
+  ],
+  "features": [
+    {
+      "level": 3,
+      "feature": {
+        "id": "hex_slinger",
+        "name": "Hex Slinger",
+        "summary": "When Sneak Attack deals damage, two of its dice are marked; their total picks a jinx (Snake Eyes ... Dead Man) laid on the target. Cha-modifier uses per Short Rest.",
+        "text": "When your Sneak Attack deals damage to a creature, you can unleash your Jinxcraft. When you roll the Sneak Attack dice, designate two of them before the roll (roll them separately or use different coloured dice). The total of those two dice picks the jinx from the table below, laid on the damaged creature. You can do this a number of times equal to your Charisma modifier (minimum 1) and regain all expended uses when you finish a Short Rest. Hex Slinger Jinxes (2d6): 2, Snake Eyes: on the target's next turn it can do only one of these: move, take an action, or take a Bonus Action; and if it targets you or your allies with an attack on that turn, it takes 2d6 Psychic damage. 3-4, The Nightmare: the target has the Frightened condition until the end of its next turn, and it must immediately use a Reaction to move as far away from you as it can, up to its Speed. 5-6, Whiskey Bottle: the target drops anything it is holding; until the end of its next turn, whenever it picks up an item it must succeed on a DC 15 Dexterity saving throw or drop the item at once. 7, Cheap Shot: until the end of its next turn the target's Speed is halved and attack rolls against it have Advantage. 8-9, Withered Arm: until the end of its next turn the target has Disadvantage on D20 Tests that rely on Strength. 10-11, Bad Luck: until the end of its next turn, when the target makes an attack roll or a saving throw it subtracts 1d6 from the total. 12, Dead Man: if the next attack roll you make before the end of your next turn misses, it hits instead; if that first attack roll hits, the attack is automatically a Critical Hit; and if you roll a natural 20 on that d20, roll the attack's damage dice three times instead of twice.",
+        "action": "special",
+        "policy": "auto",
+        "policy_cost": "a Hex Slinger use",
+        "implemented": "engine",
+        "resource": {
+          "id": "hex_slinger",
+          "name": "Hex Slinger",
+          "max": "mod:cha",
+          "min": 1,
+          "recharge": "short"
+        }
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "get_jinxed",
+        "name": "Get Jinxed",
+        "summary": "Two Gaming Sets; a 1-hour ritual makes a jinx weapon (a Pistol, deck or dice that ignores Loading and shoots Force, or an infused Simple/Martial weapon dealing Force); one cantrip from Dancing Lights, Mage Hand, Minor Illusion, Mysterious Presence, Prestidigitation.",
+        "text": "You have learned the secret art of Jinxcrafting, drawing magic from dark deeds and deals. Cards and Bones: you gain proficiency with two Gaming Sets of your choice (playing cards and dice are recommended). Jinx Weapon: as a 1-hour ritual using a Gaming Set, you magically create a jinx weapon that channels your Jinxcraft. It takes the form of a Pistol, or of a Gaming Set that uses Pistol game statistics; for you the jinx weapon ignores the Loading property and makes its own ammunition, which deals Force damage. As a Gaming Set you throw cards, dice or other pieces, or use them to loose bolts of hex magic. Alternatively you can imbue Jinxcraft into a Simple or Martial weapon you are proficient with, making it your jinx weapon; the infused weapon deals Force damage instead of its normal type. If you create a second jinx weapon, the first vanishes or its Jinxcraft ends. Parlor Trick: you learn one of these cantrips, using Charisma as the spellcasting ability: Dancing Lights, Mage Hand, Minor Illusion, Mysterious Presence or Prestidigitation. (Game note: a Rogue is not normally proficient with the Pistol, so you are given Pistol proficiency here for the jinx weapon.)",
+        "action": "special",
+        "implemented": "engine",
+        "choices": [
+          {
+            "id": "gaming_sets",
+            "kind": "tool",
+            "count": 2,
+            "filter": {
+              "tool_kind": "gaming_set"
+            }
+          },
+          {
+            "id": "cantrip",
+            "kind": "cantrip",
+            "count": 1,
+            "from": [
+              "dancing_lights",
+              "mage_hand",
+              "minor_illusion",
+              "mysterious_presence",
+              "prestidigitation"
+            ]
+          },
+          {
+            "id": "jinx_weapon",
+            "kind": "option",
+            "count": 1,
+            "options": [
+              {
+                "id": "jinx_pistol",
+                "name": "Jinx Pistol",
+                "summary": "Your jinx weapon is a Pistol (or a Gaming Set that fights as one): Force damage, no Loading, its own ammunition. It comes to every fight at hand."
+              },
+              {
+                "id": "jinx_infusion",
+                "name": "Infused Weapon",
+                "summary": "Your jinx weapon is the Simple or Martial weapon you're proficient with that you hold as a fight starts: its hits deal Force damage instead of their usual type."
+              }
+            ]
+          }
+        ],
+        "modifiers": [
+          {
+            "stat": "spell",
+            "value": "@cantrip",
+            "ability": "cha"
+          },
+          {
+            "stat": "proficiency",
+            "kind": "weapon",
+            "value": "pistol"
+          }
+        ]
+      }
+    },
+    {
+      "level": 9,
+      "feature": {
+        "id": "borrowed_luck",
+        "name": "Borrowed Luck",
+        "summary": "Each Hex Slinger use gives you Heroic Inspiration; if you already have it, you may spend it instead of a Hex Slinger use.",
+        "text": "When you use Hex Slinger you siphon a sliver of the target's luck: you gain Heroic Inspiration if you do not already have it. If you do already have it, you can expend your Heroic Inspiration instead of expending a use of Hex Slinger.",
+        "action": "passive",
+        "uses_resource": "hex_slinger",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 13,
+      "feature": {
+        "id": "pick_your_poison",
+        "name": "Pick Your Poison",
+        "summary": "Hex Slinger: roll the two marked dice twice and choose a total; doubles add Psychic damage equal to half your level; a 2 or a 12 does not spend the use.",
+        "text": "When you use Hex Slinger you can roll the two designated Sneak Attack dice twice and choose which total to use. If the roll you choose shows the same number on both dice, the target takes Psychic damage equal to half your level. If the roll you choose is a 2 or a 12, you do not expend that use of Hex Slinger.",
+        "action": "passive",
+        "uses_resource": "hex_slinger",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 17,
+      "feature": {
+        "id": "the_other_side",
+        "name": "The Other Side",
+        "summary": "Beyond level 13: spend Sneak Attack dice to add to a missed attack or failed save (Crossroads Devilry), or to your AC against a hit (Lady Luck's Smiling).",
+        "text": "You can call on your otherworldly friends in low places to tilt the odds. Crossroads Devilry: when you miss with an attack roll or fail a saving throw, you can expend and roll any number of your Sneak Attack dice (choose how many before rolling) and add the total to the attack roll or save, possibly turning a miss into a hit or a failure into a success. The expended dice return after you next use your Sneak Attack. Lady Luck's Smiling: when a creature hits you with an attack roll, you can expend and roll any number of your Sneak Attack dice (choose how many before rolling) and add the total to your AC against that attack, possibly making it miss. The expended dice return after you next use your Sneak Attack.",
+        "action": "reaction",
+        "implemented": "text"
+      }
+    }
+  ]
+}

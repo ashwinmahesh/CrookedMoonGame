@@ -1,0 +1,64 @@
+{
+  "id": "dread_speech",
+  "name": "Dread Speech",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 5"
+  },
+  "category": "origin",
+  "repeatable": false,
+  "summary": "A Bonus Action word of forbidden truth Frightens a creature (one safe use per Short Rest; extra uses cost 1d6 Necrotic), and Bane comes free once per Long Rest.",
+  "ability_increase": {
+    "points": 1,
+    "max": 20,
+    "min_level": 4
+  },
+  "benefits": [
+    {
+      "id": "eldritch_word",
+      "name": "Eldritch Word",
+      "summary": "Bonus Action: a creature within 60 ft makes a Wisdom save or is Frightened until the start of your next turn; one safe use per Short Rest, each extra use costs you 1d6 Necrotic.",
+      "text": "As a Bonus Action you speak a magical word aloud, forcing one creature within 60 feet to make a Wisdom saving throw (DC 8 + your Proficiency Bonus + your Intelligence, Wisdom or Charisma modifier; choose the ability when you take this feat). On a failed save the target has the Frightened condition until the start of your next turn. You can use this safely once and regain that use when you finish a Short or Long Rest. You may use it again before resting, but you then take 1d6 Necrotic damage that cannot be reduced or prevented in any way.",
+      "action": "bonus_action",
+      "choices": [
+        {
+          "id": "spellcasting_ability",
+          "kind": "spellcasting_ability",
+          "count": 1,
+          "from": [
+            "int",
+            "wis",
+            "cha"
+          ]
+        }
+      ],
+      "resource": {
+        "id": "eldritch_word",
+        "name": "Eldritch Word",
+        "max": 1,
+        "recharge": "short"
+      },
+      "implemented": "engine"
+    },
+    {
+      "id": "shred_fate",
+      "name": "Shred Fate",
+      "summary": "Bane always prepared; cast it once per Long Rest without a slot or Material components, using the ability chosen for Eldritch Word.",
+      "text": "You always have the Bane spell prepared, and your spellcasting ability for it is the ability you chose for Eldritch Word. You can cast it once without Material components or a spell slot, regaining that use when you finish a Long Rest, and you can also cast it using any spell slots you have.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "spell",
+          "value": "bane",
+          "ability": "@spellcasting_ability",
+          "always_prepared": true,
+          "uses": {
+            "count": 1,
+            "recharge": "long"
+          }
+        }
+      ],
+      "implemented": "data"
+    }
+  ]
+}

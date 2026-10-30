@@ -1,0 +1,98 @@
+{
+  "id": "college_of_whistles",
+  "name": "College of Whistles",
+  "class": "bard",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 3"
+  },
+  "summary": "A wandering bard whose Bardic Inspiration calls a haint, whose whistle summons a ghost train and whose bindle goes wherever the party does.",
+  "role_tags": [
+    "support",
+    "utility"
+  ],
+  "features": [
+    {
+      "level": 3,
+      "feature": {
+        "id": "handy_haints",
+        "name": "Handy Haints",
+        "summary": "When you give Bardic Inspiration you can call a haint (Grump, Sad Sack or Scamp, picked as you call it): a 15-ft aura on the inspired creature for 1 minute, with a Reaction trick of its own.",
+        "text": "When you inspire a creature with Bardic Inspiration you may summon a ghostly apparition, a haint, that drifts around it and makes a 15-foot Emanation centred on that creature. The haint vanishes after 1 minute, when you summon a new haint, when you use the Reaction it grants you, or if you are Incapacitated or die. Choose its form when you summon it. Grump (red-tinged, elderly, threadbare): the inspired creature and its allies inside the aura have Advantage on Charisma (Intimidation) checks and Strength saving throws; and when a creature inside the aura deals damage, you can use your Reaction to add a roll of your Bardic Inspiration die plus your Charisma modifier to the damage dealt to one target. Sad Sack (blue, melancholic): the inspired creature and its allies inside have Half Cover against ranged attacks; and when a creature inside the aura takes damage, you can use your Reaction to reduce the damage by a roll of your Bardic Inspiration die plus your Charisma modifier. Scamp (gold, childlike): when the inspired creature or its allies start a turn in the aura, that creature's Speed rises by 10 feet until the end of its next turn; and when a creature inside the aura fails a saving throw, you can use your Reaction to let it reroll the d20. The haint costs nothing beyond the Bardic Inspiration die you give.",
+        "action": "special",
+        "policy": "ask",
+        "policy_modes": [
+          "ask",
+          "auto",
+          "never"
+        ],
+        "policy_cost": "your Reaction",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "whistling_wanderer",
+        "name": "Whistling Wanderer",
+        "summary": "Wanderer's Bindle: after a Long Rest turn a bag into a Handy Haversack (one at a time, within a mile). Whistled Spells: whistle in place of Verbal components.",
+        "text": "Wanderer's Bindle: when you finish a Long Rest you can touch a nonmagical bag, sack or similar container and turn it into a bindle, a magic container that works as a Handy Haversack. If you make a second bindle, if the bindle is more than 1 mile from you, or when you die, it loses its magic and its contents appear in the nearest unoccupied spaces. Whistled Spells (flavour only in this game): you may whistle in place of the Verbal components of your Bard spells; onlookers unfamiliar with the tradition need a DC 15 Intelligence (Arcana) check to recognise that you are casting.",
+        "action": "special",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 6,
+      "feature": {
+        "id": "homeward_bound",
+        "name": "Homeward Bound",
+        "summary": "Leave marks at Long Rests (up to Cha modifier of them); once per Long Rest cast Teleportation Circle to a mark as a phantom train. From Bard 9 it is always prepared and any mark works.",
+        "text": "Whistling up a ghostly train, you can return yourself and your companions to a known place. When you finish a Long Rest you can leave a mark at that spot with paint, chalk, carving or the like (it can be erased, defaced or destroyed in the usual ways). After that you can use this feature to cast Teleportation Circle with the mark as its destination; a phantom train whisks away the creatures that enter the circle. You cannot do this again until you finish a Long Rest. You can have as many marks at once as your Charisma modifier (minimum 1); if you make one beyond your maximum, a previous mark of your choice fades. From Bard level 9 you always have Teleportation Circle prepared and can use any of your marked places as its destination when you cast it normally.",
+        "action": "special",
+        "implemented": "engine",
+        "resource": {
+          "id": "homeward_bound",
+          "name": "Homeward Bound",
+          "max": 1,
+          "recharge": "long"
+        },
+        "modifiers": [
+          {
+            "stat": "spell",
+            "value": "teleportation_circle",
+            "always_prepared": true,
+            "at_class_level": 9
+          }
+        ]
+      }
+    },
+    {
+      "level": 6,
+      "feature": {
+        "id": "ride_the_rails",
+        "name": "Ride the Rails",
+        "summary": "Magic action: a spectral train runs a 120-ft Line; you and up to six willing creatures within 30 ft teleport along it, and everyone else in the Line takes three Bardic dice of Psychic and may be Deafened and pushed.",
+        "text": "As a Magic action you whistle a spectral locomotive into being. It races forward in a Line 120 feet long and 10 feet wide, passing through objects and creatures. You and up to six willing creatures of your choice within 30 feet of you may ride it: you teleport to an unoccupied space of your choice in the Line, and your companions appear in the nearest unoccupied spaces to you. Each other creature in the Line makes a Wisdom saving throw against your spell save DC; on a failure it is Deafened until the start of your next turn, is pushed up to 10 feet straight away from the Line's point of origin, and takes Psychic damage equal to three rolls of your Bardic Inspiration die. Once used, you cannot use it again until you finish a Long Rest, unless you expend a spell slot of level 3 or higher (no action required) to restore the use.",
+        "action": "action",
+        "implemented": "engine",
+        "resource": {
+          "id": "ride_the_rails",
+          "name": "Ride the Rails",
+          "max": 1,
+          "recharge": "long"
+        }
+      }
+    },
+    {
+      "level": 14,
+      "feature": {
+        "id": "last_stop",
+        "name": "Last Stop",
+        "summary": "Beyond level 13: Magic action, up to six creatures within 300 ft make a Charisma save or are cursed so that Psychic damage frightens them and, the first time, makes them vulnerable to it.",
+        "text": "As a Magic action you blow a whistle audible up to 300 feet away. Up to six creatures of your choice that you can see in that range must succeed on a Charisma saving throw against your spell save DC or be cursed. When a cursed target takes Psychic damage it has the Frightened condition toward the source of that damage until the end of its next turn. The first time a cursed target takes Psychic damage it also gains Vulnerability to Psychic damage. The target repeats the save at the end of each of its turns, ending the curse on itself on a success; after 1 minute it succeeds automatically. Once used, you cannot use it again until you finish a Long Rest, unless you expend a spell slot of level 7 or higher (no action required) to restore the use.",
+        "action": "action",
+        "implemented": "text"
+      }
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "id": "circle_of_wicker",
+  "name": "Circle of Wicker",
+  "class": "druid",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 3"
+  },
+  "summary": "A druid who weaves wicker effigies and poppets: auras that punish, soothe or ward, tokens that let touch spells reach friends at any distance, and a doll that curses a foe.",
+  "role_tags": [
+    "support",
+    "healer",
+    "control"
+  ],
+  "always_prepared": {
+    "3": [
+      "bane",
+      "bless",
+      "summer_winds",
+      "zone_of_truth"
+    ],
+    "5": [
+      "bestow_curse",
+      "leomunds_tiny_hut"
+    ],
+    "7": [
+      "death_ward",
+      "sanctum_of_the_shepherd"
+    ],
+    "9": [
+      "hold_monster",
+      "lucky_charm"
+    ]
+  },
+  "features": [
+    {
+      "level": 3,
+      "feature": {
+        "id": "bewitched_effigy",
+        "name": "Bewitched Effigy",
+        "summary": "Bonus Action, spend a Wild Shape use: a Small wicker effigy (AC 15, HP 5 x Druid level) appears within 30 ft for 1 minute with a 30-ft Dim Light aura: Sacrifice, Soothe or Ward.",
+        "text": "As a Bonus Action you spend a use of Wild Shape to create a wicker effigy in an unoccupied space you can see within 30 feet of you. It is a Small object with AC 15, Hit Points equal to five times your Druid level, Vulnerability to Fire damage, and Immunity to Poison and Psychic damage. It vanishes after 1 minute, when it drops to 0 Hit Points, or when you use this feature again. It gives off one aura of your choice (picked when you create it), a 30-foot Emanation filled with Dim Light. Sacrifice: when a creature in the aura takes damage, you can use your Reaction to deal it Fire damage equal to 1d8 + your Wisdom modifier. Soothe: when you create the effigy, and as a Bonus Action on later turns while it lasts, one creature you can see in the aura regains 1d6 Hit Points; the effigy can heal this way a number of times equal to twice your spellcasting ability modifier. Ward: you and your allies in the aura gain a +1 bonus to AC. (Game rules: Sacrifice only strikes hostile creatures; the effigy is an object foes can attack.)",
+        "action": "bonus_action",
+        "uses_resource": "wild_shape",
+        "policy": "auto",
+        "policy_modes": [
+          "ask",
+          "auto",
+          "never"
+        ],
+        "policy_cost": "your Reaction (the Sacrifice aura)",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "circle_of_wicker_spells",
+        "name": "Circle of Wicker Spells",
+        "summary": "Bane, Bless, Summer Winds and Zone of Truth always prepared; more at levels 5, 7 and 9.",
+        "text": "From the Druid level shown you always have these spells prepared: Bane, Bless, Summer Winds, Zone of Truth (3); Bestow Curse, Tiny Hut (5); Death Ward, Sanctum of the Shepherd (7); Hold Monster, Lucky Charm (9).",
+        "implemented": "data"
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "wicker_token",
+        "name": "Wicker Token",
+        "summary": "After a Long Rest, weave PB Tiny wicker tokens; you can cast touch-range spells on anyone carrying one while you share a plane, from any distance.",
+        "text": "When you finish a Long Rest you can create a number of tokens equal to your Proficiency Bonus. Tokens are Tiny objects (AC 5, HP 1, Immunity to Poison and Psychic damage) and vanish when you finish your next Long Rest. You can cast spells with a range of touch on a creature carrying one of your tokens while you and that creature are on the same plane of existence, however far apart you are. (Game rule: the tokens go to the party automatically.)",
+        "resource": {
+          "id": "wicker_tokens",
+          "name": "Wicker Tokens",
+          "max": "pb",
+          "recharge": "long"
+        },
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 6,
+      "feature": {
+        "id": "wicker_rising",
+        "name": "Wicker Rising",
+        "summary": "Effigy auras grow: Sacrifice 2d8 + Wis Fire; Soothe heals 1d8 and 5 effigy HP can end Charmed, Frightened, Paralyzed, Poisoned or Stunned; Ward also gives Resistance to one chosen type (not Force).",
+        "text": "Your effigy's benefits grow stronger. Sacrifice: the Fire damage becomes 2d8 + your Wisdom modifier. Soothe: the healing becomes 1d8, and when you target a creature with the effigy you can spend 5 Hit Points of the effigy to remove one of these conditions from it: Charmed, Frightened, Paralyzed, Poisoned, Stunned. Ward: choose a damage type other than Force; you and your allies in the aura have Resistance to it.",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 10,
+      "feature": {
+        "id": "soulbound_poppet",
+        "name": "Soulbound Poppet",
+        "summary": "Magic action, spend a Wild Shape use: a doll of a creature within 60 ft (Tiny, AC 10, HP 10) for 1 minute; the target has Disadvantage on attacks against whoever carries the doll, and the carrier's first damage to it each turn adds 2d10 Necrotic.",
+        "text": "As a Magic action you spend a use of Wild Shape and choose a creature you can see within 60 feet of you; a wicker doll that vaguely looks like it appears. The doll is a Tiny object with AC 10, 10 Hit Points, Vulnerability to Fire damage, and Immunity to Poison and Psychic damage, and it vanishes after 1 minute or when it drops to 0 Hit Points. While it exists, the target has Disadvantage on attack rolls against a creature carrying the doll, and the first time on each turn a creature carrying the doll damages the target, the target takes an extra 2d10 Necrotic damage. (Game rule: the druid may hand the doll to an ally within 5 feet as part of the action.)",
+        "action": "action",
+        "uses_resource": "wild_shape",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 14,
+      "feature": {
+        "id": "wicker_zenith",
+        "name": "Wicker Zenith",
+        "summary": "At the start of your turn you may switch the effigy's aura; Sacrifice 3d8 + Wis; Soothe also ends Charmed or Frightened on creatures that start a turn in the aura; Ward gives Advantage on saves of a chosen ability.",
+        "text": "Your effigies reach their peak. At the start of your turn you can change your effigy's aura to a different one. Sacrifice: the Fire damage becomes 3d8 + your Wisdom modifier. Soothe: when you or an ally starts a turn in the aura, the Charmed or Frightened condition (the target's choice) ends on it. Ward: choose an ability; you and each ally in the aura have Advantage on saving throws made with it.",
+        "implemented": "text"
+      }
+    }
+  ]
+}

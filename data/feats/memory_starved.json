@@ -1,0 +1,50 @@
+{
+  "id": "memory_starved",
+  "name": "Memory Starved",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 5"
+  },
+  "category": "origin",
+  "repeatable": false,
+  "summary": "Advantage on Investigation checks, and Advantage on saves against Charmed and against having your memories read or altered.",
+  "ability_increase": {
+    "points": 1,
+    "max": 20,
+    "min_level": 4
+  },
+  "benefits": [
+    {
+      "id": "desperate_detail",
+      "name": "Desperate Detail",
+      "summary": "Advantage on Intelligence (Investigation) checks.",
+      "text": "You have Advantage on Intelligence (Investigation) checks.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "check:investigation"
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "memory_starved_iron_mind",
+      "name": "Iron Mind",
+      "summary": "Advantage on saves to avoid or end the Charmed condition and to avoid having your memories read or altered.",
+      "text": "You have Advantage on saving throws made to avoid or end the Charmed condition, and on saving throws made to avoid having your memories read or altered.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:charmed"
+        },
+        {
+          "stat": "flag",
+          "value": "memory_protected"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ]
+}

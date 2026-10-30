@@ -1,0 +1,172 @@
+{
+  "id": "cultist",
+  "name": "Cultist",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 4"
+  },
+  "summary": "A secret society that venerates or seeks power from an otherworldly source took you in; its patron shapes what you learned.",
+  "ability_scores": [
+    "str",
+    "dex",
+    "con",
+    "int",
+    "wis",
+    "cha"
+  ],
+  "feat": "cult_initiate",
+  "skills": [
+    "arcana"
+  ],
+  "tool": {
+    "id": "calligraphers_supplies"
+  },
+  "equipment": [
+    {
+      "id": "a",
+      "items": [
+        {
+          "id": "calligraphers_supplies",
+          "qty": 1
+        },
+        {
+          "id": "costume",
+          "qty": 1
+        },
+        {
+          "id": "holy_symbol_amulet",
+          "qty": 1
+        },
+        {
+          "id": "travelers_clothes",
+          "qty": 1
+        }
+      ],
+      "gp": 10
+    },
+    {
+      "id": "b",
+      "gp": 50
+    }
+  ],
+  "feat_params": {
+    "list": "warlock"
+  },
+  "features": [
+    {
+      "id": "cult_patron",
+      "name": "Cult Patron",
+      "summary": "Choose the kind of being your cult venerates; it sets one extra skill and one language.",
+      "text": "Choose the kind of being your cult venerates. The patron decides the second skill and the language you learned: Aberration (Perception, Deep Speech), Celestial (Religion, Celestial), Fiend-Demon (Religion, Abyssal), Fiend-Devil (Religion, Infernal), Fey (Nature, Sylvan). Arcana comes with the background whatever the patron.",
+      "action": "passive",
+      "choice": {
+        "id": "patron",
+        "kind": "option",
+        "count": 1,
+        "options": [
+          {
+            "id": "cult_aberration",
+            "name": "Aberration",
+            "summary": "Your cult venerates aberration: proficiency in Perception, and you speak Deep Speech.",
+            "text": "Your cult venerates aberration: proficiency in Perception, and you speak Deep Speech.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "perception"
+              },
+              {
+                "stat": "proficiency",
+                "kind": "language",
+                "value": "deep_speech"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "cult_celestial",
+            "name": "Celestial",
+            "summary": "Your cult venerates celestial: proficiency in Religion, and you speak Celestial.",
+            "text": "Your cult venerates celestial: proficiency in Religion, and you speak Celestial.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "religion"
+              },
+              {
+                "stat": "proficiency",
+                "kind": "language",
+                "value": "celestial"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "cult_fiend_demon",
+            "name": "Fiend (Demon)",
+            "summary": "Your cult venerates fiend (demon): proficiency in Religion, and you speak Abyssal.",
+            "text": "Your cult venerates fiend (demon): proficiency in Religion, and you speak Abyssal.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "religion"
+              },
+              {
+                "stat": "proficiency",
+                "kind": "language",
+                "value": "abyssal"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "cult_fiend_devil",
+            "name": "Fiend (Devil)",
+            "summary": "Your cult venerates fiend (devil): proficiency in Religion, and you speak Infernal.",
+            "text": "Your cult venerates fiend (devil): proficiency in Religion, and you speak Infernal.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "religion"
+              },
+              {
+                "stat": "proficiency",
+                "kind": "language",
+                "value": "infernal"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "cult_fey",
+            "name": "Fey",
+            "summary": "Your cult venerates fey: proficiency in Nature, and you speak Sylvan.",
+            "text": "Your cult venerates fey: proficiency in Nature, and you speak Sylvan.",
+            "action": "passive",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "nature"
+              },
+              {
+                "stat": "proficiency",
+                "kind": "language",
+                "value": "sylvan"
+              }
+            ],
+            "implemented": "data"
+          }
+        ]
+      },
+      "implemented": "data"
+    }
+  ]
+}

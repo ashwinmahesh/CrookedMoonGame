@@ -1,0 +1,253 @@
+{
+  "id": "occultist",
+  "name": "Occultist",
+  "class": "wizard",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 3"
+  },
+  "summary": "A wizard who risks Intrusion, a stepping die of cosmic mishaps, to power spells beyond their station, and who is slowly changed by what looks back.",
+  "role_tags": [
+    "caster",
+    "risk"
+  ],
+  "table": {
+    "intrusion_die": {
+      "name": "Intrusion Die (largest size)",
+      "values": [
+        "",
+        "",
+        "d6",
+        "d6",
+        "d8",
+        "d8",
+        "d8",
+        "d8",
+        "d8",
+        "d8",
+        "d10",
+        "d10",
+        "d10",
+        "d10",
+        "d10",
+        "d10",
+        "d12",
+        "d12",
+        "d12",
+        "d12"
+      ]
+    },
+    "intrusion_steps": {
+      "name": "Intrusion Die (largest step, d2 = 0 ... d12 = 6)",
+      "values": [
+        0,
+        0,
+        3,
+        3,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        6,
+        6,
+        6,
+        6
+      ]
+    }
+  },
+  "resources": [
+    {
+      "id": "intrusion_die",
+      "name": "Intrusion Die",
+      "recharge": "short_one",
+      "table": "intrusion_steps",
+      "die_table": "intrusion_die",
+      "from_level": 3
+    }
+  ],
+  "features": [
+    {
+      "level": 3,
+      "feature": {
+        "id": "forbidden_knowledge",
+        "name": "Forbidden Knowledge",
+        "summary": "Learn Deep Speech or another language, and keep one level 1 Warlock spell always prepared (changeable at a Long Rest).",
+        "text": "From your study of proscribed power you learn Deep Speech or another language of your choice. Choose also one level 1 spell from the Warlock spell list; you always have it prepared. You can change the chosen spell when you finish a Long Rest.",
+        "action": "passive",
+        "implemented": "data",
+        "choices": [
+          {
+            "id": "language",
+            "kind": "language",
+            "count": 1,
+            "default": "deep_speech"
+          },
+          {
+            "id": "forbidden_spell",
+            "kind": "spell",
+            "count": 1,
+            "filter": {
+              "list": "warlock",
+              "level": 1
+            },
+            "replaceable": "long_rest"
+          }
+        ],
+        "modifiers": [
+          {
+            "stat": "spell",
+            "value": "@forbidden_spell",
+            "always_prepared": true
+          }
+        ]
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "intrusion",
+        "name": "Intrusion",
+        "summary": "An Intrusion Die (d6, top size d8 at 5, d10 at 11, d12 at 17) that shrinks on safe risks and, on a 1, grows and triggers the d12 Intrusion table. Risk it for Overwhelming Mind or Seeking Eye when casting with a slot.",
+        "text": "Your search beyond the universe gives great power, at the risk of letting something intrude. You have an Intrusion Die that starts at a d6 and moves along these sizes: d2, d3, d4, d6, d8, d10, d12. Its largest size is its starting size, which rises one step at Wizard levels 5 (d8), 11 (d10) and 17 (d12). When you use a feature that risks Intrusion, roll the die. On a 2 or higher no Intrusion happens and the die shrinks one step. On a 1 the die grows one step and you roll on the Intrusion table as reality fractures; Intrusions use your spell save DC. The die grows one step (up to its starting size) when you finish a Short Rest and resets to its starting size when you finish a Long Rest. When you cast a spell using a spell slot you can risk Intrusion to choose one of these. Overwhelming Mind: one target of the spell has Disadvantage on the first saving throw made against it. Seeking Eye: you have Advantage on the first attack roll you make for the spell. Intrusion table (d12). 1: a presence behind you whispers; until the end of your next turn you can do only one of these on a turn: take an action, take a Bonus Action, or move. 2: space twists in a 30-foot Emanation around you; every creature in it (you included) has its Speed halved until the end of your next turn. 3: the nearest other creature within 60 feet must succeed on a Constitution saving throw or take Necrotic damage equal to two rolls of your Intrusion Die (at its starting size), and you regain Hit Points equal to the damage dealt. 4: reality tears open in your space until the end of your next turn; you and each creature that can see the tear must succeed on a Wisdom saving throw or have the Frightened condition while the tear exists. 5: one arm warps into an alien limb for 1 minute; you can make Unarmed Strikes with it using your spell attack bonus, and instead of the normal damage you roll a number of Intrusion dice (at starting size) equal to your Proficiency Bonus and the target takes that total as Acid damage. 6: alien landscapes overlay your sight; you have the Blinded condition until the end of your next turn. 7: unnatural thoughts disorient you; you have the Incapacitated condition until the end of your next turn. 8: a moment of terrible clarity; you take Psychic damage equal to two rolls of your Intrusion Die (at starting size), and for 1 minute your spell save DC is increased by 2. 9: you regain one expended spell slot of level 5 or lower (your choice) and take Necrotic damage equal to twice the slot's level, damage that cannot be reduced or prevented in any way. 10: when this happens and at the end of each of your turns for 1 minute, pulses in space fill a 15-foot Emanation from you and give you and each creature in it the Prone condition. 11: for 1 hour you hear whispered, disembodied thoughts of hateful scorn; while you can hear them you have Disadvantage on ability checks and saving throws that rely on Wisdom. 12: an Aberration or a Fiend with a CR equal to your Wizard level or lower (the GM's choice) appears in an unoccupied space within 30 feet of you; the GM decides its attitude (Hostile, Indifferent or Friendly) and actions. (Game rule for 12: choose the creature from the game's Aberration and Fiend list by CR, and decide its attitude on a d6: 1-3 Hostile to everyone, 4-5 Indifferent and it leaves, 6 Friendly to you for 1 minute.)",
+        "action": "special",
+        "implemented": "engine",
+        "choice": {
+          "id": "focus",
+          "kind": "option",
+          "count": 1,
+          "creation": false,
+          "options": [
+            {
+              "id": "overwhelming_mind",
+              "name": "Overwhelming Mind",
+              "summary": "One target of the spell has Disadvantage on the first save made against it.",
+              "implemented": "engine"
+            },
+            {
+              "id": "seeking_eye",
+              "name": "Seeking Eye",
+              "summary": "Advantage on the first attack roll you make for the spell.",
+              "implemented": "engine"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "level": 6,
+      "feature": {
+        "id": "reality_tear",
+        "name": "Reality Tear",
+        "summary": "A Warlock spell of level 3 or lower always prepared (changeable at a Long Rest); risk Intrusion to cast it without Concentration (max 1 minute), or take an automatic Intrusion to cast it once free per Long Rest.",
+        "text": "Choose a spell of level 3 or lower from the Warlock spell list; you always have it prepared. You can change it when you finish a Long Rest. When you cast it you can risk Intrusion to remove the need to Concentrate on it; the spell then ends after 1 minute or its normal duration, whichever is shorter. You can also cause an automatic Intrusion (the die rises one step, up to its starting size) to cast the spell once without a spell slot, and you regain the ability to do so when you finish a Long Rest.",
+        "action": "special",
+        "implemented": "engine",
+        "choice": {
+          "id": "tear_spell",
+          "kind": "spell",
+          "count": 1,
+          "filter": {
+            "list": "warlock",
+            "min_level": 1,
+            "max_level": 3
+          },
+          "replaceable": "long_rest"
+        },
+        "modifiers": [
+          {
+            "stat": "spell",
+            "value": "@tear_spell",
+            "always_prepared": true,
+            "uses": {
+              "count": 1,
+              "recharge": "long"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "level": 10,
+      "feature": {
+        "id": "occult_presence",
+        "name": "Occult Presence",
+        "summary": "When you cause an Intrusion, roll twice and choose, or negate it by gaining 1 Exhaustion. A standing benefit: Alien Consciousness, Cosmic Resistance or Spatial Domination.",
+        "text": "When you cause an Intrusion you can roll twice on the Intrusion table and choose which result to use, and you can negate the Intrusion altogether by gaining 1 level of Exhaustion. You also gain one of the benefits below and can change your choice when you finish a Long Rest; as a Bonus Action you can also change it by causing an automatic Intrusion (the die rises one step, up to its starting size). Alien Consciousness: you have Immunity to the Charmed and Frightened conditions, and you cannot be possessed. Cosmic Resistance: you have Resistance to Necrotic and Psychic damage. Spatial Domination: you have a Fly Speed equal to your Speed and can hover (in this game flight does not work in Medium or Heavy armour).",
+        "action": "special",
+        "implemented": "engine",
+        "choice": {
+          "id": "benefit",
+          "kind": "option",
+          "count": 1,
+          "replaceable": "long_rest",
+          "options": [
+            {
+              "id": "alien_consciousness",
+              "name": "Alien Consciousness",
+              "summary": "Immune to Charmed and Frightened, and you cannot be possessed.",
+              "modifiers": [
+                {
+                  "stat": "condition_immunity",
+                  "value": "charmed"
+                },
+                {
+                  "stat": "condition_immunity",
+                  "value": "frightened"
+                }
+              ],
+              "implemented": "data"
+            },
+            {
+              "id": "cosmic_resistance",
+              "name": "Cosmic Resistance",
+              "summary": "Resistance to Necrotic and Psychic damage.",
+              "modifiers": [
+                {
+                  "stat": "resistance",
+                  "value": "necrotic"
+                },
+                {
+                  "stat": "resistance",
+                  "value": "psychic"
+                }
+              ],
+              "implemented": "data"
+            },
+            {
+              "id": "spatial_domination",
+              "name": "Spatial Domination",
+              "summary": "A Fly Speed equal to your Speed, and you can hover (not in Medium or Heavy armour).",
+              "modifiers": [
+                {
+                  "stat": "speed_set",
+                  "kind": "fly",
+                  "value": "walk"
+                }
+              ],
+              "implemented": "data"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "level": 14,
+      "feature": {
+        "id": "beyond_space",
+        "name": "Beyond Space",
+        "summary": "Beyond level 13: Scrying always prepared; risk Intrusion for All Knowing or All Seeing, and an automatic Intrusion teleports you and friends to the sensor once per Long Rest.",
+        "text": "You always have the Scrying spell prepared. When you cast Scrying you can risk Intrusion to choose one of these. All Knowing: treat your connection to a target creature as if you had part of its body. All Seeing: cast the spell as an action instead of its normal casting time. While Scrying lasts you can cause an automatic Intrusion (the die rises one step, up to its starting size) to teleport yourself and any willing creatures within 10 feet of you to unoccupied spaces you can see through the scrying sensor. Once you teleport this way you cannot do so again until you finish a Long Rest.",
+        "action": "special",
+        "implemented": "text"
+      }
+    }
+  ]
+}

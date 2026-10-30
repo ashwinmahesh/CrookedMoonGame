@@ -1,0 +1,44 @@
+{
+  "id": "cult_of_personality",
+  "name": "Cult of Personality",
+  "vestige": "an unknowable power",
+  "summary": "Charm a creature for a day with no save, as your ally. The price: weakness whenever you stand alone.",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 6"
+  },
+  "benefit": {
+    "text": "You are charm and allure itself, and others fall over themselves to be in your good graces.",
+    "features": [
+      {
+        "id": "honeyed_words",
+        "name": "Honeyed Words",
+        "summary": "Magic action, 60 ft: Charmed for 24 hours with no save, as your ally; a charm-immune target is hampered and gives you Temp HP instead. Once per Short or Long Rest.",
+        "text": "As a Magic action you speak sweet words to a creature within 60 feet. The creature has the Charmed condition for 24 hours, until you use this feature again, or until you or your allies deal any damage to it or force it to make a saving throw. The Charmed target is your ally and follows your commands as long as they do not require it to harm itself. If it carries out a command it finds odious, it makes a DC 15 Wisdom saving throw, ending the condition on itself on a success. Once the condition ends, the target is immune to this feature for 24 hours. If the target has Immunity to the Charmed condition, it instead has Disadvantage on D20 Tests until the start of your next turn, and you gain Temporary Hit Points equal to your level. Once you use this feature you cannot use it again until you finish a Short or Long Rest.",
+        "action": "action",
+        "resource": {
+          "id": "honeyed_words",
+          "name": "Honeyed Words",
+          "max": 1,
+          "recharge": "short"
+        },
+        "implemented": "engine"
+      }
+    ]
+  },
+  "cost": {
+    "text": "The more others love you, the less you can stand on your own.",
+    "flaw": "You need your allies near far more than they need you.",
+    "features": [
+      {
+        "id": "solitary_weakness",
+        "name": "Solitary Weakness",
+        "summary": "Start a turn with no ally you can see or hear within 20 ft: lose all Temp HP and have Disadvantage on D20 Tests until your next turn.",
+        "text": "If you start your turn with no allies that you can see or hear within 20 feet of you, you lose any Temporary Hit Points you have from any source, and you have Disadvantage on D20 Tests until the start of your next turn.",
+        "action": "passive",
+        "implemented": "engine"
+      }
+    ]
+  },
+  "implemented": "engine"
+}

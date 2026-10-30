@@ -1,0 +1,164 @@
+{
+  "id": "gnarlborn",
+  "name": "Gnarlborn",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 2"
+  },
+  "summary": "Tree-like folk of Ardengloom, rooted and hard to move, who bind foes with branches, sense the ground and borrow the Elderwoods' wisdom each dawn.",
+  "creature_type": "plant",
+  "sizes": [
+    "medium"
+  ],
+  "speed": 30,
+  "traits": [
+    {
+      "id": "deep_roots",
+      "name": "Deep Roots",
+      "summary": "Advantage on ability checks and saving throws against being moved against your will, and on saves to avoid the Prone condition.",
+      "text": "You have Advantage on ability checks and saving throws against being moved against your will and on saving throws to avoid the Prone condition.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:prone"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "elderwood_whispers",
+      "name": "Elderwood Whispers",
+      "summary": "At the end of a Long Rest, gain one skill proficiency, tool proficiency or language of your choice, lasting until your next Long Rest.",
+      "text": "You draw on the memory of the Elderwood spirits. When you finish a Long Rest you gain proficiency with one skill, one tool, or one language of your choice, lasting until you next finish a Long Rest. The pick can be changed at every Long Rest.",
+      "action": "passive",
+      "choice": {
+        "id": "whisper",
+        "kind": "option",
+        "count": 1,
+        "replaceable": "long_rest",
+        "options": [
+          {
+            "id": "whisper_skill",
+            "name": "Skill",
+            "summary": "Proficiency in one skill of your choice.",
+            "choice": {
+              "id": "pick",
+              "kind": "skill",
+              "count": 1
+            },
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "@pick"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "whisper_tool",
+            "name": "Tool",
+            "summary": "Proficiency with one tool of your choice.",
+            "choice": {
+              "id": "pick",
+              "kind": "tool",
+              "count": 1
+            },
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "tool",
+                "value": "@pick"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "whisper_language",
+            "name": "Language",
+            "summary": "You learn one language of your choice.",
+            "choice": {
+              "id": "pick",
+              "kind": "language",
+              "count": 1
+            },
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "language",
+                "value": "@pick"
+              }
+            ],
+            "implemented": "data"
+          }
+        ]
+      },
+      "implemented": "engine"
+    },
+    {
+      "id": "grasping_branches",
+      "name": "Grasping Branches",
+      "summary": "Bonus Action: a Large or smaller creature within 30 feet makes a Strength save (DC 8 + Con + PB): Restrained for 1 minute on a failure (repeat save at each of its turn ends), half Speed until the end of its next turn on a success. Once per Short Rest.",
+      "text": "As a Bonus Action you unleash the binding power of the dark wood on a Large or smaller creature within 30 feet. It makes a Strength saving throw (DC 8 + your Constitution modifier + your Proficiency Bonus). On a failure it has the Restrained condition for 1 minute as branches ensnare it; on a success its Speed is halved until the end of its next turn. A Restrained creature repeats the save at the end of each of its turns, ending the effect on itself on a success. The branches vanish when the condition ends. Once you use this trait you cannot use it again until you finish a Short or Long Rest.",
+      "action": "bonus_action",
+      "resource": {
+        "id": "grasping_branches",
+        "name": "Grasping Branches",
+        "max": 1,
+        "recharge": "short"
+      },
+      "implemented": "engine"
+    },
+    {
+      "id": "root_sense",
+      "name": "Root Sense",
+      "summary": "Bonus Action: Tremorsense 60 feet for 10 minutes; once per Short Rest.",
+      "text": "As a Bonus Action you gain Tremorsense with a range of 60 feet for 10 minutes. Once you use this trait you cannot use it again until you finish a Short or Long Rest.",
+      "action": "bonus_action",
+      "resource": {
+        "id": "root_sense",
+        "name": "Root Sense",
+        "max": 1,
+        "recharge": "short"
+      },
+      "activation": {
+        "cost": "bonus",
+        "resource": "root_sense",
+        "duration": {
+          "kind": "minutes",
+          "amount": 10
+        },
+        "effects": [
+          {
+            "effect": "modifiers",
+            "params": {
+              "modifiers": [
+                {
+                  "stat": "sense",
+                  "kind": "tremorsense",
+                  "value": 60
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "implemented": "data"
+    },
+    {
+      "id": "towering_size",
+      "name": "Towering Size",
+      "summary": "Advantage on ability checks to end the Grappled condition; you count as one size larger for carrying capacity.",
+      "text": "You have Advantage on any ability check you make to end the Grappled condition. You also count as one size larger when determining your carrying capacity.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "carry_size_step",
+          "value": 1
+        }
+      ],
+      "implemented": "engine"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "id": "charm_twister",
+  "name": "Charm Twister",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 5"
+  },
+  "category": "origin",
+  "repeatable": false,
+  "summary": "Bless once per Long Rest on creatures carrying your wicker charm, and a Magic action that weaves a hex into a charm you touch.",
+  "ability_increase": {
+    "points": 1,
+    "max": 20,
+    "min_level": 4
+  },
+  "benefits": [
+    {
+      "id": "old_blessing",
+      "name": "Old Blessing",
+      "summary": "Cast Bless free once per Long Rest, only on creatures carrying a wicker charm you wove; Intelligence, Wisdom or Charisma.",
+      "text": "You can cast Bless once without a spell slot, regaining that use on a Long Rest, and you can also cast it with any spell slots you have. Cast this way it can target only creatures carrying a wicker charm you have woven. Intelligence, Wisdom or Charisma is your spellcasting ability for it (choose when you take this feat). In the game the party is assumed to carry your charms.",
+      "action": "passive",
+      "choices": [
+        {
+          "id": "spellcasting_ability",
+          "kind": "spellcasting_ability",
+          "count": 1,
+          "from": [
+            "int",
+            "wis",
+            "cha"
+          ]
+        }
+      ],
+      "modifiers": [
+        {
+          "stat": "spell",
+          "value": "bless",
+          "ability": "@spellcasting_ability",
+          "always_prepared": true,
+          "uses": {
+            "count": 1,
+            "recharge": "long"
+          }
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "twisted_hex",
+      "name": "Twisted Hex",
+      "summary": "Magic action: weave spite into a charm you touch, naming one ability; its carrier (or a creature whose home holds it) has Disadvantage on checks and attacks with that ability.",
+      "text": "As a Magic action you weave spite into a wicker charm you touch and choose one ability. While another creature carries the charm, or while the charm is somewhere that creature counts as home, that creature has Disadvantage on ability checks and attack rolls that use the chosen ability. Each time it fails such a roll it may make a Charisma saving throw; on a success the charm is destroyed. The save DC is 8 + your Proficiency Bonus + the ability modifier you chose for Old Blessing. You can have only one Twisted Hex charm at a time; making a new one robs the old one of its magic.",
+      "action": "action",
+      "implemented": "engine"
+    }
+  ]
+}

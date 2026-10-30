@@ -1,0 +1,62 @@
+{
+  "id": "devils_due",
+  "name": "Devil's Due",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "policy": "ask",
+  "policy_modes": [
+    "ask",
+    "auto",
+    "never"
+  ],
+  "level": 1,
+  "school": "necromancy",
+  "classes": [
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "reaction",
+    "trigger": "another creature within 30 feet of you takes damage"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 30
+  },
+  "components": {
+    "s": true,
+    "m": "a glob of pitch"
+  },
+  "duration": {
+    "kind": "instantaneous"
+  },
+  "targets": {
+    "kind": "self",
+    "description": "you heal; the creature that took damage must be within 30 feet"
+  },
+  "upcast": {
+    "text": "You can expend one additional Hit Point Die for each slot level above 1."
+  },
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "id": "sa_devils_due",
+        "target": "self",
+        "on": "cast",
+        "hit_dice": 1,
+        "hit_dice_per_slot": 1,
+        "heal": "hit_die + casting_mod",
+        "double_on_crit": true
+      }
+    }
+  ],
+  "tags": [
+    "healing"
+  ],
+  "summary": "Reaction when another creature within 30 ft takes damage: spend and roll a Hit Point Die and regain that plus your casting modifier (doubled if the damage was a Critical Hit).",
+  "text": "You absorb a measure of a creature's suffering and its escaping vital essence. As a Reaction when another creature within 30 feet of you takes damage, you expend and roll one Hit Point Die and regain Hit Points equal to the number rolled plus your spellcasting ability modifier. If the creature took damage from a Critical Hit, you regain double that amount. Using a Higher-Level Spell Slot: you can expend one additional Hit Point Die for each slot level above 1."
+}

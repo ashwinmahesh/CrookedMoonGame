@@ -1,0 +1,146 @@
+{
+  "id": "circle_of_the_old_ways",
+  "name": "Circle of the Old Ways",
+  "class": "druid",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 3"
+  },
+  "summary": "A Shillelagh warrior of the Elderwoods who spends Wild Shape to become a bark-skinned wose that fights in melee and draws foes onto itself.",
+  "role_tags": [
+    "striker",
+    "defender"
+  ],
+  "always_prepared": {
+    "3": [
+      "ancestral_communion",
+      "barkskin",
+      "shield_of_faith",
+      "shillelagh",
+      "spike_growth"
+    ],
+    "5": [
+      "magic_circle",
+      "plant_growth"
+    ],
+    "7": [
+      "freedom_of_movement",
+      "mordenkainens_private_sanctum"
+    ],
+    "9": [
+      "awaken",
+      "tree_stride"
+    ]
+  },
+  "features": [
+    {
+      "level": 3,
+      "feature": {
+        "id": "old_ways_spells",
+        "name": "Circle of the Old Ways Spells",
+        "summary": "Ancestral Communion, Barkskin, Shield of Faith, Shillelagh and Spike Growth always prepared; more at levels 5, 7 and 9.",
+        "text": "When you reach a Druid level shown, you always have these spells prepared: \"Ancestral Guidance\", Barkskin, Shield of Faith, Shillelagh and Spike Growth (3); Magic Circle and Plant Growth (5); Freedom of Movement and Private Sanctum (7); Awaken and Tree Stride (9). The book styles \"Ancestral Guidance\" as one of its own spells, but its spell chapter has none by that name, so it is entered as Ancestral Communion (a slip in the book).",
+        "action": "passive",
+        "implemented": "data"
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "bough_and_branch",
+        "name": "Bough and Branch",
+        "summary": "While Shillelagh lasts: a wooden Shield grows in your free hand, the weapon and Shield can't be taken from you, you skip Somatic components of Druid spells and the weapon is your Druidic Focus.",
+        "text": "When you cast Shillelagh you can make a Shield of gnarled wood grow into your free hand, if you have one (no action needed to don it); it vanishes when the spell ends. Unless you are Incapacitated, you cannot be forced to drop the affected weapon or the Shield. For the duration of the spell you also ignore the Somatic components of your Druid spells, and the enhanced weapon is a Druidic Focus for you.",
+        "action": "passive",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "wood_wose",
+        "name": "Wood Wose",
+        "summary": "Bonus Action (or as part of casting Shillelagh), spend a Wild Shape use: for 10 minutes unarmoured AC 10 + Dex + Wis, Advantage on Str and Con saves, and Shillelagh hits coat the target in sap that hobbles its attacks on others.",
+        "text": "As a Bonus Action, or as part of casting Shillelagh, you can expend a use of Wild Shape to fill yourself with the power of the primordial woods. Bark Bulwark: while you wear no armor, your base Armor Class is 10 plus your Dexterity and Wisdom modifiers. Elderwood Sap: when you hit a creature with an attack roll using the weapon enhanced by Shillelagh, the target is coated in sap until the start of your next turn; while coated it has Disadvantage on attack rolls against any target other than you. Oaken Resolve: you have Advantage on Strength and Constitution saving throws. The effect lasts 10 minutes, ending early if you dismiss it (no action required), are Incapacitated or die.",
+        "action": "bonus_action",
+        "implemented": "engine",
+        "activation": {
+          "cost": "bonus",
+          "resource": "wild_shape",
+          "dismissible": true,
+          "duration": {
+            "kind": "minutes",
+            "amount": 10
+          },
+          "effects": [
+            {
+              "effect": "modifiers",
+              "params": {
+                "ends_when_incapacitated": true,
+                "modifiers": [
+                  {
+                    "stat": "ac_formula",
+                    "base": 10,
+                    "abilities": [
+                      "dex",
+                      "wis"
+                    ],
+                    "when": {
+                      "armor": "none"
+                    }
+                  },
+                  {
+                    "stat": "advantage",
+                    "on": [
+                      "save:str",
+                      "save:con"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "level": 6,
+      "feature": {
+        "id": "oak_and_thorn",
+        "name": "Oak and Thorn",
+        "summary": "While in Wood Wose: attack twice with the Attack action, and once on each of your turns a weapon melee hit adds 1d6 Piercing.",
+        "text": "Whenever you activate Wood Wose you also gain these benefits for its duration. Oakenfist: you can attack twice instead of once whenever you take the Attack action on your turn. Gnarled Thorns: once on each of your turns when you hit a creature with a melee attack roll using a weapon, the target takes an extra 1d6 Piercing damage.",
+        "action": "passive",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 10,
+      "feature": {
+        "id": "deepwood_elder",
+        "name": "Deepwood Elder",
+        "summary": "While in Wood Wose: once a turn a melee hit can knock a creature Prone (Str save), melee attackers within 5 ft take 1d8 Piercing, and you gain Wis + PB Temporary Hit Points each turn.",
+        "text": "Whenever you activate Wood Wose you also gain these benefits for its duration. Primeval Wrath: once per turn, when you hit a creature with a melee attack, you can force it to succeed on a Strength saving throw against your spell save DC or have the Prone condition. Bramblebark: when a creature within 5 feet of you hits you with a melee attack, the attacker takes 1d8 Piercing damage; a creature takes this damage only once per turn. Rampant Growth: when you activate Wood Wose and at the start of each of your later turns, you gain Temporary Hit Points equal to your Wisdom modifier plus your Proficiency Bonus.",
+        "action": "passive",
+        "implemented": "engine",
+        "policy": "auto",
+        "policy_modes": [
+          "auto",
+          "never"
+        ],
+        "policy_cost": "Nothing (Primeval Wrath: a Strength save or Prone on a melee hit, once a turn)"
+      }
+    },
+    {
+      "level": 14,
+      "feature": {
+        "id": "ancient_protector",
+        "name": "Ancient Protector",
+        "summary": "Beyond level 13: in Wood Wose you grow Large with +5 ft reach, resist Bludgeoning and Piercing, and can strike back at a sap-coated creature that attacks.",
+        "text": "Whenever you activate Wood Wose you also gain these benefits for its duration. Old Growth: your size becomes Large (along with what you wear and carry) if there is room, and your reach increases by 5 feet. Mighty Trunk: you have Resistance to Bludgeoning and Piercing damage. Vengeance of the Elders: when a creature that is coated in Elderwood sap and within your reach makes an attack roll, you can use your Reaction to make a melee attack against it.",
+        "action": "passive",
+        "implemented": "text"
+      }
+    }
+  ]
+}

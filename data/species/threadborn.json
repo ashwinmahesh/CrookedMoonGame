@@ -1,0 +1,114 @@
+{
+  "id": "threadborn",
+  "name": "Threadborn",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 2"
+  },
+  "summary": "Living dolls made in Picco, stitched from cloth, wood and porcelain, who soothe others, shrug off Psychic harm and lend luck to a friend in need.",
+  "creature_type": "construct",
+  "sizes": [
+    "medium",
+    "small"
+  ],
+  "speed": 30,
+  "spellcasting_ability_choice": [
+    "int",
+    "wis",
+    "cha"
+  ],
+  "traits": [
+    {
+      "id": "ball_jointed",
+      "name": "Ball-Jointed",
+      "summary": "You can squeeze through a space as narrow as 1 foot wide, treating it as Difficult Terrain.",
+      "text": "You can move through a space as narrow as 1 foot wide as if it were Difficult Terrain.",
+      "action": "passive",
+      "implemented": "text"
+    },
+    {
+      "id": "innocent_mind",
+      "name": "Innocent Mind",
+      "summary": "Resistance to Psychic damage.",
+      "text": "You have Resistance to Psychic damage.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "resistance",
+          "value": "psychic"
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "sewn_nature",
+      "name": "Sewn Nature",
+      "summary": "You don't need air, food or drink.",
+      "text": "You do not require air, food or drink.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "no_food_or_water"
+        },
+        {
+          "stat": "flag",
+          "value": "no_air"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "soothing_heart",
+      "name": "Soothing Heart",
+      "summary": "Guidance; Sanctuary from level 3 and Calm Emotions from level 5, each free once per Long Rest. The free Calm Emotions can affect any creature type.",
+      "text": "You know the Guidance cantrip. At character level 3 you always have Sanctuary prepared, and at level 5 you always have Calm Emotions prepared. You can cast each of them once without a spell slot, regaining that use when you finish a Long Rest, and you can also cast them with any spell slots you have of the right level. When you cast Calm Emotions with this trait it can target creatures of any type. Intelligence, Wisdom or Charisma is your spellcasting ability for them (choose when you select this species).",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "spell",
+          "value": "guidance",
+          "ability": "choice"
+        },
+        {
+          "stat": "spell",
+          "value": "sanctuary",
+          "ability": "choice",
+          "always_prepared": true,
+          "uses": {
+            "count": 1,
+            "recharge": "long"
+          },
+          "at_level": 3
+        },
+        {
+          "stat": "spell",
+          "value": "calm_emotions",
+          "ability": "choice",
+          "always_prepared": true,
+          "uses": {
+            "count": 1,
+            "recharge": "long"
+          },
+          "at_level": 5
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "youve_got_a_friend",
+      "name": "You've Got a Friend",
+      "summary": "Reaction: when a creature you see within 30 feet fails a skill check, cast Guidance on it at any range and it adds the 1d4; Proficiency Bonus times per Long Rest.",
+      "text": "When a creature you can see within 30 feet of you fails an ability check that uses a skill, you can take a Reaction to cast Guidance on it, ignoring the spell's normal range. The creature adds the spell's 1d4 to the check, possibly turning the failure into a success, and then the spell ends. You can use this trait a number of times equal to your Proficiency Bonus and regain all expended uses when you finish a Long Rest.",
+      "action": "reaction",
+      "resource": {
+        "id": "youve_got_a_friend",
+        "name": "You've Got a Friend",
+        "max": "pb",
+        "recharge": "long"
+      },
+      "policy": "auto",
+      "implemented": "engine"
+    }
+  ]
+}

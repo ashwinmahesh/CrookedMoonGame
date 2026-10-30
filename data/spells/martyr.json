@@ -1,0 +1,50 @@
+{
+  "id": "martyr",
+  "name": "Martyr",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 3,
+  "school": "necromancy",
+  "classes": [
+    "cleric",
+    "paladin",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "touch"
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a dagger worth at least 1 CP"
+  },
+  "duration": {
+    "kind": "instantaneous"
+  },
+  "targets": {
+    "kind": "creature",
+    "count": 1,
+    "other": true,
+    "description": "a creature that died within the last minute",
+    "dead": true
+  },
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "id": "sb_martyr"
+      }
+    }
+  ],
+  "tags": [
+    "healing",
+    "restoration"
+  ],
+  "summary": "Touch a creature that died within the last minute: it returns with Hit Points equal to your current total, and you drop to 0 with two failed Death Saves and must roll one at once.",
+  "text": "You touch a creature that has died within the last minute and pass your life essence to it. It returns to life with Hit Points equal to your current Hit Point total. You immediately drop to 0 Hit Points (nothing can prevent this) with two failed Death Saving Throws, and you must make a Death Saving Throw at once. You cannot regain Hit Points or become Stable until you have made that save."
+}

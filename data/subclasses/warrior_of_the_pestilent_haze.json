@@ -1,0 +1,147 @@
+{
+  "id": "warrior_of_the_pestilent_haze",
+  "name": "Warrior of the Pestilent Haze",
+  "class": "monk",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 3"
+  },
+  "summary": "A plague-bearing monk: clawed Unarmed Strikes, a curse that poisons and festers, Resistance to Poison and Necrotic, and a cloud of miasma.",
+  "role_tags": [
+    "striker",
+    "control"
+  ],
+  "features": [
+    {
+      "level": 3,
+      "feature": {
+        "id": "claws_of_pestilence",
+        "name": "Claws of Pestilence",
+        "summary": "Contagious Discipline: Unarmed Strikes may deal Slashing instead of Bludgeoning; a hit from Flurry of Blows adds one Martial Arts die of Necrotic.",
+        "text": "Contagious Discipline (level 3), first benefit. Your nails grow into vermin-like claws. When you hit with an Unarmed Strike you can deal Slashing damage instead of Bludgeoning. When you hit a creature with an attack granted by Flurry of Blows, you deal extra Necrotic damage equal to one roll of your Martial Arts die.",
+        "policy": "auto",
+        "policy_cost": "free",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "miasmic_plague",
+        "name": "Miasmic Plague",
+        "summary": "Contagious Discipline: on an Unarmed Strike hit spend 1 Focus Point (free if you give up the Claws of Pestilence extra damage): Con save or cursed 1 minute: Poisoned, and your Unarmed Strikes add one Martial Arts die of Necrotic once per turn.",
+        "text": "Contagious Discipline (level 3), second benefit. When you hit a creature with an Unarmed Strike you can spend 1 Focus Point to force it to succeed on a Constitution saving throw (against your Monk save DC) or be cursed for 1 minute. While cursed it has the Poisoned condition and takes extra Necrotic damage from your Unarmed Strikes equal to one roll of your Martial Arts die; it can take this damage only once per turn. The creature repeats the save at the end of each of its turns, ending the curse on itself on a success. If you give up the extra damage from Claws of Pestilence on that hit, you can use Miasmic Plague without paying the Focus Point.",
+        "uses_resource": "focus_points",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "inoculation",
+        "name": "Inoculation",
+        "summary": "Gift of Pestilence: Advantage on saves to avoid or end Poisoned and against magical contagions; Resistance to Poison and Necrotic damage.",
+        "text": "Gift of Pestilence (level 3), first benefit. You have Advantage on saving throws to avoid or end the Poisoned condition and on saving throws against magical contagions, and you have Resistance to Poison and Necrotic damage. (The Poisoned part and both Resistances are data; the engine has no disease system yet, so the contagion part is text only.)",
+        "modifiers": [
+          {
+            "stat": "advantage",
+            "on": "save_vs:poisoned"
+          },
+          {
+            "stat": "resistance",
+            "value": "poison"
+          },
+          {
+            "stat": "resistance",
+            "value": "necrotic"
+          }
+        ],
+        "implemented": "data"
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "vermin_kinship",
+        "name": "Vermin Kinship",
+        "summary": "Gift of Pestilence: talk simply with vermin (rats, pigeons, insects); once per Long Rest cast Animal Messenger (Wisdom) through a plague-carrying Tiny beast.",
+        "text": "Gift of Pestilence (level 3), second benefit. With chittering sounds and hand gestures you can pass simple ideas to vermin such as rats, pigeons and insects, and you can read their noises and motions. They can't handle complicated ideas, but Friendly vermin can relay what they recently saw or heard. You can also cast Animal Messenger using Wisdom as the spellcasting ability, aimed at a Tiny Beast that counts as vermin and is thought to spread plague and disease. After casting it this way you can't do so again until you finish a Long Rest.",
+        "modifiers": [
+          {
+            "stat": "spell",
+            "value": "animal_messenger",
+            "ability": "wis",
+            "uses": {
+              "count": 1,
+              "recharge": "long"
+            }
+          }
+        ],
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 6,
+      "feature": {
+        "id": "potent_plague",
+        "name": "Potent Plague",
+        "summary": "When you deal Necrotic or Poison damage, you ignore the target's Resistance to those types.",
+        "text": "When you deal Necrotic or Poison damage, you ignore the target's Resistance to those damage types, if it has any. (It does not get past Immunity.)",
+        "modifiers": [
+          {
+            "stat": "ignore_resistance",
+            "value": "necrotic"
+          },
+          {
+            "stat": "ignore_resistance",
+            "value": "poison"
+          }
+        ],
+        "implemented": "data"
+      }
+    },
+    {
+      "level": 6,
+      "feature": {
+        "id": "tolling_censer",
+        "name": "Tolling Censer",
+        "summary": "Magic action, 2 Focus Points: 20-ft Emanation, creatures of your choice make a Con save: 2 Martial Arts dice Necrotic and cursed by Miasmic Plague; half damage and no curse on a success.",
+        "text": "As a Magic action you spend 2 Focus Points to release a cloud of miasma in a 20-foot Emanation from you. Each creature of your choice in the area makes a Constitution saving throw (against your Monk save DC). On a failed save it takes Necrotic damage equal to two rolls of your Martial Arts die and is cursed by your Miasmic Plague. On a successful save it takes half as much damage only and is not cursed.",
+        "action": "action",
+        "uses_resource": "focus_points",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 11,
+      "feature": {
+        "id": "choking_miasma",
+        "name": "Choking Miasma",
+        "summary": "Miasmic Contagion: Constitution saves against your Miasmic Plague have Disadvantage.",
+        "text": "Miasmic Contagion (level 11), first benefit. Constitution saving throws against your Miasmic Plague have Disadvantage.",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 11,
+      "feature": {
+        "id": "scurrying_spread",
+        "name": "Scurrying Spread",
+        "summary": "Miasmic Contagion: when you spend 1 Focus Point on Step of the Wind, until the end of the turn each creature of your choice you enter a space within 5 ft of makes a Con save or is cursed by Miasmic Plague (once per turn each).",
+        "text": "Miasmic Contagion (level 11), second benefit. When you spend 1 Focus Point to use Step of the Wind, until the end of the turn, whenever you enter a space within 5 feet of any creature of your choice, that creature must succeed on a Constitution saving throw or be cursed by your Miasmic Plague. A creature makes this save only once per turn.",
+        "uses_resource": "focus_points",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 17,
+      "feature": {
+        "id": "epidemic",
+        "name": "Epidemic",
+        "summary": "Miasmic Plague ignores Immunity to the Poisoned condition; Necrotic damage you deal to a cursed target adds one more Martial Arts die of Necrotic.",
+        "text": "Your Miasmic Plague ignores a target's Immunity to the Poisoned condition. Also, when you deal Necrotic damage to a target cursed by your Miasmic Plague, it takes extra Necrotic damage equal to one roll of your Martial Arts die.",
+        "implemented": "text"
+      }
+    }
+  ]
+}

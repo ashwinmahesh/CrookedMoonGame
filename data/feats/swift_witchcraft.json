@@ -1,0 +1,41 @@
+{
+  "id": "swift_witchcraft",
+  "name": "Swift Witchcraft",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 5"
+  },
+  "category": "general",
+  "repeatable": false,
+  "summary": "+1 Intelligence, Wisdom or Charisma, and once per Long Rest cast a spell with a 1-minute casting time as an action.",
+  "benefits": [
+    {
+      "id": "swift_invocation",
+      "name": "Swift Invocation",
+      "summary": "Once per Long Rest, use an action to cast a spell that has a casting time of 1 minute.",
+      "text": "You can use an action to cast a spell that has a casting time of 1 minute. Once you do so you can't do it again until you finish a Long Rest.",
+      "action": "special",
+      "resource": {
+        "id": "swift_invocation",
+        "name": "Swift Invocation",
+        "max": 1,
+        "recharge": "long"
+      },
+      "implemented": "engine"
+    }
+  ],
+  "prerequisites": {
+    "level": 4,
+    "spellcasting": true,
+    "text": "Level 4 or higher, Spellcasting or Pact Magic feature"
+  },
+  "ability_increase": {
+    "from": [
+      "int",
+      "wis",
+      "cha"
+    ],
+    "points": 1,
+    "max": 20
+  }
+}

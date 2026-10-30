@@ -1,0 +1,40 @@
+{
+  "id": "unreflected",
+  "name": "Unreflected",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 5"
+  },
+  "category": "origin",
+  "repeatable": false,
+  "summary": "You cast no reflection or shadow: creatures read you poorly, and you can blend into a group of your own kind.",
+  "ability_increase": {
+    "points": 1,
+    "max": 20,
+    "min_level": 4
+  },
+  "benefits": [
+    {
+      "id": "inscrutable",
+      "name": "Inscrutable",
+      "summary": "Creatures have Disadvantage on Wisdom (Insight) checks made against you. In the game: Advantage on your Deception checks.",
+      "text": "Creatures have Disadvantage on Wisdom (Insight) checks made against you. Because non-player characters rarely roll Insight in the game, this is translated as Advantage on your Charisma (Deception) checks (the designer's decision).",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "check:deception"
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "unremarkable",
+      "name": "Unremarkable",
+      "summary": "Within a group of 2+ similar creatures, Hide using Charisma (Deception) instead of Dexterity (Stealth), with no cover needed; you are revealed if more than 5 ft from two of them.",
+      "text": "While you stand within a group of at least two other creatures of your type that are no more than one size larger or smaller than you, you can take the Hide action against creatures outside that group by making a Charisma (Deception) check instead of Dexterity (Stealth), with no need for cover or Heavy Obscurement. If you are ever more than 5 feet from at least two of those creatures while hiding this way, you are revealed.",
+      "action": "special",
+      "implemented": "engine"
+    }
+  ]
+}

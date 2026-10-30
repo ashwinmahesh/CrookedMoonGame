@@ -1,0 +1,82 @@
+{
+  "id": "field_of_reaping",
+  "name": "Field of Reaping",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 5,
+  "school": "necromancy",
+  "classes": [
+    "cleric",
+    "druid",
+    "warlock"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 90
+  },
+  "area": {
+    "shape": "cube",
+    "size": 30
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a dried corn husk or wheat hull"
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 1,
+    "concentration": true
+  },
+  "targets": {
+    "kind": "area"
+  },
+  "upcast": {
+    "damage": "1d6",
+    "text": "The extra Necrotic damage rises by 1d6 for each slot level above 5."
+  },
+  "zone": {
+    "triggers": [
+      "cast",
+      "enter"
+    ],
+    "affects": "enemies",
+    "once_per_turn": true,
+    "effects": [
+      {
+        "effect": "modifiers",
+        "params": {
+          "until": "target_turn_end",
+          "modifiers": [
+            {
+              "stat": "flag",
+              "value": "reaped:caster"
+            }
+          ],
+          "on": "fail"
+        }
+      },
+      {
+        "effect": "custom",
+        "params": {
+          "id": "sa_field_of_reaping",
+          "on": "fail",
+          "first_damage_each_turn": "1d6 necrotic (+1d6 per slot above 5)",
+          "heals": "an uncursed creature of the caster's side in the field, the necrotic taken"
+        }
+      }
+    ]
+  },
+  "tags": [
+    "damage",
+    "healing",
+    "debuff"
+  ],
+  "summary": "30-ft Cube, Concentration: hostile creatures there are cursed to the end of their next turn; their first damage each turn adds 1d6 Necrotic and heals one uncursed creature of yours in the field.",
+  "text": "You create a shadowy field in a 30-foot Cube at a point within 90 feet that reaps escaping life force. A creature hostile to you is cursed until the end of its next turn when the field appears while it is inside, when it enters the field for the first time on a turn, or when it ends a turn there. There is no saving throw. While cursed, the first time the creature takes damage during a turn it takes an extra 1d6 Necrotic damage, and a creature of your choice within the field that is not itself cursed by the spell regains Hit Points equal to that Necrotic damage. Concentration, up to 1 minute. Using a Higher-Level Spell Slot: the extra damage increases by 1d6 for each slot level above 5."
+}

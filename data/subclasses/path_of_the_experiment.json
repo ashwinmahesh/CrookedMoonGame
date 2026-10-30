@@ -1,0 +1,133 @@
+{
+  "id": "path_of_the_experiment",
+  "name": "Path of the Experiment",
+  "class": "barbarian",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 3"
+  },
+  "summary": "A raging barbarian wired with alchemical implants: a serum injected at every Rage, a compound from level 6 and a Rage that starts itself when danger strikes.",
+  "role_tags": [
+    "striker",
+    "durable"
+  ],
+  "features": [
+    {
+      "level": 3,
+      "feature": {
+        "id": "alchemical_experiments",
+        "name": "Alchemical Experiments",
+        "summary": "You gain Alchemist's Supplies with proficiency, and can use them in place of an Herbalism Kit to craft Potions of Healing.",
+        "text": "You gain a set of Alchemist's Supplies and are proficient with it. When you craft Potions of Healing you may use Alchemist's Supplies instead of an Herbalism Kit. (The game has no crafting screen yet, so only the tool proficiency does anything; the supplies themselves are not added to your pack.)",
+        "action": "passive",
+        "implemented": "data",
+        "modifiers": [
+          {
+            "stat": "proficiency",
+            "kind": "tool",
+            "value": "alchemists_supplies"
+          }
+        ]
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "volatile_serum",
+        "name": "Volatile Serum",
+        "summary": "Each time you enter your Rage, inject a serum: Ferocity, Monstrosity or Reconstruction. A Bonus Action swaps it for another.",
+        "text": "Implanted syringes and reservoirs feed alchemical serums into your body. When you enter your Rage, choose one serum to inject and gain its benefits. It lasts as long as the Rage, or until you pick a different serum as a Bonus Action. Ferocity: you ignore Difficult Terrain, and when you hit with a Melee weapon or an Unarmed Strike you may trigger the Cleave mastery property in addition to whichever other mastery property you are using. Monstrosity: your reach grows by 5 feet, and once per turn when you miss with an attack roll that relies on Strength you may add your Rage Damage bonus to the total, which may turn the miss into a hit; if you are smaller than Large you also become Large, along with what you wear and carry, provided there is room (if there is not, your size does not change). Reconstruction: when you activate it and at the start of each of your turns, you may spend and roll one Hit Point Die and regain Hit Points equal to the roll plus your Constitution modifier (minimum 1 Hit Point); any amount beyond your Hit Point maximum becomes Temporary Hit Points. If you take Acid or Fire damage, the serum does not work at the start of your next turn. The serum costs no extra Rage use.",
+        "action": "bonus_action",
+        "implemented": "engine",
+        "choice": {
+          "id": "serum",
+          "kind": "option",
+          "count": 1,
+          "creation": false,
+          "options": [
+            {
+              "id": "ferocity",
+              "name": "Ferocity",
+              "summary": "Ignore Difficult Terrain; melee and Unarmed hits also trigger Cleave besides the weapon's own mastery.",
+              "implemented": "engine"
+            },
+            {
+              "id": "path_of_the_experiment_monstrosity",
+              "name": "Monstrosity",
+              "summary": "+5 ft reach, Large if there is room; once a turn add the Rage Damage bonus to a missed Strength attack roll.",
+              "implemented": "engine"
+            },
+            {
+              "id": "reconstruction",
+              "name": "Reconstruction",
+              "summary": "On activation and at each turn start spend and roll a Hit Point Die, heal the roll + Con modifier, overflow as Temporary Hit Points; Acid or Fire stops it next turn.",
+              "implemented": "engine"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "level": 6,
+      "feature": {
+        "id": "augmentation_compounds",
+        "name": "Augmentation Compounds",
+        "summary": "Beside a serum, activate a compound: Stimulated Senses (Blindsight 30), Maddening Fumes (30-ft aura) or Corrosive Expulsion (an acid spray in place of an attack).",
+        "text": "You can now activate one compound in addition to a serum, whenever you enter your Rage or change your serum. The compound lasts as long as the Rage, or until you choose a new compound. Stimulated Senses: you gain Blindsight out to 30 feet; if you already have Blindsight its range grows by 30 feet. Maddening Fumes: your skin gives off aggression-spiking fumes in a 30-foot Emanation. Inside it an enemy's Speed is halved, and an enemy that starts its turn there must succeed on a Wisdom saving throw (DC 8 + your Constitution modifier + your Proficiency Bonus) or have Disadvantage on attack rolls against any target other than you until the start of its next turn. Corrosive Expulsion: when you take the Attack action you may replace one of your attacks with a spray of caustic chemicals, either a 15-foot Cone or a 30-foot Line 5 feet wide (choose each time). Each creature in the area makes a Dexterity saving throw (DC 8 + your Constitution modifier + your Proficiency Bonus); roll as many d8s as your Rage Damage bonus, and a creature that fails takes that total in Acid damage, or half as much on a success.",
+        "action": "special",
+        "implemented": "engine",
+        "choice": {
+          "id": "compound",
+          "kind": "option",
+          "count": 1,
+          "creation": false,
+          "options": [
+            {
+              "id": "stimulated_senses",
+              "name": "Stimulated Senses",
+              "summary": "Blindsight 30 ft (+30 ft if you already have it).",
+              "implemented": "engine"
+            },
+            {
+              "id": "maddening_fumes",
+              "name": "Maddening Fumes",
+              "summary": "30-ft Emanation: enemies' Speed halved; a Wis save at their turn start or Disadvantage on attacks against anyone but you.",
+              "implemented": "engine"
+            },
+            {
+              "id": "corrosive_expulsion",
+              "name": "Corrosive Expulsion",
+              "summary": "Replace one attack with a 15-ft Cone or 30-ft Line: Dex save, Rage-bonus d8s of Acid, half on a success.",
+              "implemented": "engine"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "level": 10,
+      "feature": {
+        "id": "reactive_catalyst",
+        "name": "Reactive Catalyst",
+        "summary": "Reaction when you take damage or are about to be Blinded, Deafened, Poisoned or Stunned: enter your Rage first and shed those conditions. Advantage on Constitution saves while raging.",
+        "text": "Your implants now sense danger and flood you with stimulants. When you take damage, or when you would gain the Blinded, Deafened, Poisoned or Stunned condition, you can use your Reaction to enter your Rage before the damage or the condition is applied (this spends a Rage use as usual). Whenever you enter your Rage you end any of those four conditions on yourself, including the one that triggered this. In addition, while your Rage is active you have Advantage on Constitution saving throws.",
+        "action": "reaction",
+        "policy": "auto",
+        "policy_cost": "a Rage use and your Reaction",
+        "uses_resource": "rage",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 14,
+      "feature": {
+        "id": "biochemical_admixture",
+        "name": "Biochemical Admixture",
+        "summary": "Beyond level 13: activate two Volatile Serum options at once; melee attackers within 5 ft take 1d12 Acid, once a turn, while you rage.",
+        "text": "Your serums blend. Whenever you activate an option of Volatile Serum, you activate two options instead of one. In addition, when a creature within 5 feet of you hits you with a melee attack while your Rage is active, it takes 1d12 Acid damage; a creature takes this damage only once per turn.",
+        "action": "passive",
+        "implemented": "text"
+      }
+    }
+  ]
+}

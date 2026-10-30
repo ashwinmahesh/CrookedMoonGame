@@ -1,0 +1,67 @@
+{
+  "id": "murder_of_crows",
+  "name": "Murder of Crows",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 4,
+  "school": "conjuration",
+  "classes": [
+    "druid",
+    "ranger",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "self"
+  },
+  "area": {
+    "shape": "cone",
+    "size": 30
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a crow feather"
+  },
+  "duration": {
+    "kind": "instantaneous"
+  },
+  "targets": {
+    "kind": "area",
+    "description": "each creature of your choice in the Cone"
+  },
+  "area_targets": "enemies",
+  "save": "dex",
+  "save_success": "half",
+  "damage": [
+    {
+      "dice": "5d6",
+      "type": "force"
+    }
+  ],
+  "upcast": {
+    "damage": "1d6"
+  },
+  "effects": [
+    {
+      "effect": "condition",
+      "params": {
+        "repeat_save": "end_of_turn",
+        "condition": "blinded",
+        "until": "permanent"
+      }
+    }
+  ],
+  "tags": [
+    "damage",
+    "control"
+  ],
+  "summary": "30-foot Cone of crows: each creature you choose makes a Dex save or takes 5d6 Force and is Blinded (save ends it, and so does any healing); half damage on a success.",
+  "text": "You summon a murder of deadly crows and loose it. Each creature of your choice in a 30-foot Cone from you makes a Dexterity saving throw. On a failure it takes 5d6 Force damage and has the Blinded condition; on a success it takes half as much damage and nothing else. A Blinded creature repeats the save at the end of each of its turns, ending the effect on itself on a success, and the effect also ends if the creature regains any Hit Points. The crows vanish after they strike. Using a Higher-Level Spell Slot: the damage increases by 1d6 for each slot level above 4."
+}

@@ -1,0 +1,86 @@
+{
+  "id": "unraveling_whisper",
+  "name": "Unraveling Whisper",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 2,
+  "school": "enchantment",
+  "classes": [
+    "bard",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 30
+  },
+  "components": {
+    "v": true,
+    "s": true
+  },
+  "duration": {
+    "kind": "rounds",
+    "amount": 1
+  },
+  "targets": {
+    "kind": "creature",
+    "count": 1,
+    "description": "a creature you can see"
+  },
+  "requires_sight": true,
+  "save": "wis",
+  "save_success": "half",
+  "damage": [
+    {
+      "dice": "2d6",
+      "type": "psychic"
+    }
+  ],
+  "upcast": {
+    "targets": 1
+  },
+  "choice": {
+    "kind": "damage_type",
+    "label": "Vulnerable to",
+    "from": [
+      "bludgeoning",
+      "piercing",
+      "slashing"
+    ]
+  },
+  "effects": [
+    {
+      "effect": "condition",
+      "params": {
+        "condition": "frightened",
+        "primary_condition": "frightened",
+        "until": "caster_turn_start"
+      }
+    },
+    {
+      "effect": "modifiers",
+      "params": {
+        "primary_condition": "frightened",
+        "until": "caster_turn_start",
+        "modifiers": [
+          {
+            "stat": "vulnerability",
+            "value": "choice"
+          }
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "damage",
+    "debuff"
+  ],
+  "summary": "A frightful whisper only the target hears: Wis save or 2d6 Psychic, Frightened until the start of your next turn and Vulnerable to Bludgeoning, Piercing or Slashing (your choice) while Frightened; half damage only on a success.",
+  "text": "You choose a creature you can see within 30 feet and whisper a frightful phrase that only it can hear. It makes a Wisdom saving throw. On a failure it takes 2d6 Psychic damage and is Frightened until the start of your next turn; on a success it takes half as much damage and nothing else. While Frightened this way it has Vulnerability to your choice of Bludgeoning, Piercing or Slashing damage, chosen when you cast the spell. Using a Higher-Level Spell Slot: you can target one additional creature for each slot level above 2."
+}

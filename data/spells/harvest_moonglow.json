@@ -1,0 +1,77 @@
+{
+  "id": "harvest_moonglow",
+  "name": "Harvest Moonglow",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 3,
+  "school": "evocation",
+  "classes": [
+    "cleric",
+    "druid",
+    "ranger"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 60
+  },
+  "area": {
+    "shape": "sphere",
+    "size": 20
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a piece of moonstone"
+  },
+  "duration": {
+    "kind": "hours",
+    "amount": 1
+  },
+  "targets": {
+    "kind": "point",
+    "description": "a point within range, the center of the Sphere"
+  },
+  "upcast": {
+    "text": "The Temporary Hit Points an ally absorbs rise by 1d6 for each slot level above 3."
+  },
+  "zone": {
+    "triggers": [],
+    "light": {
+      "bright": 0,
+      "dim": 20
+    },
+    "inside": {
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "no_invisible"
+        }
+      ]
+    }
+  },
+  "tags": [
+    "light",
+    "detection",
+    "buff"
+  ],
+  "summary": "20-ft Sphere of silver Dim Light for 1 hour: Invisible things inside show as shimmers, and an ally in it can use a Bonus Action to absorb 2d6 Temp HP (+1d6 per slot level above 3).",
+  "text": "You call on the light of the harvest moon to fill a 20-foot-radius Sphere centered on a point within 60 feet. The area is bathed in silvery Dim Light for 1 hour (no Concentration). Creatures and objects with the Invisible condition that are in the light become visible as translucent, shimmering images. When one of your allies is within the light, it can use a Bonus Action to absorb some of the light and gain 2d6 Temporary Hit Points. Using a Higher-Level Spell Slot: the Temporary Hit Points increase by 1d6 for each slot level above 3.",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "id": "sa_harvest_moonglow",
+        "on": "cast",
+        "cost": "bonus_action",
+        "temp_hp": "2d6",
+        "per_slot": "1d6",
+        "who": "allies of the caster"
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "fate_gambler",
+  "name": "Fate Gambler",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 5"
+  },
+  "category": "origin",
+  "repeatable": false,
+  "summary": "Gain Heroic Inspiration whenever you win a contest, drop a creature or force a failed save; spend it for Temporary Hit Points equal to your level.",
+  "ability_increase": {
+    "points": 1,
+    "max": 20,
+    "min_level": 4
+  },
+  "benefits": [
+    {
+      "id": "bet_big",
+      "name": "Bet Big",
+      "summary": "You gain Heroic Inspiration (if you lack it) when you win a check against a creature, drop a creature to 0 HP or a creature fails a save you forced; not against CR 0 or no CR.",
+      "text": "If you don't already have Heroic Inspiration, you gain it whenever you succeed on an ability check made against another creature, reduce a creature to 0 Hit Points, or a creature fails a saving throw you forced it to make. If that creature has a CR of 0 or no CR at all (such as another player character), you don't gain Heroic Inspiration.",
+      "action": "passive",
+      "policy": "auto",
+      "implemented": "engine"
+    },
+    {
+      "id": "win_big",
+      "name": "Win Big",
+      "summary": "Bonus Action: spend your Heroic Inspiration to gain Temporary Hit Points equal to your level.",
+      "text": "As a Bonus Action you can spend your Heroic Inspiration to gain a number of Temporary Hit Points equal to your level.",
+      "action": "bonus_action",
+      "implemented": "engine"
+    }
+  ]
+}

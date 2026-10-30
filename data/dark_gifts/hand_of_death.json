@@ -1,0 +1,51 @@
+{
+  "id": "hand_of_death",
+  "name": "Hand of Death",
+  "vestige": "an unknowable power",
+  "summary": "Advantage on Constitution saves and one rise from the brink. The price: those near you die easier and you cannot raise a downed ally.",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 6"
+  },
+  "benefit": {
+    "modifiers": [
+      {
+        "stat": "advantage",
+        "on": "save:con"
+      }
+    ],
+    "text": "Death has no claim on you. Adamant Endurance: you have Advantage on Constitution saving throws.",
+    "features": [
+      {
+        "id": "hand_of_death_cling_to_life",
+        "name": "Cling to Life",
+        "summary": "When you start a turn at 0 HP or would die, rise with half your maximum HP, once; healing is then halved until a Humanoid dies near you.",
+        "text": "When you have 0 Hit Points at the start of your turn, or when you die, you can instead choose to regain Hit Points equal to half your maximum. Once you use this feature you cannot use it again. After using it, whenever you regain Hit Points by any means you gain only half that amount. Once a Humanoid (other than you) dies within 30 feet of you, you regain the use of this feature and can regain Hit Points normally again.",
+        "action": "reaction",
+        "policy": "auto",
+        "resource": {
+          "id": "hand_of_death_cling_to_life",
+          "name": "Cling to Life",
+          "max": 1,
+          "recharge": "none"
+        },
+        "implemented": "engine"
+      }
+    ]
+  },
+  "cost": {
+    "text": "You keep death's cold hand from closing, and in return you become a maw through which it feeds on the world around you.",
+    "flaw": "Those who stand near you fall more easily, and your hands cannot lift a dying friend.",
+    "features": [
+      {
+        "id": "hand_of_death_death_knell",
+        "name": "Death Knell",
+        "summary": "Creatures within 10 ft have Disadvantage on Death Saving Throws; you cannot restore HP to a creature at 0 HP by any means.",
+        "text": "Other creatures within 10 feet of you have Disadvantage on Death Saving Throws, and you cannot restore Hit Points to a creature with 0 Hit Points by any means.",
+        "action": "passive",
+        "implemented": "engine"
+      }
+    ]
+  },
+  "implemented": "engine"
+}

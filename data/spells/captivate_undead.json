@@ -1,0 +1,97 @@
+{
+  "id": "captivate_undead",
+  "name": "Captivate Undead",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 1,
+  "school": "necromancy",
+  "classes": [
+    "bard",
+    "cleric",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 60
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a pinch of bone dust"
+  },
+  "duration": {
+    "kind": "hours",
+    "amount": 1,
+    "concentration": true
+  },
+  "targets": {
+    "kind": "creature",
+    "count": 1,
+    "creature_type": "undead",
+    "description": "an Undead you can see"
+  },
+  "save": "cha",
+  "save_success": "none",
+  "upcast": {
+    "targets": 1
+  },
+  "effects": [
+    {
+      "effect": "condition",
+      "params": {
+        "on": "fail",
+        "condition": "charmed"
+      }
+    },
+    {
+      "effect": "modifiers",
+      "params": {
+        "on": "fail",
+        "modifiers": [
+          {
+            "stat": "flag",
+            "value": "friendly:caster"
+          }
+        ]
+      }
+    },
+    {
+      "effect": "custom",
+      "params": {
+        "id": "sa_captivate_undead",
+        "on": "fail",
+        "ignore_immunity": "charmed",
+        "spell_ends_on": [
+          "damaged_by_caster_side",
+          "save_forced_by_caster_side"
+        ]
+      }
+    },
+    {
+      "effect": "modifiers",
+      "params": {
+        "on": "success",
+        "until": "caster_turn_start",
+        "modifiers": [
+          {
+            "stat": "flag",
+            "value": "sa_wary_of:caster"
+          }
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "control",
+    "social"
+  ],
+  "summary": "An Undead makes a Cha save or is Charmed (even if immune) and Friendly for up to 1 hour; a success gives its next attack against you Disadvantage. Ends if you or allies hurt it or force a save.",
+  "text": "You usurp the negative energy animating an Undead creature you can see within 60 feet and try to take control of it. The target makes a Charisma saving throw. On a failure, for the duration, it has the Charmed condition (ignoring any Immunity to that condition) and is Friendly toward you. On a success it has Disadvantage on the next attack roll it makes against you before the start of your next turn. If you or any of your allies damage the target or force it to make a saving throw, the spell ends. Concentration, up to 1 hour. Using a Higher-Level Spell Slot: you can target one additional creature for each slot level above 1."
+}

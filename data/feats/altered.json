@@ -1,0 +1,176 @@
+{
+  "id": "altered",
+  "name": "Altered",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 5"
+  },
+  "category": "origin",
+  "repeatable": false,
+  "summary": "Choose one obvious bodily augmentation: water breathing and a Swim Speed, natural armour, natural weapons, or night vision.",
+  "ability_increase": {
+    "points": 1,
+    "max": 20,
+    "min_level": 4
+  },
+  "benefits": [
+    {
+      "id": "altered_augmentation",
+      "name": "Augmentation",
+      "summary": "Choose one visible augmentation: Aquatic Adaptation, Natural Armor, Natural Weapons or Night Vision.",
+      "text": "Magic, science or a blend of both has changed your body. Choose one augmentation. It is plainly visible (stitches, grafts of another creature's parts, implants) unless you disguise it.",
+      "action": "passive",
+      "implemented": "data",
+      "choice": {
+        "id": "augmentation",
+        "kind": "option",
+        "count": 1,
+        "options": [
+          {
+            "id": "aquatic_adaptation",
+            "name": "Aquatic Adaptation",
+            "summary": "Breathe water, and a Swim Speed equal to your Speed.",
+            "text": "You have gills or moist membranes that let you breathe water, and webbed limbs that give you a Swim Speed equal to your Speed.",
+            "modifiers": [
+              {
+                "stat": "flag",
+                "value": "water_breathing"
+              },
+              {
+                "stat": "speed_set",
+                "kind": "swim",
+                "value": "walk"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "natural_armor",
+            "name": "Natural Armor",
+            "summary": "AC 13 + your Dexterity or Constitution modifier (you choose which).",
+            "text": "Scales, plates or thick hide give you an Armor Class of 13 + your Dexterity or Constitution modifier. Choose the ability when you pick this augmentation.",
+            "choice": {
+              "id": "armor_ability",
+              "kind": "option",
+              "count": 1,
+              "options": [
+                {
+                  "id": "natural_armor_dex",
+                  "name": "Dexterity",
+                  "summary": "AC 13 + your Dexterity modifier.",
+                  "text": "Your base Armor Class is 13 + your Dexterity modifier.",
+                  "modifiers": [
+                    {
+                      "stat": "ac_formula",
+                      "base": 13,
+                      "abilities": [
+                        "dex"
+                      ]
+                    }
+                  ],
+                  "implemented": "data"
+                },
+                {
+                  "id": "natural_armor_con",
+                  "name": "Constitution",
+                  "summary": "AC 13 + your Constitution modifier.",
+                  "text": "Your base Armor Class is 13 + your Constitution modifier.",
+                  "modifiers": [
+                    {
+                      "stat": "ac_formula",
+                      "base": 13,
+                      "abilities": [
+                        "con"
+                      ]
+                    }
+                  ],
+                  "implemented": "data"
+                }
+              ]
+            },
+            "implemented": "data"
+          },
+          {
+            "id": "natural_weapons",
+            "name": "Natural Weapons",
+            "summary": "Unarmed Strikes deal 1d8 Bludgeoning, Piercing or Slashing damage, as fits the form.",
+            "text": "Claws, fangs, horns or some other natural weapon let you make Unarmed Strikes that deal 1d8 damage on a hit. The damage is Bludgeoning, Piercing or Slashing, whichever suits the form you choose.",
+            "choice": {
+              "id": "weapon_form",
+              "kind": "option",
+              "count": 1,
+              "options": [
+                {
+                  "id": "natural_weapons_bludgeoning",
+                  "name": "Bludgeoning",
+                  "summary": "Unarmed Strikes deal 1d8 bludgeoning damage.",
+                  "text": "Your Unarmed Strikes deal 1d8 bludgeoning damage on a hit.",
+                  "modifiers": [
+                    {
+                      "stat": "weapon_override",
+                      "items": [
+                        "unarmed_strike"
+                      ],
+                      "die": "1d8",
+                      "damage_type": "bludgeoning"
+                    }
+                  ],
+                  "implemented": "data"
+                },
+                {
+                  "id": "natural_weapons_piercing",
+                  "name": "Piercing",
+                  "summary": "Unarmed Strikes deal 1d8 piercing damage.",
+                  "text": "Your Unarmed Strikes deal 1d8 piercing damage on a hit.",
+                  "modifiers": [
+                    {
+                      "stat": "weapon_override",
+                      "items": [
+                        "unarmed_strike"
+                      ],
+                      "die": "1d8",
+                      "damage_type": "piercing"
+                    }
+                  ],
+                  "implemented": "data"
+                },
+                {
+                  "id": "natural_weapons_slashing",
+                  "name": "Slashing",
+                  "summary": "Unarmed Strikes deal 1d8 slashing damage.",
+                  "text": "Your Unarmed Strikes deal 1d8 slashing damage on a hit.",
+                  "modifiers": [
+                    {
+                      "stat": "weapon_override",
+                      "items": [
+                        "unarmed_strike"
+                      ],
+                      "die": "1d8",
+                      "damage_type": "slashing"
+                    }
+                  ],
+                  "implemented": "data"
+                }
+              ]
+            },
+            "implemented": "data"
+          },
+          {
+            "id": "night_vision",
+            "name": "Night Vision",
+            "summary": "Darkvision 60 ft; if you already have Darkvision, its range grows by 30 ft.",
+            "text": "You have Darkvision with a range of 60 feet. If you already have Darkvision, its range increases by 30 feet instead.",
+            "modifiers": [
+              {
+                "stat": "darkvision",
+                "value": 60,
+                "extend": 30
+              }
+            ],
+            "implemented": "data"
+          }
+        ]
+      }
+    }
+  ]
+}

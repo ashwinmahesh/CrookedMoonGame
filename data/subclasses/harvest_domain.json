@@ -1,0 +1,250 @@
+{
+  "id": "harvest_domain",
+  "name": "Harvest Domain",
+  "class": "cleric",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 3"
+  },
+  "summary": "A cleric of the harvest cycle who shifts between Sowing, Growing and Reaping, feeds the party on a rest and hands out Heroic Inspiration.",
+  "role_tags": [
+    "healer",
+    "support"
+  ],
+  "features": [
+    {
+      "level": 3,
+      "feature": {
+        "id": "community_almanac",
+        "name": "Community Almanac",
+        "summary": "Herbalism Kit proficiency, and proficiency in Nature or Survival.",
+        "text": "You gain an Herbalism Kit and are proficient with it. You also gain proficiency in Nature or Survival (your choice). (The kit itself is not added to your pack.)",
+        "action": "passive",
+        "implemented": "data",
+        "choice": {
+          "id": "skill",
+          "kind": "skill",
+          "count": 1,
+          "from": [
+            "nature",
+            "survival"
+          ]
+        },
+        "modifiers": [
+          {
+            "stat": "proficiency",
+            "kind": "tool",
+            "value": "herbalism_kit"
+          }
+        ]
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "harvest_domain_spells",
+        "name": "Harvest Domain Spells",
+        "summary": "After each Short or Long Rest choose an aspect (Sowing, Growing or Reaping); its column of spells is always prepared.",
+        "text": "Whenever you finish a Short or Long Rest, choose an aspect of the harvest cycle: Sowing, Growing or Reaping. You have the spells in that aspect's column prepared for your Cleric level and lower. Sowing: Druidcraft, Goodberry and Lesser Restoration (3); Harvest Moonglow (5); Death Ward (7); Awaken (9). Growing: Guidance, Entangle and Summer Winds (3); Plant Growth (5); Sanctum of the Shepherd (7); Mass Cure Wounds (9). Reaping: Chill Touch, Inflict Wounds and Hold Person (3); Culling Sickle (5); Consuming Pyre (7); Field of Reaping (9). Your current aspect also steers Bountiful Harvest and Blessing of the Seasons. (House rule: like all spell changes, the aspect can be changed any time outside a fight.)",
+        "action": "passive",
+        "implemented": "data",
+        "choice": {
+          "id": "aspect",
+          "kind": "option",
+          "count": 1,
+          "replaceable": "short_rest",
+          "options": [
+            {
+              "id": "sowing",
+              "name": "Sowing",
+              "summary": "Druidcraft, Goodberry, Lesser Restoration; Harvest Moonglow at 5, Death Ward at 7, Awaken at 9.",
+              "modifiers": [
+                {
+                  "stat": "spell",
+                  "value": "druidcraft",
+                  "always_prepared": true
+                },
+                {
+                  "stat": "spell",
+                  "value": "goodberry",
+                  "always_prepared": true
+                },
+                {
+                  "stat": "spell",
+                  "value": "lesser_restoration",
+                  "always_prepared": true
+                },
+                {
+                  "stat": "spell",
+                  "value": "harvest_moonglow",
+                  "always_prepared": true,
+                  "at_class_level": 5
+                },
+                {
+                  "stat": "spell",
+                  "value": "death_ward",
+                  "always_prepared": true,
+                  "at_class_level": 7
+                },
+                {
+                  "stat": "spell",
+                  "value": "awaken",
+                  "always_prepared": true,
+                  "at_class_level": 9
+                }
+              ],
+              "implemented": "data"
+            },
+            {
+              "id": "growing",
+              "name": "Growing",
+              "summary": "Guidance, Entangle, Summer Winds; Plant Growth at 5, Sanctum of the Shepherd at 7, Mass Cure Wounds at 9.",
+              "modifiers": [
+                {
+                  "stat": "spell",
+                  "value": "guidance",
+                  "always_prepared": true
+                },
+                {
+                  "stat": "spell",
+                  "value": "entangle",
+                  "always_prepared": true
+                },
+                {
+                  "stat": "spell",
+                  "value": "summer_winds",
+                  "always_prepared": true
+                },
+                {
+                  "stat": "spell",
+                  "value": "plant_growth",
+                  "always_prepared": true,
+                  "at_class_level": 5
+                },
+                {
+                  "stat": "spell",
+                  "value": "sanctum_of_the_shepherd",
+                  "always_prepared": true,
+                  "at_class_level": 7
+                },
+                {
+                  "stat": "spell",
+                  "value": "mass_cure_wounds",
+                  "always_prepared": true,
+                  "at_class_level": 9
+                }
+              ],
+              "implemented": "data"
+            },
+            {
+              "id": "reaping",
+              "name": "Reaping",
+              "summary": "Chill Touch, Inflict Wounds, Hold Person; Culling Sickle at 5, Consuming Pyre at 7, Field of Reaping at 9.",
+              "modifiers": [
+                {
+                  "stat": "spell",
+                  "value": "chill_touch",
+                  "always_prepared": true
+                },
+                {
+                  "stat": "spell",
+                  "value": "inflict_wounds",
+                  "always_prepared": true
+                },
+                {
+                  "stat": "spell",
+                  "value": "hold_person",
+                  "always_prepared": true
+                },
+                {
+                  "stat": "spell",
+                  "value": "culling_sickle",
+                  "always_prepared": true,
+                  "at_class_level": 5
+                },
+                {
+                  "stat": "spell",
+                  "value": "consuming_pyre",
+                  "always_prepared": true,
+                  "at_class_level": 7
+                },
+                {
+                  "stat": "spell",
+                  "value": "field_of_reaping",
+                  "always_prepared": true,
+                  "at_class_level": 9
+                }
+              ],
+              "implemented": "data"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "cornucopia",
+        "name": "Cornucopia",
+        "summary": "At the start of a Short Rest conjure food for twice your Proficiency Bonus creatures; at its end share Cleric-level d4s of healing among those who ate. Once per Long Rest.",
+        "text": "If you are not Incapacitated when you start a Short Rest, you can magically create a cornucopia holding enough food for a number of creatures equal to twice your Proficiency Bonus. When creatures that ate the food finish the Short Rest, you can hand out a number of d4s equal to your Cleric level among them; each creature immediately rolls the dice it is given and regains Hit Points equal to the total. The cornucopia and any uneaten food vanish when the Short Rest ends. Once used, you cannot use it again until you finish a Long Rest.",
+        "action": "special",
+        "implemented": "engine",
+        "resource": {
+          "id": "cornucopia",
+          "name": "Cornucopia",
+          "max": 1,
+          "recharge": "long"
+        }
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "bountiful_harvest",
+        "name": "Bountiful Harvest",
+        "summary": "Channel Divinity, Magic action: up to six creatures within 60 ft gain Heroic Inspiration and one aspect benefit (Temp HP, +1d4, or extra Necrotic damage); your aspect switches to match.",
+        "text": "As a Magic action, you present your Holy Symbol and expend a use of Channel Divinity to call on the spirit of the harvest. Up to six creatures of your choice within 60 feet of you gain Heroic Inspiration; a creature must finish a Long Rest before it can gain Heroic Inspiration from this feature again. You also give all of the targets one of the following benefits, and if your current aspect is a different one, it changes to match your choice. Sowing: each target gains Temporary Hit Points equal to your Proficiency Bonus plus your Wisdom modifier. Growing: until the end of your next turn, each target adds 1d4 to the total of any attack roll or ability check it makes. Reaping: the first time each target damages a creature before the end of your next turn, it deals extra Necrotic damage equal to your Proficiency Bonus.",
+        "action": "action",
+        "uses_resource": "channel_divinity",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 6,
+      "feature": {
+        "id": "blessing_of_the_seasons",
+        "name": "Blessing of the Seasons",
+        "summary": "Reaction when a creature within 30 ft fails a save of your aspect's pair (Sowing Dex/Cha, Growing Con/Int, Reaping Wis/Str): it rerolls, then heals Proficiency Bonus d4s either way. Wisdom-modifier uses per Long Rest.",
+        "text": "When a creature you can see within 30 feet of you fails a saving throw of a kind set by your current aspect, you can use your Reaction to let it reroll the d20 and use the new roll. The saves are: Sowing, Dexterity and Charisma; Growing, Constitution and Intelligence; Reaping, Wisdom and Strength. Afterwards, whether the save succeeded or failed, roll a number of d4s equal to your Proficiency Bonus; the target regains Hit Points equal to the total. You can use this a number of times equal to your Wisdom modifier (minimum 1) and regain all expended uses when you finish a Long Rest.",
+        "action": "reaction",
+        "policy": "ask",
+        "policy_modes": [
+          "ask",
+          "auto",
+          "never"
+        ],
+        "policy_cost": "your Reaction and a use",
+        "implemented": "engine",
+        "resource": {
+          "id": "blessing_of_the_seasons",
+          "name": "Blessing of the Seasons",
+          "max": "mod:wis",
+          "min": 1,
+          "recharge": "long"
+        }
+      }
+    },
+    {
+      "level": 17,
+      "feature": {
+        "id": "eternal_wheel",
+        "name": "Eternal Wheel",
+        "summary": "Beyond level 13: when you use Bountiful Harvest, you and its targets also gain an aspect benefit (Regenerate, Advantage on saves and checks, or Necrotic/Psychic/Poison Resistance).",
+        "text": "When you use Bountiful Harvest you can invoke the endless cycle of life, death and rebirth, granting yourself and every creature affected by that Channel Divinity one more benefit according to your current aspect. Sowing: the targets gain the effects of the Regenerate spell for 1 minute, or until you lose Concentration. Growing: the targets have Advantage on saving throws and ability checks for up to 1 hour, or until you lose Concentration (as if concentrating on a spell). Reaping: the targets gain Resistance to Necrotic, Psychic and Poison damage for 1 hour. Once used, you cannot use it again until you finish a Long Rest, unless you expend a spell slot of level 7 or higher (no action required) to restore the use.",
+        "action": "special",
+        "implemented": "text"
+      }
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "id": "culling_sickle",
+  "name": "Culling Sickle",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 3,
+  "school": "necromancy",
+  "classes": [
+    "druid",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "bonus_action"
+  },
+  "range": {
+    "kind": "self"
+  },
+  "components": {
+    "v": true,
+    "s": true
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 1,
+    "concentration": true
+  },
+  "targets": {
+    "kind": "creature",
+    "count": 1,
+    "description": "a creature within 30 feet of you",
+    "within": 30
+  },
+  "attack": "ranged",
+  "damage": [
+    {
+      "dice": "2d8",
+      "type": "necrotic"
+    }
+  ],
+  "upcast": {
+    "damage": "1d8"
+  },
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "id": "sa_culling_sickle",
+        "on": "hit",
+        "target": "self",
+        "fraction": "half"
+      }
+    }
+  ],
+  "sustain": [
+    {
+      "do": "attack",
+      "cost": "bonus_action",
+      "range": 30,
+      "attack": "ranged",
+      "not_this_turn": false,
+      "label": "Culling Sickle: strike",
+      "sub": "2d8 Necrotic + Temp HP",
+      "help": "A Bonus Action: the sickle flies at a creature within 30 ft of you (ranged spell attack, 2d8 Necrotic); on a hit you gain Temporary Hit Points equal to half the damage dealt. It then returns to your space."
+    }
+  ],
+  "tags": [
+    "damage"
+  ],
+  "summary": "Bonus Action, Concentration: a ghostly sickle strikes a creature within 30 ft (ranged spell attack, 2d8 Necrotic) on casting and each Bonus Action; you gain Temp HP equal to half the damage.",
+  "text": "You create a ghostly sickle that hovers in your space and moves with you for the duration. When you cast the spell, and as a Bonus Action on each of your later turns, you can send it flying at a creature within 30 feet of you and make a ranged spell attack. On a hit the target takes 2d8 Necrotic damage and you gain Temporary Hit Points equal to half the damage dealt. After the sickle hits or misses, it returns to hover in your space. Concentration, up to 1 minute. Using a Higher-Level Spell Slot: the damage increases by 1d8 for each slot level above 3."
+}

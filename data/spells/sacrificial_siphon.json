@@ -1,0 +1,95 @@
+{
+  "policy": "ask",
+  "policy_modes": [
+    "ask",
+    "auto",
+    "never"
+  ],
+  "id": "sacrificial_siphon",
+  "name": "Sacrificial Siphon",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 4,
+  "school": "necromancy",
+  "classes": [
+    "cleric",
+    "paladin",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "touch"
+  },
+  "components": {
+    "s": true
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 1,
+    "concentration": true
+  },
+  "targets": {
+    "kind": "creature",
+    "count": 1,
+    "other": true,
+    "description": "another creature you touch"
+  },
+  "save": "cha",
+  "save_success": "none",
+  "effects": [
+    {
+      "effect": "modifiers",
+      "params": {
+        "modifiers": [
+          {
+            "stat": "penalty_die",
+            "dice": "1d4",
+            "on": [
+              "attack",
+              "check:all"
+            ]
+          },
+          {
+            "stat": "flag",
+            "value": "sacrificial_siphon:caster"
+          }
+        ]
+      }
+    },
+    {
+      "effect": "temp_hp",
+      "params": {
+        "on": "success",
+        "target": "self",
+        "flat": 5
+      }
+    },
+    {
+      "effect": "modifiers",
+      "params": {
+        "on": "success",
+        "until": "caster_turn_start",
+        "modifiers": [
+          {
+            "stat": "penalty_die",
+            "dice": "1d4",
+            "on": [
+              "check:all"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "debuff",
+    "defense"
+  ],
+  "summary": "Cha save or the touched creature is cursed (-1d4 on attacks and checks) and each time it takes damage you can use a Reaction to gain 10 Temporary Hit Points; on a success you gain 5 Temporary Hit Points instead.",
+  "text": "You touch another creature and lay a draining curse on it. It makes a Charisma saving throw. On a failure it is cursed for the duration: it subtracts 1d4 from its attack rolls and ability checks, and whenever it takes damage you can take a Reaction to gain 10 Temporary Hit Points. On a success you gain 5 Temporary Hit Points and the target subtracts 1d4 from its ability checks until the start of your next turn. Concentration, up to 1 minute."
+}

@@ -1,0 +1,82 @@
+{
+  "id": "lucky_charm",
+  "name": "Lucky Charm",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 5,
+  "school": "transmutation",
+  "classes": [
+    "bard",
+    "paladin",
+    "ranger",
+    "warlock"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "touch"
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a four-leaf clover and a shard of broken mirror"
+  },
+  "duration": {
+    "kind": "hours",
+    "amount": 1,
+    "concentration": true
+  },
+  "targets": {
+    "kind": "ally",
+    "count": 1,
+    "other": true,
+    "description": "a Tiny, nonmagical object, handed to the ally you touch, who carries it"
+  },
+  "effects": [
+    {
+      "effect": "modifiers",
+      "params": {
+        "target": "creature",
+        "modifiers": [
+          {
+            "stat": "advantage",
+            "on": [
+              "attack",
+              "save:all",
+              "check:all",
+              "initiative",
+              "death_save"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "effect": "modifiers",
+      "params": {
+        "target": "self",
+        "modifiers": [
+          {
+            "stat": "disadvantage",
+            "on": [
+              "attack",
+              "save:all",
+              "check:all",
+              "initiative",
+              "death_save"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "buff",
+    "debuff"
+  ],
+  "summary": "Pass a charm of your luck to an ally for up to 1 hour: while they carry it they have Advantage on D20 Tests and you have Disadvantage.",
+  "text": "You touch a Tiny, nonmagical object and pour some of your own luck into it. While a creature other than you carries it, that creature has Advantage on D20 Tests and you have Disadvantage on D20 Tests. Concentration, up to 1 hour. In the game the carrier is the ally you cast it on: the object is handed to that ally as you cast, and the effects begin on the cast and end with the spell."
+}

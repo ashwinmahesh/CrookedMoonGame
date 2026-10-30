@@ -1,0 +1,93 @@
+{
+  "id": "plagueborn",
+  "name": "Plagueborn",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 2"
+  },
+  "summary": "Rat-like folk of plague-ridden Bubonia, small or medium, who climb, shrug off poison and pass on a plague that weakens and poisons what they hit.",
+  "creature_type": "humanoid",
+  "sizes": [
+    "medium",
+    "small"
+  ],
+  "speed": 30,
+  "darkvision": 60,
+  "traits": [
+    {
+      "id": "plagueborn_climb_speed",
+      "name": "Climb Speed",
+      "summary": "Climb Speed equal to your Speed.",
+      "text": "You have a Climb Speed equal to your Speed.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "speed_set",
+          "kind": "climb",
+          "value": "walk"
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "born_in_filth",
+      "name": "Born in Filth",
+      "summary": "Advantage on saving throws to avoid or end the Poisoned condition and against magical contagions.",
+      "text": "You have Advantage on saving throws to avoid or end the Poisoned condition and on saving throws against magical contagions (the engine must tag the Contagion spell and the book's plague effects as magical contagions).",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:poisoned"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "See in Dim Light within 60 feet as if it were Bright Light, and in Darkness as if it were Dim Light.",
+      "text": "You have Darkvision with a range of 60 feet.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "darkvision",
+          "value": 60
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "infected_cunning",
+      "name": "Infected Cunning",
+      "summary": "Proficiency in Deception or Stealth.",
+      "text": "The plague you carry binds you to rats and lends you their cunning. You gain proficiency in Deception or Stealth (your choice).",
+      "action": "passive",
+      "choice": {
+        "kind": "skill",
+        "count": 1,
+        "from": [
+          "deception",
+          "stealth"
+        ]
+      },
+      "implemented": "data"
+    },
+    {
+      "id": "plague_bearer",
+      "name": "Plague Bearer",
+      "summary": "When you hit with an attack roll, the target makes a Constitution save (DC 8 + Con + PB) or carries your plague for 1 minute: Disadvantage on attack rolls and ability checks and 1d4 Poison at the start of its turns; repeat save at each turn end. Once per Long Rest.",
+      "text": "When you hit a creature with an attack roll you can spread your magical contagion to it. The target must succeed on a Constitution saving throw (DC 8 + your Constitution modifier + your Proficiency Bonus) or be afflicted with your plague for 1 minute. While afflicted it has Disadvantage on attack rolls and ability checks and takes 1d4 Poison damage at the start of each of its turns. It repeats the save at the end of each of its turns, ending the plague on itself on a success. Once you use this trait you cannot use it again until you finish a Long Rest.",
+      "action": "passive",
+      "resource": {
+        "id": "plague_bearer",
+        "name": "Plague Bearer",
+        "max": 1,
+        "recharge": "long"
+      },
+      "uses_resource": "plague_bearer",
+      "policy": "auto",
+      "implemented": "engine"
+    }
+  ]
+}

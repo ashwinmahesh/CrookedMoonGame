@@ -1,0 +1,90 @@
+{
+  "id": "call_of_the_wild",
+  "name": "Call of the Wild",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 4,
+  "school": "enchantment",
+  "classes": [
+    "bard",
+    "druid",
+    "ranger",
+    "warlock"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "self"
+  },
+  "area": {
+    "shape": "emanation",
+    "size": 100
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a bit of animal fur or hide"
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 1,
+    "concentration": true
+  },
+  "targets": {
+    "kind": "area",
+    "creature_type": "beast",
+    "description": "each Beast in the Emanation"
+  },
+  "save": "wis",
+  "save_success": "none",
+  "area_targets": "others",
+  "effects": [
+    {
+      "effect": "condition",
+      "params": {
+        "on": "fail",
+        "condition": "charmed"
+      }
+    },
+    {
+      "effect": "custom",
+      "params": {
+        "id": "dominate",
+        "on": "fail",
+        "many_targets": true,
+        "obeys_commands": true,
+        "no_save_on_damage": true,
+        "orders": "one turn per command"
+      }
+    },
+    {
+      "effect": "condition",
+      "params": {
+        "on": "success",
+        "condition": "charmed",
+        "until": "caster_turn_start"
+      }
+    }
+  ],
+  "sustain": [
+    {
+      "do": "game",
+      "mode": "sa_call_of_the_wild",
+      "cost": "magic",
+      "targeting": "none",
+      "not_this_turn": true,
+      "label": "Call of the Wild: command",
+      "sub": "Magic action",
+      "help": "A Magic action on a later turn: a new command to the Beasts that failed the save; each follows it on its next turn (without one it waits). Those that passed are only Charmed until your next turn starts."
+    }
+  ],
+  "tags": [
+    "control",
+    "social"
+  ],
+  "summary": "100-ft Emanation, Concentration: each Beast makes a Wis save; failures are Charmed and obey you (a Magic action re-orders), successes are Charmed only until your next turn.",
+  "text": "You unleash a primal howl that calls lesser creatures to your command. Each Beast in a 100-foot Emanation from you when you cast the spell makes a Wisdom saving throw. On a failure the Beast has the Charmed condition, understands your commands and follows them on its next turn to the best of its ability; on each of your later turns you can take a Magic action to give a new command. On a success the Beast is Charmed only until the start of your next turn, and you cannot command it. The howl can be heard within 300 feet. Concentration, up to 1 minute."
+}

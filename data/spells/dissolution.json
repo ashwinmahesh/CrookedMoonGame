@@ -1,0 +1,63 @@
+{
+  "id": "dissolution",
+  "name": "Dissolution",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 0,
+  "school": "transmutation",
+  "classes": [
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "touch"
+  },
+  "components": {
+    "v": true,
+    "s": true
+  },
+  "duration": {
+    "kind": "instantaneous"
+  },
+  "targets": {
+    "kind": "creature_or_object",
+    "count": 1,
+    "description": "a creature or nonmagical object you touch"
+  },
+  "attack": "melee",
+  "damage": [
+    {
+      "dice": "1d8",
+      "type": "force"
+    }
+  ],
+  "cantrip_scaling": {
+    "damage": "1d8"
+  },
+  "effects": [
+    {
+      "effect": "modifiers",
+      "params": {
+        "on": "hit",
+        "until": "caster_turn_end",
+        "consume": "next_attacked",
+        "modifiers": [
+          {
+            "stat": "ac",
+            "value": -1
+          }
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "damage",
+    "debuff"
+  ],
+  "summary": "Melee spell attack: 1d8 Force, and the target's AC is 1 lower against the next attack roll made against it before the end of your next turn.",
+  "text": "You touch a creature or nonmagical object and break its substance down into its most fundamental components. Make a melee spell attack. On a hit the target takes 1d8 Force damage, and its AC is reduced by 1 against the next attack roll made against it before the end of your next turn. Cantrip Upgrade: the damage becomes 2d8 at character level 5, 3d8 at level 11 and 4d8 at level 17."
+}

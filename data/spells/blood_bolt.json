@@ -1,0 +1,59 @@
+{
+  "id": "blood_bolt",
+  "name": "Blood Bolt",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 0,
+  "school": "necromancy",
+  "classes": [
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 90
+  },
+  "components": {
+    "v": true,
+    "s": true
+  },
+  "duration": {
+    "kind": "instantaneous"
+  },
+  "targets": {
+    "kind": "creature",
+    "count": 1
+  },
+  "attack": "ranged",
+  "damage": [
+    {
+      "dice": "1d6",
+      "type": "necrotic"
+    }
+  ],
+  "cantrip_scaling": {
+    "damage": "1d6"
+  },
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "id": "sa_blood_bolt",
+        "on": "hit",
+        "target": "self",
+        "temp_hp": "proficiency_bonus"
+      }
+    }
+  ],
+  "tags": [
+    "damage"
+  ],
+  "summary": "Ranged spell attack, 90 ft: 1d6 Necrotic, and on a hit you gain Temporary Hit Points equal to your Proficiency Bonus.",
+  "text": "You hurl a twisting bolt of blood at a creature within 90 feet. Make a ranged spell attack against it. On a hit the target takes 1d6 Necrotic damage, and you gain a number of Temporary Hit Points equal to your Proficiency Bonus. Cantrip Upgrade: the damage becomes 2d6 at character level 5, 3d6 at level 11 and 4d6 at level 17 (the Temporary Hit Points follow your Proficiency Bonus, not the dice)."
+}

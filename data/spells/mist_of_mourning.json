@@ -1,0 +1,80 @@
+{
+  "id": "mist_of_mourning",
+  "name": "Mist of Mourning",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 3,
+  "school": "enchantment",
+  "classes": [
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 60
+  },
+  "area": {
+    "shape": "sphere",
+    "size": 20
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a vial of tears"
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 10,
+    "concentration": true
+  },
+  "targets": {
+    "kind": "area",
+    "description": "each creature in the mist"
+  },
+  "area_targets": "all",
+  "save": "cha",
+  "save_success": "none",
+  "effects": [
+    {
+      "effect": "modifiers",
+      "params": {
+        "until": "target_turn_end",
+        "modifiers": [
+          {
+            "stat": "speed_percent",
+            "value": 50
+          },
+          {
+            "stat": "disadvantage",
+            "on": "attack"
+          },
+          {
+            "stat": "damage_penalty_die",
+            "dice": "1d8"
+          }
+        ]
+      }
+    }
+  ],
+  "zone": {
+    "triggers": [
+      "cast",
+      "enter",
+      "end_turn"
+    ],
+    "affects": "all",
+    "save": "cha"
+  },
+  "tags": [
+    "control",
+    "debuff"
+  ],
+  "summary": "A 20-foot Sphere of mournful mist for 10 minutes: creatures in it when it appears, entering it, or ending a turn in it make a Cha save or have half Speed, Disadvantage on attacks and -1d8 damage until the end of their next turn.",
+  "text": "You raise a thin mist that saps joy and vigor in a 20-foot-radius Sphere centred on a point within 60 feet. Each creature in the mist when it appears, each creature that moves into it for the first time on a turn, and each creature that ends its turn there makes a Charisma saving throw or is filled with deep melancholy until the end of its next turn. While melancholy its Speed is halved, it has Disadvantage on attack rolls, and it subtracts 1d8 from all its damage rolls. Concentration, up to 10 minutes."
+}

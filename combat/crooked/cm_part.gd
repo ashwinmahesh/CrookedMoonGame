@@ -22,3 +22,16 @@ func _act(id: String, label: String, sub: String, cost: String, why: String, tar
 ## The save DC of a feature that uses 8 + Proficiency Bonus + an ability modifier.
 static func dc_of(c: Combatant, ability: StringName) -> int:
 	return 8 + c.creature.proficiency_bonus() + c.creature.ability_mod(ability)
+
+
+## `ch.refresh()` in a fight without losing what the fight and the day have spent: a refresh drops every resource the data
+## doesn't define (once-per-rest counters a feature made with ClassFeatures._uses) and refills none, so those are put back
+## as they were (a build pick changed mid-fight: a Harvest aspect, an Occult Presence).
+static func refresh_keeping(ch: Character) -> void:
+	var kept := {}
+	for id: String in ch.resources:
+		kept[id] = (ch.resources[id] as Dictionary).duplicate()
+	ch.refresh()
+	for id: String in kept:
+		if not ch.resources.has(id):
+			ch.resources[id] = kept[id]

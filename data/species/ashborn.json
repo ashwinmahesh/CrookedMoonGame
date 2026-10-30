@@ -1,0 +1,115 @@
+{
+  "id": "ashborn",
+  "name": "Ashborn",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 2"
+  },
+  "summary": "Imp-like folk of Chernabos, born of hellfire ash, small and lucky, with a scorpion tail and a knack for turning a hit into a miss.",
+  "creature_type": "fiend",
+  "sizes": [
+    "small"
+  ],
+  "speed": 30,
+  "darkvision": 60,
+  "spellcasting_ability_choice": [
+    "int",
+    "wis",
+    "cha"
+  ],
+  "traits": [
+    {
+      "id": "ashen_legacy",
+      "name": "Ashen Legacy",
+      "summary": "Minor Illusion; Charm Person from level 3 and Invisibility from level 5, each free once per Long Rest (Intelligence, Wisdom or Charisma).",
+      "text": "You know the Minor Illusion cantrip. At character level 3 you always have Charm Person prepared, and at level 5 you always have Invisibility prepared. You can cast each once without a spell slot, regaining that use when you finish a Long Rest, and you can also cast them with any spell slots you have of the right level. Intelligence, Wisdom or Charisma is your spellcasting ability for them (choose when you select this species).",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "spell",
+          "value": "minor_illusion",
+          "ability": "choice"
+        },
+        {
+          "stat": "spell",
+          "value": "charm_person",
+          "ability": "choice",
+          "always_prepared": true,
+          "uses": {
+            "count": 1,
+            "recharge": "long"
+          },
+          "at_level": 3
+        },
+        {
+          "stat": "spell",
+          "value": "invisibility",
+          "ability": "choice",
+          "always_prepared": true,
+          "uses": {
+            "count": 1,
+            "recharge": "long"
+          },
+          "at_level": 5
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "See in Dim Light within 60 feet as if it were Bright Light, and in Darkness as if it were Dim Light.",
+      "text": "You have Darkvision with a range of 60 feet.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "darkvision",
+          "value": 60
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "fiendish_fortune",
+      "name": "Fiendish Fortune",
+      "summary": "Reaction when an attack roll that isn't a Critical Hit hits you: it misses instead, and a creature of your choice within 5 feet takes Force damage equal to your Proficiency Bonus; once per Short Rest.",
+      "text": "When an attack roll that is not a Critical Hit hits you, you can take a Reaction to magically make the attack miss you. A creature of your choice within 5 feet of you then takes Force damage equal to your Proficiency Bonus. Once you use this trait you cannot use it again until you finish a Short or Long Rest.",
+      "action": "reaction",
+      "resource": {
+        "id": "fiendish_fortune",
+        "name": "Fiendish Fortune",
+        "max": 1,
+        "recharge": "short"
+      },
+      "policy": "auto",
+      "implemented": "engine"
+    },
+    {
+      "id": "scorpion_sting",
+      "name": "Scorpion Sting",
+      "summary": "Tail-sting Unarmed Strikes (Str or Dex, 1d4 Piercing) that can add 1d6 Poison (2d6 from level 10); Proficiency Bonus times, one use back per Short Rest.",
+      "text": "You have a tail stinger you can use for Unarmed Strikes, using Strength or Dexterity (your choice) for attack and damage rolls. On a hit it deals 1d4 Piercing damage, and you can add an extra 1d6 Poison damage. You can add the Poison damage a number of times equal to your Proficiency Bonus. You regain one expended use when you finish a Short Rest and all expended uses when you finish a Long Rest. From character level 10 the extra damage is 2d6.",
+      "action": "passive",
+      "resource": {
+        "id": "scorpion_sting",
+        "name": "Scorpion Sting (poison)",
+        "max": "pb",
+        "recharge": "short_one"
+      },
+      "uses_resource": "scorpion_sting",
+      "policy": "auto",
+      "modifiers": [
+        {
+          "stat": "weapon_override",
+          "items": [
+            "unarmed_strike"
+          ],
+          "die": "1d4",
+          "ability": "dex",
+          "damage_type": "piercing"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ]
+}

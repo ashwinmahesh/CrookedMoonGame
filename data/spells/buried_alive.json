@@ -1,0 +1,86 @@
+{
+  "id": "buried_alive",
+  "name": "Buried Alive",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 4,
+  "school": "transmutation",
+  "classes": [
+    "druid",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 60
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a pinch of grave dirt"
+  },
+  "duration": {
+    "kind": "instantaneous"
+  },
+  "targets": {
+    "kind": "creature",
+    "count": 1,
+    "description": "a creature you can see that is standing on the ground"
+  },
+  "save": "str",
+  "save_success": "none",
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "id": "sa_buried_alive",
+        "on": "fail",
+        "depth_ft": 10,
+        "conditions": [
+          "restrained",
+          "blinded"
+        ],
+        "total_cover": true,
+        "cannot_breathe": true,
+        "dig_check": "athletics",
+        "dig_dc": 15,
+        "dig_ft": 5,
+        "surface_margin": 5,
+        "surfaces_prone": true,
+        "auto_success": "any floor indoors (stone, metal or boards)"
+      }
+    },
+    {
+      "effect": "condition",
+      "params": {
+        "on": "success",
+        "condition": "prone",
+        "plain": true
+      }
+    },
+    {
+      "effect": "modifiers",
+      "params": {
+        "on": "success",
+        "until": "target_turn_end",
+        "modifiers": [
+          {
+            "stat": "speed_set",
+            "value": 0
+          }
+        ]
+      }
+    }
+  ],
+  "tags": [
+    "control"
+  ],
+  "summary": "Str save or the ground swallows the target 10 ft down: Total Cover, Restrained, Blinded, can't breathe; a DC 15 Athletics check as an action digs it out in 5-ft steps.",
+  "text": "A creature you can see within 60 feet that is standing on the ground makes a Strength saving throw. On a failure the ground opens and swallows it, burying it up to 10 feet deep. While buried the target has Total Cover, the Restrained and Blinded conditions, and cannot breathe. On a success the target is knocked Prone and its Speed is 0 until the end of its next turn. A buried creature can dig itself out by using its action to make a DC 15 Strength (Athletics) check: on a success it digs 5 feet closer to the surface, and if it succeeds by 5 or more it reaches the surface at once. A creature reaching the surface comes out Prone. The target automatically succeeds on the save if it stands on any thickness of stone or metal, or on at least 2 inches of wood."
+}

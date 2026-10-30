@@ -1,0 +1,102 @@
+{
+  "id": "relicborn",
+  "name": "Relicborn",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 2"
+  },
+  "summary": "Brightly painted skeleton-folk of Kalero's tombs, who party instead of sleeping, dance into battle and lend a failing friend a last push.",
+  "creature_type": "undead",
+  "sizes": [
+    "medium"
+  ],
+  "speed": 30,
+  "traits": [
+    {
+      "id": "dance_of_death",
+      "name": "Dance of Death",
+      "summary": "Bonus Action: DC 15 Charisma (Performance or an instrument) check. Success: Advantage on your next attack roll this turn. Beat the DC by 5 or more: also roll a Hit Point Die (not spent) for that many Temporary Hit Points.",
+      "text": "As a Bonus Action you make a DC 15 Charisma check using Performance or a Musical Instrument. If you succeed, the next attack roll you make before the end of your turn has Advantage. If you succeed by 5 or more, you can also roll one of your Hit Point Dice (without expending it) and gain Temporary Hit Points equal to the number rolled.",
+      "action": "bonus_action",
+      "implemented": "engine"
+    },
+    {
+      "id": "eternal_party",
+      "name": "Eternal Party",
+      "summary": "You don't need to sleep; a Long Rest takes 4 hours spent in revelry (stories, music).",
+      "text": "You do not need to sleep, and you can finish a Long Rest in 4 hours if you spend those hours enjoying revelry such as telling stories or playing music. Unlike a trance this does not make you immune to magical sleep.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "eternal_party"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "moment_of_remembrance",
+      "name": "Moment of Remembrance",
+      "summary": "Reaction when another creature you see within 30 feet fails a D20 Test: it adds 1d4 to the total. Once that turns a failure into a success, it is spent until a Short or Long Rest.",
+      "text": "When another creature you can see within 30 feet of you fails a D20 Test, you can take a Reaction to let it add 1d4 to the total, possibly making it succeed. The use is spent only when this trait turns a failed roll into a success; once it has, you cannot use it again until you finish a Short or Long Rest.",
+      "action": "reaction",
+      "resource": {
+        "id": "moment_of_remembrance",
+        "name": "Moment of Remembrance",
+        "max": 1,
+        "recharge": "short"
+      },
+      "policy": "auto",
+      "implemented": "engine"
+    },
+    {
+      "id": "soul_of_revelry",
+      "name": "Soul of Revelry",
+      "summary": "Proficiency in Performance or with one Musical Instrument.",
+      "text": "You gain proficiency in the Performance skill or with one kind of Musical Instrument (your choice).",
+      "action": "passive",
+      "choice": {
+        "id": "revelry",
+        "kind": "option",
+        "count": 1,
+        "options": [
+          {
+            "id": "revelry_performance",
+            "name": "Performance",
+            "summary": "Proficiency in the Performance skill.",
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "skill",
+                "value": "performance"
+              }
+            ],
+            "implemented": "data"
+          },
+          {
+            "id": "revelry_instrument",
+            "name": "Musical Instrument",
+            "summary": "Proficiency with one kind of Musical Instrument.",
+            "choice": {
+              "id": "instrument",
+              "kind": "tool",
+              "count": 1,
+              "filter": {
+                "tool_kind": "musical_instrument"
+              }
+            },
+            "modifiers": [
+              {
+                "stat": "proficiency",
+                "kind": "tool",
+                "value": "@instrument"
+              }
+            ],
+            "implemented": "data"
+          }
+        ]
+      },
+      "implemented": "data"
+    }
+  ]
+}

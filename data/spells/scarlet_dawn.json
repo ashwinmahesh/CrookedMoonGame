@@ -1,0 +1,69 @@
+{
+  "id": "scarlet_dawn",
+  "name": "Scarlet Dawn",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 3,
+  "school": "evocation",
+  "classes": [
+    "cleric",
+    "druid",
+    "paladin",
+    "ranger",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 120
+  },
+  "area": {
+    "shape": "cylinder",
+    "size": 20,
+    "height": 60
+  },
+  "components": {
+    "v": true,
+    "s": true
+  },
+  "duration": {
+    "kind": "instantaneous"
+  },
+  "targets": {
+    "kind": "area",
+    "description": "every creature in the Cylinder, friend or foe"
+  },
+  "area_targets": "all",
+  "save": "con",
+  "save_success": "half",
+  "damage": [
+    {
+      "dice": "4d10",
+      "type": "necrotic"
+    }
+  ],
+  "heal": {
+    "dice": "4d10"
+  },
+  "upcast": {
+    "damage": "1d10"
+  },
+  "zone": {
+    "triggers": [],
+    "resolve_on_cast": true,
+    "caster_turn_ends": 1,
+    "dispels_darkness": 3,
+    "uses_spell_damage": false
+  },
+  "tags": [
+    "damage",
+    "healing"
+  ],
+  "summary": "Crimson light falls in a 20-foot-radius, 60-foot-high Cylinder: creatures that are not Constructs or Undead make a Con save or take 4d10 Necrotic (half on a success); Constructs and Undead regain 4d10 Hit Points. It dispels Darkness of level 3 or lower.",
+  "text": "Crimson light shines down in a 20-foot-radius, 60-foot-high Cylinder centred on a point within 120 feet. Each creature in it that is not a Construct or Undead makes a Constitution saving throw, taking 4d10 Necrotic damage on a failure or half as much on a success. Each Construct and Undead in it regains 4d10 Hit Points instead. There is no choosing: it hurts living allies and heals Construct and Undead foes alike. Any magical Darkness in the area created by a spell of level 3 or lower is dispelled. Using a Higher-Level Spell Slot: the damage increases by 1d10, and the level of Darkness spell it can dispel by 1, for each slot level above 3."
+}

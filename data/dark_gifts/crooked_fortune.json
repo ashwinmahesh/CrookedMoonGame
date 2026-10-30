@@ -1,0 +1,56 @@
+{
+  "id": "crooked_fortune",
+  "name": "Crooked Fortune",
+  "vestige": "an unknowable power",
+  "summary": "Turn a failed save into a success (and take no damage where success would halve it). The price: your next three saves.",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 6"
+  },
+  "benefit": {
+    "text": "The crooked fate of Druskenvald has taken a liking to you. You may dodge calamity, if you pay it back later.",
+    "features": [
+      {
+        "id": "cheat_fate",
+        "name": "Cheat Fate",
+        "summary": "When you fail a saving throw, you may succeed instead (and take no damage where success would halve it); usable again once the price is paid.",
+        "text": "When you fail a saving throw, you can choose to succeed instead. When you do, if a successful save would have made you take half damage, you take no damage at all. Once you use Cheat Fate you cannot use it again until you have paid the price (see Delayed Price).",
+        "action": "reaction",
+        "policy": "ask",
+        "resource": {
+          "id": "cheat_fate",
+          "name": "Cheat Fate",
+          "max": 1,
+          "recharge": "none"
+        },
+        "implemented": "engine",
+        "policy_modes": [
+          "ask",
+          "auto",
+          "never"
+        ]
+      }
+    ]
+  },
+  "cost": {
+    "text": "Fate collects what it is owed, and does not take kindly to being short-changed.",
+    "flaw": "Your luck is borrowed, and the debt falls on your next three saves.",
+    "features": [
+      {
+        "id": "delayed_price",
+        "name": "Delayed Price",
+        "summary": "After Cheat Fate, your next three saves have Disadvantage and cannot have Advantage; each one you pass gives 1 Exhaustion; then Cheat Fate returns.",
+        "text": "After you use Cheat Fate, your next three saving throws have Disadvantage and cannot have Advantage, and you gain 1 Exhaustion level each time you succeed on one of them. Once you have succeeded or failed on the third of these saves, you regain the use of Cheat Fate. Saves made on purpose, or without real consequences, only to pay the price painlessly, do not count (the game decides which saves count).",
+        "action": "passive",
+        "implemented": "engine",
+        "resource": {
+          "id": "delayed_price",
+          "name": "Delayed Price",
+          "max": 3,
+          "recharge": "none"
+        }
+      }
+    ]
+  },
+  "implemented": "engine"
+}

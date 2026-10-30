@@ -1,0 +1,40 @@
+{
+  "id": "ghostlight_medium",
+  "name": "Ghostlight Medium",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 5"
+  },
+  "category": "origin",
+  "repeatable": false,
+  "summary": "Your damage ignores the Resistances of creatures with Incorporeal Movement, and a Bonus Action senses Undead and Ethereal creatures within 60 ft.",
+  "ability_increase": {
+    "points": 1,
+    "max": 20,
+    "min_level": 4
+  },
+  "benefits": [
+    {
+      "id": "ghostly_touch",
+      "name": "Ghostly Touch",
+      "summary": "When you damage a creature with the Incorporeal Movement trait, ignore its damage Resistances.",
+      "text": "When you damage a creature that has the Incorporeal Movement trait, you can ignore any damage Resistances it has.",
+      "action": "passive",
+      "implemented": "engine"
+    },
+    {
+      "id": "spirit_sense",
+      "name": "Spirit Sense",
+      "summary": "Bonus Action: sense Undead within 60 ft and creatures on the overlapping Ethereal Plane, with distance and direction; spent until a Short Rest once it finds something.",
+      "text": "As a Bonus Action you sense any Undead within 60 feet of you, and any creatures on the Ethereal Plane that overlaps that area. You learn the distance and direction to each creature you detect (or an Ethereal creature's equivalent position on your plane). Once you detect a creature with this benefit you can't use it again until you finish a Short or Long Rest.",
+      "action": "bonus_action",
+      "resource": {
+        "id": "spirit_sense",
+        "name": "Spirit Sense",
+        "max": 1,
+        "recharge": "short"
+      },
+      "implemented": "engine"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "id": "collector_of_stories",
+  "name": "Collector of Stories",
+  "vestige": "an unknowable power",
+  "summary": "Legend Lore, free once per Long Rest. The price: each free casting makes a Friendly NPC forget you for good.",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 6"
+  },
+  "benefit": {
+    "text": "You hunger for the tales of the world, and the world hands them over.",
+    "features": [
+      {
+        "id": "gathered_tales",
+        "name": "Gathered Tales",
+        "summary": "Legend Lore is always prepared; once per Long Rest cast it free, no slot or components.",
+        "text": "You always have Legend Lore prepared. Once per Long Rest you can cast it with no spell slot and no spell components, and you can also cast it with spell slots you have. Intelligence, Wisdom or Charisma is your spellcasting ability for the free casting (choose when you take this bargain).",
+        "action": "passive",
+        "choice": {
+          "id": "spellcasting_ability",
+          "kind": "spellcasting_ability",
+          "count": 1,
+          "from": [
+            "int",
+            "wis",
+            "cha"
+          ]
+        },
+        "modifiers": [
+          {
+            "stat": "spell",
+            "value": "legend_lore",
+            "ability": "@spellcasting_ability",
+            "uses": {
+              "count": 1,
+              "recharge": "long"
+            },
+            "always_prepared": true
+          }
+        ],
+        "implemented": "data"
+      }
+    ]
+  },
+  "cost": {
+    "text": "Sometimes the story you take is the one of having met someone at all.",
+    "flaw": "The people whose stories you keep forget you ever met, and are uneasy around you from then on.",
+    "features": [
+      {
+        "id": "hoarded_stories",
+        "name": "Hoarded Stories",
+        "summary": "Each free Legend Lore makes a Friendly NPC forget you; their attitude can never rise above Indifferent and you have Disadvantage on Charisma checks against them.",
+        "text": "When you cast Legend Lore through this bargain without a spell slot, a Friendly NPC (the game chooses) forgets ever meeting you. You can meet them again and try to rebuild a relationship, but you forever cause them an unsettling discomfort: that NPC's attitude toward you can never improve beyond Indifferent, and you have Disadvantage on all Charisma checks against them.",
+        "action": "passive",
+        "implemented": "engine"
+      }
+    ]
+  },
+  "implemented": "engine"
+}

@@ -1,0 +1,100 @@
+{
+  "id": "deepborn",
+  "name": "Deepborn",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 2"
+  },
+  "summary": "Fish-like aberrations of the black sea of Olmarsh, who swim from birth, speak Deep Speech and unsettle foes with gibbering and a sense for the living.",
+  "creature_type": "aberration",
+  "sizes": [
+    "medium"
+  ],
+  "speed": 30,
+  "darkvision": 60,
+  "spellcasting_ability_choice": [
+    "int",
+    "wis",
+    "cha"
+  ],
+  "traits": [
+    {
+      "id": "deepborn_swim_speed",
+      "name": "Swim Speed",
+      "summary": "Swim Speed equal to your Speed.",
+      "text": "You have a Swim Speed equal to your Speed.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "speed_set",
+          "kind": "swim",
+          "value": "walk"
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "amphibious",
+      "name": "Amphibious",
+      "summary": "You can breathe air and water.",
+      "text": "You can breathe both air and water.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "water_breathing"
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "darkvision",
+      "name": "Darkvision",
+      "summary": "See in Dim Light within 60 feet as if it were Bright Light, and in Darkness as if it were Dim Light.",
+      "text": "You have Darkvision with a range of 60 feet.",
+      "action": "passive",
+      "modifiers": [
+        {
+          "stat": "darkvision",
+          "value": 60
+        }
+      ],
+      "implemented": "data"
+    },
+    {
+      "id": "eldritch_gibbering",
+      "name": "Eldritch Gibbering",
+      "summary": "You speak Deep Speech. Magic action: creatures of your choice in a 30-foot Emanation make a Wisdom save (DC 8 + PB + your chosen mental modifier) or roll a d6 for an effect until your next turn; spent only once a target fails; back on a Short Rest.",
+      "text": "Your link to the Hungering Ones lets you speak Deep Speech. As a Magic action you gibber in that language. Each creature of your choice in a 30-foot Emanation from you makes a Wisdom saving throw (DC 8 + your Proficiency Bonus + your Intelligence, Wisdom or Charisma modifier, chosen when you select this species) or rolls a d6 and takes the matching effect until the start of your next turn: 1-2 it has Disadvantage on attack rolls; 3-4 its Speed becomes 0; 5-6 it cannot take Reactions. Once any target fails its save against this trait you cannot use it again until you finish a Short or Long Rest (so the use is spent only when someone fails).",
+      "action": "action",
+      "resource": {
+        "id": "eldritch_gibbering",
+        "name": "Eldritch Gibbering",
+        "max": 1,
+        "recharge": "short"
+      },
+      "modifiers": [
+        {
+          "stat": "proficiency",
+          "kind": "language",
+          "value": "deep_speech"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "endless_hunger",
+      "name": "Endless Hunger",
+      "summary": "Bonus Action: until the start of your next turn you know where every creature that isn't a Construct or Undead is within 60 feet, and your attack rolls against them can't have Disadvantage. Once per Short Rest.",
+      "text": "As a Bonus Action you embrace your link to the Hungering Ones. Until the start of your next turn you know the location of every creature within 60 feet of you that is not a Construct or an Undead, and your attack rolls against those creatures cannot have Disadvantage. Once you use this trait you cannot use it again until you finish a Short or Long Rest.",
+      "action": "bonus_action",
+      "resource": {
+        "id": "endless_hunger",
+        "name": "Endless Hunger",
+        "max": 1,
+        "recharge": "short"
+      },
+      "implemented": "engine"
+    }
+  ]
+}

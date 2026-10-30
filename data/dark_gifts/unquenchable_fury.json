@@ -1,0 +1,44 @@
+{
+  "id": "unquenchable_fury",
+  "name": "Unquenchable Fury",
+  "vestige": "an unknowable power",
+  "summary": "Enter a fury: an extra melee attack and less damage taken. The price: Red Haze turns you on the nearest creature.",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 6"
+  },
+  "benefit": {
+    "text": "Anger is a powerful tool, and this bargain stokes it into an inferno.",
+    "features": [
+      {
+        "id": "furious_onslaught",
+        "name": "Furious Onslaught",
+        "summary": "Bonus Action, or when you take the Attack action: enter a fury for one extra melee attack and damage reduced by your Proficiency Bonus. Once per Long Rest, and back when you kill a Humanoid.",
+        "text": "As a Bonus Action, or when you take the Attack action on your turn, you can choose to enter a fury. While in the fury, you can make one additional melee attack when you take the Attack action on your turn, and you reduce all damage you take by an amount equal to your Proficiency Bonus. The fury ends if you have the Incapacitated condition, if you die, or if you end your turn with no creature within 60 feet of you that you can see or hear. Once you use this feature you cannot use it again until you finish a Long Rest. You also regain its use when you kill a Humanoid.",
+        "action": "bonus_action",
+        "resource": {
+          "id": "furious_onslaught",
+          "name": "Furious Onslaught",
+          "max": 1,
+          "recharge": "long"
+        },
+        "implemented": "engine"
+      }
+    ]
+  },
+  "cost": {
+    "text": "The fury threatens to consume everything in its path, friend and foe alike.",
+    "flaw": "In a fury you may turn on your own allies.",
+    "features": [
+      {
+        "id": "red_haze",
+        "name": "Red Haze",
+        "summary": "In a fury, a DC 15 Wisdom save each turn start: a failure makes the nearest creature your enemy, which you must close on and attack every turn.",
+        "text": "While you are in a fury, you must make a DC 15 Wisdom saving throw at the start of each of your turns. On a success you can choose to end the fury or continue it. On a failure you no longer make this save at the start of your turns, and you regard the creature nearest to you that you can see or hear as your enemy (if several are equally near, choose one at random). On each of your turns you must move as close to that creature as possible and take the Attack action, targeting it with melee attacks. If you cannot get close enough to attack it, your turn ends once you have used all your movement. If the creature dies or you can no longer see or hear it, the next nearest creature you can see or hear becomes your new target.",
+        "action": "passive",
+        "implemented": "engine"
+      }
+    ]
+  },
+  "implemented": "engine"
+}

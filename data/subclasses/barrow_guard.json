@@ -1,0 +1,264 @@
+{
+  "id": "barrow_guard",
+  "name": "Barrow Guard",
+  "class": "fighter",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 3"
+  },
+  "summary": "A crypt-keeping warrior who carries the spectral energy of the dead in Draugr Dice: a ghost steed, damage soaked up, and ghostly hands that seize foes.",
+  "role_tags": [
+    "defender",
+    "striker",
+    "mobile"
+  ],
+  "table": {
+    "draugr_dice": {
+      "name": "Draugr Dice",
+      "values": [
+        0,
+        0,
+        4,
+        4,
+        6,
+        6,
+        6,
+        6,
+        8,
+        8,
+        8,
+        8,
+        10,
+        10,
+        10,
+        10,
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "draugr_die": {
+      "name": "Draugr Die",
+      "values": [
+        "",
+        "",
+        "d6",
+        "d6",
+        "d8",
+        "d8",
+        "d8",
+        "d8",
+        "d8",
+        "d8",
+        "d10",
+        "d10",
+        "d10",
+        "d10",
+        "d10",
+        "d10",
+        "d12",
+        "d12",
+        "d12",
+        "d12"
+      ]
+    }
+  },
+  "resources": [
+    {
+      "id": "draugr_dice",
+      "name": "Draugr Dice",
+      "recharge": "short_one",
+      "table": "draugr_dice",
+      "die_table": "draugr_die",
+      "from_level": 3
+    }
+  ],
+  "features": [
+    {
+      "level": 3,
+      "feature": {
+        "id": "death_knight",
+        "name": "Death Knight",
+        "summary": "Draugr Dice (d6 x4 at 3, d8 x6 at 5, d8 x8 at 9, d10 x8 at 11, d10 x10 at 13, d12 x12 at 17) fuel your powers; one back on a Short Rest, all on a Long Rest; power save DC 8 + Con + PB.",
+        "text": "The remnants of long-departed souls live in you as Draugr Dice, which pay for the powers of this subclass. Dice by Fighter level: 3 = four d6; 5 = six d8; 9 = eight d8; 11 = eight d10; 13 = ten d10; 17 = twelve d12. A power that spends a die can't be used while all your dice are spent. You regain one spent die when you finish a Short Rest and all of them when you finish a Long Rest. The save DC of every power of this subclass is 8 + your Constitution modifier + your Proficiency Bonus (the 'power save DC').",
+        "uses_resource": "draugr_dice",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "dark_rider",
+        "name": "Dark Rider",
+        "summary": "Bonus Action: a ghost steed only you can ride (Warhorse stats, but Undead, Resistance to B/P/S, only Dash/Disengage/Dodge); a Draugr Die on its Dash adds 5 x the roll in feet.",
+        "text": "As a Bonus Action you call a ghostly steed that only you can mount. It uses the Warhorse stat block, but its creature type is Undead, it has Resistance to Bludgeoning, Piercing and Slashing damage, and the only actions it can take are Dash, Disengage and Dodge. When the steed takes the Dash action you can spend and roll a Draugr Die: for that move the steed's Speed rises by 5 feet times the number rolled. The steed vanishes after 1 hour, when it drops to 0 Hit Points, when you are Incapacitated, or when you die. After you use this Bonus Action you can't use it again until you finish a Short or Long Rest, unless you spend a Draugr Die (no action) to get the use back.",
+        "action": "bonus_action",
+        "resource": {
+          "id": "dark_rider",
+          "name": "Dark Rider",
+          "max": 1,
+          "recharge": "short"
+        },
+        "uses_resource": "draugr_dice",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "grave_guard",
+        "name": "Grave Guard",
+        "summary": "Reaction when you take damage: spend and roll a Draugr Die, reduce the damage by the roll + Con modifier.",
+        "text": "When you take damage, you can use your Reaction to spend and roll a Draugr Die. Reduce the damage by the number rolled plus your Constitution modifier.",
+        "action": "reaction",
+        "uses_resource": "draugr_dice",
+        "policy": "ask",
+        "policy_modes": [
+          "ask",
+          "auto",
+          "never"
+        ],
+        "policy_cost": "a Draugr Die",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "soul_reaper",
+        "name": "Soul Reaper",
+        "summary": "Give up one attack of the Attack action: spend a die, ghostly hands seize a creature within 60 ft (Str save); fail = die + Con Necrotic and Grappled for 1 minute, success = half damage.",
+        "text": "When you take the Attack action you can give up one of your attacks to call ghostly hands around a creature within 60 feet of you. Spend and roll a Draugr Die; the target makes a Strength saving throw against your power save DC. On a failed save it takes Necrotic damage equal to the number rolled plus your Constitution modifier and has the Grappled condition for 1 minute (escape DC = your power save DC). On a successful save it takes half that damage and nothing else.",
+        "action": "special",
+        "uses_resource": "draugr_dice",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 7,
+      "feature": {
+        "id": "mortal_coil",
+        "name": "Mortal Coil",
+        "summary": "Siphoning Souls: Reaction when a non-Construct, non-Undead enemy within 30 ft of you dies, regain one spent Draugr Die.",
+        "text": "Siphoning Souls (level 7), first benefit. When an enemy within 30 feet of you dies and is not a Construct or an Undead, you can use your Reaction to regain one spent Draugr Die.",
+        "action": "reaction",
+        "uses_resource": "draugr_dice",
+        "policy": "auto",
+        "policy_cost": "free",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 7,
+      "feature": {
+        "id": "whisper_of_the_departed",
+        "name": "Whisper of the Departed",
+        "summary": "Siphoning Souls: when you make an ability check, spend and roll a Draugr Die and add it to the total.",
+        "text": "Siphoning Souls (level 7), second benefit. When you make an ability check you can spend and roll a Draugr Die and add the number rolled to the total.",
+        "action": "special",
+        "uses_resource": "draugr_dice",
+        "implemented": "engine",
+        "policy": "ask",
+        "policy_modes": [
+          "ask",
+          "auto",
+          "never"
+        ],
+        "policy_cost": "a Draugr Die"
+      }
+    },
+    {
+      "level": 10,
+      "feature": {
+        "id": "phantom_charger",
+        "name": "Phantom Charger",
+        "summary": "Tomb Castellan: your steed ignores Difficult Terrain; a die on its Dash/Disengage/Dodge teleports it (and you) up to 60 ft, and foes within 10 ft of where it lands make a Con save or take die + Con Necrotic (half on a success).",
+        "text": "Tomb Castellan (level 10) improves your Death Knight powers. Your Dark Rider steed now ignores Difficult Terrain. Also, when the steed takes the Dash, Disengage or Dodge action, you can spend and roll a Draugr Die: the steed teleports (with you, if you ride it) to an unoccupied space you can see within 60 feet of it. Each creature of your choice within 10 feet of the steed where it appears makes a Constitution saving throw against your power save DC, taking Necrotic damage equal to the number rolled plus your Constitution modifier on a failure, or half as much on a success.",
+        "uses_resource": "draugr_dice",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 10,
+      "feature": {
+        "id": "death_knell",
+        "name": "Death Knell",
+        "summary": "Tomb Castellan: when Grave Guard answers a creature's damage, that creature takes Psychic damage equal to half the damage the power prevented.",
+        "text": "Tomb Castellan (level 10). When you use Grave Guard in answer to a creature damaging you, that creature takes Psychic damage equal to half the amount of damage the power reduced.",
+        "policy": "auto",
+        "policy_cost": "free",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 10,
+      "feature": {
+        "id": "spectral_shrieking",
+        "name": "Spectral Shrieking",
+        "summary": "Tomb Castellan: a creature Grappled by Soul Reaper takes Psychic damage equal to your PB when its turn starts; Reaction to spend a die and add the roll to that damage.",
+        "text": "Tomb Castellan (level 10). When a creature Grappled by your Soul Reaper power starts its turn, it takes Psychic damage equal to your Proficiency Bonus. When that happens you can use your Reaction to spend and roll a Draugr Die and add the number rolled to the damage.",
+        "action": "reaction",
+        "uses_resource": "draugr_dice",
+        "policy": "ask",
+        "policy_modes": [
+          "ask",
+          "auto",
+          "never"
+        ],
+        "policy_cost": "a Draugr Die",
+        "implemented": "engine"
+      }
+    },
+    {
+      "level": 15,
+      "feature": {
+        "id": "on_a_pale_horse",
+        "name": "On A Pale Horse",
+        "summary": "Grave Lord: a second creature can ride the Dark Rider steed; a die spent on its Dash lets it pass through solid objects and creatures (as Difficult Terrain).",
+        "text": "Grave Lord (level 15). When you use Dark Rider, one creature of your choice can mount the steed besides you. Also, when you spend a Draugr Die during the steed's Dash action, it (and its riders) can move through solid objects and creatures as if they were Difficult Terrain. If the steed ends its turn inside a solid object, it and its riders take 1d10 Force damage and are moved to the nearest unoccupied space.",
+        "implemented": "text"
+      }
+    },
+    {
+      "level": 15,
+      "feature": {
+        "id": "sepulchral_shield",
+        "name": "Sepulchral Shield",
+        "summary": "Grave Lord: when you use Grave Guard, choose one of the triggering damage types; you have Resistance to it (including the triggering damage) until the start of your next turn.",
+        "text": "Grave Lord (level 15). When you use Grave Guard, choose one of the damage types that triggered it. You have Resistance to that type, including against the triggering damage, until the start of your next turn.",
+        "implemented": "text"
+      }
+    },
+    {
+      "level": 15,
+      "feature": {
+        "id": "death_grip",
+        "name": "Death Grip",
+        "summary": "Grave Lord: a creature Grappled by Soul Reaper also has the Restrained condition until the grapple ends.",
+        "text": "Grave Lord (level 15). A creature Grappled by your Soul Reaper power also has the Restrained condition until the grapple ends.",
+        "implemented": "text"
+      }
+    },
+    {
+      "level": 18,
+      "feature": {
+        "id": "eternal_vigil",
+        "name": "Eternal Vigil",
+        "summary": "Might of the Necropolis: you no longer age (and can't be magically aged or die of old age) and need no air, food, drink or sleep.",
+        "text": "Might of the Necropolis (level 18). You no longer suffer the effects of aging, can't be magically aged, and don't die of old age. You also no longer need air, food, drink or sleep.",
+        "implemented": "text"
+      }
+    },
+    {
+      "level": 18,
+      "feature": {
+        "id": "restless_dead",
+        "name": "Restless Dead",
+        "summary": "Might of the Necropolis: when you roll Initiative with fewer than 3 Draugr Dice, you regain spent dice until you have 3.",
+        "text": "Might of the Necropolis (level 18). When you roll Initiative, if you have fewer than 3 Draugr Dice, you regain spent dice until you have 3.",
+        "implemented": "text"
+      }
+    }
+  ]
+}

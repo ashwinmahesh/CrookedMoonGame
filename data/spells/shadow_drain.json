@@ -1,0 +1,81 @@
+{
+  "id": "shadow_drain",
+  "name": "Shadow Drain",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 3,
+  "school": "necromancy",
+  "classes": [
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "self"
+  },
+  "area": {
+    "shape": "emanation",
+    "size": 15
+  },
+  "components": {
+    "v": true,
+    "s": true
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 1,
+    "concentration": true
+  },
+  "targets": {
+    "kind": "area",
+    "description": "creatures you do not designate as unaffected"
+  },
+  "save": "cha",
+  "save_success": "half",
+  "damage": [
+    {
+      "dice": "2d6",
+      "type": "necrotic"
+    }
+  ],
+  "upcast": {
+    "damage": "1d6"
+  },
+  "effects": [
+    {
+      "effect": "modifiers",
+      "params": {
+        "until": "target_turn_end",
+        "modifiers": [
+          {
+            "stat": "disadvantage",
+            "on": "attack"
+          },
+          {
+            "stat": "disadvantage",
+            "on": "check:all"
+          }
+        ]
+      }
+    }
+  ],
+  "zone": {
+    "triggers": [
+      "enter",
+      "start_turn",
+      "moved_into"
+    ],
+    "spare_allies": true
+  },
+  "tags": [
+    "damage",
+    "debuff"
+  ],
+  "summary": "A 15-foot Emanation that moves with you drains the shadows of other creatures: Cha save or 2d6 Necrotic and Disadvantage on attacks and ability checks until the end of their next turn (half damage only on a success).",
+  "text": "You siphon vitality and sense of self through the shadows of nearby creatures in a 15-foot Emanation that moves with you. When you cast the spell you can designate creatures it will not affect. Whenever any other creature enters the Emanation, starts its turn there, or has the Emanation move into its space, it makes a Charisma saving throw. On a failure it takes 2d6 Necrotic damage and has Disadvantage on attack rolls and ability checks until the end of its next turn; on a success it takes half as much damage and nothing else. A creature makes this save no more than once per turn. Concentration, up to 1 minute. Using a Higher-Level Spell Slot: the damage increases by 1d6 for each slot level above 3."
+}

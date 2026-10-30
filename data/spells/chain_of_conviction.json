@@ -1,0 +1,85 @@
+{
+  "id": "chain_of_conviction",
+  "name": "Chain of Conviction",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 2,
+  "school": "conjuration",
+  "classes": [
+    "paladin",
+    "warlock"
+  ],
+  "casting_time": {
+    "unit": "bonus_action"
+  },
+  "range": {
+    "kind": "feet",
+    "feet": 30
+  },
+  "components": {
+    "s": true
+  },
+  "duration": {
+    "kind": "minutes",
+    "amount": 1
+  },
+  "targets": {
+    "kind": "creature",
+    "count": 1,
+    "description": "a creature you can see"
+  },
+  "save": "str",
+  "save_success": "half",
+  "damage": [
+    {
+      "dice": "2d6",
+      "type": "force"
+    }
+  ],
+  "upcast": {
+    "damage": "1d6"
+  },
+  "effects": [
+    {
+      "effect": "pull",
+      "params": {
+        "on": "fail",
+        "feet": 30,
+        "max_size": "gargantuan"
+      }
+    },
+    {
+      "effect": "modifiers",
+      "params": {
+        "on": "fail",
+        "repeat_save": "end_of_turn",
+        "tether": {
+          "range": 30
+        },
+        "modifiers": [
+          {
+            "stat": "flag",
+            "value": "chained:caster"
+          }
+        ]
+      }
+    },
+    {
+      "effect": "custom",
+      "params": {
+        "id": "sa_chain_of_conviction",
+        "on": "fail",
+        "caster_attacks_advantage": true,
+        "no_move_beyond_ft": 30
+      }
+    }
+  ],
+  "tags": [
+    "damage",
+    "control"
+  ],
+  "summary": "Bonus Action, 30 ft, Str save: 2d6 Force (half on a success); on a failure the target is pulled up to 30 ft, chained (can't get more than 30 ft from you) and you have Advantage against it.",
+  "text": "You hurl a spectral, barbed chain at a creature you can see within 30 feet. The target makes a Strength saving throw. On a failure it takes 2d6 Force damage, is pulled up to 30 feet toward you, and is bound by the chain. While bound it is tethered to you: it cannot move or teleport to a space more than 30 feet from you, and you have Advantage on attack rolls against it. On a success it takes half as much damage and nothing else. The bound target repeats the save at the end of each of its turns, ending the spell on itself on a success. If you are ever more than 30 feet from the target, the spell ends. Duration 1 minute (no Concentration). Using a Higher-Level Spell Slot: the damage increases by 1d6 for each slot level above 2."
+}

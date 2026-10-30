@@ -1,0 +1,179 @@
+{
+  "id": "oath_of_castigation",
+  "name": "Oath of Castigation",
+  "class": "paladin",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 3"
+  },
+  "summary": "A paladin who burns wickedness out with fiery shackles and Fire damage, and forces the truth from the frightened.",
+  "role_tags": [
+    "control",
+    "striker"
+  ],
+  "always_prepared": {
+    "3": [
+      "divine_favor",
+      "inflict_wounds"
+    ],
+    "5": [
+      "chain_of_conviction",
+      "hold_person"
+    ],
+    "9": [
+      "counterspell",
+      "speak_with_dead"
+    ],
+    "13": [
+      "consuming_pyre",
+      "locate_creature"
+    ],
+    "17": [
+      "flame_strike",
+      "hold_monster"
+    ]
+  },
+  "features": [
+    {
+      "level": 3,
+      "feature": {
+        "id": "castigate",
+        "name": "Castigate",
+        "summary": "Channel Divinity, Magic action: up to Cha-modifier creatures within 30 ft make a Strength save or are bound in fiery shackles (Speed 0); a Bonus Action flares them all for 2d6 Fire.",
+        "text": "As a Magic action you can expend a use of Channel Divinity to clap those you would bring to justice in fiery shackles. Choose up to your Charisma modifier (minimum 1) creatures you can see within 30 feet of you. Each must succeed on a Strength saving throw or be wrapped in the shackles, which reduce its Speed to 0. As a Bonus Action you can make the shackles flare: each creature bound by them takes 2d6 Fire damage. A shackled creature repeats the save at the end of each of its turns, ending the effect on itself on a success, and after 1 minute it succeeds automatically.",
+        "action": "action",
+        "uses_resource": "paladin_channel_divinity",
+        "implemented": "engine",
+        "activation": {
+          "cost": "magic",
+          "resource": "paladin_channel_divinity",
+          "targeting": "multi",
+          "count": "mod:cha",
+          "range": 30,
+          "save": "str",
+          "duration": {
+            "kind": "minutes",
+            "amount": 1
+          },
+          "effects": [
+            {
+              "effect": "modifiers",
+              "params": {
+                "repeat_save": "end_of_turn",
+                "modifiers": [
+                  {
+                    "stat": "speed_set",
+                    "value": 0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "incite",
+        "name": "Incite",
+        "summary": "Channel Divinity, Magic action: 10 minutes of Advantage on Investigation and Insight; meanwhile a Bonus Action makes a creature within 10 ft save (Cha) or be Frightened and unable to lie on purpose.",
+        "text": "As a Magic action you can expend a use of Channel Divinity to sharpen your hunt for wickedness. For 10 minutes you have Advantage on Intelligence (Investigation) and Wisdom (Insight) checks. During that time you can use a Bonus Action to choose a creature you can see within 10 feet of you; it must succeed on a Charisma saving throw or have the Frightened condition for 1 minute. While it is Frightened this way it cannot speak a deliberate lie. The condition ends early if the target takes damage or if you use this Bonus Action again. In dialogue it opens a compel-the-truth option (see the story rules).",
+        "action": "action",
+        "uses_resource": "paladin_channel_divinity",
+        "implemented": "engine",
+        "activation": {
+          "cost": "magic",
+          "resource": "paladin_channel_divinity",
+          "duration": {
+            "kind": "minutes",
+            "amount": 10
+          },
+          "effects": [
+            {
+              "effect": "modifiers",
+              "params": {
+                "target": "self",
+                "modifiers": [
+                  {
+                    "stat": "advantage",
+                    "on": [
+                      "check:investigation",
+                      "check:insight"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "level": 3,
+      "feature": {
+        "id": "castigation_spells",
+        "name": "Oath of Castigation Spells",
+        "summary": "Divine Favor and Inflict Wounds always prepared; more at levels 5, 9, 13 and 17.",
+        "text": "When you reach a Paladin level shown, you always have these spells prepared: Divine Favor and Inflict Wounds (3); Chain of Conviction and Hold Person (5); Counterspell and Speak with Dead (9); Consuming Pyre and Locate Creature (13); Flame Strike and Hold Monster (17).",
+        "action": "passive",
+        "implemented": "data"
+      }
+    },
+    {
+      "level": 7,
+      "feature": {
+        "id": "kindling_aura",
+        "name": "Kindling Aura",
+        "summary": "You and allies in your Aura of Protection ignore Fire and Radiant Resistance and may turn weapon damage to Fire; you add Cha (min +1) to Investigation and Insight.",
+        "text": "You and your allies within your Aura of Protection ignore creatures' Resistance to Fire and Radiant damage, and when an affected creature hits with a weapon attack it can deal Fire damage instead of the weapon's normal damage type. In addition, you and the affected creatures in the aura can add your Charisma modifier (minimum +1) to Intelligence (Investigation) and Wisdom (Insight) checks.",
+        "action": "passive",
+        "implemented": "engine",
+        "modifiers": [
+          {
+            "stat": "ignore_resistance",
+            "value": "fire"
+          },
+          {
+            "stat": "ignore_resistance",
+            "value": "radiant"
+          },
+          {
+            "stat": "check",
+            "skill": "investigation",
+            "value": "mod:cha",
+            "min": 1
+          },
+          {
+            "stat": "check",
+            "skill": "insight",
+            "value": "mod:cha",
+            "min": 1
+          }
+        ]
+      }
+    },
+    {
+      "level": 15,
+      "feature": {
+        "id": "fervent_inquisitor",
+        "name": "Fervent Inquisitor",
+        "summary": "Beyond level 13: Reaction to gain Advantage on your next attack against whoever damaged you or a nearby ally; Fire or Radiant damage to a Bloodied creature reveals its lies of the past 24 hours.",
+        "text": "Whenever a creature damages you or one of your allies that you can see within 30 feet of you, you can use your Reaction to gain Advantage on your next attack roll against the creature that dealt the damage. In addition, whenever you deal Fire or Radiant damage to a Bloodied creature, you become aware of any lies it has willingly and knowingly told you in the past 24 hours.",
+        "action": "reaction",
+        "implemented": "text"
+      }
+    },
+    {
+      "level": 20,
+      "feature": {
+        "id": "fire_and_brimstone",
+        "name": "Fire and Brimstone",
+        "summary": "Beyond level 13: Bonus Action, 10 minutes: Fire immunity, +10 ft reach and cover-ignoring melee, and foes that provoke or end a turn in reach must save or fall Prone with Speed 0.",
+        "text": "As a Bonus Action you embody cleansing flame and gain these benefits for 10 minutes, or until you end them (no action required). Once used, you cannot use it again until you finish a Long Rest, or until you expend a level 5 spell slot (no action required) to restore the use. Blazing Ardor: you have Immunity to Fire damage. Relentless Judgment: lashes of divine flame add 10 feet to your reach, and your melee attacks ignore Half Cover and Three-Quarters Cover. Punish the Wicked: when you hit a creature with an Opportunity Attack, or when a Hostile creature ends its turn within your reach, it must succeed on a Charisma saving throw or have the Prone condition and Speed 0 until the start of its next turn.",
+        "action": "bonus_action",
+        "implemented": "text"
+      }
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "id": "stilled_hungers",
+  "name": "Stilled Hungers",
+  "vestige": "an unknowable power",
+  "summary": "Resistance to Poison, Advantage against Poisoned, and no Exhaustion from hunger. The price: Vulnerability to Psychic and fear.",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 6"
+  },
+  "benefit": {
+    "modifiers": [
+      {
+        "stat": "resistance",
+        "value": "poison"
+      },
+      {
+        "stat": "advantage",
+        "on": "save_vs:poisoned"
+      }
+    ],
+    "text": "Food, drink and the maladies of the flesh have lost their hold over you.",
+    "features": [
+      {
+        "id": "sated_cravings",
+        "name": "Sated Cravings",
+        "summary": "Going without food and drink gives you no Exhaustion; Resistance to Poison; Advantage on saves to avoid or end Poisoned.",
+        "text": "Forgoing food and drink does not give you Exhaustion levels. You have Resistance to Poison damage, and Advantage on saving throws to avoid or end the Poisoned condition (the bargain's modifiers apply the last two).",
+        "action": "passive",
+        "implemented": "text"
+      }
+    ]
+  },
+  "cost": {
+    "modifiers": [
+      {
+        "stat": "vulnerability",
+        "value": "psychic"
+      },
+      {
+        "stat": "disadvantage",
+        "on": "save_vs:frightened"
+      }
+    ],
+    "text": "Without those urges to keep a soul vital, your thoughts crack and your dreams wither into crooked nightmares.",
+    "flaw": "Your mind has gone ravenous and brittle: fear and psychic harm cut deeper.",
+    "features": [
+      {
+        "id": "tenuous_psyche",
+        "name": "Tenuous Psyche",
+        "summary": "Vulnerability to Psychic damage and Disadvantage on saves against Frightened; Calm Emotions on you suppresses it.",
+        "text": "You have Vulnerability to Psychic damage and Disadvantage on saving throws to avoid or end the Frightened condition (the bargain's modifiers apply both). A Calm Emotions spell cast on you suppresses this feature for as long as the spell lasts.",
+        "action": "passive",
+        "implemented": "engine"
+      }
+    ]
+  },
+  "implemented": "engine"
+}

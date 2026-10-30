@@ -1,0 +1,68 @@
+{
+  "id": "crimson_harvest",
+  "name": "Crimson Harvest",
+  "source": {
+    "book": "CM2024",
+    "note": "chapter 7"
+  },
+  "level": 3,
+  "school": "necromancy",
+  "classes": [
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ],
+  "casting_time": {
+    "unit": "action"
+  },
+  "range": {
+    "kind": "self"
+  },
+  "area": {
+    "shape": "emanation",
+    "size": 15
+  },
+  "components": {
+    "v": true,
+    "s": true,
+    "m": "a vial of blood"
+  },
+  "duration": {
+    "kind": "instantaneous"
+  },
+  "targets": {
+    "kind": "area",
+    "description": "each creature of your choice in the Emanation"
+  },
+  "save": "dex",
+  "save_success": "half",
+  "area_targets": "enemies",
+  "damage": [
+    {
+      "dice": "3d10",
+      "type": "necrotic"
+    }
+  ],
+  "upcast": {
+    "damage": "1d10"
+  },
+  "effects": [
+    {
+      "effect": "custom",
+      "params": {
+        "id": "sa_crimson_harvest",
+        "on": "cast",
+        "fraction": "half",
+        "needs_min_size": "small",
+        "healed": "one creature of your choice in the Emanation you can see",
+        "once": true
+      }
+    }
+  ],
+  "tags": [
+    "damage",
+    "healing"
+  ],
+  "summary": "15-ft Emanation: chosen creatures make a Dex save, 3d10 Necrotic (half on a success); if a Small+ creature is hurt, one creature in it heals half the damage roll.",
+  "text": "A wave of blood sweeps out from you in a 15-foot Emanation. Each creature of your choice in the wave makes a Dexterity saving throw, taking 3d10 Necrotic damage on a failure or half as much on a success. If you damage at least one Small or larger creature this way, one creature of your choice that you can see within the Emanation regains Hit Points equal to half the damage roll (the one roll made for the spell, not the total taken by each creature). Using a Higher-Level Spell Slot: the damage increases by 1d10 for each slot level above 3."
+}
