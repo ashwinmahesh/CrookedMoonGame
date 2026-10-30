@@ -10,7 +10,7 @@ extends SceneTree
 
 const SPECS := "res://tools/data/pregen_specs.json"
 const OUT := "res://data/pregens/%s.json"
-const CAP := 11
+const CAP := 13
 
 var verbose := false
 
