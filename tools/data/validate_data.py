@@ -210,7 +210,9 @@ def semantic_checks(data):
             check_features([entry["feature"]], f"subclasses/{sid} level {entry['level']}", entry["level"])
     for bid, b in data["backgrounds"].items():
         need("feat", feats, b["feat"], f"backgrounds/{bid}")
-        need("item", items, b["tool"]["id"], f"backgrounds/{bid} tool")
+        if "tool" in b:
+            need("item", items, b["tool"]["id"], f"backgrounds/{bid} tool")
+        check_features(b.get("features", []), f"backgrounds/{bid}")
         for opt in b["equipment"]:
             for it in opt.get("items", []):
                 need("item", items, it["id"], f"backgrounds/{bid} equipment")

@@ -16,7 +16,7 @@ Tests live in `tests/unit/` and `tests/integration/`; names below are files.
 | The campaign's level cap, 13 then 20 [E1] | story/story_state.gd (the engine's) | not started | — |
 | Eternal night: six named hours, no sun, the moon as light [E2] | story/story_state.gd, world/look | not started | — |
 | Readings: one card per hero from a deck of any size [E22] | ui/dialogue (the engine's) | not started | — |
-| A game's own features module for the book's options [E26] | combat/encounter.gd (the engine's) | not started | — |
+| A game's own features module for the book's options [E26] | combat/game_features.gd (the engine's), combat/crooked_features.gd and its parts in combat/crooked/ | tested | test_game_features (the engine's), test_crooked_features |
 | The camera's pitch from campaign data, 30 degrees [E28] | world/exploration/camera_rig.gd (the engine's) | not started | — |
 | Fateweaving and the Threads of Fate [G2] | — | not started | — |
 | Dark Bargains with their cost shown first [E14, G4] | — | not started | — |

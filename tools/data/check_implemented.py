@@ -56,6 +56,9 @@ def features(d):
         yield d["drawback"]
     for x in d.get("lineages", []):
         yield from x.get("traits", [])
+    for part in ("benefit", "cost"):  # a dark gift's or bargain's features
+        if isinstance(d.get(part), dict):
+            yield from d[part].get("features", [])
 
 
 def walk(f):
@@ -67,7 +70,7 @@ def walk(f):
 
 bad = []
 changed = set()
-for path in sorted(str(p) for folder in ("classes", "subclasses", "feats", "species", "monsters") for p in dataroots.data_files(folder)):
+for path in sorted(str(p) for folder in ("classes", "subclasses", "feats", "species", "monsters", "dark_gifts") for p in dataroots.data_files(folder)):
     d = json.load(open(path))
     for top in features(d):
         for f in walk(top):
