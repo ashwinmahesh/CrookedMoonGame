@@ -147,8 +147,12 @@
         10,
         3
       ],
-      "kind": "decor",
-      "label": "Frosted sconces"
+      "kind": "examine",
+      "label": "Frosted sconces",
+      "model": "lamp",
+      "call": "ghostlight_express/vagrant_intercom:router",
+      "approach": 12,
+      "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed"
     },
     {
       "id": "g3_whiskey_bottle",
@@ -182,7 +186,10 @@
       "label": "A brass grille in the ceiling",
       "model": "window",
       "dialogue": "ghostlight_express/vagrant_intercom:grille",
-      "when": "not flag.gl_crashed"
+      "when": "not flag.gl_crashed",
+      "call": "ghostlight_express/vagrant_intercom:phantom_after",
+      "approach": 12,
+      "call_when": "flag.gl_phantom_done and not flag.gl_vagrant_briefed"
     }
   ],
   "npcs": [

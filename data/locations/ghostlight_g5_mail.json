@@ -162,15 +162,7 @@
       ],
       "kind": "examine",
       "label": "A letter on the bench",
-      "model": "letter"
-    },
-    {
-      "id": "g5_liberation",
-      "cell": [
-        10,
-        3
-      ],
-      "kind": "decor",
+      "model": "letter",
       "call": "ghostlight_express/incitements:liberation_enter",
       "approach": 12,
       "call_when": "not flag.incitement_liberation and not flag.pending_liberation_incitement"
@@ -185,7 +177,23 @@
       "label": "A brass grille in the ceiling",
       "model": "window",
       "dialogue": "ghostlight_express/vagrant_intercom:grille",
-      "when": "not flag.gl_crashed"
+      "when": "not flag.gl_crashed",
+      "call": "ghostlight_express/vagrant_intercom:phantom_after",
+      "approach": 12,
+      "call_when": "flag.gl_phantom_done and not flag.gl_vagrant_briefed"
+    },
+    {
+      "id": "g5_lamps",
+      "cell": [
+        10,
+        2
+      ],
+      "kind": "examine",
+      "label": "The brass lamps",
+      "model": "lamp",
+      "call": "ghostlight_express/vagrant_intercom:router",
+      "approach": 12,
+      "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed"
     }
   ],
   "npcs": [

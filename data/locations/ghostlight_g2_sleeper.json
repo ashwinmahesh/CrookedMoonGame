@@ -139,12 +139,10 @@
         12,
         2
       ],
-      "kind": "search",
+      "kind": "examine",
       "label": "The brass phonograph",
       "model": "case",
-      "search_dc": 1,
-      "item": "ghost_phonograph",
-      "say": "examine:g2_phonograph"
+      "dialogue": "ghostlight_express/incitements:phonograph"
     },
     {
       "id": "g2_weeping_door",
@@ -157,17 +155,6 @@
       "model": "door"
     },
     {
-      "id": "g2_phonograph_scene",
-      "cell": [
-        12,
-        2
-      ],
-      "kind": "decor",
-      "call": "ghostlight_express/incitements:phonograph",
-      "approach": 2,
-      "call_when": "background:amnesiac and not flag.incitement_apocalypse"
-    },
-    {
       "id": "grille_g2",
       "cell": [
         10,
@@ -177,7 +164,23 @@
       "label": "A brass grille in the ceiling",
       "model": "window",
       "dialogue": "ghostlight_express/vagrant_intercom:grille",
-      "when": "not flag.gl_crashed"
+      "when": "not flag.gl_crashed",
+      "call": "ghostlight_express/vagrant_intercom:phantom_after",
+      "approach": 12,
+      "call_when": "flag.gl_phantom_done and not flag.gl_vagrant_briefed"
+    },
+    {
+      "id": "g2_lamps",
+      "cell": [
+        10,
+        2
+      ],
+      "kind": "examine",
+      "label": "The brass lamps",
+      "model": "lamp",
+      "call": "ghostlight_express/vagrant_intercom:router",
+      "approach": 12,
+      "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed"
     }
   ],
   "npcs": [

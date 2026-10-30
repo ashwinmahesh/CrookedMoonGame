@@ -125,8 +125,12 @@
         10,
         2
       ],
-      "kind": "decor",
-      "label": "The brass lamps"
+      "kind": "examine",
+      "label": "The brass lamps",
+      "model": "lamp",
+      "call": "ghostlight_express/vagrant_intercom:router",
+      "approach": 12,
+      "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed"
     },
     {
       "id": "g1_boarding_door",
@@ -149,7 +153,7 @@
       "model": "door"
     },
     {
-      "id": "g1_grille",
+      "id": "grille_g1",
       "cell": [
         10,
         3
@@ -158,7 +162,10 @@
       "label": "A brass grille in the ceiling",
       "model": "window",
       "dialogue": "ghostlight_express/vagrant_intercom:grille",
-      "when": "flag.gl_phantom_done and not flag.gl_crashed"
+      "when": "not flag.gl_crashed",
+      "call": "ghostlight_express/vagrant_intercom:phantom_after",
+      "approach": 12,
+      "call_when": "flag.gl_phantom_done and not flag.gl_vagrant_briefed"
     },
     {
       "id": "g1_passengers",
@@ -192,6 +199,9 @@
       "kind": "examine",
       "label": "Black-veined mist",
       "when": "flag.gl_phantom_done",
+      "call": "ghostlight_express/incitements:deliverance_enter",
+      "approach": 12,
+      "call_when": "flag.gl_phantom_done and not flag.incitement_deliverance",
       "checks": [
         {
           "id": "g1_curse_mist",
@@ -204,28 +214,6 @@
           "failure": {}
         }
       ]
-    },
-    {
-      "id": "g1_deliverance",
-      "cell": [
-        17,
-        3
-      ],
-      "kind": "decor",
-      "call": "ghostlight_express/incitements:deliverance_enter",
-      "approach": 12,
-      "call_when": "flag.gl_phantom_done and not flag.incitement_deliverance"
-    },
-    {
-      "id": "g1_phantom_call",
-      "cell": [
-        7,
-        3
-      ],
-      "kind": "decor",
-      "call": "ghostlight_express/vagrant_intercom:phantom_strikes",
-      "approach": 6,
-      "call_when": "not flag.gl_phantom_done and flag.gl_aboard_welcomed"
     }
   ],
   "npcs": [
@@ -237,6 +225,17 @@
       ],
       "dialogue": "ghostlight_express/vagrant_boarding:aboard",
       "when": "flag.gl_boarded and not flag.gl_aboard_welcomed",
+      "approach": 6,
+      "facing": "east"
+    },
+    {
+      "npc": "phantom_trainhopper",
+      "cell": [
+        7,
+        3
+      ],
+      "dialogue": "ghostlight_express/vagrant_intercom:phantom_strikes",
+      "when": "not flag.gl_phantom_done and flag.gl_aboard_welcomed",
       "approach": 6,
       "facing": "east"
     }
@@ -261,7 +260,10 @@
             3
           ],
           "name": "The Phantom Trainhopper",
-          "facing": "east"
+          "facing": "east",
+          "steps_down": {
+            "npc": "phantom_trainhopper"
+          }
         },
         {
           "monster": "specter",
@@ -309,7 +311,10 @@
             3
           ],
           "name": "The Phantom Trainhopper",
-          "facing": "east"
+          "facing": "east",
+          "steps_down": {
+            "npc": "phantom_trainhopper"
+          }
         },
         {
           "monster": "specter",
@@ -347,7 +352,10 @@
             3
           ],
           "name": "The Phantom Trainhopper",
-          "facing": "east"
+          "facing": "east",
+          "steps_down": {
+            "npc": "phantom_trainhopper"
+          }
         },
         {
           "monster": "specter",

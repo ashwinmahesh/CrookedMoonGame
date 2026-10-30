@@ -79,7 +79,10 @@
       ],
       "kind": "examine",
       "label": "The fuel tank",
-      "model": "case"
+      "model": "case",
+      "call": "ghostlight_express/tender:crash",
+      "approach": 12,
+      "call_when": "flag.gl_stoker_done and not flag.gl_crashed"
     },
     {
       "id": "g8_porthole",
@@ -107,7 +110,10 @@
       ],
       "kind": "examine",
       "label": "The firebox",
-      "model": "hearth"
+      "model": "hearth",
+      "call": "ghostlight_express/tender:opened",
+      "approach": 12,
+      "call_when": "flag.haints_all_gone and not flag.gl_tender_opened"
     },
     {
       "id": "tender_door",
@@ -117,28 +123,6 @@
       ],
       "kind": "decor",
       "label": "The Tender's door"
-    },
-    {
-      "id": "g8_opened",
-      "cell": [
-        8,
-        3
-      ],
-      "kind": "decor",
-      "call": "ghostlight_express/tender:opened",
-      "approach": 12,
-      "call_when": "flag.haints_all_gone and not flag.gl_tender_opened"
-    },
-    {
-      "id": "g8_crash",
-      "cell": [
-        8,
-        3
-      ],
-      "kind": "decor",
-      "call": "ghostlight_express/tender:crash",
-      "approach": 12,
-      "call_when": "flag.gl_stoker_done and not flag.gl_crashed"
     }
   ],
   "npcs": [],

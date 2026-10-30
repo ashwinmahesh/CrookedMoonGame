@@ -9,7 +9,7 @@
       "####################",
       "#.=======...======.#",
       "#..==..........==..#",
-      "#.=................#",
+      "#..................#",
       "#.==...===...==....#",
       "#.=====....=======.#",
       "####################"
@@ -141,7 +141,10 @@
       ],
       "kind": "examine",
       "label": "A discarded medical bag",
-      "model": "case"
+      "model": "case",
+      "call": "ghostlight_express/incitements:evolution_enter",
+      "approach": 12,
+      "call_when": "not flag.incitement_evolution and not flag.pending_evolution_incitement"
     },
     {
       "id": "g6_tiger",
@@ -183,17 +186,6 @@
       ]
     },
     {
-      "id": "g6_evolution",
-      "cell": [
-        10,
-        3
-      ],
-      "kind": "decor",
-      "call": "ghostlight_express/incitements:evolution_enter",
-      "approach": 12,
-      "call_when": "not flag.incitement_evolution and not flag.pending_evolution_incitement"
-    },
-    {
       "id": "grille_g6",
       "cell": [
         10,
@@ -203,7 +195,23 @@
       "label": "A brass grille in the ceiling",
       "model": "window",
       "dialogue": "ghostlight_express/vagrant_intercom:grille",
-      "when": "not flag.gl_crashed"
+      "when": "not flag.gl_crashed",
+      "call": "ghostlight_express/vagrant_intercom:phantom_after",
+      "approach": 12,
+      "call_when": "flag.gl_phantom_done and not flag.gl_vagrant_briefed"
+    },
+    {
+      "id": "g6_lamps",
+      "cell": [
+        10,
+        2
+      ],
+      "kind": "examine",
+      "label": "The brass lamps",
+      "model": "lamp",
+      "call": "ghostlight_express/vagrant_intercom:router",
+      "approach": 12,
+      "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed"
     }
   ],
   "npcs": [

@@ -85,17 +85,17 @@ def npc(npc_id, cell, dialogue=None, **kw):
 GL = "ghostlight_express/"
 
 
-def scene(pid, cell, dialogue, approach, when, label="", model=None):
-    """A scene that starts by itself when the party comes close: a prop that calls out (no figure)."""
-    d = {"id": pid, "cell": list(cell), "kind": "decor", "call": dialogue, "approach": approach}
-    if when:
-        d["call_when"] = when
-    return d
-
-
 def grille(n, cell=(10, 3)):
+    """The Vagrant's grille: examine it to call him; the first time the party comes near after the fight he speaks by himself (phantom_after)."""
     return prop(f"grille_g{n}", cell, "A brass grille in the ceiling", model="window", dialogue=GL + "vagrant_intercom:grille",
-                when="not flag.gl_crashed")
+                when="not flag.gl_crashed", call=GL + "vagrant_intercom:phantom_after", approach=12,
+                call_when="flag.gl_phantom_done and not flag.gl_vagrant_briefed")
+
+
+def router_lamp(n, cell=(10, 2)):
+    """A brass lamp that carries the Vagrant's check-ins: he speaks as the party comes into a car once the briefing has played."""
+    return prop(f"g{n}_lamps", cell, "The brass lamps", model="lamp", call=GL + "vagrant_intercom:router", approach=12,
+                call_when="flag.gl_vagrant_briefed and not flag.gl_crashed")
 
 
 CARS = ["ghostlight_g1_passenger", "ghostlight_g2_sleeper", "ghostlight_g3_lounge", "ghostlight_g4_dining",
@@ -105,8 +105,11 @@ SIX_DONE = " and ".join(f"(flag.haint_{h}_done or flag.haint_{h}_destroyed)" for
                          ["sweetheart", "songstress", "daydreamer", "mariner", "jailbird", "harlequin"])
 
 
-def car(lid, n, name, summary, text, areas, props, npcs, encounters=None, containers=None, lights=None, extra=None, door_row=3, tender=False):
-    rows = BLOCKS[lid]["rows"]
+def car(lid, n, name, summary, text, areas, props, npcs, encounters=None, containers=None, lights=None, extra=None, door_row=3, tender=False, carve=()):
+    rows = [list(r) for r in BLOCKS[lid]["rows"]]
+    for (cx, cy) in carve:      # a stack of luggage left a pocket the party can't leave: open one square, as the story walk found
+        rows[cy][cx] = "."
+    rows = ["".join(r) for r in rows]
     idx = CARS.index(lid)
     exits = []
     if idx > 0:
@@ -187,32 +190,33 @@ def build_locations():
         "Two rows of paired red leather seats run the length of the car with a wide lit aisle between them. Pale passengers flicker in and out of the seats, and green smoke streams past every window.",
         [area("g1_rear", "The rear end", (1, 1), (5, 5)), area("g1_aisle", "The aisle", (6, 1), (13, 5)), area("g1_front", "The front end", (14, 1), (18, 5))],
         [prop("g1_seats", (6, 1), "Paired seats", model="chairs"), prop("g1_booths", (1, 1), "The end booths", model="chairs"),
-         prop("g1_windows", (8, 1), "The windows", model="window"), prop("g1_lamps", (10, 2), "The brass lamps", kind="decor"),
+         prop("g1_windows", (8, 1), "The windows", model="window"), router_lamp(1),
          prop("g1_boarding_door", (0, 2), "The boarding door", model="door"), prop("g1_rear_door", (0, 4), "The rear door", model="door"),
-         prop("g1_grille", (10, 3), "A brass grille in the ceiling", model="window", dialogue=GL + "vagrant_intercom:grille", when="flag.gl_phantom_done and not flag.gl_crashed"),
+         grille(1),
          prop("g1_passengers", (7, 3), "The pale passengers", kind="search", search_dc=15, skill="perception", model="chairs"),
          prop("g1_marble_jar", (12, 5), "A jar of glass marbles", kind="search", search_dc=13, item="marble_jar"),
-         prop("g1_curse_mist", (17, 3), "Black-veined mist", when="flag.gl_phantom_done", checks=[
+         prop("g1_curse_mist", (17, 3), "Black-veined mist", when="flag.gl_phantom_done", call=GL + "incitements:deliverance_enter", approach=12,
+              call_when="flag.gl_phantom_done and not flag.incitement_deliverance", checks=[
              {"id": "g1_curse_mist", "skill": "perception", "dc": 13, "label": "Study the mist",
               "success": {"text": "Black veins thread through the mist at the front door, and the mist is cold."}, "failure": {}}]),
-         scene("g1_deliverance", (17, 3), GL + "incitements:deliverance_enter", 12, "flag.gl_phantom_done and not flag.incitement_deliverance"),
-         scene("g1_phantom_call", (7, 3), GL + "vagrant_intercom:phantom_strikes", 6, "not flag.gl_phantom_done and flag.gl_aboard_welcomed")],
-        [npc("the_vagrant", (2, 3), GL + "vagrant_boarding:aboard", when="flag.gl_boarded and not flag.gl_aboard_welcomed", approach=6, facing="east")],
+         ],
+        [npc("the_vagrant", (2, 3), GL + "vagrant_boarding:aboard", when="flag.gl_boarded and not flag.gl_aboard_welcomed", approach=6, facing="east"),
+         npc("phantom_trainhopper", (7, 3), GL + "vagrant_intercom:phantom_strikes", when="not flag.gl_phantom_done and flag.gl_aboard_welcomed", approach=6, facing="east")],
         encounters=[
             {"id": "gl_phantom_strikes", "trigger": "dialogue", "flag": "gl_phantom_done", "quest": {"id": "ghostlight_express", "stage": "phantom_struck"},
              "when": "level >= 3", "monsters": [
-                 {"monster": "shadow", "cell": [7, 3], "name": "The Phantom Trainhopper", "facing": "east"},
+                 {"monster": "shadow", "cell": [7, 3], "name": "The Phantom Trainhopper", "facing": "east", "steps_down": {"npc": "phantom_trainhopper"}},
                  {"monster": "specter", "cell": [11, 2], "name": "Corrupted Passenger", "facing": "west"},
                  {"monster": "specter", "cell": [14, 4], "name": "Corrupted Passenger", "facing": "west"},
                  {"monster": "specter", "cell": [17, 3], "name": "Corrupted Passenger", "facing": "west"}]},
             {"id": "gl_phantom_strikes", "trigger": "dialogue", "flag": "gl_phantom_done", "quest": {"id": "ghostlight_express", "stage": "phantom_struck"},
              "when": "level == 2", "monsters": [
-                 {"monster": "shadow", "cell": [7, 3], "name": "The Phantom Trainhopper", "facing": "east"},
+                 {"monster": "shadow", "cell": [7, 3], "name": "The Phantom Trainhopper", "facing": "east", "steps_down": {"npc": "phantom_trainhopper"}},
                  {"monster": "specter", "cell": [11, 2], "name": "Corrupted Passenger", "facing": "west"},
                  {"monster": "specter", "cell": [14, 4], "name": "Corrupted Passenger", "facing": "west"}]},
             {"id": "gl_phantom_strikes", "trigger": "dialogue", "flag": "gl_phantom_done", "quest": {"id": "ghostlight_express", "stage": "phantom_struck"},
              "monsters": [
-                 {"monster": "shadow", "cell": [7, 3], "name": "The Phantom Trainhopper", "facing": "east"},
+                 {"monster": "shadow", "cell": [7, 3], "name": "The Phantom Trainhopper", "facing": "east", "steps_down": {"npc": "phantom_trainhopper"}},
                  {"monster": "specter", "cell": [11, 2], "name": "Corrupted Passenger", "facing": "west"}]}],
         lights=lamps([(4, 3), (10, 3), (16, 3)]))
 
@@ -222,10 +226,9 @@ def build_locations():
         [area("g2_corridor", "The corridor", (1, 4), (18, 5)), area("g2_cabin_1", "Cabin one", (1, 1), (6, 2)),
          area("g2_cabin_2", "Cabin two", (8, 1), (12, 2)), area("g2_cabin_3", "Cabin three", (14, 1), (18, 2))],
         [prop("g2_beds", (2, 1), "The made beds", model="case"), prop("g2_curtains", (4, 1), "Velvet window curtains", model="window"),
-         prop("g2_phonograph", (12, 2), "The brass phonograph", kind="search", search_dc=1, item="ghost_phonograph", model="case", say="examine:g2_phonograph"),
+         prop("g2_phonograph", (12, 2), "The brass phonograph", model="case", dialogue=GL + "incitements:phonograph"),
          prop("g2_weeping_door", (16, 3), "The weeping cabin door", model="door"),
-         scene("g2_phonograph_scene", (12, 2), GL + "incitements:phonograph", 2, "background:amnesiac and not flag.incitement_apocalypse"),
-         grille(2)],
+         grille(2), router_lamp(2)],
         [npc("haint_sweetheart", (17, 2), GL + "haint_sweetheart:start", approach=4, facing="south", when="not flag.haint_sweetheart_done and not flag.haint_sweetheart_destroyed")],
         containers=[{"id": "g2_clothes_chest", "cell": [6, 2], "label": "A clothes chest", "items": [{"id": "fine_clothes", "qty": 6}], "model": "case"}],
         encounters=[haint_fight("sweetheart", (17, 2), "The Sweetheart")], lights=lamps([(5, 4), (15, 4)]), door_row=4)
@@ -237,7 +240,7 @@ def build_locations():
         [prop("g3_bar_counter", (9, 2), "The bar", model="bar"),
          prop("g3_seascape", (4, 1), "The landscape paintings", kind="search", search_dc=13, item="seascape_painting", model="case"),
          prop("g3_paintings", (15, 1), "Landscape paintings", model="case"),
-         prop("g3_chairs", (17, 1), "Burgundy velvet chairs", model="chairs"), prop("g3_sconces", (10, 3), "Frosted sconces", kind="decor"),
+         prop("g3_chairs", (17, 1), "Burgundy velvet chairs", model="chairs"), prop("g3_sconces", (10, 3), "Frosted sconces", model="lamp", call=GL + "vagrant_intercom:router", approach=12, call_when="flag.gl_vagrant_briefed and not flag.gl_crashed"),
          prop("g3_whiskey_bottle", (7, 1), "An empty whiskey bottle", kind="search", search_dc=13, item="empty_whiskey_bottle"),
          prop("g3_haint_hooch", (12, 1), "A jug marked XxX", kind="search", search_dc=18, item="haint_hooch"),
          grille(3)],
@@ -253,7 +256,7 @@ def build_locations():
         "Booths under white cloths line both walls beneath orange paper bunting. At the front end an eight-seat half-booth is laid with a spotless cloth and nobody has ever sat at it.",
         [area("g4_booths", "The booths", (1, 1), (15, 5)), area("g4_big_booth", "The big booth", (16, 1), (18, 5))],
         booths + [prop("g4_menu_cards", (2, 2), "Brass-rimmed menu cards", model="papers"), prop("g4_big_booth", (17, 3), "The empty half-booth", model="table_round", dialogue=GL + "dining_car:big_booth"),
-                  prop("g4_silverware", (8, 2), "Polished silverware", kind="decor"), grille(4)],
+                  prop("g4_silverware", (8, 2), "Polished silverware", model="lamp", call=GL + "vagrant_intercom:router", approach=12, call_when="flag.gl_vagrant_briefed and not flag.gl_crashed"), grille(4)],
         [npc("haint_daydreamer", (9, 2), GL + "haint_daydreamer:start", approach=3, when="not flag.haint_daydreamer_done and not flag.haint_daydreamer_destroyed")],
         encounters=[haint_fight("daydreamer", (9, 2), "The Daydreamer")], lights=lamps([(4, 3), (10, 3), (16, 3)]))
 
@@ -265,9 +268,9 @@ def build_locations():
          prop("g5_letters_dead", (6, 1), "Letters from the dead to the living", kind="book", model="letters", codex="g5_dead_1"),
          prop("g5_pink_envelope", (14, 1), "A bright pink envelope", kind="search", search_dc=13, skill="investigation", item="jakob_braun_letter", codex="g5_jakob_letter"),
          prop("g5_mailbags", (4, 2), "Canvas mailbags", model="rags"), prop("g5_sorting_bench", (9, 3), "The sorting bench", model="table_round"),
-         prop("g5_gambler_letter", (16, 4), "A letter on the bench", model="letter"),
-         scene("g5_liberation", (10, 3), GL + "incitements:liberation_enter", 12, "not flag.incitement_liberation and not flag.pending_liberation_incitement"),
-         grille(5)],
+         prop("g5_gambler_letter", (16, 4), "A letter on the bench", model="letter", call=GL + "incitements:liberation_enter", approach=12,
+              call_when="not flag.incitement_liberation and not flag.pending_liberation_incitement"),
+         grille(5), router_lamp(5)],
         [npc("haint_mariner", (11, 4), GL + "haint_mariner:start", path=[[6, 2], [14, 4]], pause=3, when="not flag.haint_mariner_done and not flag.haint_mariner_destroyed")],
         encounters=[haint_fight("mariner", (11, 4), "The Mariner")], lights=lamps([(4, 3), (10, 3), (16, 3)]))
 
@@ -278,19 +281,19 @@ def build_locations():
         [prop("g6_druskenvald_trunks", (2, 3), "The Druskenvalds' trunks", model="case", dialogue=GL + "phillip_luggage:trunks"),
          prop("g6_steamer_trunk", (3, 4), "A steamer trunk", model="case", dialogue=GL + "phillip_luggage:adela_trunk"),
          prop("g6_abandoned_luggage", (4, 2), "Abandoned luggage", kind="search", search_dc=15, item="goggles_of_night", model="case"),
-         prop("g6_medical_bag", (7, 3), "A discarded medical bag", model="case"),
+         prop("g6_medical_bag", (7, 3), "A discarded medical bag", model="case", call=GL + "incitements:evolution_enter", approach=12,
+              call_when="not flag.incitement_evolution and not flag.pending_evolution_incitement"),
          prop("g6_tiger", (16, 3), "The sleeping tiger", kind="decor"),
          prop("g6_iron_ring", (17, 3), "The iron ring on its tail", checks=[
              {"id": "g6_iron_ring", "skill": "sleight_of_hand", "dc": 15, "label": "Slip the ring off its tail", "once": True,
               "success": {"items": [{"id": "wildpyre_iron_ring"}]}, "failure": {"damage": "2d6", "damage_type": "fire", "flag": "wildpyre_woken"}}]),
-         scene("g6_evolution", (10, 3), GL + "incitements:evolution_enter", 12, "not flag.incitement_evolution and not flag.pending_evolution_incitement"),
-         grille(6)],
+         grille(6), router_lamp(6)],
         [npc("haint_jailbird", (6, 3), GL + "haint_jailbird:start", facing="west", when="not flag.haint_jailbird_done and not flag.haint_jailbird_destroyed"),
          npc("wildpyre", (16, 3), asleep=True, facing="west", when="not flag.wildpyre_destroyed")],
         encounters=[haint_fight("jailbird", (6, 3), "The Jailbird"),
                     {"id": "gl_wildpyre", "trigger": "flag:wildpyre_woken", "flag": "wildpyre_destroyed", "monsters": [
                         {"monster": "wildpyre", "cell": [16, 3], "name": "The wildpyre", "facing": "west"}]}],
-        lights=lamps([(4, 3), (10, 3), (16, 3)]))
+        lights=lamps([(4, 3), (10, 3), (16, 3)]), carve=[(2, 3)])
 
     # ----- G7 --------------------------------------------------------------------------------------------------------
     car("ghostlight_g7_circus", 7, "The Circus Car", "A travelling show's car: rusted cages, striped crates, banners of clowns, and a jester hanging from a trapeze.",
@@ -299,11 +302,11 @@ def build_locations():
         [prop("g7_cages", (4, 1), "The rusted cages", model="cage"), prop("g7_open_cage", (9, 1), "An open cage", model="cage"),
          prop("g7_key_ring", (1, 2), "A ring of keys on a hook", kind="decor", item="ghostlight_key_ring"),
          prop("g7_crates", (5, 3), "Red-and-white crates", model="case"), prop("g7_banners", (12, 1), "Carnival banners", model="papers"),
-         prop("g7_poster", (13, 1), "A poster for the Festival of Fools", model="notice_board"),
+         prop("g7_poster", (13, 1), "A poster for the Festival of Fools", model="notice_board", call=GL + "incitements:ascendancy_enter", approach=12,
+              call_when="not flag.incitement_ascendancy and not flag.pending_ascendancy_incitement"),
          prop("g7_marionette_chest", (14, 5), "A marionette chest", kind="search", search_dc=13, skill="investigation", item="toad_faced_stone", model="case"),
          prop("g7_trapeze", (11, 3), "The trapeze", model="rope"),
-         scene("g7_ascendancy", (10, 3), GL + "incitements:ascendancy_enter", 12, "not flag.incitement_ascendancy and not flag.pending_ascendancy_incitement"),
-         grille(7)],
+         grille(7), router_lamp(7)],
         [npc("haint_harlequin", (11, 3), GL + "haint_harlequin:start", approach=5, when="not flag.haint_harlequin_done and not flag.haint_harlequin_destroyed")],
         encounters=[haint_fight("harlequin", (11, 3), "The Harlequin")], lights=lamps([(4, 3), (10, 3), (16, 3)]))
 
@@ -311,11 +314,10 @@ def build_locations():
     car("ghostlight_g8_tender", 8, "The Tender", "An ironclad fuel car: a black tank full of drifting soul coal, pipes along the walls, and a furnace in the front wall.",
         "A cast-iron tank with a round glass porthole fills the middle of the car, full of soul coal drifting like banked embers. Pipes run over the walls to a furnace in the front wall. There is no way forward.",
         [area("g8_vestibule", "The vestibule", (1, 1), (2, 5)), area("g8_tender", "The tender", (3, 1), (10, 5))],
-        [prop("g8_tank", (5, 4), "The fuel tank", model="case"), prop("g8_porthole", (7, 4), "The porthole", kind="decor"),
-         prop("g8_pipes", (2, 2), "Pipes over the walls and ceiling", kind="decor"), prop("g8_firebox", (10, 3), "The firebox", model="hearth"),
+        [prop("g8_tank", (5, 4), "The fuel tank", model="case", call=GL + "tender:crash", approach=12, call_when="flag.gl_stoker_done and not flag.gl_crashed"), prop("g8_porthole", (7, 4), "The porthole", kind="decor"),
+         prop("g8_pipes", (2, 2), "Pipes over the walls and ceiling", kind="decor"), prop("g8_firebox", (10, 3), "The firebox", model="hearth", call=GL + "tender:opened", approach=12, call_when="flag.haints_all_gone and not flag.gl_tender_opened"),
          prop("tender_door", (1, 4), "The Tender's door", kind="decor"),
-         scene("g8_opened", (8, 3), GL + "tender:opened", 12, "flag.haints_all_gone and not flag.gl_tender_opened"),
-         scene("g8_crash", (8, 3), GL + "tender:crash", 12, "flag.gl_stoker_done and not flag.gl_crashed")],
+         ],
         [],
         encounters=[
             {"id": "gl_stoker", "trigger": "dialogue", "flag": "gl_stoker_done", "quest": {"id": "ghostlight_express", "stage": "crashed"},
@@ -347,14 +349,15 @@ def build_locations():
         "props": [
             prop("wr_roots", (35, 9), "The roots", kind="decor"), prop("wr_grooves", (22, 13), "The crash grooves", kind="decor"),
             prop("wr_wrecked_cars", (11, 5), "The scattered cars", model="cart"), prop("wr_oak_car", (19, 8), "A car in the oak", model="cart", span=[4, 2], stand_ft=10),
-            prop("wr_boulders", (13, 13), "Mossy boulders", model="rocks"), prop("wr_moon", (22, 15), "The Crooked Moon", kind="decor"),
+            prop("wr_boulders", (13, 13), "Mossy boulders", model="rocks"), prop("wr_moon", (22, 15), "The Crooked Moon", kind="decor", model="rocks", call=GL + "vagrant_farewell:emerge", approach=12, call_when="flag.gl_locomotive_done and not flag.gl_last_stop"),
             prop("wr_soul_can_1", (7, 7), "A glint in the roots", kind="search", search_dc=10, item="soul_can", when="not flag.gl_cans_by_druskenvalds"),
             prop("wr_soul_can_2", (26, 7), "A glint by the groove", kind="search", search_dc=10, item="soul_can", when="not flag.gl_cans_by_druskenvalds"),
             prop("wr_soul_can_3", (23, 19), "A glint under a boulder", kind="search", search_dc=10, item="soul_can", when="not flag.gl_cans_by_druskenvalds"),
             prop("wr_whistle", (14, 18), "Something small in the mud", kind="search", search_dc=10, item="whistle_of_the_vagrant", when="flag.tarot_hero_1 == the_fool or flag.tarot_hero_2 == the_fool or flag.tarot_hero_3 == the_fool or flag.tarot_hero_4 == the_fool"),
             prop("wr_pool", (15, 17), "A pool of soul-mist", kind="decor"),
-            scene("wr_edge_n", (6, 14), GL + "vagrant_wreck:walk_away", 2, "flag.gl_wreck_met and not flag.gl_locomotive_done"),
-            scene("wr_last_stop", (30, 12), GL + "vagrant_farewell:emerge", 12, "flag.gl_locomotive_done and not flag.gl_last_stop"),
+            prop("wr_rim_w", (6, 14), "Dark trees at the rim", model="rocks", call=GL + "vagrant_wreck:walk_away", approach=2, call_when="flag.gl_wreck_met and not flag.gl_locomotive_done"),
+            prop("wr_rim_n", (24, 4), "Dark trees at the rim", model="rocks", call=GL + "vagrant_wreck:walk_away", approach=2, call_when="flag.gl_wreck_met and not flag.gl_locomotive_done"),
+            prop("wr_rim_s", (22, 25), "Dark trees at the rim", model="rocks", call=GL + "vagrant_wreck:walk_away", approach=2, call_when="flag.gl_wreck_met and not flag.gl_locomotive_done"),
         ],
         "containers": [{"id": "wr_trunks", "cell": [5, 21], "label": "The Druskenvalds' surviving trunks", "items": [], "model": "case"}],
         "npcs": [npc("the_vagrant", (34, 12), GL + "vagrant_wreck:arrival", approach=8, steps_aside=True, when="not flag.gl_locomotive_done"),

@@ -211,7 +211,11 @@
         15
       ],
       "kind": "decor",
-      "label": "The Crooked Moon"
+      "label": "The Crooked Moon",
+      "model": "rocks",
+      "call": "ghostlight_express/vagrant_farewell:emerge",
+      "approach": 12,
+      "call_when": "flag.gl_locomotive_done and not flag.gl_last_stop"
     },
     {
       "id": "wr_soul_can_1",
@@ -271,26 +275,43 @@
       "label": "A pool of soul-mist"
     },
     {
-      "id": "wr_edge_n",
+      "id": "wr_rim_w",
       "cell": [
         6,
         14
       ],
-      "kind": "decor",
+      "kind": "examine",
+      "label": "Dark trees at the rim",
+      "model": "rocks",
       "call": "ghostlight_express/vagrant_wreck:walk_away",
       "approach": 2,
       "call_when": "flag.gl_wreck_met and not flag.gl_locomotive_done"
     },
     {
-      "id": "wr_last_stop",
+      "id": "wr_rim_n",
       "cell": [
-        30,
-        12
+        24,
+        4
       ],
-      "kind": "decor",
-      "call": "ghostlight_express/vagrant_farewell:emerge",
-      "approach": 12,
-      "call_when": "flag.gl_locomotive_done and not flag.gl_last_stop"
+      "kind": "examine",
+      "label": "Dark trees at the rim",
+      "model": "rocks",
+      "call": "ghostlight_express/vagrant_wreck:walk_away",
+      "approach": 2,
+      "call_when": "flag.gl_wreck_met and not flag.gl_locomotive_done"
+    },
+    {
+      "id": "wr_rim_s",
+      "cell": [
+        22,
+        25
+      ],
+      "kind": "examine",
+      "label": "Dark trees at the rim",
+      "model": "rocks",
+      "call": "ghostlight_express/vagrant_wreck:walk_away",
+      "approach": 2,
+      "call_when": "flag.gl_wreck_met and not flag.gl_locomotive_done"
     }
   ],
   "containers": [

@@ -159,8 +159,11 @@ class Story:
             self.dlg[str(f.relative_to(self.root / "narrative").with_suffix(""))] = parse_dialogue(f)
         gr = (self.root / "world" / "game_root.gd").read_text()
         self.first = re.search(r'FIRST_LOCATION\s*:=\s*"([a-z0-9_]+)"', gr).group(1)
+        opening = re.search(r'\bOPENING\s*:=\s*"([^"]+)"', gr)   # the conversation a new game opens with (world/game_root.gd)
+        self.opening = opening.group(1) if opening else ""
         crime = dataroots.engine_file("story/crime.gd", self.root).read_text()
         self.watch_regions = set(re.findall(r'"([a-z_]+)":\s*"[a-z_]+"', re.search(r"const WATCH := \{([^}]*)\}", crime).group(1)))
+        self.engine_strings = set()   # string flags the game sets from code: any value they are compared with could be the one
         self.facts = set()
         self.why = {}
         self.flags = {}    # flag -> values it can hold
@@ -287,6 +290,8 @@ class Story:
             for fl in json.loads(f.read_text()).get("flags", []):
                 if isinstance(fl, dict) and fl.get("set_by") == "engine":
                     self.add(("flag", fl["id"], True), f"data/flags/{f.name} (set by the engine)")
+                    if fl.get("type") == "string":
+                        self.engine_strings.add(fl["id"])
         for name in ("pregens", "classes", "backgrounds"):
             for k, d in _table(self.root, name).items():
                 for m in re.findall(r'"(?:id|item)"\s*:\s*"([a-z0-9_]+)"', json.dumps(d)):
@@ -294,6 +299,8 @@ class Story:
         for _ in range(100):
             self.changed = False
             self._walked = set()
+            if self.opening:
+                self.walk_ref(self.opening, "a new game's opening conversation")
             self._locations()
             self._travel()
             self._events()
@@ -349,6 +356,9 @@ class Story:
                     self.changed |= self.add(("visited", a["id"]), w)
             for ex in loc.get("exits", []):
                 if self.beside(cells, ex["cell"]) and self.possible(ex.get("when", "")):
+                    sq = ex.get("sets_quest")
+                    if sq and (not sq.get("from") or set(sq["from"]) & set(self.stages.get(sq["id"], []))):   # the exit moves a quest on (location.schema exits)
+                        self.changed |= self.add(("quest", sq["id"], sq["stage"]), f"{w} exit {ex['id']}")
                     if ex["to"] == "travel":
                         self.changed |= self.add(("road_out", lid), w)
                     else:
@@ -403,8 +413,12 @@ class Story:
                         self.walk(f"watch/{region}", node, "story/crime.gd (a crime the watch sees)")
 
     def _check_flags(self, thing, why):
-        """A skill check on a thing in the world (WorldChecks) sets its success's flag (the abbey's scarecrows unbound)."""
+        """A skill check on a thing in the world (WorldChecks) sets its success's flag (the abbey's scarecrows unbound) and hands over
+        its success's items."""
         for chk in thing.get("checks", []):
+            if self.possible(chk.get("when", "")):
+                for it in (chk.get("success") or {}).get("items", []):
+                    self.changed |= self.add(("item", it["id"]), f"{why} check {chk.get('id', '')}")
             f = (chk.get("success") or {}).get("flag")
             if f and self.possible(chk.get("when", "")):
                 self.changed |= self.add(("flag", f, True), f"{why} check {chk.get('id', '')}")
@@ -595,6 +609,8 @@ class _Cond:
             if op in ("!=", "<", "<=") or (op == "==" and rhs in ("false", "0", "")):
                 return True
             if op == "==":
+                if t[5:] in s.engine_strings:
+                    return True
                 return any(v == "+" or str(v).lower() == rhs.lower() or (v is True and rhs == "true") for v in vals)
             n = float(rhs) if re.match(r"^-?\d+(\.\d+)?$", rhs) else 0.0
             return any(v == "+" or (v is True and n < 1 + (op == ">=")) or (isinstance(v, (int, float)) and not isinstance(v, bool)
@@ -650,6 +666,8 @@ def findings(root=ROOT):
                 out.append(f"narrative/{fk}.dialogue: nothing reaches node '{node}' (no entry, jump or option leads there "
                            f"in a playthrough)")
     for lid, loc in sorted(s.locs.items()):
+        if loc.get("region") == "test_grounds":   # the foundation's test hillside is a fixture for tests and captures, not a place of the story
+            continue
         if ("loc", lid) not in s.facts:
             out.append(f"data/locations/{lid}.json: no playthrough reaches this location")
             continue
