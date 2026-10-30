@@ -11,7 +11,7 @@ Engine handbook: addons/dnd_core/docs/README.md (process, testing, pipelines, go
 ## Commands (add new ones to the Makefile)
 make run (the edge build) | run-main | test [ONLY=substr FILES=a.gd,b.gd JOBS=n] | golden-saves | validate | lint |
 check [DRY=1] [DEPTH=n] | ci | capture [SCENE=… NAME=… FRAMES=… LOCATION=…] | smoke [SCENE=… FRAMES=n] | arena | import | lfs-quiet |
-palette | hooks | lane / lane-done / lane-seed [NAME= BRANCH= SSD=1] | edge-* | slots-test | tools-test
+palette | hooks | lane / lane-done / lane-seed [NAME= BRANCH= SSD=1] | edge-* | slots-test | tools-test | sketch HEIGHT=… LAYOUT=… SIZE=WxD [LOC=… PREVIEW=…]
 Not copied yet (later lanes retarget them to the local services): the art, voice, wiki, release and iOS tools and blender/.
 The engine is the git submodule addons/dnd_core (public repo DungeonsAndDragonsGameEngine): after a fresh clone or a lane,
 `git submodule update --init` and `git lfs pull` inside it; to change it, edit and commit inside addons/dnd_core, push the

@@ -25,7 +25,7 @@ FRESH   := if [ ! -f $(STAMP) ] || [ -n "$$(find . \( -path ./.godot -o -path ./
 ## terminal, so it must not queue behind lane imports and tests (tools/godot_slot.sh).
 PLAYFRESH := export GODOT_SLOTS=off; $(FRESH)
 
-.PHONY: run run-main arena smoke import test lint validate ci check lfs-quiet palette capture hooks golden-saves tools-test
+.PHONY: run run-main arena smoke import test lint validate ci check lfs-quiet palette capture sketch hooks golden-saves tools-test
 
 ## make run plays the edge build (tools/edge/edge.py): main plus every lane branch that has been handed off but not merged
 ## yet, assembled in a throwaway worktree (CrookedMoonGame-edge, in the SSD lanes' image), so lane work can be tried as soon
@@ -148,3 +148,9 @@ palette:
 ## foundation's place; SCENE=res://tools/capture/<x>.tscn for the audits, SCENE=res://scenes/combat/arena.tscn for the arena.
 capture:
 	$(UNSEEN) res://tools/capture/capture.tscn -- --scene=$(or $(SCENE),res://tools/capture/hillside_capture.tscn) --out=$(CURDIR)/captures/$(or $(NAME),capture) --frames=$(or $(FRAMES),90) $(if $(FOCUS),--focus=$(FOCUS),) $(if $(LOCATION),--location=$(LOCATION),) $(if $(ENCOUNTER),--encounter=$(ENCOUNTER),) $(if $(LOAD),--load=$(LOAD),) $(if $(DIALOGUE),--dialogue=$(DIALOGUE),) $(if $(BEATS),--beats=$(BEATS),) $(if $(MAP),--map,) $(if $(SHOP),--shop=$(SHOP),) $(ARGS) < /dev/null
+
+## Lays a place painted as land into a location's grid (the engine's world/authoring/sketch_tool.gd, plan E29): HEIGHT= a
+## height picture (black low, white TOP= feet up, default 30), LAYOUT= the layout in the key's flat colours, SIZE=WxD squares,
+## LOC=data/locations/<id>.json to write (refuses to close a walked square unless FORCE=1), PREVIEW=captures/<x>.png.
+sketch:
+	$(G) --headless --script res://addons/dnd_core/world/authoring/sketch_tool.gd -- $(if $(HEIGHT),--height=$(HEIGHT),) $(if $(LAYOUT),--layout=$(LAYOUT),) --size=$(SIZE) $(if $(TOP),--top=$(TOP),) $(if $(LOC),--loc=$(LOC),) $(if $(PREVIEW),--preview=$(PREVIEW),) $(if $(FORCE),--force,)

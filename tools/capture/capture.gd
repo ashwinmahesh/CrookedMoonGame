@@ -23,6 +23,12 @@ func _ready() -> void:
 	# never the owner's settings.cfg, and every capture starts from the defaults.
 	GameSettings.path = (SAVES % OS.get_process_id()).path_join("settings.cfg")
 	_own_saves(str(args.get("load", "")))
+	# --look=toon|modern|classic shoots that finish (not saved), for before-and-after pictures of the look.
+	if str(args.get("look", "")) != "":
+		Look.set_style(str(args["look"]), false)
+	# --graphics=low|medium|high shoots that preset (not saved).
+	if str(args.get("graphics", "")) != "":
+		Graphics.set_preset(str(args["graphics"]), false)
 	# make capture opens the window small in a corner; off screen it can take the capture size unseen.
 	var win := get_window()
 	win.borderless = true
