@@ -81,7 +81,7 @@ services).
 | File | Now | Replace with |
 |---|---|---|
 | `art/cutscenes/gl_*.jpg` (37) | Dark indigo placeholder pictures with a crescent and the picture's id (`tools/content/placeholder_cutscenes.py`) | The look-P pictures from the image service: prompts in `tools/content/ghostlight_cutscenes.json`; `tools/content/fetch_cutscenes.py` swaps each finished one in under the same name |
-| `data/npcs/*.json` for R10 and R11 (68), `sprite` | `villager`, the gray-box walker; no `portrait` | Portraits and sprites per person (W8); the leads' photoreal portraits, the villagers' look |
+| `data/npcs/*.json` for R10 and R11 (68), `sprite` | `villager`, the gray-box walker; no `portrait` | Photoreal portraits for every person and stylized (look P) sprites, per Ashwin 2026-10-30 (W8) |
 | `model` on the new locations' props | The engine's catalog models nearest in kind (`case`, `chairs`, `lamp`, `rocks`...); a prop with no model draws a plain marker | The Halloween props (carved turnips, wicker effigies, the train kit, the clocktower, the Oak of Many Faces, the oak car, the locomotive) once the props lane builds them |
 | `data/travel/wickermoor_hollow.json` | Two places (the wreck, the village) and the wreck road, on the placeholder map `art/ui/map/wickermoor_hollow.png` | The valley's places and roads as the packages land; the painted map |
 | `data/locations/ghostlight_g*.json` exits | The eight cars chained in the book's order; plain doors | E23's seeded Switcheroo (the order per save, the mist between cars) |
