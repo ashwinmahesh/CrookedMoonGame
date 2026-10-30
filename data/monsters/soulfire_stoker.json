@@ -1,0 +1,195 @@
+{
+  "id": "soulfire_stoker",
+  "name": "Soulfire Stoker",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours.",
+    "page": 532
+  },
+  "size": "medium",
+  "type": "elemental",
+  "alignment": "neutral",
+  "ac": 14,
+  "initiative": 3,
+  "hp": {
+    "average": 59,
+    "dice": "7d8+28"
+  },
+  "speed": {
+    "walk": 40
+  },
+  "abilities": {
+    "str": 6,
+    "dex": 16,
+    "con": 18,
+    "int": 9,
+    "wis": 12,
+    "cha": 7
+  },
+  "skills": {
+    "perception": 3
+  },
+  "resistances": [
+    "bludgeoning",
+    "piercing",
+    "slashing"
+  ],
+  "immunities": [
+    "fire",
+    "poison"
+  ],
+  "condition_immunities": [
+    "exhaustion",
+    "grappled",
+    "paralyzed",
+    "petrified",
+    "poisoned",
+    "prone",
+    "restrained",
+    "unconscious"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 13,
+  "languages": [
+    "Primordial (Ignan)"
+  ],
+  "cr": 4,
+  "xp": 1100,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "corpse_fuel",
+      "name": "Corpse Fuel",
+      "action": "passive",
+      "summary": "Sees a corpse at its turn's start: it must go to it and spend its action burning it.",
+      "text": "When the stoker starts its turn able to see a corpse, it has to move as far as it can into the corpse's space and use its action to burn it. A Medium or smaller body becomes ash; a bigger one burns down by one size.",
+      "implemented": "text"
+    },
+    {
+      "id": "fire_form",
+      "name": "Fire Form",
+      "action": "passive",
+      "summary": "Slips through 1-inch gaps and into creatures' spaces; the first time it enters one on a turn, that creature takes 4 (1d8) Fire.",
+      "text": "The stoker passes through gaps an inch wide at no extra cost, can move into and stop in another creature's space, and the first time on a turn it enters a creature's space, that creature takes 4 (1d8) Fire damage.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "enters_spaces"
+        },
+        {
+          "stat": "flag",
+          "value": "amorphous"
+        }
+      ],
+      "implemented": "text"
+    },
+    {
+      "id": "illumination",
+      "name": "Illumination",
+      "action": "passive",
+      "summary": "Sheds Dim Light 30 ft.",
+      "text": "The stoker gives off Dim Light in a 30-foot radius.",
+      "implemented": "text"
+    },
+    {
+      "id": "soul_burn",
+      "name": "Soul Burn",
+      "action": "passive",
+      "summary": "At the end of its turns, everything within 5 ft takes 4 (1d8) Necrotic.",
+      "text": "At the end of each of its turns, every other creature within 5 feet of the stoker takes 4 (1d8) Necrotic damage.",
+      "aura": {
+        "radius": 5,
+        "trigger": "own_turn_end",
+        "damage": {
+          "dice": "1d8",
+          "type": "necrotic"
+        }
+      },
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "sear",
+          "count": 2
+        }
+      ],
+      "summary": "Two Sear attacks."
+    },
+    {
+      "id": "sear",
+      "name": "Sear",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "1d8+3",
+          "type": "fire"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "until": "source_turn_start",
+          "modifiers": [
+            {
+              "stat": "disadvantage",
+              "on": "attack"
+            }
+          ]
+        }
+      ],
+      "summary": "+5, 1d8+3 Fire, and the target attacks with Disadvantage until the stoker's next turn (the book: its next attack only).",
+      "text": "A lash of soul-fire: 7 (1d8 + 3) Fire damage, and the target has Disadvantage on the next attack roll it makes before the start of the stoker's next turn."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "spectral_steam",
+      "name": "Spectral Steam",
+      "kind": "save",
+      "do": "bonus_save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "dex",
+        "dc": 13,
+        "success": "none"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 30
+      },
+      "targets": {
+        "range": 30
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "until": "minute",
+          "modifiers": [
+            {
+              "stat": "flag",
+              "value": "no_invisible"
+            }
+          ]
+        }
+      ],
+      "summary": "Recharge 5-6. 30-ft cone, DC 13 Dex save: for 1 minute the target glows (Dim Light 10 ft) and can't be Invisible.",
+      "text": "A gust of glowing ghost-steam. Each creature in a 30-foot Cone makes a DC 13 Dexterity saving throw. On a failure, for 1 minute it sheds Dim Light in a 10-foot radius and gains no benefit from being Invisible."
+    }
+  ],
+  "ai_profile": "mindless",
+  "summary": "A furnace spirit of ghost-flame and steam that burns souls as well as flesh, and can't leave a corpse unburned."
+}

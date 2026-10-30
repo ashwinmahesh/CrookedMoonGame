@@ -1,0 +1,139 @@
+{
+  "id": "wayward_haint",
+  "name": "Wayward Haint",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours.",
+    "page": 536
+  },
+  "size": "medium",
+  "type": "undead",
+  "alignment": "neutral",
+  "ac": 11,
+  "initiative": 1,
+  "hp": {
+    "average": 13,
+    "dice": "3d8"
+  },
+  "speed": {
+    "walk": 5,
+    "fly": 30,
+    "hover": true
+  },
+  "abilities": {
+    "str": 9,
+    "dex": 13,
+    "con": 10,
+    "int": 10,
+    "wis": 14,
+    "cha": 14
+  },
+  "saves": {
+    "cha": 4
+  },
+  "skills": {
+    "perception": 4,
+    "stealth": 3
+  },
+  "resistances": [
+    "acid",
+    "bludgeoning",
+    "cold",
+    "fire",
+    "lightning",
+    "piercing",
+    "slashing",
+    "thunder"
+  ],
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "grappled",
+    "paralyzed",
+    "petrified",
+    "poisoned",
+    "prone",
+    "restrained"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 14,
+  "languages": [
+    "Common",
+    "one other language"
+  ],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "bottle_trap",
+      "name": "Bottle Trap",
+      "action": "passive",
+      "summary": "Entering the space of an upright empty bottle: DC 16 Cha save or it is sucked in and corked.",
+      "text": "If the haint moves into a space holding an empty bottle standing upright, it makes a DC 16 Charisma saving throw. On a failure it is pulled inside and a stopper seals the bottle. Bottled, it can see and hear 10 feet out and be heard that far. Breaking or opening the bottle lets it out.",
+      "implemented": "text"
+    },
+    {
+      "id": "incorporeal_movement",
+      "name": "Incorporeal Movement",
+      "action": "passive",
+      "summary": "Moves through creatures and objects as Difficult Terrain; 5 (1d10) Force if it ends a turn inside one.",
+      "text": "The haint passes through creatures and objects as though they were Difficult Terrain, and takes 5 (1d10) Force damage if it ends its turn inside an object.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "incorporeal_movement"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "states": {
+    "opening_wail": {
+      "id": "opening_wail",
+      "name": "Opening Wail",
+      "action": "passive",
+      "summary": "Its first turn in the fight is a wail: it does nothing else.",
+      "text": "A haint turned hostile spends its first turn wailing its grief, which warns the party what it has become (ours, R10 decision 28).",
+      "implemented": "text"
+    }
+  },
+  "actions": [
+    {
+      "id": "draining_regret",
+      "name": "Draining Regret",
+      "kind": "melee",
+      "attack": {
+        "bonus": 4,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "3d6",
+          "type": "psychic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "exhaustion",
+          "params": {
+            "levels": 1,
+            "max": 5,
+            "until": "rest"
+          }
+        }
+      ],
+      "summary": "+4, 3d6 Psychic and 1 Exhaustion (not past 5; this Exhaustion ends on a rest or Lesser Restoration).",
+      "text": "Its grief washes over the target: 10 (3d6) Psychic damage and one level of Exhaustion. This can't take the target past 5 levels, and every level it gave goes away when the target finishes a Short or Long Rest or receives Lesser Restoration or similar magic."
+    }
+  ],
+  "ai_profile": "mindless",
+  "summary": "A lost soul tied to the regret it can't let go of: it drifts through walls, and its touch leaves the living worn out with sorrow."
+}

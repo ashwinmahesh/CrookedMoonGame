@@ -1,0 +1,171 @@
+{
+  "id": "wildpyre_large",
+  "name": "Wildpyre (Large)",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. The Large form (a tiger, a bear, a horse).",
+    "page": 539
+  },
+  "size": "large",
+  "type": "undead",
+  "alignment": "chaotic evil",
+  "ac": 14,
+  "initiative": 4,
+  "hp": {
+    "average": 58,
+    "dice": "9d8+18"
+  },
+  "speed": {
+    "walk": 5,
+    "fly": 60,
+    "hover": true
+  },
+  "abilities": {
+    "str": 6,
+    "dex": 18,
+    "con": 14,
+    "int": 4,
+    "wis": 12,
+    "cha": 7
+  },
+  "skills": {
+    "perception": 7,
+    "stealth": 7
+  },
+  "resistances": [
+    "acid",
+    "bludgeoning",
+    "lightning",
+    "piercing",
+    "slashing",
+    "thunder"
+  ],
+  "immunities": [
+    "fire",
+    "necrotic",
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened",
+    "grappled",
+    "paralyzed",
+    "petrified",
+    "poisoned",
+    "prone",
+    "restrained"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 17,
+  "languages": [],
+  "cr": 5,
+  "xp": 1800,
+  "proficiency_bonus": 3,
+  "traits": [
+    {
+      "id": "incorporeal_movement",
+      "name": "Incorporeal Movement",
+      "action": "passive",
+      "summary": "Moves through creatures and objects as Difficult Terrain; 5 (1d10) Force if it ends a turn inside one.",
+      "text": "The wildpyre passes through creatures and objects as though they were Difficult Terrain, and takes 5 (1d10) Force damage if it ends its turn inside an object.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "incorporeal_movement"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "quenching_water",
+      "name": "Quenching Water",
+      "action": "passive",
+      "summary": "Any water hurts it as Holy Water would.",
+      "text": "Water of any kind works on the wildpyre as Holy Water: a thrown flask or jug of water, or water a spell makes, burns it with Radiant damage.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "blazing_rend",
+          "count": 2
+        }
+      ],
+      "summary": "Two Blazing Rends, and Flame Bind if it has recharged."
+    },
+    {
+      "id": "blazing_rend",
+      "name": "Blazing Rend",
+      "kind": "melee",
+      "attack": {
+        "bonus": 7,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 8,
+          "dice": "1d8+4",
+          "type": "necrotic"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "fire"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "burning"
+        },
+        {
+          "do": "condition",
+          "condition": "prone",
+          "max_size": "large",
+          "until": "permanent"
+        }
+      ],
+      "summary": "+7, 1d8+4 Necrotic plus 2d6 Fire; the target starts burning and, if no bigger than the wildpyre, falls Prone.",
+      "text": "Claws of ghost-flame: 8 (1d8 + 4) Necrotic and 7 (2d6) Fire damage. The target starts burning, and a creature no larger than the wildpyre is knocked Prone."
+    },
+    {
+      "id": "flame_bind",
+      "name": "Flame Bind",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "dex",
+        "dc": 15,
+        "success": "none"
+      },
+      "targets": {
+        "range": 60,
+        "count": 1
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "restrained",
+          "until": "permanent",
+          "repeat_save": {
+            "ability": "dex",
+            "dc": 15,
+            "when": "end"
+          }
+        }
+      ],
+      "summary": "Recharge 5-6. One creature within 60 ft: DC 15 Dex save or Restrained (save again at the end of each of its turns; it can tear free on its turn by taking 1d12 Fire plus 1d12 Necrotic).",
+      "text": "Ropes of flame lash a creature the wildpyre can see within 60 feet, which makes a DC 15 Dexterity saving throw or is Restrained. It repeats the save at the end of each of its turns, ending the effect on a success, and on its own turn it may instead tear free, taking 6 (1d12) Fire and 6 (1d12) Necrotic damage."
+    }
+  ],
+  "ai_profile": "skirmisher",
+  "summary": "The ghost of an animal that died in fire, still made of the flames that took it: it claws, sets things burning and binds with ropes of fire. Water puts it out."
+}

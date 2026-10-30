@@ -1,0 +1,223 @@
+{
+  "id": "ghostlight_locomotive",
+  "name": "The Ghostlight Locomotive",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 557,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Phases, Soul Cans and echoes follow package R10 (vault Packages/R10 - The Ghostlight Express.md, section 10.3)."
+  },
+  "size": "gargantuan",
+  "type": "construct",
+  "alignment": "neutral",
+  "ac": 15,
+  "initiative": 5,
+  "hp": {
+    "average": 94,
+    "dice": "7d20+21"
+  },
+  "speed": {
+    "walk": 50
+  },
+  "abilities": {
+    "str": 18,
+    "dex": 12,
+    "con": 17,
+    "int": 10,
+    "wis": 10,
+    "cha": 10
+  },
+  "saves": {
+    "wis": 2,
+    "cha": 2
+  },
+  "skills": {
+    "athletics": 6
+  },
+  "resistances": [
+    "fire",
+    "necrotic"
+  ],
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened",
+    "poisoned"
+  ],
+  "senses": {
+    "blindsight": 60
+  },
+  "passive_perception": 10,
+  "languages": [
+    "understands all languages but can't speak"
+  ],
+  "cr": 4,
+  "xp": 1100,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "crooked_switch",
+      "name": "Crooked Switch (1/Day)",
+      "action": "special",
+      "summary": "Bloodied: its Legendary Resistance comes back and it turns malevolent, gaining its Multiattack.",
+      "text": "The first time the locomotive is Bloodied, every spent use of its Legendary Resistance returns and it takes a malevolent form for 12 hours: Chaotic Evil, and able to use its Multiattack. (In the game this is its second phase, Phantom in the Machine.)",
+      "implemented": "data"
+    },
+    {
+      "id": "legendary_resistance",
+      "name": "Legendary Resistance (2/Day)",
+      "action": "special",
+      "summary": "Twice a day, a failed saving throw becomes a success.",
+      "text": "When the locomotive fails a saving throw, it can choose to succeed instead, twice a day.",
+      "implemented": "engine"
+    },
+    {
+      "id": "soul_fuel",
+      "name": "Soul Fuel",
+      "action": "special",
+      "summary": "Starting its turn within 10 ft of a Soul Can, it eats it: +20 Hit Points and Advantage on its attacks until its next turn; each can eaten or broken frees a haint's echo.",
+      "text": "Ours (R10 decision 15): when the locomotive starts its turn within 10 feet of a Soul Can it devours the can, regaining 20 Hit Points and making its attacks with Advantage until its next turn starts. Every can eaten or smashed lets out the echo of the haint it held, which fights beside the engine until the engine falls.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "phase": "phantom_in_the_machine",
+      "multiattack": [
+        {
+          "action": "rail_slam",
+          "count": 2
+        }
+      ],
+      "summary": "Crooked Switch only: two Rail Slams."
+    },
+    {
+      "id": "rail_slam",
+      "name": "Rail Slam",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 9,
+          "dice": "1d10+4",
+          "type": "bludgeoning"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "push",
+          "feet": 10
+        }
+      ],
+      "summary": "+6, reach 10 ft, 1d10+4 Bludgeoning and a push of up to 10 ft.",
+      "text": "The engine's iron bulk crashes into the target: 9 (1d10 + 4) Bludgeoning damage, and it is shoved up to 10 feet straight away."
+    },
+    {
+      "id": "spirit_exhaust",
+      "name": "Spirit Exhaust",
+      "kind": "save",
+      "recharge": "6",
+      "save": {
+        "ability": "con",
+        "dc": 13,
+        "success": "half"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 30
+      },
+      "targets": {
+        "range": 30
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "3d6",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "Recharge 6. 30-ft cone, DC 13 Con save: 3d6 Necrotic, half on a success.",
+      "text": "It vents a blast of burned souls. Each creature in a 30-foot Cone makes a DC 13 Constitution saving throw, taking 10 (3d6) Necrotic damage on a failure or half as much on a success."
+    },
+    {
+      "id": "haunting_whistle",
+      "name": "Haunting Whistle",
+      "kind": "save",
+      "save": {
+        "ability": "wis",
+        "dc": 13,
+        "success": "none"
+      },
+      "targets": {
+        "range": 30,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 4,
+          "dice": "1d8",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "frightened",
+          "until": "target_turn_end"
+        }
+      ],
+      "summary": "Legendary only, once a round. One creature within 30 ft: DC 13 Wis save or 1d8 Psychic and Frightened until the end of its next turn.",
+      "text": "It shrieks its steam whistle at a creature within 30 feet, which makes a DC 13 Wisdom saving throw or takes 4 (1d8) Psychic damage and is Frightened until the end of its next turn. Hit or miss, it can't whistle again until its next turn begins."
+    }
+  ],
+  "legendary_actions": {
+    "per_round": 3,
+    "options": [
+      {
+        "id": "ghostly_rails",
+        "name": "Ghostly Rails",
+        "cost": 1,
+        "do": "ghostly_rails",
+        "summary": "Moves up to half its Speed in a straight line with no Opportunity Attacks; every Large or smaller creature in its path is Grappled by spectral rails (escape DC 14).",
+        "text": "Spectral rails unroll ahead of it and the locomotive charges along them: up to half its Speed in a straight line without provoking Opportunity Attacks. A Large or smaller creature whose space it passes through is Grappled by the rails (escape DC 14)."
+      },
+      {
+        "id": "haunting_whistle",
+        "name": "Haunting Whistle",
+        "cost": 1,
+        "action": "haunting_whistle",
+        "summary": "One creature within 30 ft: DC 13 Wis save or 1d8 Psychic and Frightened until the end of its next turn. Once a round.",
+        "once": true
+      }
+    ]
+  },
+  "legendary_resistance": 2,
+  "phases": [
+    {
+      "id": "phantom_in_the_machine",
+      "name": "Phantom in the Machine",
+      "when": {
+        "bloodied": true
+      },
+      "legendary_resistance": "refill",
+      "summary": "Crooked Switch: its face twists into an iron grin, its Legendary Resistance comes back and it slams twice a turn.",
+      "say": "gl_locomotive_switch",
+      "flag": "gl_locomotive_switched"
+    }
+  ],
+  "minions": {
+    "when_it_falls": "vanish",
+    "narration": "The echoes come apart with the engine's last breath."
+  },
+  "ai_profile": "brute",
+  "summary": "The engine of the train that carries the dead, its soul-fuel poisoned: it charges along rails of mist, slams with its iron bulk and wails with its whistle."
+}
