@@ -139,3 +139,4 @@ func _record(st: Dictionary, ids: Dictionary, prefix: String) -> void:
 		if i % EVERY == 0:
 			get_viewport().get_texture().get_image().save_jpg("%s_%03d.jpg" % [prefix, i / EVERY], 0.9)
 	await get_tree().create_timer(1.2).timeout
+	print("feel_capture: %s left %d marks on the ground" % [prefix.get_file(), GroundMarks.count()])
