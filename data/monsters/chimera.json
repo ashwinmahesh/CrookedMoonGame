@@ -1,0 +1,163 @@
+{
+  "id": "chimera",
+  "name": "Chimera",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Chimera (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). The Bite's extra dice with Advantage are entered as a conditional damage entry."
+  },
+  "size": "large",
+  "type": "monstrosity",
+  "alignment": "chaotic evil",
+  "ac": 14,
+  "initiative": 0,
+  "hp": {
+    "average": 114,
+    "dice": "12d10+48"
+  },
+  "speed": {
+    "walk": 30,
+    "fly": 60
+  },
+  "abilities": {
+    "str": 19,
+    "dex": 11,
+    "con": 19,
+    "int": 3,
+    "wis": 14,
+    "cha": 10
+  },
+  "skills": {
+    "perception": 8
+  },
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 18,
+  "languages": [
+    "Understands Draconic but can't speak"
+  ],
+  "cr": 6,
+  "xp": 2300,
+  "proficiency_bonus": 3,
+  "traits": [],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "ram",
+          "count": 1
+        },
+        {
+          "action": "bite",
+          "count": 1
+        },
+        {
+          "action": "claw",
+          "count": 1,
+          "or": [
+            "fire_breath"
+          ]
+        }
+      ],
+      "summary": "A Ram, a Bite and a Claw; Fire Breath can replace the Claw when ready."
+    },
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 7,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 11,
+          "dice": "2d6+4",
+          "type": "piercing"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "piercing",
+          "when": "extra, if the chimera had Advantage on the attack roll (18 (4d6 + 4) Piercing in all)"
+        }
+      ],
+      "summary": "A lion's bite; bigger when the chimera attacked with Advantage."
+    },
+    {
+      "id": "claw",
+      "name": "Claw",
+      "kind": "melee",
+      "attack": {
+        "bonus": 7,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "1d6+4",
+          "type": "slashing"
+        }
+      ],
+      "summary": "A raking claw."
+    },
+    {
+      "id": "ram",
+      "name": "Ram",
+      "kind": "melee",
+      "attack": {
+        "bonus": 7,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "1d12+4",
+          "type": "bludgeoning"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "prone",
+          "max_size": "medium"
+        }
+      ],
+      "summary": "Goat horns; a Medium or smaller target falls Prone."
+    },
+    {
+      "id": "fire_breath",
+      "name": "Fire Breath",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "dex",
+        "dc": 15,
+        "success": "half"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 15
+      },
+      "targets": {
+        "range": 15
+      },
+      "damage": [
+        {
+          "average": 31,
+          "dice": "7d8",
+          "type": "fire"
+        }
+      ],
+      "summary": "Recharge 5-6. A 15-ft cone of flame: DC 15 Dex save, 7d8 Fire, half on a success."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A three-headed flyer that rams, bites and claws, and breathes fire in a cone.",
+  "art": "lion"
+}

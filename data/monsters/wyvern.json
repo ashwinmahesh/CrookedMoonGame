@@ -1,0 +1,110 @@
+{
+  "id": "wyvern",
+  "name": "Wyvern",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Wyvern (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block)."
+  },
+  "size": "large",
+  "type": "dragon",
+  "alignment": "unaligned",
+  "ac": 14,
+  "initiative": 0,
+  "hp": {
+    "average": 127,
+    "dice": "15d10+45"
+  },
+  "speed": {
+    "walk": 30,
+    "fly": 80
+  },
+  "abilities": {
+    "str": 19,
+    "dex": 10,
+    "con": 16,
+    "int": 5,
+    "wis": 12,
+    "cha": 6
+  },
+  "skills": {
+    "perception": 4
+  },
+  "senses": {
+    "darkvision": 120
+  },
+  "passive_perception": 14,
+  "languages": [],
+  "cr": 6,
+  "xp": 2300,
+  "proficiency_bonus": 3,
+  "traits": [],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "bite",
+          "count": 1
+        },
+        {
+          "action": "sting",
+          "count": 1
+        }
+      ],
+      "summary": "One Bite and one Sting."
+    },
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 7,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 13,
+          "dice": "2d8+4",
+          "type": "piercing"
+        }
+      ],
+      "summary": "A powerful bite."
+    },
+    {
+      "id": "sting",
+      "name": "Sting",
+      "kind": "melee",
+      "attack": {
+        "bonus": 7,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 11,
+          "dice": "2d6+4",
+          "type": "piercing"
+        },
+        {
+          "average": 24,
+          "dice": "7d6",
+          "type": "poison"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "source_turn_start"
+        }
+      ],
+      "summary": "Reach 10 ft. A tail sting loaded with venom; the target is Poisoned until the wyvern's next turn."
+    }
+  ],
+  "ai_profile": "brute",
+  "art": "griffon",
+  "summary": "A flying dragon-kin that bites and stings with a poisonous tail."
+}

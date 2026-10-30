@@ -1,0 +1,160 @@
+{
+  "id": "incubus",
+  "name": "Incubus",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Incubus (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). Nightmare (a Bonus Action: Unconscious at 20 HP or fewer, otherwise damage) is entered as a special action; the curse on Restless Touch is a timed_curse rider."
+  },
+  "size": "medium",
+  "type": "fiend",
+  "alignment": "neutral evil",
+  "ac": 15,
+  "initiative": 3,
+  "hp": {
+    "average": 66,
+    "dice": "12d8+12"
+  },
+  "speed": {
+    "walk": 30,
+    "fly": 60
+  },
+  "abilities": {
+    "str": 8,
+    "dex": 17,
+    "con": 13,
+    "int": 15,
+    "wis": 12,
+    "cha": 20
+  },
+  "skills": {
+    "deception": 9,
+    "insight": 5,
+    "perception": 5,
+    "persuasion": 9,
+    "stealth": 7
+  },
+  "resistances": [
+    "cold",
+    "fire",
+    "poison",
+    "psychic"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 15,
+  "languages": [
+    "Abyssal",
+    "Common",
+    "Infernal"
+  ],
+  "telepathy": 60,
+  "cr": 4,
+  "xp": 1100,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "succubus_form",
+      "name": "Succubus Form",
+      "action": "passive",
+      "summary": "After a Long Rest it can take the Succubus stat block instead.",
+      "text": "When the incubus finishes a Long Rest, it can shape-shift into a Succubus and use that stat block instead of this one. What it wears or carries doesn't change.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "restless_touch",
+          "count": 2
+        }
+      ],
+      "summary": "Two Restless Touch attacks."
+    },
+    {
+      "id": "restless_touch",
+      "name": "Restless Touch",
+      "kind": "melee",
+      "attack": {
+        "bonus": 7,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 15,
+          "dice": "3d6+5",
+          "type": "psychic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "timed_curse",
+          "params": {
+            "hours": 24,
+            "until_source_dies": true,
+            "effect": "the target gains no benefit from finishing Short Rests"
+          }
+        }
+      ],
+      "summary": "A touch that curses the target for 24 hours: no benefit from Short Rests."
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "kind": "spellcasting",
+      "summary": "Cha, DC 15: Disguise Self and Etherealness at will; Dream and Hypnotic Pattern once a day.",
+      "text": "Charisma is its spellcasting ability (spell save DC 15), needing no Material components. At will: Disguise Self, Etherealness. 1/day each: Dream, Hypnotic Pattern."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "nightmare",
+      "name": "Nightmare",
+      "kind": "special",
+      "recharge": "6",
+      "do": "nightmare_sleep_or_damage",
+      "save": {
+        "ability": "wis",
+        "dc": 15,
+        "success": "none"
+      },
+      "targets": {
+        "range": 60,
+        "count": 1
+      },
+      "damage": [
+        {
+          "average": 18,
+          "dice": "4d8",
+          "type": "psychic",
+          "when": "otherwise, if the target has more than 20 Hit Points"
+        }
+      ],
+      "summary": "Recharge 6. DC 15 Wis save by a creature within 60 ft: 20 HP or fewer means asleep for an hour, otherwise 4d8 Psychic.",
+      "text": "Wisdom saving throw, DC 15, one creature the incubus can see within 60 feet. Failure: if the target has 20 Hit Points or fewer it is Unconscious for 1 hour, until it takes damage, or until a creature within 5 feet takes an action to wake it. Otherwise it takes 18 (4d8) Psychic damage."
+    }
+  ],
+  "spellcasting": {
+    "ability": "cha",
+    "dc": 15,
+    "at_will": [
+      "disguise_self",
+      "etherealness"
+    ],
+    "per_day": {
+      "1": [
+        "dream",
+        "hypnotic_pattern"
+      ]
+    }
+  },
+  "ai_profile": "spellcaster",
+  "summary": "A flying tempter: psychic touches that curse rest, spells of sleep and dream, and a nightmare that fells the weak.",
+  "art": "noble"
+}

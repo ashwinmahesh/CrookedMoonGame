@@ -1,0 +1,114 @@
+{
+  "id": "ankheg",
+  "name": "Ankheg",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Ankheg (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). The Bite's Advantage against a creature it has Grappled is text only."
+  },
+  "size": "large",
+  "type": "monstrosity",
+  "alignment": "unaligned",
+  "ac": 14,
+  "initiative": 0,
+  "hp": {
+    "average": 45,
+    "dice": "6d10+12"
+  },
+  "speed": {
+    "walk": 30,
+    "burrow": 10
+  },
+  "abilities": {
+    "str": 17,
+    "dex": 11,
+    "con": 14,
+    "int": 1,
+    "wis": 13,
+    "cha": 6
+  },
+  "senses": {
+    "darkvision": 60,
+    "tremorsense": 60
+  },
+  "passive_perception": 11,
+  "languages": [],
+  "cr": 2,
+  "xp": 450,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "tunneler",
+      "name": "Tunneler",
+      "action": "passive",
+      "summary": "Burrows through solid rock at half its Burrow Speed, leaving a 10-ft tunnel.",
+      "text": "The ankheg can burrow through solid rock at half its Burrow Speed and leaves a tunnel 10 feet across behind it.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "2d6+3",
+          "type": "slashing"
+        },
+        {
+          "average": 3,
+          "dice": "1d6",
+          "type": "acid"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 13,
+          "limit": 1,
+          "max_size": "large"
+        }
+      ],
+      "summary": "A slashing, acid-slick bite that grabs a Large or smaller target (escape DC 13).",
+      "text": "Melee attack, +5 to hit, with Advantage if the target is Grappled by the ankheg. A Large or smaller target is Grappled (escape DC 13)."
+    },
+    {
+      "id": "acid_spray",
+      "name": "Acid Spray",
+      "kind": "save",
+      "recharge": "6",
+      "save": {
+        "ability": "dex",
+        "dc": 12,
+        "success": "half"
+      },
+      "area": {
+        "shape": "line",
+        "size": 30,
+        "width": 5
+      },
+      "targets": {
+        "range": 30
+      },
+      "damage": [
+        {
+          "average": 14,
+          "dice": "4d6",
+          "type": "acid"
+        }
+      ],
+      "summary": "Recharge 6. A 30-ft line of acid: DC 12 Dex save, 4d6 Acid, half on a success."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A burrowing brute that seizes prey in its jaws and spits a line of acid.",
+  "art": "giant_insect",
+  "art_height": 1.6
+}

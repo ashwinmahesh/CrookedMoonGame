@@ -1,0 +1,131 @@
+{
+  "id": "shield_guardian",
+  "name": "Shield Guardian",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Shield Guardian (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). Bound, Spell Storing and the Protection Reaction all depend on an amulet and its wearer, which the engine does not model yet."
+  },
+  "size": "large",
+  "type": "construct",
+  "alignment": "unaligned",
+  "ac": 17,
+  "initiative": -1,
+  "hp": {
+    "average": 142,
+    "dice": "15d10+60"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 18,
+    "dex": 8,
+    "con": 18,
+    "int": 7,
+    "wis": 10,
+    "cha": 3
+  },
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened",
+    "paralyzed",
+    "petrified",
+    "poisoned"
+  ],
+  "senses": {
+    "blindsight": 10,
+    "darkvision": 60
+  },
+  "passive_perception": 10,
+  "languages": [
+    "Understands commands given in any language but can't speak"
+  ],
+  "cr": 7,
+  "xp": 2900,
+  "proficiency_bonus": 3,
+  "traits": [
+    {
+      "id": "bound",
+      "name": "Bound",
+      "action": "passive",
+      "summary": "Linked to an amulet: its wearer can call it, and within 60 ft of the guardian half the wearer's damage (rounded up) goes to the guardian instead.",
+      "text": "The guardian is magically bound to an amulet. While both are on the same plane, the amulet's wearer can telepathically call the guardian, and the guardian knows the amulet's distance and direction. If the guardian is within 60 feet of the wearer, half of any damage the wearer takes (rounded up) is transferred to the guardian.",
+      "implemented": "text"
+    },
+    {
+      "id": "regeneration",
+      "name": "Regeneration",
+      "action": "passive",
+      "summary": "Regains 10 HP at the start of each of its turns while it has at least 1 HP.",
+      "text": "The guardian regains 10 Hit Points at the start of each of its turns if it has at least 1 Hit Point.",
+      "implemented": "engine"
+    },
+    {
+      "id": "spell_storing",
+      "name": "Spell Storing",
+      "action": "passive",
+      "summary": "The amulet's wearer can store one spell of level 4 or lower in it, to be cast later with the caster's choices.",
+      "text": "A spellcaster who wears the amulet can have the guardian store one spell of level 4 or lower: the wearer casts it on the guardian from within 5 feet and it has no effect, but is stored (a new spell replaces an old one). The guardian can cast the stored spell with any parameters the original caster set, needing no components and using the caster's spellcasting ability; the spell is then lost.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "fist",
+          "count": 2
+        }
+      ],
+      "summary": "Two Fist attacks."
+    },
+    {
+      "id": "fist",
+      "name": "Fist",
+      "kind": "melee",
+      "attack": {
+        "bonus": 7,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 11,
+          "dice": "2d6+4",
+          "type": "bludgeoning"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "force"
+        }
+      ],
+      "summary": "Reach 10 ft. A heavy punch with a force surge."
+    }
+  ],
+  "reactions": [
+    {
+      "id": "protection",
+      "name": "Protection",
+      "kind": "special",
+      "do": "protect_wearer",
+      "trigger": "An attack roll hits the wearer of the guardian's amulet while the wearer is within 5 feet of the guardian",
+      "summary": "When an attack hits the amulet's wearer within 5 ft of it, the wearer gains +5 AC until its next turn, which can turn the hit into a miss.",
+      "text": "Response: the wearer gains a +5 bonus to AC, including against the triggering attack, until the start of the guardian's next turn."
+    }
+  ],
+  "regenerates": {
+    "hp": 10
+  },
+  "ai_profile": "brute",
+  "art": "iron_golem",
+  "summary": "A construct bodyguard that regenerates, punches with force, and shields the wearer of its amulet."
+}

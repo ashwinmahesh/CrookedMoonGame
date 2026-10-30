@@ -1,0 +1,163 @@
+{
+  "id": "doppelganger",
+  "name": "Doppelganger",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Doppelganger. Every number compared with the page fetched from aidedd.org. Slam's Advantage during the first round of each combat is text only. Shape-Shift is listed under forms with one disguise shape; the engine does not yet fix its Humanoid size to Medium or Small."
+  },
+  "size": "medium",
+  "type": "monstrosity",
+  "alignment": "neutral",
+  "ac": 14,
+  "initiative": 4,
+  "hp": {
+    "average": 52,
+    "dice": "8d8+16"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 11,
+    "dex": 18,
+    "con": 14,
+    "int": 11,
+    "wis": 12,
+    "cha": 14
+  },
+  "skills": {
+    "deception": 6,
+    "insight": 3
+  },
+  "condition_immunities": [
+    "charmed"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 11,
+  "languages": [
+    "Common",
+    "three other languages"
+  ],
+  "cr": 3,
+  "xp": 700,
+  "proficiency_bonus": 2,
+  "traits": [],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "slam",
+          "count": 2
+        },
+        {
+          "action": "unsettling_visage",
+          "count": 1
+        }
+      ],
+      "summary": "Two Slam attacks, and Unsettling Visage if it is ready."
+    },
+    {
+      "id": "slam",
+      "name": "Slam",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 11,
+          "dice": "2d6+4",
+          "type": "bludgeoning"
+        }
+      ],
+      "summary": "A hard blow; it attacks with Advantage in the first round of each combat.",
+      "text": "Melee attack, +6 to hit, reach 5 ft. It has Advantage on the attack roll during the first round of each combat (text only for the engine)."
+    },
+    {
+      "id": "read_thoughts",
+      "name": "Read Thoughts",
+      "kind": "spellcasting",
+      "summary": "Casts Detect Thoughts (Charisma, DC 12) with no components.",
+      "text": "The doppelganger casts Detect Thoughts, needing no spell components and using Charisma as its spellcasting ability (spell save DC 12)."
+    },
+    {
+      "id": "unsettling_visage",
+      "name": "Unsettling Visage",
+      "kind": "save",
+      "recharge": "6",
+      "save": {
+        "ability": "wis",
+        "dc": 12,
+        "success": "none"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 15
+      },
+      "targets": {
+        "range": 15,
+        "sees_source": true
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "frightened",
+          "until": "minute",
+          "repeat_save": {
+            "ability": "wis",
+            "dc": 12,
+            "when": "end"
+          }
+        }
+      ],
+      "summary": "Recharge 6. DC 12 Wis save for each creature within 15 ft that sees it, or Frightened (a save at the end of each of its turns; a minute at most).",
+      "text": "Wisdom saving throw, DC 12, each creature that can see the doppelganger within a 15-foot Emanation around it. Failure: Frightened; the target repeats the save at the end of each of its turns, ending the effect on a success, and succeeds automatically after 1 minute."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "shape_shift",
+      "name": "Shape-Shift",
+      "kind": "special",
+      "do": "shape_shift",
+      "summary": "Takes the form of a Small or Medium Humanoid, or returns to its true form.",
+      "text": "The doppelganger turns into a Medium or Small Humanoid, or back into its true form. Its statistics other than size stay the same in each form, and what it wears or carries does not change."
+    }
+  ],
+  "spellcasting": {
+    "ability": "cha",
+    "dc": 12,
+    "at_will": [
+      "detect_thoughts"
+    ]
+  },
+  "forms": {
+    "base": "true",
+    "change": "bonus_action",
+    "blocked_in": [],
+    "shapes": [
+      {
+        "id": "disguise",
+        "name": "Disguise",
+        "size": "medium",
+        "speed": {
+          "walk": 30
+        },
+        "art_from_npc": true,
+        "kind": "disguise",
+        "summary": "The Humanoid it passes as (Small or Medium): its statistics stay the same."
+      }
+    ]
+  },
+  "ai_profile": "skirmisher",
+  "summary": "A shapeshifter that hits twice with its fists, rattles a crowd with a frightening face, and reads minds to pass for anyone.",
+  "art": "commoner"
+}

@@ -1,0 +1,118 @@
+{
+  "id": "cultist_fanatic",
+  "name": "Cultist Fanatic",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Cultist Fanatic (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). Spiritual Weapon is entered both in the spell list (2/day) and as the Bonus Action."
+  },
+  "size": "medium",
+  "type": "humanoid",
+  "tags": [
+    "medium_or_small"
+  ],
+  "alignment": "any alignment",
+  "ac": 13,
+  "initiative": 2,
+  "hp": {
+    "average": 44,
+    "dice": "8d8+8"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 11,
+    "dex": 14,
+    "con": 12,
+    "int": 10,
+    "wis": 14,
+    "cha": 13
+  },
+  "saves": {
+    "wis": 4
+  },
+  "skills": {
+    "deception": 3,
+    "persuasion": 3,
+    "religion": 2
+  },
+  "senses": {},
+  "passive_perception": 12,
+  "languages": [
+    "Common"
+  ],
+  "cr": 2,
+  "xp": 450,
+  "proficiency_bonus": 2,
+  "traits": [],
+  "actions": [
+    {
+      "id": "pact_blade",
+      "name": "Pact Blade",
+      "kind": "melee",
+      "attack": {
+        "bonus": 4,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 6,
+          "dice": "1d8+2",
+          "type": "slashing"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "A dark blade that burns with necrotic force."
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "kind": "spellcasting",
+      "summary": "Wis, DC 12: Light and Thaumaturgy at will; Command and Spiritual Weapon twice a day; Hold Person once.",
+      "text": "Wisdom is its spellcasting ability (spell save DC 12, +4 to hit with spell attacks). At will: Light, Thaumaturgy. 2/day: Command. 1/day: Hold Person."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "spiritual_weapon",
+      "name": "Spiritual Weapon (2/Day)",
+      "kind": "special",
+      "do": "cast",
+      "cast": [
+        "spiritual_weapon"
+      ],
+      "uses": {
+        "count": 2,
+        "per": "day"
+      },
+      "summary": "Casts Spiritual Weapon as a Bonus Action, twice a day."
+    }
+  ],
+  "spellcasting": {
+    "ability": "wis",
+    "dc": 12,
+    "attack": 4,
+    "at_will": [
+      "light",
+      "thaumaturgy"
+    ],
+    "per_day": {
+      "2": [
+        "command",
+        "spiritual_weapon"
+      ],
+      "1": [
+        "hold_person"
+      ]
+    }
+  },
+  "ai_profile": "spellcaster",
+  "art": "cultist",
+  "summary": "A cult leader with a necrotic blade and a handful of divine spells, including Spiritual Weapon."
+}

@@ -1,0 +1,157 @@
+{
+  "id": "clay_golem",
+  "name": "Clay Golem",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Clay Golem (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). Hasten is entered as dash_or_disengage (the book gives both Dash and Disengage). The third Slam after Hasten is text only. Berserk is left as text."
+  },
+  "size": "large",
+  "type": "construct",
+  "alignment": "unaligned",
+  "ac": 14,
+  "initiative": 3,
+  "hp": {
+    "average": 123,
+    "dice": "13d10+52"
+  },
+  "speed": {
+    "walk": 20
+  },
+  "abilities": {
+    "str": 20,
+    "dex": 9,
+    "con": 18,
+    "int": 3,
+    "wis": 8,
+    "cha": 1
+  },
+  "resistances": [
+    "bludgeoning",
+    "piercing",
+    "slashing"
+  ],
+  "immunities": [
+    "acid",
+    "poison",
+    "psychic"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened",
+    "paralyzed",
+    "petrified",
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 9,
+  "languages": [
+    "Common",
+    "one other language"
+  ],
+  "cr": 9,
+  "xp": 5000,
+  "proficiency_bonus": 4,
+  "traits": [
+    {
+      "id": "acid_absorption",
+      "name": "Acid Absorption",
+      "action": "passive",
+      "summary": "Acid damage heals it instead of hurting it.",
+      "text": "Whenever the golem is subjected to Acid damage, it takes none and regains Hit Points equal to the Acid damage dealt.",
+      "absorb": "acid",
+      "implemented": "engine"
+    },
+    {
+      "id": "berserk",
+      "name": "Berserk",
+      "action": "passive",
+      "summary": "Starting a turn Bloodied, it rolls a d6; on a 6 it attacks the nearest creature (or an object) until it is no longer Bloodied.",
+      "text": "Whenever the golem starts its turn Bloodied, roll 1d6. On a 6 it goes berserk: on each of its turns while berserk it attacks the nearest creature it can see, or an object if none is near enough. It stays berserk until destroyed or no longer Bloodied.",
+      "implemented": "text"
+    },
+    {
+      "id": "immutable_form",
+      "name": "Immutable Form",
+      "action": "passive",
+      "summary": "Can't shape-shift.",
+      "text": "The golem can't shape-shift.",
+      "implemented": "text"
+    },
+    {
+      "id": "magic_resistance",
+      "name": "Magic Resistance",
+      "action": "passive",
+      "summary": "Advantage on saving throws against spells and other magical effects.",
+      "text": "The golem has Advantage on saving throws against spells and other magical effects.",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:spell"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "slam",
+          "count": 2
+        }
+      ],
+      "summary": "Two Slam attacks (three after Hasten).",
+      "text": "The golem makes two Slam attacks, or three if it used Hasten this turn (text only for the engine)."
+    },
+    {
+      "id": "slam",
+      "name": "Slam",
+      "kind": "melee",
+      "attack": {
+        "bonus": 9,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "1d10+5",
+          "type": "bludgeoning"
+        },
+        {
+          "average": 6,
+          "dice": "1d12",
+          "type": "acid"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "drain_max_hp",
+          "type": "acid"
+        }
+      ],
+      "summary": "A crushing blow whose acid also cuts the target's maximum Hit Points."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "hasten",
+      "name": "Hasten",
+      "kind": "special",
+      "recharge": "5-6",
+      "do": "dash_or_disengage",
+      "summary": "Recharge 5-6. Takes the Dash and Disengage actions."
+    }
+  ],
+  "ai_profile": "brute",
+  "art": "flesh_golem",
+  "summary": "A hulking clay construct whose blows rot maximum Hit Points; it heals from acid and can go berserk.",
+  "art_height": 1.6
+}

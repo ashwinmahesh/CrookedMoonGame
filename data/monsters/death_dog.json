@@ -1,0 +1,111 @@
+{
+  "id": "death_dog",
+  "name": "Death Dog",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Death Dog (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). The Bite's first failure (Poisoned) is entered; the later hit-point-maximum loss is a rider the engine does not run."
+  },
+  "size": "medium",
+  "type": "monstrosity",
+  "alignment": "neutral evil",
+  "ac": 12,
+  "initiative": 2,
+  "hp": {
+    "average": 39,
+    "dice": "6d8+12"
+  },
+  "speed": {
+    "walk": 40
+  },
+  "abilities": {
+    "str": 15,
+    "dex": 14,
+    "con": 14,
+    "int": 3,
+    "wis": 13,
+    "cha": 6
+  },
+  "skills": {
+    "perception": 5,
+    "stealth": 4
+  },
+  "condition_immunities": [
+    "blinded",
+    "charmed",
+    "deafened",
+    "frightened",
+    "stunned",
+    "unconscious"
+  ],
+  "senses": {
+    "darkvision": 120
+  },
+  "passive_perception": 15,
+  "languages": [],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "bite",
+          "count": 2
+        }
+      ],
+      "summary": "Two Bite attacks."
+    },
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 4,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 4,
+          "dice": "1d4+2",
+          "type": "piercing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "permanent",
+          "save": {
+            "ability": "con",
+            "dc": 12
+          }
+        },
+        {
+          "do": "hp_max_loss_on_repeat_failure",
+          "params": {
+            "save": {
+              "ability": "con",
+              "dc": 12
+            },
+            "dice": "1d10",
+            "average": 5,
+            "while": "already Poisoned by this bite",
+            "repeat_save_every_hours": 24,
+            "no_hp_max_recovery_on_long_rest": true
+          }
+        }
+      ],
+      "summary": "A festering bite; a failed DC 12 Con save poisons the target, and later failures shrink its maximum Hit Points.",
+      "text": "Hit: 4 (1d4 + 2) Piercing damage. Constitution saving throw, DC 12. First failure: Poisoned; while Poisoned this way the target's Hit Point maximum doesn't return to normal after a Long Rest, and it repeats the save every 24 hours, ending the effect on a success. Later failures: the Poisoned target's Hit Point maximum drops by 5 (1d10)."
+    }
+  ],
+  "ai_profile": "pack_hunter",
+  "art": "mastiff",
+  "summary": "A two-headed hound whose bites poison and whittle away a victim's maximum Hit Points."
+}

@@ -1,0 +1,92 @@
+{
+  "id": "giant_vulture",
+  "name": "Giant Vulture",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Giant Vulture (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block)."
+  },
+  "size": "large",
+  "type": "monstrosity",
+  "alignment": "neutral evil",
+  "ac": 10,
+  "initiative": 0,
+  "hp": {
+    "average": 25,
+    "dice": "3d10+9"
+  },
+  "speed": {
+    "walk": 10,
+    "fly": 60
+  },
+  "abilities": {
+    "str": 15,
+    "dex": 10,
+    "con": 16,
+    "int": 6,
+    "wis": 12,
+    "cha": 7
+  },
+  "skills": {
+    "perception": 3
+  },
+  "resistances": [
+    "necrotic"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 13,
+  "languages": [
+    "Understands Common but can't speak"
+  ],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "pack_tactics",
+      "name": "Pack Tactics",
+      "action": "passive",
+      "summary": "Advantage on an attack against a creature with one of its conscious allies within 5 ft of it.",
+      "text": "The vulture has Advantage on an attack roll against a creature if at least one of its allies is within 5 feet of the creature and the ally doesn't have the Incapacitated condition.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "pack_tactics"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "gouge",
+      "name": "Gouge",
+      "kind": "melee",
+      "attack": {
+        "bonus": 4,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 9,
+          "dice": "2d6+2",
+          "type": "piercing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "target_turn_end"
+        }
+      ],
+      "summary": "Gouges with its beak; the target is Poisoned until the end of its next turn."
+    }
+  ],
+  "ai_profile": "pack_hunter",
+  "art": "giant_owl",
+  "summary": "A carrion bird that hunts in flocks and poisons with its gouging beak."
+}

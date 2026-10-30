@@ -1,0 +1,184 @@
+{
+  "id": "succubus",
+  "name": "Succubus",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Succubus (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). Draining Kiss lowers Hit Point maximum on a success as well as a failure; only the failure is entered. Charm is Dominate Person cast at level 8."
+  },
+  "size": "medium",
+  "type": "fiend",
+  "alignment": "neutral evil",
+  "ac": 15,
+  "initiative": 3,
+  "hp": {
+    "average": 71,
+    "dice": "13d8+13"
+  },
+  "speed": {
+    "walk": 30,
+    "fly": 60
+  },
+  "abilities": {
+    "str": 8,
+    "dex": 17,
+    "con": 13,
+    "int": 15,
+    "wis": 12,
+    "cha": 20
+  },
+  "skills": {
+    "deception": 9,
+    "insight": 5,
+    "perception": 5,
+    "persuasion": 9,
+    "stealth": 7
+  },
+  "resistances": [
+    "cold",
+    "fire",
+    "poison",
+    "psychic"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 15,
+  "languages": [
+    "Abyssal",
+    "Common",
+    "Infernal"
+  ],
+  "telepathy": 60,
+  "cr": 4,
+  "xp": 1100,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "incubus_form",
+      "name": "Incubus Form",
+      "action": "passive",
+      "summary": "After a Long Rest it can take the Incubus stat block instead.",
+      "text": "When the succubus finishes a Long Rest, it can shape-shift into an Incubus and use that stat block instead of this one. What it wears or carries doesn't change.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "fiendish_touch",
+          "count": 1
+        },
+        {
+          "action": "charm",
+          "count": 1,
+          "or": [
+            "draining_kiss"
+          ]
+        }
+      ],
+      "summary": "A Fiendish Touch, then Charm or Draining Kiss."
+    },
+    {
+      "id": "fiendish_touch",
+      "name": "Fiendish Touch",
+      "kind": "melee",
+      "attack": {
+        "bonus": 7,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 16,
+          "dice": "2d10+5",
+          "type": "psychic"
+        }
+      ],
+      "summary": "A caress that burns the mind."
+    },
+    {
+      "id": "charm",
+      "name": "Charm",
+      "kind": "spellcasting",
+      "summary": "Casts Dominate Person at level 8 (Cha, DC 15).",
+      "text": "The succubus casts Dominate Person (level 8 version), needing no components and using Charisma (spell save DC 15)."
+    },
+    {
+      "id": "draining_kiss",
+      "name": "Draining Kiss",
+      "kind": "save",
+      "save": {
+        "ability": "con",
+        "dc": 15,
+        "success": "half"
+      },
+      "targets": {
+        "range": 5,
+        "count": 1,
+        "requires": [
+          "charmed"
+        ]
+      },
+      "damage": [
+        {
+          "average": 13,
+          "dice": "3d8",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "drain_max_hp",
+          "type": "psychic"
+        }
+      ],
+      "summary": "DC 15 Con save by a Charmed creature within 5 ft: 3d8 Psychic (half on a success) and its Hit Point maximum drops by the damage taken.",
+      "text": "Constitution saving throw, DC 15, one creature Charmed by the succubus within 5 feet. Failure: 13 (3d8) Psychic damage. Success: half damage. Failure or success: the target's Hit Point maximum decreases by the damage it took."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "shape_shift",
+      "name": "Shape-Shift",
+      "kind": "special",
+      "do": "shape_shift",
+      "summary": "Takes the form of a Small or Medium Humanoid, or returns to its true form (Fly Speed only in its true form)."
+    }
+  ],
+  "spellcasting": {
+    "ability": "cha",
+    "dc": 15,
+    "at_will": [
+      "dominate_person"
+    ],
+    "levels": {
+      "dominate_person": 8
+    }
+  },
+  "forms": {
+    "base": "true",
+    "change": "bonus_action",
+    "blocked_in": [],
+    "shapes": [
+      {
+        "id": "humanoid",
+        "name": "Small or Medium Humanoid",
+        "size": "medium",
+        "speed": {
+          "walk": 30
+        },
+        "art_from_npc": true,
+        "kind": "disguise",
+        "summary": "A Small or Medium Humanoid: statistics unchanged, but no Fly Speed."
+      }
+    ]
+  },
+  "ai_profile": "spellcaster",
+  "summary": "A flying tempter that dominates the unwary and drains the maximum Hit Points of those it charms.",
+  "art": "noble"
+}

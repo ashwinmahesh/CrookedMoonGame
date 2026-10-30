@@ -1,0 +1,108 @@
+{
+  "id": "minotaur_skeleton",
+  "name": "Minotaur Skeleton",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Minotaur Skeleton (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block)."
+  },
+  "size": "large",
+  "type": "undead",
+  "alignment": "lawful evil",
+  "ac": 12,
+  "initiative": 0,
+  "hp": {
+    "average": 45,
+    "dice": "6d10+12"
+  },
+  "speed": {
+    "walk": 40
+  },
+  "abilities": {
+    "str": 18,
+    "dex": 11,
+    "con": 15,
+    "int": 6,
+    "wis": 8,
+    "cha": 5
+  },
+  "vulnerabilities": [
+    "bludgeoning"
+  ],
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "exhaustion",
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 9,
+  "languages": [
+    "Understands Abyssal but can't speak"
+  ],
+  "cr": 2,
+  "xp": 450,
+  "proficiency_bonus": 2,
+  "traits": [],
+  "actions": [
+    {
+      "id": "gore",
+      "name": "Gore",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 11,
+          "dice": "2d6+4",
+          "type": "piercing"
+        }
+      ],
+      "charge": {
+        "feet": 20,
+        "damage": [
+          {
+            "average": 9,
+            "dice": "2d8",
+            "type": "piercing"
+          }
+        ],
+        "on_hit": [
+          {
+            "do": "condition",
+            "condition": "prone",
+            "max_size": "large"
+          }
+        ]
+      },
+      "summary": "After a 20-ft straight charge, a Large or smaller target takes 2d8 more and falls Prone."
+    },
+    {
+      "id": "slam",
+      "name": "Slam",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 15,
+          "dice": "2d10+4",
+          "type": "bludgeoning"
+        }
+      ],
+      "summary": "A crushing slam."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A bone-and-horn charger that gores on a run and slams in close.",
+  "art": "skeleton",
+  "art_height": 1.6
+}

@@ -1,0 +1,110 @@
+{
+  "id": "swarm_of_venomous_snakes",
+  "name": "Swarm of Venomous Snakes",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Swarm of Venomous Snakes (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block)."
+  },
+  "size": "medium",
+  "type": "beast",
+  "swarm_of": "tiny",
+  "tags": [
+    "swarm"
+  ],
+  "alignment": "unaligned",
+  "ac": 14,
+  "initiative": 4,
+  "hp": {
+    "average": 36,
+    "dice": "8d8"
+  },
+  "speed": {
+    "walk": 30,
+    "swim": 30
+  },
+  "abilities": {
+    "str": 8,
+    "dex": 18,
+    "con": 11,
+    "int": 1,
+    "wis": 10,
+    "cha": 3
+  },
+  "resistances": [
+    "bludgeoning",
+    "piercing",
+    "slashing"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "frightened",
+    "grappled",
+    "paralyzed",
+    "petrified",
+    "prone",
+    "restrained",
+    "stunned"
+  ],
+  "senses": {
+    "blindsight": 10
+  },
+  "passive_perception": 10,
+  "languages": [],
+  "cr": 2,
+  "xp": 450,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "swarm",
+      "name": "Swarm",
+      "action": "passive",
+      "summary": "Shares spaces with other creatures and fits through snake-sized gaps; can't heal or gain Temporary Hit Points.",
+      "text": "The swarm can occupy another creature's space and vice versa, and it can move through any opening large enough for a Tiny snake. It can't regain Hit Points or gain Temporary Hit Points.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "swarm"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "bites",
+      "name": "Bites",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 8,
+          "dice": "1d8+4",
+          "type": "piercing",
+          "when": "while the swarm isn't Bloodied",
+          "if": "not_bloodied"
+        },
+        {
+          "average": 6,
+          "dice": "1d4+4",
+          "type": "piercing",
+          "when": "instead, while the swarm is Bloodied",
+          "if": "bloodied"
+        },
+        {
+          "average": 10,
+          "dice": "3d6",
+          "type": "poison"
+        }
+      ],
+      "summary": "Many venomous bites; the piercing part drops once the swarm is Bloodied."
+    }
+  ],
+  "ai_profile": "swarm",
+  "art": "swarm_of_rats",
+  "summary": "A writhing swarm of snakes that bites with venom and resists weapon damage."
+}

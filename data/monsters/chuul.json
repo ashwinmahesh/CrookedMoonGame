@@ -1,0 +1,149 @@
+{
+  "id": "chuul",
+  "name": "Chuul",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Chuul (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). Paralyzing Tentacles' Poisoned-and-Paralyzed pairing is entered as Poisoned with Paralyzed as its linked condition."
+  },
+  "size": "large",
+  "type": "aberration",
+  "alignment": "chaotic evil",
+  "ac": 16,
+  "initiative": 0,
+  "hp": {
+    "average": 76,
+    "dice": "9d10+27"
+  },
+  "speed": {
+    "walk": 30,
+    "swim": 30
+  },
+  "abilities": {
+    "str": 19,
+    "dex": 10,
+    "con": 16,
+    "int": 5,
+    "wis": 11,
+    "cha": 5
+  },
+  "skills": {
+    "perception": 4
+  },
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 14,
+  "languages": [
+    "Understands Deep Speech but can't speak"
+  ],
+  "cr": 4,
+  "xp": 1100,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "amphibious",
+      "name": "Amphibious",
+      "action": "passive",
+      "summary": "Breathes air and water.",
+      "text": "The chuul can breathe both air and water.",
+      "implemented": "text"
+    },
+    {
+      "id": "sense_magic",
+      "name": "Sense Magic",
+      "action": "passive",
+      "summary": "Senses magic within 120 ft, like Detect Magic but not itself magical.",
+      "text": "The chuul senses magic within 120 feet of itself. This otherwise works like the Detect Magic spell but is not itself magical.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "pincer",
+          "count": 2
+        },
+        {
+          "action": "paralyzing_tentacles",
+          "count": 1
+        }
+      ],
+      "summary": "Two Pincer attacks and Paralyzing Tentacles."
+    },
+    {
+      "id": "pincer",
+      "name": "Pincer",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 9,
+          "dice": "1d10+4",
+          "type": "bludgeoning"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 14,
+          "limit": 2,
+          "max_size": "large"
+        }
+      ],
+      "summary": "Reach 10 ft. A Large or smaller target is Grappled in one of two pincers (escape DC 14)."
+    },
+    {
+      "id": "paralyzing_tentacles",
+      "name": "Paralyzing Tentacles",
+      "kind": "save",
+      "save": {
+        "ability": "con",
+        "dc": 13,
+        "success": "none"
+      },
+      "targets": {
+        "range": 10,
+        "count": 1,
+        "requires": [
+          "grappled"
+        ]
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "minute",
+          "conditions": [
+            "paralyzed"
+          ],
+          "repeat_save": {
+            "ability": "con",
+            "dc": 13,
+            "when": "end"
+          }
+        }
+      ],
+      "summary": "DC 13 Con save by a creature it holds, or Poisoned and Paralyzed (saves each turn, up to a minute).",
+      "text": "Constitution saving throw, DC 13, one creature Grappled by the chuul. Failure: Poisoned, with a repeat save at the end of each of its turns, ending the effect on a success, and an automatic success after 1 minute. While Poisoned this way the target is also Paralyzed."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A crustacean horror: crushing pincers seize prey and its tentacles paralyze whoever it holds.",
+  "art": "giant_insect",
+  "art_height": 1.6
+}

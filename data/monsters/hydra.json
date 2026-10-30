@@ -1,0 +1,111 @@
+{
+  "id": "hydra",
+  "name": "Hydra",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Hydra (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). Multiattack is entered for its full five heads; fewer heads means fewer Bites (text only)."
+  },
+  "size": "huge",
+  "type": "monstrosity",
+  "alignment": "unaligned",
+  "ac": 15,
+  "initiative": 4,
+  "hp": {
+    "average": 184,
+    "dice": "16d12+80"
+  },
+  "speed": {
+    "walk": 40,
+    "swim": 40
+  },
+  "abilities": {
+    "str": 20,
+    "dex": 12,
+    "con": 20,
+    "int": 2,
+    "wis": 10,
+    "cha": 7
+  },
+  "skills": {
+    "perception": 6
+  },
+  "condition_immunities": [
+    "blinded",
+    "charmed",
+    "deafened",
+    "frightened",
+    "stunned",
+    "unconscious"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 16,
+  "languages": [],
+  "cr": 8,
+  "xp": 3900,
+  "proficiency_bonus": 3,
+  "traits": [
+    {
+      "id": "hold_breath",
+      "name": "Hold Breath",
+      "action": "passive",
+      "summary": "Holds its breath for an hour.",
+      "text": "The hydra can hold its breath for 1 hour.",
+      "implemented": "text"
+    },
+    {
+      "id": "multiple_heads",
+      "name": "Multiple Heads",
+      "action": "passive",
+      "summary": "Five heads. 25 damage or more in one turn kills a head; it regrows two per lost head (and regains 20 HP) unless it took Fire damage; all heads dead means death.",
+      "text": "The hydra has five heads. Whenever it takes 25 damage or more on a single turn, one of its heads dies. It dies if all its heads are dead. At the end of each of its turns while it has at least one living head, it grows two heads for each head that died since its last turn, unless it has taken Fire damage since its last turn. It regains 20 Hit Points when it grows new heads.",
+      "heads": 5,
+      "implemented": "text"
+    },
+    {
+      "id": "reactive_heads",
+      "name": "Reactive Heads",
+      "action": "passive",
+      "summary": "Each head beyond the first gives it one more Reaction, usable only for Opportunity Attacks.",
+      "text": "For each head the hydra has beyond one, it gets an extra Reaction that can be used only for Opportunity Attacks.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "bite",
+          "count": 5
+        }
+      ],
+      "summary": "As many Bite attacks as it has heads (five at full strength)."
+    },
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 8,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "1d10+5",
+          "type": "piercing"
+        }
+      ],
+      "summary": "Reach 10 ft. One of its many heads strikes."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A many-headed beast that bites once per head and grows two more for each one lost, unless burned.",
+  "art": "giant_constrictor_snake"
+}

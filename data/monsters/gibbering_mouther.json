@@ -1,0 +1,151 @@
+{
+  "id": "gibbering_mouther",
+  "name": "Gibbering Mouther",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Gibbering Mouther (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). Gibbering (the d8 table of lost turns) and the absorb-on-kill clause of Bite are not runnable and are entered as text and a rider with params."
+  },
+  "size": "medium",
+  "type": "aberration",
+  "alignment": "chaotic neutral",
+  "ac": 9,
+  "initiative": -1,
+  "hp": {
+    "average": 52,
+    "dice": "7d8+21"
+  },
+  "speed": {
+    "walk": 20,
+    "swim": 20
+  },
+  "abilities": {
+    "str": 10,
+    "dex": 8,
+    "con": 16,
+    "int": 3,
+    "wis": 10,
+    "cha": 6
+  },
+  "condition_immunities": [
+    "prone"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 10,
+  "languages": [],
+  "cr": 2,
+  "xp": 450,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "aberrant_ground",
+      "name": "Aberrant Ground",
+      "action": "passive",
+      "summary": "The ground within 10 ft of it is Difficult Terrain.",
+      "text": "The ground in a 10-foot Emanation originating from the mouther is Difficult Terrain.",
+      "implemented": "text"
+    },
+    {
+      "id": "gibbering",
+      "name": "Gibbering",
+      "action": "passive",
+      "summary": "Babbling while able: creatures starting a turn within 20 ft make a DC 10 Wis save or lose the turn to a d8 table.",
+      "text": "While it isn't Incapacitated the mouther babbles. A creature that starts its turn within 20 feet of it makes a Wisdom saving throw (DC 10). On a failure it rolls 1d8: on a 1-4 it does nothing; on a 5-6 it takes no action or Bonus Action and spends all its movement moving in a random direction; on a 7-8 it makes a melee attack against a random creature within reach, or does nothing if it can't.",
+      "gibbering": {
+        "radius": 20,
+        "save": {
+          "ability": "wis",
+          "dc": 10
+        },
+        "table": [
+          {
+            "rolls": "1-4",
+            "effect": "does nothing"
+          },
+          {
+            "rolls": "5-6",
+            "effect": "no action or Bonus Action; all movement in a random direction"
+          },
+          {
+            "rolls": "7-8",
+            "effect": "melee attack against a random creature within reach, else nothing"
+          }
+        ]
+      },
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 2,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "piercing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "prone",
+          "max_size": "medium"
+        },
+        {
+          "do": "absorb_body",
+          "params": {
+            "on": "reduced to 0 Hit Points by this attack",
+            "max_size": "any",
+            "leaves": "equipment"
+          }
+        }
+      ],
+      "summary": "A Medium or smaller target falls Prone; one dropped to 0 Hit Points by it is absorbed."
+    },
+    {
+      "id": "blinding_spittle",
+      "name": "Blinding Spittle",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "dex",
+        "dc": 10,
+        "success": "none"
+      },
+      "area": {
+        "shape": "sphere",
+        "size": 10
+      },
+      "targets": {
+        "range": 30
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "radiant"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "blinded",
+          "until": "source_turn_end"
+        }
+      ],
+      "summary": "Recharge 5-6. A 10-ft burst up to 30 ft away: DC 10 Dex save, 2d6 Radiant and Blinded until its next turn ends."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A babbling mass of mouths that scrambles the wits of anyone near it and swallows the fallen.",
+  "art": "black_pudding"
+}

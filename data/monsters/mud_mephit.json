@@ -1,0 +1,107 @@
+{
+  "id": "mud_mephit",
+  "name": "Mud Mephit",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Mud Mephit (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). Death Burst restrains rather than damages, so it is text only."
+  },
+  "size": "small",
+  "type": "elemental",
+  "alignment": "neutral evil",
+  "ac": 11,
+  "initiative": 1,
+  "hp": {
+    "average": 13,
+    "dice": "3d6+3"
+  },
+  "speed": {
+    "walk": 20,
+    "fly": 20,
+    "swim": 20
+  },
+  "abilities": {
+    "str": 8,
+    "dex": 12,
+    "con": 12,
+    "int": 9,
+    "wis": 11,
+    "cha": 7
+  },
+  "skills": {
+    "stealth": 3
+  },
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "exhaustion",
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 10,
+  "languages": [
+    "Primordial (Aquan, Terran)"
+  ],
+  "cr": 0.25,
+  "xp": 50,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "death_burst",
+      "name": "Death Burst",
+      "action": "passive",
+      "summary": "When it dies, creatures within 5 ft make a DC 11 Dex save or are Restrained until the end of their next turn.",
+      "text": "The mephit explodes when it dies. Dexterity saving throw, DC 11, each creature in a 5-foot Emanation around it. Failure: Restrained until the end of its next turn.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "slam",
+      "name": "Slam",
+      "kind": "melee",
+      "attack": {
+        "bonus": 3,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 4,
+          "dice": "1d6+1",
+          "type": "bludgeoning"
+        }
+      ],
+      "summary": "A slap of wet mud."
+    },
+    {
+      "id": "mud_breath",
+      "name": "Mud Breath",
+      "kind": "save",
+      "recharge": "6",
+      "save": {
+        "ability": "dex",
+        "dc": 11,
+        "success": "none"
+      },
+      "targets": {
+        "range": 15,
+        "count": 1
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "restrained",
+          "until": "source_turn_end"
+        }
+      ],
+      "summary": "Recharge 6. DC 11 Dex save by a creature within 15 ft or Restrained until the mephit's next turn ends."
+    }
+  ],
+  "ai_profile": "skirmisher",
+  "summary": "A small muck imp that pins foes in mud and bursts messily when it dies.",
+  "art": "imp_familiar"
+}

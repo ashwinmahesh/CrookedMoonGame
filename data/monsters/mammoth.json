@@ -1,0 +1,112 @@
+{
+  "id": "mammoth",
+  "name": "Mammoth",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Mammoth (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block)."
+  },
+  "size": "huge",
+  "type": "beast",
+  "alignment": "unaligned",
+  "ac": 13,
+  "initiative": 2,
+  "hp": {
+    "average": 126,
+    "dice": "11d12+55"
+  },
+  "speed": {
+    "walk": 50
+  },
+  "abilities": {
+    "str": 24,
+    "dex": 9,
+    "con": 21,
+    "int": 3,
+    "wis": 11,
+    "cha": 6
+  },
+  "saves": {
+    "str": 10,
+    "con": 8
+  },
+  "senses": {},
+  "passive_perception": 10,
+  "languages": [],
+  "cr": 6,
+  "xp": 2300,
+  "proficiency_bonus": 3,
+  "traits": [],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "gore",
+          "count": 2
+        }
+      ],
+      "summary": "Two Gore attacks."
+    },
+    {
+      "id": "gore",
+      "name": "Gore",
+      "kind": "melee",
+      "attack": {
+        "bonus": 10,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 18,
+          "dice": "2d10+7",
+          "type": "piercing"
+        }
+      ],
+      "charge": {
+        "feet": 20,
+        "on_hit": [
+          {
+            "do": "condition",
+            "condition": "prone",
+            "max_size": "huge"
+          }
+        ]
+      },
+      "summary": "Reach 10 ft. After a 20-ft straight charge, a Huge or smaller target falls Prone."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "trample",
+      "name": "Trample",
+      "kind": "save",
+      "do": "trample",
+      "save": {
+        "ability": "dex",
+        "dc": 18,
+        "success": "half"
+      },
+      "targets": {
+        "range": 5,
+        "requires": [
+          "prone"
+        ]
+      },
+      "damage": [
+        {
+          "average": 29,
+          "dice": "4d10+7",
+          "type": "bludgeoning"
+        }
+      ],
+      "summary": "A Prone creature within 5 ft: DC 18 Dex save, 4d10+7 Bludgeoning, half on a success."
+    }
+  ],
+  "ai_profile": "brute",
+  "art": "elephant",
+  "summary": "A giant tusked beast that charges, gores twice, and tramples anyone it knocks down."
+}

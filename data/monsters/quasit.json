@@ -1,0 +1,198 @@
+{
+  "id": "quasit",
+  "name": "Quasit",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Quasit (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). Shape-Shift keeps the true form's statistics apart from Speed; the three forms are entered under forms. The Scare repeat save runs up to a minute."
+  },
+  "size": "tiny",
+  "type": "fiend",
+  "tags": [
+    "demon"
+  ],
+  "alignment": "chaotic evil",
+  "ac": 13,
+  "initiative": 3,
+  "hp": {
+    "average": 25,
+    "dice": "10d4"
+  },
+  "speed": {
+    "walk": 40
+  },
+  "abilities": {
+    "str": 5,
+    "dex": 17,
+    "con": 10,
+    "int": 7,
+    "wis": 10,
+    "cha": 10
+  },
+  "skills": {
+    "stealth": 5
+  },
+  "resistances": [
+    "cold",
+    "fire",
+    "lightning"
+  ],
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 120
+  },
+  "passive_perception": 10,
+  "languages": [
+    "Abyssal",
+    "Common"
+  ],
+  "cr": 1,
+  "xp": 200,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "magic_resistance",
+      "name": "Magic Resistance",
+      "action": "passive",
+      "summary": "Advantage on saving throws against spells and other magical effects.",
+      "text": "The quasit has Advantage on saving throws against spells and other magical effects.",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:spell"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "rend",
+      "name": "Rend",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 5,
+          "dice": "1d4+3",
+          "type": "slashing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "source_turn_start"
+        }
+      ],
+      "summary": "A poisonous claw; the target is Poisoned until the quasit's next turn."
+    },
+    {
+      "id": "invisibility",
+      "name": "Invisibility",
+      "kind": "special",
+      "do": "cast",
+      "cast": [
+        "invisibility"
+      ],
+      "summary": "Casts Invisibility on itself."
+    },
+    {
+      "id": "scare",
+      "name": "Scare (1/Day)",
+      "kind": "save",
+      "uses": {
+        "count": 1,
+        "per": "day"
+      },
+      "save": {
+        "ability": "wis",
+        "dc": 10,
+        "success": "none"
+      },
+      "targets": {
+        "range": 20,
+        "count": 1
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "frightened",
+          "until": "minute",
+          "repeat_save": {
+            "ability": "wis",
+            "dc": 10,
+            "when": "end"
+          }
+        }
+      ],
+      "summary": "DC 10 Wis save by a creature within 20 ft or Frightened (a save each turn; a minute at most)."
+    },
+    {
+      "id": "shape_shift",
+      "name": "Shape-Shift",
+      "kind": "special",
+      "do": "shape_shift",
+      "summary": "Looks like a bat, a centipede or a toad, or returns to its true form; same statistics except Speed."
+    }
+  ],
+  "spellcasting": {
+    "ability": "cha",
+    "at_will": [
+      "invisibility"
+    ]
+  },
+  "forms": {
+    "base": "true",
+    "change": "action",
+    "blocked_in": [],
+    "shapes": [
+      {
+        "id": "bat",
+        "name": "Bat",
+        "size": "tiny",
+        "speed": {
+          "walk": 10,
+          "fly": 40
+        },
+        "art": "bat",
+        "kind": "quasit",
+        "summary": "A bat (Speed 10 ft., Fly 40 ft.); its other statistics stay the same."
+      },
+      {
+        "id": "centipede",
+        "name": "Centipede",
+        "size": "tiny",
+        "speed": {
+          "walk": 40,
+          "climb": 40
+        },
+        "kind": "quasit",
+        "summary": "A centipede (Speed 40 ft., Climb 40 ft.); its other statistics stay the same."
+      },
+      {
+        "id": "toad",
+        "name": "Toad",
+        "size": "tiny",
+        "speed": {
+          "walk": 40,
+          "swim": 40
+        },
+        "kind": "quasit",
+        "summary": "A toad (Speed 40 ft., Swim 40 ft.); its other statistics stay the same."
+      }
+    ]
+  },
+  "ai_profile": "skirmisher",
+  "art": "quasit_familiar",
+  "summary": "A tiny, shape-shifting, invisible demon with a poisonous claw and a frightening glare."
+}

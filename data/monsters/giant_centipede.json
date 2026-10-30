@@ -1,0 +1,69 @@
+{
+  "id": "giant_centipede",
+  "name": "Giant Centipede",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Giant Centipede (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block)."
+  },
+  "size": "small",
+  "type": "beast",
+  "alignment": "unaligned",
+  "ac": 14,
+  "initiative": 2,
+  "hp": {
+    "average": 9,
+    "dice": "2d6+2"
+  },
+  "speed": {
+    "walk": 30,
+    "climb": 30
+  },
+  "abilities": {
+    "str": 5,
+    "dex": 14,
+    "con": 12,
+    "int": 1,
+    "wis": 7,
+    "cha": 3
+  },
+  "senses": {
+    "blindsight": 30
+  },
+  "passive_perception": 8,
+  "languages": [],
+  "cr": 0.25,
+  "xp": 50,
+  "proficiency_bonus": 2,
+  "traits": [],
+  "actions": [
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 4,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 4,
+          "dice": "1d4+2",
+          "type": "piercing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "source_turn_start"
+        }
+      ],
+      "summary": "A venomous bite; the target is Poisoned until the centipede's next turn."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A small crawler whose poisonous bite leaves its target Poisoned.",
+  "art": "giant_insect"
+}

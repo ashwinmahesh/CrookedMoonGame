@@ -1,0 +1,112 @@
+{
+  "id": "ochre_jelly",
+  "name": "Ochre Jelly",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Ochre Jelly (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). Split is a Reaction the engine cannot run yet (the same open gap as the Black Pudding's)."
+  },
+  "size": "large",
+  "type": "ooze",
+  "alignment": "unaligned",
+  "ac": 8,
+  "initiative": -2,
+  "hp": {
+    "average": 52,
+    "dice": "7d10+14"
+  },
+  "speed": {
+    "walk": 20,
+    "climb": 20
+  },
+  "abilities": {
+    "str": 15,
+    "dex": 6,
+    "con": 14,
+    "int": 2,
+    "wis": 6,
+    "cha": 1
+  },
+  "resistances": [
+    "acid"
+  ],
+  "immunities": [
+    "lightning",
+    "slashing"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "deafened",
+    "exhaustion",
+    "frightened",
+    "grappled",
+    "prone",
+    "restrained"
+  ],
+  "senses": {
+    "blindsight": 60
+  },
+  "passive_perception": 8,
+  "languages": [],
+  "cr": 2,
+  "xp": 450,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "amorphous",
+      "name": "Amorphous",
+      "action": "passive",
+      "summary": "Squeezes through a space as narrow as 1 inch without extra movement cost.",
+      "text": "The jelly can move through a space as narrow as 1 inch without spending extra movement.",
+      "implemented": "text"
+    },
+    {
+      "id": "spider_climb",
+      "name": "Spider Climb",
+      "action": "passive",
+      "summary": "Climbs difficult surfaces, ceilings included, with no ability check.",
+      "text": "The jelly can climb difficult surfaces, including along ceilings, without making an ability check.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "spider_climb"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "pseudopod",
+      "name": "Pseudopod",
+      "kind": "melee",
+      "attack": {
+        "bonus": 4,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 12,
+          "dice": "3d6+2",
+          "type": "acid"
+        }
+      ],
+      "summary": "A corrosive lash."
+    }
+  ],
+  "reactions": [
+    {
+      "id": "split",
+      "name": "Split",
+      "kind": "special",
+      "do": "split_on_slash",
+      "trigger": "While Large or Medium with 10+ Hit Points, it becomes Bloodied or is subjected to Lightning or Slashing damage",
+      "summary": "Large or Medium with 10+ HP, becoming Bloodied or hit by Lightning or Slashing: splits into two jellies one size smaller, sharing its HP.",
+      "text": "Response: it splits into two new Ochre Jellies, each one size smaller, acting on its Initiative. The original's Hit Points are divided evenly between them (rounded down)."
+    }
+  ],
+  "ai_profile": "mindless",
+  "art": "black_pudding",
+  "summary": "A creeping acid ooze that climbs walls and splits when it is cut or shocked."
+}

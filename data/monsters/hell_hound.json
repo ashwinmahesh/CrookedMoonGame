@@ -1,0 +1,127 @@
+{
+  "id": "hell_hound",
+  "name": "Hell Hound",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Hell Hound (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block)."
+  },
+  "size": "medium",
+  "type": "fiend",
+  "alignment": "lawful evil",
+  "ac": 15,
+  "initiative": 1,
+  "hp": {
+    "average": 58,
+    "dice": "9d8+18"
+  },
+  "speed": {
+    "walk": 50
+  },
+  "abilities": {
+    "str": 17,
+    "dex": 12,
+    "con": 14,
+    "int": 6,
+    "wis": 13,
+    "cha": 6
+  },
+  "skills": {
+    "perception": 5
+  },
+  "immunities": [
+    "fire"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 15,
+  "languages": [
+    "Understands Infernal but can't speak"
+  ],
+  "cr": 3,
+  "xp": 700,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "pack_tactics",
+      "name": "Pack Tactics",
+      "action": "passive",
+      "summary": "Advantage on an attack against a creature with one of its conscious allies within 5 ft of it.",
+      "text": "The hound has Advantage on an attack roll against a creature if at least one of its allies is within 5 feet of the creature and the ally doesn't have the Incapacitated condition.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "pack_tactics"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "bite",
+          "count": 2
+        }
+      ],
+      "summary": "Two Bite attacks."
+    },
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "1d8+3",
+          "type": "piercing"
+        },
+        {
+          "average": 3,
+          "dice": "1d6",
+          "type": "fire"
+        }
+      ],
+      "summary": "Bites for piercing plus fire damage."
+    },
+    {
+      "id": "fire_breath",
+      "name": "Fire Breath",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "dex",
+        "dc": 12,
+        "success": "half"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 15
+      },
+      "targets": {
+        "range": 15
+      },
+      "damage": [
+        {
+          "average": 17,
+          "dice": "5d6",
+          "type": "fire"
+        }
+      ],
+      "summary": "Recharge 5-6. A 15-ft cone of flame: DC 12 Dex save, 5d6 Fire, half on a success."
+    }
+  ],
+  "ai_profile": "pack_hunter",
+  "art": "mastiff",
+  "summary": "A fire-breathing hound that hunts in packs for advantage."
+}

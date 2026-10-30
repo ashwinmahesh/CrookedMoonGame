@@ -1,0 +1,155 @@
+{
+  "id": "assassin",
+  "name": "Assassin",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Assassin (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). Cunning Action runs as Dash or Disengage; its Hide option is not wired. Weapon gear is left out."
+  },
+  "size": "medium",
+  "type": "humanoid",
+  "tags": [
+    "medium_or_small"
+  ],
+  "alignment": "neutral",
+  "ac": 16,
+  "initiative": 10,
+  "hp": {
+    "average": 97,
+    "dice": "15d8+30"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 11,
+    "dex": 18,
+    "con": 14,
+    "int": 16,
+    "wis": 11,
+    "cha": 10
+  },
+  "saves": {
+    "dex": 7,
+    "int": 6
+  },
+  "skills": {
+    "acrobatics": 7,
+    "perception": 6,
+    "stealth": 10
+  },
+  "resistances": [
+    "poison"
+  ],
+  "senses": {},
+  "passive_perception": 16,
+  "languages": [
+    "Common",
+    "Thieves' Cant"
+  ],
+  "cr": 8,
+  "xp": 3900,
+  "proficiency_bonus": 3,
+  "traits": [
+    {
+      "id": "evasion",
+      "name": "Evasion",
+      "action": "passive",
+      "summary": "On a Dexterity save for half damage, takes none on a success and half on a failure (not while Incapacitated).",
+      "text": "If the assassin is subjected to an effect that allows a Dexterity saving throw to take only half damage, it takes no damage on a success and half on a failure. It can't use this while Incapacitated.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "evasion"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "shortsword",
+          "count": 3,
+          "or": [
+            "light_crossbow"
+          ]
+        }
+      ],
+      "summary": "Three attacks, each a Shortsword or Light Crossbow shot."
+    },
+    {
+      "id": "shortsword",
+      "name": "Shortsword",
+      "kind": "melee",
+      "attack": {
+        "bonus": 7,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "1d6+4",
+          "type": "piercing"
+        },
+        {
+          "average": 17,
+          "dice": "5d6",
+          "type": "poison"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "source_turn_start"
+        }
+      ],
+      "weapon": true,
+      "summary": "A poisoned blade; the target is Poisoned until the assassin's next turn."
+    },
+    {
+      "id": "light_crossbow",
+      "name": "Light Crossbow",
+      "kind": "ranged",
+      "attack": {
+        "bonus": 7,
+        "range": [
+          80,
+          320
+        ]
+      },
+      "damage": [
+        {
+          "average": 8,
+          "dice": "1d8+4",
+          "type": "piercing"
+        },
+        {
+          "average": 21,
+          "dice": "6d6",
+          "type": "poison"
+        }
+      ],
+      "weapon": true,
+      "summary": "A poisoned bolt."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "cunning_action",
+      "name": "Cunning Action",
+      "kind": "special",
+      "do": "dash_or_disengage",
+      "summary": "Dashes, Disengages or Hides as a Bonus Action."
+    }
+  ],
+  "ai_profile": "skirmisher",
+  "art": "scout",
+  "summary": "A professional killer: three poisoned strikes a turn, slipping away with a bonus move."
+}

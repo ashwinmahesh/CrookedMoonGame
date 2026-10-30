@@ -1,0 +1,161 @@
+{
+  "id": "otyugh",
+  "name": "Otyugh",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Otyugh (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). The Bite's Long Rest save that shrinks Hit Point maximum is a rider with params; the telepathy is one-way (the receiver cannot answer)."
+  },
+  "size": "large",
+  "type": "aberration",
+  "alignment": "neutral",
+  "ac": 14,
+  "initiative": 0,
+  "hp": {
+    "average": 104,
+    "dice": "11d10+44"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 16,
+    "dex": 11,
+    "con": 19,
+    "int": 6,
+    "wis": 13,
+    "cha": 6
+  },
+  "saves": {
+    "con": 7
+  },
+  "senses": {
+    "darkvision": 120
+  },
+  "passive_perception": 11,
+  "languages": [
+    "Otyugh"
+  ],
+  "telepathy": 120,
+  "cr": 5,
+  "xp": 1800,
+  "proficiency_bonus": 3,
+  "traits": [],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "bite",
+          "count": 1
+        },
+        {
+          "action": "tentacle",
+          "count": 2
+        }
+      ],
+      "summary": "One Bite and two Tentacle attacks."
+    },
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 12,
+          "dice": "2d8+3",
+          "type": "piercing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "poisoned",
+          "until": "permanent"
+        },
+        {
+          "do": "rest_save_hp_max_loss",
+          "params": {
+            "trigger": "the Poisoned target finishes a Long Rest",
+            "save": {
+              "ability": "con",
+              "dc": 15
+            },
+            "dice": "1d10",
+            "average": 5,
+            "on_fail": "Hit Point maximum drops until the Poisoned condition ends",
+            "on_success": "the Poisoned condition ends"
+          }
+        }
+      ],
+      "summary": "A filthy bite that Poisons the target; each Long Rest it must save or lose maximum Hit Points."
+    },
+    {
+      "id": "tentacle",
+      "name": "Tentacle",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 12,
+          "dice": "2d8+3",
+          "type": "piercing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "grapple",
+          "escape_dc": 13,
+          "limit": 2,
+          "max_size": "medium"
+        }
+      ],
+      "summary": "Reach 10 ft. A Medium or smaller target is Grappled (escape DC 13) by one of two tentacles."
+    },
+    {
+      "id": "tentacle_slam",
+      "name": "Tentacle Slam",
+      "kind": "save",
+      "save": {
+        "ability": "con",
+        "dc": 14,
+        "success": "half"
+      },
+      "targets": {
+        "range": 10,
+        "requires": [
+          "grappled"
+        ]
+      },
+      "damage": [
+        {
+          "average": 16,
+          "dice": "3d8+3",
+          "type": "bludgeoning"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "stunned",
+          "until": "source_turn_start"
+        }
+      ],
+      "summary": "DC 14 Con save by each creature it holds: 3d8+3 Bludgeoning and Stunned until its next turn, half damage on a success."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A filth-dwelling horror that grabs with tentacles, crushes what it holds, and gives a disease with every bite.",
+  "art": "grick",
+  "art_height": 1.6
+}

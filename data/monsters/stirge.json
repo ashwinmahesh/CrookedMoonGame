@@ -1,0 +1,80 @@
+{
+  "id": "stirge",
+  "name": "Stirge",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Stirge (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). Attachment uses the engine's attach rider with its numbers in params."
+  },
+  "size": "tiny",
+  "type": "monstrosity",
+  "alignment": "unaligned",
+  "ac": 13,
+  "initiative": 3,
+  "hp": {
+    "average": 5,
+    "dice": "2d4"
+  },
+  "speed": {
+    "walk": 10,
+    "fly": 40
+  },
+  "abilities": {
+    "str": 4,
+    "dex": 16,
+    "con": 11,
+    "int": 2,
+    "wis": 8,
+    "cha": 6
+  },
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 9,
+  "languages": [],
+  "cr": 0.125,
+  "xp": 25,
+  "proficiency_bonus": 2,
+  "traits": [],
+  "actions": [
+    {
+      "id": "proboscis",
+      "name": "Proboscis",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 6,
+          "dice": "1d6+3",
+          "type": "piercing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "attach",
+          "params": {
+            "auto_hit": false,
+            "no_further_proboscis_while_attached": true,
+            "detach_cost_ft": 5,
+            "detach_by_target_or_adjacent_action": true,
+            "damage": {
+              "average": 5,
+              "dice": "2d4",
+              "type": "necrotic",
+              "when": "start of each of the stirge's turns"
+            }
+          }
+        }
+      ],
+      "summary": "A piercing bite that latches on and drains 2d4 Necrotic at the start of each of the stirge's turns.",
+      "text": "Hit: 6 (1d6 + 3) Piercing damage, and the stirge attaches. While attached it can't make Proboscis attacks and the target takes 5 (2d4) Necrotic damage at the start of each of the stirge's turns. It can detach by spending 5 feet of movement; the target or a creature within 5 feet of it can detach it as an action."
+    }
+  ],
+  "ai_profile": "skirmisher",
+  "summary": "A tiny flying bloodsucker that latches on and drains necrotic damage each turn.",
+  "art": "bat"
+}

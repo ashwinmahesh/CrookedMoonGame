@@ -1,0 +1,213 @@
+{
+  "id": "oni",
+  "name": "Oni",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Oni (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). Using Spellcasting in place of one Multiattack attack is text only. Hover is recorded on the Fly Speed."
+  },
+  "size": "large",
+  "type": "fiend",
+  "alignment": "lawful evil",
+  "ac": 17,
+  "initiative": 0,
+  "hp": {
+    "average": 119,
+    "dice": "14d10+42"
+  },
+  "speed": {
+    "walk": 30,
+    "fly": 30,
+    "hover": true
+  },
+  "abilities": {
+    "str": 19,
+    "dex": 11,
+    "con": 16,
+    "int": 14,
+    "wis": 12,
+    "cha": 15
+  },
+  "saves": {
+    "dex": 3,
+    "con": 6,
+    "wis": 4,
+    "cha": 5
+  },
+  "skills": {
+    "arcana": 5,
+    "deception": 8,
+    "perception": 4
+  },
+  "resistances": [
+    "cold"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 14,
+  "languages": [
+    "Common",
+    "Giant"
+  ],
+  "cr": 7,
+  "xp": 2900,
+  "proficiency_bonus": 3,
+  "traits": [
+    {
+      "id": "regeneration",
+      "name": "Regeneration",
+      "action": "passive",
+      "summary": "Regains 10 HP at the start of each of its turns while it has at least 1 HP.",
+      "text": "The oni regains 10 Hit Points at the start of each of its turns if it has at least 1 Hit Point.",
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "claw",
+          "count": 2,
+          "or": [
+            "nightmare_ray"
+          ]
+        }
+      ],
+      "summary": "Two attacks, each a Claw or a Nightmare Ray; one can be a spell instead.",
+      "text": "The oni makes two Claw or Nightmare Ray attacks. It can replace one attack with a use of Spellcasting (text only for the engine)."
+    },
+    {
+      "id": "claw",
+      "name": "Claw",
+      "kind": "melee",
+      "attack": {
+        "bonus": 7,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "1d12+4",
+          "type": "slashing"
+        },
+        {
+          "average": 9,
+          "dice": "2d8",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "Reach 10 ft. A raking claw wreathed in necrotic force."
+    },
+    {
+      "id": "nightmare_ray",
+      "name": "Nightmare Ray",
+      "kind": "ranged",
+      "attack": {
+        "bonus": 5,
+        "range": [
+          60,
+          60
+        ]
+      },
+      "damage": [
+        {
+          "average": 9,
+          "dice": "2d6+2",
+          "type": "psychic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "frightened",
+          "until": "source_turn_start"
+        }
+      ],
+      "summary": "A bolt of nightmare; the target is Frightened until the oni's next turn."
+    },
+    {
+      "id": "shape_shift",
+      "name": "Shape-Shift",
+      "kind": "special",
+      "do": "shape_shift",
+      "summary": "Takes the form of a Small or Medium Humanoid or a Large Giant, or returns to its true form.",
+      "text": "The oni turns into a Small or Medium Humanoid or a Large Giant, or back into its true form. Its statistics other than size stay the same in each form, and what it wears or carries doesn't change."
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "kind": "spellcasting",
+      "summary": "Cha, DC 13: Charm Person (as a level 2 spell), Darkness, Gaseous Form and Sleep, once a day each.",
+      "text": "Charisma is its spellcasting ability (spell save DC 13), needing no Material components. 1/day each: Charm Person (level 2 version), Darkness, Gaseous Form, Sleep."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "invisibility",
+      "name": "Invisibility",
+      "kind": "special",
+      "do": "cast",
+      "cast": [
+        "invisibility"
+      ],
+      "summary": "Casts Invisibility on itself."
+    }
+  ],
+  "spellcasting": {
+    "ability": "cha",
+    "dc": 13,
+    "at_will": [
+      "invisibility"
+    ],
+    "per_day": {
+      "1": [
+        "charm_person",
+        "darkness",
+        "gaseous_form",
+        "sleep"
+      ]
+    },
+    "levels": {
+      "charm_person": 2
+    }
+  },
+  "regenerates": {
+    "hp": 10
+  },
+  "forms": {
+    "base": "true",
+    "change": "action",
+    "blocked_in": [],
+    "shapes": [
+      {
+        "id": "humanoid",
+        "name": "Small or Medium Humanoid",
+        "size": "medium",
+        "speed": {
+          "walk": 30
+        },
+        "art_from_npc": true,
+        "kind": "disguise",
+        "summary": "A Small or Medium Humanoid: its statistics stay the same."
+      },
+      {
+        "id": "giant",
+        "name": "Large Giant",
+        "size": "large",
+        "speed": {
+          "walk": 30
+        },
+        "kind": "giant",
+        "summary": "A Large Giant: its statistics stay the same."
+      }
+    ]
+  },
+  "ai_profile": "spellcaster",
+  "summary": "A flying, regenerating ogre-mage: claws, nightmare rays, invisibility and shape-shifting.",
+  "art": "ogre"
+}

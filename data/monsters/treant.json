@@ -1,0 +1,130 @@
+{
+  "id": "treant",
+  "name": "Treant",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Treant (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). Animate Trees needs trees on the battlefield and is a special action."
+  },
+  "size": "huge",
+  "type": "plant",
+  "alignment": "chaotic good",
+  "ac": 16,
+  "initiative": 3,
+  "hp": {
+    "average": 138,
+    "dice": "12d12+60"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 23,
+    "dex": 8,
+    "con": 21,
+    "int": 12,
+    "wis": 16,
+    "cha": 12
+  },
+  "resistances": [
+    "bludgeoning",
+    "piercing"
+  ],
+  "vulnerabilities": [
+    "fire"
+  ],
+  "senses": {},
+  "passive_perception": 13,
+  "languages": [
+    "Common",
+    "Druidic",
+    "Elvish",
+    "Sylvan"
+  ],
+  "cr": 9,
+  "xp": 5000,
+  "proficiency_bonus": 4,
+  "traits": [
+    {
+      "id": "siege_monster",
+      "name": "Siege Monster",
+      "action": "passive",
+      "summary": "Deals double damage to objects and structures.",
+      "text": "The treant deals double damage to objects and structures.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "siege_monster"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "slam",
+          "count": 2
+        }
+      ],
+      "summary": "Two Slam attacks."
+    },
+    {
+      "id": "slam",
+      "name": "Slam",
+      "kind": "melee",
+      "attack": {
+        "bonus": 10,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 16,
+          "dice": "3d6+6",
+          "type": "bludgeoning"
+        }
+      ],
+      "summary": "A crushing swing of a limb."
+    },
+    {
+      "id": "hail_of_bark",
+      "name": "Hail of Bark",
+      "kind": "ranged",
+      "attack": {
+        "bonus": 10,
+        "range": [
+          180,
+          180
+        ]
+      },
+      "damage": [
+        {
+          "average": 28,
+          "dice": "4d10+6",
+          "type": "piercing"
+        }
+      ],
+      "summary": "Hurls a spray of bark splinters from a long way off."
+    },
+    {
+      "id": "animate_trees",
+      "name": "Animate Trees (1/Day)",
+      "kind": "special",
+      "do": "animate_trees",
+      "uses": {
+        "count": 1,
+        "per": "day"
+      },
+      "summary": "Wakes up to two trees within 60 ft to fight for it as Treants (Int and Cha 1, no speech, no Animate Trees).",
+      "text": "The treant animates up to two trees it can see within 60 feet. Each uses the Treant stat block except for Intelligence and Charisma scores of 1, no speech and no Animate Trees. A tree acts immediately after the treant on the same Initiative count and obeys it. It stays animate for 1 day or until it dies, the treant dies, or it is more than 120 feet from the treant; it then takes root again if it can."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A towering tree that slams twice, hurls bark from far off, and can wake other trees to fight.",
+  "art": "tree_blight"
+}

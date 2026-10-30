@@ -1,0 +1,79 @@
+{
+  "id": "warhorse",
+  "name": "Warhorse",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Warhorse (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block)."
+  },
+  "size": "large",
+  "type": "beast",
+  "alignment": "unaligned",
+  "ac": 11,
+  "initiative": 1,
+  "hp": {
+    "average": 19,
+    "dice": "3d10+3"
+  },
+  "speed": {
+    "walk": 60
+  },
+  "abilities": {
+    "str": 18,
+    "dex": 12,
+    "con": 13,
+    "int": 2,
+    "wis": 12,
+    "cha": 7
+  },
+  "saves": {
+    "wis": 3
+  },
+  "senses": {},
+  "passive_perception": 11,
+  "languages": [],
+  "cr": 0.5,
+  "xp": 100,
+  "proficiency_bonus": 2,
+  "traits": [],
+  "actions": [
+    {
+      "id": "hooves",
+      "name": "Hooves",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 9,
+          "dice": "2d4+4",
+          "type": "bludgeoning"
+        }
+      ],
+      "charge": {
+        "feet": 20,
+        "damage": [
+          {
+            "average": 5,
+            "dice": "2d4",
+            "type": "bludgeoning"
+          }
+        ],
+        "on_hit": [
+          {
+            "do": "condition",
+            "condition": "prone",
+            "max_size": "huge"
+          }
+        ]
+      },
+      "summary": "After a 20-ft straight run it adds 2d4 Bludgeoning and a Huge or smaller target falls Prone."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "A trained mount that tramples on a charge.",
+  "art": "nightmare"
+}

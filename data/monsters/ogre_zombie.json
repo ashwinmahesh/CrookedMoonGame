@@ -1,0 +1,89 @@
+{
+  "id": "ogre_zombie",
+  "name": "Ogre Zombie",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Ogre Zombie (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block)."
+  },
+  "size": "large",
+  "type": "undead",
+  "alignment": "neutral evil",
+  "ac": 8,
+  "initiative": -2,
+  "hp": {
+    "average": 85,
+    "dice": "9d10+36"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 19,
+    "dex": 6,
+    "con": 18,
+    "int": 3,
+    "wis": 6,
+    "cha": 5
+  },
+  "saves": {
+    "wis": 0
+  },
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "exhaustion",
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 8,
+  "languages": [
+    "Understands Common and Giant but can't speak"
+  ],
+  "cr": 2,
+  "xp": 450,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "undead_fortitude",
+      "name": "Undead Fortitude",
+      "action": "passive",
+      "summary": "At 0 HP it makes a Con save (DC 5 + damage) to stay at 1 HP, unless hit by Radiant or a Critical Hit.",
+      "text": "If damage reduces the zombie to 0 Hit Points, it makes a Constitution saving throw with a DC of 5 plus the damage taken, unless the damage is Radiant or from a Critical Hit. On a success it drops to 1 Hit Point instead.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "undead_fortitude"
+        }
+      ],
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "slam",
+      "name": "Slam",
+      "kind": "melee",
+      "attack": {
+        "bonus": 6,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 13,
+          "dice": "2d8+4",
+          "type": "bludgeoning"
+        }
+      ],
+      "summary": "A heavy, mindless blow."
+    }
+  ],
+  "ai_profile": "mindless",
+  "summary": "A lumbering, hard-to-put-down undead giant with a single heavy slam.",
+  "art": "zombie",
+  "art_height": 1.6
+}
