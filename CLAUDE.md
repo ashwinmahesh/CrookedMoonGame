@@ -40,8 +40,10 @@ engine first, then commit the new submodule commit here (its path shows as the c
   read its `owner`, check every 2 minutes, never wait over 45 minutes without telling the plan thread), write your lane and the time
   into `owner`, switch with `/opt/homebrew/bin/python3 ~/Applications/"Daemon Monitor.app"/Contents/Resources/control.py stop|start image|voice`
   (stop the other first), and remove the lock when your batch is done. Never stop a generator that is busy with someone else's job.
-- Images: Z-Image Turbo, no LoRA, style G "Eighties Anime Cel": append the style words in art/prompts/style_preamble.txt (once it exists) to
-  every prompt. Ask for a plain flat white background; the pipeline removes it. Fixes to a finished picture use Qwen Image's edit mode.
+- Images: look P "Creature Feature Cel" (locked 2026-10-30, plan 8.1): Z-Image Turbo with the Darkframe Italian Horror (Giallo) LoRA
+  (`custom-giallo`) at 0.6; append the style words in art/prompts/style_preamble.txt (once it exists; until then plan 8.1) to every
+  prompt. Ask for a plain flat white background; the pipeline removes it. Fix a finished picture with an edit model (FLUX.2 Klein,
+  Qwen-Image 2.1 Turbo) rather than re-rolling.
 - Voices: VoxCPM2 designs voices (always three options per character), Higgs reads the lines. Pinned in audio/voice/casting.json,
   each line's delivery in audio/voice/directions.json. A clip is keyed by its text, so editing a voiced line silences it until re-read.
 - Dialogue and character writing: drafted by Gemini 4 Argon medium through ai-bridge (http://127.0.0.1:8765, ~/.crooked-moon/bridge.py,
@@ -94,7 +96,7 @@ engine first, then commit the new submodule commit here (its path shows as the c
 
 ## Art
 - Colours only from art/palette/palette.json, plus art/palette/ui_palette.json for menus (via Look); run `make palette` after editing the list in
-  tools/art/build_palette.py. The palette is still a PLACEHOLDER (the old game's colours) until the look lane sets the real one.
+  tools/art/build_palette.py. Look P's night, moon and flame colours are set; the rest still carry the old game's colours.
 - Asset packs from the internet: CC0 or clearly free licences only, kept untouched with their licence in art/sourced/<pack>/, listed in the
   credits (art/credits.json), each download after Ashwin's typed yes. Credit every artist.
 - Characters come from the image pipeline so the style stays consistent; every sprite walks and attacks in 8 directions. Set dressing comes
