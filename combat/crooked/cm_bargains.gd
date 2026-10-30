@@ -189,24 +189,15 @@ func _companion_of(c: Combatant) -> Combatant:
 	return null
 
 
-## The Doppelganger (2025 Monster Manual) that answers Never Alone, built as Beast Master's companion is.
+## The Doppelganger that answers Never Alone: the game's stat block (data/monsters/doppelganger.json), as a summon worth no
+## XP with its average Hit Points (not rolled), built as Beast Master's companion is.
 static func doppelganger_block() -> Dictionary:
-	return {"id": "doppelganger", "name": "Lonely Companion", "size": "medium", "type": "monstrosity", "alignment": "neutral",
-		"ac": 14, "initiative": 4, "hp": {"average": 52, "dice": "52"}, "speed": {"walk": 30},
-		"abilities": {"str": 11, "dex": 18, "con": 14, "int": 11, "wis": 12, "cha": 14},
-		"skills": {"deception": 6, "insight": 3}, "condition_immunities": ["charmed"], "senses": {"darkvision": 60},
-		"passive_perception": 11, "cr": 3, "xp": 0, "proficiency_bonus": 2, "summon": true, "ai_profile": "brute",
-		"actions": [
-			{"id": "multiattack", "name": "Multiattack", "kind": "multiattack", "multiattack": [{"action": "slam", "count": 2}],
-				"summary": "Two Slam attacks."},
-			{"id": "slam", "name": "Slam", "kind": "melee", "attack": {"bonus": 6, "reach": 5},
-				"damage": [{"average": 11, "dice": "2d6+4", "type": "bludgeoning"}], "summary": "A heavy blow."},
-			{"id": "unsettling_visage", "name": "Unsettling Visage", "kind": "save", "recharge": "6",
-				"save": {"ability": "wis", "dc": 12, "success": "none"}, "area": {"shape": "emanation", "size": 15},
-				"targets": {"range": 15, "sees_source": true},
-				"on_fail": [{"do": "condition", "condition": "frightened", "until": "minute", "repeat_save": {"ability": "wis", "dc": 12, "when": "end"}}],
-				"summary": "Recharge 6. Those within 15 ft who see its face: DC 12 Wis save or Frightened (saving again each turn)."}],
-		"summary": "A companion that looks like a person, or a vague silhouette.", "text": "Never Alone."}
+	var block := Compendium.shared().monster_data("doppelganger").duplicate(true)
+	block.merge({"name": "Lonely Companion", "xp": 0, "summon": true}, true)
+	var hp := block.get("hp", {}) as Dictionary
+	if hp.has("average"):
+		hp["dice"] = str(int(hp["average"]))
+	return block
 
 
 ## Never Alone: the companion steps into a free space beside its caller, on its side, after it in Initiative.
