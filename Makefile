@@ -97,7 +97,7 @@ test: import
 ## has drifted from the lane's base (LANE_SEED_DRIFT files, 1500; LANE_SEED_ART_DRIFT textures, 40); make lane-seed SSD=1
 ## refreshes it on its own, LANE_REFRESH_SEED=1 on make lane forces a refresh first, LANE_NO_IMPORT=1 skips the seed's import.
 LANE = $(if $(SSD),LANE_ROOT=/Volumes/CrookedMoonLanes )tools/lane.sh
-.PHONY: lane lane-reclone lane-done lane-seed
+.PHONY: lane lane-reclone lane-done lane-seed setup asset-root
 lane:
 	$(LANE) new $(NAME) $(BRANCH) $(or $(BASE),main)
 lane-reclone:
@@ -111,6 +111,18 @@ lane-seed:
 ## CM_PUSH_MAIN=1 (the build thread's), then runs Git LFS's own pre-push.
 hooks:
 	cp tools/git/pre-push "$$(git rev-parse --git-common-dir)/hooks/pre-push"
+
+## Where generated and static source assets live on this computer (tools/asset_root.py): image and voice takes, portrait
+## options, renders, captures worth keeping. It is outside git so it can sit on an external drive. make setup
+## ASSET_ROOT=<folder> sets it for this clone and all its worktrees (git config cm.assetRoot); CM_ASSET_ROOT overrides it; with
+## neither it is .assets/ in the checkout. make asset-root prints it. Final art the game loads still goes in art/ through Git LFS.
+setup:
+	@if [ -n "$(ASSET_ROOT)" ]; then python3 tools/asset_root.py --set "$(ASSET_ROOT)" > /dev/null; fi
+	@echo "Asset root: $$(python3 tools/asset_root.py --ensure)"
+	@$(MAKE) --no-print-directory hooks
+
+asset-root:
+	@python3 tools/asset_root.py
 
 ## Golden saves: the tests keep a save in tests/saves (v<save version>_<name>.json, tests/support/golden_saves.gd); one already
 ## there is never made again. Every test run loads all of them (tests/integration/test_golden_saves.gd).
