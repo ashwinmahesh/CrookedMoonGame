@@ -42,7 +42,6 @@ The engine handbook's list of the host contract is `addons/dnd_core/docs/handboo
 
 | File | Now | Replace with |
 |---|---|---|
-| `story/tarokka.gd`, `world/tutorial/tutorial_session.gd` | Two stubs: the engine names a game class `Tarokka` (its dialogue screen draws a reading card through it) and a game class `TutorialSession` (its touch controls), so a game must have both even with no reading and no tutorial | The Fated Tarot (plan G1, engine E22) and, if wanted, a tutorial in the new world; the engine lane should make both duck-typed |
 | `story/crooked_moon_campaign.gd` | An empty `CampaignModule`: no reading, no villain's attention, ordinary spells, no ending | Plan G1: the Fated Tarot, the ritual track and the Crooked Moon's gaze, Adela's visions, endings, the parley, barks, defeat text, achievements |
 | `world/look/crooked_moon_look.gd` | An empty `CampaignLook`: no set piece | Plan G8: the Crooked Moon in every sky, the Oak of Many Faces, the Crooked House, the Express, the Wicker Man, the Crooked Tree |
 | `world/game_root.gd` | A copy of the old game's root with its villain visits, Tarokka and tutorial taken out. `_visit`, `_visit_on_road`, `visit_after_rest` and `_night_visit_over` are marked stubs; `FIRST_LOCATION` is `test_hillside` | The campaign module's visits (G1); defeat that continues the story (E10); the Express as the first place |
@@ -54,23 +53,22 @@ The engine handbook's list of the host contract is `addons/dnd_core/docs/handboo
 
 ## Engine leftovers that still carry the old campaign's names
 
-These are in the public engine and are not this repo's to fix, but the game works around each; the engine lane (W1) removes them
-and this game then drops the workaround (`tests/unit/test_engine_names.gd` counts Crooked Moon names in the engine, not these).
+The engine's wave 0 (2026-10-30) made the travel map's painting, the weather file, the reading's deck and card art, the arena's
+fight, the level cap and the calendar campaign settings (`data/campaign.json`, the engine's `docs/reference/contracts/campaign.md`),
+so this game names its own: `art/ui/map/wickermoor_hollow.png` (still the neutral placeholder picture), `data/weather/wickermoor_hollow.json`,
+the deck folder `data/tarot/` and `art/tarot/` (neither exists yet: G1 and Lane C), the level cap 13 (20 once `flag.moonfall_begun`, a
+name G1 may change), boons to 24, and the six named hours of an eternal night (recharges at the Dusk Hour). The engine no longer names
+a game class `Tarokka` or `TutorialSession` (the two stubs are gone), `data/schedule/` is optional, `vistas.json` needs no castle or
+lake, and the long-rest visit names are `LongRest.VISIT` and `waits_on_visit`. The arena keeps the id `arena_wolves_and_zombies` for
+now (`arena_encounter` can rename it).
 
-- `art/ui/map/barovia.png` and `data/weather/barovia.json` are fixed paths; `art/tarokka/<card>.png` is where the dialogue UI looks
-  for reading cards; `CombatArena.ENCOUNTER_ID` is `arena_wolves_and_zombies`.
-- `ui/dialogue/dialogue_ui.gd` names the game class `Tarokka` and `ui/common/mobile_controls.gd` names the game class `TutorialSession`
-  (a game that has neither does not compile; neither is in the handbook's host contract). `Schedule` pushes an error when
-  `data/schedule/` is missing, and `Vista` needs `castle` and `lake` in `vistas.json`.
-- `LongRest.STRAHD` and `LongRest.waits_on_strahd` name a visit that broke a rest; `world/game_root.gd` calls them.
 - `CombatToken.default_look` borrows the looks of four of the old game's heroes by id, and the engine's unit tests build ten of its
   pregens by id.
 
 ## Engine tests that need Curse of Strahd's content
 
-`tools/run_tests.py` `EXCLUDED_ENGINE_TESTS` lists the engine's own tests that play the old game's places and people (they pass only in
-that game). The full run leaves them out; `make test FILES=<name>` still runs one. The engine lane (W1) makes each host-independent and
-takes it off the list.
+None since the engine's wave 0: all thirteen build their own fixtures. `tools/run_tests.py` keeps the empty `EXCLUDED_ENGINE_TESTS`
+for any that need it again.
 
 ## Left out of the foundation on purpose
 

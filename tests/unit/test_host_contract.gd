@@ -7,9 +7,9 @@ extends TestCase
 const FILES: Array[String] = [
 	"res://art/palette/palette.png", "res://art/palette/palette.json", "res://art/palette/ui_palette.json",
 	"res://art/plants/cards.png", "res://art/plants/cards.json", "res://art/plants/flora.json", "res://art/plants/manifest.json",
-	"res://art/ui/map/barovia.png", "res://data/campaign.json", "res://art/atmosphere/moods.json", "res://art/vistas/vistas.json",
+	"res://art/ui/map/wickermoor_hollow.png", "res://data/campaign.json", "res://art/atmosphere/moods.json", "res://art/vistas/vistas.json",
 	"res://art/sprites/props/catalog.json", "res://art/ui/title_backdrop.png", "res://art/sprites/villager/walk.tres",
-	"res://data/weather/barovia.json", "res://data/progression/xp.json", "res://data/progression/chapters.json",
+	"res://data/weather/wickermoor_hollow.json", "res://data/progression/xp.json", "res://data/progression/chapters.json",
 	"res://data/treasure/levels.json", "res://data/ai/profiles.json", "res://data/camp/night_visitors.json",
 	"res://data/loading/cards.json", "res://data/glossary/terms.json", "res://data/busts/facing.json",
 	"res://narrative/combat/barks.json", "res://narrative/combat/bosses.json", "res://art/credits.json",

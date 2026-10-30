@@ -55,22 +55,9 @@ POOL_SIZE = {"test": 8, "import": 3}
 BUILD_RESERVE = {"test": ("BUILD_TEST_SLOTS", 5), "import": ("BUILD_IMPORT_SLOTS", 1)}
 # Engine tests that play Curse of Strahd's own places, people and quests (the engine's test suite was cut from that game, and
 # these still read its data). They pass only in that game, so this game's full run leaves them out; FILES=... still runs one.
-# Each goes when the engine lane (W1) makes it host-independent, and then comes off this list (docs/PLACEHOLDERS.md).
-EXCLUDED_ENGINE_TESTS = {
-    "test_dark_gift_spells.gd": "the old game's Amber Temple gifts (data/dark_gifts)",
-    "test_fight_stalls.gd": "one test plays a stat block of the old game's (the embrace)",
-    "test_guest_field_casting.gd": "a story ally of the old game's (data/npcs)",
-    "test_guest_items.gd": "a story ally of the old game's (data/npcs)",
-    "test_monster_actions.gd": "one test reads the old game's flying broom stat block",
-    "test_mordenkainen_cairn.gd": "Mount Baratok's dialogue and quest",
-    "test_more_loot.gd": "every location of the old game (random treasure by place)",
-    "test_narrator_cooldown.gd": "the old game's Lake Zarovich",
-    "test_option_ends.gd": "the old game's quests (the Fourth Sister, the Priest's Son)",
-    "test_revival_outside_fights.gd": "an NPC or place of the old game (a script error on a list its data fills)",
-    "test_save_condition_sweep.gd": "counts the old game's monsters' save actions",
-    "test_save_conditions.gd": "the old game's Gilded Knight stat block",
-    "test_template_rewards.gd": "every location of the old game (template rewards by place)",
-}
+# Each goes when the engine lane (W1) makes it host-independent, and then comes off this list (docs/PLACEHOLDERS.md). All
+# thirteen went with the engine's wave 0 (2026-10-30); the list stays for any that need it again.
+EXCLUDED_ENGINE_TESTS: dict[str, str] = {}
 SUMMARY = re.compile(r"^\d+ tests, \d+ passed, \d+ failed$")
 # What tools/logcheck.sh fails a run on, besides FAIL lines.
 ERROR = re.compile(r"SCRIPT ERROR|ERROR:|Parse Error|Failed loading|WARNING: .*GDScript")

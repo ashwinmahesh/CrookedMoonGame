@@ -1043,12 +1043,12 @@ func _boss_music(cv: CombatView) -> void:
 # --- The villain's presence (a marked stub: plan G1 builds it) ------------------------------------
 
 ## A visit from the villain at `on` (arrive, rest) if one is due here and now. None are written yet, so none is ever due; what
-## a visit that broke a Long Rest leaves behind (LongRest.waits_on_strahd, the engine's own name for it) still lets the party
+## a visit that broke a Long Rest leaves behind (LongRest.waits_on_visit) still lets the party
 ## sleep on. The campaign lane replaces this with the Crooked Moon's gaze and the Crooked Man's visits.
 func _visit(on: String, _ctx: Dictionary = {}) -> bool:
 	if view == null or view.in_combat or (dialogue != null and on != "rest"):
 		return false
-	if on == "rest" and LongRest.waits_on_strahd(st):
+	if on == "rest" and LongRest.waits_on_visit(st):
 		_sleep_again()   # the visit that broke the rest isn't due after all: the party sleeps on
 	return false
 
@@ -1067,7 +1067,7 @@ func visit_after_rest(minutes: int) -> void:
 
 ## Whether the visit that broke a Long Rest is over: with no visits, a rest that waits on one has nothing left to wait for.
 func _night_visit_over() -> bool:
-	return LongRest.waits_on_strahd(st)
+	return LongRest.waits_on_visit(st)
 
 
 ## What broke the night's rest is over (its fight won, a visit done): the party lies down again and finishes
@@ -1090,14 +1090,14 @@ func _sleep_again() -> void:
 		said.append_array([RestScreen.night_words(self, st), RestScreen.talk_hint(st)])
 	hud.narrate(" ".join(said.filter(func(t: String) -> bool: return t != "")))
 	_refresh()
-	if str(res["how"]) in [LongRest.SLEPT, LongRest.STRAHD]:
+	if str(res["how"]) in [LongRest.SLEPT, LongRest.VISIT]:
 		visit_after_rest.call_deferred(int(res["minutes"]))
 
 
 ## A save made while the night's rest was broken and no fight was under way: the visit that broke it comes now,
 ## or the party sleeps on.
 func _night_after_load() -> void:
-	if LongRest.waits_on_strahd(st) and not _night_visit_over():
+	if LongRest.waits_on_visit(st) and not _night_visit_over():
 		visit_after_rest(0)
 	else:
 		_sleep_again()

@@ -127,20 +127,30 @@ func test_the_party_walks_up_the_hill_under_the_night_clock() -> void:
 	assert_true(hud_text.contains("22:00"), "the explore bar shows the clock: %s" % hud_text)
 
 
-func test_the_clock_takes_the_place_from_noon_through_the_night() -> void:
+## Druskenvald's eternal night (data/campaign.json `calendar`): no sun, six named hours, each with its own look.
+func test_the_clock_takes_the_place_through_the_named_hours() -> void:
 	var view := _view()
 	st.minute_of_day = 12 * 60
 	view.update_daylight()
-	assert_eq(view.time_phase(), "day")
-	assert_false(view.lantern.visible, "no lantern at noon")
+	assert_true(st.is_night(), "the sun never rises")
+	assert_eq(view.time_phase(), "dusk", "noon is the Dusk Hour, the brightest the world gets")
+	assert_eq(Calendar.hour_name(st.minute_of_day), "the Dusk Hour")
+	assert_false(view.lantern.visible, "no lantern in the Dusk Hour's glow")
 	st.advance_minutes(10 * 60)
 	view.update_daylight()
 	assert_eq(st.minute_of_day, 22 * 60)
 	assert_eq(view.time_phase(), "night")
+	assert_eq(Calendar.hour_name(st.minute_of_day), "the Evening Hour")
 	assert_true(view.lantern.visible)
 	st.advance_minutes(8 * 60)
 	view.update_daylight()
-	assert_eq(view.time_phase(), "dawn", "six in the morning")
+	assert_eq(view.time_phase(), "night", "six in the morning is the Witching Hour")
+	st.advance_minutes(60)
+	view.update_daylight()
+	assert_eq(view.time_phase(), "dawn", "the Twilight Hour's purple")
+	root.call("_refresh")
+	var hud_text := str((root.get("hud") as ExploreHud).get("_mode").get("text"))
+	assert_true(hud_text.contains("07:00 · the Twilight Hour"), "the explore bar names the hour: %s" % hud_text)
 
 
 func test_the_schedule_fires_at_its_hour_on_the_hillside() -> void:
