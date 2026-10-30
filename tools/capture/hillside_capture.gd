@@ -3,7 +3,7 @@ extends Node
 ## The placeholder party arrives at seven in the evening, walks up the hill to the cottage under the clock, and the same place is
 ## shot again at midnight (lanterns only). Three more shots show it tilted to the horizon and whole from above.
 ##   make capture NAME=hillside/first          (this scene is the default of make capture)
-## Shots: <out>_1_arrival.png, _2_walking.png, _3_cottage.png, _4_midnight.png, _4b_noon.png, _5_tilt.png, _6_whole.png, _7_fight.png.
+## Shots: <out>_1_arrival.png, _2_walking.png, _3_cottage.png, _4_midnight.png, _4b_twilight.png, _5_tilt.png, _6_whole.png, _7_fight.png.
 
 const GAME := preload("res://world/game_root.gd")
 const LOCATION := "test_hillside"
@@ -46,12 +46,13 @@ func capture_shots(tool: Node, out: String) -> void:
 	game.call("_refresh")   # the explore bar reads the clock
 	await tool.call("wait_frames", 40)
 	tool.call("_shot", out + "_4_midnight.png")
-	# The same view at noon (the day look), then back to midnight for the rest.
-	st.minute_of_day = 12 * 60
+	# The same view at eight in the morning (the eternal night's twilight hour), then back to midnight for the rest.
+	st.minute_of_day = 8 * 60
 	view.update_daylight()
 	view.atmosphere.settle()
+	game.call("_refresh")
 	await tool.call("wait_frames", 40)
-	tool.call("_shot", out + "_4b_noon.png")
+	tool.call("_shot", out + "_4b_twilight.png")
 	st.minute_of_day = 0
 	view.update_daylight()
 	view.atmosphere.settle()
