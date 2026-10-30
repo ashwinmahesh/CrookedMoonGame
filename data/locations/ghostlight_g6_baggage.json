@@ -1,0 +1,303 @@
+{
+  "id": "ghostlight_g6_baggage",
+  "name": "The Baggage Car",
+  "region": "ghostlight_express",
+  "summary": "Heaps of dusty luggage, the Druskenvalds' new trunks, and a snoring tiger of green flame behind a stack at the front.",
+  "text": "Luggage is piled to the ceiling in rough stacks with narrow ways between them. Near the rear door the Druskenvalds' new leather trunks glimmer; somewhere at the front something large is snoring.",
+  "map": {
+    "rows": [
+      "####################",
+      "#.=======...======.#",
+      "#..==..........==..#",
+      "#.=................#",
+      "#.==...===...==....#",
+      "#.=====....=======.#",
+      "####################"
+    ],
+    "theme": "manor",
+    "light": "bright",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "g6_front_stack",
+      "name": "The front stacks",
+      "cells": [
+        [
+          9,
+          1
+        ],
+        [
+          12,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "g6_rear_stack",
+      "name": "The rear stacks",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          8,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "g6_den",
+      "name": "The tiger's den",
+      "cells": [
+        [
+          13,
+          2
+        ],
+        [
+          18,
+          5
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      1,
+      3
+    ],
+    "from_rear": [
+      1,
+      3
+    ],
+    "from_front": [
+      18,
+      3
+    ]
+  },
+  "exits": [
+    {
+      "id": "rear_door",
+      "cell": [
+        0,
+        3
+      ],
+      "to": "ghostlight_g5_mail",
+      "spawn": "from_front",
+      "label": "Back to the last car"
+    },
+    {
+      "id": "front_door",
+      "cell": [
+        19,
+        3
+      ],
+      "to": "ghostlight_g7_circus",
+      "spawn": "from_rear",
+      "label": "On to the next car"
+    }
+  ],
+  "props": [
+    {
+      "id": "g6_druskenvald_trunks",
+      "cell": [
+        2,
+        3
+      ],
+      "kind": "examine",
+      "label": "The Druskenvalds' trunks",
+      "model": "case",
+      "dialogue": "ghostlight_express/phillip_luggage:trunks"
+    },
+    {
+      "id": "g6_steamer_trunk",
+      "cell": [
+        3,
+        4
+      ],
+      "kind": "examine",
+      "label": "A steamer trunk",
+      "model": "case",
+      "dialogue": "ghostlight_express/phillip_luggage:adela_trunk"
+    },
+    {
+      "id": "g6_abandoned_luggage",
+      "cell": [
+        4,
+        2
+      ],
+      "kind": "search",
+      "label": "Abandoned luggage",
+      "model": "case",
+      "search_dc": 15,
+      "item": "goggles_of_night"
+    },
+    {
+      "id": "g6_medical_bag",
+      "cell": [
+        7,
+        3
+      ],
+      "kind": "examine",
+      "label": "A discarded medical bag",
+      "model": "case"
+    },
+    {
+      "id": "g6_tiger",
+      "cell": [
+        16,
+        3
+      ],
+      "kind": "decor",
+      "label": "The sleeping tiger"
+    },
+    {
+      "id": "g6_iron_ring",
+      "cell": [
+        17,
+        3
+      ],
+      "kind": "examine",
+      "label": "The iron ring on its tail",
+      "checks": [
+        {
+          "id": "g6_iron_ring",
+          "skill": "sleight_of_hand",
+          "dc": 15,
+          "label": "Slip the ring off its tail",
+          "once": true,
+          "success": {
+            "items": [
+              {
+                "id": "wildpyre_iron_ring"
+              }
+            ]
+          },
+          "failure": {
+            "damage": "2d6",
+            "damage_type": "fire",
+            "flag": "wildpyre_woken"
+          }
+        }
+      ]
+    },
+    {
+      "id": "g6_evolution",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "decor",
+      "call": "ghostlight_express/incitements:evolution_enter",
+      "approach": 12,
+      "call_when": "not flag.incitement_evolution and not flag.pending_evolution_incitement"
+    },
+    {
+      "id": "grille_g6",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "examine",
+      "label": "A brass grille in the ceiling",
+      "model": "window",
+      "dialogue": "ghostlight_express/vagrant_intercom:grille",
+      "when": "not flag.gl_crashed"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "haint_jailbird",
+      "cell": [
+        6,
+        3
+      ],
+      "dialogue": "ghostlight_express/haint_jailbird:start",
+      "facing": "west",
+      "when": "not flag.haint_jailbird_done and not flag.haint_jailbird_destroyed"
+    },
+    {
+      "npc": "wildpyre",
+      "cell": [
+        16,
+        3
+      ],
+      "asleep": true,
+      "facing": "west",
+      "when": "not flag.wildpyre_destroyed"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The rocking of the train will not let anyone sleep. A short breath, then.",
+  "encounters": [
+    {
+      "id": "gl_haint_jailbird",
+      "trigger": "dialogue",
+      "flag": "haint_jailbird_destroyed",
+      "quest": {
+        "id": "haint_jailbird",
+        "stage": "destroyed"
+      },
+      "monsters": [
+        {
+          "monster": "wayward_haint",
+          "cell": [
+            6,
+            3
+          ],
+          "name": "The Jailbird",
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "gl_wildpyre",
+      "trigger": "flag:wildpyre_woken",
+      "flag": "wildpyre_destroyed",
+      "monsters": [
+        {
+          "monster": "wildpyre",
+          "cell": [
+            16,
+            3
+          ],
+          "name": "The wildpyre",
+          "facing": "west"
+        }
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        4,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        16,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    }
+  ]
+}

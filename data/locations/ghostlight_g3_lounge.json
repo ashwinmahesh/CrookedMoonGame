@@ -1,0 +1,277 @@
+{
+  "id": "ghostlight_g3_lounge",
+  "name": "The Lounge Car",
+  "region": "ghostlight_express",
+  "summary": "Ebony and gold, burgundy velvet, a long black bar, and a smoking singer at the window.",
+  "text": "Understated luxury: ebony walls inlaid with gold lines, burgundy velvet chairs in quiet corners, frosted sconces and a long black bar with a mirrored back.",
+  "map": {
+    "rows": [
+      "####################",
+      "#.==............==.#",
+      "#.=...========...=.#",
+      "#..................#",
+      "#...=..........=...#",
+      "#.==....===.....==.#",
+      "####################"
+    ],
+    "theme": "manor",
+    "light": "bright",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "g3_bar",
+      "name": "The bar",
+      "cells": [
+        [
+          5,
+          1
+        ],
+        [
+          14,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "g3_seating",
+      "name": "The seating",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          18,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "g3_window_seat",
+      "name": "The window seat",
+      "cells": [
+        [
+          11,
+          4
+        ],
+        [
+          13,
+          5
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      2,
+      3
+    ],
+    "from_rear": [
+      1,
+      3
+    ],
+    "from_front": [
+      18,
+      3
+    ]
+  },
+  "exits": [
+    {
+      "id": "rear_door",
+      "cell": [
+        0,
+        3
+      ],
+      "to": "ghostlight_g2_sleeper",
+      "spawn": "from_front",
+      "label": "Back to the last car"
+    },
+    {
+      "id": "front_door",
+      "cell": [
+        19,
+        3
+      ],
+      "to": "ghostlight_g4_dining",
+      "spawn": "from_rear",
+      "label": "On to the next car"
+    }
+  ],
+  "props": [
+    {
+      "id": "g3_bar_counter",
+      "cell": [
+        9,
+        2
+      ],
+      "kind": "examine",
+      "label": "The bar",
+      "model": "bar"
+    },
+    {
+      "id": "g3_seascape",
+      "cell": [
+        4,
+        1
+      ],
+      "kind": "search",
+      "label": "The landscape paintings",
+      "model": "case",
+      "search_dc": 13,
+      "item": "seascape_painting"
+    },
+    {
+      "id": "g3_paintings",
+      "cell": [
+        15,
+        1
+      ],
+      "kind": "examine",
+      "label": "Landscape paintings",
+      "model": "case"
+    },
+    {
+      "id": "g3_chairs",
+      "cell": [
+        17,
+        1
+      ],
+      "kind": "examine",
+      "label": "Burgundy velvet chairs",
+      "model": "chairs"
+    },
+    {
+      "id": "g3_sconces",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "decor",
+      "label": "Frosted sconces"
+    },
+    {
+      "id": "g3_whiskey_bottle",
+      "cell": [
+        7,
+        1
+      ],
+      "kind": "search",
+      "label": "An empty whiskey bottle",
+      "search_dc": 13,
+      "item": "empty_whiskey_bottle"
+    },
+    {
+      "id": "g3_haint_hooch",
+      "cell": [
+        12,
+        1
+      ],
+      "kind": "search",
+      "label": "A jug marked XxX",
+      "search_dc": 18,
+      "item": "haint_hooch"
+    },
+    {
+      "id": "grille_g3",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "examine",
+      "label": "A brass grille in the ceiling",
+      "model": "window",
+      "dialogue": "ghostlight_express/vagrant_intercom:grille",
+      "when": "not flag.gl_crashed"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "phillip_druskenvald",
+      "cell": [
+        10,
+        3
+      ],
+      "dialogue": "ghostlight_express/druskenvalds_lounge:meet",
+      "when": "not flag.gl_crashed",
+      "facing": "east",
+      "approach": 3
+    },
+    {
+      "npc": "adela_druskenvald",
+      "cell": [
+        11,
+        3
+      ],
+      "dialogue": "ghostlight_express/druskenvalds_lounge:meet",
+      "when": "not flag.gl_crashed",
+      "facing": "east"
+    },
+    {
+      "npc": "haint_songstress",
+      "cell": [
+        12,
+        5
+      ],
+      "dialogue": "ghostlight_express/haint_songstress:start",
+      "facing": "south",
+      "when": "not flag.haint_songstress_done and not flag.haint_songstress_destroyed"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The rocking of the train will not let anyone sleep. A short breath, then.",
+  "encounters": [
+    {
+      "id": "gl_haint_songstress",
+      "trigger": "dialogue",
+      "flag": "haint_songstress_destroyed",
+      "quest": {
+        "id": "haint_songstress",
+        "stage": "destroyed"
+      },
+      "monsters": [
+        {
+          "monster": "wayward_haint",
+          "cell": [
+            12,
+            5
+          ],
+          "name": "The Songstress",
+          "facing": "south"
+        }
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        4,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        16,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    }
+  ]
+}

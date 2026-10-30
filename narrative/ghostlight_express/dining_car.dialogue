@@ -1,0 +1,47 @@
+# R10: the Dining Car's phantasmal food (G4). Sit in any booth and name anything and it appears, perfect, out of nothing; no check, no cost; the plates
+# are gone when the party rises. Steak and eggs is the Jailbird's token; a jug of water is the answer to the wildpyre (any water is holy water to it).
+# Started by the booth props (`g4_booth*`, `sit`) and the big half-booth (`big_booth`). Drafted by Gemini (Gemini/sent_23_small_beats.txt), edited.
+
+~ sit
+Narrator: You slide into the booth, where a starch-stiff cloth and a brass-rimmed menu lie waiting on the wood.
+Narrator: The page is blank save for a single copper line at the bottom: name what you want.
+-> order_menu
+
+~ order_menu
+* Steak and eggs. -> order_steak
+* A jug of water. -> order_water
+* Whatever we've been wanting. -> order_other
+* A feast for all of us. -> order_feast
+* Get up from the booth. -> rise
+
+~ order_steak
+give steak_and_eggs
+Narrator: A heavy platter settles onto the cloth with a hiss of butter, carrying thick-cut steak and two eggs with trembling golden yolks.
+Narrator: It smells of black pepper and an iron skillet from a kitchen miles behind the fog.
+-> order_menu
+
+~ order_water
+give jug_of_water
+Narrator: A glass jug stands between your hands, cold and beaded with sweat, smelling faintly of a deep stone well.
+Narrator: On a train stitched together from mist and old regrets, plain cold water is the strangest thing in the car.
+-> order_menu
+
+~ order_other
+narrate dining:order_other
+-> order_menu
+
+~ order_feast
+Narrator: The table groans under roast fowl, buttered loaves, and pewter pitchers that frost over in the lantern light.
+Narrator: A king on his wedding day never ate finer, though none of it weighs an ounce once you swallow.
+-> order_menu
+
+~ rise
+Narrator: When you slide out from the bench, the plates are gone and the white cloth lies smooth and crumb-free once more.
+-> END
+
+# The reserved half-booth: R25's Last Ride calls this back (gl_empty_table_seen).
+~ big_booth
+set gl_empty_table_seen
+Narrator: A hush hangs over the curved half-booth, where a tarnished silver plate reads Reserved: For the end of the line.
+Narrator: The menu card is blank from top to bottom, and no matter what you ask the air for, nothing comes.
+-> END

@@ -1,0 +1,36 @@
+# R10: the Tender and the crash. Two scenes, both started by an NPC with `approach` (a hidden figure at the Tender's door and at the
+# firebox): `opened` when the party steps through the unsealed door (the cutscene, then the Stoker fight), `crash` once the Stoker is dead.
+# Captions drafted by Gemini (Gemini/sent_20_cutscene_captions.txt) and edited; the Vagrant's lines are batch 02 (`stoker_down`).
+
+~ opened
+set gl_tender_opened
+cutscene gl_curse_reaches_fuel
+Narrator: Black, root-veined tendrils thrash inside the iron pipes with a hollow, drumming thud. Thick porthole glass spiderwebs with a sharp, dry crack.
+cutscene gl_curse_reaches_fuel_2
+Narrator: Drifting soul coals hiss like doused embers as their pale glow goes pitch-black. They rattle up the narrow flues in a rising, metallic shriek.
+cutscene gl_curse_reaches_fuel_3
+Narrator: Iron groans and bolts shear off as the firebox door buckles outward. It blows from its hinges with a deafening boom and a roaring gout of icy flame.
+cutscene end
+combat gl_stoker
+
+# After the Stoker dies: the train tears out of the Shroud and crashes. Level 3, before the boss (the book's own count).
+~ crash
+if flag.gl_crashed
+-> END
+endif
+set gl_crashed
+the_vagrant [afraid]: Hang on to the brass, travelers, hang on to each other if it's easier, we are tearing clean out of the fog! The rails are giving way and this landing is gonna be rough!
+the_vagrant [weary]: Don't look too hard at the Moon when the trees break, I will explain it all a piece down the road!
+cutscene gl_crash_and_moon
+Narrator: Splintered carriages lie scattered among ancient oaks like dropped cards across the torn earth. Freshly gouged mud smells of crushed pine needles and cold ash.
+cutscene gl_crash_and_moon_2
+Narrator: High above the broken canopy, a vast crescent moon peers down with a crone's leering grin and mad eyes. She has the look of someone who has been waiting a long time for company.
+cutscene gl_crash_and_moon_3
+Narrator: Thick black roots creep from the loam, creaking like ship ropes as they coil tight around the engine's iron wheels. The woods aim to keep what fell.
+cutscene end
+if not flag.gl_level3_given
+set gl_level3_given
+xp milestone
+endif
+quest ghostlight_express crashed
+move ghostlight_wreckage:from_crash

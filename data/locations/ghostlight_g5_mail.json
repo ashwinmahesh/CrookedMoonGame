@@ -1,0 +1,269 @@
+{
+  "id": "ghostlight_g5_mail",
+  "name": "The Mail Car",
+  "region": "ghostlight_express",
+  "summary": "Pigeonholes of letters from the dead to the living and back, a sorting bench, canvas mailbags, and an old sailor hauling them about.",
+  "text": "Two long walls of pigeonholes: letters from the dead on the north wall, letters from the living on the south. An old sailor hauls canvas mailbags from one pile to another.",
+  "map": {
+    "rows": [
+      "####################",
+      "#.================.#",
+      "#...==........=....#",
+      "#.......====.......#",
+      "#..............==..#",
+      "#.================.#",
+      "####################"
+    ],
+    "theme": "manor",
+    "light": "bright",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "g5_living_shelf",
+      "name": "The living-to-dead shelves",
+      "cells": [
+        [
+          2,
+          5
+        ],
+        [
+          17,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "g5_dead_shelf",
+      "name": "The dead-to-living shelves",
+      "cells": [
+        [
+          2,
+          1
+        ],
+        [
+          17,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "g5_bench",
+      "name": "The sorting bench",
+      "cells": [
+        [
+          7,
+          2
+        ],
+        [
+          12,
+          4
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      2,
+      3
+    ],
+    "from_rear": [
+      1,
+      3
+    ],
+    "from_front": [
+      18,
+      3
+    ]
+  },
+  "exits": [
+    {
+      "id": "rear_door",
+      "cell": [
+        0,
+        3
+      ],
+      "to": "ghostlight_g4_dining",
+      "spawn": "from_front",
+      "label": "Back to the last car"
+    },
+    {
+      "id": "front_door",
+      "cell": [
+        19,
+        3
+      ],
+      "to": "ghostlight_g6_baggage",
+      "spawn": "from_rear",
+      "label": "On to the next car"
+    }
+  ],
+  "props": [
+    {
+      "id": "g5_letters_living",
+      "cell": [
+        6,
+        5
+      ],
+      "kind": "book",
+      "label": "Letters from the living to the dead",
+      "model": "letters",
+      "codex": "g5_living_1"
+    },
+    {
+      "id": "g5_letters_dead",
+      "cell": [
+        6,
+        1
+      ],
+      "kind": "book",
+      "label": "Letters from the dead to the living",
+      "model": "letters",
+      "codex": "g5_dead_1"
+    },
+    {
+      "id": "g5_pink_envelope",
+      "cell": [
+        14,
+        1
+      ],
+      "kind": "search",
+      "label": "A bright pink envelope",
+      "search_dc": 13,
+      "skill": "investigation",
+      "item": "jakob_braun_letter",
+      "codex": "g5_jakob_letter"
+    },
+    {
+      "id": "g5_mailbags",
+      "cell": [
+        4,
+        2
+      ],
+      "kind": "examine",
+      "label": "Canvas mailbags",
+      "model": "rags"
+    },
+    {
+      "id": "g5_sorting_bench",
+      "cell": [
+        9,
+        3
+      ],
+      "kind": "examine",
+      "label": "The sorting bench",
+      "model": "table_round"
+    },
+    {
+      "id": "g5_gambler_letter",
+      "cell": [
+        16,
+        4
+      ],
+      "kind": "examine",
+      "label": "A letter on the bench",
+      "model": "letter"
+    },
+    {
+      "id": "g5_liberation",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "decor",
+      "call": "ghostlight_express/incitements:liberation_enter",
+      "approach": 12,
+      "call_when": "not flag.incitement_liberation and not flag.pending_liberation_incitement"
+    },
+    {
+      "id": "grille_g5",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "examine",
+      "label": "A brass grille in the ceiling",
+      "model": "window",
+      "dialogue": "ghostlight_express/vagrant_intercom:grille",
+      "when": "not flag.gl_crashed"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "haint_mariner",
+      "cell": [
+        11,
+        4
+      ],
+      "dialogue": "ghostlight_express/haint_mariner:start",
+      "path": [
+        [
+          6,
+          2
+        ],
+        [
+          14,
+          4
+        ]
+      ],
+      "pause": 3,
+      "when": "not flag.haint_mariner_done and not flag.haint_mariner_destroyed"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The rocking of the train will not let anyone sleep. A short breath, then.",
+  "encounters": [
+    {
+      "id": "gl_haint_mariner",
+      "trigger": "dialogue",
+      "flag": "haint_mariner_destroyed",
+      "quest": {
+        "id": "haint_mariner",
+        "stage": "destroyed"
+      },
+      "monsters": [
+        {
+          "monster": "wayward_haint",
+          "cell": [
+            11,
+            4
+          ],
+          "name": "The Mariner",
+          "facing": "south"
+        }
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        4,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        16,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    }
+  ]
+}

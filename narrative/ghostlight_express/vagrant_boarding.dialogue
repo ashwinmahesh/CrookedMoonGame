@@ -1,0 +1,212 @@
+# R10: the Vagrant at the boarding (scene A on the hill, scene B aboard the Passenger Car). Region ghostlight_express.
+# Started by: the_vagrant on ghostlight_boarding (`boarding`, `when: not flag.gl_boarded`) and on ghostlight_g1_passenger (`aboard`,
+# `approach: 6`, `when: flag.gl_boarded and not flag.gl_aboard_welcomed`). The ticket search is never a gate: failing it, or not
+# having one, has the Vagrant point the tickets out. The fare (a story and a song) is never a gate either. Lines drafted by Gemini
+# (Gemini/sent_01_vagrant_boarding.txt, reply_01_vagrant_boarding.json) and edited; see README.md.
+
+# --- The hill ---
+
+~ boarding
+if flag.gl_boarded
+-> END
+endif
+if flag.gl_greeted
+-> menu
+endif
+set gl_greeted
+cutscene gl_arrives
+Narrator: Cold fog curls over the wet headstones on the hill, carrying the rosin-sweet scrape of a fiddle. A single brass lamp blooms gold behind the grey veil.
+cutscene gl_arrives_2
+Narrator: Pistons hiss as the black engine rolls in on rails of mist, smelling of wet iron and river mud. Blue-green smoke billows up, full of open-mouthed faces.
+cutscene end
+the_vagrant [smile]: Evenin', travelers, and welcome to the Ghostlight Express. You made good time up the hill, considerin' how thick the mist is rolling in tonight.
+the_vagrant [neutral]: I reckon y'all heard the tune and followed it right up the hill, just like the Lady foresaw.
+the_vagrant [smile]: Step right up out of the damp now, friends, before the chill settles in your bones.
+Narrator: Three rusted railroad spikes jut from the band of his battered hat, catching the amber lantern light as he tucks a worn fiddle beneath his arm.
+the_vagrant [smile]: Now then, if y'all would be so kind as to show your tickets, we can get this engine rollin'.
+the_vagrant [sly]: Empty hands, huh? Don't you fret none, folks who belong on this train always have a ticket tucked away somewhere, else they wouldn't be boardin'.
+interject name:rook_coldwake: Unlicensed track, no foundation under the ties, and a frog in a hat. Mind the turf, everyone.
+interject name:tobin_hayward: Mist for rails and rot on the wind. Good soil up on this hill, mind you, but strange seed.
+interject name:silas_vane: An amphibians-only game with invisible cards, is it? I don't like a table where I can't see the dealer's cuffs.
+interject name:delphine_ravelle: A midnight locomotive materializing from mist, conducted by a melodious marsh-gentleman! Mind the seams, darling, the damp will ruin the velvet.
+interject name:lucan_houndstooth: Hush now, keep your noses to the wind. That iron beast carries no scent of coal or oil, only cold water and old bone.
+interject name:cordelia_skein: Fascinating morphology in the vocal sac, and those eyes are adapted for total dark. Do hold still if he tries to hand you anything.
+-> menu
+
+~ menu
+if flag.gl_menu_seen
+the_vagrant [smile]: Take your time, travelers. The Express has all night. It ain't got any other kind.
+else
+set gl_menu_seen
+the_vagrant [neutral]: Take all the time you need to sort yourselves out, friends, the boiler's warm and the rails ain't goin' nowhere.
+endif
+* What is this train? -> train
+* Where does this line go? -> where
+* Who are you, exactly? -> who
+* [if not flag.gl_fare_paid] What's the fare? -> fare
+* [if flag.gl_fare_paid] Is the fare settled? -> fare_settled
+* [if not flag.gl_ticket_found] [Perception DC 13] Check our pockets for tickets. -> ticket_found | ticket_pointed
+* [if not flag.gl_ticket_found] We don't have any tickets. -> ticket_pointed
+* [if flag.gl_ticket_found] We're ready to board. -> ticket_all
+* We aren't getting on a ghost train. -> refuse
+
+~ train
+the_vagrant [neutral]: Why, she's the Ghostlight Express, the finest and only line runnin' across the Shroud. Whether you're breathin' or done with the habit, nobody crosses that grey fog on foot.
+the_vagrant [smile]: Good black iron on rails of mist, steady as a heartbeat and twice as loud. She's carried every soul that ever needed carryin' to the far side.
+Narrator: Pale grey smoke curls from the tall stack, smelling of wet wool and river silt, and the shapes inside it twist like faces with their mouths open in a song.
+-> menu
+
+~ where
+the_vagrant [smile]: We're bound for Druskenvald, travelers, a piece down the road past the edge of the fog. The sun never rises over yonder, and the dead get born again as somethin' fresh and strange.
+the_vagrant [weary]: It's a long night under that big crooked moon, I won't lie to y'all, but a kind one, mostly. Leastways, it beats standin' in an old buryin' ground till your boots rot.
+-> menu
+
+~ who
+the_vagrant [smile]: Folks just call me the Vagrant. I'm the conductor, the engineer, and the fella who keeps the fiddle warm between stations.
+the_vagrant [neutral]: I'm what they call a Stranger, just an old hand meant to see souls safe across the water and the mist.
+the_vagrant [sly]: Couldn't rightly tell you where I hatched or when I climbed aboard, and I reckon I don't mind a bit, long as there's a good story on the wind.
+* You can't remember? -> who_remember
+* Never mind. -> menu
+
+~ who_remember
+the_vagrant [smile]: Shoot, friend, a pocket only holds so much before you got to turn it out to make room for better things.
+the_vagrant [neutral]: Some folks are made of what they carry in their pack, and I reckon I'm just made of what I've heard along the line, and the road's been mighty long.
+-> menu
+
+~ fare
+the_vagrant [smile]: Your ticket gets you through the door, friends, but the real fare on this line is a story and a song from each passenger.
+the_vagrant [neutral]: Gold don't spend where we're headin', and silver weighs down the floorboards. Tell me somethin' true, or hum me a bar or two, and I'll call the ledger square.
+* Tell him something true about why you came. -> fare_story
+* [Performance DC 11] Offer him a tune. -> fare_song | fare_song_miss
+* We'll owe you. -> fare_owe
+
+~ fare_story
+set gl_fare_paid = "story"
+the_vagrant [smile]: Now that right there has the ring of good iron to it. Honest words are rare cargo out here in the fog, friend.
+the_vagrant [neutral]: I'll tuck that one inside my hatband for the long stretch ahead, and thank you kindly.
+interject name:rook_coldwake: A plain receipt for a plain fact. Settle down now, at least he keeps an honest book.
+-> menu
+
+~ fare_song
+set gl_fare_paid = "song"
+the_vagrant [smile]: Now you're talkin' my language, friend, let's hear how she goes.
+Narrator: You barely find the first note before his bow catches the air beneath your voice, weaving a warm, rosin-sweet harmony that makes a rough road-tune sound like an old hymn.
+-> menu
+
+# A tune that misses still pays the fare: he is kind, and the check is only colour.
+~ fare_song_miss
+set gl_fare_paid = "song"
+the_vagrant [smile]: Don't you blush none, traveler, a crooked note still gets to the end of the bar if you push it hard enough. My old fiddle can carry the weight for the both of us.
+Narrator: He gives the pegs a gentle twist and grins, treating your cracked melody like a treasured parlour ballad.
+-> menu
+
+# Owing it is allowed: the fare is collected in the farewell (vagrant_farewell:fare_due).
+~ fare_owe
+set gl_fare_owed
+the_vagrant [smile]: A debt of a story is the easiest tab on the whole line, friend, and I am a mighty patient man.
+the_vagrant [sly]: We got plenty of track ahead of us tonight, so I reckon I'll just collect it a piece down the road.
+-> menu
+
+~ fare_settled
+the_vagrant [smile]: We're square, friends. Your piece is tucked in my hatband.
+-> menu
+
+~ refuse
+the_vagrant [neutral]: Ain't no lock on the gate and no rope round your wrists, friend, I never hurried a soul who wasn't ready to ride.
+the_vagrant [weary]: Just keep in mind that this old engine is patient, and that grey fog creepin' over the headstones behind y'all ain't. The door's open whenever you change your mind.
+-> menu
+
+# Tickets: found by the party, or pointed out by the Vagrant. Both set gl_ticket_found.
+~ ticket_found
+set gl_ticket_found
+set ticket_found_by = "party"
+Narrator: Your fingers brush a stiff square of black pasteboard in a pocket that was empty ten heartbeats ago, stamped with silver letters that squirm when you try to read them straight.
+the_vagrant [smile]: There she is, right where she ought to be, shiny as a new dime.
+-> menu
+
+~ ticket_pointed
+set gl_ticket_found
+set ticket_found_by = "vagrant"
+the_vagrant [smile]: Try your left coat pocket, friend, the deep one with the loose thread you keep forgettin' to mend. Tickets are shy little things till you reach for 'em right.
+Narrator: Four squares of cold black card sit waiting in four separate pockets, smelling faintly of turnip smoke and brass polish, though none of you could say whose hand slipped them in.
+-> menu
+
+# All aboard: gl_ticket plays under the lines; then the party steps up into the Passenger Car.
+~ ticket_all
+set gl_boarded
+quest ghostlight_express aboard
+cutscene gl_ticket
+Narrator: The sliding door rattles open, and a frogman in a spiked hat steps down with a fiddle tucked under his arm. He tips his brim like he has been waiting all night.
+cutscene gl_ticket_2
+Narrator: Your gloved hand holds up a stiff black ticket stamped in cold silver ink. That little square of cardstock is all the fare you reckon you need.
+Narrator: He collects the four black cards in one webbed hand and nips a crescent moon out of each corner with a tiny brass punch that clicks like a cricket.
+the_vagrant [smile]: All aboard the Ghostlight Express, travelers, mind the brass and step lively now!
+the_vagrant [neutral]: Hold onto the mahogany once you're inside, she rocks a fair bit when she lifts off the hill.
+cutscene end
+move ghostlight_g1_passenger:from_boarding
+
+# --- Aboard the Passenger Car ---
+
+~ aboard
+if flag.gl_aboard_welcomed
+-> aboard_menu
+endif
+set gl_aboard_welcomed
+cutscene gl_into_shroud
+Narrator: Couplings clank, and the train pulls away from the hilltop into the wailing grey fog. The grave dirt falls behind, traded for a road made of mist.
+cutscene gl_into_shroud_2
+Narrator: Outside the cold glass, green smoke swallows the dark world whole. Pale passengers sit still in the reflection, their empty eyes staring back at your silhouette.
+cutscene end
+the_vagrant [smile]: Welcome to the rear passenger car, friends, make yourselves right at home on the plush.
+the_vagrant [neutral]: She's a little faded round the tassels, I reckon, but the brass lamps stay lit and the draught stays out.
+the_vagrant [sly]: Not a bad seat in the house, long as you don't mind sharin' an armrest with a memory or two.
+Narrator: Across the aisle, pale figures in damp coats sit staring straight ahead, flickering like candle flames in a draught while the red velvet cushions show right through their ribs.
+interject name:rook_coldwake: Sound joinery in the panelling, though the occupancy is irregular. Give the quiet ones their space.
+interject name:tobin_hayward: Like husks left over after the threshing. Don't brush against them, you'll scatter what's left.
+interject name:silas_vane: Nobody's blinking and nobody's breathing. Best poker faces I ever saw, and not a coin in their pockets.
+interject name:delphine_ravelle: Vintage velvet and translucent travelers! A touch macabre for the matinee crowd, darling, but the lighting is divine.
+interject name:lucan_houndstooth: Prime woodwork, yet the air tastes of cold tallow. They leave no tracks upon the carpet.
+interject name:cordelia_skein: Complete absence of pulse or respiration, yet the posture remains intact. What a delightful state of suspension.
+-> aboard_menu
+
+~ aboard_menu
+* Why are the outside doors sealed? -> aboard_doors
+* Who else is riding tonight? -> aboard_company
+* What's wrong with the other passengers? -> aboard_passengers
+* What are the rules? -> aboard_rules
+* Is this ride actually safe? -> aboard_safe
+* We'll be fine. Go on to your cab. -> aboard_leave
+
+~ aboard_rules
+the_vagrant [neutral]: Now, I ain't a man for a long list of rules, travelers, so I'll give you the short one: do not open the doors or windows to the outside, for any reason. That fog out there eats what it touches, name and bone alike.
+the_vagrant [neutral]: Be polite to the pale folk in the seats, though they won't answer you back, and don't take it personal.
+the_vagrant [smile]: And when you walk between the cars, pull the doors shut tight behind you so the heat stays where it belongs.
+-> aboard_menu
+
+~ aboard_passengers
+the_vagrant [weary]: Those quiet folks are souls headed home to Druskenvald to be born again into a fresh skin. They've shed most of who they were to make the crossin' light.
+the_vagrant [neutral]: Some of 'em are scared, some are glad, and every last one of 'em is tired to the marrow, so let 'em rest easy.
+-> aboard_menu
+
+~ aboard_company
+the_vagrant [smile]: If y'all want livelier talk, the Lord and Lady Druskenvald are ridin' up ahead, and they're fine company. The Lord can talk a table into buyin' a chair, and the Lady will read your fortune whether you ask or not.
+the_vagrant [sly]: Their lounge car is the next one up, or maybe the one after that. The cars on this train are mighty particular about their own order from night to night.
+-> aboard_menu
+
+~ aboard_doors
+the_vagrant [neutral]: The outer doors are sealed tight on purpose, friends, and only my key can turn the latch before we reach the station.
+the_vagrant [weary]: The Shroud outside the glass is a hungry, cold thing, and once you crack a window an inch, it don't take no for an answer.
+-> aboard_menu
+
+~ aboard_safe
+the_vagrant [smile]: Safe? Why, friends, this is the safest road there is between here and yonder, and I've been drivin' this engine since before those hills grew grass!
+the_vagrant [sly]: Speakin' of which, a good engineer best keep his hand on the throttle and his eye on the gauge, so I ought to get up to my cab right quick.
+-> aboard_menu
+
+# He leaves as mist up the ceiling pipe, and the grille takes over (vagrant_intercom). The Phantom strikes on the party's first
+# step into the aisle (the encounter gl_phantom_strikes, trigger enter_area:g1_aisle).
+~ aboard_leave
+Narrator: He taps two fingers to a rusted spike on his hatbrim and dissolves into a ribbon of green-white mist that pours straight up the brass ceiling pipe like cream into black coffee.
+the_vagrant [smile]: Mind the step on the way, travelers. And hum if you want. The train likes it.
+vanish the_vagrant
+-> END

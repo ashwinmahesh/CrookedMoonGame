@@ -1,0 +1,852 @@
+{
+ "flags": [
+  {
+   "id": "abandoned_wreck",
+   "type": "bool",
+   "summary": "The party left the clearing and the boss started at its edge (read by later chapters' Narrator and the Vagrant's recurrences).",
+   "read_later": true
+  },
+  {
+   "id": "adela_regard",
+   "type": "int",
+   "summary": "Adela's regard for the party (an int; same use)."
+  },
+  {
+   "id": "cordelia_inc_choice",
+   "type": "string",
+   "summary": "`read` / `traced` / `packed` (read by Thomasin's greeting, Lane F).",
+   "read_later": true
+  },
+  {
+   "id": "delphine_inc_choice",
+   "type": "string",
+   "summary": "`shared` / `bristled` / `alone` (read by Alda's greeting, Lane F).",
+   "read_later": true
+  },
+  {
+   "id": "druskenvald_luggage_tampered",
+   "type": "bool",
+   "summary": "The party tampered with the Druskenvalds' trunks (cools Phillip in R11 and R12).",
+   "read_later": true
+  },
+  {
+   "id": "gl_aboard_welcomed",
+   "type": "bool",
+   "summary": "The Vagrant's welcome in the Passenger Car has played."
+  },
+  {
+   "id": "gl_after_recount",
+   "type": "string",
+   "summary": "A hand-over flag for `haint_common:recount`: `router` or `grille`."
+  },
+  {
+   "id": "gl_boarded",
+   "type": "bool",
+   "summary": "The party has boarded; the hill is gone."
+  },
+  {
+   "id": "gl_bottled",
+   "type": "int",
+   "summary": "How many haints the party has bottled (each stands in for one Soul Can)."
+  },
+  {
+   "id": "gl_can_1_found",
+   "type": "bool",
+   "summary": "Soul Can 1 is in the party's hands (the prop's flag)."
+  },
+  {
+   "id": "gl_can_2_found",
+   "type": "bool",
+   "summary": "Soul Can 2 is in the party's hands (the prop's flag)."
+  },
+  {
+   "id": "gl_can_3_found",
+   "type": "bool",
+   "summary": "Soul Can 3 is in the party's hands (the prop's flag)."
+  },
+  {
+   "id": "gl_cans_by_druskenvalds",
+   "type": "bool",
+   "summary": "The Lord and Lady fetched the cans (the can props go away; read by the location)."
+  },
+  {
+   "id": "gl_cans_have",
+   "type": "int",
+   "summary": "Recounted: cans found plus bottled haints (3 or more is enough)."
+  },
+  {
+   "id": "gl_checkin_all",
+   "type": "bool",
+   "summary": "The Vagrant's all-six check-in has played."
+  },
+  {
+   "id": "gl_checkin_fifth",
+   "type": "bool",
+   "summary": "The Vagrant's fifth check-in has played."
+  },
+  {
+   "id": "gl_checkin_first",
+   "type": "bool",
+   "summary": "The Vagrant's first check-in has played."
+  },
+  {
+   "id": "gl_complimented",
+   "type": "bool",
+   "summary": "The party flattered the Druskenvalds."
+  },
+  {
+   "id": "gl_cooler_seen",
+   "type": "bool",
+   "summary": "Phillip's cooler return line has played."
+  },
+  {
+   "id": "gl_crashed",
+   "type": "bool",
+   "summary": "The train has crashed; the party is at the wreck."
+  },
+  {
+   "id": "gl_destroyed_noted",
+   "type": "bool",
+   "summary": "The Narrator has marked the first haint put down (once)."
+  },
+  {
+   "id": "gl_drinks_had",
+   "type": "bool",
+   "summary": "The party accepted Phillip's drinks."
+  },
+  {
+   "id": "gl_empty_table_seen",
+   "type": "bool",
+   "summary": "The party sat at the reserved booth in the Dining Car (R25's Last Ride calls this back).",
+   "read_later": true
+  },
+  {
+   "id": "gl_fare_owed",
+   "type": "bool",
+   "summary": "The party chose to owe the fare; collected in the farewell."
+  },
+  {
+   "id": "gl_fare_paid",
+   "type": "string",
+   "summary": "The fare (a story and a song) is settled: `story` or `song`; never a gate."
+  },
+  {
+   "id": "gl_greeted",
+   "type": "bool",
+   "summary": "The Vagrant has greeted the party on the hill (plays the arrival pictures once)."
+  },
+  {
+   "id": "gl_hummed",
+   "type": "bool",
+   "summary": "The Vagrant has hummed the cans' note (every remaining can is revealed)."
+  },
+  {
+   "id": "gl_last_stop",
+   "type": "bool",
+   "summary": "The farewell has begun; the quest `ghostlight_express` ends."
+  },
+  {
+   "id": "gl_level2_given",
+   "type": "bool",
+   "summary": "The level 2 milestone has been granted (after the third haint)."
+  },
+  {
+   "id": "gl_level3_given",
+   "type": "bool",
+   "summary": "The level 3 milestone has been granted (at the crash)."
+  },
+  {
+   "id": "gl_locomotive_done",
+   "type": "bool",
+   "summary": "The Locomotive is destroyed (the encounter's flag)."
+  },
+  {
+   "id": "gl_lounge_met",
+   "type": "bool",
+   "summary": "The party has met Phillip and Adela."
+  },
+  {
+   "id": "gl_menu_seen",
+   "type": "bool",
+   "summary": "The Vagrant's waiting line has played once."
+  },
+  {
+   "id": "gl_painting_asked",
+   "type": "bool",
+   "summary": "The party asked Adela about the seascape painting (permission given)."
+  },
+  {
+   "id": "gl_painting_given",
+   "type": "bool",
+   "summary": "The seascape painting has gone to the Mariner."
+  },
+  {
+   "id": "gl_phantom_done",
+   "type": "bool",
+   "summary": "The Phantom fight is won (the encounter `gl_phantom_strikes`'s flag)."
+  },
+  {
+   "id": "gl_phillip_card_asked",
+   "type": "bool",
+   "summary": "The party asked whether Phillip draws a card."
+  },
+  {
+   "id": "gl_pried",
+   "type": "bool",
+   "summary": "The party pried into Phillip's past."
+  },
+  {
+   "id": "gl_pried_forgiven",
+   "type": "bool",
+   "summary": "They apologised after prying."
+  },
+  {
+   "id": "gl_reading_deferred",
+   "type": "bool",
+   "summary": "The party put the reading off once (it is part of the wreck council)."
+  },
+  {
+   "id": "gl_reflected",
+   "type": "bool",
+   "summary": "The Druskenvalds have remarked on how the party treated the haints (once)."
+  },
+  {
+   "id": "gl_return_destroyed_seen",
+   "type": "bool",
+   "summary": "Phillip's remark on putting haints down has played."
+  },
+  {
+   "id": "gl_return_painting_seen",
+   "type": "bool",
+   "summary": "Adela's remark on the bare wall has played."
+  },
+  {
+   "id": "gl_return_songstress_seen",
+   "type": "bool",
+   "summary": "The pair's thanks for the Songstress has played."
+  },
+  {
+   "id": "gl_songstress_sang",
+   "type": "bool",
+   "summary": "The Songstress sang her last song by the phonograph (the Lord and Lady danced)."
+  },
+  {
+   "id": "gl_tender_opened",
+   "type": "bool",
+   "summary": "The Tender's door has been opened (the cutscene and the Stoker fight follow)."
+  },
+  {
+   "id": "gl_ticket_found",
+   "type": "bool",
+   "summary": "The party has its tickets (found or pointed out)."
+  },
+  {
+   "id": "gl_vagrant_briefed",
+   "type": "bool",
+   "summary": "The Vagrant's explanation after the fight has played."
+  },
+  {
+   "id": "gl_wreck_met",
+   "type": "bool",
+   "summary": "The Vagrant's wreck arrival has played."
+  },
+  {
+   "id": "gl_wreck_pair_met",
+   "type": "bool",
+   "summary": "The Druskenvalds' wreck scene has played."
+  },
+  {
+   "id": "gl_wreck_rested",
+   "type": "bool",
+   "summary": "The Vagrant has offered a rest."
+  },
+  {
+   "id": "haints_all_gone",
+   "type": "bool",
+   "summary": "All six haints are gone: the Tender's door unseals."
+  },
+  {
+   "id": "haints_destroyed",
+   "type": "int",
+   "summary": "Recounted: how many were put down; the Tender's Corrupted Fuel DC is 5 + 2 each."
+  },
+  {
+   "id": "haints_resolved",
+   "type": "int",
+   "summary": "Recounted: how many of the six haints are gone (freed, bottled or destroyed)."
+  },
+  {
+   "id": "incitement_apocalypse",
+   "type": "bool",
+   "summary": "The Apocalypse Incitement (a custom hero; a stub) has played."
+  },
+  {
+   "id": "incitement_ascendancy",
+   "type": "bool",
+   "summary": "Delphine's Incitement has played (Lane F's flag)."
+  },
+  {
+   "id": "incitement_deliverance",
+   "type": "bool",
+   "summary": "The Deliverance Incitement (a custom hero; a stub) has played."
+  },
+  {
+   "id": "incitement_evolution",
+   "type": "bool",
+   "summary": "Cordelia's Incitement has played (Lane F's flag)."
+  },
+  {
+   "id": "incitement_liberation",
+   "type": "bool",
+   "summary": "Silas's Incitement has played (Lane F's flag)."
+  },
+  {
+   "id": "party_has_custom",
+   "type": "bool",
+   "summary": "A custom hero is in the party (set by the module at party creation).",
+   "set_by": "engine"
+  },
+  {
+   "id": "pending_ascendancy_incitement",
+   "type": "bool",
+   "summary": "The Circus Car was entered without Delphine: pending."
+  },
+  {
+   "id": "pending_evolution_incitement",
+   "type": "bool",
+   "summary": "The Baggage Car was entered without Cordelia: pending."
+  },
+  {
+   "id": "pending_liberation_incitement",
+   "type": "bool",
+   "summary": "The Mail Car was entered without Silas: his beat is pending (Lane F's camp echo)."
+  },
+  {
+   "id": "phillip_gift_count",
+   "type": "int",
+   "summary": "How many of Phillip's four gifts have been taken."
+  },
+  {
+   "id": "phillip_regard",
+   "type": "int",
+   "summary": "Phillip's regard for the party (an int, 0 at the start; the book's first impressions; read by R12, R16, R22 to R24)."
+  },
+  {
+   "id": "silas_inc_choice",
+   "type": "string",
+   "summary": "`shown` / `burned` / `pocketed` (read by Holly's greeting, Lane F).",
+   "read_later": true
+  },
+  {
+   "id": "tarot_full_reading",
+   "type": "bool",
+   "summary": "The reading is done (the module blesses each hero for an hour)."
+  },
+  {
+   "id": "tarot_hero_1",
+   "type": "string",
+   "summary": "The card id dealt to hero slot 1 (a string; set by the module on `reading draw`).",
+   "set_by": "engine"
+  },
+  {
+   "id": "tarot_hero_2",
+   "type": "string",
+   "summary": "The card id dealt to hero slot 2.",
+   "set_by": "engine"
+  },
+  {
+   "id": "tarot_hero_3",
+   "type": "string",
+   "summary": "The card id dealt to hero slot 3.",
+   "set_by": "engine"
+  },
+  {
+   "id": "tarot_hero_4",
+   "type": "string",
+   "summary": "The card id dealt to hero slot 4.",
+   "set_by": "engine"
+  },
+  {
+   "id": "ticket_found_by",
+   "type": "string",
+   "summary": "`party` or `vagrant`: who found the tickets (flavour; no reader yet).",
+   "read_later": true
+  },
+  {
+   "id": "told_haints_soul_coal",
+   "type": "bool",
+   "summary": "The party told a haint that unfreed haints become fuel (the cruel truth). Read by Phillip and Adela at the wreck; later chapters may read it."
+  },
+  {
+   "id": "haint_sweetheart_met",
+   "type": "bool",
+   "summary": "Sweetheart: The haint has been met."
+  },
+  {
+   "id": "haint_sweetheart_done",
+   "type": "bool",
+   "summary": "Sweetheart: The haint is freed or bottled (a dialogue sets it)."
+  },
+  {
+   "id": "haint_sweetheart_destroyed",
+   "type": "bool",
+   "summary": "Sweetheart: The haint was destroyed (the encounter `gl_haint_<id>`'s flag)."
+  },
+  {
+   "id": "haint_sweetheart_hostile",
+   "type": "bool",
+   "summary": "Sweetheart: The haint has turned hostile (three failed approaches, the cruel truth or a strike)."
+  },
+  {
+   "id": "haint_sweetheart_how",
+   "type": "string",
+   "summary": "Sweetheart: `token`, `helped` or `bottled` (read by later chapters' echoes of pain, if any).",
+   "read_later": true
+  },
+  {
+   "id": "haint_sweetheart_wins",
+   "type": "int",
+   "summary": "Sweetheart: Approaches that landed."
+  },
+  {
+   "id": "haint_sweetheart_fails",
+   "type": "int",
+   "summary": "Sweetheart: Approaches that fell flat."
+  },
+  {
+   "id": "haint_songstress_met",
+   "type": "bool",
+   "summary": "Songstress: The haint has been met."
+  },
+  {
+   "id": "haint_songstress_done",
+   "type": "bool",
+   "summary": "Songstress: The haint is freed or bottled (a dialogue sets it)."
+  },
+  {
+   "id": "haint_songstress_destroyed",
+   "type": "bool",
+   "summary": "Songstress: The haint was destroyed (the encounter `gl_haint_<id>`'s flag)."
+  },
+  {
+   "id": "haint_songstress_hostile",
+   "type": "bool",
+   "summary": "Songstress: The haint has turned hostile (three failed approaches, the cruel truth or a strike)."
+  },
+  {
+   "id": "haint_songstress_how",
+   "type": "string",
+   "summary": "Songstress: `token`, `helped` or `bottled` (read by later chapters' echoes of pain, if any).",
+   "read_later": true
+  },
+  {
+   "id": "haint_songstress_wins",
+   "type": "int",
+   "summary": "Songstress: Approaches that landed."
+  },
+  {
+   "id": "haint_songstress_fails",
+   "type": "int",
+   "summary": "Songstress: Approaches that fell flat."
+  },
+  {
+   "id": "haint_daydreamer_met",
+   "type": "bool",
+   "summary": "Daydreamer: The haint has been met."
+  },
+  {
+   "id": "haint_daydreamer_done",
+   "type": "bool",
+   "summary": "Daydreamer: The haint is freed or bottled (a dialogue sets it)."
+  },
+  {
+   "id": "haint_daydreamer_destroyed",
+   "type": "bool",
+   "summary": "Daydreamer: The haint was destroyed (the encounter `gl_haint_<id>`'s flag)."
+  },
+  {
+   "id": "haint_daydreamer_hostile",
+   "type": "bool",
+   "summary": "Daydreamer: The haint has turned hostile (three failed approaches, the cruel truth or a strike)."
+  },
+  {
+   "id": "haint_daydreamer_how",
+   "type": "string",
+   "summary": "Daydreamer: `token`, `helped` or `bottled` (read by later chapters' echoes of pain, if any).",
+   "read_later": true
+  },
+  {
+   "id": "haint_daydreamer_wins",
+   "type": "int",
+   "summary": "Daydreamer: Approaches that landed."
+  },
+  {
+   "id": "haint_daydreamer_fails",
+   "type": "int",
+   "summary": "Daydreamer: Approaches that fell flat."
+  },
+  {
+   "id": "haint_mariner_met",
+   "type": "bool",
+   "summary": "Mariner: The haint has been met."
+  },
+  {
+   "id": "haint_mariner_done",
+   "type": "bool",
+   "summary": "Mariner: The haint is freed or bottled (a dialogue sets it)."
+  },
+  {
+   "id": "haint_mariner_destroyed",
+   "type": "bool",
+   "summary": "Mariner: The haint was destroyed (the encounter `gl_haint_<id>`'s flag)."
+  },
+  {
+   "id": "haint_mariner_hostile",
+   "type": "bool",
+   "summary": "Mariner: The haint has turned hostile (three failed approaches, the cruel truth or a strike)."
+  },
+  {
+   "id": "haint_mariner_how",
+   "type": "string",
+   "summary": "Mariner: `token`, `helped` or `bottled` (read by later chapters' echoes of pain, if any).",
+   "read_later": true
+  },
+  {
+   "id": "haint_mariner_wins",
+   "type": "int",
+   "summary": "Mariner: Approaches that landed."
+  },
+  {
+   "id": "haint_mariner_fails",
+   "type": "int",
+   "summary": "Mariner: Approaches that fell flat."
+  },
+  {
+   "id": "haint_jailbird_met",
+   "type": "bool",
+   "summary": "Jailbird: The haint has been met."
+  },
+  {
+   "id": "haint_jailbird_done",
+   "type": "bool",
+   "summary": "Jailbird: The haint is freed or bottled (a dialogue sets it)."
+  },
+  {
+   "id": "haint_jailbird_destroyed",
+   "type": "bool",
+   "summary": "Jailbird: The haint was destroyed (the encounter `gl_haint_<id>`'s flag)."
+  },
+  {
+   "id": "haint_jailbird_hostile",
+   "type": "bool",
+   "summary": "Jailbird: The haint has turned hostile (three failed approaches, the cruel truth or a strike)."
+  },
+  {
+   "id": "haint_jailbird_how",
+   "type": "string",
+   "summary": "Jailbird: `token`, `helped` or `bottled` (read by later chapters' echoes of pain, if any).",
+   "read_later": true
+  },
+  {
+   "id": "haint_jailbird_wins",
+   "type": "int",
+   "summary": "Jailbird: Approaches that landed."
+  },
+  {
+   "id": "haint_jailbird_fails",
+   "type": "int",
+   "summary": "Jailbird: Approaches that fell flat."
+  },
+  {
+   "id": "haint_harlequin_met",
+   "type": "bool",
+   "summary": "Harlequin: The haint has been met."
+  },
+  {
+   "id": "haint_harlequin_done",
+   "type": "bool",
+   "summary": "Harlequin: The haint is freed or bottled (a dialogue sets it)."
+  },
+  {
+   "id": "haint_harlequin_destroyed",
+   "type": "bool",
+   "summary": "Harlequin: The haint was destroyed (the encounter `gl_haint_<id>`'s flag)."
+  },
+  {
+   "id": "haint_harlequin_hostile",
+   "type": "bool",
+   "summary": "Harlequin: The haint has turned hostile (three failed approaches, the cruel truth or a strike)."
+  },
+  {
+   "id": "haint_harlequin_how",
+   "type": "string",
+   "summary": "Harlequin: `token`, `helped` or `bottled` (read by later chapters' echoes of pain, if any).",
+   "read_later": true
+  },
+  {
+   "id": "haint_harlequin_wins",
+   "type": "int",
+   "summary": "Harlequin: Approaches that landed."
+  },
+  {
+   "id": "haint_harlequin_fails",
+   "type": "int",
+   "summary": "Harlequin: Approaches that fell flat."
+  },
+  {
+   "id": "haint_daydreamer_used_forgery",
+   "type": "bool",
+   "summary": "The daydreamer's `forgery` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_daydreamer_used_history",
+   "type": "bool",
+   "summary": "The daydreamer's `history` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_daydreamer_used_insight",
+   "type": "bool",
+   "summary": "The daydreamer's `insight` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_daydreamer_used_investigation",
+   "type": "bool",
+   "summary": "The daydreamer's `investigation` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_daydreamer_used_nature",
+   "type": "bool",
+   "summary": "The daydreamer's `nature` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_daydreamer_used_painters_supplies",
+   "type": "bool",
+   "summary": "The daydreamer's `painters_supplies` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_daydreamer_used_performance",
+   "type": "bool",
+   "summary": "The daydreamer's `performance` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_daydreamer_used_persuasion",
+   "type": "bool",
+   "summary": "The daydreamer's `persuasion` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_harlequin_used_animal_handling",
+   "type": "bool",
+   "summary": "The harlequin's `animal_handling` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_harlequin_used_deception",
+   "type": "bool",
+   "summary": "The harlequin's `deception` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_harlequin_used_insight",
+   "type": "bool",
+   "summary": "The harlequin's `insight` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_harlequin_used_investigation",
+   "type": "bool",
+   "summary": "The harlequin's `investigation` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_harlequin_used_nature",
+   "type": "bool",
+   "summary": "The harlequin's `nature` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_harlequin_used_performance",
+   "type": "bool",
+   "summary": "The harlequin's `performance` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_harlequin_used_persuasion",
+   "type": "bool",
+   "summary": "The harlequin's `persuasion` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_harlequin_used_survival",
+   "type": "bool",
+   "summary": "The harlequin's `survival` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_jailbird_used_cooks_utensils",
+   "type": "bool",
+   "summary": "The jailbird's `cooks_utensils` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_jailbird_used_deception",
+   "type": "bool",
+   "summary": "The jailbird's `deception` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_jailbird_used_history",
+   "type": "bool",
+   "summary": "The jailbird's `history` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_jailbird_used_insight",
+   "type": "bool",
+   "summary": "The jailbird's `insight` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_jailbird_used_investigation",
+   "type": "bool",
+   "summary": "The jailbird's `investigation` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_jailbird_used_performance",
+   "type": "bool",
+   "summary": "The jailbird's `performance` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_jailbird_used_persuasion",
+   "type": "bool",
+   "summary": "The jailbird's `persuasion` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_jailbird_used_survival",
+   "type": "bool",
+   "summary": "The jailbird's `survival` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_mariner_used_athletics",
+   "type": "bool",
+   "summary": "The mariner's `athletics` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_mariner_used_deception",
+   "type": "bool",
+   "summary": "The mariner's `deception` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_mariner_used_medicine",
+   "type": "bool",
+   "summary": "The mariner's `medicine` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_mariner_used_musical_instrument",
+   "type": "bool",
+   "summary": "The mariner's `musical_instrument` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_mariner_used_navigators_tools",
+   "type": "bool",
+   "summary": "The mariner's `navigators_tools` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_mariner_used_performance",
+   "type": "bool",
+   "summary": "The mariner's `performance` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_mariner_used_persuasion",
+   "type": "bool",
+   "summary": "The mariner's `persuasion` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_mariner_used_survival",
+   "type": "bool",
+   "summary": "The mariner's `survival` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_songstress_used_arcana",
+   "type": "bool",
+   "summary": "The songstress's `arcana` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_songstress_used_history",
+   "type": "bool",
+   "summary": "The songstress's `history` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_songstress_used_insight",
+   "type": "bool",
+   "summary": "The songstress's `insight` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_songstress_used_investigation",
+   "type": "bool",
+   "summary": "The songstress's `investigation` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_songstress_used_musical_instrument",
+   "type": "bool",
+   "summary": "The songstress's `musical_instrument` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_songstress_used_perception",
+   "type": "bool",
+   "summary": "The songstress's `perception` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_songstress_used_performance",
+   "type": "bool",
+   "summary": "The songstress's `performance` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_songstress_used_persuasion",
+   "type": "bool",
+   "summary": "The songstress's `persuasion` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_sweetheart_used_calligraphy",
+   "type": "bool",
+   "summary": "The sweetheart's `calligraphy` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_sweetheart_used_deception",
+   "type": "bool",
+   "summary": "The sweetheart's `deception` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_sweetheart_used_history",
+   "type": "bool",
+   "summary": "The sweetheart's `history` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_sweetheart_used_insight",
+   "type": "bool",
+   "summary": "The sweetheart's `insight` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_sweetheart_used_investigation",
+   "type": "bool",
+   "summary": "The sweetheart's `investigation` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_sweetheart_used_performance",
+   "type": "bool",
+   "summary": "The sweetheart's `performance` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_sweetheart_used_persuasion",
+   "type": "bool",
+   "summary": "The sweetheart's `persuasion` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "haint_sweetheart_used_religion",
+   "type": "bool",
+   "summary": "The sweetheart's `religion` approach has been tried (spent whatever its result)."
+  },
+  {
+   "id": "gl_stoker_done",
+   "type": "bool",
+   "summary": "The Stoker is dead (the encounter's flag)."
+  },
+  {
+   "id": "wildpyre_ring_taken",
+   "type": "bool",
+   "summary": "The iron ring was taken from the tiger's tail (the prop's flag)."
+  },
+  {
+   "id": "wildpyre_destroyed",
+   "type": "bool",
+   "summary": "The wildpyre was destroyed (the encounter's flag; the ring stays)."
+  }
+ ]
+}

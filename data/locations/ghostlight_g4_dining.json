@@ -1,0 +1,271 @@
+{
+  "id": "ghostlight_g4_dining",
+  "name": "The Dining Car",
+  "region": "ghostlight_express",
+  "summary": "Six four-seat booths down each side, white cloths, brass-rimmed menus, and a big empty half-booth at the front.",
+  "text": "Booths under white cloths line both walls beneath orange paper bunting. At the front end an eight-seat half-booth is laid with a spotless cloth and nobody has ever sat at it.",
+  "map": {
+    "rows": [
+      "####################",
+      "#.============..===#",
+      "#...............===#",
+      "#..................#",
+      "#...............===#",
+      "#.============..===#",
+      "####################"
+    ],
+    "theme": "manor",
+    "light": "bright",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "g4_booths",
+      "name": "The booths",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          15,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "g4_big_booth",
+      "name": "The big booth",
+      "cells": [
+        [
+          16,
+          1
+        ],
+        [
+          18,
+          5
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      2,
+      3
+    ],
+    "from_rear": [
+      1,
+      3
+    ],
+    "from_front": [
+      18,
+      3
+    ]
+  },
+  "exits": [
+    {
+      "id": "rear_door",
+      "cell": [
+        0,
+        3
+      ],
+      "to": "ghostlight_g3_lounge",
+      "spawn": "from_front",
+      "label": "Back to the last car"
+    },
+    {
+      "id": "front_door",
+      "cell": [
+        19,
+        3
+      ],
+      "to": "ghostlight_g5_mail",
+      "spawn": "from_rear",
+      "label": "On to the next car"
+    }
+  ],
+  "props": [
+    {
+      "id": "g4_booth_n1",
+      "cell": [
+        3,
+        2
+      ],
+      "kind": "examine",
+      "label": "A booth",
+      "model": "table_round",
+      "dialogue": "ghostlight_express/dining_car:sit",
+      "say": "examine:g4_booth"
+    },
+    {
+      "id": "g4_booth_n2",
+      "cell": [
+        6,
+        2
+      ],
+      "kind": "examine",
+      "label": "A booth",
+      "model": "table_round",
+      "dialogue": "ghostlight_express/dining_car:sit",
+      "say": "examine:g4_booth"
+    },
+    {
+      "id": "g4_booth_n3",
+      "cell": [
+        12,
+        2
+      ],
+      "kind": "examine",
+      "label": "A booth",
+      "model": "table_round",
+      "dialogue": "ghostlight_express/dining_car:sit",
+      "say": "examine:g4_booth"
+    },
+    {
+      "id": "g4_booth_s1",
+      "cell": [
+        3,
+        4
+      ],
+      "kind": "examine",
+      "label": "A booth",
+      "model": "table_round",
+      "dialogue": "ghostlight_express/dining_car:sit",
+      "say": "examine:g4_booth"
+    },
+    {
+      "id": "g4_booth_s2",
+      "cell": [
+        6,
+        4
+      ],
+      "kind": "examine",
+      "label": "A booth",
+      "model": "table_round",
+      "dialogue": "ghostlight_express/dining_car:sit",
+      "say": "examine:g4_booth"
+    },
+    {
+      "id": "g4_booth_s3",
+      "cell": [
+        12,
+        4
+      ],
+      "kind": "examine",
+      "label": "A booth",
+      "model": "table_round",
+      "dialogue": "ghostlight_express/dining_car:sit",
+      "say": "examine:g4_booth"
+    },
+    {
+      "id": "g4_menu_cards",
+      "cell": [
+        2,
+        2
+      ],
+      "kind": "examine",
+      "label": "Brass-rimmed menu cards",
+      "model": "papers"
+    },
+    {
+      "id": "g4_big_booth",
+      "cell": [
+        17,
+        3
+      ],
+      "kind": "examine",
+      "label": "The empty half-booth",
+      "model": "table_round",
+      "dialogue": "ghostlight_express/dining_car:big_booth"
+    },
+    {
+      "id": "g4_silverware",
+      "cell": [
+        8,
+        2
+      ],
+      "kind": "decor",
+      "label": "Polished silverware"
+    },
+    {
+      "id": "grille_g4",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "examine",
+      "label": "A brass grille in the ceiling",
+      "model": "window",
+      "dialogue": "ghostlight_express/vagrant_intercom:grille",
+      "when": "not flag.gl_crashed"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "haint_daydreamer",
+      "cell": [
+        9,
+        2
+      ],
+      "dialogue": "ghostlight_express/haint_daydreamer:start",
+      "approach": 3,
+      "when": "not flag.haint_daydreamer_done and not flag.haint_daydreamer_destroyed"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The rocking of the train will not let anyone sleep. A short breath, then.",
+  "encounters": [
+    {
+      "id": "gl_haint_daydreamer",
+      "trigger": "dialogue",
+      "flag": "haint_daydreamer_destroyed",
+      "quest": {
+        "id": "haint_daydreamer",
+        "stage": "destroyed"
+      },
+      "monsters": [
+        {
+          "monster": "wayward_haint",
+          "cell": [
+            9,
+            2
+          ],
+          "name": "The Daydreamer",
+          "facing": "south"
+        }
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        4,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        16,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    }
+  ]
+}

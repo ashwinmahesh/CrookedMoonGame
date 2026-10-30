@@ -1,0 +1,194 @@
+# R10: the Vagrant at the wreck, before the fight. Speaker the_vagrant (on foot now, by the engine). Region ghostlight_express.
+# Started by: the Vagrant NPC at the wreck (`arrival`, then `menu`), the clearing's rim (`walk_away`, `enter_area:wr_edge`).
+# The Soul Cans: three props (wr_soul_can_1..3, `search`, Perception DC 10; each sets gl_can_N_found), his fiddle note reveals the rest (`hum`),
+# bottled haints stand in for one each (gl_bottled), and if the party refuses to look the Lord and Lady fetch them (`refuse_search`).
+# Drafted by Gemini (Gemini/sent_18_wreck_council.txt), edited; see README.md.
+
+~ arrival
+if flag.gl_wreck_met
+-> menu
+endif
+set gl_wreck_met
+quest ghostlight_express soul_cans
+the_vagrant [smile]: Well now, count your fingers and count your toes, friends, 'cause it looks like every last one of y'all made the stop in one piece.
+the_vagrant [weary]: Folks usually wait for the station platform before steppin' off, though I reckon the old girl had her own ideas about the schedule tonight.
+the_vagrant [smile]: She's wedged in the dirt right good, ain't she, just takin' a little breather on her side while we sort out the track.
+Narrator: His fiddle is slung tight across his back, and when he reaches up to tip his spiked hat, his hands are not quite steady.
+-> cans_plan
+
+# The reading, if it was put off, is part of the council (Adela insists; there is no later). It ends in the Druskenvalds' own menu.
+~ cans_plan
+the_vagrant [neutral]: Now, if we want this train rollin' a piece down the road, we got to feed her firebox what it's hungry for.
+the_vagrant [neutral]: Takes six Soul Cans to get her steam up enough to pull free, and I only got three left clankin' around the cab.
+the_vagrant [weary]: The other three got tossed out into the brush when we came barrelin' through the trees.
+the_vagrant [smile]: Good news is they glow bright teal in the dark, friends, so they can't stay lost for long if y'all go lookin'.
+if flag.gl_reading_deferred and not flag.tarot_full_reading
+-> ghostlight_express/adela_reading:at_the_wreck
+endif
+-> menu
+
+~ menu
+* What are these Soul Cans? -> ask_cans
+* Where should we look for the cans? -> ask_where
+* [if flag.gl_bottled >= 1] Does a bottled haint count as fuel? -> ask_bottled
+* What kind of roots are holding the train? -> ask_roots
+* Have you looked up at the Moon? -> ask_moon
+* Why can't anyone free the wheels? -> ask_stuck
+* [if not flag.gl_wreck_rested] Can we rest a moment first? -> rest_offer
+* [if not flag.gl_hummed] Can you hum the cans' note on your fiddle? -> hum
+* We have the cans. -> cans_recount
+* We'll go now. -> walk_away
+* We're not doing this. -> refuse_search
+
+~ ask_cans
+the_vagrant [neutral]: Just little brass canisters packed tight with old soul-light, the kind that burns warm and clean without leavin' ash.
+the_vagrant [smile]: Every ghost train needs a touch of spirit to keep the boilers singing across the fog, and those cans hold the spark.
+the_vagrant [neutral]: Handle 'em gentle like you would a lantern in a high wind, and bring 'em right back here to me.
+-> menu
+
+~ ask_where
+the_vagrant [neutral]: Keep your eyes low to the ground, travelers, down by the twisted roots, the creek water, and the mossy rocks where heavy brass rolls.
+the_vagrant [smile]: If the search runs long and the dark plays tricks on you, come holler and I'll hum their note on my fiddle to shine 'em up.
+-> menu
+
+~ ask_bottled
+the_vagrant [weary]: If y'all happened to catch one of those wayward haints in a bottle earlier, that spirit'll burn just the same as a can.
+the_vagrant [sad]: I don't love that it does, truth be told, since every soul ought to get a gentler ride than the firebox.
+-> menu
+
+~ ask_roots
+the_vagrant [afraid]: I've ridden rails through plenty of wild timber, friends, and I ain't never seen oak roots twist up like iron cable on their own.
+the_vagrant [weary]: Somebody planted that grip waiting for us, and they tied it tight enough to choke a boiler cold.
+Narrator: His yellow eyes flick up toward the leering face in the moon above the canopy, then dart right back down to his boots.
+-> menu
+
+~ ask_moon
+the_vagrant [weary]: That old moon is pullin' a face I don't care to look at twice, like she knows a joke nobody else wants to hear.
+the_vagrant [smile]: Tell you what, let's get these wheels turning first, and I'll tell you all about her some other night when the fire's warm.
+-> menu
+
+~ ask_stuck
+the_vagrant [weary]: Ain't a muscle or a crowbar in this hollow strong enough to pry those drivers loose while the firebox is cold.
+the_vagrant [neutral]: Even Lord Phillip gave those black roots a tap with his fancy cane, and the poor old girl's still pinned like a moth.
+-> menu
+
+# A Short Rest is allowed here (the book offers one); a Long Rest is not.
+~ rest_offer
+set gl_wreck_rested
+the_vagrant [smile]: Y'all took a mighty hard tumble through those carriages, and the dark ain't goin' anywhere fast.
+the_vagrant [neutral]: Reckon we could all do with catching our breath by the lantern for a spell before you head into the trees.
+-> menu
+
+~ hum
+set gl_hummed
+reveal wr_soul_can_1
+reveal wr_soul_can_2
+reveal wr_soul_can_3
+the_vagrant [neutral]: Hush up a second now, friends, and let me give the brass something to answer to.
+the_vagrant [smile]: Hear that low string ringin' out through the timber, steady and clear as a dinner bell.
+Narrator: Somewhere out in the dark beneath the oaks, three small teal lights answer his fiddle note and stay lit.
+-> menu
+
+# Counting what the party carries: found cans (each prop sets its flag) plus bottled haints.
+~ cans_recount
+set gl_cans_have = 0
+if flag.gl_can_1_found
+set gl_cans_have += 1
+endif
+if flag.gl_can_2_found
+set gl_cans_have += 1
+endif
+if flag.gl_can_3_found
+set gl_cans_have += 1
+endif
+if flag.gl_bottled >= 1
+set gl_cans_have += 1
+endif
+if flag.gl_bottled >= 2
+set gl_cans_have += 1
+endif
+if flag.gl_bottled >= 3
+set gl_cans_have += 1
+endif
+if flag.gl_cans_have >= 3
+-> cans_back
+endif
+-> cans_short
+
+~ cans_short
+if flag.gl_cans_have == 0
+the_vagrant [neutral]: Not a one yet, friends. They're out there, low and glowing; I'd stake my hat on it.
+endif
+if flag.gl_cans_have == 1
+the_vagrant [neutral]: One in hand, and two still to find. Keep your eyes low, and call me if the dark plays tricks.
+endif
+if flag.gl_cans_have == 2
+the_vagrant [smile]: Two. Just one more, friends, and she'll have her supper.
+endif
+-> menu
+
+~ cans_back
+quest ghostlight_express locomotive
+the_vagrant [smile]: Well look at that shine, y'all went and gathered up the whole litter without losin' a single traveler to the brush.
+the_vagrant [smile]: That's the lot, three in my hands and three in yours, humming like bees in a jar.
+the_vagrant [neutral]: Stand back a pace while I see to the firebox, friends. She's bound to kick when the light hits her belly.
+* Ready. Do it. -> ready_go
+* Give us a minute. -> not_yet
+
+~ not_yet
+the_vagrant [neutral]: Take all the time you need to square your shoulders, friends, I'll just be here dusting the mud off my hat.
+-> cans_back_menu
+
+~ cans_back_menu
+* Ready. Do it. -> ready_go
+* Let me ask something first. -> menu
+
+# The Vagrant feeds his three cans to the firebox; the three the party carried are flung to their squares when she wakes (the fight's can squares).
+~ ready_go
+the_vagrant [smile]: I'll start her on the three I carried, and keep yours by me for her second helping. When she catches, those roots won't hold her a second.
+the_vagrant [afraid]: Lord Phillip, Lady Adela, y'all best step back into the tree line and keep your heads down till the steam settles.
+cutscene gl_locomotive_wakes
+Narrator: Wet, woody tendrils slither over the soot-black boiler and drop down the smokestack. Inside the iron belly, something heavy begins to beat.
+cutscene gl_locomotive_wakes_2
+Narrator: Boiler plates screech and twist into a grimacing iron face with furnaces for eyes. Heat washes over your knuckles as that gaze swings around to find you.
+cutscene end
+combat gl_locomotive
+
+# --- The clearing's rim: the party walks away ---
+
+~ walk_away
+the_vagrant [afraid]: Hold on there, travelers, I wouldn't go wandering off into Wickermoor Hollow without a train at your back.
+the_vagrant [weary]: These woods ain't friendly to strangers on foot, and the old girl don't like being left behind in the dark.
+the_vagrant [sad]: If you walk out of this clearing, she'll come looking for her passengers, though I reckon I can't stop you from tryin'.
+* Stay. -> menu
+* Leave anyway. -> leave_anyway
+
+~ leave_anyway
+set abandoned_wreck
+quest ghostlight_express locomotive
+Narrator: A rusted train whistle splits the night behind you, sounding a long way off at first and then not far at all.
+Narrator: The wet earth shudders under your boots as iron wheels tear loose from oak root and come grinding through the brush.
+the_vagrant [afraid]: Run, friends, run for the trees, she ain't listening to the brakes no more!
+combat gl_locomotive_edge
+
+# --- Refusing to search: the Lord and Lady go (half an hour passes) ---
+
+~ refuse_search
+adela_druskenvald [smile]: Oh, don't be sore about a little mud, darlings, Philly and I aren't afraid of a stroll under the oaks.
+adela_druskenvald [sly]: Give us a lantern and a little pluck, and we'll have those shiny cans stacked up before you finish pouting.
+phillip_druskenvald [smile]: Quite right, darling, a gentleman never asks his guests to fetch the firewood when the evening turns chilly.
+phillip_druskenvald [neutral]: Keep an eye on the conductor for us, friends, and try not to let the damp ruin your spirits while we're gone.
+time +30
+set gl_cans_by_druskenvalds
+set gl_can_1_found
+set gl_can_2_found
+set gl_can_3_found
+-> druskenvalds_back
+
+~ druskenvalds_back
+phillip_druskenvald [smile]: There we are, one brass canister fished straight out of a briar patch, and my cuffs only slightly the worse for wear.
+phillip_druskenvald [weary]: The thickets out there have positively dreadful manners, though nothing a steady hand and a silver cane couldn't part.
+adela_druskenvald [smile]: And here's its twin, tucked right under a crooked stone where a little frog practically pointed it out to me.
+adela_druskenvald [smile]: And the third was in a hollow log, glowing like a nightlight. Our grand little treasure hunt is the bee's knees.
+Narrator: Leaves cling to Phillip's lapels and briars tug at Adela's hem: they look as if they have been in a fight with a hedge, and won.
+-> cans_recount

@@ -1,0 +1,107 @@
+# R10: Phillip and Adela at the wreck. Speakers phillip_druskenvald, adela_druskenvald. Region ghostlight_express.
+# Started by: the pair in the clearing (`crash_check`, then `menu`); they `steps_aside` when the boss starts. The reading, if it was put off,
+# is part of the council (`adela_reading:at_the_wreck` is reached from vagrant_wreck:arrival). Drafted by Gemini (sent_18), edited.
+
+~ crash_check
+if flag.gl_wreck_pair_met
+-> menu
+endif
+set gl_wreck_pair_met
+phillip_druskenvald [smile]: Well, that was a rather brisk disembarkation, wasn't it, darling, though I daresay my tailor will weep when he sees this pinstripe.
+phillip_druskenvald [neutral]: Still, any landing one walks away from with one's cane and one's wife intact counts as a grand old time in my book.
+adela_druskenvald [smile]: Oh, never mind your coat, Philly, we're only a touch singed around the edges and the night air is wonderfully brisk.
+adela_druskenvald [afraid]: Wait a second, look at the four of you, all scraped up and bleeding through your sleeves from that awful jolt.
+adela_druskenvald [sad]: Do sit down on a trunk for a moment, darlings, before you go marching off on bruised knees.
+-> reflect_router
+
+# What the pair thinks of how the heroes treated the haints (one reflection, once).
+~ reflect_router
+if flag.haints_destroyed >= 1 and not flag.gl_reflected
+-> reflect_destroyed
+endif
+if flag.told_haints_soul_coal and not flag.gl_reflected
+-> reflect_told
+endif
+if flag.haints_destroyed == 0 and not flag.gl_reflected
+-> reflect_freed
+endif
+-> menu
+
+~ reflect_freed
+set gl_reflected
+set adela_regard += 1
+adela_druskenvald [smile]: You were splendid back there in the carriages, darlings, truly the bee's knees with all those poor souls.
+adela_druskenvald [sad]: It takes a gentle heart to untie knots that tight when the dark is pressing in on the glass.
+-> menu
+
+~ reflect_destroyed
+set gl_reflected
+phillip_druskenvald [neutral]: You certainly keep a tidy carriage when the dead grow unruly, my friends, brisk and thorough to the last spark.
+phillip_druskenvald [weary]: One cannot fault efficiency in a tight corner, even if it leaves the parlor rather quieter than it began.
+-> menu
+
+~ reflect_told
+set gl_reflected
+set phillip_regard -= 1
+adela_druskenvald [sad]: I keep thinking on that poor haint in the carriage, and how awful it must have been to hear the bare truth like cold water.
+adela_druskenvald [weary]: Honesty is a sharp medicine for a ghost to swallow, even when there isn't a kinder lie left to tell.
+phillip_druskenvald [weary]: Come now, darling, some ledgers must be closed in ink before the page can turn.
+-> menu
+
+~ menu
+* What happened when you tried your magic on the roots? -> phillip_tried
+* [Insight DC 13] Watch Phillip's hands to see if he is bluffing. -> insight_honest | insight_missed
+* Have you looked up at the Moon? -> adela_moon
+* What is this place we crashed in? -> ask_hollow
+* Are you all right? -> ask_alright
+* How do we get home from here? -> ask_home
+* That's all. -> END
+
+~ phillip_tried
+Narrator: Phillip lifts the goat-skull cane to the black roots and speaks a low word: nothing answers, the silver skull gone dull as lead.
+phillip_druskenvald [weary]: Now that is singularly odd, I gave the wood my customary word of command and it simply declined to take the call.
+phillip_druskenvald [neutral]: It feels rather like reaching out for a banister on one's own staircase and finding someone has moved it in the dark.
+phillip_druskenvald [weary]: I cannot feel the pulse of the land under my boots here at all, as though the soil itself has forgotten my name.
+adela_druskenvald [smile]: Don't fret your handsome head about it, Philly, these old country woods are just fibbing at you to see if you'll blink.
+adela_druskenvald [sly]: Every house has a dusty cellar where the master's voice doesn't carry quite so well, and we've simply tumbled into ours.
+-> menu
+
+~ insight_honest
+Narrator: For all his smooth patter, the lord is hiding nothing from you: as he lowers the silver cane, his gloved hand shakes, just once.
+-> menu
+
+~ insight_missed
+Narrator: A lord's smooth patter and a steady cane, and nothing under either that you can read.
+-> menu
+
+~ adela_moon
+adela_druskenvald [afraid]: Philly, do look up through the branches a second, because that moon isn't the one we left hanging over the manor.
+adela_druskenvald [weary]: I've seen a good many moons in the cards and the sky, darling, and that one's looking right back at me.
+adela_druskenvald [smile]: Doesn't she have the most wicked grin, though, like an old auntie waiting for someone to drop the punch bowl.
+phillip_druskenvald [neutral]: Eyes on the lantern light, darling, there is no sense giving a rude sky the satisfaction of staring back.
+interject class:fighter: If the sky wants a fight, it can come down here into the mud like everything else.
+interject class:wizard: No natural satellite holds a face in its craters like that: something ancient is wearing the night.
+-> adela_flicker
+
+~ adela_flicker
+adela_druskenvald [afraid]: Oh, wait, don't stand so close together, the orange light is climbing right up your collars and the smoke smells of tallow.
+adela_druskenvald [afraid]: Everyone's faces are painted bright orange in the dark, and the wood is cracking like dry bones.
+adela_druskenvald [smile]: Goodness, listen to me rattling on after a bump on the head, how silly, it's only the lamplight playing on the mist.
+Narrator: Phillip smiles along with her joke, but his dark eyes rest on his wife's face a moment too long.
+-> menu
+
+~ ask_hollow
+phillip_druskenvald [neutral]: They call this valley Wickermoor Hollow, a backwater province I have never had the occasion nor the inclination to set foot in.
+phillip_druskenvald [weary]: Our Court's writ stops at the ridge above us, leaving these old groves to keep whatever sour customs they please.
+phillip_druskenvald [smile]: Still, there's a village hereabouts, I'm told, with a clock tower and decent roofs, if one can stomach country hospitality.
+-> menu
+
+~ ask_alright
+adela_druskenvald [smile]: Right as rain and twice as jazzed, darling, a little tumble into the brambles never spoiled a good evening yet.
+adela_druskenvald [smile]: We're all in one piece, darling, and that's the main thing when the rails run out.
+-> menu
+
+~ ask_home
+phillip_druskenvald [smile]: Why, our industrious friend the Vagrant will have the old locomotive whistling down the line again before the mist clears.
+phillip_druskenvald [weary]: He has brought us this far across the Shroud, after all, so I am quite certain he knows how to mend his own engine.
+-> menu

@@ -1,0 +1,396 @@
+{
+  "id": "ghostlight_g1_passenger",
+  "name": "The Passenger Car",
+  "region": "ghostlight_express",
+  "summary": "The rear car of the Ghostlight Express: red leather seats, brass lamps, pale passengers who never answer.",
+  "text": "Two rows of paired red leather seats run the length of the car with a wide lit aisle between them. Pale passengers flicker in and out of the seats, and green smoke streams past every window.",
+  "map": {
+    "rows": [
+      "####################",
+      "#====.==.==.==.====#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#====.==.==.==.====#",
+      "####################"
+    ],
+    "theme": "manor",
+    "light": "bright",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "g1_rear",
+      "name": "The rear end",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          5,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "g1_aisle",
+      "name": "The aisle",
+      "cells": [
+        [
+          6,
+          1
+        ],
+        [
+          13,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "g1_front",
+      "name": "The front end",
+      "cells": [
+        [
+          14,
+          1
+        ],
+        [
+          18,
+          5
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      2,
+      3
+    ],
+    "from_boarding": [
+      2,
+      3
+    ],
+    "from_front": [
+      17,
+      3
+    ]
+  },
+  "exits": [
+    {
+      "id": "front_door",
+      "cell": [
+        19,
+        3
+      ],
+      "to": "ghostlight_g2_sleeper",
+      "spawn": "from_rear",
+      "label": "On to the next car"
+    }
+  ],
+  "props": [
+    {
+      "id": "g1_seats",
+      "cell": [
+        6,
+        1
+      ],
+      "kind": "examine",
+      "label": "Paired seats",
+      "model": "chairs"
+    },
+    {
+      "id": "g1_booths",
+      "cell": [
+        1,
+        1
+      ],
+      "kind": "examine",
+      "label": "The end booths",
+      "model": "chairs"
+    },
+    {
+      "id": "g1_windows",
+      "cell": [
+        8,
+        1
+      ],
+      "kind": "examine",
+      "label": "The windows",
+      "model": "window"
+    },
+    {
+      "id": "g1_lamps",
+      "cell": [
+        10,
+        2
+      ],
+      "kind": "decor",
+      "label": "The brass lamps"
+    },
+    {
+      "id": "g1_boarding_door",
+      "cell": [
+        0,
+        2
+      ],
+      "kind": "examine",
+      "label": "The boarding door",
+      "model": "door"
+    },
+    {
+      "id": "g1_rear_door",
+      "cell": [
+        0,
+        4
+      ],
+      "kind": "examine",
+      "label": "The rear door",
+      "model": "door"
+    },
+    {
+      "id": "g1_grille",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "examine",
+      "label": "A brass grille in the ceiling",
+      "model": "window",
+      "dialogue": "ghostlight_express/vagrant_intercom:grille",
+      "when": "flag.gl_phantom_done and not flag.gl_crashed"
+    },
+    {
+      "id": "g1_passengers",
+      "cell": [
+        7,
+        3
+      ],
+      "kind": "search",
+      "label": "The pale passengers",
+      "model": "chairs",
+      "search_dc": 15,
+      "skill": "perception"
+    },
+    {
+      "id": "g1_marble_jar",
+      "cell": [
+        12,
+        5
+      ],
+      "kind": "search",
+      "label": "A jar of glass marbles",
+      "search_dc": 13,
+      "item": "marble_jar"
+    },
+    {
+      "id": "g1_curse_mist",
+      "cell": [
+        17,
+        3
+      ],
+      "kind": "examine",
+      "label": "Black-veined mist",
+      "when": "flag.gl_phantom_done",
+      "checks": [
+        {
+          "id": "g1_curse_mist",
+          "skill": "perception",
+          "dc": 13,
+          "label": "Study the mist",
+          "success": {
+            "text": "Black veins thread through the mist at the front door, and the mist is cold."
+          },
+          "failure": {}
+        }
+      ]
+    },
+    {
+      "id": "g1_deliverance",
+      "cell": [
+        17,
+        3
+      ],
+      "kind": "decor",
+      "call": "ghostlight_express/incitements:deliverance_enter",
+      "approach": 12,
+      "call_when": "flag.gl_phantom_done and not flag.incitement_deliverance"
+    },
+    {
+      "id": "g1_phantom_call",
+      "cell": [
+        7,
+        3
+      ],
+      "kind": "decor",
+      "call": "ghostlight_express/vagrant_intercom:phantom_strikes",
+      "approach": 6,
+      "call_when": "not flag.gl_phantom_done and flag.gl_aboard_welcomed"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "the_vagrant",
+      "cell": [
+        2,
+        3
+      ],
+      "dialogue": "ghostlight_express/vagrant_boarding:aboard",
+      "when": "flag.gl_boarded and not flag.gl_aboard_welcomed",
+      "approach": 6,
+      "facing": "east"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The rocking of the train will not let anyone sleep. A short breath, then.",
+  "encounters": [
+    {
+      "id": "gl_phantom_strikes",
+      "trigger": "dialogue",
+      "flag": "gl_phantom_done",
+      "quest": {
+        "id": "ghostlight_express",
+        "stage": "phantom_struck"
+      },
+      "when": "level >= 3",
+      "monsters": [
+        {
+          "monster": "shadow",
+          "cell": [
+            7,
+            3
+          ],
+          "name": "The Phantom Trainhopper",
+          "facing": "east"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            11,
+            2
+          ],
+          "name": "Corrupted Passenger",
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            14,
+            4
+          ],
+          "name": "Corrupted Passenger",
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            17,
+            3
+          ],
+          "name": "Corrupted Passenger",
+          "facing": "west"
+        }
+      ]
+    },
+    {
+      "id": "gl_phantom_strikes",
+      "trigger": "dialogue",
+      "flag": "gl_phantom_done",
+      "quest": {
+        "id": "ghostlight_express",
+        "stage": "phantom_struck"
+      },
+      "when": "level == 2",
+      "monsters": [
+        {
+          "monster": "shadow",
+          "cell": [
+            7,
+            3
+          ],
+          "name": "The Phantom Trainhopper",
+          "facing": "east"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            11,
+            2
+          ],
+          "name": "Corrupted Passenger",
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            14,
+            4
+          ],
+          "name": "Corrupted Passenger",
+          "facing": "west"
+        }
+      ]
+    },
+    {
+      "id": "gl_phantom_strikes",
+      "trigger": "dialogue",
+      "flag": "gl_phantom_done",
+      "quest": {
+        "id": "ghostlight_express",
+        "stage": "phantom_struck"
+      },
+      "monsters": [
+        {
+          "monster": "shadow",
+          "cell": [
+            7,
+            3
+          ],
+          "name": "The Phantom Trainhopper",
+          "facing": "east"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            11,
+            2
+          ],
+          "name": "Corrupted Passenger",
+          "facing": "west"
+        }
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        4,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        16,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    }
+  ]
+}

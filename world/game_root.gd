@@ -6,7 +6,9 @@ extends Node
 ## Barovia text are taken out; where a campaign hook belongs there is a marked stub for the campaign lanes (plan G1, E10).
 
 ## The first place of a new game. The foundation's test hillside until the Ghostlight Express (R10) is built.
-const FIRST_LOCATION := "test_hillside"
+const FIRST_LOCATION := "ghostlight_boarding"
+## A new game opens with each hero's Call to Adventure (R10), which starts the main quest and ends on the hill.
+const OPENING := "ghostlight_express/calls_to_adventure:start"
 
 var st: StoryState
 var narrator: Narrator
@@ -89,6 +91,7 @@ func _ready() -> void:
 	menu_layer.add_child(menu)
 	var where := st.location if st.location != "" else FIRST_LOCATION
 	var spawn := "" if st.location == where else "default"
+	var opening := st.location == "" and st.quest_stage("ghostlight_express") == ""
 	# Captures (tools/capture) may start anywhere: --location=<id> [--spawn=<name>].
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--location="):
@@ -107,7 +110,9 @@ func _ready() -> void:
 			_night_after_load.call_deferred()   # saved with the night's rest broken and no fight under way
 		# A finished game's save plays its ending again.
 		if Endings.reached(st) != "":
-			show_ending.call_deferred())
+			show_ending.call_deferred()
+		elif opening and where == FIRST_LOCATION:
+			start_dialogue.call_deferred(OPENING, ""))
 
 
 ## The placeholder party's pregens (docs/PLACEHOLDERS.md): the engine's own class looks, until the companions exist.

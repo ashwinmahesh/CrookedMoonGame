@@ -1,0 +1,146 @@
+# R10: the Fated Tarot reading, the frame (the scene around the cards). Speakers adela_druskenvald, phillip_druskenvald.
+# `reading draw` deals one upright Major Arcana to each of the four heroes from the playthrough seed (once; no repeats); `reading read hero_N
+# adela_druskenvald` turns the card for slot hero_N (party order) and Adela speaks the card's verse from data/tarot/outcomes.json (drafted in
+# tarot_outcomes.md). The module sets tarot_hero_1..4 (string flags holding the card id) and blesses each hero for an hour on `set tarot_full_reading`.
+# Offered in the Lounge (from druskenvalds_lounge:ask_cards) and once more at the wreck (druskenvalds_wreck): a hero can put it off once.
+# Drafted by Gemini (Gemini/sent_10_adela_reading.txt), edited; see README.md.
+
+~ offer
+if flag.tarot_full_reading
+-> ask_again
+endif
+adela_druskenvald [smile]: Oh, sit down, all four of you, I can hardly stand it! You're simply glowing with a forecast, every last one of you.
+adela_druskenvald [smile]: Just one card apiece, upright only, no funny business, I promise.
+adela_druskenvald [sly]: Come on, darlings, let me have a peek! It'll do you a world of good before we get where we're going.
+Narrator: She is already fanning the worn deck across the table, and reckon nobody here has agreed to a thing.
+phillip_druskenvald [smile]: You may as well say yes, you know. She'll only ask again.
+-> offer_menu
+
+~ offer_menu
+* Go on, deal the cards. -> shuffle
+* What sort of reading is this? -> what_is_it
+* [if not flag.gl_reading_deferred] Later. -> later
+* [if not flag.gl_phillip_card_asked] Do you ever let her read yours, Phillip? -> phillip_card
+
+~ what_is_it
+adela_druskenvald [smile]: Twenty-two cards in the bundle, darlings, the Major ones, the ones with the faces on.
+adela_druskenvald [neutral]: Each card tells where something meant for you is waiting out there in the dark.
+adela_druskenvald [sly]: Fate leaves presents in the oddest places, you see, tucked under roots and behind old stones.
+adela_druskenvald [smile]: I never know quite what the prize is, mind you, only that it is yours, near enough.
+-> offer_menu
+
+~ later
+set gl_reading_deferred
+adela_druskenvald [sad]: Oh, you're no fun at all when you're being sensible.
+adela_druskenvald [smile]: Go on then, stretch your legs, but I'll ask again the moment you look bored!
+phillip_druskenvald [smile]: Fair warning, my friends, she considers breathing a sign of boredom.
+-> ghostlight_express/druskenvalds_lounge:menu
+
+~ phillip_card
+set gl_phillip_card_asked
+phillip_druskenvald [smile]: For me? My dear friends, a gentleman never peeks at his own hand before the betting is done.
+phillip_druskenvald [sly]: Besides, I am already married to the finest fortune in the room.
+phillip_druskenvald [neutral]: Leave the mysteries to the bold, I say, and pour another drink for the table.
+adela_druskenvald [weary]: He's never let me. Not once.
+adela_druskenvald [smile]: Calls himself a sport, and he won't even turn a single pasteboard for his wife!
+Narrator: The silver goat on his cane catches the lamp, and the smile on his face does not move an inch.
+-> offer_menu
+
+# At the wreck, Adela insists (the reading is part of the council; there is no later).
+~ at_the_wreck
+adela_druskenvald [afraid]: Wait, wait just a minute, don't go marching off into the trees yet!
+adela_druskenvald [neutral]: We never did turn your cards, and we have to do it now, while the moon is looking.
+adela_druskenvald [smile]: Sit on that trunk, darlings, I won't take no for an answer out here.
+phillip_druskenvald [weary]: Let her have it. We could all do with a little hope.
+-> shuffle
+
+~ shuffle
+Narrator: The soft, cloth-edged cards whisper against her palms, and the rattle of the car seems to thin out and wait.
+adela_druskenvald [smile]: Hush now, let the deck get your measure while I give them a proper mix.
+adela_druskenvald [sly]: Close your eyes and think of nothing at all, or something, whichever you've got more of.
+reading draw
+-> turn_first
+
+~ turn_first
+adela_druskenvald [smile]: First up is you, darling, with the look of a person who has lost something and isn't sure what.
+adela_druskenvald [neutral]: Let's see what the road ahead is keeping warm for you.
+reading read hero_1 adela_druskenvald
+adela_druskenvald [smile]: Oh, isn't that the bee's knees! That card practically jumped into your lap.
+-> turn_second
+
+~ turn_second
+adela_druskenvald [smile]: Now for you, with your shoulders squared like you're waiting for the sky to drop.
+adela_druskenvald [sly]: Don't fret, the cards are terribly fond of the stubborn ones.
+reading read hero_2 adela_druskenvald
+adela_druskenvald [neutral]: Well now, that's a deep one to draw on a moving train.
+-> turn_third
+
+~ turn_third
+adela_druskenvald [neutral]: And you there, watching the corners of the room like you've already counted the doors.
+adela_druskenvald [smile]: Hold still a breath, darling, this one wants to turn itself.
+reading read hero_3 adela_druskenvald
+adela_druskenvald [sly]: Don't look so innocent, darling, the deck knows your sort by heart.
+-> turn_fourth
+
+~ turn_fourth
+adela_druskenvald [smile]: Last of the four, and saving a mighty quiet pair of eyes for the end.
+adela_druskenvald [neutral]: One more turn of the pasteboard, darling, and the set is whole.
+reading read hero_4 adela_druskenvald
+adela_druskenvald [smile]: My word, you don't do things by halves, do you?
+-> reactions
+
+# The cards that touch her: she covers every one of them within half a breath.
+~ reactions
+if flag.tarot_hero_1 == "the_lovers" or flag.tarot_hero_2 == "the_lovers" or flag.tarot_hero_3 == "the_lovers" or flag.tarot_hero_4 == "the_lovers"
+adela_druskenvald [neutral]: Oh. Well now.
+adela_druskenvald [sad]: It's funny how they pair you up, isn't it, Philly, even when the road gets dark.
+adela_druskenvald [smile]: Oh, that one's got my name on it, near enough.
+Narrator: Her smile is bright as a new coin, though her fingers have gone white on the card's soft edge.
+endif
+if flag.tarot_hero_1 == "the_devil" or flag.tarot_hero_2 == "the_devil" or flag.tarot_hero_3 == "the_devil" or flag.tarot_hero_4 == "the_devil"
+adela_druskenvald [sly]: Well, look at the horns on him, darling, he almost matches Philly's walking stick.
+adela_druskenvald [neutral]: Pay the grin no mind, it only means the bargain's got teeth in it.
+endif
+if flag.tarot_hero_1 == "death" or flag.tarot_hero_2 == "death" or flag.tarot_hero_3 == "death" or flag.tarot_hero_4 == "death"
+adela_druskenvald [afraid]: It never means what it sounds like, darling.
+adela_druskenvald [neutral]: Just a door shutting behind you, that's all it ever is, a clean sweep and a new coat.
+adela_druskenvald [smile]: Honestly, it's a swell card once you get past the bones!
+endif
+if flag.tarot_hero_1 == "the_tower" or flag.tarot_hero_2 == "the_tower" or flag.tarot_hero_3 == "the_tower" or flag.tarot_hero_4 == "the_tower"
+adela_druskenvald [neutral]: Stone coming down, a lick of fire in the rafters, and a very good view on the way to the ground.
+adela_druskenvald [weary]: Now why on earth did I put it like that?
+endif
+if flag.tarot_hero_1 == "the_fool" or flag.tarot_hero_2 == "the_fool" or flag.tarot_hero_3 == "the_fool" or flag.tarot_hero_4 == "the_fool"
+adela_druskenvald [smile]: Oh, you lucky thing, that's the best card in the deck, it means a beginning!
+adela_druskenvald [sly]: Your prize isn't even far, darling, it's waiting right where the road ends in mud.
+endif
+if flag.tarot_hero_1 == "the_world" or flag.tarot_hero_2 == "the_world" or flag.tarot_hero_3 == "the_world" or flag.tarot_hero_4 == "the_world"
+adela_druskenvald [smile]: Look at that, the last card in the deck and the very first in the book!
+adela_druskenvald [sly]: Somebody here is going to get what they wished for. And I do hope it's a nice wish.
+endif
+if flag.tarot_hero_1 == "the_star" or flag.tarot_hero_1 == "the_moon" or flag.tarot_hero_1 == "the_sun" or flag.tarot_hero_2 == "the_star" or flag.tarot_hero_2 == "the_moon" or flag.tarot_hero_2 == "the_sun" or flag.tarot_hero_3 == "the_star" or flag.tarot_hero_3 == "the_moon" or flag.tarot_hero_3 == "the_sun" or flag.tarot_hero_4 == "the_star" or flag.tarot_hero_4 == "the_moon" or flag.tarot_hero_4 == "the_sun"
+adela_druskenvald [smile]: Now those three up above aren't iron or gold you can pocket, darling, they're gifts.
+adela_druskenvald [neutral]: The sky's own presents, and they'll find you when you look up at the right hour.
+endif
+-> finish
+
+~ finish
+set tarot_full_reading
+adela_druskenvald [smile]: There now, all done and dusted, and I think you're all swell!
+adela_druskenvald [neutral]: Do you feel that little hum in your fingers? That's the cards settling in to keep you company.
+adela_druskenvald [sly]: Don't tell anyone what the cards said. You will, of course. Everyone does.
+phillip_druskenvald [neutral]: I have a rule never to have my fortune told. I find it spoils the surprise.
+phillip_druskenvald [smile]: Still, if my darling says the road has gifts for you, I wouldn't bet a nickel against her.
+Narrator: A quiet warmth settles over your shoulders like a borrowed coat, smelled of cedar and old parlour smoke.
+if flag.gl_crashed
+-> ghostlight_express/druskenvalds_wreck:reflect_router
+endif
+-> ghostlight_express/druskenvalds_lounge:menu
+
+~ ask_again
+adela_druskenvald [neutral]: Oh, I couldn't possibly pull them a second time, darling, the cards have said what they came to say.
+adela_druskenvald [sly]: You can't ask them twice on the same trip, you know, they sulk.
+if flag.gl_crashed
+-> ghostlight_express/druskenvalds_wreck:menu
+endif
+-> ghostlight_express/druskenvalds_lounge:menu

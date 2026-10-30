@@ -1,0 +1,258 @@
+# R10: the Fateweaving Incitements that land on the train (the Threads' first beat; reward Heroic Inspiration; flags Lane F's quests read).
+# Three belong to companions, drafted to Lane F's files in Companions/: Liberation (Silas Vane, the Mariner's car G5: the letter in the mailbags),
+# Evolution (Cordelia Skein, the Jailbird's car G6: the medical bag), Ascendancy (Delphine Ravelle, the Harlequin's car G7: the handbill).
+# Each plays on the FIRST ENTRY to its car with that companion in the party (an NPC with `approach`, `when: not flag.incitement_<thread>`); the car
+# stays re-enterable until the crash. Without the companion the same entry sets `pending_<thread>_incitement` and plays nothing (Lane F's camp echo plays it).
+# The other two (Apocalypse in G2, Deliverance in G1) and the `_custom` scenes are STUBS for the custom hero's Threads (Phase 5): no companion lines.
+# Silas's shadow lags half a step behind him from his first frame (a visual hook for the art lane; not built here).
+# HOOK(F): when Lane F's G2 adds the `thread <thread> <beat>` statement (overview rule 11) it replaces the `set incitement_*` and `inspire` lines below.
+
+~ liberation_enter
+if flag.incitement_liberation or flag.pending_liberation_incitement
+-> END
+endif
+if name:silas_vane
+-> liberation_start
+endif
+if background:crossroads_gambler
+-> liberation_custom
+endif
+set pending_liberation_incitement
+-> END
+
+~ liberation_start
+Narrator: Burnt sealing wax and cold dock silt hang in the Mail Car air, and Silas freezes after two sharp sniffs. A brass-cornered envelope slips from a torn mailbag and lands face up at his boots, stamped with a grinning skull and spade.
+interject name:silas_vane: Hold the deal. That wax belongs to a river house that never mails a friendly card.
+Narrator: The parchment inside is blank until Silas's lagging shadow leans close, drawing out a dead river-clerk's cramped warning and a sketched table with two empty chairs.
+Narrator: A soul can be won back at the Drowned Crossroads if your own shadow helps you cheat, so Silas stuffs wormwood into his censer to blind his creditor's lookout with green smoke.
+interject name:silas_vane: Easy now, breathe the bitter herb and keep your eyes off the ink, you long-legged snitch. House rules say a man gets to read his own summons before the debt comes due.
+* Show us what's on that paper, Silas. -> liberation_shown
+* Burn the letter before the smoke clears. -> liberation_burned
+* Pocket it and keep moving. -> liberation_pocketed
+
+~ liberation_shown
+set incitement_liberation
+set silas_inc_choice = "shown"
+Narrator: Silas angles the parchment through the coiling wormwood smoke so you can see the two empty chairs drawn beside the baize. His thumb taps the second seat, and the fast patter drops right out of his voice.
+interject name:silas_vane: Two chairs means two markers on the ledger, friends, and only one of those fools is standing here in boots. If I sit down at the Drowned Crossroads, I am playing to buy back more than my own hide.
+inspire name:silas_vane: read a dead clerk's warning
+-> END
+
+~ liberation_burned
+set incitement_liberation
+set silas_inc_choice = "burned"
+Narrator: Silas flicks his flint-lighter against a brass corner, and the river-clerk's warning curls into black ash that smells of river mud. His lagging shadow twitches on the floorboards, cheated of a second look.
+interject name:silas_vane: Ash holds no ink, and a blind lookout cannot tattle to the house. I got the table and the stakes in my head, and that is the only place the dealer cannot reach.
+inspire name:silas_vane: read a dead clerk's warning
+-> END
+
+~ liberation_pocketed
+set incitement_liberation
+set silas_inc_choice = "pocketed"
+Narrator: Silas folds the heavy parchment twice and slides it cleanly into the middle of his bone-sliver tarot deck. He gives the pack a one-handed cut and shows his teeth in a crooked grin.
+interject name:silas_vane: Best place to hide a marked card is right inside a rigged deck. Come on, let us walk before the smoke thins and my shadow remembers who pays its wages.
+inspire name:silas_vane: read a dead clerk's warning
+-> END
+
+# Stub for the custom hero (Phase 5): the same moment for a hero who has the crossroads_gambler background and is not silas_vane.
+~ liberation_custom
+set incitement_liberation
+Player: That smell is burnt wax and river silt from the lower docks. Nobody seals a brass-cornered letter with the skull and spade unless the house is calling a marker.
+Player: Look how the ink only rises when my shadow falls across the page. A dead clerk left me a map to the Drowned Crossroads, and two empty chairs at the baize.
+Player: If a shadow can learn to cheat its master, the house might finally lose a hand. Keep that wormwood burning while I memorise the table.
+inspire background:crossroads_gambler: read a dead clerk's warning
+-> END
+
+~ evolution_enter
+if flag.incitement_evolution or flag.pending_evolution_incitement
+-> END
+endif
+if name:cordelia_skein
+-> evolution_start
+endif
+if background:experiment
+-> evolution_custom
+endif
+set pending_evolution_incitement
+-> END
+
+~ evolution_start
+Narrator: Shroud fog presses flat against the Baggage Car glass while the striped prisoner ghost mumbles in his sleep about steak and eggs that never came. Wedged beneath his iron ball and chain sits a cracked leather medical bag smelling sharply of camphor and dried clove.
+interject name:cordelia_skein: Wait, do hold still and breathe that in. Camphor and clove over old calfskin is the exact preservative scent of a surgical kit.
+Narrator: Cordelia's six eyes dilate with an audible click as her lower hands draw out a water-stained monograph titled "On the Final Stage", signed by Doctor Hespa Marlowe. She traces the diagram of a six-chambered vessel in crimson silk-thread that hangs in the air before dissolving into faint red mist.
+interject name:cordelia_skein: Fascinating pathology, she mapped all six chambers of the thoracic pump without rupturing the outer wall. Doctor Marlowe was not merely patching flesh, she was charting the synthesis of the Apex Humour.
+* Read the margins aloud. Let us hear her method. -> evolution_read
+* Check the bag for an address before the fog takes it. -> evolution_traced
+* Pack the notes. We need to keep moving. -> evolution_packed
+
+~ evolution_read
+set incitement_evolution
+set cordelia_inc_choice = "read"
+Narrator: Cordelia straightens her shoulders, her four lower hands holding the damp pages open with the care of a fellow surgeon at a lecture table. The ruby vials in her thorax catch the lantern light as she reads the cramped notes.
+interject name:cordelia_skein: Listen to her ratios on venous distillation, it is exquisite work for a single pair of hands. Whoever remade my blood left the metamorphosis half-finished, and with your company, I intend to complete the textbook.
+inspire name:cordelia_skein: found a doctor's unfinished notes
+-> END
+
+~ evolution_traced
+set incitement_evolution
+set cordelia_inc_choice = "traced"
+Narrator: Cordelia's upper fingers probe the cracked leather seams of the medical bag until she hooks a brass apothecary tag stamped with a valley clinic mark. She tests the metal edge against her thumb with brisk satisfaction.
+interject name:cordelia_skein: A practitioner may lose her luggage in the Shroud, but her supplier always stamps the brass. Once we step off these rails, I will follow this clinic mark straight to Doctor Marlowe's operating table.
+inspire name:cordelia_skein: found a doctor's unfinished notes
+-> END
+
+~ evolution_packed
+set incitement_evolution
+set cordelia_inc_choice = "packed"
+Narrator: Cordelia folds the water-stained monograph into oilcloth and slips it smoothly inside her coat, her four extra arms tucking close to her ribs. Her six eyes narrow behind a mask of polite, clinical calm.
+interject name:cordelia_skein: Quite right, the damp in this car is dreadful for unbound paper anyway. I shall review the doctor's thoracic diagrams in private when our walk is done.
+inspire name:cordelia_skein: found a doctor's unfinished notes
+-> END
+
+# Stub for the custom hero (Phase 5): the same moment for a hero who has the experiment background and is not cordelia_skein.
+~ evolution_custom
+set incitement_evolution
+Player: Camphor and dried clove in a cracked leather bag, the same smell that hung over the table when they opened my veins. Look at the signature on the cover: Doctor Hespa Marlowe.
+Player: She called it "On the Final Stage", and this six-chambered diagram matches the rhythm knocking inside my own ribs. They never meant to cure me, they were trying to distil a new bloodline.
+Player: If Doctor Marlowe rode this train into the valley, her clinic cannot be far from the tracks. I am keeping her notes until she answers for the work she started.
+inspire background:experiment: found a doctor's unfinished notes
+-> END
+
+~ ascendancy_enter
+if flag.incitement_ascendancy or flag.pending_ascendancy_incitement
+-> END
+endif
+if name:delphine_ravelle
+-> ascendancy_start
+endif
+if background:reveler
+-> ascendancy_custom
+endif
+set pending_ascendancy_incitement
+-> END
+
+~ ascendancy_start
+Narrator: Up in the rafters of the Circus Car, a jester ghost in a belled cap tumbles through endless, bone-jarred pratfalls on a frayed trapeze. Delphine peels a damp handbill for the Festival of Fools off the panelling, wrinkling her nose at the vinegar and sour paste in the ink.
+interject name:delphine_ravelle: Careful of the glue, darlings, it will pucker good velvet quicker than stage sweat. Now what shabby little show left its poster rotting on our wall?
+Narrator: Above her shoulder, the unseen Great Fool stops spinning, stares at the painted ring on the bill, and hums a tinny three-note fanfare without a single joke. Delphine slips an ink-stained notebook from her lining and carefully copies the border of crowns and bells.
+interject name:delphine_ravelle: Hush your brassy humming, you old head, you are rattling my button stitching. When the jester stops laughing at the bill, the curtain is about to drop on somebody's neck.
+* Read us the fine print. Is that your crowd? -> ascendancy_shared
+* Your floating friend knows that stage already. -> ascendancy_bristled
+* Leave the paper. We need the front cars. -> ascendancy_alone
+
+~ ascendancy_shared
+set incitement_ascendancy
+set delphine_inc_choice = "shared"
+Narrator: Delphine holds the vinegar-sour handbill toward the lantern light, tracing the painted ring with a needle-scarred finger. The theatrical lift in her voice softens into something almost bare.
+interject name:delphine_ravelle: Not my crowd yet, darlings, though every stitch in my back was sewn for a ring just like it. Stick by me when we reach the tents, and I will make sure you have the best seats in the house.
+inspire name:delphine_ravelle: met the Fool's silence over a handbill
+-> END
+
+~ ascendancy_bristled
+set incitement_ascendancy
+set delphine_inc_choice = "bristled"
+Narrator: Delphine snaps her ink-stained notebook shut, her glass button eye catching the cold glare of the car lamps. Above her, the unseen fanfare dies with a sharp click of teeth.
+interject name:delphine_ravelle: Mind the seams, darling, and keep your eyes on your own cue sheet. My loudmouthed prompter may know the music, but I am the one who takes the bow.
+inspire name:delphine_ravelle: met the Fool's silence over a handbill
+-> END
+
+~ ascendancy_alone
+set incitement_ascendancy
+set delphine_inc_choice = "alone"
+Narrator: Delphine lets the damp handbill curl back against the panelling, though she tucks the sketched border of crowns and bells deep inside her lining. She smooths her patchwork skirt before following you down the aisle.
+interject name:delphine_ravelle: Onward to the engine then, since nobody here has the stomach for a proper overture. A smart star knows how to rehearse her lines in the dark.
+inspire name:delphine_ravelle: met the Fool's silence over a handbill
+-> END
+
+# Stub for the custom hero (Phase 5): the same moment for a hero who has the reveler background and is not delphine_ravelle.
+~ ascendancy_custom
+set incitement_ascendancy
+Narrator: Three tin notes for the painted ring, where paper crowns and iron bells sing. Step on the sawdust, bow to the seat, the Fool keeps time with your stumbling feet.
+Player: Vinegar paste and wet ink, just like the posters we used to slap on the fairground fences. That three-note fanfare only plays when the big tent is calling its stray players home.
+Player: Let the Festival of Fools keep my place warm by the ring. When I walk back onto that sawdust, I am not coming on as the comic relief.
+inspire background:reveler: met the Fool's silence over a handbill
+-> END
+
+# --- Apocalypse: a stub for the custom hero's Thread (Phase 5). The cabin-two phonograph; the Songstress's token too. ---
+
+~ phonograph
+narrate examine:g2_phonograph
+* Switch it on. -> phonograph_on
+* [if not item:ghost_phonograph] Carry it with us. -> phonograph_take
+* Leave it. -> END
+
+~ phonograph_on
+Narrator: Slow romantic jazz comes out of the flower of the horn through a hiss of old wax, and for a moment the little cabin is somebody's evening.
+if background:amnesiac and not flag.incitement_apocalypse
+-> apocalypse_start
+endif
+-> phonograph
+
+~ phonograph_take
+give ghost_phonograph
+Narrator: The phonograph is heavier than it looks, and it hums to itself against your hip.
+-> END
+
+~ apocalypse_start
+Narrator: The horn of the cabin-two phonograph in the Sleeper Car crackles to life, pouring slow brass jazz into the narrow berth. A vision flickers across your sight, a great black shape standing in a doorway of fire while a single note rings like struck iron.
+Player: Wait, I know the words to this chorus, every breath and turn of the horn. Why is my mouth shaping a song when I cannot name the voice that taught it to me?
+Player: Something tall and black stood in a doorway of fire while that brass note rang out. Someone took my name and left the tune behind.
+* Hum along with the chorus. -> apocalypse_hum
+* Switch the phonograph off. -> apocalypse_off
+* Ask the others if they know the tune. -> apocalypse_ask
+
+~ apocalypse_hum
+set incitement_apocalypse
+Narrator: you hums the slow melody right on the beat, matching the scratchy needle note for note through the turn. The burning doorway fades from the panelling, leaving the taste of warm ash on your tongue.
+inspire background:amnesiac: heard a half-known song
+-> phonograph
+
+~ apocalypse_off
+set incitement_apocalypse
+Narrator: you lifts the tonearm off the spinning shellac with a sharp click, cutting the horn short in the middle of a bar. Even in the quiet berth, that last brass note keeps ringing behind your teeth.
+inspire background:amnesiac: heard a half-known song
+-> phonograph
+
+~ apocalypse_ask
+set incitement_apocalypse
+Narrator: you looks around the cramped sleeper berth, asking if anyone else has heard this chorus in a tavern or a parlour back home. Your companions only hear a scratchy old record, leaving the doorway of fire to you alone.
+inspire background:amnesiac: heard a half-known song
+-> phonograph
+
+# --- Deliverance: a stub for the custom hero's Thread (Phase 5). The first step after the Phantom fight. ---
+
+~ deliverance_enter
+if flag.incitement_deliverance
+-> END
+endif
+if background:ghostlight_passenger
+-> deliverance_start
+endif
+-> END
+
+~ deliverance_start
+Narrator: Now that the Passenger Car is quiet, you draws out the broken soul-compass and watches the bent needle swing hard toward the front of the train. It settles pointing straight at the engine's firebox, the brass case growing warm where the back is stamped "Stranger Ferryworks".
+Player: This needle has been dead iron since I boarded, and now it is warm against my palm. It is pointing straight through the forward bulkhead toward the firebox.
+Player: Look at the stamp on the brass back: "Stranger Ferryworks". Whatever bound me to this train was forged in the same shop as the engine.
+* Pocket the compass for now. -> deliverance_pocket
+* Tell the others what the stamp says. -> deliverance_tell
+* Hold it up and ask the Vagrant. -> deliverance_show
+
+~ deliverance_pocket
+set incitement_deliverance
+Narrator: you closes a fist around the brass case and slips it back into a coat pocket, where it beats like a small coal against the cloth. Even through the wool, the needle tugs toward the front of the train.
+inspire background:ghostlight_passenger: followed a warm compass needle
+-> END
+
+~ deliverance_tell
+set incitement_deliverance
+Narrator: you turns the warm brass case over so the others can read the "Stranger Ferryworks" stamp in the dim car light. Every time the engine chugs up ahead, the bent needle gives an answering twitch.
+inspire background:ghostlight_passenger: followed a warm compass needle
+-> END
+
+~ deliverance_show
+set incitement_deliverance
+Narrator: you holds the warm brass compass up toward the ceiling intercom grille, and the wire mesh gives a sharp static pop.
+the_vagrant [afraid]: Where'd you get that, friend? Put it somewhere safe.
+inspire background:ghostlight_passenger: followed a warm compass needle
+-> END

@@ -1,0 +1,177 @@
+# R10: the Druskenvalds' reward and the escort to Wickermoor. Speakers adela_druskenvald, phillip_druskenvald. Region ghostlight_express.
+# Adela: 25 gp each (coin, or a piece of jewellery). Phillip: one gift each from six (a +1 weapon of the hero's choice of kind, a +1 shield, a Bag of
+# Tricks (Gray), a snuff box of Dust of Disappearance, an Immovable Rod with goat heads on its ends, a Medallion of Thoughts).
+# HOOK(G1): a per-hero pick-one screen (`choose_gifts phillip_gifts`) replaces `gift_menu` once the module adds it; until then four picks are
+# made in a loop (the `give` goes to whoever speaks for the party; the player is told it is one for each of them).
+# At the end they ask to be walked to Wickermoor and join as non-combatant guests. Drafted by Gemini (sent_19), edited; see README.md.
+
+~ thanks
+adela_druskenvald [smile]: Can you believe our trunks came through that whole smash without a single sequin out of place. We simply cannot let you walk away empty-handed after saving us from that monster train.
+adela_druskenvald [smile]: I have twenty-five gold pieces here for each of you darlings, in good coin or in pretty little trinkets from my jewel case, whichever you fancy.
+phillip_druskenvald [smile]: You have done my darling and myself a service that mere coin can scarcely measure. Allow me to open my personal cases and add a small token for each of you.
+-> coin_or_jewel
+
+~ coin_or_jewel
+adela_druskenvald [smile]: Now tell me, darling, does your heart beat faster for the clink of gold coin or the sparkle of a lovely jewel.
+* I'll take the gold coin. -> adela_coin
+* I'd like a piece of jewellery. -> adela_jewel
+
+~ adela_coin
+gold +100
+adela_druskenvald [smile]: Hard gold it is, twenty-five bright pieces counted right into your palm, sweet and simple.
+-> gifts_intro
+
+~ adela_jewel
+give adelas_jewellery 4
+adela_druskenvald [smile]: Oh, I just knew you had an eye for the finer things, so let me pick out the very piece that suits you.
+adela_druskenvald [smile]: Here is a heavy signet ring for a steady hand, two silver brooches that catch the lantern light, and a pale pearl on a fine chain.
+-> gifts_intro
+
+~ gifts_intro
+set phillip_gift_count = 0
+phillip_druskenvald [smile]: A gentleman always repays a debt in kind, and tonight our debt to you is considerable.
+phillip_druskenvald [neutral]: Pray step up to the trunk and choose, each of you, whatever catches your eye from this lot.
+phillip_druskenvald [sly]: I confess I take a little pride in the collection, and I would rather see these curios in bold hands than gathering dust.
+-> gift_menu
+
+~ gift_menu
+if flag.phillip_gift_count >= 4
+-> gifts_done
+endif
+Narrator: One gift for each of you, and the hero who speaks takes it.
+* [if flag.phillip_gift_count < 4] The blessed weapon. -> gift_weapon
+* [if flag.phillip_gift_count < 4] The sturdy shield. -> gift_shield
+* [if flag.phillip_gift_count < 4] The gray Bag of Tricks. -> gift_bag
+* [if flag.phillip_gift_count < 4] The snuff box of Dust of Disappearance. -> gift_dust
+* [if flag.phillip_gift_count < 4] The goat-headed Immovable Rod. -> gift_rod
+* [if flag.phillip_gift_count < 4] The Medallion of Thoughts. -> gift_medallion
+
+~ gift_weapon
+phillip_druskenvald [smile]: Ah, a blade or bludgeon with a keen spirit bound inside the steel, ready to answer a steady hand.
+phillip_druskenvald [sly]: Pick the sort you favour and I'll see it blessed before you set out into the trees.
+* A longsword. -> weapon_longsword
+* A rapier. -> weapon_rapier
+* A battleaxe. -> weapon_battleaxe
+* A mace. -> weapon_mace
+* A shortbow. -> weapon_shortbow
+* A longbow. -> weapon_longbow
+* A quarterstaff. -> weapon_quarterstaff
+* A dagger. -> weapon_dagger
+
+~ weapon_longsword
+give weapon_plus_1__longsword
+set phillip_gift_count += 1
+-> gift_menu
+
+~ weapon_rapier
+give weapon_plus_1__rapier
+set phillip_gift_count += 1
+-> gift_menu
+
+~ weapon_battleaxe
+give weapon_plus_1__battleaxe
+set phillip_gift_count += 1
+-> gift_menu
+
+~ weapon_mace
+give weapon_plus_1__mace
+set phillip_gift_count += 1
+-> gift_menu
+
+~ weapon_shortbow
+give weapon_plus_1__shortbow
+set phillip_gift_count += 1
+-> gift_menu
+
+~ weapon_longbow
+give weapon_plus_1__longbow
+set phillip_gift_count += 1
+-> gift_menu
+
+~ weapon_quarterstaff
+give weapon_plus_1__quarterstaff
+set phillip_gift_count += 1
+-> gift_menu
+
+~ weapon_dagger
+give weapon_plus_1__dagger
+set phillip_gift_count += 1
+-> gift_menu
+
+~ gift_shield
+phillip_druskenvald [smile]: A sound choice for a dangerous night, my friend, and this shield is a shade better than it looks.
+phillip_druskenvald [neutral]: It has turned aside worse things than timber and iron in its time, and it should serve you handsomely.
+give shield_plus_1
+set phillip_gift_count += 1
+-> gift_menu
+
+~ gift_bag
+phillip_druskenvald [sly]: That little gray Bag of Tricks is a lively companion for a dull evening on the road.
+phillip_druskenvald [smile]: Reach inside when you need a furry little friend in a pinch, only don't ask it questions after midnight.
+give bag_of_tricks_gray
+set phillip_gift_count += 1
+-> gift_menu
+
+~ gift_dust
+phillip_druskenvald [sly]: A silver snuff box of Dust of Disappearance, what I like to call a gentleman's emergency exit.
+phillip_druskenvald [smile]: One pinch in the air when the company grows tiresome, and even the sharpest eyes will look right through you.
+give dust_of_disappearance
+set phillip_gift_count += 1
+-> gift_menu
+
+~ gift_rod
+phillip_druskenvald [smile]: An Immovable Rod with a twin goat's head at each end, crafted by a rather stubborn old smith.
+phillip_druskenvald [sly]: Press the catch and it won't budge, and neither shall I, when it comes to its being a fine piece.
+give immovable_rod
+set phillip_gift_count += 1
+-> gift_menu
+
+~ gift_medallion
+phillip_druskenvald [sly]: That Medallion of Thoughts is a curious little trinket that hears what folks are thinking before they speak.
+phillip_druskenvald [neutral]: A crowded room has very few secrets from the one who wears it, so I trust you will use it with taste.
+give medallion_of_thoughts
+set phillip_gift_count += 1
+-> gift_menu
+
+~ gifts_done
+phillip_druskenvald [smile]: There now, every piece has found a worthy owner, and my conscience is a great deal lighter.
+phillip_druskenvald [neutral]: May they bring you good fortune under this strange sky.
+adela_druskenvald [smile]: They look positively swell on you darlings, every last one.
+-> escort
+
+~ escort
+phillip_druskenvald [weary]: Now then, I must confess that my darling and I find ourselves rather stranded in this dismal timber.
+phillip_druskenvald [neutral]: There are faint lights through the trees yonder, a place called Wickermoor Village, I believe, for I seem to know the name.
+phillip_druskenvald [smile]: As you are the only capable souls for miles, would you be so good as to escort us to the settlement.
+adela_druskenvald [smile]: Do say yes, darlings, for these woods give me the absolute creeps.
+adela_druskenvald [sly]: We'll be ever so good along the way, and we carry our own bags, mostly.
+* We'll see you safely to the village. -> escort_yes
+* What's in it for us if we escort you? -> escort_ask_price
+* We'll walk together, but we're keeping an eye on you. -> escort_wary
+
+~ escort_yes
+set phillip_regard += 1
+phillip_druskenvald [smile]: Splendid, I knew we were among true friends the moment you stepped from the smoke.
+phillip_druskenvald [neutral]: Lead on at your leisure, and rest assured that this kindness will be remembered.
+-> travel_off
+
+~ escort_ask_price
+phillip_druskenvald [smile]: A fair question from practical travelers, and I can offer you our lasting friendship and a warm seat at my table at Chateau Clair de Lune.
+phillip_druskenvald [sly]: Once we are settled, you shall have whatever small kindness lies in a lord's power to grant.
+adela_druskenvald [smile]: Dinner. A ballroom. The works.
+-> travel_off
+
+~ escort_wary
+set phillip_regard -= 1
+phillip_druskenvald [neutral]: Wary is wise in a wood like this, my friend, and I take no offence at a careful tongue.
+phillip_druskenvald [smile]: Walk with us as far as the village lanterns, and judge our company by the road.
+adela_druskenvald [smile]: Oh, don't look so grim, we're harmless, darling, mostly.
+adela_druskenvald [sly]: Besides, it is much harder for the bogeyman to snatch six of us than two.
+-> travel_off
+
+# The pair walk with the party as non-combatant guests (R11 may move these two joins to its arrival).
+~ travel_off
+join phillip_druskenvald
+join adela_druskenvald
+Narrator: The five of you set off down the muddy track toward the faint yellow lights, the Lord humming an old dance tune with the Lady on his arm. High above the pines, the Crooked Moon grins down behind your shoulders like she knows the end of the song.
+-> END

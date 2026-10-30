@@ -1,0 +1,279 @@
+{
+  "id": "ghostlight_g8_tender",
+  "name": "The Tender",
+  "region": "ghostlight_express",
+  "summary": "An ironclad fuel car: a black tank full of drifting soul coal, pipes along the walls, and a furnace in the front wall.",
+  "text": "A cast-iron tank with a round glass porthole fills the middle of the car, full of soul coal drifting like banked embers. Pipes run over the walls to a furnace in the front wall. There is no way forward.",
+  "map": {
+    "rows": [
+      "############",
+      "#..#####...#",
+      "#..#####.__#",
+      "#..#####._##",
+      "#........__#",
+      "#..........#",
+      "############"
+    ],
+    "theme": "manor",
+    "light": "bright",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "g8_vestibule",
+      "name": "The vestibule",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "g8_tender",
+      "name": "The tender",
+      "cells": [
+        [
+          3,
+          1
+        ],
+        [
+          10,
+          5
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      1,
+      4
+    ],
+    "from_rear": [
+      1,
+      4
+    ]
+  },
+  "exits": [
+    {
+      "id": "rear_door",
+      "cell": [
+        0,
+        4
+      ],
+      "to": "ghostlight_g7_circus",
+      "spawn": "from_front",
+      "label": "Back to the last car"
+    }
+  ],
+  "props": [
+    {
+      "id": "g8_tank",
+      "cell": [
+        5,
+        4
+      ],
+      "kind": "examine",
+      "label": "The fuel tank",
+      "model": "case"
+    },
+    {
+      "id": "g8_porthole",
+      "cell": [
+        7,
+        4
+      ],
+      "kind": "decor",
+      "label": "The porthole"
+    },
+    {
+      "id": "g8_pipes",
+      "cell": [
+        2,
+        2
+      ],
+      "kind": "decor",
+      "label": "Pipes over the walls and ceiling"
+    },
+    {
+      "id": "g8_firebox",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "examine",
+      "label": "The firebox",
+      "model": "hearth"
+    },
+    {
+      "id": "tender_door",
+      "cell": [
+        1,
+        4
+      ],
+      "kind": "decor",
+      "label": "The Tender's door"
+    },
+    {
+      "id": "g8_opened",
+      "cell": [
+        8,
+        3
+      ],
+      "kind": "decor",
+      "call": "ghostlight_express/tender:opened",
+      "approach": 12,
+      "call_when": "flag.haints_all_gone and not flag.gl_tender_opened"
+    },
+    {
+      "id": "g8_crash",
+      "cell": [
+        8,
+        3
+      ],
+      "kind": "decor",
+      "call": "ghostlight_express/tender:crash",
+      "approach": 12,
+      "call_when": "flag.gl_stoker_done and not flag.gl_crashed"
+    }
+  ],
+  "npcs": [],
+  "rest": "no",
+  "rest_text": "The rocking of the train will not let anyone sleep. A short breath, then.",
+  "encounters": [
+    {
+      "id": "gl_stoker",
+      "trigger": "dialogue",
+      "flag": "gl_stoker_done",
+      "quest": {
+        "id": "ghostlight_express",
+        "stage": "crashed"
+      },
+      "when": "level >= 3",
+      "monsters": [
+        {
+          "monster": "soulfire_stoker",
+          "cell": [
+            9,
+            3
+          ],
+          "name": "The Soulfire Stoker",
+          "hp": 30,
+          "facing": "west"
+        },
+        {
+          "monster": "shadow",
+          "cell": [
+            8,
+            5
+          ],
+          "name": "The Phantom, re-formed",
+          "facing": "west"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "corrupted_fuel",
+          "name": "Corrupted Fuel",
+          "summary": "Black soul coal breathes out a poisonous heat over the tender's floor.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "con",
+            "dc": 5
+          },
+          "dc_from": {
+            "flag": "haints_destroyed",
+            "base": 5,
+            "step": 2
+          },
+          "exhaustion": 1,
+          "at": 20,
+          "every": 1,
+          "area": {
+            "cells": [
+              [
+                3,
+                1
+              ],
+              [
+                10,
+                5
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "gl_stoker",
+      "trigger": "dialogue",
+      "flag": "gl_stoker_done",
+      "quest": {
+        "id": "ghostlight_express",
+        "stage": "crashed"
+      },
+      "monsters": [
+        {
+          "monster": "soulfire_stoker",
+          "cell": [
+            9,
+            3
+          ],
+          "name": "The Soulfire Stoker",
+          "hp": 30,
+          "facing": "west"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "corrupted_fuel",
+          "name": "Corrupted Fuel",
+          "summary": "Black soul coal breathes out a poisonous heat over the tender's floor.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "con",
+            "dc": 5
+          },
+          "dc_from": {
+            "flag": "haints_destroyed",
+            "base": 5,
+            "step": 2
+          },
+          "exhaustion": 1,
+          "at": 20,
+          "every": 1,
+          "area": {
+            "cells": [
+              [
+                3,
+                1
+              ],
+              [
+                10,
+                5
+              ]
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "fire",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "bile"
+    }
+  ]
+}

@@ -1,0 +1,269 @@
+# R10: The Daydreamer (a Wayward Haint). Speaker haint_daydreamer; quest haint_daydreamer; flags haint_daydreamer_*. Region ghostlight_express.
+# Four ways to end it: the token (toad_faced_stone), the Help menu (eight one-shot approaches: six listed at DC 12, two generic at DC 15; three that land
+# free it, three that fall flat turn it hostile), a bottle, or a fight. Every approach is spent whatever its result (per-option flag).
+# Drafted by Gemini (Gemini/sent_05_haint_daydreamer.txt, reply_05_haint_daydreamer.json), edited; see README.md.
+
+~ start
+if flag.haint_daydreamer_done or flag.haint_daydreamer_destroyed
+-> END
+endif
+if flag.haint_daydreamer_met
+-> return
+endif
+set haint_daydreamer_met
+quest haint_daydreamer met
+if quest.ghostlight_express == phantom_struck
+quest ghostlight_express haints
+endif
+Narrator: A pale boy sits surrounded by towers of steaming pies and sugared plums, his cheeks stuffed so full they shine. He pats his empty coat pockets between bites, lookin for a weight that isn't there.
+haint_daydreamer [smile]: You can have the lemon tarts if you want, because I asked for six and then I asked for twelve and they just keep coming! Do not mind the crumbs on the seat, I was checking my pockets again.
+interject name:lucan_houndstooth: Easy there, little cub, you will choke yourself at that pace.
+interject name:tobin_hayward: A lad digging in his pockets that hard has lost his best seed.
+haint_daydreamer [sad]: My pocket had a hole or maybe the train took it, so I am eating cherry cobbler until I forget what was in there.
+-> menu
+
+~ return
+if flag.haint_daydreamer_hostile
+-> END
+endif
+haint_daydreamer [smile]: Oh, you came back, and the pudding is still warm if you want a bowl! I checked under the napkin three times while you were gone, just in case.
+-> menu
+
+~ menu
+* How did you end up here eating all this? -> ask_story
+* What would it take for you to stop eating? -> ask_want
+* [if item:toad_faced_stone] Look what we found. Is this your toad stone? -> token_give
+* Let us sit with you and help sort this out. -> help_open
+* [if item:marble_jar or item:empty_whiskey_bottle] Set an empty glass jar open on the table between the pies. -> bottled
+* Draw a weapon and strike at the ghost. -> fight
+* Haints who stay on this train get burned as engine fuel. -> told_the_truth
+* We will leave you to your meal. -> leave
+
+~ ask_story
+haint_daydreamer [neutral]: Well, there were cabbages in the yard next door, big green ones like cabbages always are, and a stone sat right by the gate.
+haint_daydreamer [smile]: Somebody painted a green toad face on it with big yellow eyes, and it was smiling right at me, and nobody was looking out the window.
+haint_daydreamer [sad]: I only put it in my coat to show it my room, and nobody ever knew it was me. Then I got on the train and it was still in my pocket, and now my pocket is empty and the pudding tastes like nothing.
+-> menu
+
+~ ask_want
+haint_daydreamer [sad]: If I still had that smiling toad stone, I could walk right up the path and set it back by the cabbages.
+haint_daydreamer [weary]: I cannot go back empty-handed and say I took it AND I lost it, so I have to stay right here and finish the pancakes.
+-> menu
+
+~ token_give
+haint_daydreamer [afraid]: Wait a minute, wipe the jam off my eyes, is that the yellow paint right there on the chin?
+haint_daydreamer [smile]: You found him! He did not fall off the train into the fog at all, he was just hiding from me!
+-> token_freed
+
+~ token_freed
+haint_daydreamer [smile]: He is heavy, just like I remember, and the paint is barely chipped on his nose.
+haint_daydreamer [neutral]: I am full now, I do not think I want another bite of pie.
+haint_daydreamer [sad]: I am going to walk up to the porch and knock on the door and tell them I was the one who took him from the gate.
+Narrator: The boy presses the painted stone to his chest and thins into sweet kitchen steam, leavin nothing on the booth but clean white plates.
+take toad_faced_stone
+set haint_daydreamer_done
+set haint_daydreamer_how = "token"
+quest haint_daydreamer token
+approve tobin_hayward +1 lucan_houndstooth +1: You helped a lost boy give back what he took
+narrate haint:freed_sting
+narrate haint:heal
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ help_open
+haint_daydreamer [weary]: You can sit down if you want, while I try the custard. I do not see how talking puts a stone back in a pocket, though.
+-> help
+
+~ help
+# E7: a tool check (Painter's Supplies); until then an ability check gated by the kit
+* [if not flag.haint_daydreamer_used_painters_supplies] [if item:painters_supplies] [Wisdom DC 12] Let me paint a little toad on a pebble for you. -> painters_supplies_ok | painters_supplies_miss
+# E7: a tool check (Forgery Kit); until then an ability check gated by the kit
+* [if not flag.haint_daydreamer_used_forgery] [if item:forgery_kit] [Dexterity DC 12] Let us write a neat apology note together right now. -> forgery_ok | forgery_miss
+* [if not flag.haint_daydreamer_used_insight] [Insight DC 12] It is not the missing stone that scares you, is it? -> insight_ok | insight_miss
+* [if not flag.haint_daydreamer_used_persuasion] [Persuasion DC 12] Neighbours forgive a brave boy who tells the truth. -> persuasion_ok | persuasion_miss
+* [if not flag.haint_daydreamer_used_history] [History DC 12] Every grown-up has taken something small once and felt sorry. -> history_ok | history_miss
+* [if not flag.haint_daydreamer_used_investigation] [Investigation DC 12] Walk me through the last moment you felt it in your pocket. -> investigation_ok | investigation_miss
+* [if not flag.haint_daydreamer_used_performance] [Performance DC 15] Pretend I am your neighbour. Walk up and tell me. -> performance_ok | performance_miss
+* [if not flag.haint_daydreamer_used_nature] [Nature DC 15] Let us talk about garden toads and why they miss home. -> nature_ok | nature_miss
+* Step back for now. -> menu
+
+~ painters_supplies_ok
+set haint_daydreamer_used_painters_supplies
+set haint_daydreamer_wins += 1
+Narrator: You take up a brush and dab of pigment, coaxing a wide yellow-eyed grin onto a smooth bit of pebble.
+haint_daydreamer [smile]: Look at his silly mouth, that is almost the exact same green! He is just a little rock with paint on him, isn't he, not a whole monster.
+-> tally
+
+~ painters_supplies_miss
+set haint_daydreamer_used_painters_supplies
+set haint_daydreamer_fails += 1
+Narrator: You try to sketch a toad's face onto a saucer, but the glaze blurs the paint into a muddy smudge.
+haint_daydreamer [sad]: That does not look like him at all, his eyes were round and bright and that just looks like spilled gravy.
+-> tally
+
+~ forgery_ok
+set haint_daydreamer_used_forgery
+set haint_daydreamer_wins += 1
+Narrator: You smooth a clean leaf of paper beside the plates and pen a neat, earnest letter in a nine-year-old's round hand.
+haint_daydreamer [smile]: You spelled all the big words right and everything, and it still looks like my writing! If I hand this over first, my throat will not close up when I try to talk.
+-> tally
+
+~ forgery_miss
+set haint_daydreamer_used_forgery
+set haint_daydreamer_fails += 1
+Narrator: You draft a formal apology on a stiff card, heavy with tall flourishes and courtroom ink.
+haint_daydreamer [weary]: Nobody would ever believe I wrote that, they would think I stole a lawyer's letter too.
+-> tally
+
+~ insight_ok
+set haint_daydreamer_used_insight
+set haint_daydreamer_wins += 1
+Narrator: You lean across the white tablecloth, looking past the jam-stained cheeks to the small, hunched shoulders.
+haint_daydreamer [sad]: I am not even scared they will yell at me about the rock. I just do not want them to look at me and know I am a thief.
+-> tally
+
+~ insight_miss
+set haint_daydreamer_used_insight
+set haint_daydreamer_fails += 1
+Narrator: You watch the boy's darting eyes and guess aloud about the dishes and the train.
+haint_daydreamer [neutral]: No, the pie is real good, I just like pie, you do not know anything about my pockets.
+-> tally
+
+~ persuasion_ok
+set haint_daydreamer_used_persuasion
+set haint_daydreamer_wins += 1
+Narrator: You speak softly over the clatter of silver, steady and warm as a kitchen hearth.
+haint_daydreamer [smile]: Do you really think they would be glad just to hear the truth? Maybe they missed talking to me more than they missed the rock.
+-> tally
+
+~ persuasion_miss
+set haint_daydreamer_used_persuasion
+set haint_daydreamer_fails += 1
+Narrator: You offer a brisk lecture on honesty and the duties of a good neighbour.
+haint_daydreamer [weary]: You sound like a schoolbook, and schoolbooks do not know how big the front porch looks when you are in trouble.
+-> tally
+
+~ history_ok
+set haint_daydreamer_used_history
+set haint_daydreamer_wins += 1
+Narrator: You share an old, quiet tale of grown folk who pocketed small treasures in your youth and carried the weight for years.
+haint_daydreamer [smile]: Really, even tall people with boots and jobs took things from gardens once? I thought I was the only bad one on the whole street.
+-> tally
+
+~ history_miss
+set haint_daydreamer_used_history
+set haint_daydreamer_fails += 1
+Narrator: You recite a dry account of petty thefts and village magistrates from long ago.
+haint_daydreamer [sad]: Did they put those people in the dark? I think I want some more roast beef right now.
+-> tally
+
+~ investigation_ok
+set haint_daydreamer_used_investigation
+set haint_daydreamer_wins += 1
+Narrator: You tap the brass rail and trace the boy's path from the carriage door to the booth, checking every seam and cushion.
+haint_daydreamer [neutral]: Wait, I remember I had my hand on it when the clowns went by, before I ever sat down here! I did not lose it forever, I just dropped it in the other car.
+-> tally
+
+~ investigation_miss
+set haint_daydreamer_used_investigation
+set haint_daydreamer_fails += 1
+Narrator: You turn the tablecloth corners and peer beneath the stacked saucers, rattling the silverware.
+haint_daydreamer [weary]: I already looked under the plates a hundred times, you are just getting syrup on your sleeves.
+-> tally
+
+~ performance_ok
+set haint_daydreamer_used_performance
+set haint_daydreamer_wins += 1
+Narrator: You stand in the aisle and play the neighbour at the garden gate, tipping an imaginary hat with a kindly nod.
+haint_daydreamer [smile]: And then I say I am sorry I took your toad, and you say thank you for telling me! That was easy when we practiced it.
+-> tally
+
+~ performance_miss
+set haint_daydreamer_used_performance
+set haint_daydreamer_fails += 1
+Narrator: You put on a booming, theatrical voice to play the neighbour answering the door.
+haint_daydreamer [afraid]: Do not do that voice, you are making it scarier than it already is!
+-> tally
+
+~ nature_ok
+set haint_daydreamer_used_nature
+set haint_daydreamer_wins += 1
+Narrator: You murmur of damp garden moss and cool stones, and how every toad knows the smell of its own patch of earth.
+haint_daydreamer [smile]: A garden toad belongs under the cabbage leaves where the bugs are, not rattling around in a coat on a train. Even if I cannot carry him back myself, I ought to go tell them where he went.
+-> tally
+
+~ nature_miss
+set haint_daydreamer_used_nature
+set haint_daydreamer_fails += 1
+Narrator: You explain the habits of pond frogs and the shedding of skins in springtime.
+haint_daydreamer [neutral]: He is made out of rock, silly, he does not eat flies or swim in ditches.
+-> tally
+
+~ tally
+if flag.haint_daydreamer_wins >= 3
+-> helped_freed
+endif
+if flag.haint_daydreamer_fails >= 3
+-> turns_hostile
+endif
+-> help
+
+~ helped_freed
+haint_daydreamer [neutral]: My stomach does not hurt anymore, and I do not think I need the rest of this cake.
+haint_daydreamer [smile]: You are nice for sitting with me, even if we did not have the stone in our hands.
+haint_daydreamer [sad]: Telling the truth is the part that matters anyway, so I am going to go knock on that door right now.
+Narrator: He slides down from the velvet seat and dissolves into a drift of warm cinnamon air, leavin the booth quiet and still.
+set haint_daydreamer_done
+set haint_daydreamer_how = "helped"
+quest haint_daydreamer helped
+approve tobin_hayward +2 rook_coldwake +1: You talked a restless ghost round until it could let go
+narrate haint:freed_sting
+narrate haint:heal
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ turns_hostile
+haint_daydreamer [angry]: Stop talking to me, you are ruining the taste of everything and making me think about it!
+haint_daydreamer [afraid]: You just want me to be in trouble forever, so get away from my table!
+Narrator: The child lets out a shrill, rattling wail that curdles the cream on the plates, and the brass lamps dim in a sudden frost.
+set haint_daydreamer_hostile
+quest haint_daydreamer hostile
+combat gl_haint_daydreamer
+
+~ told_the_truth
+set told_haints_soul_coal
+haint_daydreamer [afraid]: Burn me up in the engine? No, the frogman with the fiddle said we were all riding to the end of the line!
+haint_daydreamer [angry]: You are lying to scare me, or the whole train is a trap, and I will not let you throw me in the fire!
+Narrator: Plates shatter against the floor as his terror sharpens into a freezing wail, and the carriage air turns bitter as ash.
+approve rook_coldwake -2 tobin_hayward -2 silas_vane -2: You told a ghost that it would be burned for fuel
+set haint_daydreamer_hostile
+quest haint_daydreamer hostile
+combat gl_haint_daydreamer
+
+~ fight
+narrate haint:wail
+approve cordelia_skein -1 rook_coldwake -1: You struck a haint first
+set haint_daydreamer_hostile
+quest haint_daydreamer hostile
+combat gl_haint_daydreamer
+
+~ bottled
+haint_daydreamer [afraid]: Hey, the table is spinning and I was not done with my pie yet!
+Narrator: Pale light swirls into the glass until the cork seats itself with a soft pop, like a small breath caught and held.
+if item:marble_jar
+take marble_jar
+else
+take empty_whiskey_bottle
+endif
+give bottled_haint_daydreamer
+set gl_bottled += 1
+set haint_daydreamer_done
+set haint_daydreamer_how = "bottled"
+quest haint_daydreamer bottled
+narrate haint:bottle_carried
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ leave
+haint_daydreamer [weary]: Pass me that gravy boat before you go, even though it does not taste like anything.
+-> END

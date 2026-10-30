@@ -1,0 +1,281 @@
+# R10: The Harlequin (a Wayward Haint). Speaker haint_harlequin; quest haint_harlequin; flags haint_harlequin_*. Region ghostlight_express.
+# Four ways to end it: the token (wildpyre_iron_ring), the Help menu (eight one-shot approaches: six listed at DC 12, two generic at DC 15; three that land
+# free it, three that fall flat turn it hostile), a bottle, or a fight. Every approach is spent whatever its result (per-option flag).
+# Drafted by Gemini (Gemini/sent_08_haint_harlequin.txt, reply_08_haint_harlequin.json), edited; see README.md.
+
+~ start
+if flag.haint_harlequin_done or flag.haint_harlequin_destroyed
+-> END
+endif
+if flag.haint_harlequin_met
+-> return
+endif
+set haint_harlequin_met
+quest haint_harlequin met
+if quest.ghostlight_express == phantom_struck
+quest ghostlight_express haints
+endif
+Narrator: Rust flakes from an open cage door onto the sawdust floor, and the air smells of cold iron and old greasepaint. A pale clown in a belled cap tumbles across a red-and-white crate, catches herself just short of a bow, and peers past you toward the locks.
+haint_harlequin [smile]: Step right in, ladies and gentlemen, mind the bolts and the bars! The show is quite over, I promise you, every door is shut tight, or ought to be.
+haint_harlequin [afraid]: You didn't hear anything pacing in the corridor just now, did you, anything low and orange and breathing?
+interject name:delphine_ravelle: Mind the seams, darling, a painted smile cracks quickest when the curtain is already down.
+interject name:lucan_houndstooth: Hush now, the only tracks in this sawdust are your own.
+haint_harlequin [weary]: Only mine, yes, of course, what a relief for the cheap seats!
+-> menu
+
+~ return
+if flag.haint_harlequin_hostile
+-> END
+endif
+haint_harlequin [smile]: Back for an encore, ladies and gentlemen, and the tickets are still free!
+haint_harlequin [afraid]: Tell me the hallway behind you was empty, please, just say it was empty.
+-> menu
+
+~ menu
+* What happened to your circus? -> ask_story
+* What would let you rest easy? -> ask_want
+* [if item:wildpyre_iron_ring] Hold out the hot iron ring from the tiger's tail. -> token_give
+* Let us help you put this night behind you. -> help_open
+* [if item:marble_jar or item:empty_whiskey_bottle] Quietly set an empty glass jar in her path. -> bottled
+* Draw a weapon and strike the ghost. -> fight
+* Tell her unfreed ghosts get burned as fuel for the engine. -> told_the_truth
+* We'll leave you to your stage. -> leave
+
+~ ask_story
+haint_harlequin [smile]: Oh, a classic comedy of errors, folks: one tiny clown, one heavy iron key, and a grand finale that brought down the big top!
+haint_harlequin [sad]: He looked so thin behind those bars, or maybe I just wanted to be the one the great beast listened to.
+haint_harlequin [afraid]: The lock turned so softly, like butter, and then there was only smoke and stripes and everyone running in the dark.
+haint_harlequin [weary]: I tried to trip him with my slapstick, which went about as well as you reckon, given present company.
+-> menu
+
+~ ask_want
+haint_harlequin [sad]: If I only knew he was fast asleep, bound up tight where no fool with a key could ever let him loose again.
+haint_harlequin [weary]: I keep listening for claws on the floorboards, and I cannot finish my bow until I know the crowd is safe.
+-> menu
+
+~ token_give
+haint_harlequin [afraid]: That iron ring, I know that ring, it sat right at the tip of his tail like a coal in the straw!
+haint_harlequin [sad]: It's still burning hot against my palms, all that terrible fire curled up small and fast asleep inside the iron.
+haint_harlequin [smile]: He can't get out of this one, can he, not for all the keys in the world.
+-> token_freed
+
+~ token_freed
+haint_harlequin [smile]: Ladies and gentlemen, your kind attention for the final act, performed entirely without nets or cages!
+haint_harlequin [sad]: You brought me the lock that holds him, and my hands don't even shake to touch it.
+haint_harlequin [weary]: The tents are down, the lanterns are out, and nobody else is going to get hurt tonight.
+Narrator: She presses the hot iron ring to her chest, dips into a slow, steady bow until her belled cap brushes her knees, and thins into a curl of warm sawdust and lantern smoke.
+take wildpyre_iron_ring
+set haint_harlequin_done
+set haint_harlequin_how = "token"
+quest haint_harlequin token
+approve delphine_ravelle +2 lucan_houndstooth +1: You showed an ashamed jester that her tiger was held
+narrate haint:freed_sting
+narrate haint:heal
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ help_open
+haint_harlequin [weary]: You want to talk a dead clown out of her stage fright, do you, well, the floor is yours.
+haint_harlequin [sad]: Just speak softly, in case something in the dark has its ears up.
+-> help
+
+~ help
+* [if not flag.haint_harlequin_used_animal_handling] [Animal Handling DC 12] Describe how a great cat sleeps once its hunt is spent. -> animal_handling_ok | animal_handling_miss
+* [if not flag.haint_harlequin_used_survival] [Survival DC 12] Show how a watched den keeps a sleeping beast contained. -> survival_ok | survival_miss
+* [if not flag.haint_harlequin_used_deception] [Deception DC 12] Swear on your life the tiger is locked away forever. -> deception_ok | deception_miss
+* [if not flag.haint_harlequin_used_nature] [Nature DC 12] Explain how a ghost-flame is bound to the vessel holding it. -> nature_ok | nature_miss
+* [if not flag.haint_harlequin_used_investigation] [Investigation DC 12] Count off the heavy locks and walls securing this train. -> investigation_ok | investigation_miss
+* [if not flag.haint_harlequin_used_persuasion] [Persuasion DC 12] Tell her one bad night wasn't hers alone to carry. -> persuasion_ok | persuasion_miss
+* [if not flag.haint_harlequin_used_performance] [Performance DC 15] Give her routine a sincere, wholehearted round of applause. -> performance_ok | performance_miss
+* [if not flag.haint_harlequin_used_insight] [Insight DC 15] Steady her arm and tell her she doesn't need to fall. -> insight_ok | insight_miss
+* Step back for now. -> menu
+
+~ animal_handling_ok
+set haint_harlequin_used_animal_handling
+set haint_harlequin_wins += 1
+Narrator: You kneel by the open cage door and trace the heavy, curled sprawl of a sleeping cat in the sawdust. You reckon even a monster knows when the hunt is done.
+haint_harlequin [sad]: Curled round his own paws, yes, he used to sleep just like that after the meat cart came round.
+haint_harlequin [weary]: A full belly and a warm bed, and not a care for the door at all.
+-> tally
+
+~ animal_handling_miss
+set haint_harlequin_used_animal_handling
+set haint_harlequin_fails += 1
+Narrator: You mimic the sharp crack of a tamer's whip and point a stern finger toward the straw. It is a very firm gesture for an empty cage.
+haint_harlequin [sad]: Oh, the ringmaster tried that voice too, right before the lanterns broke.
+-> tally
+
+~ survival_ok
+set haint_harlequin_used_survival
+set haint_harlequin_wins += 1
+Narrator: You check the sightlines from the doorway to the crates, marking where a watcher would stand to keep a sleeping den secure. Nothing moves in this car without you knowing it.
+haint_harlequin [weary]: Watched and warded, with good eyes on the threshold, that sounds like a proper camp.
+haint_harlequin [smile]: Maybe an old clown doesn't have to walk the perimeter alone tonight.
+-> tally
+
+~ survival_miss
+set haint_harlequin_used_survival
+set haint_harlequin_fails += 1
+Narrator: You kick at the rusted cage bars to show how sturdy the old iron still is. The hollow clang echoes a piece longer than anyone likes.
+haint_harlequin [afraid]: Don't rattle them, please, he always hated the sound of the iron.
+-> tally
+
+~ deception_ok
+set haint_harlequin_used_deception
+set haint_harlequin_wins += 1
+Narrator: You place a steady hand over the heart and look her straight in her painted eyes. If it is a lie, it is a warm one, laid down like a blanket.
+haint_harlequin [sad]: You swear it so plainly, like you've seen the very bolt on the door with your own eyes.
+haint_harlequin [weary]: I reckon I have been waiting a long time just to hear someone promise me that.
+-> tally
+
+~ deception_miss
+set haint_harlequin_used_deception
+set haint_harlequin_fails += 1
+Narrator: You offer a quick, breezy wave of the hand, brushing the whole matter of the tiger aside. The smile doesn't quite reach your eyes.
+haint_harlequin [weary]: Ah, I know stage patter when I hear it, friend, I wrote half the book myself.
+-> tally
+
+~ nature_ok
+set haint_harlequin_used_nature
+set haint_harlequin_wins += 1
+Narrator: You cup both hands around a flickering lantern glass, showing how a bound flame stays inside its vessel until the oil is gone. It is a simple truth, warm against the mist.
+haint_harlequin [sad]: Bound to its place, just an ember in the ash, not a hunting thing anymore.
+haint_harlequin [weary]: Then the fire has nowhere left to run, does it.
+-> tally
+
+~ nature_miss
+set haint_harlequin_used_nature
+set haint_harlequin_fails += 1
+Narrator: You lecture briskly on the habits of beasts and the laws of the mist. It sounds very scholarly, and very cold.
+haint_harlequin [weary]: The tiger never cared much for lessons, I'm afraid, he just liked the dark.
+-> tally
+
+~ investigation_ok
+set haint_harlequin_used_investigation
+set haint_harlequin_wins += 1
+Narrator: You walk the row of cages and tap each heavy padlock in turn, counting off the iron bolts and solid walls between this car and the rest of the train. Every latch holds fast.
+haint_harlequin [sad]: One lock, two locks, three, and solid timber between the cars.
+haint_harlequin [smile]: You count better than the ticket-seller ever did, and you haven't missed a bolt.
+-> tally
+
+~ investigation_miss
+set haint_harlequin_used_investigation
+set haint_harlequin_fails += 1
+Narrator: You peer closely at the broken latch on the open cage, rubbing a thumb over the old score marks in the metal. That isn't the lock she wants to remember.
+haint_harlequin [afraid]: Yes, that's the one I turned, you don't need to hold a lantern to it.
+-> tally
+
+~ persuasion_ok
+set haint_harlequin_used_persuasion
+set haint_harlequin_wins += 1
+Narrator: You sit down on the edge of the marionette chest, level with her eyes, and speak without a bit of hurry. Kindness is a rare currency on this train, and it rings true.
+haint_harlequin [sad]: A hard night and a heavy door, and men who kept a starving thing in the dark before I ever touched the key.
+haint_harlequin [weary]: Nobody ever split the blame with me before, not even by half.
+-> tally
+
+~ persuasion_miss
+set haint_harlequin_used_persuasion
+set haint_harlequin_fails += 1
+Narrator: You pat the air and tell her to put the old circus out of her mind. It is the sort of comfort folks give when they want to change the subject.
+haint_harlequin [sad]: Forget the show, you say, while I'm still wearing the bells.
+-> tally
+
+~ performance_ok
+set haint_harlequin_used_performance
+set haint_harlequin_wins += 1
+Narrator: You stand straight in the aisle and give her a slow, genuine round of applause, clapping as if the big top were packed to the canvas roof. There isn't a drop of mockery in it.
+haint_harlequin [smile]: Well now, listen to that, a real house in the cheap seats after all this time!
+haint_harlequin [sad]: I almost remember how to do this without falling down first.
+-> tally
+
+~ performance_miss
+set haint_harlequin_used_performance
+set haint_harlequin_fails += 1
+Narrator: You force a polite little clap and a stiff chuckle at her stumble. It sounds lonely in the empty car.
+haint_harlequin [weary]: Don't trouble your hands on my account, folks, I know a sympathy clap when it hits the sawdust.
+-> tally
+
+~ insight_ok
+set haint_harlequin_used_insight
+set haint_harlequin_wins += 1
+Narrator: You reach out to steady her elbow before she can throw herself into another clumsy tumble, looking past the white paint to the tired woman underneath. She stops mid-step, surprised by the grip.
+haint_harlequin [sad]: You saw right through the pratfall, didn't you, all the way down to the floor.
+haint_harlequin [weary]: It takes a mighty lot of work to look this foolish when your heart is broke.
+-> tally
+
+~ insight_miss
+set haint_harlequin_used_insight
+set haint_harlequin_fails += 1
+Narrator: You stare hard at her painted face, squinting like a customer trying to spot the trick in a shell game. Nobody likes being studied like a riddle.
+haint_harlequin [smile]: Keep your eyes on the juggling clubs, friend, there's nothing to see behind the greasepaint!
+-> tally
+
+~ tally
+if flag.haint_harlequin_wins >= 3
+-> helped_freed
+endif
+if flag.haint_harlequin_fails >= 3
+-> turns_hostile
+endif
+-> help
+
+~ helped_freed
+haint_harlequin [sad]: You stood right here in the sawdust and listened until the shaking stopped.
+haint_harlequin [smile]: No cages to rattle, no crowd screaming in the dark, just four kind souls at the end of the show.
+haint_harlequin [weary]: Ladies and gentlemen, the Harlequin thanks you, and wishes you a safe journey home.
+Narrator: She straightens her belled cap, bends into a long, graceful bow that finally reaches its end, and drifts apart like pale confetti settling in the lantern light.
+set haint_harlequin_done
+set haint_harlequin_how = "helped"
+quest haint_harlequin helped
+approve tobin_hayward +2 rook_coldwake +1: You talked a restless ghost round until it could let go
+narrate haint:freed_sting
+narrate haint:heal
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ turns_hostile
+haint_harlequin [angry]: Enough, enough, you're just like the rest of them, laughing from behind the ropes while the doors burst open!
+haint_harlequin [afraid]: The tiger is out, the tent is burning, and nobody leaves the ring tonight!
+Narrator: She throws back her head and lets out a ragged wail that turns your breath to frost and gutters every lantern in the car.
+set haint_harlequin_hostile
+quest haint_harlequin hostile
+combat gl_haint_harlequin
+
+~ told_the_truth
+set told_haints_soul_coal
+haint_harlequin [afraid]: Fuel for the firebox, you say, shoveled into the iron belly like coal?
+haint_harlequin [sad]: First the tiger's teeth, and now the furnace door, is that the whole joke?
+haint_harlequin [angry]: Then come into the ring and burn with me, you cruel things!
+Narrator: Her painted smile splits into a howling wail, the air drops bitter cold, and the carnival banners rattle in a sudden frost.
+approve rook_coldwake -2 tobin_hayward -2 silas_vane -2: You told a ghost that it would be burned for fuel
+set haint_harlequin_hostile
+quest haint_harlequin hostile
+combat gl_haint_harlequin
+
+~ fight
+narrate haint:wail
+approve cordelia_skein -1 rook_coldwake -1: You struck a haint first
+set haint_harlequin_hostile
+quest haint_harlequin hostile
+combat gl_haint_harlequin
+
+~ bottled
+haint_harlequin [afraid]: Wait, the ring is too small, I haven't finished my bow!
+Narrator: Pale light swirls down into the glass until the jar glows like a carnival lantern, and the cork seats itself with a soft pop like a held breath.
+if item:marble_jar
+take marble_jar
+else
+take empty_whiskey_bottle
+endif
+give bottled_haint_harlequin
+set gl_bottled += 1
+set haint_harlequin_done
+set haint_harlequin_how = "bottled"
+quest haint_harlequin bottled
+narrate haint:bottle_carried
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ leave
+haint_harlequin [weary]: Mind the doors on your way out, folks, and make sure they latch behind you.
+-> END

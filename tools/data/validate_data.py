@@ -925,6 +925,7 @@ def world_check_checks(loc, w, data, need, cond, flags_set, check_lines, errors,
 def story_checks(data, errors, need):
     """Locations, NPCs, quests, the flag registry and every .dialogue file (ADR 0008, ADR 0009)."""
     flags = {}
+    read_later = set()  # flags a conversation sets for a chapter not built yet ("read_later": true in the registry)
     engine_flags = {}   # flags the game itself sets from code ("set_by": "engine" in the registry), e.g. Achievements.note_fight
     for f in sorted((ROOT / "data" / "flags").glob("*.json")) if (ROOT / "data" / "flags").exists() else []:
         try:
@@ -939,6 +940,8 @@ def story_checks(data, errors, need):
             if fl["id"] in flags:
                 errors.append(f"data/flags/{f.name}: flag '{fl['id']}' also registered in {flags[fl['id']]}")
             flags[fl["id"]] = f.name
+            if fl.get("read_later"):
+                read_later.add(fl["id"])
             if "set_by" in fl:
                 if fl["set_by"] != "engine":
                     errors.append(f"data/flags/{f.name}: flag '{fl['id']}': set_by is \"engine\" or left out")
@@ -1310,7 +1313,7 @@ def story_checks(data, errors, need):
             errors.append(f"{wh[0]}: flag '{fid}' isn't registered in data/flags/")
         if fid in engine_flags:
             errors.append(f"{wh[0]}: flag '{fid}' is set by the engine ({engine_flags[fid]}); data doesn't set it")
-        elif fid not in flags_read:
+        elif fid not in flags_read and fid not in read_later:
             errors.append(f"{wh[0]}: flag '{fid}' is set but never read")
 
 

@@ -1,0 +1,63 @@
+# R10: the last stop: the Lord, the Lady and the Vagrant come out of the trees; the train mends and leaves. Speakers the_vagrant,
+# phillip_druskenvald, adela_druskenvald. Region ghostlight_express. Started by the won fight (`gl_locomotive` victory flag gl_locomotive_done;
+# the Vagrant NPC at the wreck, `approach: 99`). The Whistle of the Vagrant lies in the grass only if The Fool was drawn (`reveal wr_whistle`).
+# Drafted by Gemini (Gemini/sent_19_farewell_gifts.txt, sent_20 captions), edited; see README.md.
+
+~ emerge
+if flag.gl_last_stop
+-> END
+endif
+set gl_last_stop
+Narrator: Three shapes step out from the dark pines into the smell of hot iron and wet ash. They look at the silent boiler like folks waking from a fever.
+phillip_druskenvald [weary]: My word, that was a curtain call to rattle the teeth, my friends. You have my deepest thanks for bringing that ugly show to a close.
+adela_druskenvald [smile]: Oh, you were the absolute bee's knees out there, every last one of you. My heart is still doing the Charleston against my ribs. When that monster train opened its jaws, I thought we were all done for.
+the_vagrant [smile]: She's herself again, or near enough, now the mean streak is wrung out of her iron. Mighty fine work y'all did.
+if flag.gl_fare_owed and not flag.gl_fare_paid
+-> fare_due
+endif
+-> mend
+
+# He still owes himself the fare: the party may pay it now (a story or a song), or not; nothing hangs on it.
+~ fare_due
+the_vagrant [sly]: Now, y'all still owe this old conductor a story and a song apiece for the ride. Ain't no rush on the matter, seeing as I know where to find y'all.
+* Tell him something true. -> fare_paid_now
+* We'll owe you a while longer. -> mend
+
+~ fare_paid_now
+set gl_fare_paid = "story"
+the_vagrant [smile]: That'll do nicely. Tucked in the hatband with the rest.
+-> mend
+
+~ mend
+cutscene gl_last_stop
+Narrator: Crumpled steel pops and rings like a tuned anvil as the engine lifts off the mossy ground. Every dent smooths out clean in the cold night air.
+cutscene gl_last_stop_2
+Narrator: Down the glade, stray carriages rise from the mud and fly back into line. Brass couplings slam shut one by one with a tidy, musical clack.
+Narrator: With a groan of warm metal, the heavy engine lifts from the mud, dents ironing out of her like creases from a sheet. From the dark trees, the scattered carriages hurry forward on rails of mist to couple neat behind her.
+the_vagrant [smile]: Well, I'll be, the old girl still knows how to pull herself together.
+-> farewell
+
+~ farewell
+the_vagrant [weary]: I hate to leave y'all by the side of the track, travelers, truly I do. The old girl can't carry the living in her present state, so we got to roll on and mend.
+the_vagrant [smile]: I reckon I'll swing back round to fetch y'all in a few weeks, or thereabouts, I never was any good at the calendar.
+the_vagrant [neutral]: This Hollow keeps its own counsel, so y'all mind your step down in that village and keep your lanterns lit.
+the_vagrant [smile]: It was a real pleasure riding with folks who got some grit in their craw.
+if flag.tarot_hero_1 == "the_fool" or flag.tarot_hero_2 == "the_fool" or flag.tarot_hero_3 == "the_fool" or flag.tarot_hero_4 == "the_fool"
+-> farewell_whistle
+endif
+-> the_going
+
+~ farewell_whistle
+reveal wr_whistle
+the_vagrant [sly]: Come to think of it, I seem to have dropped my little silver whistle in the wet grass back yonder. I'd be mighty obliged if one of y'all kept it safe, since it's the sort of thing that finds the right hand.
+-> the_going
+
+~ the_going
+cutscene gl_last_stop_3
+Narrator: Rails of pale mist unspool toward the stars as the train climbs into the night sky. From the cab, a green hand waves a spiked hat goodbye.
+Narrator: The black train rises into the night sky on its silver rails of mist, the Vagrant leaning out the cab to wave his wide hat. A last long whistle echoes through the pines, and then there is only the dark wind soughing in the needles.
+cutscene end
+vanish the_vagrant
+quest ghostlight_express last_stop
+Narrator: The mist thins out and leaves the clearing quiet as an empty church. Lord and Lady Druskenvald look at you, and at the dark wood, and then at one another.
+-> ghostlight_express/druskenvalds_gifts:thanks

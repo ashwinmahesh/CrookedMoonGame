@@ -1,0 +1,52 @@
+# R10: the shared recount for the six haints (docs: R10 section 7). Every haint resolves itself with its own `haint_<id>_done` flag (a dialogue)
+# or `haint_<id>_destroyed` (the encounter's flag on victory); this node recounts haints_resolved and haints_destroyed from those twelve, so a fight
+# needs no counter code. The caller sets gl_after_recount to "router" (a check-in may follow) or "grille" (the grille's hub follows).
+
+~ recount
+set haints_resolved = 0
+set haints_destroyed = 0
+if flag.haint_sweetheart_done or flag.haint_sweetheart_destroyed
+set haints_resolved += 1
+endif
+if flag.haint_sweetheart_destroyed
+set haints_destroyed += 1
+endif
+if flag.haint_songstress_done or flag.haint_songstress_destroyed
+set haints_resolved += 1
+endif
+if flag.haint_songstress_destroyed
+set haints_destroyed += 1
+endif
+if flag.haint_daydreamer_done or flag.haint_daydreamer_destroyed
+set haints_resolved += 1
+endif
+if flag.haint_daydreamer_destroyed
+set haints_destroyed += 1
+endif
+if flag.haint_mariner_done or flag.haint_mariner_destroyed
+set haints_resolved += 1
+endif
+if flag.haint_mariner_destroyed
+set haints_destroyed += 1
+endif
+if flag.haint_jailbird_done or flag.haint_jailbird_destroyed
+set haints_resolved += 1
+endif
+if flag.haint_jailbird_destroyed
+set haints_destroyed += 1
+endif
+if flag.haint_harlequin_done or flag.haint_harlequin_destroyed
+set haints_resolved += 1
+endif
+if flag.haint_harlequin_destroyed
+set haints_destroyed += 1
+endif
+if flag.haints_resolved >= 6 and not flag.haints_all_gone
+set haints_all_gone
+quest ghostlight_express tender_open
+narrate haint:all_gone
+endif
+if flag.gl_after_recount == "grille"
+-> ghostlight_express/vagrant_intercom:grille_open
+endif
+-> ghostlight_express/vagrant_intercom:router

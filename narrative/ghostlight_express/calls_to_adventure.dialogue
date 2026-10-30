@@ -1,0 +1,87 @@
+# R10: each hero's Call to Adventure, a two-picture intro before the boarding (the Fate hook: every hero holds an unnoticed ticket).
+# Plays once at a new game, one slide pair for each hero in the party, in this order; never shows a face. Started by the new-game hook (`calls_to_adventure:start`).
+# The companions' reasons are tied to their wants and secrets in `Companions/` (HOOK(F): Lane F may sharpen a Call to its Thread's first line).
+# The custom hero's Call is generic (`flag.party_has_custom`, set by the module at party creation). Drafted by Gemini (Gemini/sent_21_calls_to_adventure.txt), edited.
+
+~ start
+-> call_rook_coldwake_check
+
+~ call_rook_coldwake_check
+if name:rook_coldwake
+cutscene gl_call_rook_coldwake
+Narrator: Rook Coldwake presses a pale marker into the frozen battlefield mud to buy the restless dead a quiet night. Dry flower seeds spill from his iron gauntlet onto the frost.
+cutscene gl_call_rook_coldwake_2
+Narrator: The stone casts a long shadow across the ruts, and a black ticket with silver letters sits square on the cap. Even a warden gets summoned down the road.
+interject name:rook_coldwake: Improper placement. No permit, no chiseled date, and the mortar isn't even set.
+cutscene end
+endif
+-> call_tobin_hayward_check
+
+~ call_tobin_hayward_check
+if name:tobin_hayward
+cutscene gl_call_tobin_hayward
+Narrator: Tobin Hayward knots a wicker charm around a blighted wheat stalk with hands of stitched burlap and dry straw. He works the dead dirt like it still remembers spring.
+cutscene gl_call_tobin_hayward_2
+Narrator: One green shoot breaks the crust beside the rot, and a black ticket with silver letters rests in the wicker weave. The harvest comes in strange shapes out here.
+interject name:tobin_hayward: Good soil takes its time, I suppose, even when the weeds send invitations.
+cutscene end
+endif
+-> call_silas_vane_check
+
+~ call_silas_vane_check
+if name:silas_vane
+cutscene gl_call_silas_vane
+Narrator: Silas Vane rifles a deck of carved bone slivers across a scarred alley table, chalk tallies stacked against his name. A man betting his own hide plays a tight hand.
+cutscene gl_call_silas_vane_2
+Narrator: He turns the river card and finds black pasteboard stamped in silver letters where the bones ought to be. The house always collects, one way or another.
+interject name:silas_vane: Marked deck. Tell's in the silver ink, and the dealer didn't even leave a stack to steal.
+cutscene end
+endif
+-> call_delphine_ravelle_check
+
+~ call_delphine_ravelle_check
+if name:delphine_ravelle
+cutscene gl_call_delphine_ravelle
+Narrator: On an empty midway past midnight, Delphine Ravelle pulls tight the thread in her patchwork cuff. Behind her on the canvas wall, a floating jester's shadow mouths a silent rhyme.
+cutscene gl_call_delphine_ravelle_2
+Narrator: Inside the torn lining of her notebook, silver letters gleam on a black ticket she never tucked away. Folks who sign with a grin always find another stage waiting.
+interject name:delphine_ravelle: No applause, no advance billing, and the management leaves a pass in my seam. Simply shameless.
+cutscene end
+endif
+-> call_lucan_houndstooth_check
+
+~ call_lucan_houndstooth_check
+if name:lucan_houndstooth
+cutscene gl_call_lucan_houndstooth
+Narrator: Lucan Houndstooth tracks heavy prints through the cold mire where a ghostly mastiff shows its ribs against the fog. That pale hound never points toward easy game.
+cutscene gl_call_lucan_houndstooth_2
+Narrator: The beast lifts its paw from the mud, leaving a black ticket with silver letters pinned clean to the earth. It is a mighty polite way for an omen to point.
+interject name:lucan_houndstooth: Easy, boy. A strange scent on the wind, and the quarry seems to have sent its calling card.
+cutscene end
+endif
+-> call_cordelia_skein_check
+
+~ call_cordelia_skein_check
+if name:cordelia_skein
+cutscene gl_call_cordelia_skein
+Narrator: Cordelia Skein spins crimson notes into the air above her glowing ruby vials, each silk letter dissolving before it cools. Stolen blood makes for a stubborn ink.
+cutscene gl_call_cordelia_skein_2
+Narrator: Deep in the corner cocoon, the threads have woven themselves around a black ticket stamped with silver letters. The answer to her riddle lives down the road.
+interject name:cordelia_skein: Fascinating pathology. The silk rejects my notes, yet binds a foreign specimen without a single tremor.
+cutscene end
+endif
+-> call_custom_check
+
+~ call_custom_check
+if flag.party_has_custom
+cutscene gl_call_custom
+Narrator: A traveler's hand rests on a cold door latch while the window lamp burns low inside. The nail where the house key hangs is bare as winter bone.
+cutscene gl_call_custom_2
+Narrator: Right where the iron key ought to sit, a black ticket catches the lamplight in sharp silver letters. When the road wants you, it locks the door behind you.
+cutscene end
+endif
+-> finish
+
+~ finish
+quest ghostlight_express boarding
+move ghostlight_boarding:default

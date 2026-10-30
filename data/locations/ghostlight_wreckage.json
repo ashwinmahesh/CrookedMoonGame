@@ -1,0 +1,422 @@
+{
+  "id": "ghostlight_wreckage",
+  "name": "The Ghostlight Wreckage",
+  "region": "ghostlight_express",
+  "summary": "An ancient oak wood in a bowl of land, a crash groove gouged through it, and a locomotive pinned on its side by black roots under a crescent moon with a crone's face.",
+  "text": "A groove forty yards across has been ploughed through the oaks, and the carriages lie scattered like dropped cards. On a rise in the east the engine lies on its side, black roots holding it, and above the broken canopy hangs a moon with a face.",
+  "map": {
+    "rows": [
+      "############################################",
+      "############################################",
+      "############################################",
+      "#######################.....################",
+      "#########=======.......~##....##############",
+      "#######.========........##.....#############",
+      "######.=...............~.........###########",
+      "#####..~.~......~..........##....~~#########",
+      "#####~~.........##..~.......#.~.~~.~########",
+      "####.....##...~.##..........~~.~~.~~....####",
+      "####==...##...........==...~~.~...~~....####",
+      "###.==........~....~~..=..~~......~~....####",
+      "###.==......~......=~~.~~~~.......~~....~###",
+      "####==....=.##.......~~.~......=...~~~~~~.##",
+      "####==.......#......~~.........~....~~~~...#",
+      "#####..........=~~.~~....~..................",
+      "#####..~.....~.~~.~~..~~.........~........~.",
+      "#####...#.....~~.~............##..~==......#",
+      "#####........~~.........##..~~##..........##",
+      "#####.....~.##........~.#....~....=...~.####",
+      "####.....~.~##............~.~.........######",
+      "####...........~..................~..#######",
+      "####.....#####==....#....========...########",
+      "####.....########........========...########",
+      "####.....#########..~...~.........##########",
+      "#####################...........############",
+      "#####################...####################",
+      "#####################...####################"
+    ],
+    "elevation": [
+      "............................................",
+      "............................................",
+      "............................................",
+      ".......................33333................",
+      ".........222222222222232..2222..............",
+      ".......22222222222222222..22222.............",
+      "......222222222222222222222222211...........",
+      ".....2222222222222222222222..210000.........",
+      ".....22222222222..2222222222.1000012........",
+      "....22222..22222..222222211000000123........",
+      "....22222..2222222222221100000012333........",
+      "...222222223332222222110000001123334........",
+      "...222222223332222221000000012223333....3...",
+      "....22222222..2222110000001122223333333332..",
+      "....222222222.22210000000122222222233332222.",
+      ".....222222222211000000122222222222222222222",
+      ".....222222221100000012222222222222222222222",
+      ".....222.221100000012222222222..22222222222.",
+      ".....2222110000001222222..2222..2222222222..",
+      ".....3211000..0112222222.222222222222222....",
+      "....32100000..122222222222222222222222......",
+      "....210000001122222222222222222222222.......",
+      "....11000.....222222.232222222221222........",
+      "....11011........2222333222222221122........",
+      "....11122.........2222332222222211..........",
+      ".....................22222222222............",
+      ".....................222....................",
+      ".....................222...................."
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "wr_clearing",
+      "name": "The clearing",
+      "cells": [
+        [
+          5,
+          4
+        ],
+        [
+          34,
+          24
+        ]
+      ]
+    },
+    {
+      "id": "wr_engine_bank",
+      "name": "The engine's bank",
+      "cells": [
+        [
+          33,
+          6
+        ],
+        [
+          42,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "wr_oaks",
+      "name": "The oaks",
+      "cells": [
+        [
+          4,
+          3
+        ],
+        [
+          40,
+          25
+        ]
+      ]
+    },
+    {
+      "id": "wr_tree_line",
+      "name": "The tree line",
+      "cells": [
+        [
+          3,
+          12
+        ],
+        [
+          5,
+          15
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      6,
+      22
+    ],
+    "from_crash": [
+      6,
+      22
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_wickermoor",
+      "cell": [
+        22,
+        27
+      ],
+      "to": "travel",
+      "label": "Walk to Wickermoor Village",
+      "when": "flag.gl_last_stop",
+      "locked_text": "Not yet. The engine is still pinned in the roots."
+    }
+  ],
+  "props": [
+    {
+      "id": "wr_roots",
+      "cell": [
+        35,
+        9
+      ],
+      "kind": "decor",
+      "label": "The roots"
+    },
+    {
+      "id": "wr_grooves",
+      "cell": [
+        22,
+        13
+      ],
+      "kind": "decor",
+      "label": "The crash grooves"
+    },
+    {
+      "id": "wr_wrecked_cars",
+      "cell": [
+        11,
+        5
+      ],
+      "kind": "examine",
+      "label": "The scattered cars",
+      "model": "cart"
+    },
+    {
+      "id": "wr_oak_car",
+      "cell": [
+        19,
+        8
+      ],
+      "kind": "examine",
+      "label": "A car in the oak",
+      "model": "cart",
+      "span": [
+        4,
+        2
+      ],
+      "stand_ft": 10
+    },
+    {
+      "id": "wr_boulders",
+      "cell": [
+        13,
+        13
+      ],
+      "kind": "examine",
+      "label": "Mossy boulders",
+      "model": "rocks"
+    },
+    {
+      "id": "wr_moon",
+      "cell": [
+        22,
+        15
+      ],
+      "kind": "decor",
+      "label": "The Crooked Moon"
+    },
+    {
+      "id": "wr_soul_can_1",
+      "cell": [
+        7,
+        7
+      ],
+      "kind": "search",
+      "label": "A glint in the roots",
+      "search_dc": 10,
+      "item": "soul_can",
+      "when": "not flag.gl_cans_by_druskenvalds"
+    },
+    {
+      "id": "wr_soul_can_2",
+      "cell": [
+        26,
+        7
+      ],
+      "kind": "search",
+      "label": "A glint by the groove",
+      "search_dc": 10,
+      "item": "soul_can",
+      "when": "not flag.gl_cans_by_druskenvalds"
+    },
+    {
+      "id": "wr_soul_can_3",
+      "cell": [
+        23,
+        19
+      ],
+      "kind": "search",
+      "label": "A glint under a boulder",
+      "search_dc": 10,
+      "item": "soul_can",
+      "when": "not flag.gl_cans_by_druskenvalds"
+    },
+    {
+      "id": "wr_whistle",
+      "cell": [
+        14,
+        18
+      ],
+      "kind": "search",
+      "label": "Something small in the mud",
+      "search_dc": 10,
+      "item": "whistle_of_the_vagrant",
+      "when": "flag.tarot_hero_1 == the_fool or flag.tarot_hero_2 == the_fool or flag.tarot_hero_3 == the_fool or flag.tarot_hero_4 == the_fool"
+    },
+    {
+      "id": "wr_pool",
+      "cell": [
+        15,
+        17
+      ],
+      "kind": "decor",
+      "label": "A pool of soul-mist"
+    },
+    {
+      "id": "wr_edge_n",
+      "cell": [
+        6,
+        14
+      ],
+      "kind": "decor",
+      "call": "ghostlight_express/vagrant_wreck:walk_away",
+      "approach": 2,
+      "call_when": "flag.gl_wreck_met and not flag.gl_locomotive_done"
+    },
+    {
+      "id": "wr_last_stop",
+      "cell": [
+        30,
+        12
+      ],
+      "kind": "decor",
+      "call": "ghostlight_express/vagrant_farewell:emerge",
+      "approach": 12,
+      "call_when": "flag.gl_locomotive_done and not flag.gl_last_stop"
+    }
+  ],
+  "containers": [
+    {
+      "id": "wr_trunks",
+      "cell": [
+        5,
+        21
+      ],
+      "label": "The Druskenvalds' surviving trunks",
+      "items": [],
+      "model": "case"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "the_vagrant",
+      "cell": [
+        34,
+        12
+      ],
+      "dialogue": "ghostlight_express/vagrant_wreck:arrival",
+      "approach": 8,
+      "steps_aside": true,
+      "when": "not flag.gl_locomotive_done"
+    },
+    {
+      "npc": "phillip_druskenvald",
+      "cell": [
+        7,
+        21
+      ],
+      "dialogue": "ghostlight_express/druskenvalds_wreck:crash_check",
+      "approach": 6,
+      "steps_aside": true,
+      "when": "not flag.gl_locomotive_done"
+    },
+    {
+      "npc": "adela_druskenvald",
+      "cell": [
+        8,
+        21
+      ],
+      "dialogue": "ghostlight_express/druskenvalds_wreck:crash_check",
+      "steps_aside": true,
+      "when": "not flag.gl_locomotive_done"
+    },
+    {
+      "npc": "ghostlight_locomotive",
+      "cell": [
+        36,
+        9
+      ],
+      "lying": true,
+      "facing": "west",
+      "when": "not flag.gl_locomotive_done"
+    }
+  ],
+  "traps": [
+    {
+      "id": "wr_crash_landing",
+      "cells": [
+        [
+          6,
+          22
+        ]
+      ],
+      "detect_dc": 0,
+      "disarm_dc": 0,
+      "save": {
+        "ability": "dex",
+        "dc": 13
+      },
+      "damage": "1d6",
+      "damage_type": "bludgeoning",
+      "label": "The crash's landing",
+      "text": "The ground comes up hard."
+    }
+  ],
+  "encounters": [
+    {
+      "id": "gl_locomotive",
+      "trigger": "dialogue",
+      "flag": "gl_locomotive_done",
+      "quest": {
+        "id": "ghostlight_express",
+        "stage": "last_stop"
+      },
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "ghostlight_locomotive",
+          "cell": [
+            36,
+            9
+          ],
+          "name": "The Ghostlight Locomotive",
+          "boss": true,
+          "steps_down": {
+            "npc": "ghostlight_locomotive"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gl_locomotive_edge",
+      "trigger": "dialogue",
+      "flag": "gl_locomotive_done",
+      "quest": {
+        "id": "ghostlight_express",
+        "stage": "last_stop"
+      },
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "ghostlight_locomotive",
+          "cell": [
+            10,
+            14
+          ],
+          "name": "The Ghostlight Locomotive",
+          "boss": true
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The Vagrant wants the cans before anyone sleeps. A short breath, then."
+}

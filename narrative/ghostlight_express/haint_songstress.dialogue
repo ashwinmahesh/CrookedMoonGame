@@ -1,0 +1,288 @@
+# R10: The Songstress (a Wayward Haint). Speaker haint_songstress; quest haint_songstress; flags haint_songstress_*. Region ghostlight_express.
+# Four ways to end it: the token (ghost_phonograph), the Help menu (eight one-shot approaches: six listed at DC 12, two generic at DC 15; three that land
+# free it, three that fall flat turn it hostile), a bottle, or a fight. Every approach is spent whatever its result (per-option flag).
+# Drafted by Gemini (Gemini/sent_04_haint_songstress.txt, reply_04_haint_songstress.json), edited; see README.md.
+
+~ start
+if flag.haint_songstress_done or flag.haint_songstress_destroyed
+-> END
+endif
+if flag.haint_songstress_met
+-> return
+endif
+set haint_songstress_met
+quest haint_songstress met
+if quest.ghostlight_express == phantom_struck
+quest ghostlight_express haints
+endif
+Narrator: Pale smoke curls off a cigarette that never burns down, smelling faintly of clove and rain-wet velvet. At the window stands a woman in faded satin, humming a low, broken tune to the grey fog outside.
+haint_songstress [weary]: Another table walking in late, and the band already packed their cases. Sit where you like, honey, the glasses are empty and the view doesn't change.
+haint_songstress [sad]: I've been holding this note since the curtain fell, waiting for the back row to hush.
+interject name:delphine_ravelle: Oh, darling, there is no sharper pin than singing your stitched heart out while the crowd counts its change.
+interject name:silas_vane: Late crowd in a velvet room always watches the door, never the stage.
+haint_songstress [neutral]: You two know the hours after midnight. Maybe you know how to sit still without rattling the ice.
+-> menu
+
+~ return
+if flag.haint_songstress_hostile
+-> END
+endif
+haint_songstress [weary]: Back for the second set, sugar, or did you just forget your coat on the chair?
+haint_songstress [neutral]: The melody hasn't moved an inch since you stepped out.
+-> menu
+
+~ menu
+* How did you end up on this train? -> ask_story
+* What is it you need to rest easy? -> ask_want
+* [if item:ghost_phonograph] We brought this phonograph from the sleeper car. -> token_give
+* Let us help you finish the song. -> help_open
+* [if item:marble_jar or item:empty_whiskey_bottle] Set an open bottle in her path to draw her in. -> bottled
+* Draw a weapon and strike the ghost. -> fight
+* If you aren't freed, the engine burns you as fuel. -> told_the_truth
+* We'll leave you to your smoke. -> leave
+
+~ ask_story
+haint_songstress [weary]: I had twenty minutes between the early crowd and the late show. Step out to the alley, light a smoke, let the throat cool down.
+haint_songstress [sad]: Never made it back to the microphone. One breath I was humming the bridge against cold brick, the next I had a ticket in my glove and mist under my heels.
+haint_songstress [neutral]: Funny thing about dying mid-measure, honey. Your lungs are gone, your name's gone, and that last verse still sits on your tongue like a nickel.
+-> menu
+
+~ ask_want
+haint_songstress [sad]: A thousand rooms I sang to, and all I ever saw were the tops of people's heads and the bottoms of their glasses.
+haint_songstress [weary]: I just want to finish the song once, all the way to the last chord, for a room that actually hears it.
+haint_songstress [neutral]: Not clinking silverware, not whispering about the bill. Just ears on the music until the note dies clean.
+-> menu
+
+~ token_give
+haint_songstress [afraid]: Wait a second. Put that down on the table, slow, and let the needle catch.
+haint_songstress [smile]: Brass horn, warm wax, and a slow four-four beat coming through the scratch. Lord, I thought the whole world forgot how to swing.
+haint_songstress [sad]: That isn't my record spinning, sugar, just somebody else who loved the night enough to leave the music running. Move over and give a girl room to come in on the turn.
+-> token_freed
+
+~ token_freed
+haint_songstress [smile]: There's the chord I was hunting for. Soft on the brass, low on the bass, right where the heart slows down.
+cutscene gl_songstress_last_song
+Narrator: Warm lamplight catches the pale singer with her eyes closed, a curl of real tobacco smoke rising from her fingers. Ash drops to the carpet, soft as snowfall.
+cutscene gl_songstress_last_song_2
+Narrator: The Lord and Lady sway cheek to cheek across the empty floorboards, silk rustling in time. Her voice thins into a sweet, lingering chord as she fades into the music.
+cutscene end
+haint_songstress [neutral]: Thank you for bringing the band to me, honey, and thank you for keeping quiet through the bridge.
+haint_songstress [weary]: Lights are coming up at the back of the hall. Reckon my set is finally done.
+Narrator: She exhales one last ribbon of silver smoke that braids itself into the horn's warm jazz, and when the record clicks at the groove's end, only the empty velvet chair remains.
+take ghost_phonograph
+set gl_songstress_sang
+set haint_songstress_done
+set haint_songstress_how = "token"
+quest haint_songstress token
+approve delphine_ravelle +2 silas_vane +1: You carried a singer her last audience
+narrate haint:freed_sting
+narrate haint:heal
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ help_open
+haint_songstress [sly]: You look more like bouncers than a rhythm section, sugar.
+haint_songstress [neutral]: Go on then, pull up a chair and show me what you brought to the late show.
+-> help
+
+~ help
+# E7: a tool check (Musical Instrument); until then an ability check gated by the kit
+* [if not flag.haint_songstress_used_musical_instrument] [if item:lute or item:flute or item:drum or item:horn or item:viol] [Charisma DC 12] Play a few quiet bars to find her key. -> musical_instrument_ok | musical_instrument_miss
+* [if not flag.haint_songstress_used_performance] [Performance DC 12] Sing the melody she's been humming back to her. -> performance_ok | performance_miss
+* [if not flag.haint_songstress_used_arcana] [Arcana DC 12] Trace the magic binding her soul to the unfinished cadence. -> arcana_ok | arcana_miss
+* [if not flag.haint_songstress_used_insight] [Insight DC 12] Speak the lonely word she keeps leaving out. -> insight_ok | insight_miss
+* [if not flag.haint_songstress_used_history] [History DC 12] Name her style among the great late-night music of its day. -> history_ok | history_miss
+* [if not flag.haint_songstress_used_investigation] [Investigation DC 12] Piece together the missing bridge from the fragments she hums. -> investigation_ok | investigation_miss
+* [if not flag.haint_songstress_used_persuasion] [Persuasion DC 15] Ask her plainly to sing the song for us. -> persuasion_ok | persuasion_miss
+* [if not flag.haint_songstress_used_perception] [Perception DC 15] Sit in complete stillness and give her our whole attention. -> perception_ok | perception_miss
+* Step back for now. -> menu
+
+~ musical_instrument_ok
+set haint_songstress_used_musical_instrument
+set haint_songstress_wins += 1
+Narrator: You pluck a few slow, searching notes until the timber catches the exact low minor key she has been humming against the glass.
+haint_songstress [smile]: Look at you, finding my key in the dark without a sheet in front of you.
+haint_songstress [neutral]: Keep that tempo steady, honey, and let me lean on your rhythm a spell.
+-> tally
+
+~ musical_instrument_miss
+set haint_songstress_used_musical_instrument
+set haint_songstress_fails += 1
+Narrator: You try to pick out a backing line, but the notes stumble sharp and hasty against the slow sway of the car.
+haint_songstress [weary]: Easy, sugar, you're rushing the beat like you've got a train to catch.
+-> tally
+
+~ performance_ok
+set haint_songstress_used_performance
+set haint_songstress_wins += 1
+Narrator: You breathe in and sing her own stray phrasing back to her, unadorned and steady in the quiet car.
+haint_songstress [smile]: You actually heard the shape of it, right down to the little catch at the turn.
+haint_songstress [sad]: Sounds strange and sweet coming from somebody else's throat after all this fog.
+-> tally
+
+~ performance_miss
+set haint_songstress_used_performance
+set haint_songstress_fails += 1
+Narrator: You attempt to carry her tune back to her, but the pitch wavers and loses the low ache of the phrase.
+haint_songstress [weary]: Sweet of you to try, honey, but those are just the notes, not the song.
+-> tally
+
+~ arcana_ok
+set haint_songstress_used_arcana
+set haint_songstress_wins += 1
+Narrator: You trace the faint silver tether of sound looping from her lips to the windowpane and mark the exact resting tone needed to unhook it.
+haint_songstress [neutral]: So that's why the air feels like a piano wire pulled too tight.
+haint_songstress [smile]: Help me drop that final cadence down to the floor, sugar, and let the knot slip.
+-> tally
+
+~ arcana_miss
+set haint_songstress_used_arcana
+set haint_songstress_fails += 1
+Narrator: You gesture at the drifting smoke as if untangling a parlor trick, treating the melody like a textbook knot.
+haint_songstress [weary]: It's a torch song, honey, not a lock you pick with clever fingers.
+-> tally
+
+~ insight_ok
+set haint_songstress_used_insight
+set haint_songstress_wins += 1
+Narrator: You listen past the hummed bars into the long pause where she always stops, naming the lonely word she refuses to sing aloud.
+haint_songstress [sad]: You caught that, did you. Most folks never notice the hole in the middle of a pretty tune.
+haint_songstress [smile]: Easier to sing the hurt out loud when somebody in the front row already knows its name.
+-> tally
+
+~ insight_miss
+set haint_songstress_used_insight
+set haint_songstress_fails += 1
+Narrator: You take a guess at the trouble behind her eyes, landing wide of the quiet grief she is nursing.
+haint_songstress [neutral]: Don't go reading my palm, sugar, just listen to the music.
+-> tally
+
+~ history_ok
+set haint_songstress_used_history
+set haint_songstress_wins += 1
+Narrator: You recall the cellar clubs and late-night radio hours where her style was born, naming her melody among the finest of its age.
+haint_songstress [smile]: You remember those basement rooms with the low ceilings and the wet coats by the door.
+haint_songstress [sad]: Good to know the world kept a little corner for tunes like mine after I stepped out.
+-> tally
+
+~ history_miss
+set haint_songstress_used_history
+set haint_songstress_fails += 1
+Narrator: You rattle off a few old dance-hall names that have nothing to do with her slow midnight style.
+haint_songstress [weary]: Wrong side of town and the wrong kind of crowd, honey, though I appreciate the effort.
+-> tally
+
+~ investigation_ok
+set haint_songstress_used_investigation
+set haint_songstress_wins += 1
+Narrator: You piece together the scattered bars she has been humming since the door opened, fitting the stray halves into the missing bridge.
+haint_songstress [smile]: There it is, the whole turn from the second verse right back into the refrain.
+haint_songstress [neutral]: I had the pieces in my pocket the whole ride, sugar, just needed somebody to lay them out straight.
+-> tally
+
+~ investigation_miss
+set haint_songstress_used_investigation
+set haint_songstress_fails += 1
+Narrator: You try to count out the structure of her humming on your fingers, turning her sorrow into arithmetic.
+haint_songstress [weary]: You can't add a blues song up like a bar tab, honey.
+-> tally
+
+~ persuasion_ok
+set haint_songstress_used_persuasion
+set haint_songstress_wins += 1
+Narrator: You ask her plainly to sing for them right here, with an open face and no hurry in your posture.
+haint_songstress [sad]: You mean that, don't you. Four strangers on a dark train, asking for a song like it's bread and water.
+haint_songstress [smile]: All right, honey, pull your chairs in close and I'll give you what I have left.
+-> tally
+
+~ persuasion_miss
+set haint_songstress_used_persuasion
+set haint_songstress_fails += 1
+Narrator: You offer a polite, practiced request for a song, the kind a patron gives a band while reaching for your coat.
+haint_songstress [weary]: I've heard prettier flattery from drunks tipping with buttons, sugar.
+-> tally
+
+~ perception_ok
+set haint_songstress_used_perception
+set haint_songstress_wins += 1
+Narrator: You settle into complete stillness, eyes fixed on her and hand quiet, giving every stray breath of her voice the weight of a cathedral.
+haint_songstress [smile]: Not a glass clinking, not a boot shifting on the carpet. Just four pairs of eyes waiting on the next bar.
+haint_songstress [sad]: Lord, I waited my whole life and half my death for a room this quiet.
+-> tally
+
+~ perception_miss
+set haint_songstress_used_perception
+set haint_songstress_fails += 1
+Narrator: You try to look attentive, but your gaze drifts toward the frosted sconces and the shadows behind the bar.
+haint_songstress [weary]: Your eyes are wandering to the wallpaper, honey, just like every other table at two in the morning.
+-> tally
+
+~ tally
+if flag.haint_songstress_wins >= 3
+-> helped_freed
+endif
+if flag.haint_songstress_fails >= 3
+-> turns_hostile
+endif
+-> help
+
+~ helped_freed
+haint_songstress [smile]: Well now. Look what happens when four strangers sit down and actually listen to a girl through to the last bar.
+haint_songstress [sad]: No band, no spotlight, no velvet rope, and it's still the best house I ever played.
+haint_songstress [neutral]: Keep the tune if you want it, sugar. I don't need to carry it down the line anymore.
+Narrator: She tips her chin in a slow curtain bow, and her shape unspools into a warm drift of clove smoke that settles gentle as dust across your shoulders.
+set haint_songstress_done
+set haint_songstress_how = "helped"
+quest haint_songstress helped
+approve tobin_hayward +2 rook_coldwake +1: You talked a restless ghost round until it could let go
+narrate haint:freed_sting
+narrate haint:heal
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ turns_hostile
+haint_songstress [angry]: Clatter and talk and clumsy hands, just like every loud table that ever drowned me out.
+haint_songstress [sad]: If you won't hear the song pretty, honey, you're going to hear it loud.
+Narrator: She throws her head back in a jagged wail that frosts the velvet chairs and drains the frosted sconces to a guttering blue.
+set haint_songstress_hostile
+quest haint_songstress hostile
+combat gl_haint_songstress
+
+~ told_the_truth
+set told_haints_soul_coal
+haint_songstress [afraid]: Shovelled into the firebox. You're telling me my voice, my song, everything I saved up is just coal for the boiler.
+haint_songstress [angry]: I sang my lungs out for cheap rooms my whole life, and I am not burning in a tin stove to pull this train an inch.
+haint_songstress [sad]: Stand back from the stage, honey, the house is coming down.
+Narrator: The ash at the tip of her cigarette flares white-hot, and the lounge car drops to a cellar chill as her hum curdles into a shriek.
+approve rook_coldwake -2 tobin_hayward -2 silas_vane -2: You told a ghost that it would be burned for fuel
+set haint_songstress_hostile
+quest haint_songstress hostile
+combat gl_haint_songstress
+
+~ fight
+narrate haint:wail
+approve cordelia_skein -1 rook_coldwake -1: You struck a haint first
+set haint_songstress_hostile
+quest haint_songstress hostile
+combat gl_haint_songstress
+
+~ bottled
+haint_songstress [afraid]: Don't shut the lid on the music, honey, the verse isn't over yet!
+Narrator: Silver smoke spirals into the glass until the jar glows like a stage footlight, and the cork seats itself with a soft pop like a held breath.
+if item:marble_jar
+take marble_jar
+else
+take empty_whiskey_bottle
+endif
+give bottled_haint_songstress
+set gl_bottled += 1
+set haint_songstress_done
+set haint_songstress_how = "bottled"
+quest haint_songstress bottled
+narrate haint:bottle_carried
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ leave
+haint_songstress [weary]: Watch the step on your way out, sugar, and don't let the door bang during the bridge.
+-> END

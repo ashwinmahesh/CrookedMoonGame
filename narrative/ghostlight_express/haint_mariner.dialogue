@@ -1,0 +1,270 @@
+# R10: The Mariner (a Wayward Haint). Speaker haint_mariner; quest haint_mariner; flags haint_mariner_*. Region ghostlight_express.
+# Four ways to end it: the token (seascape_painting), the Help menu (eight one-shot approaches: six listed at DC 12, two generic at DC 15; three that land
+# free it, three that fall flat turn it hostile), a bottle, or a fight. Every approach is spent whatever its result (per-option flag).
+# Drafted by Gemini (Gemini/sent_06_haint_mariner.txt, reply_06_haint_mariner.json), edited; see README.md.
+
+~ start
+if flag.haint_mariner_done or flag.haint_mariner_destroyed
+-> END
+endif
+if flag.haint_mariner_met
+-> return
+endif
+set haint_mariner_met
+quest haint_mariner met
+if quest.ghostlight_express == phantom_struck
+quest ghostlight_express haints
+endif
+Narrator: The mail car smells of wet canvas and old salt, though the nearest tide is a long piece down the road. An old sailor with a pale seagull perched on his cap heaves a heavy mailbag onto the sorting bench.
+haint_mariner [weary]: Mind your boots on the deck, there's dead folk's post on the larboard shelf and living folk's on the starboard. A man's got to keep his cargo trim when there ain't a drop of water in sight.
+interject name:rook_coldwake: A man who knows his work keeps his hands on the load, even after the bell rings.
+interject name:lucan_houndstooth: You carry the scent of deep water and cold wind, sir, a long way from any shore.
+haint_mariner [sad]: Aye, the brine stays in the wool long after the sea's gone dry.
+-> menu
+
+~ return
+if flag.haint_mariner_hostile
+-> END
+endif
+haint_mariner [weary]: Back on the deck, are you? The bags don't get no lighter while you're gone.
+-> menu
+
+~ menu
+* How did you end up on this train? -> ask_story
+* What would it take to give you rest? -> ask_want
+* [if item:seascape_painting] Look at this painting we found in the lounge. -> token_give
+* Let us keep you company with the work. -> help_open
+* [if item:marble_jar or item:empty_whiskey_bottle] Quietly set an empty bottle in his path. -> bottled
+* Draw a weapon and strike him down. -> fight
+* Ghosts who stay aboard are burned as fuel for the engine. -> told_the_truth
+* We'll leave you to your sorting. -> leave
+
+~ ask_story
+haint_mariner [weary]: Forty years I kept the sea under my boots, from the ice floes down to the warm shoals. Then my knees gave out, and some fool doctor sent me inland where the dust chokes your throat.
+haint_mariner [sad]: Died in a narrow bed in a dry town, staring out a window at a dirt road and a dead elm. Not a gull in the sky, not a crest of foam to see me off.
+haint_mariner [neutral]: So I came aboard with the salt still damp in my coat and took to stowing these bags. Keeps my hands from shaking when I look out at that grey fog.
+-> menu
+
+~ ask_want
+haint_mariner [sad]: I don't ask for a whole ocean, just one last look at the rollers coming in under a low sun. A man shouldn't go down into the dark with only dry dirt in his eyes.
+haint_mariner [weary]: If I could just see the water move one more time, I reckon I could set this canvas down.
+-> menu
+
+~ token_give
+haint_mariner [afraid]: Belay that, where did you come by a piece of the coast on this iron contraption? Hold it steady to the lantern light, let an old hand look.
+haint_mariner [smile]: Well now, look at that swell curling round the black rock, just like the tide coming in at dusk.
+-> token_freed
+
+~ token_freed
+haint_mariner [smile]: You can almost hear the shingle rattling back when the wave draws off the beach. Forty years on the water, and I never knew how handsome she was till they took her out of my sight.
+haint_mariner [sad]: The sea don't care a whit for the men who ride her, and yet we love her all the same. That's enough for an old salt, friends, that's plenty.
+haint_mariner [smile]: You can stow the rest of the post without me, my watch is done.
+Narrator: He lets one salt-heavy tear fall onto his coat, breathes out a long sigh like wind leaving a sail, and thins into the lantern smoke.
+take seascape_painting
+set gl_painting_given
+set haint_mariner_done
+set haint_mariner_how = "token"
+quest haint_mariner token
+approve rook_coldwake +1 lucan_houndstooth +1: You gave an old sailor one last look at the sea
+narrate haint:freed_sting
+narrate haint:heal
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ help_open
+haint_mariner [weary]: You can jaw all you like while I sort the bags, so long as you stay clear of the gangway.
+-> help
+
+~ help
+# E7: a tool check (Navigator's Tools); until then an ability check gated by the kit
+* [if not flag.haint_mariner_used_navigators_tools] [if item:navigators_tools] [Wisdom DC 12] Let me plot a course across your chart. -> navigators_tools_ok | navigators_tools_miss
+* [if not flag.haint_mariner_used_survival] [Survival DC 12] Trade stories of hard weather and cold nights. -> survival_ok | survival_miss
+* [if not flag.haint_mariner_used_performance] [Performance DC 12] Strike up a sea shanty for the hauling. -> performance_ok | performance_miss
+# E7: a tool check (Musical Instrument); until then an ability check gated by the kit
+* [if not flag.haint_mariner_used_musical_instrument] [if item:lute or item:flute or item:drum or item:horn or item:viol] [Charisma DC 12] Play a brisk hornpipe for him. -> musical_instrument_ok | musical_instrument_miss
+* [if not flag.haint_mariner_used_deception] [Deception DC 12] Tell an even worse tale of rotten biscuit and scurvy. -> deception_ok | deception_miss
+* [if not flag.haint_mariner_used_medicine] [Medicine DC 12] Speak kindly of how sailors die and let go. -> medicine_ok | medicine_miss
+* [if not flag.haint_mariner_used_athletics] [Athletics DC 15] Grab a heavy mailbag and haul alongside him. -> athletics_ok | athletics_miss
+* [if not flag.haint_mariner_used_persuasion] [Persuasion DC 15] Ask him plainly to set the mailbag down. -> persuasion_ok | persuasion_miss
+* Step back for now. -> menu
+
+~ navigators_tools_ok
+set haint_mariner_used_navigators_tools
+set haint_mariner_wins += 1
+Narrator: You spread a weathered chart across the sorting bench and walk a pair of brass dividers across the grey blank of the Shroud.
+haint_mariner [smile]: Two points off the bow and steady through the fog, you've a clean hand with the brass. Makes a man feel like he's got a real helm under him again.
+-> tally
+
+~ navigators_tools_miss
+set haint_mariner_used_navigators_tools
+set haint_mariner_fails += 1
+Narrator: You tap a pair of dividers against the chart, hunting for a bearing in the unmarked fog.
+haint_mariner [weary]: You're plotting across dry paper with no stars to steer by, friend, so belay that.
+-> tally
+
+~ survival_ok
+set haint_mariner_used_survival
+set haint_mariner_wins += 1
+Narrator: You lean against the mail shelves and speak of sleet that freezes in the wool and nights spent watching a dying fire.
+haint_mariner [smile]: Aye, you know the bite of a long watch when the oilskin freezes stiff as board. Good to share a deck with folks who ain't scared of hard weather.
+-> tally
+
+~ survival_miss
+set haint_mariner_used_survival
+set haint_mariner_fails += 1
+Narrator: You try to tell a tale of rough weather and cold campfires on the road.
+haint_mariner [weary]: A wet night in the brush ain't the same as forty feet of green water coming over the rail.
+-> tally
+
+~ performance_ok
+set haint_mariner_used_performance
+set haint_mariner_wins += 1
+Narrator: You beat a steady hauling time on the wooden bench and raise an old capstan song.
+haint_mariner [smile]: Ha, I haven't heard that chorus since my first brig out of the bay! Sing it out again, and put your back into the pull!
+-> tally
+
+~ performance_miss
+set haint_mariner_used_performance
+set haint_mariner_fails += 1
+Narrator: You start up a lively working song, tapping a boot against the floorboards.
+haint_mariner [weary]: You've got the words wrong and the time's all crooked, you'll tangle the lines singing like that.
+-> tally
+
+~ musical_instrument_ok
+set haint_mariner_used_musical_instrument
+set haint_mariner_wins += 1
+Narrator: You strike up a brisk hornpipe that sets the brass lanterns swaying in time.
+haint_mariner [smile]: Now that's a tune to warm the planking under a sailor's feet! Many's the night we danced to that between the watches.
+-> tally
+
+~ musical_instrument_miss
+set haint_mariner_used_musical_instrument
+set haint_mariner_fails += 1
+Narrator: You play a quick, rattling tune, trying to catch the rhythm of a shipboard dance.
+haint_mariner [weary]: Sounds more like a dry wheel on a gravel road than anything meant for the water.
+-> tally
+
+~ deception_ok
+set haint_mariner_used_deception
+set haint_mariner_wins += 1
+Narrator: You keep a solemn face and spin a dreadful yarn of weevils big as thumbs, green water in the hold, and boots boiled for soup.
+haint_mariner [smile]: Boiled your own sea-boots, did you, and ate the heels for Sunday duff? You're a bigger liar than a harbour pilot, and I needed the laugh.
+-> tally
+
+~ deception_miss
+set haint_mariner_used_deception
+set haint_mariner_fails += 1
+Narrator: You heap one tall tale of shipwreck and rotten biscuit atop another with a straight face.
+haint_mariner [weary]: Any fool can tell you've never tasted bad water in a pitched cask, so save your breath.
+-> tally
+
+~ medicine_ok
+set haint_mariner_used_medicine
+set haint_mariner_wins += 1
+Narrator: You touch the cold canvas by his hand and speak gently of fever, tired bones, and the quiet that comes after a hard passage.
+haint_mariner [sad]: Nobody in that dry town spoke it plain like you just did, they all pretended I'd be up by spring. Maybe it's no shame to let the anchor drop when the hull's worn through.
+-> tally
+
+~ medicine_miss
+set haint_mariner_used_medicine
+set haint_mariner_fails += 1
+Narrator: You speak softly of sickness and how a worn body has to rest at the end.
+haint_mariner [weary]: I had enough doctors poking at my ribs before I died, I don't need another one now.
+-> tally
+
+~ athletics_ok
+set haint_mariner_used_athletics
+set haint_mariner_wins += 1
+Narrator: You shoulder a sagging canvas mailbag and heave it up onto the top shelf beside his, matching his pace.
+haint_mariner [smile]: You've got a proper dockhand's back on you, taking the weight off an old man's arms. Go on then, take this last sack, my hands are steady enough now.
+-> tally
+
+~ athletics_miss
+set haint_mariner_used_athletics
+set haint_mariner_fails += 1
+Narrator: You grab the corner of a heavy mailbag and strain to swing it onto the sorting bench.
+haint_mariner [weary]: Leave the cargo be before you drop it and burst the seams, I'll stow it myself.
+-> tally
+
+~ persuasion_ok
+set haint_mariner_used_persuasion
+set haint_mariner_wins += 1
+Narrator: You look him straight in his clouded eyes and ask him, plain and quiet, to set the heavy bag down.
+haint_mariner [sad]: Set it down, you say, as if forty years of habit comes off like an old coat. Still, my arms are mighty tired, and you ask it kindly.
+-> tally
+
+~ persuasion_miss
+set haint_mariner_used_persuasion
+set haint_mariner_fails += 1
+Narrator: You ask him to let the mailbags rest and take his ease for a spell.
+haint_mariner [weary]: Words don't stow the cargo, friend, and empty hands just start to shaking.
+-> tally
+
+~ tally
+if flag.haint_mariner_wins >= 3
+-> helped_freed
+endif
+if flag.haint_mariner_fails >= 3
+-> turns_hostile
+endif
+-> help
+
+~ helped_freed
+haint_mariner [smile]: Funny thing, I thought I needed a look at the tide, when all I needed was a good crew for the last watch. My hands ain't shaking no more, look at that.
+haint_mariner [sad]: A man spends his whole life on the water, he forgets it's the folks on the deck that keep him afloat. Keep a weather eye out down the line, friends.
+haint_mariner [smile]: Leave the bags where they lie, the morning watch can take them.
+Narrator: He sets his clay pipe neatly on the sorting bench, tips his cap to you, and dissolves like sea-mist when a warm wind finds the deck.
+set haint_mariner_done
+set haint_mariner_how = "helped"
+quest haint_mariner helped
+approve tobin_hayward +2 rook_coldwake +1: You talked a restless ghost round until it could let go
+narrate haint:freed_sting
+narrate haint:heal
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ turns_hostile
+haint_mariner [angry]: Enough of your lubber's noise, cluttering up my deck and mocking an old man's work! You won't give me the sea, and you won't let me stow the cargo in peace!
+haint_mariner [angry]: Clear the gangway, or I'll heave the lot of you over the side!
+Narrator: He throws back his head in a keen like wind tearing through taut rigging, as salt-rime frosts the shelves and the lanterns dim to a drowned green.
+set haint_mariner_hostile
+quest haint_mariner hostile
+combat gl_haint_mariner
+
+~ told_the_truth
+set told_haints_soul_coal
+haint_mariner [afraid]: Shovelled into the firebox, you say, burned up like cheap coal to drive this iron coffin? Forty years on the open water, only to end as cinders in a boiler?
+haint_mariner [angry]: You're lying, or this whole cursed train is a press-gang and you're the crimp's own dogs! I'll drag this car down to the bottom before I burn!
+Narrator: A gale-force wail rips from his throat, icing the canvas bags as the car's lamps gutter down to cold green sparks.
+approve rook_coldwake -2 tobin_hayward -2 silas_vane -2: You told a ghost that it would be burned for fuel
+set haint_mariner_hostile
+quest haint_mariner hostile
+combat gl_haint_mariner
+
+~ fight
+narrate haint:wail
+approve cordelia_skein -1 rook_coldwake -1: You struck a haint first
+set haint_mariner_hostile
+quest haint_mariner hostile
+combat gl_haint_mariner
+
+~ bottled
+haint_mariner [afraid]: Belay that, there's no room to swing a lead in glass, don't shut me in the dark!
+Narrator: The jar swells with a pale green sea-glow, the cork seats tight on its own, and inside it sounds like a single wave held back behind glass.
+if item:marble_jar
+take marble_jar
+else
+take empty_whiskey_bottle
+endif
+give bottled_haint_mariner
+set gl_bottled += 1
+set haint_mariner_done
+set haint_mariner_how = "bottled"
+quest haint_mariner bottled
+narrate haint:bottle_carried
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ leave
+haint_mariner [weary]: Mind the threshold on your way out, and shut the door against the draft.
+-> END

@@ -1,0 +1,417 @@
+# R10: Narrator lines for the Ghostlight Express (region ghostlight_express). The Narrator is the Vagrant, telling the tale afterwards:
+# second person, present tense, one or two sentences, no game words (docs/design/narration.md section 2). His drawl is in word choice and rhythm,
+# with a dropped g in about one line in three; the fiddle is a sound cue, never written.
+# Triggers: enter:/examine:/search:/open:/check: for the places in R10 section 4; `haint:*` and `dining:*` are played inline by `narrate`;
+# `switcheroo:arrive`, `enter:ghostlight_limbo` and `defeat:ghostlight_locomotive` are keys the module sends (E23 and the retry card).
+# Drafted by Gemini (Gemini/sent_13 to sent_17, sent_23), edited; see README.md.
+
+~ enter:ghostlight_boarding
+| You stand on a hill of wet turf and old stones, with a black locomotive breathing warm soot down on the eastern shelf. That is your ride.
+| Paper lanterns glow orange and purple in the branches of an ancient yew, though there is no wind to stir them. Down the slope, a train of black iron waits on rails of mist.
+| The fog smells of turned earth and candle tallow, thick enough to chew. Up ahead, an amber lantern burns steady beneath a timber gate.
+once
+~ enter:bd_lychgate
+| A black timber roof shelters the coffin-bearers' bench from a rain that ain't falling. From the gateposts, two carved turnips grin at you by the light of their candle stubs.
+once
+~ enter:bd_burying_ground
+| Leaning headstones and rusted iron markers crowd the west slope under the boughs of a mighty yew. Someone has hung the tree with paper lanterns to keep the dead company.
+once
+~ enter:bd_stones
+| Seven weathered stones crown the hilltop, one of them toppled into the grass while pale mist threads between the rest. Folks built this ring a long piece back, and they did not build it for the view.
+once
+~ enter:bd_shelf
+| The hillside levels out into a flat shoulder where two ribbons of pale mist come to rest. The black engine sits waiting on them, humming like a kettle on the hob.
+once
+~ enter:bd_hollow
+| A steep bank drops away into a dry watercourse brimmed with grey fog. Down at the bottom, two solid rails of mist climb out of the pool toward the hill.
+once
+~ examine:bd_lychgate
+| The oak bench under the black roof is worn smooth by the weight of a hundred coffins. Above it, the amber lantern burns without a flicker or a drop of oil.
+~ examine:bd_gate_turnips
+| Two hollowed turnips sit on the posts with tallow stubs guttering behind their carved teeth. The knife-work is fresh, and the rinds are still damp with juice.
+~ examine:bd_yew_lanterns
+| Orange, purple, and green paper lanterns sway from the ancient yew boughs. There is not a breath of wind on your cheek, so they must be dancing to their own tune.
+~ examine:bd_headstones
+| [name:rook_coldwake] {name} checks the lettering on the leaning slabs: most are weathered smooth, the few remaining dates make no sense together, and yet the cut flowers at their feet are fresh.
+~ examine:bd_iron_markers
+| Where the stone ran out, folks drove rusted iron crosses and small wheels into the sod. A few of the plots are no longer than your forearm.
+~ examine:bd_stone_ring
+| Six stones stand and one lies flat, yet the gaps between them are a step too wide. Reckon an eighth stone walked off a piece down the road.
+~ examine:bd_fallen_stone
+| The fallen slab holds a dark puddle in a hollow worn smooth as a saddle. Many a lot of folks have sat right here to wait for the train.
+~ examine:bd_tumbled_wall
+| Grey lichen crusts the drystone wall, and thick moss furs the north side of every boulder. A wide gap shows where a wooden gate rotted off its hinges.
+~ examine:bd_scarecrow
+| [class:druid] {name} studies the patched coat and carved turnip head of the scarecrow guarding the grave-side cabbages: someone dusted its hat not an hour ago.
+~ examine:bd_mist_rails
+| Two pale ribbons of fog run up the bank like laid iron. They ring cold and hard under the heel of your boot.
+~ examine:bd_engine
+| The tall black locomotive radiates a dry, stoked heat, its single headlamp staring down the track like a yellow eye. In the smoke curling from its stack, open mouths form and vanish without a sound.
+~ examine:bd_passenger_car
+| Brass grab-irons gleam along the flank of the long black car, and pale shapes sit quiet behind the lit glass. The iron step hangs right at your knee, waiting on your boot.
+~ enter:ghostlight_g1_passenger
+| Warm gold lamplight spills over worn red leather, while sickly blue-green fog streams past the glass outside. An ornate brass grille in the ceiling smells faintly of pine rosin.
+| The old car sways like a cradle on a crooked bough, creaking in all her brass joints. Down the aisle, translucent teal figures flicker in the seats and never turn their heads.
+| It smells of dust, warm wool, and old iron in here, safe enough if you do not look out the windows. Up at the front, a heavy vestibule door waits behind a brass latch.
+cooldown 20
+~ enter:g1_rear
+| Four wooden booths flank the back of the car, shut in by the sealed boarding door and the rear glass. Outside, the blue-green fog races past like river water.
+once
+~ enter:g1_aisle
+| Fourteen rows of red leather seats run down the middle of the swaying car. Pale teal passengers flicker in and out of the cushions like candle flames in a draft.
+once
+~ enter:g1_front
+| Four quiet booths sit near the front vestibule door, lit warm and yellow by their table lamps. Above the threshold, the ceiling grille hums like a plucked string.
+once
+~ examine:g1_seats
+| The red leather is cracked along the stitching and worn down to the horsehair. Put your hand on the cushion, and it is still warm from the last backside that sat there.
+~ examine:g1_booths
+| Each four-seat booth has a folding mahogany table and a bolted brass lamp. The wood is scarred with old ring-stains from glasses long since drunk dry.
+~ examine:g1_windows
+| [class:rogue] {name} tries the brass catches on the tall glass, but they have been painted and rusted shut for good. Beyond the pane, nothing exists but the streaming blue-green fog.
+~ examine:g1_lamps
+| Small brass lamps flicker on the walls, throwing a rich gold light that reaches further than a little wick has any right to. They smell of warm brass and beeswax.
+~ examine:g1_boarding_door
+| The heavy sliding door you stepped through is shut tight, without a keyhole or a handle to pull. Only the fellow in the spiked hat gets to walk through that wood now.
+~ examine:g1_rear_door
+| Thick mist presses its face against the small pane of the rear door. The bolt is fused into the frame, and the cold comes right through the iron.
+~ examine:g1_grille
+| Filigreed brass covers a speaker box set flush into the ceiling timbers. A crackle of static drifts down from it, along with the sharp, sweet scent of fiddle rosin.
+~ search:g1_passengers
+| The translucent teal travelers stare straight ahead and never answer a word, but one figure sits darker than the rest, its neck bent at a crooked angle.
+once
+~ check:perception:g1_passengers:success
+| One shape among the flickering teal figures is thick with shadow, sitting stiffly with its head cocked sideways at a broken angle.
+~ check:perception:g1_passengers:failure
+| The pale shapes flicker and blur in the yellow lamplight, leaving your eyes watering and nothing to show for it.
+~ search:g1_marble_jar
+| Wedged against the iron leg of the seat is a squat glass jar holding twelve clouded marbles that click together with the sway of the train.
+once
+~ check:perception:g1_marble_jar:failure
+| You come up from the floorboards with dusty knuckles, a pinch of grey lint, and a cracked bone button.
+~ examine:g1_curse_mist
+| Threads of blue-green fog, shot through with black veins like dug roots, creep across the floorboards and slip beneath the front door.
+~ check:perception:g1_curse_mist:success
+| Black-veined mist coils along the floorboards toward the front door, slipping past your boot without parting or clinging.
+~ check:perception:g1_curse_mist:failure
+| There is nothing left on the floorboards but the cold smell of rain on wet iron.
+~ enter:ghostlight_g2_sleeper
+| Low gold lamps burn along a narrow hall of mahogany and velvet, rocking easy on the rails. From the far end comes a thin, steady weeping that the engine cannot quite drown out.
+| The air in the sleeper car smells of lavender water and old cedar chests. Three sliding doors wait on your left, and the furthest of them is trembling with a quiet sob.
+cooldown 20
+~ enter:g2_corridor
+| A long, narrow passage runs the length of the car, with three sliding cabin doors shut tight along one wall. Nobody speaks here, though the woodwork gives a soft creak each time the old girl sways.
+once
+~ enter:g2_cabin_1
+| The sheets on the wide berth are rumpled warm, and six sets of fine evening wear hang pressed and ready. Whoever has been sleeping here travels with half a wardrobe and no small opinion of themselves.
+once
+~ enter:g2_cabin_2
+| This little room is stripped bare save for a brass-and-wood phonograph resting on an end table. Even the dust has been swept out, leaving nothing to keep a traveler company but a silent horn.
+once
+~ enter:g2_cabin_3
+| A young woman's pale shape sits on the edge of the mattress, her fingers shut tight around a locket. She weeps without lifting her head, never minding that company has stepped inside.
+once
+~ examine:g2_beds
+| Full mahogany berths stand made up with sheets starched stiff as church collars. It is mighty hard to reckon whether nobody has ever slept in them, or somebody has been sleeping in them forever.
+~ examine:g2_curtains
+| Heavy velvet drapes are drawn tight across the glass to keep the blue-green fog out of sight. No draft moves through the cabin, yet the hems keep stirring like folks whispering behind their hands.
+~ open:g2_clothes_chest
+| Six sets of fine tailored clothes and silk sleepwear lie folded in crisp tissue paper. The Lord and Lady packed for a grand tour, though they isn't changed a stitch since boarding.
+once
+~ examine:g2_phonograph
+| The brass horn curves out like a morning glory bloom above a polished wooden box. Set the needle down and a slow, sweet jazz tune rises through the hiss of old wax.
+~ examine:g2_weeping_door
+| Muffled sobbing leaks through the seam of the sliding mahogany door. Press an ear close and you find the sound is clearest down near your knees, as if the floor itself were grieving.
+~ enter:ghostlight_g3_lounge
+| Frosted glass sconces cast a warm honey glow over burgundy velvet chairs and a long black bar. By the far window, a lone figure sits watching the sickly mist roll past.
+| The lounge car smells of spilled rye, lemon oil, and old velvet warmed by lamplight. A row of dim paintings lines the wall, and every glass behind the bar gleams for a crowd that ain't talking.
+cooldown 20
+~ enter:g3_bar
+| A long counter of black wood inlaid with gold geometric lines stretches before rows of dusty bottles. The mirror behind them gives back your own face, looking a touch paler than when you boarded.
+once
+~ enter:g3_seating
+| Deep burgundy chairs cluster around low tables in little corners built for quiet talk. Under the frosted sconces, the whole room has the hush of a parlor after the last toast is done.
+once
+~ enter:g3_window_seat
+| A single velvet chair faces the glass and the churning blue-green dark outside. The Songstress sits there still as carved bone, her eyes fixed on the smoke streaming past.
+once
+~ examine:g3_bar_counter
+| Black timber and gold inlay have been rubbed to a dark mirror by decades of sleeves. One pale ring mars the polish where a cold glass stood for a very long while.
+~ search:g3_paintings
+| Dim oils of foggy valleys and wet green peaks hang one after another down the wall. Keep walking your eyes along the frames and one canvas catches at the corner of your sight.
+once
+~ check:perception:g3_paintings:success
+| In the painting of the rocky coast at sunset, the grey waves curl and roll whenever you look just past the frame.
+~ check:perception:g3_paintings:failure
+| They are only quiet landscapes under dim brass lamps, in no particular hurry to show you anything more.
+~ examine:g3_seascape
+| Paint thick as clotted cream shows a jagged coast under a dying red sun. Stare straight at the water and it stays still, but look away and the tide comes creeping in.
+~ examine:g3_chairs
+| The burgundy velvet is worn silver along the armrests where ten thousand elbows have leaned. Sit down and the cushions take your weight with a long, tired sigh.
+~ examine:g3_sconces
+| Frosted glass shades soften the gold lamplight into a pale, watery haze. It is a forgiving sort of glow, making every face in the car look a little kinder and a little drowned.
+~ search:g3_whiskey_bottle
+| Tucked down behind the counter lies a single dead soldier of amber glass. The cork is gone, the label is peeled away, and only a sweet ghost of char and grain clings to the neck.
+once
+~ check:perception:g3_whiskey_bottle:failure
+| Behind the counter waits nothing but grey dust and a hundred dry bottles that somebody else already drank.
+~ search:g3_haint_hooch
+| Down in the dark beneath the sink squats a stoneware jug marked with three crude crosses and a painted skull grin. Whatever sloshes inside glows a sickly blue-green and smells foul enough to curl your boots.
+once
+~ enter:ghostlight_limbo
+| The iron door shuts behind you and the car is gone, traded for a slow swirl of grey mist. It isn't cold here and it isn't warm, and the planks underfoot feel less like wood than a promise kept.
+| Grey fog wraps close around your shoulders, smelling faintly of rain on hot iron. This old train is mighty particular about the order of her cars, and she will not let you step ahead until all your friends are accounted for.
+| [class:rogue] {name} reaches out for a wall or a latch and finds only damp nothing. Until the rest of your company steps through the door, the mist holds you still between one breath and the next.
+| [name:rook_coldwake] {name} plants a boot where the coupling ought to be, and the fog answers with the solid ring of iron. There is nowhere to march until every soul in your party has crossed the threshold.
+cooldown 20
+~ switcheroo:arrive
+| The smell of coal smoke gives way to old perfume and beeswax before the mist even thins. When the gold lamplight comes clear, you are standing in a car that was never hitched here a minute ago.
+| First comes a whiff of stale spirits and velvet, and then the grey fog peels back like a curtain. The old girl has shuffled her bones again, setting you down down the road from where you aimed.
+| [class:ranger] {name} catches the change by scent alone, trading damp iron for polished wood and dust. The mist parts on brass lamps and a car that has no business sitting behind the door you just opened.
+~ enter:ghostlight_g4_dining
+| Gold lamplight warms a long aisle of starched white linen, while the grey fog presses its face to the glass. At the far end, a great curved booth sits empty and waiting.
+| Cutlery clinks in gentle rhythm with the sway of the rails, though no kitchen door is anywhere in sight. Brass-rimmed menus rest on every table, polished bright as new coins.
+cooldown 20
+~ enter:g4_booths
+| Six booths line either wall, dressed in snowy cloths and brass-rimmed menus. Translucent passengers lift empty forks to their mouths and never look your way.
+once
+~ enter:g4_big_booth
+| An eight-seat booth curves across the back wall, its cloth spotless and its glasses turned down. Folks fill the rest of the car, yet nobody takes a seat here.
+once
+~ examine:g4_booth
+| You slide onto the velvet bench and name a dish aloud, just to test the air. Before the word cools on your tongue, a steaming plate sits waiting on the cloth.
+~ examine:g4_menu_cards
+| The heavy card holds no list of roasts or vintages inside its brass frame. Gold lettering across the middle says only: say what you want.
+~ examine:g4_big_booth
+| A small brass plate on the spotless linen reads Reserved. Underneath, in letters fine as a needle scratch, it adds: For the end of the line.
+~ examine:g4_silverware
+| [class:rogue] {name} turns a heavy silver spoon toward the lamp to judge its weight. The bowl reflects an empty dark wood where the dining car ought to be.
+~ enter:ghostlight_g5_mail
+| Cedar pigeonholes climb to the ceiling, stuffed thick with envelopes that rustle as the car rocks. By the center wall, a worn sorting bench waits beside a heap of heavy canvas bags.
+| The air smells of dry paper, old dust, and cold sealing wax. Thousands of letters sit sorted into neat rows, waiting on postmen who isn't coming back.
+cooldown 20
+~ enter:g5_living_shelf
+| The right-hand shelves hold letters sent from the breathing world to folks who have moved on. The paper is crisp and heavy, and the ink still smells of life.
+once
+~ enter:g5_dead_shelf
+| Along the left wall, pale envelopes wait to be carried back across the fog to the living. Reckon most of these words arrived a little too late to do much good.
+once
+~ enter:g5_bench
+| A scarred wooden bench stands ankle-deep in canvas mailbags, rigged with twine and a tarnished brass scale. Someone left the sorting half-done, as if they just stepped out for a smoke.
+once
+~ examine:g5_letters_living
+| You thumb through envelopes sealed with wax hearts and tear-smudged postscripts, right alongside tallies of unpaid debts. Folks have a hard time letting go, whether it is love or money.
+~ examine:g5_letters_dead
+| The ink on these pages has faded to the color of rainwater, and most say only three or four words. It takes very little breath to say you are sorry from this side.
+~ search:g5_pink_envelope
+| Wedged between two grey bills is a bright pink envelope addressed in a neat hand to a passenger aboard this train. On the back flap, someone pressed the initials J.B. into the wax.
+once
+~ check:investigation:g5_pink_envelope:failure
+| You riffle through stack after stack of strangers' grief and overdue bills, none of them meant for you and none of them in a hurry.
+~ examine:g5_mailbags
+| Heavy canvas sacks bear the faded stencil of the Ghostlight Express along their seams. Every now and then the coarse cloth rises and falls, slow as a sleeper's chest.
+~ examine:g5_sorting_bench
+| A brass scale sits balanced at zero beside a cold lump of red sealing wax and a ball of butcher's twine. The wood is grooved deep from years of parcels sliding across the grain.
+~ examine:g5_gambler_letter
+| [name:silas_vane] {name} picks up a creased sheet that smells of cheap cigars and sour whiskey. It speaks of a crooked card game and a debt that follows a man past the grave.
+~ enter:ghostlight_g6_baggage
+| Shadows pool between towering walls of trunks and crates, and the gold lamps barely reach the floorboards. From somewhere behind the rear stacks comes a low, rattling snore that smells of hot iron.
+| The car is cold and crowded with the worldly goods of folks who cannot carry them anymore. Past the leather chests at the back, a pale green glow pulses against the floorboards.
+cooldown 20
+~ enter:g6_front_stack
+| Battered steamer trunks and canvas sacks are wedged tight to the rafters, tied down with frayed hemp rope. A thick coat of grey dust turns every brass buckle the same dull color.
+once
+~ enter:g6_rear_stack
+| Old forgotten valises lean against a pair of sleek leather trunks stamped with a proud golden D. Whatever else is lost in this car, the rich folks' luggage traveled first class.
+once
+~ enter:g6_den
+| Behind a barricade of toppled chests, a great tiger made of green flame lies curled on the bare planks. Each slow snore sends a ripple of cold emerald sparks drifting toward the door.
+once
+~ examine:g6_druskenvald_trunks
+| [class:wizard] {name} traces the embossed D on the supple calfskin and stops short of the clasp. The lock is woven from hardened shadow rather than iron, humming against your fingertips.
+~ examine:g6_steamer_trunk
+| This tall wardrobe trunk has been packed to bursting, its brass latches straining to hold. A pinch of sparkling flapper sequins peeks out through the leather seam.
+~ search:g6_abandoned_luggage
+| Beneath a drifted layer of dust and moth-eaten coats, you pry open a latch that still gives way. Whatever the owner left behind is still whole, tucked neat in the dark.
+once
+~ check:perception:g6_abandoned_luggage:failure
+| You find nothing but buckled straps, dry rot, and old leather; whatever is worth finding in this heap is keeping to itself.
+~ examine:g6_medical_bag
+| A cracked leather doctor's bag lies on its side, spilling yellowed notes across the planks. One charcoal sketch shows a human body coming apart in careful, numbered stages.
+~ examine:g6_tiger
+| The beast is woven entirely from ghostly green fire, its ribs rising and falling in a heavy slumber. Clamped around the tip of its tail is a ring of red-hot iron.
+~ examine:g6_iron_ring
+| White embers crust the iron band, though it sits loose enough on the fiery tail to slide off. Just looking at the metal makes your eyes water with the heat.
+~ check:sleight_of_hand:g6_iron_ring:success
+| With steady fingers, you ease the blistering iron ring off the tip of the tail, and the green flames settle into a quieter sleep.
+~ check:sleight_of_hand:g6_iron_ring:failure
+| The hot iron snags on the tail, the beast lashes out with a roar of green fire that scorches your hand, and two burning eyes snap open.
+~ enter:ghostlight_g7_circus
+| The smell of damp sawdust and old greasepaint hits you before the light does. Down at the far end, a trapeze bar swings gentle and slow behind a row of rusted iron cages.
+| Faded carnival banners hang limp along the walls while the blue-green fog streams past the barred windows. Ahead, red-and-white crates sit stacked below a swinging trapeze.
+cooldown 20
+~ enter:g7_cages
+| Rusted animal cages line the wall, every heavy padlock shut tight. The straw inside has rotted down to a wet black mat, and whatever slept in it is long gone.
+once
+~ enter:g7_stage
+| Red-and-white crates make a rough little stage beneath banners of grinning clowns and leaping beasts. High overhead, a lone trapeze keeps time with the sway of the train.
+once
+~ examine:g7_cages
+| Rust flakes off the iron like dried blood, and the bars are notched deep where heavy teeth tried to chew through. Reckon the locks held, for all the good it did.
+~ examine:g7_open_cage
+| [class:ranger] {name} traces the scorched black straw and the door bent outward on its hinges: whatever broke out of here left hot and in a hurry.
+~ examine:g7_key_ring
+| A heavy iron ring hangs on a hook beside the cages, crowded with keys of every size and teeth pattern. Not a one of 'em looks made for a standard lock.
+~ examine:g7_crates
+| The red-and-white paint is peeling around stencilled names of acts nobody living remembers. They sound hollow when the train lurches, though you wouldn't want to bet on empty.
+~ examine:g7_banners
+| Painted clowns laugh beside leaping beasts on canvas faded to the colour of an old bruise. Their painted eyes follow the lantern light down the aisle.
+~ examine:g7_poster
+| Stuck crooked among the banners is a bill for the Festival of Fools, showing a masked figure in a crown of bells. The grin on that mask is a little too wide for paper.
+~ search:g7_marionette_chest
+| Beneath a tangle of knotted strings and wooden limbs, your hand closes on something cold and heavy. One of the puppets wears a carved stone toad's face for a head, freshly painted.
+once
+~ examine:g7_trapeze
+| The bar swings steady in the still air, creaking on its ropes with the roll of the rails. A jester hangs from it by her knees, her bells quiet as the grave.
+~ enter:ghostlight_g8_tender
+| The wood and brass give way to riveted iron and a dry, baking heat. Up ahead, a belly-fat fuel tank hums to itself in front of a sealed furnace door.
+| This car is all black cast iron and ticking pipes, with no windows to let the Shroud look in. Only a round glass porthole in the fuel tank throws any light at all.
+cooldown 20
+~ enter:g8_tender
+| Heavy pipes crawl over the iron walls and ceiling, carrying heat from a huge black tank toward the furnace at the front. There is no door forward from here, only cold rivets and hot iron.
+once
+~ examine:tender_door
+| [not flag.haints_all_gone] The heavy iron door at the front of the car is shut tight as a tombstone. She won't budge an inch while a single haint still rides the train.
+| [flag.haints_all_gone] With the last haint gone, the heavy iron unseals with a long, tired exhale of old steam. The way forward stands open at last.
+| [flag.haints_all_gone] Bolts slide back inside the iron of their own accord, letting out a sigh of warm soot and steam. The old girl is ready to let you through.
+~ examine:g8_tank
+| Black cast iron sweats with heat around a thick glass porthole. Inside, pale soul coal drifts and turns like banked embers drawin' breath.
+~ examine:g8_porthole
+| Through the soot-rimmed glass, the soul coal shifts in a slow, bright current. Every now and then, a faint face presses up through the embers and sinks back down.
+~ examine:g8_pipes
+| [class:warlock] {name} lays a palm near the ticking iron pipes: they hum a low, steady note that vibrates right in your back teeth.
+~ examine:g8_firebox
+| The furnace door at the front is riveted shut, though fierce ember light bleeds round its seams. You can hear the old train drawing her breath behind the iron.
+~ enter:ghostlight_wreckage
+| The old girl came down hard in the moss and the roots, and the woods are still ringing with the sound of her iron. Over on the east bank, her crooked smokestack is still breathing steam into the dark.
+| Cold turf underfoot and broken timber all around, with pale teal mist seepin' out of the torn earth. Up on the rise, the engine lies tangled in black roots that have no business growin' that thick.
+| Well now, that was a rougher stop than the timetable promised, and the cars are scattered through the oaks like dropped kindling. Down in the deep grooves between the trunks, spilled soul-mist glows faint and cold.
+| [flag.gl_locomotive_done] The old engine has gone quiet at last, and the cars have faded back into the mist they were forged from. Only the torn moss and the wind soughing through the high oaks are left to mark the stop.
+| [flag.gl_locomotive_done] The hollow breathes easy again now that the iron and the steam have passed on. Up in the oak crowns, the leaves rustle soft where the carriages used to rest.
+| [flag.gl_locomotive_done] Not a wheel nor a lantern remains in the clearing, just damp earth and the smell of rain on bruised fern. She was a mighty fine train, friends, and she brought you as far as rails could go.
+cooldown 20
+~ enter:wr_clearing
+| The hollow is torn open from end to end, its wet moss ploughed into deep trenches by skiddin' iron. Pale teal mist settles in the ruts like rainwater in a wheel track.
+once
+~ enter:wr_engine_bank
+| The earth rises steep on the east side where the locomotive tore up the bank before she rolled. She lies heavy in a cage of black roots, her iron belly still ticking as it cools.
+once
+~ enter:wr_oaks
+| Gnarled oaks eighty feet high hold whole train cars wedged up in their forks like crows' nests. Down among the roots, boulders the size of hay wagons sit wrapped in wet moss.
+once
+~ enter:wr_tree_line
+| Back where the lanterns don't quite reach, the trunks stand close and the brush grows thick enough to hide a shaken soul or three. It isn't much of a shelter, reckon, but it beats standing in the open.
+once
+~ examine:wr_locomotive
+| She lies on her side in a net of black roots, steam hissin' weak from her seams and her smokestack bent crooked like a broken finger. I built her with my own two hands, and it hurts somethin' fierce to see her laid low.
+~ examine:wr_roots
+| [class:druid] {name} lays a palm to the black bark: thick as iron cable, faintly warm, and shifting slow the moment you turn your eyes away.
+~ examine:wr_grooves
+| The iron wheels carved trenches waist-deep through the loam before she came to rest. Cold teal mist pools at the bottom, curlin' round your boots like river fog.
+~ examine:wr_wrecked_cars
+| The carriages lie tumbled across the clearing like a spilled deck of cards, brass rails twisted and velvet seats split open to the night. Through the cracked glass, a dim teal glow still clings to the woodwork.
+~ examine:wr_oak_car
+| Ten feet above your head, a whole passenger car sits cradled in the crown of a grandfather oak. One iron wheel hangs free in the dark, still turning slow and quiet.
+~ examine:wr_boulders
+| [name:rook_coldwake] {name} sizes up the moss-grown granite: big as wagons, cold to the touch, and stout enough to turn whatever comes down the hill.
+~ examine:wr_moon
+| Through the torn canopy, the Crooked Moon hangs vast and bone-white, her bent nose and mad eyes fixed right on this hollow. She's got a grin full of crooked teeth tonight, like the whole wreck was put on for her amusement.
+~ search:wr_soul_can_1
+| Down in the wet leaf mould between the roots, your fingers close on cold tin: a Soul Can, still humming with a faint teal light.
+once
+~ check:perception:wr_soul_can_1:failure
+| Your hands come up with naught but damp leaf mould and bark, though right down by the trunk's base a tiny teal spark winks once and goes dark.
+~ search:wr_soul_can_2
+| [class:ranger] {name} reaches into the pooled mist of the trench and draws out a cold tin canister, its seams glowin' pale teal.
+once
+~ check:perception:wr_soul_can_2:failure
+| The mist in the trench curls thick around your wrists, and deep at the bottom a pale teal glimmer shifts like a coin under muddy water.
+~ search:wr_soul_can_3
+| Wedged tight beneath the mossy belly of the boulder, a dented Soul Can shines faint and blue-green against the wet stone.
+once
+~ check:perception:wr_soul_can_3:failure
+| You get cold fingers and a handful of wet moss for your trouble, though a low teal gleam flickers once under the stone's foot.
+~ open:wr_trunks
+| Good calfskin leather with a brass D on the lid, thrown clear of the smash without so much as a sprung latch. Folks with money always seem to pack their luck right alongside their linen.
+once
+~ search:wr_whistle
+| Half-trodden into the mud and bruised grass lies a little silver whistle, tarnished green as pond weed.
+once
+~ examine:wr_pool
+| The mist sits heavy and cold in the gouged earth, slow as winter molasses. Look too long and a pale face turns up toward the moon before sinking back into the teal.
+~ rest:short
+| [region:ghostlight_express] You sit a spell and let your breath catch up to your boots while the pale Shroud streams past in silence. It ain't a feather bed, reckon, but a quiet minute is worth its weight in silver.
+| [region:ghostlight_express] The wood creaks soft around you and the cold mist keeps to its own side of the glass for a little while. You bind up what's frayed and rest your bones before the next stretch of track.
+| [region:ghostlight_express and class:cleric] {name} murmurs a quiet word over bruised knuckles while the lanterns sway gold against the dark outside.
+~ combat:start
+| [region:ghostlight_express] The dark leans in close, and the lamps gutter low.
+| [region:ghostlight_express] Steel comes out, and the cold comes in.
+cooldown 3
+~ combat:crit
+| [region:ghostlight_express] Now that one rang out like a spike-maul on iron.
+| [region:ghostlight_express] Clean and true, right where the shadow wears thin.
+cooldown 3
+~ combat:nat1
+| [region:ghostlight_express] The mist plays tricks on the eye, and the blow goes wide.
+| [region:ghostlight_express] Slippery footing in the dark, and the strike catches only cold air.
+cooldown 3
+~ combat:fall
+| [region:ghostlight_express] Easy now, lay your head down and let your friends hold the line.
+| [region:ghostlight_express] A heavy blow, and a brave soul goes down to one knee.
+cooldown 3
+~ combat:kill
+| [region:ghostlight_express] The cold light gutters out, and the restless shape unravels into mist.
+| [region:ghostlight_express] One last shiver, and the shadow thins away to naught.
+cooldown 3
+~ combat:victory
+| [region:ghostlight_express] The dust settles back to the floorboards, and only the creak of the timber is left in the room. You're still standing, friends, and that counts for plenty.
+| [region:ghostlight_express] Cold mist curls where your foes stood a heartbeat ago, then thins into the dark. Take your breath while the quiet holds.
+| [region:ghostlight_express] The ringing leaves your ears, replaced by the low hum of the lanterns and your own ragged breathing. You saw that trouble through.
+cooldown 2
+~ defeat:ghostlight_locomotive
+| [region:ghostlight_express] Now wait just a minute, friends, that isn't how this part of the tale goes at all. Let me back the song up a verse, right to where y'all stepped into the clearing.
+| [region:ghostlight_express] No, no, the old girl didn't end your journey here in the roots and the mud. Let's strike the match again at the edge of the hollow and tell it the way you stood tall.
+| [region:ghostlight_express] You fought hard in the dark, travelers, but this road isn't finished with you yet. Come on back to the clearing's edge and we'll take this crossing from the top.
+~ haint:freed_sting
+| Up in the ceiling ribs, a fiddle bows a single warm bar, and the car lets out a long, dusty sigh.
+| The brass lamps steady their flame as a sweet note of rosin and catgut drifts down through the vents.
+| Somewhere overhead, four quick fiddle notes pluck the chill out of the air, and the floorboards stop their creaking.
+| A soft chord hums through the ironwork like a thumb brushed across fiddle strings, and the shadows sit back down.
+~ haint:heal
+| A quiet warmth runs from your collarbones down to your boots, like a swallow of good rye on a sleeting night.
+| The ache in your bruised ribs eases off, replaced by the smell of woodsmoke and clean linen.
+| Something kind brushes past your shoulders as the spirit goes, leaving your hands steady and your breath deep.
+~ haint:milestone_two
+| As the third spirit loosens its grip on the car, something settles over your shoulders like a heavy coat finally tailored to fit.
+| You stand a little taller on the swaying boards, carrying more weight in this grey world than you did an hour ago.
+~ haint:all_gone
+| With the sixth spirit gone, the whisperin' behind the panelling dies down, and a heavy brass lock clicks open somewhere up the train.
+| The last cold draught slips out between the window frames, and forward toward the engine, a bolted door unlatches with a clank.
+| All six cars breathe easy in the mist now, and up ahead, a stubborn iron latch drops free on its own.
+~ haint:destroyed
+| The spirit unravels like wet ash, leavin' a sour, coppery chill in the air that sticks to the back of your throat.
+| Silence drops hard over the car, cold and sharp as broken glass underfoot.
+| What is left of the ghost curdles into frost along the brasswork, and nobody feels much like speaking.
+~ haint:bottle_carried
+| Inside `you`'s pack, the pale glow in the corked jar taps once against the glass, quiet as a moth.
+| The bottled light shifts against `you`'s hip and gives a single, polite knock on the inside of the jar.
+~ haint:wail
+| The first thing it does is cry out, a long thin sound that makes your teeth ache.
+| It opens its mouth, and what comes out is not a word but a wail that frosts the glass.
+| The air goes cold and flat, and the haint's answer is one long, high, hollow cry.
+~ dining:order_other
+| The dish sits before `you` before the last word leaves your tongue, steaming and salted just a touch better than memory serves. For the space of a breath, the rattle of the rails sounds like rain on an old roof you used to know.
+| A cup and plate appear on the linen, warm against `you`'s knuckles and smelling of a winter evening long past. It tastes so right it almost hurts Going down.
+| What `you` asks for is already waitin' by the fork, down to the chip in the rim of the bowl from childhood. For a heartbeat, the fog outside the glass looks like a kitchen garden at dusk.
+| fighter]: A scarred tin trencher of hot stew and dark bread sits before `you`, rich with marrow and campfire smoke. It tastes like the evening after a fight you were not sure you would walk away from.
+| Wizard]: A tall mug of spiced tea and a honeyed scone rest by `you`'s sleeve, smelling of candle wax and dry vellum. It is the exact supper that used to go cold beside a stack of open books.

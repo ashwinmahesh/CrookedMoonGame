@@ -1,0 +1,265 @@
+{
+  "id": "ghostlight_g7_circus",
+  "name": "The Circus Car",
+  "region": "ghostlight_express",
+  "summary": "A travelling show's car: rusted cages, striped crates, banners of clowns, and a jester hanging from a trapeze.",
+  "text": "Rusted animal cages line the north wall, one with its door bent open and its straw scorched. Red-and-white crates, banners of laughing clowns and, overhead, a trapeze swinging with a jester hanging from it by her knees.",
+  "map": {
+    "rows": [
+      "####################",
+      "#=========.........#",
+      "#................==#",
+      "#...==...........=.#",
+      "#.....=.=..........#",
+      "#.............==...#",
+      "####################"
+    ],
+    "theme": "manor",
+    "light": "bright",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "g7_cages",
+      "name": "The cages",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          9,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "g7_stage",
+      "name": "The stage end",
+      "cells": [
+        [
+          10,
+          1
+        ],
+        [
+          18,
+          5
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      2,
+      3
+    ],
+    "from_rear": [
+      1,
+      3
+    ],
+    "from_front": [
+      18,
+      3
+    ]
+  },
+  "exits": [
+    {
+      "id": "rear_door",
+      "cell": [
+        0,
+        3
+      ],
+      "to": "ghostlight_g6_baggage",
+      "spawn": "from_front",
+      "label": "Back to the last car"
+    },
+    {
+      "id": "front_door",
+      "cell": [
+        19,
+        3
+      ],
+      "to": "ghostlight_g8_tender",
+      "spawn": "from_rear",
+      "label": "The Tender's door",
+      "when": "(flag.haint_sweetheart_done or flag.haint_sweetheart_destroyed) and (flag.haint_songstress_done or flag.haint_songstress_destroyed) and (flag.haint_daydreamer_done or flag.haint_daydreamer_destroyed) and (flag.haint_mariner_done or flag.haint_mariner_destroyed) and (flag.haint_jailbird_done or flag.haint_jailbird_destroyed) and (flag.haint_harlequin_done or flag.haint_harlequin_destroyed)",
+      "locked_text": "It won't budge while a haint rides the train."
+    }
+  ],
+  "props": [
+    {
+      "id": "g7_cages",
+      "cell": [
+        4,
+        1
+      ],
+      "kind": "examine",
+      "label": "The rusted cages",
+      "model": "cage"
+    },
+    {
+      "id": "g7_open_cage",
+      "cell": [
+        9,
+        1
+      ],
+      "kind": "examine",
+      "label": "An open cage",
+      "model": "cage"
+    },
+    {
+      "id": "g7_key_ring",
+      "cell": [
+        1,
+        2
+      ],
+      "kind": "decor",
+      "label": "A ring of keys on a hook",
+      "item": "ghostlight_key_ring"
+    },
+    {
+      "id": "g7_crates",
+      "cell": [
+        5,
+        3
+      ],
+      "kind": "examine",
+      "label": "Red-and-white crates",
+      "model": "case"
+    },
+    {
+      "id": "g7_banners",
+      "cell": [
+        12,
+        1
+      ],
+      "kind": "examine",
+      "label": "Carnival banners",
+      "model": "papers"
+    },
+    {
+      "id": "g7_poster",
+      "cell": [
+        13,
+        1
+      ],
+      "kind": "examine",
+      "label": "A poster for the Festival of Fools",
+      "model": "notice_board"
+    },
+    {
+      "id": "g7_marionette_chest",
+      "cell": [
+        14,
+        5
+      ],
+      "kind": "search",
+      "label": "A marionette chest",
+      "model": "case",
+      "search_dc": 13,
+      "skill": "investigation",
+      "item": "toad_faced_stone"
+    },
+    {
+      "id": "g7_trapeze",
+      "cell": [
+        11,
+        3
+      ],
+      "kind": "examine",
+      "label": "The trapeze",
+      "model": "rope"
+    },
+    {
+      "id": "g7_ascendancy",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "decor",
+      "call": "ghostlight_express/incitements:ascendancy_enter",
+      "approach": 12,
+      "call_when": "not flag.incitement_ascendancy and not flag.pending_ascendancy_incitement"
+    },
+    {
+      "id": "grille_g7",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "examine",
+      "label": "A brass grille in the ceiling",
+      "model": "window",
+      "dialogue": "ghostlight_express/vagrant_intercom:grille",
+      "when": "not flag.gl_crashed"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "haint_harlequin",
+      "cell": [
+        11,
+        3
+      ],
+      "dialogue": "ghostlight_express/haint_harlequin:start",
+      "approach": 5,
+      "when": "not flag.haint_harlequin_done and not flag.haint_harlequin_destroyed"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The rocking of the train will not let anyone sleep. A short breath, then.",
+  "encounters": [
+    {
+      "id": "gl_haint_harlequin",
+      "trigger": "dialogue",
+      "flag": "haint_harlequin_destroyed",
+      "quest": {
+        "id": "haint_harlequin",
+        "stage": "destroyed"
+      },
+      "monsters": [
+        {
+          "monster": "wayward_haint",
+          "cell": [
+            11,
+            3
+          ],
+          "name": "The Harlequin",
+          "facing": "south"
+        }
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        4,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        16,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    }
+  ]
+}

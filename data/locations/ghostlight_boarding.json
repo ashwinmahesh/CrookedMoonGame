@@ -1,0 +1,288 @@
+{
+  "id": "ghostlight_boarding",
+  "name": "Barrow Hill",
+  "region": "ghostlight_express",
+  "summary": "A burying hill at the end of a lane, a ring of standing stones on its crown, and a shelf on its east side where a black train waits on rails of mist.",
+  "text": "A low hill wears a ring of standing stones, and its west slope is all leaning headstones under an old yew hung with paper lanterns. Past the stones the ground levels into a shelf where a black engine sits on rails made of mist, its one lamp blue-white in the fog.",
+  "map": {
+    "rows": [
+      "############################",
+      "############################",
+      "#########..........#########",
+      "########.==.=.~....#########",
+      "######.........~~..#########",
+      "####......~.....~..#########",
+      "###.......==.#.........#####",
+      "#####...........#~.......###",
+      "####.......~...........~~.##",
+      "####~=...#.........######..#",
+      "####..=.........#..##.###.~#",
+      "###.=...=..#..#.........~~~#",
+      "###...=................~~~~#",
+      "###=.....=..............~~##",
+      "###....=.~..~...........####",
+      "###..=.....~........~.~#####",
+      "###.........~.........######",
+      "####.................#######",
+      "#############..#############",
+      "############....############"
+    ],
+    "elevation": [
+      "............................",
+      "............................",
+      ".........2233333222.........",
+      "........23333333332.........",
+      "......2333333333333.........",
+      "....223333344444333.........",
+      "...2223334444.444434444.....",
+      ".....33334444444.43444442...",
+      "....2333444455544444444420..",
+      "....23334.445554444......00.",
+      "....233334444444.43..4...00.",
+      "...22233344.44.444344444200.",
+      "...222333334444433344444200.",
+      "...22223333333333333222220..",
+      "...122222333333333222221....",
+      "...11222222222222222221.....",
+      "...1112222222222222221......",
+      "....11111111111111111.......",
+      ".............11.............",
+      "............0000............"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "bd_lychgate",
+      "name": "The lychgate",
+      "cells": [
+        [
+          9,
+          15
+        ],
+        [
+          18,
+          19
+        ]
+      ]
+    },
+    {
+      "id": "bd_burying_ground",
+      "name": "The burying ground",
+      "cells": [
+        [
+          3,
+          7
+        ],
+        [
+          9,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "bd_stones",
+      "name": "The standing stones",
+      "cells": [
+        [
+          9,
+          5
+        ],
+        [
+          17,
+          12
+        ]
+      ]
+    },
+    {
+      "id": "bd_shelf",
+      "name": "The shelf",
+      "cells": [
+        [
+          17,
+          4
+        ],
+        [
+          24,
+          12
+        ]
+      ]
+    },
+    {
+      "id": "bd_hollow",
+      "name": "The hollow",
+      "cells": [
+        [
+          23,
+          9
+        ],
+        [
+          27,
+          16
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      13,
+      16
+    ]
+  },
+  "exits": [
+    {
+      "id": "board_train",
+      "cell": [
+        21,
+        10
+      ],
+      "to": "ghostlight_g1_passenger",
+      "spawn": "from_boarding",
+      "label": "Board the train",
+      "when": "flag.gl_boarded",
+      "locked_text": "The Vagrant has not shown you aboard yet."
+    }
+  ],
+  "props": [
+    {
+      "id": "bd_lychgate",
+      "cell": [
+        13,
+        18
+      ],
+      "kind": "examine",
+      "label": "The lychgate",
+      "model": "gate"
+    },
+    {
+      "id": "bd_gate_turnips",
+      "cell": [
+        12,
+        19
+      ],
+      "kind": "decor",
+      "label": "Carved turnip lanterns"
+    },
+    {
+      "id": "bd_yew_lanterns",
+      "cell": [
+        4,
+        8
+      ],
+      "kind": "examine",
+      "label": "An old yew hung with paper lanterns"
+    },
+    {
+      "id": "bd_headstones",
+      "cell": [
+        5,
+        9
+      ],
+      "kind": "examine",
+      "label": "Leaning headstones",
+      "model": "grave"
+    },
+    {
+      "id": "bd_iron_markers",
+      "cell": [
+        3,
+        13
+      ],
+      "kind": "examine",
+      "label": "Iron grave-markers",
+      "model": "grave"
+    },
+    {
+      "id": "bd_stone_ring",
+      "cell": [
+        13,
+        9
+      ],
+      "kind": "examine",
+      "label": "The ring of standing stones",
+      "model": "rocks"
+    },
+    {
+      "id": "bd_fallen_stone",
+      "cell": [
+        10,
+        6
+      ],
+      "kind": "examine",
+      "label": "The fallen stone",
+      "model": "rocks"
+    },
+    {
+      "id": "bd_tumbled_wall",
+      "cell": [
+        9,
+        3
+      ],
+      "kind": "examine",
+      "label": "A tumbled drystone wall",
+      "model": "rocks"
+    },
+    {
+      "id": "bd_scarecrow",
+      "cell": [
+        4,
+        12
+      ],
+      "kind": "examine",
+      "label": "A scarecrow among the graves",
+      "model": "scarecrow"
+    },
+    {
+      "id": "bd_mist_rails",
+      "cell": [
+        23,
+        12
+      ],
+      "kind": "decor",
+      "label": "The rails of mist"
+    },
+    {
+      "id": "bd_engine",
+      "cell": [
+        20,
+        4
+      ],
+      "kind": "examine",
+      "label": "The black engine",
+      "span": [
+        2,
+        2
+      ]
+    },
+    {
+      "id": "bd_passenger_car",
+      "cell": [
+        19,
+        9
+      ],
+      "kind": "examine",
+      "label": "The passenger car",
+      "span": [
+        2,
+        2
+      ]
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "the_vagrant",
+      "cell": [
+        22,
+        11
+      ],
+      "dialogue": "ghostlight_express/vagrant_boarding:boarding",
+      "when": "not flag.gl_boarded",
+      "facing": "west",
+      "approach": 10
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The fiddle is already tuning. This is no place to lie down."
+}

@@ -1,0 +1,273 @@
+# R10: The Sweetheart (a Wayward Haint). Speaker haint_sweetheart; quest haint_sweetheart; flags haint_sweetheart_*. Region ghostlight_express.
+# Four ways to end it: the token (jakob_braun_letter), the Help menu (eight one-shot approaches: six listed at DC 12, two generic at DC 15; three that land
+# free it, three that fall flat turn it hostile), a bottle, or a fight. Every approach is spent whatever its result (per-option flag).
+# Drafted by Gemini (Gemini/sent_03_haint_sweetheart.txt, reply_03_haint_sweetheart.json), edited; see README.md.
+
+~ start
+if flag.haint_sweetheart_done or flag.haint_sweetheart_destroyed
+-> END
+endif
+if flag.haint_sweetheart_met
+-> return
+endif
+set haint_sweetheart_met
+quest haint_sweetheart met
+if quest.ghostlight_express == phantom_struck
+quest ghostlight_express haints
+endif
+Narrator: You step into a smell of pressed violets and damp velvet, while grey Shroud-smoke curls against the cabin glass. On the edge of the bed sits a pale girl, thumbing a tarnished silver locket like it's the only warm thing left.
+haint_sweetheart [sad]: Oh. You aren't him, are you.
+haint_sweetheart [weary]: The doors keep opening, and I keep looking up, and it is always strangers in the doorway.
+interject name:delphine_ravelle: Oh, sweetheart, you are going to cry your stitches right out, sitting here all by yourself.
+interject name:silas_vane: Bad hand to hold onto, kid, waiting on a late player when the train's already rolling.
+haint_sweetheart [sad]: He isn't late, not really, he just missed the whistle. I only have to stay in my seat until he catches up.
+-> menu
+
+~ return
+if flag.haint_sweetheart_hostile
+-> END
+endif
+haint_sweetheart [afraid]: Did someone else step aboard at the crossing? Did you see a tall man with a neat moustache looking for cabin three?
+-> menu
+
+~ menu
+* What happened to you? -> ask_story
+* What would help you rest? -> ask_want
+* [if item:jakob_braun_letter] We found a pink letter with Jakob's name on it. -> token_give
+* Let us keep you company for a little while. -> help_open
+* [if item:marble_jar or item:empty_whiskey_bottle] Quietly set an empty glass bottle in her path. -> bottled
+* Draw a weapon and strike the ghost. -> fight
+* Ghosts who stay on this train are burned as engine fuel. -> told_the_truth
+* We'll leave you in peace for now. -> leave
+
+~ ask_story
+haint_sweetheart [sad]: My chest went cold before his did, that's all, and the conductor tipped his hat and showed me to a berth. I told him I couldn't go alone, I told him Jakob had my other glove.
+haint_sweetheart [weary]: I thought he would be right behind me on the platform, truly I did. See here in the locket, J.B., that's my Jakob, though I cannot quite catch my own name when I reach for it.
+haint_sweetheart [sad]: So when the train pulls in, I stay inside, and when it pulls out, I ride it round again. If I step off into that dark country without him, how will we ever find each other in the fog?
+-> menu
+
+~ ask_want
+haint_sweetheart [sad]: I only want to know he didn't forget the way to me. If I just had word from his hand, or knew for sure he was waiting down the line, I wouldn't be so scared of the dark.
+haint_sweetheart [weary]: I have held this locket so long the silver has worn smooth, and it never says a word more than it did.
+-> menu
+
+~ token_give
+haint_sweetheart [afraid]: Where did you get that bright pink paper? Nobody uses ink like that anymore except... oh, look at the loops on the J.
+haint_sweetheart [sad]: He wrote this for me. My hands are shaking so badly, let me hold it to the lamp.
+haint_sweetheart [afraid]: Grete. He wrote Grete at the top. That is my name, and I had forgotten it. He kept it safe for me.
+haint_sweetheart [smile]: He says the ride was gentle, and he is already across the mist, saving a place by the fire.
+-> token_freed
+
+~ token_freed
+haint_sweetheart [smile]: I had it all backwards, didn't I. I thought I was early, and all this time I was the one keeping him waiting.
+haint_sweetheart [sad]: He says I mustn't be afraid of the dark woods, and that he will know me right away by my laugh.
+haint_sweetheart [smile]: Thank you, kind travelers, for bringing the post to cabin three. Tell the conductor he can let me off at the next stop.
+Narrator: She presses the pink envelope and the silver locket together against her heart, lets out a small bright laugh like a bell in the fog, and thins into the warm lamplight.
+take jakob_braun_letter
+set haint_sweetheart_done
+set haint_sweetheart_how = "token"
+quest haint_sweetheart token
+approve silas_vane +1 delphine_ravelle +1: You gave a frightened ghost word from the man she was waiting for
+narrate haint:freed_sting
+narrate haint:heal
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ help_open
+haint_sweetheart [weary]: You may sit on the trunk if you wish, the ride is very long. I don't think strangers can mend this, but it is quiet when nobody talks.
+-> help
+
+~ help
+# E7: a tool check (Calligrapher's Supplies); until then an ability check gated by the kit
+* [if not flag.haint_sweetheart_used_calligraphy] [if item:calligraphers_supplies] [Dexterity DC 12] Write down the love poem she never got to give him. -> calligraphy_ok | calligraphy_miss
+* [if not flag.haint_sweetheart_used_performance] [Performance DC 12] Hum a quiet, steady love song for her. -> performance_ok | performance_miss
+* [if not flag.haint_sweetheart_used_history] [History DC 12] Tell an old story of parted lovers who met again. -> history_ok | history_miss
+* [if not flag.haint_sweetheart_used_persuasion] [Persuasion DC 12] Sit with her and talk honestly about loss and love. -> persuasion_ok | persuasion_miss
+* [if not flag.haint_sweetheart_used_investigation] [Investigation DC 12] Ask her to describe Jakob's hands and his laugh. -> investigation_ok | investigation_miss
+* [if not flag.haint_sweetheart_used_religion] [Religion DC 12] Remind her of the old promise that loved ones wait beyond. -> religion_ok | religion_miss
+* [if not flag.haint_sweetheart_used_insight] [Insight DC 15] Gently name what she is truly afraid of forgetting. -> insight_ok | insight_miss
+* [if not flag.haint_sweetheart_used_deception] [Deception DC 15] Tell her you already saw Jakob waiting on the far side. -> deception_ok | deception_miss
+* Step back for now. -> menu
+
+~ calligraphy_ok
+set haint_sweetheart_used_calligraphy
+set haint_sweetheart_wins += 1
+Narrator: You uncork a bottle of dark ink and set pen to clean paper, shaping each loop with a steady hand until the verse is whole. It smells of cedar and fresh drying nib.
+haint_sweetheart [smile]: You wrote down just what I wanted to tell him, every word I was too shy to say. Now I have something to put in his hand when I see him.
+-> tally
+
+~ calligraphy_miss
+set haint_sweetheart_used_calligraphy
+set haint_sweetheart_fails += 1
+Narrator: You try to set a few lines of verse to paper, but the train jolts on the mist-rails and the nib scratches blotches across the sheet. The ink runs grey at the edges.
+haint_sweetheart [sad]: Those are pretty words, I suppose, only they don't sound like us at all.
+-> tally
+
+~ performance_ok
+set haint_sweetheart_used_performance
+set haint_sweetheart_wins += 1
+Narrator: You hum a low, simple tune that fits the click of the wheels beneath the floorboards, never pushing the note too high. Even the draft at the window seems to settle and listen.
+haint_sweetheart [smile]: Oh, we danced to a song very like that one, out under the paper lanterns. My feet remember the turn even if my head is full of smoke.
+-> tally
+
+~ performance_miss
+set haint_sweetheart_used_performance
+set haint_sweetheart_fails += 1
+Narrator: You start up a tender ballad, though the cabin mahogany swallows the tune and a note catches rough in the throat. It sounds very lonely against the wail outside.
+haint_sweetheart [weary]: Please don't sing anymore, it only makes the room feel smaller.
+-> tally
+
+~ history_ok
+set haint_sweetheart_used_history
+set haint_sweetheart_wins += 1
+Narrator: You lean back against the cabin panel and tell an old tale of two souls parted by deep water who still met again at the crossroads. The story has the worn, honest weight of an old coin.
+haint_sweetheart [smile]: And they truly knew each other after all those years? I suppose love doesn't rust just because the road is crooked.
+-> tally
+
+~ history_miss
+set haint_sweetheart_used_history
+set haint_sweetheart_fails += 1
+Narrator: You recount an ancient legend of star-crossed sweethearts, though the names get tangled in the telling and the ending lands heavy. It sounds more like a gravestone than a comfort.
+haint_sweetheart [sad]: Stories are easy to tell when it isn't your own heart sitting on the suitcase.
+-> tally
+
+~ persuasion_ok
+set haint_sweetheart_used_persuasion
+set haint_sweetheart_wins += 1
+Narrator: You sit down at her level, hands resting plain and open on the knee, speaking without hurry about the folks we lose and the way they stay ours. There ain't a drop of trickery in it.
+haint_sweetheart [sad]: You speak as if you have missed someone too, and kept walking anyway. Perhaps stepping off the train isn't the same as letting go.
+-> tally
+
+~ persuasion_miss
+set haint_sweetheart_used_persuasion
+set haint_sweetheart_fails += 1
+Narrator: You try to reason her out of the berth with sensible talk about moving on, though the words come out stiff as a station timetable. She pulls her shawl tighter around her shoulders.
+haint_sweetheart [weary]: You talk like the living always do, as if grieving were simply a bad habit to break.
+-> tally
+
+~ investigation_ok
+set haint_sweetheart_used_investigation
+set haint_sweetheart_wins += 1
+Narrator: You point gently to the tiny portrait in her hand and ask after the small, real things: the nick on his knuckle, the way his laugh started in his shoulders. Bit by bit, her fingers unclench.
+haint_sweetheart [smile]: He had coal dust under his left thumb that never scrubbed out, and he squinted whenever he told a fib. Oh, I could pick him out of a thousand shadows, couldn't I?
+-> tally
+
+~ investigation_miss
+set haint_sweetheart_used_investigation
+set haint_sweetheart_fails += 1
+Narrator: You lean in close to inspect the locket clasp and ask sharp, brisk questions about dates and station stops. She covers the little portrait with her thumb.
+haint_sweetheart [sad]: Stop peering at him like he is a lost trunk in the baggage car.
+-> tally
+
+~ religion_ok
+set haint_sweetheart_used_religion
+set haint_sweetheart_wins += 1
+Narrator: You speak softly of the far shore and the old promise that no soul walks the whole dark road uninquired after. It settles over the little cabin like a wool blanket.
+haint_sweetheart [smile]: My grandmother used to say the dead keep the porch light burning for the last one home. I would like to believe the road is shorter than it looks from this window.
+-> tally
+
+~ religion_miss
+set haint_sweetheart_used_religion
+set haint_sweetheart_fails += 1
+Narrator: You recite a solemn blessing for the departed, hands folded neat and proper. In the cramped mahogany berth, it sounds awfully like a churchyard burial.
+haint_sweetheart [weary]: I have heard enough prayers over cold beds to last me forever, thank you.
+-> tally
+
+~ insight_ok
+set haint_sweetheart_used_insight
+set haint_sweetheart_wins += 1
+Narrator: You look past the wet lashes and the clutched silver to the quieter terror underneath, and name it in a voice scarce louder than the radiator hiss. She goes very still.
+haint_sweetheart [sad]: You saw right through me, didn't you. I am not even sure I remember my own face, and I was so afraid that if I forgot myself, he wouldn't know me either.
+haint_sweetheart [smile]: It feels lighter, saying the shameful part out loud.
+-> tally
+
+~ insight_miss
+set haint_sweetheart_used_insight
+set haint_sweetheart_fails += 1
+Narrator: You study her face for a long moment and venture a guess at what is troubling her heart. It misses the mark by a country mile.
+haint_sweetheart [sad]: No, that isn't it at all, you don't know the first thing about him.
+-> tally
+
+~ deception_ok
+set haint_sweetheart_used_deception
+set haint_sweetheart_wins += 1
+Narrator: You look her straight in the eye and spin a gentle falsehood about a mustached gentleman waiting by the turnstile on the far side. Her breath catches, wanting it to be true.
+haint_sweetheart [smile]: You saw him? Oh, you might only be being kind to a foolish girl, but even a kind fib is warm enough to walk by.
+-> tally
+
+~ deception_miss
+set haint_sweetheart_used_deception
+set haint_sweetheart_fails += 1
+Narrator: You claim to have seen her Jakob waiting down the line, though a flicker in the eye gives the game away before the sentence is done. Her gaze drops back to the floor.
+haint_sweetheart [weary]: Please don't make up stories just to get me out of the cabin, I know when someone is humoring me.
+-> tally
+
+~ tally
+if flag.haint_sweetheart_wins >= 3
+-> helped_freed
+endif
+if flag.haint_sweetheart_fails >= 3
+-> turns_hostile
+endif
+-> help
+
+~ helped_freed
+haint_sweetheart [smile]: I have been sitting in the dark for so many turns of the wheels, I forgot people could be gentle for no reason at all.
+haint_sweetheart [sad]: I still don't know my own name, not a letter of it, yet I remember how his hand felt in mine, and reckon that will have to be enough.
+haint_sweetheart [smile]: If strangers on a night train can be this kind, the far side cannot be so terrible. Wish me luck out there in the mist.
+Narrator: She rises from the velvet berth, smooths her skirt with both hands, and dissolves like frost under a warm breath on the pane.
+set haint_sweetheart_done
+set haint_sweetheart_how = "helped"
+quest haint_sweetheart helped
+approve tobin_hayward +2 rook_coldwake +1: You talked a restless ghost round until it could let go
+narrate haint:freed_sting
+narrate haint:heal
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ turns_hostile
+haint_sweetheart [angry]: You don't care about him, and you don't care about me. You just want the berth empty and the crying to stop.
+haint_sweetheart [angry]: Well, nobody is taking me off this train, and nobody is leaving this cabin either.
+Narrator: She opens her mouth in a thin, freezing wail that frosts the mahogany walls and snuffs the cabin lamp down to a cold blue spark.
+set haint_sweetheart_hostile
+quest haint_sweetheart hostile
+combat gl_haint_sweetheart
+
+~ told_the_truth
+set told_haints_soul_coal
+haint_sweetheart [afraid]: Fuel? For the firebox? No, the conductor promised he was taking us across, he tipped his hat to me.
+haint_sweetheart [sad]: He wouldn't burn me up before Jakob gets here, then there wouldn't even be ashes left to meet him.
+haint_sweetheart [angry]: You are lying to frighten me, you wicked things, you want to throw me in the furnace yourselves!
+Narrator: Frost spiders across the windowpane as her grief curdles into a piercing shriek.
+approve rook_coldwake -2 tobin_hayward -2 silas_vane -2: You told a ghost that it would be burned for fuel
+set haint_sweetheart_hostile
+quest haint_sweetheart hostile
+combat gl_haint_sweetheart
+
+~ fight
+narrate haint:wail
+approve cordelia_skein -1 rook_coldwake -1: You struck a haint first
+set haint_sweetheart_hostile
+quest haint_sweetheart hostile
+combat gl_haint_sweetheart
+
+~ bottled
+haint_sweetheart [afraid]: Wait, what are you doing with that glass, let me out, Jakob won't see me in here!
+Narrator: Pale mist spirals down into the open neck until the glass glows like a captive firefly, and the cork seats home with the sound of a held breath.
+if item:marble_jar
+take marble_jar
+else
+take empty_whiskey_bottle
+endif
+give bottled_haint_sweetheart
+set gl_bottled += 1
+set haint_sweetheart_done
+set haint_sweetheart_how = "bottled"
+quest haint_sweetheart bottled
+narrate haint:bottle_carried
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ leave
+haint_sweetheart [weary]: Mind the door when you shut it, the draft from the corridor is terribly cold.
+-> END

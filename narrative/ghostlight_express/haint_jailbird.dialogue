@@ -1,0 +1,272 @@
+# R10: The Jailbird (a Wayward Haint). Speaker haint_jailbird; quest haint_jailbird; flags haint_jailbird_*. Region ghostlight_express.
+# Four ways to end it: the token (steak_and_eggs), the Help menu (eight one-shot approaches: six listed at DC 12, two generic at DC 15; three that land
+# free it, three that fall flat turn it hostile), a bottle, or a fight. Every approach is spent whatever its result (per-option flag).
+# Drafted by Gemini (Gemini/sent_07_haint_jailbird.txt, reply_07_haint_jailbird.json), edited; see README.md.
+
+~ start
+if flag.haint_jailbird_done or flag.haint_jailbird_destroyed
+-> END
+endif
+if flag.haint_jailbird_met
+-> return
+endif
+set haint_jailbird_met
+quest haint_jailbird met
+if quest.ghostlight_express == phantom_struck
+quest ghostlight_express haints
+endif
+Narrator: Pale mist curls over heaped canvas bags and leather trunks stamped with a silver D, while heavy iron links drag across the floorboards. A gaunt spirit in prison stripes sits on a crate, clutching his hollow belly like an empty sack.
+haint_jailbird [weary]: Evening, friends, and mind your step around the luggage. You would not happen to have a crust of bread or a bit of drippings in your pockets, would you?
+haint_jailbird [sly]: A man works up a fierce appetite waiting on the rope, and the rope didn't do a thing to cure it.
+interject name:rook_coldwake: Standard municipal irons, heavy gauge, though they ought to have been struck off before the burial.
+interject name:silas_vane: Look at the twitch in his jaw, he's not hunting trouble, he's just gutted.
+haint_jailbird [sad]: Just a crumb, guv, even the smell of hot grease on an iron skillet would do me proud.
+-> menu
+
+~ return
+if flag.haint_jailbird_hostile
+-> END
+endif
+haint_jailbird [weary]: Back again, friends, and my belly still rattling like a dry gourd.
+haint_jailbird [sly]: Tell me you caught a whiff of the kitchen on your way down the aisle.
+-> menu
+
+~ menu
+* What happened to you? -> ask_story
+* What would it take to ease that hunger? -> ask_want
+* [if item:steak_and_eggs] We brought you a plate of steak and eggs. -> token_give
+* Let us talk with you a while. -> help_open
+* [if item:marble_jar or item:empty_whiskey_bottle] Quietly set an empty glass bottle in his path. -> bottled
+* Draw a weapon and strike the chained ghost. -> fight
+* Tell him unfreed ghosts get shoveled into the engine as fuel. -> told_the_truth
+* We'll leave you be for now. -> leave
+
+~ ask_story
+haint_jailbird [weary]: They had me down for a sunrise drop, all proper and stamped by the magistrate. What I did is between me and the ledger, guv, and the ledger burned.
+haint_jailbird [angry]: The warden promised me a hot plate before the hood went on, thick rump steak and two fried eggs. Only the cook slept in, and the hangman was punctual.
+haint_jailbird [sad]: Dropped me on an empty stomach while the skillet was still cold. Reckon that is why I can't get off this train.
+-> menu
+
+~ ask_want
+haint_jailbird [sad]: Steak and eggs, friends, sizzling in salted butter with the yolks runny enough to mop up with thick bread.
+haint_jailbird [weary]: Just one honest bite to settle the debt they shorted me on the scaffold. Then I could lay this iron down for good.
+-> menu
+
+~ token_give
+haint_jailbird [afraid]: Hold on now, guv, don't play tricks on a dead man's nose. That is real beef tallow and pepper I'm smelling.
+haint_jailbird [smile]: Look at the crust on that meat, and the yellow yolks shining like gold sovereigns. You actually brought my supper.
+-> token_freed
+
+~ token_freed
+haint_jailbird [weary]: That first bite goes all the way down to the heels, warm and salt and real.
+haint_jailbird [neutral]: A man forgets how loud his own head is until his belly finally shuts up.
+haint_jailbird [smile]: Thank you, friends, for squaring the warden's tab. Tell the conductor I'm paid in full.
+Narrator: The iron shackle parts without a sound, and the prisoner thins into a wisp of warm kitchen steam that vanishes between the trunks.
+take steak_and_eggs
+set haint_jailbird_done
+set haint_jailbird_how = "token"
+quest haint_jailbird token
+approve silas_vane +1 rook_coldwake +1: You fed a condemned man the supper he was owed
+narrate haint:freed_sting
+narrate haint:heal
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ help_open
+haint_jailbird [weary]: Words don't fill a gut, guv, though I reckon I ain't got nowhere else to be.
+haint_jailbird [sly]: Go on then, talk your piece and see if it takes the edge off.
+-> help
+
+~ help
+# E7: a tool check (Cook's Utensils); until then an ability check gated by the kit
+* [if not flag.haint_jailbird_used_cooks_utensils] [if item:cooks_utensils] [Wisdom DC 12] Describe a cast-iron skillet, sizzling butter, and a thick steak. -> cooks_utensils_ok | cooks_utensils_miss
+* [if not flag.haint_jailbird_used_history] [History DC 12] Remind him that old gallows custom always guaranteed a last meal. -> history_ok | history_miss
+* [if not flag.haint_jailbird_used_deception] [Deception DC 12] Swear a hot plate from the dining car is on its way. -> deception_ok | deception_miss
+* [if not flag.haint_jailbird_used_survival] [Survival DC 12] Swap stories of campfire skillets, woodsmoke, and fried fat. -> survival_ok | survival_miss
+* [if not flag.haint_jailbird_used_investigation] [Investigation DC 12] Ask him how he wanted the steak and eggs cooked. -> investigation_ok | investigation_miss
+* [if not flag.haint_jailbird_used_persuasion] [Persuasion DC 12] Tell him plainly that whatever he did, he was owed that meal. -> persuasion_ok | persuasion_miss
+* [if not flag.haint_jailbird_used_insight] [Insight DC 15] Tell him you know he only wants his supper, not forgiveness. -> insight_ok | insight_miss
+* [if not flag.haint_jailbird_used_performance] [Performance DC 15] Booming like a warden, announce his last meal at the cell door. -> performance_ok | performance_miss
+* Step back for now. -> menu
+
+~ cooks_utensils_ok
+set haint_jailbird_used_cooks_utensils
+set haint_jailbird_wins += 1
+Narrator: You trace the shape of a heavy cast-iron pan in the air, speaking low and steady until you can almost hear the fat spit.
+haint_jailbird [smile]: Basted with garlic and thyme right at the end, yes, I can taste the crust on that. You know your way around a stove, friend.
+-> tally
+
+~ cooks_utensils_miss
+set haint_jailbird_used_cooks_utensils
+set haint_jailbird_fails += 1
+Narrator: You rattle off a list of fancy sauces and kitchen timings, but the words come out dry as a menu card.
+haint_jailbird [weary]: You sound like a clerk reading a grocery bill, guv, not a cook.
+-> tally
+
+~ history_ok
+set haint_jailbird_used_history
+set haint_jailbird_wins += 1
+Narrator: You recite the old gallows law, plain and solemn as a courthouse stone.
+haint_jailbird [sad]: Every condemned man gets his meat and bread, that was the rule since the old kings. Good to hear somebody living still remembers it was theft.
+-> tally
+
+~ history_miss
+set haint_jailbird_used_history
+set haint_jailbird_fails += 1
+Narrator: You lecture on prison statutes and magistrate decrees until the dust seems to thicken.
+haint_jailbird [weary]: Save the law books, friend, I heard plenty of those from the bench.
+-> tally
+
+~ deception_ok
+set haint_jailbird_used_deception
+set haint_jailbird_wins += 1
+Narrator: You lean in with an easy grin and point back toward the dining car as if the waiter were already on the stairs.
+haint_jailbird [smile]: Thick cut and coming down the aisle right now? Bless you, guv, just knowing the pan is hot eases the cramp.
+-> tally
+
+~ deception_miss
+set haint_jailbird_used_deception
+set haint_jailbird_fails += 1
+Narrator: You promise a ten-course feast on its way, laying it on thicker than cold lard.
+haint_jailbird [angry]: Don't lie to a starving ghost, friend, the turnkey tried that exact line on the walk out.
+-> tally
+
+~ survival_ok
+set haint_jailbird_used_survival
+set haint_jailbird_wins += 1
+Narrator: You squat by the luggage and talk of woodsmoke, bacon grease, and a blackened tin plate over red coals.
+haint_jailbird [smile]: Grease popping into the pine needles and char on the fat, aye, I have had nights like that. Takes a man right back to the open road.
+-> tally
+
+~ survival_miss
+set haint_jailbird_used_survival
+set haint_jailbird_fails += 1
+Narrator: You talk of boiled roots and trail hardtack, grim provisions for a long march.
+haint_jailbird [weary]: I died hungry, guv, I don't need reminding how to starve in the woods.
+-> tally
+
+~ investigation_ok
+set haint_jailbird_used_investigation
+set haint_jailbird_wins += 1
+Narrator: You ask quiet, exact questions about the meal he ordered, listening like a clerk taking a rightful claim.
+haint_jailbird [sad]: Ribeye, thumb-thick, seared black outside and red in the middle, with two hen eggs fried in the drippings. Nobody's asked me how I wanted it cooked since the night before the rope.
+-> tally
+
+~ investigation_miss
+set haint_jailbird_used_investigation
+set haint_jailbird_fails += 1
+Narrator: You prod at the details of his arrest and the cell block, fishing for the crime.
+haint_jailbird [sly]: Prying into the docket won't put salt on the plate, guv.
+-> tally
+
+~ persuasion_ok
+set haint_jailbird_used_persuasion
+set haint_jailbird_wins += 1
+Narrator: You look him straight in his sunken eyes and say a debt is a debt, no matter whose neck was in the noose.
+haint_jailbird [sad]: Whatever I took in life, they took my neck to pay for it. They still owed me that breakfast, and I thank you for saying it plain.
+-> tally
+
+~ persuasion_miss
+set haint_jailbird_used_persuasion
+set haint_jailbird_fails += 1
+Narrator: You offer a tidy speech about making peace with the past and letting go.
+haint_jailbird [weary]: Easy to preach patience when your ribs ain't scraping together, friend.
+-> tally
+
+~ insight_ok
+set haint_jailbird_used_insight
+set haint_jailbird_wins += 1
+Narrator: You set aside talk of guilt or pardon, naming only the empty plate left on the kitchen table.
+haint_jailbird [neutral]: You see straight through me, guv. I ain't begging the angels for mercy, I just wanted my two eggs before the drop.
+-> tally
+
+~ insight_miss
+set haint_jailbird_used_insight
+set haint_jailbird_fails += 1
+Narrator: You speak softly of guilt and forgiveness, reaching for a confession that isn't there.
+haint_jailbird [sly]: Barking up the wrong gallows, friend, my conscience ain't what's growling.
+-> tally
+
+~ performance_ok
+set haint_jailbird_used_performance
+set haint_jailbird_wins += 1
+Narrator: You square your shoulders by the trunks and boom out the formal pardon of the kitchen in a warden's brassy baritone.
+haint_jailbird [smile]: Ha, if the old bastard had half your voice, I might have gone up the steps smiling. That sounded mighty fine, guv.
+-> tally
+
+~ performance_miss
+set haint_jailbird_used_performance
+set haint_jailbird_fails += 1
+Narrator: You put on a booming magistrate's voice, but it rings hollow against the low roof of the car.
+haint_jailbird [weary]: Don't mock the cell door, friend, I heard enough keys turning for one lifetime.
+-> tally
+
+~ tally
+if flag.haint_jailbird_wins >= 3
+-> helped_freed
+endif
+if flag.haint_jailbird_fails >= 3
+-> turns_hostile
+endif
+-> help
+
+~ helped_freed
+haint_jailbird [weary]: Funny thing, friends, the cramp in my gut has gone quiet.
+haint_jailbird [smile]: Reckon it wasn't just the beef I was starving for, it was somebody treating me like a man who was owed his due.
+haint_jailbird [neutral]: Keep your pockets warm, guv, and don't let the hangman hurry your supper.
+Narrator: He tips a finger to his brow as the heavy iron link slips from his ankle, and he dissolves into a drift of warm woodsmoke.
+set haint_jailbird_done
+set haint_jailbird_how = "helped"
+quest haint_jailbird helped
+approve tobin_hayward +2 rook_coldwake +1: You talked a restless ghost round until it could let go
+narrate haint:freed_sting
+narrate haint:heal
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ turns_hostile
+haint_jailbird [angry]: Enough chatter, you're worse than the turnkey rattling his tin cup against the bars.
+haint_jailbird [angry]: Everything is cold in here except you lot, and a starving man can't afford to be picky.
+Narrator: He throws back his head in a ragged wail as frost rims the brass trunk latches and the lanterns gutter down to sparks.
+set haint_jailbird_hostile
+quest haint_jailbird hostile
+combat gl_haint_jailbird
+
+~ told_the_truth
+set told_haints_soul_coal
+haint_jailbird [afraid]: Shoveled into the firebox like coal? You're lying, guv, the frogman said we were passengers.
+haint_jailbird [angry]: First they cheat me of my breakfast, and now they want to burn what is left of me to turn the wheels.
+haint_jailbird [angry]: If I'm going into the furnace, I'm tearing a piece off the living first.
+Narrator: His jaw unhinges in a shrieking wail that rattles the stacked trunks and drops the car into bitter cold.
+approve rook_coldwake -2 tobin_hayward -2 silas_vane -2: You told a ghost that it would be burned for fuel
+set haint_jailbird_hostile
+quest haint_jailbird hostile
+combat gl_haint_jailbird
+
+~ fight
+narrate haint:wail
+approve cordelia_skein -1 rook_coldwake -1: You struck a haint first
+set haint_jailbird_hostile
+quest haint_jailbird hostile
+combat gl_haint_jailbird
+
+~ bottled
+haint_jailbird [afraid]: Hey now, guv, not another cell, don't shut the door on me again!
+Narrator: Pale mist spirals down the glass neck as the cork seats itself with a soft pop, like a last breath held behind teeth.
+if item:marble_jar
+take marble_jar
+else
+take empty_whiskey_bottle
+endif
+give bottled_haint_jailbird
+set gl_bottled += 1
+set haint_jailbird_done
+set haint_jailbird_how = "bottled"
+quest haint_jailbird bottled
+narrate haint:bottle_carried
+set gl_after_recount = "router"
+-> ghostlight_express/haint_common:recount
+
+~ leave
+haint_jailbird [weary]: Mind the trunks on your way out, friends, and save me a crust if you find the dining car.
+-> END

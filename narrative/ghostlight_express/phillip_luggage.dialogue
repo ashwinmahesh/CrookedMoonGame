@@ -1,0 +1,53 @@
+# R10: the Druskenvalds' luggage in the Baggage Car (G6). The trunks are Arcane Locked; Phillip always knows where his cases are and comes to
+# investigate tampering (the book). Nothing inside is takeable. Tampering cools Phillip (`druskenvald_luggage_tampered`, read by R11 and R12).
+# Started by the props g6_druskenvald_trunks (`trunks`) and g6_steamer_trunk (`adela_trunk`). Drafted by Gemini (sent_09), edited.
+
+~ trunks
+Narrator: A stack of fine leather trunks sits in the corner, each stamped with a proud golden D. A faint shimmer crawls across the brass clasps, thicker than lamplight and stubborn as a bolted door.
+Narrator: Whoever shut these cases didn't trust a simple key to keep nosey fingers out.
+* Leave them be. -> END
+* Try the clasp. -> try_lock
+* Shift one aside. -> try_lock
+
+~ try_lock
+Narrator: The instant the clasp shifts, a sound like a heavy clock spring winding echoes through the floorboards, and a sharp copper tingle settles right into your back teeth.
+appear phillip_druskenvald at g6_druskenvald_trunks
+-> scold
+
+~ scold
+Narrator: The car door clicks open behind you, and a striped sleeve and the silver glint of a goat-skull cane step through the frame before the man himself says a word.
+phillip_druskenvald [angry]: I would step back from the leather if I were you, old sport.
+phillip_druskenvald [neutral]: A man of means always knows where his luggage rests, and when an uninvited thumb presses the brass.
+phillip_druskenvald [angry]: These are not the contents of a lost-and-found.
+phillip_druskenvald [neutral]: I suggest you tell me, quite plainly, what you thought you were looking for in my wife's trunks.
+* You're right. Forgive us, we shouldn't have touched them. -> scold_apologize
+* We're searching the train for trouble, not robbing you. -> scold_explain
+* Keep your hair on, we were only looking. -> scold_cheek
+
+~ scold_apologize
+set druskenvald_luggage_tampered
+set phillip_regard -= 1
+phillip_druskenvald [neutral]: An honest admission is rarer than good brandy, so I will take it at face value.
+phillip_druskenvald [smile]: Keep your hands in your own pockets from here to the station, and we shall say no more about it.
+-> END
+
+~ scold_explain
+set druskenvald_luggage_tampered
+set phillip_regard -= 2
+attitude phillip_druskenvald indifferent
+phillip_druskenvald [neutral]: A creative bit of storytelling, my friend, though it hardly requires picking through our monogrammed leather.
+phillip_druskenvald [neutral]: Leave the cases be, and take your investigation back to the public cars where it belongs.
+-> END
+
+~ scold_cheek
+set druskenvald_luggage_tampered
+set phillip_regard -= 3
+attitude phillip_druskenvald indifferent
+phillip_druskenvald [angry]: Charming. Truly, the wit of the gutter never fails to dazzle.
+phillip_druskenvald [neutral]: Do give my regards to your upbringing.
+-> END
+
+~ adela_trunk
+adela_druskenvald [smile]: My big steamer trunk in the back? Nothing in there but silk, feathers, and forty pounds of sequins, darling!
+adela_druskenvald [smile]: That's my whole wardrobe, darling, a girl has to travel with her options.
+-> END

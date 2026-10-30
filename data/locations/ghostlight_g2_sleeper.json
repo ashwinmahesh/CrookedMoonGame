@@ -1,0 +1,259 @@
+{
+  "id": "ghostlight_g2_sleeper",
+  "name": "The Sleeper Car",
+  "region": "ghostlight_express",
+  "summary": "A corridor and three first-class cabins behind sliding doors, velvet curtains drawn over the windows.",
+  "text": "A narrow corridor runs along the south side with three sliding cabin doors on the other. Mahogany, velvet and brass, and every curtain drawn against the Shroud.",
+  "map": {
+    "rows": [
+      "####################",
+      "#.==.==#.==..#.==..#",
+      "#......#....=#.....#",
+      "###.######.#####.###",
+      "#..................#",
+      "#..................#",
+      "####################"
+    ],
+    "theme": "manor",
+    "light": "bright",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "g2_corridor",
+      "name": "The corridor",
+      "cells": [
+        [
+          1,
+          4
+        ],
+        [
+          18,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "g2_cabin_1",
+      "name": "Cabin one",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          6,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "g2_cabin_2",
+      "name": "Cabin two",
+      "cells": [
+        [
+          8,
+          1
+        ],
+        [
+          12,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "g2_cabin_3",
+      "name": "Cabin three",
+      "cells": [
+        [
+          14,
+          1
+        ],
+        [
+          18,
+          2
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      2,
+      4
+    ],
+    "from_rear": [
+      1,
+      4
+    ],
+    "from_front": [
+      18,
+      4
+    ]
+  },
+  "exits": [
+    {
+      "id": "rear_door",
+      "cell": [
+        0,
+        4
+      ],
+      "to": "ghostlight_g1_passenger",
+      "spawn": "from_front",
+      "label": "Back to the Passenger Car"
+    },
+    {
+      "id": "front_door",
+      "cell": [
+        19,
+        4
+      ],
+      "to": "ghostlight_g3_lounge",
+      "spawn": "from_rear",
+      "label": "On to the next car"
+    }
+  ],
+  "props": [
+    {
+      "id": "g2_beds",
+      "cell": [
+        2,
+        1
+      ],
+      "kind": "examine",
+      "label": "The made beds",
+      "model": "case"
+    },
+    {
+      "id": "g2_curtains",
+      "cell": [
+        4,
+        1
+      ],
+      "kind": "examine",
+      "label": "Velvet window curtains",
+      "model": "window"
+    },
+    {
+      "id": "g2_phonograph",
+      "cell": [
+        12,
+        2
+      ],
+      "kind": "search",
+      "label": "The brass phonograph",
+      "model": "case",
+      "search_dc": 1,
+      "item": "ghost_phonograph",
+      "say": "examine:g2_phonograph"
+    },
+    {
+      "id": "g2_weeping_door",
+      "cell": [
+        16,
+        3
+      ],
+      "kind": "examine",
+      "label": "The weeping cabin door",
+      "model": "door"
+    },
+    {
+      "id": "g2_phonograph_scene",
+      "cell": [
+        12,
+        2
+      ],
+      "kind": "decor",
+      "call": "ghostlight_express/incitements:phonograph",
+      "approach": 2,
+      "call_when": "background:amnesiac and not flag.incitement_apocalypse"
+    },
+    {
+      "id": "grille_g2",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "examine",
+      "label": "A brass grille in the ceiling",
+      "model": "window",
+      "dialogue": "ghostlight_express/vagrant_intercom:grille",
+      "when": "not flag.gl_crashed"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "haint_sweetheart",
+      "cell": [
+        17,
+        2
+      ],
+      "dialogue": "ghostlight_express/haint_sweetheart:start",
+      "approach": 4,
+      "facing": "south",
+      "when": "not flag.haint_sweetheart_done and not flag.haint_sweetheart_destroyed"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The rocking of the train will not let anyone sleep. A short breath, then.",
+  "encounters": [
+    {
+      "id": "gl_haint_sweetheart",
+      "trigger": "dialogue",
+      "flag": "haint_sweetheart_destroyed",
+      "quest": {
+        "id": "haint_sweetheart",
+        "stage": "destroyed"
+      },
+      "monsters": [
+        {
+          "monster": "wayward_haint",
+          "cell": [
+            17,
+            2
+          ],
+          "name": "The Sweetheart",
+          "facing": "south"
+        }
+      ]
+    }
+  ],
+  "containers": [
+    {
+      "id": "g2_clothes_chest",
+      "cell": [
+        6,
+        2
+      ],
+      "label": "A clothes chest",
+      "items": [
+        {
+          "id": "fine_clothes",
+          "qty": 6
+        }
+      ],
+      "model": "case"
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        5,
+        4
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        15,
+        4
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    }
+  ]
+}

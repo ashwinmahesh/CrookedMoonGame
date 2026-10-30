@@ -1,0 +1,200 @@
+# R10: Phillip and Adela Druskenvald in the Lounge Car (G3). Speakers phillip_druskenvald, adela_druskenvald. Region ghostlight_express.
+# Started by: the pair at the bar (`meet`, `approach: 3`, `when: not flag.gl_crashed`; later visits start at `return_router`).
+# Their regard is two ints, phillip_regard and adela_regard (the book's "first impressions"), read by R12, R16, R22 to R24. Prying, rudeness and
+# lies make Phillip button up (`attitude ... indifferent`); nothing here locks anything. The reading is offered from `ask_cards` (adela_reading).
+# Drafted by Gemini (Gemini/sent_09_druskenvalds_lounge.txt, reply_09_druskenvalds_lounge.json), edited; see README.md.
+
+~ meet
+if flag.gl_lounge_met
+-> return_router
+endif
+set gl_lounge_met
+Narrator: A tall, thin gentleman in a striped suit leans against the bar with a silver goat-skull cane, while beside him a lady in a shimmering dress laughs over a champagne flute.
+phillip_druskenvald [smile]: Well now, look what the mist brought in, darling: actual breathing company. Step right up to the bar, my good friends, and name your poison.
+adela_druskenvald [smile]: Oh, how utterly swell! You have no idea how dull a lounge gets when nobody's heart is beating.
+adela_druskenvald [smile]: I'm Adela, and this tall drink of water is my husband, Phillip.
+adela_druskenvald [sly]: Do say you've come to gossip with us until the wheels stop turning.
+phillip_druskenvald [smile]: Pace yourself, darling, or you'll talk the poor travelers out of their coats before their glasses are full.
+interject name:rook_coldwake: High-grade tailoring, zero practical armor. Mind the floor around them.
+interject name:tobin_hayward: Silk and silver. Fine blossoms on a strange branch, if the roots hold.
+interject name:silas_vane: Folks flashing that much silver at the table usually own the casino.
+interject name:delphine_ravelle: Oh, look at the sparkle on her! Proper velvet-curtain royalty, darling.
+interject name:lucan_houndstooth: Easy now. Polished manners, sharp scent: they rule this stretch of woods.
+interject name:cordelia_skein: What wonderfully lively pulses they imitate. Do ask if we may observe them.
+-> menu
+
+~ menu
+phillip_druskenvald [smile]: Now then, old sports, what'll it be?
+* Who are the two of you? -> ask_who
+* Where are you headed on this train? -> ask_home
+* What business brought you out here? -> ask_business
+* Do you ride with the Vagrant often? -> ask_train
+* [if flag.gl_phantom_done] We fought a shadowy stowaway in the cars. -> ask_shade
+* [if not flag.gl_drinks_had] We wouldn't say no to a drink. -> drinks
+* [if not flag.tarot_full_reading] You mentioned reading tarot cards? -> ask_cards
+* [if not flag.gl_complimented] You two are the finest sight on this train. -> compliment
+* [if not flag.gl_pried] How does a lord end up ruling a ghost realm? -> pry
+* [if flag.haint_songstress_met and not flag.haint_songstress_done and not flag.haint_songstress_destroyed] Who is the pale woman humming by the window? -> ask_singer
+* [if not flag.gl_painting_asked] That coastal painting on the wall just moved. -> ask_painting
+* We'll leave you to your drinks for now. -> leave
+
+~ ask_who
+phillip_druskenvald [smile]: Phillip Druskenvald, at your service, and this is my wife, Adela. Folks around here call us lord and lady of the realm, though we don't stand on grand titles.
+phillip_druskenvald [smile]: A title is just a heavy hat that ruins a good haircut, wouldn't you say?
+phillip_druskenvald [smile]: I only ask that life, and the life after it, be a grand old time for everyone at the table.
+adela_druskenvald [smile]: Listen to Philly playing modest, when he loves a grand entrance more than anyone alive!
+-> menu
+
+~ ask_home
+adela_druskenvald [smile]: We're bound for home, darling: Chateau Clair de Lune, every arch and staircase built to my own design.
+adela_druskenvald [smile]: It has twelve fireplaces and a ballroom with a ceiling like the inside of a seashell.
+adela_druskenvald [smile]: You simply must come to dinner once we're settled, I won't take no for an answer.
+phillip_druskenvald [smile]: Consider the invitation engraved in silver, friends: our table is always better with fresh stories.
+-> menu
+
+~ ask_business
+phillip_druskenvald [weary]: Oh, provincial affairs out along the border, dull as dishwater. Nothing but ledgers, signatures, and men clearing their throats in drafty halls.
+phillip_druskenvald [smile]: The sort of travel that makes a man deeply grateful for a well-stocked bar car.
+adela_druskenvald [smile]: The paperwork was a frightful bore, darling, though meeting all the strange little townsfolk was the bee's knees.
+-> menu
+
+~ ask_train
+phillip_druskenvald [smile]: We've ridden the Ghostlight Express for ages, and I wouldn't trade it for a golden carriage. Our Vagrant is the finest conductor on any line.
+phillip_druskenvald [smile]: Keeps the rails smooth, the ice cold, and the riffraff out of the upholstery.
+adela_druskenvald [smile]: And have you heard him play that fiddle of his? He's an absolute peach, spikes in his hat and all.
+adela_druskenvald [smile]: Whenever we travel, we wouldn't dream of booking with anyone else.
+-> menu
+
+~ ask_shade
+phillip_druskenvald [neutral]: A shadowy stowaway causing a ruckus in the cars? I wouldn't lose a wink of sleep over it, old sport.
+phillip_druskenvald [smile]: The Vagrant knows every bolt and rivet on this train, and he'll sort out any gatecrasher before the ice melts.
+adela_druskenvald [sad]: Still, a cold shadow slipping between the carriages gives a girl a queer little shiver down her spine.
+adela_druskenvald [smile]: Good thing we have four strapping heroes aboard to keep the bogeymen polite!
+-> menu
+
+~ drinks
+set gl_drinks_had
+set phillip_regard += 1
+phillip_druskenvald [smile]: Have whatever you like, my friends, the bar is hardly short and the tab is mine.
+phillip_druskenvald [smile]: A dry martini, a neat rye, or something warm from an orchard you remember: just say the word.
+Narrator: You barely speak a name before the glasses sit beside your elbows, chilled or steaming just right. Each cup holds the exact drop your tongue was secretly asking for.
+-> menu
+
+~ ask_cards
+adela_druskenvald [smile]: Oh, I thought you'd never ask, I've been itching to shuffle my deck since we boarded!
+adela_druskenvald [sly]: Step close and let's see what the pasteboards have to say about your road ahead, darling.
+-> ghostlight_express/adela_reading:offer
+
+~ compliment
+set gl_complimented
+set phillip_regard += 1
+phillip_druskenvald [smile]: Well now, you have a remarkably discerning eye for quality, my friend. A man tries to keep up standards, even out in the fog.
+phillip_druskenvald [smile]: Darling, did you hear that? Plainly we are traveling with people of rare breeding and exquisite taste.
+adela_druskenvald [sly]: Put your feathers down, Philly, they're laying it on with a silver trowel and you're eating up every spoonful.
+-> menu
+
+# Prying: Phillip closes the subject like a door. The Insight read is spent if it fails, and the apology is always there.
+~ pry
+set gl_pried
+set phillip_regard -= 1
+attitude phillip_druskenvald indifferent
+phillip_druskenvald [neutral]: My dear fellow, what a barrage of ledger-keeper's questions for a pleasant evening in the lounge. Whose land, which charter, where the road began: you sound like those clerks we just left behind.
+phillip_druskenvald [neutral]: A gentleman does not dig up the cellar during the party.
+phillip_druskenvald [smile]: Drink your drink, enjoy the lamps, and let the old history sleep where it lies.
+* [Insight DC 13] Watch his eyes and read what holds him back. -> pry_insight_ok | pry_insight_miss
+* Forgive us, we didn't mean to pry. -> apologize
+* Let it drop. -> menu
+
+~ pry_insight_ok
+Narrator: He isn't hiding the truth from you: he reaches back for the memory, finds an empty cupboard where the years ought to be, and covers the hollow with a practiced laugh.
+-> apologize
+
+~ pry_insight_miss
+Narrator: All you get is a gentleman's polished smile and the clink of ice against crystal, with nothing readable underneath.
+-> menu
+
+~ apologize
+set gl_pried_forgiven
+set phillip_regard += 1
+attitude phillip_druskenvald friendly
+phillip_druskenvald [neutral]: Think nothing of it, old sport, curiosity is a natural vice of the newly arrived.
+phillip_druskenvald [smile]: Consider the slate wiped clean, so long as we stick to lighter toasts from here on.
+adela_druskenvald [smile]: There now, all forgotten, darling, and look how the frost is curling on the windowpane!
+-> menu
+
+# The Songstress's own hint (Phillip remembers the gramophone in the sleepers): a second route to the token.
+~ ask_singer
+adela_druskenvald [sad]: Poor dear soul, she's been sitting by that glass humming the same eight bars since we stepped aboard.
+adela_druskenvald [neutral]: I've never had the nerve to ask her to stop, or to go on.
+adela_druskenvald [sly]: Part of me wonders whether a tune caught in a loop like that just needs a proper audience, or the rest of the record.
+phillip_druskenvald [neutral]: Didn't we hear a gramophone going in the sleepers, darling? A cabin or two along? I could have sworn.
+phillip_druskenvald [smile]: Second cabin on the left, if my ears serve me: brass horn, scratching away to an empty room.
+-> menu
+
+~ ask_painting
+set gl_painting_asked
+set adela_regard += 1
+reveal g3_seascape
+adela_druskenvald [smile]: Isn't it the bee's knees? It's the sea that moves when you're not looking, catch it out of the corner of your eye and the whitecaps roll right onto the rocks.
+adela_druskenvald [sad]: An old sailor out in the cars is pining for the sight of open water? Oh, Philly, that breaks my heart right in two.
+adela_druskenvald [smile]: Take it off the hook with my blessing, darling, it isn't ours to give but it should go where it's loved.
+phillip_druskenvald [smile]: Lift it carefully, friends. I never mind a sentimental errand.
+approve delphine_ravelle +1: You asked Adela's leave before taking her painting
+-> menu
+
+~ leave
+adela_druskenvald [smile]: Do come back and tell us everything you find out there in the cars, darling!
+phillip_druskenvald [smile]: Until the next round, my friends, keep your hats on straight.
+-> END
+
+# --- Coming back ---
+
+~ return_router
+if flag.gl_pried and not flag.gl_pried_forgiven and not flag.gl_cooler_seen
+-> cooler
+endif
+if flag.gl_songstress_sang and not flag.gl_return_songstress_seen
+-> return_songstress
+endif
+if flag.gl_painting_given and not flag.gl_return_painting_seen
+-> return_painting
+endif
+if flag.haints_destroyed >= 1 and not flag.gl_return_destroyed_seen
+-> return_destroyed
+endif
+-> return
+
+~ return
+phillip_druskenvald [smile]: Back again, old sports? The ice is still cold and the chairs haven't wandered off.
+adela_druskenvald [smile]: Oh, swell, I was hoping you hadn't forgotten us so soon!
+-> menu
+
+~ return_songstress
+set gl_return_songstress_seen
+set adela_regard += 1
+adela_druskenvald [smile]: Oh, my stars, I am still completely out of breath! When she found the rest of her melody, Philly swept me right out onto the carpet.
+adela_druskenvald [sad]: I don't think I've heard anything half so lovely or half so heartbreaking in all my nights.
+phillip_druskenvald [smile]: Well, when a lady sings like that, a man would be a scoundrel not to offer his arm for a turn.
+phillip_druskenvald [smile]: You did a fine thing for her, friends, and we are both in your debt.
+-> menu
+
+~ return_painting
+set gl_return_painting_seen
+adela_druskenvald [smile]: Look at that bare patch on the ebony, Philly, the wall looks positively naked without its waves!
+adela_druskenvald [smile]: I don't mind a bit, darling, so long as your old mariner got his sunset back.
+-> menu
+
+~ return_destroyed
+set gl_return_destroyed_seen
+set phillip_regard -= 1
+phillip_druskenvald [neutral]: Word travels quick along the floorboards, friends, and it sounds like you've been clearing the cars with a heavy hand.
+phillip_druskenvald [weary]: Putting restless souls down by force seems an awfully ill-tempered way of doing things on a passenger line.
+adela_druskenvald [neutral]: Now hush, Philly, we weren't there in the dark with them, and I'm sure our friends only swung when they had to.
+-> menu
+
+~ cooler
+set gl_cooler_seen
+phillip_druskenvald [neutral]: Ah. You've returned.
+phillip_druskenvald [neutral]: The bar remains open, of course, though I find myself somewhat short on small talk.
+adela_druskenvald [smile]: Don't mind Philly when he gets his frosty face on, darlings, tell me how you're getting along.
+-> menu

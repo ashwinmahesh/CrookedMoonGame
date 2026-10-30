@@ -1,0 +1,267 @@
+# R10: the Vagrant over the intercom. A brass grille in the ceiling of every car (prop `grille_<car>`, dialogue `vagrant_intercom:grille`,
+# `when: not flag.gl_crashed`) brings him until the crash; he talks to the heroes, gives two tiers of hints for every haint and never
+# runs out of patience (the book has him fall silent after the Phantom fight; here he cannot, so nobody is ever stuck).
+# Started by: the Phantom NPC (`phantom_strikes`, before the first fight), the grille NPC (`phantom_after`, `approach: 20`, when the
+# fight is won), the grille prop (`grille`), and haint_common:recount (`router`, a check-in once a haint is gone).
+# Drafted by Gemini (Gemini/sent_02_vagrant_intercom.txt, reply_02_vagrant_intercom.json), edited; see README.md.
+
+# --- The Phantom strikes (before the fight; the captions are the cutscene's) ---
+
+~ phantom_strikes
+cutscene gl_phantom_strikes
+Narrator: Velvet upholstery rips with a slow, wet tear as a tall shadow unfolds from the seat. Its neck clicks once, tilting at a crooked angle.
+cutscene gl_phantom_strikes_2
+Narrator: Woody tendrils whip against the panes and shatter the glass in a high, ringing crash. Freezing grey mist pours through the jagged frames with a low howl.
+cutscene gl_phantom_strikes_3
+Narrator: Cartilage snaps as a passenger's jaw splits into a block-toothed maw around a single wet eye. Damp palms press flat to the wood, their skin blinking open.
+the_vagrant [afraid]: Hold your hats back there, travelers, I am a fiddler, not a fighter! Keep that crooked thing off the plush and the old girl will mend her own glass!
+the_vagrant [smile]: Just give it a good thrashin' and mind the draft!
+cutscene end
+combat gl_phantom_strikes
+
+# --- After the fight: the explanation ---
+
+~ phantom_after
+set gl_vagrant_briefed
+quest ghostlight_express phantom_struck
+the_vagrant [weary]: Phew, y'all sure know how to clear an aisle, friends. That crooked-necked fellow wasn't any ticketed passenger of mine.
+the_vagrant [neutral]: He let a bellyful of the Shroud in before the glass knit shut, and that grey fog turns gentle spirits mean as snakes.
+interject class:fighter: If there are more of them aboard, point us at the right cars.
+the_vagrant [afraid]: That is just the trouble: we got six wayward haints ridin' the cars, and they are the easiest souls aboard for the fog to sour.
+the_vagrant [neutral]: Y'all need to walk the train and help those six poor folks move on, or put them down if they have already turned.
+interject name:cordelia_skein: Six restless cadavers in adjacent compartments, and we have the run of the ward. Delightful.
+the_vagrant [weary]: Once the last of the six is gone, the Tender will unseal so y'all can check the coal for rot. I gotta keep both hands on the throttle up here, and do me a kindness: don't fret Lord and Lady Druskenvald over a little scuffle.
+-> after_menu
+
+~ after_menu
+* What is a haint? -> ask_haints
+* Why would they be fuel? -> ask_fuel
+* How do we set one free? -> ask_plan
+* Why can't you come help? -> ask_cab
+* What's in the Tender? -> ask_tender
+* Is the shade gone? -> ask_shade
+* What about the Lord and Lady? -> ask_lord_lady
+* Understood. We'll get started. -> END
+
+~ ask_haints
+the_vagrant [neutral]: A haint is just a traveler who climbed aboard carryin' a knot they never untied in life. A bad regret, a hungry belly, a promise left half-spoken.
+the_vagrant [sad]: They sit in their cars chewin' on that old bone until somebody helps them lay it down.
+the_vagrant [neutral]: Leave them sit too long with the Shroud leakin' in, and the fog will finish the job for them, ugly-like.
+-> after_menu
+
+~ ask_fuel
+the_vagrant [sad]: When a haint curdles all the way through, whatever is left of them drops down the chute and turns to black coal in the Tender. That is what keeps the Ghostlight Express rollin' across the fog, friends.
+the_vagrant [neutral]: I didn't build the old girl, I just steer her, and I reckon a soul ought to get a fair shot at peace before the furnace takes them.
+the_vagrant [weary]: Every one y'all set free leaves us a little lighter on steam, though it warms every heart on the train.
+the_vagrant [sly]: Just do me a solid and don't mention the coal part to the haints, folks don't take it well.
+-> after_menu
+
+~ ask_plan
+the_vagrant [neutral]: The safest way is a token: find the one thing on this train that finishes their story and hand it over. Or if y'all got a silver tongue and an honest heart, three true words will settle them before three clumsy ones rile them up.
+the_vagrant [weary]: You can also stand an empty bottle or jar upright and cork them when they drift inside, though it leaves a bad taste in my mouth.
+the_vagrant [sad]: And if nothing else works, you put them down hard, though all that leftover hurt has to gather somewhere.
+-> after_menu
+
+~ ask_cab
+the_vagrant [afraid]: The Shroud is pressin' against the cowcatcher thick as wool, friends, and this locomotive is a temperamental lady. She needs a hand on her every second or we all go off the mist.
+the_vagrant [smile]: Besides, if I let go of the whistle cord, who is gonna serenade y'all through the brass?
+-> after_menu
+
+~ ask_tender
+the_vagrant [neutral]: The Tender is the coal car coupled right behind the locomotive, past every other door. Its iron latch stays sealed tight so long as those six haints are still pacing the floorboards.
+the_vagrant [afraid]: Once the sixth soul is settled or felled, that door will unlatch on its own.
+the_vagrant [weary]: I can't see in there from here, and I don't like not seeing.
+-> after_menu
+
+~ ask_shade
+the_vagrant [weary]: Hard to say if a thing like that truly dies, friends. It felt less like a fellow and more like an old grudge somebody threw through our window.
+the_vagrant [afraid]: The glass is whole again, so the worst of the draft is shut out.
+the_vagrant [neutral]: Still, I reckon y'all ought to keep an eye on the dark corners between cars.
+-> after_menu
+
+~ ask_lord_lady
+the_vagrant [smile]: Lord Phillip and Lady Adela are fine, generous company, and they paid for a smooth ride with a splash of spirits. No sense spoilin' a swell evening with talk of broken glass and stowaways.
+the_vagrant [sly]: Give them a tip of your hat if you pass through, and keep your blades tucked neat.
+-> after_menu
+
+# --- The grille, any time before the crash ---
+
+~ grille
+set gl_after_recount = "grille"
+-> ghostlight_express/haint_common:recount
+
+~ grille_open
+if flag.gl_crashed
+-> END
+endif
+Narrator: A quick, bright bar of fiddle music crackles through the overhead brass before a thumb stills the strings.
+the_vagrant [smile]: Still kickin' back there, travelers? Lay your trouble on the grille, I got one ear free!
+if flag.haints_all_gone and not flag.gl_tender_opened
+-> tender_ready
+endif
+-> grille_hub
+
+~ grille_hub
+the_vagrant [smile]: Which of our six restless passengers are y'all tryin' to untangle? Name the soul and I will tell you what I have overheard through the vents.
+the_vagrant [neutral]: Take your time, the rails ain't goin' anywhere we ain't.
+* [if not flag.haint_sweetheart_done and not flag.haint_sweetheart_destroyed] Tell us about the Sweetheart. -> hint_sweetheart
+* [if not flag.haint_songstress_done and not flag.haint_songstress_destroyed] Tell us about the Songstress. -> hint_songstress
+* [if not flag.haint_daydreamer_done and not flag.haint_daydreamer_destroyed] Tell us about the Daydreamer. -> hint_daydreamer
+* [if not flag.haint_mariner_done and not flag.haint_mariner_destroyed] Tell us about the Mariner. -> hint_mariner
+* [if not flag.haint_jailbird_done and not flag.haint_jailbird_destroyed] Tell us about the Jailbird. -> hint_jailbird
+* [if not flag.haint_harlequin_done and not flag.haint_harlequin_destroyed] Tell us about the Harlequin. -> hint_harlequin
+* [if flag.gl_vagrant_briefed] How does freeing a haint work? -> ask_plan_hub
+* Tell us about the bottles. -> bottle_trick
+* What if we put one down? -> destroy_cost
+* Should we tell the haints about the fuel? -> dont_tell
+* That's all. -> END
+
+~ ask_plan_hub
+the_vagrant [neutral]: The safest way is a token: find the one thing on this train that finishes their story and hand it over. Or if y'all got a silver tongue and an honest heart, three true words will settle them before three clumsy ones rile them up.
+the_vagrant [weary]: You can also stand an empty bottle or jar upright and cork them when they drift inside, though it leaves a bad taste in my mouth.
+the_vagrant [sad]: And if nothing else works, you put them down hard, though all that leftover hurt has to gather somewhere.
+-> grille_hub
+
+~ bottle_trick
+reveal g1_marble_jar
+reveal g3_whiskey_bottle
+the_vagrant [weary]: If you stand an empty bottle or jar upright near a haint and wait for them to drift over the lip, you can jam a cork in it. A bottled soul is still a soul, and a bottled soul is still fuel in a pinch.
+the_vagrant [neutral]: There is a marble jar sitting in this car, and an empty bottle collecting dust in the Lounge Car.
+the_vagrant [sad]: I'd rather y'all didn't, but I'd rather y'all lived.
+-> grille_hub
+
+~ destroy_cost
+the_vagrant [sad]: Steel and spells will end a haint's trouble quick enough if they come at you swingin'. I won't fault y'all for defendin' your hides in a tight car.
+the_vagrant [weary]: Just remember that all the old hurt they are carryin' doesn't vanish when they drop.
+the_vagrant [afraid]: It slides down the floorboards and gathers in the Tender, and y'all are gonna feel it waitin' at the end of the line.
+-> grille_hub
+
+~ dont_tell
+the_vagrant [afraid]: Easy with your tongues around the passengers, travelers: don't go breathin' the word coal where a haint can hear it.
+the_vagrant [weary]: It's a fact that'll turn a gentle ghost into a mean one faster than the fog ever could.
+-> grille_hub
+
+~ hint_sweetheart
+the_vagrant [sad]: Oh, that poor miss cries enough salt to rust the couplings. She is terrified of crossin' over alone without her sweetheart behind her.
+the_vagrant [neutral]: I reckon a word from him would settle her more than any of ours.
+* Can you be plainer? -> hint_sweetheart_more
+* Thanks. -> grille_hub
+
+~ hint_sweetheart_more
+reveal g5_pink_envelope
+the_vagrant [neutral]: Look through the Mail Car for a bright pink envelope from a fellow named Jakob Braun. It sits right on the shelf of letters sent from the dead to the livin'.
+the_vagrant [smile]: Put that paper in her hands in the third cabin of the Sleeper Car, and she will know she ain't forgotten.
+-> grille_hub
+
+~ hint_songstress
+the_vagrant [sad]: She has got a voice like honey and smoke, and she is starin' out the glass waiting for one last perfect number. What she really needs is an audience that truly listens, and a tune to carry her in.
+the_vagrant [smile]: There's a record player somewhere on this train, I've heard it hum.
+* Can you be plainer? -> hint_songstress_more
+* Thanks. -> grille_hub
+
+~ hint_songstress_more
+
+the_vagrant [neutral]: Duck into the second cabin of the Sleeper Car and you will spot a brass-horned phonograph sitting idle. It ain't heavy if one of y'all has a steady grip.
+the_vagrant [smile]: Carry it over to her in the Lounge Car and let the needle do the rest.
+-> grille_hub
+
+~ hint_daydreamer
+the_vagrant [sad]: That little fellow in the overalls is trying to eat his own guilt right off the plate. He took something that wasn't his back home, and then he went and lost it aboard my train.
+the_vagrant [neutral]: His belly ain't what is empty, friends, it is his pockets.
+* Can you be plainer? -> hint_daydreamer_more
+* Thanks. -> grille_hub
+
+~ hint_daydreamer_more
+reveal g7_marionette_chest
+the_vagrant [neutral]: He pinched a painted stone with a toad's face on it from a neighbor's garden. Last I felt it rattle, it was sitting inside a marionette chest in the Circus Car.
+the_vagrant [smile]: Fetch that ugly little rock back to the Dining Car and the boy can finally put his fork down.
+-> grille_hub
+
+~ hint_mariner
+the_vagrant [sad]: An old salt like him wasn't ever meant to give up the ghost miles inland, dry as dust. He hauls those mailbags around just to pretend the floor is rollin' under his boots.
+the_vagrant [neutral]: He would give a lot for one more honest look at the open sea.
+* Can you be plainer? -> hint_mariner_more
+* Thanks. -> grille_hub
+
+~ hint_mariner_more
+reveal g3_seascape
+the_vagrant [neutral]: There is a framed seascape hanging on the wall of the Lounge Car, and its waves still roll when nobody is staring straight at it. Unhook it carefully from the wainscoting.
+the_vagrant [smile]: Bring that salt water back to the Mail Car and let the old man catch the tide.
+-> grille_hub
+
+~ hint_jailbird
+the_vagrant [sad]: The warden sent that poor devil off on an empty stomach, chains and all, without the last supper he was promised. Now he rattles around the trunks, starvin' for a meal that never came.
+the_vagrant [smile]: Lucky for him, our Dining Car has never refused anybody a warm plate.
+* Can you be plainer? -> hint_jailbird_more
+* Thanks. -> grille_hub
+
+~ hint_jailbird_more
+
+the_vagrant [neutral]: Have a seat in a booth inside the Dining Car and speak the words steak and eggs out loud. The table will set itself with the finest cut you ever smelled, right out of thin air.
+the_vagrant [smile]: Carry that hot plate back to the Baggage Car before the gravy skins over.
+-> grille_hub
+
+~ hint_harlequin
+the_vagrant [sad]: Folks think a jester weeps over a flat joke, but she is sick at heart over a cage door she left unlatched. She needs to know for certain that the beast she loosed can't maul another soul.
+the_vagrant [afraid]: Mind your step in the Baggage Car, friends: there is something asleep back there that nobody ought to wake.
+* Can you be plainer? -> hint_harlequin_more
+* Thanks. -> grille_hub
+
+~ hint_harlequin_more
+
+the_vagrant [afraid]: That sleeping tiger in the Baggage Car is a ghost-flame beast, and there is a hot iron ring resting right on its tail.
+the_vagrant [neutral]: Lift that ring gentle as a feather, or don't touch it at all, and keep water off the creature unless y'all want a terrible fight.
+the_vagrant [neutral]: Bring the iron ring to the Circus Car so she knows the cat is held fast.
+-> grille_hub
+
+# --- Check-ins: haint_common:recount hands over to `router` once a haint is gone ---
+
+~ router
+if flag.haints_destroyed >= 1 and not flag.gl_destroyed_noted
+set gl_destroyed_noted
+narrate haint:destroyed
+endif
+if flag.haints_resolved >= 3 and not flag.gl_level2_given
+set gl_level2_given
+xp milestone
+-> checkin_third
+endif
+if flag.haints_all_gone and not flag.gl_checkin_all
+set gl_checkin_all
+-> checkin_all
+endif
+if flag.haints_resolved >= 5 and not flag.gl_checkin_fifth
+set gl_checkin_fifth
+-> checkin_fifth
+endif
+if flag.haints_resolved >= 1 and not flag.gl_checkin_first
+set gl_checkin_first
+-> checkin_first
+endif
+-> END
+
+~ checkin_first
+the_vagrant [smile]: Well now, did y'all feel that little shiver in the brass? That is one troubled soul off the manifest, and the old girl is riding easier already, like a sticky window just got oiled.
+the_vagrant [neutral]: Keep on down the line, friends, you got the knack for this.
+-> END
+
+~ checkin_third
+the_vagrant [smile]: Halfway home, travelers: listen to that engine hum a sweeter note, and look how steady the oil lamps burn! Y'all are doing right by folks who haven't had a friend in a long while, and I am mighty proud to have you aboard.
+Narrator: The brass grille clicks shut, leaving a quiet warmth in your chest, like a good meal settling before a long walk.
+narrate haint:milestone_two
+-> END
+
+~ checkin_fifth
+the_vagrant [weary]: That is five down, friends, and only one poor soul left pacing the dark. Funny thing about a train at night: the last one is always the hard one.
+the_vagrant [neutral]: Keep your lanterns trimmed and watch each other's backs.
+-> END
+
+~ checkin_all
+the_vagrant [weary]: Six for six, and the cars back there have gone quiet as an empty church. You ought to hear the heavy latch on the Tender drawing back right about now.
+the_vagrant [afraid]: Please step inside and tell me what y'all find in the coal, and tread careful.
+-> END
+
+~ tender_ready
+the_vagrant [smile]: Right outside the Tender door, are y'all? Go gentle on the hinges, friends, and whistle if the coal starts bitin'.
+the_vagrant [afraid]: I got the brakes primed up here, just in case.
+-> END
