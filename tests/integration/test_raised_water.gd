@@ -72,3 +72,25 @@ func test_difficult_squares_roll_with_the_land() -> void:
 
 func test_the_camera_looks_thirty_degrees_down() -> void:
 	assert_between(view.rig.camera.rotation_degrees.x, -30.01, -29.99, "30 degrees")
+
+
+func test_the_creek_runs_downhill() -> void:
+	var shore := _shore()
+	var checked := 0
+	for z in view.grid.depth:
+		for x in view.grid.width:
+			var c := Vector2i(x, z)
+			if not view.grid.has_flag(c, CombatGrid.WATER):
+				continue
+			var p := Vector2(x + 0.5, z + 0.5)
+			var run := shore.flow_at(p)
+			var dir := run[0] as Vector2
+			if dir == Vector2.ZERO:
+				continue
+			assert_true(shore.water_y(p + dir * 0.3) <= shore.water_y(p) + 0.001, "the water at %s runs downhill" % c)
+			assert_between(float(run[1]), 0.0, 1.0, "a speed")
+			checked += 1
+	assert_true(checked > 10, "running water was checked (%d)" % checked)
+	var water := view.atmosphere.water
+	assert_true(bool(water.get_shader_parameter("use_flow_map")), "the water shader reads the run")
+	assert_true(water.get_shader_parameter("flow_map") is Texture2D, "from the flow map")
