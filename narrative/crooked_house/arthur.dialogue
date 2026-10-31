@@ -1,0 +1,105 @@
+# R12: Arthur Lockwood, the spectral infant in the nursery (H13). Speaker arthur_lockwood; quest arthurs_bear; memento memento_blue_bear / memento_bear
+# (taken from the crib by ch_quasits, not here). Arthur has no words: wails and babble; the Narrator carries the scene.
+# FINAL-WORDED: every Narrator and character line below is voiced; no line changes once the voice lane starts (new lines are fine).
+# The bear is the memento whether or not he is calmed. Calming (Persuasion DC 15, or Performance DC 15 as a lullaby) earns Heroic Inspiration, arthur_rested
+# and the cutscene ch_arthur_sleeps; a hero who heard Patrini's lament sings with the tune it left. The patient way (sit with him an hour) also settles him,
+# without the Inspiration, so a bad roll never closes the quest.
+# NOTE: the lament's Advantage on the lullaby is the option's `adv` suffix: `[Performance DC 15 adv]`. The contract has no "heard the lament" flag, so
+# flag.memento_key stands for it (the key only pops out after Patrini plays the lament at the harpsichord, in either of its ways); that one stays a stand-in.
+# Wiring assumptions: Arthur is placed `when: not flag.arthur_rested`; the prop h13_crib starts ch_quasits; this conversation starts arthurs_bear at `wailing`
+# (the quest's giver is Arthur) and moves it to bear_taken once the bear is the party's.
+# Drafted by Gemini (gemini_r12_arthur/brief.md, reply_raw.json), edited; see that folder's README.md.
+
+~ start
+if flag.arthur_rested
+-> done
+endif
+if not (quest.arthurs_bear == wailing or quest.arthurs_bear == bear_taken)
+quest arthurs_bear wailing
+endif
+if flag.memento_bear
+quest arthurs_bear bear_taken
+endif
+if item:memento_blue_bear
+-> calm
+endif
+-> wail
+
+~ wail
+Narrator: That cry gets right into your back teeth and sets the floorboards hummin' under your boots.
+Narrator: A little blue ghost hovers over the mahogany crib, pale tears driftin' up toward the ceiling.
+arthur_lockwood [sad]: Waaah... uh-waaah!
+Narrator: His tiny hands close on empty air, reaching out for a piece of comfort that ain't there.
+arthur_lockwood [sad]: Ba... ba! Waaah!
+interject class:cleric: No child ought to be left crying in the cold like this.
+interject class:fighter: Keep your voices down and your hands easy, all of you.
+* Try to hush him with kind words. -> hush_empty
+* Leave him be for now. -> END
+
+~ hush_empty
+Narrator: Your words go in one ear and right out the wail, because a baby wants what a baby wants.
+-> END
+
+~ calm
+Narrator: The blue bear in your hands is worn threadbare, with one button eye hangin' by a single stitch.
+Narrator: That long cry climbs a note, catches on a breath, and stops dead while he stares at the toy.
+arthur_lockwood [sad]: Hic... ba?
+* [Persuasion DC 15] Speak low and steady, and tell him the bear has come home. -> calm_ok | calm_miss
+* [if flag.memento_key] [Performance DC 15 adv] Sing him the harpsichord's lament as a lullaby. -> lullaby_ok | lullaby_miss
+* [if not flag.memento_key] [Performance DC 15] Sing him a lullaby. -> lullaby_ok | lullaby_miss
+* Sit down with him and the bear, and wait it out. -> patient
+* We will come back to him. -> END
+
+~ calm_ok
+Narrator: You pitch your voice low and steady as a banked stove on a frosty night.
+Narrator: Little by little, the wail unravels into long, shaky breaths that barely stir the dust.
+arthur_lockwood [smile]: Guh... ba...
+inspire party: soothed a crying child with kind words
+-> asleep
+
+~ calm_miss
+Narrator: The cry swells up anew and the old house shivers round you, windowpanes rattling in their frames.
+arthur_lockwood [afraid]: Waaah! Waaah!
+-> calm
+
+~ lullaby_ok
+Narrator: Your song goes out thin and plain, and even the cold lamp seems to lean in a spell to listen.
+Narrator: The blue glow in the little fellow settles down from a hard boil to a gentle simmer.
+arthur_lockwood [smile]: Oooh... mm...
+if flag.memento_key
+Narrator: Then the harpsichord tune from the music room slips into your voice, and his heavy eyes follow it down.
+endif
+inspire party: sang a crying child to sleep
+-> asleep
+
+~ lullaby_miss
+Narrator: Your voice cracks on the third bar and the wail comes back louder, shakin' the shelf of stuffed toys.
+arthur_lockwood [afraid]: Buh... waaah!
+-> calm
+
+~ patient
+time +60
+Narrator: You sit yourself down on the cold boards with the bear across your lap and don't say nothing clever.
+Narrator: A whole hour goes by in small shushin' sounds and the creak of the roof timbers overhead.
+Narrator: Even a ghost gets tired, it seems, and the cry runs down one breath at a time like a clock nobody winds.
+arthur_lockwood [weary]: Hhh... ba.
+-> asleep
+
+# The picture is a hero's arms, no face, cradling the glowing infant; then empty arms and blue motes. The bear stays with the party.
+~ asleep
+cutscene ch_arthur_sleeps
+Narrator: He settles into your arms as light as lamp-glow, one tiny fist wrapped tight round that loose button eye.
+Narrator: For the first time in a long age, the whole crooked house goes quiet from eaves to cellar.
+cutscene ch_arthur_sleeps_2
+Narrator: He thins out until you are holdin' nothing but warmth, and then that warmth lifts away in small blue sparks.
+arthur_lockwood [smile]: Ba...
+Narrator: Now only the old blue bear rests in your hands, a good deal heavier than it looks.
+cutscene end
+set arthur_rested
+quest arthurs_bear asleep
+approve tobin_hayward +2 rook_coldwake +1 lucan_houndstooth +1: You settled a restless child to sleep
+-> END
+
+~ done
+Narrator: The mahogany crib is just a crib again, the nursery sits still as a held breath, and a faint smell of warm milk and lamp oil hangs in the air.
+-> END

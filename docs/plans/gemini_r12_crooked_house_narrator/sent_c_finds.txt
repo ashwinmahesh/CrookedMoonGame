@@ -1,0 +1,97 @@
+Reply with plain text only, no JSON, no preamble, and do not send messages to anyone else. Do not ask questions; decide.
+
+You are drafting short Narrator lines for a Halloween D&D video game, "The Crooked Moon". The Narrator is the Vagrant, the green-skinned ferryman of a ghost train, telling the tale afterwards in a folksy Southern drawl. This batch is set in the Crooked House, a haunted manor on a hill above the village of Wickermoor: a house that warps itself, built on old dark power. A storm has shut the party inside. Here the Vagrant's humour is gone. He is hushed, dry and dead level, the drawl stripped down to bare bones, with silences in it. Never a joke, never a gloat; the dead are respected.
+
+Rules every line follows:
+- Second person ("you"), present tense. Never use any name, never the word {name}; the line is for whoever walks up, any hero.
+- One or two sentences, under about 30 words in all. The second sentence is usually the turn or the payoff.
+- Concrete senses (a smell, a sound, a temperature) over adjectives. No game words (no HP, roll, check, level, search, DC, saving throw, class names). Never tell the player what to feel. Never "suddenly". No modern slang. No winks at the player.
+- No facts the party has not earned: only what a person standing in front of the thing could see, smell, hear or touch. Use only the facts given for each key; do not invent new people, places, monsters, props, objects or history. Do not name any real-world place.
+- Drop a final g ("hangin'", "creakin'") in about one line in three, not more, and use no other dialect spelling (reckon, ain't and folks are fine, sparingly). The fiddle is never written or mentioned.
+- Plain punctuation only: commas, full stops, hyphens, apostrophes, quotation marks. No em dashes, no semicolons, no brackets, no backticks, no stage directions, no placeholders other than where a key below says an EXTRA line may use {name}.
+- Do not repeat an image in neighbouring keys. The house's palette, to spread across the lines, one or two details per line, not all at once: sepia rot and mildew green, faded rose and teal wallpaper, bruised purple upholstery, cracked tile, cobweb grey, dust and mildew; nothing square (doors that are trapezoids, frames that lean, floors that slope, a bulging turret); weasels scratching inside every wall; teeth clicking underfoot; a clock ticking somewhere; the storm; windows sealed and black, streaked with rain, lit by lightning. Sweet rot is the smell of the dining room only, burnt flesh the smell of the kitchen only, copper the smell of the bathroom only. The rooms are unlit unless the party brings light.
+
+Output format, nothing else: for each key, a block exactly like
+
+KEY enter:h2_foyer
+PLAIN: the line
+PLAIN2: a second plain line (only when the key says so)
+EXTRA [class:bard]: the extra line (only when the key says so; this one may begin with {name} and say what that hero does or notices; it must still make sense alone)
+
+Every key needs its PLAIN line, which must stand alone for any hero.
+BATCH C: FINDS, MISSES, TRAPS AND CONTAINERS. One block per key, PLAIN only. A "search" line is the one sentence that plays at the moment a hidden thing is found. A "miss" line plays when a hero searches and finds nothing but a single small human tooth, which they pick up: the house leaves teeth where treasure should be. Every miss line must end with a tooth in the hand, be one short sentence (two at most), say a different thing each time (a different place the tooth is wedged or lies, a different colour or condition of the tooth), and never feel like a dead end or a joke. Trap lines: "found" is the tell that gave the trap away (one sentence); "triggered" is the moment of impact, not the damage (one sentence).
+
+KEY search:h6_table_loot
+Facts: after the feast has been dealt with, among the ruined plates and spilled dishes a large pearl and a plain gold ring lie in the grease.
+
+KEY search:h10_closet
+Facts: among the small hanging coats at the back of the closet, a patch of black that is not shadow, and it moves when you do.
+
+KEY search:h10_bed_left
+Facts: under the left-hand bed, against the wall, a patch of black that is not shadow, and it is wider than the space it hides in.
+
+KEY search:h10_bed_right
+Facts: under the right-hand bed, behind a cloth doll's shoe, a patch of black that is not shadow, and it breathes in and out.
+
+KEY search:h10_chest
+Facts: beneath the heavy lid of the toy chest, under the loose animals, a patch of black that is not shadow, and it is cold on the hand.
+
+KEY search:h10_armoire
+Facts: behind the narrow doors of the star-carved armoire, a patch of black that is not shadow, standing where a child would hide.
+
+KEY search:h10_window
+Facts: outside the sealed black window glass, a patch of black pressed flat against the pane that is not shadow, and it looks back.
+
+KEY search:the_bag
+Facts: among the small coats in the closet hangs a worn leather satchel, and on its flap an eye, stitched or painted, slides to follow your hand.
+
+KEY search:h15_trapdoor
+Facts: in the ceiling plaster over the trophy room, a faint square seam with an iron ring set in it, found by looking where the dust lies thinner.
+
+KEY check:perception:h6_table_loot:failure
+Facts: you search the ruined feast.
+
+KEY check:perception:h10_closet:failure
+Facts: you search the closet among the small coats.
+
+KEY check:perception:h10_bed_left:failure
+Facts: you search under the left bed.
+
+KEY check:perception:h10_bed_right:failure
+Facts: you search under the right bed.
+
+KEY check:perception:h10_chest:failure
+Facts: you search the toy chest.
+
+KEY check:perception:h10_armoire:failure
+Facts: you search the child's armoire.
+
+KEY check:perception:h10_window:failure
+Facts: you search the window ledge.
+
+KEY check:investigation:the_bag:failure
+Facts: you search the coats and the shelf in the closet.
+
+KEY check:perception:h15_trapdoor:failure
+Facts: you search the ceiling and the walls of the trophy room.
+
+KEY trap:h1_porch_edge:found
+Facts: the boards at the very edge of the porch are scorched black in ragged lines, and the air there smells of struck iron.
+
+KEY trap:h1_porch_edge:triggered
+Facts: a hero steps off the edge of the porch into the storm. Lightning and thunder strike together and throw them back onto the boards.
+
+KEY trap:balcony_edge:found
+Facts: along the balcony rail the paint is blistered and the wood split, as if by lightning, and the rain hisses where it lands.
+
+KEY trap:balcony_edge:triggered
+Facts: a hero climbs or leans out past the balcony rail into the storm. The sky cracks white and the thunder drives them back onto the boards.
+
+KEY trap:h7_oven_trap:found
+Facts: the padlock plate of the brick oven has a pale glyph scratched into it that glows faintly when your light crosses it, and the smoke curls away from the glyph.
+
+KEY trap:h7_oven_trap:triggered
+Facts: the oven door bursts outward on a gust of scorching, stinking fume and spitting acid.
+
+KEY open:h7_oven_contents
+Facts: the oven holds only ruined kitchenware, blackened pans, a ladle fused to a pot, a cracked plate, nothing of use. The pounding and the screaming has stopped.

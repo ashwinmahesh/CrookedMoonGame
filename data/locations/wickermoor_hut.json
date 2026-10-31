@@ -1,0 +1,107 @@
+{
+  "id": "wickermoor_hut",
+  "name": "A Herder's Hut",
+  "region": "wickermoor",
+  "summary": "A Herder's Hut, in Wickermoor Village.",
+  "text": "The inside of A Herder's Hut: close, creaking and lived-in.",
+  "map": {
+    "rows": [
+      "############",
+      "#..........#",
+      "#.===......#",
+      "#..........#",
+      "#..........#",
+      "#.......==.#",
+      "#..........#",
+      "#..........#",
+      "#..........#",
+      "######.#####"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "A Herder's Hut",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          10,
+          8
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      6,
+      8
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        6,
+        9
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_hut",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [
+    {
+      "id": "hut_pallet",
+      "cell": [
+        9,
+        5
+      ],
+      "kind": "examine",
+      "label": "A straw pallet",
+      "model": "bed",
+      "text": "A pallet by the wall, warm from a body that has just left it."
+    },
+    {
+      "id": "hut_crook",
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "examine",
+      "label": "Shepherd's crooks",
+      "model": "rope",
+      "text": "Three crooks on pegs and a fourth peg bare."
+    },
+    {
+      "id": "hut_pot",
+      "cell": [
+        2,
+        1
+      ],
+      "kind": "examine",
+      "label": "A pot on a tripod",
+      "model": "hearth",
+      "text": "Oat porridge, burnt on the bottom, the spoon left standing in it."
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

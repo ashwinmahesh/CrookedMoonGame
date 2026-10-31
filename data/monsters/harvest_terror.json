@@ -311,10 +311,14 @@
       "id": "demon_of_secrets",
       "name": "Demon of Secrets",
       "when": {
-        "bloodied": true
+        "gone": {
+          "monster": "amber_crow",
+          "at_least": 6
+        },
+        "flag": "fw_crows_eaten_3"
       },
       "legendary_resistance": "refill",
-      "summary": "The murder bursts: Raum's Legendary Resistance returns and his Devour Secrets hungers.",
+      "summary": "The murder bursts when Raum has eaten three crows or six have been caught or destroyed: his Legendary Resistance returns and Devour Secrets hungers.",
       "say": "fw_raum_phase2",
       "flag": "fw_raum_phase2"
     }
@@ -322,5 +326,18 @@
   "minions": {
     "when_it_falls": "vanish",
     "narration": "The murder of crows scatters into black feathers and amber motes."
-  }
+  },
+  "bonus_actions": [
+    {
+      "id": "eat_crow",
+      "name": "Devour Crow",
+      "kind": "special",
+      "do": "eat_crow",
+      "targets": {
+        "range": 30
+      },
+      "summary": "Eats an amber crow within 30 ft: 10, then 20, then 30 Temporary Hit Points. The third ends his murder phase.",
+      "text": "Raum swallows an amber crow within 30 feet and gains 10 Temporary Hit Points for the first, 20 for the second and 30 for the third. After the third the murder bursts."
+    }
+  ]
 }

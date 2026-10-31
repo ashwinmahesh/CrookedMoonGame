@@ -1,0 +1,107 @@
+{
+  "id": "fw_smokehouse",
+  "name": "The Smokehouse",
+  "region": "foxwillow",
+  "summary": "The Smokehouse, in Foxwillow.",
+  "text": "The inside of The Smokehouse.",
+  "map": {
+    "rows": [
+      "############",
+      "#..........#",
+      "#.========.#",
+      "#..........#",
+      "#..........#",
+      "#....==....#",
+      "#..........#",
+      "#..........#",
+      "#..........#",
+      "######.#####"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Smokehouse",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          10,
+          8
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      6,
+      8
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        6,
+        9
+      ],
+      "to": "foxwillow",
+      "spawn": "from_fw_smokehouse",
+      "label": "Out to the town"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_smokehouse_hooks",
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "examine",
+      "label": "Hanging hams",
+      "model": "rope",
+      "text": "Hams on their hooks, all gone to grey fur in a single night."
+    },
+    {
+      "id": "fw_smokehouse_brazier",
+      "cell": [
+        6,
+        6
+      ],
+      "kind": "examine",
+      "label": "A smouldering brazier",
+      "model": "hearth",
+      "text": "A small fire kept low for the smoking, burning by itself though no one has fed it."
+    },
+    {
+      "id": "fw_smokehouse_crow",
+      "cell": [
+        9,
+        2
+      ],
+      "kind": "examine",
+      "label": "A crow on a rafter",
+      "model": "crow",
+      "text": "A crow watches you from the rafters, its eyes the colour of weak tea."
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

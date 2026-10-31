@@ -5,7 +5,7 @@ res://audio/voice/<speaker>/<key>.mp3. Reads the voice jobs file (CM_VOICE_JOBS,
 narrative/ghostlight_express/ and narrative/narrator/ghostlight_express.dialogue; skips quietly when the jobs file isn't there.
 Exit 1 when a job's line is no longer in the dialogue (it was edited or removed). Lines with {name}, and a class interject whose
 speaker is whichever hero matches, are never voiced and are not counted.
-    python3 tools/content/act1_voice_keys.py [--list]"""
+    python3 tools/content/act1_voice_keys.py [--region crooked_house] [--list]"""
 import glob
 import hashlib
 import json
@@ -15,7 +15,10 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-JOBS = Path(os.environ.get("CM_VOICE_JOBS", "/Volumes/ASH-SSD/CrookedMoon/assets/voice/act1/jobs.json"))
+## --region crooked_house checks Act 2's first chapter instead (narrative/crooked_house/ and narrative/narrator/crooked_house.dialogue, jobs in
+## .../voice/crooked_house/jobs.json); the default is Act 1's Ghostlight Express.
+REGION = sys.argv[sys.argv.index("--region") + 1] if "--region" in sys.argv else "ghostlight_express"
+JOBS = Path(os.environ.get("CM_VOICE_JOBS", "/Volumes/ASH-SSD/CrookedMoon/assets/voice/%s/jobs.json" % ("act1" if REGION == "ghostlight_express" else REGION)))
 NOT_STATEMENTS = ("set", "if", "elif", "quest", "cutscene", "give", "take", "gold", "xp", "move", "combat", "narrate", "reveal", "approve", "attitude",
                   "appear", "vanish", "join", "time", "inspire", "reading", "lead", "end")
 
@@ -26,7 +29,7 @@ def key(text: str) -> str:
 
 def spoken_lines():
     """(speaker, text, file, line number) for every line the game can speak."""
-    files = sorted(glob.glob(str(ROOT / "narrative/ghostlight_express/*.dialogue"))) + [str(ROOT / "narrative/narrator/ghostlight_express.dialogue")]
+    files = sorted(glob.glob(str(ROOT / ("narrative/%s/*.dialogue" % REGION)))) + [str(ROOT / ("narrative/narrator/%s.dialogue" % REGION))]
     for f in files:
         narrator_file = "/narrator/" in f
         for n, line in enumerate(open(f, encoding="utf-8"), 1):

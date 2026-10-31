@@ -1,0 +1,133 @@
+{
+  "id": "wickermoor_stable",
+  "name": "Marianna's Stable",
+  "region": "wickermoor",
+  "summary": "Marianna's Stable, in Wickermoor Village.",
+  "text": "The inside of Marianna's Stable: close, creaking and lived-in.",
+  "map": {
+    "rows": [
+      "######################",
+      "#......#......#......#",
+      "#......#......#......#",
+      "#......#......#......#",
+      "#....................#",
+      "#......#......#......#",
+      "#......#......#......#",
+      "#......#......#......#",
+      "#......#......#......#",
+      "#....................#",
+      "#.=====........=====.#",
+      "#....................#",
+      "#....................#",
+      "###########.##########"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "Marianna's Stable",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          20,
+          12
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      11,
+      12
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        11,
+        13
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_stable",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [
+    {
+      "id": "stable_stall_one",
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "examine",
+      "label": "The first stall",
+      "model": "cupboard",
+      "text": "A grey mare shifts her weight and looks at you with one patient eye."
+    },
+    {
+      "id": "stable_stall_two",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "examine",
+      "label": "The second stall",
+      "model": "cupboard",
+      "text": "A mule, shaggy and calm, chewing nothing."
+    },
+    {
+      "id": "stable_stall_three",
+      "cell": [
+        17,
+        3
+      ],
+      "kind": "examine",
+      "label": "The third stall",
+      "model": "cupboard",
+      "text": "The stall is empty, swept clean, with a halter on the nail as if its owner will be back."
+    },
+    {
+      "id": "stable_tack",
+      "cell": [
+        3,
+        11
+      ],
+      "kind": "examine",
+      "label": "Tack and harness",
+      "model": "rope",
+      "text": "Saddles on pegs, each oiled and each stamped with a small hare."
+    },
+    {
+      "id": "stable_hay",
+      "cell": [
+        17,
+        11
+      ],
+      "kind": "examine",
+      "label": "The hay loft ladder",
+      "model": "ladder",
+      "text": "A ladder to the loft, the hay above it sweet and a little too fresh."
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

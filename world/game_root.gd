@@ -903,10 +903,12 @@ func _after_combat(outcome: String) -> void:
 		show_ending()
 		return
 	if outcome == "defeat":
-		# The Ghostlight Locomotive is retried at once from the clearing's rim (story/ghostlight_retry.gd); any other wipe is a game over.
-		if view != null and GhostlightRetry.applies(view.last_encounter):
-			_retry_fight.call_deferred()
-			return
+		# The fights in data/fight_retries.json (the Ghostlight Locomotive, the Crooked House) begin again at once; any other wipe is a game over.
+		if view != null:
+			var rule := FightRetry.rule_for(view.last_encounter, view.loc_id)
+			if not rule.is_empty():
+				_retry_fight.call_deferred(rule, view.last_encounter)
+				return
 		open_screen("game_over", 0)
 		return
 	if outcome == "victory":
@@ -928,12 +930,29 @@ func _after_combat(outcome: String) -> void:
 		_autosave.call_deferred()   # a won fight is a checkpoint
 
 
-## The party fell to the Ghostlight Locomotive: it gets back up and the fight begins again from the clearing's rim, the Vagrant's line over it.
-func _retry_fight() -> void:
-	GhostlightRetry.restore(st)
+## The party fell in a fight that retries (story/fight_retry.gd): it gets back up, the Narrator speaks, and the fight begins again, from the
+## rule's spawn when it names one (the room's entry), else where the party stands.
+func _retry_fight(rule: Dictionary, spec: Dictionary) -> void:
+	FightRetry.restore(st, rule)
 	_refresh()
-	view._say(GhostlightRetry.NARRATOR_KEY)
-	if not view.start_encounter(GhostlightRetry.RETRY_FIGHT):
+	var spawn := FightRetry.spawn_for(rule, view.loc_id, view.loc)
+	if spawn == "":
+		_begin_retry(rule, spec)
+		return
+	var here := view.loc_id
+	_covered(here, func() -> void:
+		enter_location(here, spawn)
+		_begin_retry.call_deferred(rule, spec))
+
+
+## The Narrator's line over the retry (the first key the Narrator has) and the fight again.
+func _begin_retry(rule: Dictionary, spec: Dictionary) -> void:
+	for key in FightRetry.keys(rule, spec):
+		if view._say(key):
+			break
+	if view.in_combat:
+		return   # arriving began it already
+	if not view.start_encounter(FightRetry.restart_id(rule, spec)):
 		open_screen("game_over", 0)
 
 

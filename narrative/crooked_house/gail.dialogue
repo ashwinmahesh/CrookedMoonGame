@@ -1,0 +1,51 @@
+# R12: Gail Patrini, the housekeeper sewn inside the stuffed bear (H15, the trophy room). Speaker gail_patrini; memento memento_silver_pin / memento_pin.
+# Gail speaks NO words (roaring, then wordless and bewildered): the Narrator carries the whole scene, so no gail_patrini line exists. The voice lane has no job here.
+# FINAL-WORDED: every Narrator line below is voiced; no line changes once the voice lane starts (new lines are fine).
+# Wiring assumptions: the prop h15_bear (found by the trophy room's skill challenge, or given away by the roar after round 6) calls gail:start; freeing her is
+# cutting the stitches (the book's Utilize action), with no roll; cutscenes ch_gail_freed (the bear with her face at its chest) and ch_gail_freed_2 (the
+# sawdust, the pin, the fade) read the lines under them.
+# Drafted by Gemini (gemini_r12_gail/brief.md, reply_raw.json), edited; see that folder's README.md.
+
+~ start
+if flag.memento_pin
+-> done
+endif
+Narrator: That roar presses hard behind your eyes, and all along the walls the stuffed heads set to rattlin' in their sockets.
+Narrator: Right in the middle stands a great dusty bear on a timber block, with a woman's pale face sewn into the fur of its chest, mouth wide open.
+Narrator: Thick wax cord holds the hide together down the seam, pulled coarse and tight by a heavy hand.
+interject class:cleric: Someone bound her spirit into this poor beast, and we cannot leave her to suffer it.
+interject class:rogue: Hold the light steady a second, that heavy thread will give if I get a blade under the knot.
+-> menu
+
+~ menu
+* [Insight DC 12] Look past the roar into her eyes. -> look_ok | look_miss
+* Cut the stitches open. -> free
+* Step back from the bear. -> END
+
+~ look_ok
+Narrator: You look past the noise into the wet dark of her eyes, and there ain't a speck of anger in them, only a terrible begging.
+Narrator: She is hollerin' the way an iron bell rings when a cruel hand will not let go of the rope.
+-> menu
+
+~ look_miss
+Narrator: The din hammers too loud against your skull to read her face, leaving only a wide mouth and a wall of sound.
+-> menu
+
+~ free
+cutscene ch_gail_freed
+Narrator: The heavy threads part one after another like old canvas tearing, and that awful roar cracks in half and breaks off.
+Narrator: In the quiet that follows, the woman's eyelids flutter slow, like folks wakin' up in a strange bed after a fever.
+cutscene ch_gail_freed_2
+Narrator: She stares down at her own pale hands as though she has never seen them before.
+Narrator: Her fingers close on a small silver pin at her collar, and she drives it deep into the bear's leather snout while dry sawdust sifts around her knees.
+Narrator: She looks up at you, bewildered and unafraid, before she thins away like warm breath off a cold windowpane.
+cutscene end
+give memento_silver_pin
+set memento_pin
+Narrator: That silver pin stands bright in the dark leather of the snout, and when you draw it free, it slides out easy, like it was waitin' to be asked.
+approve tobin_hayward +1 rook_coldwake +1 lucan_houndstooth +1: You cut a trapped woman out of the bear that held her
+-> END
+
+~ done
+Narrator: The bear is only an old moths' nest now, dull glass and dry stuffing in the cold draft, and the room rests quiet at last.
+-> END
