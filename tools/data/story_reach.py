@@ -425,9 +425,11 @@ class Story:
             if self.possible(chk.get("when", "")):
                 for it in (chk.get("success") or {}).get("items", []):
                     self.changed |= self.add(("item", it["id"]), f"{why} check {chk.get('id', '')}")
-            f = (chk.get("success") or {}).get("flag")
-            if f and self.possible(chk.get("when", "")):
-                self.changed |= self.add(("flag", f, True), f"{why} check {chk.get('id', '')}")
+            # A failure's flag too (the wildpyre woken by a slip at its iron ring): the roll can go either way.
+            for outcome in ("success", "failure"):
+                f = (chk.get(outcome) or {}).get("flag")
+                if f and self.possible(chk.get("when", "")):
+                    self.changed |= self.add(("flag", f, True), f"{why} check {chk.get('id', '')}")
 
     def _encounter_on(self, lid, en):
         if not self.possible(en.get("when", "")):

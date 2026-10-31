@@ -12,6 +12,7 @@ extends CmPart
 const PREFIX := "bs_"
 const HAINT := "wayward_haint"
 const STOKER := "soulfire_stoker"
+const CORRUPTED_STOKER := "corrupted_soulfire_stoker"   ## the Tender's: 30 Hit Points, one Sear; the same burning of corpses
 const LOCOMOTIVE := "ghostlight_locomotive"
 ## Set on a creature that has wailed.
 const WAILED_META := "bs_wailed"
@@ -39,7 +40,7 @@ func monster_turn(c: Combatant) -> Variant:
 	match monster_id(c):
 		HAINT:
 			return _haint_turn(c)
-		STOKER:
+		STOKER, CORRUPTED_STOKER:
 			return _stoker_turn(c)
 	return null
 

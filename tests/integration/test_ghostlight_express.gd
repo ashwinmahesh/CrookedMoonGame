@@ -97,14 +97,96 @@ func test_the_cars_chain_front_to_back_in_an_order_the_seed_fixes() -> void:
 			assert_true(str(e["to"]).begins_with("module_switcheroo_"), "%s's doors are the module's" % id)
 
 
-func test_the_tenders_door_waits_for_all_six_haints() -> void:
-	var door: Dictionary = {}
-	for e: Dictionary in _loc("ghostlight_g7_circus").get("exits", []):
+const HAINTS := ["sweetheart", "songstress", "daydreamer", "mariner", "jailbird", "harlequin"]
+
+
+func _front_door(car: String) -> Dictionary:
+	for e: Dictionary in _loc(car).get("exits", []):
 		if e["id"] == "front_door":
-			door = e
-	var when := str(door.get("when", ""))
-	for h: String in ["sweetheart", "songstress", "daydreamer", "mariner", "jailbird", "harlequin"]:
-		assert_true(when.contains("haint_%s_done" % h) and when.contains("haint_%s_destroyed" % h), "the door waits on the %s" % h)
+			return e
+	return {}
+
+
+## A seed whose Switcheroo puts `car` last of the six middle cars (just before the Tender).
+func _seed_with_last_car(car: String) -> int:
+	for candidate: int in 100000:
+		var chain := CrookedMoonCampaign.switcheroo_chain(candidate)
+		if chain[chain.size() - 2] == car:
+			return candidate
+	return -1
+
+
+func _front_door_open(car: String, st: StoryState) -> bool:
+	return StoryConditions.check(str(_front_door(car).get("when", "")), st)
+
+
+## The Tender's door is the front door of whichever middle car the seed puts last: that door waits for all six haints (put down or
+## helped), whichever car it is, and the other middle cars' doors never wait.
+func test_the_tenders_door_waits_for_all_six_haints_whichever_car_is_last() -> void:
+	GameState.reset()
+	var st := GameState.story
+	for last: String in CARS.slice(1, 7):
+		st.playthrough_seed = _seed_with_last_car(last)
+		assert_true(st.playthrough_seed >= 0, "some seed puts %s last" % last)
+		for car: String in CARS.slice(1, 7):
+			var has_gate := car == last
+			assert_eq(_front_door_open(car, st), not has_gate, "%s's front door %s with no haint gone" % [car, "waits" if has_gate else "is open"])
+		for h: String in HAINTS:
+			assert_true(not _front_door_open(last, st), "%s's door still waits with the %s unresolved" % [last, h])
+			st.set_flag("haint_%s_done" % h if h != "harlequin" else "haint_harlequin_destroyed")
+		assert_true(_front_door_open(last, st), "%s's door opens when all six are gone, helped or put down" % last)
+		for h: String in HAINTS:
+			st.set_flag("haint_%s_done" % h, false)
+			st.set_flag("haint_%s_destroyed" % h, false)
+	GameState.reset()
+
+
+func test_the_first_car_keeps_the_party_for_the_phantom() -> void:
+	GameState.reset()
+	var st := GameState.story
+	var door := _front_door("ghostlight_g1_passenger")
+	assert_true(not StoryConditions.check(str(door.get("when", "")), st), "the Passenger Car's front door is shut until the Phantom is dealt with")
+	assert_true(str(door.get("locked_text", "")) != "", "and says why")
+	st.set_flag("gl_phantom_done")
+	assert_true(StoryConditions.check(str(door.get("when", "")), st), "it opens after the fight")
+	GameState.reset()
+
+
+func test_the_iron_ring_stays_for_whoever_kills_the_wildpyre() -> void:
+	GameState.reset()
+	var st := GameState.story
+	var loose: Dictionary = {}
+	for p: Dictionary in _loc("ghostlight_g6_baggage").get("props", []):
+		if p["id"] == "g6_iron_ring_loose":
+			loose = p
+	assert_true(not loose.is_empty(), "the ring lies loose once the tiger is gone")
+	var when := str(loose.get("when", ""))
+	assert_true(not StoryConditions.check(when, st), "not while it sleeps")
+	st.set_flag("wildpyre_destroyed")
+	assert_true(StoryConditions.check(when, st), "after it falls")
+	st.set_flag("haint_harlequin_done")
+	assert_true(not StoryConditions.check(when, st), "not once the Harlequin has had hers")
+	GameState.reset()
+
+
+func test_the_baggage_car_holds_the_books_loot() -> void:
+	var cases: Dictionary = {}
+	for c: Dictionary in _loc("ghostlight_g6_baggage").get("containers", []):
+		if c["id"] == "g6_abandoned_cases":
+			cases = c
+	assert_true(not cases.is_empty(), "abandoned luggage holds a container")
+	assert_eq(float(cases.get("gold", 0)), 7.5, "75 silver")
+	var ids: Array[String] = []
+	for it: Dictionary in cases.get("items", []):
+		ids.append("%s x%d" % [it["id"], int(it["qty"])])
+	assert_eq(ids, ["ruby_silver_ring x1", "travelers_clothes x10"] as Array[String])
+
+
+func test_the_fabled_whistle_and_the_hooch_do_something() -> void:
+	var whistle := Compendium.shared().get_entry("items", "whistle_of_the_vagrant")
+	assert_true(not (whistle.get("modifiers", []) as Array).is_empty(), "the Whistle adds to saving throws")
+	var hooch := Compendium.shared().get_entry("items", "haint_hooch")
+	assert_true(not (hooch.get("effects", []) as Array).is_empty(), "the Hooch makes the drinker insubstantial")
 
 
 func test_the_wreck_leads_out_to_the_travel_map_and_the_hill_to_the_train() -> void:

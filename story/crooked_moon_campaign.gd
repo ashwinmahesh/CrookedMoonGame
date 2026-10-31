@@ -34,6 +34,11 @@ func reading(slot: String, st: StoryState) -> Dictionary:
 ## The journal's one line for a hero's card, for `{tarokka.hero_1.hint}` in quest text.
 func field(st: StoryState, path: String) -> String:
 	var parts := path.split(".")
+	# The last of the six middle cars, whichever the playthrough's seed makes it (`tarokka.last_car.<place id>` in a door's `when`): its
+	# front door is the Tender's, so that door is the one that waits for the haints.
+	if parts.size() == 2 and parts[0] == "last_car":
+		var chain := switcheroo_chain(st.playthrough_seed)
+		return "yes" if chain.size() > 1 and chain[chain.size() - 2] == parts[1] else ""
 	if parts.size() == 2 and parts[0] in st.tarokka:
 		var card_id := str(st.tarokka[parts[0]])
 		match parts[1]:

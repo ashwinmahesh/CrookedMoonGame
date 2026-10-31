@@ -95,7 +95,9 @@
       ],
       "to": "module_switcheroo_next",
       "spawn": "from_rear",
-      "label": "On to the next car"
+      "label": "On to the next car",
+      "when": "not tarokka.last_car.ghostlight_g6_baggage or ((flag.haint_sweetheart_done or flag.haint_sweetheart_destroyed) and (flag.haint_songstress_done or flag.haint_songstress_destroyed) and (flag.haint_daydreamer_done or flag.haint_daydreamer_destroyed) and (flag.haint_mariner_done or flag.haint_mariner_destroyed) and (flag.haint_jailbird_done or flag.haint_jailbird_destroyed) and (flag.haint_harlequin_done or flag.haint_harlequin_destroyed))",
+      "locked_text": "The door to the Tender will not budge while a haint rides the train."
     }
   ],
   "props": [
@@ -153,7 +155,8 @@
         3
       ],
       "kind": "decor",
-      "label": "The sleeping tiger"
+      "label": "The sleeping tiger",
+      "when": "not flag.wildpyre_destroyed"
     },
     {
       "id": "g6_iron_ring",
@@ -184,6 +187,19 @@
           }
         }
       ]
+    },
+    {
+      "id": "g6_iron_ring_loose",
+      "cell": [
+        17,
+        4
+      ],
+      "kind": "examine",
+      "label": "The iron ring in the cinders",
+      "model": "case",
+      "item": "wildpyre_iron_ring",
+      "flag": "wildpyre_ring_taken",
+      "when": "flag.wildpyre_destroyed and not flag.wildpyre_ring_taken and not flag.haint_harlequin_done and not item:wildpyre_iron_ring"
     },
     {
       "id": "grille_g6",
@@ -307,6 +323,28 @@
       "bright_ft": 20,
       "dim_ft": 40,
       "color": "candle"
+    }
+  ],
+  "containers": [
+    {
+      "id": "g6_abandoned_cases",
+      "cell": [
+        5,
+        3
+      ],
+      "label": "Abandoned luggage",
+      "gold": 7.5,
+      "items": [
+        {
+          "id": "ruby_silver_ring",
+          "qty": 1
+        },
+        {
+          "id": "travelers_clothes",
+          "qty": 10
+        }
+      ],
+      "model": "case"
     }
   ]
 }
