@@ -1,0 +1,192 @@
+{
+  "id": "fw_circle",
+  "name": "The Circle of Secrets",
+  "region": "foxwillow",
+  "summary": "The Circle of Secrets, in Foxwillow.",
+  "text": "The inside of The Circle of Secrets.",
+  "map": {
+    "rows": [
+      "################################",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#.......#..............#.......#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#.......#..............#.......#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "################################"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Circle of Secrets",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          30,
+          20
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      15,
+      19
+    ]
+  },
+  "exits": [
+    {
+      "id": "way_back",
+      "cell": [
+        15,
+        21
+      ],
+      "to": "fw_maze_j3",
+      "spawn": "from_onward",
+      "label": "Back into the maze",
+      "when": "not flag.fw_raum_started"
+    },
+    {
+      "id": "way_home",
+      "cell": [
+        15,
+        0
+      ],
+      "to": "foxwillow",
+      "spawn": "from_corn",
+      "label": "Out of the corn, home",
+      "when": "flag.jericho_at_rest"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_raum_birdcage",
+      "cell": [
+        15,
+        8
+      ],
+      "kind": "examine",
+      "label": "Virgil, in the crop circle",
+      "model": "scarecrow",
+      "call": "foxwillow/raum:prefight",
+      "approach": 8,
+      "call_when": "not flag.fw_raum_done"
+    },
+    {
+      "id": "fw_farewell",
+      "cell": [
+        15,
+        8
+      ],
+      "kind": "decor",
+      "label": "A faint scarecrow ghost with a banjo",
+      "call": "foxwillow/raum:jericho_farewell",
+      "approach": 8,
+      "call_when": "flag.fw_raum_done and not flag.jericho_at_rest"
+    },
+    {
+      "id": "fw_scythe",
+      "cell": [
+        16,
+        10
+      ],
+      "kind": "search",
+      "label": "A scythe of black wood and bone",
+      "search_dc": 5,
+      "item": "scythe_of_the_harvest_terror",
+      "when": "flag.fw_raum_done and treasure_at:raum_arena"
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "encounters": [
+    {
+      "id": "fw_raum",
+      "trigger": "dialogue",
+      "flag": "fw_raum_done",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "harvest_terror",
+          "cell": [
+            15,
+            7
+          ],
+          "name": "Raum, the Harvest Terror",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "corvodaemon_split",
+          "cell": [
+            10,
+            9
+          ],
+          "name": "A murder of crows"
+        },
+        {
+          "monster": "corvodaemon_split",
+          "cell": [
+            20,
+            9
+          ],
+          "name": "A murder of crows"
+        },
+        {
+          "monster": "corvodaemon_split",
+          "cell": [
+            15,
+            12
+          ],
+          "name": "A murder of crows"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "amber_crows",
+          "name": "Amber crows",
+          "summary": "Another amber-eyed crow lands in the circle.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "amber_crow",
+          "count": 1,
+          "side": "enemies",
+          "cells": [
+            [
+              12,
+              11
+            ],
+            [
+              18,
+              11
+            ]
+          ],
+          "at": 20,
+          "every": 3,
+          "times": 3
+        }
+      ]
+    }
+  ]
+}

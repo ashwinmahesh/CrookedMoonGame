@@ -1,0 +1,97 @@
+{
+  "id": "fw_lantern",
+  "name": "The Hooded Lantern",
+  "region": "foxwillow",
+  "summary": "The Hooded Lantern, in Foxwillow.",
+  "text": "The inside of The Hooded Lantern.",
+  "map": {
+    "rows": [
+      "##################",
+      "#................#",
+      "#.==============.#",
+      "#................#",
+      "#................#",
+      "#................#",
+      "#..==...==...==..#",
+      "#................#",
+      "#................#",
+      "#................#",
+      "#................#",
+      "##################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Hooded Lantern",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          16,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      9,
+      10
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        9,
+        11
+      ],
+      "to": "foxwillow",
+      "spawn": "from_fw_lantern",
+      "label": "Out to the town"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_lantern_counter",
+      "cell": [
+        9,
+        4
+      ],
+      "kind": "examine",
+      "label": "The counter, and a loose board",
+      "model": "table_round",
+      "dialogue": "foxwillow/townsfolk:lantern_cache"
+    },
+    {
+      "id": "fw_lantern_hearth",
+      "cell": [
+        2,
+        1
+      ],
+      "kind": "examine",
+      "label": "The cold hearth",
+      "model": "hearth"
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

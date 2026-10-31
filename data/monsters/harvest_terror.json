@@ -101,7 +101,7 @@
       "name": "Unraveling Song",
       "action": "special",
       "summary": "Its one weakness to Charm: an Influence action playing or singing its old song Charms it until the end of that creature's next turn.",
-      "text": "Its Charmed immunity has one gap. As an Influence action a creature can play or sing the favourite song of the scarecrow that was Jericho Sticks, \"Coal-Eyed Birds\"; the terror is then Charmed until the end of that creature's next turn. The charm ends early if that creature damages the terror or forces it to make a saving throw.",
+      "text": "Its Charmed immunity has one gap. As an Influence action a creature can play or sing the favourite song of the scarecrow that was Jericho Sticks, \"Virgil's Birdcage\"; the terror is then Charmed until the end of that creature's next turn. The charm ends early if that creature damages the terror or forces it to make a saving throw.",
       "implemented": "text"
     },
     {
@@ -305,5 +305,22 @@
   "ai_profile": "skirmisher",
   "art": "scarecrow",
   "art_height": 1.6,
-  "summary": "A crow-headed wicker demon with four black wings: it flies, claws and scythes, wails a dirge that dulls a whole party and eats secrets in a ring around itself; the song of the scarecrow it wears can charm it."
+  "summary": "A crow-headed wicker demon with four black wings: it flies, claws and scythes, wails a dirge that dulls a whole party and eats secrets in a ring around itself; the song of the scarecrow it wears can charm it.",
+  "phases": [
+    {
+      "id": "demon_of_secrets",
+      "name": "Demon of Secrets",
+      "when": {
+        "bloodied": true
+      },
+      "legendary_resistance": "refill",
+      "summary": "The murder bursts: Raum's Legendary Resistance returns and his Devour Secrets hungers.",
+      "say": "fw_raum_phase2",
+      "flag": "fw_raum_phase2"
+    }
+  ],
+  "minions": {
+    "when_it_falls": "vanish",
+    "narration": "The murder of crows scatters into black feathers and amber motes."
+  }
 }

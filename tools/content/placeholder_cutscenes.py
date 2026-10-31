@@ -6,7 +6,10 @@ import json, sys
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parents[2]
-pics = json.loads((ROOT / "tools/content/ghostlight_cutscenes.json").read_text())["pictures"]
+pics = {}
+for f in ("ghostlight_cutscenes.json", "foxwillow_cutscenes.json"):
+    if (ROOT / "tools/content" / f).exists():
+        pics.update(json.loads((ROOT / "tools/content" / f).read_text())["pictures"])
 out = ROOT / "art/cutscenes"
 out.mkdir(parents=True, exist_ok=True)
 for cid, desc in pics.items():
@@ -27,4 +30,4 @@ for cid, desc in pics.items():
     d.text((96, 880), cid, fill=(200, 196, 220), font=f)
     d.text((96, 930), "placeholder: the picture is in the image queue", fill=(120, 116, 150), font=f)
     im.save(p, quality=85)
-print("placeholders:", len(list(out.glob('gl_*.jpg'))))
+print("placeholders:", len(list(out.glob('*.jpg'))))
