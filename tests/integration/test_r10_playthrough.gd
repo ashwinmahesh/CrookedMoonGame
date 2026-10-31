@@ -31,6 +31,7 @@ func before_each() -> void:
 		ch.finish_long_rest()
 		st.party.append(ch)
 	fights.clear()
+	st.playthrough_seed = _seed_for_book_order()
 
 
 func after_each() -> void:
@@ -155,6 +156,17 @@ func _search(prop: String) -> void:
 		st.gain_item(str(p["item"]), 1, st.party[0])
 
 
+## A playthrough seed that shuffles the six middle cars into the order this walk visits them (the book's: sleeper, lounge, dining, mail,
+## baggage, circus), so the walk below can go car to car by name. The Switcheroo's own order is tested in test_ghostlight_express.
+func _seed_for_book_order() -> int:
+	var want := ["ghostlight_g1_passenger", "ghostlight_g2_sleeper", "ghostlight_g3_lounge", "ghostlight_g4_dining", "ghostlight_g5_mail",
+		"ghostlight_g6_baggage", "ghostlight_g7_circus", "ghostlight_g8_tender"]
+	for candidate: int in 100000:
+		if str(CrookedMoonCampaign.switcheroo_chain(candidate)) == str(want):
+			return candidate
+	return 0
+
+
 ## Walks out through `exit`: it must be open now.
 func _exit(exit: String) -> void:
 	var e := _entry("exits", "id", exit)
@@ -164,7 +176,7 @@ func _exit(exit: String) -> void:
 	if str(e["to"]) == "travel":
 		st.location = "travel"
 		return
-	_arrive(str(e["to"]))
+	_arrive(Campaign.module().exit_target(st, st.location, str(e["to"])))
 
 
 func _stage() -> String:
