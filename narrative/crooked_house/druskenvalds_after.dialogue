@@ -1,0 +1,76 @@
+# R12: the Druskenvalds after the hag. Speakers phillip_druskenvald (smooth 1920s transatlantic lord), adela_druskenvald (bubbly flapper). Region crooked_house.
+# FINAL-WORDED: every line below is voiced as written; do not edit a line once the voice lane starts.
+# Reached from vessla:death (the hag dies whispering, then the cutscene). The three pictures of ch_house_unbends are captioned by the Narrator lines under them: (1) the hag collapsing into a heap of teeth,
+# (2) the house seen from outside, angles straightening, rot receding, the round attic window going dark, (3) Phillip and Adela blinking awake on the attic floor. The couple wake remembering only a dinner and
+# nightmares. Phillip pays 75 gp to each hero (one `gold +300`, for a party of four heroes), once. The scratchings in the attic name the other two hags (Stonoga Blackstinger and Golub Graygullet).
+# Phillip stays on at the house, hoping his curse will lift (his powers have not come back here). `unbends` is reached once (from the hag's death); `chat` serves later visits (the restored manor).
+# Flags not in the contract list (register them): phillip_reward_used. vessla_slain is the fight's flag; druskenvald_manor_restored is set here.
+# Drafted by Gemini (docs/plans/gemini_r12_druskenvalds_after/), edited.
+
+~ unbends
+cutscene ch_house_unbends
+Narrator: That crooked old crone folds in on herself like an empty sack, spilling out into a rattling heap of yellow teeth. Ain't nothing left of her mean little laugh but the dust settling on the floorboards.
+cutscene ch_house_unbends_2
+Narrator: Outside, the rafters groan and pull themselves square again while the rot dries up and flakes away into the clearing night. That round attic window goes dark at last, and the rain eases off into a quiet mist.
+cutscene ch_house_unbends_3
+Narrator: Up in the attic, the coarse ropes go slack and fall away on their own. Lord and Lady Druskenvald blink up at the lantern light like folks waking from a mighty long fever.
+cutscene end
+set druskenvald_manor_restored
+-> wake
+
+~ wake
+adela_druskenvald [weary]: Oh, my aching head, what a perfectly dreadful draught is blowing through here! Why, hullo there, darlings, did we miss the soup course, or has the dining room simply wandered off without us?
+phillip_druskenvald [weary]: I daresay we owe you an apology for the state of the reception, my dear friends. I recall the candles being lit and the consommé growing singularly cold, and after that, nothing a gentleman would care to repeat in polite company.
+adela_druskenvald [smile]: Honest to goodness, Philly, I had the most frightful nightmares about molars in the rug and someone giggling inside the water pipes! That is pure applesauce, of course, though my shoes do feel awfully gritty.
+-> thanks
+
+~ thanks
+phillip_druskenvald [neutral]: It is abundantly clear that we owe our lives and our sanity to your timely intervention, my dear friends, a debt I fear mere gratitude can hardly balance. Still, a gentleman keeps his word, so please accept these seventy-five gold pieces each as a modest token of our esteem.
+# 75 gp x 4 heroes (R11 audit item 4): one place, once.
+if not flag.phillip_reward_used
+set phillip_reward_used
+quest the_crooked_house done
+gold +300
+Narrator: A heavy leather purse changes hands, still warm from his coat pocket, clinking sweet and solid in your palm. All around you, the old timber gives a long, contented creak like a tired man settling back in his armchair.
+endif
+-> menu
+
+~ menu
+* What do the two of you remember about tonight? -> remember
+* Look at these two names scratched into the stone. -> scratchings
+* Will you stay on in this house now? -> stay
+* What can you tell us about the Ghostlight Express? -> train
+* That is all we need for now. -> leave
+
+~ remember
+adela_druskenvald [afraid]: I remember the tall tapers flickering, and a terribly charming stranger who insisted we try just one more glass of the red vintage. After that it was all just voices, darlings, talking and talking inside the walls until my ears rang.
+phillip_druskenvald [sad]: It was the most peculiar sensation of the house learning the measure of my step, rather as an organist learns a grim little tune. My only clear thought, before the dark took us, was a cold dread that I had brought Adela somewhere quite beyond my power to mend.
+-> menu
+
+~ scratchings
+set coven_names_known
+Narrator: Right there by the cold iron pot, gouged deep into the masonry by fingernails that dug rather than wrote, sit two names. Stonoga Blackstinger and Golub Graygullet stare back at you from the powdered stone.
+phillip_druskenvald [angry]: Stonoga Blackstinger and Golub Graygullet, you say? Those will be our late hostess's sisters, I daresay, as they are singularly the sort of names one gives to creatures that bite in the dark.
+adela_druskenvald [afraid]: Oh, darlings, what a positively dismal family tree! Like as not those two old cats will come sniffing after you once they hear their little sister's kettle has gone cold, so do watch your backs.
+-> menu
+
+~ stay
+phillip_druskenvald [weary]: Oddly enough, the old manor feels rather contrite now that its worst tenant has been evicted, so I think we shall stay on a spell. Something in this valley has left my own modest gifts quite silent and out of reach, and I rather hope the clean air might restore what the curse took from me.
+adela_druskenvald [smile]: Where Philly goes, I go, darlings, and that is the whole of it! Though I confess I shall be positively jazzed to pack our trunks before that horrid iron train comes whistling back round the bend for us.
+-> menu
+
+~ train
+adela_druskenvald [afraid]: Oh, do not even speak of that dreadful locomotive, darlings! I would not set one slipper on the Ghostlight Express again for all the tea in China, and Philly had better keep his pockets clear of tickets too.
+phillip_druskenvald [sly]: You may rest easy, my dear, for the Express arrives only when it chooses, and I have every intention of being seated beside a very different fire when it does.
+-> menu
+
+~ leave
+phillip_druskenvald [smile]: Our doors stand wide to you, my dear friends, and you must promise to call upon us whenever the hill road takes your fancy. It is a singular pleasure to play host when one is actually awake for the occasion.
+adela_druskenvald [smile]: Do drop in soon, darlings! I shall have the cook put on a proper spread for us, and not a single tooth in the pudding this time, I cross my heart!
+-> END
+
+# Later visits: the manor restored, a gentler place that is still a little odd.
+~ chat
+phillip_druskenvald [smile]: Ah, my dear friends, how capital to see you standing in the light of a house that finally knows how to behave itself. The corridors are still a touch eccentric at the corners, I daresay, but the old place has grown singularly gentle with us.
+adela_druskenvald [smile]: Come right in, darlings, it is simply swell to see you! The parlor wallpaper has quit whispering behind our backs at last, which I call a tremendous improvement for everyone's nerves.
+-> menu
