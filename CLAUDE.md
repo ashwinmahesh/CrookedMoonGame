@@ -99,7 +99,11 @@ engine first, then commit the new submodule commit here (its path shows as the c
   tools/art/build_palette.py. Look P's night, moon and flame colours are set; the rest still carry the old game's colours.
 - Asset packs from the internet: CC0 or clearly free licences only, kept untouched with their licence in art/sourced/<pack>/, listed in the
   credits (art/credits.json), each download after Ashwin's typed yes. Credit every artist.
-- Characters come from the image pipeline so the style stays consistent; every sprite walks and attacks in 8 directions. Set dressing comes
+- Every character and monster is a 3D figure (Ashwin, 2026-10-30): a rigged Tripo model from the stylized look P turnaround,
+  listed in art/figures/manifest.json (its `source` under the asset root's tripo/models) and copied in with 2K textures by
+  `python3 tools/art/figures.py`; the engine draws it wherever the art id would be a sprite (docs/reference/art/figures.md in
+  the engine). A figure without a model falls back to its 8-direction sprite. Capture them with
+  `make capture SCENE=res://tools/capture/figures_capture.tscn`. Set dressing comes
   from the props catalog; never fall back to plain boxes for new content. UI draws on CanvasLayers so the palette pass never touches it.
 - Git LFS for new or changed images, voice and sound clips (see .gitattributes). Never `git lfs migrate` or `git add --renormalize`; stage
   only files you changed (`make lfs-quiet` clears timestamp noise). Force-add new art's `.import` files (`git add -f`): *.import is ignored.
