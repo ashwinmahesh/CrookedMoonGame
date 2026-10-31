@@ -37,6 +37,11 @@ QUESTS = [
          {"id": "sick", "journal": "Half the village has fallen sick after the picnic. Morgan thinks it is the apples.", "hint": "Speak with Morgan at the apothecary.", "objectives": ["Learn where the apples came from"]},
          {"id": "orchard", "journal": "The apples came from Marl's orchard, east of the village. Cecil Marl has been selling something worse than fruit.", "hint": "Take the path east from the village's north road to the orchard.", "objectives": ["Go to Marl's orchard"]},
          {"id": "cured", "journal": "Cecil Marl and what he bargained with are gone, the orchard has withered to ash and the sickness is lifting.", "ends": "success"}]},
+    {"id": "the_pyethymer_place", "name": "The Old Pyethymer Place", "kind": "side", "region": "wickermoor", "giver": "doris_squire",
+     "summary": "A house at the end of the east lane that children go into and do not come out of.",
+     "stages": [
+         {"id": "rumour", "journal": "At the end of the east lane stands the Old Pyethymer Place, chained shut by order of the mayor, with a child's shoe on its step.", "hint": "Look at the gate at the end of the east lane.", "objectives": ["Learn what the house is"]},
+         {"id": "chained", "journal": "The house is shut for a reason, and it is not a house for a party our size. It will be waiting.", "hint": "Come back when you are stronger; the gate will still be chained."}]},
     {"id": "souls_of_the_oak", "name": "The Souls of the Oak", "kind": "side", "region": "wickermoor", "giver": "old_rusty",
      "summary": "The faces in the oak are the souls of those beheaded before it, and they want to be let go.",
      "stages": [
@@ -45,7 +50,9 @@ QUESTS = [
          {"id": "freed", "journal": "The faces left the bark one by one. The oak is only a tree.", "ends": "success"}]},
 ]
 
-FLAGS = [("wm_lottery_open", "bool", "The Stranger has set up his lottery in the Round."), ("wm_lottery_done", "bool", "The party has dealt with the lottery."), ("wm_lottery_broken", "bool", "The party tore up the Stranger's ledger."),
+FLAGS = [("accused_alda", "bool", "Doris is watching Alda."), ("accused_randall", "bool", "Doris is watching Randall."),
+         ("accused_baltus", "bool", "Doris is watching Baltus."), ("accused_howie", "bool", "Doris is watching Howie."), ("accused_gaston", "bool", "Doris is watching Gaston."),
+("wm_lottery_open", "bool", "The Stranger has set up his lottery in the Round."), ("wm_lottery_done", "bool", "The party has dealt with the lottery."), ("wm_lottery_broken", "bool", "The party tore up the Stranger's ledger."),
          ("gus_body_found", "bool", "Ned Cooper's body is at the oak."), ("gus_accused", "bool", "Doris suspects the party."), ("gus_clue_axe", "bool", "The axe came from the carpenter's."),
          ("gus_clue_hair", "bool", "Mori found a woman's grey hair."), ("gus_clue_hare", "bool", "Mori found the crossed-axes brand."), ("gus_marta_down", "bool", "Marta Dunn is defeated."), ("gus_solved", "bool", "The Gus case is closed."),
          ("play_arrived", "bool", "The company has come to the inn."), ("play_victim_dead", "bool", "Barnaby Quill is dead."), ("play_clue_cup", "bool", "The prop cup."), ("play_clue_note", "bool", "The torn letter."),
@@ -155,6 +162,24 @@ def apply(town, rooms, npc, prop):
     inn["encounters"] = inn.get("encounters", [])
     mor = rooms["wickermoor_apothecary"][1]
     mor["npcs"] = [npc("morgan", [4, 8], "bad_seed:morgan_apples", when="flag.picnic_sick and not flag.seed_done")] + mor["npcs"]
+    # the second routes to the cult's tells: a thing in each cultist's own place, found by a check (side flags in data/flags/world_checks.json)
+    def proof(room, pid, cid, skill, dc, label, flag, text):
+        for pr in rooms[room][1]["props"]:
+            if pr["id"] == pid:
+                pr["checks"] = [{"id": cid, "skill": skill, "dc": dc, "label": label, "success": {"flag": flag, "text": text}, "failure": {}}]
+                return
+        raise KeyError(pid)
+    proof("wickermoor_green_queen_inn_upper", "green_queen_inn_upper_ledger", "alda_ledger", "investigation", 13, "Read the ledger's margins", "cult_proof_alda", "Beside the favours owed, in tiny neat inked hares, are the names of half the village, and one name is a queen's.")
+    proof("wickermoor_barber_shop", "barber_shop_chair_two", "randall_chair", "perception", 12, "Look at the arm of the second chair", "cult_proof_randall", "The hare on the chair's arm has antlers, and someone has oiled it as if it were a holy thing.")
+    proof("wickermoor_trading_post", "trading_post_counter", "baltus_pipes", "investigation", 13, "Study his pipe rack", "cult_proof_baltus", "Every pipe on the rack is carved with a hare, and each hare wears a small crown of antlers.")
+    proof("wickermoor_constable_station", "constable_station_board", "howie_roster", "investigation", 12, "Read the duty roster", "cult_proof_howie", "Howie's hand fills every odd hour of the roster, and each of his initials is followed by a very small foot.")
+    proof("wickermoor_post_office", "post_office_pigeonholes", "theodora_seals", "investigation", 14, "Compare a letter with its seal", "cult_proof_theodora", "The wax is a different colour from the letter's own, and the hand inside is not the sender's.")
+    rooms["wickermoor_barber_shop"][1]["props"] += []
+    for pr in rooms["wickermoor_barber_shop"][1]["props"]:
+        if pr["id"] == "barber_shop_broom":
+            pr["checks"] = [{"id": "barber_floor", "skill": "investigation", "dc": 12, "label": "Study the swept floor", "success": {"flag": "barber_cellar_found", "text": "The sweeping stops at a seam in the boards by the east wall, and a bit of wall is cleaner than the rest."}, "failure": {}}]
+    town["props"].append(prop("wm_gaston_easel", cell((19, 16)), "A painter's easel", model="table_round",
+                              checks=[{"id": "gaston_paintings", "skill": "perception", "dc": 12, "label": "Look at the paintings", "success": {"flag": "cult_proof_gaston", "text": "Every canvas has a small hare tucked into a corner, in the same hand, as though the painter did not know he was doing it."}, "failure": {}}]))
     # the orchard
     rows_o = orchard_rows()
     orch = {"id": "wickermoor_orchard", "name": "Marl's Orchard", "region": "wickermoor", "summary": "An apple orchard east of the village, and a farmhouse with its shutters closed.",
@@ -174,6 +199,15 @@ def apply(town, rooms, npc, prop):
 
 
 def write_all(write):
+    wc = ROOT / "data/flags/world_checks.json"
+    d = json.loads(wc.read_text())
+    have = {f["id"] for f in d["flags"]}
+    for fid, sm in [("cult_proof_alda", "Found Alda's ledger of hares."), ("cult_proof_randall", "Found Randall's carved hare."), ("cult_proof_baltus", "Found Baltus's hare pipes."), ("cult_proof_howie", "Found Howie's roster."),
+                    ("cult_proof_theodora", "Found a doctored letter."), ("cult_proof_gaston", "Found Gaston's hares."), ("barber_cellar_found", "Found the barber's hidden stair.")] + \
+                   [(f"cult_clue_{n}", "Saw a tell on " + n.replace("_", " ") + ".") for n in ("alda_farnum", "howie_butterman", "baltus_tolliver", "randall_graham", "theodora_mayville", "gaston_doray")]:
+        if fid not in have:
+            d["flags"].append({"id": fid, "type": "bool", "summary": sm, "read_later": True})
+    wc.write_text(json.dumps(d, indent=1) + "\n")
     for (nid, name, title, summary, att) in NPCS:
         write(f"data/npcs/{nid}.json", {"id": nid, "name": name, "title": title, "summary": summary, "attitude": att, "sprite": "villager", "region": "wickermoor"})
     for q in QUESTS:

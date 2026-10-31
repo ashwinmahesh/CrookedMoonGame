@@ -403,6 +403,16 @@
       "label": "Enter Shade Funeral Home"
     },
     {
+      "id": "church",
+      "cell": [
+        8,
+        29
+      ],
+      "to": "wickermoor_church",
+      "spawn": "default",
+      "label": "Enter The Abandoned Church"
+    },
+    {
       "id": "shop_bakery",
       "cell": [
         34,
@@ -966,12 +976,13 @@
     {
       "id": "wm_pyethymer_gate",
       "cell": [
-        55,
+        51,
         41
       ],
       "kind": "examine",
       "label": "The chained gate",
-      "model": "gate"
+      "model": "gate",
+      "dialogue": "wickermoor/pyethymer:gate"
     },
     {
       "id": "wm_sacrifice_doll",
@@ -1026,6 +1037,29 @@
       "call": "wickermoor/oak:freed",
       "approach": 8,
       "call_when": "flag.wm_oak_won and not flag.wm_oak_freed"
+    },
+    {
+      "id": "wm_gaston_easel",
+      "cell": [
+        19,
+        16
+      ],
+      "kind": "examine",
+      "label": "A painter's easel",
+      "model": "table_round",
+      "checks": [
+        {
+          "id": "gaston_paintings",
+          "skill": "perception",
+          "dc": 12,
+          "label": "Look at the paintings",
+          "success": {
+            "flag": "cult_proof_gaston",
+            "text": "Every canvas has a small hare tucked into a corner, in the same hand, as though the painter did not know he was doing it."
+          },
+          "failure": {}
+        }
+      ]
     }
   ],
   "region": "wickermoor",
@@ -1095,6 +1129,10 @@
     "from_funeral_home": [
       46,
       38
+    ],
+    "from_church": [
+      8,
+      30
     ],
     "from_shop_bakery": [
       34,

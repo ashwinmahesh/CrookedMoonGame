@@ -39,7 +39,7 @@ def inn_ground():
     g.put([(13, 13), (14, 13), (18, 13), (19, 13), (23, 13), (24, 13), (13, 16), (14, 16), (18, 16), (19, 16), (23, 16), (24, 16)], "=")  # tables
     g.put([(2, 13), (2, 14), (2, 15), (5, 17), (6, 17)], "=")
     g.wall(26, 8, 28, 9).fill(27, 8, 27, 8, ".")           # the stair's wall (the stair itself is the exit at 27,8)
-    return dict(name="The Green Queen Inn", rows=g.rows(), door=(14, 21), spawn=(14, 19), extra_exits=[("stairs_up", (27, 8), "wickermoor_green_queen_inn_upper", "from_stairs", "Stairs up"),
+    return dict(name="The Green Queen Inn", rows=g.rows(), door=(14, 21), spawn=(14, 19), extra_exits=[("cellar_stair", (6, 7), "wickermoor_inn_cellar", "from_stair", "Down to the cellar"), ("stairs_up", (27, 8), "wickermoor_green_queen_inn_upper", "from_stairs", "Stairs up"),
                 ("yard_door", (29, 15), "wickermoor_village", "from_inn_yard", "The stable yard")], npc_spots={"alda_farnum": (15, 9), "stage": (23, 4)})
 
 
@@ -88,7 +88,7 @@ def trading():
     g.wall(1, 8, 20, 8).fill(10, 8, 11, 8, ".")           # the showroom below the stockroom
     g.fill(3, 11, 10, 11, "=").fill(14, 11, 18, 11, "=").put([(4, 3), (5, 3), (9, 3), (10, 3), (14, 3), (15, 3)], "=")
     g.fill(3, 5, 8, 5, "=").put([(17, 5), (18, 5), (17, 6), (18, 6)], "=")
-    return dict(name="Tolliver's Trading Post", rows=g.rows(), door=(10, 15), spawn=(10, 13), extra_exits=[("cellar", (19, 2), "wickermoor_town_cellars", "from_trading", "The stair down")])
+    return dict(name="Tolliver's Trading Post", rows=g.rows(), door=(10, 15), spawn=(10, 13), extra_exits=[("cellar", (19, 2), "wickermoor_trading_cellar", "from_stair", "The stair down")])
 
 
 def apothecary():
@@ -102,7 +102,7 @@ def barber():
     g = G(14, 12).room(1, 1, 12, 10)
     g.put([(3, 3), (4, 3), (8, 3), (9, 3)], "=").fill(2, 7, 11, 7, "=").fill(7, 7, 7, 7, ".").put([(11, 2), (11, 3)], "=")
     g.wall(1, 5, 5, 5).fill(5, 5, 5, 5, ".")
-    return dict(name="Graham's Barber Shop", rows=g.rows(), door=(6, 11), spawn=(6, 9), secret_door=(12, 6))
+    return dict(name="Graham's Barber Shop", rows=g.rows(), door=(6, 11), spawn=(6, 9), extra_exits=[("cellar_door", (12, 6), "wickermoor_barber_cellar", "from_stair", "The hidden stair", {"when": "flag.barber_cellar_found", "locked_text": "There is only a wall there."})])
 
 
 def school():
@@ -132,7 +132,7 @@ def funeral():
     g.wall(1, 8, 18, 8).fill(9, 8, 10, 8, ".")
     g.fill(4, 2, 9, 2, "=").fill(12, 2, 16, 2, "=").put([(3, 5), (4, 5), (15, 5), (16, 5)], "=")
     g.fill(3, 11, 7, 11, "=").fill(12, 11, 16, 11, "=")
-    return dict(name="Shade Funeral Home", rows=g.rows(), door=(9, 15), spawn=(9, 13))
+    return dict(name="Shade Funeral Home", rows=g.rows(), door=(9, 15), spawn=(9, 13), extra_exits=[("basement_stair", (17, 2), "wickermoor_funeral_basement", "from_stair", "Down to the basement")])
 
 
 def books():
@@ -148,9 +148,43 @@ def small_shop():
     return dict(name="A Shop", rows=g.rows(), door=(6, 11), spawn=(6, 9))
 
 
+def inn_cellar():
+    g = G(18, 14).room(1, 1, 16, 12)
+    g.put([(2, 2), (3, 2), (4, 2), (7, 2), (8, 2), (12, 2), (13, 2), (14, 2)], "=").fill(2, 6, 6, 6, "=").put([(12, 8), (13, 8), (12, 9), (13, 9)], "=")
+    return dict(name="The Inn's Cellar", rows=g.rows(), door=(8, 13), spawn=(8, 11), door_to=("wickermoor_green_queen_inn", "from_cellar", "Up to the taproom"))
+
+
+def trading_cellar():
+    g = G(18, 14).room(1, 1, 16, 12)
+    g.wall(8, 1, 8, 6).fill(8, 4, 8, 4, ".")
+    g.fill(2, 2, 6, 2, "=").put([(11, 3), (12, 3), (13, 3)], "=").fill(2, 9, 6, 9, "=").put([(12, 10), (13, 10)], "=")
+    return dict(name="The Trading Post Cellar", rows=g.rows(), door=(8, 13), spawn=(8, 11), door_to=("wickermoor_trading_post", "from_cellar", "Up to the showroom"))
+
+
+def barber_cellar():
+    g = G(14, 12).room(1, 1, 12, 10)
+    g.fill(2, 2, 11, 2, "=").put([(3, 5), (4, 5), (8, 5), (9, 5)], "=").fill(2, 8, 5, 8, "=")
+    return dict(name="The Barber's Cellar", rows=g.rows(), door=(6, 11), spawn=(6, 9), door_to=("wickermoor_barber_shop", "from_cellar", "Up to the shop"))
+
+
+def funeral_basement():
+    g = G(18, 12).room(1, 1, 16, 10)
+    g.fill(3, 3, 7, 3, "=").fill(10, 3, 14, 3, "=").fill(3, 7, 7, 7, "=").fill(10, 7, 14, 7, "=")
+    return dict(name="The Funeral Home's Basement", rows=g.rows(), door=(8, 11), spawn=(8, 9), door_to=("wickermoor_funeral_home", "from_basement", "Up to the ceremony rooms"))
+
+
+def church():
+    g = G(20, 16).room(1, 1, 18, 14)
+    g.fill(8, 1, 11, 2, "_")                                     # the altar's step, new boards
+    g.fill(3, 5, 6, 5, "=").fill(13, 5, 16, 5, "=").fill(3, 8, 6, 8, "=").fill(13, 8, 16, 8, "=").put([(9, 7), (10, 7)], "=")
+    return dict(name="The Abandoned Church", rows=g.rows(), door=(9, 15), spawn=(9, 13))
+
+
 ROOMS = {
     "wickermoor_green_queen_inn": inn_ground, "wickermoor_green_queen_inn_upper": inn_upper, "wickermoor_mayors_house": mayor,
     "wickermoor_clock_chamber": clock_chamber, "wickermoor_constable_station": constable, "wickermoor_trading_post": trading,
     "wickermoor_apothecary": apothecary, "wickermoor_barber_shop": barber, "wickermoor_schoolhouse": school, "wickermoor_post_office": post,
+    "wickermoor_inn_cellar": inn_cellar, "wickermoor_trading_cellar": trading_cellar, "wickermoor_barber_cellar": barber_cellar,
+    "wickermoor_funeral_basement": funeral_basement, "wickermoor_church": church,
     "wickermoor_dovecote": dovecote, "wickermoor_funeral_home": funeral, "wickermoor_bookstore": books,
 }

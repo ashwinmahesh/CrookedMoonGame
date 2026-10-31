@@ -207,6 +207,25 @@ func test_the_oak_wakes_only_for_a_party_of_level_six() -> void:
 	assert_eq(st.quest_stage("souls_of_the_oak"), "whispers")
 
 
+func test_doris_acts_on_a_cultist_only_with_both_a_tell_and_a_proof() -> void:
+	_arrive("wickermoor_constable_station")
+	_play("wickermoor/doris_squire:start", ["Report a suspicion", "Alda Farnum", "Never mind"])
+	assert_true(not bool(st.get_flag("accused_alda")), "a bare accusation is not enough")
+	st.set_flag("cult_clue_alda_farnum")
+	st.set_flag("cult_proof_alda")
+	_play("wickermoor/doris_squire:start", ["Report a suspicion", "Alda Farnum", "Never mind"])
+	assert_true(bool(st.get_flag("accused_alda")))
+	_play("wickermoor/doris_squire:start", ["Report a suspicion", "Theodora Mayville", "Never mind"])
+	assert_true(not bool(st.get_flag("accused_theodora")), "the postmaster cannot be accused early")
+
+
+func test_the_pyethymer_gate_is_looked_at_and_stays_chained() -> void:
+	_play("wickermoor/pyethymer:gate", ["Ask what folk say", "Leave it"])
+	assert_eq(st.quest_stage("the_pyethymer_place"), "rumour")
+	_play("wickermoor/pyethymer:gate", ["Try the chain"])
+	assert_eq(st.quest_stage("the_pyethymer_place"), "chained")
+
+
 func test_every_persons_first_conversation_plays_through() -> void:
 	var seen := 0
 	for loc: Dictionary in Compendium.shared().all("locations"):

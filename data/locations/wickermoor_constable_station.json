@@ -71,7 +71,20 @@
       "kind": "examine",
       "label": "The notice board",
       "model": "notice_board",
-      "text": "Wanted notices gone yellow at the corners and a hand-drawn map of the village with several houses crossed out."
+      "text": "Wanted notices gone yellow at the corners and a hand-drawn map of the village with several houses crossed out.",
+      "checks": [
+        {
+          "id": "howie_roster",
+          "skill": "investigation",
+          "dc": 12,
+          "label": "Read the duty roster",
+          "success": {
+            "flag": "cult_proof_howie",
+            "text": "Howie's hand fills every odd hour of the roster, and each of his initials is followed by a very small foot."
+          },
+          "failure": {}
+        }
+      ]
     },
     {
       "id": "constable_station_stove",

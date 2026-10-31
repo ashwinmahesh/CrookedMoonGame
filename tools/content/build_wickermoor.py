@@ -63,7 +63,7 @@ DOORS = {   # key: (door cell, outside spawn)
     "wickermoor_constable_station": ((44, 16), (44, 17)), "wickermoor_post_office": ((34, 7), (34, 8)),
     "wickermoor_dovecote": ((43, 6), (43, 7)), "wickermoor_schoolhouse": ((6, 18), (6, 19)),
     "wickermoor_bookstore": ((13, 22), (13, 23)), "wickermoor_apothecary": ((10, 34), (10, 33)),
-    "wickermoor_funeral_home": ((46, 39), (46, 38)),
+    "wickermoor_funeral_home": ((46, 39), (46, 38)), "wickermoor_church": ((8, 29), (8, 30)),
     # the craft shops, one shell dressed seven ways
     "wickermoor_shop_bakery": ((34, 16), (34, 17)), "wickermoor_shop_tailor": ((28, 16), (28, 17)),
     "wickermoor_shop_smithy": ((5, 36), (6, 36)), "wickermoor_shop_wickery": ((16, 35), (16, 34)),
@@ -74,7 +74,8 @@ LABEL = {
     "wickermoor_green_queen_inn": "The Green Queen Inn", "wickermoor_trading_post": "Tolliver's Trading Post", "wickermoor_mayors_house": "The Mayor's House",
     "wickermoor_barber_shop": "Graham's Barber Shop", "wickermoor_constable_station": "The Constable's Station", "wickermoor_post_office": "The Post Office",
     "wickermoor_dovecote": "The Dovecote", "wickermoor_schoolhouse": "The Schoolhouse", "wickermoor_bookstore": "The Antique Bookstore",
-    "wickermoor_apothecary": "The Apothecary", "wickermoor_funeral_home": "Shade Funeral Home",
+    "wickermoor_apothecary": "The Apothecary", "wickermoor_funeral_home": "Shade Funeral Home", "wickermoor_church": "The Abandoned Church", "wickermoor_inn_cellar": "The Inn's Cellar",
+    "wickermoor_trading_cellar": "The Trading Post Cellar", "wickermoor_barber_cellar": "The Barber's Cellar", "wickermoor_funeral_basement": "The Funeral Home's Basement",
     "wickermoor_shop_bakery": "Bread by Holly", "wickermoor_shop_tailor": "A Stitch in Time", "wickermoor_shop_smithy": "The Smithy",
     "wickermoor_shop_wickery": "The Wickery", "wickermoor_shop_butcher": "Harga's Meats", "wickermoor_shop_masonry": "Roderick Masonry",
     "wickermoor_shop_carpentry": "The Carpentry Workshop",
@@ -195,10 +196,10 @@ def build_rooms(town_rows):
         if key in DOORS:
             _, outside = DOORS[key]
             add_exit(loc, "door", spec["door"], "wickermoor_village", "from_" + key[len("wickermoor_"):], "Out to the village")
-        for (eid, cell, to, sp, label) in spec.get("extra_exits", []):
-            if eid in ("dovecote_stair", "cellar"):
+        for (eid, cell, to, sp, label, *rest) in spec.get("extra_exits", []):
+            if eid == "dovecote_stair":
                 continue
-            add_exit(loc, eid, cell, to, sp, label)
+            add_exit(loc, eid, cell, to, sp, label, **(rest[0] if rest else {}))
         if "exits_to" in spec:
             eid, cell, to, sp = spec["exits_to"]
             add_exit(loc, eid, cell, to, sp, "Stairs down")
@@ -237,6 +238,11 @@ DRESS = {
     "wickermoor_shop_butcher": [("block", (3, 2), "The chopping block", "table_round"), ("hooks", (9, 2), "Hanging carcasses", "rope"), ("pens", (4, 9), "The pens' gate", "gate")],
     "wickermoor_shop_masonry": [("stones", (3, 2), "Dressed stones", "rocks"), ("chisels", (9, 2), "Chisels and mallets", "case"), ("slabs", (4, 9), "Gravestones waiting for names", "grave")],
     "wickermoor_shop_carpentry": [("logs", (3, 2), "Stacked logs", "rocks"), ("saws", (9, 2), "Saws on their pegs", "rope"), ("wagon", (4, 9), "A half-built wagon", "cart")],
+    "wickermoor_inn_cellar": [("casks", (3, 3), "Casks and kegs", "barrel"), ("hams", (13, 3), "Hung hams", "rope"), ("crate", (4, 7), "A crate marked for the Green Queen", "case")],
+    "wickermoor_trading_cellar": [("crates", (3, 3), "Stacked crates", "case"), ("cot", (12, 4), "A guard's cot", "case"), ("ledger", (3, 10), "A second ledger", "ledger")],
+    "wickermoor_barber_cellar": [("jars", (4, 3), "Jars on shelves", "shelves"), ("table", (4, 6), "A stained table", "table_round"), ("chair", (9, 6), "A chair with straps", "chair")],
+    "wickermoor_funeral_basement": [("slab", (4, 4), "An embalming slab", "table_round"), ("vault", (12, 4), "The cold vault", "case"), ("coffins", (4, 8), "Coffins in rows", "case")],
+    "wickermoor_church": [("altar", (9, 2), "The new altar", "altar"), ("pews", (4, 6), "Rough new pews", "chairs"), ("birds", (15, 6), "The rafters, full of birds", "crow")],
     "wickermoor_bookstore": [("stacks", (3, 2), "Narrow aisles of books", "bookcase"), ("ladder", (10, 4), "A rolling ladder", "bookcase"), ("writing", (4, 9), "A table of pens and paper", "table_round")],
 }
 
@@ -244,6 +250,21 @@ DRESS = {
 
 # what each room's thing says when it is looked at (our words; a prop with no Narrator line shows this)
 TEXT = {
+    "inn_cellar_casks": "Casks and kegs, their bungs wrapped in wet cloth, and one cask that is lighter than the rest.",
+    "inn_cellar_hams": "Hams hang from the beams in their muslin, and a ledger of what the inn owes is chalked on the wall.",
+    "inn_cellar_crate": "A crate with a Green Queen stamped on it, stuffed with straw, which tells you nothing about what it held.",
+    "trading_cellar_crates": "Stacked crates with their labels torn off, and lamp oil in the air.",
+    "trading_cellar_cot": "A guard's cot with a child's drawing pinned over it: a house, a stick family, a hare.",
+    "trading_cellar_ledger": "A second ledger, in a cleaner hand, of what the post has been asked to find and for whom.",
+    "barber_cellar_jars": "Jars of hair sorted by colour, jars of teeth sorted by size, and a row of small stoppered vials of something dark.",
+    "barber_cellar_table": "A stained table with straps, and a lamp swung down low over it.",
+    "barber_cellar_chair": "A chair with leather straps, worn smooth where wrists have been.",
+    "funeral_basement_slab": "An embalming slab scrubbed bright, with a drain at its foot and a small clean brush beside it.",
+    "funeral_basement_vault": "The cold vault is a white room with drawers, and a drawer that is labelled with a date and nothing else.",
+    "funeral_basement_coffins": "Coffins in rows, each stencilled with a name, and the front row's names are all of people who are still alive.",
+    "church_altar": "A plain new altar of oak, and behind it a rough niche where something is meant to stand.",
+    "church_pews": "Rough new pews smelling of resin, and a hymnal on every seat with its corners softened by hands.",
+    "church_birds": "The rafters are full of songbirds that sit and watch you without a sound, as if waiting for the right note.",
     "shop_bakery_oven": "The oven's mouth glows orange and the room smells of caraway and burnt sugar.",
     "shop_bakery_racks": "Cooling racks lined with loaves, each scored with a little hare.",
     "shop_bakery_flour": "Sacks of flour with a fine white drift on the floor around them, and one set of small footprints in it.",
@@ -367,7 +388,7 @@ def build_town():
         prop("wm_stable_horse", (22, 42), "The stable's horses", model="horse"),
         prop("wm_cart", (36, 21), "A farm cart", model="cart"),
         prop("wm_graves", (46, 37), "Plots of the dead", model="grave"),
-        prop("wm_pyethymer_gate", (55, 41), "The chained gate", model="gate"),
+        prop("wm_pyethymer_gate", (51, 41), "The chained gate", model="gate", dialogue=WM + "pyethymer:gate"),
         prop("wm_sacrifice_doll", (30, 27), "A bound shape on a stake", kind="decor", when="not flag.wm_first_sacrifice_done"),
         prop("wm_church_ruin", (7, 27), "The abandoned church"),
         prop("wm_man_in_marble", (8, 24), "A scowling marble knight", model="statue_headless"),
