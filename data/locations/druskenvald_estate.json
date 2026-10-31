@@ -211,7 +211,9 @@
       ],
       "to": "crooked_house_first",
       "spawn": "from_porch",
-      "label": "Up the porch steps into the house"
+      "label": "Up the porch steps into the house",
+      "when": "flag.crooked_man_met",
+      "locked_text": "The door will not give. Thunder shifts on the far side of the hill, and the porch seems to be waiting for someone to speak first."
     },
     {
       "id": "to_village",
@@ -1736,6 +1738,61 @@
       "kind": "decor",
       "model": "pine_a",
       "scale": 1.28
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "gilly_jenkin",
+      "cell": [
+        20,
+        25
+      ],
+      "dialogue": "crooked_house/jenkins_gate:start",
+      "when": "not flag.crooked_house_turned",
+      "approach": 8,
+      "facing": "south"
+    },
+    {
+      "npc": "walter_jenkin",
+      "cell": [
+        21,
+        25
+      ],
+      "dialogue": "crooked_house/jenkins_gate:start",
+      "when": "not flag.crooked_house_turned",
+      "facing": "south"
+    },
+    {
+      "npc": "crooked_man",
+      "cell": [
+        21,
+        13
+      ],
+      "dialogue": "crooked_house/crooked_man:porch",
+      "when": "flag.crooked_house_turned and not flag.crooked_man_met",
+      "approach": 6,
+      "facing": "south"
+    },
+    {
+      "npc": "gilly_jenkin",
+      "cell": [
+        20,
+        25
+      ],
+      "dialogue": "crooked_house/jenkins_after:start",
+      "when": "flag.vessla_slain",
+      "approach": 12,
+      "facing": "south"
+    },
+    {
+      "npc": "walter_jenkin",
+      "cell": [
+        21,
+        25
+      ],
+      "dialogue": "crooked_house/jenkins_after:start",
+      "when": "flag.vessla_slain",
+      "facing": "south"
     }
   ],
   "lights": [
