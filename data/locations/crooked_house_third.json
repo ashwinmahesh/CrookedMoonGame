@@ -318,6 +318,19 @@
       "model": "bridge_parapet"
     },
     {
+      "id": "h13_apparition",
+      "cell": [
+        13,
+        14
+      ],
+      "kind": "examine",
+      "label": "A cold place on the boards",
+      "call": "crooked_house/crooked_man:floor3",
+      "approach": 6,
+      "call_when": "flag.memento_bear or flag.memento_pin",
+      "text": "The boards here are cold, and the cold has a shape."
+    },
+    {
       "id": "h_d04",
       "cell": [
         20,
@@ -606,10 +619,14 @@
         22,
         5
       ],
-      "kind": "examine",
-      "label": "The ceiling above the hearth",
+      "kind": "search",
+      "label": "A square seam in the ceiling",
       "model": "roof_hatch",
-      "text": "Above you the ceiling plaster is stained in an almost-square, and the stain is a little too neat."
+      "text": "Above you the ceiling plaster is stained in an almost-square, and the stain is a little too neat.",
+      "search_dc": 10,
+      "skill": "perception",
+      "flag": "trapdoor_known",
+      "say": "examine:h15_trapdoor"
     },
     {
       "id": "h15_bear",
@@ -621,7 +638,8 @@
       "label": "A large brown bear, stuffed",
       "model": "stuffed_wolf",
       "scale": 2.2,
-      "text": "A huge bear, mounted on its hind legs, fangs bared, and its stuffing has a way of shifting when you look away."
+      "text": "A huge bear, mounted on its hind legs, fangs bared, and its stuffing has a way of shifting when you look away.",
+      "dialogue": "crooked_house/gail:start"
     },
     {
       "id": "h15_trophy_crow",
@@ -644,8 +662,44 @@
         26,
         3
       ],
-      "kind": "decor",
-      "model": "fireplace"
+      "kind": "examine",
+      "model": "fireplace",
+      "label": "The hearth, and the stained ceiling over it",
+      "text": "The hearth is cold, and the plaster above it has a stain that is a little too square.",
+      "checks": [
+        {
+          "id": "h15_trapdoor",
+          "skill": "perception",
+          "dc": 10,
+          "label": "Search the plaster above the hearth",
+          "success": {
+            "text": "A seam shows in the plaster, a neat square with an iron ring set into it.",
+            "reveal": [
+              "h15_trapdoor"
+            ]
+          },
+          "failure": {
+            "items": [
+              {
+                "id": "human_tooth"
+              }
+            ]
+          }
+        },
+        {
+          "id": "h15_ceiling_study",
+          "skill": "investigation",
+          "dc": 12,
+          "label": "Study the stain's edges",
+          "success": {
+            "text": "The stain follows a straight seam, and at one corner the seam holds an iron ring.",
+            "reveal": [
+              "h15_trapdoor"
+            ]
+          },
+          "failure": {}
+        }
+      ]
     },
     {
       "id": "h15_d02",
@@ -751,6 +805,632 @@
         {
           "id": "potion_of_healing",
           "qty": 4
+        }
+      ]
+    },
+    {
+      "id": "h13_crib_bear",
+      "cell": [
+        9,
+        5
+      ],
+      "label": "A threadbare blue bear",
+      "model": "doll",
+      "when": "flag.memento_bear",
+      "items": [
+        {
+          "id": "memento_blue_bear",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "arthur_lockwood",
+      "cell": [
+        11,
+        5
+      ],
+      "dialogue": "crooked_house/arthur:start",
+      "when": "not flag.arthur_rested",
+      "approach": 4,
+      "facing": "west",
+      "steps_aside": true
+    },
+    {
+      "npc": "wisp",
+      "cell": [
+        20,
+        25
+      ],
+      "dialogue": "crooked_house/wisp:start",
+      "when": "not (quest.a_tale_for_wisp == thanked or quest.a_tale_for_wisp == fled or quest.a_tale_for_wisp == slain)",
+      "approach": 6,
+      "facing": "west"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "ch_quasits",
+      "trigger": "examine:h13_crib",
+      "when": "level >= 3 and flag.wisp_catch_pending",
+      "flag": "memento_bear",
+      "monsters": [
+        {
+          "monster": "quasit_goat",
+          "cell": [
+            6,
+            6
+          ]
+        },
+        {
+          "monster": "quasit_bunny",
+          "cell": [
+            16,
+            7
+          ]
+        },
+        {
+          "monster": "quasit_crow",
+          "cell": [
+            12,
+            9
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "arthurs_wail",
+          "name": "Arthur's Wail",
+          "summary": "The infant's cry fills the house. Anyone who is not of it can't think past the sound.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 10
+          },
+          "condition": "stunned",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1
+        },
+        {
+          "id": "wisps_catch",
+          "name": "Wisp's Catch",
+          "summary": "The tales told into his books were waiting for a fight, and pull at their tellers now.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "cha",
+            "dc": 20
+          },
+          "condition": "charmed",
+          "until": "minute",
+          "at": 20,
+          "from_round": 1,
+          "times": 1
+        }
+      ]
+    },
+    {
+      "id": "ch_quasits",
+      "trigger": "examine:h13_crib",
+      "when": "level >= 3",
+      "flag": "memento_bear",
+      "monsters": [
+        {
+          "monster": "quasit_goat",
+          "cell": [
+            6,
+            6
+          ]
+        },
+        {
+          "monster": "quasit_bunny",
+          "cell": [
+            16,
+            7
+          ]
+        },
+        {
+          "monster": "quasit_crow",
+          "cell": [
+            12,
+            9
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "arthurs_wail",
+          "name": "Arthur's Wail",
+          "summary": "The infant's cry fills the house. Anyone who is not of it can't think past the sound.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 10
+          },
+          "condition": "stunned",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1
+        }
+      ]
+    },
+    {
+      "id": "ch_quasits",
+      "trigger": "examine:h13_crib",
+      "flag": "memento_bear",
+      "monsters": [
+        {
+          "monster": "quasit_goat",
+          "cell": [
+            6,
+            6
+          ]
+        },
+        {
+          "monster": "quasit_crow",
+          "cell": [
+            12,
+            9
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "arthurs_wail",
+          "name": "Arthur's Wail",
+          "summary": "The infant's cry fills the house. Anyone who is not of it can't think past the sound.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 10
+          },
+          "condition": "stunned",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1
+        }
+      ]
+    },
+    {
+      "id": "ch_roar",
+      "trigger": "examine:h15_trapdoor",
+      "when": "level >= 3 and flag.wisp_catch_pending",
+      "flag": "trapdoor_known",
+      "monsters": [
+        {
+          "monster": "weasel",
+          "cell": [
+            18,
+            6
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            18,
+            11
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            21,
+            14
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            25,
+            10
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            28,
+            13
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            28,
+            9
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            27,
+            4
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "bears_roar_1",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 10
+          },
+          "damage": {
+            "dice": "1",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 1,
+          "until_round": 1
+        },
+        {
+          "id": "bears_roar_2",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 11
+          },
+          "damage": {
+            "dice": "1d4",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 2,
+          "until_round": 2
+        },
+        {
+          "id": "bears_roar_3",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 12
+          },
+          "damage": {
+            "dice": "1d6",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 3,
+          "until_round": 3
+        },
+        {
+          "id": "bears_roar_4",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 13
+          },
+          "damage": {
+            "dice": "1d8",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 4,
+          "every": 1
+        },
+        {
+          "id": "gail_gives_way",
+          "name": "The Bear Gives Itself Away",
+          "summary": "Gail's own roar lifts above the rest, and every glass eye turns to the one bear that is shaking.",
+          "kind": "text",
+          "at": 20,
+          "from_round": 6,
+          "times": 1
+        },
+        {
+          "id": "wisps_catch",
+          "name": "Wisp's Catch",
+          "summary": "The tales told into his books were waiting for a fight, and pull at their tellers now.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "cha",
+            "dc": 20
+          },
+          "condition": "charmed",
+          "until": "minute",
+          "at": 20,
+          "from_round": 1,
+          "times": 1
+        }
+      ]
+    },
+    {
+      "id": "ch_roar",
+      "trigger": "examine:h15_trapdoor",
+      "when": "level >= 3",
+      "flag": "trapdoor_known",
+      "monsters": [
+        {
+          "monster": "weasel",
+          "cell": [
+            18,
+            6
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            18,
+            11
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            21,
+            14
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            25,
+            10
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            28,
+            13
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            28,
+            9
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            27,
+            4
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "bears_roar_1",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 10
+          },
+          "damage": {
+            "dice": "1",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 1,
+          "until_round": 1
+        },
+        {
+          "id": "bears_roar_2",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 11
+          },
+          "damage": {
+            "dice": "1d4",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 2,
+          "until_round": 2
+        },
+        {
+          "id": "bears_roar_3",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 12
+          },
+          "damage": {
+            "dice": "1d6",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 3,
+          "until_round": 3
+        },
+        {
+          "id": "bears_roar_4",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 13
+          },
+          "damage": {
+            "dice": "1d8",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 4,
+          "every": 1
+        },
+        {
+          "id": "gail_gives_way",
+          "name": "The Bear Gives Itself Away",
+          "summary": "Gail's own roar lifts above the rest, and every glass eye turns to the one bear that is shaking.",
+          "kind": "text",
+          "at": 20,
+          "from_round": 6,
+          "times": 1
+        }
+      ]
+    },
+    {
+      "id": "ch_roar",
+      "trigger": "examine:h15_trapdoor",
+      "flag": "trapdoor_known",
+      "monsters": [
+        {
+          "monster": "weasel",
+          "cell": [
+            18,
+            6
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            25,
+            10
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            28,
+            13
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            21,
+            14
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "bears_roar_1",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 10
+          },
+          "damage": {
+            "dice": "1",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 1,
+          "until_round": 1
+        },
+        {
+          "id": "bears_roar_2",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 11
+          },
+          "damage": {
+            "dice": "1d4",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 2,
+          "until_round": 2
+        },
+        {
+          "id": "bears_roar_3",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 12
+          },
+          "damage": {
+            "dice": "1d6",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 3,
+          "until_round": 3
+        },
+        {
+          "id": "bears_roar_4",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 13
+          },
+          "damage": {
+            "dice": "1d8",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 4,
+          "every": 1
+        },
+        {
+          "id": "gail_gives_way",
+          "name": "The Bear Gives Itself Away",
+          "summary": "Gail's own roar lifts above the rest, and every glass eye turns to the one bear that is shaking.",
+          "kind": "text",
+          "at": 20,
+          "from_round": 6,
+          "times": 1
+        }
+      ]
+    },
+    {
+      "id": "ch_wisp",
+      "trigger": "dialogue",
+      "when": "level >= 3",
+      "flag": "wisp_slain",
+      "quest": {
+        "id": "a_tale_for_wisp",
+        "stage": "slain"
+      },
+      "monsters": [
+        {
+          "monster": "ketgrinn",
+          "cell": [
+            20,
+            25
+          ],
+          "name": "Wisp",
+          "steps_down": {
+            "npc": "wisp"
+          }
         }
       ]
     }
