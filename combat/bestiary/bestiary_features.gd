@@ -4,6 +4,9 @@ extends CmPart
 ## CrookedFeatures (combat/crooked_features.gd PART_PATHS); its action ids start "bs_". The stat blocks name what needs
 ## code with a `do` (vault Build/D2 - Bestiary Build Log.md lists them in the order the chapters need them).
 ##
+## The wildpyre's Quenching Water (its stat block's trait of that name) is here too: a hero throws a jug of water at it
+## from the hotbar and it burns as Holy Water does (bs_throw_water).
+##
 ## Built so far: for the prologue (package R10) the Wayward Haint's opening wail and Exhaustion, the Soulfire Stoker's
 ## Corpse Fuel and the Ghostlight Locomotive's Ghostly Rails; for R11-R12 the shared Teleport and Dark Teleport bonus
 ## actions and the Boogleswarm's Tooth Theft. The Locomotive's Soul Fuel, its Soul Cans and the haint echoes they let out
@@ -24,6 +27,10 @@ const REST_EXHAUSTION_META := "cm_rest_exhaustion"
 ## The Boogleswarm: the ids of those whose teeth it wears; and on a creature, how many teeth it has lost.
 const TEETH_META := "bs_teeth"
 const TEETH_LOST_META := "bs_teeth_lost"
+## Water as a weapon: the item the Dining Car hands out, the trait that makes a creature burn from it, and the throw's range.
+const WATER := "jug_of_water"
+const QUENCHING_TRAIT := "quenching_water"
+const WATER_RANGE_FT := 20
 
 
 func prefix() -> String:
@@ -32,6 +39,68 @@ func prefix() -> String:
 
 static func monster_id(c: Combatant) -> String:
 	return str(MonsterActions.data_of(c).get("id", "")) if c.creature is Monster else ""
+
+
+# --- Quenching Water -----------------------------------------------------------------------------------------------
+
+## Whether water burns `t` as Holy Water would: its stat block has the Quenching Water trait (the wildpyre).
+static func burns_from_water(t: Combatant) -> bool:
+	if t == null or not t.creature is Monster:
+		return false
+	for tr: Variant in MonsterActions.data_of(t).get("traits", []):
+		if str((tr as Dictionary).get("id", "")) == QUENCHING_TRAIT:
+			return true
+	return false
+
+
+## A hero carrying a jug of water gets "Throw Water" while a creature that burns from it is in the fight.
+func list(c: Combatant, out: Array[Dictionary], aw: String, _bw: String) -> void:
+	var ch := _ch(c)
+	if ch == null or enc().item_count(c, WATER) <= 0 or not enc().hostiles_of(c).any(func(h: Combatant) -> bool: return burns_from_water(h) and not h.is_down()):
+		return
+	var dc := dc_of(c, &"dex")
+	out.append(_act("throw_water", "Throw Water", "Dex save DC %d · 2d8 Radiant · %d ft" % [dc, WATER_RANGE_FT], "action", aw, "creature",
+		"Action: throw a jug of water at a creature you can see within %d ft. If it burns from water (the wildpyre) it makes a Dexterity save (DC %d) or takes 2d8 Radiant damage, as from Holy Water. The jug is used up." % [WATER_RANGE_FT, dc],
+		WATER_RANGE_FT))
+
+
+func perform(c: Combatant, id: String, t: Combatant, _cell: Vector2i, _point: Vector2) -> CombatResult:
+	if id.trim_prefix(PREFIX) == "throw_water":
+		return _throw_water(c, t)
+	return CombatResult.fail("Not available")
+
+
+## The jug leaves the hand; a creature that burns from water saves against the thrower's Dexterity DC or takes 2d8 Radiant.
+func _throw_water(c: Combatant, t: Combatant) -> CombatResult:
+	var e := enc()
+	var ch := _ch(c)
+	var why := e._action_check(c)
+	if why != "":
+		return CombatResult.fail(why)
+	if ch == null or e.item_count(c, WATER) <= 0:
+		return CombatResult.fail("No water to throw")
+	if t == null or not burns_from_water(t) or t.is_down():
+		return CombatResult.fail("Choose a creature that burns from water")
+	if e.distance(c, t) > WATER_RANGE_FT or not e.can_see(c, t):
+		return CombatResult.fail("Choose a creature you can see within %d ft" % WATER_RANGE_FT)
+	e.spend_action(c)
+	for en: Dictionary in ch.inventory:
+		if str(en["id"]) == WATER and int(en["qty"]) > 0:
+			en["qty"] = int(en["qty"]) - 1
+			if int(en["qty"]) <= 0:
+				ch.inventory.erase(en)
+			break
+	ch.items_changed()
+	if c.hidden:
+		e.reveal(c, "threw water")
+	var dc := dc_of(c, &"dex")
+	if _save(t, &"dex", dc, "the thrown water"):
+		_log("info", "%s throws a jug of water at %s, which twists clear of most of it" % [c.name(), t.name()], c)
+		return CombatResult.new()
+	var rolled := enc()._roll_damage_dice("2d8", false, 0, "Water")
+	e.deal_damage(c, t, [{"amount": int(rolled["total"]), "type": "radiant"}], false, "Water", [str(rolled["text"])])
+	_log("info", "%s throws a jug of water at %s, and it burns like Holy Water" % [c.name(), t.name()], c)
+	return CombatResult.new()
 
 
 # --- Turns ---------------------------------------------------------------------------------------------------------
