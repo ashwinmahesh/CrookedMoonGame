@@ -1,0 +1,95 @@
+# Drafted by Gemini (side quests batch 2: fieldtrip), edited.
+
+~ start
+finneas_trout [weary]: Welcome to the schoolhouse. I am Finneas Trout, and I am trying to teach these children history without giving them nightmares, which is rather difficult in Wickermoor.
+finneas_trout [neutral]: Could you help me gather five small lessons about the Founder? Things they can hold: Pip Oakum's button, a fact from Old Rusty, a bell-rope thread, and a church chalk mark.
+finneas_trout [sly]: As for the fifth lesson, come back to me once you have the first four. I will explain it then.
+* We will gather them -> accept
+* Not now -> END
+
+~ accept
+finneas_trout [smile]: Thank you, truly. It is a comfort to have sensible strangers lending a hand.
+quest field_trip asked
+set field_trip_asked
+-> END
+
+~ pip_button
+pip_oakum [smile]: You want a Founder's button for Mr. Trout? That is brass from an old coat, mister, and brass costs a true story from before you came here.
+* Tell him a story -> pip_story
+* [Performance DC 10] Tell it with flourishes -> pip_story | pip_flat
+* Leave -> END
+
+~ pip_story
+pip_oakum [smile]: Now that is a proper tale, with teeth in it. Here is your brass button, polished up bright on my sleeve.
+set field_pip
+set field_items += 1
+-> END
+
+~ pip_flat
+pip_oakum [weary]: You muddled the middle bit, and your voice went all squeaky at the end. Take the button anyway, before Mr. Trout frets himself grey.
+set field_pip
+set field_items += 1
+-> END
+
+~ rusty_fact
+old_rusty [sly]: A lesson for the little ones, is it? Tell them the Founder was mortal terrified of Tuesdays, bolted his shutters tight, and nobody living recalls why.
+set field_rusty
+set field_items += 1
+-> END
+
+~ rope
+Narrator: Above the dusty stones, the clocktower bell-rope hangs frayed and heavy with old tallow. Solomon Roderick stands nearby, wiping stone dust from his knuckles.
+* [Athletics DC 10] Climb for a thread -> rope_ok | rope_fail
+* Ask Solomon for a thread -> rope_ok
+
+~ rope_ok
+solomon_roderick [neutral]: Just a single hemp strand for the schoolhouse? Help yourself, friend, the bell will toll the hours all the same without it.
+set field_rope
+set field_items += 1
+-> END
+
+~ rope_fail
+Narrator: Your boot slips on the slick timber, leaving you with a scraped knee and empty hands. Solomon will gladly hand over a thread if you only ask.
+-> END
+
+~ chalk
+Narrator: Low on the church stones, half washed away by the moorland damp, someone has sketched a white chalk hare with branching antlers.
+* Copy the mark -> chalk_ok
+
+~ chalk_ok
+Narrator: You trace the strange horned creature onto a scrap of slate, catching the gritty dust of the old lime on your fingertips.
+set field_chalk
+set field_items += 1
+-> END
+
+~ report
+finneas_trout [weary]: You brought all four, and the children are already passing the button around. Now for the fifth thing, the only one that truly matters to me.
+finneas_trout [afraid]: Please, stand before the class and tell them the Oak of Many Faces is only an ordinary tree. They are too young for what this village worships.
+* Tell the pupils the oak is only a tree -> lie
+* Tell them the truth, that it is not -> truth
+* Let Finneas decide -> teacher
+
+~ lie
+finneas_trout [smile]: Thank you for sparing them a little longer. Let them believe in simple wood and leaves while they still can.
+set field_outcome = "lie"
+quest field_trip done
+gold +20
+standing newcomers +1
+-> END
+
+~ truth
+Narrator: The schoolroom falls dead quiet, save for the ticking slate pencil in the back row. Then a small girl asks why the bark is still thirsty.
+finneas_trout [sad]: Perhaps you are right, and soft words will not keep them safe in a place like this. Here is your pay.
+set field_outcome = "truth"
+quest field_trip done
+gold +10
+standing old_ways -1
+-> END
+
+~ teacher
+Narrator: Finneas opens his mouth, looks toward the window where the crooked branches lean, and says nothing at all. The children understand the silence better than words.
+finneas_trout [weary]: They already know, do they not? Take this coin for your trouble, and thank you for not making a fool of me.
+set field_outcome = "silence"
+quest field_trip done
+gold +15
+-> END

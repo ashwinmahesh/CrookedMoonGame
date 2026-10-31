@@ -130,6 +130,24 @@
         10,
         10
       ],
+      "dialogue": "wickermoor/fair_price:broker",
+      "when": "flag.price_ledger_seen and not flag.price_outcome"
+    },
+    {
+      "npc": "baltus_tolliver",
+      "cell": [
+        10,
+        10
+      ],
+      "dialogue": "wickermoor/fair_price:baltus_start",
+      "when": "flag.wm_welcomed and not flag.price_asked"
+    },
+    {
+      "npc": "baltus_tolliver",
+      "cell": [
+        10,
+        10
+      ],
       "dialogue": "wickermoor/connections_custom:baltus_start",
       "when": "background:ghostlight_passenger and flag.wm_welcomed and not flag.connection_deliverance"
     },
