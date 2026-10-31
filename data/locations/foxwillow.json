@@ -480,7 +480,7 @@
       ],
       "kind": "decor",
       "label": "A burning hay stook",
-      "burning": "not flag.raum_slain"
+      "burning": "not flag.raum_slain and minutes_since.fw_fire_start < 180"
     },
     {
       "id": "fw_gate_eyes",
@@ -583,7 +583,16 @@
             25
           ],
           "name": "A brawling scarecrow",
-          "facing": "west"
+          "facing": "west",
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning"
+            ],
+            "count": "fw_bodies_ruined",
+            "warn": "A villager is inside. Fire or crushing blows would kill them for good.",
+            "flag": "fw_body_fw_brawl_a"
+          }
         },
         {
           "monster": "pumpkin_head",
@@ -592,7 +601,16 @@
             27
           ],
           "name": "A brawling scarecrow",
-          "facing": "west"
+          "facing": "west",
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning"
+            ],
+            "count": "fw_bodies_ruined",
+            "warn": "A villager is inside. Fire or crushing blows would kill them for good.",
+            "flag": "fw_body_fw_brawl_a"
+          }
         },
         {
           "monster": "pumpkin_head",
@@ -601,7 +619,16 @@
             28
           ],
           "name": "A brawling scarecrow",
-          "facing": "west"
+          "facing": "west",
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning"
+            ],
+            "count": "fw_bodies_ruined",
+            "warn": "A villager is inside. Fire or crushing blows would kill them for good.",
+            "flag": "fw_body_fw_brawl_a"
+          }
         }
       ]
     },
@@ -617,7 +644,16 @@
             22
           ],
           "name": "A brawling scarecrow",
-          "facing": "west"
+          "facing": "west",
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning"
+            ],
+            "count": "fw_bodies_ruined",
+            "warn": "A villager is inside. Fire or crushing blows would kill them for good.",
+            "flag": "fw_body_fw_brawl_b"
+          }
         },
         {
           "monster": "pumpkin_head",
@@ -626,7 +662,16 @@
             24
           ],
           "name": "A brawling scarecrow",
-          "facing": "west"
+          "facing": "west",
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning"
+            ],
+            "count": "fw_bodies_ruined",
+            "warn": "A villager is inside. Fire or crushing blows would kill them for good.",
+            "flag": "fw_body_fw_brawl_b"
+          }
         },
         {
           "monster": "pumpkin_head",
@@ -635,7 +680,16 @@
             25
           ],
           "name": "A brawling scarecrow",
-          "facing": "west"
+          "facing": "west",
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning"
+            ],
+            "count": "fw_bodies_ruined",
+            "warn": "A villager is inside. Fire or crushing blows would kill them for good.",
+            "flag": "fw_body_fw_brawl_b"
+          }
         }
       ]
     },
@@ -651,7 +705,16 @@
             23
           ],
           "name": "A brawling scarecrow",
-          "facing": "west"
+          "facing": "west",
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning"
+            ],
+            "count": "fw_bodies_ruined",
+            "warn": "A villager is inside. Fire or crushing blows would kill them for good.",
+            "flag": "fw_body_fw_brawl_c"
+          }
         },
         {
           "monster": "pumpkin_head",
@@ -660,11 +723,21 @@
             25
           ],
           "name": "A brawling scarecrow",
-          "facing": "west"
+          "facing": "west",
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning"
+            ],
+            "count": "fw_bodies_ruined",
+            "warn": "A villager is inside. Fire or crushing blows would kill them for good.",
+            "flag": "fw_body_fw_brawl_c"
+          }
         }
       ]
     }
   ],
   "rest": "risky",
-  "rest_text": "Embers drift across the square, and the scarecrows never quite stop."
+  "rest_text": "Embers drift across the square, and the scarecrows never quite stop.",
+  "recheck_minutes": 10
 }

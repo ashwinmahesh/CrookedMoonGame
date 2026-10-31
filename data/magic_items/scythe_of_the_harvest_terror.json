@@ -1,0 +1,62 @@
+{
+  "id": "scythe_of_the_harvest_terror",
+  "name": "Scythe of the Harvest Terror",
+  "source": {
+    "book": "CrookedMoon",
+    "note": "Fabled Heirloom from the Fields of the Crow; the book's numbers, our words."
+  },
+  "category": "weapon",
+  "weight_lb": 6,
+  "cost_gp": 0,
+  "magic": {
+    "rarity": "rare",
+    "attunement": true
+  },
+  "theme": "armaments",
+  "icon": "halberd",
+  "template": {
+    "on": "weapon",
+    "items": [
+      "halberd"
+    ],
+    "name": "Scythe of the Harvest Terror"
+  },
+  "modifiers": [
+    {
+      "stat": "attack",
+      "value": "tier",
+      "when": {
+        "item": "@self"
+      }
+    },
+    {
+      "stat": "damage",
+      "value": "tier",
+      "when": {
+        "item": "@self"
+      }
+    }
+  ],
+  "weapon_rules": {
+    "extra": [
+      {
+        "dice": "1d8",
+        "type": "psychic",
+        "vs_condition": "frightened"
+      }
+    ]
+  },
+  "powers": [
+    {
+      "id": "fear",
+      "name": "Fear",
+      "spell": "fear",
+      "min_level": 7,
+      "uses": {
+        "count": 1,
+        "per": "dusk"
+      }
+    }
+  ],
+  "summary": "A halberd of black wood and bone that grows with its bearer (+1, +2 at level 7, +3 at 13): 1d8 extra Psychic against the Frightened; from level 7, Fear once a dusk. Its other powers wait on the engine's custom item powers."
+}
