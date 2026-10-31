@@ -77,11 +77,11 @@ haint_mariner [weary]: You can jaw all you like while I sort the bags, so long a
 
 ~ help
 # E7: a tool check (Navigator's Tools); until then an ability check gated by the kit
-* [if not flag.haint_mariner_used_navigators_tools] [if item:navigators_tools] [Wisdom DC 12] Let me plot a course across your chart. -> navigators_tools_ok | navigators_tools_miss
+* [if not flag.haint_mariner_used_navigators_tools and item:navigators_tools] [Wisdom DC 12] Let me plot a course across your chart. -> navigators_tools_ok | navigators_tools_miss
 * [if not flag.haint_mariner_used_survival] [Survival DC 12] Trade stories of hard weather and cold nights. -> survival_ok | survival_miss
 * [if not flag.haint_mariner_used_performance] [Performance DC 12] Strike up a sea shanty for the hauling. -> performance_ok | performance_miss
 # E7: a tool check (Musical Instrument); until then an ability check gated by the kit
-* [if not flag.haint_mariner_used_musical_instrument] [if item:lute or item:flute or item:drum or item:horn or item:viol] [Charisma DC 12] Play a brisk hornpipe for him. -> musical_instrument_ok | musical_instrument_miss
+* [if not flag.haint_mariner_used_musical_instrument and (item:lute or item:flute or item:drum or item:horn or item:viol)] [Charisma DC 12] Play a brisk hornpipe for him. -> musical_instrument_ok | musical_instrument_miss
 * [if not flag.haint_mariner_used_deception] [Deception DC 12] Tell an even worse tale of rotten biscuit and scurvy. -> deception_ok | deception_miss
 * [if not flag.haint_mariner_used_medicine] [Medicine DC 12] Speak kindly of how sailors die and let go. -> medicine_ok | medicine_miss
 * [if not flag.haint_mariner_used_athletics] [Athletics DC 15] Grab a heavy mailbag and haul alongside him. -> athletics_ok | athletics_miss
