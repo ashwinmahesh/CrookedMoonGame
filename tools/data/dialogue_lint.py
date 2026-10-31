@@ -45,6 +45,8 @@ RE_TEMP_HP = re.compile(rf"^temp_hp\s+{RE_DICE}(?:\s+party)?$")
 RE_BLESS = re.compile(r"^bless(?:\s+party)?(?:\s+[1-9]\d*[mh])?$")
 RE_INSPIRATION = re.compile(r"^inspiration(?:\s+party)?$")
 RE_ATT = re.compile(rf"^attitude\s+({ID})\s+(hostile|indifferent|friendly)$")
+RE_STANDING = re.compile(rf"^standing\s+({ID})\s+[+-]\d+$")
+RE_JAIL = re.compile(rf"^jail\s+(?:release|{ID}(?::{ID})?(?:\s+keep_gear)?(?:\s+until\s+.+)?)$")
 RE_CHECK = re.compile(r"^check\s+([A-Za-z][A-Za-z ]*?)\s+DC\s+(\d+)\s*->\s*([A-Za-z0-9_:/]+|END)(?:\s*\|\s*([A-Za-z0-9_:/]+|END))?$")
 RE_INTERJECT = re.compile(r"^interject\s+([a-z]+:[a-z0-9_]+):\s+(.+)$")
 RE_COMBAT = re.compile(rf"^combat\s+({ID})$")
@@ -91,8 +93,8 @@ def conditions_flags(expr):
 
 # What a condition's terms may be (story/story_conditions.gd): a bare word, a `kind.name` or a `kind:name`. Anything else is
 # a warning and false at run time, so a condition in new data (a quest's `closes`) is checked against them.
-CONDITION_WORDS = {"true", "false", "night", "day", "indoors", "hour", "attention", "weather", "gold", "level", "check.last"}
-CONDITION_DOTTED = {"flag", "quest", "quest_days", "days_since", "attitude", "approval", "tarokka"}
+CONDITION_WORDS = {"true", "false", "night", "day", "indoors", "hour", "attention", "weather", "gold", "level", "check.last", "jailed"}
+CONDITION_DOTTED = {"flag", "quest", "quest_days", "days_since", "attitude", "approval", "tarokka", "standing"}
 CONDITION_COLONED = {"final_room", "guest", "treasure_at", "gift", "gifted", "fallen", "spell", "at", "region", "option", "visited", "leader", "item",
                      "class", "species", "background", "tag", "name", "knows"}
 RE_CONDITION_TOKEN = re.compile(r'\(|\)|==|!=|>=|<=|=|>|<|"[^"]*"|[^\s()=!<>]+')
@@ -335,6 +337,8 @@ def parse_file(path):
         m = RE_STAGE.match(line)
         if m:
             out["speakers"].append((m.group(2) or m.group(4), where))   # the npc must exist
+            continue
+        if RE_STANDING.match(line) or RE_JAIL.match(line):   # a faction's standing moves (story/factions.gd); the party is jailed or let out (story/jail.gd)
             continue
         m = RE_ATT.match(line)
         if m:
