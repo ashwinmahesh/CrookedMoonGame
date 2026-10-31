@@ -4,9 +4,8 @@
 # The bear is the memento whether or not he is calmed. Calming (Persuasion DC 15, or Performance DC 15 as a lullaby) earns Heroic Inspiration, arthur_rested
 # and the cutscene ch_arthur_sleeps; a hero who heard Patrini's lament sings with the tune it left. The patient way (sit with him an hour) also settles him,
 # without the Inspiration, so a bad roll never closes the quest.
-# NOTE (contract gaps): (1) dialogue checks cannot carry Advantage, so the lament's Advantage on the lullaby is written as DC 10 for the book's DC 15 (the same
-# chance for a typical hero); (2) the contract has no "heard the lament" flag, so flag.memento_key stands for it (the key only pops out after Patrini plays the
-# lament at the harpsichord, in either of its ways).
+# NOTE: the lament's Advantage on the lullaby is the option's `adv` suffix: `[Performance DC 15 adv]`. The contract has no "heard the lament" flag, so
+# flag.memento_key stands for it (the key only pops out after Patrini plays the lament at the harpsichord, in either of its ways); that one stays a stand-in.
 # Wiring assumptions: Arthur is placed `when: not flag.arthur_rested`; the prop h13_crib starts ch_quasits; this conversation starts arthurs_bear at `wailing`
 # (the quest's giver is Arthur) and moves it to bear_taken once the bear is the party's.
 # Drafted by Gemini (gemini_r12_arthur/brief.md, reply_raw.json), edited; see that folder's README.md.
@@ -46,7 +45,7 @@ Narrator: The blue bear in your hands is worn threadbare, with one button eye ha
 Narrator: That long cry climbs a note, catches on a breath, and stops dead while he stares at the toy.
 arthur_lockwood [sad]: Hic... ba?
 * [Persuasion DC 15] Speak low and steady, and tell him the bear has come home. -> calm_ok | calm_miss
-* [if flag.memento_key] [Performance DC 10] Sing him the harpsichord's lament as a lullaby. -> lullaby_ok | lullaby_miss
+* [if flag.memento_key] [Performance DC 15 adv] Sing him the harpsichord's lament as a lullaby. -> lullaby_ok | lullaby_miss
 * [if not flag.memento_key] [Performance DC 15] Sing him a lullaby. -> lullaby_ok | lullaby_miss
 * Sit down with him and the bear, and wait it out. -> patient
 * We will come back to him. -> END

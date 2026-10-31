@@ -3,8 +3,7 @@
 # Ways to the cup: (1) peace by words, the Persuasion appeal to her love for Sally and Arthur; (2) peace by showing her the doll and the bear (automatic);
 # (3) Intimidation (a plain threat) or grabbing the cup starts ch_petunia. A failed Persuasion is spent (the engine hides the option): come back with the
 # doll and the bear. Either way the cup is left behind: peace gives it here, a destroyed Petunia leaves it for the prop `h8_cup` (node `cup`).
-# NOTE (contract gap): dialogue checks cannot carry Advantage. The book's Persuasion DC 15 with Advantage on an appeal to her children is written as DC 10,
-# the same chance for a typical hero; change it to DC 15 with Advantage if the grammar ever gains it.
+# The appeal is the book's Persuasion DC 15 with Advantage (an appeal to her children): `[Persuasion DC 15 adv]`.
 # Wiring assumptions: Petunia is placed `when: not flag.petunia_at_peace and not flag.petunia_destroyed`; ch_petunia's victory sets petunia_destroyed (the
 # encounter's own flag) and is the only place that sets it; prop h8_cup calls petunia:cup. The ribbon cutscene is content-setting gated (graphic scenes): its
 # captions read plain, with no body described, when the pictures are hidden.
@@ -74,8 +73,8 @@ petunia_lockwood [weary]: I always mean to go upstairs and look in on them, only
 -> children_menu
 
 ~ children_menu
-# The appeal: DC 10 stands in for the book's DC 15 with Advantage (see the header). Spent when it fails.
-* [Persuasion DC 10] Speak gently of Sally and Arthur, and of how she loves them. -> appeal_ok | appeal_miss
+# The appeal: Persuasion DC 15 with Advantage (see the header). Spent when it fails.
+* [Persuasion DC 15 adv] Speak gently of Sally and Arthur, and of how she loves them. -> appeal_ok | appeal_miss
 * Say no more of it for now. -> menu
 
 ~ insight_ok

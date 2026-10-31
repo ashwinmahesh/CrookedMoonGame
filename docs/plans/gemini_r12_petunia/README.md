@@ -6,4 +6,4 @@
   "here" instead of "to Druskenvald" (the ghost would not use the Druskenvalds' name); cup_talk: "before ever I came to this house" (the draft named the Hollow); insight_ok: "things"
   for "thing"; show_both: "brought down at last" (the doll and bear come from two different floors); cup_after_fight: "damp tiles" and "across the floor" so the two lines
   do not both say tiles. Everything else went in as drafted. Dropped: none.
-- Added by the lane, not drafted: option texts, the Persuasion DC 10 stand-in (see the file header), the quest, flag and give lines, `approve` lines and the fight and cup nodes' wiring.
+- Added by the lane, not drafted: option texts, the Persuasion DC 15 option with Advantage (`adv`; it was a DC 10 stand-in until r12-statements), the quest, flag and give lines, `approve` lines and the fight and cup nodes' wiring.

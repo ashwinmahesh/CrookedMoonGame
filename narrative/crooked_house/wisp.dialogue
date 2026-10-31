@@ -7,8 +7,8 @@
 # in the next fight in the house (a rider the wiring adds). Insight DC 15 shows his malice; a riddle (Deception DC 16, he can't resist one) makes him blurt
 # the truth; either exposes him (wisp_exposed), and then they must choose whether to take his bargain anyway. Threatened, he takes his true form and flees
 # through the window (quest fled); attacked, ch_wisp starts. Refusing outright ends the side quest in failure (it can be taken up again).
-# PLACEHOLDER (contract gap): the boon is "every hero may spend Hit Dice as on a Short Rest, +4 per die"; the grammar has no statement for it. `time +60` (a Short
-# Rest's hour) and the Narrator's lines stand in; replace them when a rest-boon statement exists.
+# The boon is "every hero may spend Hit Dice as on a Short Rest, +4 per die": `hit_dice restore all party` gives every spent Hit Die back so the party can spend them
+# on a Short Rest. The "+4 per die" has no statement (`hit_dice grant` adds dice, not a bonus per die), so that part is left out.
 # Wiring assumptions: Wisp is placed `when: not (quest.a_tale_for_wisp == thanked or quest.a_tale_for_wisp == fled or quest.a_tale_for_wisp == slain)`;
 # ch_wisp's victory moves the quest to slain and sets wisp_slain; if he flees the fight the wiring moves it to fled.
 # Walter has no voice lines of his own: the Jenkins' notebook is in other files; Wisp speaks with his voice, so the voice lane casts him as a warm man's voice.
@@ -217,8 +217,8 @@ Narrator: That grey cat blinks once, real slow, and the whole shape of him goes 
 Narrator: All he leaves behind is a warm hollow on the wood and a sharp smell of cold chimney smoke.
 quest a_tale_for_wisp thanked
 set wisp_catch_pending
-# PLACEHOLDER for the Hit Dice boon (see the header): an hour passes, as on a Short Rest.
-time +60
+# The Hit Dice boon (see the header).
+hit_dice restore all party
 Narrator: Then the rest he promised rolls over you in a slow, heavy wave, liftin' the lead right out of your boots.
 Narrator: Aches ease out of your shoulders and your breath comes deep and sweet, like you just slept a whole night in a feather bed.
 Narrator: Yet right under that comfort sits one small unease, like a splinter you can't quite find, 'cause that partin' thanks was a shade too sweet.
