@@ -296,7 +296,7 @@ func test_the_peacock_pays_the_bloodstone_and_sets_the_gem_flag_and_the_quest_mo
 	assert_true(StoryConditions.check(str(moving["when"]), st), "from trapped the first version holds")
 	st.set_quest_stage("the_crooked_house", "attic")
 	assert_true(not StoryConditions.check(str(moving["when"]), st), "from attic it does not")
-	assert_true(StoryConditions.check(str(plain["when"]), st), "the plain one does")
+	assert_true(StoryConditions.check(str(plain.get("when", "")), st), "the plain one does (it has no gate at all)")
 	GameState.reset()
 
 
