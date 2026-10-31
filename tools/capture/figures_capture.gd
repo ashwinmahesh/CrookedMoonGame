@@ -5,7 +5,8 @@ extends Node
 ##   make capture SCENE=res://tools/capture/figures_capture.tscn NAME=figures/f ARGS='--hour=8 --bands=2'
 ## --hour: the hour (8 the Twilight Hour, 23 the Midnight Hour); --place: a location id; --party=placeholder: the old 2D
 ## four instead of the companions, for sprites beside models; --ahead and --across: where the row stands from the leader
-## (squares toward the camera and to its right); --bands, --ink, --flatten, --vivid, --floor, --rim: the figures' look
+## (squares toward the camera and to its right); --follow=<art id> and --near=<distance>: the camera close on one
+## figure; --ids=a,b: only those figures in the row; --bands, --ink, --flatten, --vivid, --floor, --rim: the figures' look
 ## (Look.figure_settings); --only=place,lineup,turns,poses picks shots, and --only=clip --clip=slash freezes the row at
 ## points through one clip instead (to choose a manifest's window). Shots: <out>_<shot>.png.
 ## Headless with --probe it prints what each figure's model holds instead: its clips, the walk's stride and footfalls,
@@ -59,6 +60,14 @@ func capture_shots(tool: Node, out: String) -> void:
 		return
 	var rig := view.rig
 	rig.follow = line[line.size() / 2] as Node3D
+	var near := 0.0
+	if _arg("follow", "") != "":
+		# --follow=<art id>: the camera close on one figure (--near=<distance>, closer than play allows).
+		for t: CombatToken in line:
+			if t.art_override == _arg("follow", ""):
+				rig.follow = t
+		near = float(_arg("near", "3.5"))
+		rig.zoom_min = minf(rig.zoom_min, near)
 	rig.snap_to_target()
 	await tool.call("wait_frames", 40)
 	if "lineup" in only:
@@ -68,7 +77,7 @@ func capture_shots(tool: Node, out: String) -> void:
 		tool.call("_shot", "%s_lineup_close.png" % out)
 		rig.distance = 13.0
 	if "turns" in only:
-		rig.distance = CameraRig.ZOOM_MIN + 1.0
+		rig.distance = near if near > 0.0 else CameraRig.ZOOM_MIN + 1.0
 		for turn: int in [90, 180, 270]:
 			rig.turn_by(90.0)
 			await tool.call("wait_frames", 50)
@@ -158,6 +167,8 @@ func _until(tool: Node, line: Array, role: String, at: float) -> void:
 ## left to right.
 func _lineup(view: LocationView) -> Array:
 	var ids := (ArtPaths.json(FigureModels.MANIFEST_JSON).get("figures", {}) as Dictionary).keys()
+	if _arg("ids", "") != "":
+		ids = Array(_arg("ids", "").split(","))   # --ids=a,b: only these
 	ids.sort()
 	var axes := view.rig.ground_basis()
 	var toward := -(axes[0] as Vector3)
