@@ -40,11 +40,13 @@ class LowDice extends DiceRoller:
 ## The game's DialogueRunner, remembering every node it enters (the coverage test reads `seen`).
 class TraceRunner extends DialogueRunner:
 	static var seen: Dictionary = {}
+	static var log: Array[String] = []
 
 	func _goto(ref: String) -> bool:
 		var ok: bool = super(ref)
 		if ok and ref != "END" and ref != "" and file != null:
 			seen["%s:%s" % [file.key, node]] = true
+			log.append("%s:%s" % [file.key, node])
 		return ok
 
 
@@ -1720,12 +1722,13 @@ func test_the_boards_last_word_names_the_first_thing_missed() -> void:
 		_inside(FIRST)
 		if c[1]:
 			st.set_flag("trapdoor_known")
-		TraceRunner.seen.clear()
+		var from := TraceRunner.log.size()
 		_seance(c[0] as Array[String])
-		assert_true(TraceRunner.seen.has("crooked_house/seance:" + str(c[2])), "asked %s (door known %s): his last word is %s" % [c[0], c[1], c[2]])
+		var played := TraceRunner.log.slice(from)
+		assert_true(played.has("crooked_house/seance:" + str(c[2])), "asked %s (door known %s): his last word is %s" % [c[0], c[1], c[2]])
 		for other: String in ["urgent_hag", "urgent_mementos", "urgent_door", "urgent_face"]:
 			if other != str(c[2]):
-				assert_true(not TraceRunner.seen.has("crooked_house/seance:" + other), "asked %s: only one last word is said (%s too)" % [c[0], other])
+				assert_true(not played.has("crooked_house/seance:" + other), "asked %s: only one last word is said (%s too)" % [c[0], other])
 		assert_true(bool(st.get_flag("seance_done")))
 		assert_eq(bool(st.get_flag("patrini_asked_find_son")), str(c[2]) == "urgent_face", "his son is asked after only on the last word of a board that missed nothing")
 
