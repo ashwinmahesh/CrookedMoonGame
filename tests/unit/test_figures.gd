@@ -23,11 +23,15 @@ func _ids() -> Array:
 	return out
 
 
-## The monsters: entries that carry a sprite fallback or lie over a base body.
+## The monsters: entries that carry a sprite fallback or lie over a base body, other than the bodies made heroes wear
+## (the manifest's "bodies"; test_hero_creator checks those).
 func _monster_ids() -> Array:
+	var bodies: Array = []
+	for by: Variant in (ArtPaths.json(FigureModels.MANIFEST_JSON).get("bodies", {}) as Dictionary).values():
+		bodies.append_array((by as Dictionary).values())
 	var out: Array = []
 	for id: String in _entries():
-		if not id in _ids():
+		if not id in _ids() and not id in bodies:
 			out.append(id)
 	return out
 
