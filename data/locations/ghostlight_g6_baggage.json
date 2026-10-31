@@ -60,6 +60,20 @@
           5
         ]
       ]
+    },
+    {
+      "id": "g6_tiger_bed",
+      "name": "Where the tiger sleeps",
+      "cells": [
+        [
+          16,
+          3
+        ],
+        [
+          16,
+          3
+        ]
+      ]
     }
   ],
   "spawns": {
@@ -95,7 +109,9 @@
       ],
       "to": "module_switcheroo_next",
       "spawn": "from_rear",
-      "label": "On to the next car"
+      "label": "On to the next car",
+      "when": "not tarokka.last_car.ghostlight_g6_baggage or ((flag.haint_sweetheart_done or flag.haint_sweetheart_destroyed) and (flag.haint_songstress_done or flag.haint_songstress_destroyed) and (flag.haint_daydreamer_done or flag.haint_daydreamer_destroyed) and (flag.haint_mariner_done or flag.haint_mariner_destroyed) and (flag.haint_jailbird_done or flag.haint_jailbird_destroyed) and (flag.haint_harlequin_done or flag.haint_harlequin_destroyed))",
+      "locked_text": "The door to the Tender will not budge while a haint rides the train."
     }
   ],
   "props": [
@@ -153,7 +169,8 @@
         3
       ],
       "kind": "decor",
-      "label": "The sleeping tiger"
+      "label": "The sleeping tiger",
+      "when": "not flag.wildpyre_destroyed"
     },
     {
       "id": "g6_iron_ring",
@@ -184,6 +201,19 @@
           }
         }
       ]
+    },
+    {
+      "id": "g6_iron_ring_loose",
+      "cell": [
+        17,
+        4
+      ],
+      "kind": "examine",
+      "label": "The iron ring in the cinders",
+      "model": "case",
+      "item": "wildpyre_iron_ring",
+      "flag": "wildpyre_ring_taken",
+      "when": "flag.wildpyre_destroyed and not flag.wildpyre_ring_taken and not flag.haint_harlequin_done and not item:wildpyre_iron_ring"
     },
     {
       "id": "grille_g6",
@@ -225,16 +255,6 @@
       "dialogue": "ghostlight_express/haint_jailbird:start",
       "facing": "west",
       "when": "not flag.haint_jailbird_done and not flag.haint_jailbird_destroyed"
-    },
-    {
-      "npc": "wildpyre",
-      "cell": [
-        16,
-        3
-      ],
-      "asleep": true,
-      "facing": "west",
-      "when": "not flag.wildpyre_destroyed"
     }
   ],
   "rest": "no",
@@ -251,6 +271,7 @@
       "monsters": [
         {
           "monster": "wayward_haint",
+          "art": "haint_jailbird",
           "cell": [
             6,
             3
@@ -262,7 +283,9 @@
     },
     {
       "id": "gl_wildpyre",
-      "trigger": "flag:wildpyre_woken",
+      "trigger": "enter_area:g6_tiger_bed",
+      "waiting": true,
+      "surprise": "enemies",
       "flag": "wildpyre_destroyed",
       "monsters": [
         {
@@ -272,7 +295,26 @@
             3
           ],
           "name": "The wildpyre",
-          "facing": "west"
+          "facing": "west",
+          "lying": true
+        }
+      ]
+    },
+    {
+      "id": "gl_wildpyre",
+      "trigger": "flag:wildpyre_woken",
+      "waiting": true,
+      "flag": "wildpyre_destroyed",
+      "monsters": [
+        {
+          "monster": "wildpyre",
+          "cell": [
+            16,
+            3
+          ],
+          "name": "The wildpyre",
+          "facing": "west",
+          "lying": true
         }
       ]
     }
@@ -307,6 +349,28 @@
       "bright_ft": 20,
       "dim_ft": 40,
       "color": "candle"
+    }
+  ],
+  "containers": [
+    {
+      "id": "g6_abandoned_cases",
+      "cell": [
+        5,
+        3
+      ],
+      "label": "Abandoned luggage",
+      "gold": 7.5,
+      "items": [
+        {
+          "id": "ruby_silver_ring",
+          "qty": 1
+        },
+        {
+          "id": "travelers_clothes",
+          "qty": 10
+        }
+      ],
+      "model": "case"
     }
   ]
 }

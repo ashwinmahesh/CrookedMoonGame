@@ -87,7 +87,7 @@ haint_songstress [neutral]: Go on then, pull up a chair and show me what you bro
 
 ~ help
 # E7: a tool check (Musical Instrument); until then an ability check gated by the kit
-* [if not flag.haint_songstress_used_musical_instrument] [if item:lute or item:flute or item:drum or item:horn or item:viol] [Charisma DC 12] Play a few quiet bars to find her key. -> musical_instrument_ok | musical_instrument_miss
+* [if not flag.haint_songstress_used_musical_instrument and (item:lute or item:flute or item:drum or item:horn or item:viol)] [Charisma DC 12] Play a few quiet bars to find her key. -> musical_instrument_ok | musical_instrument_miss
 * [if not flag.haint_songstress_used_performance] [Performance DC 12] Sing the melody she's been humming back to her. -> performance_ok | performance_miss
 * [if not flag.haint_songstress_used_arcana] [Arcana DC 12] Trace the magic binding her soul to the unfinished cadence. -> arcana_ok | arcana_miss
 * [if not flag.haint_songstress_used_insight] [Insight DC 12] Speak the lonely word she keeps leaving out. -> insight_ok | insight_miss

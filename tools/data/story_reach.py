@@ -361,7 +361,7 @@ class Story:
                         self.changed |= self.add(("quest", sq["id"], sq["stage"]), f"{w} exit {ex['id']}")
                     if ex["to"].startswith("module_"):   # the module picks the place: any car of data/switcheroo.json may be next
                         sw = json.loads((self.root / "data" / "switcheroo.json").read_text())
-                        for car in [sw["rear"], *sw["middle"], sw["last"]]:
+                        for car in [sw["rear"], *sw["middle"], sw["last"], *([sw["limbo"]] if sw.get("limbo") else [])]:   # the mist between cars too
                             self.changed |= self.add(("loc", car), f"{w} exit {ex['id']} (module)")
                             for sp in self.locs.get(car, {}).get("spawns", {}):
                                 self.changed |= self.add(("spawn", car, sp), w)
@@ -425,9 +425,11 @@ class Story:
             if self.possible(chk.get("when", "")):
                 for it in (chk.get("success") or {}).get("items", []):
                     self.changed |= self.add(("item", it["id"]), f"{why} check {chk.get('id', '')}")
-            f = (chk.get("success") or {}).get("flag")
-            if f and self.possible(chk.get("when", "")):
-                self.changed |= self.add(("flag", f, True), f"{why} check {chk.get('id', '')}")
+            # A failure's flag too (the wildpyre woken by a slip at its iron ring): the roll can go either way.
+            for outcome in ("success", "failure"):
+                f = (chk.get(outcome) or {}).get("flag")
+                if f and self.possible(chk.get("when", "")):
+                    self.changed |= self.add(("flag", f, True), f"{why} check {chk.get('id', '')}")
 
     def _encounter_on(self, lid, en):
         if not self.possible(en.get("when", "")):
