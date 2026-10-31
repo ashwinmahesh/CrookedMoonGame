@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Writes the Ghostlight Express (R10) data files: ten locations, the quests, items and people.
+"""ONE-SHOT: the data files this wrote have since been edited by hand and by other lanes (set pieces, cans, recounts); running it again would overwrite those edits.
+Writes the Ghostlight Express (R10) data files: ten locations, the quests, items and people.
 The maps and prop lists come from the package design doc (the vault's Packages/R10); run from the repo root:
     python3 tools/content/build_ghostlight.py
 The output is plain JSON under data/ and is what the game reads; edit either this script or the JSON, but not both."""
