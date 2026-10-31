@@ -34,6 +34,7 @@ func before_each() -> void:
 	fights.clear()
 	limbo_hops = 0
 	st.playthrough_seed = _seed_for_book_order()
+	GhostlightBoons.watch(st, Dice.roller)   # as the game connects it: a freed haint heals the party
 
 
 func after_each() -> void:
@@ -217,6 +218,7 @@ func test_the_express_plays_from_a_new_game_to_the_wickermoor_road() -> void:
 	_talk("haint_sweetheart", ["bottle"])
 	assert_eq(_stage(), "haints", "meeting a haint starts the haints stage")
 	assert_eq(st.quest_stage("haint_sweetheart"), "bottled")
+	assert_eq(st.party[0].temp_hp, 0, "a bottled haint heals no one")
 	_exit("front_door")
 
 	# The Lounge: the Songstress talked round; the seascape and an empty bottle found.
@@ -224,6 +226,8 @@ func test_the_express_plays_from_a_new_game_to_the_wickermoor_road() -> void:
 	_search("g3_whiskey_bottle")
 	_talk("haint_songstress", ["help you finish", "Sing the melody", "Trace the magic", "Speak the lonely word"])
 	assert_eq(st.quest_stage("haint_songstress"), "helped")
+	for ch in st.party:
+		assert_true(ch.temp_hp >= 1 and ch.temp_hp <= 6, "%s: the freed Songstress heals 1d6, all of it Temporary Hit Points at full health" % ch.name)
 	_exit("front_door")
 
 	# The Dining Car: the Daydreamer bottled; steak and eggs ordered.
@@ -247,6 +251,8 @@ func test_the_express_plays_from_a_new_game_to_the_wickermoor_road() -> void:
 	# The Circus Car: the Harlequin put down, the last of the six, by a fight; nobody touches a grille after it.
 	_talk("haint_harlequin", ["Draw a weapon"])
 	assert_eq(st.quest_stage("haint_harlequin"), "destroyed")
+	assert_true(st.flags.has(GhostlightBoons.PAID + "haint_mariner") and not st.flags.has(GhostlightBoons.PAID + "haint_harlequin"),
+		"the freed Mariner paid and the haint put down did not")
 	for h: String in ["sweetheart", "songstress", "daydreamer", "mariner", "jailbird", "harlequin"]:
 		assert_true(bool(st.get_flag("haint_%s_done" % h)) or bool(st.get_flag("haint_%s_destroyed" % h)), "the %s is gone" % h)
 	_exit("front_door")
