@@ -361,7 +361,7 @@ class Story:
                         self.changed |= self.add(("quest", sq["id"], sq["stage"]), f"{w} exit {ex['id']}")
                     if ex["to"].startswith("module_"):   # the module picks the place: any car of data/switcheroo.json may be next
                         sw = json.loads((self.root / "data" / "switcheroo.json").read_text())
-                        for car in [sw["rear"], *sw["middle"], sw["last"]]:
+                        for car in [sw["rear"], *sw["middle"], sw["last"], *([sw["limbo"]] if sw.get("limbo") else [])]:   # the mist between cars too
                             self.changed |= self.add(("loc", car), f"{w} exit {ex['id']} (module)")
                             for sp in self.locs.get(car, {}).get("spawns", {}):
                                 self.changed |= self.add(("spawn", car, sp), w)

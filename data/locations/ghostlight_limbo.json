@@ -1,0 +1,49 @@
+{
+  "id": "ghostlight_limbo",
+  "name": "The Mist Between Cars",
+  "region": "ghostlight_express",
+  "summary": "A short grey stretch of swirling mist between two cars of the Ghostlight Express, with no way off it but on.",
+  "map": {
+    "rows": [
+      "#############",
+      "#...........#",
+      "#...........#",
+      "#...........#",
+      "#############"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "spawns": {
+    "default": [1, 2],
+    "from_rear": [1, 2]
+  },
+  "exits": [
+    {
+      "id": "onward",
+      "cell": [12, 2],
+      "to": "module_switcheroo_onward",
+      "spawn": "from_rear",
+      "label": "On into the next car"
+    }
+  ],
+  "lights": [
+    {
+      "cell": [3, 2],
+      "kind": "lamp",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "mist_blue"
+    },
+    {
+      "cell": [9, 2],
+      "kind": "lamp",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "mist_blue"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The mist will not hold still long enough to sleep in."
+}
