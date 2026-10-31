@@ -13,7 +13,8 @@ extends TestCase
 ## late, in part or skipped, the ward opening at six, the ladder's every way, the Crooked Man's apparition once on each floor from its
 ## gate; (3) each memento's second way and failure branch; (4) Vessla's three versions and Jasper's Hit Points; (5) the porch steps and
 ## the porch exit in every flag state, and from a save made inside the house; (6) a wipe on every floor; (7) every conversation node of
-## narrative/crooked_house/ reached by some path here, or listed in ALLOWED_UNPLAYED with the reason.
+## narrative/crooked_house/ reached by some path here, or listed in ALLOWED_UNPLAYED with the reason. The last tests are what the walk found:
+## the board's last word, Wisp turned down, and (still open) a party under level 3.
 
 const GAME := preload("res://world/game_root.gd")
 
@@ -1753,3 +1754,33 @@ func test_wisp_turned_down_can_still_be_told_tales_driven_off_or_fought() -> voi
 	_talk("wisp", ["We want no part"])
 	_talk("wisp", ["Draw a weapon"])
 	assert_eq(st.quest_stage("a_tale_for_wisp"), "slain", "or in his death")
+
+
+# --- Known and open: a party under level 3 --------------------------------------------------------------------------------------------
+
+
+## Every fight waits for the lowest hero to be level 3 (the contract's level gate). The toys and the roar have a plain fallback for a
+## smaller party; the peacock and the lurker do not, so a party with a hero under level 3 can start neither fight and win neither the
+## bloodstone nor the doll (OPEN: R12 needs a fallback version, or the gate dropped, for those two; see the report). This test holds the
+## list, so that mending one shrinks it.
+const NO_FALLBACK_UNDER_LEVEL_3: Array[String] = ["gem", "doll"]
+
+
+func test_under_level_three_the_toys_and_the_roar_have_a_fallback_and_the_peacock_and_the_lurker_do_not_yet() -> void:
+	_fresh(PARTY, 2)
+	st.set_flag("crooked_house_turned")
+	st.set_flag("crooked_man_met")
+	st.set_quest_stage("the_crooked_house", "trapped")
+	var stuck: Array[String] = []
+	_arrive(FIRST)
+	if _trigger("examine:h4_peacock", false).is_empty():
+		stuck.append("gem")
+	_arrive(SECOND)
+	st.playthrough_seed = 1
+	var at := str(CrookedMoonCampaign.LURKER_SPOTS[CrookedMoonCampaign.lurker_spot(1) - 1])
+	if _trigger("check:%s:success" % at, false).is_empty():
+		stuck.append("doll")
+	_arrive(THIRD)
+	assert_true(not _trigger("examine:h13_crib", false).is_empty(), "the toys have a plain version for a smaller party")
+	assert_true(not _trigger("examine:h15_trapdoor", false).is_empty(), "so does the roar")
+	assert_eq(stuck, NO_FALLBACK_UNDER_LEVEL_3, "the keepsakes that cannot be won under level 3 (shrink NO_FALLBACK_UNDER_LEVEL_3 when one is mended)")
