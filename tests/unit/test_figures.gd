@@ -12,7 +12,7 @@ func _ids() -> Array:
 
 
 func test_every_figure_opens_with_its_clips() -> void:
-	assert_true(_ids().size() >= 9, "the Act 1 figures")
+	assert_true(_ids().size() >= 10, "the Act 1 figures")
 	for id: String in _ids():
 		assert_true(FigureModels.has(id), "%s: its model is in the repo" % id)
 		var height := CombatToken.height_for(id)
@@ -32,7 +32,7 @@ func test_every_figure_opens_with_its_clips() -> void:
 
 
 func test_the_companions_and_people_wear_their_figures() -> void:
-	for id: String in ["rook_coldwake", "silas_vane", "cordelia_skein", "delphine_ravelle", "lucan_houndstooth"]:
+	for id: String in ["rook_coldwake", "silas_vane", "cordelia_skein", "delphine_ravelle", "lucan_houndstooth", "tobin_hayward"]:
 		assert_eq(CombatToken.art_for(Pregens.build(id, 1)), id, "%s wears their own figure" % id)
 	for id: String in ["the_vagrant", "phillip_druskenvald", "adela_druskenvald"]:
 		var npc := Compendium.shared().get_entry("npcs", id)
