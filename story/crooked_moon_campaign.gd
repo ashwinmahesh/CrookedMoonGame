@@ -21,18 +21,26 @@ func ensure_drawn(st: StoryState) -> void:
 
 
 ## One slot as the card face shows it: the card, whose it is, and Adela's verse. The dialogue's `reading read` asks this once for each
-## card it turns, and the hero whose card it is takes part in the reading, so they gain Bless for an hour (the book: all who take
-## part). The story engine has no hook for "the reading is finished"; this call is the nearest thing it makes, and no time passes
-## between the cards, so every hero's hour starts together.
+## card it turns.
 func reading(slot: String, st: StoryState) -> Dictionary:
 	var card_id := str(st.tarokka.get(slot, ""))
 	if card_id == "":
 		return {}
-	GhostlightBoons.bless_slot(slot, st)
 	var hero := _hero_name(slot, st)
 	var info := _outcome(card_id)
 	return {"card": card_id, "slot": slot, "slot_name": hero, "title": "%s: %s" % [hero, str(ReadingDeck.card(card_id).get("name", card_id))],
 		"verse": str(info.get("verse", ""))}
+
+
+## Every card of the reading has been turned: everyone at the table took part, so every hero gains Bless for an hour, starting now
+## (the book: all who take part).
+func reading_finished(st: StoryState) -> void:
+	GhostlightBoons.bless_party(st)
+
+
+## A quest ended: a freed haint heals every hero 1d6 (story/ghostlight_boons.gd); the journal's notice carries what it says.
+func quest_finished(st: StoryState, quest_id: String, _ending: String, dice: DiceRoller) -> String:
+	return GhostlightBoons.haint_freed(st, quest_id, dice)
 
 
 ## The journal's one line for a hero's card, for `{tarokka.hero_1.hint}` in quest text.

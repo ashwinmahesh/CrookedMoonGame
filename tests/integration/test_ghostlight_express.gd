@@ -325,3 +325,31 @@ func test_every_look_and_find_line_belongs_to_a_prop() -> void:
 	for key: String in file.order:
 		if key.begins_with("examine:") or key.begins_with("search:"):
 			assert_true(keys.has(key), "%s belongs to a prop in Act 1" % key)
+
+
+# --- The locomotive's second phase speaks and shows its cutscene (engine phase hook: `say` and `cutscene`) ---------------
+
+func test_the_locomotives_second_phase_names_its_line_and_its_cutscene() -> void:
+	var phase: Dictionary = {}
+	for ph: Variant in Compendium.shared().get_entry("monsters", "ghostlight_locomotive").get("phases", []):
+		if str((ph as Dictionary)["id"]) == "phantom_in_the_machine":
+			phase = ph as Dictionary
+	assert_eq(str(phase.get("say", "")), "gl_locomotive_switch", "the Narrator key the view speaks")
+	assert_eq(str(phase.get("cutscene", "")), "gl_locomotive_wakes_3", "the cutscene played over the fight")
+	var st := GameState.story
+	assert_true(Cutscenes.image("gl_locomotive_wakes_3", st) != "", "the picture exists")
+	assert_eq(Cutscenes.for_moment("gl_locomotive_switch", "gl_locomotive_wakes_3", st), "gl_locomotive_wakes_3", "and it plays")
+
+
+func test_the_narrator_has_a_line_for_the_iron_grin() -> void:
+	GameState.reset()
+	var st := GameState.story
+	st.location = "ghostlight_wreckage"
+	var narrator := Narrator.new()
+	assert_true(narrator.has_trigger("gl_locomotive_switch"), "the key the phase says")
+	var text := narrator.line("gl_locomotive_switch", st)
+	assert_true(text != "", "and it speaks in the clearing")
+	assert_true(text.to_lower().contains("you "), "second person")
+	assert_true(text.to_lower().contains("grin") and text.to_lower().contains("stack"), "the grin and the black souls from the stack")
+	assert_eq(text.count(". ") + text.count("? ") + 1, 2, "two sentences")
+	GameState.reset()
