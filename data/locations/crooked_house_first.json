@@ -693,7 +693,7 @@
       "model": "glass_ring",
       "call": "crooked_house/incitements:pilgrimage_enter",
       "approach": 4,
-      "call_when": "not flag.incitement_pilgrimage and not flag.pending_pilgrimage_incitement",
+      "call_when": "not flag.incitement_pilgrimage",
       "text": "A crystal ball, clouded from within, sits on a shelf that has been dusted by someone, recently."
     },
     {
@@ -808,7 +808,8 @@
       "model": "bird_case",
       "scale": 1.6,
       "tint": "#e8e4dc",
-      "text": "An albino peacock carved in marble, huge, its tail fanned and one eye a polished red stone."
+      "text": "An albino peacock carved in marble, huge, its tail fanned and one eye a polished red stone.",
+      "when": "not flag.memento_gem"
     },
     {
       "id": "h4_bust",
@@ -819,7 +820,10 @@
       "kind": "examine",
       "label": "A dour bust",
       "model": "statue_head",
-      "text": "The bust glares from its plinth with the look of a man who has never once enjoyed himself."
+      "text": "The bust glares from its plinth with the look of a man who has never once enjoyed himself.",
+      "call": "crooked_house/incitements:rapture_enter",
+      "approach": 4,
+      "call_when": "not flag.incitement_rapture"
     },
     {
       "id": "h4_paintings",
@@ -832,6 +836,21 @@
       "model": "painting_row",
       "dialogue": "crooked_house/keziah:paintings",
       "text": "Rolling country in a thin, careful hand. The longer you look, the more of it is eyes, and fur, and teeth."
+    },
+    {
+      "id": "h4_peacock_rubble",
+      "cell": [
+        3,
+        29
+      ],
+      "kind": "decor",
+      "label": "What is left of the peacock",
+      "model": "rubble",
+      "tint": "#e8e4dc",
+      "when": "flag.memento_gem",
+      "call": "crooked_house/keziah:peacock_fall",
+      "approach": 12,
+      "call_when": "flag.memento_gem"
     },
     {
       "id": "h4_d01",
@@ -1318,7 +1337,7 @@
       "scale": 0.9,
       "call": "crooked_house/incitements:rejuvenation_enter",
       "approach": 4,
-      "call_when": "not flag.incitement_rejuvenation and not flag.pending_rejuvenation_incitement",
+      "call_when": "not flag.incitement_rejuvenation",
       "text": "One tree among the dead vines is green and heavy with fruit, as if it were fed by the rest."
     },
     {
@@ -1330,7 +1349,11 @@
       "kind": "examine",
       "label": "A porcelain cup",
       "model": "sill_cups",
-      "text": "A small porcelain cup sits on the flagstones, polished, with nothing in it and no dust on it at all."
+      "text": "A small porcelain cup sits on the flagstones, polished, with nothing in it and no dust on it at all.",
+      "dialogue": "crooked_house/petunia:cup",
+      "call": "crooked_house/petunia:cup",
+      "approach": 6,
+      "call_when": "flag.petunia_destroyed and not flag.memento_cup"
     },
     {
       "id": "h8_d01",
@@ -1447,7 +1470,10 @@
         24
       ],
       "kind": "decor",
-      "model": "lantern_bracket"
+      "model": "lantern_bracket",
+      "call": "crooked_house/crooked_man:floor1",
+      "approach": 12,
+      "call_when": "not flag.crooked_man_seen_1 and (flag.seance_done or (flag.memento_gem and flag.memento_key) or (flag.memento_gem and flag.memento_cup) or (flag.memento_key and flag.memento_cup))"
     },
     {
       "id": "h_d03",
@@ -1919,6 +1945,29 @@
       "damage": "1d6",
       "damage_type": "acid",
       "text": "Something wet and sour seeps from the oven's seams."
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "crooked_man",
+      "cell": [
+        21,
+        37
+      ],
+      "dialogue": "crooked_house/crooked_man:porch",
+      "facing": "south",
+      "approach": 8,
+      "when": "not flag.crooked_man_met"
+    },
+    {
+      "npc": "petunia_lockwood",
+      "cell": [
+        12,
+        8
+      ],
+      "dialogue": "crooked_house/petunia:start",
+      "facing": "northwest",
+      "when": "not flag.petunia_at_peace and not flag.petunia_destroyed"
     }
   ],
   "rest": "no",
