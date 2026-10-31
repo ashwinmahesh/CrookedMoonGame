@@ -80,9 +80,33 @@
       "action": "special",
       "summary": "Starting its turn within 10 ft of a Soul Can, it eats it: +20 Hit Points and Advantage on its attacks until its next turn; each can eaten or broken frees a haint's echo.",
       "text": "Ours (R10 decision 15): when the locomotive starts its turn within 10 feet of a Soul Can it devours the can, regaining 20 Hit Points and making its attacks with Advantage until its next turn starts. Every can eaten or smashed lets out the echo of the haint it held, which fights beside the engine until the engine falls.",
-      "implemented": "text"
+      "implemented": "data"
+    },
+    {
+      "id": "spectral_rails",
+      "name": "Spectral Rails",
+      "action": "passive",
+      "summary": "It rides rails of mist: roots, soul-mist and rough ground don't slow it.",
+      "text": "Ours (a deviation): rails of spectral light unroll under the locomotive wherever it goes, so Difficult Terrain costs it no extra movement.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "ignore_difficult_terrain"
+        }
+      ],
+      "implemented": "engine"
     }
   ],
+  "devours": {
+    "fuel": [
+      "soul_can"
+    ],
+    "within": 10,
+    "heal": 20,
+    "advantage": true,
+    "seeks": true,
+    "name": "Soul Fuel"
+  },
   "actions": [
     {
       "id": "multiattack",

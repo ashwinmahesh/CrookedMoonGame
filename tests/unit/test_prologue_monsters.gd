@@ -1,8 +1,8 @@
 extends TestCase
 ## The prologue's four monsters (package R10, section 10; vault Build/D2 notes): what the engine runs from their data
 ## alone, with no game code. The Locomotive's phase, its echoes going with it, the Stoker's Soul Burn and the haint's
-## resistances. The parts that need the bestiary's own code (the bottle trap, Corpse Fuel, Soul Fuel, Ghostly Rails)
-## are tested with it.
+## resistances, its Soul Fuel and the Soul Cans of the wreck fights. The parts that need the bestiary's own code (the
+## bottle trap, Corpse Fuel, Ghostly Rails) are tested with it.
 
 const LOCOMOTIVE_SWITCH := "phantom_in_the_machine"
 
@@ -139,35 +139,109 @@ func test_the_stoker_burns_a_corpse_it_sees() -> void:
 	assert_true(e.distance(stoker, dead) <= 5, "the stoker went to it")
 
 
+## The wreck fight's own entry for `id` (data/locations/ghostlight_wreckage.json, gl_locomotive's `objects`), moved to
+## `cell` when given.
+static func _wreck_object(id: String, cell: Vector2i = Vector2i(-1, -1)) -> Dictionary:
+	for en: Variant in Compendium.shared().get_entry("locations", "ghostlight_wreckage").get("encounters", []):
+		if str((en as Dictionary)["id"]) != "gl_locomotive":
+			continue
+		for x: Variant in (en as Dictionary).get("objects", []):
+			if str((x as Dictionary).get("id", "")) == id:
+				var entry := (x as Dictionary).duplicate(true)
+				if cell.x >= 0:
+					entry["cell"] = [cell.x, cell.y]
+				return entry
+	return {}
+
+
+static func _echoes(e: Encounter) -> Array[Combatant]:
+	var out: Array[Combatant] = []
+	for c in e.combatants:
+		if c.has_meta(ObjectFuel.RELEASED_META):
+			out.append(c)
+	return out
+
+
+## The wreck fights put down three Soul Cans, a bottled haint's jar standing in for one: never more than three fuel
+## between them for up to three bottled.
+func test_the_wreck_fights_put_down_three_cans_less_one_for_each_jar() -> void:
+	var st := StoryState.new()
+	var lay := func() -> Array[String]:
+		var out: Array[String] = []
+		for en: Variant in Compendium.shared().get_entry("locations", "ghostlight_wreckage").get("encounters", []):
+			if str((en as Dictionary)["id"]) != "gl_locomotive":
+				continue
+			for x: Variant in (en as Dictionary).get("objects", []):
+				if StoryConditions.check(str((x as Dictionary).get("when", "")), st):
+					out.append(str((x as Dictionary)["id"]))
+		return out
+	assert_eq(lay.call(), ["soul_can_1", "soul_can_2", "soul_can_3"], "nothing bottled: the three cans")
+	st.set_flag("haint_mariner_how", "bottled")
+	st.set_flag("gl_bottled", 1)
+	assert_eq(lay.call(), ["soul_can_1", "soul_can_2", "jar_mariner"], "the Mariner's jar stands in for the third can")
+	for h: String in ["sweetheart", "jailbird"]:
+		st.set_flag("haint_%s_how" % h, "bottled")
+	st.set_flag("gl_bottled", 3)
+	assert_eq(lay.call(), ["jar_sweetheart", "jar_mariner", "jar_jailbird"], "three bottled: three jars, no cans")
+	for en: Variant in Compendium.shared().get_entry("locations", "ghostlight_wreckage").get("encounters", []):
+		if str((en as Dictionary)["id"]) == "gl_locomotive_edge":
+			assert_eq((en as Dictionary).get("objects", []), _wreck_spec_objects(), "the walk-away fight lays the same cans")
+
+
+static func _wreck_spec_objects() -> Array:
+	for en: Variant in Compendium.shared().get_entry("locations", "ghostlight_wreckage").get("encounters", []):
+		if str((en as Dictionary)["id"]) == "gl_locomotive":
+			return (en as Dictionary).get("objects", []) as Array
+	return []
+
+
 func test_a_can_eaten_feeds_the_locomotive_and_lets_out_an_echo() -> void:
 	var e := _field()
 	var engine := e.add(TestCombat.monster("ghostlight_locomotive"), &"enemy", Vector2i(12, 5))
 	var hero := TestCombat.hero(e, "hedda_ironvow", Vector2i(2, 12), 3)
-	var cans := BestiaryFeatures.place_soul_cans(e, [Vector2i(9, 6)] as Array[Vector2i])
+	var can := e.objects.put(_wreck_object("soul_can_1", Vector2i(9, 6)))
 	TestCombat.start_with(e, hero)
 	_hurt(e, engine, 30)
 	var before := engine.creature.hp
 	e.end_turn()
 	while e.current() != engine:
 		e.end_turn()
-	assert_true(cans[0].destroyed, "the can is gone")
+	assert_true(can.destroyed, "the can is gone")
 	assert_eq(engine.creature.hp, before + 20, "20 Hit Points from it")
-	var echoes := e.combatants.filter(func(c: Combatant) -> bool: return c.has_meta(BestiaryFeatures.ECHO_META))
+	var echoes := _echoes(e)
 	assert_eq(echoes.size(), 1, "an echo rose from it")
-	assert_eq((echoes[0] as Combatant).creature.hp, 7, "at half Hit Points")
-	assert_eq(str((echoes[0] as Combatant).get_meta("summoner")), engine.id, "and fights beside the engine")
+	assert_eq(echoes[0].creature.hp, 7, "at half Hit Points")
+	assert_eq(e.order.find(echoes[0]), e.order.find(engine) + 1, "and fights beside the engine")
+	_hurt(e, engine, 400)
+	assert_eq(str(e.legendary.departed.get(echoes[0].id, "")), "vanish", "and goes with it")
 
 
-func test_a_smashed_can_lets_out_an_echo_without_feeding_it() -> void:
+func test_a_smashed_jar_lets_out_its_haints_echo_without_feeding_it() -> void:
 	var e := _field()
 	var engine := e.add(TestCombat.monster("ghostlight_locomotive"), &"enemy", Vector2i(16, 9))
 	var hero := TestCombat.hero(e, "hedda_ironvow", Vector2i(2, 2), 3)
-	var cans := BestiaryFeatures.place_soul_cans(e, [Vector2i(3, 2)] as Array[Vector2i])
+	var jar := e.objects.put(_wreck_object("jar_mariner", Vector2i(3, 2)))
 	TestCombat.start_with(e, hero)
-	e.objects.smash(cans[0], "smashed")
-	var echoes := e.combatants.filter(func(c: Combatant) -> bool: return c.has_meta(BestiaryFeatures.ECHO_META))
+	e.objects.damage(jar, [{"amount": 4, "type": "lightning"}], hero, "a spark")
+	assert_false(jar.destroyed, "lightning doesn't harm it")
+	e.objects.damage(jar, [{"amount": 4, "type": "bludgeoning"}], hero, "a blow")
+	var echoes := _echoes(e)
 	assert_eq(echoes.size(), 1, "the haint's echo")
+	assert_eq(echoes[0].name(), "The Mariner's Echo", "with the haint's own name")
 	assert_eq(engine.creature.hp, engine.creature.max_hp(), "and the engine got nothing")
+	assert_eq(e.game.monster_turn(echoes[0]), null, "an echo fights at once: no opening wail")
+	assert_false(echoes[0].has_meta(BestiaryFeatures.WAILED_META))
+
+
+func test_the_locomotive_goes_for_a_can_before_a_hero() -> void:
+	var e := _field()
+	var engine := e.add(TestCombat.monster("ghostlight_locomotive"), &"enemy", Vector2i(2, 2))
+	TestCombat.hero(e, "hedda_ironvow", Vector2i(6, 3), 3)
+	var can := e.objects.put(_wreck_object("soul_can_1", Vector2i(15, 12)))
+	TestCombat.start_with(e, engine)
+	e.ai.play_turn(engine)
+	assert_eq(str(e.ai.last_plan.get("kind", "")), "fuel", "the can, not the hero beside it")
+	assert_true(e.objects.distance_ft(engine, can) <= 10, "it ends its move within 10 ft of the can")
 
 
 func test_ghostly_rails_grapples_whoever_the_locomotive_passes_through() -> void:

@@ -1,8 +1,14 @@
 # R10: the Tender and the crash. Two scenes, both started by an NPC with `approach` (a hidden figure at the Tender's door and at the
 # firebox): `opened` when the party steps through the unsealed door (the cutscene, then the Stoker fight), `crash` once the Stoker is dead.
 # Captions drafted by Gemini (Gemini/sent_20_cutscene_captions.txt) and edited; the Vagrant's lines are batch 02 (`stoker_down`).
+# `opened` recounts the haints first: a haint put down in a fight is only counted by the next recount, so the last one gone may
+# have been a fight with no grille after it (the Stoker's Corrupted Fuel reads haints_destroyed).
 
 ~ opened
+set gl_after_recount = "tender"
+-> ghostlight_express/haint_common:recount
+
+~ fuel
 set gl_tender_opened
 cutscene gl_curse_reaches_fuel
 Narrator: Black, root-veined tendrils thrash inside the iron pipes with a hollow, drumming thud. Thick porthole glass spiderwebs with a sharp, dry crack.

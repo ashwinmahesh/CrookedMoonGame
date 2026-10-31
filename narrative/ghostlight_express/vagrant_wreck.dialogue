@@ -1,5 +1,6 @@
 # R10: the Vagrant at the wreck, before the fight. Speaker the_vagrant (on foot now, by the engine). Region ghostlight_express.
-# Started by: the Vagrant NPC at the wreck (`arrival`, then `menu`), the clearing's rim (`walk_away`, `enter_area:wr_edge`).
+# Started by: the Vagrant NPC at the wreck (`arrival`, then `menu`; "We'll go now" ends the talk so the party can search), the clearing's rim
+# (`walk_away`, the wr_rim_* props).
 # The Soul Cans: three props (wr_soul_can_1..3, `search`, Perception DC 10; each sets gl_can_N_found), his fiddle note reveals the rest (`hum`),
 # bottled haints stand in for one each (gl_bottled), and if the party refuses to look the Lord and Lady fetch them (`refuse_search`).
 # Drafted by Gemini (Gemini/sent_18_wreck_council.txt), edited; see README.md.
@@ -37,7 +38,7 @@ endif
 * [if not flag.gl_wreck_rested] Can we rest a moment first? -> rest_offer
 * [if not flag.gl_hummed] Can you hum the cans' note on your fiddle? -> hum
 * We have the cans. -> cans_recount
-* We'll go now. -> walk_away
+* We'll go now. -> END
 * We're not doing this. -> refuse_search
 
 ~ ask_cans
