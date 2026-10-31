@@ -627,7 +627,7 @@ func test_a_failed_ring_check_wakes_the_wildpyre_and_its_ring_is_left_for_the_ha
 	# The fight the flag starts, won.
 	_win("gl_wildpyre")
 	assert_true(bool(st.get_flag("wildpyre_destroyed")), "the wildpyre falls")
-	assert_true(not _holds(_entry("npcs", "npc", "wildpyre").get("when")), "it is gone from the car")
+	assert_true(_entry("npcs", "npc", "wildpyre").is_empty(), "it is no NPC: the sleeping tiger is a foe waiting in plain view (test_wildpyre_wakes)")
 	assert_true(not _holds(_entry("props", "id", "g6_tiger").get("when")), "and so is the sleeping tiger")
 	var loose := _entry("props", "id", "g6_iron_ring_loose")
 	assert_true(_holds(loose.get("when")), "the ring lies in the cinders")

@@ -60,6 +60,20 @@
           5
         ]
       ]
+    },
+    {
+      "id": "g6_tiger_bed",
+      "name": "Where the tiger sleeps",
+      "cells": [
+        [
+          16,
+          3
+        ],
+        [
+          16,
+          3
+        ]
+      ]
     }
   ],
   "spawns": {
@@ -241,16 +255,6 @@
       "dialogue": "ghostlight_express/haint_jailbird:start",
       "facing": "west",
       "when": "not flag.haint_jailbird_done and not flag.haint_jailbird_destroyed"
-    },
-    {
-      "npc": "wildpyre",
-      "cell": [
-        16,
-        3
-      ],
-      "asleep": true,
-      "facing": "west",
-      "when": "not flag.wildpyre_destroyed"
     }
   ],
   "rest": "no",
@@ -279,7 +283,9 @@
     },
     {
       "id": "gl_wildpyre",
-      "trigger": "flag:wildpyre_woken",
+      "trigger": "enter_area:g6_tiger_bed",
+      "waiting": true,
+      "surprise": "enemies",
       "flag": "wildpyre_destroyed",
       "monsters": [
         {
@@ -289,7 +295,26 @@
             3
           ],
           "name": "The wildpyre",
-          "facing": "west"
+          "facing": "west",
+          "lying": true
+        }
+      ]
+    },
+    {
+      "id": "gl_wildpyre",
+      "trigger": "flag:wildpyre_woken",
+      "waiting": true,
+      "flag": "wildpyre_destroyed",
+      "monsters": [
+        {
+          "monster": "wildpyre",
+          "cell": [
+            16,
+            3
+          ],
+          "name": "The wildpyre",
+          "facing": "west",
+          "lying": true
         }
       ]
     }
