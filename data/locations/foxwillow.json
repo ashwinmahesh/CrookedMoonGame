@@ -650,8 +650,62 @@
         31,
         31
       ],
+      "dialogue": "foxwillow/two_curses:start",
+      "when": "flag.raum_slain and not flag.curses_asked"
+    },
+    {
+      "npc": "jonah_sawyer",
+      "cell": [
+        31,
+        31
+      ],
       "dialogue": "foxwillow/windmill:jonah_rescued",
       "when": "flag.jonah_saved and not flag.maze_open"
+    },
+    {
+      "npc": "agatha_pell",
+      "cell": [
+        35,
+        26
+      ],
+      "dialogue": "foxwillow/folk_foxwillow:agatha_start",
+      "when": "flag.fw_arrived"
+    },
+    {
+      "npc": "old_tom_crowley",
+      "cell": [
+        21,
+        29
+      ],
+      "dialogue": "foxwillow/rosemary:old_tom",
+      "when": "flag.crow_asked and not flag.crow_tom_heard"
+    },
+    {
+      "npc": "old_tom_crowley",
+      "cell": [
+        21,
+        29
+      ],
+      "dialogue": "foxwillow/folk_foxwillow:tom_start",
+      "when": "flag.fw_arrived"
+    },
+    {
+      "npc": "rosemary_langtree",
+      "cell": [
+        54,
+        12
+      ],
+      "dialogue": "foxwillow/rosemary:decide",
+      "when": "flag.crow_tom_heard and not flag.crow_outcome"
+    },
+    {
+      "npc": "rosemary_langtree",
+      "cell": [
+        54,
+        12
+      ],
+      "dialogue": "foxwillow/rosemary:start",
+      "when": "flag.raum_slain and not flag.crow_asked"
     }
   ],
   "encounters": [

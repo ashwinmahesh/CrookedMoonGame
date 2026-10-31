@@ -78,9 +78,31 @@
       "kind": "examine",
       "label": "The chopping block",
       "model": "table_round"
+    },
+    {
+      "id": "fw_butcher_hex",
+      "cell": [
+        6,
+        8
+      ],
+      "kind": "examine",
+      "label": "The red chalk circle",
+      "model": "rags",
+      "dialogue": "foxwillow/two_curses:circle",
+      "when": "flag.curses_asked and not flag.curses_outcome"
     }
   ],
-  "npcs": [],
+  "npcs": [
+    {
+      "npc": "malachai_voss",
+      "cell": [
+        11,
+        4
+      ],
+      "dialogue": "foxwillow/two_curses:malachai",
+      "when": "flag.curses_asked"
+    }
+  ],
   "rest": "risky",
   "lights": [
     {

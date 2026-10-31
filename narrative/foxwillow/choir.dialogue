@@ -1,0 +1,53 @@
+# Drafted by Gemini (side quests batch 4: choir), edited.
+
+~ start
+librarian_agnes_fennel [weary]: Twenty children sit in the schoolhouse, still stitched up in straw and humming that dreadful chalk song. I have the sheet music right here, though my fingers still rustle when I turn the page.
+librarian_agnes_fennel [neutral]: The verses must be sung in their proper sequence, or the binding will not loosen. They will wake only if the song is sung true.
+* We will teach them -> accept
+* Ask Agnes for the order outright -> hint
+* Not now -> END
+
+~ accept
+librarian_agnes_fennel [neutral]: Mind your pitch in that drafty room, and keep your eyes on the chalk marks. I would go myself, but I have quite enough dry grass in my cuffs for one week.
+quest scarecrows_choir asked
+set choir_asked
+-> END
+
+~ hint
+librarian_agnes_fennel [neutral]: Any primer could tell you the way of the field. The corn grows first, the crow comes after, the moon watches last.
+-> start
+
+~ teach
+Narrator: Twenty small scarecrows sit neat as pins at their scarred wooden desks, smelling of dry oats and chalk dust. A thin, reed-like humming rises from their burlap throats.
+* Sing the first verse -> v1
+
+~ v1
+Narrator: The chalk on the blackboard shows stalks of grain, a black bird on a rail, and a pale crescent overhead. The little figures tilt their stuffed heads toward {name}, waiting for the opening measure.
+* Sing the Corn verse -> v2
+* Sing the Crow verse -> wrong
+* Sing the Moon verse -> wrong
+
+~ v2
+Narrator: A warm rustle passes along the rows as the first verse settles into the timber walls. Several button eyes glint in the lantern light, eager for the second stanza.
+* Sing the Crow verse -> v3
+* Sing the Corn verse -> wrong
+* Sing the Moon verse -> wrong
+
+~ v3
+Narrator: The dry humming swells into a clear, sweet harmony that shakes the chalk dust from the sill. Only the closing verse remains to untie the spell.
+* Sing the Moon verse -> woken
+* Sing the Corn verse -> wrong
+* Sing the Crow verse -> wrong
+
+~ wrong
+Narrator: The humming sours into a discordant scrape, and coarse straw bristles through the seams of their coats. The little choir slumps back over the desks, starting the tune over from the first note.
+time +10
+-> teach
+
+~ woken
+Narrator: As the last note fades, the burlap slackens and the brittle straw softens into warm wool and sleepy limbs. Twenty children blink in the lantern glow, and Rosemary Langtree rubs the chaff from her eyes.
+rosemary_langtree [weary]: Miss Fennel said we were not to leave our seats until the last verse was done. Tell Gran I kept my slate clean.
+set choir_woken
+quest scarecrows_choir done
+gold +20
+-> END
