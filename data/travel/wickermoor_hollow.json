@@ -40,6 +40,19 @@
       "region": "foxwillow",
       "when": "flag.foxwillow_asked or visited:foxwillow",
       "summary": "A farming town in flames, east of Wickermoor."
+    },
+    {
+      "id": "druskenvald_estate",
+      "name": "Druskenvald Estate",
+      "location": "druskenvald_estate",
+      "spawn": "from_village",
+      "pos": [
+        0.56,
+        0.42
+      ],
+      "region": "crooked_house",
+      "when": "flag.wm_welcomed or visited:druskenvald_estate",
+      "summary": "The Lockwood manor on the hill above Wickermoor, a pretty house at the end of a hill road."
     }
   ],
   "roads": [
@@ -58,6 +71,14 @@
       "hours": 18,
       "name": "The Foxwillow road",
       "when": "flag.foxwillow_asked or visited:foxwillow"
+    },
+    {
+      "id": "wickermoor_to_estate",
+      "from": "wickermoor_village",
+      "to": "druskenvald_estate",
+      "hours": 1,
+      "name": "The hill road",
+      "when": "flag.wm_welcomed"
     }
   ]
 }

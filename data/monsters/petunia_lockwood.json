@@ -1,0 +1,117 @@
+{
+  "id": "petunia_lockwood",
+  "name": "Petunia Lockwood",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), chapter 12: the 2025 Wight's numbers, Neutral, with Life Drain as its only attack. The words are ours. The ribbon rule is text only until the fight set-piece actions (engine E6) land."
+  },
+  "size": "medium",
+  "type": "undead",
+  "alignment": "neutral",
+  "ac": 14,
+  "initiative": 2,
+  "hp": {
+    "average": 82,
+    "dice": "11d8+33"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 15,
+    "dex": 14,
+    "con": 16,
+    "int": 10,
+    "wis": 13,
+    "cha": 15
+  },
+  "skills": {
+    "perception": 3,
+    "stealth": 4
+  },
+  "resistances": [
+    "necrotic"
+  ],
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "exhaustion",
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 13,
+  "languages": [
+    "Common"
+  ],
+  "cr": 3,
+  "xp": 700,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "sunlight_sensitivity",
+      "name": "Sunlight Sensitivity",
+      "action": "passive",
+      "summary": "Disadvantage on ability checks and attack rolls while in sunlight.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "sunlight_sensitivity"
+        }
+      ],
+      "sunlight": "sensitivity",
+      "implemented": "engine"
+    },
+    {
+      "id": "green_ribbon",
+      "name": "Green Ribbon",
+      "action": "passive",
+      "summary": "A faded ribbon at her throat holds her head on. While she is Grappled, Incapacitated or Restrained, a creature next to her can untie it (Utilize action, DC 15 Strength or Dexterity check): her head falls and she is destroyed.",
+      "text": "A green ribbon at her throat holds her head on. While she is Grappled, Incapacitated or Restrained, a creature within 5 feet of her can use the Utilize action to untie it with a DC 15 Strength or Dexterity check. Her head falls, a spray of blood reaches 30 feet (DC 13 Constitution save or 1d6 necrotic damage), and she is destroyed. The ribbon is left behind.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "life_drain",
+      "name": "Life Drain",
+      "kind": "save",
+      "save": {
+        "ability": "con",
+        "dc": 13,
+        "success": "none"
+      },
+      "area": {
+        "targets": 1,
+        "range": 5
+      },
+      "damage": [
+        {
+          "average": 6,
+          "dice": "1d8+2",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "DC 13 Con save by a creature within 5 ft or necrotic damage that also lowers its Hit Point maximum.",
+      "targets": {
+        "range": 5,
+        "count": 1
+      },
+      "on_fail": [
+        {
+          "do": "drain_max_hp",
+          "type": "necrotic"
+        }
+      ]
+    }
+  ],
+  "regions": [
+    "crooked_house"
+  ],
+  "ai_profile": "brute",
+  "summary": "A pale woman in a black mourning gown, a faded green ribbon at her throat and a cup of dark tea in her hands; her touch drains the life from the living.",
+  "art": "ghost"
+}

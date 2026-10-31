@@ -1,0 +1,211 @@
+# R12: the Crooked Man (Eustace Lockwood's shade), a showman who hints and never explains. Speaker crooked_man. Region crooked_house.
+# FINAL-WORDED: these lines are to be voiced and must not change.
+# Started by: the porch (`porch`: he is already on the steps when the party arrives, so no `appear`), then once per floor (`floor1`, `floor2`,
+# `floor3`: calls on the floor's props, gated on any one memento of that floor, never a named room). He never fights; a blow makes him vanish.
+# Flags: crooked_man_met (porch, set at the storm), crooked_man_seen_1..3 (one apparition per floor, set when it starts).
+# Pictures: ch_apparition_1 (+_2), ch_apparition_2 (+_2, hidden unless the graphic scenes setting is on, so those captions also read alone),
+# ch_apparition_3 (+_2). Drafted by Gemini (gemini_r12_crooked_man), edited; see README.md.
+
+# --- The porch ---
+
+~ porch
+if flag.crooked_man_met
+-> END
+endif
+Narrator: A heavy hush settles over the porch before the storm, where a tall, lanky figure waits at the top of the steps in a tattered suit.
+Narrator: His neck leans at a wrong angle beneath a bent top hat, and he flashes a huge yellow grin before sweepin' the brim off in a deep bow.
+crooked_man [smile]: Ah, splendid! The guests of honor arrive at the crest of my little hill.
+crooked_man [smile]: Do mind the steps, my dears, though I must applaud such exquisite punctuality.
+crooked_man [sly]: The table is nearly set, and the house has been holding its breath for your company.
+crooked_man [smile]: Walk as freely as you please, yet you were always going to come up this hill.
+-> porch_menu
+
+~ porch_menu
+* Who are you? -> who
+* Where are Lord Phillip and Lady Adela? -> couple
+* What do you want with us? -> want
+* [Insight DC 14] Study him closely. -> read_him_ok | read_him_missed
+* [Arcana DC 12] Feel the air around him. -> read_air_ok | read_air_missed
+* Strike at him. -> struck
+* Go inside. -> inside
+
+~ who
+crooked_man [smile]: Who am I, my dears, if not the fond conclusion to a very long walk?
+crooked_man [sly]: You may call me your destiny, waiting patiently where the autumn road bends.
+crooked_man [smile]: Every footpath in Wickermoor Hollow was always going to bring you to my door.
+-> porch_menu
+
+~ couple
+crooked_man [smile]: Ah, Phillip and Adela Druskenvald are indisposed at the moment, my dears.
+crooked_man [sly]: This old manor is simply getting to know the Lord and Lady in its own quiet fashion.
+crooked_man [smile]: A proper house takes time to learn its family, and much longer to keep them.
+-> porch_menu
+
+~ want
+crooked_man [sly]: Outsiders are a dreadful curse upon this good land, as strangers always are.
+crooked_man [smile]: Yet a curse, when rightly pointed, becomes a remarkably useful thing to have on hand.
+crooked_man [smile]: I merely wish to see which way the four of you are aimed.
+-> porch_menu
+
+~ read_him_ok
+Narrator: He has not moved his feet since you came up the steps; the lean of him starts high, like a man hangin' from a rope you cannot see.
+-> porch_menu
+
+~ read_him_missed
+Narrator: That wide yellow grin sits shut like a painted shutter, and there is nothing behind it that you can read.
+-> porch_menu
+
+~ read_air_ok
+Narrator: Wind and rain slip clean through his coat without a stir, and the first lightning casts no shadow behind him, for nothing stands there at all.
+-> porch_menu
+
+~ read_air_missed
+Narrator: A bitter chill drifts across the porch, carryin' the scent of old ash and wet rope, and no more than that.
+-> porch_menu
+
+# A blow only makes him vanish; the storm comes down all the same.
+~ struck
+Narrator: Your weapon slices straight through his tattered chest the way a hand parts chimney smoke, meeting only empty air.
+crooked_man [smile]: Splendid form, my dears, and what a lovely, spirited arm you have.
+crooked_man [sly]: Do keep that wrist warm, for such vigor will be wanted before the night is done.
+crooked_man [smile]: Until the next curtain rises, I remain your humble servant.
+vanish crooked_man
+Narrator: He is gone without a sound, leaving only a trace of cold ashes and the porch boards still creakin' where his heels rested.
+-> storm
+
+~ inside
+crooked_man [smile]: Do step inside, my dears, for the front door is never locked, nor is anything in this house.
+crooked_man [sly]: Coming in requires only a wish, whereas the leaving wants a great deal of arranging.
+crooked_man [smile]: Pray make yourselves at home, for the evening is yours.
+vanish crooked_man
+-> storm
+
+~ storm
+set crooked_man_met
+quest the_crooked_house trapped
+Narrator: Thunder rumbles down the hillside like heavy furniture being dragged across an attic, and the rain strikes at once, icy and sideways.
+Narrator: The heavy door swings wide onto a dark hall while a solid wall of water swallows the steps behind you.
+-> END
+
+# --- The first floor: an axe that never connects ---
+
+~ floor1
+if flag.crooked_man_seen_1
+-> END
+endif
+set crooked_man_seen_1
+appear crooked_man
+cutscene ch_apparition_1
+Narrator: Down at the far end of the hall, a tall figure with a raised axe charges straight at you, hat tipped low and yellow grin wide.
+crooked_man [smile]: Ladies and gentlemen, pray take your seats for the very first act of our domestic drama.
+crooked_man [smile]: Ah, what a tidy evening of work that was, when I saw everyone to their rooms before supper grew cold.
+crooked_man [sly]: Not a soul complained of the service afterward, I can assure you of that.
+cutscene ch_apparition_1_2
+Narrator: The blade comes down through your shoulder and meets nothing, and his lunging form smears into the floral wallpaper like wet paint.
+crooked_man [smile]: Forgive my haste, my dears, as it has been an age since the manor enjoyed a full table.
+crooked_man [sly]: Now look how kindly you four have come to fill the empty chairs.
+cutscene end
+-> floor1_menu
+
+~ floor1_menu
+* What do you want from us? -> floor1_ask
+* Strike at the wallpaper. -> floor1_struck
+* Stand and wait. -> floor1_gone
+
+~ floor1_ask
+crooked_man [sly]: I desire only a tidy house and a punctual conclusion to the dinner hour.
+crooked_man [smile]: Every guest brings something to the feast, even if they do not yet know the recipe.
+-> floor1_gone
+
+~ floor1_struck
+Narrator: Your strike cuts empty hallway, and he vanishes into nothing, leaving a faint stink of cold ashes on the draft.
+crooked_man [smile]: Such lively manners, my dears, though you really ought to save your strength for the main course.
+vanish crooked_man
+-> END
+
+~ floor1_gone
+vanish crooked_man
+Narrator: He folds back into the wallpaper pattern, grin last, and the hall is only a hall again.
+-> END
+
+# --- The second floor: a rope, and guilt (no method, no wound: the picture is optional) ---
+
+~ floor2
+if flag.crooked_man_seen_2
+-> END
+endif
+set crooked_man_seen_2
+appear crooked_man
+cutscene ch_apparition_2
+Narrator: High near the hall ceiling, a taut rope gives a slow creak as a long, dark shape turns lazily in the gloom.
+crooked_man [sad]: Tell me softly, my dears, if you have ever done a terrible thing just to make the whispering stop.
+crooked_man [weary]: A desperate man will try anything, anything at all to buy a little peace, and it is never enough.
+crooked_man [afraid]: The lady upstairs sings me to sleep every blessed night. Have you heard her sweet voice on the landing?
+cutscene ch_apparition_2_2
+Narrator: The swinging shadow slams against the wainscot with a sharp crack, shaking down a veil of plaster dust as a framed picture drops and rings on the boards.
+crooked_man [smile]: Ah, do forgive the dreadful racket, my dears.
+crooked_man [sly]: This old house has no manners when company calls.
+cutscene end
+-> floor2_menu
+
+~ floor2_menu
+* What do you want from us? -> floor2_ask
+* Strike at the shadow. -> floor2_struck
+* Stand and wait. -> floor2_gone
+
+~ floor2_ask
+crooked_man [weary]: A good host only wants the music to finish so the hall may finally go quiet.
+crooked_man [sly]: Walk softly near the upper stairs, or you may learn the tune for yourselves.
+-> floor2_gone
+
+~ floor2_struck
+Narrator: Steel passes through the dark shape without a tug, and he is gone, trailing only the dry scent of cold ashes.
+crooked_man [sly]: Ah, a sharp point indeed, though you cannot cut down a shadow that already fell.
+vanish crooked_man
+-> END
+
+~ floor2_gone
+vanish crooked_man
+Narrator: The rope's creak winds down to nothing, and the ceiling holds only the dark.
+-> END
+
+# --- The third floor: folded small, and where he lives now ---
+
+~ floor3
+if flag.crooked_man_seen_3
+-> END
+endif
+set crooked_man_seen_3
+appear crooked_man
+cutscene ch_apparition_3
+Narrator: Something low shuffles across the stair hall boards, bent nearly square and small, like a piece of parchment refolded too many times.
+crooked_man [smile]: Do mind your feet, my dears, while a humble host makes himself small for the household.
+crooked_man [sly]: She folded me up like an old letter and posted me beneath the floorboards, and I have been in transit ever since.
+crooked_man [weary]: Rest assured that the postage was paid in full, down to the very last splinter.
+cutscene ch_apparition_3_2
+Narrator: Pale, snapped knuckles slide one after another into a narrow gap between the floorboards, and the dark wood closes tight around them.
+crooked_man [smile]: That snug crawlspace is where I reside now, do mind, and it is quite cozy once one settles.
+crooked_man [sly]: Pray do not linger long on this top floor, for the Queen dislikes uninvited company.
+cutscene end
+-> floor3_menu
+
+~ floor3_menu
+* What do you want from us? -> floor3_ask
+* Strike at the floorboards. -> floor3_struck
+* Stand and wait. -> floor3_gone
+
+~ floor3_ask
+crooked_man [sly]: Someone must lie beneath the floorboards so the rest of the manor knows how to stand.
+crooked_man [smile]: She is always looking for fresh letters to file away in the dark.
+-> floor3_gone
+
+~ floor3_struck
+Narrator: Your swing meets only floorboards and thin air, and he is gone, leaving a bitter trace of cold ashes behind.
+crooked_man [smile]: Splendid enthusiasm, my dears, though she already broke everything worth breaking.
+vanish crooked_man
+-> END
+
+~ floor3_gone
+vanish crooked_man
+Narrator: The crack in the floor lets out one last dry click, and then it is only wood.
+-> END
