@@ -3,7 +3,7 @@ extends TestCase
 ## one opens, stands as tall as its creature is drawn, has the clips the game plays (Tripo's combat set: a run, a hit and
 ## a fall too), and its attack window lies inside its swing; the companions wear theirs as their own art, and the Vagrant
 ## and the Druskenvalds wear theirs as people. The monsters' entries (a `sprite` fallback worn until Tripo delivers the model, a
-## `base` body a dressing would lie over, a `ghost` look) are listed before their models exist: the checks on them hold with
+## `base` body for the haint dressings, a `ghost` look) are listed before their models exist: the checks on them hold with
 ## or without the file, and the model checks run on the ones whose file is in the repo.
 
 const QUADRUPEDS: Array[String] = ["barnaby"]
@@ -62,7 +62,7 @@ func test_the_companions_and_people_wear_their_figures() -> void:
 
 
 func test_every_monster_entry_has_a_sprite_to_wear_until_its_model_comes() -> void:
-	assert_true(_monster_ids().size() >= 11, "the six haints and the wayward haint, the trainhopper, stoker, passenger and crawler")
+	assert_true(_monster_ids().size() >= 11, "the haint and its six dressings, the trainhopper, stoker, passenger and crawler")
 	for id: String in _monster_ids():
 		var entry := _entries()[id] as Dictionary
 		var sprite := str(entry.get("sprite", ""))
