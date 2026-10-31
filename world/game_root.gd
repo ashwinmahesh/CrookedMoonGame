@@ -724,7 +724,8 @@ func start_dialogue(ref: String, _npc_id: String) -> void:
 	dialogue.spoke.connect(_talk_music)
 	dialogue.spoke.connect(func(speaker_id: String) -> void:
 		if view != null:
-			view.set_speaking(speaker_id))   # a place's lights follow whoever speaks (CampaignLook.refresh)
+			view.set_speaking(speaker_id)   # a place's lights follow whoever speaks (CampaignLook.refresh)
+			FigureTalk.spoke(view, speaker_id))   # a 3D figure gestures as its line shows
 	dialogue.scene_shown.connect(_scene_music)
 	var runner := DialogueRunner.new(st, Dice.roller, narrator)
 	runner.npc_id = _npc_id
@@ -737,6 +738,7 @@ func start_dialogue(ref: String, _npc_id: String) -> void:
 		ModeController.force(ModeController.Mode.EXPLORATION)
 	else:
 		TalkCamera.open(view, _npc_id, view.dialogue_prop if view != null else "")   # the camera eases in on the leader and the speaker, or the prop that speaks (Visual Polish Plan 7)
+		FigureTalk.opened(view, _npc_id)   # 3D figures turn to each other, and the one spoken to greets the party
 		if dialogue != null:
 			_talk_music(_npc_id)   # the one who was clicked, before they have spoken
 
