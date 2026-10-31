@@ -1,0 +1,252 @@
+# R12: Wisp, the grey estate cat with Walter Jenkin's stolen voice (H14, the library). Speaker wisp; quest a_tale_for_wisp; flags wisp_tales (int),
+# wisp_exposed, wisp_catch_pending. Wisp is a Ketgrinn (a fey) in a cat's shape: all charm and lies, golden eyes, and a man's warm voice from a cat's muzzle.
+# FINAL-WORDED: every Narrator and character line below is voiced; no line changes once the voice lane starts (new lines are fine).
+# How it goes: he asks for three tales for three empty books. Each tale is a Performance or a History check at DC 10 (the slot is wisp_tales: 0, 1 or 2, so no
+# per-option flag is needed; a failed Performance is spent for its slot, the engine hides it; a failed History can be tried again, as the rules say of any
+# check that is not social). Three tales end it: he thanks them, winks out, and the party has the rest he promised. The catch (wisp_catch_pending) fires
+# in the next fight in the house (a rider the wiring adds). Insight DC 15 shows his malice; a riddle (Deception DC 16, he can't resist one) makes him blurt
+# the truth; either exposes him (wisp_exposed), and then they must choose whether to take his bargain anyway. Threatened, he takes his true form and flees
+# through the window (quest fled); attacked, ch_wisp starts. Refusing outright ends the side quest in failure (it can be taken up again).
+# PLACEHOLDER (contract gap): the boon is "every hero may spend Hit Dice as on a Short Rest, +4 per die"; the grammar has no statement for it. `time +60` (a Short
+# Rest's hour) and the Narrator's lines stand in; replace them when a rest-boon statement exists.
+# Wiring assumptions: Wisp is placed `when: not (quest.a_tale_for_wisp == thanked or quest.a_tale_for_wisp == fled or quest.a_tale_for_wisp == slain)`;
+# ch_wisp's victory moves the quest to slain and sets wisp_slain; if he flees the fight the wiring moves it to fled.
+# Walter has no voice lines of his own: the Jenkins' notebook is in other files; Wisp speaks with his voice, so the voice lane casts him as a warm man's voice.
+# Drafted by Gemini (gemini_r12_wisp/brief.md, reply_raw.json), edited; see that folder's README.md.
+
+~ start
+if quest.a_tale_for_wisp == thanked or quest.a_tale_for_wisp == fled or quest.a_tale_for_wisp == slain
+-> gone
+endif
+if attitude.wisp == hostile
+-> attack
+endif
+if quest.a_tale_for_wisp == asked or quest.a_tale_for_wisp == telling or quest.a_tale_for_wisp == refused
+-> return
+endif
+quest a_tale_for_wisp asked
+Narrator: Dust and old paper hang thick by a dead, cold hearth up here at the top of the house. A grey cat sits upright on the desk beside three empty books, his golden eyes followin' you.
+Narrator: When the creature speaks, a warm, handsome man's voice comes rollin' right out of that narrow muzzle.
+wisp [smile]: Welcome, my dear friends, do step in out of the chill! I have waited such a lonely spell for company in this quiet room.
+wisp [smile]: I am the keeper of the estate's library, and my shelves have grown terribly dull without guests.
+wisp [smile]: How delightful to find true readers under our crooked roof at last.
+interject class:rogue: That is a mighty fine baritone for something that licks its own paws.
+interject class:cleric: Nothing blessed by the light ever borrowed a man's throat to greet a stranger.
+-> menu
+
+~ return
+wisp [smile]: How delightful, my dear friends have come back to visit a lonely old scholar. Do sit, for the pages wait and so do I.
+wisp [smile]: Pour a glass from the cart if you wish, and let us pick up right where we left off.
+-> menu
+
+~ menu
+* Who are you? -> who
+* Why do you sound like that? -> voice
+* What do you want from us? -> ask_tale
+* [if not flag.wisp_exposed] [Insight DC 15] Study him closely. -> insight_ok | insight_miss
+* [if not flag.wisp_exposed] [Deception DC 16] Pose him a riddle he cannot leave alone. -> riddle_ok | riddle_miss
+* [if flag.wisp_tales < 3] Tell him a tale for his books. -> tales
+* Warn the cat to drop his games, or else. -> threat
+* Draw a weapon on the cat. -> attack
+* [ends:a_tale_for_wisp] We want no part of your books. -> refuse
+* Not just now. -> END
+
+~ who
+wisp [smile]: Why, I am only the estate's cat, my dear friends, the humble keeper of its best stories. I have curled among these shelves for as long as the autumn leaves have hung on the trees.
+wisp [smile]: You see before you a poor old library cat with a simple, harmless love of tales.
+wisp [smile]: I assure you there is nothing in this quiet room to fear.
+-> menu
+
+~ voice
+wisp [sly]: Ah, this voice is a small gift of the house, my dear friends. Druskenvald is remarkably generous with voices if one knows how to ask.
+wisp [sly]: It would be a dreadful shame to keep a library and have no way to discuss the collection.
+wisp [sly]: Do you not think it is a lovely gift to give to a cat?
+Narrator: That grey jaw moves a half beat behind the words, the way a wooden puppet's does when the string pulls late.
+-> menu
+
+~ ask_tale
+wisp [smile]: My wish is simple, my dear friends: three tales for the three empty books upon this desk. Each teller speaks a story in their own words, and I shall set it down in ink and little pictures.
+wisp [smile]: A library must grow, after all, even on a stormy night above Wickermoor Hollow.
+wisp [smile]: Give me three good tellings, and I will grant you a rest that mends bone and spirit like no rest you have known.
+-> menu
+
+# Seeing through him: either way sets wisp_exposed, and then neither option shows again.
+~ insight_ok
+set wisp_exposed
+Narrator: Behind those golden eyes there ain't a drop of real warmth, only a cold, patient appetite waitin' at the table.
+Narrator: That polite smile in the man's voice sits right on top of a much bigger, uglier grin underneath.
+-> menu
+
+~ insight_miss
+Narrator: You hear a handsome voice and see a pink-tongued cat's yawn, and there ain't a single thing you can put a finger on.
+-> menu
+
+~ riddle_ok
+set wisp_exposed
+Narrator: Those golden eyes go wide and fixed as glass, and his grey tail stops dead against the polished wood.
+Narrator: He turns your riddle over and over in his head the way a hungry dog worries a dry bone.
+wisp [angry]: Wait, wait, be still a moment, for the third part twists back upon the first! No, do not speak, I nearly have the knot of it undone.
+wisp [angry]: A clever little lock, curse it, and this borrowed voice of the mute caretaker is clumsy when I think aloud! Old Walter Jenkin had no further use for his tongue anyway.
+wisp [angry]: What does a riddle matter when every story told into my page leaves a fine thread of the teller bound inside the ink?
+wisp [angry]: Those threads are wonderfully handy for whoever holds the books, and my lady pulls them so very well!
+wisp [sly]: Ah, how delightful, you have quite clever tongues, my dear friends. Cleverness changes nothing, however, and the books are still open on the desk.
+-> menu
+
+~ riddle_miss
+Narrator: He lets your riddle drift right on by with one lazy flick of a grey ear.
+wisp [sly]: Oh, that was almost clever, my dear friends, truly a gallant little effort. Do sit and try not to strain yourselves with parlor tricks.
+wisp [sly]: I am far too old a cat to be caught by a dusty nursery game.
+-> menu
+
+# The tales. The slot is wisp_tales (0, 1, 2); each success adds one and tale_tally moves on.
+~ tales
+if flag.wisp_tales >= 3
+-> finale
+endif
+if flag.wisp_tales == 0
+-> tales_first
+endif
+if flag.wisp_tales == 1
+-> tales_second
+endif
+-> tales_third
+
+~ tales_first
+wisp [smile]: Let us begin properly, my dear friends, as the first cover opens to the lamp. Look how hungry the clean paper is for a voice.
+wisp [smile]: Now then, which of you kind souls will be the first to tell?
+-> tale_menu
+
+~ tales_second
+wisp [smile]: One book is full and warm to the touch, and if I were an ordinary cat I might purr. How delightful to hear a room come alive with words.
+wisp [smile]: The second volume lies open upon the wood, my dear friends, and I am quite ready for the next.
+-> tale_menu
+
+~ tales_third
+wisp [smile]: Two books are full of fine ink, my dear friends, with only one pale volume left to go. You have been generous hosts to my little craving.
+wisp [smile]: Come, I fairly tremble to hear the last tale you have brought me.
+-> tale_menu
+
+~ tale_menu
+* [if flag.wisp_tales == 0] [Performance DC 10] Tell a ghost story, hushed and slow. -> perf_1_ok | perf_1_miss
+* [if flag.wisp_tales == 0] [History DC 10] Tell the old tale of a siege won by a trick. -> hist_1_ok | hist_1_miss
+* [if flag.wisp_tales == 1] [Performance DC 10] Act out a comic tale of a clever fox. -> perf_2_ok | perf_2_miss
+* [if flag.wisp_tales == 1] [History DC 10] Tell the tale of a king's lost crown. -> hist_2_ok | hist_2_miss
+* [if flag.wisp_tales == 2] [Performance DC 10] Sing a long ballad of a winding road. -> perf_3_ok | perf_3_miss
+* [if flag.wisp_tales == 2] [History DC 10] Tell how a town came by its name. -> hist_3_ok | hist_3_miss
+* Take it back for now. -> menu
+
+~ perf_1_ok
+Narrator: You drop your voice low and the brass lamps seem to lean in close. The pages turn on their own while dark ink writes itself across them in words and little pictures.
+wisp [smile]: Oh, delicious, my dear friends, a chill worthy of the finest shelf in Druskenvald!
+-> tale_tally
+
+~ perf_1_miss
+Narrator: Your ghost story limps along the floorboards, and a tallow candle gutters out unhelped while the paper stays white as milk.
+wisp [smile]: How very quaint, my dear friends, though perhaps the spirit lost its way in the dark.
+-> tale_menu
+
+~ hist_1_ok
+Narrator: That old siege comes out in neat order, wall by stone wall. Before you finish, the parchment fills up with inked maps, flighted arrows, and tiny banners.
+wisp [smile]: Magnificent strategy, my dear friends, and recorded with the precision of a master chronicler!
+-> tale_tally
+
+~ hist_1_miss
+Narrator: You get the years tangled up until the whole siege falls over itself, and the page stays bare as a clean plate.
+wisp [smile]: History is a slippery thing, my dear friends, and it seems this battle escaped us both.
+-> tale_menu
+
+~ perf_2_ok
+Narrator: You play out every part and the heavy bindings quiver with quiet laughter. Ink runs down the leaf in lively loops and sharp, fox-shaped pictures.
+wisp [smile]: Bravo, my dear friends, what a charmingly wicked little rascal you have given my pages!
+-> tale_tally
+
+~ perf_2_miss
+Narrator: Your clever fox trips right over its own brush, and the joke dies cold on the mahogany desk.
+wisp [smile]: A sweet attempt, my dear friends, even if the poor creature never quite found the punchline.
+-> tale_menu
+
+~ hist_2_ok
+Narrator: The lost crown travels from hand to hand across the leaf as you speak. A bright gleam of gold ink follows it from king to thief to rushin' river.
+wisp [smile]: How delightful, my dear friends, a royal treasure caught forever in my humble paper!
+-> tale_tally
+
+~ hist_2_miss
+Narrator: You lose track of that crown somewhere in the middle and have to backtrack a piece, while the open book gives a dry yawn.
+wisp [smile]: What a pity, my dear friends, for a crown that stays lost cannot shine upon the page.
+-> tale_menu
+
+~ perf_3_ok
+Narrator: Your ballad goes out true and slow across the room, and the open book drinks it right down. Every verse becomes a neat line of script beside a small drawin' of a windin' road.
+wisp [smile]: Ah, how delightful, a song that will echo between these covers for a very long season!
+-> tale_tally
+
+~ perf_3_miss
+Narrator: One verse goes sour in your throat and the third line falls clean out of your head.
+wisp [smile]: Alas, my dear friends, even the sweetest singer forgets a note when the rain beats hard at the glass.
+-> tale_menu
+
+~ hist_3_ok
+Narrator: You tell how an old town came by its name, and tiny slate roofs and a stone well rise up in wet ink as your words settle.
+wisp [smile]: Charming, quite charming, my dear friends, I can almost hear the village bell from here!
+-> tale_tally
+
+~ hist_3_miss
+Narrator: You reach for the name of the town and come up with a different place entirely, leavin' the paper empty and still.
+wisp [smile]: Names are tricky little birds, my dear friends, and that one flew right out the casement.
+-> tale_menu
+
+~ tale_tally
+set wisp_tales += 1
+if flag.wisp_tales == 1
+quest a_tale_for_wisp telling
+Narrator: The first leather volume shuts itself with a soft clap and settles onto the pile like it has sat there for a hundred years.
+-> tales
+endif
+if flag.wisp_tales == 2
+Narrator: The second book closes with a dry sigh of heavy paper, leavin' the stack on the desk just one tale short of done.
+-> tales
+endif
+-> finale
+
+# The third book is full. He thanks them and winks out; the party gets the rest he promised; the catch is waiting (a rider on the next fight in the house).
+~ finale
+wisp [smile]: My dear friends, you have my deepest, warmest thanks for this feast of words! This old library has not been so well fed in an age.
+wisp [smile]: You are kindness itself to indulge a lonely creature on such a foul autumn night.
+wisp [smile]: I must go tend to my new collection now, so do sit and enjoy the gift you have earned.
+Narrator: That grey cat blinks once, real slow, and the whole shape of him goes out like a blown lamp.
+Narrator: All he leaves behind is a warm hollow on the wood and a sharp smell of cold chimney smoke.
+quest a_tale_for_wisp thanked
+set wisp_catch_pending
+# PLACEHOLDER for the Hit Dice boon (see the header): an hour passes, as on a Short Rest.
+time +60
+Narrator: Then the rest he promised rolls over you in a slow, heavy wave, liftin' the lead right out of your boots.
+Narrator: Aches ease out of your shoulders and your breath comes deep and sweet, like you just slept a whole night in a feather bed.
+Narrator: Yet right under that comfort sits one small unease, like a splinter you can't quite find, 'cause that partin' thanks was a shade too sweet.
+-> END
+
+~ threat
+set wisp_exposed
+Narrator: The cat's outline stretches and loosens, grey fur runnin' like smoke into somethin' long and wrong-jointed with way too many bends.
+Narrator: Two golden eyes burn hot and mean high above the desk.
+wisp [angry]: You have made a grave mistake tonight, you rude, heavy-handed fools. Keep your clumsy tongues, then, and choke on the dust of this house.
+wisp [angry]: I never forget a face, and Walter Jenkin's voice will be the last warm thing you ever hear!
+quest a_tale_for_wisp fled
+Narrator: That long grey shape slips right through the windowpane without breakin' the glass, and the wet night wind eats the sound of him.
+-> END
+
+~ attack
+set wisp_exposed
+attitude wisp hostile
+Narrator: The grey back arches sharp as a sawblade, and the oily charm slides clean off that stolen man's voice.
+wisp [angry]: You will regret that.
+combat ch_wisp
+
+~ refuse
+wisp [sly]: Oh, you wound me, my dear friends, you wound a humble host quite to the quick. Still, the storm is loud and these pages will keep a spell longer.
+wisp [sly]: My door is always open to friends who come to their senses and change their minds.
+quest a_tale_for_wisp refused
+-> END
+
+~ gone
+Narrator: The reading desk sits bare now, save for a scatter of coarse grey hairs and a neat ring in the dust where a cat sat.
+-> END
