@@ -450,6 +450,15 @@ class Story:
             return ("door", lid, arg) in self.facts or ("container", lid, arg) in self.facts
         if kind == "examine":
             return ("prop", lid, arg) in self.facts
+        if kind == "check":
+            # A fight a skill check sets off (check:<check id>:success|failure): on once the thing that carries the check is reached.
+            cid = arg.rpartition(":")[0]
+            for key, fact in (("props", "prop"), ("doors", "door"), ("containers", "container")):
+                for t in self.locs.get(lid, {}).get(key, []):
+                    if (fact, lid, t["id"]) in self.facts and any(c.get("id") == cid and self.possible(c.get("when", ""))
+                                                                  for c in t.get("checks", [])):
+                        return True
+            return False
         return trig == "enter" or ("combat", en["id"]) in self.facts
 
     def _won(self, lid, en, w):

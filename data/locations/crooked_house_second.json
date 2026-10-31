@@ -245,7 +245,26 @@
       "kind": "examine",
       "label": "A grandfather clock, still ticking",
       "model": "clock_tall",
-      "text": "A grandfather clock stands in the turret's curve, ticking in a house where nothing else keeps time."
+      "text": "A grandfather clock stands in the turret's curve, ticking in a house where nothing else keeps time.",
+      "checks": [
+        {
+          "id": "h9_gears",
+          "skill": "sleight_of_hand",
+          "dc": 10,
+          "label": "Work the clock's gears loose",
+          "success": {
+            "text": "A small catch gives under your fingers, and the case swings open on a dull gold watch lying among the gears, ticking out of step with the pendulum.",
+            "items": [
+              {
+                "id": "gold_pocket_watch"
+              }
+            ]
+          },
+          "failure": {
+            "text": "The gears bite your fingers and the case stays shut. Someone else might do better."
+          }
+        }
+      ]
     },
     {
       "id": "h9_rail",
@@ -349,12 +368,28 @@
         9,
         5
       ],
-      "kind": "search",
+      "kind": "examine",
       "label": "A small bed",
       "model": "bed_small",
-      "search_dc": 10,
-      "skill": "perception",
-      "text": "A child's bed, made, the blanket drawn up over a shape that is only pillows."
+      "text": "A child's bed, made, the blanket drawn up over a shape that is only pillows.",
+      "checks": [
+        {
+          "id": "h10_bed_left",
+          "skill": "perception",
+          "dc": 15,
+          "label": "Look under the left bed",
+          "success": {
+            "text": "You crouch and sweep your light under the left bed, and for a breath nothing answers."
+          },
+          "failure": {
+            "items": [
+              {
+                "id": "human_tooth"
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "h10_bed_right",
@@ -362,12 +397,28 @@
         13,
         5
       ],
-      "kind": "search",
+      "kind": "examine",
       "label": "A second small bed",
       "model": "bed_small",
-      "search_dc": 10,
-      "skill": "perception",
-      "text": "A second small bed, its blanket slightly turned back, as if someone has just got out."
+      "text": "A second small bed, its blanket slightly turned back, as if someone has just got out.",
+      "checks": [
+        {
+          "id": "h10_bed_right",
+          "skill": "perception",
+          "dc": 15,
+          "label": "Look under the right bed",
+          "success": {
+            "text": "You lie flat and look under the right bed, and for a breath nothing answers."
+          },
+          "failure": {
+            "items": [
+              {
+                "id": "human_tooth"
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "h10_window",
@@ -375,12 +426,28 @@
         11,
         5
       ],
-      "kind": "search",
+      "kind": "examine",
       "label": "A dark window",
       "model": "window_tall",
-      "search_dc": 10,
-      "skill": "perception",
-      "text": "The window shows nothing but black glass, and a faint breath on it from the inside."
+      "text": "The window shows nothing but black glass, and a faint breath on it from the inside.",
+      "checks": [
+        {
+          "id": "h10_window",
+          "skill": "perception",
+          "dc": 15,
+          "label": "Look outside the window",
+          "success": {
+            "text": "You press close to the black glass and look out into the storm, and for a breath nothing answers."
+          },
+          "failure": {
+            "items": [
+              {
+                "id": "human_tooth"
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "h10_chest",
@@ -388,12 +455,28 @@
         16,
         5
       ],
-      "kind": "search",
+      "kind": "examine",
       "label": "A big toy chest",
       "model": "toy_chest",
-      "search_dc": 10,
-      "skill": "perception",
-      "text": "A toy chest big enough for a child to curl up in, its lid not quite shut."
+      "text": "A toy chest big enough for a child to curl up in, its lid not quite shut.",
+      "checks": [
+        {
+          "id": "h10_chest",
+          "skill": "perception",
+          "dc": 15,
+          "label": "Search the toy chest",
+          "success": {
+            "text": "You lift the lid and dig down through the loose toys, and for a breath nothing answers."
+          },
+          "failure": {
+            "items": [
+              {
+                "id": "human_tooth"
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "h10_armoire",
@@ -401,12 +484,28 @@
         18,
         8
       ],
-      "kind": "search",
+      "kind": "examine",
       "label": "A child's armoire",
       "model": "wardrobe",
-      "search_dc": 10,
-      "skill": "perception",
-      "text": "A little armoire, its door ajar on a row of tiny coats."
+      "text": "A little armoire, its door ajar on a row of tiny coats.",
+      "checks": [
+        {
+          "id": "h10_armoire",
+          "skill": "perception",
+          "dc": 15,
+          "label": "Search the armoire",
+          "success": {
+            "text": "You ease the crooked doors apart and look behind the tiny coats, and for a breath nothing answers."
+          },
+          "failure": {
+            "items": [
+              {
+                "id": "human_tooth"
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "h10_closet",
@@ -414,12 +513,47 @@
         7,
         8
       ],
-      "kind": "search",
+      "kind": "examine",
       "label": "A closet, ajar",
       "model": "cupboard",
-      "search_dc": 15,
-      "skill": "investigation",
-      "text": "A closet door stands open a hand's width on the dark inside."
+      "text": "A closet door stands open a hand's width on the dark inside.",
+      "checks": [
+        {
+          "id": "h10_closet",
+          "skill": "perception",
+          "dc": 15,
+          "label": "Search the closet",
+          "success": {
+            "text": "You lift the little coats one by one and peer into the dark behind them, and for a breath nothing answers."
+          },
+          "failure": {
+            "items": [
+              {
+                "id": "human_tooth"
+              }
+            ]
+          }
+        },
+        {
+          "id": "the_bag",
+          "skill": "investigation",
+          "dc": 15,
+          "label": "Study the coats and the high shelf",
+          "success": {
+            "text": "Among the little coats hangs a worn leather satchel, and the eye painted on its flap turns to follow you.",
+            "reveal": [
+              "the_bag"
+            ]
+          },
+          "failure": {
+            "items": [
+              {
+                "id": "human_tooth"
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "h10_doll",
@@ -431,8 +565,10 @@
       "label": "A wooden doll",
       "model": "doll",
       "dialogue": "crooked_house/sally_doll:start",
-      "when": "flag.memento_doll",
-      "text": "A small wooden doll sits where it fell, its painted face turned toward you."
+      "text": "A small wooden doll sits where it fell, its painted face turned toward you.",
+      "call": "crooked_house/sally_doll:start",
+      "approach": 8,
+      "call_when": "not flag.sally_rested"
     },
     {
       "id": "h10_d01",
@@ -614,11 +750,42 @@
         17,
         20
       ],
-      "kind": "book",
+      "kind": "examine",
       "label": "Phillip's black journal",
       "model": "book",
-      "codex": "phillip_journal",
-      "text": "A black leather journal with a monogram stamped in gilt, and a small lock holding it shut."
+      "text": "A black leather journal with a monogram stamped in gilt, and a small lock holding it shut.",
+      "checks": [
+        {
+          "id": "h12_journal_pick",
+          "skill": "sleight_of_hand",
+          "dc": 10,
+          "label": "Pick the brass clasp",
+          "success": {
+            "text": "The little brass clasp springs open, and the journal falls open in your hands.",
+            "codex": {
+              "id": "phillip_journal",
+              "title": "Phillip's black journal",
+              "text": "The early pages are Phillip's tidy hand: the small powers he used to carry have gone out of him, and he cannot say where they went. Adela begs him in the margins to stop and be still. A later page is about the Ghostlight Express and the night it let them off at the Hollow, and the last lines say that if the folk here will have them, he means to spend what he has left on helping the Hollow."
+            }
+          },
+          "failure": {}
+        },
+        {
+          "id": "h12_journal_break",
+          "skill": "athletics",
+          "dc": 10,
+          "label": "Break the clasp open",
+          "success": {
+            "text": "You wrench the clasp until it snaps, and the journal falls open in your hands.",
+            "codex": {
+              "id": "phillip_journal",
+              "title": "Phillip's black journal",
+              "text": "The early pages are Phillip's tidy hand: the small powers he used to carry have gone out of him, and he cannot say where they went. Adela begs him in the margins to stop and be still. A later page is about the Ghostlight Express and the night it let them off at the Hollow, and the last lines say that if the folk here will have them, he means to spend what he has left on helping the Hollow."
+            }
+          },
+          "failure": {}
+        }
+      ]
     },
     {
       "id": "h12_scratchings",
@@ -809,6 +976,33 @@
       "kind": "decor",
       "model": "rocking_chair",
       "facing": "south"
+    },
+    {
+      "id": "the_bag",
+      "cell": [
+        6,
+        8
+      ],
+      "kind": "search",
+      "label": "A worn leather satchel",
+      "model": "satchel",
+      "search_dc": 15,
+      "skill": "investigation",
+      "item": "the_bag",
+      "flag": "the_bag_taken"
+    },
+    {
+      "id": "h12_rope",
+      "cell": [
+        19,
+        18
+      ],
+      "kind": "examine",
+      "label": "A frayed rope end above the hall",
+      "text": "A frayed end of rope hangs just beyond the light, swaying though no air moves.",
+      "call": "crooked_house/crooked_man:floor2",
+      "approach": 10,
+      "call_when": "not flag.crooked_man_seen_2 and (flag.memento_doll or flag.jasper_slain or flag.jasper_fled)"
     }
   ],
   "containers": [
@@ -819,7 +1013,13 @@
         5
       ],
       "label": "A yellow duck on the sink",
-      "model": "doll_yellow"
+      "model": "doll_yellow",
+      "items": [
+        {
+          "id": "yellow_duck_figurine",
+          "qty": 1
+        }
+      ]
     }
   ],
   "lights": [
@@ -906,7 +1106,7 @@
   ],
   "traps": [
     {
-      "id": "h12_balcony_edge",
+      "id": "balcony_edge",
       "cells": [
         [
           20,
@@ -961,7 +1161,7 @@
       "text": "Lightning splits the air over the ledge and throws you back against the rail."
     },
     {
-      "id": "h12_balcony_edge_thunder",
+      "id": "balcony_edge_thunder",
       "cells": [
         [
           20,
@@ -1017,5 +1217,638 @@
     }
   ],
   "rest": "no",
-  "rest_text": "The house won't let you sleep. The walls tick and breathe round you, and something small keeps scratching behind the plaster. A short breath, then."
+  "rest_text": "The house won't let you sleep. The walls tick and breathe round you, and something small keeps scratching behind the plaster. A short breath, then.",
+  "encounters": [
+    {
+      "id": "ch_clock",
+      "trigger": "examine:h9_clock",
+      "when": "level >= 3",
+      "monsters": [
+        {
+          "monster": "boogleswarm",
+          "cell": [
+            3,
+            28
+          ],
+          "name": "The boogleswarm",
+          "facing": "east"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "chime",
+          "name": "The clock chimes",
+          "kind": "text",
+          "at": 20,
+          "summary": "One slow note rolls through the house, and every wall holds its breath."
+        },
+        {
+          "id": "chime_brood",
+          "name": "Something answers the chime",
+          "kind": "summon",
+          "at": 20,
+          "from_round": 5,
+          "every": 5,
+          "monster": "boogleswarm",
+          "count": 1,
+          "cells": [
+            [
+              3,
+              28
+            ],
+            [
+              5,
+              30
+            ]
+          ],
+          "summary": "On every fifth chime another boogleswarm spills out of the clock case."
+        },
+        {
+          "id": "twelfth_chime",
+          "name": "The twelfth chime",
+          "kind": "save",
+          "at": 20,
+          "from_round": 12,
+          "times": 1,
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 10
+          },
+          "condition": "frightened",
+          "until": "minute",
+          "summary": "The twelfth note goes through bone and breath: an Intelligence save, or Frightened for a minute."
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_closet:success",
+      "when": "level >= 3 and tarokka.lurker_spot.1",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            11,
+            8
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "west"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_bed_left:success",
+      "when": "level >= 3 and tarokka.lurker_spot.2",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            11,
+            8
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "west"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_bed_right:success",
+      "when": "level >= 3 and tarokka.lurker_spot.3",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            11,
+            8
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "west"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_chest:success",
+      "when": "level >= 3 and tarokka.lurker_spot.4",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            11,
+            8
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "west"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_armoire:success",
+      "when": "level >= 3 and tarokka.lurker_spot.5",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            13,
+            7
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "west"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_window:success",
+      "when": "level >= 3 and tarokka.lurker_spot.6",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            11,
+            8
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "west"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_closet:success",
+      "when": "level >= 3 and tarokka.lurker_hunt.searched",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "surprise": "party",
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            18,
+            7
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_closet:failure",
+      "when": "level >= 3 and tarokka.lurker_hunt.searched",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "surprise": "party",
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            18,
+            7
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_bed_left:success",
+      "when": "level >= 3 and tarokka.lurker_hunt.searched",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "surprise": "party",
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            18,
+            7
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_bed_left:failure",
+      "when": "level >= 3 and tarokka.lurker_hunt.searched",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "surprise": "party",
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            18,
+            7
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_bed_right:success",
+      "when": "level >= 3 and tarokka.lurker_hunt.searched",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "surprise": "party",
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            6,
+            7
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_bed_right:failure",
+      "when": "level >= 3 and tarokka.lurker_hunt.searched",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "surprise": "party",
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            6,
+            7
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_chest:success",
+      "when": "level >= 3 and tarokka.lurker_hunt.searched",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "surprise": "party",
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            6,
+            7
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_chest:failure",
+      "when": "level >= 3 and tarokka.lurker_hunt.searched",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "surprise": "party",
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            6,
+            7
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_armoire:success",
+      "when": "level >= 3 and tarokka.lurker_hunt.searched",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "surprise": "party",
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            6,
+            7
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_armoire:failure",
+      "when": "level >= 3 and tarokka.lurker_hunt.searched",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "surprise": "party",
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            6,
+            7
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_window:success",
+      "when": "level >= 3 and tarokka.lurker_hunt.searched",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "surprise": "party",
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            18,
+            7
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "ch_lurker",
+      "trigger": "check:h10_window:failure",
+      "when": "level >= 3 and tarokka.lurker_hunt.searched",
+      "quest": {
+        "id": "sallys_monsters",
+        "stage": "lurker_dead"
+      },
+      "surprise": "party",
+      "monsters": [
+        {
+          "monster": "lurker_in_the_dark",
+          "cell": [
+            18,
+            7
+          ],
+          "name": "The Lurker in the Dark",
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "ch_bath",
+      "trigger": "examine:h11_tub",
+      "when": "level >= 3",
+      "monsters": [
+        {
+          "monster": "weasel",
+          "cell": [
+            20,
+            6
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            20,
+            9
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            23,
+            6
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            24,
+            10
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            26,
+            7
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            27,
+            10
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            29,
+            10
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "door_slam",
+          "name": "The door slams",
+          "kind": "text",
+          "at": 20,
+          "from_round": 1,
+          "times": 1,
+          "summary": "The bathroom door bangs shut and sticks fast; forcing it is a Strength check against DC 20, and the blood pressing on it eases that by 2 each round."
+        },
+        {
+          "id": "blood_rises",
+          "name": "The blood rises",
+          "kind": "text",
+          "at": 20,
+          "from_round": 2,
+          "until_round": 3,
+          "summary": "Warm red water climbs the tile, to the ankle, to the waist, and the weasels swim through it as if it were air."
+        },
+        {
+          "id": "blood_fills",
+          "name": "The room fills",
+          "kind": "save",
+          "at": 20,
+          "from_round": 4,
+          "affects": "party",
+          "save": {
+            "ability": "con",
+            "dc": 10
+          },
+          "dc_step": 1,
+          "exhaustion": 1,
+          "summary": "The blood reaches the ceiling: a Constitution save each round, or a level of Exhaustion from choking on it."
+        }
+      ]
+    },
+    {
+      "id": "ch_jasper",
+      "trigger": "examine:h12_bed",
+      "when": "level >= 3",
+      "flag": "jasper_slain",
+      "withdraw": {
+        "who": "vermin_familiar_weasel",
+        "at_hp_below": 16,
+        "flag": "jasper_fled"
+      },
+      "monsters": [
+        {
+          "monster": "vermin_familiar_weasel",
+          "cell": [
+            24,
+            17
+          ],
+          "name": "Filthy Jasper"
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            7,
+            12
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            7,
+            15
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            9,
+            13
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            10,
+            16
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            12,
+            12
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            16,
+            13
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            17,
+            17
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            14,
+            19
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            20,
+            14
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            22,
+            20
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            21,
+            17
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            24,
+            13
+          ]
+        }
+      ]
+    }
+  ],
+  "npcs": []
 }
