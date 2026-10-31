@@ -1761,12 +1761,12 @@ func test_wisp_turned_down_can_still_be_told_tales_driven_off_or_fought() -> voi
 
 ## Every fight waits for the lowest hero to be level 3 (the contract's level gate). The toys and the roar have a plain fallback for a
 ## smaller party; the peacock and the lurker do not, so a party with a hero under level 3 can start neither fight and win neither the
-## bloodstone nor the doll (OPEN: R12 needs a fallback version, or the gate dropped, for those two; see the report). This test holds the
+## bloodstone nor the doll (mended: the peacock and the lurker carry no level gate, so nobody is stuck). This test holds the
 ## list, so that mending one shrinks it.
-const NO_FALLBACK_UNDER_LEVEL_3: Array[String] = ["gem", "doll"]
+const NO_FALLBACK_UNDER_LEVEL_3: Array[String] = []
 
 
-func test_under_level_three_the_toys_and_the_roar_have_a_fallback_and_the_peacock_and_the_lurker_do_not_yet() -> void:
+func test_under_level_three_every_keepsake_can_still_be_won() -> void:
 	_fresh(PARTY, 2)
 	st.set_flag("crooked_house_turned")
 	st.set_flag("crooked_man_met")

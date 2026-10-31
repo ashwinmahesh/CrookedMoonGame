@@ -258,7 +258,8 @@ func test_the_contracts_fights_are_all_here_with_their_triggers_and_the_level_ga
 		assert_true(not versions.is_empty(), "%s is an encounter" % id)
 		for spec: Dictionary in versions:
 			assert_eq(str(spec["trigger"]), triggers[id], "%s's trigger" % id)
-			assert_true(str(spec["when"]).begins_with("level >= 3"), "%s waits for level 3" % id)
+			# The peacock carries no level gate: a smaller party must still be able to win its keepsake (test_r12_paths).
+			assert_true(id == "ch_peacock" or str(spec["when"]).begins_with("level >= 3"), "%s waits for level 3" % id)
 			var trig := str(spec["trigger"])
 			if trig.begins_with("examine:"):
 				assert_true(props.has(trig.get_slice(":", 1)), "%s: its prop is here" % id)

@@ -94,7 +94,8 @@ func test_the_examine_props_start_their_fights_and_the_gates_are_set() -> void:
 	assert_eq(str(_encounters("ch_bath")[0]["trigger"]), "examine:h11_tub")
 	assert_eq(str(_encounters("ch_jasper")[0]["trigger"]), "examine:h12_bed")
 	for e: Dictionary in _loc().get("encounters", []):
-		assert_true(str(e.get("when", "")).begins_with("level >= 3"), "%s waits for level 3" % e["id"])
+		# The lurker (like the peacock) carries no level gate: a smaller party must still be able to win its keepsake (test_r12_paths).
+		assert_true(str(e["id"]) == "ch_lurker" or str(e.get("when", "")).begins_with("level >= 3"), "%s waits for level 3" % e["id"])
 	var jasper := _encounters("ch_jasper")[0]
 	var w := jasper["withdraw"] as Dictionary
 	assert_eq(str(w["who"]), "vermin_familiar_weasel")
