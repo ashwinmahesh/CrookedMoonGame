@@ -1,0 +1,175 @@
+# R12: Petunia Lockwood, the ghost in the conservatory (H8). Speaker petunia_lockwood; quest petunias_cup; memento memento_porcelain_cup / memento_cup.
+# FINAL-WORDED: every Narrator and character line below is voiced; no line changes once the voice lane starts (new lines are fine).
+# Ways to the cup: (1) peace by words, the Persuasion appeal to her love for Sally and Arthur; (2) peace by showing her the doll and the bear (automatic);
+# (3) Intimidation (a plain threat) or grabbing the cup starts ch_petunia. A failed Persuasion is spent (the engine hides the option): come back with the
+# doll and the bear. Either way the cup is left behind: peace gives it here, a destroyed Petunia leaves it for the prop `h8_cup` (node `cup`).
+# NOTE (contract gap): dialogue checks cannot carry Advantage. The book's Persuasion DC 15 with Advantage on an appeal to her children is written as DC 10,
+# the same chance for a typical hero; change it to DC 15 with Advantage if the grammar ever gains it.
+# Wiring assumptions: Petunia is placed `when: not flag.petunia_at_peace and not flag.petunia_destroyed`; ch_petunia's victory sets petunia_destroyed (the
+# encounter's own flag) and is the only place that sets it; prop h8_cup calls petunia:cup. The ribbon cutscene is content-setting gated (graphic scenes): its
+# captions read plain, with no body described, when the pictures are hidden.
+# Drafted by Gemini (gemini_r12_petunia/brief.md, reply_raw.json), edited; see that folder's README.md.
+
+~ start
+if flag.petunia_at_peace or flag.petunia_destroyed
+-> cup_gone
+endif
+if attitude.petunia_lockwood == hostile
+-> return_hostile
+endif
+if quest.petunias_cup == met or quest.petunias_cup == refused
+-> return
+endif
+quest petunias_cup met
+Narrator: Dead vines choke the glass walls of this conservatory, yet one green bergamot tree stands bloomin' in the damp air, sweet and sharp as citrus peel.
+Narrator: A pale woman in black mourning silk sits before the leaves with a porcelain cup of dark tea cupped tight in both hands.
+petunia_lockwood [smile]: Oh, I do beg your pardon, I did not hear the bell ring over the rain.
+petunia_lockwood [weary]: You must forgive me, I seem to have lost the card saying who was expected this afternoon. Now, where was I...
+interject class:cleric: Her spirit is bound fast to that cold porcelain, and it will not rest easy.
+interject class:bard: That is a parlor song with the last verse torn clean out of the book.
+-> menu
+
+~ return
+petunia_lockwood [smile]: Oh, it is you again, how very kind of you to step back into the conservatory.
+petunia_lockwood [neutral]: I do hope I did not give offense earlier, my mind wanders so terribly when the weather turns.
+-> menu
+
+~ return_hostile
+petunia_lockwood [angry]: You have forgotten your manners, and I see no further reason to remember mine.
+-> fight
+
+~ menu
+* Who are you? -> who
+* What are you holding? -> cup_talk
+* What happened in this house? -> house_talk
+* Ask after her children. -> children
+* [Insight DC 12] Look past the manners to the woman herself. -> insight_ok | insight_miss
+* [if item:memento_wooden_doll and item:memento_blue_bear] Set the doll and the bear in her lap. -> show_both
+* Tell her you mean to have that cup, whatever she says. -> threat
+* Reach out and take the cup. -> grab
+* We will leave you to your tea. -> END
+
+~ who
+petunia_lockwood [smile]: I am Mrs Petunia Lockwood, the lady of this house, and you are most welcome here.
+petunia_lockwood [neutral]: Eustace insists that dinner is just about to be served, so we are only taking tea for the moment.
+petunia_lockwood [weary]: Though I confess I cannot quite say how long I have been sitting here waiting for the gong.
+-> menu
+
+~ cup_talk
+petunia_lockwood [neutral]: The tea has gone quite cold, I am afraid, yet I find I cannot set the cup upon the saucer.
+petunia_lockwood [smile]: My mother painted these little pink roses round the rim before ever I came to this house.
+petunia_lockwood [sad]: In all this great echoing manor, I believe this small piece of china is the last thing that is wholly mine.
+-> menu
+
+~ house_talk
+petunia_lockwood [weary]: We were all dressed for dinner, and then there was such a great deal of dreadful noise upon the upper landing.
+petunia_lockwood [afraid]: I sat right here and stirred my tea until the house grew still, and then the afternoon simply began all over again.
+petunia_lockwood [neutral]: Eustace is very particular about the silver, and... do forgive me, I was speaking of the tea, was I not?
+-> menu
+
+~ children
+petunia_lockwood [smile]: My little Sally is terribly afraid of monsters under the bedstead, so she keeps her wooden doll right beside her pillow.
+petunia_lockwood [sad]: And baby Arthur is so fretful at night that he will not close his eyes without his blue teddy bear.
+petunia_lockwood [weary]: I always mean to go upstairs and look in on them, only my tea is cold and the hour begins again.
+-> children_menu
+
+~ children_menu
+# The appeal: DC 10 stands in for the book's DC 15 with Advantage (see the header). Spent when it fails.
+* [Persuasion DC 10] Speak gently of Sally and Arthur, and of how she loves them. -> appeal_ok | appeal_miss
+* Say no more of it for now. -> menu
+
+~ insight_ok
+Narrator: Her knuckles whiten around the porcelain at the mention of her husband, though her polite smile stays fixed like paint on wood.
+petunia_lockwood [sly]: A girl in my position was advised to marry well, and I did precisely as I was advised. My two children were the only things in this house I ever chose for myself.
+-> menu
+
+~ insight_miss
+Narrator: You reckon there ain't a thing to read behind her fine manners, only the draft rattling the dead vines against the glass.
+-> menu
+
+~ appeal_ok
+Narrator: The porcelain trembles between her pale fingers, sendin' tiny dark rings across the cold tea.
+petunia_lockwood [sad]: You speak so gently of my small ones, Sally and little Arthur.
+petunia_lockwood [sad]: I do beg your pardon, I had quite forgotten how much I longed to hear someone say their names aloud.
+-> peace
+
+~ appeal_miss
+quest petunias_cup refused
+Narrator: She draws the cup closer against her black bodice, and your words slide right off her like rainwater down a slick windowpane.
+petunia_lockwood [neutral]: How very kind of you to trouble yourselves, truly, but I think I shall hold on to my cup a little while longer.
+petunia_lockwood [weary]: Perhaps if there were something of the children's to show me, something real I could hold in my lap...
+-> menu
+
+~ show_both
+Narrator: You set the chipped wooden doll and the soft blue bear gently across her knees, and the woman goes dead still.
+petunia_lockwood [sad]: Why, that is Sally's little doll, and Arthur's blue bear, brought down at last.
+petunia_lockwood [sad]: Do forgive me, my hands are shaking so badly I can scarce hold the china.
+petunia_lockwood [weary]: It has been such a long spell since I last let go of anything at all.
+-> peace
+
+~ peace
+petunia_lockwood [smile]: Take the cup, my dears, for it was only ever cold tea and old habit keeping me in this chair.
+petunia_lockwood [smile]: I once wished for nothing grander than a small walled garden, a husband who read aloud by the hearth, and a warm fire.
+petunia_lockwood [smile]: Thank you for being so very patient with a tiresome hostess, and do mind the storm on your way out.
+give memento_porcelain_cup
+set memento_cup
+set petunia_at_peace
+quest petunias_cup peace
+Narrator: She thins out like breath fadin' off a winter window, leaving the porcelain cup warm in your palm at last.
+Narrator: Right there on the wicker seat where she sat, a faded green ribbon lies coiled by itself.
+approve tobin_hayward +2 rook_coldwake +1: You let a grieving lady set down her cup in peace
+-> END
+
+~ threat
+Narrator: The conservatory turns bitter cold in a heartbeat, and a pale crust of frost skins over the dark tea in her hands.
+petunia_lockwood [angry]: I will not be shouted at in my own house by ill-bred strangers.
+petunia_lockwood [angry]: You have forgotten your manners, and I see no further reason to remember mine.
+approve tobin_hayward -2: You threatened a grieving ghost for her teacup
+-> fight
+
+~ grab
+Narrator: Your fingers get within an inch of the painted roses when the shadows in the corners stretch out and swallow the lamplight.
+petunia_lockwood [angry]: How dare you.
+approve tobin_hayward -2: You laid hands on a grieving ghost for her teacup
+-> fight
+
+~ fight
+attitude petunia_lockwood hostile
+combat ch_petunia
+
+# The prop h8_cup (the cup, the chair and what lies on it). Before she is gone the cup is in her hands; after she faded the ribbon lies on the chair; after
+# the fight the cup lies on the tiles. The cup is left behind either way: peace gives it above, a destroyed Petunia gives it here.
+~ cup
+if flag.petunia_destroyed and not flag.memento_cup
+-> cup_after_fight
+endif
+if flag.petunia_at_peace or flag.petunia_destroyed
+-> cup_gone
+endif
+Narrator: That rose-painted cup rests between her palms, cupped close the way folks shield a last candle flame in a cold draft.
+* Ask her for the cup. -> start
+* Take it out of her hands. -> grab
+* Leave it be. -> END
+
+~ cup_after_fight
+cutscene ch_petunia_ribbon
+Narrator: A faded green ribbon slips loose from its knot, flutterin' down to the damp tiles as the room goes quiet.
+cutscene ch_petunia_ribbon_2
+Narrator: The porcelain teacup rolls across the floor and taps gently against the toe of your boot without a single crack.
+cutscene end
+give memento_porcelain_cup
+set memento_cup
+quest petunias_cup destroyed
+-> cup_gone
+
+~ cup_gone
+Narrator: The empty chair still holds the shallow dip of someone sittin' there a spell, while the green bergamot tree breathes its sweet scent into the quiet.
+* [if not flag.green_ribbon_found] Pick up the green ribbon. -> ribbon_take
+* Leave it be. -> END
+
+~ ribbon_take
+give green_ribbon
+set green_ribbon_found
+Narrator: The worn silk ribbon feels soft and faintly warm against your skin when you lift it from the chair.
+Narrator: You wind the green strip round your fingers, and it carries the clean, sweet scent of bergamot blossoms.
+-> END
