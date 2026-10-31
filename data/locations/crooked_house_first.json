@@ -1573,6 +1573,22 @@
           }
         }
       ]
+    },
+    {
+      "id": "h4_peacock_stone",
+      "cell": [
+        4,
+        30
+      ],
+      "label": "The bloodstone eye",
+      "model": "case",
+      "when": "flag.memento_gem and not flag.memento_gem_placed",
+      "items": [
+        {
+          "id": "memento_bloodstone",
+          "qty": 1
+        }
+      ]
     }
   ],
   "lights": [
@@ -2084,14 +2100,6 @@
         "id": "the_crooked_house",
         "stage": "mementos"
       },
-      "loot": {
-        "items": [
-          {
-            "id": "memento_bloodstone",
-            "qty": 1
-          }
-        ]
-      },
       "monsters": [
         {
           "monster": "marble_peacock",
@@ -2173,14 +2181,6 @@
       "trigger": "examine:h4_peacock",
       "when": "level >= 3",
       "flag": "memento_gem",
-      "loot": {
-        "items": [
-          {
-            "id": "memento_bloodstone",
-            "qty": 1
-          }
-        ]
-      },
       "monsters": [
         {
           "monster": "marble_peacock",

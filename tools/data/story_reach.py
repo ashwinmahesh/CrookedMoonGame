@@ -140,6 +140,11 @@ def parse_dialogue(path):
     return nodes
 
 
+## Conversation nodes a fight's round events play from their own text (the engine's location schema has no key for it): counted as reached when
+## the fight can start. The Crooked House's peacock fight speaks Keziah's shade each round.
+FIGHT_PLAYED_NODES = {"ch_peacock": ["crooked_house/keziah:peacock_round", "crooked_house/keziah:peacock_pull", "crooked_house/keziah:peacock_return"]}
+
+
 class Story:
     def __init__(self, root=ROOT, chance_maps=True):
         self.root = Path(root)
@@ -415,6 +420,10 @@ class Story:
             for en in loc.get("encounters", []):
                 if self._encounter_on(lid, en):
                     self._won(lid, en, f"{w} encounter {en['id']}")
+                    # Conversation nodes whose text a fight plays itself, from its round events (no conversation runs mid-fight).
+                    for ref in FIGHT_PLAYED_NODES.get(en["id"], []):
+                        fkey, _, node = ref.rpartition(":")
+                        self.walk(fkey, node, f"{w} encounter {en['id']} (plays it from a round event)")
             if self.watch_regions & {loc.get("region")} or loc.get("watch"):
                 region = loc["region"]
                 self.changed |= self.add(("flag", f"crime_{region}", "+"), "story/crime.gd")

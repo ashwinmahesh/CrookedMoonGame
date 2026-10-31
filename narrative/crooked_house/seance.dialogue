@@ -88,6 +88,9 @@ joseph_patrini: THEY REST ON EVERY FLOOR. GATHER THEM ALL.
 ~ q6
 set seance_asked_6
 set trapdoor_known
+if quest.the_crooked_house == trapped or quest.the_crooked_house == mementos
+quest the_crooked_house attic
+endif
 Narrator: The pointer creeps an inch, then darts straight across the varnish without a speck of hesitation.
 joseph_patrini: TROPHIES.
 joseph_patrini: LOOK UP.
@@ -180,6 +183,7 @@ joseph_patrini: DO NOT TRUST YOUR EYES. LOOK TWICE.
 # Only reached when nothing was missed: all three plot clues (the hag, the six keepsakes, the attic door) were gathered.
 ~ find_my_son
 set patrini_asked_find_son
+quest find_my_son asked
 Narrator: The pointer trembles in place a spell, like a man holdin' back a heavy word at the door.
 joseph_patrini: ONE THING MORE. MY SON LIVES.
 joseph_patrini: FRANCIS. PLEASE FIND HIM.
