@@ -1,0 +1,1021 @@
+{
+  "id": "crooked_house_second",
+  "name": "The Crooked House, Second Floor",
+  "region": "crooked_house",
+  "summary": "The upper floor: a round sitting room in the turret, a children's room with two small beds, a red-stained bathroom, a master bedroom with a writhing bed, and a locked balcony over the porch.",
+  "text": "The upper hall slopes toward the turret. Doors stand ajar on rooms that were kept for children, a bath, and a bed that will not stay still.",
+  "map": {
+    "rows": [
+      "                                  ",
+      "                                  ",
+      "                                  ",
+      "                                  ",
+      "     ###########################  ",
+      "     #.............#...........#  ",
+      "     #.............#...........#  ",
+      "     #.............#...........#  ",
+      "     #.............#...........#  ",
+      "     #.............#...........#  ",
+      "     #.............#...........#  ",
+      "     #######.############.######  ",
+      "     #.........................#  ",
+      "     #.....#####...............#  ",
+      "     #.....#####...............#  ",
+      "     #.........................#  ",
+      "     #.....................===.#  ",
+      "     #...#.................===.#  ",
+      "     #...#.................===.#  ",
+      "     #...#.................===.#  ",
+      "     #...#.....................#  ",
+      "   ###...#.....................#  ",
+      " ###...#################.#######  ",
+      "##.......#.........#...........#  ",
+      "#..................#...........#  ",
+      "#..................#...........#  ",
+      "#.........=========#...........#  ",
+      "#.........=        #...........#  ",
+      "#.........=        #...........#  ",
+      "#.........=        #===========#  ",
+      "##.......#=        #...........#  ",
+      " ###...###=        #############  ",
+      "   ##### #=                       ",
+      "         #=                       ",
+      "         ###                      ",
+      "                                  "
+    ],
+    "ceiling_ft": 10,
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "h9_sitting_room",
+      "name": "Sitting Room",
+      "cells": [
+        [
+          1,
+          22
+        ],
+        [
+          9,
+          31
+        ]
+      ],
+      "light": "dim"
+    },
+    {
+      "id": "h9_landing",
+      "name": "Landing",
+      "cells": [
+        [
+          10,
+          23
+        ],
+        [
+          18,
+          25
+        ]
+      ],
+      "light": "dim"
+    },
+    {
+      "id": "h10_childrens_room",
+      "name": "Children's Room",
+      "cells": [
+        [
+          6,
+          5
+        ],
+        [
+          18,
+          10
+        ]
+      ],
+      "light": "dim"
+    },
+    {
+      "id": "h11_bathroom",
+      "name": "Bathroom",
+      "cells": [
+        [
+          20,
+          5
+        ],
+        [
+          30,
+          10
+        ]
+      ],
+      "light": "dim"
+    },
+    {
+      "id": "h12_master_bedroom",
+      "name": "Master Bedroom",
+      "cells": [
+        [
+          9,
+          12
+        ],
+        [
+          30,
+          21
+        ]
+      ],
+      "light": "dim"
+    },
+    {
+      "id": "h12_west_hall",
+      "name": "The west hall",
+      "cells": [
+        [
+          6,
+          12
+        ],
+        [
+          8,
+          21
+        ]
+      ],
+      "light": "dark"
+    },
+    {
+      "id": "h12_balcony",
+      "name": "Balcony",
+      "cells": [
+        [
+          20,
+          23
+        ],
+        [
+          30,
+          28
+        ]
+      ],
+      "light": "dim"
+    },
+    {
+      "id": "balcony_edge",
+      "name": "The balcony's edge",
+      "cells": [
+        [
+          20,
+          29
+        ],
+        [
+          30,
+          30
+        ]
+      ],
+      "light": "dim"
+    }
+  ],
+  "spawns": {
+    "from_below": [
+      16,
+      24
+    ],
+    "default": [
+      16,
+      24
+    ],
+    "from_above": [
+      13,
+      15
+    ]
+  },
+  "exits": [
+    {
+      "id": "stairs_down",
+      "cell": [
+        17,
+        22
+      ],
+      "to": "crooked_house_first",
+      "spawn": "from_above",
+      "label": "Stairs down to the foyer"
+    },
+    {
+      "id": "stairs_up",
+      "cell": [
+        13,
+        14
+      ],
+      "to": "crooked_house_third",
+      "spawn": "from_below",
+      "label": "Stairs up to the third floor"
+    }
+  ],
+  "doors": [
+    {
+      "id": "h10_door",
+      "cell": [
+        12,
+        11
+      ],
+      "label": "The children's room door"
+    },
+    {
+      "id": "h11_door",
+      "cell": [
+        25,
+        11
+      ],
+      "label": "The bathroom door"
+    },
+    {
+      "id": "h12_balcony_doors",
+      "cell": [
+        24,
+        22
+      ],
+      "label": "The balcony doors",
+      "locked": true,
+      "lock_dc": 15,
+      "locked_text": "The balcony doors are locked, and the storm leans on them from the other side."
+    }
+  ],
+  "props": [
+    {
+      "id": "h9_clock",
+      "cell": [
+        8,
+        23
+      ],
+      "kind": "examine",
+      "label": "A grandfather clock, still ticking",
+      "model": "clock_tall",
+      "text": "A grandfather clock stands in the turret's curve, ticking in a house where nothing else keeps time."
+    },
+    {
+      "id": "h9_rail",
+      "cell": [
+        12,
+        26
+      ],
+      "kind": "examine",
+      "label": "A cracked rail over the foyer",
+      "model": "bridge_parapet",
+      "span": [
+        4,
+        1
+      ],
+      "text": "The rail is cracked through in three places. Below it, the foyer's chandelier hangs at a tilt, looking up."
+    },
+    {
+      "id": "h9_d01",
+      "cell": [
+        5,
+        27
+      ],
+      "kind": "decor",
+      "model": "table_round"
+    },
+    {
+      "id": "h9_d02",
+      "cell": [
+        3,
+        26
+      ],
+      "kind": "decor",
+      "model": "armchair"
+    },
+    {
+      "id": "h9_d03",
+      "cell": [
+        7,
+        26
+      ],
+      "kind": "decor",
+      "model": "armchair"
+    },
+    {
+      "id": "h9_d04",
+      "cell": [
+        3,
+        29
+      ],
+      "kind": "decor",
+      "model": "armchair"
+    },
+    {
+      "id": "h9_d05",
+      "cell": [
+        7,
+        29
+      ],
+      "kind": "decor",
+      "model": "armchair"
+    },
+    {
+      "id": "h9_d06",
+      "cell": [
+        11,
+        24
+      ],
+      "kind": "decor",
+      "model": "candelabra"
+    },
+    {
+      "id": "h9_d07",
+      "cell": [
+        4,
+        24
+      ],
+      "kind": "decor",
+      "model": "cobwebs"
+    },
+    {
+      "id": "h9_d08",
+      "cell": [
+        2,
+        28
+      ],
+      "kind": "decor",
+      "model": "settee"
+    },
+    {
+      "id": "h9_d09",
+      "cell": [
+        16,
+        24
+      ],
+      "kind": "decor",
+      "model": "fallen_frames"
+    },
+    {
+      "id": "h10_bed_left",
+      "cell": [
+        9,
+        5
+      ],
+      "kind": "search",
+      "label": "A small bed",
+      "model": "bed_small",
+      "search_dc": 10,
+      "skill": "perception",
+      "text": "A child's bed, made, the blanket drawn up over a shape that is only pillows."
+    },
+    {
+      "id": "h10_bed_right",
+      "cell": [
+        13,
+        5
+      ],
+      "kind": "search",
+      "label": "A second small bed",
+      "model": "bed_small",
+      "search_dc": 10,
+      "skill": "perception",
+      "text": "A second small bed, its blanket slightly turned back, as if someone has just got out."
+    },
+    {
+      "id": "h10_window",
+      "cell": [
+        11,
+        5
+      ],
+      "kind": "search",
+      "label": "A dark window",
+      "model": "window_tall",
+      "search_dc": 10,
+      "skill": "perception",
+      "text": "The window shows nothing but black glass, and a faint breath on it from the inside."
+    },
+    {
+      "id": "h10_chest",
+      "cell": [
+        16,
+        5
+      ],
+      "kind": "search",
+      "label": "A big toy chest",
+      "model": "toy_chest",
+      "search_dc": 10,
+      "skill": "perception",
+      "text": "A toy chest big enough for a child to curl up in, its lid not quite shut."
+    },
+    {
+      "id": "h10_armoire",
+      "cell": [
+        18,
+        8
+      ],
+      "kind": "search",
+      "label": "A child's armoire",
+      "model": "wardrobe",
+      "search_dc": 10,
+      "skill": "perception",
+      "text": "A little armoire, its door ajar on a row of tiny coats."
+    },
+    {
+      "id": "h10_closet",
+      "cell": [
+        7,
+        8
+      ],
+      "kind": "search",
+      "label": "A closet, ajar",
+      "model": "cupboard",
+      "search_dc": 15,
+      "skill": "investigation",
+      "text": "A closet door stands open a hand's width on the dark inside."
+    },
+    {
+      "id": "h10_doll",
+      "cell": [
+        17,
+        9
+      ],
+      "kind": "examine",
+      "label": "A wooden doll",
+      "model": "doll",
+      "dialogue": "crooked_house/sally_doll:start",
+      "when": "flag.memento_doll",
+      "text": "A small wooden doll sits where it fell, its painted face turned toward you."
+    },
+    {
+      "id": "h10_d01",
+      "cell": [
+        8,
+        9
+      ],
+      "kind": "decor",
+      "model": "dollhouse"
+    },
+    {
+      "id": "h10_d02",
+      "cell": [
+        13,
+        8
+      ],
+      "kind": "decor",
+      "model": "rocking_horse"
+    },
+    {
+      "id": "h10_d03",
+      "cell": [
+        15,
+        5
+      ],
+      "kind": "decor",
+      "model": "toy_shelf"
+    },
+    {
+      "id": "h10_d04",
+      "cell": [
+        10,
+        5
+      ],
+      "kind": "decor",
+      "model": "drawings"
+    },
+    {
+      "id": "h10_d05",
+      "cell": [
+        12,
+        8
+      ],
+      "kind": "decor",
+      "model": "floor_books"
+    },
+    {
+      "id": "h10_d06",
+      "cell": [
+        9,
+        8
+      ],
+      "kind": "decor",
+      "model": "scattered_notes"
+    },
+    {
+      "id": "h10_d07",
+      "cell": [
+        6,
+        5
+      ],
+      "kind": "decor",
+      "model": "cobwebs"
+    },
+    {
+      "id": "h10_d08",
+      "cell": [
+        15,
+        9
+      ],
+      "kind": "decor",
+      "model": "doll"
+    },
+    {
+      "id": "h11_tub",
+      "cell": [
+        29,
+        5
+      ],
+      "kind": "examine",
+      "label": "A claw-foot tub, stained red",
+      "model": "bathtub",
+      "span": [
+        2,
+        3
+      ],
+      "text": "The tub is full to the brim of something warm and red, and it is very still."
+    },
+    {
+      "id": "h11_d01",
+      "cell": [
+        21,
+        5
+      ],
+      "kind": "decor",
+      "model": "washstand"
+    },
+    {
+      "id": "h11_d02",
+      "cell": [
+        24,
+        5
+      ],
+      "kind": "decor",
+      "model": "dressing_table"
+    },
+    {
+      "id": "h11_d03",
+      "cell": [
+        26,
+        5
+      ],
+      "kind": "decor",
+      "model": "mirror"
+    },
+    {
+      "id": "h11_d04",
+      "cell": [
+        27,
+        8
+      ],
+      "kind": "decor",
+      "model": "bloodstain"
+    },
+    {
+      "id": "h11_d05",
+      "cell": [
+        24,
+        8
+      ],
+      "kind": "decor",
+      "model": "puddle"
+    },
+    {
+      "id": "h11_d06",
+      "cell": [
+        28,
+        8
+      ],
+      "kind": "decor",
+      "model": "blood_pool"
+    },
+    {
+      "id": "h11_d07",
+      "cell": [
+        21,
+        9
+      ],
+      "kind": "decor",
+      "model": "cobwebs"
+    },
+    {
+      "id": "h11_d08",
+      "cell": [
+        22,
+        8
+      ],
+      "kind": "decor",
+      "model": "bucket_brush"
+    },
+    {
+      "id": "h12_bed",
+      "cell": [
+        27,
+        16
+      ],
+      "kind": "examine",
+      "label": "A torn canopy bed, something writhing under the covers",
+      "model": "bed_canopy",
+      "span": [
+        3,
+        4
+      ],
+      "text": "The canopy is in rags, and under the bedclothes something large turns over, slowly, and settles again."
+    },
+    {
+      "id": "h12_journal",
+      "cell": [
+        17,
+        20
+      ],
+      "kind": "book",
+      "label": "Phillip's black journal",
+      "model": "book",
+      "codex": "phillip_journal",
+      "text": "A black leather journal with a monogram stamped in gilt, and a small lock holding it shut."
+    },
+    {
+      "id": "h12_scratchings",
+      "cell": [
+        22,
+        12
+      ],
+      "kind": "examine",
+      "label": "Scratchings in the plaster",
+      "model": "claw_marks",
+      "call": "crooked_house/incitements:kindred_enter",
+      "approach": 4,
+      "call_when": "not flag.incitement_kindred",
+      "text": "Fine scratches cover the wall, thousands of them, as if something has been trying to dig its way out for years."
+    },
+    {
+      "id": "h12_d01",
+      "cell": [
+        15,
+        20
+      ],
+      "kind": "decor",
+      "model": "desk",
+      "span": [
+        2,
+        1
+      ]
+    },
+    {
+      "id": "h12_d02",
+      "cell": [
+        16,
+        12
+      ],
+      "kind": "decor",
+      "model": "wardrobe"
+    },
+    {
+      "id": "h12_d03",
+      "cell": [
+        20,
+        12
+      ],
+      "kind": "decor",
+      "model": "dressing_table"
+    },
+    {
+      "id": "h12_d04",
+      "cell": [
+        7,
+        15
+      ],
+      "kind": "decor",
+      "model": "rug_runner"
+    },
+    {
+      "id": "h12_d05",
+      "cell": [
+        7,
+        18
+      ],
+      "kind": "decor",
+      "model": "rug_runner"
+    },
+    {
+      "id": "h12_d06",
+      "cell": [
+        30,
+        13
+      ],
+      "kind": "decor",
+      "model": "settee"
+    },
+    {
+      "id": "h12_d07",
+      "cell": [
+        26,
+        20
+      ],
+      "kind": "decor",
+      "model": "bloodstain"
+    },
+    {
+      "id": "h12_d08",
+      "cell": [
+        11,
+        15
+      ],
+      "kind": "decor",
+      "model": "bridge_parapet"
+    },
+    {
+      "id": "h12_d09",
+      "cell": [
+        15,
+        15
+      ],
+      "kind": "decor",
+      "model": "bridge_parapet"
+    },
+    {
+      "id": "h12_d10",
+      "cell": [
+        20,
+        16
+      ],
+      "kind": "decor",
+      "model": "fallen_frames"
+    },
+    {
+      "id": "h12_d11",
+      "cell": [
+        8,
+        12
+      ],
+      "kind": "decor",
+      "model": "cobwebs"
+    },
+    {
+      "id": "h12_d12",
+      "cell": [
+        30,
+        20
+      ],
+      "kind": "decor",
+      "model": "footlocker"
+    },
+    {
+      "id": "h12_d13",
+      "cell": [
+        18,
+        14
+      ],
+      "kind": "decor",
+      "model": "sheeted_furniture"
+    },
+    {
+      "id": "bal_d01",
+      "cell": [
+        21,
+        24
+      ],
+      "kind": "decor",
+      "model": "garden_bed"
+    },
+    {
+      "id": "bal_d02",
+      "cell": [
+        29,
+        24
+      ],
+      "kind": "decor",
+      "model": "garden_bed"
+    },
+    {
+      "id": "bal_d03",
+      "cell": [
+        25,
+        26
+      ],
+      "kind": "decor",
+      "model": "puddle"
+    },
+    {
+      "id": "bal_d04",
+      "cell": [
+        22,
+        27
+      ],
+      "kind": "decor",
+      "model": "leaves"
+    },
+    {
+      "id": "bal_d05",
+      "cell": [
+        28,
+        27
+      ],
+      "kind": "decor",
+      "model": "broken_boards"
+    },
+    {
+      "id": "bal_d06",
+      "cell": [
+        24,
+        24
+      ],
+      "kind": "decor",
+      "model": "rocking_chair",
+      "facing": "south"
+    }
+  ],
+  "containers": [
+    {
+      "id": "h11_duck",
+      "cell": [
+        22,
+        5
+      ],
+      "label": "A yellow duck on the sink",
+      "model": "doll_yellow"
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        5,
+        27
+      ],
+      "kind": "candle",
+      "bright_ft": 10,
+      "dim_ft": 25,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        13,
+        24
+      ],
+      "kind": "candle",
+      "bright_ft": 10,
+      "dim_ft": 20,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        12,
+        7
+      ],
+      "kind": "candle",
+      "bright_ft": 8,
+      "dim_ft": 20,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        29,
+        8
+      ],
+      "kind": "candle",
+      "bright_ft": 10,
+      "dim_ft": 20,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        28,
+        18
+      ],
+      "kind": "candle",
+      "bright_ft": 10,
+      "dim_ft": 25,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        17,
+        19
+      ],
+      "kind": "lamp",
+      "bright_ft": 10,
+      "dim_ft": 20,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        25,
+        26
+      ],
+      "kind": "window",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "moonlight"
+    },
+    {
+      "cell": [
+        7,
+        14
+      ],
+      "kind": "candle",
+      "bright_ft": 8,
+      "dim_ft": 16,
+      "color": "candle"
+    }
+  ],
+  "traps": [
+    {
+      "id": "h12_balcony_edge",
+      "cells": [
+        [
+          20,
+          30
+        ],
+        [
+          21,
+          30
+        ],
+        [
+          22,
+          30
+        ],
+        [
+          23,
+          30
+        ],
+        [
+          24,
+          30
+        ],
+        [
+          25,
+          30
+        ],
+        [
+          26,
+          30
+        ],
+        [
+          27,
+          30
+        ],
+        [
+          28,
+          30
+        ],
+        [
+          29,
+          30
+        ],
+        [
+          30,
+          30
+        ]
+      ],
+      "label": "The storm beyond the balcony rail",
+      "detect_dc": 5,
+      "damage": "1d6",
+      "damage_type": "lightning",
+      "when": "flag.crooked_house_turned and not flag.vessla_slain",
+      "text": "Lightning splits the air over the ledge and throws you back against the rail."
+    },
+    {
+      "id": "h12_balcony_edge_thunder",
+      "cells": [
+        [
+          20,
+          30
+        ],
+        [
+          21,
+          30
+        ],
+        [
+          22,
+          30
+        ],
+        [
+          23,
+          30
+        ],
+        [
+          24,
+          30
+        ],
+        [
+          25,
+          30
+        ],
+        [
+          26,
+          30
+        ],
+        [
+          27,
+          30
+        ],
+        [
+          28,
+          30
+        ],
+        [
+          29,
+          30
+        ],
+        [
+          30,
+          30
+        ]
+      ],
+      "label": "The thunder beyond the balcony rail",
+      "detect_dc": 5,
+      "damage": "1d6",
+      "damage_type": "thunder",
+      "when": "flag.crooked_house_turned and not flag.vessla_slain",
+      "text": "The thunder lands like a fist."
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The house won't let you sleep. The walls tick and breathe round you, and something small keeps scratching behind the plaster. A short breath, then."
+}
