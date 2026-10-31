@@ -8,7 +8,8 @@ extends Node
 ## (squares toward the camera and to its right); --follow=<art id> and --near=<distance>: the camera close on one
 ## figure; --ids=a,b: only those figures in the row; --bands, --ink, --flatten, --vivid, --floor, --rim: the figures' look
 ## (Look.figure_settings); --hold=hooded_lantern@off_hand,torch@main_hand: what the row holds (a figure whose entry
-## shows `gear` wears its part); --only=place,lineup,turns,poses picks shots, and --only=clip --clip=slash freezes the row at
+## shows `gear` wears its part); --only=reel steps the row through idle, walk, run, attack and talk at --fps (12) frames
+## a second and then orbits it, a frame per shot (<out>_reel_<nnnn>.png, for a GIF); --only=place,lineup,turns,poses picks shots, and --only=clip --clip=slash freezes the row at
 ## points through one clip instead (to choose a manifest's window). Shots: <out>_<shot>.png.
 ## Headless with --probe it prints what each figure's model holds instead: its clips, the walk's stride and footfalls,
 ## and where its right hand moves fastest in its attack (for a manifest's attack window).
@@ -93,6 +94,9 @@ func capture_shots(tool: Node, out: String) -> void:
 		rig.reset_view()
 		rig.distance = 13.0
 		await tool.call("wait_frames", 40)
+	if "reel" in only:
+		await _reel(tool, out, line, rig)
+		return
 	if "clip" in only:
 		# --clip=slash: the row frozen at points through one clip, to pick a manifest's window from.
 		rig.distance = CameraRig.ZOOM_MIN
@@ -175,6 +179,58 @@ func _until(tool: Node, line: Array, role: String, at: float) -> void:
 		if fig != null and role != "" and fig._player.current_animation_position >= at:
 			return
 		await tool.call("wait_frames", 1)
+
+
+## The row stepped through its clips a frame at a time (the clip seeked, so a slow capture window still shows every
+## moment), then the camera orbiting it, each frame a shot. Walks and runs are held in place, as in play.
+func _reel(tool: Node, out: String, line: Array, rig: CameraRig) -> void:
+	var fps := float(_arg("fps", "12"))
+	var mid := Node3D.new()
+	add_child(mid)
+	var centre := Vector3.ZERO
+	for t: CombatToken in line:
+		centre += t.global_position
+	mid.global_position = centre / float(line.size())
+	rig.follow = mid
+	rig.distance = CameraRig.ZOOM_MIN
+	rig.snap_to_target()
+	await tool.call("wait_frames", 30)
+	var n := 0
+	# role, clip, from, to (seconds; a looping clip runs on past its end)
+	for seg: Array in [["idle", "idle", 0.0, 2.5], ["walk", "walk", 0.0, 2.4], ["run", "run", 0.0, 2.6],
+			["attack", "slash", 1.25, 2.85], ["talk", "agree", 0.0, 3.0]]:
+		var steps := int(round((float(seg[3]) - float(seg[2])) * fps))
+		for k in steps:
+			for t: CombatToken in line:
+				var fig := t.sprite as ModelFigure
+				if fig == null or fig._player == null:
+					continue
+				fig.set_process(false)
+				var clip := ModelFigure.clip_named(fig._player.get_animation_list(), str(seg[1]))
+				if clip == "":
+					continue
+				var length := fig._player.get_animation(clip).length
+				fig._player.play(clip)
+				fig._player.seek(fmod(float(seg[2]) + float(k) / fps, maxf(length, 0.01)), true)
+				fig._player.pause()
+			await tool.call("wait_frames", 2)
+			tool.call("_shot", "%s_reel_%04d_%s.png" % [out, n, seg[0]])
+			n += 1
+	# All the way round: the figures turned on the spot, idling (the camera would pass behind the place's trees).
+	for k in 48:
+		for t: CombatToken in line:
+			var fig := t.sprite as ModelFigure
+			if fig == null or fig._player == null:
+				continue
+			var clip := ModelFigure.clip_named(fig._player.get_animation_list(), "idle")
+			if clip != "":
+				fig._player.play(clip)
+				fig._player.seek(fmod(float(k) / fps, fig._player.get_animation(clip).length), true)
+				fig._player.pause()
+			fig._turn.rotation.y = deg_to_rad(7.5 * float(k + 1))
+		await tool.call("wait_frames", 2)
+		tool.call("_shot", "%s_reel_%04d_turn.png" % [out, n])
+		n += 1
 
 
 ## Every figure in the manifest in a row across the screen in front of the party, facing the camera; their tokens,

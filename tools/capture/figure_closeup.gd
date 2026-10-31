@@ -5,6 +5,8 @@ extends Node
 ##   make capture SCENE=res://tools/capture/figure_closeup.tscn NAME=heads/x FRAMES=10 ARGS='--ids=old_rook,rook_coldwake'
 ## --ids: the figures, left to right; --frame=head|body: head and shoulders (the default) or the whole figure.
 ## Shots: <out>_front.png, _left.png, _back.png, _right.png, _talk.png, _swing.png, _walk.png, _hit.png.
+## --only=talk: instead, the figures talking a frame at a time (their jaws opening with a made-up voice, TalkMotion's
+## JawOpen, and the head nodding), <out>_talk_<nnnn>.png for a GIF.
 
 const PANEL := 640
 
@@ -70,6 +72,9 @@ func capture_shots(tool: Node, out: String) -> void:
 		tables.append(table)
 		figs.append(fig)
 	await tool.call("wait_frames", 30)
+	if _arg("only", "") == "talk":
+		await _talk(tool, out, figs, tables)
+		return
 	for side: Array in [["front", 0.0], ["left", 90.0], ["back", 180.0], ["right", 270.0]]:
 		for t in tables:
 			t.rotation.y = deg_to_rad(float(side[1]))
@@ -99,3 +104,38 @@ func capture_shots(tool: Node, out: String) -> void:
 		f.hurt()
 	await tool.call("wait_frames", 14)
 	tool.call("_shot", "%s_hit.png" % out)
+
+
+## The figures saying a line, a frame per shot: syllables about five a second in words of two to four, the jaw following
+## them, the head nodding, a talk gesture under it; turned a little toward the left at first, then facing.
+func _talk(tool: Node, out: String, figs: Array[ModelFigure], tables: Array[Node3D]) -> void:
+	var jaws: Array = []
+	var nods: Array = []
+	for f in figs:
+		var jaw := TalkMotion.jaw_on(f)
+		if jaw != null:
+			jaw.talking = true
+		jaws.append(jaw)
+		var skel := f.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
+		var nod := TalkMotion.HeadNod.new()
+		nod.head = TalkMotion.HeadNod.bone_named(skel, "Head")
+		nod.neck = TalkMotion.HeadNod.bone_named(skel, "Neck")
+		nod.talking = true
+		skel.add_child(nod)
+		nods.append(nod)
+		f.gesture("talk")
+	for t in tables:
+		t.rotation.y = deg_to_rad(20.0)
+	for k in 72:
+		var t := float(k) / 12.0
+		var syllable := maxf(0.0, sin(t * TAU * 4.8))
+		var word := sin(t * TAU * 1.3) + 0.6 * sin(t * TAU * 0.47 + 1.7)
+		var loud := syllable * (1.0 if word > -0.35 else 0.15)
+		for i in figs.size():
+			if jaws[i] != null:
+				(jaws[i] as TalkMotion.JawOpen).loudness = loud
+			(nods[i] as TalkMotion.HeadNod).loudness = loud
+		for tb in tables:
+			tb.rotation.y = deg_to_rad(20.0 * maxf(0.0, 1.0 - float(k) / 24.0))
+		await tool.call("wait_frames", 2)
+		tool.call("_shot", "%s_talk_%04d.png" % [out, k])
