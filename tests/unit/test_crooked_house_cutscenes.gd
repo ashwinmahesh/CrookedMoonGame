@@ -1,16 +1,17 @@
 extends TestCase
-## The Crooked House's cutscenes (package R12, contract section 8): nine sets, twenty pictures. Every set has the number of
-## pictures the contract names (never fewer than two, the two-scenes rule), each picture has its file, its stand-in or real art
-## and its prompt, and the noose and the beheading only show when the graphic-scenes content setting is on.
+## The Crooked House's cutscenes (package R12, contract section 8): nine sets, twenty pictures, and a tame alternate for each of
+## the four graphic ones. Every set has the number of pictures the contract names (never fewer than two, the two-scenes rule), each
+## picture has its file, its stand-in or real art and its prompt, and the noose and the beheading are marked `graphic: true`: with
+## the playthrough option graphic_scenes off, the engine shows their `tame` picture instead.
 
 ## Each set: its first picture's id and how many pictures it has (the rest are <id>_2, <id>_3).
 const SETS := {
 	"ch_house_turns": 2, "ch_portraits": 3, "ch_apparition_1": 2, "ch_apparition_2": 2, "ch_apparition_3": 2,
 	"ch_gail_freed": 2, "ch_arthur_sleeps": 2, "ch_petunia_ribbon": 2, "ch_house_unbends": 3,
 }
-## The sets with a hanging or a beheading: shown only when the player turns graphic scenes on.
+## The sets with a hanging or a beheading: marked `graphic`, each picture with a tame alternate (<id>_tame) for graphic scenes off.
 const GATED := ["ch_apparition_2", "ch_petunia_ribbon"]
-const SETTING := "option:graphic_scenes"
+const TAME_SUFFIX := "_tame"
 const PROMPTS := "res://tools/content/crooked_house_cutscenes.json"
 
 
@@ -21,10 +22,19 @@ static func _pictures(first: String, count: int) -> Array[String]:
 	return out
 
 
+static func _graphic_ids() -> Array[String]:
+	var out: Array[String] = []
+	for first: String in GATED:
+		out.append_array(_pictures(first, int(SETS[first])))
+	return out
+
+
 static func _all_ids() -> Array[String]:
 	var out: Array[String] = []
 	for first: String in SETS:
 		out.append_array(_pictures(first, int(SETS[first])))
+	for id in _graphic_ids():
+		out.append(id + TAME_SUFFIX)
 	return out
 
 
@@ -38,8 +48,8 @@ func test_every_set_has_two_or_more_pictures() -> void:
 		assert_eq(found, int(SETS[first]), "%s has the pictures the contract names, and no stray extra" % first)
 
 
-func test_there_are_twenty_pictures_and_no_other_ch_cutscene() -> void:
-	assert_eq(_all_ids().size(), 20, "the contract's twenty pictures")
+func test_there_are_twenty_pictures_four_tame_ones_and_no_other_ch_cutscene() -> void:
+	assert_eq(_all_ids().size(), 24, "the contract's twenty pictures and the four tame alternates")
 	for c in Cutscenes.all():
 		var id := str(c["id"])
 		if id.begins_with("ch_"):
@@ -48,7 +58,7 @@ func test_there_are_twenty_pictures_and_no_other_ch_cutscene() -> void:
 
 func test_every_picture_has_its_file_and_a_prompt() -> void:
 	var prompts: Dictionary = (JSON.parse_string(FileAccess.get_file_as_string(PROMPTS)) as Dictionary)["pictures"]
-	assert_eq(prompts.size(), 20, "one prompt per picture")
+	assert_eq(prompts.size(), 24, "one prompt per picture")
 	for id in _all_ids():
 		var c := Cutscenes.get_cutscene(id)
 		assert_eq(str(c.get("id", "")), id, "%s's file names its own id" % id)
@@ -61,17 +71,35 @@ func test_every_picture_has_its_file_and_a_prompt() -> void:
 		assert_true(prompts.has(id) and str(prompts[id]).length() > 40, "%s has a prompt" % id)
 
 
-func test_the_noose_and_the_beheading_wait_for_the_setting() -> void:
+func test_the_noose_and_the_beheading_are_graphic_with_a_tame_alternate() -> void:
+	for first: String in SETS:
+		for id in _pictures(first, int(SETS[first])):
+			var c := Cutscenes.get_cutscene(id)
+			assert_eq(str(((c["images"] as Array)[0] as Dictionary)["when"]), "", "%s has no condition of its own" % id)
+			if first in GATED:
+				assert_true(bool(c.get("graphic", false)), "%s is marked graphic" % id)
+				assert_eq(str(c.get("tame", "")), id + TAME_SUFFIX, "%s names its tame alternate" % id)
+				assert_true(str(Cutscenes.get_cutscene(id + TAME_SUFFIX).get("summary", "")).length() > 20, "%s exists" % (id + TAME_SUFFIX))
+			else:
+				assert_false(c.has("graphic"), "%s is not graphic" % id)
+	for id in _graphic_ids():
+		var tame := Cutscenes.get_cutscene(id + TAME_SUFFIX)
+		assert_false(bool(tame.get("graphic", false)), "%s is tame" % (id + TAME_SUFFIX))
+		assert_false(tame.has("tame"), "%s has no alternate of its own" % (id + TAME_SUFFIX))
+
+
+func test_graphic_scenes_off_shows_the_tame_pictures() -> void:
 	var st := StoryState.new()
 	for first: String in SETS:
 		for id in _pictures(first, int(SETS[first])):
-			var when := str(((Cutscenes.get_cutscene(id)["images"] as Array)[0] as Dictionary)["when"])
+			assert_eq(Cutscenes.image(id, st), "res://art/cutscenes/%s.jpg" % id, "%s plays by default (graphic scenes are on unless switched off)" % id)
+	st.options["graphic_scenes"] = false
+	for first: String in SETS:
+		for id in _pictures(first, int(SETS[first])):
 			if first in GATED:
-				assert_eq(when, SETTING, "%s is gated on the content setting" % id)
-				assert_eq(Cutscenes.image(id, st), "", "%s is skipped with the setting off" % id)
+				assert_eq(Cutscenes.image(id, st), "res://art/cutscenes/%s%s.jpg" % [id, TAME_SUFFIX], "%s shows its tame picture with graphic scenes off" % id)
 			else:
-				assert_eq(when, "", "%s always plays" % id)
-				assert_eq(Cutscenes.image(id, st), "res://art/cutscenes/%s.jpg" % id, "%s plays" % id)
+				assert_eq(Cutscenes.image(id, st), "res://art/cutscenes/%s.jpg" % id, "%s still plays" % id)
 	st.options["graphic_scenes"] = true
-	for id in _pictures("ch_apparition_2", 2) + _pictures("ch_petunia_ribbon", 2):
-		assert_eq(Cutscenes.image(id, st), "res://art/cutscenes/%s.jpg" % id, "%s plays with the setting on" % id)
+	for id in _graphic_ids():
+		assert_eq(Cutscenes.image(id, st), "res://art/cutscenes/%s.jpg" % id, "%s plays with graphic scenes on" % id)

@@ -13,5 +13,5 @@ Gemini (gemini-4-argon-medium) through ai-bridge. The `crooked-moon` project ref
   - The draft's `look_away` node was not used: the gaze is an automatic roll, not a choice, so a way to dodge it would defeat it.
 - Added by us: the `check Charisma DC 10` after each picture, the plaque menu on the Lockwood portrait, `set portrait_seen_*`,
   `set portrait_cursed += 1`.
-- The 1d6 psychic damage of a failed gaze cannot be written in a dialogue (no damage statement); it is left to the prop (a trap).
+- The 1d6 psychic damage of a failed gaze is `damage 1d6 psychic` on each `_cursed` node (r12-statements). The check stays the best-in-party Charisma check: there is no per-hero save statement.
 - Dropped-g Narrator lines: 5 of 17.

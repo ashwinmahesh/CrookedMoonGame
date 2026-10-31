@@ -3,7 +3,8 @@
 # Started by: the props h2_portrait_lockwood (`lockwood`), h2_portrait_druskenvald (`druskenvald`), h2_portrait_party (`party`).
 # The first look at each shows its picture (ch_portraits, _2, _3) and rolls the painted gaze once (Charisma DC 10, best in the party); a
 # failure sets portrait_cursed += 1 (the curse: a boogleswarm on a natural 1, see the contract). Later looks are a plain line.
-# The gaze's 1d6 psychic cannot be dealt from a dialogue (no damage statement in the grammar): the wiring puts it on the prop (a trap).
+# The gaze's 1d6 psychic is `damage 1d6 psychic` on the failed branch, to the hero in the conversation. The book's DC 10 Charisma save is still the best-in-party
+# Charisma check (`check`): the dialogue grammar has no per-hero save, so that part stays a stand-in.
 # Flags: portrait_seen_lockwood|druskenvald|party (first look), portrait_cursed (int). Drafted by Gemini (gemini_r12_portraits), edited.
 
 ~ lockwood
@@ -25,6 +26,7 @@ Narrator: You hold the painted stare for a long spell while the rain drums on th
 ~ lockwood_cursed
 set portrait_cursed += 1
 Narrator: You blink first, and something cold as well water slides in behind your eyes and settles there, listenin'.
+damage 1d6 psychic
 -> lockwood_menu
 
 ~ lockwood_again
@@ -59,6 +61,7 @@ Narrator: You hold the painted gaze of the weeping lord and his stern lady until
 ~ druskenvald_cursed
 set portrait_cursed += 1
 Narrator: Your gaze wavers before those wet, painted eyes, and a splinter of winter ice slips quiet and deep behind your brow.
+damage 1d6 psychic
 -> END
 
 ~ druskenvald_again
@@ -84,6 +87,7 @@ Narrator: You stare straight back into the four blank smears until thunder rolls
 ~ party_cursed
 set portrait_cursed += 1
 Narrator: You flinch from those toothless black grins, and a damp chill crawls in behind your eyes and settles for a spell.
+damage 1d6 psychic
 -> END
 
 ~ party_again

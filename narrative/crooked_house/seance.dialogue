@@ -2,9 +2,8 @@
 # FINAL-WORDED: every line below is voiced as written; do not edit a line once the voice lane starts.
 # Started by: the prop h3_spirit_board (`start`). Two or more hands on the planchette; the party chooses when (they may say "not yet" and explore first).
 # The question menu grows as the house is explored (visited: floors) and as earlier answers are given, capped at eight questions; each answer is followed by the open
-# roll (`roll`): a bite of cold on a failed roll steps up every time. HOOK(damage): the dialogue grammar has no damage statement, so a bite is narration
-# plus the counter seance_stings; when the engine gains `hurt`, each bite should hurt every hand on the board by psychic damage 1d4, 1d6, 1d8, 1d10, then 1d12
-# (stings 1..5, capped at 5). The roll is a Constitution check against the party's best (DC 6 stands in for the book's "1 on a d10").
+# roll (`roll`): a bite of cold on a failed roll steps up every time. Each bite is `damage <dice> psychic party` (every hand on the board; the engine never
+# drops a hero below 1 Hit Point), counted by seance_stings: 1d4, 1d6, 1d8, 1d10, then 1d12 (stings 1..5, capped at 5). The roll is a Constitution check against the party's best (DC 6 stands in for the book's "1 on a d10").
 # He answers "where is the attic door" with TROPHIES (sets trapdoor_known), "who is the cat" with LIAR, "what is Shuck" with SALLY.
 # GOODBYE closes it for good: seance_done. When the three plot clues (the hag, the six mementos, the attic door) were all asked, he asks them to find his son.
 # Drafted by Gemini (docs/plans/gemini_r12_seance/), edited.
@@ -122,18 +121,23 @@ Narrator: The pointer settles back still, and the draft stays down in the floorb
 set seance_stings += 1
 if flag.seance_stings == 1
 Narrator: The pointer bucks hard under your palms. A thin needle of winter cold runs straight through every hand on the wood.
+damage 1d4 psychic party
 endif
 if flag.seance_stings == 2
 Narrator: The board kicks back colder this time, sendin' a gray frost up past your wrists until your fingers go thick and numb.
+damage 1d6 psychic party
 endif
 if flag.seance_stings == 3
 Narrator: That third chill bites deep into the meat of your thumbs. It settles like hard pond ice inside the bones of every hand.
+damage 1d8 psychic party
 endif
 if flag.seance_stings == 4
 Narrator: The cold snaps up your arms and wrings the warm wind right out of your chests. Your stiff fingers scarce want to uncurl from the wood.
+damage 1d10 psychic party
 endif
 if flag.seance_stings >= 5
 Narrator: A black frost locks every arm to the elbow in a vice of winter iron. It holds you fast a long count before it lets go slow.
+damage 1d12 psychic party
 endif
 -> menu
 

@@ -5,4 +5,4 @@
 - Edits made to the draft: hush_empty "because" for "folks, cause"; calm_miss "round you" for "round y'all"; patient line three "Even a ghost gets tired, it seems, and..." (the draft said "I reckon",
   a first-person line in a second-person Narrator); lullaby_ok_lament became the last Narrator line inside lullaby_ok behind `if flag.memento_key`, reworded to open "Then the harpsichord tune
   from the music room slips into your voice, and his heavy eyes follow it down." (the draft's "Halfway through" followed a line that already finished the song).
-- Added by the lane: option texts, the Performance DC 10 stand-in for the lament's Advantage, the patient way (time +60), quest, flag and inspire lines, the cutscene beats, `approve`.
+- Added by the lane: option texts, the lament's Advantage on the lullaby (`[Performance DC 15 adv]`; it was a DC 10 stand-in until r12-statements), the patient way (time +60), quest, flag and inspire lines, the cutscene beats, `approve`.
