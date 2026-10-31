@@ -913,6 +913,33 @@
         23,
         37
       ],
+      "dialogue": "wickermoor/mare:return",
+      "when": "flag.mare_caught and not flag.mare_returned"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        23,
+        37
+      ],
+      "dialogue": "wickermoor/mare:start",
+      "when": "flag.wm_welcomed and not flag.mare_asked and not flag.mare_lost"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        23,
+        37
+      ],
+      "dialogue": "wickermoor/mare:progress",
+      "when": "flag.mare_asked and not flag.mare_caught and not flag.mare_lost"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        23,
+        37
+      ],
       "dialogue": "wickermoor/marianna_grey:start"
     },
     {
@@ -1174,6 +1201,43 @@
           "failure": {}
         }
       ]
+    },
+    {
+      "id": "wm_mare_tracks",
+      "cell": [
+        20,
+        3
+      ],
+      "kind": "examine",
+      "label": "Hoofprints in the mud",
+      "model": "rocks",
+      "dialogue": "wickermoor/mare:tracks",
+      "when": "flag.mare_asked and not flag.mare_found and not flag.mare_lost"
+    },
+    {
+      "id": "wm_mare",
+      "cell": [
+        36,
+        2
+      ],
+      "kind": "examine",
+      "label": "A grey mare in a thicket",
+      "model": "horse",
+      "dialogue": "wickermoor/mare:mare_there",
+      "when": "flag.mare_found and not flag.mare_caught"
+    },
+    {
+      "id": "wm_goat",
+      "cell": [
+        31,
+        26
+      ],
+      "kind": "examine",
+      "label": "The village goat",
+      "model": "horse",
+      "scale": 0.5,
+      "dialogue": "wickermoor/misdelivered:goat",
+      "when": "flag.misdelivered_asked and not flag.letter_goat"
     }
   ],
   "region": "wickermoor",
@@ -1283,6 +1347,10 @@
     "from_orchard": [
       57,
       4
+    ],
+    "from_stable_yard": [
+      23,
+      37
     ]
   },
   "summary": "The hub: a village round a trodden square, an oak of carved faces, a clocktower, the Silverbell along the south and the crooked estate on its hill.",
