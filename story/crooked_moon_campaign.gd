@@ -55,6 +55,36 @@ func treasures_at(place: String, st: StoryState) -> Array[String]:
 	return out
 
 
+## The train's cars, rear to Tender: the six middle cars in an order the playthrough's seed fixes (a reload never reshuffles it). An exit
+## `module_switcheroo_next` or `:previous` leads to the car after or before the one it is in.
+func exit_target(st: StoryState, from_location: String, to: String) -> String:
+	if not to.begins_with("module_switcheroo_"):
+		return to
+	var chain := switcheroo_chain(st.playthrough_seed)
+	var at := chain.find(from_location)
+	if at < 0:
+		return from_location
+	return chain[clampi(at + (1 if to.ends_with("_next") else -1), 0, chain.size() - 1)]
+
+
+static func switcheroo_chain(seed_value: int) -> Array[String]:
+	var cars := ((JSON.parse_string(FileAccess.get_file_as_string("res://data/switcheroo.json")) as Dictionary))
+	var middle: Array[String] = []
+	for c: Variant in cars["middle"]:
+		middle.append(str(c))
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed_value
+	for i in range(middle.size() - 1, 0, -1):
+		var j := rng.randi_range(0, i)
+		var t := middle[i]
+		middle[i] = middle[j]
+		middle[j] = t
+	var out: Array[String] = [str(cars["rear"])]
+	out.append_array(middle)
+	out.append(str(cars["last"]))
+	return out
+
+
 func _hero_name(slot: String, st: StoryState) -> String:
 	var n := int(slot.trim_prefix("hero_")) - 1
 	return (st.party[n] as Character).name.get_slice(" ", 0) if n >= 0 and n < st.party.size() else slot

@@ -1007,6 +1007,8 @@ def story_checks(data, errors, need):
             on_floor(ex["cell"], f"exit {ex['id']}", allow_wall=True)
             if ex["to"] == "travel":
                 pass  # the travel map (ADR 0010)
+            elif ex["to"].startswith("module_"):
+                pass  # the campaign module answers (CampaignModule.exit_target); the data checks read data/switcheroo.json for the train's cars
             elif ex["to"] not in locations:
                 errors.append(f"{w}: exit {ex['id']} leads to unknown location '{ex['to']}'")
             elif ex.get("spawn") and ex["spawn"] not in locations[ex["to"]].get("spawns", {}):

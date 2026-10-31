@@ -113,10 +113,10 @@ def car(lid, n, name, summary, text, areas, props, npcs, encounters=None, contai
     idx = CARS.index(lid)
     exits = []
     if idx > 0:
-        exits.append({"id": "rear_door", "cell": [0, 4 if tender else door_row], "to": CARS[idx - 1], "spawn": "from_front",
+        exits.append({"id": "rear_door", "cell": [0, 4 if tender else door_row], "to": "module_switcheroo_previous", "spawn": "from_front",
                       "label": "Back to the " + ("last car" if idx > 1 else "Passenger Car")})
     if idx < 7:
-        ex = {"id": "front_door", "cell": [19, door_row], "to": CARS[idx + 1], "spawn": "from_rear", "label": "On to the next car"}
+        ex = {"id": "front_door", "cell": [19, door_row], "to": "module_switcheroo_next", "spawn": "from_rear", "label": "On to the next car"}
         if idx == 6:
             ex["label"] = "The Tender's door"
             ex["when"] = SIX_DONE

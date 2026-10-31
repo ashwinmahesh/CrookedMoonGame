@@ -69,7 +69,7 @@
         0,
         3
       ],
-      "to": "ghostlight_g6_baggage",
+      "to": "module_switcheroo_previous",
       "spawn": "from_front",
       "label": "Back to the last car"
     },
@@ -79,7 +79,7 @@
         19,
         3
       ],
-      "to": "ghostlight_g8_tender",
+      "to": "module_switcheroo_next",
       "spawn": "from_rear",
       "label": "The Tender's door",
       "when": "(flag.haint_sweetheart_done or flag.haint_sweetheart_destroyed) and (flag.haint_songstress_done or flag.haint_songstress_destroyed) and (flag.haint_daydreamer_done or flag.haint_daydreamer_destroyed) and (flag.haint_mariner_done or flag.haint_mariner_destroyed) and (flag.haint_jailbird_done or flag.haint_jailbird_destroyed) and (flag.haint_harlequin_done or flag.haint_harlequin_destroyed)",
@@ -186,8 +186,7 @@
       "when": "not flag.gl_crashed",
       "call": "ghostlight_express/vagrant_intercom:phantom_after",
       "approach": 12,
-      "call_when": "flag.gl_phantom_done and not flag.gl_vagrant_briefed",
-      "facing": "south"
+      "call_when": "flag.gl_phantom_done and not flag.gl_vagrant_briefed"
     },
     {
       "id": "g7_lamps",

@@ -71,15 +71,30 @@ func test_people_exits_and_finds_can_be_walked_to_from_the_arrival() -> void:
 				assert_true(near, "%s: the search prop %s can be reached" % [id, p["id"]])
 
 
-func test_the_cars_chain_front_to_back() -> void:
-	for i in CARS.size():
-		var exits := {}
-		for e: Dictionary in _loc(CARS[i]).get("exits", []):
-			exits[e["id"]] = e
-		if i < CARS.size() - 1:
-			assert_eq(str((exits["front_door"] as Dictionary)["to"]), CARS[i + 1], "%s leads on" % CARS[i])
-		if i > 0:
-			assert_eq(str((exits["rear_door"] as Dictionary)["to"]), CARS[i - 1], "%s leads back" % CARS[i])
+func test_the_cars_chain_front_to_back_in_an_order_the_seed_fixes() -> void:
+	var module := Campaign.module() as CrookedMoonCampaign
+	var st := GameState.story
+	var seen := {}
+	for seed_value: int in [1, 2, 3, 4, 5, 6, 7, 8]:
+		var chain := CrookedMoonCampaign.switcheroo_chain(seed_value)
+		assert_eq(chain.size(), 8)
+		assert_eq(chain[0], CARS[0], "the Passenger Car is always the rear")
+		assert_eq(chain[7], CARS[7], "the Tender is always last")
+		assert_eq(chain, CrookedMoonCampaign.switcheroo_chain(seed_value), "the same seed gives the same order")
+		var sorted_middle := chain.slice(1, 7)
+		sorted_middle.sort()
+		var want := CARS.slice(1, 7)
+		want.sort()
+		assert_eq(sorted_middle, want, "every middle car appears once")
+		seen[str(chain)] = true
+		st.playthrough_seed = seed_value
+		for i in chain.size() - 1:
+			assert_eq(module.exit_target(st, chain[i], "module_switcheroo_next"), chain[i + 1])
+			assert_eq(module.exit_target(st, chain[i + 1], "module_switcheroo_previous"), chain[i])
+	assert_true(seen.size() > 1, "different playthroughs shuffle the cars differently")
+	for id: String in CARS:
+		for e: Dictionary in _loc(id).get("exits", []):
+			assert_true(str(e["to"]).begins_with("module_switcheroo_"), "%s's doors are the module's" % id)
 
 
 func test_the_tenders_door_waits_for_all_six_haints() -> void:

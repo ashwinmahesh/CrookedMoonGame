@@ -83,7 +83,7 @@
         0,
         3
       ],
-      "to": "ghostlight_g2_sleeper",
+      "to": "module_switcheroo_previous",
       "spawn": "from_front",
       "label": "Back to the last car"
     },
@@ -93,7 +93,7 @@
         19,
         3
       ],
-      "to": "ghostlight_g4_dining",
+      "to": "module_switcheroo_next",
       "spawn": "from_rear",
       "label": "On to the next car"
     }
@@ -189,8 +189,7 @@
       "when": "not flag.gl_crashed",
       "call": "ghostlight_express/vagrant_intercom:phantom_after",
       "approach": 12,
-      "call_when": "flag.gl_phantom_done and not flag.gl_vagrant_briefed",
-      "facing": "south"
+      "call_when": "flag.gl_phantom_done and not flag.gl_vagrant_briefed"
     }
   ],
   "npcs": [
