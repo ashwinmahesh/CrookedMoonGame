@@ -1,0 +1,66 @@
+# Drafted by Gemini (side quests batch 5: seating), edited.
+
+~ start
+Narrator: Lord Phillip taps a silver pencil against a velvet banquette, while three pale ghosts hover by the brass rail in stiff, expectant silence.
+phillip_druskenvald [weary]: A crisis of precedence, my friends. Three banquette seats, three haints, and each refuses to sit before their betters.
+phillip_druskenvald [neutral]: The songstress sang for crowned heads, the daydreamer married a prominent banker, and the harlequin tumbled in a sawdust ring. Do seat them before someone makes a scene.
+* We will see to it -> accept
+* Why does it matter? -> why
+* Not now -> END
+
+~ why
+adela_druskenvald [sly]: A lounge that quarrels is a lounge that moans, darling, and we have hours of track ahead of us.
+phillip_druskenvald [weary]: Quite so. The crystal is already vibrating.
+-> start
+
+~ accept
+phillip_druskenvald [smile]: Splendid. Exercise extreme tact, I beg of you.
+quest a_seat_for_the_lord asked
+set seating_asked
+-> END
+
+~ seat
+Narrator: The plush velvet cushions smell faintly of mothballs and old lilac water. Three pairs of translucent eyes watch your hands.
+haint_songstress [neutral]: I trust the management remembers who held the royal box at the Grand Opera.
+haint_daydreamer [weary]: My late husband owned half the rail bonds in the province, though I suppose no one keeps books anymore.
+haint_harlequin [smile]: Any cushion will do for a working man, provided the springs do not bite.
+* Seat the songstress first, the daydreamer second, the harlequin last -> peaceful
+* Seat the harlequin first -> loud_one
+* Seat the daydreamer first -> loud_two
+* [Insight DC 11] Ask Adela which order -> adela_hint | adela_shrug
+
+~ adela_hint
+adela_druskenvald [sly]: Crowned heads outrank bank vaults, and bank vaults outrank the circus. Songstress, daydreamer, harlequin, if you value your eardrums.
+-> seat
+
+~ adela_shrug
+adela_druskenvald [weary]: I am not paid to rank the dead, my dear. Pick a ghost and point.
+-> seat
+
+~ peaceful
+haint_songstress [smile]: Naturally. The acoustics in this corner are passable, at least.
+Narrator: The three spirits settle into the velvet with a soft sigh like escaping steam, and the lounge car hums along the rails in blessed quiet.
+phillip_druskenvald [smile]: Masterful diplomacy. You have saved the evening and the glassware.
+set seating_outcome = "peaceful"
+quest a_seat_for_the_lord done
+gold +20
+-> END
+
+~ loud_one
+haint_songstress [angry]: A tumbler? Before the first soprano of the Winter Season? Unhand my stole!
+Narrator: Her high note sets every brandy snifter ringing along the mahogany bar. Lord Phillip gives a tiny, well-bred gasp and wilts neatly into the ice buckets before the ghosts finally take their places.
+adela_druskenvald [sly]: Take this for your trouble, and do fetch the smelling salts on your way out.
+set seating_outcome = "loud"
+quest a_seat_for_the_lord done
+gold +5
+-> END
+
+~ loud_two
+haint_songstress [angry]: A clerk's wife in the place of honour? In my day, the stalls knew their station!
+haint_daydreamer [sad]: Oh, it is just like the autumn cotillion all over again.
+Narrator: The banker's widow weeps cold, saltless tears into a framed painting of a stormy sea until the three finally sulk into their cushions.
+phillip_druskenvald [weary]: Well, they are seated, even if the upholstery is thoroughly damp. Here is a trifle for trying.
+set seating_outcome = "loud"
+quest a_seat_for_the_lord done
+gold +5
+-> END

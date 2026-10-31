@@ -193,9 +193,30 @@
       "approach": 12,
       "call_when": "flag.gl_phantom_done and not flag.gl_vagrant_briefed",
       "facing": "south"
+    },
+    {
+      "id": "g3_banquette",
+      "cell": [
+        6,
+        4
+      ],
+      "kind": "examine",
+      "label": "The lounge banquette",
+      "model": "chairs",
+      "dialogue": "ghostlight_express/seating:seat",
+      "when": "flag.seating_asked and not flag.seating_outcome"
     }
   ],
   "npcs": [
+    {
+      "npc": "phillip_druskenvald",
+      "cell": [
+        10,
+        3
+      ],
+      "dialogue": "ghostlight_express/seating:start",
+      "when": "flag.gl_lounge_met and not flag.seating_asked and not flag.gl_crashed"
+    },
     {
       "npc": "phillip_druskenvald",
       "cell": [
