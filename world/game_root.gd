@@ -728,6 +728,7 @@ func start_dialogue(ref: String, _npc_id: String) -> void:
 		if view != null:
 			view.set_speaking(speaker_id)   # a place's lights follow whoever speaks (CampaignLook.refresh)
 			FigureTalk.spoke(view, speaker_id)   # a 3D figure gestures as its line shows
+			TalkCamera.speaker(view, speaker_id)   # ... the camera comes in close on them, and they face it (BG3)
 			_keep_talking.call_deferred(speaker_id))   # ... and keeps nodding and gesturing while it is said
 	dialogue.scene_shown.connect(_scene_music)
 	var runner := DialogueRunner.new(st, Dice.roller, narrator)

@@ -14,7 +14,8 @@ Studio) is copied to its `file` in the repo, made fit to ship:
 The meshes, skins and animations are copied byte for byte. The source files are never changed.
 
 Parts a figure wears (the manifest's "parts": a head made apart from its body, say) are copied the same way when they
-name a `source`.
+name a `source`. A figure or part with a `close_up` gets its source's base-colour picture at full size (up to 4096 px)
+at the `close_up`'s `albedo` path: the look a conversation's close-up swaps in (the engine's ModelFigure.set_close_up).
 
 Entries that need no model of their own are handled too:
 - an entry with a `base` (another figure's art id: the six haint dressings share the haint body) and no `source` gets no
@@ -214,6 +215,10 @@ def main(argv):
                 print(f'{fid}: model {info["source"]} is not on the asset root yet, keeping its sprite', file=sys.stderr)
             elif force or not dst.exists() or dst.stat().st_mtime < src.stat().st_mtime:
                 print(convert(src, dst, max_px))
+        if 'source' in info and isinstance(info.get('close_up'), dict) and 'albedo' in info['close_up']:
+            src, dst = root / info['source'], REPO / info['close_up']['albedo']
+            if src.exists() and (force or not dst.exists() or dst.stat().st_mtime < src.stat().st_mtime):
+                print(albedo_of(src, dst, 4096))
         if 'albedo_source' in info and 'albedo' in info:
             src, dst = root / info['albedo_source'], REPO / info['albedo']
             if not src.exists():
