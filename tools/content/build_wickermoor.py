@@ -106,6 +106,16 @@ INSIDE = {
 }
 
 
+# Opening hours by the Hollow's named hours (Twilight 07, Dusk 11, Nightfall 15, Evening 19, Midnight 23, Witching 03): the bakery
+# Twilight to the start of Nightfall, the mayor's office Twilight through Nightfall, most shops shut from the Evening Hour (the book's
+# tables). Mrs. Oakum leaves every Evening Hour. Whoever is not listed keeps their place all night: the inn, the constable, the funeral home.
+HOURS = {"holly_aster": [7, 15], "violet_aster": [7, 15], "lavender_aster": [7, 15], "finneas_trout": [7, 15],
+         "wendel_somerton": [7, 19], "myrtle_somerton": [7, 19], "rose_somerton": [7, 19], "mrs_oakum": [7, 19]}
+for _n in ("baltus_tolliver", "jean_myriel", "oswick_frey", "thomasin_ardor", "siv_harga", "ulf_harga", "solomon_roderick", "sofia_roderick", "beatrice_wells",
+           "branden_wells", "eleanor_heyling", "randall_graham"):
+    HOURS[_n] = [7, 19]
+
+
 def room_location(key, spec):
     rows = spec["rows"]
     w, h = len(rows[0]), len(rows)
@@ -352,6 +362,9 @@ def build_people():
              "tags": [f"faction_{faction}", f"voice_{voice}"]}
         if nid in SHOPS:
             d["shop"] = {"sells": [{"id": i} for i in SHOPS[nid]], "markup": 1.0, "sell_rate": 0.5}
+        if nid == "morgan":   # the Paranormal Potions (tools/content/build_potions.py)
+            d["shop"]["magic"] = ["lilypad_tonic", "jinxed_rum", "silence_of_the_drowned", "elixir_of_fogwalking", "harvest_brew", "nightwatcher_potion",
+                                  "sight_of_sin", "tincture_of_mourning", "wytchwood_sap", "nectar_of_the_green_man", "draught_of_the_red_hunger", "haint_hooch"]
         if nid in SERVICES:
             d["services"] = SERVICES[nid]
         write(f"data/npcs/{nid}.json", d)
@@ -410,7 +423,7 @@ if __name__ == "__main__":
     rooms = build_rooms(town["map"]["rows"])
     for key, (spec, loc) in rooms.items():
         for (nid, cell, dlg) in INSIDE.get(key, []):
-            loc["npcs"].append(npc(nid, cell, dlg))
+            loc["npcs"].append(npc(nid, cell, dlg, **({"hours": HOURS[nid]} if nid in HOURS else {})))
         dress(key, loc)
         write(f"data/locations/{key}.json", loc)
     build_people()
