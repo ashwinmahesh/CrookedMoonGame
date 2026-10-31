@@ -1,0 +1,26 @@
+{
+  "_about": "Fights that a wipe does not end the game for (story/fight_retry.gd). Each rule names the fights it covers: `fights` (ids) and/or `prefix` (an id prefix, limited to `locations` when that is given). On a wipe the party rises with every Hit Point and power back, the Narrator says the first of `keys` that exists ({fight} is the encounter id), and the fight begins again: `restart` names a different entry to begin (default: the same one); `spawns` (location id to spawn names, the first one the map has) puts the party back at that entry first; without it the party stays where it stands. `count_flag` counts the retries.",
+  "rules": [
+    {
+      "id": "ghostlight_locomotive",
+      "fights": ["gl_locomotive", "gl_locomotive_edge"],
+      "restart": "gl_locomotive_edge",
+      "keys": ["defeat:ghostlight_locomotive"],
+      "count_flag": "gl_locomotive_retries"
+    },
+    {
+      "id": "crooked_house",
+      "prefix": "ch_",
+      "locations": ["druskenvald_estate", "crooked_house_first", "crooked_house_second", "crooked_house_third", "crooked_house_attic"],
+      "keys": ["defeat:{fight}", "defeat:crooked_house"],
+      "count_flag": "crooked_house_retries",
+      "spawns": {
+        "druskenvald_estate": ["default"],
+        "crooked_house_first": ["from_porch", "default"],
+        "crooked_house_second": ["from_below", "default"],
+        "crooked_house_third": ["from_below", "default"],
+        "crooked_house_attic": ["from_below", "default"]
+      }
+    }
+  ]
+}
