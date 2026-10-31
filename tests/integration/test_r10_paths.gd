@@ -171,6 +171,7 @@ func _win(id: String) -> void:
 
 func _arrive(id: String) -> void:
 	st.location = id
+	st.visited[id] = true   # as LocationView records an arrival: the Switcheroo reads it to tell a first crossing from a later one
 	assert_true(not _loc().is_empty(), "%s is a place" % id)
 
 
@@ -231,7 +232,13 @@ func _exit(exit: String) -> void:
 	if str(e["to"]) == "travel":
 		st.location = "travel"
 		return
-	_arrive(Campaign.module().exit_target(st, st.location, str(e["to"])))
+	var target: String = Campaign.module().exit_target(st, st.location, str(e["to"]))
+	_arrive(target)
+	if target == CrookedMoonCampaign.limbo_place():
+		# The first crossing into a car the party has not been in goes through the mist between cars, and out of it into that car.
+		var out := _entry("exits", "id", "onward")
+		assert_true(not out.is_empty() and _holds(out.get("when")), "the mist has a way on")
+		_arrive(Campaign.module().exit_target(st, st.location, str(out["to"])))
 
 
 ## Whether `exit` of `car` would open now, wherever the party stands.
@@ -729,7 +736,9 @@ func test_after_the_reading_every_hero_has_a_card_and_the_fool_reveals_the_whist
 	assert_true((Campaign.module().treasures_at(WRECK, st) as Array).has("the_fool"), "the wreck keeps The Fool's prize")
 	_at_the_wreck()
 	var whistle := _entry("props", "id", "wr_whistle")
-	assert_true(_holds(whistle.get("when")), "the whistle shows at the wreck")
+	assert_true(not _holds(whistle.get("when")), "the whistle waits until the danger there has passed")
+	st.set_flag("gl_locomotive_done")
+	assert_true(_holds(whistle.get("when")), "then it shows at the wreck")
 	_search("wr_whistle")
 	assert_true(st.party_has_item("whistle_of_the_vagrant"), "the Whistle of the Vagrant is found")
 
@@ -756,6 +765,7 @@ func test_a_reading_put_off_is_given_at_the_wreck() -> void:
 	_at_the_wreck()
 	_talk("the_vagrant")
 	_assert_every_hero_has_a_card()
+	st.set_flag("gl_locomotive_done")
 	_search("wr_whistle")
 	assert_true(st.party_has_item("whistle_of_the_vagrant"), "the Whistle of the Vagrant is found")
 
