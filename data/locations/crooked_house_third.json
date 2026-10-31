@@ -1,0 +1,1524 @@
+{
+  "id": "crooked_house_third",
+  "name": "The Crooked House, Third Floor",
+  "region": "crooked_house",
+  "summary": "The top floor: a nursery with a holed crib, a library of sagging shelves, and a trophy room of stuffed things in the wrong poses, with a stain on the ceiling that is a little too square.",
+  "text": "Wind finds its way into the top floor through places the walls swear are sealed. Books lie open on every flat thing, and the animals on the walls have all turned to watch the door.",
+  "map": {
+    "rows": [
+      "                                  ",
+      "                                  ",
+      "                 #############    ",
+      "     #############...........#    ",
+      "     #...........#...........#    ",
+      "     #....=......#...........#    ",
+      "     #...........#...........#    ",
+      "     #...........#...........#    ",
+      "     #...........#...........#    ",
+      "     #...........#...........#    ",
+      "     ######.######...........#    ",
+      "     #.........# #...........#    ",
+      "     #...###...# #........=..#    ",
+      "     #...###...# #...........#    ",
+      "     #.........# #...........#    ",
+      "     #.........########.######    ",
+      "     #.......................#    ",
+      "     #.......................#    ",
+      "     #.......................#    ",
+      "     #######.#################    ",
+      "       #....................#     ",
+      "       #....................#     ",
+      "       #....................#     ",
+      "       #.............===....#     ",
+      "       #.............===....#     ",
+      "       #....................#     ",
+      "       #....................#     ",
+      "       #....................#     ",
+      "       ######...........#####     ",
+      "            #...........#         ",
+      "            #############         ",
+      "                                  ",
+      "                                  "
+    ],
+    "ceiling_ft": 10,
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "h13_nursery",
+      "name": "Nursery",
+      "cells": [
+        [
+          6,
+          4
+        ],
+        [
+          16,
+          9
+        ]
+      ],
+      "light": "dim"
+    },
+    {
+      "id": "h13_stair_hall",
+      "name": "The stair hall",
+      "cells": [
+        [
+          6,
+          11
+        ],
+        [
+          14,
+          18
+        ]
+      ],
+      "light": "dark"
+    },
+    {
+      "id": "h13_long_hall",
+      "name": "The upper hall",
+      "cells": [
+        [
+          15,
+          16
+        ],
+        [
+          28,
+          18
+        ]
+      ],
+      "light": "dark"
+    },
+    {
+      "id": "h14_library",
+      "name": "Library",
+      "cells": [
+        [
+          8,
+          20
+        ],
+        [
+          27,
+          29
+        ]
+      ],
+      "light": "dim"
+    },
+    {
+      "id": "h15_trophy_room",
+      "name": "Trophy Room",
+      "cells": [
+        [
+          18,
+          3
+        ],
+        [
+          28,
+          14
+        ]
+      ],
+      "light": "dim"
+    }
+  ],
+  "spawns": {
+    "from_below": [
+      10,
+      14
+    ],
+    "default": [
+      10,
+      14
+    ],
+    "from_attic": [
+      23,
+      7
+    ]
+  },
+  "exits": [
+    {
+      "id": "stairs_down",
+      "cell": [
+        10,
+        13
+      ],
+      "to": "crooked_house_second",
+      "spawn": "from_above",
+      "label": "Stairs down to the second floor"
+    },
+    {
+      "id": "up_to_attic",
+      "cell": [
+        23,
+        5
+      ],
+      "to": "crooked_house_attic",
+      "spawn": "from_ladder",
+      "label": "Hatch up to the attic",
+      "when": "flag.trapdoor_known",
+      "locked_text": "There is nothing up there to reach. The ceiling is only plaster."
+    }
+  ],
+  "doors": [
+    {
+      "id": "h13_door",
+      "cell": [
+        11,
+        10
+      ],
+      "label": "The nursery door"
+    },
+    {
+      "id": "h15_door",
+      "cell": [
+        23,
+        15
+      ],
+      "label": "The trophy room door"
+    },
+    {
+      "id": "h14_door",
+      "cell": [
+        12,
+        19
+      ],
+      "label": "The library door"
+    }
+  ],
+  "props": [
+    {
+      "id": "h13_crib",
+      "cell": [
+        10,
+        5
+      ],
+      "kind": "examine",
+      "label": "A mahogany crib riddled with tiny holes",
+      "model": "crib",
+      "text": "The crib's rails are pitted with hundreds of little round holes, and inside it something small and blue is crying."
+    },
+    {
+      "id": "h13_d01",
+      "cell": [
+        14,
+        5
+      ],
+      "kind": "decor",
+      "label": "A cradle, riddled the same way",
+      "model": "crib_shroud"
+    },
+    {
+      "id": "h13_d02",
+      "cell": [
+        7,
+        8
+      ],
+      "kind": "decor",
+      "model": "rocking_horse"
+    },
+    {
+      "id": "h13_d03",
+      "cell": [
+        15,
+        8
+      ],
+      "kind": "decor",
+      "model": "rocking_chair",
+      "facing": "west"
+    },
+    {
+      "id": "h13_d04",
+      "cell": [
+        7,
+        5
+      ],
+      "kind": "decor",
+      "model": "toy_chest"
+    },
+    {
+      "id": "h13_d05",
+      "cell": [
+        13,
+        7
+      ],
+      "kind": "decor",
+      "model": "dollhouse"
+    },
+    {
+      "id": "h13_d06",
+      "cell": [
+        9,
+        8
+      ],
+      "kind": "decor",
+      "model": "floor_books"
+    },
+    {
+      "id": "h13_d07",
+      "cell": [
+        8,
+        6
+      ],
+      "kind": "decor",
+      "model": "doll"
+    },
+    {
+      "id": "h13_d08",
+      "cell": [
+        12,
+        5
+      ],
+      "kind": "decor",
+      "model": "mobile"
+    },
+    {
+      "id": "h13_d09",
+      "cell": [
+        15,
+        6
+      ],
+      "kind": "decor",
+      "model": "cobwebs"
+    },
+    {
+      "id": "h13_d10",
+      "cell": [
+        6,
+        9
+      ],
+      "kind": "decor",
+      "model": "drawings"
+    },
+    {
+      "id": "h_d01",
+      "cell": [
+        7,
+        12
+      ],
+      "kind": "decor",
+      "model": "painting"
+    },
+    {
+      "id": "h_d02",
+      "cell": [
+        13,
+        12
+      ],
+      "kind": "decor",
+      "model": "lantern_bracket"
+    },
+    {
+      "id": "h_d03",
+      "cell": [
+        12,
+        15
+      ],
+      "kind": "decor",
+      "model": "bridge_parapet"
+    },
+    {
+      "id": "h13_apparition",
+      "cell": [
+        13,
+        14
+      ],
+      "kind": "examine",
+      "label": "A cold place on the boards",
+      "call": "crooked_house/crooked_man:floor3",
+      "approach": 6,
+      "call_when": "flag.memento_bear or flag.memento_pin",
+      "text": "The boards here are cold, and the cold has a shape."
+    },
+    {
+      "id": "h_d04",
+      "cell": [
+        20,
+        16
+      ],
+      "kind": "decor",
+      "model": "cobwebs"
+    },
+    {
+      "id": "h_d05",
+      "cell": [
+        27,
+        17
+      ],
+      "kind": "decor",
+      "model": "lantern_bracket"
+    },
+    {
+      "id": "h14_cart",
+      "cell": [
+        11,
+        24
+      ],
+      "kind": "examine",
+      "label": "A cobwebbed liquor cart",
+      "model": "handcart",
+      "text": "A drinks cart furred with cobweb, its bottles gone brown and a few of them, oddly, unbroken."
+    },
+    {
+      "id": "h14_tome",
+      "cell": [
+        15,
+        24
+      ],
+      "kind": "examine",
+      "label": "A tome left on a lectern",
+      "model": "lectern",
+      "call": "crooked_house/incitements:malediction_enter",
+      "approach": 4,
+      "call_when": "not flag.incitement_malediction",
+      "text": "A heavy book lies open on a lectern, and the words on its page seem to be the ones you would say next."
+    },
+    {
+      "id": "h14_desk",
+      "cell": [
+        21,
+        23
+      ],
+      "kind": "examine",
+      "label": "A desk under a stack of books",
+      "model": "desk",
+      "span": [
+        3,
+        2
+      ],
+      "text": "A wide desk stacked with books, and the dust on it is rubbed away in a round warm patch where something curled."
+    },
+    {
+      "id": "h14_shelf_0",
+      "cell": [
+        9,
+        20
+      ],
+      "kind": "decor",
+      "model": "bookshelf"
+    },
+    {
+      "id": "h14_shelf_1",
+      "cell": [
+        10,
+        20
+      ],
+      "kind": "decor",
+      "model": "bookshelf"
+    },
+    {
+      "id": "h14_shelf_2",
+      "cell": [
+        13,
+        20
+      ],
+      "kind": "decor",
+      "model": "bookshelf"
+    },
+    {
+      "id": "h14_shelf_3",
+      "cell": [
+        14,
+        20
+      ],
+      "kind": "decor",
+      "model": "bookshelf"
+    },
+    {
+      "id": "h14_shelf_4",
+      "cell": [
+        15,
+        20
+      ],
+      "kind": "decor",
+      "model": "bookshelf"
+    },
+    {
+      "id": "h14_shelf_5",
+      "cell": [
+        17,
+        20
+      ],
+      "kind": "decor",
+      "model": "bookshelf"
+    },
+    {
+      "id": "h14_shelf_6",
+      "cell": [
+        18,
+        20
+      ],
+      "kind": "decor",
+      "model": "bookshelf"
+    },
+    {
+      "id": "h14_shelf_7",
+      "cell": [
+        19,
+        20
+      ],
+      "kind": "decor",
+      "model": "bookshelf"
+    },
+    {
+      "id": "h14_shelf_8",
+      "cell": [
+        20,
+        20
+      ],
+      "kind": "decor",
+      "model": "bookshelf"
+    },
+    {
+      "id": "h14_shelf_9",
+      "cell": [
+        21,
+        20
+      ],
+      "kind": "decor",
+      "model": "bookshelf"
+    },
+    {
+      "id": "h14_shelf_10",
+      "cell": [
+        22,
+        20
+      ],
+      "kind": "decor",
+      "model": "bookshelf"
+    },
+    {
+      "id": "h14_shelf_11",
+      "cell": [
+        24,
+        20
+      ],
+      "kind": "decor",
+      "model": "bookshelf"
+    },
+    {
+      "id": "h14_shelf_12",
+      "cell": [
+        25,
+        20
+      ],
+      "kind": "decor",
+      "model": "bookshelf"
+    },
+    {
+      "id": "h14_shelf_13",
+      "cell": [
+        26,
+        20
+      ],
+      "kind": "decor",
+      "model": "bookshelf"
+    },
+    {
+      "id": "h14_d01",
+      "cell": [
+        27,
+        22
+      ],
+      "kind": "decor",
+      "model": "bookshelf"
+    },
+    {
+      "id": "h14_d02",
+      "cell": [
+        27,
+        25
+      ],
+      "kind": "decor",
+      "model": "bookshelf"
+    },
+    {
+      "id": "h14_d03",
+      "cell": [
+        14,
+        26
+      ],
+      "kind": "decor",
+      "model": "armchair"
+    },
+    {
+      "id": "h14_d04",
+      "cell": [
+        25,
+        26
+      ],
+      "kind": "decor",
+      "model": "armchair"
+    },
+    {
+      "id": "h14_d05",
+      "cell": [
+        10,
+        22
+      ],
+      "kind": "decor",
+      "model": "floor_books"
+    },
+    {
+      "id": "h14_d06",
+      "cell": [
+        12,
+        22
+      ],
+      "kind": "decor",
+      "model": "scattered_notes"
+    },
+    {
+      "id": "h14_d07",
+      "cell": [
+        17,
+        26
+      ],
+      "kind": "decor",
+      "model": "sheeted_furniture"
+    },
+    {
+      "id": "h14_d08",
+      "cell": [
+        17,
+        28
+      ],
+      "kind": "decor",
+      "model": "book_stack"
+    },
+    {
+      "id": "h14_d09",
+      "cell": [
+        20,
+        28
+      ],
+      "kind": "decor",
+      "model": "candelabra"
+    },
+    {
+      "id": "h14_d10",
+      "cell": [
+        9,
+        26
+      ],
+      "kind": "decor",
+      "model": "cobwebs"
+    },
+    {
+      "id": "h14_d11",
+      "cell": [
+        26,
+        23
+      ],
+      "kind": "decor",
+      "model": "tiger_rug"
+    },
+    {
+      "id": "h15_trapdoor",
+      "cell": [
+        22,
+        5
+      ],
+      "kind": "search",
+      "label": "A square seam in the ceiling",
+      "model": "roof_hatch",
+      "text": "Above you the ceiling plaster is stained in an almost-square, and the stain is a little too neat.",
+      "search_dc": 10,
+      "skill": "perception",
+      "flag": "trapdoor_known",
+      "say": "examine:h15_trapdoor"
+    },
+    {
+      "id": "h15_bear",
+      "cell": [
+        26,
+        12
+      ],
+      "kind": "examine",
+      "label": "A large brown bear, stuffed",
+      "model": "stuffed_wolf",
+      "scale": 2.2,
+      "text": "A huge bear, mounted on its hind legs, fangs bared, and its stuffing has a way of shifting when you look away.",
+      "dialogue": "crooked_house/gail:start"
+    },
+    {
+      "id": "h15_trophy_crow",
+      "cell": [
+        19,
+        4
+      ],
+      "kind": "examine",
+      "label": "A stuffed crow on a perch",
+      "model": "crow",
+      "scale": 1.5,
+      "call": "crooked_house/incitements:slaughter_enter",
+      "approach": 4,
+      "call_when": "not flag.incitement_slaughter and not flag.pending_slaughter_incitement",
+      "text": "A stuffed crow sits on a perch with its glass eyes fixed on the doorway, and one wing half open."
+    },
+    {
+      "id": "h15_d01",
+      "cell": [
+        26,
+        3
+      ],
+      "kind": "examine",
+      "model": "fireplace",
+      "label": "The hearth, and the stained ceiling over it",
+      "text": "The hearth is cold, and the plaster above it has a stain that is a little too square.",
+      "checks": [
+        {
+          "id": "h15_trapdoor",
+          "skill": "perception",
+          "dc": 10,
+          "label": "Search the plaster above the hearth",
+          "success": {
+            "text": "A seam shows in the plaster, a neat square with an iron ring set into it.",
+            "reveal": [
+              "h15_trapdoor"
+            ]
+          },
+          "failure": {
+            "items": [
+              {
+                "id": "human_tooth"
+              }
+            ]
+          }
+        },
+        {
+          "id": "h15_ceiling_study",
+          "skill": "investigation",
+          "dc": 12,
+          "label": "Study the stain's edges",
+          "success": {
+            "text": "The stain follows a straight seam, and at one corner the seam holds an iron ring.",
+            "reveal": [
+              "h15_trapdoor"
+            ]
+          },
+          "failure": {}
+        }
+      ]
+    },
+    {
+      "id": "h15_d02",
+      "cell": [
+        20,
+        3
+      ],
+      "kind": "decor",
+      "model": "stag_head"
+    },
+    {
+      "id": "h15_d03",
+      "cell": [
+        19,
+        7
+      ],
+      "kind": "decor",
+      "model": "bat_perch"
+    },
+    {
+      "id": "h15_d04",
+      "cell": [
+        27,
+        7
+      ],
+      "kind": "decor",
+      "model": "stuffed_wolf"
+    },
+    {
+      "id": "h15_d05",
+      "cell": [
+        20,
+        10
+      ],
+      "kind": "decor",
+      "model": "trophy_wolf"
+    },
+    {
+      "id": "h15_d06",
+      "cell": [
+        23,
+        9
+      ],
+      "kind": "decor",
+      "model": "rug_wolf"
+    },
+    {
+      "id": "h15_d07",
+      "cell": [
+        21,
+        12
+      ],
+      "kind": "decor",
+      "model": "armchair"
+    },
+    {
+      "id": "h15_d08",
+      "cell": [
+        24,
+        12
+      ],
+      "kind": "decor",
+      "model": "crow_barrel"
+    },
+    {
+      "id": "h15_d09",
+      "cell": [
+        28,
+        5
+      ],
+      "kind": "decor",
+      "model": "stag_head"
+    },
+    {
+      "id": "h15_d10",
+      "cell": [
+        18,
+        13
+      ],
+      "kind": "decor",
+      "model": "cobwebs"
+    },
+    {
+      "id": "h15_d11",
+      "cell": [
+        25,
+        6
+      ],
+      "kind": "decor",
+      "model": "bat_perch"
+    }
+  ],
+  "containers": [
+    {
+      "id": "h14_cart_stock",
+      "cell": [
+        11,
+        25
+      ],
+      "label": "The cart's lower shelf",
+      "model": "bottle_rack",
+      "items": [
+        {
+          "id": "potion_of_healing",
+          "qty": 4
+        }
+      ]
+    },
+    {
+      "id": "h13_crib_bear",
+      "cell": [
+        9,
+        5
+      ],
+      "label": "A threadbare blue bear",
+      "model": "doll",
+      "when": "flag.memento_bear",
+      "items": [
+        {
+          "id": "memento_blue_bear",
+          "qty": 1
+        }
+      ]
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "arthur_lockwood",
+      "cell": [
+        11,
+        5
+      ],
+      "dialogue": "crooked_house/arthur:start",
+      "when": "not flag.arthur_rested",
+      "approach": 4,
+      "facing": "west",
+      "steps_aside": true
+    },
+    {
+      "npc": "wisp",
+      "cell": [
+        20,
+        25
+      ],
+      "dialogue": "crooked_house/wisp:start",
+      "when": "not (quest.a_tale_for_wisp == thanked or quest.a_tale_for_wisp == fled or quest.a_tale_for_wisp == slain)",
+      "approach": 6,
+      "facing": "west"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "ch_quasits",
+      "trigger": "examine:h13_crib",
+      "when": "level >= 3 and flag.wisp_catch_pending",
+      "flag": "memento_bear",
+      "monsters": [
+        {
+          "monster": "quasit_goat",
+          "cell": [
+            6,
+            6
+          ]
+        },
+        {
+          "monster": "quasit_bunny",
+          "cell": [
+            16,
+            7
+          ]
+        },
+        {
+          "monster": "quasit_crow",
+          "cell": [
+            12,
+            9
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "arthurs_wail",
+          "name": "Arthur's Wail",
+          "summary": "The infant's cry fills the house. Anyone who is not of it can't think past the sound.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 10
+          },
+          "condition": "stunned",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1
+        },
+        {
+          "id": "wisps_catch",
+          "name": "Wisp's Catch",
+          "summary": "The tales told into his books were waiting for a fight, and pull at their tellers now.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "cha",
+            "dc": 20
+          },
+          "condition": "charmed",
+          "until": "minute",
+          "at": 20,
+          "from_round": 1,
+          "times": 1
+        }
+      ]
+    },
+    {
+      "id": "ch_quasits",
+      "trigger": "examine:h13_crib",
+      "when": "level >= 3",
+      "flag": "memento_bear",
+      "monsters": [
+        {
+          "monster": "quasit_goat",
+          "cell": [
+            6,
+            6
+          ]
+        },
+        {
+          "monster": "quasit_bunny",
+          "cell": [
+            16,
+            7
+          ]
+        },
+        {
+          "monster": "quasit_crow",
+          "cell": [
+            12,
+            9
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "arthurs_wail",
+          "name": "Arthur's Wail",
+          "summary": "The infant's cry fills the house. Anyone who is not of it can't think past the sound.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 10
+          },
+          "condition": "stunned",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1
+        }
+      ]
+    },
+    {
+      "id": "ch_quasits",
+      "trigger": "examine:h13_crib",
+      "flag": "memento_bear",
+      "monsters": [
+        {
+          "monster": "quasit_goat",
+          "cell": [
+            6,
+            6
+          ]
+        },
+        {
+          "monster": "quasit_crow",
+          "cell": [
+            12,
+            9
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "arthurs_wail",
+          "name": "Arthur's Wail",
+          "summary": "The infant's cry fills the house. Anyone who is not of it can't think past the sound.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 10
+          },
+          "condition": "stunned",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1
+        }
+      ]
+    },
+    {
+      "id": "ch_roar",
+      "trigger": "examine:h15_trapdoor",
+      "when": "level >= 3 and flag.wisp_catch_pending",
+      "flag": "trapdoor_known",
+      "monsters": [
+        {
+          "monster": "weasel",
+          "cell": [
+            18,
+            6
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            18,
+            11
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            21,
+            14
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            25,
+            10
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            28,
+            13
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            28,
+            9
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            27,
+            4
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "bears_roar_1",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 10
+          },
+          "damage": {
+            "dice": "1",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 1,
+          "until_round": 1
+        },
+        {
+          "id": "bears_roar_2",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 11
+          },
+          "damage": {
+            "dice": "1d4",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 2,
+          "until_round": 2
+        },
+        {
+          "id": "bears_roar_3",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 12
+          },
+          "damage": {
+            "dice": "1d6",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 3,
+          "until_round": 3
+        },
+        {
+          "id": "bears_roar_4",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 13
+          },
+          "damage": {
+            "dice": "1d8",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 4,
+          "every": 1
+        },
+        {
+          "id": "gail_gives_way",
+          "name": "The Bear Gives Itself Away",
+          "summary": "Gail's own roar lifts above the rest, and every glass eye turns to the one bear that is shaking.",
+          "kind": "text",
+          "at": 20,
+          "from_round": 6,
+          "times": 1
+        },
+        {
+          "id": "wisps_catch",
+          "name": "Wisp's Catch",
+          "summary": "The tales told into his books were waiting for a fight, and pull at their tellers now.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "cha",
+            "dc": 20
+          },
+          "condition": "charmed",
+          "until": "minute",
+          "at": 20,
+          "from_round": 1,
+          "times": 1
+        }
+      ],
+      "quest": {
+        "id": "the_crooked_house",
+        "stage": "attic"
+      }
+    },
+    {
+      "id": "ch_roar",
+      "trigger": "examine:h15_trapdoor",
+      "when": "level >= 3",
+      "flag": "trapdoor_known",
+      "monsters": [
+        {
+          "monster": "weasel",
+          "cell": [
+            18,
+            6
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            18,
+            11
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            21,
+            14
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            25,
+            10
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            28,
+            13
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            28,
+            9
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            27,
+            4
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "bears_roar_1",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 10
+          },
+          "damage": {
+            "dice": "1",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 1,
+          "until_round": 1
+        },
+        {
+          "id": "bears_roar_2",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 11
+          },
+          "damage": {
+            "dice": "1d4",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 2,
+          "until_round": 2
+        },
+        {
+          "id": "bears_roar_3",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 12
+          },
+          "damage": {
+            "dice": "1d6",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 3,
+          "until_round": 3
+        },
+        {
+          "id": "bears_roar_4",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 13
+          },
+          "damage": {
+            "dice": "1d8",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 4,
+          "every": 1
+        },
+        {
+          "id": "gail_gives_way",
+          "name": "The Bear Gives Itself Away",
+          "summary": "Gail's own roar lifts above the rest, and every glass eye turns to the one bear that is shaking.",
+          "kind": "text",
+          "at": 20,
+          "from_round": 6,
+          "times": 1
+        }
+      ],
+      "quest": {
+        "id": "the_crooked_house",
+        "stage": "attic"
+      }
+    },
+    {
+      "id": "ch_roar",
+      "trigger": "examine:h15_trapdoor",
+      "flag": "trapdoor_known",
+      "monsters": [
+        {
+          "monster": "weasel",
+          "cell": [
+            18,
+            6
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            25,
+            10
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            28,
+            13
+          ]
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            21,
+            14
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "bears_roar_1",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 10
+          },
+          "damage": {
+            "dice": "1",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 1,
+          "until_round": 1
+        },
+        {
+          "id": "bears_roar_2",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 11
+          },
+          "damage": {
+            "dice": "1d4",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 2,
+          "until_round": 2
+        },
+        {
+          "id": "bears_roar_3",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 12
+          },
+          "damage": {
+            "dice": "1d6",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 3,
+          "until_round": 3
+        },
+        {
+          "id": "bears_roar_4",
+          "name": "Psychic Roar",
+          "summary": "A psychic roar rolls out of the walls and ceiling. Each round it bites harder.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "int",
+            "dc": 13
+          },
+          "damage": {
+            "dice": "1d8",
+            "type": "psychic"
+          },
+          "at": 20,
+          "from_round": 4,
+          "every": 1
+        },
+        {
+          "id": "gail_gives_way",
+          "name": "The Bear Gives Itself Away",
+          "summary": "Gail's own roar lifts above the rest, and every glass eye turns to the one bear that is shaking.",
+          "kind": "text",
+          "at": 20,
+          "from_round": 6,
+          "times": 1
+        }
+      ],
+      "quest": {
+        "id": "the_crooked_house",
+        "stage": "attic"
+      }
+    },
+    {
+      "id": "ch_wisp",
+      "trigger": "dialogue",
+      "when": "level >= 3",
+      "flag": "wisp_slain",
+      "quest": {
+        "id": "a_tale_for_wisp",
+        "stage": "slain"
+      },
+      "monsters": [
+        {
+          "monster": "ketgrinn",
+          "cell": [
+            20,
+            25
+          ],
+          "name": "Wisp",
+          "steps_down": {
+            "npc": "wisp"
+          }
+        }
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        11,
+        7
+      ],
+      "kind": "candle",
+      "bright_ft": 8,
+      "dim_ft": 20,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        23,
+        9
+      ],
+      "kind": "candle",
+      "bright_ft": 10,
+      "dim_ft": 25,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        26,
+        4
+      ],
+      "kind": "fire",
+      "bright_ft": 10,
+      "dim_ft": 25,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        20,
+        24
+      ],
+      "kind": "lamp",
+      "bright_ft": 10,
+      "dim_ft": 25,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        12,
+        14
+      ],
+      "kind": "candle",
+      "bright_ft": 8,
+      "dim_ft": 16,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        27,
+        8
+      ],
+      "kind": "window",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "moonlight"
+    },
+    {
+      "cell": [
+        27,
+        23
+      ],
+      "kind": "window",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "moonlight"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The house won't let you sleep. The walls tick and breathe round you, and something small keeps scratching behind the plaster. A short breath, then."
+}

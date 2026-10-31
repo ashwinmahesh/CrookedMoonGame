@@ -30,7 +30,7 @@ AWAY = {"away", "away:party"}
 RE_OPTION = re.compile(r"^\*\s+(.*?)\s*->\s*([A-Za-z0-9_:/]+|END)(?:\s*\|\s*([A-Za-z0-9_:/]+|END))?\s*$")
 RE_TAG = re.compile(r"^\[([^\]]+)\]\s*")
 RE_ENDS_TAG = re.compile(rf"^ends:({ID})(?:\s+if\s+(.+))?$")
-RE_CHECK_TAG = re.compile(r"^([A-Za-z][A-Za-z ]*?)\s+DC\s+(\d+)$")
+RE_CHECK_TAG = re.compile(r"^([A-Za-z][A-Za-z ]*?)\s+DC\s+(\d+)(?:\s+(?:adv|dis))?$")   # `[Persuasion DC 14 adv]`: Advantage (`dis`: Disadvantage)
 RE_JUMP = re.compile(r"^->\s*([A-Za-z0-9_:/]+|END)$")
 RE_SET = re.compile(rf"^set\s+({ID})(?:\s*(=|\+=|-=)\s*(.+))?$")
 RE_QUEST = re.compile(rf"^quest\s+({ID})\s+({ID})$")
@@ -44,10 +44,15 @@ RE_HEAL = re.compile(rf"^heal\s+{RE_DICE}(?:\s+(?:party|temp)){{0,2}}$")
 RE_TEMP_HP = re.compile(rf"^temp_hp\s+{RE_DICE}(?:\s+party)?$")
 RE_BLESS = re.compile(r"^bless(?:\s+party)?(?:\s+[1-9]\d*[mh])?$")
 RE_INSPIRATION = re.compile(r"^inspiration(?:\s+party)?$")
+# `damage <dice> <type> [party]` (never below 1 Hit Point), `hit_dice restore <n|all> [party]` / `hit_dice grant <n> [party]`, and the story's edge on
+# checks: `advantage|disadvantage <skill|checks> [next|<n>m|<n>h][: why]` (docs/reference/contracts/dialogue.md).
+RE_DAMAGE = re.compile(rf"^damage\s+{RE_DICE}\s+[a-z]+(?:\s+party)?$")
+RE_HIT_DICE = re.compile(r"^hit_dice\s+(?:restore\s+(?:[1-9]\d*|all)|grant\s+[1-9]\d*)(?:\s+party)?$")
+RE_EDGE = re.compile(r"^(?:advantage|disadvantage)\s+([a-z_]+)(?:\s+(?:next|[1-9]\d*[mh]))?(?:\s*:\s*\S.*)?$")
 RE_ATT = re.compile(rf"^attitude\s+({ID})\s+(hostile|indifferent|friendly)$")
+RE_CHECK = re.compile(r"^check\s+([A-Za-z][A-Za-z ]*?)\s+DC\s+(\d+)(?:\s+(?:adv|dis))?\s*->\s*([A-Za-z0-9_:/]+|END)(?:\s*\|\s*([A-Za-z0-9_:/]+|END))?$")
 RE_STANDING = re.compile(rf"^standing\s+({ID})\s+[+-]\d+$")
 RE_JAIL = re.compile(rf"^jail\s+(?:release|{ID}(?::{ID})?(?:\s+keep_gear)?(?:\s+until\s+.+)?)$")
-RE_CHECK = re.compile(r"^check\s+([A-Za-z][A-Za-z ]*?)\s+DC\s+(\d+)\s*->\s*([A-Za-z0-9_:/]+|END)(?:\s*\|\s*([A-Za-z0-9_:/]+|END))?$")
 RE_INTERJECT = re.compile(r"^interject\s+([a-z]+:[a-z0-9_]+):\s+(.+)$")
 RE_COMBAT = re.compile(rf"^combat\s+({ID})$")
 RE_MOVE = re.compile(rf"^move\s+({ID})(?::({ID}))?$")
@@ -93,7 +98,8 @@ def conditions_flags(expr):
 
 # What a condition's terms may be (story/story_conditions.gd): a bare word, a `kind.name` or a `kind:name`. Anything else is
 # a warning and false at run time, so a condition in new data (a quest's `closes`) is checked against them.
-CONDITION_WORDS = {"true", "false", "night", "day", "indoors", "hour", "attention", "weather", "gold", "level", "check.last", "jailed"}
+CONDITION_WORDS = {"true", "false", "night", "day", "indoors", "hour", "attention", "weather", "gold", "level", "check.last",
+                   "graphic", "jailed"}
 CONDITION_DOTTED = {"flag", "quest", "quest_days", "days_since", "attitude", "approval", "tarokka", "standing"}
 CONDITION_COLONED = {"final_room", "guest", "treasure_at", "gift", "gifted", "fallen", "spell", "at", "region", "option", "visited", "leader", "item",
                      "class", "species", "background", "tag", "name", "knows"}
@@ -324,6 +330,17 @@ def parse_file(path):
             if not ok:
                 out["errors"].append(f"{where}: can't read this line (heal <dice> [party] [temp], temp_hp <dice> [party], bless [party] [30m|2h], "
                                      f"inspiration [party]): {line}")
+            continue
+        if line.split(" ")[0] in ("damage", "hit_dice", "advantage", "disadvantage"):
+            m = RE_EDGE.match(line)
+            if RE_DAMAGE.match(line) or RE_HIT_DICE.match(line):
+                pass
+            elif m and (m.group(1) == "checks" or m.group(1) in SKILLS):
+                if m.group(1) != "checks":
+                    out["skills"].append((m.group(1), where))
+            else:
+                out["errors"].append(f"{where}: can't read this line (damage <dice> <type> [party], hit_dice restore <n|all> [party], hit_dice grant <n> [party], "
+                                     f"advantage|disadvantage <skill|checks> [next|30m|2h][: why]): {line}")
             continue
         if RE_GOLD.match(line) or RE_XP.match(line) or RE_SACRIFICE.match(line) or RE_READING.match(line) or RE_SHOP.match(line) or RE_TIME.match(line):
             continue
