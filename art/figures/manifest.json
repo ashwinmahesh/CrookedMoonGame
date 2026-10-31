@@ -8,15 +8,17 @@
   },
   "parts": {
     "lantern": {"file": "art/sourced/kaylousberg_halloween_bits/Lantern.glb", "bone": "RightHand", "upright": true, "size": 0.2, "grip": [0, 0.88, 0], "offset": [0, -0.02, 0.01]},
+    "rook_head": {"file": "art/figures/heads/rook_head.glb", "source": "tripo/models/rook_head_multiview_10k_4k.glb", "bone": "Head", "follow": "turn", "fit": "head"},
+    "delphine_head": {"file": "art/figures/heads/delphine_head.glb", "source": "tripo/models/delphine_head_multiview_10k_4k.glb", "bone": "Head", "follow": "turn", "fit": "head", "size": 1.7},
     "torch": {"file": "art/models/torch.glb", "bone": "RightHand", "upright": true, "size": 0.34, "grip": [0, 0.3, 0], "offset": [0, 0, 0.05], "turn": [20, 0, 0]}
   },
   "gear": {"hooded_lantern": "lantern", "bullseye_lantern": "lantern", "torch": "torch"},
   "bodies": {"*": {"female": "hero_body_female", "male": "hero_body_male"}},
   "figures": {
-    "rook_coldwake": {"file": "art/figures/rook_coldwake.glb", "source": "tripo/models/rook_final_multiview_10k_4k_10clips_combat.glb", "clips": {"greet": "agree"}},
+    "rook_coldwake": {"file": "art/figures/rook_coldwake.glb", "source": "tripo/models/rook_body_multiview_10k_4k_10clips_combat.glb", "layers": ["rook_head"], "bones": {"Head": 0.01}, "clips": {"greet": "agree"}},
     "silas_vane": {"file": "art/figures/silas_vane.glb", "source": "tripo/models/silas_v2_multiview_10k_4k_10clips_combat.glb", "clips": {"greet": "agree"}, "gear": ["main_hand", "off_hand"]},
     "cordelia_skein": {"file": "art/figures/cordelia_skein.glb", "source": "tripo/models/cordelia_final_multiview_15k_4k_10clips_combat.glb", "clips": {"greet": "agree"}, "gear": ["off_hand"]},
-    "delphine_ravelle": {"file": "art/figures/delphine_ravelle.glb", "source": "tripo/models/delphine_multiview_10k_4k_10clips_combat.glb", "gear": ["main_hand", "off_hand"]},
+    "delphine_ravelle": {"file": "art/figures/delphine_ravelle.glb", "source": "tripo/models/delphine_body_multiview_10k_4k_10clips_combat.glb", "layers": ["delphine_head"], "bones": {"Head": 0.01}, "gear": ["main_hand", "off_hand"]},
     "tobin_hayward": {"file": "art/figures/tobin_hayward.glb", "source": "tripo/models/tobin_multiview_13k_4k_10clips_combat.glb", "clips": {"greet": "agree"}, "gear": ["main_hand", "off_hand"]},
     "lucan_houndstooth": {"file": "art/figures/lucan_houndstooth.glb", "source": "tripo/models/lucan_10k_4k_10clips_combat.glb", "clips": {"greet": "agree"}},
     "the_vagrant": {"file": "art/figures/the_vagrant.glb", "source": "tripo/models/vagrant_multiview_10k_4k_10clips_combat.glb", "clips": {"greet": "agree"}, "gear": ["main_hand", "off_hand"]},

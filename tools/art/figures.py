@@ -13,6 +13,9 @@ Studio) is copied to its `file` in the repo, made fit to ship:
 
 The meshes, skins and animations are copied byte for byte. The source files are never changed.
 
+Parts a figure wears (the manifest's "parts": a head made apart from its body, say) are copied the same way when they
+name a `source`.
+
 Entries that need no model of their own are handled too:
 - an entry with a `base` (another figure's art id: the six haint dressings share the haint body) and no `source` gets no
   GLB; if it has an `albedo_source` (the Tripo retexture export of the base body, a GLB, or a .png/.jpg picture) its
@@ -198,7 +201,9 @@ def main(argv):
         if a.startswith('--max='):
             max_px = int(a.split('=', 1)[1])
     only = [a for a in argv if not a.startswith('--')]
-    figures = json.loads(MANIFEST.read_text())['figures']
+    doc = json.loads(MANIFEST.read_text())
+    figures = dict(doc['figures'])
+    figures.update({pid: info for pid, info in doc.get('parts', {}).items() if 'source' in info and 'file' in info})
     root = asset_root()
     for fid, info in figures.items():
         if only and fid not in only:
