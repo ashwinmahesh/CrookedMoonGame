@@ -1,0 +1,137 @@
+# R12: the six rune circles on the secret landing (H16) and the ward on the way to the hag. No speaker: all Narrator. Region crooked_house.
+# FINAL-WORDED: every line below is voiced as written; do not edit a line once the voice lane starts.
+# Started by: the prop h16_sockets (`place`). Six options, one per memento, each with ONE bracket: [if item:memento_X and not flag.memento_X_placed]; placing takes the item, sets its own placed flag
+# and counts mementos_placed (the door h16_ward reads mementos_placed >= 6). The sixth opens the ward and moves the main quest on. Nothing depends on which one goes last.
+# After vessla_slain the runes let the six go (release): each placed memento is handed back once (mementos_released), the bear and the doll stay useful against the lurker and the bag.
+# Flags not in the contract list (register them): memento_gem_placed, memento_key_placed, memento_cup_placed, memento_doll_placed, memento_bear_placed, memento_pin_placed, mementos_released.
+# Drafted by Gemini (docs/plans/gemini_r12_sockets/), edited.
+
+~ place
+if flag.vessla_slain and not flag.mementos_released
+-> release
+endif
+if flag.vessla_slain
+-> quiet
+endif
+if flag.mementos_placed >= 6
+-> ward_open
+endif
+Narrator: Carved runes across the floor, walls and rafters throb with a dull crimson heat. Six empty circles sit waitin' in the middle of the ring.
+-> place_menu
+
+~ place_menu
+* [if item:memento_bloodstone and not flag.memento_gem_placed] Set the bloodstone in a circle. -> place_gem
+* [if item:memento_black_key and not flag.memento_key_placed] Set the black key in a circle. -> place_key
+* [if item:memento_porcelain_cup and not flag.memento_cup_placed] Set the porcelain cup in a circle. -> place_cup
+* [if item:memento_wooden_doll and not flag.memento_doll_placed] Set the wooden doll in a circle. -> place_doll
+* [if item:memento_blue_bear and not flag.memento_bear_placed] Set the blue bear in a circle. -> place_bear
+* [if item:memento_silver_pin and not flag.memento_pin_placed] Set the silver pin in a circle. -> place_pin
+* Look the circles over. -> look
+* Step back from the runes. -> END
+
+~ look
+Narrator: Reckon each circle wants a keepsake that belonged to the folks of this house. The red glare creeps over your pockets like it is countin' what you brought.
+-> place_menu
+
+~ place_gem
+take memento_bloodstone
+set memento_gem_placed
+set mementos_placed += 1
+Narrator: You set the bloodstone down and it settles with a small wet click. The carvings round the rim drink its dark red gleam right up.
+-> placed
+
+~ place_key
+take memento_black_key
+set memento_key_placed
+set mementos_placed += 1
+Narrator: You lay the black iron key inside the chalky ring. The runes twist once around it with the heavy clunk of a greased lock.
+-> placed
+
+~ place_cup
+take memento_porcelain_cup
+set memento_cup_placed
+set mementos_placed += 1
+Narrator: You set the porcelain cup in its place and hear a thin chime like silver on china. A thread of warm tea-steam curls out of the dry bowl.
+-> placed
+
+~ place_doll
+take memento_wooden_doll
+set memento_doll_placed
+set mementos_placed += 1
+Narrator: You lay the little wooden doll face up in the dust. The harsh light round her goes soft and low as a bedside lamp.
+-> placed
+
+~ place_bear
+take memento_blue_bear
+set memento_bear_placed
+set mementos_placed += 1
+Narrator: You tuck the blue bear into the ring. A faint smell of warm wool and nursery soap rises off the worn stitchin'.
+-> placed
+
+~ place_pin
+take memento_silver_pin
+set memento_pin_placed
+set mementos_placed += 1
+Narrator: You lay the silver pin down where it gleams like a fresh needle. The red marks round it pull taut as stitched thread.
+-> placed
+
+# How many circles are lit: the Narrator says it in words; the sixth opens the ward.
+~ placed
+if flag.mementos_placed >= 6
+-> ward_opens
+endif
+if flag.mementos_placed == 1
+Narrator: One circle burns in the floorboards now, and five lie dark.
+endif
+if flag.mementos_placed == 2
+Narrator: Two circles burn steady, leaving four still dark and cold.
+endif
+if flag.mementos_placed == 3
+Narrator: Three circles burn and three stay dark. The crimson light in the walls is drawin' slow, heavy breaths.
+endif
+if flag.mementos_placed == 4
+Narrator: Four circles burn while two remain dark. The whole landing hums under your boots like a plucked wire.
+endif
+if flag.mementos_placed == 5
+Narrator: Five circles burn hot now, and the sixth gapes empty as a pulled tooth.
+endif
+-> place_menu
+
+~ ward_opens
+quest the_crooked_house vessla
+Narrator: The sixth circle flares white-hot before every mark on the timber shudders and dies. Down at the end of the landing, the little glowing door swings open.
+Narrator: The ward is down for good. Out of the dark beyond drifts the stench of hot copper and a wet, bubblin' giggle.
+-> END
+
+~ ward_open
+Narrator: All six circles smolder low on the landing while that little door stands wide. You can still hear a damp giggling leakin' out of the dark.
+-> END
+
+# After the hag is dead: the runes let the keepsakes go, once.
+~ release
+set mementos_released
+Narrator: With the hag dead and gone, the runes gutter out like tallow candles in a draft. The circles let go with a quiet rustle of cloth and china.
+if flag.memento_gem_placed
+give memento_bloodstone
+endif
+if flag.memento_key_placed
+give memento_black_key
+endif
+if flag.memento_cup_placed
+give memento_porcelain_cup
+endif
+if flag.memento_doll_placed
+give memento_wooden_doll
+endif
+if flag.memento_bear_placed
+give memento_blue_bear
+endif
+if flag.memento_pin_placed
+give memento_silver_pin
+endif
+Narrator: Those six keepsakes sit warm in your hands again. Folks who loved them once ought to have them back, and you aim to carry them till you find who.
+-> END
+
+~ quiet
+Narrator: Nothing is left of the ward now but dark plaster and old scratches under a low roof.
+-> END

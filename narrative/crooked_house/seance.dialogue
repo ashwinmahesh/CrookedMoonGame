@@ -1,0 +1,197 @@
+# R12: the séance at the spirit board in the parlor (H3). Speaker joseph_patrini (the butler's spirit, ALL CAPS, answers through the board). Region crooked_house.
+# FINAL-WORDED: every line below is voiced as written; do not edit a line once the voice lane starts.
+# Started by: the prop h3_spirit_board (`start`). Two or more hands on the planchette; the party chooses when (they may say "not yet" and explore first).
+# The question menu grows as the house is explored (visited: floors) and as earlier answers are given, capped at eight questions; each answer is followed by the open
+# roll (`roll`): a bite of cold on a failed roll steps up every time. HOOK(damage): the dialogue grammar has no damage statement, so a bite is narration
+# plus the counter seance_stings; when the engine gains `hurt`, each bite should hurt every hand on the board by psychic damage 1d4, 1d6, 1d8, 1d10, then 1d12
+# (stings 1..5, capped at 5). The roll is a Constitution check against the party's best (DC 6 stands in for the book's "1 on a d10").
+# He answers "where is the attic door" with TROPHIES (sets trapdoor_known), "who is the cat" with LIAR, "what is Shuck" with SALLY.
+# GOODBYE closes it for good: seance_done. When the three plot clues (the hag, the six mementos, the attic door) were all asked, he asks them to find his son.
+# Drafted by Gemini (docs/plans/gemini_r12_seance/), edited.
+
+~ start
+if flag.seance_done
+-> board_dead
+endif
+Narrator: A dusty spirit board sits on the round parlor table beside a cold, cobwebbed hearth, its wooden pointer marked A and D restin' between HELLO and GOODBYE. Reckon it is just waitin' on your hands.
+-> hands_menu
+
+~ hands_menu
+* Lay our fingertips on the pointer and ask if anyone is here. -> begin
+* [Arcana DC 10] Recall how a sitting like this is properly conducted. -> arcana_ok | arcana_miss
+* Leave the board alone for now. -> END
+
+~ arcana_ok
+Narrator: You rest your fingertips light on the wood and ask one plain question at a time. Whatever listens in the dark spells its mind out letter by letter.
+Narrator: Best mind your knuckles, though, for the dead can bite back with a climbing chill. Once that pointer touches GOODBYE, the board goes deaf and dumb for good.
+-> hands_menu
+
+~ arcana_miss
+Narrator: You scratch around in your memory for parlor tricks and churchyard tales. All you come up with is a mouthful of dust and half a rumor.
+-> hands_menu
+
+~ begin
+Narrator: Your fingertips settle on the wood, and the pointer gives a dry little shiver. Over in the cold hearth, a low flame catches with a crackle, and the whole room leans in close.
+joseph_patrini: HELLO.
+Narrator: The pointer stops dead on the last letter, patient as an old house servant awaitin' the bell. A thin, cellar cold settles into the pads of your fingers.
+-> menu
+
+~ menu
+if flag.seance_asked_1 and flag.seance_asked_2 and flag.seance_asked_3 and flag.seance_asked_4 and flag.seance_asked_5 and flag.seance_asked_6 and flag.seance_asked_7 and flag.seance_asked_8
+-> closing
+endif
+* [if not flag.seance_asked_1] Who are you? -> q1
+* [if flag.seance_asked_1 and not flag.seance_asked_2] Who did this to you? -> q2
+* [if not flag.seance_asked_3] Where are Phillip and Adela? -> q3
+* [if flag.seance_asked_3 and not flag.seance_asked_4] Who is behind all of this? -> q4
+* [if flag.seance_asked_4 and not flag.seance_asked_5] How do we get out of here, and what opens the way? -> q5
+* [if flag.seance_asked_4 and not flag.seance_asked_6] Where is the door to the attic? -> q6
+* [if visited:crooked_house_second and not flag.seance_asked_7] Who is the grey cat? -> q7
+* [if visited:crooked_house_third and not flag.seance_asked_8] What is Shuck, the red dog? -> q8
+* That is enough. Let us bid him goodbye. -> confirm_goodbye
+
+~ q1
+set seance_asked_1
+Narrator: The pointer scrapes out from under your fingers, draggin' itself across the painted alphabet one slow letter at a time.
+joseph_patrini: JOSEPH PATRINI. BUTLER.
+joseph_patrini: I SERVED THIS HOUSE. I KEEP MY POST.
+-> roll
+
+~ q2
+set seance_asked_2
+Narrator: The pointer balks and catches on the grain, then jerks hard across the board like a mule pulled by the bit.
+joseph_patrini: EUSTACE LOCKWOOD. MY MASTER.
+joseph_patrini: HE SLEW US ALL.
+-> roll
+
+~ q3
+set seance_asked_3
+Narrator: The little wooden heart lifts a hair off the varnish and settles down square over YES.
+joseph_patrini: ABOVE. ALIVE. NOT FOR LONG.
+-> roll
+
+~ q4
+set seance_asked_4
+Narrator: The pointer drifts in a slow, wide circle through the dust before it settles on a letter.
+joseph_patrini: A HAG. IN THE ATTIC.
+joseph_patrini: SHE WANTS THEIR SOULS FOR THE HOUSE.
+-> roll
+
+~ q5
+set seance_asked_5
+Narrator: The pointer swings sharp from corner to corner, quick and neat as a clerk tallyin' a ledger.
+joseph_patrini: SIX KEEPSAKES OPEN THE WAY.
+joseph_patrini: GEM. KEY. CUP. DOLL. BEAR. PIN.
+joseph_patrini: THEY REST ON EVERY FLOOR. GATHER THEM ALL.
+-> roll
+
+~ q6
+set seance_asked_6
+set trapdoor_known
+Narrator: The pointer creeps an inch, then darts straight across the varnish without a speck of hesitation.
+joseph_patrini: TROPHIES.
+joseph_patrini: LOOK UP.
+-> roll
+
+~ q7
+set seance_asked_7
+Narrator: The pointer shivers under your nails like a bare foot steppin' onto frosted iron.
+joseph_patrini: LIAR.
+joseph_patrini: HE HUNGERS FOR TALES. DO NOT FEED HIM.
+-> roll
+
+~ q8
+set seance_asked_8
+Narrator: The pointer slows right down and glides gentle across the painted arc, soft as a hand on a cradle.
+joseph_patrini: SALLY.
+joseph_patrini: SHE WAS A CHILD OF THIS HOUSE. SHE RUNS FREE NOW.
+-> roll
+
+# The open roll after every answer. A failed roll is a bite of cold; every bite is worse than the last.
+~ roll
+check Constitution DC 6 -> calm | sting
+
+~ calm
+Narrator: The pointer settles back still, and the draft stays down in the floorboards where it belongs. The board just waits on your next word.
+-> menu
+
+~ sting
+set seance_stings += 1
+if flag.seance_stings == 1
+Narrator: The pointer bucks hard under your palms. A thin needle of winter cold runs straight through every hand on the wood.
+endif
+if flag.seance_stings == 2
+Narrator: The board kicks back colder this time, sendin' a gray frost up past your wrists until your fingers go thick and numb.
+endif
+if flag.seance_stings == 3
+Narrator: That third chill bites deep into the meat of your thumbs. It settles like hard pond ice inside the bones of every hand.
+endif
+if flag.seance_stings == 4
+Narrator: The cold snaps up your arms and wrings the warm wind right out of your chests. Your stiff fingers scarce want to uncurl from the wood.
+endif
+if flag.seance_stings >= 5
+Narrator: A black frost locks every arm to the elbow in a vice of winter iron. It holds you fast a long count before it lets go slow.
+endif
+-> menu
+
+~ confirm_goodbye
+Narrator: Reckon if you let the old fellow go now, this board ain't gonna speak twice. Whatever you leave unasked stays buried in the dark.
+* Wait. Let us ask something else first. -> menu
+* Let him go. -> closing
+
+# His last words. The urgent clue is the first thing the party missed; with nothing missed, he warns of the hag's disguise and asks them to find his son.
+~ closing
+if not flag.seance_asked_5
+-> urgent_mementos
+endif
+if not flag.seance_asked_4
+-> urgent_hag
+endif
+if not flag.seance_asked_6 and not flag.trapdoor_known
+-> urgent_door
+endif
+-> urgent_face
+
+~ urgent_mementos
+Narrator: Before you can lift your hands away, the pointer gives a sharp, hasty tug under your fingers.
+joseph_patrini: SIX KEEPSAKES OPEN THE WAY. GEM. KEY. CUP. DOLL. BEAR. PIN.
+joseph_patrini: SEARCH EVERY FLOOR. FIND THEM FIRST.
+-> goodbye
+
+~ urgent_hag
+Narrator: Right before your fingers part from the wood, the pointer scrapes out one hasty warning.
+joseph_patrini: A HAG WAITS IN THE ATTIC.
+joseph_patrini: STOP HER WORK. MAKE HASTE.
+-> goodbye
+
+~ urgent_door
+set trapdoor_known
+Narrator: Just as you go to raise your hands, the pointer darts out with a sharp, urgent tap.
+joseph_patrini: THE WAY UP IS HIDDEN. TROPHIES.
+joseph_patrini: LOOK TO THE CEILING.
+-> goodbye
+
+~ urgent_face
+Narrator: Before your fingers clear the varnish, the little wooden heart tugs back hard for one last word.
+joseph_patrini: SHE WEARS THE LADY'S FACE.
+joseph_patrini: DO NOT TRUST YOUR EYES. LOOK TWICE.
+-> find_my_son
+
+# Only reached when nothing was missed: all three plot clues (the hag, the six keepsakes, the attic door) were gathered.
+~ find_my_son
+set patrini_asked_find_son
+Narrator: The pointer trembles in place a spell, like a man holdin' back a heavy word at the door.
+joseph_patrini: ONE THING MORE. MY SON LIVES.
+joseph_patrini: FRANCIS. PLEASE FIND HIM.
+joseph_patrini: TELL HIM HIS NAME. PATRINI.
+-> goodbye
+
+~ goodbye
+set seance_done
+joseph_patrini: GOODBYE.
+Narrator: The pointer slides down to the corner and stops dead. Over in the hearth, the fire hisses out like a doused lamp, takin' the chill with it.
+-> END
+
+~ board_dead
+Narrator: Only dust sits on the painted letters now, cold and still under your hands. Some doors in this world only open the once.
+-> END

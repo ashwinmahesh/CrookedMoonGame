@@ -1,0 +1,141 @@
+# R12: Vessla Browntooth in the cauldron room (H17). Speakers vessla_browntooth (the weasel hag; shrill, quick, wet hissing, giggles mid-word), adela_druskenvald (also what Vessla's DISGUISE is shown as and sounds
+# like in the ruse), phillip_druskenvald (bound, feverish). Region crooked_house.
+# FINAL-WORDED: every line below is voiced as written; do not edit a line once the voice lane starts.
+# Scene: floor carpeted in human teeth, a great cauldron of glowing red ichor, Phillip bound beside it, mumbling; a cloaked figure (the real Adela) swaying blind and still beyond the cauldron; and a woman in
+# Adela's spangled flapper dress crumpled on the floor as if fainted: that is Vessla in disguise, waiting to bite whoever bends over her. A Search within ten feet and Investigation or Insight (DC 15) sees through it;
+# failing it is not a gate, it only gives her the first blow. She never targets the Druskenvalds: they are the sacrifice.
+# Nodes: pre_fight (the room, then a menu), ruse (tending the "fainted" woman), tooth_gift (a hero who knows her secret offers one of their own teeth; she must take it, is charmed for a day, and the party
+# may talk, cut the couple loose, or strike first), death (after the fight: her last word; then the house unbends, druskenvalds_after). Every way out of the scene is `combat ch_vessla` (the fight has three versions,
+# keyed on vessla_ruse_seen and vessla_tooth_gift) except the walk back to the room's menu. vessla_slain is set by the fight itself, never here.
+# Flags not in the contract list (register them): vessla_looked (one close look at the woman on the floor per party), vessla_lore_tried, vessla_secret_known.
+# Drafted by Gemini (docs/plans/gemini_r12_vessla/), edited.
+
+~ pre_fight
+Narrator: The attic's last door swings wide on a floor that crunches like gravel under your boots, carpeted thick with human teeth. A great iron pot hisses with glowing red ichor that smells of hot copper.
+Narrator: Phillip sits roped to the pot's iron foot, mumblin' to himself, while a cloaked figure sways blind and still beyond the steam. Nearer by, a woman in a spangled flapper dress lies crumpled on the teeth, one white hand flung out.
+-> room_menu
+
+~ room_menu
+* [if not flag.vessla_looked] [Investigation DC 15] Study the woman on the floor before stepping closer. -> seen | missed_look
+* [if not flag.vessla_looked] [Insight DC 15] Watch her breathing and her hands for any falsehood. -> seen | missed_look
+* [if not flag.vessla_lore_tried] [Arcana DC 13] Search our memories for the old lore of weasel hags. -> lore_ok | lore_miss
+* [if flag.vessla_secret_known] Work a tooth loose and hold it out to her, freely given. -> tooth_gift
+* Kneel beside the fallen woman to help her. -> ruse
+* Go to Phillip by the cauldron. -> phillip_bound
+
+~ phillip_bound
+phillip_druskenvald [weary]: One would think the last course had been served hours ago, my dear friends, yet the table stretches on and on. Adela, darling, do tell the footman to clear away the soup, Adela, Adela.
+phillip_druskenvald [afraid]: Someone really ought to escort her from the platform before the express comes back around the bend.
+Narrator: The hemp bites deep into his wrists and his lips are cracked dry with fever. Reckon it's queer how he never once glances toward the woman in the spangled dress.
+-> room_menu
+
+~ missed_look
+set vessla_looked
+Narrator: You look her over from a safe piece away and see only a lady in a spangled frock having a mighty rough night. Whatever deviltry is cookin' in this room, she don't look to be the cook.
+-> room_menu
+
+# The lore: a tooth given freely binds a weasel hag.
+~ lore_ok
+set vessla_lore_tried
+set vessla_secret_known
+Narrator: An old wives' tale comes back to you about weasel hags and their greedy hunger for human teeth. Turns out there is a deeper hook to the story: they cannot refuse a tooth given freely.
+-> room_menu
+
+~ lore_miss
+set vessla_lore_tried
+Narrator: You chase after some half-forgotten tale of weasels and wicked crones in the dark. All you catch hold of is a scrap of nursery rhyme that don't help a lick.
+-> room_menu
+
+# Seeing through the ruse: she drops it.
+~ seen
+set vessla_ruse_seen
+Narrator: Her ribs rise and fall a shade too neat, and that white hand is laid out like a parlor ornament. Everything crooked about her clicks together in your head like a greased lock.
+vessla_browntooth [smile]: Cle-hee-ver little mice, peeking before they nibble! Knowing only makes the teeeeth taste sweet-hee-hee-sweeter!
+vessla_browntooth [angry]: Up we rise, sss-snapping! This crooked house gets your warm little sss-souls tonight!
+-> to_fight
+
+# Tending the woman on the floor: Vessla in Adela's voice (a poor, breathy imitation of the flapper).
+~ ruse
+adela_druskenvald [afraid]: Oh, darlings, thank heaven you're here, my poor head is sp-hee-hee-spinning like a top.
+adela_druskenvald [sad]: Do see to Philly and that dreadful bubbling pot first, darlings, my ankles have gone quite to water.
+-> ruse_menu
+
+~ ruse_menu
+* [if not flag.vessla_looked] [Insight DC 15] Watch how she holds herself up close for anything unnatural. -> seen | ruse_unseen
+* Ask what happened to her here. -> ruse_story
+* Take her hand and help her to her feet. -> ruse_help
+* Step back from her and look around the room. -> room_menu
+
+~ ruse_unseen
+set vessla_looked
+Narrator: She is only a rattled lady in a rumpled frock, you tell yourself. Her fingers press against yours, damp and mighty eager for company.
+-> ruse_menu
+
+~ ruse_story
+adela_druskenvald [sad]: It was supposed to be a swell dinner, such a long table, and a voice talking so sss-sweetly in the dark until I lost my dancing shoes.
+adela_druskenvald [sly]: The steam in here makes my poor gums ache so, darlings, so sss-sore and hungry for a crunch.
+-> ruse_menu
+
+~ ruse_help
+Narrator: You take hold of her hand and find it hot as stove iron and corded like a trap spring. Then the pretty flapper melts clean away, leavin' a long yellow muzzle packed with crooked teeth.
+vessla_browntooth [smile]: Good little guests, bending down so close-hee-hee-close for Vessla! Your sss-souls belong to the timber and the pot!
+-> to_fight
+
+# A tooth given freely: she cannot refuse. (Reached from room_menu; vessla_secret_known is set.)
+~ tooth_gift
+set vessla_tooth_gift
+Narrator: One of you works a molar loose with a sharp wince and a copper taste on the tongue. You hold it out on an open palm, freely given.
+vessla_browntooth [afraid]: Wait, wait, no-hee-hee-no, put it back! A real tooth, warm from the root, pre-hee-cious and free, and I must, I must take it!
+Narrator: She plucks the tooth from your palm with a wet shudder. Her red eyes go wide and milky-soft as a sleepwalker's.
+vessla_browntooth [smile]: Oh, such dear-hee-hee-dear friends you are to little Vessla! Nobody ever gives me a pre-hee-cious gift without a bite first!
+-> tooth_menu
+
+# What the party does with a charmed hag: talk, cut the couple loose, or strike. (Four menus; talk and cut each happen once: tooth_menu, then tooth_after_talk / tooth_after_cut, then tooth_after_both.)
+~ tooth_menu
+* Speak with her while she is docile. -> tooth_talk_a
+* Cut Phillip loose from the cauldron. -> cut_loose_a
+* Strike her while she stands dazed. -> strike_tooth
+
+~ tooth_after_talk
+* Cut Phillip loose from the cauldron. -> cut_loose_b
+* Strike her while she stands dazed. -> strike_tooth
+
+~ tooth_after_cut
+* Speak with her while she is docile. -> tooth_talk_b
+* Strike her while she stands dazed. -> strike_tooth
+
+~ tooth_after_both
+* Strike her while she stands dazed. -> strike_tooth
+
+~ tooth_talk_a
+vessla_browntooth [weary]: Stir the pot, bind the lord, watch the door, while my sss-sisters take their ease! Poor Vessla always gets the dull-hee-hee-dull chores!
+vessla_browntooth [smile]: They promised the fancy couple would crown me a queen-hee-hee-queen when the pot boils over! Though sometimes I fret my sss-sisters only love to tease.
+Narrator: She hums a wet little tune into the steam, and the red ichor hums right back. Reckon you can't tell which of the two is happier about the arrangement.
+-> tooth_after_talk
+
+~ tooth_talk_b
+vessla_browntooth [weary]: Stir the pot, bind the lord, watch the door, while my sss-sisters take their ease! Poor Vessla always gets the dull-hee-hee-dull chores!
+vessla_browntooth [smile]: They promised the fancy couple would crown me a queen-hee-hee-queen when the pot boils over! Though sometimes I fret my sss-sisters only love to tease.
+Narrator: She hums a wet little tune into the steam, and the red ichor hums right back. Reckon you can't tell which of the two is happier about the arrangement.
+-> tooth_after_both
+
+~ cut_loose_a
+Narrator: You slice through Phillip's cords and haul him clear of the iron foot while the cloaked figure never stirs. The weasel hag just watches with a dreamy grin, not mindin' a bit.
+-> tooth_after_cut
+
+~ cut_loose_b
+Narrator: You slice through Phillip's cords and haul him clear of the iron foot while the cloaked figure never stirs. The weasel hag just watches with a dreamy grin, not mindin' a bit.
+-> tooth_after_both
+
+~ strike_tooth
+Narrator: She blinks up at you like a young'un roused from a heavy nap, charmed right down to the roots. Whatever you have a mind to do next, you have the first move.
+-> to_fight
+
+# Every way into the fight: the opening shriek has played; the fight's own version is chosen by the flags above.
+~ to_fight
+combat ch_vessla
+
+# After the fight (called by the wiring once the weasel hag is down): her last word, then the house unbends (the collapse into teeth is the first picture of ch_house_unbends). vessla_slain is the fight's flag.
+~ death
+vessla_browntooth [sad]: The pot was never for them. It was for me. Oh, sss-sisters...
+-> crooked_house/druskenvalds_after:unbends
