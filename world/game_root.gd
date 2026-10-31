@@ -45,6 +45,7 @@ var ending: EndingScreen = null      ## the campaign's last screen, once the gam
 var glow := HoverGlow.new()          ## the rim on whatever the mouse is over
 var pad := PadExplore.new(self)      ## exploring on a controller (U6): the marked thing and the pad's buttons
 var notices := ItemNotices.new()     ## items the party comes by outside loot and shops, on the side
+var talk_motion := TalkMotion.new()  ## the one speaking keeps nodding and gesturing while their line is said
 
 
 func _ready() -> void:
@@ -61,6 +62,7 @@ func _ready() -> void:
 	st.time_passed.connect(_on_time_passed)
 	st.quest_finished.connect(_on_quest_finished)   # a failed quest tolls (the notice says "Quest failed: X")
 	add_child(notices)
+	add_child(talk_motion)
 	st.item_gained.connect(_item_gained)
 	narrator = Narrator.new()
 	banter = Banter.new()
@@ -725,7 +727,8 @@ func start_dialogue(ref: String, _npc_id: String) -> void:
 	dialogue.spoke.connect(func(speaker_id: String) -> void:
 		if view != null:
 			view.set_speaking(speaker_id)   # a place's lights follow whoever speaks (CampaignLook.refresh)
-			FigureTalk.spoke(view, speaker_id))   # a 3D figure gestures as its line shows
+			FigureTalk.spoke(view, speaker_id)   # a 3D figure gestures as its line shows
+			_keep_talking.call_deferred(speaker_id))   # ... and keeps nodding and gesturing while it is said
 	dialogue.scene_shown.connect(_scene_music)
 	var runner := DialogueRunner.new(st, Dice.roller, narrator)
 	runner.npc_id = _npc_id
@@ -741,6 +744,13 @@ func start_dialogue(ref: String, _npc_id: String) -> void:
 		FigureTalk.opened(view, _npc_id)   # 3D figures turn to each other, and the one spoken to greets the party
 		if dialogue != null:
 			_talk_music(_npc_id)   # the one who was clicked, before they have spoken
+
+
+## The line `speaker_id` began is showing now (DialogueUI says who spoke before it fills the box): their figure keeps
+## talking for as long as it is said (TalkMotion).
+func _keep_talking(speaker_id: String) -> void:
+	if dialogue != null and view != null:
+		talk_motion.spoke(view, speaker_id, dialogue._text.get_parsed_text())
 
 
 ## A conversation with someone the place's music turns for (art/audio.json "talk_moods": the villain and the others
@@ -787,6 +797,7 @@ func _dialogue_ended(combat: String) -> void:
 	# `move <location>[:<spawn>]` ended the conversation: where the party goes once it has closed (story/dialogue_runner.gd).
 	var moved: Dictionary = dialogue.runner.move_to if dialogue != null and dialogue.runner != null else {}
 	dialogue = null
+	talk_motion.stop()
 	_scene_mood = ""
 	if view != null:
 		view.clear_staged()   # whoever stepped into the scene leaves with it
