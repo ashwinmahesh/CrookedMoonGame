@@ -1,0 +1,88 @@
+# R12: the Jenkins at the gate of Druskenvald Estate, then the house turns. Speaker gilly_jenkin; Walter has no spoken lines (his notebook is
+# read by the Narrator) and Wisp says nothing here. Region crooked_house. FINAL-WORDED: these lines are to be voiced and must not change.
+# Started by: Gilly at the gate (`start`, until crooked_house_turned is set). `leaving` runs on into `after` (the cat, then the house
+# warps behind two pictures); `after` may also be called alone. Both walk off down the hill (vanish) before the cat comes out (appear).
+# Drafted by Gemini (gemini_r12_jenkins_gate), edited; see README.md.
+
+~ start
+if flag.crooked_house_turned
+-> END
+endif
+quest the_crooked_house arrived
+Narrator: Dusk settles cold over the iron gate, smelling of wet leaves and lamp oil on the hill breeze. Two folks with a cloth-covered basket wait by a brass lantern.
+Narrator: Behind 'em, the manor sits tidy on the rise with every window glowin' gold against the dark.
+gilly_jenkin [smile]: Oh, there you be, my lovelies! Proper glad you made it up the hill afore the chill set in.
+gilly_jenkin [smile]: I'm Gilly, and this is my Walter. He keeps the house, and I keep him, bless us both.
+gilly_jenkin [neutral]: Lord Phillip and Lady Adela want you up at the house for supper tonight, so I'll not keep you standing in the damp.
+Narrator: Walter touches the brim of his cap and holds up a worn pocket notebook; in a neat, heavy hand it says: Welcome to Wickermoor Hollow, friends.
+-> menu
+
+~ menu
+* Where are the two of you headed? -> going
+* Have you seen the Lord and Lady tonight? -> couple
+* What is the house like? -> house
+* [Insight DC 12] Walter seems on edge. Look closer. -> walter_sees | walter_misses
+* We'll go up to the house now. -> leaving
+
+~ going
+gilly_jenkin [neutral]: Just heading down to the village for a few bits, and a storybook our little Dani's set her heart on. Ten years old and reads like a parson, she does.
+gilly_jenkin [weary]: She's down in town tonight being minded, and our dog Shuck's with her, thank goodness. He never could abide the estate cat.
+gilly_jenkin [sad]: I do fret when we're up on this hill and she's down in the valley, though 'tis only for an evening.
+Narrator: Walter turns to a tidy list with one line scratched out so hard it has torn the paper: Salt, tallow candles, ribbon, Dani's book.
+-> menu
+
+~ couple
+gilly_jenkin [smile]: Oh, we met Lord Phillip and Lady Adela last evening, when they arrived. Ever so grand and well-spoken, the pair of them.
+gilly_jenkin [neutral]: Haven't seen hide nor hair of them tonight, mind, though every lamp's lit and our knock got no answer.
+gilly_jenkin [weary]: I dare say they're only resting after the road, and I'm a silly old thing to fuss over a quiet house.
+Narrator: Walter holds out his notebook, the pencil pressed deep into the paper: Please make yourselves at home. The lamps will see you right.
+-> menu
+
+~ house
+gilly_jenkin [smile]: 'Tis a fine old place, my lover, and we're proper fond of the village down below. Mayor Somerton was ever so kind to lend the manor out.
+gilly_jenkin [neutral]: Walter and I have aired the rooms and polished the wainscoting for weeks to get it sparkling.
+gilly_jenkin [sly]: Every old house on a hill has its ways when the wind gets in the eaves, I suppose, and this one ent no different.
+Narrator: Walter flips to a fresh leaf where he has written in careful block letters: Mayor Somerton is the finest gentleman in the valley.
+-> menu
+
+~ walter_sees
+Narrator: Walter's pencil starts a sentence and stops dead after two words; his knuckles whiten, and he flips the page over whatever it was.
+gilly_jenkin [smile]: Don't mind him, my lovelies, he's been on his feet since dawn and he's proper wore out.
+-> menu
+
+~ walter_misses
+Narrator: You see only a quiet man with a steady pencil and a polite smile, nothin' underneath it that you can read.
+-> menu
+
+~ leaving
+gilly_jenkin [smile]: The front door's on the latch, so go right on up into the warm. We'll see you on the morrow, my lovelies.
+gilly_jenkin [neutral]: Just mind your step on them porch boards, for the evening dew makes the oak a touch slick.
+Narrator: Walter offers one last page before tucking his notebook into his coat: A pleasant supper and a good night to you all.
+vanish gilly_jenkin
+vanish walter_jenkin
+Narrator: They walk off down the dirt road together, their lantern swinging smaller between the trees until the dark swallows the glow.
+Narrator: Only when the road is empty does the dry brush beside the stone gatepost shiver, like somethin' in the leaves just quit waitin'.
+-> after
+
+# The estate cat looks each hero over, and then the manor shows what it is (two pictures; the captions read on them).
+~ after
+if flag.crooked_house_turned
+-> END
+endif
+appear wisp
+Narrator: A grey cat steps out of the thicket on silent paws, the dusk catchin' two round eyes the color of old gold.
+Narrator: He stops in the road and looks at each of you in turn, slow and unhurried, like a station clerk checking four names off a ledger.
+Narrator: One corner of his grey lip curls up under his whiskers in a cold, sour sneer.
+Narrator: Then he turns his tail and pads off into the weeds without a sound.
+vanish wisp
+interject class:rogue: I have been sized up by guards who looked less like they were counting my teeth.
+interject class:fighter: That mangy thing just looked through my armor like it knew where the straps buckle.
+interject class:wizard: No ordinary mouser holds a gaze with that sort of arithmetic behind its eyes.
+cutscene ch_house_turns
+Narrator: Up on the rise, the manor glows in the early-night dark, neat flowerbeds bordering the porch and the caretakers' red barn standin' quiet behind it.
+cutscene ch_house_turns_2
+Narrator: Then the gravel tilts beneath your feet as a wave of sour rot hits your throat, and the whole hillside warps under an oncoming storm front.
+Narrator: Roofs and eaves slump at crooked angles while black mold climbs the stone and dead petals rain down, and on the twisted porch a tall, lanky figure lifts a hand to wave.
+cutscene end
+set crooked_house_turned
+-> END
