@@ -1057,11 +1057,37 @@
         25,
         21
       ],
-      "kind": "search",
+      "kind": "examine",
       "label": "Something glints among the plates",
-      "search_dc": 10,
-      "skill": "perception",
-      "text": "Under the edge of a plate, something small and bright."
+      "text": "Under the edge of a plate, something small and bright.",
+      "checks": [
+        {
+          "id": "h6_table_loot",
+          "skill": "perception",
+          "dc": 10,
+          "label": "Sift through the plates",
+          "success": {
+            "text": "Under the lip of a plate lie a heavy pearl and a plain gold band.",
+            "items": [
+              {
+                "id": "pearl_of_power"
+              },
+              {
+                "id": "gold_ring_75"
+              }
+            ]
+          },
+          "failure": {
+            "items": [
+              {
+                "id": "human_tooth"
+              }
+            ]
+          }
+        }
+      ],
+      "model": "gold_spill",
+      "scale": 0.5
     },
     {
       "id": "h6_chair_w0",
@@ -1522,7 +1548,31 @@
       "label": "The padlocked brick oven",
       "model": "oven_brick",
       "locked": true,
-      "lock_dc": 15
+      "lock_dc": 15,
+      "items": [
+        {
+          "id": "iron_pot",
+          "qty": 1
+        }
+      ],
+      "checks": [
+        {
+          "id": "h7_oven_glyph",
+          "skill": "arcana",
+          "dc": 15,
+          "label": "Read the glyph on the padlock plate",
+          "success": {
+            "text": "You follow the glyph to its last stroke, and the heat drains out of the padlock plate.",
+            "disarm": [
+              "h7_oven_trap",
+              "h7_oven_trap_acid"
+            ]
+          },
+          "failure": {
+            "text": "The glyph slides out from under your eye, and the plate stays hot."
+          }
+        }
+      ]
     }
   ],
   "lights": [
@@ -1638,6 +1688,60 @@
     }
   ],
   "traps": [
+    {
+      "id": "h2_gaze_lockwood",
+      "cells": [
+        [
+          11,
+          24
+        ]
+      ],
+      "label": "The painted stare",
+      "detect_dc": 8,
+      "save": {
+        "ability": "cha",
+        "dc": 10
+      },
+      "damage": "1d6",
+      "damage_type": "psychic",
+      "text": "The painted eyes find yours, and something cold presses in behind them."
+    },
+    {
+      "id": "h2_gaze_druskenvald",
+      "cells": [
+        [
+          13,
+          24
+        ]
+      ],
+      "label": "The painted stare",
+      "detect_dc": 8,
+      "save": {
+        "ability": "cha",
+        "dc": 10
+      },
+      "damage": "1d6",
+      "damage_type": "psychic",
+      "text": "The painted eyes find yours, and something cold presses in behind them."
+    },
+    {
+      "id": "h2_gaze_party",
+      "cells": [
+        [
+          15,
+          24
+        ]
+      ],
+      "label": "The painted stare",
+      "detect_dc": 8,
+      "save": {
+        "ability": "cha",
+        "dc": 10
+      },
+      "damage": "1d6",
+      "damage_type": "psychic",
+      "text": "The painted eyes find yours, and something cold presses in behind them."
+    },
     {
       "id": "h1_no_escape",
       "cells": [
