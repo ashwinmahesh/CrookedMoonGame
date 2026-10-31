@@ -4,6 +4,7 @@ extends Node
 ## close on them, they turn to face it and talk (TalkMotion: the jaw, the nod, the gestures), wearing their close-up
 ## look; a frame per shot for a GIF, then the camera easing back out.
 ##   make capture SCENE=res://tools/capture/talk_closeup_capture.tscn NAME=talk/x FRAMES=10 ARGS='--speakers=rook_coldwake,delphine_ravelle'
+## --party=a,b: the pregens travelling (the quick start's four by default); --place and --hour as in figures_capture.
 ## Shots: <out>_<nnnn>.png.
 
 const GAME := preload("res://world/game_root.gd")
@@ -20,7 +21,8 @@ func capture_shots(tool: Node, out: String) -> void:
 	TalkCamera.headless_too = true
 	GameState.reset()
 	var st := GameState.story
-	for id: String in GAME.NEW_GAME_PARTY:
+	var party: Array = Array(_arg("party", "").split(",", false)) if _arg("party", "") != "" else Array(GAME.NEW_GAME_PARTY)
+	for id: String in party:
 		var ch := Pregens.build(id, 3)
 		ch.finish_long_rest()
 		st.party.append(ch)

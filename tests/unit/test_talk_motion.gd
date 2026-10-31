@@ -34,7 +34,7 @@ func test_the_head_nods_while_talking_and_settles_after() -> void:
 
 
 func test_a_head_with_a_jaw_opens_its_mouth_with_the_voice() -> void:
-	for id: String in ["rook_coldwake", "delphine_ravelle"]:
+	for id: String in ["rook_coldwake", "delphine_ravelle", "the_vagrant", "tobin_hayward"]:
 		var ch := Character.new()
 		ch.name = id
 		var tok := CombatToken.create(Combatant.new(ch, &"party", Vector2i.ZERO), id)
