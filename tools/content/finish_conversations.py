@@ -39,10 +39,10 @@ def fix(path):
         lines += block + [""]
         changed = True
     text2 = "\n".join(lines)
-    if "shop_open" in nodes:
+    if "shop_open" in nodes or "service_open" in nodes:
         verb = "shop" if npc in SHOP else "services" if npc in SERVICES else None
         if verb and f"\n{verb}\n" not in text2:
-            text2 = re.sub(r"(~ shop_open\n(?:[^\n~]*\n)*?)(-> menu)", lambda m: m.group(1) + verb + "\n" + m.group(2), text2, count=1)
+            text2 = re.sub(r"(~ (?:shop|service)_open\n(?:[^\n~]*\n)*?)(-> menu)", lambda m: m.group(1) + verb + "\n" + m.group(2), text2, count=1)
             changed = True
         if not verb:
             # no shop here: the option is a plain remark

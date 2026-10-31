@@ -77,12 +77,10 @@ def clock_chamber():
 
 def constable():
     g = G(20, 16).room(1, 1, 18, 14)
-    g.wall(1, 9, 18, 9).fill(9, 9, 10, 9, ".")
-    for x in (5, 10, 15):
-        g.wall(x, 10, x, 14)                                 # the three cells
-    g.put([(2, 11), (7, 11), (12, 11), (16, 11)], "=")
-    g.fill(3, 3, 8, 3, "=").fill(13, 3, 17, 3, "=").put([(12, 6), (13, 6)], "=")
-    return dict(name="The Constable's Station", rows=g.rows(), door=(9, 15), spawn=(9, 13), cells=[(3, 12), (8, 12), (13, 12)])
+    g.wall(1, 9, 8, 9).wall(11, 9, 18, 9)                   # the office below, the cells above, a way through in the middle
+    g.wall(6, 1, 6, 6).wall(12, 1, 12, 6)                   # the cells' partitions: three cells open on the walk in front of them
+    g.fill(2, 12, 7, 12, "=").fill(13, 12, 17, 12, "=").put([(12, 11), (13, 11)], "=")   # desks and the filing
+    return dict(name="The Constable's Station", rows=g.rows(), door=(9, 15), spawn=(9, 13))
 
 
 def trading():
