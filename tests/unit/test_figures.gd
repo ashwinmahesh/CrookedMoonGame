@@ -44,9 +44,11 @@ func test_every_figure_opens_with_its_clips() -> void:
 		var fig := DirectionalSprite.create(DirectionalSprite.frames_for(id), height) as ModelFigure
 		assert_true(fig != null, "%s: drawn as a 3D figure" % id)
 		add_child(fig)
-		# A head made apart from its body (its entry's `layers`) is measured where the idle pose holds it, not at rest.
-		var slack := 0.02 if (_entries()[id] as Dictionary).has("layers") else 0.01
-		assert_between(ModelFigure.rest_box(fig.model).size.y * fig.model.scale.y, height - slack, height + slack, "%s: as tall as it is drawn" % id)
+		# A figure wearing a head made apart from its body (its entry's `layers`) is measured as it was sized, with the
+		# head at rest: once a frame has run, the head follows the idle pose (started at a random point), so a box of the
+		# model then depends on what ran before in the process (Delphine's tall jester hat moved hers 0.04 in a full run).
+		var tall := fig._rest_height if (_entries()[id] as Dictionary).has("layers") else ModelFigure.rest_box(fig.model).size.y
+		assert_between(tall * fig.model.scale.y, height - 0.01, height + 0.01, "%s: as tall as it is drawn" % id)
 		assert_true(fig.has_role("walk"), "%s: walks" % id)
 		if not id in QUADRUPEDS:
 			for role: String in ["idle", "attack", "talk", "greet", "run", "hurt", "die"]:
