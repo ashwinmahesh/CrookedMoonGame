@@ -21,6 +21,7 @@ class HighDice extends DiceRoller:
 var st: StoryState
 var dice := HighDice.new()
 var fights: Array[String] = []
+var limbo_hops := 0
 
 
 func before_each() -> void:
@@ -31,6 +32,7 @@ func before_each() -> void:
 		ch.finish_long_rest()
 		st.party.append(ch)
 	fights.clear()
+	limbo_hops = 0
 	st.playthrough_seed = _seed_for_book_order()
 
 
@@ -114,6 +116,7 @@ func _win(id: String) -> void:
 
 func _arrive(id: String) -> void:
 	st.location = id
+	st.visited[id] = true   # as LocationView records an arrival: the Switcheroo reads it to tell a first crossing from a later one
 	assert_true(not _loc().is_empty(), "%s is a place" % id)
 
 
@@ -176,7 +179,14 @@ func _exit(exit: String) -> void:
 	if str(e["to"]) == "travel":
 		st.location = "travel"
 		return
-	_arrive(Campaign.module().exit_target(st, st.location, str(e["to"])))
+	var target: String = Campaign.module().exit_target(st, st.location, str(e["to"]))
+	_arrive(target)
+	if target == CrookedMoonCampaign.limbo_place():
+		# The first crossing into a car the party has not been in goes through the mist between cars, and out of it into that car.
+		limbo_hops += 1
+		var out := _entry("exits", "id", "onward")
+		assert_true(not out.is_empty() and _holds(out.get("when")), "the mist has a way on")
+		_arrive(Campaign.module().exit_target(st, st.location, str(out["to"])))
 
 
 func _stage() -> String:
@@ -243,6 +253,7 @@ func test_the_express_plays_from_a_new_game_to_the_wickermoor_road() -> void:
 
 	# The Tender: the curse in the fuel, the Stoker, the crash.
 	assert_eq(st.location, "ghostlight_g8_tender")
+	assert_eq(limbo_hops, 7, "each of the seven first crossings (Passenger Car to Tender) went through the mist")
 	_called_by("g8_firebox")
 	assert_eq(st.get_flag("haints_destroyed"), 1, "the haint put down is counted before the Stoker's fight")
 	assert_true(fights.has("gl_stoker"), "the Stoker fights")

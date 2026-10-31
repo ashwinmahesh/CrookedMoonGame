@@ -60,20 +60,52 @@ func treasures_at(place: String, st: StoryState) -> Array[String]:
 	return out
 
 
+## The module's exit out of the mist between cars (data/locations/ghostlight_limbo.json): it leads on to the next car the party has not
+## been in yet.
+const LIMBO_ONWARD := "module_switcheroo_onward"
+
+
 ## The train's cars, rear to Tender: the six middle cars in an order the playthrough's seed fixes (a reload never reshuffles it). An exit
-## `module_switcheroo_next` or `:previous` leads to the car after or before the one it is in.
+## `module_switcheroo_next` or `:previous` leads to the car after or before the one it is in. The first time the party goes forward
+## into a car it has not been in, the way leads through the mist between cars (the Switcheroo's limbo) and out of it into that car;
+## every later crossing is a plain door. A pure query (menus ask it for the door's label too): it only reads which places the party has
+## visited, which the place itself records on arrival.
 func exit_target(st: StoryState, from_location: String, to: String) -> String:
 	if not to.begins_with("module_switcheroo_"):
 		return to
 	var chain := switcheroo_chain(st.playthrough_seed)
+	if to == LIMBO_ONWARD:
+		for car: String in chain:
+			if not st.visited.has(car):
+				return car
+		return chain[chain.size() - 1]
 	var at := chain.find(from_location)
 	if at < 0:
 		return from_location
-	return chain[clampi(at + (1 if to.ends_with("_next") else -1), 0, chain.size() - 1)]
+	var forward := to.ends_with("_next")
+	var target := chain[clampi(at + (1 if forward else -1), 0, chain.size() - 1)]
+	if forward and target != from_location and not st.visited.has(target):
+		return limbo_place()
+	return target
+
+
+## The mist between cars, a place of its own that the party passes through on a first crossing.
+static func limbo_place() -> String:
+	return str(_cars().get("limbo", ""))
+
+
+## Whether `place` is one of the train's cars (the rear car, the six middle ones or the Tender).
+static func is_car(place: String) -> bool:
+	var cars := _cars()
+	return place == str(cars["rear"]) or place == str(cars["last"]) or (cars["middle"] as Array).has(place)
+
+
+static func _cars() -> Dictionary:
+	return JSON.parse_string(FileAccess.get_file_as_string("res://data/switcheroo.json")) as Dictionary
 
 
 static func switcheroo_chain(seed_value: int) -> Array[String]:
-	var cars := ((JSON.parse_string(FileAccess.get_file_as_string("res://data/switcheroo.json")) as Dictionary))
+	var cars := _cars()
 	var middle: Array[String] = []
 	for c: Variant in cars["middle"]:
 		middle.append(str(c))
