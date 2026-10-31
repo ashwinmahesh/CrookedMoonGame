@@ -13,7 +13,7 @@ const NPCS := ["crooked_man", "vessla_browntooth", "filthy_jasper", "petunia_loc
 const PLACES := ["druskenvald_estate", "crooked_house_first", "crooked_house_second", "crooked_house_third", "crooked_house_attic"]
 
 ## The int flags and the string one; everything else in the registry is a bool.
-const INTS := ["portrait_cursed", "mementos_placed", "wisp_tales", "moon_twists", "h15_challenge_successes"]
+const INTS := ["portrait_cursed", "mementos_placed", "wisp_tales", "moon_twists", "h15_challenge_successes", "seance_stings", "crooked_house_retries"]
 const STRINGS := ["lurker_spot", "rook_inc_choice", "tobin_inc_choice", "lucan_inc_choice"]
 ## Words a `read_later` flag's summary must use to say who reads it.
 const READERS := ["chapter", "Lane F", "world lane", "curse hook", "Twist"]
