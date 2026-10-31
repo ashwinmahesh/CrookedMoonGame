@@ -1,6 +1,7 @@
 # R10: the shared recount for the six haints (docs: R10 section 7). Every haint resolves itself with its own `haint_<id>_done` flag (a dialogue)
 # or `haint_<id>_destroyed` (the encounter's flag on victory); this node recounts haints_resolved and haints_destroyed from those twelve, so a fight
-# needs no counter code. The caller sets gl_after_recount to "router" (a check-in may follow) or "grille" (the grille's hub follows).
+# needs no counter code. The caller sets gl_after_recount to "router" (a check-in may follow), "grille" (the grille's hub follows) or "tender" (the Tender's
+# cutscene and the Stoker follow).
 
 ~ recount
 set haints_resolved = 0
@@ -48,5 +49,8 @@ narrate haint:all_gone
 endif
 if flag.gl_after_recount == "grille"
 -> ghostlight_express/vagrant_intercom:grille_open
+endif
+if flag.gl_after_recount == "tender"
+-> ghostlight_express/tender:fuel
 endif
 -> ghostlight_express/vagrant_intercom:router
