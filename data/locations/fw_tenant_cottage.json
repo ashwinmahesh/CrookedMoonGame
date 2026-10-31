@@ -1,0 +1,107 @@
+{
+  "id": "fw_tenant_cottage",
+  "name": "A Tenant Cottage",
+  "region": "foxwillow",
+  "summary": "A Tenant Cottage, in Foxwillow.",
+  "text": "The inside of A Tenant Cottage.",
+  "map": {
+    "rows": [
+      "############",
+      "#..........#",
+      "#.===......#",
+      "#..........#",
+      "#..........#",
+      "#......==..#",
+      "#..........#",
+      "#..........#",
+      "#..........#",
+      "######.#####"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "A Tenant Cottage",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          10,
+          8
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      6,
+      8
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        6,
+        9
+      ],
+      "to": "foxwillow",
+      "spawn": "from_fw_tenant_cottage",
+      "label": "Out to the town"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_tenant_cottage_bed",
+      "cell": [
+        8,
+        5
+      ],
+      "kind": "examine",
+      "label": "A bed",
+      "model": "bed",
+      "text": "The straw tick is slashed open and the straw is gone."
+    },
+    {
+      "id": "fw_tenant_cottage_pot",
+      "cell": [
+        3,
+        1
+      ],
+      "kind": "examine",
+      "label": "A cooking pot",
+      "model": "hearth",
+      "text": "A pot of something that was soup, with a corn husk floating in it."
+    },
+    {
+      "id": "fw_tenant_cottage_door",
+      "cell": [
+        6,
+        8
+      ],
+      "kind": "examine",
+      "label": "A message in chalk",
+      "model": "papers",
+      "text": "'We are going to the corn. Tell Martha we are sorry.' Nobody has erased it."
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}
