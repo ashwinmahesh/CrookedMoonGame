@@ -47,6 +47,10 @@
     "default": [
       9,
       13
+    ],
+    "cells": [
+      9,
+      3
     ]
   },
   "exits": [
@@ -58,7 +62,8 @@
       ],
       "to": "wickermoor_village",
       "spawn": "from_constable_station",
-      "label": "Out to the village"
+      "label": "Out to the village",
+      "when": "not jailed"
     }
   ],
   "props": [
@@ -132,6 +137,15 @@
     }
   ],
   "npcs": [
+    {
+      "npc": "doris_squire",
+      "cell": [
+        9,
+        8
+      ],
+      "dialogue": "watch/wickermoor:jail_talk",
+      "when": "jailed"
+    },
     {
       "npc": "doris_squire",
       "cell": [
