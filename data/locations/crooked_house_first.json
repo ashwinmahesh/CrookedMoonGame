@@ -2074,6 +2074,468 @@
       "when": "not flag.petunia_at_peace and not flag.petunia_destroyed"
     }
   ],
+  "encounters": [
+    {
+      "id": "ch_peacock",
+      "trigger": "examine:h4_peacock",
+      "when": "level >= 3 and quest.the_crooked_house == trapped",
+      "flag": "memento_gem",
+      "quest": {
+        "id": "the_crooked_house",
+        "stage": "mementos"
+      },
+      "loot": {
+        "items": [
+          {
+            "id": "memento_bloodstone",
+            "qty": 1
+          }
+        ]
+      },
+      "monsters": [
+        {
+          "monster": "marble_peacock",
+          "cell": [
+            2,
+            29
+          ],
+          "facing": "east"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "keziah_pull",
+          "name": "Keziah's pull",
+          "summary": "Oh, that posture will do nicely. Into the frame with you, darling.",
+          "text": "Oh, that posture will do nicely. Into the frame with you, darling.",
+          "say": "Five icy fingers catch your collar from the empty air, and the room tilts until you are fallin' into a sky reeking of wet oil.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "cha",
+            "dc": 10
+          },
+          "condition": "incapacitated",
+          "until": "target_turn_end",
+          "at": 20,
+          "from_round": 2,
+          "every": 3
+        },
+        {
+          "id": "keziah_voice",
+          "name": "Keziah's shade",
+          "kind": "text",
+          "at": 20,
+          "every": 1,
+          "pick": "cycle",
+          "table": [
+            {
+              "id": "peacock_round_1",
+              "name": "Keziah's shade",
+              "kind": "text",
+              "summary": "Do mind the tail, my pets. I spent a whole autumn setting those feathers just so.",
+              "text": "Do mind the tail, my pets. I spent a whole autumn setting those feathers just so."
+            },
+            {
+              "id": "peacock_round_2",
+              "name": "Keziah's shade",
+              "kind": "text",
+              "summary": "Chin up, darling, and square your shoulders. Your stance is ruining the composition of the room.",
+              "text": "Chin up, darling, and square your shoulders. Your stance is ruining the composition of the room."
+            },
+            {
+              "id": "peacock_round_3",
+              "name": "Keziah's shade",
+              "kind": "text",
+              "summary": "Heh heh heh. Marble keeps its poise so much better than warm flesh ever could.",
+              "text": "Heh heh heh. Marble keeps its poise so much better than warm flesh ever could."
+            },
+            {
+              "id": "peacock_round_4",
+              "name": "Keziah's shade",
+              "kind": "text",
+              "summary": "You are all so deliciously lively, dears. What a pity to waste such bright colour on a cold stone bird.",
+              "text": "You are all so deliciously lively, dears. What a pity to waste such bright colour on a cold stone bird."
+            },
+            {
+              "id": "peacock_round_5",
+              "name": "Keziah's shade",
+              "kind": "text",
+              "summary": "Hold still, for heaven's sake. A proper portrait requires patience, and I have all the time there is.",
+              "text": "Hold still, for heaven's sake. A proper portrait requires patience, and I have all the time there is."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch_peacock",
+      "trigger": "examine:h4_peacock",
+      "when": "level >= 3",
+      "flag": "memento_gem",
+      "loot": {
+        "items": [
+          {
+            "id": "memento_bloodstone",
+            "qty": 1
+          }
+        ]
+      },
+      "monsters": [
+        {
+          "monster": "marble_peacock",
+          "cell": [
+            2,
+            29
+          ],
+          "facing": "east"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "keziah_pull",
+          "name": "Keziah's pull",
+          "summary": "Oh, that posture will do nicely. Into the frame with you, darling.",
+          "text": "Oh, that posture will do nicely. Into the frame with you, darling.",
+          "say": "Five icy fingers catch your collar from the empty air, and the room tilts until you are fallin' into a sky reeking of wet oil.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "cha",
+            "dc": 10
+          },
+          "condition": "incapacitated",
+          "until": "target_turn_end",
+          "at": 20,
+          "from_round": 2,
+          "every": 3
+        },
+        {
+          "id": "keziah_voice",
+          "name": "Keziah's shade",
+          "kind": "text",
+          "at": 20,
+          "every": 1,
+          "pick": "cycle",
+          "table": [
+            {
+              "id": "peacock_round_1",
+              "name": "Keziah's shade",
+              "kind": "text",
+              "summary": "Do mind the tail, my pets. I spent a whole autumn setting those feathers just so.",
+              "text": "Do mind the tail, my pets. I spent a whole autumn setting those feathers just so."
+            },
+            {
+              "id": "peacock_round_2",
+              "name": "Keziah's shade",
+              "kind": "text",
+              "summary": "Chin up, darling, and square your shoulders. Your stance is ruining the composition of the room.",
+              "text": "Chin up, darling, and square your shoulders. Your stance is ruining the composition of the room."
+            },
+            {
+              "id": "peacock_round_3",
+              "name": "Keziah's shade",
+              "kind": "text",
+              "summary": "Heh heh heh. Marble keeps its poise so much better than warm flesh ever could.",
+              "text": "Heh heh heh. Marble keeps its poise so much better than warm flesh ever could."
+            },
+            {
+              "id": "peacock_round_4",
+              "name": "Keziah's shade",
+              "kind": "text",
+              "summary": "You are all so deliciously lively, dears. What a pity to waste such bright colour on a cold stone bird.",
+              "text": "You are all so deliciously lively, dears. What a pity to waste such bright colour on a cold stone bird."
+            },
+            {
+              "id": "peacock_round_5",
+              "name": "Keziah's shade",
+              "kind": "text",
+              "summary": "Hold still, for heaven's sake. A proper portrait requires patience, and I have all the time there is.",
+              "text": "Hold still, for heaven's sake. A proper portrait requires patience, and I have all the time there is."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch_dance",
+      "trigger": "enter_area:h5_floor",
+      "when": "level >= 3",
+      "monsters": [
+        {
+          "monster": "weasel",
+          "cell": [
+            23,
+            23
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            28,
+            24
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            32,
+            23
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            26,
+            28
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            31,
+            29
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            27,
+            30
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "weasel",
+          "cell": [
+            23,
+            30
+          ],
+          "facing": "west"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "dance_music",
+          "name": "The dancing tune",
+          "summary": "The tune from the harpsichord pulls at every heel on the floor: dance, or be worn down.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 10
+          },
+          "damage": {
+            "dice": "1d6",
+            "type": "psychic"
+          },
+          "condition": "charmed",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1,
+          "until_round": 10
+        },
+        {
+          "id": "dance_wears",
+          "name": "The dance wears you down",
+          "summary": "Three turns of dancing and the legs give out.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 5
+          },
+          "exhaustion": 1,
+          "at": 20,
+          "from_round": 3,
+          "every": 3,
+          "until_round": 9
+        }
+      ]
+    },
+    {
+      "id": "ch_feast",
+      "trigger": "examine:h6_table",
+      "when": "level >= 3",
+      "monsters": [
+        {
+          "monster": "ochre_jelly",
+          "cell": [
+            30,
+            17
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "rug_of_smothering",
+          "cell": [
+            23,
+            19
+          ],
+          "facing": "east"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "phantom_feast",
+          "name": "Phantom Feast",
+          "summary": "A dish from the laid table flies at whoever stands by it.",
+          "kind": "save",
+          "affects": "party",
+          "area": {
+            "rect": [
+              24,
+              14,
+              30,
+              21
+            ]
+          },
+          "at": 20,
+          "from_round": 1,
+          "every": 2,
+          "pick": "random",
+          "table": [
+            {
+              "id": "sugar_bowl",
+              "name": "The sugar bowl",
+              "summary": "The sugar bowl bursts across your face in a white cloud.",
+              "kind": "save",
+              "affects": "party",
+              "area": {
+                "rect": [
+                  24,
+                  14,
+                  30,
+                  21
+                ]
+              },
+              "save": {
+                "ability": "dex",
+                "dc": 13
+              },
+              "damage": {
+                "dice": "1d6+3",
+                "type": "bludgeoning"
+              },
+              "condition": "blinded",
+              "until": "target_turn_end"
+            },
+            {
+              "id": "roast_fish",
+              "name": "The roast fish",
+              "summary": "The roast fish lunges, all bones, and the sweet rot on it sticks in your throat.",
+              "kind": "save",
+              "affects": "party",
+              "area": {
+                "rect": [
+                  24,
+                  14,
+                  30,
+                  21
+                ]
+              },
+              "save": {
+                "ability": "con",
+                "dc": 12
+              },
+              "damage": {
+                "dice": "1d4+2",
+                "type": "piercing"
+              },
+              "condition": "poisoned",
+              "until": "target_turn_end"
+            },
+            {
+              "id": "lobster_claw",
+              "name": "The lobster claw",
+              "summary": "The lobster claw snaps shut on whatever is nearest.",
+              "kind": "save",
+              "affects": "party",
+              "area": {
+                "rect": [
+                  24,
+                  14,
+                  30,
+                  21
+                ]
+              },
+              "save": {
+                "ability": "dex",
+                "dc": 13
+              },
+              "damage": {
+                "dice": "1d12+3",
+                "type": "slashing"
+              }
+            },
+            {
+              "id": "creampuff",
+              "name": "The creampuff",
+              "summary": "A creampuff flies into your open mouth, and you cannot breathe past it.",
+              "kind": "save",
+              "affects": "party",
+              "area": {
+                "rect": [
+                  24,
+                  14,
+                  30,
+                  21
+                ]
+              },
+              "save": {
+                "ability": "con",
+                "dc": 12
+              },
+              "condition": "incapacitated",
+              "until": "target_turn_end"
+            },
+            {
+              "id": "beef_tongue",
+              "name": "The beef tongue",
+              "summary": "The beef tongue coils round your legs and holds.",
+              "kind": "save",
+              "affects": "party",
+              "area": {
+                "rect": [
+                  24,
+                  14,
+                  30,
+                  21
+                ]
+              },
+              "save": {
+                "ability": "str",
+                "dc": 15
+              },
+              "condition": "restrained",
+              "until": "target_turn_end"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch_petunia",
+      "trigger": "dialogue",
+      "when": "level >= 3",
+      "flag": "petunia_destroyed",
+      "monsters": [
+        {
+          "monster": "petunia_lockwood",
+          "cell": [
+            12,
+            8
+          ],
+          "facing": "northwest"
+        }
+      ]
+    }
+  ],
   "rest": "no",
   "rest_text": "The house won't let you sleep. The walls tick and breathe round you, and something small keeps scratching behind the plaster. A short breath, then."
 }
