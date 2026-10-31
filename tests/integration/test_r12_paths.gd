@@ -78,7 +78,6 @@ const SEANCE_ASKS: Array[String] = ["Who are you?", "Who did this to you?", "Whe
 const ALLOWED_UNPLAYED := {
 	"crooked_house/arthur:done": "defensive: Arthur's entry is off the map once he sleeps (`when: not flag.arthur_rested`), so nobody can start it",
 	"crooked_house/wisp:gone": "defensive: Wisp's entry is off the map once he is thanked, fled or slain, so nobody can start it",
-	"crooked_house/seance:urgent_hag": "KNOWN BUG, fixed in the next commit: `closing` asks after the keepsakes before the hag, and the hag is always asked first",
 	"crooked_house/keziah:peacock_round": "its five lines are lifted into the peacock fight's round event text (test_crooked_house_first checks they match)",
 	"crooked_house/keziah:peacock_pull": "its lines are the peacock fight's Keziah's pull event text, said by the fight, not played as a conversation",
 	"crooked_house/keziah:peacock_return": "its lines are the peacock fight's painting return, said by the fight, not played as a conversation",
@@ -1700,3 +1699,32 @@ func test_every_conversation_node_is_reached_by_some_path_here_or_listed_with_it
 	for n: String in ALLOWED_UNPLAYED:
 		assert_true(all.has(n), "%s is listed as unplayed but is not a node" % n)
 		assert_true(not TraceRunner.seen.has(n), "%s is listed as unplayed but a path here plays it: take it off the list" % n)
+
+
+# --- Found by the walk, fixed in the same commit ------------------------------------------------------------------------------------
+
+
+## The board's last word is the first thing the party missed, in the order the questions open: the hag, then the keepsakes, then the
+## door, and the hag's disguise (with his son) when nothing was missed. Asking after the keepsakes needs the hag asked first, so a
+## party that asked nothing hears about the hag.
+func test_the_boards_last_word_names_the_first_thing_missed() -> void:
+	var cases: Array[Array] = [
+		[[] as Array[String], false, "urgent_hag"],
+		[["Where are Phillip"] as Array[String], false, "urgent_hag"],
+		[["Where are Phillip", "Who is behind all of this?"] as Array[String], false, "urgent_mementos"],
+		[["Where are Phillip", "Who is behind all of this?", "How do we get out of here"] as Array[String], false, "urgent_door"],
+		[["Where are Phillip", "Who is behind all of this?", "How do we get out of here"] as Array[String], true, "urgent_face"],
+		[["Where are Phillip", "Who is behind all of this?", "How do we get out of here", "Where is the door to the attic?"] as Array[String], false, "urgent_face"],
+	]
+	for c: Array in cases:
+		_inside(FIRST)
+		if c[1]:
+			st.set_flag("trapdoor_known")
+		TraceRunner.seen.clear()
+		_seance(c[0] as Array[String])
+		assert_true(TraceRunner.seen.has("crooked_house/seance:" + str(c[2])), "asked %s (door known %s): his last word is %s" % [c[0], c[1], c[2]])
+		for other: String in ["urgent_hag", "urgent_mementos", "urgent_door", "urgent_face"]:
+			if other != str(c[2]):
+				assert_true(not TraceRunner.seen.has("crooked_house/seance:" + other), "asked %s: only one last word is said (%s too)" % [c[0], other])
+		assert_true(bool(st.get_flag("seance_done")))
+		assert_eq(bool(st.get_flag("patrini_asked_find_son")), str(c[2]) == "urgent_face", "his son is asked after only on the last word of a board that missed nothing")

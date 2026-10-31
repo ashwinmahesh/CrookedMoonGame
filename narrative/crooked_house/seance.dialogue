@@ -144,11 +144,11 @@ Narrator: Reckon if you let the old fellow go now, this board ain't gonna speak 
 
 # His last words. The urgent clue is the first thing the party missed; with nothing missed, he warns of the hag's disguise and asks them to find his son.
 ~ closing
-if not flag.seance_asked_5
--> urgent_mementos
-endif
 if not flag.seance_asked_4
 -> urgent_hag
+endif
+if not flag.seance_asked_5
+-> urgent_mementos
 endif
 if not flag.seance_asked_6 and not flag.trapdoor_known
 -> urgent_door
