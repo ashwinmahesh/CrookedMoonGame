@@ -1,7 +1,8 @@
 extends TestCase
 ## The game's 3D figures (art/figures/manifest.json, the Tripo models; the engine's FigureModels and ModelFigure): every
-## one opens, stands as tall as its creature is drawn, has the clips the game plays, and its attack window lies inside its
-## swing; the companions wear theirs as their own art, and the Vagrant and the Druskenvalds wear theirs as people.
+## one opens, stands as tall as its creature is drawn, has the clips the game plays (Tripo's combat set: a run, a hit and
+## a fall too), and its attack window lies inside its swing; the companions wear theirs as their own art, and the Vagrant
+## and the Druskenvalds wear theirs as people.
 
 const QUADRUPEDS: Array[String] = ["barnaby"]
 
@@ -21,7 +22,7 @@ func test_every_figure_opens_with_its_clips() -> void:
 		assert_between(ModelFigure.rest_box(fig.model).size.y * fig.model.scale.y, height - 0.01, height + 0.01, "%s: as tall as it is drawn" % id)
 		assert_true(fig.has_role("walk"), "%s: walks" % id)
 		if not id in QUADRUPEDS:
-			for role: String in ["idle", "attack", "talk", "greet"]:
+			for role: String in ["idle", "attack", "talk", "greet", "run", "hurt", "die"]:
 				assert_true(fig.has_role(role), "%s: has a clip to %s" % [id, role])
 			var swing := (fig._roles["attack"] as Array)[0] as Dictionary
 			var length := fig._player.get_animation(str(swing["name"])).length

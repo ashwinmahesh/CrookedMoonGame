@@ -1,7 +1,7 @@
 extends Node
 ## The 3D figures (art/figures/manifest.json, the engine's FigureModels and ModelFigure) at the play camera: the hill as
 ## it is with the party of companions, then every figure in a row in front of them, from the play view and close, turned
-## round and tilted, and caught swinging, walking, talking, greeting and fallen.
+## round and tilted, and caught swinging, walking, running, talking, greeting, hit, falling and fallen.
 ##   make capture SCENE=res://tools/capture/figures_capture.tscn NAME=figures/f ARGS='--hour=8 --bands=2'
 ## --hour: the hour (8 the Twilight Hour, 23 the Midnight Hour); --place: a location id; --party=placeholder: the old 2D
 ## four instead of the companions, for sprites beside models; --ahead and --across: where the row stands from the leader
@@ -124,10 +124,15 @@ func capture_shots(tool: Node, out: String) -> void:
 		await _until(tool, line, "attack", 2.15)
 		tool.call("_shot", "%s_swing_2.png" % out)
 		await _until(tool, line, "", 0.0)
+		# A townsfolk's stroll walks; the party's pace runs (ModelFigure.RUN_FROM).
 		for t: CombatToken in line:
-			t.face(side, true, CombatView.STEP_TIME)
+			t.face(side, true, 1.0 / NpcWalker.SPEED)
 		await tool.call("wait_frames", 20)
 		tool.call("_shot", "%s_walk.png" % out)
+		for t: CombatToken in line:
+			t.face(side, true, LocationView.STEP_TIME)
+		await tool.call("wait_frames", 20)
+		tool.call("_shot", "%s_run.png" % out)
 		for t: CombatToken in line:
 			t.face(toward, false)
 		await tool.call("wait_frames", 10)
@@ -142,8 +147,16 @@ func capture_shots(tool: Node, out: String) -> void:
 		tool.call("_shot", "%s_greet.png" % out)
 		await _until(tool, line, "", 0.0)
 		for t: CombatToken in line:
+			(t.sprite as DirectionalSprite).hurt()
+		await _until(tool, line, "hurt", 0.45)
+		tool.call("_shot", "%s_hit.png" % out)
+		await _until(tool, line, "", 0.0)
+		for t: CombatToken in line:
 			t.fall()
-		await tool.call("wait_frames", 30)
+		await _until(tool, line, "die", 1.5)
+		tool.call("_shot", "%s_falling.png" % out)
+		await _until(tool, line, "", 0.0)
+		await tool.call("wait_frames", 10)
 		tool.call("_shot", "%s_fallen.png" % out)
 
 
