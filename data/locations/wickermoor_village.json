@@ -857,6 +857,15 @@
         28,
         24
       ],
+      "dialogue": "wickermoor/fieldtrip:rusty_fact",
+      "when": "flag.field_trip_asked and not flag.field_rusty"
+    },
+    {
+      "npc": "old_rusty",
+      "cell": [
+        28,
+        24
+      ],
       "dialogue": "wickermoor/old_rusty:start",
       "path": [
         [
@@ -999,6 +1008,33 @@
         12
       ],
       "dialogue": "wickermoor/children:dani"
+    },
+    {
+      "npc": "sgt_gaunt",
+      "cell": [
+        26,
+        37
+      ],
+      "dialogue": "wickermoor/folk:gaunt_start",
+      "when": "flag.wm_welcomed"
+    },
+    {
+      "npc": "pip_oakum",
+      "cell": [
+        24,
+        20
+      ],
+      "dialogue": "wickermoor/fieldtrip:pip_button",
+      "when": "flag.field_trip_asked and not flag.field_pip"
+    },
+    {
+      "npc": "pip_oakum",
+      "cell": [
+        24,
+        20
+      ],
+      "dialogue": "wickermoor/folk:pip_start",
+      "when": "flag.wm_welcomed"
     }
   ],
   "props": [
@@ -1288,6 +1324,30 @@
       "scale": 0.5,
       "dialogue": "wickermoor/misdelivered:goat",
       "when": "flag.misdelivered_asked and not flag.letter_goat"
+    },
+    {
+      "id": "wm_bell_cart",
+      "cell": [
+        30,
+        44
+      ],
+      "kind": "examine",
+      "label": "The bell on its cart",
+      "model": "cart",
+      "dialogue": "wickermoor/bell:cart",
+      "when": "flag.bell_asked and not flag.bell_done and not flag.bell_abandoned"
+    },
+    {
+      "id": "wm_bell_rope",
+      "cell": [
+        44,
+        26
+      ],
+      "kind": "examine",
+      "label": "The clocktower's bell-rope",
+      "model": "rope",
+      "dialogue": "wickermoor/fieldtrip:rope",
+      "when": "flag.field_trip_asked and not flag.field_rope"
     }
   ],
   "region": "wickermoor",

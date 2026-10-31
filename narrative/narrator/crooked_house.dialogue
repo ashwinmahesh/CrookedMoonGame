@@ -1,0 +1,296 @@
+# R12: Narrator lines for the Crooked House (region crooked_house: druskenvald_estate and the four floors of crooked_house_*). The Narrator is the
+# Vagrant, telling the tale afterwards: second person, present tense, one or two sentences, no game words (docs/design/narration.md section 2).
+# In this house his humour is gone (Voice/Bibles/Narrator.md, the dial by place: none): hushed, dry and dead level, the drawl pared to bare bones,
+# with a dropped g in about one line in three. Sensory palette: sepia rot and mildew green, faded rose and teal paper, bruised purple upholstery,
+# cobweb grey, nothing square; weasels in the walls, teeth underfoot, the clock, the storm; sweet rot in the dining room, burnt flesh in the
+# kitchen, copper in the bathroom.
+# Every key has a plain (untagged) variant; the class- and name-tagged ones are extras. FINAL-WORDED: every plain line is voiced and may not be
+# edited once the voice lane starts (no {name} or {target} in a plain line; a tag is stripped before a line is hashed). New lines are fine.
+# Triggers: enter:<location or area id>, examine:<prop id>, search:<prop id> (a hidden find turned up), check:<skill>:<prop id>:failure (a search
+# that finds nothing but a human tooth, the house's Crooked Teeth: the wiring gives `human_tooth` with it), trap:<id>:found|triggered, open:<container>,
+# and defeat:<fight id> (the retry: story/fight_retry.gd tries `defeat:{fight}` then `defeat:crooked_house`).
+# Not keyed here, because the prop starts a conversation that opens with its own lines: h2_portrait_*, h3_spirit_board, h4_paintings, h5_harpsichord,
+# h8 Petunia, h10_doll, h16_sockets, the Crooked Man, Joseph Patrini, Gail, Arthur, Wisp, Keziah.
+# Area ids are the maps worker's to settle: these are assumed as h<n>_<room>; see docs/plans/gemini_r12_crooked_house_narrator/README.md.
+# Drafted by Gemini (docs/plans/gemini_r12_crooked_house_narrator/), edited; see README.md there.
+
+# --- Places (crossed many times: two plain lines, a cooldown) ---
+
+~ enter:druskenvald_estate
+| The gate stands open on the hilltop, past tidy kitchen gardens and a quiet pond. Every window of the turreted manor glows warm with lamplight.
+| Fresh flowers sit by the wrap-around porch, and the two barns rest dark and neat behind the house. Upstairs and down, the lamps are burnin' steady.
+| [flag.crooked_house_turned and not flag.vessla_slain] Green mildew climbs the warped boards while dead petals fall beneath a buildin' storm. Up on the crooked porch, a lanky figure lifts a hand and waves.
+| [flag.vessla_slain] The storm has passed on, leaving the hilltop silent and the grass wet underfoot. The old house still leans a touch, though its walls stand quieter now.
+cooldown 20
+~ enter:crooked_house_first
+| The floorboards slope under your boots, and not a doorframe in the hall sits square. Inside the faded rose and teal walls, weasels are scratchin' in the dark.
+| Loose teeth click underfoot as you cross the tilted hall. Behind the plaster, the small claws keep up their dry, busy scrapin'.
+| [flag.vessla_slain] The floor still tilts from wall to leaning wall, and dust hangs in your light. Inside the plaster, the scratching has finally gone still.
+cooldown 20
+~ enter:crooked_house_second
+| The curved stair lets you out onto the balcony above the dark foyer. Down the leaning hall, a clock ticks slow and steady.
+| The outer wall bulges wide where the turret meets the corridor. Somewhere in the dark ahead, that pendulum keeps on swingin'.
+cooldown 20
+~ enter:crooked_house_third
+| The ceiling presses low up here, and the air runs cold. Down the narrow hall comes the thin, unbroken wailin' of a child.
+| Every doorframe leans inward along the cramped passage. That small, steady cry never draws a breath.
+cooldown 20
+~ enter:crooked_house_attic
+| You haul yourself up the rungs into the close heat under the roof. Red light spills down the ladder to meet your hands.
+cooldown 20
+
+# --- Rooms and areas (first sight, once) ---
+
+~ enter:h1_porch
+| Rain sheets off the eaves and slicks the porch boards underfoot while thunder rolls across the hill. Beyond the rail, the night is a solid wall of black water.
+once
+~ enter:h2_foyer
+| A tilted chandelier hangs twenty feet overhead, above a floor inlaid with a swimmin' compass rose. From every crowded wall, painted eyes turn to follow your light.
+| [name:rook_coldwake] {name} sets a boot on the inlaid compass rose, reading the pitch of the boards like a man checking where bad water drains.
+once
+~ enter:h3_parlor
+| Rain drums on the shuttered glass beside bruised purple upholstery under a skin of grey cobweb. On the round table, a heart-shaped pointer waits upon a spirit board.
+| [class:cleric] {name} stops by the cobwebbed hearth, eyes on the crystal ball and the waiting spirit board, weighing an old prayer against this room.
+once
+~ enter:h4_gallery
+| Heavy landscape frames and dour marble busts circle the foot of the turret. In the alcove, a white stone peacock watches you with a single red eye.
+once
+~ enter:h5_music_room
+| Rotting instruments lean on their stands around a blackened dance floor and a cracked oval mirror. Across the room, the harpsichord stands with its lid gaping like a coffin.
+| [class:bard] {name} looks from the ruined strings to the open harpsichord, listening to the dead air where a room like this ought to ring.
+once
+~ enter:h5_floor
+| Your boot touches the blackened boards, and a slow, sweet tune begins out of the empty air. Down in your heels, your feet start tryin' to follow it.
+once
+~ enter:h6_dining_room
+| Cobwebs drape the walls, yet a spotless white cloth holds a steamin' feast down the long table. Under the heat of the dishes hangs the thick smell of sweet rot.
+once
+~ enter:h7_kitchen
+| Iron pots litter the floor beside a fallen shelf, and the air chokes with the smell of burnt flesh. Smoke leaks from a padlocked brick oven while something inside pounds, muffled, like a scream through a wall.
+once
+~ enter:h8_conservatory
+| Rain hammers the glass roof above dead vines, lit white by flashin' lightning. On a bench sits a motionless woman in black, facing one green tree heavy with fruit.
+once
+~ enter:h9_sitting_room
+| The turret bulges outward here, looking down into the foyer through a cracked wooden rail. Against the curved wall, a tall grandfather clock keeps on tickin'.
+once
+~ enter:h10_childrens_room
+| Broken toys lie scattered between two small beds, a big chest, and a closet door standin' ajar. The dark in the corners presses back against the light you bring.
+once
+~ enter:h11_bathroom
+| Warm steam curls across the cracked, mouldy tile. The claw-foot tub is stained deep red, and the wet air tastes of copper.
+once
+~ enter:h12_master_bedroom
+| A black journal rests on the desk past a cracked vanity and a bent wardrobe. Behind the torn curtains of the canopy bed, something shifts beneath the covers.
+once
+~ enter:balcony_edge
+| Wind and cold rain whip past the dead potted plants above the porch roof. Beyond the wet rail, there ain't a thing but pitch dark.
+once
+~ enter:h13_nursery
+| Stuffed toys sit above a mahogany crib and a wooden cradle riddled with tiny holes. Inside, the pale blue shape of an infant wails without ever stoppin'.
+once
+~ enter:h14_library
+| Books lie spilled from sagging shelves past a cobwebbed liquor cart. On the desk, a grey cat sits very still upon a stack of books and watches you walk in.
+once
+~ enter:h15_trophy_room
+| A great brown bear and a crowd of stuffed beasts twist in stiff, wrong poses before the dark fireplace. Their wide glass eyes catch your light and hold it.
+once
+~ enter:h16_landing
+| Blood-red runes pulse slow across the floor, walls, and low ceiling around six empty circles. Past a shimmer in the air sits one small glowing door.
+once
+~ enter:h17_cauldron_room
+| Human teeth crunch like gravel underfoot as red steam rises from a great iron cauldron. Beside it wait two figures, one slumped in his bonds and one cloaked, swayin' in place.
+once
+~ enter:h17_cauldron_area
+| You step up to the iron rim, and the red glow flares hot against your face. Down in the thick liquid, one slow bubble rises to the top.
+once
+
+# --- Looking at things (examine) ---
+
+~ examine:h1_porch_edge
+| The porch boards end at the rail where rain slants past the lip. Lightning shows only black water fallin' while thunder sits dead overhead.
+~ examine:h2_chandelier
+| Twenty feet up, it hangs tilted with half its crystals gone, thick with dust and grey cobweb. There ain't a breath of wind, yet it sways.
+~ examine:h2_stair
+| A curved stair climbs toward the balcony under a worn runner of bruised purple. No two treads match in height, and the banister leans out.
+~ examine:h3_fireplace
+| Soot-black stone sits cold under cobweb and a mantel of dusty ornaments. You catch the dry smell of old ash, though nothing burns here now.
+~ examine:h3_crystal_ball
+| A clouded glass ball rests on a brass claw stand, cold to the touch. You hold your light close, and the glow dies before reachin' its heart.
+~ examine:h4_peacock
+| An oversized peacock of white marble fills the alcove, its stone tail fanned wide around one dull red eye. As you reach out, something in the marble gives a faint click.
+~ examine:h4_bust
+| A dour marble face looks down from its plinth, stone lips turned sour. Below it sits a small brass plaque gone black with tarnish.
+~ examine:h5_mirror
+| One long crack splits the tall oval glass where the silver backing has rotted black. Your own faces look back at you, a hair out of step.
+~ examine:h6_table
+| Roast fish, a beef tongue, a lobster claw, and a sugar bowl sit on a spotless cloth, thick with the smell of sweet rot. Steam rises straight up as a plate gives a slow rattle.
+~ examine:h7_shelf
+| The tall metal shelf lies fallen across the floor among burst tins and rusted jars. Whatever they held has long since turned to black crust.
+~ examine:h8_bergamot
+| Rain hammers the glass roof above one living tree with damp bark and hard green fruit among dead brown vines. Its sharp citrus smell cuts right through the mildew.
+~ examine:h8_cup
+| The porcelain cup is thin as an eggshell on its saucer, traced with a hairline rim of gold. The room is stone cold, yet the dark tea inside still steams.
+~ examine:h9_clock
+| The grandfather clock leans out from the wall, its brass pendulum swingin' behind cracked glass to an hour that makes no sense. That slow tick is too loud, and something small stirs inside the case.
+| [class:wizard] {name} studies the wrong-way hands while something inside the leaning case shifts against the wood.
+~ examine:h9_rail
+| The sitting room rail is split right through, twenty feet above the foyer floor. The tilted chandelier hangs at eye height, and the painted eyes in the portraits all turn up toward you.
+~ examine:h10_closet
+| The closet door stands ajar on a smell of old wool. Small coats and a school cap hang waitin' in the dark.
+~ examine:h10_bed_left
+| Beside the dark window, the left bed sits with its blanket rumpled and deep dust settled in the dip of the pillow. Beneath the frame, the dark lies thicker than it ought to.
+~ examine:h10_bed_right
+| The blanket on the right-hand bed is pulled tight, with a single cloth shoe from a doll resting on the pillow. Underneath, the black goes down too deep for a floor.
+~ examine:h10_chest
+| Painted animals flake off the sides of the heavy toy chest behind its brass hasp. Every time the house creaks, something inside shifts its weight.
+~ examine:h10_armoire
+| Stars are carved across the face of the child's armoire. Its two doors hang crooked, leavin' a thin line of black between them.
+~ examine:h10_window
+| Rain streaks the black glass of a small window sealed tight against the storm. There is no outside to see, only lightning makin' your own reflections jump.
+~ examine:h11_tub
+| Warm steam curls off the mouldy tile, thick with the smell of copper from a claw-foot tub stained red to the rim. You lean over, and the dark surface shifts.
+~ examine:h11_door
+| Swollen wood cut into a trapezoid barely fits the leaning frame. Your hand finds the tarnished knob, cold and damp.
+| [class:rogue] {name} crouches by the tarnished latch, finding the lock rusted solid from the inside.
+~ examine:h12_bed
+| Torn curtains hang in ribbons around sheets scattered with small white teeth. Beneath the heaped covers, something rises and falls, restless and heavy.
+~ examine:h12_journal
+| A black leather journal rests on the desk, its gilt monogram worn nearly smooth by someone's thumb. A small brass clasp holds it shut tight.
+~ examine:h12_balcony_doors
+| Double doors of black glass stand sealed at the end of the room, the brass catch crusted green. Rain runs in cold, silent sheets down the other side.
+~ examine:h12_scratchings
+| Long gouges score the plaster behind the bed, four in a row where fingernails dragged down. The lowest marks sit scarce a foot off the floor.
+~ examine:h13_crib
+| A threadbare blue bear sits in the corner of a mahogany crib, its rails riddled with tiny pinprick holes. As you reach in, a stuffed toy on the shelf above catches your light in its glass eye.
+~ examine:h14_cart
+| Cobweb drapes a liquor cart and its dust-furred decanters. Down on the lower shelf, four small stoppered vials sit wiped clean.
+~ examine:h14_tome
+| A heavy tome rests on a stand in cracked leather, its brown-edged pages half choked with cramped ink. The rest lie blank and waiting.
+~ examine:h14_desk
+| A tall stack of books crowds a writing desk beside a dry inkwell and a pen gone stiff. Deep claw marks tear right through the leather top.
+~ examine:h15_trapdoor
+| An age-grey iron ring hangs from a square seam in the ceiling plaster, the air around it hummin' low. When your fingers brush the cold metal, a deep vibration starts up in your teeth.
+~ examine:h15_bear
+| A great brown bear rears up on its hind legs, claws raised and glass eyes dull. Along its throat and chest, the seams are stitched finer than any other mount in the room.
+~ examine:h15_trophy_crow
+| High on a shelf, a stuffed black crow holds its dusty wings half spread. One glass eye takes your light and keeps it.
+~ examine:h16_runes
+| Runes cut deep into floor, wall, and ceiling pulse slow with a blood-red glow. Six empty circles sit carved among them, each the size of an open hand.
+~ examine:h17_cauldron
+| Glowing red liquid steams in a great iron pot, eating pits into the floor where it slopped over the lip. Teeth lie thick around its iron feet, clickin' under your boots.
+~ examine:h17_phillip
+| A man in a fine suit slumps bound beside the cauldron, his head lolling on his chest. His breath comes shallow and quick, and fever heat comes off him.
+~ examine:h17_adela
+| A figure stands with hood drawn forward, swayin' on the spot like a dry reed. Not a step, not a word, comes from beneath the cloak.
+~ examine:h17_scratchings
+| Crude letters score the wall in a cramped, furious hand. Two names are carved over and over until the plaster gives way to bare lath.
+
+# --- Finds, misses (the house leaves a tooth where treasure should be), traps and containers ---
+
+~ search:h6_table_loot
+| Down in the cold grease between the broken plates, a heavy pearl and a plain gold band catch your light through the sweet rot.
+once
+~ search:h10_closet
+| Back behind the little hangin' coats, a patch of black darker than shadow shifts when you shift.
+once
+~ search:h10_bed_left
+| Pressed against the baseboard under the left bed lies a patch of black that ain't shadow, wider than the gap that holds it.
+once
+~ search:h10_bed_right
+| Behind a cloth doll's shoe under the right bed, a patch of black that is not shadow draws a slow breath in and out.
+once
+~ search:h10_chest
+| Down under the heavy lid and the loose toy animals, your fingers brush a patch of black that is not shadow, dead cold against your skin.
+once
+~ search:h10_armoire
+| Behind the narrow star-carved doors, a patch of black stands upright in the mildew dark, right where a child would hide.
+once
+~ search:h10_window
+| Outside the rain-streaked black glass, a patch of darkness presses flat to the sealed pane and looks back at you.
+once
+~ search:the_bag
+| A worn leather satchel hangs among the small coats, and the painted eye on its flap slides slow to follow your hand.
+once
+~ search:h15_trapdoor
+| Up in the plaster ceiling, where the grey dust lies thin, a faint square seam holds a cold iron ring.
+once
+~ check:perception:h6_table_loot:failure
+| You part the cold tallow and cracked porcelain of the ruined feast, and come up with a yellowed milk tooth stuck to your palm.
+~ check:perception:h10_closet:failure
+| You pat down the damp wool hems of the little coats, and a grey-rooted tooth drops into your hand.
+~ check:perception:h10_bed_left:failure
+| You sweep the gritty floorboards beneath the left frame until your knuckles hook a chipped tooth.
+~ check:perception:h10_bed_right:failure
+| You reach through the grey cobweb under the right bed and draw back a small chalk-white tooth wedged in a floor crack.
+~ check:perception:h10_chest:failure
+| You turn over the loose toys at the bottom of the chest and find only a brown-stained tooth restin' in your hand.
+~ check:perception:h10_armoire:failure
+| You run your fingers along the warped inner shelf of the armoire, and pick a tiny split tooth out of the corner joint.
+~ check:perception:h10_window:failure
+| You trace the damp wood of the sealed sill while weasels scratch inside the wall, and lift a slick black-rimmed tooth into your palm.
+~ check:investigation:the_bag:failure
+| You feel along the high closet shelf and the coat linings, and come away holdin' a smooth, rootless tooth.
+~ check:perception:h15_trapdoor:failure
+| You test the leaning wall seams and the plaster overhead, and pluck a dry, hollow tooth from the moulding.
+~ trap:h1_porch_edge:found
+| Ragged black scorch marks scar the very edge of the porch boards, and the wet air smells sharp of struck iron.
+~ trap:h1_porch_edge:triggered
+| You step past the drip line into the storm, and lightning and thunder hit together to hurl you back across the boards.
+~ trap:balcony_edge:found
+| Along the leaning rail, the paint blisters over split wood and the blowin' rain hisses where it strikes.
+~ trap:balcony_edge:triggered
+| You lean out past the blistered rail into the wind, and the sky cracks white to drive you back onto the planks.
+~ trap:h7_oven_trap:found
+| A pale scratched glyph on the oven's padlock plate glows faint as your light crosses it, and the greasy smoke bends away.
+~ trap:h7_oven_trap:triggered
+| The iron oven door blows wide on a scorching wave of burnt-flesh stink and spittin' acid.
+~ open:h7_oven_contents
+| Inside lie only blackened pans, a cracked plate, and a ladle melted into a pot. The poundin' and the screamin' have stopped.
+once
+
+# --- The retry: the Vagrant stops his telling and takes it up again (story/fight_retry.gd tries defeat:<fight>, then defeat:crooked_house) ---
+
+~ defeat:crooked_house
+| Hold on, friends, that ain't how this part goes. You're still on your feet in the dark, and I'll tell it again from where you came in.
+| No, I told that wrong. The rain's still at the glass and you're still standin', so let me take it from the top.
+| That's not the end of your road, not in this house. Let me take the tale back a few steps and tell it the way you walk it.
+~ defeat:ch_peacock
+| Hold on, the white bird doesn't have the last word. You're back at the front door with the storm behind you, and I'll tell the gallery again.
+| Not like that. Let me take the tale back to the front door, before the stone ever stirred.
+~ defeat:ch_dance
+| That tune ain't where this ends, friends. Let me hush it and bring you back to the front door, and tell the dance floor again.
+| Wrong turn in the tellin'. You're on your feet at the front door, and the music hasn't begun.
+~ defeat:ch_feast
+| No, the table doesn't close your story. Let me clear the cloth and bring you in fresh from the front door.
+| I got ahead of myself at that long table. Back to the front door, and I'll tell it slower.
+~ defeat:ch_petunia
+| Easy now, the woman in black didn't end your night. Let me tell it again from the front door, quiet and plain.
+| That's not how the glass room goes. Back to the front door, friends, and I'll tell it right.
+~ defeat:ch_clock
+| Hold a moment, the clock struck out of turn in my tellin'. Let me wind it back to the top of the stair.
+| No, that pendulum doesn't cut your thread short. Back to the top of the stair, and I'll tell it again.
+~ defeat:ch_lurker
+| Wait now, the dark in that little room isn't where you stay. Back to the top of the stair, and I'll bring the light up slower.
+| I let the shadow swallow my words. You're on your feet at the top of the stair, and the room is still waiting.
+~ defeat:ch_bath
+| No, the red water doesn't take you down. Let me drain that tellin' and start from the top of the stair.
+| I spoke that wrong, friends. Back to the top of the stair, before the water ever rose.
+~ defeat:ch_jasper
+| Hold on, the heaving bed isn't the end of the road. Back to the top of the stair, and let me smooth the tellin' out.
+| That part came out twisted as the doorframe. Back to the top of the stair, before the bedposts shook.
+~ defeat:ch_quasits
+| Wait now, the toys don't finish your walk. Back to the top of the stair, and I'll tell the nursery gentler.
+| I told that nursery too quick. Back to the top of the stair, before a single toy moved.
+~ defeat:ch_wisp
+| Hold there, the grey cat isn't the last thing you see. Back to the top of the stair, and I'll turn the page.
+| My voice wandered in that library. Back to the top of the stair, before those quiet paws crossed the floor.
+~ defeat:ch_bogle_curse
+| Easy now, what burst from the plaster doesn't end the night. You're standin' where you stood, and I'll tell that breath over.
+| No, that turn was wrong. Stay where you stand, friends, while I take the moment back.
+~ defeat:ch_roar
+| Wait a moment, that roar in the ceiling isn't what brings this tale down. Back to the top of the stair, and I'll steady my voice.
+| I let that sound overhead rattle the tellin'. Back to the top of the stair, before the dust shook loose.
+~ defeat:ch_vessla
+| No, friends, the cauldron room isn't where your story goes cold. Back to the top of the ladder, and I'll take the climb from the start.
+| Hold on now, the last room under the roof isn't finished with you. Let me drop my voice and tell that climb over.

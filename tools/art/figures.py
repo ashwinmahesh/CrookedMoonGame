@@ -202,9 +202,10 @@ def main(argv):
         if a.startswith('--max='):
             max_px = int(a.split('=', 1)[1])
     only = [a for a in argv if not a.startswith('--')]
-    doc = json.loads(MANIFEST.read_text())
-    figures = dict(doc['figures'])
-    figures.update({pid: info for pid, info in doc.get('parts', {}).items() if 'source' in info and 'file' in info})
+    manifest = json.loads(MANIFEST.read_text())
+    figures = dict(manifest['figures'])
+    # Parts with a `source` (a familiar's own model, a piece of gear made for the game) are copied the same way.
+    figures.update({pid: p for pid, p in manifest.get('parts', {}).items() if 'source' in p})
     root = asset_root()
     for fid, info in figures.items():
         if only and fid not in only:

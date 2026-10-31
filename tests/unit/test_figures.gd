@@ -44,11 +44,9 @@ func test_every_figure_opens_with_its_clips() -> void:
 		var fig := DirectionalSprite.create(DirectionalSprite.frames_for(id), height) as ModelFigure
 		assert_true(fig != null, "%s: drawn as a 3D figure" % id)
 		add_child(fig)
-		# A figure wearing a head made apart from its body (its entry's `layers`) is measured as it was sized, with the
-		# head at rest: once a frame has run, the head follows the idle pose (started at a random point), so a box of the
-		# model then depends on what ran before in the process (Delphine's tall jester hat moved hers 0.04 in a full run).
-		var tall := fig._rest_height if (_entries()[id] as Dictionary).has("layers") else ModelFigure.rest_box(fig.model).size.y
-		assert_between(tall * fig.model.scale.y, height - 0.01, height + 0.01, "%s: as tall as it is drawn" % id)
+		# As it was sized: its own body, with a head made apart from it at rest (once a frame has run the head follows
+		# the idle pose, started at a random point), and not a ghost over a shoulder, which stands above it.
+		assert_between(fig._rest_height * fig.model.scale.y, height - 0.01, height + 0.01, "%s: as tall as it is drawn" % id)
 		assert_true(fig.has_role("walk"), "%s: walks" % id)
 		if not id in QUADRUPEDS:
 			for role: String in ["idle", "attack", "talk", "greet", "run", "hurt", "die"]:
@@ -70,7 +68,7 @@ func test_the_companions_and_people_wear_their_figures() -> void:
 
 
 func test_every_monster_entry_has_a_sprite_to_wear_until_its_model_comes() -> void:
-	assert_true(_monster_ids().size() >= 11, "the six haints and the wayward haint, the trainhopper, stoker, passenger and crawler")
+	assert_true(_monster_ids().size() >= 12, "the six haints and the wayward haint, the trainhopper, stoker, passenger, crawler and the locomotive")
 	for id: String in _monster_ids():
 		var entry := _entries()[id] as Dictionary
 		var sprite := str(entry.get("sprite", ""))
@@ -119,7 +117,8 @@ func test_monsters_stand_at_their_height_and_wear_models_that_are_there() -> voi
 		var fig := DirectionalSprite.create(DirectionalSprite.frames_for(id), height) as ModelFigure
 		assert_true(fig != null, "%s: drawn as a 3D figure" % id)
 		add_child(fig)
-		assert_true(fig.has_role("walk"), "%s: walks" % id)
+		if not bool((_entries()[id] as Dictionary).get("static", false)):
+			assert_true(fig.has_role("walk"), "%s: walks" % id)   # (a `static` one, the locomotive, has no rig: it glides)
 		fig.free()
 
 

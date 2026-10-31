@@ -1,0 +1,55 @@
+{
+  "id": "a_tale_for_wisp",
+  "name": "A Tale for Wisp",
+  "kind": "side",
+  "region": "crooked_house",
+  "giver": "wisp",
+  "summary": "A grey cat in the library speaks with a stolen man's voice and wants stories in his books.",
+  "stages": [
+    {
+      "id": "asked",
+      "journal": "A grey cat sits on the library desk with a stack of books beside him. He speaks in a man's voice, charming and warm, and he wants us to tell him a tale.",
+      "objectives": [
+        "Decide whether to tell the cat a tale"
+      ],
+      "hint": "Talk to the grey cat in the library."
+    },
+    {
+      "id": "refused",
+      "journal": "We turned the cat down and went about our business. He is still in the library, smiling.",
+      "ends": "failure",
+      "then": [
+        "telling",
+        "thanked",
+        "slain",
+        "fled"
+      ]
+    },
+    {
+      "id": "telling",
+      "journal": "We have told the cat a tale and he wrote it in a book, in words and pictures. He would like another.",
+      "objectives": [
+        "Tell three tales"
+      ],
+      "hint": "Tell the cat another tale in the library."
+    },
+    {
+      "id": "thanked",
+      "journal": "Three tales are in three books. The cat thanked us warmly, winked out, and left us rested in a way that feels borrowed. Something about the thanks did not sit right.",
+      "ends": "success"
+    },
+    {
+      "id": "slain",
+      "journal": "The cat is dead. His borrowed man's voice is gone from the world, and whoever it was stolen from can speak again.",
+      "ends": "success"
+    },
+    {
+      "id": "fled",
+      "journal": "The cat took his true shape and slipped out through the window, still wearing a stolen voice. He is out in the night somewhere, and he has not forgotten us.",
+      "objectives": [
+        "Stop Wisp"
+      ],
+      "hint": "Wisp has gone. If he turns up again, put an end to him."
+    }
+  ]
+}
