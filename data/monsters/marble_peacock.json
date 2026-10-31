@@ -1,0 +1,120 @@
+{
+  "id": "marble_peacock",
+  "name": "Marble Peacock",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), chapter 12: the 2025 Basilisk's numbers with the type changed to Construct. The words are ours. Departure (Ashwin's plan): everything its gaze turned to stone is freed when the peacock crumbles. Petrifying Gaze's second-failure Petrified stage is a rider the engine does not run yet (the first stage, Restrained, does)."
+  },
+  "size": "medium",
+  "type": "construct",
+  "alignment": "unaligned",
+  "ac": 15,
+  "initiative": -1,
+  "hp": {
+    "average": 52,
+    "dice": "8d8+16"
+  },
+  "speed": {
+    "walk": 20
+  },
+  "abilities": {
+    "str": 16,
+    "dex": 8,
+    "con": 15,
+    "int": 2,
+    "wis": 8,
+    "cha": 7
+  },
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 9,
+  "languages": [],
+  "cr": 3,
+  "xp": 700,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "stone_dies_with_it",
+      "name": "Stone Dies With It",
+      "action": "passive",
+      "summary": "Anyone its gaze turned to stone becomes flesh again the moment the peacock is destroyed.",
+      "text": "If the marble peacock is reduced to 0 Hit Points, every creature its Petrifying Gaze turned to stone is freed and is no longer Petrified or Restrained by it.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "2d6+3",
+          "type": "piercing"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "poison"
+        }
+      ],
+      "summary": "A snapping marble beak with a venomous sting in it."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "petrifying_gaze",
+      "name": "Petrifying Gaze",
+      "kind": "save",
+      "recharge": "4-6",
+      "save": {
+        "ability": "con",
+        "dc": 12,
+        "success": "none"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 30
+      },
+      "targets": {
+        "range": 30
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "restrained",
+          "until": "permanent",
+          "repeat_save": {
+            "ability": "con",
+            "dc": 12,
+            "when": "end"
+          }
+        },
+        {
+          "do": "second_failure_condition",
+          "params": {
+            "condition": "petrified",
+            "replaces": "restrained",
+            "save": {
+              "ability": "con",
+              "dc": 12
+            },
+            "when": "end of the target's next turn if it is still Restrained"
+          }
+        }
+      ],
+      "summary": "Recharge 4-6. A 30-ft cone: DC 12 Con save or Restrained; a second failed save turns the target to stone until the peacock crumbles.",
+      "text": "Constitution saving throw, DC 12, each creature in a 30-foot Cone. If the basilisk can see its own reflection in the Cone, it must make the save too. First failure: Restrained, with a repeat save at the end of its next turn if it is still Restrained, ending the effect on a success. Second failure: Petrified instead of Restrained."
+    }
+  ],
+  "ai_profile": "brute",
+  "summary": "An oversized albino peacock carved in marble, with one bloodstone eye, whose gaze roots a victim in place and then turns it to stone. Its stone is undone when it crumbles.",
+  "art": "giant_owl"
+}
