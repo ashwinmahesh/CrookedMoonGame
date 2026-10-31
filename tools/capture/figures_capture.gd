@@ -7,7 +7,8 @@ extends Node
 ## four instead of the companions, for sprites beside models; --ahead and --across: where the row stands from the leader
 ## (squares toward the camera and to its right); --follow=<art id> and --near=<distance>: the camera close on one
 ## figure; --ids=a,b: only those figures in the row; --bands, --ink, --flatten, --vivid, --floor, --rim: the figures' look
-## (Look.figure_settings); --only=place,lineup,turns,poses picks shots, and --only=clip --clip=slash freezes the row at
+## (Look.figure_settings); --hold=hooded_lantern@off_hand,torch@main_hand: what the row holds (a figure whose entry
+## shows `gear` wears its part); --only=place,lineup,turns,poses picks shots, and --only=clip --clip=slash freezes the row at
 ## points through one clip instead (to choose a manifest's window). Shots: <out>_<shot>.png.
 ## Headless with --probe it prints what each figure's model holds instead: its clips, the walk's stride and footfalls,
 ## and where its right hand moves fastest in its attack (for a manifest's attack window).
@@ -192,6 +193,9 @@ func _lineup(view: LocationView) -> Array:
 		var id := str(ids[i])
 		var ch := Pregens.build("rook_coldwake", 1)
 		ch.name = id.capitalize()
+		for held: String in _arg("hold", "").split(",", false):
+			ch.add_item(held.get_slice("@", 0))
+			ch.equip(held.get_slice("@", 0), held.get_slice("@", 1))
 		var at := mid + right * (float(i) - (ids.size() - 1) / 2.0) * 0.95
 		var cell := Vector2i(floori(at.x), floori(at.z))
 		var cb := Combatant.new(ch, &"neutral", cell)
