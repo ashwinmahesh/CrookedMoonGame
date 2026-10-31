@@ -3,7 +3,8 @@ extends Node
 ## camera, then the camera turns once round the party (a slow orbit, saved frame by frame for a GIF or a film), and the
 ## whole place is shot from above.
 ##   make capture SCENE=res://tools/capture/showcase_capture.tscn NAME=showcase/x ARGS='--places=ghostlight_boarding,fw_hall'
-## --close_prop=<prop id> or --close_cell=x,z: also close shots of that spot from three sides (<out>_<place>_close*.png).
+## --close_prop=<prop id> or --close_cell=x,z: also close shots of that spot from three sides (<out>_<place>_close*.png),
+## and with --still=N, N frames of it from the camera standing still (<out>_<place>_still_<nnn>.jpg, for a GIF).
 ## --hour: the hour (8 the Twilight Hour); --orbit: frames in the orbit (0 for none; default 60), each saved at
 ## --orbit_size (default 800x450) as JPEG. Shots: <out>_<place>_play.png, <out>_<place>_whole.png and
 ## <out>_<place>_orbit_<nnn>.jpg. tools/capture/frames_to_gif.py makes a GIF of each orbit.
@@ -66,6 +67,14 @@ func capture_shots(tool: Node, out: String) -> void:
 				await tool.call("wait_frames", 30)
 				tool.call("_shot", "%s_%s_close_%d.png" % [out, place, turn])
 			rig.turn_by(180.0)
+			rig.snap_to_target()
+			# --still=N: N frames of the close spot from where the camera stands, for a GIF of something that moves
+			# there (running water, a flame).
+			for i in int(_arg("still", "0")):
+				await tool.call("wait_frames", 3)
+				var img := get_viewport().get_texture().get_image()
+				img.resize(int(size[0]), int(size[1]), Image.INTERPOLATE_LANCZOS)
+				img.save_jpg("%s_%s_still_%03d.jpg" % [out, place, i], 0.85)
 			rig.follow = view.tokens.get(view.leader().id) as Node3D
 			rig.distance = 13.0
 		for i in orbit:
