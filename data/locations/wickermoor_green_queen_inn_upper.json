@@ -72,7 +72,21 @@
       ],
       "kind": "examine",
       "label": "A ledger of favours",
-      "model": "ledger"
+      "model": "ledger",
+      "text": "A ledger bound in green cloth, columns of names and favours owed, and beside many of them a small inked hare.",
+      "checks": [
+        {
+          "id": "alda_ledger",
+          "skill": "investigation",
+          "dc": 13,
+          "label": "Read the ledger's margins",
+          "success": {
+            "flag": "cult_proof_alda",
+            "text": "Beside the favours owed, in tiny neat inked hares, are the names of half the village, and one name is a queen's."
+          },
+          "failure": {}
+        }
+      ]
     },
     {
       "id": "green_queen_inn_upper_window",
@@ -82,7 +96,8 @@
       ],
       "kind": "examine",
       "label": "A window onto the Round",
-      "model": "window"
+      "model": "window",
+      "text": "From the window you see the whole Round, the oak a dark knot in its middle."
     }
   ],
   "npcs": [],

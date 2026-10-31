@@ -1,0 +1,166 @@
+{
+  "id": "fw_maze_j3",
+  "name": "The Third Clearing",
+  "region": "foxwillow",
+  "summary": "The Third Clearing, in Foxwillow.",
+  "text": "The inside of The Third Clearing.",
+  "map": {
+    "rows": [
+      "########################",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#....#............#....#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#..........##..........#",
+      "#......................#",
+      "#......................#",
+      "#....#............#....#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "########################"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Third Clearing",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          22,
+          16
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      11,
+      15
+    ],
+    "from_back": [
+      11,
+      15
+    ],
+    "from_dead": [
+      11,
+      14
+    ],
+    "from_onward": [
+      11,
+      15
+    ]
+  },
+  "exits": [
+    {
+      "id": "way_back",
+      "cell": [
+        11,
+        17
+      ],
+      "to": "fw_maze_j2",
+      "spawn": "from_onward",
+      "label": "Back the way you came"
+    },
+    {
+      "id": "mouth_left",
+      "cell": [
+        0,
+        8
+      ],
+      "to": "module_maze_left",
+      "spawn": "default",
+      "label": "The left mouth"
+    },
+    {
+      "id": "mouth_centre",
+      "cell": [
+        11,
+        0
+      ],
+      "to": "module_maze_centre",
+      "spawn": "default",
+      "label": "The centre mouth"
+    },
+    {
+      "id": "mouth_right",
+      "cell": [
+        23,
+        8
+      ],
+      "to": "module_maze_right",
+      "spawn": "default",
+      "label": "The right mouth"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_j3_call",
+      "cell": [
+        11,
+        8
+      ],
+      "kind": "decor",
+      "label": "The crows' calls",
+      "call": "foxwillow/maze:junction3",
+      "approach": 6,
+      "call_when": "not flag.fw_j3_seen"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "lost_soul",
+      "cell": [
+        6,
+        10
+      ],
+      "dialogue": "foxwillow/maze:lost_soul",
+      "when": "not flag.fw_lost_soul_saved"
+    }
+  ],
+  "rest": "risky",
+  "encounters": [
+    {
+      "id": "fw_maze_j3_fight",
+      "trigger": "dialogue",
+      "flag": "fw_maze_j3_done",
+      "monsters": [
+        {
+          "monster": "corvodaemon_split",
+          "cell": [
+            8,
+            6
+          ]
+        },
+        {
+          "monster": "corvodaemon_split",
+          "cell": [
+            14,
+            6
+          ]
+        },
+        {
+          "monster": "pumpkin_head",
+          "cell": [
+            11,
+            5
+          ],
+          "name": "A scarecrow from the town",
+          "facing": "south"
+        }
+      ]
+    }
+  ]
+}

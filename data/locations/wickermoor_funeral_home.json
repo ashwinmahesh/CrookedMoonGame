@@ -47,6 +47,10 @@
     "default": [
       9,
       13
+    ],
+    "from_basement": [
+      17,
+      1
     ]
   },
   "exits": [
@@ -59,6 +63,16 @@
       "to": "wickermoor_village",
       "spawn": "from_funeral_home",
       "label": "Out to the village"
+    },
+    {
+      "id": "basement_stair",
+      "cell": [
+        17,
+        2
+      ],
+      "to": "wickermoor_funeral_basement",
+      "spawn": "from_stair",
+      "label": "Down to the basement"
     }
   ],
   "props": [
@@ -70,7 +84,8 @@
       ],
       "kind": "examine",
       "label": "A row of coffins",
-      "model": "case"
+      "model": "case",
+      "text": "A row of coffins, their lids polished to a mirror shine, each fitted for someone not yet dead."
     },
     {
       "id": "funeral_home_lectern",
@@ -80,10 +95,32 @@
       ],
       "kind": "examine",
       "label": "A lectern",
-      "model": "book"
+      "model": "book",
+      "text": "A lectern with a book of the departed, open to a page that lists tonight's date and no name."
+    },
+    {
+      "id": "funeral_home_register",
+      "cell": [
+        13,
+        2
+      ],
+      "kind": "examine",
+      "label": "The undertaker's register",
+      "model": "book",
+      "when": "flag.gus_body_found and not flag.gus_solved",
+      "dialogue": "wickermoor/gus:mori"
     }
   ],
   "npcs": [
+    {
+      "npc": "mori_shade",
+      "cell": [
+        9,
+        6
+      ],
+      "dialogue": "wickermoor/connections:mori_rook_start",
+      "when": "name:rook_coldwake and flag.wm_welcomed and not flag.connection_pilgrimage"
+    },
     {
       "npc": "mori_shade",
       "cell": [

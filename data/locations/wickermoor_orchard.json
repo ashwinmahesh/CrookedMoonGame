@@ -1,0 +1,186 @@
+{
+  "id": "wickermoor_orchard",
+  "name": "Marl's Orchard",
+  "region": "wickermoor",
+  "summary": "An apple orchard east of the village, and a farmhouse with its shutters closed.",
+  "text": "Apple trees stand in loose groups round a farmhouse, their fruit too red and too many, and nothing in the whole orchard is humming.",
+  "map": {
+    "rows": [
+      "####################################",
+      "####################################",
+      "##................................##",
+      "##.........#............#######...##",
+      "##......................#######...##",
+      "##....#.......~..#..##..#######...##",
+      "##..................#...#######...##",
+      "##......................#######...##",
+      "##.............##.#.....#######...##",
+      "##........##...#..................##",
+      "##........#.......................##",
+      "..................................##",
+      "##....##..........................##",
+      "##....#...........................##",
+      "##................................##",
+      "##................................##",
+      "##................................##",
+      "##......~..#...................#..##",
+      "##................................##",
+      "##.......#....##.~.....##.........##",
+      "##.........##.#........#....#...#.##",
+      "##.........#......................##",
+      "####################################",
+      "####################################"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "orchard_yard",
+      "name": "The orchard yard",
+      "cells": [
+        [
+          20,
+          9
+        ],
+        [
+          31,
+          13
+        ]
+      ]
+    },
+    {
+      "id": "orchard_trees",
+      "name": "The apple trees",
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          33,
+          21
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      3,
+      11
+    ],
+    "from_village": [
+      3,
+      11
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_village",
+      "cell": [
+        0,
+        11
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_orchard",
+      "label": "Back to Wickermoor"
+    }
+  ],
+  "props": [
+    {
+      "id": "orchard_apple_tree",
+      "cell": [
+        21,
+        12
+      ],
+      "kind": "examine",
+      "label": "A heavy apple tree",
+      "model": "tree_marked",
+      "call": "wickermoor/bad_seed:cured",
+      "approach": 6,
+      "call_when": "flag.seed_fought and not flag.seed_done"
+    },
+    {
+      "id": "orchard_farmhouse",
+      "cell": [
+        27,
+        9
+      ],
+      "kind": "examine",
+      "label": "Marl's farmhouse"
+    },
+    {
+      "id": "orchard_cart",
+      "cell": [
+        19,
+        10
+      ],
+      "kind": "examine",
+      "label": "A cart of red apples",
+      "model": "cart"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "cecil_marl",
+      "cell": [
+        25,
+        11
+      ],
+      "dialogue": "wickermoor/bad_seed:cecil",
+      "when": "not flag.seed_fought"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "wm_bad_seed",
+      "trigger": "dialogue",
+      "flag": "seed_fought",
+      "quest": {
+        "id": "bad_seed",
+        "stage": "orchard"
+      },
+      "monsters": [
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            26,
+            11
+          ],
+          "name": "Cecil Marl"
+        },
+        {
+          "monster": "quasit",
+          "cell": [
+            24,
+            13
+          ],
+          "name": "A quasit"
+        },
+        {
+          "monster": "quasit",
+          "cell": [
+            29,
+            12
+          ],
+          "name": "A quasit"
+        }
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        25,
+        12
+      ],
+      "kind": "lamp",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ],
+  "rest": "risky",
+  "rest_text": "No one sleeps well among the apples."
+}

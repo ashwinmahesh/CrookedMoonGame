@@ -1,0 +1,149 @@
+{
+  "id": "fw_maze_j1",
+  "name": "The First Clearing",
+  "region": "foxwillow",
+  "summary": "The First Clearing, in Foxwillow.",
+  "text": "The inside of The First Clearing.",
+  "map": {
+    "rows": [
+      "########################",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#....#............#....#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#..........##..........#",
+      "#......................#",
+      "#......................#",
+      "#....#............#....#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "########################"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The First Clearing",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          22,
+          16
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      11,
+      15
+    ],
+    "from_back": [
+      11,
+      15
+    ],
+    "from_dead": [
+      11,
+      14
+    ],
+    "from_onward": [
+      11,
+      15
+    ]
+  },
+  "exits": [
+    {
+      "id": "way_back",
+      "cell": [
+        11,
+        17
+      ],
+      "to": "foxwillow",
+      "spawn": "from_corn",
+      "label": "Back the way you came"
+    },
+    {
+      "id": "mouth_left",
+      "cell": [
+        0,
+        8
+      ],
+      "to": "module_maze_left",
+      "spawn": "default",
+      "label": "The left mouth"
+    },
+    {
+      "id": "mouth_centre",
+      "cell": [
+        11,
+        0
+      ],
+      "to": "module_maze_centre",
+      "spawn": "default",
+      "label": "The centre mouth"
+    },
+    {
+      "id": "mouth_right",
+      "cell": [
+        23,
+        8
+      ],
+      "to": "module_maze_right",
+      "spawn": "default",
+      "label": "The right mouth"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_j1_call",
+      "cell": [
+        11,
+        8
+      ],
+      "kind": "decor",
+      "label": "The crows' calls",
+      "call": "foxwillow/maze:junction1",
+      "approach": 6,
+      "call_when": "not flag.fw_j1_seen"
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "encounters": [
+    {
+      "id": "fw_maze_j1_fight",
+      "trigger": "dialogue",
+      "flag": "fw_maze_j1_done",
+      "monsters": [
+        {
+          "monster": "corvodaemon_split",
+          "cell": [
+            8,
+            6
+          ],
+          "name": "A crow knotted into a shape"
+        },
+        {
+          "monster": "corvodaemon_split",
+          "cell": [
+            14,
+            6
+          ],
+          "name": "A crow knotted into a shape"
+        }
+      ]
+    }
+  ]
+}

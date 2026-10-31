@@ -1,0 +1,31 @@
+# Drafted by Gemini (R13 hook), edited.
+
+~ jeremiah_start
+Narrator: A lean tenant farmer stands beside Jeremiah in the muddy Round, turning a worn felt hat between his calloused hands.
+jeremiah_stover [angry]: Four coppers for a blighted tuber, and now the east farms are going dark altogether. You four have strong backs and sharp iron, and William here needs both.
+william_lodge [weary]: I would not ask strangers if we had anyone left to ask, friends. Foxwillow is coming undone before our eyes.
+* What is happening out in Foxwillow? -> william_plea
+* What does the farmers union pay for the work? -> reward
+* We will ride out with you now. -> ride_out
+* Give us a little time to prepare first. -> not_yet
+
+~ william_plea
+william_lodge [afraid]: First the blight took our herds and barley, and then the straw men climbed down off their poles. They walk the lanes wearing carved pumpkins and our own neighbors' coats.
+william_lodge [sad]: Folk hear old Jericho's banjo playing deep in the dry corn, and they walk in and never come back out. Now the whole town is setting fires and fighting in the dirt.
+-> jeremiah_start
+
+~ reward
+jeremiah_stover [weary]: The growers union scraped together fifty gold pieces for each of you out of the winter chest. Bring the Foxwillow folk through this alive, and Lord Phillip may well match the purse.
+-> jeremiah_start
+
+~ ride_out
+set foxwillow_asked
+quest fields_of_the_crow asked
+join william_lodge
+william_lodge [neutral]: Bless you for it. Keep your lanterns trimmed and your ears shut to whatever sings from the stalks.
+Narrator: William's mud-spattered cart waits by the eastern boundary stones, the old mare stamping in the cold mist.
+-> END
+
+~ not_yet
+jeremiah_stover [weary]: Do not tarry long by the fireside. Dry straw burns fast once the spark catches.
+-> END

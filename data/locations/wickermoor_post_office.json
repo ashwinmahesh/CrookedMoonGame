@@ -68,17 +68,32 @@
       ],
       "kind": "examine",
       "label": "Pigeonholes and parcels",
-      "model": "shelves"
+      "model": "shelves",
+      "text": "Pigeonholes crammed with parcels and letters, some of which have been opened and sealed again.",
+      "checks": [
+        {
+          "id": "theodora_seals",
+          "skill": "investigation",
+          "dc": 14,
+          "label": "Compare a letter with its seal",
+          "success": {
+            "flag": "cult_proof_theodora",
+            "text": "The wax is a different colour from the letter's own, and the hand inside is not the sender's."
+          },
+          "failure": {}
+        }
+      ]
     },
     {
       "id": "post_office_rafters",
       "cell": [
-        13,
-        2
+        12,
+        1
       ],
       "kind": "examine",
       "label": "The rafters",
-      "model": "crow"
+      "model": "crow",
+      "text": "Up among the rafters a pigeon watches you with an eye that is a little too thoughtful."
     }
   ],
   "npcs": [

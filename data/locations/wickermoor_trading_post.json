@@ -47,6 +47,10 @@
     "default": [
       10,
       13
+    ],
+    "from_cellar": [
+      19,
+      1
     ]
   },
   "exits": [
@@ -59,6 +63,16 @@
       "to": "wickermoor_village",
       "spawn": "from_trading_post",
       "label": "Out to the village"
+    },
+    {
+      "id": "cellar",
+      "cell": [
+        19,
+        2
+      ],
+      "to": "wickermoor_trading_cellar",
+      "spawn": "from_stair",
+      "label": "The stair down"
     }
   ],
   "props": [
@@ -70,7 +84,8 @@
       ],
       "kind": "examine",
       "label": "Shelves of staples",
-      "model": "shelves"
+      "model": "shelves",
+      "text": "Shelves of staples with their prices chalked on tags, and a ledger of what the post has been asked to find."
     },
     {
       "id": "trading_post_oddities",
@@ -80,7 +95,8 @@
       ],
       "kind": "examine",
       "label": "A cabinet of oddities",
-      "model": "case"
+      "model": "case",
+      "text": "A glass cabinet of oddities from far valleys: a bird's skull in amber, a key with no lock, a coin with two heads."
     },
     {
       "id": "trading_post_counter",
@@ -90,7 +106,21 @@
       ],
       "kind": "examine",
       "label": "The counter",
-      "model": "table_round"
+      "model": "table_round",
+      "text": "The counter is spotless. Not a ring, not a crumb, and not a fingerprint on the brass scale.",
+      "checks": [
+        {
+          "id": "baltus_pipes",
+          "skill": "investigation",
+          "dc": 13,
+          "label": "Study his pipe rack",
+          "success": {
+            "flag": "cult_proof_baltus",
+            "text": "Every pipe on the rack is carved with a hare, and each hare wears a small crown of antlers."
+          },
+          "failure": {}
+        }
+      ]
     }
   ],
   "npcs": [
@@ -100,7 +130,20 @@
         10,
         10
       ],
-      "dialogue": "wickermoor/baltus_tolliver:start"
+      "dialogue": "wickermoor/connections_custom:baltus_start",
+      "when": "background:ghostlight_passenger and flag.wm_welcomed and not flag.connection_deliverance"
+    },
+    {
+      "npc": "baltus_tolliver",
+      "cell": [
+        10,
+        10
+      ],
+      "dialogue": "wickermoor/baltus_tolliver:start",
+      "hours": [
+        7,
+        19
+      ]
     },
     {
       "npc": "wilma_wainwright",

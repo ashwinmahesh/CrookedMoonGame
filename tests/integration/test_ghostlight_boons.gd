@@ -1,7 +1,9 @@
 extends TestCase
 ## The Ghostlight Express's gifts to the heroes and the locomotive's retry (audit note section C, items 1 to 3):
 ## Bless for an hour from Adela's reading, 1d6 for every hero for each haint freed, and the immediate retry after a wipe at the
-## Ghostlight Locomotive.
+## Ghostlight Locomotive. The engine tells the campaign module when each moment comes (CampaignModule.reading_finished, once the last
+## card is turned, and quest_finished, which pays the haint's heal and adds what it says to the journal's notice), so nothing here
+## connects a signal by hand.
 
 const GAME := preload("res://world/game_root.gd")
 const LOC := "ghostlight_wreckage"
@@ -83,8 +85,45 @@ func test_a_dead_hero_is_not_blessed_and_a_second_reading_blesses_no_one_again()
 	assert_true(_blessed(st.party[0]))
 	assert_false(_blessed(st.party[1]), "the dead take no part")
 	st.advance_minutes(61)
-	Campaign.module().reading("hero_1", st)
+	Campaign.module().reading_finished(st)
 	assert_false(_blessed(st.party[0]), "a finished reading blesses no one again")
+
+
+func test_the_blessing_starts_when_the_last_card_is_turned_not_at_the_first() -> void:
+	Campaign.module().ensure_drawn(st)
+	var slots: Array = st.tarokka.keys()
+	for slot: Variant in slots:
+		var card := Campaign.module().reading(str(slot), st)
+		assert_false(card.is_empty(), "%s's card is turned" % slot)
+	for ch in st.party:
+		assert_false(_blessed(ch), "turning cards blesses no one: %s" % ch.name)
+	Campaign.module().reading_finished(st)
+	for ch in st.party:
+		assert_true(_blessed(ch), "the finished reading blesses %s" % ch.name)
+
+
+func test_in_the_real_conversation_only_the_last_card_starts_the_blessing() -> void:
+	var r := DialogueRunner.new(st, Dice.roller)
+	assert_true(r.start("ghostlight_express/adela_reading:offer"))
+	var b := r.next()
+	var cards := 0
+	for i in 400:
+		if str(b["kind"]) == "end" or bool(st.get_flag("tarot_full_reading", false)):
+			break
+		if str(b["kind"]) == "options":
+			var opts := b["options"] as Array
+			var pick := 0
+			for j in opts.size():
+				if str((opts[j] as Dictionary)["text"]).contains("deal the cards"):
+					pick = j
+			b = r.choose(pick)
+		else:
+			b = r.next()
+		if b.has("card"):   # a card has just been turned (the beat that shows it)
+			cards += 1
+			for ch in st.party:
+				assert_eq(_blessed(ch), cards == st.tarokka.size(), "%s after card %d of %d" % [ch.name, cards, st.tarokka.size()])
+	assert_eq(cards, st.tarokka.size(), "every card was turned")
 
 
 # --- A haint freed ----------------------------------------------------------------------------------------------
@@ -95,8 +134,6 @@ func _quest(id: String, stage: String) -> void:
 
 
 func test_a_freed_haint_heals_every_hero_and_the_overflow_is_temporary_hit_points() -> void:
-	var told: Array[String] = []
-	GhostlightBoons.watch(st, Dice.roller, func(t: String) -> void: told.append(t))
 	var hurt := st.party[0]
 	var full := st.party[1]
 	var gone := st.party[2]
@@ -110,15 +147,16 @@ func test_a_freed_haint_heals_every_hero_and_the_overflow_is_temporary_hit_point
 	assert_eq(full.temp_hp, amount, "a hero at full health gets all of it as Temporary Hit Points")
 	assert_eq(gone.hp, 0, "the dead are not healed")
 	assert_eq(gone.temp_hp, 0)
-	assert_eq(told.size(), 1, "the player is told once")
+	assert_true(st.quest_notice().contains("The freed haint heals each hero %d" % amount), "the journal's notice tells the player: %s" % st.quest_notice())
+	assert_true(st.quest_notice().begins_with("Quest complete"), "after the quest's own notice: %s" % st.quest_notice())
 
 
 func test_each_way_of_freeing_pays_once_and_bottling_or_destroying_pays_nothing() -> void:
-	GhostlightBoons.watch(st, Dice.roller)
 	var ilse := st.party[0]
 	_quest("haint_sweetheart", "bottled")
 	_quest("haint_harlequin", "destroyed")
 	assert_eq(ilse.temp_hp, 0, "a bottled haint and a destroyed one heal no one")
+	assert_false(st.quest_notice().contains("heals"), "and say nothing of it")
 	_quest("haint_songstress", "helped")
 	var after_one := ilse.temp_hp
 	assert_true(after_one >= 1, "talked round: healed")
@@ -130,7 +168,6 @@ func test_each_way_of_freeing_pays_once_and_bottling_or_destroying_pays_nothing(
 
 
 func test_the_freeing_dialogue_heals_through_the_real_quest_stage() -> void:
-	GhostlightBoons.watch(st, Dice.roller)
 	st.party[0].hp = 1
 	var r := DialogueRunner.new(st, Dice.roller)
 	assert_true(r.start("ghostlight_express/haint_songstress:token_freed"))
@@ -182,3 +219,19 @@ func test_any_other_wipe_is_still_a_game_over() -> void:
 	assert_false(GhostlightRetry.applies({"id": "gl_stoker"}))
 	assert_true(GhostlightRetry.applies({"id": "gl_locomotive"}))
 	assert_true(GhostlightRetry.applies({"id": "gl_locomotive_edge"}))
+
+
+func test_the_heal_is_rolled_from_the_playthrough_so_a_reload_rolls_the_same() -> void:
+	_quest("haint_daydreamer", "token")
+	var first := st.party[0].temp_hp
+	assert_true(first >= 1 and first <= 6)
+	GameState.reset()
+	st = GameState.story
+	for id: String in GAME.NEW_GAME_PARTY:
+		var ch := Pregens.build(id, 1)
+		ch.finish_long_rest()
+		st.party.append(ch)
+	st.playthrough_seed = 4242
+	Dice.reseed(99)   # the table's dice differ; the haint's roll does not read them
+	_quest("haint_daydreamer", "token")
+	assert_eq(st.party[0].temp_hp, first, "the same playthrough, the same roll")

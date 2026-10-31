@@ -1,0 +1,97 @@
+{
+  "id": "fw_butcher",
+  "name": "The Butcher's",
+  "region": "foxwillow",
+  "summary": "The Butcher's, in Foxwillow.",
+  "text": "The inside of The Butcher's.",
+  "map": {
+    "rows": [
+      "################",
+      "#..............#",
+      "#.============.#",
+      "#..............#",
+      "#..............#",
+      "#..............#",
+      "#..==......==..#",
+      "#..............#",
+      "#..............#",
+      "#..............#",
+      "#..............#",
+      "################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Butcher's",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          14,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      8,
+      10
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        8,
+        11
+      ],
+      "to": "foxwillow",
+      "spawn": "from_fw_butcher",
+      "label": "Out to the town"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_butcher_circle",
+      "cell": [
+        8,
+        8
+      ],
+      "kind": "examine",
+      "label": "A hex circle drawn in red chalk",
+      "model": "rags",
+      "dialogue": "foxwillow/townsfolk:butcher_circle"
+    },
+    {
+      "id": "fw_butcher_block",
+      "cell": [
+        4,
+        4
+      ],
+      "kind": "examine",
+      "label": "The chopping block",
+      "model": "table_round"
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

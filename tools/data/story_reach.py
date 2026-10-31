@@ -359,7 +359,13 @@ class Story:
                     sq = ex.get("sets_quest")
                     if sq and (not sq.get("from") or set(sq["from"]) & set(self.stages.get(sq["id"], []))):   # the exit moves a quest on (location.schema exits)
                         self.changed |= self.add(("quest", sq["id"], sq["stage"]), f"{w} exit {ex['id']}")
-                    if ex["to"].startswith("module_"):   # the module picks the place: any car of data/switcheroo.json may be next
+                    if ex["to"].startswith("module_maze_"):   # Raum's maze: any of its places may be next (data/maze.json)
+                        mz = json.loads((self.root / "data" / "maze.json").read_text())
+                        for car in [*mz["junctions"], *mz["dead"], mz["circle"]]:
+                            self.changed |= self.add(("loc", car), f"{w} exit {ex['id']} (maze)")
+                            for sp in self.locs.get(car, {}).get("spawns", {}):
+                                self.changed |= self.add(("spawn", car, sp), w)
+                    elif ex["to"].startswith("module_"):   # the module picks the place: any car of data/switcheroo.json may be next
                         sw = json.loads((self.root / "data" / "switcheroo.json").read_text())
                         for car in [sw["rear"], *sw["middle"], sw["last"], *([sw["limbo"]] if sw.get("limbo") else [])]:   # the mist between cars too
                             self.changed |= self.add(("loc", car), f"{w} exit {ex['id']} (module)")

@@ -57,7 +57,41 @@
       "label": "Out to the village"
     }
   ],
-  "props": [],
+  "props": [
+    {
+      "id": "shop_tailor_bolts",
+      "cell": [
+        3,
+        2
+      ],
+      "kind": "examine",
+      "label": "Bolts of cloth",
+      "model": "rags",
+      "text": "Bolts of cloth in colours no one in Wickermoor will wear: peacock green, plum, a yellow like lamplight."
+    },
+    {
+      "id": "shop_tailor_form",
+      "cell": [
+        9,
+        2
+      ],
+      "kind": "examine",
+      "label": "A dress form",
+      "model": "statue_headless",
+      "text": "A dress form wearing something wonderful, pinned and half-finished, that nobody has bought."
+    },
+    {
+      "id": "shop_tailor_treadle",
+      "cell": [
+        4,
+        9
+      ],
+      "kind": "examine",
+      "label": "A treadle sewing table",
+      "model": "table_round",
+      "text": "A treadle table with a seam half-run, and a thimble on the needle as if the sewer had only stepped out."
+    }
+  ],
   "npcs": [
     {
       "npc": "thomasin_ardor",
@@ -65,7 +99,20 @@
         6,
         5
       ],
-      "dialogue": "wickermoor/thomasin_ardor:start"
+      "dialogue": "wickermoor/connections:thomasin_cordelia_start",
+      "when": "name:cordelia_skein and flag.incitement_evolution and flag.wm_welcomed and not flag.connection_evolution"
+    },
+    {
+      "npc": "thomasin_ardor",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/thomasin_ardor:start",
+      "hours": [
+        7,
+        19
+      ]
     }
   ],
   "rest": "risky",

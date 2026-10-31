@@ -1,0 +1,99 @@
+{
+  "id": "fw_hall",
+  "name": "The Town Hall",
+  "region": "foxwillow",
+  "summary": "The Town Hall, in Foxwillow.",
+  "text": "The inside of The Town Hall.",
+  "map": {
+    "rows": [
+      "####################",
+      "#..................#",
+      "#.================.#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#...==........==...#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "####################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Town Hall",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          18,
+          12
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      10,
+      12
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        10,
+        13
+      ],
+      "to": "foxwillow",
+      "spawn": "from_fw_hall",
+      "label": "Out to the town"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_hall_notices",
+      "cell": [
+        10,
+        1
+      ],
+      "kind": "examine",
+      "label": "The town hall's notice board",
+      "model": "notice_board",
+      "dialogue": "foxwillow/townsfolk:hall_notice"
+    },
+    {
+      "id": "fw_hall_chairs",
+      "cell": [
+        6,
+        8
+      ],
+      "kind": "examine",
+      "label": "Council chairs",
+      "model": "chairs"
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}
