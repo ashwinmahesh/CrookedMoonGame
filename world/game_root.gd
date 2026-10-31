@@ -72,7 +72,6 @@ func _ready() -> void:
 	add_child(hud)
 	hud.build(st)
 	st.xp_gained.connect(hud.toast)   # XP levelling: a quest finished, a place found, a milestone (story/xp.gd)
-	GhostlightBoons.watch(st, Dice.roller, hud.toast)   # a haint freed heals the party (story/ghostlight_boons.gd)
 	D20Die.warm.call_deferred(hud)   # the big d20's shader and numerals, ready before its first roll
 	hud.leader_picked.connect(func(i: int) -> void:
 		if view != null:
@@ -886,9 +885,18 @@ func _open_loot(container_id: String, items: Array, gold: float) -> void:
 	loot.show_loot(st, container_id, items, gold, view)
 
 
+## The sting a fight's end plays: "defeat" for a wipe, nothing for a fight that ended with no winner (`ends_when`: a sleeper going
+## back to sleep, outcome "ended"), "victory" otherwise.
+static func sting_for(outcome: String) -> String:
+	if outcome == "ended":
+		return ""
+	return "defeat" if outcome == "defeat" else "victory"
+
+
 func _after_combat(outcome: String) -> void:
 	LayerFade.fade(self, hud, true, 0.45, 0.2)   # as the combat HUD fades out
-	Audio.sting("defeat" if outcome == "defeat" else "victory")
+	if sting_for(outcome) != "":
+		Audio.sting(sting_for(outcome))
 	Audio.play_music(_place_mood())
 	# A wipe in a final battle is no load screen, and a fight that destroys the villain is the last.
 	if Endings.after_fight(st, view.last_encounter, outcome) != "":
