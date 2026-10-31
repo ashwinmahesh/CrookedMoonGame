@@ -35,7 +35,15 @@ RE_JUMP = re.compile(r"^->\s*([A-Za-z0-9_:/]+|END)$")
 RE_SET = re.compile(rf"^set\s+({ID})(?:\s*(=|\+=|-=)\s*(.+))?$")
 RE_QUEST = re.compile(rf"^quest\s+({ID})\s+({ID})$")
 RE_GIVE = re.compile(rf"^(give|take)\s+({ID})(?:\s+(\d+))?(?:\s+to\s+([a-z]+:[a-z0-9_]+))?$")
-RE_GOLD = re.compile(r"^gold\s+([+-]\d+)$")
+RE_GOLD = re.compile(r"^gold\s+([+-]\d+)(\s+each)?$")   # `gold +5 each`: that much for every hero who isn't dead
+# The engine's story hooks that heal, shield, bless and cheer (docs/reference/contracts/dialogue.md): the speaking hero, or `party`.
+# `heal <dice> [party] [temp]` (the part past the maximum becomes Temporary Hit Points), `temp_hp <dice> [party]`,
+# `bless [party] [<n>m|<n>h]` (Bless from the story for an hour unless it says), `inspiration [party]`; each word at most once.
+RE_DICE = r"(?:\d*d\d+(?:[+-]\d+)?|\d+)"
+RE_HEAL = re.compile(rf"^heal\s+{RE_DICE}(?:\s+(?:party|temp)){{0,2}}$")
+RE_TEMP_HP = re.compile(rf"^temp_hp\s+{RE_DICE}(?:\s+party)?$")
+RE_BLESS = re.compile(r"^bless(?:\s+party)?(?:\s+[1-9]\d*[mh])?$")
+RE_INSPIRATION = re.compile(r"^inspiration(?:\s+party)?$")
 RE_ATT = re.compile(rf"^attitude\s+({ID})\s+(hostile|indifferent|friendly)$")
 RE_CHECK = re.compile(r"^check\s+([A-Za-z][A-Za-z ]*?)\s+DC\s+(\d+)\s*->\s*([A-Za-z0-9_:/]+|END)(?:\s*\|\s*([A-Za-z0-9_:/]+|END))?$")
 RE_INTERJECT = re.compile(r"^interject\s+([a-z]+:[a-z0-9_]+):\s+(.+)$")
@@ -307,6 +315,13 @@ def parse_file(path):
         m = RE_DARK_GIFT.match(line)
         if m:
             out.setdefault("dark_gifts", []).append((m.group(1), where))
+            continue
+        if line.split(" ")[0] in ("heal", "temp_hp", "bless", "inspiration"):
+            ok = (RE_HEAL.match(line) and len(set(line.split(" ")[2:])) == len(line.split(" ")[2:])) or RE_TEMP_HP.match(line) \
+                or RE_BLESS.match(line) or RE_INSPIRATION.match(line)
+            if not ok:
+                out["errors"].append(f"{where}: can't read this line (heal <dice> [party] [temp], temp_hp <dice> [party], bless [party] [30m|2h], "
+                                     f"inspiration [party]): {line}")
             continue
         if RE_GOLD.match(line) or RE_XP.match(line) or RE_SACRIFICE.match(line) or RE_READING.match(line) or RE_SHOP.match(line) or RE_TIME.match(line):
             continue
