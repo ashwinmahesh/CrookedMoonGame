@@ -116,6 +116,30 @@ for _n in ("baltus_tolliver", "jean_myriel", "oswick_frey", "thomasin_ardor", "s
     HOURS[_n] = [7, 19]
 
 
+# The Connections (Fateweaving): a second entry for the villager that holds while its scene is due; it comes first, so it wins over the usual one.
+# Companion Connections follow Lane F's drafts (Companions/*.md): the companion in the party, their Incitement done, the Crooked House's witch dead.
+# TODO(R12 lands): the book wants these after the Crooked House (vessla_slain); until that flag exists a Connection is open once the party is welcomed.
+_HAUNT = "flag.wm_welcomed and not flag.connection_%s"
+CONNECTIONS = [   # (npc, where, cell, scene node, thread, when)
+    ("thomasin_ardor", "wickermoor_shop_tailor", (6, 5), "thomasin_cordelia_start", "evolution", "name:cordelia_skein and flag.incitement_evolution and "),
+    ("alda_farnum", "wickermoor_green_queen_inn", (15, 9), "alda_delphine_start", "ascendancy", "name:delphine_ravelle and flag.incitement_ascendancy and "),
+    ("hilda_brom", "town", (48, 28), "hilda_lucan_start", "slaughter", "name:lucan_houndstooth and "),
+    ("mori_shade", "wickermoor_funeral_home", (9, 6), "mori_rook_start", "pilgrimage", "name:rook_coldwake and "),
+    ("holly_aster", "wickermoor_shop_bakery", (6, 5), "holly_silas_start", "liberation", "name:silas_vane and flag.incitement_liberation and "),
+    ("sister_rain", "town", (33, 23), "rain_tobin_start", "rejuvenation", "name:tobin_hayward and "),
+]
+for _c in CONNECTIONS:
+    pass
+
+
+def connection_entries(where):
+    return [npc(n, cell, "connections:" + node, when=pre + _HAUNT % thread) for (n, w, cell, node, thread, pre) in CONNECTIONS if w == where]
+
+
+EXTRA_FLAGS = ["connection_evolution", "connection_ascendancy", "connection_slaughter", "connection_pilgrimage", "connection_liberation", "connection_rejuvenation",
+               "cordelia_waistcoat", "delphine_tether_noted", "liberation_holly_page_seen", "lucan_hilda_kin", "rook_mori_met"]
+
+
 def room_location(key, spec):
     rows = spec["rows"]
     w, h = len(rows[0]), len(rows)
@@ -319,7 +343,7 @@ def build_town():
         npc("marianna_grey", (23, 37), "marianna_grey:start"), npc("dani_jenkin", (15, 12), "children:dani"),
         npc("mayor_arrival", (36, 28), None) if False else None,
     ]
-    town["npcs"] = [n for n in town["npcs"] if n]
+    town["npcs"] = connection_entries("town") + [n for n in town["npcs"] if n]
     for pr in town["props"]:      # the scenes start from things that are really there: the well as the party comes in, the notice board once the Round is quiet
         if pr["id"] == "wm_well":
             pr.update(call=WM + "arrival:start", approach=12, call_when="not flag.wm_first_sacrifice_done and not flag.wm_welcomed")
@@ -415,6 +439,7 @@ FLAGS = [
 
 def build_flags():
     met = [{"id": f"{n[0]}_met", "type": "bool", "summary": f"The party has spoken with {n[1]}.", "read_later": True} for n in ADULTS] + [{"id": f"{e[0]}_met", "type": "bool", "summary": f"The party has met {e[1]}.", "read_later": True} for e in EXTRAS]
+    met += [{"id": f, "type": "bool", "summary": "Set by a Connection scene (Companions/ drafts); read by later beats.", "read_later": f != "connection_%s" % f.split("_")[-1]} for f in EXTRA_FLAGS]
     write("data/flags/wickermoor.json", {"flags": met + [{"id": i, "type": t, "summary": s, **({"read_later": True} if i in ("old_ways_offended", "phillip_uneasy_noticed", "goat_fate") else {})} for (i, t, s) in FLAGS]})
 
 
@@ -422,6 +447,7 @@ if __name__ == "__main__":
     town = build_town()
     rooms = build_rooms(town["map"]["rows"])
     for key, (spec, loc) in rooms.items():
+        loc["npcs"] += connection_entries(key)
         for (nid, cell, dlg) in INSIDE.get(key, []):
             loc["npcs"].append(npc(nid, cell, dlg, **({"hours": HOURS[nid]} if nid in HOURS else {})))
         dress(key, loc)
