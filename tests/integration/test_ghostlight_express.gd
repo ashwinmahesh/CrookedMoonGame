@@ -89,12 +89,88 @@ func test_the_cars_chain_front_to_back_in_an_order_the_seed_fixes() -> void:
 		seen[str(chain)] = true
 		st.playthrough_seed = seed_value
 		for i in chain.size() - 1:
+			st.visited = {chain[i + 1]: true}   # a car already been in: its doors are plain
 			assert_eq(module.exit_target(st, chain[i], "module_switcheroo_next"), chain[i + 1])
 			assert_eq(module.exit_target(st, chain[i + 1], "module_switcheroo_previous"), chain[i])
+		st.visited = {}
 	assert_true(seen.size() > 1, "different playthroughs shuffle the cars differently")
 	for id: String in CARS:
 		for e: Dictionary in _loc(id).get("exits", []):
 			assert_true(str(e["to"]).begins_with("module_switcheroo_"), "%s's doors are the module's" % id)
+
+
+## The mist between cars (E23): the first forward crossing into a car not yet visited goes through it and on into that car; later
+## crossings, and every way back, are plain doors. The query changes nothing (menus ask it for the door's label).
+func test_a_first_crossing_goes_through_the_mist_and_later_ones_do_not() -> void:
+	GameState.reset()
+	var module := Campaign.module() as CrookedMoonCampaign
+	var st := GameState.story
+	var limbo := CrookedMoonCampaign.limbo_place()
+	assert_eq(limbo, "ghostlight_limbo")
+	for seed_value: int in [1, 2, 3, 4, 5, 6, 7, 8]:
+		st.playthrough_seed = seed_value
+		var chain := CrookedMoonCampaign.switcheroo_chain(seed_value)
+		st.visited = {chain[0]: true}
+		for i in chain.size() - 1:
+			var before := st.visited.duplicate()
+			assert_eq(module.exit_target(st, chain[i], "module_switcheroo_next"), limbo, "the first way into %s is the mist" % chain[i + 1])
+			assert_eq(module.exit_target(st, chain[i], "module_switcheroo_next"), limbo, "asking twice changes nothing")
+			assert_eq(st.visited, before, "the query leaves the story alone")
+			st.visited[limbo] = true
+			assert_eq(module.exit_target(st, limbo, CrookedMoonCampaign.LIMBO_ONWARD), chain[i + 1], "the mist leads on to the next car not been in")
+			st.visited[chain[i + 1]] = true
+			assert_eq(module.exit_target(st, chain[i], "module_switcheroo_next"), chain[i + 1], "a second crossing is a plain door")
+			assert_eq(module.exit_target(st, chain[i + 1], "module_switcheroo_previous"), chain[i], "and so is the way back")
+	GameState.reset()
+
+
+func test_the_mist_is_a_closed_stretch_with_one_way_on() -> void:
+	var loc := _loc("ghostlight_limbo")
+	assert_true(not loc.is_empty(), "the mist is a place")
+	assert_eq(str(loc.get("region")), "ghostlight_express")
+	var exits := loc.get("exits", []) as Array
+	assert_eq(exits.size(), 1, "one way, and it is on")
+	var out := exits[0] as Dictionary
+	assert_eq(str(out["to"]), CrookedMoonCampaign.LIMBO_ONWARD)
+	assert_eq(str(out.get("when", "")), "", "nothing bars it")
+	var rows := (loc["map"] as Dictionary)["rows"] as Array
+	var start := _cell((loc["spawns"] as Dictionary)["from_rear"] as Array)
+	var reach := _reach(rows, start)
+	var door := _cell(out["cell"] as Array)
+	var near := false
+	for dx: int in [-1, 0, 1]:
+		for dy: int in [-1, 0, 1]:
+			near = near or reach.has(Vector2i(door.x + dx, door.y + dy))
+	assert_true(near, "the way on can be walked to")
+	for x: int in (rows[0] as String).length():
+		for y: int in rows.size():
+			if (x == 0 or y == 0 or x == (rows[0] as String).length() - 1 or y == rows.size() - 1) and not (x == door.x and y == door.y):
+				assert_true(not _walkable(rows, x, y), "the mist's edge is walled at %d,%d" % [x, y])
+	for id: String in CARS.slice(1):
+		assert_true(((_loc(id)["spawns"] as Dictionary)).has("from_rear"), "%s has the spawn the mist lets out at" % id)
+	var narrator := Narrator.new()
+	assert_true(narrator.has_trigger("enter:ghostlight_limbo"), "the Narrator speaks in the mist")
+	assert_true(narrator.has_trigger("switcheroo:arrive"), "and as the new car comes clear")
+
+
+## Coming out of the mist into a car plays the Narrator's `switcheroo:arrive`; coming into it from another car does not.
+func test_the_narrator_says_the_car_changed_only_when_coming_out_of_the_mist() -> void:
+	for from: String in [CrookedMoonCampaign.limbo_place(), "ghostlight_g1_passenger"]:
+		GameState.reset()
+		var st := GameState.story
+		for pid: String in GAME.PLACEHOLDER_PARTY:
+			st.party.append(Pregens.build(pid, 3))
+		st.location = from
+		var view := LocationView.create("ghostlight_g2_sleeper", st, Narrator.new(), Dice.roller, "from_rear")
+		var said: Array[String] = []
+		view.narration.connect(func(t: String) -> void: said.append(t))
+		add_child(view)
+		assert_eq(st.narrator.has("switcheroo:arrive"), from == CrookedMoonCampaign.limbo_place(), "the arrival line plays only out of the mist (from %s)" % from)
+		assert_true(st.visited.has("ghostlight_g2_sleeper"), "the car is recorded as visited")
+		assert_true(not said.is_empty(), "the car speaks")
+		view.queue_free()
+		await get_tree().process_frame
+	GameState.reset()
 
 
 const HAINTS := ["sweetheart", "songstress", "daydreamer", "mariner", "jailbird", "harlequin"]
