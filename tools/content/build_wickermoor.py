@@ -7,6 +7,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from wickermoor_interiors import ROOMS
 from wickermoor_people import ADULTS, CHILDREN, EXTRAS
+import wickermoor_subplots as sub
 
 ROOT = Path(__file__).resolve().parents[2]
 REGION = "wickermoor"
@@ -127,16 +128,27 @@ CONNECTIONS = [   # (npc, where, cell, scene node, thread, when)
     ("mori_shade", "wickermoor_funeral_home", (9, 6), "mori_rook_start", "pilgrimage", "name:rook_coldwake and "),
     ("holly_aster", "wickermoor_shop_bakery", (6, 5), "holly_silas_start", "liberation", "name:silas_vane and flag.incitement_liberation and "),
     ("sister_rain", "town", (33, 23), "rain_tobin_start", "rejuvenation", "name:tobin_hayward and "),
+    # the seven a custom hero meets, by background (narrative/wickermoor/connections_custom.dialogue)
+    ("morgan", "wickermoor_apothecary", (4, 8), "morgan_start", "apocalypse", "background:amnesiac and "),
+    ("baltus_tolliver", "wickermoor_trading_post", (10, 10), "baltus_start", "deliverance", "background:ghostlight_passenger and "),
+    ("finneas_trout", "wickermoor_schoolhouse", (7, 2), "finneas_start", "duality", "background:reflected_wanderer and "),
+    ("jean_myriel", "wickermoor_shop_smithy", (6, 5), "jean_start", "immortality", "background:crimson_aspirant and "),
+    ("solomon_roderick", "wickermoor_shop_masonry", (6, 5), "solomon_start", "kindred", "background:cultist and "),
+    ("eleanor_heyling", "wickermoor_bookstore", (6, 5), "eleanor_start", "malediction", "background:scholar_of_the_forbidden and "),
+    ("weston_murdoch", "town", (7, 30), "weston_start", "rapture", "background:druskenvald_dweller and "),
 ]
 for _c in CONNECTIONS:
     pass
 
 
+CUSTOM_NODES = {"morgan_start", "baltus_start", "finneas_start", "jean_start", "solomon_start", "eleanor_start", "weston_start"}
+
+
 def connection_entries(where):
-    return [npc(n, cell, "connections:" + node, when=pre + _HAUNT % thread) for (n, w, cell, node, thread, pre) in CONNECTIONS if w == where]
+    return [npc(n, cell, ("connections_custom:" if node in CUSTOM_NODES else "connections:") + node, when=pre + _HAUNT % thread) for (n, w, cell, node, thread, pre) in CONNECTIONS if w == where]
 
 
-EXTRA_FLAGS = ["connection_evolution", "connection_ascendancy", "connection_slaughter", "connection_pilgrimage", "connection_liberation", "connection_rejuvenation",
+EXTRA_FLAGS = ["connection_apocalypse", "connection_deliverance", "connection_duality", "connection_immortality", "connection_kindred", "connection_malediction", "connection_rapture", "connection_evolution", "connection_ascendancy", "connection_slaughter", "connection_pilgrimage", "connection_liberation", "connection_rejuvenation",
                "cordelia_waistcoat", "delphine_tether_noted", "liberation_holly_page_seen", "lucan_hilda_kin", "rook_mori_met"]
 
 
@@ -218,6 +230,13 @@ DRESS = {
     "wickermoor_post_office": [("pigeonholes", (4, 4), "Pigeonholes and parcels", "shelves"), ("rafters", (12, 1), "The rafters", "crow")],
     "wickermoor_dovecote": [("coops", (3, 3), "Stacked coops", "cage"), ("perches", (8, 3), "Perches thick with feathers", "crow")],
     "wickermoor_funeral_home": [("coffins", (4, 2), "A row of coffins", "case"), ("lectern", (12, 2), "A lectern", "book")],
+    "wickermoor_shop_bakery": [("oven", (3, 2), "The bread oven", "hearth"), ("racks", (9, 2), "Cooling racks", "shelves"), ("flour", (4, 9), "Sacks of flour", "rags")],
+    "wickermoor_shop_tailor": [("bolts", (3, 2), "Bolts of cloth", "rags"), ("form", (9, 2), "A dress form", "statue_headless"), ("treadle", (4, 9), "A treadle sewing table", "table_round")],
+    "wickermoor_shop_smithy": [("forge", (3, 2), "The forge", "hearth"), ("anvil", (9, 2), "The anvil", "case"), ("trough", (4, 9), "The quench trough", "barrel")],
+    "wickermoor_shop_wickery": [("candles", (3, 2), "Candles in bunches", "lamp"), ("vat", (9, 2), "A tallow vat", "barrel"), ("wicks", (4, 9), "Wicks and wax", "rope")],
+    "wickermoor_shop_butcher": [("block", (3, 2), "The chopping block", "table_round"), ("hooks", (9, 2), "Hanging carcasses", "rope"), ("pens", (4, 9), "The pens' gate", "gate")],
+    "wickermoor_shop_masonry": [("stones", (3, 2), "Dressed stones", "rocks"), ("chisels", (9, 2), "Chisels and mallets", "case"), ("slabs", (4, 9), "Gravestones waiting for names", "grave")],
+    "wickermoor_shop_carpentry": [("logs", (3, 2), "Stacked logs", "rocks"), ("saws", (9, 2), "Saws on their pegs", "rope"), ("wagon", (4, 9), "A half-built wagon", "cart")],
     "wickermoor_bookstore": [("stacks", (3, 2), "Narrow aisles of books", "bookcase"), ("ladder", (10, 4), "A rolling ladder", "bookcase"), ("writing", (4, 9), "A table of pens and paper", "table_round")],
 }
 
@@ -225,6 +244,27 @@ DRESS = {
 
 # what each room's thing says when it is looked at (our words; a prop with no Narrator line shows this)
 TEXT = {
+    "shop_bakery_oven": "The oven's mouth glows orange and the room smells of caraway and burnt sugar.",
+    "shop_bakery_racks": "Cooling racks lined with loaves, each scored with a little hare.",
+    "shop_bakery_flour": "Sacks of flour with a fine white drift on the floor around them, and one set of small footprints in it.",
+    "shop_tailor_bolts": "Bolts of cloth in colours no one in Wickermoor will wear: peacock green, plum, a yellow like lamplight.",
+    "shop_tailor_form": "A dress form wearing something wonderful, pinned and half-finished, that nobody has bought.",
+    "shop_tailor_treadle": "A treadle table with a seam half-run, and a thimble on the needle as if the sewer had only stepped out.",
+    "shop_smithy_forge": "The forge is banked but not cold, and the bellows breathe a little when you pass.",
+    "shop_smithy_anvil": "A scarred anvil with a half-shaped blade on it, its edge folded red and dark like a wound.",
+    "shop_smithy_trough": "The quench trough is black and still and smells of iron and old blood.",
+    "shop_wickery_candles": "Candles hang in bunches like pale fruit, from stubs to tapers as tall as a child.",
+    "shop_wickery_vat": "A tallow vat holds a grey skin of fat that trembles when the door shuts.",
+    "shop_wickery_wicks": "Spools of wick and blocks of wax, and a ramp of planks where a wheeled chair has worn a groove.",
+    "shop_butcher_block": "The chopping block is scored and scrubbed, and a prayer is carved into its side in a plain hand.",
+    "shop_butcher_hooks": "A carcass swings on its hook in a draught from the pens, and the draught smells of animals.",
+    "shop_butcher_pens": "The gate to the pens is latched with a bit of green ribbon, as a kindness to whoever waits beyond.",
+    "shop_masonry_stones": "Dressed stones stacked square, each marked with the quarry's cross.",
+    "shop_masonry_chisels": "Chisels and mallets laid in order of size beside a small chalk-dusted pinafore.",
+    "shop_masonry_slabs": "Gravestones waiting for names, one of them already cut with a small hare and no letters.",
+    "shop_carpentry_logs": "Stacked logs, sweet with sawn pine, and four small stools made from offcuts.",
+    "shop_carpentry_saws": "Saws on their pegs, each with a name painted on its handle and a note of music chalked beside it.",
+    "shop_carpentry_wagon": "A half-built wagon, its spokes laid out like the ribs of something very large.",
     "green_queen_inn_bar": "The bar is a single plank of black oak, its edge worn pale where a hundred years of elbows have rested.",
     "green_queen_inn_hearth": "A fire of split oak burns low in the taproom hearth, and the stone above it is blackened to the beams.",
     "green_queen_inn_stage": "A little stage of scrubbed planks, its curtain drawn back on a painted forest that has been touched up often.",
@@ -349,6 +389,7 @@ def build_town():
             pr.update(call=WM + "arrival:start", approach=12, call_when="not flag.wm_first_sacrifice_done and not flag.wm_welcomed")
         if pr["id"] == "wm_notice_board":
             pr.update(call=WM + "mayor_welcome:start", approach=12, call_when="flag.wm_first_sacrifice_done and not flag.wm_welcomed")
+    town["watch"] = "doris_squire"
     town["rest"] = "risky"
     town["rest_text"] = "The village sleeps with one eye open."
     wolf_cells = open_spread(rows, [(49, 24), (46, 20), (47, 25), (44, 23), (49, 19), (45, 27), (50, 22), (43, 21), (48, 26), (51, 25), (46, 23), (44, 19), (41, 24), (42, 27), (47, 18), (43, 25), (40, 21), (45, 21), (49, 21), (47, 22)], 7)
@@ -384,6 +425,8 @@ def build_people():
     for (nid, name, title, faction, where, summary, voice) in ADULTS:
         d = {"id": nid, "name": name, "title": title, "summary": summary, "attitude": "friendly", "sprite": "villager", "region": REGION,
              "tags": [f"faction_{faction}", f"voice_{voice}"]}
+        if nid == "doris_squire":
+            d["monster"] = "scout"   # the watchmen she brings (story/crime.gd: the guard's `monster`)
         if nid in SHOPS:
             d["shop"] = {"sells": [{"id": i} for i in SHOPS[nid]], "markup": 1.0, "sell_rate": 0.5}
         if nid == "morgan":   # the Paranormal Potions (tools/content/build_potions.py)
@@ -440,6 +483,8 @@ FLAGS = [
 def build_flags():
     met = [{"id": f"{n[0]}_met", "type": "bool", "summary": f"The party has spoken with {n[1]}.", "read_later": True} for n in ADULTS] + [{"id": f"{e[0]}_met", "type": "bool", "summary": f"The party has met {e[1]}.", "read_later": True} for e in EXTRAS]
     met += [{"id": f, "type": "bool", "summary": "Set by a Connection scene (Companions/ drafts); read by later beats.", "read_later": f != "connection_%s" % f.split("_")[-1]} for f in EXTRA_FLAGS]
+    met += [{"id": i, "type": t, "summary": sm, "read_later": True} for (i, t, sm) in sub.FLAGS]
+    met += [{"id": "crime_wickermoor", "type": "int", "summary": "Offences the village's watch has counted (the game adds to it; the watch's talk clears it).", "read_later": True}]
     write("data/flags/wickermoor.json", {"flags": met + [{"id": i, "type": t, "summary": s, **({"read_later": True} if i in ("old_ways_offended", "phillip_uneasy_noticed", "goat_fate") else {})} for (i, t, s) in FLAGS]})
 
 
@@ -451,8 +496,16 @@ if __name__ == "__main__":
         for (nid, cell, dlg) in INSIDE.get(key, []):
             loc["npcs"].append(npc(nid, cell, dlg, **({"hours": HOURS[nid]} if nid in HOURS else {})))
         dress(key, loc)
+    # Doris leaves her station while the body lies in the Round
+    for n in rooms["wickermoor_constable_station"][1]["npcs"]:
+        if n["npc"] == "doris_squire":
+            n["when"] = "not flag.gus_body_found or flag.gus_solved"
+    sub.apply(town, rooms, npc, prop)
+    write("data/locations/wickermoor_village.json", town)
+    for key, (spec, loc) in rooms.items():
         write(f"data/locations/{key}.json", loc)
     build_people()
     build_quests()
     build_flags()
+    sub.write_all(write)
     print("ok", len(rooms), "rooms")

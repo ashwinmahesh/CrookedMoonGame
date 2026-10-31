@@ -57,8 +57,51 @@
       "label": "Out to the village"
     }
   ],
-  "props": [],
+  "props": [
+    {
+      "id": "shop_masonry_stones",
+      "cell": [
+        3,
+        2
+      ],
+      "kind": "examine",
+      "label": "Dressed stones",
+      "model": "rocks",
+      "text": "Dressed stones stacked square, each marked with the quarry's cross."
+    },
+    {
+      "id": "shop_masonry_chisels",
+      "cell": [
+        9,
+        2
+      ],
+      "kind": "examine",
+      "label": "Chisels and mallets",
+      "model": "case",
+      "text": "Chisels and mallets laid in order of size beside a small chalk-dusted pinafore."
+    },
+    {
+      "id": "shop_masonry_slabs",
+      "cell": [
+        4,
+        9
+      ],
+      "kind": "examine",
+      "label": "Gravestones waiting for names",
+      "model": "grave",
+      "text": "Gravestones waiting for names, one of them already cut with a small hare and no letters."
+    }
+  ],
   "npcs": [
+    {
+      "npc": "solomon_roderick",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/connections_custom:solomon_start",
+      "when": "background:cultist and flag.wm_welcomed and not flag.connection_kindred"
+    },
     {
       "npc": "solomon_roderick",
       "cell": [

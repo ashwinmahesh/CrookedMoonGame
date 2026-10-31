@@ -201,6 +201,87 @@
           "facing": "west"
         }
       ]
+    },
+    {
+      "id": "watch_arrest",
+      "trigger": "dialogue",
+      "text": "The watch closes in, spears levelled.",
+      "monsters": [
+        {
+          "monster": "scout",
+          "cell": [
+            20,
+            20
+          ],
+          "name": "Watchman 1"
+        },
+        {
+          "monster": "scout",
+          "cell": [
+            22,
+            21
+          ],
+          "name": "Watchman 2"
+        }
+      ]
+    },
+    {
+      "id": "wm_oak_wakes",
+      "trigger": "dialogue",
+      "flag": "wm_oak_won",
+      "quest": {
+        "id": "souls_of_the_oak",
+        "stage": "woken"
+      },
+      "monsters": [
+        {
+          "monster": "treant",
+          "cell": [
+            30,
+            31
+          ],
+          "name": "The Oak of Many Faces",
+          "boss": true
+        }
+      ]
+    },
+    {
+      "id": "wm_gus_marta",
+      "trigger": "dialogue",
+      "flag": "gus_marta_down",
+      "quest": {
+        "id": "gory_gus",
+        "stage": "marta"
+      },
+      "monsters": [
+        {
+          "monster": "spy",
+          "cell": [
+            9,
+            30
+          ],
+          "name": "Marta Dunn",
+          "steps_down": {
+            "npc": "marta_dunn"
+          }
+        },
+        {
+          "monster": "bandit",
+          "cell": [
+            4,
+            25
+          ],
+          "name": "Marta's hireling"
+        },
+        {
+          "monster": "bandit",
+          "cell": [
+            11,
+            24
+          ],
+          "name": "Marta's hireling"
+        }
+      ]
     }
   ],
   "exits": [
@@ -426,6 +507,17 @@
       ],
       "to": "travel",
       "label": "The footbridge south"
+    },
+    {
+      "id": "orchard_path",
+      "cell": [
+        58,
+        4
+      ],
+      "to": "wickermoor_orchard",
+      "spawn": "from_village",
+      "label": "The path to Marl's orchard",
+      "when": "flag.picnic_sick and not flag.seed_done"
     }
   ],
   "id": "wickermoor_village",
@@ -541,6 +633,42 @@
   "name": "Wickermoor Village",
   "npcs": [
     {
+      "npc": "lottery_stranger",
+      "cell": [
+        26,
+        25
+      ],
+      "dialogue": "wickermoor/lottery:start",
+      "when": "flag.wm_lottery_open and not flag.wm_lottery_done"
+    },
+    {
+      "npc": "doris_squire",
+      "cell": [
+        28,
+        33
+      ],
+      "dialogue": "wickermoor/gus:solved",
+      "when": "flag.gus_marta_down and not flag.gus_solved"
+    },
+    {
+      "npc": "doris_squire",
+      "cell": [
+        27,
+        32
+      ],
+      "dialogue": "wickermoor/gus:doris_scene",
+      "when": "flag.gus_body_found and not flag.gus_marta_down and not flag.gus_solved"
+    },
+    {
+      "npc": "marta_dunn",
+      "cell": [
+        9,
+        30
+      ],
+      "dialogue": "wickermoor/gus:marta",
+      "when": "flag.gus_clue_hair and flag.gus_clue_axe and not flag.gus_marta_down"
+    },
+    {
       "npc": "hilda_brom",
       "cell": [
         48,
@@ -557,6 +685,15 @@
       ],
       "dialogue": "wickermoor/connections:rain_tobin_start",
       "when": "name:tobin_hayward and flag.wm_welcomed and not flag.connection_rejuvenation"
+    },
+    {
+      "npc": "weston_murdoch",
+      "cell": [
+        7,
+        30
+      ],
+      "dialogue": "wickermoor/connections_custom:weston_start",
+      "when": "background:druskenvald_dweller and flag.wm_welcomed and not flag.connection_rapture"
     },
     {
       "npc": "old_rusty",
@@ -686,7 +823,10 @@
       "span": [
         2,
         2
-      ]
+      ],
+      "call": "wickermoor/oak:start",
+      "approach": 8,
+      "call_when": "flag.wm_oak_ready and flag.old_ways_offended and not flag.wm_oak_woken and not flag.wm_oak_won"
     },
     {
       "id": "wm_oak_roots",
@@ -861,6 +1001,31 @@
       "kind": "examine",
       "label": "A scowling marble knight",
       "model": "statue_headless"
+    },
+    {
+      "id": "wm_gus_body",
+      "cell": [
+        29,
+        33
+      ],
+      "kind": "examine",
+      "label": "A body before the oak",
+      "model": "grave",
+      "when": "flag.gus_body_found and not flag.gus_solved",
+      "dialogue": "wickermoor/gus:body"
+    },
+    {
+      "id": "wm_oak_roots_call",
+      "cell": [
+        27,
+        30
+      ],
+      "kind": "decor",
+      "label": "The oak's bark, faces turning",
+      "model": "tree_marked",
+      "call": "wickermoor/oak:freed",
+      "approach": 8,
+      "call_when": "flag.wm_oak_won and not flag.wm_oak_freed"
     }
   ],
   "region": "wickermoor",
@@ -962,8 +1127,13 @@
     "from_inn_yard": [
       24,
       34
+    ],
+    "from_orchard": [
+      57,
+      4
     ]
   },
   "summary": "The hub: a village round a trodden square, an oak of carved faces, a clocktower, the Silverbell along the south and the crooked estate on its hill.",
-  "text": "Timber-framed houses with steep roofs crowd round a trodden square where a faceless statue stands on one side and a gnarled oak, bark carved all over with faces, on the other. A clocktower rises over the village and the river runs dark along its southern edge."
+  "text": "Timber-framed houses with steep roofs crowd round a trodden square where a faceless statue stands on one side and a gnarled oak, bark carved all over with faces, on the other. A clocktower rises over the village and the river runs dark along its southern edge.",
+  "watch": "doris_squire"
 }

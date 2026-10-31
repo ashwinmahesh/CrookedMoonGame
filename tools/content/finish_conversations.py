@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[2]
 D = ROOT / "narrative/wickermoor"
 SHOP = {"baltus_tolliver", "morgan", "jean_myriel", "oswick_frey", "siv_harga", "holly_aster", "thomasin_ardor", "eleanor_heyling", "hilda_brom", "beatrice_wells"}
 SERVICES = {"alda_farnum", "randall_graham", "weston_murdoch"}
-SKIP = {"arrival", "mayor_welcome", "children", "rumours"}
+SKIP = {"arrival", "mayor_welcome", "children", "rumours", "connections", "connections_custom", "lottery", "oak", "gus", "play", "bad_seed"}
 
 
 def fix(path):

@@ -1,0 +1,57 @@
+# R11: Wickermoor's watch. Doris Squire answers a crime somebody saw (theft, trespass, a spell cast to cheat): the party pays, talks its way out, or fights two
+# of her people. The engine counts offences in crime_wickermoor and starts the node named for the kind of crime.
+
+~ theft
+Narrator: Boots on the cobbles, and the constable comes round the corner with two of her people at her back, cap straight and eyes steady.
+doris_squire [neutral]: Theft. Pay or answer.
+-> choices
+
+~ trespass
+Narrator: A door opens that was not yours to open, and Doris Squire is standing in it with two of her people behind her.
+doris_squire [neutral]: Not yours. Out. Then pay.
+-> choices
+
+~ spell
+Narrator: Someone has noticed what you did with that spell, and the constable has noticed them noticing.
+doris_squire [neutral]: Magic at a neighbour's cost. Pay, or answer.
+-> choices
+
+~ choices
+* [if flag.crime_wickermoor <= 1 and gold >= 10] Pay the fine, ten gold -> pay_low
+* [if flag.crime_wickermoor >= 2 and gold >= 25] Pay the fine, twenty-five gold -> pay_high
+* [Persuasion DC 15] Talk her out of it -> talked | talk_failed
+* Refuse -> refuse
+
+~ pay_low
+doris_squire [neutral]: Done.
+gold -10
+set crime_wickermoor = 0
+Narrator: She writes it in a small book, nods once, and the watch goes back the way it came.
+-> END
+
+~ pay_high
+doris_squire [neutral]: Done. Not again.
+gold -25
+set crime_wickermoor = 0
+Narrator: She writes it in a small book and looks at you a good while before she turns away.
+-> END
+
+~ talked
+doris_squire [neutral]: Fine. Mind it.
+set crime_wickermoor = 0
+Narrator: The constable's eyes rest on you a little longer than is polite, and then she lets it drop.
+-> END
+
+~ talk_failed
+doris_squire [neutral]: No.
+-> choices_pay
+
+~ choices_pay
+* [if flag.crime_wickermoor <= 1 and gold >= 10] Pay the fine, ten gold -> pay_low
+* [if flag.crime_wickermoor >= 2 and gold >= 25] Pay the fine, twenty-five gold -> pay_high
+* Refuse -> refuse
+
+~ refuse
+doris_squire [angry]: Then you answer to us.
+Narrator: Two of the watch step up beside her, spears levelled.
+combat watch_arrest

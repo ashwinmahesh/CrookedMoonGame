@@ -147,9 +147,57 @@
       "model": "notice_board",
       "dialogue": "wickermoor/rumours:r01",
       "text": "Scraps of paper pinned to the board, each with a rumour scrawled on it in a different hand."
+    },
+    {
+      "id": "green_queen_inn_dressing_room",
+      "cell": [
+        27,
+        3
+      ],
+      "kind": "examine",
+      "label": "The dressing room behind the stage",
+      "model": "case",
+      "when": "flag.play_victim_dead and not flag.play_done",
+      "dialogue": "wickermoor/play:body"
     }
   ],
   "npcs": [
+    {
+      "npc": "george_hickock",
+      "cell": [
+        22,
+        5
+      ],
+      "dialogue": "wickermoor/play:suspects",
+      "when": "flag.play_victim_dead and not flag.play_done"
+    },
+    {
+      "npc": "george_hickock",
+      "cell": [
+        22,
+        5
+      ],
+      "dialogue": "wickermoor/play:hickock_pitch",
+      "when": "flag.play_arrived and not flag.play_victim_dead and not flag.play_done"
+    },
+    {
+      "npc": "lilian_vale",
+      "cell": [
+        25,
+        5
+      ],
+      "dialogue": "wickermoor/play:lilian",
+      "when": "flag.play_victim_dead and not flag.play_done"
+    },
+    {
+      "npc": "olwen_pike",
+      "cell": [
+        20,
+        6
+      ],
+      "dialogue": "wickermoor/play:olwen",
+      "when": "flag.play_victim_dead and not flag.play_done"
+    },
     {
       "npc": "alda_farnum",
       "cell": [
@@ -190,5 +238,6 @@
       "dim_ft": 30,
       "color": "candle"
     }
-  ]
+  ],
+  "encounters": []
 }
