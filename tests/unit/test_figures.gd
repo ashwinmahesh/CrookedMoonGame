@@ -148,3 +148,19 @@ func _collect_foe_arts(node: Variant, out: Dictionary) -> void:
 	elif node is Array:
 		for v: Variant in node:
 			_collect_foe_arts(v, out)
+
+
+## Tripo's greet raises the right hand: a figure holding something there (a sword, a cane, a lantern, a syringe) would
+## seem to aim it, so it greets with the nod instead; the empty-handed wave.
+func test_figures_holding_something_greet_with_a_nod() -> void:
+	for id: String in ["rook_coldwake", "silas_vane", "cordelia_skein", "tobin_hayward", "lucan_houndstooth", "the_vagrant",
+			"phillip_druskenvald"]:
+		var fig := DirectionalSprite.create(DirectionalSprite.frames_for(id), 1.2) as ModelFigure
+		add_child(fig)
+		assert_eq(str((fig._roles["greet"] as Array)[0]["name"]), "agree", "%s nods" % id)
+		fig.free()
+	for id: String in ["delphine_ravelle", "adela_druskenvald"]:
+		var fig := DirectionalSprite.create(DirectionalSprite.frames_for(id), 1.2) as ModelFigure
+		add_child(fig)
+		assert_eq(str((fig._roles["greet"] as Array)[0]["name"]), "greet_01", "%s waves" % id)
+		fig.free()
