@@ -115,8 +115,11 @@ func _ready() -> void:
 			start_dialogue.call_deferred(OPENING, ""))
 
 
-## The placeholder party's pregens (docs/PLACEHOLDERS.md): the engine's own class looks, until the companions exist.
+## The placeholder party's pregens (docs/PLACEHOLDERS.md): the engine's own class looks, kept for the tests and captures.
 const PLACEHOLDER_PARTY: Array[String] = ["ilse_varga", "tamsin_tealeaf", "hedda_ironvow", "silvain_aster"]
+## A quick start's party: four of the six companions, the three whose Incitements play on the train (Silas, Cordelia,
+## Delphine) and Rook. They borrow the engine's class looks until their own art exists (docs/PLACEHOLDERS.md).
+const NEW_GAME_PARTY: Array[String] = ["rook_coldwake", "silas_vane", "cordelia_skein", "delphine_ravelle"]
 
 
 func _item_gained(item_id: String, qty: int, who: String) -> void:
@@ -128,10 +131,9 @@ func _item_gained(item_id: String, qty: int, who: String) -> void:
 		notices.show_item(item_id, qty, who)
 
 
-## A quick start with a placeholder party of four (a fighter, a rogue, a cleric and a wizard, the engine's class looks) at
-## level 1 travelling. The menu's roster pick replaces this; the six companions replace the placeholders.
+## A quick start with four of the companions (NEW_GAME_PARTY) at level 1 travelling. The menu's roster pick replaces this.
 func _new_pregen_party() -> void:
-	for id: String in PLACEHOLDER_PARTY:
+	for id: String in NEW_GAME_PARTY:
 		var ch := Pregens.build(id, 1)
 		ch.finish_long_rest()
 		if st.party.size() < StoryState.PARTY_CAP:

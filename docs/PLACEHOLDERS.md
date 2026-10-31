@@ -25,7 +25,7 @@ The engine handbook's list of the host contract is `addons/dnd_core/docs/handboo
 
 | File | Now | Replace with |
 |---|---|---|
-| `data/pregens/*.json` (ten) | The old game's ten heroes. The engine's own 150 unit tests build them by id, so they stay while those tests need them | Add the six companions (`tools/data/pregen_specs.json` and `make_pregens.gd`); the placeholder party of four is `ilse_varga`, `tamsin_tealeaf`, `hedda_ironvow`, `silvain_aster` (`world/game_root.gd` `PLACEHOLDER_PARTY`). Their `roster: true` flags (the six on the title screen) go to the companions |
+| `data/pregens/*.json` (ten) | The old game's ten heroes. The engine's own 150 unit tests build them by id, so they stay while those tests need them | Add the six companions (`tools/data/pregen_specs.json` and `make_pregens.gd`); the placeholder party of four is `ilse_varga`, `tamsin_tealeaf`, `hedda_ironvow`, `silvain_aster` (`world/game_root.gd` `PLACEHOLDER_PARTY`), now only for tests and captures: a quick start plays Rook, Silas, Cordelia and Delphine (`NEW_GAME_PARTY`). Their `roster: true` flags (the six on the title screen) go to the companions |
 | `data/weather/barovia.json` | The generic climates, one region; the engine reads this fixed name | The valley's weather by hour; rename once the engine names it in `data/campaign.json` (plan E1) |
 | `data/progression/xp.json`, `chapters.json` | The 2024 level and budget tables kept; no milestone quests, no villain withdrawal pay; one chapter, `new_game` | Milestone quests per chapter; one chapter per package |
 | `data/treasure/levels.json` | The rarity tables kept; one region (`test_grounds`, level 1) | The party's level in every region |
