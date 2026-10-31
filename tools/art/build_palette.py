@@ -29,15 +29,20 @@ PALETTE = [
     ("moon_green", "9fe0b8"),
 ]
 
-# Menus and overlays only (owner feedback after Phase 3: crimson and black with aged gold trim). Written to
+# Menus and overlays only: Witchlight (Ashwin, 2026-10-31: option B of three HUD palettes, "It shouldn't be the same maroon
+# as curse of Strahd"): charcoal-plum panels, violet trim, toxic witch-green highlights, ivory text. The keys keep the old
+# game's names (the engine's Look reads them), so gilt_* is the violet trim and arch_gold* the green. Written to
 # ui_palette.json, never to the strip or the .gpl, so the world's palette pass and the sprite pipeline don't change.
 UI_PALETTE = [
-    ("ui_black", "120709"), ("ui_oxblood", "2a0c12"), ("ui_wine", "4f1420"),
-    ("gilt_dark", "6b4f24"), ("gilt", "b08a3e"), ("gilt_light", "e2c475"),
-    # The owner's Crimson settings concept, exactly (the pause menu matches it: docs/ui/look.md).
-    ("arch_back", "0f0a0b"), ("arch_top", "4a121b"), ("arch_bottom", "1f070b"), ("arch_button", "33090f"),
-    ("arch_button_lit", "6e1a26"), ("arch_track", "160407"), ("arch_gold", "b8913f"), ("arch_gold_light", "e3c47c"),
-    ("arch_text", "f0e2c0"),
+    ("ui_black", "0d0a13"), ("ui_oxblood", "1a1424"), ("ui_wine", "2b1f3a"),
+    ("gilt_dark", "5e3a73"), ("gilt", "9a5bb0"), ("gilt_light", "c9a6d6"),
+    # The pause menu and settings pages (docs/ui/look.md), in the same colours.
+    ("arch_back", "0d0a13"), ("arch_top", "2b1f3a"), ("arch_bottom", "120d1a"), ("arch_button", "1f1729"),
+    ("arch_button_lit", "3a2a52"), ("arch_track", "0f0b15"), ("arch_gold", "8fd14f"), ("arch_gold_light", "b8e986"),
+    ("arch_text", "f1ece0"),
+    # The End Turn and finishing buttons, a pressed hotbar slot and the radial pick (the engine's Look.ui_key): a deep
+    # witch-green instead of the old game's blood red, light enough under ivory text.
+    ("ui_primary", "3f7a2a"), ("ui_primary_lit", "5a9e36"), ("ui_primary_deep", "284d1b"),
     # The big d20 (docs/ui/d20_roll.md): an emerald, from its shadowed facets to the glint on its edges (owner,
     # 2026-10-09: "I want the dice to be an emerald green color").
     ("emerald_deep", "03251a"), ("emerald", "0b6a42"), ("emerald_bright", "1fa86a"), ("emerald_light", "62e3a6"),
