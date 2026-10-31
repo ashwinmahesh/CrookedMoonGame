@@ -61,16 +61,21 @@ func test_the_cans_lie_on_their_squares_drawn_on_the_board() -> void:
 	var view := root.get("view") as LocationView
 	for o in cans:
 		assert_true(view.combat_view.objects_view.has_node("Dressing_fight_" + o.id), "%s is drawn on the board" % o.id)
+	PartyAutopilot.new(e).run(3)
+	assert_true(cans.any(func(o: BattleObject) -> bool: return o.destroyed), "off its bank and at a can within three rounds")
 
 
-## The walk-away fight: the engine wakes at the clearing's edge with the party far off, and its turn goes to the cans.
-## (Its 4 x 4 body is boxed in by the bowl's trunks, banks and soul-mist: from here it can reach only four squares, none
-## nearer a can. Reported in the vault note; this checks only that it chooses the can.)
-func test_the_engines_turn_goes_to_the_cans() -> void:
+## The walk-away fight: the engine wakes in the bowl's west side. Its Spectral Rails carry its 4 x 4 body over the roots and
+## soul-mist (before them it covered about 5 squares a turn and reached no can), so it gets to one and eats it.
+func test_the_engine_goes_for_a_can_and_eats_it() -> void:
 	var e: Encounter = await _start("gl_locomotive_edge")
-	assert_eq(_fuel(e).size(), 3, "the same three cans")
-	PartyAutopilot.new(e).run(1)
-	assert_eq(str(e.ai.last_plan.get("kind", "")), "fuel", "its turn went to the can")
+	var cans := _fuel(e)
+	assert_eq(cans.size(), 3, "the same three cans")
+	PartyAutopilot.new(e).run(3)
+	var eaten := cans.filter(func(o: BattleObject) -> bool: return o.destroyed)
+	assert_false(eaten.is_empty(), "within three rounds a can is gone")
+	var echoes := e.combatants.filter(func(c: Combatant) -> bool: return c.has_meta(ObjectFuel.RELEASED_META))
+	assert_eq(echoes.size(), eaten.size(), "and each one let out an echo")
 
 
 func test_a_bottled_haints_jar_stands_in_for_a_can() -> void:
