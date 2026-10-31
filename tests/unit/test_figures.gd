@@ -2,7 +2,7 @@ extends TestCase
 ## The game's 3D figures (art/figures/manifest.json, the Tripo models; the engine's FigureModels and ModelFigure): every
 ## one opens, stands as tall as its creature is drawn, has the clips the game plays (Tripo's combat set: a run, a hit and
 ## a fall too), and its attack window lies inside its swing; the companions wear theirs as their own art, and the Vagrant
-## and the Druskenvalds wear theirs as people.
+## and the Druskenvalds wear theirs as people, and those with something in hand greet with a nod.
 
 const QUADRUPEDS: Array[String] = ["barnaby"]
 
@@ -38,3 +38,19 @@ func test_the_companions_and_people_wear_their_figures() -> void:
 		var npc := Compendium.shared().get_entry("npcs", id)
 		assert_eq(str(npc.get("sprite", "")), id, "%s is drawn as their figure" % id)
 		assert_true(FigureModels.has(id), "%s has one" % id)
+
+
+## Tripo's greet raises the right hand: a figure holding something there (a sword, a cane, a lantern, a syringe) would
+## seem to aim it, so it greets with the nod instead; the empty-handed wave.
+func test_figures_holding_something_greet_with_a_nod() -> void:
+	for id: String in ["rook_coldwake", "silas_vane", "cordelia_skein", "tobin_hayward", "lucan_houndstooth", "the_vagrant",
+			"phillip_druskenvald"]:
+		var fig := DirectionalSprite.create(DirectionalSprite.frames_for(id), 1.2) as ModelFigure
+		add_child(fig)
+		assert_eq(str((fig._roles["greet"] as Array)[0]["name"]), "agree", "%s nods" % id)
+		fig.free()
+	for id: String in ["delphine_ravelle", "adela_druskenvald"]:
+		var fig := DirectionalSprite.create(DirectionalSprite.frames_for(id), 1.2) as ModelFigure
+		add_child(fig)
+		assert_eq(str((fig._roles["greet"] as Array)[0]["name"]), "greet_01", "%s waves" % id)
+		fig.free()
