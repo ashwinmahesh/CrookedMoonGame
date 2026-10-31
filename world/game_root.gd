@@ -72,6 +72,7 @@ func _ready() -> void:
 	add_child(hud)
 	hud.build(st)
 	st.xp_gained.connect(hud.toast)   # XP levelling: a quest finished, a place found, a milestone (story/xp.gd)
+	GhostlightBoons.watch(st, Dice.roller, hud.toast)   # a haint freed heals the party (story/ghostlight_boons.gd)
 	D20Die.warm.call_deferred(hud)   # the big d20's shader and numerals, ready before its first roll
 	hud.leader_picked.connect(func(i: int) -> void:
 		if view != null:

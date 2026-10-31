@@ -20,11 +20,15 @@ func ensure_drawn(st: StoryState) -> void:
 		st.set_flag("tarot_" + slot, str(st.tarokka[slot]))
 
 
-## One slot as the card face shows it: the card, whose it is, and Adela's verse.
+## One slot as the card face shows it: the card, whose it is, and Adela's verse. The dialogue's `reading read` asks this once for each
+## card it turns, and the hero whose card it is takes part in the reading, so they gain Bless for an hour (the book: all who take
+## part). The story engine has no hook for "the reading is finished"; this call is the nearest thing it makes, and no time passes
+## between the cards, so every hero's hour starts together.
 func reading(slot: String, st: StoryState) -> Dictionary:
 	var card_id := str(st.tarokka.get(slot, ""))
 	if card_id == "":
 		return {}
+	GhostlightBoons.bless_slot(slot, st)
 	var hero := _hero_name(slot, st)
 	var info := _outcome(card_id)
 	return {"card": card_id, "slot": slot, "slot_name": hero, "title": "%s: %s" % [hero, str(ReadingDeck.card(card_id).get("name", card_id))],
