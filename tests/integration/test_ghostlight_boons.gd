@@ -142,3 +142,43 @@ func test_the_freeing_dialogue_heals_through_the_real_quest_stage() -> void:
 	assert_eq(st.quest_stage("haint_songstress"), "token")
 	assert_true(st.party[0].hp > 1 or st.party[0].temp_hp > 0, "the songstress's blessing reaches the party")
 	assert_true(st.party[1].temp_hp > 0, "and a hero at full health keeps it as Temporary Hit Points")
+
+
+# --- The locomotive's retry -------------------------------------------------------------------------------------
+
+func test_a_wipe_at_the_locomotive_restores_the_party_and_starts_the_fight_again() -> void:
+	for ch in st.party:
+		ch.finish_long_rest()
+	st.location = LOC
+	root = (load("res://scenes/game.tscn") as PackedScene).instantiate()
+	add_child(root)
+	for i in 12:
+		await get_tree().process_frame
+	var view := root.get("view") as LocationView
+	assert_true(view.start_encounter("gl_locomotive"), "the fight starts")
+	for i in 6:
+		await get_tree().process_frame
+	var cv := view.combat_view
+	var first := cv.e
+	for ch in st.party:
+		ch.hp = 0
+	st.party[2].dead = true
+	first._check_over()
+	assert_eq(first.outcome, "defeat", "the party is down")
+	cv.finished.emit("defeat")
+	for i in 12:
+		await get_tree().process_frame
+	assert_true(view.in_combat, "the fight begins again at once")
+	assert_true(view.combat_view != cv and view.combat_view != null and view.combat_view.e != first, "a new fight")
+	assert_eq(view.fight_id, GhostlightRetry.RETRY_FIGHT, "from the clearing's rim")
+	for ch in st.party:
+		assert_false(ch.dead, "%s is on their feet" % ch.name)
+		assert_eq(ch.hp, ch.max_hp(), "%s has all their Hit Points" % ch.name)
+	assert_eq(int(st.get_flag(GhostlightRetry.COUNT_FLAG, 0)), 1, "the retry is counted")
+	assert_false(root.get("screen") is PauseMenu, "no game-over screen")
+
+
+func test_any_other_wipe_is_still_a_game_over() -> void:
+	assert_false(GhostlightRetry.applies({"id": "gl_stoker"}))
+	assert_true(GhostlightRetry.applies({"id": "gl_locomotive"}))
+	assert_true(GhostlightRetry.applies({"id": "gl_locomotive_edge"}))

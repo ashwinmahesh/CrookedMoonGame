@@ -895,6 +895,10 @@ func _after_combat(outcome: String) -> void:
 		show_ending()
 		return
 	if outcome == "defeat":
+		# The Ghostlight Locomotive is retried at once from the clearing's rim (story/ghostlight_retry.gd); any other wipe is a game over.
+		if view != null and GhostlightRetry.applies(view.last_encounter):
+			_retry_fight.call_deferred()
+			return
 		open_screen("game_over", 0)
 		return
 	if outcome == "victory":
@@ -914,6 +918,15 @@ func _after_combat(outcome: String) -> void:
 		_continue_journey.call_deferred()
 	else:
 		_autosave.call_deferred()   # a won fight is a checkpoint
+
+
+## The party fell to the Ghostlight Locomotive: it gets back up and the fight begins again from the clearing's rim, the Vagrant's line over it.
+func _retry_fight() -> void:
+	GhostlightRetry.restore(st)
+	_refresh()
+	view._say(GhostlightRetry.NARRATOR_KEY)
+	if not view.start_encounter(GhostlightRetry.RETRY_FIGHT):
+		open_screen("game_over", 0)
 
 
 ## The campaign's end (ADR 0014): the ending reached plays on the ending screen, which marks the save finished and
