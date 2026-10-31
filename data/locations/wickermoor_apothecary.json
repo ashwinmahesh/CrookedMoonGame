@@ -68,7 +68,8 @@
       ],
       "kind": "examine",
       "label": "A bubbling alembic",
-      "model": "case"
+      "model": "case",
+      "text": "An alembic bubbles over a small flame, dripping something the colour of weak tea into a flask."
     },
     {
       "id": "apothecary_jars",
@@ -78,7 +79,8 @@
       ],
       "kind": "examine",
       "label": "Jars and drying bundles",
-      "model": "shelves"
+      "model": "shelves",
+      "text": "Jars of dried herbs with hand-written labels, and bundles of drying flowers hung head-down from the beams."
     },
     {
       "id": "apothecary_table",
@@ -88,10 +90,29 @@
       ],
       "kind": "examine",
       "label": "A cleared workbench",
-      "model": "table_round"
+      "model": "table_round",
+      "text": "A cleared workbench with a mortar and pestle, scrubbed so clean it looks unused."
     }
   ],
   "npcs": [
+    {
+      "npc": "morgan",
+      "cell": [
+        4,
+        8
+      ],
+      "dialogue": "wickermoor/bad_seed:morgan_apples",
+      "when": "flag.picnic_sick and not flag.seed_done"
+    },
+    {
+      "npc": "morgan",
+      "cell": [
+        4,
+        8
+      ],
+      "dialogue": "wickermoor/connections_custom:morgan_start",
+      "when": "background:amnesiac and flag.wm_welcomed and not flag.connection_apocalypse"
+    },
     {
       "npc": "morgan",
       "cell": [

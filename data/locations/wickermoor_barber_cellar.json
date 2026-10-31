@@ -1,0 +1,123 @@
+{
+  "id": "wickermoor_barber_cellar",
+  "name": "The Barber's Cellar",
+  "region": "wickermoor",
+  "summary": "The Barber's Cellar, a room of Wickermoor Village.",
+  "text": "The inside of The Barber's Cellar: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "##############",
+      "#............#",
+      "#.==========.#",
+      "#............#",
+      "#............#",
+      "#..==...==...#",
+      "#............#",
+      "#............#",
+      "#.====.......#",
+      "#............#",
+      "#............#",
+      "##############"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Barber's Cellar",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          12,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      6,
+      9
+    ],
+    "from_stair": [
+      6,
+      10
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        6,
+        11
+      ],
+      "to": "wickermoor_barber_shop",
+      "spawn": "from_cellar",
+      "label": "Up to the shop"
+    }
+  ],
+  "props": [
+    {
+      "id": "barber_cellar_jars",
+      "cell": [
+        4,
+        3
+      ],
+      "kind": "examine",
+      "label": "Jars on shelves",
+      "model": "shelves",
+      "text": "Jars of hair sorted by colour, jars of teeth sorted by size, and a row of small stoppered vials of something dark."
+    },
+    {
+      "id": "barber_cellar_table",
+      "cell": [
+        4,
+        6
+      ],
+      "kind": "examine",
+      "label": "A stained table",
+      "model": "table_round",
+      "text": "A stained table with straps, and a lamp swung down low over it."
+    },
+    {
+      "id": "barber_cellar_chair",
+      "cell": [
+        9,
+        6
+      ],
+      "kind": "examine",
+      "label": "A chair with straps",
+      "model": "chair",
+      "text": "A chair with leather straps, worn smooth where wrists have been."
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        10,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

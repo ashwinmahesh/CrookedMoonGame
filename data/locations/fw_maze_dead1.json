@@ -1,0 +1,100 @@
+{
+  "id": "fw_maze_dead1",
+  "name": "A Dead End of Black Stalks",
+  "region": "foxwillow",
+  "summary": "A Dead End of Black Stalks, in Foxwillow.",
+  "text": "The inside of A Dead End of Black Stalks.",
+  "map": {
+    "rows": [
+      "########################",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#....#............#....#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#..........##..........#",
+      "#......................#",
+      "#......................#",
+      "#....#............#....#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "########################"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "A Dead End of Black Stalks",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          22,
+          16
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      11,
+      14
+    ]
+  },
+  "exits": [
+    {
+      "id": "way_back",
+      "cell": [
+        11,
+        17
+      ],
+      "to": "fw_maze_j1",
+      "spawn": "from_dead",
+      "label": "Back to the clearing"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_dead1_end",
+      "cell": [
+        11,
+        8
+      ],
+      "kind": "decor",
+      "label": "A dead end of black stalks",
+      "call": "foxwillow/maze:dead_end1",
+      "approach": 5,
+      "call_when": "not flag.fw_dead1_seen"
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "encounters": [
+    {
+      "id": "fw_maze_dead1_fight",
+      "trigger": "dialogue",
+      "flag": "fw_maze_dead1_done",
+      "monsters": [
+        {
+          "monster": "pumpkin_head",
+          "cell": [
+            11,
+            7
+          ],
+          "name": "A scarecrow from the town",
+          "facing": "south"
+        }
+      ]
+    }
+  ]
+}

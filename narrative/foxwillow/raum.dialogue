@@ -1,0 +1,58 @@
+# Drafted by Gemini (R13 raum), edited.
+
+~ prefight
+Narrator: Black feathers drift through the dry cornstalks, smelling of cold ash and old tallow. At the heart of the circle, the great crow tilts its ragged head.
+raum [sly]: Look how plump with little shames you came, all ripe for the picking. Pay the toll, children, and let old Raum shuck you clean.
+* [if flag.song_known] Sing the song we learned -> sing
+* Say our secrets are ours -> defy
+* Attack -> fight
+
+~ sing
+Narrator: As the old tune rises, the brass banjo strings inside the beast's gullet hum in answer, and Raum's heavy wings falter out of time.
+raum [angry]: Hush that racket, you tin-eared thieves, that tune is swallowed and mine to keep!
+set raum_song_sung
+-> fight
+
+~ defy
+raum [sly]: Keep them tucked beneath your ribs, then. They taste all the sweeter when I crack the bone to get the marrow.
+-> fight
+
+~ fight
+set fw_raum_started
+combat fw_raum
+-> END
+
+~ jericho_farewell
+quest fields_of_the_crow raum
+set raum_slain
+Narrator: Black feathers scatter like soot, leaving a pale, lantern-bright figure cradling an old banjo as the red stain fades from the moon above.
+jericho_sticks [smile]: Well now, that is a mighty fine breath of night air after so long in the dark. You folks carried my tune right through the briars.
+* Ask him to rest -> jericho_rest
+* Ask about the song -> jericho_song
+* Bid him farewell -> jericho_go
+
+~ jericho_rest
+jericho_sticks [weary]: My straw is long gone to ash, friend, and these old fingers have played their last reel. When the last chord fades, I reckon I will drift on easy.
+-> jericho_farewell
+
+~ jericho_song
+jericho_sticks [smile]: I wrote "Virgil's Birdcage" for a little blackbird that would not sing behind wire. A secret kept in fear is just another cage, and you broke the lock.
+-> jericho_farewell
+
+~ jericho_go
+jericho_sticks [smile]: Keep each other warm on the road back to Wickermoor, travelers. May the corn grow tall and the crows keep their distance.
+set jericho_at_rest
+-> END
+
+~ coming_home
+set fw_home
+Narrator: Back in the smoky square of Foxwillow, the surviving scarecrows split at the seams as living folk stumble out blinking, while burned husks lie still in the dirt.
+martha_langtree [weary]: God forgive us for what we let fester behind locked doors. Those poor souls we burned in our madness will never walk out of the straw.
+jonah_sawyer [sad]: I set the torch to my own neighbors, thinking them monsters. I will spend the rest of my nights mending what I broke.
+william_lodge [weary]: Get your people under a roof, Martha, and tend the living while you can. Come on, friends, let us ride back to Wickermoor before the frost settles.
+quest fields_of_the_crow done
+set act2_done += 1
+xp milestone
+set sister_rain_invited
+set adela_painting_bats
+-> END

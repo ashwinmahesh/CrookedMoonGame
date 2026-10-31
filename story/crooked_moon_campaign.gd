@@ -83,6 +83,8 @@ const LIMBO_ONWARD := "module_switcheroo_onward"
 ## every later crossing is a plain door. A pure query (menus ask it for the door's label too): it only reads which places the party has
 ## visited, which the place itself records on arrival.
 func exit_target(st: StoryState, from_location: String, to: String) -> String:
+	if to.begins_with("module_maze_"):
+		return maze_target(st.playthrough_seed, from_location, to.trim_prefix("module_maze_"))
 	if not to.begins_with("module_switcheroo_"):
 		return to
 	var chain := switcheroo_chain(st.playthrough_seed)
@@ -99,6 +101,38 @@ func exit_target(st: StoryState, from_location: String, to: String) -> String:
 	if forward and target != from_location and not st.visited.has(target):
 		return limbo_place()
 	return target
+
+
+## Raum's corn maze (R13, data/maze.json): three junctions, each with a left, a centre and a right mouth. One mouth at each junction is
+## the way on (fixed by the playthrough's seed, so a reload never changes it); the other two end in that junction's dead end, whose own
+## exit leads straight back. The way on from the last junction is the Circle of Secrets. `mouth` is left, centre or right.
+static func maze_target(seed_value: int, from_location: String, mouth: String) -> String:
+	var maze := _maze()
+	var junctions: Array = maze.get("junctions", [])
+	var at := junctions.find(from_location)
+	if at < 0:
+		return from_location
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed_value + 13 * (at + 1)
+	var right_mouth: String = ["left", "centre", "right"][rng.randi_range(0, 2)]
+	if mouth != right_mouth:
+		return str((maze.get("dead", []) as Array)[at])
+	return str(junctions[at + 1]) if at + 1 < junctions.size() else str(maze.get("circle", from_location))
+
+
+## The mouth that is the way on at a junction (for tests and the journal's hint to a hero who found it by ear).
+static func maze_way_on(seed_value: int, junction: String) -> String:
+	var at := (_maze().get("junctions", []) as Array).find(junction)
+	if at < 0:
+		return ""
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed_value + 13 * (at + 1)
+	return ["left", "centre", "right"][rng.randi_range(0, 2)]
+
+
+static func _maze() -> Dictionary:
+	var f := FileAccess.open("res://data/maze.json", FileAccess.READ)
+	return (JSON.parse_string(f.get_as_text()) as Dictionary) if f != null else {}
 
 
 ## The mist between cars, a place of its own that the party passes through on a first crossing.

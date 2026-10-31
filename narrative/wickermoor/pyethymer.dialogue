@@ -1,0 +1,25 @@
+# R11: the Old Pyethymer Place. The mayor has chained its gate; children dare each other in and do not come back; the house moves when not watched. It is a House of
+# Horror for a party far stronger than level 3, so this is the gate and the rumour only: the house itself opens in a later pass.
+
+~ gate
+Narrator: A chain and a padlock hold the gate, and a board nailed across it says BY ORDER OF THE MAYOR. On the step behind lies one small child's shoe, laces still tied.
+Narrator: The house leans over a lane of empty ones. When you look at its windows, it seems to have been looking at you a moment before.
+quest the_pyethymer_place rumour
+* Ask what folk say about the house -> ask
+* [Athletics DC 15] Try the chain -> chain_ok | chain_fail
+* Leave it -> END
+
+~ ask
+Narrator: Nobody who lives on the lane will say it plainly. A woman at her gate says the children dare each other, a boy at the inn says the house has more rooms inside than it has outside, and everyone says the shoe belongs to somebody.
+-> gate
+
+~ chain_ok
+Narrator: The padlock gives with a dull crack. The gate swings an inch, and something in the house breathes in, long and slow.
+Narrator: The shoe on the step is gone. Behind you, in the lane, a child laughs, and nobody is there. You pull the gate shut and press the chain back round it, and it feels like the right thing to have done.
+quest the_pyethymer_place chained
+-> END
+
+~ chain_fail
+Narrator: The chain does not budge, and the house seems to settle a little, pleased.
+quest the_pyethymer_place chained
+-> END

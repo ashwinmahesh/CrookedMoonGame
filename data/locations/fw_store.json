@@ -1,0 +1,97 @@
+{
+  "id": "fw_store",
+  "name": "The General Store",
+  "region": "foxwillow",
+  "summary": "The General Store, in Foxwillow.",
+  "text": "The inside of The General Store.",
+  "map": {
+    "rows": [
+      "################",
+      "#..............#",
+      "#.============.#",
+      "#..............#",
+      "#..............#",
+      "#..............#",
+      "#..==......==..#",
+      "#..............#",
+      "#..............#",
+      "#..............#",
+      "#..............#",
+      "################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The General Store",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          14,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      8,
+      10
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        8,
+        11
+      ],
+      "to": "foxwillow",
+      "spawn": "from_fw_store",
+      "label": "Out to the town"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_store_rubble",
+      "cell": [
+        13,
+        3
+      ],
+      "kind": "examine",
+      "label": "Burning rubble and a banjo's neck",
+      "model": "rocks",
+      "dialogue": "foxwillow/townsfolk:store_banjo"
+    },
+    {
+      "id": "fw_store_shelves",
+      "cell": [
+        3,
+        1
+      ],
+      "kind": "examine",
+      "label": "Shelves of staples",
+      "model": "shelves"
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}
