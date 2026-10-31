@@ -120,8 +120,8 @@ for _n in ("baltus_tolliver", "jean_myriel", "oswick_frey", "thomasin_ardor", "s
 
 # The Connections (Fateweaving): a second entry for the villager that holds while its scene is due; it comes first, so it wins over the usual one.
 # Companion Connections follow Lane F's drafts (Companions/*.md): the companion in the party, their Incitement done, the Crooked House's witch dead.
-# TODO(R12 lands): the book wants these after the Crooked House (vessla_slain); until that flag exists a Connection is open once the party is welcomed.
-_HAUNT = "flag.wm_welcomed and not flag.connection_%s"
+# The book wants the Connections after the Crooked House: a Connection opens once vessla_slain holds (R12).
+_HAUNT = "flag.vessla_slain and not flag.connection_%s"
 CONNECTIONS = [   # (npc, where, cell, scene node, thread, when)
     ("thomasin_ardor", "wickermoor_shop_tailor", (6, 5), "thomasin_cordelia_start", "evolution", "name:cordelia_skein and flag.incitement_evolution and "),
     ("alda_farnum", "wickermoor_green_queen_inn", (15, 9), "alda_delphine_start", "ascendancy", "name:delphine_ravelle and flag.incitement_ascendancy and "),

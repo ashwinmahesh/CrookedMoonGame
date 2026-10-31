@@ -822,7 +822,7 @@
         28
       ],
       "dialogue": "wickermoor/connections:hilda_lucan_start",
-      "when": "name:lucan_houndstooth and flag.wm_welcomed and not flag.connection_slaughter"
+      "when": "name:lucan_houndstooth and flag.vessla_slain and not flag.connection_slaughter"
     },
     {
       "npc": "sister_rain",
@@ -840,7 +840,7 @@
         23
       ],
       "dialogue": "wickermoor/connections:rain_tobin_start",
-      "when": "name:tobin_hayward and flag.wm_welcomed and not flag.connection_rejuvenation"
+      "when": "name:tobin_hayward and flag.vessla_slain and not flag.connection_rejuvenation"
     },
     {
       "npc": "weston_murdoch",
@@ -849,7 +849,31 @@
         30
       ],
       "dialogue": "wickermoor/connections_custom:weston_start",
-      "when": "background:druskenvald_dweller and flag.wm_welcomed and not flag.connection_rapture"
+      "when": "background:druskenvald_dweller and flag.vessla_slain and not flag.connection_rapture"
+    },
+    {
+      "npc": "old_rusty",
+      "cell": [
+        28,
+        24
+      ],
+      "dialogue": "crooked_house/find_my_son:start",
+      "when": "(flag.patrini_asked_find_son or flag.seance_done) and not flag.rusty_told_patrini",
+      "path": [
+        [
+          28,
+          24
+        ],
+        [
+          32,
+          23
+        ],
+        [
+          31,
+          26
+        ]
+      ],
+      "pause": 4
     },
     {
       "npc": "old_rusty",
@@ -858,7 +882,22 @@
         24
       ],
       "dialogue": "wickermoor/fieldtrip:rusty_fact",
-      "when": "flag.field_trip_asked and not flag.field_rusty"
+      "when": "flag.field_trip_asked and not flag.field_rusty",
+      "path": [
+        [
+          28,
+          24
+        ],
+        [
+          32,
+          23
+        ],
+        [
+          31,
+          26
+        ]
+      ],
+      "pause": 4
     },
     {
       "npc": "old_rusty",
