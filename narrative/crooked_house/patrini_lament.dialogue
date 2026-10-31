@@ -1,0 +1,70 @@
+# R12: the harpsichord in the music room (H5) and Patrini's lament. No speaker: Patrini speaks only through the board and by playing, so this is all Narrator. Region crooked_house.
+# FINAL-WORDED: every line below is voiced as written; do not edit a line once the voice lane starts.
+# Started by: the prop h5_harpsichord (`harpsichord`). The dance floor's weasels charm the whole first floor into dancing; the harpsichord is the way to stop the music.
+# Two ways: any hero may sit and play (Performance DC 15; Patrini's spirit steadies even unpractised hands), or, once the weasels are down, Religion or Arcana (DC 12) calls the dead
+# butler to play himself. A failed Performance is spent (never offered again), so the calling is the second way and may be tried again; a miss costs ten minutes of the night.
+# Either way he plays a lament and a black key pops out of the instrument: memento_black_key, flag memento_key. The tune is a lullaby in disguise: a hero who heard it
+# hums it to Arthur later (arthur.dialogue reads memento_key for advantage on the lullaby), so the Narrator hints at that.
+# A third way needs no roll (waiting an hour, `patience`) so a party that fails every roll still gets the key (fail_routes).
+# Drafted by Gemini (docs/plans/gemini_r12_patrini_lament/, brief.md and brief_2.md), edited.
+
+~ harpsichord
+if flag.memento_key
+-> played_out
+endif
+Narrator: That harpsichord gapes open like an unfilled coffin, smellin' of beeswax and damp wool felt. Yellowed keys wait in a hush so thick you reckon the whole room is holdin' its breath.
+-> menu
+
+~ menu
+* [Performance DC 15] Sit at the bench and play, trusting the old butler to guide our hands. -> play_ok | play_miss
+* [Religion DC 12] Ask the dead servant kindly to give the house one last song. -> call_ok | call_miss
+* [Arcana DC 12] Draw upon the lingering music in the room and bid him play. -> call_ok | call_miss
+* Wait quietly beside the instrument, hat in hand, as long as it takes. -> patience
+* Leave the instrument be. -> END
+
+~ play_ok
+Narrator: You settle onto the bench and touch the yellowed bone. Two cold, steady hands come down light as frost over your knuckles to guide the way.
+Narrator: Every sour note falls right away as the old box finds its grave, slow voice. Whatever is holdin' your wrists, it means the music as a kindness.
+-> lament
+
+~ play_miss
+time +10
+Narrator: The keys clatter like loose teeth and a wire snaps sharp inside the case. A draft sweeps across your knuckles, cold and final as a butler's polite refusal.
+Narrator: That instrument ain't havin' another word from your fingers tonight. A good ten minutes of the dark slip by before the ringing in the wood dies down.
+-> menu
+
+~ call_ok
+Narrator: The air turns warm and close with the scent of beeswax and pressed wool. Without a soul near it, the bench slides back across the floorboards.
+Narrator: Yellowed keys sink one by one under no hand you can see. You stand there quiet as latecomers at the back of a country church.
+-> lament
+
+~ call_miss
+time +10
+Narrator: Nobody answers, save the rafters tickin' and settling overhead in the damp. Whatever lingers in this room ain't ready to come to the bench.
+Narrator: Ten minutes leak away while you stand listenin' to the floorboards creak. The keys stay still and cold as river stones.
+-> menu
+
+# The way that needs no roll: an hour of the night, and he relents.
+~ patience
+time +60
+Narrator: You settle in to wait a spell, and the quiet thickens round your boots. A whole hour creeps by in the tickin' of the rafters and the smell of old beeswax.
+Narrator: Directly, something old and polite takes pity on folks who know how to stand still. The stool slides back for nobody at all, and the lid creaks open a mite wider.
+-> lament
+
+# The lament itself, then the key.
+~ lament
+Narrator: Out rolls a slow, patient lament, rockin' in threes like a cradle on uneven boards. Reckon it is the loneliest tune you ever stood still for.
+interject class:bard: There is a cradle song hidden inside this dirge, and I could carry the tune if need be.
+interject class:cleric: Listen to the cadence; that is an old evening prayer for a household, spoken to a heaven that never answered.
+Narrator: When the last chord thins to nothing, a wooden latch clicks deep in the belly. One black key pops loose from its row and rolls right into your palm.
+give memento_black_key
+set memento_key
+if quest.the_crooked_house == trapped
+quest the_crooked_house mementos
+endif
+Narrator: That round, rocking melody stays behind your teeth after the strings go cold. Like as not, you could hum a restless little one to sleep with a tune like that.
+-> END
+
+~ played_out
+Narrator: The harpsichord sits hushed, its lid propped wide over an empty velvet hollow. Whoever had a piece to play in this room has already said what he came to say.
+-> END
