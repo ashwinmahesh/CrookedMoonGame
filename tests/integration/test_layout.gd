@@ -156,3 +156,21 @@ func test_the_party_screens() -> void:
 			root.call("open_screen", screen, 0)
 			await _frames(2)
 			return root.get("screen"), func() -> void: root.call("close_screen"))
+
+
+## The journal's Bestiary with a few creatures met: its entry leads with the large portrait (their silhouettes until the art lane's
+## pictures exist) and the words beside it still fit.
+func test_the_bestiary_with_portraits() -> void:
+	await _game()
+	var st := GameState.story
+	var n := 0
+	for id: String in ["wayward_haint", "soulfire_stoker", "ghostlight_locomotive"]:
+		st.bestiary[id] = {"n": n, "met": 1, "where": "", "defeated": 1, "studied": n == 0}
+		n += 1
+	await _check("the bestiary with portraits", func() -> Variant:
+		root.call("open_screen", "journal", 0)
+		await _frames(2)
+		var journal := root.get("screen") as Node
+		journal.call("_turn_to", "Bestiary")
+		await _frames(2)
+		return journal, func() -> void: root.call("close_screen"))
