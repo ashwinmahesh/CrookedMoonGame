@@ -1,0 +1,109 @@
+{
+  "id": "fw_sawyer_house",
+  "name": "The Sawyer House",
+  "region": "foxwillow",
+  "summary": "The Sawyer House, in Foxwillow.",
+  "text": "The inside of The Sawyer House.",
+  "map": {
+    "rows": [
+      "##############",
+      "#............#",
+      "#.===........#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "#.......==...#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "#######.######"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Sawyer House",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          12,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      7,
+      10
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        7,
+        11
+      ],
+      "to": "foxwillow",
+      "spawn": "from_fw_sawyer_house",
+      "label": "Out to the town"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_sawyer_house_twin_beds",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "examine",
+      "label": "Two small beds",
+      "model": "bed",
+      "text": "Two beds, one with a scarecrow's straw hat on the pillow, one with a boy's boots beside it."
+    },
+    {
+      "id": "fw_sawyer_house_hearth",
+      "cell": [
+        3,
+        1
+      ],
+      "kind": "examine",
+      "label": "The hearth",
+      "model": "hearth",
+      "text": "A sooty hearth with a half-burnt letter in the grate."
+    },
+    {
+      "id": "fw_sawyer_house_shelf",
+      "cell": [
+        3,
+        8
+      ],
+      "kind": "examine",
+      "label": "A shelf of toys",
+      "model": "shelves",
+      "text": "A tin soldier, a wooden crow, and a rag doll with a pumpkin face drawn on it in charcoal."
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

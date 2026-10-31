@@ -28,6 +28,9 @@ const REST_EXHAUSTION_META := "cm_rest_exhaustion"
 const TEETH_META := "bs_teeth"
 const TEETH_LOST_META := "bs_teeth_lost"
 ## Water as a weapon: the item the Dining Car hands out, the trait that makes a creature burn from it, and the throw's range.
+const AMBER_CROW := "amber_crow"
+## On Raum: the amber crows he has eaten.
+const CROWS_EATEN_META := "bs_crows_eaten"
 const WATER := "jug_of_water"
 const QUENCHING_TRAIT := "quenching_water"
 const WATER_RANGE_FT := 20
@@ -193,6 +196,8 @@ func entered_cell(c: Combatant, _cell: Vector2i) -> void:
 ## square it can see beside that hero. A dark teleport is not for bright light.
 func bonus_action(c: Combatant, act: Dictionary, plan: String) -> Variant:
 	var kind := str(act.get("do", ""))
+	if kind == "eat_crow":
+		return _eat_crow(c, act)
 	if plan != "shift" or not kind in ["teleport", "dark_teleport"] or not c.bonus_available:
 		return null
 	var e := enc()
@@ -226,6 +231,35 @@ func bonus_action(c: Combatant, act: Dictionary, plan: String) -> Variant:
 	_log("info", "%s %s" % [c.name(), "slips through the dark" if kind == "dark_teleport" else "vanishes and reappears"], c)
 	e.spells._teleport(c, best, r)
 	return r
+
+
+# --- Raum's crows -----------------------------------------------------------------------------------------------
+
+## Raum's Bonus Action (R13): he eats an amber crow within 30 ft, gaining 10, then 20, then 30 Temporary Hit Points. The third crow
+## ends his first phase (the story flag fw_crows_eaten_3, which the phase's `when` reads beside six crows gone). Null when none is near.
+func _eat_crow(c: Combatant, act: Dictionary) -> Variant:
+	var e := enc()
+	var eaten := int(c.get_meta(CROWS_EATEN_META, 0))
+	if eaten >= 3 or not c.bonus_available:
+		return null
+	var crow: Combatant = null
+	for o in e.combatants:
+		if o != c and not o.is_down() and monster_id(o) == AMBER_CROW and e.distance(c, o) <= 30 and (crow == null or e.distance(c, o) < e.distance(c, crow)):
+			crow = o
+	if crow == null:
+		return null
+	c.bonus_available = false
+	e.monster_actions.spend(c, act)
+	eaten += 1
+	c.set_meta(CROWS_EATEN_META, eaten)
+	c.set_meta("area_bonus_ft", 5 * eaten)   # his emanations grow 5 ft a crow (the engine reads this meta: MonsterActions.area_size)
+	e.legendary.vanish(crow, "%s is swallowed whole" % crow.name())
+	c.creature.add_temp_hp(10 * eaten, "Devour Crow")
+	_log("info", "%s eats an amber crow (%d of 3)" % [c.name(), eaten], c)
+	if eaten >= 3:
+		e.legendary.story_flags["fw_crows_eaten_3"] = true
+		e.legendary.phases.turn_start(c)   # a phase waiting on a story flag begins now
+	return CombatResult.new()
 
 
 # --- Riders --------------------------------------------------------------------------------------------------------

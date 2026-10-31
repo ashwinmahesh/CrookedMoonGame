@@ -140,7 +140,16 @@
           ],
           "name": "Liza Sawyer, in the straw",
           "art": "scarecrow",
-          "facing": "west"
+          "facing": "west",
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning"
+            ],
+            "count": "fw_bodies_ruined",
+            "warn": "A villager is inside. Fire or crushing blows would kill them for good.",
+            "flag": "fw_body_fw_mill"
+          }
         },
         {
           "monster": "pumpkin_head",
@@ -149,7 +158,16 @@
             8
           ],
           "name": "A burning scarecrow",
-          "facing": "west"
+          "facing": "west",
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning"
+            ],
+            "count": "fw_bodies_ruined",
+            "warn": "A villager is inside. Fire or crushing blows would kill them for good.",
+            "flag": "fw_body_fw_mill"
+          }
         }
       ],
       "round_events": [
@@ -182,7 +200,8 @@
               ]
             ]
           },
-          "say": "The mill groans, and the fire reaches for the stair."
+          "say": "The mill groans, and the fire reaches for the stair.",
+          "until_flag": "fw_mill_fire_out"
         },
         {
           "id": "mill_falls",
