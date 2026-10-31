@@ -47,6 +47,10 @@
     "default": [
       9,
       13
+    ],
+    "cells": [
+      9,
+      3
     ]
   },
   "exits": [
@@ -58,7 +62,8 @@
       ],
       "to": "wickermoor_village",
       "spawn": "from_constable_station",
-      "label": "Out to the village"
+      "label": "Out to the village",
+      "when": "not jailed"
     }
   ],
   "props": [
@@ -129,9 +134,30 @@
       "label": "A barred cell",
       "model": "barred_door",
       "text": "A cell with iron bars worn bright where hands have held them, and a window too high to look out of."
+    },
+    {
+      "id": "constable_station_desk",
+      "cell": [
+        6,
+        12
+      ],
+      "kind": "examine",
+      "label": "Doris Squire's desk",
+      "model": "table_round",
+      "dialogue": "wickermoor/misdelivered:doris_desk",
+      "when": "flag.misdelivered_asked and not flag.letter_doris"
     }
   ],
   "npcs": [
+    {
+      "npc": "doris_squire",
+      "cell": [
+        9,
+        8
+      ],
+      "dialogue": "watch/wickermoor:jail_talk",
+      "when": "jailed"
+    },
     {
       "npc": "doris_squire",
       "cell": [

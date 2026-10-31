@@ -21,6 +21,7 @@ doris_squire [neutral]: Magic at a neighbour's cost. Pay, or answer.
 * [if flag.crime_wickermoor >= 2 and gold >= 25] Pay the fine, twenty-five gold -> pay_high
 * [Persuasion DC 15] Talk her out of it -> talked | talk_failed
 * Refuse -> refuse
+* Go quietly with the watch -> surrender
 
 ~ pay_low
 doris_squire [neutral]: Done.
@@ -55,3 +56,23 @@ doris_squire [neutral]: No.
 doris_squire [angry]: Then you answer to us.
 Narrator: Two of the watch step up beside her, spears levelled.
 combat watch_arrest
+
+~ surrender
+doris_squire [neutral]: Sensible. Hand over your gear. You will have a bed, a bucket and a day to think.
+Narrator: The cell door is only a barred frame, but there is nowhere in Wickermoor to take what they have kept.
+set crime_wickermoor = 0
+jail wickermoor_constable_station:cells until days_since.jailed >= 1
+
+~ jail_talk
+doris_squire [neutral]: You have had your day. The offence is written off.
+* Ask for our gear and go -> jail_out
+* Ask what the village thinks of us -> jail_village
+
+~ jail_village
+doris_squire [neutral]: It thinks you are strangers. It thinks that of everyone.
+-> jail_talk
+
+~ jail_out
+doris_squire [neutral]: Out. Mind the doors.
+jail release
+-> END

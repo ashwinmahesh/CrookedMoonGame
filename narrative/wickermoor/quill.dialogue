@@ -1,0 +1,41 @@
+# Drafted by Gemini (side quests batch 1: feast), edited.
+
+~ start
+ambrose_quill [smile]: Ah, fresh ears in the Green Queen's taproom! I am Ambrose Quill, humble vessel of the muse, paring eternity down to metre and ink.
+* [if flag.quill_verses == 0] Hear a verse -> v1
+* [if flag.quill_verses == 1] Hear another verse -> v2
+* [if flag.quill_verses == 2] Hear another verse -> v3
+* [if flag.quill_verses >= 3] Hear the final verse -> v4
+* Ask about the feast ode -> ode_ask
+* Leave -> END
+
+~ v1
+ambrose_quill [smile]: Dark blows the wind through Wickermoor, where misty lanterns shine so bright. We bolt the heavy timber door, and drink our ale until Tuesday.
+ambrose_quill [neutral]: Notice how the final word defies expectation. Rhyme is a cage for lesser birds.
+set quill_verses += 1
+-> start
+
+~ v2
+ambrose_quill [smile]: Beneath the boughs of ancient oak, the carved faces watch the folk. They drink the red rain under oak, and never once let out a spoke.
+ambrose_quill [sly]: Pairing oak with oak gives the stanza a sturdy, rooted symmetry, don't you think?
+set quill_verses += 1
+-> start
+
+~ v3
+ambrose_quill [smile]: Six iron bells inside the tower, strike the grim and nameless hour. Cold brass gears that grind and clank, like turnips tumbling down a bank.
+interject name:rook_coldwake: That stanza violates several municipal ordinances.
+interject name:delphine_ravelle: Tragic cadence, darling. Truly a slaughter of syllables.
+set quill_verses += 1
+-> start
+
+~ v4
+ambrose_quill [smile]: We wear the names we had before, though half the letters washed away. The dead knock softly at the door, and ask who lived here yesterday.
+ambrose_quill [weary]: Hm. Too simple, perhaps. It lacks the grandeur of the turnip image.
+set quill_verses += 1
+-> start
+
+~ ode_ask
+ambrose_quill [weary]: Mayor Somerton commissioned an anthem for the Founders' table, yet the village's own name resists my craft. What mortal tongue can rhyme with Wickermoor?
+Narrator: You rack your brains around the table, and the best anyone can offer is 'floor more'.
+ambrose_quill [smile]: Floor more! Inspired! A double-barrelled chime of domestic abundance! Consider it immortalised.
+-> start
