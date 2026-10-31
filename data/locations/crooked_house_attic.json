@@ -187,7 +187,10 @@
       "label": "A great cauldron of glowing red ichor",
       "model": "cauldron",
       "scale": 1.4,
-      "text": "A cauldron as wide as a cart, bubbling with something red that gives off heat and the smell of old pennies."
+      "text": "A cauldron as wide as a cart, bubbling with something red that gives off heat and the smell of old pennies.",
+      "call": "crooked_house/incitements:immortality_enter",
+      "approach": 3,
+      "call_when": "not flag.incitement_immortality"
     },
     {
       "id": "h17_phillip",
@@ -195,9 +198,10 @@
         7,
         15
       ],
-      "kind": "decor",
+      "kind": "examine",
       "label": "Phillip, bound",
-      "model": "rope_coils"
+      "model": "rope_coils",
+      "text": "A man in a fine suit sits bound at the cauldron's foot."
     },
     {
       "id": "h17_adela",
@@ -205,9 +209,10 @@
         11,
         15
       ],
-      "kind": "decor",
+      "kind": "examine",
       "label": "Adela, bound",
-      "model": "rope_coils"
+      "model": "rope_coils",
+      "text": "A hooded figure sways on the spot, and does not answer."
     },
     {
       "id": "h17_scratchings",
@@ -218,7 +223,8 @@
       "kind": "examine",
       "label": "Scratchings in the beam",
       "model": "claw_marks",
-      "text": "Scratches cover the old beam, and among them, cut deep and slowly, are names."
+      "text": "Scratches cover the old beam, and among them, cut deep and slowly, are names.",
+      "flag": "coven_names_known"
     },
     {
       "id": "h17_window",
@@ -418,6 +424,250 @@
       ],
       "kind": "decor",
       "model": "bone_scatter"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "adela_druskenvald_ruse",
+      "cell": [
+        9,
+        11
+      ],
+      "dialogue": "crooked_house/vessla:pre_fight",
+      "when": "not flag.vessla_slain",
+      "approach": 8,
+      "lying": true
+    },
+    {
+      "npc": "phillip_druskenvald",
+      "cell": [
+        7,
+        14
+      ],
+      "dialogue": "crooked_house/vessla:phillip_bound",
+      "when": "not flag.vessla_slain",
+      "facing": "south"
+    },
+    {
+      "npc": "adela_druskenvald",
+      "cell": [
+        11,
+        14
+      ],
+      "dialogue": "crooked_house/vessla:room_menu",
+      "when": "not flag.vessla_slain",
+      "facing": "south"
+    },
+    {
+      "npc": "phillip_druskenvald",
+      "cell": [
+        7,
+        14
+      ],
+      "dialogue": "crooked_house/vessla:death",
+      "when": "flag.vessla_slain and not flag.druskenvald_manor_restored",
+      "approach": 12,
+      "facing": "south"
+    },
+    {
+      "npc": "adela_druskenvald",
+      "cell": [
+        11,
+        14
+      ],
+      "dialogue": "crooked_house/vessla:death",
+      "when": "flag.vessla_slain and not flag.druskenvald_manor_restored",
+      "facing": "south"
+    },
+    {
+      "npc": "phillip_druskenvald",
+      "cell": [
+        7,
+        14
+      ],
+      "dialogue": "crooked_house/druskenvalds_after:chat",
+      "when": "flag.druskenvald_manor_restored",
+      "facing": "south"
+    },
+    {
+      "npc": "adela_druskenvald",
+      "cell": [
+        11,
+        14
+      ],
+      "dialogue": "crooked_house/druskenvalds_after:chat",
+      "when": "flag.druskenvald_manor_restored",
+      "facing": "south"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "ch_vessla",
+      "trigger": "dialogue",
+      "when": "level >= 3 and flag.vessla_tooth_gift and flag.jasper_fled",
+      "surprise": "enemies",
+      "flag": "vessla_slain",
+      "quest": {
+        "id": "the_crooked_house",
+        "stage": "done"
+      },
+      "monsters": [
+        {
+          "monster": "weasel_hag",
+          "cell": [
+            9,
+            11
+          ],
+          "name": "Vessla Browntooth",
+          "steps_down": {
+            "npc": "adela_druskenvald_ruse"
+          }
+        },
+        {
+          "monster": "vermin_familiar_weasel",
+          "cell": [
+            13,
+            17
+          ],
+          "name": "Filthy Jasper",
+          "hp": 15
+        }
+      ]
+    },
+    {
+      "id": "ch_vessla",
+      "trigger": "dialogue",
+      "when": "level >= 3 and flag.vessla_tooth_gift",
+      "surprise": "enemies",
+      "flag": "vessla_slain",
+      "quest": {
+        "id": "the_crooked_house",
+        "stage": "done"
+      },
+      "monsters": [
+        {
+          "monster": "weasel_hag",
+          "cell": [
+            9,
+            11
+          ],
+          "name": "Vessla Browntooth",
+          "steps_down": {
+            "npc": "adela_druskenvald_ruse"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch_vessla",
+      "trigger": "dialogue",
+      "when": "level >= 3 and flag.vessla_ruse_seen and flag.jasper_fled",
+      "flag": "vessla_slain",
+      "quest": {
+        "id": "the_crooked_house",
+        "stage": "done"
+      },
+      "monsters": [
+        {
+          "monster": "weasel_hag",
+          "cell": [
+            9,
+            11
+          ],
+          "name": "Vessla Browntooth",
+          "steps_down": {
+            "npc": "adela_druskenvald_ruse"
+          }
+        },
+        {
+          "monster": "vermin_familiar_weasel",
+          "cell": [
+            13,
+            17
+          ],
+          "name": "Filthy Jasper",
+          "hp": 15
+        }
+      ]
+    },
+    {
+      "id": "ch_vessla",
+      "trigger": "dialogue",
+      "when": "level >= 3 and flag.vessla_ruse_seen",
+      "flag": "vessla_slain",
+      "quest": {
+        "id": "the_crooked_house",
+        "stage": "done"
+      },
+      "monsters": [
+        {
+          "monster": "weasel_hag",
+          "cell": [
+            9,
+            11
+          ],
+          "name": "Vessla Browntooth",
+          "steps_down": {
+            "npc": "adela_druskenvald_ruse"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch_vessla",
+      "trigger": "dialogue",
+      "when": "level >= 3 and flag.jasper_fled",
+      "surprise": "party",
+      "flag": "vessla_slain",
+      "quest": {
+        "id": "the_crooked_house",
+        "stage": "done"
+      },
+      "monsters": [
+        {
+          "monster": "weasel_hag",
+          "cell": [
+            9,
+            11
+          ],
+          "name": "Vessla Browntooth",
+          "steps_down": {
+            "npc": "adela_druskenvald_ruse"
+          }
+        },
+        {
+          "monster": "vermin_familiar_weasel",
+          "cell": [
+            13,
+            17
+          ],
+          "name": "Filthy Jasper",
+          "hp": 15
+        }
+      ]
+    },
+    {
+      "id": "ch_vessla",
+      "trigger": "dialogue",
+      "surprise": "party",
+      "flag": "vessla_slain",
+      "quest": {
+        "id": "the_crooked_house",
+        "stage": "done"
+      },
+      "monsters": [
+        {
+          "monster": "weasel_hag",
+          "cell": [
+            9,
+            11
+          ],
+          "name": "Vessla Browntooth",
+          "steps_down": {
+            "npc": "adela_druskenvald_ruse"
+          }
+        }
+      ]
     }
   ],
   "lights": [
