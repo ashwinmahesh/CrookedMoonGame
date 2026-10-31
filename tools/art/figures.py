@@ -1,0 +1,179 @@
+#!/usr/bin/env python3
+"""3D creature figures for the game (the engine's FigureModels, art/figures/manifest.json): each figure whose manifest
+entry names a `source` (a rigged GLB under the asset root, e.g. tripo/models/rook_final_..._6clips.glb from Tripo
+Studio) is copied to its `file` in the repo, made fit to ship:
+
+- every texture the materials use is scaled down to at most --max px on its long side (Tripo exports 4K or 8K; a
+  figure fills a few hundred pixels of the screen) with macOS's sips, still a JPEG;
+- images no material uses (Tripo's spare normal map) are left out;
+- the images are named for what they are (albedo, normal), so the textures Godot extracts beside the file are
+  <figure>_albedo.jpg and <figure>_normal.png;
+- animation names lose Tripo's ".001" and "preset:...:" decorations ("idle.001" -> "idle", "preset:quadruped:walk"
+  -> "walk"), so the manifest and the engine name clips plainly.
+
+The meshes, skins and animations are copied byte for byte. The source files are never changed.
+
+  python3 tools/art/figures.py             copies every figure whose file is missing or older than its source
+  python3 tools/art/figures.py --force     copies them all again
+  python3 tools/art/figures.py rook_coldwake adela_druskenvald    only these
+"""
+import json, os, re, struct, subprocess, sys, tempfile
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(REPO / 'tools'))
+from asset_root import asset_root  # noqa: E402
+
+MANIFEST = REPO / 'art/figures/manifest.json'
+GLB_MAGIC = 0x46546C67
+CHUNK_JSON = 0x4E4F534A
+CHUNK_BIN = 0x004E4942
+
+
+def read_glb(path: Path):
+    data = path.read_bytes()
+    magic, version, _length = struct.unpack_from('<III', data, 0)
+    if magic != GLB_MAGIC or version != 2:
+        raise ValueError(f'{path} is not a glTF 2 binary')
+    doc, binary, off = None, b'', 12
+    while off < len(data):
+        size, kind = struct.unpack_from('<II', data, off)
+        chunk = data[off + 8:off + 8 + size]
+        if kind == CHUNK_JSON:
+            doc = json.loads(chunk)
+        elif kind == CHUNK_BIN:
+            binary = chunk
+        off += 8 + size
+    return doc, binary
+
+
+def write_glb(path: Path, doc: dict, binary: bytes) -> None:
+    js = json.dumps(doc, separators=(',', ':')).encode()
+    js += b' ' * (-len(js) % 4)
+    binary += b'\0' * (-len(binary) % 4)
+    total = 12 + 8 + len(js) + 8 + len(binary)
+    out = struct.pack('<III', GLB_MAGIC, 2, total) + struct.pack('<II', len(js), CHUNK_JSON) + js
+    out += struct.pack('<II', len(binary), CHUNK_BIN) + binary
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(out)
+
+
+def view_bytes(doc: dict, binary: bytes, index: int) -> bytes:
+    v = doc['bufferViews'][index]
+    start = v.get('byteOffset', 0)
+    return binary[start:start + v['byteLength']]
+
+
+def shrink(image: bytes, mime: str, max_px: int) -> bytes:
+    """The image at most max_px on its long side (sips keeps JPEG as JPEG, PNG as PNG)."""
+    ext = '.png' if mime == 'image/png' else '.jpg'
+    with tempfile.TemporaryDirectory() as tmp:
+        src, dst = Path(tmp) / ('in' + ext), Path(tmp) / ('out' + ext)
+        src.write_bytes(image)
+        size = subprocess.run(['sips', '-g', 'pixelWidth', '-g', 'pixelHeight', str(src)], capture_output=True, text=True,
+                              check=True).stdout
+        dims = [int(n) for n in re.findall(r'pixel(?:Width|Height): (\d+)', size)]
+        if max(dims) <= max_px:
+            return image
+        args = ['sips', '-Z', str(max_px), str(src), '--out', str(dst)]
+        if ext == '.jpg':
+            args[1:1] = ['-s', 'formatOptions', '92']
+        subprocess.run(args, capture_output=True, check=True)
+        return dst.read_bytes()
+
+
+def plain_clip_name(name: str) -> str:
+    return re.sub(r'\.\d+$', '', name.split(':')[-1])
+
+
+def convert(src: Path, dst: Path, max_px: int) -> str:
+    doc, binary = read_glb(src)
+    used_images = sorted({t['source'] for t in doc.get('textures', []) if 'source' in t})
+    # What each image is for (Godot names the texture it extracts <file>_<image name>).
+    role = {}
+    for m in doc.get('materials', []):
+        for kind, ref in (('albedo', m.get('pbrMetallicRoughness', {}).get('baseColorTexture')), ('normal', m.get('normalTexture')),
+                          ('orm', m.get('pbrMetallicRoughness', {}).get('metallicRoughnessTexture')),
+                          ('emission', m.get('emissiveTexture')), ('occlusion', m.get('occlusionTexture'))):
+            if ref and 'index' in ref:
+                role.setdefault(doc['textures'][ref['index']]['source'], kind)
+    keep_views = set()
+    for a in doc.get('accessors', []):
+        if 'bufferView' in a:
+            keep_views.add(a['bufferView'])
+        for part in ('indices', 'values'):
+            if part in a.get('sparse', {}):
+                keep_views.add(a['sparse'][part]['bufferView'])
+    new_bytes = {}
+    image_remap, images = {}, []
+    for i in used_images:
+        img = dict(doc['images'][i])
+        if 'bufferView' in img:
+            keep_views.add(img['bufferView'])
+            new_bytes[img['bufferView']] = shrink(view_bytes(doc, binary, img['bufferView']), img.get('mimeType', ''), max_px)
+        name = role.get(i, 'image')
+        img['name'] = name if name not in [im['name'] for im in images] else f'{name}_{len(images)}'
+        image_remap[i] = len(images)
+        images.append(img)
+    # The binary again: the views kept, in their order, each 4-byte aligned, images replaced by their smaller copies.
+    view_remap, views, out = {}, [], bytearray()
+    for i, v in enumerate(doc.get('bufferViews', [])):
+        if i not in keep_views:
+            continue
+        chunk = new_bytes.get(i, view_bytes(doc, binary, i))
+        out += b'\0' * (-len(out) % 4)
+        nv = dict(v)
+        nv['buffer'] = 0
+        nv['byteOffset'] = len(out)
+        nv['byteLength'] = len(chunk)
+        out += chunk
+        view_remap[i] = len(views)
+        views.append(nv)
+    doc['bufferViews'] = views
+    for a in doc.get('accessors', []):
+        if 'bufferView' in a:
+            a['bufferView'] = view_remap[a['bufferView']]
+        for part in ('indices', 'values'):
+            if part in a.get('sparse', {}):
+                a['sparse'][part]['bufferView'] = view_remap[a['sparse'][part]['bufferView']]
+    for img in images:
+        if 'bufferView' in img:
+            img['bufferView'] = view_remap[img['bufferView']]
+    doc['images'] = images
+    for t in doc.get('textures', []):
+        if 'source' in t:
+            t['source'] = image_remap[t['source']]
+    names = [plain_clip_name(a.get('name', '')) for a in doc.get('animations', [])]
+    for a, plain in zip(doc.get('animations', []), names):
+        if plain and names.count(plain) == 1:
+            a['name'] = plain
+    doc['buffers'] = [{'byteLength': len(out)}]
+    write_glb(dst, doc, bytes(out))
+    return f'{dst.relative_to(REPO)}: {src.stat().st_size / 1e6:.1f} MB -> {dst.stat().st_size / 1e6:.1f} MB, ' \
+           f'clips {", ".join(a.get("name", "") for a in doc.get("animations", []))}'
+
+
+def main(argv):
+    force = '--force' in argv
+    max_px = 2048
+    for a in argv:
+        if a.startswith('--max='):
+            max_px = int(a.split('=', 1)[1])
+    only = [a for a in argv if not a.startswith('--')]
+    figures = json.loads(MANIFEST.read_text())['figures']
+    root = asset_root()
+    for fid, info in figures.items():
+        if only and fid not in only or 'source' not in info:
+            continue
+        src, dst = root / info['source'], REPO / info['file']
+        if not src.exists():
+            print(f'{fid}: source {src} is missing (is the asset drive mounted?)', file=sys.stderr)
+            continue
+        if dst.exists() and not force and dst.stat().st_mtime >= src.stat().st_mtime:
+            continue
+        print(convert(src, dst, max_px))
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))
