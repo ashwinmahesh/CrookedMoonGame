@@ -1,0 +1,24 @@
+{
+  "id": "connection_ascendancy",
+  "name": "The Innkeeper's Question",
+  "kind": "side",
+  "region": "companions",
+  "giver": "alda_farnum",
+  "summary": "A thread from a companion's past, picked up by someone in Wickermoor.",
+  "stages": [
+    {
+      "id": "waiting",
+      "journal": "The Innkeeper's Question: something on the train left a thread loose, and it picks up in Wickermoor.",
+      "hint": "Reach Wickermoor Village and be welcomed.",
+      "waits": {
+        "until": "flag.wm_welcomed",
+        "text": "Alda Farnum at the Green Queen will ask her question once the village has welcomed us."
+      }
+    },
+    {
+      "id": "met",
+      "journal": "Alda asked Delphine her question over the taproom's bar, and Delphine answered it with a joke.",
+      "ends": "success"
+    }
+  ]
+}

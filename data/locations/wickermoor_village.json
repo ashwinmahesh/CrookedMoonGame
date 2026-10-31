@@ -140,6 +140,93 @@
         {
           "monster": "wolf",
           "cell": [
+            40,
+            25
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            37,
+            23
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            36,
+            21
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            39,
+            23
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            34,
+            24
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            36,
+            25
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "dire_wolf",
+          "cell": [
+            39,
+            20
+          ],
+          "name": "The pack leader",
+          "facing": "west"
+        },
+        {
+          "monster": "goat",
+          "cell": [
+            33,
+            27
+          ],
+          "name": "The baby goat",
+          "side": "neutral",
+          "catch": {
+            "flag": "goat_caught"
+          }
+        }
+      ],
+      "when": "flag.goat_fate == freed or flag.goat_fate == freed_eaten"
+    },
+    {
+      "id": "wm_first_sacrifice",
+      "trigger": "dialogue",
+      "flag": "wm_first_sacrifice_done",
+      "quest": {
+        "id": "wickermoor_arrival",
+        "stage": "welcome"
+      },
+      "monsters": [
+        {
+          "monster": "wolf",
+          "cell": [
             47,
             25
           ],
@@ -528,6 +615,56 @@
       "spawn": "from_village",
       "label": "The path to Marl's orchard",
       "when": "flag.picnic_sick and not flag.seed_done"
+    },
+    {
+      "id": "stable",
+      "cell": [
+        23,
+        38
+      ],
+      "to": "wickermoor_stable",
+      "spawn": "default",
+      "label": "Enter Marianna's Stable"
+    },
+    {
+      "id": "cottage_south_a",
+      "cell": [
+        30,
+        42
+      ],
+      "to": "wickermoor_cottage_south_a",
+      "spawn": "default",
+      "label": "Enter A Cottage on the South Lane"
+    },
+    {
+      "id": "cottage_south_b",
+      "cell": [
+        36,
+        42
+      ],
+      "to": "wickermoor_cottage_south_b",
+      "spawn": "default",
+      "label": "Enter A Cottage on the South Lane"
+    },
+    {
+      "id": "hut",
+      "cell": [
+        51,
+        8
+      ],
+      "to": "wickermoor_hut",
+      "spawn": "default",
+      "label": "Enter A Herder's Hut"
+    },
+    {
+      "id": "studio",
+      "cell": [
+        15,
+        18
+      ],
+      "to": "wickermoor_studio",
+      "spawn": "default",
+      "label": "Enter Gaston's Studio"
     }
   ],
   "id": "wickermoor_village",
@@ -826,6 +963,33 @@
         23,
         37
       ],
+      "dialogue": "wickermoor/mare:return",
+      "when": "flag.mare_caught and not flag.mare_returned"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        23,
+        37
+      ],
+      "dialogue": "wickermoor/mare:start",
+      "when": "flag.wm_welcomed and not flag.mare_asked and not flag.mare_lost"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        23,
+        37
+      ],
+      "dialogue": "wickermoor/mare:progress",
+      "when": "flag.mare_asked and not flag.mare_caught and not flag.mare_lost"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        23,
+        37
+      ],
       "dialogue": "wickermoor/marianna_grey:start"
     },
     {
@@ -1087,6 +1251,43 @@
           "failure": {}
         }
       ]
+    },
+    {
+      "id": "wm_mare_tracks",
+      "cell": [
+        20,
+        3
+      ],
+      "kind": "examine",
+      "label": "Hoofprints in the mud",
+      "model": "rocks",
+      "dialogue": "wickermoor/mare:tracks",
+      "when": "flag.mare_asked and not flag.mare_found and not flag.mare_lost"
+    },
+    {
+      "id": "wm_mare",
+      "cell": [
+        36,
+        2
+      ],
+      "kind": "examine",
+      "label": "A grey mare in a thicket",
+      "model": "horse",
+      "dialogue": "wickermoor/mare:mare_there",
+      "when": "flag.mare_found and not flag.mare_caught"
+    },
+    {
+      "id": "wm_goat",
+      "cell": [
+        31,
+        26
+      ],
+      "kind": "examine",
+      "label": "The village goat",
+      "model": "horse",
+      "scale": 0.5,
+      "dialogue": "wickermoor/misdelivered:goat",
+      "when": "flag.misdelivered_asked and not flag.letter_goat"
     }
   ],
   "region": "wickermoor",
@@ -1196,6 +1397,30 @@
     "from_orchard": [
       57,
       4
+    ],
+    "from_stable_yard": [
+      23,
+      37
+    ],
+    "from_stable": [
+      23,
+      37
+    ],
+    "from_cottage_south_a": [
+      30,
+      43
+    ],
+    "from_cottage_south_b": [
+      36,
+      43
+    ],
+    "from_hut": [
+      51,
+      9
+    ],
+    "from_studio": [
+      16,
+      18
     ]
   },
   "summary": "The hub: a village round a trodden square, an oak of carved faces, a clocktower, the Silverbell along the south and the crooked estate on its hill.",

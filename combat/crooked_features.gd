@@ -28,7 +28,7 @@ func _init(encounter: Encounter) -> void:
 const PART_PATHS: Array[String] = ["res://combat/crooked/cm_species.gd", "res://combat/crooked/cm_feats.gd",
 	"res://combat/crooked/cm_grave_and_grim.gd", "res://combat/crooked/cm_blood_and_jest.gd", "res://combat/crooked/cm_warriors.gd",
 	"res://combat/crooked/cm_casters.gd", "res://combat/crooked/cm_scholars.gd", "res://combat/crooked/cm_spells_a.gd",
-	"res://combat/crooked/cm_spells_b.gd", "res://combat/crooked/cm_bargains.gd", "res://combat/bestiary/bestiary_features.gd"]
+	"res://combat/crooked/cm_spells_b.gd", "res://combat/crooked/cm_bargains.gd", "res://combat/bestiary/bestiary_features.gd", "res://combat/crooked/cm_heirlooms.gd"]
 
 
 ## The part that owns the hotbar action, queued kind or sustained mode `id`, or null.
@@ -372,3 +372,26 @@ func effect_added(cr: Creature, fx: Effect) -> void:
 func after_summon(ctx: Dictionary, m: Creature) -> void:
 	for p in parts:
 		p.after_summon(ctx, m)
+
+
+# --- The game's own item powers -----------------------------------------------------------------------------------
+
+func handles_item_power(custom: String) -> bool:
+	for p in parts:
+		if p.handles_item_power(custom):
+			return true
+	return false
+
+
+func item_power_why(c: Combatant, p: Dictionary) -> String:
+	for part in parts:
+		if part.handles_item_power(str((p["power"] as Dictionary).get("custom", ""))):
+			return part.item_power_why(c, p)
+	return ""
+
+
+func item_power_use(c: Combatant, p: Dictionary, targets: Array, point: Vector2, opts: Dictionary) -> CombatResult:
+	for part in parts:
+		if part.handles_item_power(str((p["power"] as Dictionary).get("custom", ""))):
+			return part.item_power_use(c, p, targets, point, opts)
+	return CombatResult.fail("Not available")
