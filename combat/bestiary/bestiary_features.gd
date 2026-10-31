@@ -252,6 +252,7 @@ func _eat_crow(c: Combatant, act: Dictionary) -> Variant:
 	e.monster_actions.spend(c, act)
 	eaten += 1
 	c.set_meta(CROWS_EATEN_META, eaten)
+	c.set_meta("area_bonus_ft", 5 * eaten)   # his emanations grow 5 ft a crow (the engine reads this meta: MonsterActions.area_size)
 	e.legendary.vanish(crow, "%s is swallowed whole" % crow.name())
 	c.creature.add_temp_hp(10 * eaten, "Devour Crow")
 	_log("info", "%s eats an amber crow (%d of 3)" % [c.name(), eaten], c)

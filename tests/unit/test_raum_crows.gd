@@ -33,6 +33,7 @@ func test_three_crows_eaten_end_the_murder_phase() -> void:
 		assert_false(e.legendary.phases.is_active(raum, "demon_of_secrets"), "still the murder before crow %d" % (n + 1))
 		assert_true(_devour(e, raum) != null, "crow %d is eaten" % (n + 1))
 		assert_eq(raum.creature.temp_hp, int(want[n]), "temporary Hit Points after crow %d" % (n + 1))
+		assert_eq(int(raum.get_meta("area_bonus_ft", 0)), 5 * (n + 1), "his areas grow 5 ft a crow")
 	assert_true(bool(e.legendary.story_flags.get("fw_crows_eaten_3", false)))
 	assert_true(e.legendary.phases.is_active(raum, "demon_of_secrets"), "the third crow bursts the murder")
 	assert_true(_devour(e, raum) == null, "no fourth")
