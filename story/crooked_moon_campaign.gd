@@ -43,6 +43,13 @@ func field(st: StoryState, path: String) -> String:
 	if parts.size() == 2 and parts[0] == "last_car":
 		var chain := switcheroo_chain(st.playthrough_seed)
 		return "yes" if chain.size() > 1 and chain[chain.size() - 2] == parts[1] else ""
+	# The children's room's hide-and-seek (R12, H10): which of its six hiding places holds the Lurker in the Dark
+	# (`tarokka.lurker_spot.<n>`, n = 1 to 6, in the order of LURKER_SPOTS), and whether every place has been searched
+	# (`tarokka.lurker_hunt.searched`: then it drops from the ceiling).
+	if parts.size() == 2 and parts[0] == "lurker_spot":
+		return "yes" if lurker_spot(st.playthrough_seed) == int(parts[1]) else ""
+	if parts.size() == 2 and parts[0] == "lurker_hunt" and parts[1] == "searched":
+		return "yes" if lurker_places_searched(st) >= LURKER_SPOTS.size() else ""
 	if parts.size() == 2 and parts[0] in st.tarokka:
 		var card_id := str(st.tarokka[parts[0]])
 		match parts[1]:
@@ -120,6 +127,37 @@ static func maze_way_on(seed_value: int, junction: String) -> String:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = seed_value + 13 * (at + 1)
 	return ["left", "centre", "right"][rng.randi_range(0, 2)]
+
+
+## The children's room (data/locations/crooked_house_second.json): the six places the Lurker in the Dark may hide, in the order the
+## digest lists them (closet, under the left bed, under the right bed, toy chest, armoire, outside the window); each is the id of
+## the prop that is searched there and of the world check that searches it.
+const LURKER_PLACE := "crooked_house_second"
+const LURKER_SPOTS: Array[String] = ["h10_closet", "h10_bed_left", "h10_bed_right", "h10_chest", "h10_armoire", "h10_window"]
+
+
+## Which of the six hiding places (1 to 6) holds the lurker in the playthrough with this seed: fixed by the seed, so a reload
+## or a second visit never moves it.
+static func lurker_spot(seed_value: int) -> int:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = seed_value + 12 * 101
+	return rng.randi_range(1, LURKER_SPOTS.size())
+
+
+## How many of the six hiding places someone in the party has searched (a world check on each, tried by anyone), found or not.
+static func lurker_places_searched(st: StoryState) -> int:
+	if not st.visited.has(LURKER_PLACE):
+		return 0
+	var records := WorldChecks.records(st, LURKER_PLACE)
+	var searched := 0
+	for id: String in LURKER_SPOTS:
+		var tried := str(records.get(id, "")) == "done"
+		for key: Variant in records:
+			if str(key).begins_with("tried:%s:" % id):
+				tried = true
+		if tried:
+			searched += 1
+	return searched
 
 
 static func _maze() -> Dictionary:
