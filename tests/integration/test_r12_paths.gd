@@ -1728,3 +1728,25 @@ func test_the_boards_last_word_names_the_first_thing_missed() -> void:
 				assert_true(not TraceRunner.seen.has("crooked_house/seance:" + other), "asked %s: only one last word is said (%s too)" % [c[0], other])
 		assert_true(bool(st.get_flag("seance_done")))
 		assert_eq(bool(st.get_flag("patrini_asked_find_son")), str(c[2]) == "urgent_face", "his son is asked after only on the last word of a board that missed nothing")
+
+
+## Wisp turned down is still in the library, smiling: the quest's failure names the stages it may come back to (`then`), and every one of
+## them can be reached from it. (A stage listed before the failure used to be refused as a step back.)
+func test_wisp_turned_down_can_still_be_told_tales_driven_off_or_fought() -> void:
+	_inside(THIRD)
+	_talk("wisp", ["We want no part"])
+	assert_eq(st.quest_stage("a_tale_for_wisp"), "refused", "turned down")
+	assert_true(not _npc_here("wisp").is_empty(), "he is still in the library")
+	_talk("wisp", ["Warn the cat"])
+	assert_eq(st.quest_stage("a_tale_for_wisp"), "fled", "a threat drives him out of the window after all")
+	assert_true(_npc_here("wisp").is_empty(), "and the desk is bare")
+	_inside(THIRD)
+	_talk("wisp", ["We want no part"])
+	_talk("wisp", ["Tell him a tale", "Tell a ghost story"])
+	assert_eq(st.quest_stage("a_tale_for_wisp"), "telling", "a tale after the refusal begins the telling")
+	_talk("wisp", ["Tell him a tale", "Act out a comic tale", "Sing a long ballad"])
+	assert_eq(st.quest_stage("a_tale_for_wisp"), "thanked", "and three end it in thanks")
+	_inside(THIRD)
+	_talk("wisp", ["We want no part"])
+	_talk("wisp", ["Draw a weapon"])
+	assert_eq(st.quest_stage("a_tale_for_wisp"), "slain", "or in his death")
