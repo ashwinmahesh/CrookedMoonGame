@@ -280,7 +280,13 @@ func test_the_peacock_pays_the_bloodstone_and_sets_the_gem_flag_and_the_quest_mo
 	var plain := versions[1]
 	for spec: Dictionary in versions:
 		assert_eq(str(spec["flag"]), "memento_gem")
-		assert_eq(str((((spec["loot"] as Dictionary)["items"] as Array)[0] as Dictionary)["id"]), "memento_bloodstone")
+		assert_true(not spec.has("loot"), "the stone is a container the fight's flag shows, so the story can reach it")
+	var stone := {}
+	for c: Dictionary in _loc()["containers"]:
+		if str(c["id"]) == "h4_peacock_stone":
+			stone = c
+	assert_eq(str(((stone["items"] as Array)[0] as Dictionary)["id"]), "memento_bloodstone")
+	assert_eq(str(stone["when"]), "flag.memento_gem and not flag.memento_gem_placed")
 	assert_eq(str((moving["quest"] as Dictionary)["stage"]), "mementos")
 	assert_true(not plain.has("quest"), "later, with the quest past 'trapped', it never moves it back")
 	var st := _state({})
