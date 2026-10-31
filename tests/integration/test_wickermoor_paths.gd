@@ -21,23 +21,6 @@ var dice := HighDice.new()
 var fights: Array[String] = []
 
 
-func before_each() -> void:
-	GameState.reset()
-	st = GameState.story
-	for id: String in GAME.NEW_GAME_PARTY:
-		var ch := Pregens.build(id, 1)
-		ch.finish_long_rest()
-		st.party.append(ch)
-	fights.clear()
-	limbo_hops = 0
-	st.playthrough_seed = _seed_for_book_order()
-	GhostlightBoons.watch(st, Dice.roller)   # as the game connects it: a freed haint heals the party
-
-
-func after_each() -> void:
-	GameState.reset()
-
-
 func _loc() -> Dictionary:
 	return Compendium.shared().get_entry("locations", st.location)
 
