@@ -240,3 +240,27 @@ func test_every_persons_first_conversation_plays_through() -> void:
 			assert_true(r.start(str(n["dialogue"])), "%s starts (%s)" % [n["dialogue"], n["npc"]])
 			seen += 1
 	assert_true(seen >= 60, "sixty or more conversations are placed (found %d)" % seen)
+
+
+func test_a_freed_goat_runs_loose_in_the_wolf_fight_and_can_be_caught() -> void:
+	st.set_flag("goat_fate", "freed")
+	var goat := {}
+	for e: Variant in _loc().get("encounters", []):
+		if str((e as Dictionary)["id"]) == "wm_first_sacrifice" and (e as Dictionary).has("when"):
+			for m: Variant in (e as Dictionary)["monsters"]:
+				if str((m as Dictionary)["monster"]) == "goat":
+					goat = m as Dictionary
+			assert_true(_holds(str((e as Dictionary)["when"])), "the loose-goat fight is the one picked")
+	assert_eq(str((goat.get("catch", {}) as Dictionary).get("flag", "")), "goat_caught")
+
+
+func test_giving_in_to_the_watch_jails_the_party_and_doris_lets_them_out() -> void:
+	st.set_flag("crime_wickermoor", 2)
+	Jail.lock_up(st, "wickermoor_constable_station", "cells", "days_since.jailed >= 1", false)
+	assert_true(_holds("jailed"))
+	st.location = "wickermoor_constable_station"
+	var exit := _entry("exits", "id", "door")
+	assert_false(_holds(str(exit.get("when", ""))), "the door is shut while held")
+	_play("watch/wickermoor:jail_talk", ["Ask for our gear"])
+	assert_false(_holds("jailed"))
+	assert_true(_holds(str(exit.get("when", ""))))

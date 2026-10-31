@@ -1,0 +1,109 @@
+{
+  "id": "fw_burnt_cottage",
+  "name": "A Burnt Cottage",
+  "region": "foxwillow",
+  "summary": "A Burnt Cottage, in Foxwillow.",
+  "text": "The inside of A Burnt Cottage.",
+  "map": {
+    "rows": [
+      "##############",
+      "#............#",
+      "#.=====......#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "#........==..#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "#######.######"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "A Burnt Cottage",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          12,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      7,
+      10
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        7,
+        11
+      ],
+      "to": "foxwillow",
+      "spawn": "from_fw_burnt_cottage",
+      "label": "Out to the town"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_burnt_cottage_ash",
+      "cell": [
+        5,
+        5
+      ],
+      "kind": "examine",
+      "label": "Ash and charred beams",
+      "model": "rocks",
+      "text": "The roof is open to the sky and the floor is black. Something was burned here before the fire started."
+    },
+    {
+      "id": "fw_burnt_cottage_scarecrow",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "examine",
+      "label": "A scarecrow, half-burnt",
+      "model": "scarecrow",
+      "text": "A straw figure in a farmer's coat, burned from the knees down. It breathes."
+    },
+    {
+      "id": "fw_burnt_cottage_locket",
+      "cell": [
+        3,
+        8
+      ],
+      "kind": "examine",
+      "label": "A blackened box",
+      "model": "case",
+      "text": "A music box that plays three notes of a song and then stops."
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

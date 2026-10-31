@@ -2,11 +2,18 @@
   "about": "PLACEHOLDER (docs/PLACEHOLDERS.md): Each place's atmosphere (world/look/atmosphere.gd, docs/art/atmosphere.md): its light by time of day, the mist and cloud shadows of the screen pass, the colour grade, weather, water, and the land drawn around the map. Colours are palette names. A location takes its mood from `places` (its id), else the longest of `prefixes` its id starts with, else `regions` (\"<region>\", or \"<region>/indoors\" for its indoor maps), else `themes` (\"<theme>\" or \"<theme>/indoors\"), else `outdoors` or `indoors`. A mood can be `like` another and change only what differs. In the Modern finish a mood's `tone` sets its grade (the shade's colour and how much colour it keeps; world/look/atmosphere.gd MODERN_TONE), which Classic doesn't use. A mood's `modern` block is laid over it in the Modern finish only (the vault's Region Variety Plan: each region's own daylight, mist, shade and ground, so no two neighbours look alike), leaving the frozen Classic look as it was; in it `ground_tint` multiplies a ground surface's texture by a colour (hex, like the plants' tints), `lying_wet` keeps the ground that wet whatever the sky does, and `ground_swap` lays the region's own ground in place of a surface on its maps (Atmosphere.region_surface: the woods' moss, the camps' leaf litter, the moor's heath).",
   "places": {
     "test_hillside": "woods",
-    "ghostlight_limbo": "ghost_limbo"
+    "ghostlight_limbo": "ghost_limbo",
+    "druskenvald_estate": "crooked_estate",
+    "crooked_house_first": "crooked_house",
+    "crooked_house_second": "crooked_house",
+    "crooked_house_third": "crooked_house",
+    "crooked_house_attic": "crooked_attic"
   },
   "prefixes": {},
   "regions": {
-    "test_grounds": "woods"
+    "test_grounds": "woods",
+    "crooked_house": "crooked_estate",
+    "crooked_house/indoors": "crooked_house"
   },
   "themes": {
     "forest": "woods",
@@ -466,6 +473,275 @@
         "flame_tint": {
           "colour": "mist_blue",
           "mix": 0.5
+        }
+      }
+    },
+    "crooked_estate": {
+      "like": "woods",
+      "lightning": true,
+      "strikes": {
+        "every": [
+          9,
+          22
+        ]
+      },
+      "modern": {
+        "tone": {
+          "shade": "peat",
+          "amount": 0.6,
+          "shade_saturation": 0.8
+        },
+        "mist": {
+          "height": 0.9,
+          "cover": 0.6,
+          "thickness": 2.6,
+          "open": 0.4
+        },
+        "ground_tint": {
+          "village/grass": "#a9a578",
+          "village/mud_road": "#c9b48c"
+        },
+        "weather": [
+          {
+            "kind": "rain",
+            "amount": 900,
+            "colour": "mist_blue",
+            "length": 0.7,
+            "splashes": 200
+          },
+          {
+            "kind": "leaves",
+            "amount": 30,
+            "colours": [
+              "rust",
+              "umber",
+              "bone_dark"
+            ]
+          }
+        ],
+        "times": {
+          "day": {
+            "sky": "slate",
+            "fog": "peat",
+            "ambient": "umber",
+            "ambient_energy": 0.6,
+            "key": "parchment",
+            "key_energy": 0.7,
+            "mist": "bone_dark",
+            "mist_strength": 0.7
+          },
+          "dusk": {
+            "sky": "bruise",
+            "fog": "peat",
+            "ambient": "moss",
+            "ambient_energy": 0.55,
+            "key": "bile",
+            "key_energy": 0.6,
+            "mist": "bone_dark",
+            "mist_strength": 0.7
+          },
+          "dawn": {
+            "fog": "peat",
+            "ambient": "umber",
+            "ambient_energy": 0.55,
+            "key": "rose",
+            "key_energy": 0.6,
+            "mist": "bone_dark",
+            "mist_strength": 0.7
+          },
+          "night": {
+            "ambient": "bog",
+            "ambient_energy": 0.4,
+            "mist": "moss",
+            "mist_strength": 0.6
+          }
+        }
+      },
+      "toon": {
+        "tone": {
+          "shade": "peat",
+          "amount": 0.7,
+          "shade_saturation": 0.85
+        },
+        "times": {
+          "day": {
+            "sky": "bone_dark",
+            "fog": "peat",
+            "ambient": "umber",
+            "ambient_energy": 0.8,
+            "key": "parchment",
+            "key_energy": 0.7,
+            "mist": "bone_dark",
+            "mist_strength": 0.55
+          },
+          "dusk": {
+            "sky": "plum",
+            "fog": "peat",
+            "ambient": "moss",
+            "ambient_energy": 0.8,
+            "key": "bile",
+            "key_energy": 0.65,
+            "moon_colour": "moon_green",
+            "mist": "bone_dark",
+            "mist_strength": 0.55
+          },
+          "dawn": {
+            "sky": "bruise",
+            "fog": "peat",
+            "ambient": "umber",
+            "ambient_energy": 0.75,
+            "key": "rose",
+            "key_energy": 0.6,
+            "mist": "bone_dark",
+            "mist_strength": 0.5
+          },
+          "night": {
+            "sky": "bog_deep",
+            "fog": "peat",
+            "ambient": "bog",
+            "ambient_energy": 0.8,
+            "key": "moonlight",
+            "key_energy": 0.6,
+            "moon_colour": "moon_green",
+            "mist": "moss",
+            "mist_strength": 0.5
+          }
+        },
+        "ground_tint": {
+          "village/grass": "#8f9070",
+          "wild/moss": "#8f9070"
+        },
+        "flame_tint": {
+          "colour": "candle",
+          "mix": 0.5,
+          "energy": 1.1
+        },
+        "weather": [
+          {
+            "kind": "rain",
+            "amount": 900,
+            "colour": "mist_blue",
+            "length": 0.7,
+            "splashes": 200
+          },
+          {
+            "kind": "leaves",
+            "amount": 30,
+            "colours": [
+              "rust",
+              "umber",
+              "bone_dark"
+            ]
+          },
+          {
+            "kind": "wisps",
+            "amount": 14,
+            "core": "moon_green",
+            "rim": "bile",
+            "size": 0.08,
+            "night_only": false
+          }
+        ]
+      }
+    },
+    "crooked_house": {
+      "like": "indoors",
+      "lightning": true,
+      "strikes": {
+        "every": [
+          14,
+          30
+        ]
+      },
+      "tone": {
+        "shade": "peat",
+        "amount": 0.5,
+        "shade_saturation": 0.8
+      },
+      "times": {
+        "any": {
+          "ambient": "umber",
+          "ambient_energy": 0.8,
+          "key": "moonlight",
+          "key_energy": 0.2,
+          "grade": {
+            "shadows": "peat",
+            "lights": "parchment",
+            "amount": 0.3
+          }
+        }
+      },
+      "toon": {
+        "tone": {
+          "shade": "peat",
+          "amount": 0.6,
+          "shade_saturation": 0.85
+        },
+        "times": {
+          "any": {
+            "ambient": "umber",
+            "ambient_energy": 0.85,
+            "key": "moonlight",
+            "key_energy": 0.3,
+            "grade": {
+              "shadows": "bog_deep",
+              "lights": "bile",
+              "amount": 0.3
+            }
+          }
+        },
+        "flame_tint": {
+          "colour": "candle",
+          "mix": 0.5,
+          "energy": 1.1
+        },
+        "weather": [
+          {
+            "kind": "dust",
+            "indoors": true,
+            "amount": 70,
+            "modern_only": true
+          }
+        ]
+      },
+      "weather": [
+        {
+          "kind": "dust",
+          "indoors": true,
+          "amount": 70,
+          "modern_only": true
+        }
+      ]
+    },
+    "crooked_attic": {
+      "like": "crooked_house",
+      "times": {
+        "any": {
+          "ambient": "blood_deep",
+          "ambient_energy": 0.9,
+          "grade": {
+            "shadows": "blood_deep",
+            "lights": "crimson",
+            "amount": 0.35
+          }
+        }
+      },
+      "toon": {
+        "times": {
+          "any": {
+            "ambient": "blood_deep",
+            "ambient_energy": 0.95,
+            "grade": {
+              "shadows": "blood_deep",
+              "lights": "crimson",
+              "amount": 0.4
+            }
+          }
+        },
+        "flame_tint": {
+          "colour": "crimson",
+          "mix": 0.6,
+          "energy": 1.2
         }
       }
     }

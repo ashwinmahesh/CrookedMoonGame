@@ -1,0 +1,66 @@
+# R12: the Jenkins come back to the estate after the hag is dead, horrified and then relieved. Speaker gilly_jenkin; Walter has no spoken
+# lines (his notebook is read by the Narrator). Region crooked_house. FINAL-WORDED: these lines are to be voiced and must not change.
+# Started by: Gilly in the grounds once vessla_slain is set (`start`, then `menu`; `again` on later calls). Wisp is never seen by them again:
+# Gilly only notices the cat has not been about (`grounds`). If the party slew Wisp (wisp_slain) Walter's voice comes back in `start`, in the
+# Narrator's words only (he stays a notebook man in the lines that follow).
+# Flag: jenkins_after_met. Drafted by Gemini (gemini_r12_jenkins_after), edited; see README.md.
+
+~ start
+if flag.jenkins_after_met
+-> again
+endif
+set jenkins_after_met
+Narrator: Two folks come trudgin' up the hill road with a covered basket between them. At the iron gate they stop dead in their tracks.
+Narrator: The woman claps both hands over her mouth as she takes in the crooked gables of the manor.
+gilly_jenkin [afraid]: Merciful heavens, Walter, look at the roof and the chimneys! It looks as though the whole place were torn down in the dark and built back wrong.
+gilly_jenkin [sad]: Oh, my lovelies, there you be, standing on the gravel! Thank goodness you're whole, I was proper worried for you all night.
+gilly_jenkin [smile]: Bless your hearts, let me look at you. Not a soul missing, though you look worn to the bone.
+Narrator: Walter fumbles his worn pocket notebook open with trembling fingers and shows you a shaky scrawl: Glad you are all still breathing.
+if flag.wisp_slain
+Narrator: Then his lips part, and a word comes out, hoarse as a gate hinge, the first anyone has heard from him in a long while. Gilly's basket hits the gravel.
+endif
+-> menu
+
+~ menu
+* The house looks different. -> house
+* Lord Phillip and Lady Adela are safe. -> couple
+* How is Dani? -> dani
+* Did you notice anything in the grounds? -> grounds
+* That's all for now. -> farewell
+
+~ house
+gilly_jenkin [weary]: We've tended this house for years now, and I'll tell you true, it always had a wrong note to its timbers. Even on a bright morning the halls felt like they were listening.
+gilly_jenkin [neutral]: Now it looks queer as a three-legged stool, I grant you, yet the air sits gentler somehow. 'Tis like an old dog that has finally stopped growling.
+gilly_jenkin [smile]: Give me a week with a broom and some beeswax, my lover, and I'll get used to the new corners.
+Narrator: Walter taps his pencil against the paper and holds up a quiet, practical note: I will check the latches and trim the lamps.
+-> menu
+
+~ couple
+gilly_jenkin [sad]: Oh, thank the good Lord, my knees have gone right to water! I was sure in my bones that something was amiss up here.
+gilly_jenkin [smile]: I'll get straight into the kitchen and put the kettle on for them. A hot pot of tea and fresh bread is what this morning needs.
+gilly_jenkin [neutral]: I ent going to ask what you faced behind those shutters, my lovelies. Whatever you did, you have our gratitude forever.
+Narrator: Walter turns the notebook around, and two words sit in neat block capitals, underlined twice: THANK YOU.
+-> menu
+
+~ dani
+gilly_jenkin [weary]: Our little Dani is well enough, bless her, though she wouldn't shut her eyes till near dawn. Kept swearing she could hear the big house chewing in the dark.
+gilly_jenkin [afraid]: I told her not to be daft and to pull the quilt over her ears. Looking at those twisted eaves now, I'm not so sure the child was wrong.
+gilly_jenkin [smile]: Still, we fetched the storybook she wanted from the village shop, and she had her nose in it before we'd paid.
+-> menu
+
+~ grounds
+gilly_jenkin [neutral]: There was nothing stirring on the lane coming up, save the autumn wind shaking the dead leaves down. Only the old barn door banging on its hinge.
+gilly_jenkin [weary]: Come to think on it, I ent seen the estate cat prowling the wall since yesterday. Usually he's under my feet begging for cream by sunrise.
+gilly_jenkin [sly]: Between us, my lover, I can't say I'm sorry he's wandered off. Our Dani never took to his golden eyes, and her dog Shuck couldn't abide the creature.
+-> menu
+
+~ farewell
+gilly_jenkin [smile]: Mind how you go down the hollow, my lovelies, and keep your cloaks tight against the chill. Whenever you want a hot meal and a dry chair, our kitchen door is open to you.
+gilly_jenkin [neutral]: Go on with our blessing, and take care of yourselves out there.
+Narrator: Walter tips his cap to you and holds up a fresh page penned in a steady, unhurried hand: Safe travels, friends.
+-> END
+
+~ again
+gilly_jenkin [smile]: Look at the dust coming off these flagstones, my lover, a body would think nobody swept for a year! Still, with the morning out, I've got the heart for a proper tidy.
+gilly_jenkin [neutral]: Do you need anything from the larder before I start on the steps, or a warm cup to hold?
+-> menu

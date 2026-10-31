@@ -1,0 +1,111 @@
+{
+  "id": "fw_langtree_farmhouse",
+  "name": "The Langtree Farmhouse",
+  "region": "foxwillow",
+  "summary": "The Langtree Farmhouse, in Foxwillow.",
+  "text": "The inside of The Langtree Farmhouse.",
+  "map": {
+    "rows": [
+      "######################",
+      "#....................#",
+      "#.=======............#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "#...........===......#",
+      "#...........===......#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "###########.##########"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Langtree Farmhouse",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          20,
+          12
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      11,
+      12
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        11,
+        13
+      ],
+      "to": "foxwillow",
+      "spawn": "from_fw_langtree_farmhouse",
+      "label": "Out to the town"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_langtree_farmhouse_table",
+      "cell": [
+        13,
+        6
+      ],
+      "kind": "examine",
+      "label": "The long table",
+      "model": "table_round",
+      "text": "Seven chairs, six places laid. The seventh chair has a cloth over it, and a man's pipe on the cloth."
+    },
+    {
+      "id": "fw_langtree_farmhouse_hearth",
+      "cell": [
+        3,
+        1
+      ],
+      "kind": "examine",
+      "label": "The farmhouse hearth",
+      "model": "hearth",
+      "text": "A fire banked low under a pot of porridge, kept warm by someone who expects company."
+    },
+    {
+      "id": "fw_langtree_farmhouse_portrait",
+      "cell": [
+        16,
+        2
+      ],
+      "kind": "examine",
+      "label": "A family portrait",
+      "model": "papers",
+      "text": "Martha, Isaac, Adelaide as a girl, and a scarecrow drawn in at the edge in a child's wax crayon."
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

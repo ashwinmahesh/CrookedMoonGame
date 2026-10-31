@@ -1,0 +1,84 @@
+# R12: Sally Lockwood in the wooden doll (H10, the children's room). Speaker sally_lockwood; quest sallys_monsters; memento memento_wooden_doll / memento_doll.
+# FINAL-WORDED: every Narrator and character line below is voiced; no line changes once the voice lane starts (new lines are fine).
+# She asks someone to check for monsters (the lurker in the dark, handled by ch_lurker). Once it is dead the party tells her it is safe, she rests, the doll is
+# the memento, and the party earns Heroic Inspiration (one `inspire party`, behind sally_rested so it can only play once).
+# Wiring assumptions: this conversation starts sallys_monsters at `hiding` (the quest's giver is Sally); the encounter ch_lurker moves the quest to
+# `lurker_dead` on its victory (the encounter's own `quest` key, as gl_stoker does); the prop h10_doll calls sally_doll:start whether or not the lurker is dead.
+# Sally hints at Shuck with one far-off bark (a wink for chapter 22); nothing is explained.
+# Drafted by Gemini (gemini_r12_sally_doll/brief.md, reply_raw.json), edited; see that folder's README.md.
+
+~ start
+if flag.sally_rested
+-> done
+endif
+if quest.sallys_monsters == lurker_dead
+-> rest
+endif
+if quest.sallys_monsters == hiding
+-> return
+endif
+quest sallys_monsters hiding
+Narrator: Frost bites at your knuckles in this small room, where a single wooden toy lies tipped over on the floorboards.
+Narrator: Up on the little bed, a painted doll sits tremblin', its frayed yarn hair stirred by a breath you cannot see as a child's whisper rises from the wood.
+sally_lockwood [afraid]: Excuse me, hello. I am very sorry to be a bother.
+sally_lockwood [afraid]: I have been waiting such a long time for grown-ups to come up the stairs.
+sally_lockwood [afraid]: There is something hiding in my room, and I wondered if you might please look for monsters for me.
+interject class:paladin: Do not fear, little one, for nothing in the dark shall harm you while I stand watch.
+interject class:rogue: Something is definitely skulking in the corners here, and I do not like the sound of it.
+-> menu
+
+~ return
+sally_lockwood [afraid]: Oh, thank goodness you came back. I tried very hard to be quiet while you were gone.
+sally_lockwood [afraid]: I heard it scratching again just now, over in a different corner.
+-> menu
+
+~ menu
+* Who are you? -> who
+* What is hiding in here? -> hiding_talk
+* We will check every corner for you. -> brave
+* We will come back to you. -> END
+
+~ who
+sally_lockwood [neutral]: My name is Sally Lockwood, and this is my doll. I live inside her now because it is the safest place to be.
+sally_lockwood [neutral]: I am not allowed out of bed after supper, so I must stay right here.
+sally_lockwood [sad]: My little brother is in the room upstairs, and he cries a great deal in the night.
+-> menu
+
+~ hiding_talk
+sally_lockwood [afraid]: I never see it. I keep very still, and it only ever makes a dreadful scratching sound.
+sally_lockwood [afraid]: It never stays in the same place twice, no matter how hard I listen.
+sally_lockwood [afraid]: Please, it could be in the closet, under either bed, in the toy chest, inside the armoire, or even outside the window.
+-> menu
+
+~ brave
+sally_lockwood [smile]: Thank you very much indeed. Nobody ever checks.
+sally_lockwood [smile]: Listen, something is barking way off in the dark, and that sound always makes me feel a little braver.
+Narrator: The chipped paint of the doll's face seems to settle a spell, and a faint, warm bark drifts up through the old walls from a long way off.
+-> END
+
+~ rest
+if flag.sally_rested
+-> done
+endif
+sally_lockwood [smile]: The scratching has stopped, and I never knew a room could be so nice and quiet.
+sally_lockwood [smile]: Thank you ever so much for helping me, I think I should like to go to sleep now.
+Narrator: The frayed yarn hair lies still at last, and the tiny wooden chest quits its shiverin' against the quilt.
+* The monster is gone. It is safe to sleep now. -> rest_end
+* Not just yet. We will be nearby. -> END
+
+~ rest_end
+sally_lockwood [smile]: Goodnight to you, and I promise I will be very good.
+sally_lockwood [smile]: Would you please look after my doll for me while I sleep?
+give memento_wooden_doll
+set memento_doll
+set sally_rested
+quest sallys_monsters rested
+Narrator: The winter chill slips out of the air like a long held breath finally let go.
+Narrator: What you hold in your hands now is only a small wooden doll, light as dry leaves and a little warm to the touch.
+inspire party: made a frightened child's room safe for her
+approve rook_coldwake +1 tobin_hayward +1 lucan_houndstooth +1: You made a frightened child's room safe
+-> END
+
+~ done
+Narrator: This place ain't nothing more than an empty room now, with two small beds neatly made and a dark windowpane.
+-> END

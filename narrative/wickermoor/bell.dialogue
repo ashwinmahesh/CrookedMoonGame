@@ -1,0 +1,102 @@
+# Drafted by Gemini (side quests batch 2: bell), edited.
+
+~ start
+solomon_roderick [weary]: The new bronze bell sits on a handcart down by the south footbridge, and my back has given out. The ruts are deep, and the clocktower has stood dumb for a week.
+* We will carry it -> accept
+* Why now? -> why
+* Not now -> END
+
+~ why
+solomon_roderick [neutral]: The old bell split clean down the seam the night the Oak last stirred. Folk lose count of the six hours without a chime to steady them.
+-> start
+
+~ accept
+solomon_roderick [smile]: Bless your strong shoulders. Bring the cart round to the belfry steps before the dusk mist thickens, and mind the axle in the mud.
+quest weight_on_the_bell asked
+set bell_asked
+-> END
+
+~ cart
+Narrator: The heavy bronze bell rests under damp straw on a creaking timber cart. Before you can lift the shafts, a whiskered man in a faded coat marches up.
+sgt_gaunt [smile]: Halt and take heart, travellers. At Pipers Ford I held a baggage train against forty bandits, three steps from a stand, and I shall guard this bell myself.
+* Take the market lane -> market
+* Take the moor road -> moor
+* Let the sergeant guard it -> gaunt
+* [ends:weight_on_the_bell] Abandon the cart -> abandon
+
+~ gaunt
+sgt_gaunt [smile]: Not a highwayman in Druskenvald dares cross cold steel when Sergeant Gaunt takes the vanguard.
+Narrator: A rook croaks sharply from the bridge rail, and the sergeant drops flat beneath the cart axle, clutching his hat.
+sgt_gaunt [afraid]: Flanking fire from the treetops! Hold the wheel while I secure the undercarriage!
+set gaunt_hired
+-> cart
+
+~ market
+Narrator: The narrow cobbles of the market lane teem with barrows, geese, and crooked lanterns. One iron-shod wheel drops into a gutter, tilting the great bronze bell toward a stone wall.
+* [Athletics DC 11] Keep the bell from tipping in the crowd -> market_ok | market_cracked
+
+~ market_ok
+Narrator: {name} braces a shoulder against the timber side and heaves the cart level before the bronze can kiss the wall.
+set bell_route = "market"
+-> stowaway
+
+~ market_cracked
+Narrator: The cart lurches and the bronze rim strikes the masonry with a dull, sour ring, leaving a hairline crack across its lip.
+set bell_cracked
+set bell_route = "market"
+-> stowaway
+
+~ moor
+Narrator: The outer moor road winds through black peat and ankle-deep mire, where sunken stones wait to snap an axle.
+* [Survival DC 12] Pick the firm ground -> moor_ok | moor_slow
+
+~ moor_ok
+Narrator: {name} reads the tufts of dry heather and guides the wheels along a ridge of buried gravel.
+set bell_route = "moor"
+-> stowaway
+
+~ moor_slow
+Narrator: The wheels sink twice into the wet peat, and the last grey sheen of dusk is fading by the time you haul the cart free.
+set bell_late
+set bell_route = "moor"
+-> stowaway
+
+~ stowaway
+Narrator: The straw beside the bell rustles, and a small boy pokes his head out, his pockets clinking with loose buttons.
+pip_oakum [smile]: Do not tell Solomon! I only crept in to hear the first ring from right underneath.
+* Let him ride -> pip_stays
+* Send him home -> pip_home
+* [Perception DC 12] Notice the button trail -> pip_trail
+
+~ pip_stays
+pip_oakum [smile]: Proper good of you! I will give you a brass waistcoat button if my ears do not pop.
+set bell_pip = "rides"
+-> delivered
+
+~ pip_home
+pip_oakum [sad]: Aw, you sound just like Constable Squire. I am going, I am going.
+set bell_pip = "home"
+-> delivered
+
+~ pip_trail
+Narrator: {name} spots horn and pewter buttons dropped every ten paces down the rutted track, with Pip's mother already marching up the lane following them.
+pip_oakum [afraid]: Botheration, the pocket with the hole in it! Do not let her take my tin military ones!
+set bell_pip = "found"
+-> delivered
+
+~ delivered
+solomon_roderick [smile]: Here she is, safe at the belfry steps. Lend a hand on the hoist rope and hear her speak.
+Narrator: The new bell swings into the dark timber tower and tolls a single, deep note that rolls out over the Round.
+quest weight_on_the_bell done
+set bell_done
+gold +30
+standing brightsingers +1
+-> END
+
+~ abandon
+Narrator: You leave the cart by the footbridge, and by the time a hired labourer drags it to the Round, Solomon's face is set like gravestone.
+solomon_roderick [angry]: A mason keeps his word when he takes a job, stranger. Remember that next time you offer your hands.
+quest weight_on_the_bell lost
+set bell_abandoned
+standing brightsingers -1
+-> END
