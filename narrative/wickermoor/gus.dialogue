@@ -1,0 +1,84 @@
+# Drafted by Gemini (R11c gus), edited.
+
+~ body
+Narrator: Ned Cooper the woodcutter lies among the roots of the Oak of Many Faces, his head set neatly beside his boots. The carved faces in the bark glisten dark and wet where the soil has drunk its fill.
+quest gory_gus body
+-> doris_scene
+
+~ doris_scene
+doris_squire [weary]: Ned Cooper. Taken the old way, just like Gus Strong used to do.
+Narrator: The constable's pale eyes fix on your travel-stained cloaks.
+doris_squire [neutral]: No killers left in this village. Only four strangers.
+set gus_accused
+* [Persuasion DC 14] Say we were at the inn all night -> cleared_ok | cleared_fail
+* Offer to help find the killer -> help
+* Ask what she found -> doris_found
+
+~ cleared_ok
+doris_squire [neutral]: Hmph. Barmaid's word holds weight. Stay out of trouble, or find me a better suspect.
+quest gory_gus clues
+-> END
+
+~ cleared_fail
+doris_squire [angry]: Inn doors have latches that lift both ways. I am watching you four.
+quest gory_gus clues
+-> END
+
+~ help
+doris_squire [weary]: Do what you like. Check the undertaker's table, or the carpentry shop. Just bring me truth.
+quest gory_gus clues
+-> END
+
+~ doris_found
+doris_squire [neutral]: Heavy woodman's axe. One clean stroke through the neck. Neat work, no struggle.
+-> doris_scene
+
+~ mori
+if flag.gus_clue_hair
+mori_shade [neutral]: The dead speak only once, travelers. I have shown you all poor Ned brought to my table.
+-> END
+endif
+mori_shade [sad]: Poor Ned held tight to the end. When I pried his cold fingers open, I found this coarse grey hair, long as a widow's shawl.
+set gus_clue_hair
+mori_shade [neutral]: And look here upon his palm. Two tiny crossed axes, seared into the flesh with hot iron. The old mark of Gus Strong's apprentice.
+set gus_clue_hare
+-> END
+
+~ beatrice
+beatrice_wells [smile]: Oh, a clean single stroke? That sounds like my heavy felling iron, fresh off the grindstone!
+beatrice_wells [sad]: Sold one two nights past to Marta Dunn, a quiet widow in black. Said her hearthwood was terribly knotted, poor dear.
+set gus_clue_axe
+-> END
+
+~ marta
+Narrator: The damp air of the churchyard smells of turned earth and cold iron. Marta Dunn rests her hands upon the haft of a broad, gleaming felling axe.
+marta_dunn [sad]: Do not fret for Ned, my dears. Gus taught me how to make the stroke swift and kind, so the old oak never has to thirst.
+* [Insight DC 14] Tell her we know her mark -> marta_know | marta_flat
+* Draw weapons -> marta_fight
+* Ask her to come quietly -> marta_quiet
+
+~ marta_know
+marta_dunn [smile]: You have sharp eyes, youngsters. Yes, I kept Gus's brand, and I keep his duty. Wickermoor has forgotten its debts to the roots, so someone must pay the tally.
+-> marta_fight_prompt
+
+~ marta_flat
+marta_dunn [smile]: An old woman has many chores in a cold season, my dears. Pay no mind to an old widow's hands.
+-> marta
+
+~ marta_quiet
+marta_dunn [weary]: Bless you for asking kindly, truly. Give yourself to Doris's rope when the roots are still dry? No, my dears, the work is not half done.
+-> marta_fight_prompt
+
+~ marta_fight_prompt
+Narrator: She lifts the heavy axe with practiced grace, her eyes steady and full of quiet pity.
+* Fight -> marta_fight
+
+~ marta_fight
+quest gory_gus marta
+combat wm_gus_marta
+
+~ solved
+quest gory_gus solved
+set gus_solved
+doris_squire [weary]: Marta Dunn. Never said three words a week. Good work, strangers. You are clear.
+-> END

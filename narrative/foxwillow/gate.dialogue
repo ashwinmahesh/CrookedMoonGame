@@ -1,0 +1,56 @@
+# Drafted by Gemini (R13 gate), edited.
+
+~ start
+quest fields_of_the_crow gate
+Narrator: A wall of dry corn rises ahead, smelling of dust and old feathers. Two amber eyes with star-shaped pupils blink open among the husks.
+raum [sly]: Nobody walks my rows for free, little birds. Drop a secret in my beak, something real and sour, and I will part the stalks.
+* Pay a secret of my own -> own
+* [if flag.secret_martha] Pay Martha Langtree's secret -> other_martha
+* [if flag.secret_jonah] Pay Jonah Sawyer's secret -> other_jonah
+* [if flag.secret_isaac] Pay Isaac Langtree's secret -> other_isaac
+* [if flag.secret_william] Pay William Lodge's secret -> other_william
+* Not yet -> not_yet
+
+~ own
+Narrator: You speak a shameful truth you never meant another soul to hear. A crow drops from the stalks and plucks a dark feather from your shoulder that was never a feather at all.
+raum [smile]: Sweet and rotten to the core. Keep that little shame warm for me, traveller, I will come collect the rest by and by.
+set paid_own_secret
+set secrets_paid += 1
+set maze_open
+-> END
+
+~ other_martha
+raum [smile]: Old Martha keeping that dry husk in the dark while she curses her neighbour. That is a heavy coin, and it spends just fine.
+Narrator: Far back toward the burning square, Martha Langtree stops mid-sentence, her hand flying to her throat as the corn parts before you.
+set told_raum_martha
+set secrets_paid += 1
+set maze_open
+-> END
+
+~ other_jonah
+raum [smile]: Young Jonah playing with matches and crying over the ashes. I can taste the soot on his tongue from here.
+Narrator: The dry leaves shiver with a sound like a boy gasping for air, and the woven stalks untangle to clear the path.
+set told_raum_jonah
+set secrets_paid += 1
+set maze_open
+-> END
+
+~ other_isaac
+raum [sly]: Poor dead Isaac, folded up in the cellar chest like winter linen. Even the quiet ones have a little marrow left in them.
+Narrator: A cold draft smells briefly of cedarwood and old wool as the tall stalks draw back on either side.
+set told_raum_isaac
+set secrets_paid += 1
+set maze_open
+-> END
+
+~ other_william
+raum [smile]: Decent William Lodge, carrying a weight he never set down on the road from Wickermoor. Stolen grain tastes sweetest of all.
+Narrator: Near the wagons, a horse stamps once in the dirt, and the wall of corn splits open with a dry, rasping sigh.
+set told_raum_william
+set secrets_paid += 1
+set maze_open
+-> END
+
+~ not_yet
+raum [weary]: Cluck your tongues and keep your lockboxes shut, then. The rows will wait until the fire drives you back.
+-> END

@@ -1,0 +1,129 @@
+{
+  "id": "fw_windmill_cellar",
+  "name": "The Windmill's Cellar",
+  "region": "foxwillow",
+  "summary": "The Windmill's Cellar, in Foxwillow.",
+  "text": "The inside of The Windmill's Cellar.",
+  "map": {
+    "rows": [
+      "##################",
+      "#................#",
+      "#................#",
+      "#..==.......==...#",
+      "#................#",
+      "#................#",
+      "#................#",
+      "#................#",
+      "#................#",
+      "#................#",
+      "#................#",
+      "#................#",
+      "#................#",
+      "##################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Windmill's Cellar",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          16,
+          12
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      8,
+      11
+    ],
+    "from_stair": [
+      8,
+      11
+    ]
+  },
+  "exits": [
+    {
+      "id": "stair_up",
+      "cell": [
+        8,
+        13
+      ],
+      "to": "fw_windmill",
+      "spawn": "from_cellar_stair",
+      "label": "Up to the mill"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_isaac_chest",
+      "cell": [
+        14,
+        8
+      ],
+      "kind": "examine",
+      "label": "A cellar chest, shut",
+      "model": "case",
+      "call": "foxwillow/extras:cellar_chest",
+      "approach": 6,
+      "call_when": "flag.isaac_found and not flag.fw_cellar_done"
+    },
+    {
+      "id": "fw_banjo_hidden",
+      "cell": [
+        3,
+        9
+      ],
+      "kind": "search",
+      "label": "Something under the foundation stone",
+      "search_dc": 12,
+      "item": "jericho_banjo",
+      "when": "treasure_at:foxwillow_windmill_basement"
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "encounters": [
+    {
+      "id": "fw_cellar",
+      "trigger": "dialogue",
+      "flag": "fw_cellar_done",
+      "monsters": [
+        {
+          "monster": "corvodaemon_split",
+          "cell": [
+            8,
+            6
+          ],
+          "name": "A crow knotted into a shape"
+        },
+        {
+          "monster": "corvodaemon_split",
+          "cell": [
+            10,
+            7
+          ],
+          "name": "A crow knotted into a shape"
+        },
+        {
+          "monster": "pumpkin_head",
+          "cell": [
+            6,
+            8
+          ],
+          "name": "The man in the straw",
+          "facing": "east"
+        }
+      ]
+    }
+  ]
+}

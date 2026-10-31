@@ -7,20 +7,20 @@
   "map": {
     "rows": [
       "####################",
-      "#..................#",
-      "#..................#",
-      "#..======....=====.#",
-      "#..................#",
-      "#..................#",
-      "#...........==.....#",
+      "#.....#.....#......#",
+      "#.....#.....#......#",
+      "#.....#.....#......#",
+      "#.....#.....#......#",
+      "#.....#.....#......#",
+      "#.....#.....#......#",
       "#..................#",
       "#..................#",
       "#########..#########",
-      "#....#....#....#...#",
-      "#.=..#.=..#.=..#=..#",
-      "#....#....#....#...#",
-      "#....#....#....#...#",
-      "#....#....#....#...#",
+      "#..................#",
+      "#...........==.....#",
+      "#.======.....=====.#",
+      "#..................#",
+      "#..................#",
       "####################"
     ],
     "theme": "manor",
@@ -70,7 +70,21 @@
       ],
       "kind": "examine",
       "label": "The notice board",
-      "model": "notice_board"
+      "model": "notice_board",
+      "text": "Wanted notices gone yellow at the corners and a hand-drawn map of the village with several houses crossed out.",
+      "checks": [
+        {
+          "id": "howie_roster",
+          "skill": "investigation",
+          "dc": 12,
+          "label": "Read the duty roster",
+          "success": {
+            "flag": "cult_proof_howie",
+            "text": "Howie's hand fills every odd hour of the roster, and each of his initials is followed by a very small foot."
+          },
+          "failure": {}
+        }
+      ]
     },
     {
       "id": "constable_station_stove",
@@ -80,27 +94,41 @@
       ],
       "kind": "examine",
       "label": "The stove and kettle",
-      "model": "hearth"
+      "model": "hearth",
+      "text": "A kettle simmers on a stove that smells of peat, and a tin mug waits beside it."
     },
     {
       "id": "constable_station_cell_a",
       "cell": [
         3,
-        12
+        6
       ],
       "kind": "examine",
       "label": "A barred cell",
-      "model": "barred_door"
+      "model": "barred_door",
+      "text": "An empty cell: a plank bed, a bucket, and the word SORRY scratched into the wall a great many times."
+    },
+    {
+      "id": "constable_station_cell_b",
+      "cell": [
+        9,
+        6
+      ],
+      "kind": "examine",
+      "label": "A barred cell",
+      "model": "barred_door",
+      "text": "A cell with a folded blanket on its bed and a bowl of cold porridge that nobody has collected."
     },
     {
       "id": "constable_station_cell_c",
       "cell": [
-        13,
-        12
+        15,
+        6
       ],
       "kind": "examine",
       "label": "A barred cell",
-      "model": "barred_door"
+      "model": "barred_door",
+      "text": "A cell with iron bars worn bright where hands have held them, and a window too high to look out of."
     }
   ],
   "npcs": [
@@ -108,15 +136,16 @@
       "npc": "doris_squire",
       "cell": [
         5,
-        5
+        11
       ],
-      "dialogue": "wickermoor/doris_squire:start"
+      "dialogue": "wickermoor/doris_squire:start",
+      "when": "not flag.gus_body_found or flag.gus_solved"
     },
     {
       "npc": "howie_butterman",
       "cell": [
         15,
-        5
+        11
       ],
       "dialogue": "wickermoor/howie_butterman:start"
     }

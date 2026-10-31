@@ -1,6 +1,6 @@
 # R11: the first night in Wickermoor. The party walks the Druskenvalds in from the wreck, the Round is empty, and something is staked beside the oak.
-# Started by the scene prop wm_arrival_scene as the leader comes into the west of the Round. The wolves are the fight wm_first_sacrifice; every way
-# through sets wm_first_sacrifice_done and moves wickermoor_arrival on, then wm_mayor_scene (mayor_welcome:start) takes over.
+# Started by the call on the well (wm_well) as the leader comes into the west of the Round. The wolves are the fight wm_first_sacrifice; every way
+# through sets wm_first_sacrifice_done and moves wickermoor_arrival on, then the notice board's call (mayor_welcome:start) takes over.
 
 ~ start
 quest wickermoor_arrival first_sacrifice
@@ -14,11 +14,12 @@ adela_druskenvald [afraid]: Philly, hush. Don't look. Oh, darling, I can feel th
 
 ~ choices
 * Cut the bound shape free at once -> cut
-* Look closer before anyone moves -> inspect
+* [if not flag.wm_doll_inspected] Look closer before anyone moves -> inspect
 * Keep back, ready for the wolves -> hold
 * Stay out of it and watch -> watch
 
 ~ inspect
+set wm_doll_inspected
 check Investigation DC 15 -> inspect_ok | inspect_fail
 
 ~ inspect_ok
@@ -40,6 +41,13 @@ quest wickermoor_arrival first_sacrifice
 Narrator: {name} slits the sacking with a quick stroke. A baby goat tumbles out, bleats once like an insult, and bolts across the square.
 set goat_fate = "freed"
 set old_ways_offended
+attitude wendel_somerton indifferent
+attitude doris_squire indifferent
+attitude holly_aster indifferent
+attitude oswick_frey indifferent
+attitude jeremiah_stover indifferent
+attitude hilda_brom indifferent
+attitude myrtle_somerton indifferent
 -> wolves
 
 ~ catch
@@ -49,12 +57,26 @@ check Athletics DC 10 -> caught | cut_missed
 Narrator: {name} slits the doll and takes the goat in both arms before it finds its feet. It bleats against your collar, warm and furious.
 set goat_fate = "caught"
 set old_ways_offended
+attitude wendel_somerton indifferent
+attitude doris_squire indifferent
+attitude holly_aster indifferent
+attitude oswick_frey indifferent
+attitude jeremiah_stover indifferent
+attitude hilda_brom indifferent
+attitude myrtle_somerton indifferent
 -> wolves
 
 ~ cut_missed
 Narrator: The goat is out of the doll and out of reach, a small white streak toward the east road and the wolves.
-set goat_fate = "freed"
+set goat_fate = "freed_eaten"
 set old_ways_offended
+attitude wendel_somerton indifferent
+attitude doris_squire indifferent
+attitude holly_aster indifferent
+attitude oswick_frey indifferent
+attitude jeremiah_stover indifferent
+attitude hilda_brom indifferent
+attitude myrtle_somerton indifferent
 -> wolves
 
 ~ hold
