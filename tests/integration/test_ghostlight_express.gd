@@ -291,3 +291,37 @@ func test_each_place_starts_in_the_game() -> void:
 		root.queue_free()
 		await get_tree().process_frame
 	GameState.reset()
+
+
+## Every place's props: examine/decor and search finds the Narrator has a line for, with no class or companion in the party at all.
+func test_a_plain_party_hears_the_narrator_at_every_look_and_find() -> void:
+	var asked := 0
+	for place: String in PLACES:
+		for p: Dictionary in _loc(place).get("props", []):
+			var kind := str(p.get("kind", ""))
+			if str(p.get("dialogue", "")) != "" or not kind in ["examine", "decor", "search"]:
+				continue
+			var key := "%s:%s" % ["search" if kind == "search" else "examine", p["id"]]
+			var narrator := Narrator.new()
+			if not narrator.has_trigger(key):
+				continue
+			var st := StoryState.new()
+			asked += 1
+			assert_true(narrator.line(key, st, null) != "", "%s speaks for a party with no class or name to match" % key)
+	assert_true(asked > 60, "the check looked at the Act 1 props (%d)" % asked)
+
+
+## No `examine:` or `search:` key in the Act 1 Narrator file names a prop that is not there (the grille is grille_g1; there is no locomotive
+## prop). A prop may also name its line with `say` (the six dining booths share examine:g4_booth).
+func test_every_look_and_find_line_belongs_to_a_prop() -> void:
+	var keys: Dictionary = {}
+	for place: String in PLACES:
+		for p: Dictionary in _loc(place).get("props", []):
+			keys["examine:" + str(p["id"])] = true
+			keys["search:" + str(p["id"])] = true
+			if str(p.get("say", "")) != "":
+				keys[str(p["say"])] = true
+	var file := DialogueFile.load_key("narrator/ghostlight_express")
+	for key: String in file.order:
+		if key.begins_with("examine:") or key.begins_with("search:"):
+			assert_true(keys.has(key), "%s belongs to a prop in Act 1" % key)
