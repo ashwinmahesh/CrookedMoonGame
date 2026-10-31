@@ -7,13 +7,15 @@ extends CmPart
 
 const DANCE := "cm_banjo_dance"
 const CHARM := "cm_banjo_charm"
+const TRAP := "cm_banjo_trap"
+const SECRET := "cm_scythe_secret"
 const STEP := "cm_scythe_step"
 const CHARM_RANGE_FT := 30
 const STEP_RANGE_FT := 60
 
 
 func handles_item_power(custom: String) -> bool:
-	return custom in [DANCE, CHARM, STEP]
+	return custom in [DANCE, CHARM, TRAP, SECRET, STEP]
 
 
 func item_power_why(c: Combatant, p: Dictionary) -> String:
@@ -23,6 +25,10 @@ func item_power_why(c: Combatant, p: Dictionary) -> String:
 			return "" if c.bonus_available else "No Bonus Action left"
 		CHARM:
 			return "" if _charm_target(c, null) != null else "No fiend or humanoid within 30 ft"
+		TRAP:
+			return "" if _charmed_by_banjo(c) != null else "No creature charmed by the banjo within 30 ft"
+		SECRET:
+			return "" if _frightened_near(c, 30) != null else "No Frightened creature within 30 ft"
 		STEP:
 			if not c.bonus_available:
 				return "No Bonus Action left"
@@ -38,6 +44,10 @@ func item_power_use(c: Combatant, p: Dictionary, targets: Array, _point: Vector2
 			return _dance(c, p)
 		CHARM:
 			return _charm(c, p, picked)
+		TRAP:
+			return _trap(c, p)
+		SECRET:
+			return _secret(c, p)
 		STEP:
 			return _step(c, p)
 	return CombatResult.fail("Not available")
@@ -81,6 +91,37 @@ func _charm(c: Combatant, _p: Dictionary, picked: Combatant) -> CombatResult:
 	return r
 
 
+## The banjo's trap: a creature it has charmed within 30 ft is drawn into the banjo (out of the fight like a caught creature, no loot, no
+## death), its stat block's id kept on the banjo's entry.
+func _trap(c: Combatant, p: Dictionary) -> CombatResult:
+	var e := enc()
+	var t := _charmed_by_banjo(c)
+	if t == null:
+		return CombatResult.fail("No creature charmed by the banjo within 30 ft")
+	e.items._pay(c, "action")
+	var held := (p["entry"] as Dictionary).get("trapped", []) as Array
+	held.append(str(MonsterActions.data_of(t).get("id", t.name())))
+	(p["entry"] as Dictionary)["trapped"] = held
+	e.legendary.vanish(t, "%s is drawn into the banjo's body" % t.name())
+	var r := CombatResult.new()
+	r.lines.append(e.log.add("info", "%s traps %s in the banjo" % [c.name(), t.name()], c.id))
+	return r
+
+
+## The scythe's secret: the bearer learns a Frightened creature's secret (within 30 ft); the fight tells the story, which can read it as
+## the flag `scythe_secret_<stat block id>`.
+func _secret(c: Combatant, p: Dictionary) -> CombatResult:
+	var e := enc()
+	var t := _frightened_near(c, 30)
+	if t == null:
+		return CombatResult.fail("No Frightened creature within 30 ft")
+	e.items._pay(c, "action")
+	e.legendary.story_flags["scythe_secret_" + str(MonsterActions.data_of(t).get("id", "creature"))] = true
+	var r := CombatResult.new()
+	r.lines.append(e.log.add("info", "%s hears %s's secret through the scythe" % [c.name(), t.name()], c.id))
+	return r
+
+
 ## The scythe's step: a Bonus Action to appear beside a Frightened creature within 60 ft.
 func _step(c: Combatant, _p: Dictionary) -> CombatResult:
 	var e := enc()
@@ -109,10 +150,21 @@ func _charm_target(c: Combatant, _unused: Variant) -> Combatant:
 	return best
 
 
-func _frightened_near(c: Combatant) -> Combatant:
+func _charmed_by_banjo(c: Combatant) -> Combatant:
 	var best: Combatant = null
 	for o in enc().combatants:
-		if o != c and not o.is_down() and o in enc().hostiles_of(c) and o.creature.has_condition(&"frightened") and enc().distance(c, o) <= STEP_RANGE_FT \
+		if o == c or o.is_down() or enc().distance(c, o) > CHARM_RANGE_FT:
+			continue
+		for fx in o.creature.effects:
+			if fx.source_id == "jericho_banjo" and fx.caster_id == c.id and (best == null or enc().distance(c, o) < enc().distance(c, best)):
+				best = o
+	return best
+
+
+func _frightened_near(c: Combatant, range_ft: int = STEP_RANGE_FT) -> Combatant:
+	var best: Combatant = null
+	for o in enc().combatants:
+		if o != c and not o.is_down() and o in enc().hostiles_of(c) and o.creature.has_condition(&"frightened") and enc().distance(c, o) <= range_ft \
 				and (best == null or enc().distance(c, o) < enc().distance(c, best)):
 			best = o
 	return best

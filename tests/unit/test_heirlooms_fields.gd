@@ -51,3 +51,28 @@ func test_the_scythe_steps_to_a_frightened_creature_only() -> void:
 	assert_eq(e.items.power_why(hero, power), "")
 	assert_true(e.items.use(hero, "scythe_of_the_harvest_terror", "step").ok)
 	assert_true(e.distance(hero, foe) <= 5, "beside it now")
+
+
+func test_the_banjo_traps_what_it_charmed() -> void:
+	var got := _fight("jericho_banjo")
+	var e := got[0] as Encounter
+	var hero := got[1] as Combatant
+	var foe := got[2] as Combatant
+	var power := e.items.find_power(hero, "jericho_banjo", "trap")
+	assert_eq(e.items.power_why(hero, power), "No creature charmed by the banjo within 30 ft")
+	var fx := Effect.new("Charmed by the Banjo", &"item", "jericho_banjo").with_condition(&"charmed")
+	fx.caster_id = hero.id
+	foe.creature.add_effect(fx)
+	assert_eq(e.items.power_why(hero, power), "")
+	assert_true(e.items.use(hero, "jericho_banjo", "trap", [foe]).ok)
+	assert_true(foe.creature.dead or str(foe.get_meta("left_fight", "")) == "vanish", "drawn out of the fight")
+
+
+func test_the_scythe_hears_a_frightened_creatures_secret() -> void:
+	var got := _fight("scythe_of_the_harvest_terror")
+	var e := got[0] as Encounter
+	var hero := got[1] as Combatant
+	var foe := got[2] as Combatant
+	foe.creature.add_condition(&"frightened", "test")
+	assert_true(e.items.use(hero, "scythe_of_the_harvest_terror", "secret", [foe]).ok)
+	assert_true(bool(e.legendary.story_flags.get("scythe_secret_corvodaemon", false)))
