@@ -13,7 +13,15 @@ Studio) is copied to its `file` in the repo, made fit to ship:
 
 The meshes, skins and animations are copied byte for byte. The source files are never changed.
 
-  python3 tools/art/figures.py             copies every figure whose file is missing or older than its source
+Entries that need no model of their own are handled too:
+- an entry with a `base` (another figure's art id: the six haint dressings share the haint body) and no `source` gets no
+  GLB; if it has an `albedo_source` (the Tripo retexture export of the base body, a GLB, or a .png/.jpg picture) its
+  base-colour texture is taken out, scaled to at most --max px and written to its `albedo` path as a JPEG, which the
+  engine lays over the base figure's own;
+- a figure whose source is not on the asset root yet (Tripo has not delivered it) is skipped with a one-line note, so
+  the game keeps showing its `sprite` and everything else is still copied.
+
+  python3 tools/art/figures.py             copies every figure whose file is missing or older than its source (and the dressings' paint)
   python3 tools/art/figures.py --force     copies them all again
   python3 tools/art/figures.py rook_coldwake adela_druskenvald    only these
 """
@@ -80,6 +88,36 @@ def shrink(image: bytes, mime: str, max_px: int) -> bytes:
             args[1:1] = ['-s', 'formatOptions', '92']
         subprocess.run(args, capture_output=True, check=True)
         return dst.read_bytes()
+
+
+def albedo_of(src: Path, dst: Path, max_px: int) -> str:
+    """The base-colour picture of `src` (a GLB's first material that has one, or an image file) as a JPEG of at most
+    max_px at `dst`."""
+    if src.suffix.lower() in ('.png', '.jpg', '.jpeg'):
+        image, mime = src.read_bytes(), 'image/png' if src.suffix.lower() == '.png' else 'image/jpeg'
+    else:
+        doc, binary = read_glb(src)
+        image = None
+        for m in doc.get('materials', []):
+            ref = m.get('pbrMetallicRoughness', {}).get('baseColorTexture')
+            if ref and 'source' in doc['textures'][ref['index']]:
+                img = doc['images'][doc['textures'][ref['index']]['source']]
+                if 'bufferView' in img:
+                    image, mime = view_bytes(doc, binary, img['bufferView']), img.get('mimeType', '')
+                    break
+        if image is None:
+            raise ValueError(f'{src} has no base-colour texture')
+    image = shrink(image, mime, max_px)
+    if mime == 'image/png':
+        with tempfile.TemporaryDirectory() as tmp:
+            png, jpg = Path(tmp) / 'in.png', Path(tmp) / 'out.jpg'
+            png.write_bytes(image)
+            subprocess.run(['sips', '-s', 'format', 'jpeg', '-s', 'formatOptions', '92', str(png), '--out', str(jpg)],
+                           capture_output=True, check=True)
+            image = jpg.read_bytes()
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    dst.write_bytes(image)
+    return f'{dst.relative_to(REPO)}: {len(image) / 1e6:.1f} MB from {src.name}'
 
 
 def plain_clip_name(name: str) -> str:
@@ -163,15 +201,20 @@ def main(argv):
     figures = json.loads(MANIFEST.read_text())['figures']
     root = asset_root()
     for fid, info in figures.items():
-        if only and fid not in only or 'source' not in info:
+        if only and fid not in only:
             continue
-        src, dst = root / info['source'], REPO / info['file']
-        if not src.exists():
-            print(f'{fid}: source {src} is missing (is the asset drive mounted?)', file=sys.stderr)
-            continue
-        if dst.exists() and not force and dst.stat().st_mtime >= src.stat().st_mtime:
-            continue
-        print(convert(src, dst, max_px))
+        if 'source' in info:
+            src, dst = root / info['source'], REPO / info['file']
+            if not src.exists():
+                print(f'{fid}: model {info["source"]} is not on the asset root yet, keeping its sprite', file=sys.stderr)
+            elif force or not dst.exists() or dst.stat().st_mtime < src.stat().st_mtime:
+                print(convert(src, dst, max_px))
+        if 'albedo_source' in info and 'albedo' in info:
+            src, dst = root / info['albedo_source'], REPO / info['albedo']
+            if not src.exists():
+                print(f'{fid}: paint {info["albedo_source"]} is not on the asset root yet', file=sys.stderr)
+            elif force or not dst.exists() or dst.stat().st_mtime < src.stat().st_mtime:
+                print(albedo_of(src, dst, max_px))
     return 0
 
 
