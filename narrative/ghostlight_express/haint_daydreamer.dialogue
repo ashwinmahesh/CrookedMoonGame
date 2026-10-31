@@ -76,9 +76,9 @@ haint_daydreamer [weary]: You can sit down if you want, while I try the custard.
 
 ~ help
 # E7: a tool check (Painter's Supplies); until then an ability check gated by the kit
-* [if not flag.haint_daydreamer_used_painters_supplies] [if item:painters_supplies] [Wisdom DC 12] Let me paint a little toad on a pebble for you. -> painters_supplies_ok | painters_supplies_miss
+* [if not flag.haint_daydreamer_used_painters_supplies and item:painters_supplies] [Wisdom DC 12] Let me paint a little toad on a pebble for you. -> painters_supplies_ok | painters_supplies_miss
 # E7: a tool check (Forgery Kit); until then an ability check gated by the kit
-* [if not flag.haint_daydreamer_used_forgery] [if item:forgery_kit] [Dexterity DC 12] Let us write a neat apology note together right now. -> forgery_ok | forgery_miss
+* [if not flag.haint_daydreamer_used_forgery and item:forgery_kit] [Dexterity DC 12] Let us write a neat apology note together right now. -> forgery_ok | forgery_miss
 * [if not flag.haint_daydreamer_used_insight] [Insight DC 12] It is not the missing stone that scares you, is it? -> insight_ok | insight_miss
 * [if not flag.haint_daydreamer_used_persuasion] [Persuasion DC 12] Neighbours forgive a brave boy who tells the truth. -> persuasion_ok | persuasion_miss
 * [if not flag.haint_daydreamer_used_history] [History DC 12] Every grown-up has taken something small once and felt sorry. -> history_ok | history_miss

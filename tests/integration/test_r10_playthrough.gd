@@ -21,6 +21,7 @@ class HighDice extends DiceRoller:
 var st: StoryState
 var dice := HighDice.new()
 var fights: Array[String] = []
+var limbo_hops := 0
 
 
 func before_each() -> void:
@@ -31,7 +32,9 @@ func before_each() -> void:
 		ch.finish_long_rest()
 		st.party.append(ch)
 	fights.clear()
+	limbo_hops = 0
 	st.playthrough_seed = _seed_for_book_order()
+	GhostlightBoons.watch(st, Dice.roller)   # as the game connects it: a freed haint heals the party
 
 
 func after_each() -> void:
@@ -114,6 +117,7 @@ func _win(id: String) -> void:
 
 func _arrive(id: String) -> void:
 	st.location = id
+	st.visited[id] = true   # as LocationView records an arrival: the Switcheroo reads it to tell a first crossing from a later one
 	assert_true(not _loc().is_empty(), "%s is a place" % id)
 
 
@@ -176,7 +180,14 @@ func _exit(exit: String) -> void:
 	if str(e["to"]) == "travel":
 		st.location = "travel"
 		return
-	_arrive(Campaign.module().exit_target(st, st.location, str(e["to"])))
+	var target: String = Campaign.module().exit_target(st, st.location, str(e["to"]))
+	_arrive(target)
+	if target == CrookedMoonCampaign.limbo_place():
+		# The first crossing into a car the party has not been in goes through the mist between cars, and out of it into that car.
+		limbo_hops += 1
+		var out := _entry("exits", "id", "onward")
+		assert_true(not out.is_empty() and _holds(out.get("when")), "the mist has a way on")
+		_arrive(Campaign.module().exit_target(st, st.location, str(out["to"])))
 
 
 func _stage() -> String:
@@ -207,6 +218,7 @@ func test_the_express_plays_from_a_new_game_to_the_wickermoor_road() -> void:
 	_talk("haint_sweetheart", ["bottle"])
 	assert_eq(_stage(), "haints", "meeting a haint starts the haints stage")
 	assert_eq(st.quest_stage("haint_sweetheart"), "bottled")
+	assert_eq(st.party[0].temp_hp, 0, "a bottled haint heals no one")
 	_exit("front_door")
 
 	# The Lounge: the Songstress talked round; the seascape and an empty bottle found.
@@ -214,6 +226,8 @@ func test_the_express_plays_from_a_new_game_to_the_wickermoor_road() -> void:
 	_search("g3_whiskey_bottle")
 	_talk("haint_songstress", ["help you finish", "Sing the melody", "Trace the magic", "Speak the lonely word"])
 	assert_eq(st.quest_stage("haint_songstress"), "helped")
+	for ch in st.party:
+		assert_true(ch.temp_hp >= 1 and ch.temp_hp <= 6, "%s: the freed Songstress heals 1d6, all of it Temporary Hit Points at full health" % ch.name)
 	_exit("front_door")
 
 	# The Dining Car: the Daydreamer bottled; steak and eggs ordered.
@@ -237,12 +251,15 @@ func test_the_express_plays_from_a_new_game_to_the_wickermoor_road() -> void:
 	# The Circus Car: the Harlequin put down, the last of the six, by a fight; nobody touches a grille after it.
 	_talk("haint_harlequin", ["Draw a weapon"])
 	assert_eq(st.quest_stage("haint_harlequin"), "destroyed")
+	assert_true(st.flags.has(GhostlightBoons.PAID + "haint_mariner") and not st.flags.has(GhostlightBoons.PAID + "haint_harlequin"),
+		"the freed Mariner paid and the haint put down did not")
 	for h: String in ["sweetheart", "songstress", "daydreamer", "mariner", "jailbird", "harlequin"]:
 		assert_true(bool(st.get_flag("haint_%s_done" % h)) or bool(st.get_flag("haint_%s_destroyed" % h)), "the %s is gone" % h)
 	_exit("front_door")
 
 	# The Tender: the curse in the fuel, the Stoker, the crash.
 	assert_eq(st.location, "ghostlight_g8_tender")
+	assert_eq(limbo_hops, 7, "each of the seven first crossings (Passenger Car to Tender) went through the mist")
 	_called_by("g8_firebox")
 	assert_eq(st.get_flag("haints_destroyed"), 1, "the haint put down is counted before the Stoker's fight")
 	assert_true(fights.has("gl_stoker"), "the Stoker fights")

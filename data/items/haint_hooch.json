@@ -7,9 +7,43 @@
   "category": "potion",
   "weight_lb": 1,
   "cost_gp": 0,
-  "summary": "A foul blue-green jug marked XxX: drink it to become insubstantial for a minute.",
+  "summary": "A foul blue-green jug marked XxX: drink it to become insubstantial for a minute, passing through creatures and objects.",
   "magic": {
     "rarity": "rare",
     "attunement": false
-  }
+  },
+  "icon": "potion_clear",
+  "stackable": true,
+  "effects": [
+    {
+      "effect": "modifiers",
+      "params": {
+        "modifiers": [
+          {
+            "stat": "flag",
+            "value": "incorporeal_movement"
+          },
+          {
+            "stat": "flag",
+            "value": "pass_through_creatures"
+          }
+        ]
+      }
+    }
+  ],
+  "duration": {
+    "kind": "minutes",
+    "amount": 1
+  },
+  "powers": [
+    {
+      "id": "drink",
+      "name": "Drink",
+      "cost": "bonus",
+      "recipe": "drink",
+      "consume": true,
+      "field": true
+    }
+  ],
+  "text": "The jug is marked XxX above a skull's grin, and the brew in it is blue-green and tastes of a wet grave. Drinking it makes you insubstantial for 1 minute: you move through creatures and objects as if they were difficult ground, and take force damage if you end a turn inside an object."
 }

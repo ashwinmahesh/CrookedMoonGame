@@ -178,7 +178,7 @@ inspire background:reveler: met the Fool's silence over a handbill
 ~ phonograph
 narrate examine:g2_phonograph
 * Switch it on. -> phonograph_on
-* [if not item:ghost_phonograph] Carry it with us. -> phonograph_take
+* [if not item:ghost_phonograph and not flag.haint_songstress_done] Carry it with us. -> phonograph_take
 * Leave it. -> END
 
 ~ phonograph_on
@@ -203,19 +203,19 @@ Player: Something tall and black stood in a doorway of fire while that brass not
 
 ~ apocalypse_hum
 set incitement_apocalypse
-Narrator: you hums the slow melody right on the beat, matching the scratchy needle note for note through the turn. The burning doorway fades from the panelling, leaving the taste of warm ash on your tongue.
+Narrator: You hum the slow melody right on the beat, matching the scratchy needle note for note through the turn. The burning doorway fades from the panelling, leaving the taste of warm ash on your tongue.
 inspire background:amnesiac: heard a half-known song
 -> phonograph
 
 ~ apocalypse_off
 set incitement_apocalypse
-Narrator: you lifts the tonearm off the spinning shellac with a sharp click, cutting the horn short in the middle of a bar. Even in the quiet berth, that last brass note keeps ringing behind your teeth.
+Narrator: You lift the tonearm off the spinning shellac with a sharp click, cutting the horn short in the middle of a bar. Even in the quiet berth, that last brass note keeps ringing behind your teeth.
 inspire background:amnesiac: heard a half-known song
 -> phonograph
 
 ~ apocalypse_ask
 set incitement_apocalypse
-Narrator: you looks around the cramped sleeper berth, asking if anyone else has heard this chorus in a tavern or a parlour back home. Your companions only hear a scratchy old record, leaving the doorway of fire to you alone.
+Narrator: You look around the cramped sleeper berth, asking if anyone else has heard this chorus in a tavern or a parlour back home. Your companions only hear a scratchy old record, leaving the doorway of fire to you alone.
 inspire background:amnesiac: heard a half-known song
 -> phonograph
 
@@ -240,19 +240,19 @@ Player: Look at the stamp on the brass back: "Stranger Ferryworks". Whatever bou
 
 ~ deliverance_pocket
 set incitement_deliverance
-Narrator: you closes a fist around the brass case and slips it back into a coat pocket, where it beats like a small coal against the cloth. Even through the wool, the needle tugs toward the front of the train.
+Narrator: You close a fist around the brass case and slip it back into a coat pocket, where it beats like a small coal against the cloth. Even through the wool, the needle tugs toward the front of the train.
 inspire background:ghostlight_passenger: followed a warm compass needle
 -> END
 
 ~ deliverance_tell
 set incitement_deliverance
-Narrator: you turns the warm brass case over so the others can read the "Stranger Ferryworks" stamp in the dim car light. Every time the engine chugs up ahead, the bent needle gives an answering twitch.
+Narrator: You turn the warm brass case over so the others can read the "Stranger Ferryworks" stamp in the dim car light. Every time the engine chugs up ahead, the bent needle gives an answering twitch.
 inspire background:ghostlight_passenger: followed a warm compass needle
 -> END
 
 ~ deliverance_show
 set incitement_deliverance
-Narrator: you holds the warm brass compass up toward the ceiling intercom grille, and the wire mesh gives a sharp static pop.
+Narrator: You hold the warm brass compass up toward the ceiling intercom grille, and the wire mesh gives a sharp static pop.
 the_vagrant [afraid]: Where'd you get that, friend? Put it somewhere safe.
 inspire background:ghostlight_passenger: followed a warm compass needle
 -> END

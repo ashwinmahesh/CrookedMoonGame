@@ -139,6 +139,33 @@ func test_the_stoker_burns_a_corpse_it_sees() -> void:
 	assert_true(e.distance(stoker, dead) <= 5, "the stoker went to it")
 
 
+## The Tender's stoker is the book's corrupted one: 30 Hit Points and one Sear for each Multiattack, and it still burns the dead.
+func test_the_tenders_stoker_is_the_corrupted_one() -> void:
+	var m := TestCombat.monster("corrupted_soulfire_stoker")
+	assert_eq(m.max_hp(), 30, "30 Hit Points")
+	var e := _field()
+	var stoker := e.add(m, &"enemy", Vector2i(12, 5))
+	var data := MonsterActions.data_of(stoker)
+	var sears := 0
+	for a: Variant in data.get("actions", []):
+		if str((a as Dictionary)["id"]) == "multiattack":
+			for part: Variant in (a as Dictionary)["multiattack"]:
+				sears += int((part as Dictionary).get("count", 0))
+	assert_eq(sears, 1, "one Sear for a Multiattack")
+	var hero := TestCombat.hero(e, "hedda_ironvow", Vector2i(2, 12), 3)
+	var dead := e.add(TestCombat.monster("ghost"), &"enemy", Vector2i(9, 5))
+	TestCombat.start_with(e, stoker)
+	dead.creature.dead = true
+	dead.creature.hp = 0
+	e.ai.play_turn(stoker)
+	assert_true(dead.has_meta(BestiaryFeatures.ASHED_META), "it burns a corpse it sees, like its elder")
+	assert_true(hero != null)
+	var fights := Compendium.shared().get_entry("locations", "ghostlight_g8_tender").get("encounters", []) as Array
+	for en: Variant in fights:
+		for mon: Variant in (en as Dictionary)["monsters"]:
+			assert_true(str((mon as Dictionary)["monster"]) != "soulfire_stoker", "the Tender's fights use the corrupted stoker")
+
+
 ## The wreck fight's own entry for `id` (data/locations/ghostlight_wreckage.json, gl_locomotive's `objects`), moved to
 ## `cell` when given.
 static func _wreck_object(id: String, cell: Vector2i = Vector2i(-1, -1)) -> Dictionary:

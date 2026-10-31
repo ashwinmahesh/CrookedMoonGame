@@ -47,6 +47,13 @@ set haints_all_gone
 quest ghostlight_express tender_open
 narrate haint:all_gone
 endif
+# Level 2 after the third haint, however the third and later ones fell: a fight has no check-in after it (the `router` gives the milestone
+# itself, with the Vagrant's word, when it is the next stop), so a recount reached from a grille or the Tender gives it here.
+if flag.haints_resolved >= 3 and not flag.gl_level2_given and flag.gl_after_recount != "router"
+set gl_level2_given
+xp milestone
+narrate haint:milestone_two
+endif
 if flag.gl_after_recount == "grille"
 -> ghostlight_express/vagrant_intercom:grille_open
 endif
