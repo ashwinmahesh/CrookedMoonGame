@@ -64,3 +64,45 @@ func test_the_abbot_has_his_own_and_the_others_the_boss_music() -> void:
 	for id: String in ["grinning_sinner_boss", "beast_of_blight", "necrolisk", "chained_reaper_harrowing", "weeping_widow", "centipede_hag"]:
 		assert_false(Compendium.shared().get_entry("monsters", id).is_empty(), "%s is a monster" % id)
 		assert_eq(str((Audio._data["boss_music"] as Dictionary).get(id, "")), "boss", "%s plays the boss music" % id)
+
+
+## The cutscenes a conversation plays (a `cutscene <id>` line in narrative/<chapter>/*.dialogue), first pictures only.
+func _dialogue_cutscenes(chapter: String) -> Array[String]:
+	var out: Array[String] = []
+	var dir := "res://narrative/" + chapter
+	var d := DirAccess.open(dir)
+	if d == null:
+		return out
+	var re := RegEx.create_from_string("(?m)^\\s*cutscene\\s+([a-z0-9_]+)")
+	for f in d.get_files():
+		if not f.ends_with(".dialogue"):
+			continue
+		for m in re.search_all(FileAccess.get_file_as_string(dir.path_join(f))):
+			var id := m.get_string(1)
+			if id != "end" and not RegEx.create_from_string("_\\d+$").search(id) and not out.has(id):
+				out.append(id)
+	return out
+
+
+func test_every_chapter_conversation_cutscene_has_a_mood() -> void:
+	var scenes := Audio._data.get("scenes", {}) as Dictionary
+	var count := 0
+	for chapter: String in ["crooked_house", "drowned_crossroads", "hartsblight", "maidenmist", "memorys_rest", "monastery", "skitterdeep"]:
+		for id in _dialogue_cutscenes(chapter):
+			count += 1
+			assert_true(scenes.has(id), "%s (%s) has a scene mood" % [id, chapter])
+			assert_false(Audio.entries("music", str(scenes.get(id, ""))).is_empty(), "%s's mood has music" % id)
+	assert_true(count >= 60, "the chapters' cutscenes are found (%d)" % count)
+
+
+func test_villains_turn_the_music() -> void:
+	for place_mood: String in (Audio._data.get("talk_moods", {}) as Dictionary).keys():
+		for npc: Variant in ((Audio._data["talk_moods"] as Dictionary)[place_mood] as Dictionary).get("npcs", []):
+			assert_false(Compendium.shared().get_entry("npcs", str(npc)).is_empty(), "talk_moods %s: %s is a person" % [place_mood, npc])
+	assert_eq(Audio.talk_mood("crimson_monastery", "father_renathyr"), "dread", "the Abbot's words turn the music")
+	assert_eq(Audio.talk_mood("train_lounge", "mister_crossroads"), "dread", "Mister Crossroads in his casino")
+	assert_eq(Audio.talk_mood("drowned_crossroads", "maude_ledoux"), "", "a townsperson does not")
+
+
+func test_the_bayou_has_its_old_steel_guitar() -> void:
+	assert_true(Audio.files("music", "drowned_crossroads").has("res://art/sourced/wikimedia_commons/southern_blues_ferera.ogg"), "Southern Blues (1924)")
