@@ -5,6 +5,10 @@
   python3 tools/qa/qa.py fights [--out DIR] [--seeds 1-8] [--modes story,balanced,tactician,honour] [--only loc:id,id]
                                 [--regions a,b] [--jobs N] [--play auto|plain|sharp|full] [--levels FILE]
   python3 tools/qa/qa.py report [--out DIR]
+  python3 tools/qa/qa.py act1   [--out DIR] [--seeds 1-4] [--mode balanced] [--shuffled]
+
+act1    plays tools/qa/act1_player.tscn: the real title, roster and difficulty pages, then the real game scene driven by
+        clicks, to the end of the Ghostlight Express; prints each run's blockers.
 
 story   plays tools/qa/story_bot.tscn once per seed and writes story-<dice>-<seed>.json, plus levels.json (the level the
         party reached each fight at, which `fights` then reads).
@@ -102,6 +106,31 @@ def cmd_story(a: argparse.Namespace) -> int:
             levels.setdefault(k, v)
     if levels:
         json.dump(levels, open(os.path.join(a.out, "levels.json"), "w"), indent=1, sort_keys=True)
+    return rc
+
+
+def cmd_act1(a: argparse.Namespace) -> int:
+    os.makedirs(a.out, exist_ok=True)
+    rc = 0
+    for s in seeds_of(a.seeds):
+        tag = f"act1-{a.mode}-{'book' if a.book_order else 'shuffled'}-{s}"
+        out = os.path.join(a.out, tag + ".json")
+        log = os.path.join(a.out, tag + ".log")
+        t = time.time()
+        code = godot("res://tools/qa/act1_player.tscn", [f"--out={out}", f"--seed={s}", f"--mode={a.mode}",
+                     f"--book-order={1 if a.book_order else 0}"], a.timeout, log)
+        errs = script_errors(log)
+        if code != 0 or not os.path.exists(out):
+            print(f"{tag}: Godot exited {code}; see {log}")
+            rc = 1
+        else:
+            r = json.load(open(out))
+            print(f"{tag}: {r['end']} ({time.time() - t:.0f} s), stage {r['stage']} at {r['location']}, "
+                  f"{len(r['blockers'])} blockers, {len(r['fights'])} fights")
+            for b in r["blockers"]:
+                print(f"  BLOCKER {b['what']} at {b['location']} ({b['stage']}): {b['detail']}")
+        for e in errs[:15]:
+            print("  " + e)
     return rc
 
 
@@ -229,7 +258,7 @@ def cmd_report(a: argparse.Namespace) -> int:
 def main() -> int:
     p = argparse.ArgumentParser()
     sub = p.add_subparsers(dest="cmd", required=True)
-    for name in ("story", "fights", "report"):
+    for name in ("story", "fights", "report", "act1"):
         s = sub.add_parser(name)
         s.add_argument("--out", default=os.path.join(ROOT, "captures", "qa"))
         s.add_argument("--timeout", type=int, default=3600)
@@ -238,6 +267,11 @@ def main() -> int:
             s.add_argument("--seeds", default="1")
             s.add_argument("--steps", type=int, default=6000)
             s.add_argument("--trace", action="store_true")
+        if name == "act1":
+            s.add_argument("--seeds", default="1")
+            s.add_argument("--mode", default="balanced")
+            s.add_argument("--book-order", dest="book_order", action="store_true", default=True)
+            s.add_argument("--shuffled", dest="book_order", action="store_false")
         if name == "fights":
             s.add_argument("--seeds", default="1-8")
             s.add_argument("--modes", default=",".join(MODES))
@@ -249,7 +283,7 @@ def main() -> int:
             s.add_argument("--rounds", type=int, default=30)
     a = p.parse_args()
     a.out = os.path.abspath(a.out)
-    return {"story": cmd_story, "fights": cmd_fights, "report": cmd_report}[a.cmd](a)
+    return {"story": cmd_story, "fights": cmd_fights, "report": cmd_report, "act1": cmd_act1}[a.cmd](a)
 
 
 if __name__ == "__main__":

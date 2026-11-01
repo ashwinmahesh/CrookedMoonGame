@@ -82,7 +82,7 @@ arena:
 	@$(PLAYFRESH)
 	$(NOFOCUS) res://scenes/combat/arena.tscn < /dev/null
 
-.PHONY: qa qa-story qa-fights qa-report
+.PHONY: qa qa-story qa-fights qa-report qa-act1
 ## Headless QA (tools/qa/qa.py; no window, its own user data folder, output in captures/qa or OUT=dir).
 ## qa-story: the story bot plays the whole campaign from a new game with no script, and reports where it stuck
 ## (DICE=high|seeded SEEDS=1,2 STEPS=n). qa-fights: every fight in the places' data played by the party autopilot at each
@@ -96,6 +96,11 @@ qa-fights:
 	@$(FRESH)
 	GODOT=$(GODOT) python3 tools/qa/qa.py fights --out $(QA_OUT) --seeds $(or $(SEEDS),1-8) --jobs $(or $(JOBS),2) \
 		$(if $(MODES),--modes $(MODES),) $(if $(ONLY),--only $(ONLY),) $(if $(REGIONS),--regions $(REGIONS),)
+## qa-act1: Act 1 as a player plays it, from the title to the road out of the Ghostlight wreck (SEEDS=1-4 MODE=balanced
+## SHUFFLED=1 for the Switcheroo's own car order); every run's blockers are printed.
+qa-act1:
+	@$(FRESH)
+	GODOT=$(GODOT) python3 tools/qa/qa.py act1 --out $(QA_OUT) --seeds $(or $(SEEDS),1) --mode $(or $(MODE),balanced) $(if $(SHUFFLED),--shuffled,)
 qa-report:
 	python3 tools/qa/qa.py report --out $(QA_OUT)
 qa: qa-story qa-fights qa-report
