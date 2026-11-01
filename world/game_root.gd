@@ -20,6 +20,8 @@ var screen: Node = null              ## the open full-screen panel (sheet, inven
 var dialogue: DialogueUI = null
 var loot: LootWindow = null
 var guidance: GuidancePrompt = null  ## Guidance offered before a check while exploring (ask_guidance), if it's up
+## A guide leading without a word (an NPC's `leads`: Follow on its menu), while the party follows: {to, when, flag}; {} for none.
+var _mute_lead: Dictionary = {}
 var _prompting: Node = null          ## a small prompt of ours is up (LeadPrompt: follow now or later; GiftPicker: what to hand a guest)
 var _hover := Vector2i(-1, -1)
 var _move_repeat := 0.0
@@ -476,6 +478,16 @@ func world_action(cell: Vector2i, id: String) -> void:
 		"spells":
 			open_screen("sheet", int(parts[1]))
 			(screen as CharacterSheetScreen).show_tab("Spells")
+		"follow":
+			# A guide who leads without a word (`leads` on its placement or its NPC entry): the walk `lead` would give, no talk.
+			var guide := view.thing_at(cell)
+			if not guide.is_empty() and str(guide.get("kind", "")) == "npc" and dialogue == null and _mute_lead.is_empty():
+				var gspec := guide["spec"] as Dictionary
+				var gid := str(gspec["npc"])
+				var lead: Variant = gspec.get("leads", Compendium.shared().get_entry("npcs", gid).get("leads", null))
+				if lead is Dictionary and str((lead as Dictionary).get("to", "")) != "":
+					_mute_lead = lead as Dictionary
+					_lead(gid, str(_mute_lead["to"]))
 		"trade", "services":
 			var thing := view.thing_at(cell)
 			if not thing.is_empty():
@@ -573,7 +585,7 @@ func respec(index: int) -> void:
 ## way out and the place changes. The conversation carries on where the party stands afterwards, and `check.last` says
 ## whether they went.
 func _lead(npc_id: String, to: String) -> void:
-	if view == null or dialogue == null:
+	if view == null or _lead_over():
 		return
 	var plan := LocationLead.plan(view, to)
 	TalkCamera.close(view, false)
@@ -613,7 +625,7 @@ func _lead_walk(npc_id: String, plan: Dictionary) -> void:
 			await _lead_there(npc_id, plan)   # no way out on foot from here: the party is simply there
 		return
 	var followed: bool = await walk.finished
-	if not is_inside_tree() or dialogue == null:
+	if not is_inside_tree() or _lead_over():
 		return
 	if not followed:
 		if view.in_combat:
@@ -632,27 +644,44 @@ func _lead_there(npc_id: String, plan: Dictionary) -> void:
 	var spawn := str(plan["spawn"])
 	st.advance_minutes(5)   # walking between places takes a few minutes
 	await _covered(to, enter_location.bind(to, spawn))
-	if not is_inside_tree() or dialogue == null:
+	if not is_inside_tree() or _lead_over():
 		return
 	if view.in_combat:
 		_leave_dialogue_for_fight()   # the place set a fight off as the party arrived
 		return
-	ModeController.force(ModeController.Mode.DIALOGUE)
-	hud.visible = false
-	view.stage_npc(npc_id, "")   # beside the party for the rest of the talk
+	if dialogue != null:
+		ModeController.force(ModeController.Mode.DIALOGUE)
+		hud.visible = false
+		view.stage_npc(npc_id, "")   # beside the party for the rest of the talk
 	_lead_done(npc_id, true)
 
 
 ## A fight began while the conversation was stepped back for a lead: the talk is over and the fight has the screen.
 func _leave_dialogue_for_fight() -> void:
+	_mute_lead = {}
 	if dialogue != null:
 		dialogue.queue_free()
 		dialogue = null
 	hud.visible = true
 
 
+## Whether the lead under way has lost what it was for: its conversation closed (or, for a guide leading without a word,
+## that walk was given up).
+func _lead_over() -> bool:
+	return dialogue == null and _mute_lead.is_empty()
+
+
 ## Back to the conversation: the camera comes in again and the box with it.
 func _lead_done(npc_id: String, followed: bool) -> void:
+	# A guide leading without a word: its flag once the party has followed, and the walk is over.
+	if dialogue == null and not _mute_lead.is_empty():
+		if followed and str(_mute_lead.get("flag", "")) != "":
+			st.set_flag(str(_mute_lead["flag"]))
+		_mute_lead = {}
+		if view != null:
+			TalkCamera.close(view, false)
+			_refresh()
+		return
 	if dialogue == null or view == null:
 		return
 	st.last_check = followed
