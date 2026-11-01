@@ -87,7 +87,7 @@ func _dialogue_cutscenes(chapter: String) -> Array[String]:
 func test_every_chapter_conversation_cutscene_has_a_mood() -> void:
 	var scenes := Audio._data.get("scenes", {}) as Dictionary
 	var count := 0
-	for chapter: String in ["crooked_house", "drowned_crossroads", "hartsblight", "maidenmist", "memorys_rest", "monastery", "skitterdeep"]:
+	for chapter: String in ["crooked_house", "drowned_crossroads", "hartsblight", "maidenmist", "memorys_rest", "monastery", "skitterdeep", "nightmare", "fools_day", "rookery"]:
 		for id in _dialogue_cutscenes(chapter):
 			count += 1
 			assert_true(scenes.has(id), "%s (%s) has a scene mood" % [id, chapter])
@@ -106,3 +106,19 @@ func test_villains_turn_the_music() -> void:
 
 func test_the_bayou_has_its_old_steel_guitar() -> void:
 	assert_true(Audio.files("music", "drowned_crossroads").has("res://art/sourced/wikimedia_commons/southern_blues_ferera.ogg"), "Southern Blues (1924)")
+
+
+func test_the_nightmare_the_festival_and_the_rookery() -> void:
+	var st := StoryState.new()
+	st.minute_of_day = 20 * 60
+	assert_eq(_mood("nm_pit", st), "crooked_nightmare", "the nightmare's own music")
+	assert_eq(PlaceBeds.fight_music("nm_pit"), "crooked_nightmare_combat", "and fights")
+	assert_eq(_mood("fd_festival", st), "fools_day", "the festival plays its carnival even at night in Wickermoor")
+	assert_eq(PlaceBeds.bed_for("fd_festival", st), "festival", "and its crowd, not the village's crickets")
+	assert_eq(PlaceBeds.fight_music("fd_ring_of_fools"), "fools_day_combat", "the Ring of Fools fights to the carnival")
+	assert_eq(PlaceBeds.fight_music("wickermoor_village"), "wickermoor_combat", "while the village keeps its own")
+	assert_eq(PlaceBeds.bed_for("rk_dovecote_r2", st), "dovecote", "pigeons in Golub's roost")
+	assert_eq(PlaceBeds.bed_for("rk_roost_swamp", st), "bayou", "a roost in a swamp sounds like one")
+	var crooked: Array[Combatant] = [Combatant.new(Monster.from_data(Compendium.shared().get_entry("monsters", "crooked_man")), &"enemy", Vector2i.ZERO)]
+	assert_eq(Audio.fight_mood(crooked), "crooked_man", "the Crooked Man's own")
+	assert_eq(Audio.talk_mood("fools_day", "chuckles"), "dread", "Chuckles turns the carnival")

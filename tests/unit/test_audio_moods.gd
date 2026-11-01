@@ -101,3 +101,29 @@ func test_a_camp_and_its_fire_have_sound() -> void:
 	assert_false(Audio.entries("music", "camp").is_empty(), "a camp's quiet music")
 	for bed: String in ["camp", "hearth", "river"]:
 		assert_false(Audio.files("loops", bed).is_empty(), "the %s bed has a recording (WorldSounds and PlaceBeds ask for it)" % bed)
+
+
+## Regions that play only the map themes' music and have no bed, on purpose (the engine's test hillside). A new region
+## not on this list needs its own mood and beds, or this fails.
+const THEMES_FALLBACK: Array[String] = ["test_grounds"]
+
+
+func test_every_region_has_its_own_mood_and_beds() -> void:
+	var regions := Audio._data.get("regions", {}) as Dictionary
+	var places := Audio._data.get("places", {}) as Dictionary
+	var beds := Audio._data.get("place_beds", {}) as Dictionary
+	for loc: Dictionary in Compendium.shared().all("locations"):
+		var id := str(loc.get("id", ""))
+		var region := str(loc.get("region", ""))
+		if region in THEMES_FALLBACK:
+			continue
+		assert_true(regions.has(region) or places.has(id), "%s (region %s) has a mood of its own, not just its map theme's" % [id, region])
+		assert_true(beds.has(id) or beds.has(region), "%s (region %s) has a bed" % [id, region])
+
+
+func test_place_fights_are_fight_moods() -> void:
+	for id: String in (Audio._data.get("place_fights", {}) as Dictionary).keys():
+		var m := str((Audio._data["place_fights"] as Dictionary)[id])
+		assert_false(Compendium.shared().get_entry("locations", id).is_empty(), "place_fights %s is a place" % id)
+		assert_true(Audio.is_fight_mood(m), "%s counts as a fight mood" % m)
+		assert_eq(PlaceBeds.fight_music(id), m, "%s's fights start on %s" % [id, m])
