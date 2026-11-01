@@ -1,0 +1,267 @@
+{
+  "id": "mf_last_hill",
+  "name": "The Hill Under the Moon",
+  "region": "moonfall",
+  "summary": "A hilltop with the moon a few hundred feet overhead, roofs and trees tearing loose in the gale, and Kehlenn's face in the crescent.",
+  "text": "The hill is bare, and the moon hangs low over it like a ceiling. Gales pull at your coats, and somewhere below, a roof lets go and goes up toward the face.",
+  "map": {
+    "rows": [
+      "##############################",
+      "#............................#",
+      "#............................#",
+      "#...=.................#......#",
+      "#.........................=..#",
+      "#...........=.#1.............#",
+      "#...#...=..111111111....=....#",
+      "#.........11111111111........#",
+      "#........111111.111111.......#",
+      "#...=....1111_____1111.......#",
+      "#...=...1111_______1111......#",
+      "#........1111_____1111....=..#",
+      "#....=...111.11_111111...#...#",
+      "#....=...=11111111111.....#..#",
+      "#..........111111111.........#",
+      "#........=....=1.............#",
+      "#................#...........#",
+      "#.....#.#..#.....=...........#",
+      "#.....................#......#",
+      "#............................#",
+      "#............................#",
+      "##############################"
+    ],
+    "theme": "wilderness",
+    "light": "bright",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "hill",
+      "name": "The hill under the moon",
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          27,
+          19
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      4,
+      16
+    ],
+    "from_rise": [
+      4,
+      16
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_rise",
+      "cell": [
+        3,
+        17
+      ],
+      "to": "mf_rowans_volcano",
+      "spawn": "default",
+      "label": "Down the hill"
+    }
+  ],
+  "props": [
+    {
+      "id": "mf_hill_offer",
+      "cell": [
+        15,
+        8
+      ],
+      "kind": "decor",
+      "label": "The moon, close enough to touch",
+      "call": "moonfall/moon:last_offer",
+      "approach": 12,
+      "call_when": "flag.old_fears_slain >= 8 and not flag.moonfall_offer"
+    },
+    {
+      "id": "mf_hill_menu",
+      "cell": [
+        20,
+        15
+      ],
+      "kind": "examine",
+      "label": "The moon's offer",
+      "model": "altar",
+      "dialogue": "moonfall/moon:last_menu",
+      "when": "flag.old_fears_slain >= 8 and not flag.moonfall_offer"
+    },
+    {
+      "id": "mf_impact_3x15",
+      "cell": [
+        3,
+        15
+      ],
+      "kind": "decor",
+      "label": "The moon, filling the sky",
+      "call": "moonfall/moon:impact",
+      "approach": 12,
+      "call_when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled"
+    },
+    {
+      "id": "mf_hill_o_0",
+      "cell": [
+        16,
+        18
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "mf_hill_o_1",
+      "cell": [
+        21,
+        5
+      ],
+      "kind": "decor",
+      "label": "Leaves",
+      "model": "leaves"
+    },
+    {
+      "id": "mf_hill_o_2",
+      "cell": [
+        3,
+        18
+      ],
+      "kind": "decor",
+      "label": "Boulder",
+      "model": "boulder"
+    },
+    {
+      "id": "mf_hill_o_3",
+      "cell": [
+        10,
+        17
+      ],
+      "kind": "decor",
+      "label": "Rubble",
+      "model": "rubble"
+    },
+    {
+      "id": "mf_hill_o_4",
+      "cell": [
+        20,
+        5
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "mf_hill_o_5",
+      "cell": [
+        22,
+        14
+      ],
+      "kind": "decor",
+      "label": "Rubble",
+      "model": "rubble"
+    },
+    {
+      "id": "mf_hill_o_6",
+      "cell": [
+        24,
+        8
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "mf_hill_o_7",
+      "cell": [
+        26,
+        7
+      ],
+      "kind": "decor",
+      "label": "Rubble",
+      "model": "rubble"
+    },
+    {
+      "id": "mf_hill_o_8",
+      "cell": [
+        4,
+        11
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "mf_hill_o_9",
+      "cell": [
+        6,
+        8
+      ],
+      "kind": "decor",
+      "label": "Leaves",
+      "model": "leaves"
+    },
+    {
+      "id": "mf_hill_o_10",
+      "cell": [
+        23,
+        11
+      ],
+      "kind": "decor",
+      "label": "Boulder",
+      "model": "boulder"
+    },
+    {
+      "id": "mf_hill_o_11",
+      "cell": [
+        22,
+        9
+      ],
+      "kind": "decor",
+      "label": "Dead tree a",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mf_hill_o_12",
+      "cell": [
+        16,
+        15
+      ],
+      "kind": "decor",
+      "label": "Boulder",
+      "model": "boulder"
+    },
+    {
+      "id": "mf_hill_o_13",
+      "cell": [
+        21,
+        4
+      ],
+      "kind": "decor",
+      "label": "Rubble",
+      "model": "rubble"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "the_vagrant",
+      "cell": [
+        12,
+        12
+      ],
+      "dialogue": "moonfall/vagrant:hub_start",
+      "when": "flag.old_fears_slain >= 8",
+      "facing": "east"
+    }
+  ],
+  "encounters": [],
+  "rest": "no",
+  "rest_text": "There is no resting here. The wind is pulling the ground up by its roots."
+}

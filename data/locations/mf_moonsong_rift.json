@@ -1,0 +1,682 @@
+{
+  "id": "mf_moonsong_rift",
+  "name": "Moonsong Lake",
+  "region": "moonfall",
+  "summary": "A fishing village on the shore of Moonsong Lake, a long jetty, and an air pocket on the lake bed around a tear into another place.",
+  "text": "Moonsong Lake lies flat and silvered under the great moon. A fishing village crowds the shore, nets on every post, and a long jetty runs out over water too still to be honest.",
+  "map": {
+    "rows": [
+      "############################################",
+      "#..........................................#",
+      "#.................wwwwwwwwwwwwwwwwwwwwwwww.#",
+      "#.~...............wwwwwwwwwwwwwwwwwwwwwwww.#",
+      "#.~.=====.===.~...wwwwwwwwwwwwwwwwwwwwwwww.#",
+      "#.~.=====.===~~~~.wwwwwwwwwwwwwwwwwwwwwwww.#",
+      "#...=====..~~~~~~~wwwwwwwwwwwwwwwwwwwwwwww.#",
+      "#.~.=====~~~~~~~~~~wwwwwwwwwwwwwwwwwwwwwww.#",
+      "#........~~~~~~~~~~wwwwwwwwwwww.#.#........#",
+      "#....~...~~~~~~~~~~~wwwwwwwwwww............#",
+      "#....~...~~~.~~~~~~~wwwwwwwwwww........#...#",
+      "#.....~..~~~~~~~~~~~wwwwwwwwwww.......~....#",
+      "#........~~~~~~~~~~~wwwwwwwwwww#....~~~~~..#",
+      "#........~~~~~~~~~______________...#~~~~~..#",
+      "#.......~~~~~~~~~~______________...~~.~~~~.#",
+      "#........~~~~~~~~~______________....~~~~~..#",
+      "#........~~~~~~~~~~~wwwwwwwwwww#.#..~~~~~..#",
+      "#........~~~~~~~~~~~wwwwwwwwwww.....#.~....#",
+      "#.~......~.~~~~~~~~~wwwwwwwwwww............#",
+      "#........~~~~~~~~~~~wwwwwwwwwww..#.#...#...#",
+      "#...=====.~~~~~~~~~wwwwwwwwwwww.....###....#",
+      "#...=====.~~~~~~~~~wwwwwwwwwwww.#....###...#",
+      "#...=====..~~~~~~~wwwwwwwwwwwwwwwwwwwwwwww.#",
+      "#...=====...~~~~~.wwwwwwwwwwwwwwwwwwwwwwww.#",
+      "#.............~~..wwwwwwwwwwwwwwwwwwwwwwww.#",
+      "#.................wwwwwwwwwwwwwwwwwwwwwwww.#",
+      "#........~........wwwwwwwwwwwwwwwwwwwwwwww.#",
+      "#.................wwwwwwwwwwwwwwwwwwwwwwww.#",
+      "#..........................................#",
+      "############################################"
+    ],
+    "theme": "riverside",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "shore",
+      "name": "The fishing village",
+      "cells": [
+        [
+          2,
+          3
+        ],
+        [
+          17,
+          26
+        ]
+      ]
+    },
+    {
+      "id": "jetty",
+      "name": "The long jetty",
+      "cells": [
+        [
+          18,
+          13
+        ],
+        [
+          30,
+          15
+        ]
+      ]
+    },
+    {
+      "id": "bed",
+      "name": "The lake bed",
+      "cells": [
+        [
+          31,
+          8
+        ],
+        [
+          41,
+          21
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      4,
+      14
+    ],
+    "from_travel": [
+      4,
+      14
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_road",
+      "cell": [
+        2,
+        14
+      ],
+      "to": "travel",
+      "spawn": "default",
+      "label": "Back to the road"
+    }
+  ],
+  "props": [
+    {
+      "id": "worm_arrive",
+      "cell": [
+        4,
+        14
+      ],
+      "kind": "decor",
+      "label": "The land, on arrival",
+      "call": "moonfall/worm:arrive",
+      "approach": 12,
+      "call_when": "not flag.mf_worm_arrived"
+    },
+    {
+      "id": "worm_region",
+      "cell": [
+        7,
+        16
+      ],
+      "kind": "examine",
+      "label": "The lake's mist and its white worms",
+      "model": "puddle",
+      "dialogue": "moonfall/worm:region",
+      "when": "not flag.mf_worm_resisted"
+    },
+    {
+      "id": "worm_board",
+      "cell": [
+        8,
+        12
+      ],
+      "kind": "examine",
+      "label": "Notice board",
+      "model": "notice_board",
+      "text": "A wall of names, each crossed out in a different colour of chalk."
+    },
+    {
+      "id": "mf_impact_3x13",
+      "cell": [
+        3,
+        13
+      ],
+      "kind": "decor",
+      "label": "The moon, filling the sky",
+      "call": "moonfall/moon:impact",
+      "approach": 12,
+      "call_when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled"
+    },
+    {
+      "id": "worm_o_0",
+      "cell": [
+        10,
+        23
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "worm_o_1",
+      "cell": [
+        9,
+        20
+      ],
+      "kind": "decor",
+      "label": "Puddle",
+      "model": "puddle"
+    },
+    {
+      "id": "worm_o_2",
+      "cell": [
+        15,
+        26
+      ],
+      "kind": "decor",
+      "label": "Rowboat",
+      "model": "rowboat"
+    },
+    {
+      "id": "worm_o_3",
+      "cell": [
+        8,
+        3
+      ],
+      "kind": "decor",
+      "label": "Crate stack",
+      "model": "crate_stack"
+    },
+    {
+      "id": "worm_o_4",
+      "cell": [
+        5,
+        14
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "worm_o_5",
+      "cell": [
+        5,
+        17
+      ],
+      "kind": "decor",
+      "label": "Crate stack",
+      "model": "crate_stack"
+    },
+    {
+      "id": "worm_o_6",
+      "cell": [
+        3,
+        9
+      ],
+      "kind": "decor",
+      "label": "Rope coils",
+      "model": "rope_coils"
+    },
+    {
+      "id": "worm_o_7",
+      "cell": [
+        4,
+        16
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "worm_o_8",
+      "cell": [
+        7,
+        25
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "worm_o_9",
+      "cell": [
+        6,
+        9
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "worm_o_10",
+      "cell": [
+        6,
+        19
+      ],
+      "kind": "decor",
+      "label": "Barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "worm_o_11",
+      "cell": [
+        14,
+        26
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "worm_o_12",
+      "cell": [
+        7,
+        9
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "worm_o_13",
+      "cell": [
+        7,
+        19
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "worm_o_14",
+      "cell": [
+        6,
+        10
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "worm_o_15",
+      "cell": [
+        8,
+        24
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "worm_o_16",
+      "cell": [
+        16,
+        4
+      ],
+      "kind": "decor",
+      "label": "Barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "worm_o_17",
+      "cell": [
+        3,
+        12
+      ],
+      "kind": "decor",
+      "label": "Puddle",
+      "model": "puddle"
+    },
+    {
+      "id": "worm_o_18",
+      "cell": [
+        3,
+        14
+      ],
+      "kind": "decor",
+      "label": "Barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "worm_o_19",
+      "cell": [
+        9,
+        24
+      ],
+      "kind": "decor",
+      "label": "Crate stack",
+      "model": "crate_stack"
+    },
+    {
+      "id": "worm_o_20",
+      "cell": [
+        5,
+        11
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "worm_o_21",
+      "cell": [
+        3,
+        8
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "worm_o_22",
+      "cell": [
+        7,
+        12
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "worm_o_23",
+      "cell": [
+        13,
+        26
+      ],
+      "kind": "decor",
+      "label": "Barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "worm_o_24",
+      "cell": [
+        14,
+        25
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "worm_o_25",
+      "cell": [
+        16,
+        3
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "worm_lair",
+      "cell": [
+        37,
+        14
+      ],
+      "kind": "examine",
+      "label": "A tear in the air above the black water",
+      "model": "glass_ring",
+      "dialogue": "moonfall/worm:lair",
+      "when": "flag.mf_worm_found and not flag.old_fear_worm"
+    },
+    {
+      "id": "worm_after",
+      "cell": [
+        35,
+        14
+      ],
+      "kind": "decor",
+      "label": "Where it fell",
+      "call": "moonfall/worm:aftermath",
+      "approach": 12,
+      "call_when": "flag.old_fear_worm and not flag.mf_worm_aftermath"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "mf_pell_fisher",
+      "cell": [
+        6,
+        14
+      ],
+      "dialogue": "moonfall/worm:hook",
+      "when": "flag.moonfall_started and flag.old_fear_headsman and not flag.old_fear_worm and not flag.mf_worm_asked",
+      "approach": 8,
+      "facing": "east"
+    },
+    {
+      "npc": "mf_pell_fisher",
+      "cell": [
+        6,
+        14
+      ],
+      "dialogue": "moonfall/worm:hook_again",
+      "when": "flag.moonfall_started and flag.old_fear_headsman and not flag.old_fear_worm and flag.mf_worm_asked",
+      "facing": "east"
+    },
+    {
+      "npc": "mf_lake_cultist",
+      "cell": [
+        12,
+        10
+      ],
+      "dialogue": "moonfall/worm:clue",
+      "when": "flag.moonfall_started and flag.old_fear_headsman and not flag.old_fear_worm and not flag.mf_worm_clue_met",
+      "facing": "east"
+    },
+    {
+      "npc": "mf_lake_cultist",
+      "cell": [
+        12,
+        10
+      ],
+      "dialogue": "moonfall/worm:clue_again",
+      "when": "flag.moonfall_started and flag.old_fear_headsman and not flag.old_fear_worm and flag.mf_worm_clue_met",
+      "facing": "east"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "mf_worm_patrol",
+      "trigger": "enter_area:jetty",
+      "when": "not flag.mf_worm_patrol_done and flag.mf_worm_arrived",
+      "flag": "mf_worm_patrol_done",
+      "monsters": [
+        {
+          "monster": "wormhost_surgeon",
+          "cell": [
+            23,
+            13
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "wormhost_surgeon",
+          "cell": [
+            19,
+            13
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "wormhost_surgeon",
+          "cell": [
+            25,
+            13
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "Wormhost surgeons come out of the dark."
+    },
+    {
+      "id": "mf_worm_full",
+      "trigger": "dialogue",
+      "flag": "old_fear_worm",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "white_worm",
+          "cell": [
+            37,
+            14
+          ],
+          "name": "The White Worm",
+          "boss": true,
+          "facing": "west"
+        },
+        {
+          "monster": "wormhost_surgeon",
+          "cell": [
+            35,
+            10
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "wormhost_surgeon",
+          "cell": [
+            36,
+            18
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "wormhost_surgeon",
+          "cell": [
+            33,
+            14
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "chuul",
+          "cell": [
+            41,
+            13
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "chuul",
+          "cell": [
+            33,
+            18
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The White Worm comes for you with its own court around it."
+    },
+    {
+      "id": "mf_worm_light",
+      "trigger": "dialogue",
+      "flag": "old_fear_worm",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "white_worm",
+          "cell": [
+            37,
+            14
+          ],
+          "name": "The White Worm",
+          "boss": true,
+          "facing": "west",
+          "hp": 280
+        },
+        {
+          "monster": "wormhost_surgeon",
+          "cell": [
+            33,
+            12
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "wormhost_surgeon",
+          "cell": [
+            38,
+            18
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "chuul",
+          "cell": [
+            41,
+            17
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The White Worm comes for you, thinner of company than it would like."
+    },
+    {
+      "id": "mf_worm_weak",
+      "trigger": "dialogue",
+      "flag": "old_fear_worm",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "white_worm",
+          "cell": [
+            37,
+            14
+          ],
+          "name": "The White Worm",
+          "boss": true,
+          "facing": "west",
+          "hp": 214
+        },
+        {
+          "monster": "wormhost_surgeon",
+          "cell": [
+            35,
+            10
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "wormhost_surgeon",
+          "cell": [
+            36,
+            18
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "chuul",
+          "cell": [
+            33,
+            14
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The White Worm comes for you, already hurt by what you carry."
+    }
+  ],
+  "rest": "risky",
+  "rest_text": "The moon is too large to sleep under. A short breath, then, and on.",
+  "lights": [
+    {
+      "cell": [
+        37,
+        14
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+# Drafted by Gemini (R26 vagrant), edited. The Vagrant's offer in Wickermoor, his talk at the Round, the rewind and the ride out.
+
+~ offer
+cutscene mf_moon_shrieks
+Narrator: Night lies heavy over Wickermoor, and above the clocktower the dark sky splits as the crooked moon opens its crone's mouth wide.
+cutscene mf_moon_shrieks_2
+Narrator: The whole village stands in the street looking up, some already on their knees in the dirt, as a shriek pours down over them like cold water.
+cutscene end
+quest moonfall shriek
+mf_kehlenn [angry]: Thirteen nights I give you, little moths, thirteen nights until I fall from the rafters and drag this whole rotten Hollow down into the dark with me.
+the_vagrant [weary]: Ah, I am sorry about this, truly I am. I had rather hoped the epilogue was the last we would see of her.
+the_vagrant [neutral]: Eight old powers tied to this Hollow have woken in the dark to pull the moon down, each of them promised a realm remade in its own image.
+* Ask what we can do -> plan
+* Ask about the thirteen nights -> nights
+* We will take up the hunt -> accept
+* Not yet, we need a night -> later
+
+~ plan
+the_vagrant [neutral]: Put them down in their proper order, each worse than the last, and every one you fell buys the sky another day and lifts you a little higher.
+the_vagrant [sly]: And when the eighth is cold in the ground, Her Ladyship up there will make you a final offer, and that part nobody can help you with.
+-> offer
+
+~ nights
+the_vagrant [weary]: Thirteen nights to start, with a day more for each of the eight you put down, and that moon waits for nobody, not even for you.
+the_vagrant [neutral]: The clock runs on whatever you turn your hands to, travel on the roads included, so do not go dawdling over the small things.
+-> offer
+
+~ later
+the_vagrant [weary]: The moon will not wait for you, my friends, though I will wait a little while here in the Round with the train.
+-> END
+
+~ accept
+the_vagrant [smile]: Now that is the spirit I like to see. I will keep the engine warm and waiting for you back at the Round.
+Narrator: Something loosens deep in your marrow, like an old latch giving way. The limit that held you has lifted, leaving room to grow past what you were.
+set moonfall_started
+set moonfall_begun
+set moonfall_clock = now
+set moonfall_credit = 0
+set moonfall_nights_left = 13
+quest moonfall hunt
+the_vagrant [neutral]: The first of the eight is out in the eastern farmlands, where the neighbours have already taken to beheading one another across the hedges.
+move mf_round:from_village
+
+~ hub_start
+the_vagrant [smile]: The carriages are warm and the tea in the kettle is not half bad. What can an old conductor do for his favourite passengers tonight?
+-> hub_menu
+
+~ hub_menu
+* Ask about the moon -> moon_talk
+* [if not flag.moonfall_rewound] Ask about turning time back -> rewind_ask
+* [if flag.moonfall_started and not flag.moonfall_fled] Ask about the train out -> ride_ask
+* [if not flag.mf_keeps_asked] Ask about the things we lost -> moonfall/keeps:start
+* Take our leave -> END
+
+~ moon_talk
+the_vagrant [weary]: She looks a little bigger every night, does she not? I used to blame my old eyes, but it is not the eyes anymore.
+the_vagrant [neutral]: Mind that Clerk Ledger over by the fire keeps the proper count of the nights for us, and it is not what I would call a kind count.
+-> hub_menu
+
+~ rewind_ask
+the_vagrant [sly]: I know an old tune that turns the clock back three whole nights, once only, though it takes a crowd's worth of living voices behind it.
+if flag.vigil_deaths <= 11
+-> rewind
+elif item:jericho_banjo
+-> rewind_banjo
+else
+-> rewind_no
+endif
+
+~ rewind
+the_vagrant [smile]: You kept enough good folk breathing out on those moors to pay the toll for it, so let us see what this old fiddle remembers.
+-> rewind_play
+
+~ rewind_no
+the_vagrant [sad]: Too many good souls were lost out on the moors, I am afraid. The tune needs more living voices behind it than you left me with.
+the_vagrant [sly]: Still, a good banjo out of the cornfields, played true enough, might just make up the difference for us, if you happened to carry one.
+-> hub_menu
+
+~ rewind_banjo
+the_vagrant [smile]: Well now, that banjo of Jericho's on your back will do very nicely indeed. Tune her up, my friend, and I will take the fiddle.
+-> rewind_play
+
+~ rewind_play
+Narrator: The fiddle starts low and slow, and when the banjo falls in behind it, the stars above the roofs slide backward in their places for the length of a single tune.
+set moonfall_credit += 3
+set moonfall_nights_left += 3
+set moonfall_rewound
+the_vagrant [smile]: Three nights bought back from the dark, and not a minute more. Do not go asking me to play that one twice.
+-> hub_menu
+
+~ ride_ask
+quest mf_ride_out offered
+the_vagrant [weary]: There is one ride out on the final night, one train only, for any soul who would rather not be standing here when the moon lands.
+the_vagrant [sad]: It leaves the Hollow behind to meet its fate, and I will never think the less of you for boarding, though I will not pretend it is not a choice.
+* Take the ride out now -> ride_confirm
+* [ends:mf_ride_out] We stay and fight -> ride_no
+* Ask about it later -> hub_menu
+
+~ ride_confirm
+the_vagrant [neutral]: Tell me plainly that you are sure about this, my friends, because once we pull out, the Hollow stays behind for good.
+* Yes, take us out -> ride_yes
+* No, not yet -> hub_menu
+
+~ ride_yes
+quest mf_ride_out taken
+set moonfall_fled
+quest moonfall fled
+cutscene mf_train_out
+Narrator: The Ghostlight Express pulls out of the wet fog with its brass windows lit warm, and the Vagrant takes his hat off to the village once.
+cutscene mf_train_out_2
+Narrator: Behind the last carriage the great moon sags lower over the slate roofs, and the final lamp in the Founder's Round goes out.
+cutscene end
+the_vagrant [sad]: The road ahead is dark and the rails are cold, so sit yourselves down inside. None of us need say a word until the Hollow is well behind us.
+end_game
+
+~ ride_no
+the_vagrant [smile]: I rather thought you might say that, truth be told. Still, the seat on the cushions is yours if you ever change your minds.
+quest mf_ride_out declined
+-> END

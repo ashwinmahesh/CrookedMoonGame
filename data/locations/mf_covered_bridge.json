@@ -1,0 +1,733 @@
+{
+  "id": "mf_covered_bridge",
+  "name": "The Covered Bridge",
+  "region": "moonfall",
+  "summary": "Foxwillow's farmland under the falling moon: a farm, a strangling cornfield, and the covered bridge where the Headsman waits.",
+  "text": "Foxwillow's fields lie under a moon too large for the sky. A farmstead sits at the edge of the corn, and beyond the corn a roofed bridge crosses a black river, its mouth open like a grin.",
+  "map": {
+    "rows": [
+      "##############################################",
+      "#.......................wwwwww...............#",
+      "#.......................wwwwww...............#",
+      "#.............~~~~~~~~..wwwwww.......#....#..#",
+      "#..=========..~~~~~~~~..wwwwww..##...........#",
+      "#..........=..=~~~~~~~..wwwwww..#~~..........#",
+      "#..........=..~~~~~~~~..wwwwww...~~..........#",
+      "#..........=..~~~~~~~~..wwwwww...~~..........#",
+      "#..........=..=~~~.~~~..wwwwww........#....#.#",
+      "#..........=..~~~~~~=~..wwwwww...............#",
+      "#..........=..~~~~~~~~..wwwwww....##.._......#",
+      "#.............~~~~~~~~..wwwwww....._______...#",
+      "#.............~~~~~~~~..######...._________#.#",
+      "#................................._________..#",
+      "#................................___________.#",
+      "#................................._________..#",
+      "#................................._________..#",
+      "#.............~~~~~~~~..######....._______#..#",
+      "#.............~~~=~~~~..wwwwww........_......#",
+      "#..........=..~~~=~~~~..wwwwww...............#",
+      "#..........=..~~~=~~~~..wwwwww........#......#",
+      "#..........=..~~~~=~~~..wwwwww..........~~~..#",
+      "#..........=..=~~~=~~~..wwwwww.....~~~..~~~..#",
+      "#..........=..~~~~~~~~..wwwwww...#.~~~..~~~..#",
+      "#..=========..~~~~~~~~..wwwwww.....~~~.....#.#",
+      "#.............~~~~~~~~..wwwwww...#.....#.....#",
+      "#.............~~~~~~=~..wwwwww........#......#",
+      "#.......................wwwwww...............#",
+      "#.......................wwwwww...............#",
+      "##############################################"
+    ],
+    "theme": "wilderness",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "farm",
+      "name": "The farm",
+      "cells": [
+        [
+          2,
+          3
+        ],
+        [
+          12,
+          25
+        ]
+      ]
+    },
+    {
+      "id": "corn",
+      "name": "The corn",
+      "cells": [
+        [
+          14,
+          3
+        ],
+        [
+          22,
+          26
+        ]
+      ]
+    },
+    {
+      "id": "bridge",
+      "name": "The covered bridge",
+      "cells": [
+        [
+          23,
+          12
+        ],
+        [
+          30,
+          17
+        ]
+      ]
+    },
+    {
+      "id": "ground",
+      "name": "The execution ground",
+      "cells": [
+        [
+          31,
+          8
+        ],
+        [
+          43,
+          20
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      4,
+      14
+    ],
+    "from_travel": [
+      4,
+      14
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_road",
+      "cell": [
+        2,
+        14
+      ],
+      "to": "travel",
+      "spawn": "default",
+      "label": "Back to the road"
+    }
+  ],
+  "props": [
+    {
+      "id": "headsman_arrive",
+      "cell": [
+        4,
+        14
+      ],
+      "kind": "decor",
+      "label": "The land, on arrival",
+      "call": "moonfall/headsman:arrive",
+      "approach": 12,
+      "call_when": "not flag.mf_headsman_arrived"
+    },
+    {
+      "id": "headsman_region",
+      "cell": [
+        7,
+        12
+      ],
+      "kind": "examine",
+      "label": "A field of sinkholes and strangling corn",
+      "model": "puddle",
+      "dialogue": "moonfall/headsman:region",
+      "when": "not flag.mf_headsman_resisted"
+    },
+    {
+      "id": "headsman_board",
+      "cell": [
+        8,
+        10
+      ],
+      "kind": "examine",
+      "label": "Notice board",
+      "model": "notice_board",
+      "text": "A list of the accused, in several hands, and the sentences beside each."
+    },
+    {
+      "id": "mf_keepsake_2",
+      "cell": [
+        40,
+        20
+      ],
+      "kind": "search",
+      "label": "Something small, half buried",
+      "model": "satchel",
+      "search_dc": 12,
+      "item": "mf_keepsake_2",
+      "flag": "mf_keepsake_2_found"
+    },
+    {
+      "id": "mf_impact_3x13",
+      "cell": [
+        3,
+        13
+      ],
+      "kind": "decor",
+      "label": "The moon, filling the sky",
+      "call": "moonfall/moon:impact",
+      "approach": 12,
+      "call_when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled"
+    },
+    {
+      "id": "headsman_o_0",
+      "cell": [
+        4,
+        23
+      ],
+      "kind": "decor",
+      "label": "Crow",
+      "model": "crow"
+    },
+    {
+      "id": "headsman_o_1",
+      "cell": [
+        13,
+        24
+      ],
+      "kind": "decor",
+      "label": "Fence",
+      "model": "fence"
+    },
+    {
+      "id": "headsman_o_2",
+      "cell": [
+        10,
+        23
+      ],
+      "kind": "decor",
+      "label": "Crow",
+      "model": "crow"
+    },
+    {
+      "id": "headsman_o_3",
+      "cell": [
+        9,
+        6
+      ],
+      "kind": "decor",
+      "label": "Cart broken",
+      "model": "cart_broken"
+    },
+    {
+      "id": "headsman_o_4",
+      "cell": [
+        9,
+        9
+      ],
+      "kind": "decor",
+      "label": "Hay bale",
+      "model": "hay_bale"
+    },
+    {
+      "id": "headsman_o_5",
+      "cell": [
+        5,
+        9
+      ],
+      "kind": "decor",
+      "label": "Crow",
+      "model": "crow"
+    },
+    {
+      "id": "headsman_o_6",
+      "cell": [
+        10,
+        17
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "headsman_o_7",
+      "cell": [
+        7,
+        9
+      ],
+      "kind": "decor",
+      "label": "Dead tree a",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "headsman_o_8",
+      "cell": [
+        12,
+        22
+      ],
+      "kind": "decor",
+      "label": "Hay bale",
+      "model": "hay_bale"
+    },
+    {
+      "id": "headsman_o_9",
+      "cell": [
+        22,
+        21
+      ],
+      "kind": "decor",
+      "label": "Woodpile",
+      "model": "woodpile"
+    },
+    {
+      "id": "headsman_o_10",
+      "cell": [
+        18,
+        16
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "headsman_o_11",
+      "cell": [
+        4,
+        3
+      ],
+      "kind": "decor",
+      "label": "Dead tree a",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "headsman_o_12",
+      "cell": [
+        10,
+        7
+      ],
+      "kind": "decor",
+      "label": "Hay bale",
+      "model": "hay_bale"
+    },
+    {
+      "id": "headsman_o_13",
+      "cell": [
+        10,
+        21
+      ],
+      "kind": "decor",
+      "label": "Woodpile",
+      "model": "woodpile"
+    },
+    {
+      "id": "headsman_o_14",
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "decor",
+      "label": "Fence",
+      "model": "fence"
+    },
+    {
+      "id": "headsman_o_15",
+      "cell": [
+        17,
+        15
+      ],
+      "kind": "decor",
+      "label": "Crow",
+      "model": "crow"
+    },
+    {
+      "id": "headsman_o_16",
+      "cell": [
+        22,
+        13
+      ],
+      "kind": "decor",
+      "label": "Hay bale",
+      "model": "hay_bale"
+    },
+    {
+      "id": "headsman_o_17",
+      "cell": [
+        3,
+        11
+      ],
+      "kind": "decor",
+      "label": "Woodpile",
+      "model": "woodpile"
+    },
+    {
+      "id": "headsman_o_18",
+      "cell": [
+        15,
+        16
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "headsman_o_19",
+      "cell": [
+        6,
+        19
+      ],
+      "kind": "decor",
+      "label": "Scarecrow",
+      "model": "scarecrow"
+    },
+    {
+      "id": "headsman_o_20",
+      "cell": [
+        9,
+        18
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "headsman_o_21",
+      "cell": [
+        12,
+        10
+      ],
+      "kind": "decor",
+      "label": "Dead tree a",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "headsman_o_22",
+      "cell": [
+        13,
+        20
+      ],
+      "kind": "decor",
+      "label": "Crow",
+      "model": "crow"
+    },
+    {
+      "id": "headsman_o_23",
+      "cell": [
+        4,
+        5
+      ],
+      "kind": "decor",
+      "label": "Crow",
+      "model": "crow"
+    },
+    {
+      "id": "headsman_o_24",
+      "cell": [
+        3,
+        15
+      ],
+      "kind": "decor",
+      "label": "Crow",
+      "model": "crow"
+    },
+    {
+      "id": "headsman_o_25",
+      "cell": [
+        5,
+        12
+      ],
+      "kind": "decor",
+      "label": "Fence",
+      "model": "fence"
+    },
+    {
+      "id": "headsman_lair",
+      "cell": [
+        37,
+        14
+      ],
+      "kind": "examine",
+      "label": "The covered bridge's dark mouth",
+      "model": "gate_pillar",
+      "dialogue": "moonfall/headsman:lair",
+      "when": "flag.mf_headsman_found and not flag.old_fear_headsman"
+    },
+    {
+      "id": "headsman_after",
+      "cell": [
+        35,
+        13
+      ],
+      "kind": "decor",
+      "label": "Where it fell",
+      "call": "moonfall/headsman:aftermath",
+      "approach": 12,
+      "call_when": "flag.old_fear_headsman and not flag.mf_headsman_aftermath"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "mf_osric_farmer",
+      "cell": [
+        6,
+        14
+      ],
+      "dialogue": "moonfall/headsman:hook",
+      "when": "flag.moonfall_started and not flag.old_fear_headsman and not flag.mf_headsman_asked",
+      "approach": 8,
+      "facing": "east"
+    },
+    {
+      "npc": "mf_osric_farmer",
+      "cell": [
+        6,
+        14
+      ],
+      "dialogue": "moonfall/headsman:hook_again",
+      "when": "flag.moonfall_started and not flag.old_fear_headsman and flag.mf_headsman_asked",
+      "facing": "east"
+    },
+    {
+      "npc": "mf_mob_captain",
+      "cell": [
+        18,
+        8
+      ],
+      "dialogue": "moonfall/headsman:clue",
+      "when": "flag.moonfall_started and not flag.old_fear_headsman and not flag.mf_headsman_clue_met",
+      "facing": "east"
+    },
+    {
+      "npc": "mf_mob_captain",
+      "cell": [
+        18,
+        8
+      ],
+      "dialogue": "moonfall/headsman:clue_again",
+      "when": "flag.moonfall_started and not flag.old_fear_headsman and flag.mf_headsman_clue_met",
+      "facing": "east"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "mf_headsman_patrol",
+      "trigger": "enter_area:corn",
+      "when": "not flag.mf_headsman_patrol_done and flag.mf_headsman_arrived",
+      "flag": "mf_headsman_patrol_done",
+      "monsters": [
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            19,
+            7
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            22,
+            17
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            21,
+            9
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            20,
+            5
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "A lynch mob come out of the dark."
+    },
+    {
+      "id": "mf_headsman_full",
+      "trigger": "dialogue",
+      "flag": "old_fear_headsman",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "galloping_headsman",
+          "cell": [
+            37,
+            14
+          ],
+          "name": "The Galloping Headsman",
+          "boss": true,
+          "facing": "west"
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            41,
+            11
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            41,
+            15
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            33,
+            10
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            33,
+            18
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            38,
+            18
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "warhorse_skeleton",
+          "cell": [
+            41,
+            13
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "warhorse_skeleton",
+          "cell": [
+            35,
+            18
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The Galloping Headsman comes for you with its own court around it."
+    },
+    {
+      "id": "mf_headsman_light",
+      "trigger": "dialogue",
+      "flag": "old_fear_headsman",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "galloping_headsman",
+          "cell": [
+            37,
+            14
+          ],
+          "name": "The Galloping Headsman",
+          "boss": true,
+          "facing": "west",
+          "hp": 187
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            33,
+            16
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            38,
+            10
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            41,
+            15
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The Galloping Headsman comes for you, thinner of company than it would like."
+    },
+    {
+      "id": "mf_headsman_weak",
+      "trigger": "dialogue",
+      "flag": "old_fear_headsman",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "galloping_headsman",
+          "cell": [
+            37,
+            14
+          ],
+          "name": "The Galloping Headsman",
+          "boss": true,
+          "facing": "west",
+          "hp": 143
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            41,
+            11
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            41,
+            15
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            33,
+            10
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The Galloping Headsman comes for you, already hurt by what you carry."
+    }
+  ],
+  "rest": "risky",
+  "rest_text": "The moon is too large to sleep under. A short breath, then, and on.",
+  "lights": [
+    {
+      "cell": [
+        37,
+        14
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    }
+  ]
+}

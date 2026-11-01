@@ -1,0 +1,166 @@
+# Drafted by Gemini (R26 Dusk Mother), edited. The Dusk Mother: hook, clues, weakness, the lair fight and the aftermath.
+
+~ arrive
+set mf_dusk_arrived
+Narrator: At the spider-wood's edge stands a silent homestead, its cots cold and empty. Pale thread hangs from the shutters, and a cloth doll watches from every windowsill.
+check Dexterity DC 20 -> arrive_ok | arrive_hit
+
+~ arrive_ok
+Narrator: Your blade parts the heavy silk like old linen, and the sour bead of spider venom never touches your skin.
+set mf_dusk_resisted
+-> END
+
+~ arrive_hit
+Narrator: The sticky cords snare {name}, and a cold, sour venom burns in the veins before the blade can saw them free.
+damage 4d10 poison party
+-> END
+
+~ region
+Narrator: You tread the hushed paths of the Webwoods, where pale strands of silk drape from the boughs like mourning ribbons.
+time +60
+check Dexterity DC 20 -> arrive_ok | arrive_hit
+
+~ hook
+mf_ysolde_teen [angry]: Something took my brothers and sisters right out of their warm beds! The grown folk just shuffle about like sacks of meal and won't say a word of why.
+set mf_dusk_asked
+quest mf_dusk asked
+-> menu
+
+~ hook_again
+mf_ysolde_teen [sad]: Another little cot was cold and empty come the morning bell. Tell me true, have you found any sign of them out there?
+-> menu
+
+~ menu
+* Ask what has been happening -> trouble
+* Ask where it comes from -> where
+* [if not flag.mf_dusk_found] Ask how to find it -> route_a
+* Say we will deal with it -> END
+
+~ trouble
+mf_ysolde_teen [afraid]: Thick webs choke the timber, and a weeping comes on every bell. Worse still are the elders, walking empty as cloth dolls with gray thread at their seams.
+-> menu
+
+~ where
+mf_ysolde_teen [sad]: An old seamstress went mad once, possessed by some foul thing, and slew her own babes. Now she walks in weeping white and steals ours to fill her arms.
+-> menu
+
+~ route_a
+mf_ysolde_teen [neutral]: The little ones kept the truth of it inside their skipping rhymes. Put the scattered verses together in order, and you'll know where she hides.
+* [Arcana DC 20] Piece together the children's rhymes -> a_ok | a_slow
+* [History DC 20] Match the verses to what the old folk remember -> a_ok | a_slow
+* Gather every rhyme the children ever sang, however long it takes -> a_slow
+* Another time -> menu
+
+~ a_ok
+mf_ysolde_teen [smile]: Listen how the verses mend together into one plain tale! Look there at the last line: it names the very clearing where her sewing hut still stands.
+time +60
+set mf_dusk_found
+set mf_dusk_clue_a
+quest mf_dusk trail
+-> menu
+
+~ a_slow
+Narrator: It takes the long, cold hours of the night to gather every scattered verse, but laid side by side, the children's rhymes point straight toward a hidden hut.
+time +300
+set mf_dusk_found
+quest mf_dusk trail
+-> menu
+
+~ clue
+mf_pennywhistle_nurse [smile]: Well now, I have been waiting on someone with clear eyes and a steady hand. Let me set this mending down and have a proper look at you.
+set mf_dusk_clue_met
+-> clue_menu
+
+~ clue_again
+mf_pennywhistle_nurse [neutral]: Back again, my dears? Speak plain, the kettle is warm and my needle can wait a moment.
+-> clue_menu
+
+~ clue_menu
+* Ask about it -> clue_talk
+* [if not flag.mf_dusk_found] Ask how to find it -> route_b
+* [if flag.mf_dusk_found and not flag.mf_dusk_weak] Ask what could hurt it -> weak
+* Take our leave -> END
+
+~ clue_talk
+mf_pennywhistle_nurse [sad]: Her own poor babes were small, and how they loved their wooden playthings. Those old toys are the one sight that weeping creature cannot bear to look upon.
+-> clue_menu
+
+~ route_b
+mf_pennywhistle_nurse [neutral]: Mind the little spiders under the ferns, for they march straight to her door like cats to a hearth. Follow the eight-legged trail and you won't go astray.
+* [Animal Handling DC 20] Follow the spiders through the Webwoods -> b_ok | b_slow
+* [Survival DC 20] Read the webs for the way to the hut -> b_ok | b_slow
+* Follow the webs the long way round -> b_slow
+* Another time -> clue_menu
+
+~ b_ok
+mf_pennywhistle_nurse [smile]: There now, see how the little spinners stream ahead like a dark ribbon over the moss? Step lively behind them, and they will bring you straight to her door.
+time +60
+set mf_dusk_found
+set mf_dusk_clue_b
+quest mf_dusk trail
+-> clue_menu
+
+~ b_slow
+Narrator: You lose long hours to blind turns and tangled silk, until at last the patient stream of spiders brings you out into a dead clearing.
+time +300
+set mf_dusk_found
+quest mf_dusk trail
+-> clue_menu
+
+~ weak
+mf_pennywhistle_nurse [sad]: Take this bundle, I pulled her children's playthings from the ashes myself. Hold them up before the Mother's eyes, and all the fight will go right out of her.
+* [Insight DC 20] Read the toys for the children's memories -> weak_ok | weak_slow
+* [Investigation DC 20] Gather the toys and the children's spirits gently -> weak_ok | weak_slow
+* Hold each toy and wait, slowly, for it to speak -> weak_slow
+* Another time -> clue_menu
+
+~ weak_ok
+mf_pennywhistle_nurse [sad]: Feel how the wood holds the shape of their small hands, smooth and warm. Turn each little toy over in your palm, and you can almost hear it hum a lullaby.
+time +60
+give mf_children_toys
+set mf_dusk_weak
+quest mf_dusk ready
+-> clue_menu
+
+~ weak_slow
+Narrator: You sit in the hush for a long, heavy hour, turning the charred playthings in your hands until each small memory wakes and is ready to be shown.
+time +300
+give mf_children_toys
+set mf_dusk_weak
+quest mf_dusk ready
+-> clue_menu
+
+~ lair
+Narrator: The seamstress's hut sits small and crooked in the clearing, its door ajar and the cold, steady snick of iron shears sounding from within.
+* Go in and face it -> fight
+* Not yet -> END
+
+~ fight
+cutscene mf_dusk_reveals
+Narrator: Up from the loom rises the Dusk Mother, a weeping shade in winding-white with great iron shears in her grip and a hanging doll tied to every finger.
+cutscene mf_dusk_reveals_2
+Narrator: She lets out a thin, keening wail, and every timber of the dark hut seems to lean in and listen.
+cutscene end
+if flag.mf_dusk_weak
+combat mf_dusk_weak
+elif level >= 19
+combat mf_dusk_full
+else
+combat mf_dusk_light
+endif
+
+~ aftermath
+cutscene mf_dusk_falls
+Narrator: The heavy iron shears clatter to the floorboards as her pale shape unravels into dust and white thread, and from the rafters, small voices laugh just once.
+cutscene mf_dusk_falls_2
+Narrator: High above the boughs, the leering moon turns her crooked face slowly north and east, fixing her gaze upon the burning hill.
+cutscene end
+set mf_dusk_aftermath
+set old_fears_slain += 1
+set moonfall_credit += 1
+set moonfall_nights_left += 1
+give bell_of_the_dusk_mother
+quest mf_dusk slain
+xp milestone
+Narrator: Far beyond the dark moors, the crest of Rowan's Rise splits open like a hearth-coal, and a deep red glare spills across the sky.
+-> END

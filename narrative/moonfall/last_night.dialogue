@@ -1,0 +1,72 @@
+# Drafted by Gemini (R26 last_night), edited. Last Night in Wickermoor: three goodbyes at the Round.
+
+~ gaunt_start
+sgt_gaunt [neutral]: Sergeant Gaunt reporting for duty, Commanders. I have executed a tactical retreat directly toward the line of battle, and I request your official blessing before the action commences.
+sgt_gaunt [sly]: Between ourselves, the village would dearly appreciate one final evening together. Tamsin, Marianna, and I have kept the kettle hot, if the high command can spare an hour.
+* We will sit with the village a while -> gaunt_accept
+* Maybe later -> END
+* [if not flag.mf_last_night_asked] [ends:mf_last_night] There is no time for this -> gaunt_decline
+
+~ gaunt_accept
+set mf_last_night_asked
+quest mf_last_night asked
+-> gaunt_vignette
+
+~ gaunt_decline
+sgt_gaunt [weary]: Understood, Commanders. Duty takes precedence over rations and sentiment, as it always must. You will find me posted in the front rank when the order comes.
+quest mf_last_night skipped
+-> END
+
+~ gaunt_vignette
+Narrator: Sergeant Gaunt has drawn a canvas camp stool up to the fire for each of you, his old brass medals laid out neat upon a wool blanket as if awaiting kit inspection.
+sgt_gaunt [smile]: My operational plan is straightforward, Commanders. We shall advance in good order directly toward the retreat, and cover our rear by turning around to face the enemy.
+* Salute and say goodbye -> gaunt_done
+
+~ gaunt_done
+sgt_gaunt [smile]: I have stood in a great many squares with a great many regiments, friends, and there is no finer company in all the realm to be overrun with.
+set mf_gaunt_said
+set mf_goodbyes += 1
+-> tally
+
+~ gaunt_after
+sgt_gaunt [neutral]: Rearguard holding firm at all posts, Commanders, though in fairness I am obliged to report there is no longer any rear left to speak of.
+-> END
+
+~ tamsin_start
+tamsin_ledger [neutral]: I have been conducting a preliminary audit of the moon's descent. Its declared altitude remains entirely unverified, and its book of account is nowhere on the parish register.
+* Sit with her a while -> tamsin_vignette
+* Later -> END
+
+~ tamsin_vignette
+tamsin_ledger [weary]: I have filed notice of the sky's collapse in triplicate. If a heavenly body intends to land upon a charted village, it ought to have the courtesy to submit a form.
+* Stamp her form and say goodbye -> tamsin_done
+
+~ tamsin_done
+tamsin_ledger [smile]: There, stamped and witnessed in purple ink. Whatever happens to the ledger before morning, it has been a distinct privilege to be audited alongside you.
+set mf_tamsin_said
+set mf_goodbyes += 1
+-> tally
+
+~ marianna_start
+marianna_grey [weary]: The beasts know the sky has gone wrong, you see. I have brushed this old coat three times over, just to give my hands a quiet job to finish.
+* Stay with her and the horses a while -> marianna_vignette
+* Later -> END
+
+~ marianna_vignette
+marianna_grey [sad]: I do not mind the going, truly I don't. Only I have not quite finished plaiting the grey mare's mane, and I wondered if you might hold the ribbon.
+* Help with the mane and say goodbye -> marianna_done
+
+~ marianna_done
+marianna_grey [smile]: Feel how steady her breathing stays under your hand. She is the calmest soul left in Wickermoor Hollow tonight, and we are both grateful for the company.
+set mf_marianna_said
+set mf_goodbyes += 1
+-> tally
+
+~ tally
+if flag.mf_goodbyes >= 3
+quest mf_last_night done
+Narrator: The three of you sit together in the scent of warm hay and lantern oil without speaking a word, and it is the finest hour of the whole sorry business.
+else
+Narrator: Out across the cobbles of the Founder's Round, another empty stool is waiting by the fire.
+endif
+-> END

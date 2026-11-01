@@ -1,0 +1,166 @@
+# Drafted by Gemini (R26 Barrow King), edited. The Barrow King: hook, clues, weakness, the lair fight and the aftermath.
+
+~ arrive
+set mf_barrow_arrived
+Narrator: Maidenmist's graves yawn wide to the night sky, raw earth heaped beside every pit and a stonemason's cart left tilted at the iron gate.
+check Constitution DC 19 -> arrive_ok | arrive_hit
+
+~ arrive_ok
+Narrator: You keep your boots moving through the graveyard frost, and the creeping heaviness slips from your shoulders like a wet coat.
+set mf_barrow_resisted
+-> END
+
+~ arrive_hit
+Narrator: The damp chill off the barrow drinks the marrow right out of {name}'s bones, until there is nothing for it but to sit upon a headstone and catch a breath.
+damage 3d10 necrotic party
+-> END
+
+~ region
+Narrator: You pick your way between the open graves, and each black pit breathes a thin, cellar-cold sigh against your ankles.
+time +60
+check Constitution DC 19 -> arrive_ok | arrive_hit
+
+~ hook
+solomon_roderick [weary]: Every grave I ever chiselled a stone for stands open tonight. The dead are not climbing out on their own, mind you, they are being fetched from below.
+set mf_barrow_asked
+quest mf_barrow asked
+-> menu
+
+~ hook_again
+solomon_roderick [weary]: Fewer chimneys smoke in the village with every bell, and my chisel stays idle. Tell me you have found the door down to that buried king.
+-> menu
+
+~ menu
+* Ask what has been happening -> trouble
+* Ask where it comes from -> where
+* [if not flag.mf_barrow_found] Ask how to find it -> route_a
+* Say we will deal with it -> END
+
+~ trouble
+solomon_roderick [angry]: Cuts will not close near the mound, and the living grow hollow-eyed by the hour. Half the village prays to corpses now, while a grey rot raises the fallen as wights.
+-> menu
+
+~ where
+solomon_roderick [sad]: A king without a name has woken under the old royal barrow, marshalling an army of wights in the dark. Even our mourners belong to him now.
+-> menu
+
+~ route_a
+solomon_roderick [neutral]: The oldest graves hold the way down into the mound. Turn the earth in the right plots, and the king's own stair will show its teeth.
+* [Arcana DC 19] Exhume the oldest graves for the way in -> a_ok | a_slow
+* [History DC 19] Read the grave markers for the king's stair -> a_ok | a_slow
+* Dig every grave on the hill until the stair is found -> a_slow
+* Another time -> menu
+
+~ a_ok
+solomon_roderick [smile]: There, under the third old marker, black stone steps lead straight into the dark, worn smooth as river slate by an army's boots.
+time +60
+set mf_barrow_found
+set mf_barrow_clue_a
+quest mf_barrow trail
+-> menu
+
+~ a_slow
+Narrator: You dig through the long night, pit after cold pit, until the iron spade finally rings clear against buried stone.
+time +300
+set mf_barrow_found
+quest mf_barrow trail
+-> menu
+
+~ clue
+mf_aldous_ghost [sad]: Forgive my poor manners, travellers, for this bow is mostly the wind taking me. I have been trying to take my leave of this court for a very long time.
+set mf_barrow_clue_met
+-> clue_menu
+
+~ clue_again
+mf_aldous_ghost [neutral]: You are still above the grass, I see. Ask what you must of an old courtier before the draught pulls me back down the stair.
+-> clue_menu
+
+~ clue_menu
+* Ask about it -> clue_talk
+* [if not flag.mf_barrow_found] Ask how to find it -> route_b
+* [if flag.mf_barrow_found and not flag.mf_barrow_weak] Ask what could hurt it -> weak
+* Take our leave -> END
+
+~ clue_talk
+mf_aldous_ghost [sad]: History kept no name for my liege, only his crown and his dread. Yet his true name still sits carved in lost runes upon a blade in the deep chamber.
+-> clue_menu
+
+~ route_b
+mf_aldous_ghost [sad]: My oath holds me at the threshold like an iron chain. Convince this tired head that my service is truly ended, and I will gladly point you into his hall.
+* [Persuasion DC 19] Persuade the ghost he is free to go -> b_ok | b_slow
+* [Religion DC 19] Say the last rites over his bones -> b_ok | b_slow
+* Sit with him through the night and listen -> b_slow
+* Another time -> clue_menu
+
+~ b_ok
+mf_aldous_ghost [smile]: My chest aches as if it could still shed tears, and the weight is gone. Thank you, kind souls: follow that stair straight down to the throne.
+time +60
+set mf_barrow_found
+set mf_barrow_clue_b
+quest mf_barrow trail
+-> clue_menu
+
+~ b_slow
+Narrator: It takes a long night of patient listening in thegrave-chill, but at the end of it the old courtier unclasps his hands and points the way down.
+time +300
+set mf_barrow_found
+quest mf_barrow trail
+-> clue_menu
+
+~ weak
+mf_aldous_ghost [sad]: Cut these lost runes deep into good steel, and keep the edge close. A blade bearing his true name is the king's bane, and he dreads whatever hand raises it.
+* [Investigation DC 19] Copy the king's runes onto a blade -> weak_ok | weak_slow
+* [Sleight of Hand DC 19] Etch the lost name along a sword's fuller -> weak_ok | weak_slow
+* Etch the runes by hand, slowly, a stroke at a time -> weak_slow
+* Another time -> clue_menu
+
+~ weak_ok
+mf_aldous_ghost [smile]: The runes bite deep into the steel and answer with a pale green glimmer, while the ghost gives a last, shivering nod of relief.
+time +60
+give mf_inscribed_blade
+set mf_barrow_weak
+quest mf_barrow ready
+-> clue_menu
+
+~ weak_slow
+Narrator: It takes hours of careful scratching by lantern light, iron rasping on iron, until the ancient marks finally catch and hold their cold fire.
+time +300
+give mf_inscribed_blade
+set mf_barrow_weak
+quest mf_barrow ready
+-> clue_menu
+
+~ lair
+Narrator: Below the stair, the royal catacombs widen into a vast vaulted hall, where a throne of dry skulls waits in the hush.
+* Go in and face it -> fight
+* Not yet -> END
+
+~ fight
+cutscene mf_barrow_reveals
+Narrator: The Barrow King rises from his seat of skulls in black plate, a jagged crown of bone upon his brow and his greatsword already bare.
+cutscene mf_barrow_reveals_2
+Narrator: All around the dark perimeter, rank upon silent rank, the armoured dead rise to their feet.
+cutscene end
+if flag.mf_barrow_weak
+combat mf_barrow_weak
+elif level >= 17
+combat mf_barrow_full
+else
+combat mf_barrow_light
+endif
+
+~ aftermath
+cutscene mf_barrow_falls
+Narrator: The bone crown clatters and spins across the flagstones as his black armour sifts into dust, and all around the hall the wights sink back into the quiet earth.
+cutscene mf_barrow_falls_2
+Narrator: High above the broken mound, the leering moon turns her heavy eye southward toward the marshes.
+cutscene end
+set mf_barrow_aftermath
+set old_fears_slain += 1
+set moonfall_credit += 1
+set moonfall_nights_left += 1
+give crown_of_the_barrow_king
+quest mf_barrow slain
+xp milestone
+Narrator: Out in the Drowned Crossroads, the pale swamplights are already bobbing and dancing above the black water, far brighter than they have any right to be.
+-> END

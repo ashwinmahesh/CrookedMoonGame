@@ -1,0 +1,166 @@
+# Drafted by Gemini (R26 Tall Man), edited. The Tall Man: hook, clues, weakness, the lair fight and the aftermath.
+
+~ arrive
+set mf_tall_man_arrived
+Narrator: At the edge of the logging camp, the healed forest grows thick and green around the clear, bubbling Wellspring, though every trunk leans slightly the same way.
+check Wisdom DC 18 -> arrive_ok | arrive_hit
+
+~ arrive_ok
+Narrator: You keep close to the warm pool of your lantern light, and the hungry whispers of the dark slide harmlessly past your shoulders.
+set mf_tall_man_resisted
+-> END
+
+~ arrive_hit
+Narrator: A cold, heavy dread settles into {name}'s bones among the trees; their hands tremble, and for a long, miserable hour nothing goes right.
+damage 2d10 psychic party
+-> END
+
+~ region
+Narrator: You walk beneath the green boughs of the healed forest, and every trunk you pass seems to have turned just an inch to watch your backs.
+time +60
+check Wisdom DC 18 -> arrive_ok | arrive_hit
+
+~ hook
+mf_bram_logger [afraid]: Folk keep wandering out of their tents in their nightshirts, walking straight into the trees. The few we find come back screaming, and none of them can say why.
+set mf_tall_man_asked
+quest mf_tall_man asked
+-> menu
+
+~ hook_again
+mf_bram_logger [weary]: Two more lads walked into the dark last night while we kept watch. Have you got any answer for this, or are we just waiting our turn?
+-> menu
+
+~ menu
+* Ask what has been happening -> trouble
+* Ask where it comes from -> where
+* [if not flag.mf_tall_man_found] Ask how to find it -> route_a
+* Say we will deal with it -> END
+
+~ trouble
+mf_bram_logger [afraid]: Every hour you spend under those boughs, the dread gets heavier in your chest. Shadows stand right up off the moss to walk, and voices call from empty clearings.
+-> menu
+
+~ where
+mf_bram_logger [sad]: You healed this wood for us, made the leaves come back green and sweet. Then the moon shrieked, and something long and thin walked out of the old fey ruins.
+-> menu
+
+~ route_a
+mf_bram_logger [neutral]: Old Hesper sits by the cookfire all night telling stories about the Greenwood's lost court. If anyone has a name for what stalks the timber, it'll be her.
+* [Arcana DC 18] Hear the crone's tale and test it against the lore -> a_ok | a_slow
+* [Persuasion DC 18] Ask for the old court's story in careful words -> a_ok | a_slow
+* Sit by her fire all night and let her talk it out -> a_slow
+* Another time -> menu
+
+~ a_ok
+mf_bram_logger [smile]: Her old tale rings true enough to bet our necks on: a graceful lord of the Greenwood, rotted by neglect into the Tall Man, still pacing his ruined halls.
+time +60
+set mf_tall_man_found
+set mf_tall_man_clue_a
+quest mf_tall_man trail
+-> menu
+
+~ a_slow
+Narrator: You sit by the dying embers through a long, rambling night of old stories, until near dawn her cracked voice finally names the palace and the thing inside it.
+time +300
+set mf_tall_man_found
+quest mf_tall_man trail
+-> menu
+
+~ clue
+mf_hesper_crone [sly]: Sixty years I've told the tale of the Greenwood lord to anyone with ears, and nobody paid this old woman a copper of heed until the moon started falling!
+set mf_tall_man_clue_met
+-> clue_menu
+
+~ clue_again
+mf_hesper_crone [neutral]: Come back to the fire and warm your hands, travelers. Ask what you need before the trees lean any closer.
+-> clue_menu
+
+~ clue_menu
+* Ask about it -> clue_talk
+* [if not flag.mf_tall_man_found] Ask how to find it -> route_b
+* [if flag.mf_tall_man_found and not flag.mf_tall_man_weak] Ask what could hurt it -> weak
+* Take our leave -> END
+
+~ clue_talk
+mf_hesper_crone [sly]: Before the rot took him, the Tall Man was a proud archfey with a court of fine dancers. Now he waits in his broken palace, starving for our fear.
+-> clue_menu
+
+~ route_b
+mf_hesper_crone [sly]: He comes to a frightened heart the way a moth comes to a tallow candle. Let him smell your terror in the brush, and you can lead him right home.
+* [Survival DC 18] Stalk the woods and lure him with fear -> b_ok | b_slow
+* [Intimidation DC 18] Make yourselves loud with dread and be hunted -> b_ok | b_slow
+* Walk the woods all night frightened on purpose -> b_slow
+* Another time -> clue_menu
+
+~ b_ok
+mf_hesper_crone [sly]: That's the way of it: let him unfold those long limbs behind you, and coax him step by step back inside his own grey palace walls.
+time +60
+set mf_tall_man_found
+set mf_tall_man_clue_b
+quest mf_tall_man trail
+-> clue_menu
+
+~ b_slow
+Narrator: You blunder through the tangled dark for half the night, heart in your throat, before something impossibly tall finally catches the scent of your fear and follows.
+time +300
+set mf_tall_man_found
+quest mf_tall_man trail
+-> clue_menu
+
+~ weak
+mf_hesper_crone [sly]: Learn the steps of his lost court's measure, just as they danced it when the boughs were young. Dance it before his eyes, and the old Greenwood magic will scald him.
+* [Performance DC 20] Learn the steps of the lost court dance -> weak_ok | weak_slow
+* [History DC 18] Study the old dance from her fingers' counting -> weak_ok | weak_slow
+* Practise the steps clumsily until dawn -> weak_slow
+* Another time -> clue_menu
+
+~ weak_ok
+mf_hesper_crone [smile]: Watch my hand on my knee: tap, tap, turn, six measures round and a low courtly bow. You've got the rhythm in your heels now, dance for a vanished house.
+time +60
+give mf_court_notes
+set mf_tall_man_weak
+quest mf_tall_man ready
+-> clue_menu
+
+~ weak_slow
+Narrator: You stumble through the courtly steps on the damp moss until the sun that never rises would have cleared the trees, and at last the measure holds true.
+time +300
+give mf_court_notes
+set mf_tall_man_weak
+quest mf_tall_man ready
+-> clue_menu
+
+~ lair
+Narrator: Ahead through the leaning trunks rises the ruined palace of the Greenwood court, its grey stone pillars cracked and its great roofless hall gaping open to the night.
+* Go in and face it -> fight
+* Not yet -> END
+
+~ fight
+cutscene mf_tall_man_reveals
+Narrator: The Tall Man unfolds himself from between the grey pillars, impossibly thin and high, his crownless head bowed low beneath the roof where he once ruled as lord.
+cutscene mf_tall_man_reveals_2
+Narrator: He stretches out one long, jointed hand, and the cold shadows along the flagstones peel themselves off the ground to follow his fingers.
+cutscene end
+if flag.mf_tall_man_weak
+combat mf_tall_man_weak
+elif level >= 15
+combat mf_tall_man_full
+else
+combat mf_tall_man_light
+endif
+
+~ aftermath
+cutscene mf_tall_man_falls
+Narrator: With a dry creak like splitting timber, the Tall Man folds in upon himself, collapsing like a dropped puppet while the risen shadows sink flat against the stones.
+cutscene mf_tall_man_falls_2
+Narrator: High above the quiet canopy, the crone's face in the moon turns slowly northward, fixing her pale gaze upon the snows of the Howlers.
+cutscene end
+set mf_tall_man_aftermath
+set old_fears_slain += 1
+set moonfall_credit += 1
+set moonfall_nights_left += 1
+give hook_of_the_tall_man
+quest mf_tall_man slain
+xp milestone
+Narrator: High on the frozen ridges of the Howlers, a shelf of loose shale slides into the gorge, and something vast turns over in the dark.
+-> END

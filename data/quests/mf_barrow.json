@@ -1,0 +1,56 @@
+{
+  "id": "mf_barrow",
+  "name": "The Barrow King",
+  "kind": "main",
+  "region": "moonfall",
+  "giver": "solomon_roderick",
+  "summary": "Solomon Roderick says every grave he ever cut a stone for has opened. The Barrow King holds his throne of skulls below.",
+  "closes": [
+    {
+      "stage": "lost",
+      "when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled",
+      "from": [
+        "asked",
+        "trail",
+        "ready"
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "id": "asked",
+      "journal": "The graves of Maidenmist are opening, and the living weaken by the hour. A nameless king with an army of wights has woken beneath the royal barrow.",
+      "objectives": [
+        "Find where it lairs"
+      ],
+      "hint": "Ask around the region for how to find it: its hook-giver, and the one who knows its secret."
+    },
+    {
+      "id": "trail",
+      "journal": "We found where The Barrow King lairs. There may be a way to hurt it more than the usual.",
+      "objectives": [
+        "Face The Barrow King",
+        "Optional: learn its weakness"
+      ],
+      "hint": "Learn its weakness from the one who knows it, or go straight to its lair."
+    },
+    {
+      "id": "ready",
+      "journal": "We carry what hurts The Barrow King. Time to go to its lair.",
+      "objectives": [
+        "Face The Barrow King"
+      ],
+      "hint": "Go to its lair."
+    },
+    {
+      "id": "slain",
+      "journal": "The Barrow King is dead. The moon's gaze moves to the Drowned Crossroads.",
+      "ends": "success"
+    },
+    {
+      "id": "lost",
+      "journal": "The nights ran out before it fell.",
+      "ends": "failure"
+    }
+  ]
+}

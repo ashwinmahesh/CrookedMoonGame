@@ -1,0 +1,56 @@
+{
+  "id": "mf_behemoth",
+  "name": "The Brimstone Behemoth",
+  "kind": "main",
+  "region": "moonfall",
+  "giver": "mf_ash_cultist",
+  "summary": "Brother Ashfall's camp waits on the end. The Brimstone Behemoth rises from Rowan's Rise.",
+  "closes": [
+    {
+      "stage": "lost",
+      "when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled",
+      "from": [
+        "asked",
+        "trail",
+        "ready"
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "id": "asked",
+      "journal": "Rowan's Rise has burst, and meteors fall every hour. A fiend born of every fear of the end, called up by a spirit, climbs from the crater.",
+      "objectives": [
+        "Find where it lairs"
+      ],
+      "hint": "Ask around the region for how to find it: its hook-giver, and the one who knows its secret."
+    },
+    {
+      "id": "trail",
+      "journal": "We found where The Brimstone Behemoth lairs. There may be a way to hurt it more than the usual.",
+      "objectives": [
+        "Face The Brimstone Behemoth",
+        "Optional: learn its weakness"
+      ],
+      "hint": "Learn its weakness from the one who knows it, or go straight to its lair."
+    },
+    {
+      "id": "ready",
+      "journal": "We carry what hurts The Brimstone Behemoth. Time to go to its lair.",
+      "objectives": [
+        "Face The Brimstone Behemoth"
+      ],
+      "hint": "Go to its lair."
+    },
+    {
+      "id": "slain",
+      "journal": "The Brimstone Behemoth is dead. The moon's gaze moves to the heroes themselves.",
+      "ends": "success"
+    },
+    {
+      "id": "lost",
+      "journal": "The nights ran out before it fell.",
+      "ends": "failure"
+    }
+  ]
+}

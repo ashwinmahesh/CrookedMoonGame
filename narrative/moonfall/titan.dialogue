@@ -1,0 +1,166 @@
+# Drafted by Gemini (R26 Wild Titan), edited. The Wild Titan: hook, clues, weakness, the lair fight and the aftermath.
+
+~ arrive
+set mf_titan_arrived
+Narrator: A few lean mining huts huddle on the snowy ridge beside boarded-up shafts, while fresh black cracks split the frozen dirt beneath your boots.
+check Dexterity DC 18 -> arrive_ok | arrive_hit
+
+~ arrive_ok
+Narrator: You catch the deep stone-groan in the ridge just in time, pressing flat against the cold rock face as a hail of shale hammers past.
+set mf_titan_resisted
+-> END
+
+~ arrive_hit
+Narrator: The mountain shrugs loose a shelf of slate that catches {name} on the open slope, leaving them bruised, spitting grit, and badly shaken.
+damage 4d8 bludgeoning party
+-> END
+
+~ region
+Narrator: As you haul yourselves up the grade, the whole peak shudders under your soles and pitches down boulders the size of cartwheels.
+time +60
+check Dexterity DC 18 -> arrive_ok | arrive_hit
+
+~ hook
+mf_jory_miner [sad]: My wife and my boy went up the pass for deadwood three nights back and never came down. The whole mountain's been roaring since.
+set mf_titan_asked
+quest mf_titan asked
+-> menu
+
+~ hook_again
+mf_jory_miner [weary]: A slide took the lower hamlet last night, roofs and timbers and all. Have you the strength to help us before the ridge gives way?
+-> menu
+
+~ menu
+* Ask what has been happening -> trouble
+* Ask where it comes from -> where
+* [if not flag.mf_titan_found] Ask how to find it -> route_a
+* Say we will deal with it -> END
+
+~ trouble
+mf_jory_miner [angry]: Whole miles of rock come tearing down at once, no kindling will catch near the peaks, and that howling drives strong men clean out of their wits.
+-> menu
+
+~ where
+mf_jory_miner [sad]: It's the mountain itself come awake, a brute of rock and wild root forgotten by whatever old hand shaped it, walking the high passes.
+-> menu
+
+~ route_a
+mf_jory_miner [neutral]: There are old rune stones half buried on the upper slopes from when the thing was made. If any of you read the old marks, they might tell how to hurt it.
+* [History DC 18] Read the old rune stones on the slope -> a_ok | a_slow
+* [Nature DC 18] Compare the runes against the mountain's lore -> a_ok | a_slow
+* Copy every rune on the slope by hand -> a_slow
+* Another time -> menu
+
+~ a_ok
+mf_jory_miner [smile]: Look here, the chiseling speaks of a maker and an old binding, and right under the lichen sits a true name with half its letters worn away.
+time +60
+set mf_titan_found
+set mf_titan_clue_a
+quest mf_titan trail
+-> menu
+
+~ a_slow
+Narrator: You spend bitter hours on the slope rubbing charcoal over the frost-split markers with numb fingers until the old giant's making finally pieces together.
+time +300
+set mf_titan_found
+quest mf_titan trail
+-> menu
+
+~ clue
+mf_grizzle_hunter [neutral]: Keep your voices down behind your teeth. I've trailed this brute three days through the snow, and it's twice the size the old tales reckoned.
+set mf_titan_clue_met
+-> clue_menu
+
+~ clue_again
+mf_grizzle_hunter [neutral]: Speak low and make it quick, travelers. The wind carries everything up here, and I've still got my eye on the ridge.
+-> clue_menu
+
+~ clue_menu
+* Ask about it -> clue_talk
+* [if not flag.mf_titan_found] Ask how to find it -> route_b
+* [if flag.mf_titan_found and not flag.mf_titan_weak] Ask what could hurt it -> weak
+* Take our leave -> END
+
+~ clue_talk
+mf_grizzle_hunter [neutral]: It paces the high spines and climbs to the summit flat just to bellow at the moon. Listen too long to that racket and you'll turn on your own kin.
+-> clue_menu
+
+~ route_b
+mf_grizzle_hunter [neutral]: I know its track across the scree, if you've the lungs to keep up and the sense to keep your mouths shut.
+* [Survival DC 18] Track the Titan along the ridges -> b_ok | b_slow
+* [Animal Handling DC 18] Follow the animals fleeing its path -> b_ok | b_slow
+* Climb the ridge slowly and follow the cracked earth -> b_slow
+* Another time -> clue_menu
+
+~ b_ok
+mf_grizzle_hunter [smile]: Once your eyes know what to look for, the trail's plain as a wagon road, boulders kicked aside like pebbles all the way to the summit flat.
+time +60
+set mf_titan_found
+set mf_titan_clue_b
+quest mf_titan trail
+-> clue_menu
+
+~ b_slow
+Narrator: You lose bitter hours following false slides and goat paths in the dark, until a seam of freshly split stone leads you up to the crown at last.
+time +300
+set mf_titan_found
+quest mf_titan trail
+-> clue_menu
+
+~ weak
+mf_grizzle_hunter [neutral]: Its maker left a binding glyph cut into a grey slab down the slope. Chisel that same mark big and deep enough up here, and the brute will sicken at the sight.
+* [History DC 18] Transcribe the maker's glyph from the stones -> weak_ok | weak_slow
+* [Athletics DC 18] Work out the glyph's meaning and carve it true -> weak_ok | weak_slow
+* Carve the glyph out clumsily, over and over, until it holds -> weak_slow
+* Another time -> clue_menu
+
+~ weak_ok
+mf_grizzle_hunter [smile]: That's a clean cut, deep in the flat stone where the frost won't blur it. Feel how the wind's gone dead and bitter cold around the groove.
+time +60
+give mf_glyph_stone
+set mf_titan_weak
+quest mf_titan ready
+-> clue_menu
+
+~ weak_slow
+Narrator: Your first dozen strikes skitter off the frozen granite in useless sparks, but before dawn a broad, square mark takes shape under your blistered hands.
+time +300
+give mf_glyph_stone
+set mf_titan_weak
+quest mf_titan ready
+-> clue_menu
+
+~ lair
+Narrator: The summit plateau opens wide above you in a ring of split standing stones, the frost jumping at every slow, heavy footfall.
+* Go in and face it -> fight
+* Not yet -> END
+
+~ fight
+cutscene mf_titan_reveals
+Narrator: The Wild Titan heaves itself over the rim, a walking crag of granite, black pine root, and blue ice with fists the size of cottages.
+cutscene mf_titan_reveals_2
+Narrator: When it opens its split-stone jaw to roar, the whole mountain answers back in a chorus of cracking ice and sliding scree.
+cutscene end
+if flag.mf_titan_weak
+combat mf_titan_weak
+elif level >= 16
+combat mf_titan_full
+else
+combat mf_titan_light
+endif
+
+~ aftermath
+cutscene mf_titan_falls
+Narrator: The Titan staggers back a pace, its timber-thick arms hanging loose, and slowly folds down onto the peak like an old hill settling for winter.
+cutscene mf_titan_falls_2
+Narrator: Far below the clouds, the leering moon turns her pale eye south and east, looking down toward the low barrows where the old dead sleep.
+cutscene end
+set mf_titan_aftermath
+set old_fears_slain += 1
+set moonfall_credit += 1
+set moonfall_nights_left += 1
+give runestone_of_the_wild_titan
+quest mf_titan slain
+xp milestone
+Narrator: Down in the wet grass of Maidenmist, the sunken graves are already parting one after another like cold, dark mouths.
+-> END

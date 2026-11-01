@@ -1,0 +1,56 @@
+{
+  "id": "mf_titan",
+  "name": "The Wild Titan",
+  "kind": "main",
+  "region": "moonfall",
+  "giver": "mf_jory_miner",
+  "summary": "Jory Delve's family went up the pass and did not come down. The Wild Titan walks the high ridges.",
+  "closes": [
+    {
+      "stage": "lost",
+      "when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled",
+      "from": [
+        "asked",
+        "trail",
+        "ready"
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "id": "asked",
+      "journal": "The Howlers roar and throw rocks down on the mining hamlets; no fire burns near the peaks. The mountain itself seems to have woken.",
+      "objectives": [
+        "Find where it lairs"
+      ],
+      "hint": "Ask around the region for how to find it: its hook-giver, and the one who knows its secret."
+    },
+    {
+      "id": "trail",
+      "journal": "We found where The Wild Titan lairs. There may be a way to hurt it more than the usual.",
+      "objectives": [
+        "Face The Wild Titan",
+        "Optional: learn its weakness"
+      ],
+      "hint": "Learn its weakness from the one who knows it, or go straight to its lair."
+    },
+    {
+      "id": "ready",
+      "journal": "We carry what hurts The Wild Titan. Time to go to its lair.",
+      "objectives": [
+        "Face The Wild Titan"
+      ],
+      "hint": "Go to its lair."
+    },
+    {
+      "id": "slain",
+      "journal": "The Wild Titan is dead. The moon's gaze moves to Maidenmist Cemetery.",
+      "ends": "success"
+    },
+    {
+      "id": "lost",
+      "journal": "The nights ran out before it fell.",
+      "ends": "failure"
+    }
+  ]
+}

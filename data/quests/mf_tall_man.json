@@ -1,0 +1,56 @@
+{
+  "id": "mf_tall_man",
+  "name": "The Tall Man",
+  "kind": "main",
+  "region": "moonfall",
+  "giver": "mf_bram_logger",
+  "summary": "Bram Fallow's loggers wander into the trees at night. The Tall Man, a rotted archfey, hunts from his ruined palace.",
+  "closes": [
+    {
+      "stage": "lost",
+      "when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled",
+      "from": [
+        "asked",
+        "trail",
+        "ready"
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "id": "asked",
+      "journal": "Folk are wandering into the healed Hartsblight at night, and the ones found come back screaming. A thing in the old fey palace is calling them.",
+      "objectives": [
+        "Find where it lairs"
+      ],
+      "hint": "Ask around the region for how to find it: its hook-giver, and the one who knows its secret."
+    },
+    {
+      "id": "trail",
+      "journal": "We found where The Tall Man lairs. There may be a way to hurt it more than the usual.",
+      "objectives": [
+        "Face The Tall Man",
+        "Optional: learn its weakness"
+      ],
+      "hint": "Learn its weakness from the one who knows it, or go straight to its lair."
+    },
+    {
+      "id": "ready",
+      "journal": "We carry what hurts The Tall Man. Time to go to its lair.",
+      "objectives": [
+        "Face The Tall Man"
+      ],
+      "hint": "Go to its lair."
+    },
+    {
+      "id": "slain",
+      "journal": "The Tall Man is dead. The moon's gaze moves to the Howlers.",
+      "ends": "success"
+    },
+    {
+      "id": "lost",
+      "journal": "The nights ran out before it fell.",
+      "ends": "failure"
+    }
+  ]
+}

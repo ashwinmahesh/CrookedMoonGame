@@ -1,0 +1,89 @@
+# Drafted by Gemini (R26 moon), edited. The Night Ledger, Kehlenn's last offer, and the impact.
+
+~ ledger
+Narrator: The Night Ledger is a long board of chalk tallies set beside the Round's fire, kept company by a little brass clock that has given up agreeing with the church.
+if flag.moonfall_nights_left >= 10
+Narrator: There is still a comfortable span of clean dark wood between the last chalk mark and the bottom of the board.
+elif flag.moonfall_nights_left >= 6
+Narrator: The tallies crowd thick toward the bottom of the board now, and whoever kept them straight has given up on wiping the smudges.
+elif flag.moonfall_nights_left >= 3
+Narrator: Only three or four lines of room remain above the frame, and the lowest marks have been pressed in twice with a shaking thumb.
+else
+Narrator: There is hardly a hand's width of bare slate left at the bottom, and someone has chalked a small, crooked face in the corner.
+endif
+* Study the sky -> sky
+* Leave it -> END
+
+~ sky
+Narrator: The moon fills far more of the sky than any decent moon has a right to, its crooked grin wide enough that you can count the teeth.
+if flag.old_fears_slain >= 4
+Narrator: It hangs a little higher tonight and looks less sure of itself, the way a bully does once you have bloodied his nose.
+endif
+-> END
+
+~ last_offer
+cutscene mf_one_last_choice
+Narrator: The moon hangs scarce a hundred yards above the hill, its vast stone face filling the whole heaven while roof slates and torn boughs stream upward in the gale.
+cutscene mf_one_last_choice_2
+Narrator: Deep in the white curve of the crescent, the crone's stony mouth shifts, shaping slow words that hum right through the roots of your teeth.
+cutscene end
+mf_kehlenn [sly]: All eight of my dread children lie cold in the dirt, and still the four of you stand looking up at me. I am almost impressed, little strangers.
+mf_kehlenn [neutral]: Let this heavy sky come down at last, and you may shape a fresh Druskenvald in your own likeness, with every other breathing soul wiped clean from the slate.
+-> last_menu
+
+~ last_menu
+* Hear her out -> offer_speak
+* Ask the Vagrant what he thinks -> vagrant_say
+* Refuse her -> refuse_confirm
+* Accept her offer -> accept_confirm
+
+~ offer_speak
+mf_kehlenn [neutral]: It is a clean bargain I give you: a quiet realm that belongs only to the four of you, with no old powers, no crooked moon, and nobody left to be hurt.
+mf_kehlenn [sad]: A queen does not beg at the end of her nights. I make the offer once, and I leave the wind to carry your answer.
+-> last_menu
+
+~ vagrant_say
+the_vagrant [weary]: Far be it from an old ferryman to tell the living how they ought to keep house, or what sort of sky they want over the roof.
+the_vagrant [neutral]: Only, I have rowed and ridden a great many dead folk across the dark in my time, and not one of them ever wished for company that wasn't alive.
+-> last_menu
+
+~ refuse_confirm
+Narrator: The rising gale tugs hard at your coat hems, smelling of cold stone and bruised pine, while the whole white sky waits on your word.
+* Refuse her, and let the moon go back -> refused
+* Think again -> last_menu
+
+~ accept_confirm
+Narrator: For the space of a single heartbeat the wind drops dead away, as if every hill and chimney pot in the Hollow were leaning in to listen.
+* Accept: the moon falls on everyone else -> accepted
+* Think again -> last_menu
+
+~ refused
+set moonfall_offer = "refused"
+quest moonfall refused
+mf_kehlenn [angry]: Then you are fools, every last one of you, and you deserve the small dark you have chosen! Keep your little village, for the moon is mine no longer.
+cutscene mf_offer_refused
+Narrator: Slowly at first, and then with a long sighing rush, the great moon lifts off the Hollow like a kettle lid, its carved face softening into pale stone as it climbs.
+cutscene mf_offer_refused_2
+Narrator: High overhead the stars prick through the black one by one, small and clean as pinheads, and the narrow silver crescent hangs quiet in the sky with no face at all.
+cutscene end
+end_game
+
+~ accepted
+set moonfall_offer = "accepted"
+quest moonfall accepted
+mf_kehlenn [smile]: Then let the last night fall, my proud little gods, and let the whole quiet dark after it belong to you alone.
+cutscene mf_offer_accepted
+Narrator: The great white curve comes down over Druskenvald like a closing hand, and the hills, the river, and the wind go bright and silent all at once.
+cutscene mf_offer_accepted_2
+Narrator: When you open your eyes again, the four of you are drifting alone in a warm green sea of light, and all the empty world is waiting to be given a name.
+cutscene end
+end_game
+
+~ impact
+quest moonfall lost
+cutscene mf_moon_impact
+Narrator: The falling moon crowds out the last ribbon of black sky until there is room for nothing else, and the night goes blinding white from edge to edge.
+cutscene mf_moon_impact_2
+Narrator: A long, cold silence settles over the place where Wickermoor Hollow used to stand, and soon enough there is nothing left in the dark to hear it.
+cutscene end
+end_game

@@ -1,0 +1,672 @@
+{
+  "id": "mf_round",
+  "name": "The Founder's Round, Under the Moon",
+  "region": "moonfall",
+  "summary": "The village square turned camp: the Ghostlight platform, the Night Ledger, the Vagrant's fire and the villagers who refused to leave.",
+  "text": "The Round has become a camp. Tents crowd the north-west, the Night Ledger leans by the fire, and the Ghostlight Express stands steaming at a platform that was never part of the village. Overhead the moon fills half the sky.",
+  "map": {
+    "rows": [
+      "####################################",
+      "#..................................#",
+      "#.=====.....................======.#",
+      "#.=====...###...........##..======.#",
+      "#.=====..#..................======.#",
+      "#.=====..#............#............#",
+      "#...#..............................#",
+      "#..................................#",
+      "#..................................#",
+      "#................._................#",
+      "#..............._____...#..........#",
+      "#....#........._______#....#.......#",
+      "#............._________............#",
+      "#.............._______.............#",
+      "#..............._____..............#",
+      "#................._................#",
+      "#..........................#.......#",
+      "#..................................#",
+      "#....................#.............#",
+      "#.======......................===..#",
+      "#......................#......=....#",
+      "#...............#.............=....#",
+      "#...................#.#............#",
+      "#.======...........................#",
+      "#..................................#",
+      "####################################"
+    ],
+    "theme": "village",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "round",
+      "name": "The Founder's Round",
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          33,
+          23
+        ]
+      ]
+    },
+    {
+      "id": "platform",
+      "name": "The Ghostlight platform",
+      "cells": [
+        [
+          2,
+          19
+        ],
+        [
+          7,
+          23
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      4,
+      12
+    ],
+    "from_village": [
+      4,
+      12
+    ],
+    "from_travel": [
+      18,
+      21
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_village",
+      "cell": [
+        2,
+        12
+      ],
+      "to": "wickermoor_village",
+      "spawn": "default",
+      "label": "Out into Wickermoor"
+    },
+    {
+      "id": "to_road",
+      "cell": [
+        18,
+        23
+      ],
+      "to": "travel",
+      "spawn": "default",
+      "label": "To the roads"
+    }
+  ],
+  "props": [
+    {
+      "id": "mf_ledger",
+      "cell": [
+        22,
+        14
+      ],
+      "kind": "examine",
+      "label": "The Night Ledger",
+      "model": "notice_board",
+      "dialogue": "moonfall/moon:ledger"
+    },
+    {
+      "id": "mf_map_table",
+      "cell": [
+        21,
+        17
+      ],
+      "kind": "examine",
+      "label": "A table with the Hollow's map",
+      "model": "table_round",
+      "text": "A map of the Hollow, pinned flat with candle stubs. Eight regions are ringed in red, and the nearest ring is already crossed."
+    },
+    {
+      "id": "mf_bonfire",
+      "cell": [
+        17,
+        18
+      ],
+      "kind": "decor",
+      "label": "The Round's bonfire",
+      "model": "brazier"
+    },
+    {
+      "id": "mf_board_goat",
+      "cell": [
+        10,
+        8
+      ],
+      "kind": "examine",
+      "label": "The notice board, and the goat that will not leave it",
+      "model": "notice_board",
+      "text": "The village goat stands on its hind legs against the board and has eaten the notice about evacuation. Nobody has asked it to stop."
+    },
+    {
+      "id": "mf_platform",
+      "cell": [
+        4,
+        21
+      ],
+      "kind": "decor",
+      "label": "The Ghostlight platform",
+      "model": "bench"
+    },
+    {
+      "id": "mf_keepsake_1",
+      "cell": [
+        5,
+        20
+      ],
+      "kind": "search",
+      "label": "A scrap on the platform",
+      "model": "letter",
+      "search_dc": 10,
+      "item": "mf_keepsake_1",
+      "flag": "mf_keepsake_1_found"
+    },
+    {
+      "id": "mf_impact_2x11",
+      "cell": [
+        2,
+        11
+      ],
+      "kind": "decor",
+      "label": "The moon, filling the sky",
+      "call": "moonfall/moon:impact",
+      "approach": 12,
+      "call_when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled"
+    },
+    {
+      "id": "mf_round_o_0",
+      "cell": [
+        31,
+        14
+      ],
+      "kind": "decor",
+      "label": "Candle cluster",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "mf_round_o_1",
+      "cell": [
+        16,
+        8
+      ],
+      "kind": "decor",
+      "label": "Candle cluster",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "mf_round_o_2",
+      "cell": [
+        15,
+        9
+      ],
+      "kind": "decor",
+      "label": "Sack pile",
+      "model": "sack_pile"
+    },
+    {
+      "id": "mf_round_o_3",
+      "cell": [
+        9,
+        7
+      ],
+      "kind": "decor",
+      "label": "Cart",
+      "model": "cart"
+    },
+    {
+      "id": "mf_round_o_4",
+      "cell": [
+        31,
+        22
+      ],
+      "kind": "decor",
+      "label": "Candle cluster",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "mf_round_o_5",
+      "cell": [
+        31,
+        5
+      ],
+      "kind": "decor",
+      "label": "Crate stack",
+      "model": "crate_stack"
+    },
+    {
+      "id": "mf_round_o_6",
+      "cell": [
+        14,
+        9
+      ],
+      "kind": "decor",
+      "label": "Bench",
+      "model": "bench"
+    },
+    {
+      "id": "mf_round_o_7",
+      "cell": [
+        27,
+        4
+      ],
+      "kind": "decor",
+      "label": "Lantern post",
+      "model": "lantern_post"
+    },
+    {
+      "id": "mf_round_o_8",
+      "cell": [
+        9,
+        18
+      ],
+      "kind": "decor",
+      "label": "Barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "mf_round_o_9",
+      "cell": [
+        19,
+        3
+      ],
+      "kind": "decor",
+      "label": "Barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "mf_round_o_10",
+      "cell": [
+        15,
+        5
+      ],
+      "kind": "decor",
+      "label": "Crate stack",
+      "model": "crate_stack"
+    },
+    {
+      "id": "mf_round_o_11",
+      "cell": [
+        10,
+        10
+      ],
+      "kind": "decor",
+      "label": "Bed small",
+      "model": "bed_small"
+    },
+    {
+      "id": "mf_round_o_12",
+      "cell": [
+        12,
+        14
+      ],
+      "kind": "decor",
+      "label": "Bench",
+      "model": "bench"
+    },
+    {
+      "id": "mf_round_o_13",
+      "cell": [
+        3,
+        7
+      ],
+      "kind": "decor",
+      "label": "Barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "mf_round_o_14",
+      "cell": [
+        20,
+        18
+      ],
+      "kind": "decor",
+      "label": "Sack pile",
+      "model": "sack_pile"
+    },
+    {
+      "id": "mf_round_o_15",
+      "cell": [
+        18,
+        22
+      ],
+      "kind": "decor",
+      "label": "Candle cluster",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "mf_round_o_16",
+      "cell": [
+        20,
+        20
+      ],
+      "kind": "decor",
+      "label": "Bench",
+      "model": "bench"
+    },
+    {
+      "id": "mf_round_o_17",
+      "cell": [
+        26,
+        9
+      ],
+      "kind": "decor",
+      "label": "Lantern post",
+      "model": "lantern_post"
+    },
+    {
+      "id": "mf_round_o_18",
+      "cell": [
+        31,
+        20
+      ],
+      "kind": "decor",
+      "label": "Festival cloth",
+      "model": "festival_cloth"
+    },
+    {
+      "id": "mf_round_o_19",
+      "cell": [
+        10,
+        17
+      ],
+      "kind": "decor",
+      "label": "Bench",
+      "model": "bench"
+    },
+    {
+      "id": "mf_round_o_20",
+      "cell": [
+        7,
+        4
+      ],
+      "kind": "decor",
+      "label": "Candle cluster",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "mf_round_o_21",
+      "cell": [
+        21,
+        15
+      ],
+      "kind": "decor",
+      "label": "Sack pile",
+      "model": "sack_pile"
+    },
+    {
+      "id": "mf_round_o_22",
+      "cell": [
+        16,
+        9
+      ],
+      "kind": "decor",
+      "label": "Bench",
+      "model": "bench"
+    },
+    {
+      "id": "mf_round_o_23",
+      "cell": [
+        7,
+        14
+      ],
+      "kind": "decor",
+      "label": "Barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "mf_round_o_24",
+      "cell": [
+        17,
+        15
+      ],
+      "kind": "decor",
+      "label": "Bed small",
+      "model": "bed_small"
+    },
+    {
+      "id": "mf_round_o_25",
+      "cell": [
+        13,
+        17
+      ],
+      "kind": "decor",
+      "label": "Bed small",
+      "model": "bed_small"
+    },
+    {
+      "id": "mf_round_o_26",
+      "cell": [
+        27,
+        7
+      ],
+      "kind": "decor",
+      "label": "Cart",
+      "model": "cart"
+    },
+    {
+      "id": "mf_round_o_27",
+      "cell": [
+        9,
+        11
+      ],
+      "kind": "decor",
+      "label": "Bunting",
+      "model": "bunting"
+    },
+    {
+      "id": "mf_round_o_28",
+      "cell": [
+        10,
+        11
+      ],
+      "kind": "decor",
+      "label": "Cart",
+      "model": "cart"
+    },
+    {
+      "id": "mf_round_o_29",
+      "cell": [
+        14,
+        20
+      ],
+      "kind": "decor",
+      "label": "Barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "mf_round_o_30",
+      "cell": [
+        32,
+        7
+      ],
+      "kind": "decor",
+      "label": "Lantern post",
+      "model": "lantern_post"
+    },
+    {
+      "id": "mf_round_o_31",
+      "cell": [
+        7,
+        16
+      ],
+      "kind": "decor",
+      "label": "Bench",
+      "model": "bench"
+    },
+    {
+      "id": "mf_round_o_32",
+      "cell": [
+        12,
+        6
+      ],
+      "kind": "decor",
+      "label": "Crate stack",
+      "model": "crate_stack"
+    },
+    {
+      "id": "mf_round_o_33",
+      "cell": [
+        27,
+        19
+      ],
+      "kind": "decor",
+      "label": "Bed small",
+      "model": "bed_small"
+    },
+    {
+      "id": "mf_round_o_34",
+      "cell": [
+        24,
+        5
+      ],
+      "kind": "decor",
+      "label": "Lantern post",
+      "model": "lantern_post"
+    },
+    {
+      "id": "mf_round_o_35",
+      "cell": [
+        5,
+        15
+      ],
+      "kind": "decor",
+      "label": "Bed small",
+      "model": "bed_small"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "the_vagrant",
+      "cell": [
+        14,
+        15
+      ],
+      "dialogue": "moonfall/vagrant:hub_start",
+      "when": "flag.moonfall_started",
+      "facing": "east"
+    },
+    {
+      "npc": "sgt_gaunt",
+      "cell": [
+        27,
+        8
+      ],
+      "dialogue": "moonfall/last_night:gaunt_start",
+      "when": "flag.moonfall_started and not flag.mf_last_night_asked",
+      "approach": 6,
+      "facing": "south"
+    },
+    {
+      "npc": "sgt_gaunt",
+      "cell": [
+        27,
+        8
+      ],
+      "dialogue": "moonfall/last_night:gaunt_vignette",
+      "when": "flag.mf_last_night_asked and not flag.mf_gaunt_said",
+      "facing": "south"
+    },
+    {
+      "npc": "sgt_gaunt",
+      "cell": [
+        27,
+        8
+      ],
+      "dialogue": "moonfall/last_night:gaunt_after",
+      "when": "flag.mf_gaunt_said or (flag.moonfall_started and flag.mf_last_night_asked)",
+      "facing": "south"
+    },
+    {
+      "npc": "tamsin_ledger",
+      "cell": [
+        8,
+        10
+      ],
+      "dialogue": "moonfall/last_night:tamsin_start",
+      "when": "flag.moonfall_started and flag.mf_last_night_asked and not flag.mf_tamsin_said",
+      "facing": "east"
+    },
+    {
+      "npc": "tamsin_ledger",
+      "cell": [
+        8,
+        10
+      ],
+      "when": "not (flag.moonfall_started and flag.mf_last_night_asked and not flag.mf_tamsin_said)",
+      "facing": "east"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        29,
+        12
+      ],
+      "dialogue": "moonfall/last_night:marianna_start",
+      "when": "flag.moonfall_started and flag.mf_last_night_asked and not flag.mf_marianna_said",
+      "facing": "west"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        29,
+        12
+      ],
+      "when": "not (flag.moonfall_started and flag.mf_last_night_asked and not flag.mf_marianna_said)",
+      "facing": "west"
+    },
+    {
+      "npc": "ambrose_quill",
+      "cell": [
+        26,
+        15
+      ],
+      "dialogue": "moonfall/verse:start",
+      "when": "flag.moonfall_started and not flag.mf_verse_asked",
+      "facing": "west"
+    },
+    {
+      "npc": "ambrose_quill",
+      "cell": [
+        26,
+        15
+      ],
+      "dialogue": "moonfall/verse:progress",
+      "when": "flag.mf_verse_asked and quest.mf_last_verse == asked",
+      "facing": "west"
+    },
+    {
+      "npc": "ambrose_quill",
+      "cell": [
+        26,
+        15
+      ],
+      "dialogue": "moonfall/verse:after",
+      "when": "flag.mf_verse_asked and not quest.mf_last_verse == asked",
+      "facing": "west"
+    }
+  ],
+  "encounters": [],
+  "rest": "safe",
+  "rest_text": "The Vagrant's train is warm, and the village keeps watch. A short rest here is safe.",
+  "lights": [
+    {
+      "cell": [
+        17,
+        18
+      ],
+      "kind": "fire",
+      "bright_ft": 30,
+      "dim_ft": 60,
+      "color": "fire"
+    }
+  ]
+}

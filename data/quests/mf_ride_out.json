@@ -1,0 +1,29 @@
+{
+  "id": "mf_ride_out",
+  "name": "The Vagrant's Ride Out",
+  "kind": "side",
+  "region": "moonfall",
+  "giver": "the_vagrant",
+  "summary": "The Vagrant has one ride out on the final night, for those who would rather not be there when the moon lands.",
+  "stages": [
+    {
+      "id": "offered",
+      "journal": "The Vagrant offered one train out of the Hollow on the final night, and said he would not think the less of us.",
+      "hint": "Ask the Vagrant about the train out when you are ready."
+    },
+    {
+      "id": "taken",
+      "journal": "We took the train. The Hollow stayed behind, and the moon fell behind us.",
+      "ends": "success"
+    },
+    {
+      "id": "declined",
+      "journal": "We told the Vagrant we stay and fight. He grinned, and said the seat is ours if we change our minds.",
+      "ends": "failure",
+      "then": [
+        "offered",
+        "taken"
+      ]
+    }
+  ]
+}

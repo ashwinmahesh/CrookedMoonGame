@@ -1,0 +1,56 @@
+{
+  "id": "mf_leviathan",
+  "name": "The Jinxed Leviathan",
+  "kind": "main",
+  "region": "moonfall",
+  "giver": "mf_nadine_bayou",
+  "summary": "Nadine Marsh's bayou has sunk into bad luck. The Jinxed Leviathan sleeps in the cursed pool.",
+  "closes": [
+    {
+      "stage": "lost",
+      "when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled",
+      "from": [
+        "asked",
+        "trail",
+        "ready"
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "id": "asked",
+      "journal": "Everything goes wrong by a little in Murkwater Bend, and something huge turns in the bayou at night. An alligator hexed into a colossus of bad luck has woken.",
+      "objectives": [
+        "Find where it lairs"
+      ],
+      "hint": "Ask around the region for how to find it: its hook-giver, and the one who knows its secret."
+    },
+    {
+      "id": "trail",
+      "journal": "We found where The Jinxed Leviathan lairs. There may be a way to hurt it more than the usual.",
+      "objectives": [
+        "Face The Jinxed Leviathan",
+        "Optional: learn its weakness"
+      ],
+      "hint": "Learn its weakness from the one who knows it, or go straight to its lair."
+    },
+    {
+      "id": "ready",
+      "journal": "We carry what hurts The Jinxed Leviathan. Time to go to its lair.",
+      "objectives": [
+        "Face The Jinxed Leviathan"
+      ],
+      "hint": "Go to its lair."
+    },
+    {
+      "id": "slain",
+      "journal": "The Jinxed Leviathan is dead. The moon's gaze moves to the Webwoods.",
+      "ends": "success"
+    },
+    {
+      "id": "lost",
+      "journal": "The nights ran out before it fell.",
+      "ends": "failure"
+    }
+  ]
+}
