@@ -94,6 +94,30 @@
       "label": "The rafters",
       "model": "crow",
       "text": "Up among the rafters a pigeon watches you with an eye that is a little too thoughtful."
+    },
+    {
+      "id": "post_office_counter",
+      "cell": [
+        8,
+        3
+      ],
+      "kind": "examine",
+      "label": "The post counter",
+      "model": "table_round",
+      "dialogue": "wickermoor/quarantine:post_seal",
+      "when": "flag.quarantine_asked and not flag.seal_post"
+    },
+    {
+      "id": "post_office_outbox",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "examine",
+      "label": "The outgoing tray",
+      "model": "papers",
+      "dialogue": "wickermoor/letter:counter",
+      "when": "flag.letter_asked and not flag.letter_outcome"
     }
   ],
   "npcs": [

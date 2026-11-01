@@ -123,6 +123,24 @@
         4,
         15
       ],
+      "dialogue": "wickermoor/quarantine:file",
+      "when": "flag.seal_tamsin and flag.seal_post and not flag.quarantine_done"
+    },
+    {
+      "npc": "wendel_somerton",
+      "cell": [
+        4,
+        15
+      ],
+      "dialogue": "wickermoor/quarantine:start",
+      "when": "flag.act2_done >= 1 and not flag.quarantine_asked"
+    },
+    {
+      "npc": "wendel_somerton",
+      "cell": [
+        4,
+        15
+      ],
       "dialogue": "wickermoor/feast:mayor_judges",
       "when": "flag.feast_asked and not flag.feast_done"
     },
@@ -161,6 +179,15 @@
         7,
         19
       ]
+    },
+    {
+      "npc": "tamsin_ledger",
+      "cell": [
+        18,
+        9
+      ],
+      "dialogue": "wickermoor/quarantine:tamsin_seal",
+      "when": "flag.quarantine_asked and not flag.seal_tamsin"
     },
     {
       "npc": "tamsin_ledger",

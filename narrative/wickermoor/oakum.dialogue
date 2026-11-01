@@ -1,0 +1,63 @@
+# Drafted by Gemini (side quests act 2 batch 1: oakum), edited.
+
+~ start
+Narrator: She wraps a parcel of cold mutton fat in butcher's paper with raw, trembling knuckles, keeping her eyes fixed on the sawdust floor.
+mrs_oakum [weary]: Pardon me, strangers, only I saw you looking by the alley gate. When the bell strikes Evening and I take my basket out to the moor road, please do not follow me, and ask no questions.
+* We will keep out of it -> respect
+* Ask Siv about her -> ask_siv
+* [Stealth DC 12] Follow her at dusk -> follow_ok | follow_fail
+
+~ respect
+mrs_oakum [smile]: Bless you for that, truly. A body needs her own quiet hours when the sickness is so thick in the lanes, and I won't forget your kindness.
+set oakum_asked
+quest oakums_curse asked
+-> END
+
+~ ask_siv
+siv_harga [neutral]: Martha does ten hours of honest boning and scrubbing without a complaint, and what she carries home in her bucket at night is her own affair. Leave the woman be.
+-> start
+
+~ follow_ok
+Narrator: From the gorse bushes down-wind, you watch her drop the basket of bloody trimmings at the treeline, where her spine lengthens with a wet crack and coarse grey fur swallows her shawl.
+set oakum_asked
+set oakum_known
+quest oakums_curse asked
+-> END
+
+~ follow_fail
+Narrator: A twig snaps underfoot in the damp heather, and the half-changed thing by the stone wall lifts a long, wet muzzle to the wind.
+mrs_oakum [afraid]: Don't look at me, I begged you not to look! The butcher's offal keeps the worst of the hunger down, I swear I never touched a soul!
+Narrator: She scrambles over the turf dike on all fours, her torn apron catching on the briars as she vanishes into the dark.
+set oakum_asked
+set oakum_known
+quest oakums_curse asked
+-> END
+
+~ choose
+Narrator: She stands behind the chopping block with her sleeves pinned neat to the wrist, though the scent of wet moorland fur still clings to her woollen skirt.
+mrs_oakum [afraid]: You know what I am now, and one word to the constable puts my head by the Oak. Tell me plain what you mean to do with me.
+* Keep her secret -> keep
+* Tell Siv -> tell
+* Promise to find a cure -> help
+
+~ keep
+mrs_oakum [smile]: May the Patient Lady shade your steps. As long as I have the trough scraps before the moon climbs, the beast stays fed and the village stays safe.
+set oakum_outcome = "kept"
+quest oakums_curse done
+standing patient_lady +1
+-> END
+
+~ tell
+Narrator: Siv listens with his cleaver resting flat on the oak block, wipes his hands on his apron, and slides a double bucket of marrow bones toward her feet.
+siv_harga [neutral]: Thought it was a stray hound I heard by the smokehouse all winter. Take the beef shins too, Martha, and see you're back before the morning cart.
+set oakum_outcome = "told"
+quest oakums_curse done
+-> END
+
+~ help
+Narrator: Tears spill down her cheeks onto the salted boards as she presses a knotted handkerchief of silver coins into your palm.
+mrs_oakum [sad]: I had given up praying to wake from a night without blood in my teeth. Take what little I've saved, and Godspeed to you.
+set oakum_outcome = "help"
+quest oakums_curse done
+gold +10
+-> END

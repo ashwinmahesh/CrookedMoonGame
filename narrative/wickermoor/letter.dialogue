@@ -1,0 +1,55 @@
+# Drafted by Gemini (side quests act 2 batch 1: letter), edited.
+
+~ effects
+Narrator: A cedar shelf holds a dead traveler's belongings: a brass button, dry boots, and a folded letter sealed with tallow.
+mori_shade [sad]: Walder Pye came in on the rain cart and never rose again. That letter was dry inside his coat, waiting for someone with living feet.
+* Take the letter -> take
+* Leave -> END
+
+~ take
+mori_shade [weary]: It is addressed to his kin past the border stones. Carry it past the gate yourself, if you please, for our post office cannot leave a dead man's final words untouched.
+give walder_letter
+quest walders_letter asked
+set letter_asked
+-> END
+
+~ counter
+Narrator: Ink pots stand in neat brass rows along the counter, smelling of vinegar and damp feathers.
+theodora_mayville [neutral]: Step up to the grate and declare your parcels. No written matter leaves Wickermoor during the quarantine without my stamp and inspection.
+* [ends:walders_letter] Hand it over -> hand
+* [Sleight of Hand DC 13] Keep it hidden -> slip_ok | slip_caught
+* [Deception DC 11] Say you have nothing to post -> nothing_ok | slip_caught
+
+~ hand
+theodora_mayville [sly]: How wise of you to trust the proper channels. Poor Walder's penmanship is dreadful, and his gloom would only upset his folk, so I shall improve it before the bag goes out.
+set letter_outcome = "seized"
+quest walders_letter lost
+-> END
+
+~ slip_ok
+Narrator: `{name}` slides the tallow-sealed paper beneath a cuff just as the postmaster peers over her spectacles.
+theodora_mayville [neutral]: Empty hands and loitering boots. If you have no business with the post, clear the counter for those who can read a notice.
+-> END
+
+~ nothing_ok
+theodora_mayville [weary]: Then do not breathe upon my brasswork. Stand aside and keep your hands where the parish can see them.
+-> END
+
+~ slip_caught
+theodora_mayville [angry]: Unstamped correspondence concealed in a coat! Constable Squire, take these smugglers to the cells while I correct this wretched letter's tone.
+doris_squire [neutral]: In the irons till morning, the lot of you. Move your feet.
+jail wickermoor_constable_station:cells until days_since.jailed >= 1
+-> END
+
+~ hilda
+Narrator: Hilda tightens a leather girth strap by the moor road, her oilskin cloak smelling of wet heather and woodsmoke.
+hilda_brom [neutral]: Heading past the boundary stones before the fog thickens. Speak quick if you want something.
+* Give her the letter to carry -> hilda_take
+* Leave -> END
+
+~ hilda_take
+hilda_brom [smile]: Walder Pye's hand. He paid his tab and kept his dog quiet, so I will ride this out in my dry pack and drop it with the border carrier.
+set letter_outcome = "sent"
+quest walders_letter done
+gold +15
+-> END
