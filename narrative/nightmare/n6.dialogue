@@ -1,6 +1,7 @@
 # Drafted by Gemini (R22 n6), edited.
 
 ~ feast_start
+set n6_started
 Narrator: Lanterns sway over a moonless spring meadow where twenty guests in painted animal masks caper between two long tables. Up on the dais, a bride crowned in fiery roses beams beside a tethered black goat, and twenty papier-mache snouts pivot toward you at once.
 nm_adela_bride [smile]: Look, look, my dearest guests have arrived at last! Come into the lantern light, darlings, you are just in time for the reel!
 quest crooked_nightmare wedding_feast
@@ -86,6 +87,10 @@ Narrator: The Drakkenhob knocks the goblet aside with a hiss of hot soot, thorou
 Narrator: The roses on the bride's brow catch like dry tinder, wrapping the dais in sudden flame while unseen claws shred the paper masks across the meadow.
 nm_vessla [sly]: Burn the rind and sear the marrow, little bride, until nothing remains but ash for the altar!
 cutscene nm_three_adelas_c
+Narrator: The bride burns like a lantern, bright and silent, and does not stop smiling.
+cutscene nm_three_adelas_c_2
+Narrator: Around her the masked guests fly apart like paper, and the moonless dark closes over the meadow.
+cutscene end
 set nm_wedding_done
 quest crooked_nightmare crooked_throne
 -> hub
@@ -96,8 +101,9 @@ Narrator: It is only a long feast table heaped with tarnished silver and spoiled
 -> hub
 else
 Narrator: A reddish crooked door stands upright in the centre of the ruined feast table, while the remnants of the masked crowd watch in silence.
-* Climb on to the table -> toll
-* [Performance DC 12] Tell the guests a joke -> joke_ok | joke_fail
+* [if not (quest.the_nightmare_forms == asked or quest.the_nightmare_forms == filing)] Climb on to the table -> toll
+* [if not (quest.the_nightmare_forms == asked or quest.the_nightmare_forms == filing)] [Performance DC 12] Tell the guests a joke -> joke_ok | joke_fail
+* [if quest.the_nightmare_forms == asked or quest.the_nightmare_forms == filing] [ends:the_nightmare_forms] Leave the forms unfiled and climb on to the table -> leave_forms
 * Not yet -> hub
 endif
 
@@ -123,6 +129,12 @@ endif
 Narrator: The thick, sweet rot of the ruined banquet catches in your throat as you clamber across the platters.
 damage 2d6 poison
 -> pass
+
+~ leave_forms
+Narrator: Behind you the desk drawer shuts with a small, final sound, and a stamp comes down on nothing at all.
+quest the_nightmare_forms refused
+set forms_refused
+-> toll
 
 ~ pass
 Narrator: You catch the brass handle of the crooked door and pull it wide upon the next nightmare.

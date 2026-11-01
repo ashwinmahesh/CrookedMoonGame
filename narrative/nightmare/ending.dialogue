@@ -3,9 +3,14 @@
 ~ collapse
 Narrator: The house shudders to its rafters, and the floors fold down one by one in a choking cloud of plaster dust. You tumble through the splintering dark with the whole groaning wreck.
 cutscene nm_dreaming_no_more
+Narrator: The manor folds in on itself, floor by floor, in a long sigh of dust.
+cutscene nm_dreaming_no_more_2
+Narrator: Under a cloudless sky the rubble lies still, and the ghosts turn round it like wasps round a broken nest.
+cutscene nm_dreaming_no_more_3
+Narrator: A butler's ghost nods once, and joins the turning.
+cutscene end
 set crooked_house_destroyed
 move nm_estate_ruins
--> ruins_start
 
 ~ ruins_start
 Narrator: You cough the lime from your lungs on a heap of cold rubble under a clear, starry sky, while freed spirits swirl upward like pale wasps from a broken hive. Dani stands calm in the middle of the wreckage.
@@ -33,7 +38,7 @@ set nm_ruins_met
 * [if flag.walter_saved and flag.voices_outcome != ""] Ask Walter how he is -> walter
 * Ask about the spirits -> joseph
 * [if flag.frederick_taken] Ask about Frederick -> fred
-* [if quest.danis_lantern == carrying] Return Dani's lantern -> dani_lantern:return
+* [if quest.danis_lantern == carrying] [ends:danis_lantern if flag.lantern_tends < 2] Return Dani's lantern -> nightmare/dani_lantern:return
 * Ask about the moors -> warning
 * We are done here -> farewell
 
@@ -50,6 +55,10 @@ Narrator: A pale girl's shape lifts out of the red hound's coat, her small face 
 sally_lockwood [sad]: Father built this house out of crooked promises, and it swallowed my mother and me whole. Thank you for breaking the timbers so I can finally go home.
 Narrator: She fades into the rising mist, and the red dog gives a great, rattling shake of his ears, just an ordinary hound now, before licking Dani's hand.
 cutscene nm_sally_goes_free
+Narrator: The dog shakes himself, an ordinary dog now, and licks the small girl's hand.
+cutscene nm_sally_goes_free_2
+Narrator: Dani scratches him behind one ear, and says nothing, which is how she says everything.
+cutscene end
 set sally_released
 -> menu
 

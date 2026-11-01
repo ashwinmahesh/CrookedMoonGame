@@ -13,7 +13,7 @@ quest crooked_nightmare estate
 * [Perception DC 17] Listen to the voices calling from inside -> voices_ok | voices_fail
 * Ask how to get them out -> plan
 * Tell her to wait here -> keep
-* [if not flag.danis_lantern_asked] Ask about the lantern at her feet -> dani_lantern:offer
+* [if not flag.danis_lantern_asked] Ask about the lantern at her feet -> nightmare/dani_lantern:offer
 * Leave -> END
 
 ~ house
@@ -65,6 +65,6 @@ set dani_kept_outside
 
 ~ dani_again
 dani_jenkin [neutral]: The house is still dreaming. Mind the doors when you go through.
-* [if not flag.danis_lantern_asked] Ask about the lantern -> dani_lantern:offer
+* [if not flag.danis_lantern_asked] Ask about the lantern -> nightmare/dani_lantern:offer
 * We are going in -> END
 * Leave -> END

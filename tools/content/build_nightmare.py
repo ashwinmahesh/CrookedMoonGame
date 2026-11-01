@@ -124,12 +124,12 @@ def estate_variants():
              when="flag.abomination_dead and treasure_at:crooked_house_ruins"),
     ]
     r["exits"] = [exit_("to_village", (33, 35), "travel", "default", "Down the hill road to the village")]
-    r["npcs"] = [npc("dani_jenkin", (20, 9), "ending:ruins_start", when="flag.crooked_house_destroyed and not flag.nm_ruins_met", approach=12),
-                 npc("dani_jenkin", (20, 9), "ending:menu", when="flag.nm_ruins_met and not flag.nm_chapter_done"),
-                 npc("shuck", (21, 9), "ending:sally", when="not flag.sally_released"),
-                 npc("shuck", (21, 9), None, when="flag.sally_released"),
-                 npc("walter_jenkin", (19, 10), "ending:walter", when="flag.walter_saved"),
-                 npc("gilly_jenkin", (21, 10), "ending:gilly", when="flag.gilly_saved")]
+    r["npcs"] = [npc("dani_jenkin", (20, 15), "ending:ruins_start", when="flag.crooked_house_destroyed and not flag.nm_ruins_met", approach=12),
+                 npc("dani_jenkin", (20, 15), "ending:menu", when="flag.nm_ruins_met and not flag.nm_chapter_done"),
+                 npc("shuck", (21, 15), "ending:sally", when="not flag.sally_released"),
+                 npc("shuck", (21, 15), None, when="flag.sally_released"),
+                 npc("walter_jenkin", (19, 16), "ending:walter", when="flag.walter_saved"),
+                 npc("gilly_jenkin", (21, 16), "ending:menu", when="flag.gilly_saved")]
     r["spawns"] = {"default": [20, 16], "from_village": [33, 33]}
     r["encounters"] = []
     write("data/locations/nm_estate_ruins.json", r)
@@ -288,7 +288,8 @@ def n5():
           prop("nm_shelf_bookcase_b", (10, 1), "A wall of book spines", kind="decor", model="bookcase", scale=3.0),
           prop("nm_shelf_stack", (8, 3), "A book, lying on its back like a hill", kind="decor", model="book_stack", scale=3.0),
           prop("nm_shelf_dust", (13, 3), "Dust, like snow", kind="decor", model="cobwebs"),
-          prop("nm_shelf_voices", (14, 4), "Glass thimbles, humming", kind="decor", model="sill_cups", call=NM + "voices:start", approach=8, call_when="flag.nm_voices_dropped and not flag.nm_voices_listened", when="flag.nm_voices_dropped"),
+          prop("nm_shelf_voices", (14, 4), "Glass thimbles, humming", model="sill_cups", dialogue=NM + "voices:menu", call=NM + "voices:start", approach=8, call_when="flag.nm_voices_dropped and not flag.nm_voices_listened",
+               when="flag.nm_voices_dropped and (quest.voices_not_their_own == asked or quest.voices_not_their_own == listening)"),
           prop("nm_shelf_door", (12, 5), "A crooked door in the cat's grin", model="door", dialogue=NM + "n5:door", when="flag.nm_shelf_done")]
     s["npcs"] = [npc("walter_jenkin", (18, 5), "n5:hub", when="not flag.nm_shelf_done", facing="north"),
                  npc("nm_golub", (21, 2), "n5:hub", when="not flag.golub_struck", facing="south"),

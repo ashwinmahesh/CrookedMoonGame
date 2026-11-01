@@ -120,13 +120,14 @@
         14,
         4
       ],
-      "kind": "decor",
+      "kind": "examine",
       "label": "Glass thimbles, humming",
       "model": "sill_cups",
+      "dialogue": "nightmare/voices:menu",
       "call": "nightmare/voices:start",
       "approach": 8,
       "call_when": "flag.nm_voices_dropped and not flag.nm_voices_listened",
-      "when": "flag.nm_voices_dropped"
+      "when": "flag.nm_voices_dropped and (quest.voices_not_their_own == asked or quest.voices_not_their_own == listening)"
     },
     {
       "id": "nm_shelf_door",

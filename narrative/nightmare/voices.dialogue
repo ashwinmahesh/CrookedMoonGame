@@ -1,6 +1,7 @@
 # Drafted by Gemini (R22 voices), edited.
 
 ~ start
+set nm_voices_listened
 Narrator: Five glass thimbles sit in a row on the dusty shelf, each one humming softly against the wood with a trapped breath. Nothing stirs to stop you; only the quiet wait of stolen words remains.
 quest voices_not_their_own listening
 -> menu
@@ -48,11 +49,11 @@ Narrator: Every murmur inside the glass sounds well-rehearsed and worn by long k
 
 ~ choose
 Narrator: You reach toward the shelf, where a wrong touch will spill the fragile breath inside.
-* The first -> wrong
-* The second -> wrong
-* The third -> wrong
+* [ends:voices_not_their_own if flag.voices_wrong >= 2] The first -> wrong
+* [ends:voices_not_their_own if flag.voices_wrong >= 2] The second -> wrong
+* [ends:voices_not_their_own if flag.voices_wrong >= 2] The third -> wrong
 * The fourth -> right
-* The fifth -> wrong
+* [ends:voices_not_their_own if flag.voices_wrong >= 2] The fifth -> wrong
 * Not yet -> menu
 
 ~ wrong

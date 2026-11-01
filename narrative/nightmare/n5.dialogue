@@ -1,6 +1,7 @@
 # Drafted by Gemini (R22 n5), edited.
 
 ~ shelf_start
+set n5_started
 Narrator: Leather book spines tower above you like cliff walls, and grey dust lies drifted ankle-deep like dry snow. Ahead, poor Walter Jenkin stands trapped inside a vast crystal decanter as amber liquor steadily rises around his waist.
 nm_golub [sly]: Class is in session, little mice, and today's lesson is how easily a loyal mind drowns in doubt. Sit straight and watch him sink.
 nm_wisp [sad]: Leave the bottle be, Walter love, you have done more than enough for this house.
@@ -66,6 +67,10 @@ endif
 ~ freed
 Narrator: Walter braces his boots against the slick glass walls and drives both hands upward, heaving the massive crystal stopper clean out of the neck. The pigeon-hag's shadow scatters, the great cat fades to a bare grin, and a cool blue mist curls down to lift Walter gently out of the dream.
 cutscene nm_pulled_out
+Narrator: A hand of blue mist closes round a hand, and the captive is drawn up and out of the dream.
+cutscene nm_pulled_out_2
+Narrator: Far away on the porch, Dani keeps her eyes shut, and a thread of blue light runs from her hands into the house.
+cutscene end
 vanish walter_jenkin
 set walter_saved
 set nm_shelf_done
@@ -89,8 +94,9 @@ Narrator: For now, the floating grin is only a row of gleaming teeth hanging in 
 -> END
 endif
 Narrator: The crooked red door shimmers between the cat's lingering rows of ivory teeth, smelling faintly of sweet wine and catnip.
-* Step through the grin -> toll
-* [Performance DC 12] Tell the grin a joke -> joke_ok | joke_fail
+* [if not (quest.voices_not_their_own == asked or quest.voices_not_their_own == listening)] Step through the grin -> toll
+* [if not (quest.voices_not_their_own == asked or quest.voices_not_their_own == listening)] [Performance DC 12] Tell the grin a joke -> joke_ok | joke_fail
+* [if quest.voices_not_their_own == asked or quest.voices_not_their_own == listening] [ends:voices_not_their_own] Leave the thimbles behind and step through the grin -> leave_voices
 * Not yet -> END
 
 ~ joke_ok
@@ -114,6 +120,12 @@ check Dexterity DC 17 -> pass | toll_hurt
 Narrator: The rows of teeth snap together as you dive through, catching at your cloak and flesh before you tumble out the other side.
 damage 2d10 slashing
 -> pass
+
+~ leave_voices
+Narrator: You leave the thimbles humming on the shelf. Behind you, one by one, they stop.
+quest voices_not_their_own lost
+set voices_outcome = "lost"
+-> toll
 
 ~ pass
 quest crooked_nightmare wedding_feast
