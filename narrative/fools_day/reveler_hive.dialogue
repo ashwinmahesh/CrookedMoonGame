@@ -1,0 +1,122 @@
+# R21 reveler conversations for the hive costume: logic from tools/content/build_fools_day_dialogue.py, lines drafted by Gemini (R21 revelers), edited.
+
+~ morgan_start
+morgan [smile]: Buzz and hum, my dears, the hive is overflowing with sweet golden honey tonight! Take a cup and dance around the comb before the swarm drifts away!
+-> morgan_menu
+
+~ morgan_menu
+* [if flag.release_slips >= 1] Show them a release slip -> morgan_slip
+* [Persuasion DC 15] Invite them to a better party, at a quiet church -> morgan_church | morgan_church_fail
+* [Deception DC 15] Say Chuckles wants them at the church for the next number -> morgan_church | morgan_church_fail
+* [knows:calm_emotions] Cast Calm Emotions on them -> morgan_calm
+* [knows:greater_restoration] Cast Greater Restoration on them -> morgan_calm
+* Knock them out of the costume, bruised but not hurt for good -> morgan_fight
+* Leave them dancing for now -> END
+
+~ morgan_slip
+morgan [neutral]: My head feels full of cotton wool and burnt lavender... was I spinning in the square? Thank you for pulling this heavy wicker basket off my shoulders.
+set release_slips -= 1
+set reveler_morgan = "tickets"
+set reveler_morgan_freed
+set revelers_freed += 1
+-> END
+
+~ morgan_church
+morgan [smile]: A quiet chapel where the bees can rest their wings sounds very sweet indeed! Wait for me, the wicker is a little wide for the lane!
+lead morgan to fd_silent_church
+if check.last
+set reveler_morgan = "church"
+set reveler_morgan_freed
+set revelers_freed += 1
+set church_guests += 1
+endif
+-> END
+
+~ morgan_church_fail
+morgan [smile]: Oh no, the queen says the nectar is only fresh out here by the bonfires! Come back when you want a spoonful of the merry hum!
+set fd_chuckles_amused
+-> morgan_menu
+
+~ morgan_calm
+morgan [weary]: The buzzing behind my eyes just faded out like kettle steam... how strange. I was trying to bottle moonbeams for the jester, was I not?
+set reveler_morgan = "uncharmed"
+set reveler_morgan_freed
+set revelers_freed += 1
+-> END
+
+~ morgan_fight
+morgan [angry]: Please do not kick the hive, my friends, or the stingers will have to come out! Every little bee must defend the Lord of Fools!
+Narrator: The dancers nearby keep on dancing. Nobody here is going to remember a punch.
+combat reveler_morgan
+
+~ morgan_beaten
+morgan [weary]: Ow... a little arnica salve will mend the bruises, once my hands stop shaking. You hit hard, my friend, though I think nothing milder would have woken me.
+set reveler_morgan = "beaten"
+set reveler_morgan_freed
+set revelers_freed += 1
+-> END
+
+~ morgan_sheltered
+morgan [weary]: It is like waking from one of my old grey spells, except the whole village lost its time together. My pockets are full of sticky festival sweets.
+-> END
+
+~ baltus_tolliver_start
+baltus_tolliver [smile]: Welcome to the sweetest market in the realm, my friends, where every comb is pure gold! Step into the swarm and spend your night with us!
+-> baltus_tolliver_menu
+
+~ baltus_tolliver_menu
+* [if flag.release_slips >= 1] Show them a release slip -> baltus_tolliver_slip
+* [Persuasion DC 15] Invite them to a better party, at a quiet church -> baltus_tolliver_church | baltus_tolliver_church_fail
+* [Deception DC 15] Say Chuckles wants them at the church for the next number -> baltus_tolliver_church | baltus_tolliver_church_fail
+* [knows:calm_emotions] Cast Calm Emotions on them -> baltus_tolliver_calm
+* [knows:greater_restoration] Cast Greater Restoration on them -> baltus_tolliver_calm
+* Knock them out of the costume, bruised but not hurt for good -> baltus_tolliver_fight
+* Leave them dancing for now -> END
+
+~ baltus_tolliver_slip
+baltus_tolliver [neutral]: Good grief, they had me trussed up in woven straw like a country hamper. Tell no one you saw me capering, and we shall call this debt settled.
+set release_slips -= 1
+set reveler_baltus_tolliver = "tickets"
+set reveler_baltus_tolliver_freed
+set revelers_freed += 1
+-> END
+
+~ baltus_tolliver_church
+baltus_tolliver [smile]: An exclusive celebration behind closed doors, away from the rabble? Now that sounds like a profitable venture, so lead on, my enterprising friends!
+lead baltus_tolliver to fd_silent_church
+if check.last
+set reveler_baltus_tolliver = "church"
+set reveler_baltus_tolliver_freed
+set revelers_freed += 1
+set church_guests += 1
+endif
+-> END
+
+~ baltus_tolliver_church_fail
+baltus_tolliver [smile]: Leave the briskest trade the square has seen all season for a cold stone nave? Not a chance, my friends, the honey is flowing right here!
+set fd_chuckles_amused
+-> baltus_tolliver_menu
+
+~ baltus_tolliver_calm
+baltus_tolliver [weary]: That infernal piping nearly ruined a very good suit, not to mention my dignity. Whoever rigged this carnival is going to pay a steep tariff.
+set reveler_baltus_tolliver = "uncharmed"
+set reveler_baltus_tolliver_freed
+set revelers_freed += 1
+-> END
+
+~ baltus_tolliver_fight
+baltus_tolliver [angry]: Interfere with the hive's business and you will find our stings remarkably sharp, my friends! Step back and enjoy the music while you still can!
+Narrator: The dancers nearby keep on dancing. Nobody here is going to remember a punch.
+combat reveler_baltus_tolliver
+
+~ baltus_tolliver_beaten
+baltus_tolliver [weary]: You drive a brutal bargain, friend, and my ribs will remember it for a week. Still, I prefer a bruised jaw to wearing a wicker beehive.
+set reveler_baltus_tolliver = "beaten"
+set reveler_baltus_tolliver_freed
+set revelers_freed += 1
+-> END
+
+~ baltus_tolliver_sheltered
+baltus_tolliver [weary]: My pipe is cracked and my ledger is missing, yet I count myself fortunate to be sitting on cold stone. That jester deals in ugly merchandise.
+-> END
+

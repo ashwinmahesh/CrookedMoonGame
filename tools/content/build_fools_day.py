@@ -209,7 +209,7 @@ def build_festival():
           prop("fd_church_door", (63, 9), "A shuttered door with no sound behind it", kind="decor", model="door_house", when="not flag.fd_church_found")]
     for key, (name, host, block, (x0, y, n, vert), hostcell, theme) in BOOTHS.items():
         P.append(prop(f"fd_booth_{key}", (x0, y), f"{name}", kind="decor", model="bar", span=[1, n] if vert else [n, 1]))
-        town["npcs"].append(npc(host, hostcell, f"booths:{key}_start"))
+        town["npcs"].append(npc(host, hostcell, f"{'booths' if key in 'abcd' else 'booths_two'}:{key}_start"))
         town["encounters"].append({"id": f"booth_{key}", "trigger": "dialogue", "flag": f"booth_{key}_beaten",
                                    "monsters": [monster(block, (hostcell[0], hostcell[1] + (3 if key in "abc" else -3 if key in "fg" else 0)), HOST_NAMES[host][0])]})
     # the crowd search (Quill's program, the understudy, Chuckles)
@@ -416,7 +416,6 @@ def build_quests():
 # ---- flags ------------------------------------------------------------------------------------------------------------------------
 def flags():
     out = [
-        ("golub_dead", "bool", "Golub Graygullet is dead (the Roving Rookery); Chuckles's letter waits on it."),
         ("fools_letter_given", "bool", "The dying bell reveler has handed over Chuckles's letter."),
         ("bess_dead", "bool", "Bess Crumley is dead in a coat of bells."),
         ("festival_active", "bool", "The Festival of Fools has taken over Wickermoor."), ("fd_away", "int", "1 while the party has fled the festival and the hub is ordinary for now, 0 when they step back in."),
@@ -465,6 +464,9 @@ def flags():
 
 
 def build_flags():
+    # golub_dead belongs to the Roving Rookery lane (data/flags/rookery.json there). Until that lane is merged it is registered here so this branch validates on its
+    # own; when both are merged, delete data/flags/fools_day_borrowed.json (a flag is registered once).
+    write("data/flags/fools_day_borrowed.json", {"flags": [{"id": "golub_dead", "type": "bool", "summary": "Golub Graygullet is dead (set by the Roving Rookery chapter); Chuckles's letter waits on it.", "set_by": "engine"}]})
     write("data/flags/fools_day.json", {"flags": [{"id": i, "type": t, "summary": s, "read_later": True} for (i, t, s) in flags()]})
 
 
@@ -536,7 +538,7 @@ def build_hub():
                                call_when="flag.festival_active and not flag.shows_over and not flag.fd_away") for k, c in spots] + [
         prop("wm_fd_return", (31, 26), "Carnival music, just past the last house", kind="decor", call=FD + "hook:return_gate", approach=4,
              call_when="flag.festival_active and not flag.shows_over and flag.fd_away")]
-    town["npcs"][0:0] = [npc("bess_crumley", (30, 14), "hook:messenger", when="flag.golub_dead and not flag.fools_letter_given", approach=12)]
+    town["npcs"][0:0] = [npc("bess_crumley", (31, 14), "hook:messenger", when="flag.golub_dead and not flag.fools_letter_given", approach=12)]
     path.write_text(json.dumps(town, indent=2, ensure_ascii=False) + "\n")
     # Bess works the Green Queen until the letter comes
     ipath = ROOT / "data/locations/wickermoor_green_queen_inn.json"

@@ -1,0 +1,204 @@
+# R21 reveler conversations for the bell costume: logic from tools/content/build_fools_day_dialogue.py, lines drafted by Gemini (R21 revelers), edited.
+
+~ doris_squire_start
+doris_squire [smile]: Ring-a-ding, step in line, the law says every foot must rhyme! Shake your cuffs and clang the brass, no sour face is allowed to pass!
+-> doris_squire_menu
+
+~ doris_squire_menu
+* [if flag.release_slips >= 1] Show them a release slip -> doris_squire_slip
+* [Persuasion DC 15] Invite them to a better party, at a quiet church -> doris_squire_church | doris_squire_church_fail
+* [Deception DC 15] Say Chuckles wants them at the church for the next number -> doris_squire_church | doris_squire_church_fail
+* [knows:calm_emotions] Cast Calm Emotions on them -> doris_squire_calm
+* [knows:greater_restoration] Cast Greater Restoration on them -> doris_squire_calm
+* [if not flag.bell_tune_known and not flag.bell_tune_lost] Ask about the tune they keep humming -> doris_squire_tune
+* [if flag.bell_tune_known] Hum the finished tune with them -> doris_squire_calm
+* Knock them out of the costume, bruised but not hurt for good -> doris_squire_fight
+* Leave them dancing for now -> END
+
+~ doris_squire_slip
+doris_squire [neutral]: Bloody hells, get this copper bucket off my shoulders. If anyone mentions a word of that prancing in my jailhouse, they will pay the fine twice over.
+set release_slips -= 1
+set reveler_doris_squire = "tickets"
+set reveler_doris_squire_freed
+set revelers_freed += 1
+-> END
+
+~ doris_squire_church
+doris_squire [smile]: A grander peal down at the church, is there? Right then, march in step and keep the chimes ringing!
+lead doris_squire to fd_silent_church
+if check.last
+set reveler_doris_squire = "church"
+set reveler_doris_squire_freed
+set revelers_freed += 1
+set church_guests += 1
+endif
+-> END
+
+~ doris_squire_church_fail
+doris_squire [smile]: Naught doing, my beat is right here where the ribbons fly and the bells go clang! Move along or join the ring!
+set fd_chuckles_amused
+-> doris_squire_menu
+
+~ doris_squire_calm
+doris_squire [weary]: My tongue feels thick as boot leather and my ears are ringing foul. A constable ought to keep order, not caper about like a springtime hare.
+set reveler_doris_squire = "uncharmed"
+set reveler_doris_squire_freed
+set revelers_freed += 1
+-> END
+
+~ doris_squire_fight
+doris_squire [angry]: By order of the Lord of Fools, every frown is a breach of the peace! Dance when the bell rings, or I will clatter your bones to the cobblestones!
+Narrator: The dancers nearby keep on dancing. Nobody here is going to remember a punch.
+combat reveler_doris_squire
+
+~ doris_squire_beaten
+doris_squire [weary]: Fair clout, that, and I will not book you for assaulting the watch. Just unbuckle this damned bell before my neck gives out.
+set reveler_doris_squire = "beaten"
+set reveler_doris_squire_freed
+set revelers_freed += 1
+-> END
+
+~ doris_squire_sheltered
+doris_squire [weary]: No noise in here, thank the quiet rain and the sunflower's grace. Give me ten minutes on this bench and I will have my notebook straight again.
+-> END
+
+~ doris_squire_tune
+doris_squire [smile]: Ding-dong, ding-dong, the rhyme comes round and then it drops right on the ground! Help me strike the closing chime, friends, before the measure loses time!
+if not flag.free_bell_asked
+quest free_the_bell asked
+set free_bell_asked
+endif
+-> doris_squire_tune_menu
+
+~ doris_squire_tune_menu
+* [Performance DC 15] Finish the tune -> doris_squire_tune_ok | doris_squire_tune_fail
+* [if item:jericho_banjo] Play the tune out on Jericho's banjo -> doris_squire_tune_banjo
+* [Religion DC 13] Recall a Brightsinger hymn that ends it -> doris_squire_tune_ok | doris_squire_tune_fail
+* [ends:free_the_bell] Give up on the tune -> doris_squire_tune_silenced
+* Back to the others -> doris_squire_menu
+
+~ doris_squire_tune_ok
+doris_squire [smile]: There goes the note, clean and true, like rain upon the meadow rue. My head is clear, and this ridiculous brass harness has lost its grip on me.
+quest free_the_bell done
+set bell_tune_known
+-> doris_squire_menu
+
+~ doris_squire_tune_banjo
+Narrator: A banjo is not a bell, but it knows how a song wants to end. The last bar lands and the little bells all ring together.
+doris_squire [smile]: There goes the note, clean and true, like rain upon the meadow rue. My head is clear, and this ridiculous brass harness has lost its grip on me.
+set bell_tune_banjo
+quest free_the_bell done
+set bell_tune_known
+-> doris_squire_menu
+
+~ doris_squire_tune_fail
+doris_squire [smile]: No, no, that sours all the brass, and breaks the verse before it can pass! Back to the start of the chime we go!
+-> doris_squire_tune_menu
+
+~ doris_squire_tune_silenced
+Narrator: The humming goes on without an ending, a little thinner each time round.
+quest free_the_bell silenced
+set bell_tune_lost
+-> doris_squire_menu
+
+~ weston_murdoch_start
+weston_murdoch [smile]: Hark the brass and lift your heels, brothers and sisters, for the carnival chimes wash every heavy heart clean! Come swing in the ring and let your worries peal away!
+-> weston_murdoch_menu
+
+~ weston_murdoch_menu
+* [if flag.release_slips >= 1] Show them a release slip -> weston_murdoch_slip
+* [Persuasion DC 15] Invite them to a better party, at a quiet church -> weston_murdoch_church | weston_murdoch_church_fail
+* [Deception DC 15] Say Chuckles wants them at the church for the next number -> weston_murdoch_church | weston_murdoch_church_fail
+* [knows:calm_emotions] Cast Calm Emotions on them -> weston_murdoch_calm
+* [knows:greater_restoration] Cast Greater Restoration on them -> weston_murdoch_calm
+* [if not flag.bell_tune_known and not flag.bell_tune_lost] Ask about the tune they keep humming -> weston_murdoch_tune
+* [if flag.bell_tune_known] Hum the finished tune with them -> weston_murdoch_calm
+* Knock them out of the costume, bruised but not hurt for good -> weston_murdoch_fight
+* Leave them dancing for now -> END
+
+~ weston_murdoch_slip
+weston_murdoch [neutral]: Merciful heavens, my throat is raw and my poor Joan must be frantic. That was no hymn of hope in my mouth, only a hollow jingle that would not let me breathe.
+set release_slips -= 1
+set reveler_weston_murdoch = "tickets"
+set reveler_weston_murdoch_freed
+set revelers_freed += 1
+-> END
+
+~ weston_murdoch_church
+weston_murdoch [smile]: A chorus of gladness waiting at the church doors, you say? Lead on, friends, and I shall bring the loudest bell in the parish!
+lead weston_murdoch to fd_silent_church
+if check.last
+set reveler_weston_murdoch = "church"
+set reveler_weston_murdoch_freed
+set revelers_freed += 1
+set church_guests += 1
+endif
+-> END
+
+~ weston_murdoch_church_fail
+weston_murdoch [smile]: Leave the lanterns when the square is overflowing with song and sweetmeats? Never, friends, come clasp hands and spin until the steeple bows!
+set fd_chuckles_amused
+-> weston_murdoch_menu
+
+~ weston_murdoch_calm
+weston_murdoch [weary]: Praise the dawn that never comes, that clamor has finally let go of my ribs. A man could lose his whole soul inside a smile that wide.
+set reveler_weston_murdoch = "uncharmed"
+set reveler_weston_murdoch_freed
+set revelers_freed += 1
+-> END
+
+~ weston_murdoch_fight
+weston_murdoch [angry]: Do not silence the bells of joy, friends, or the chorus will have to chastise you! Every sinner must dance tonight, whether their knees be willing or broken!
+Narrator: The dancers nearby keep on dancing. Nobody here is going to remember a punch.
+combat reveler_weston_murdoch
+
+~ weston_murdoch_beaten
+weston_murdoch [weary]: A hard sermon to swallow, friends, though I thank you for sparing my teeth. Help me out of this bell-frame so I can find Joan and the little ones.
+set reveler_weston_murdoch = "beaten"
+set reveler_weston_murdoch_freed
+set revelers_freed += 1
+-> END
+
+~ weston_murdoch_sheltered
+weston_murdoch [weary]: To sit under a quiet vault again feels like cool water on a burn. My father died with a crowd jeering round the oak, and that square out there sounded dreadful close to it.
+-> END
+
+~ weston_murdoch_tune
+weston_murdoch [smile]: Ring the high note, ring the low, yet where does the last little cadence go? Lend me your voice, friends, for the final bar keeps slipping from my tongue!
+if not flag.free_bell_asked
+quest free_the_bell asked
+set free_bell_asked
+endif
+-> weston_murdoch_tune_menu
+
+~ weston_murdoch_tune_menu
+* [Performance DC 15] Finish the tune -> weston_murdoch_tune_ok | weston_murdoch_tune_fail
+* [if item:jericho_banjo] Play the tune out on Jericho's banjo -> weston_murdoch_tune_banjo
+* [Religion DC 13] Recall a Brightsinger hymn that ends it -> weston_murdoch_tune_ok | weston_murdoch_tune_fail
+* [ends:free_the_bell] Give up on the tune -> weston_murdoch_tune_silenced
+* Back to the others -> weston_murdoch_menu
+
+~ weston_murdoch_tune_ok
+weston_murdoch [smile]: Amen and amen, that last chord rang straight through the fog in my skull! Thank you, friends, I am my own man again.
+quest free_the_bell done
+set bell_tune_known
+-> weston_murdoch_menu
+
+~ weston_murdoch_tune_banjo
+Narrator: A banjo is not a bell, but it knows how a song wants to end. The last bar lands and the little bells all ring together.
+weston_murdoch [smile]: Amen and amen, that last chord rang straight through the fog in my skull! Thank you, friends, I am my own man again.
+set bell_tune_banjo
+quest free_the_bell done
+set bell_tune_known
+-> weston_murdoch_menu
+
+~ weston_murdoch_tune_fail
+weston_murdoch [smile]: Ah, that note rang flat and cold, so the merry carillon must be retold! Once more from the top, with brighter smiles!
+-> weston_murdoch_tune_menu
+
+~ weston_murdoch_tune_silenced
+Narrator: The humming goes on without an ending, a little thinner each time round.
+quest free_the_bell silenced
+set bell_tune_lost
+-> weston_murdoch_menu
+

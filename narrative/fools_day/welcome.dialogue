@@ -76,8 +76,10 @@ quest fools_day parade
 ~ pity
 chuckles [afraid]: Pity-pity? What kind of funny-bone talk is that, you cannot pity the ringmaster!
 Narrator: He gives a thin squeak and fumbles at his belt, suddenly unsure what to do with his own gloved hands. Across his face, the painted smile does not move at all.
-set refused_to_hate
+if not flag.refused_to_hate
 inspiration
+endif
+set refused_to_hate
 -> menu
 
 ~ play

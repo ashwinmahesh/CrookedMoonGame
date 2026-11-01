@@ -1,0 +1,259 @@
+# Drafted by Gemini (R21 booths2), edited.
+
+~ e_start
+fd_host_strongarm [smile]: Step right up to the pine plank, little bones. Put your elbow down and show the Horned Bear what grit you kept.
+if not ((flag.revelers_freed == 0 and flag.booth_e_plays <= 0) or (flag.revelers_freed == 1 and flag.booth_e_plays <= 1) or (flag.revelers_freed == 2 and flag.booth_e_plays <= 2) or (flag.revelers_freed == 3 and flag.booth_e_plays <= 3) or (flag.revelers_freed == 4 and flag.booth_e_plays <= 4) or (flag.revelers_freed == 5 and flag.booth_e_plays <= 5) or (flag.revelers_freed == 6 and flag.booth_e_plays <= 6) or (flag.revelers_freed == 7 and flag.booth_e_plays <= 7) or (flag.revelers_freed == 8 and flag.booth_e_plays <= 8) or (flag.revelers_freed == 9 and flag.booth_e_plays <= 9) or (flag.revelers_freed == 10 and flag.booth_e_plays <= 10) or (flag.revelers_freed == 11 and flag.booth_e_plays <= 11) or (flag.revelers_freed == 12 and flag.booth_e_plays <= 12))
+fd_host_strongarm [sly]: You have had your turn at the timber, friends. Come back when the festival air shifts and something has changed.
+endif
+* [if ((flag.revelers_freed == 0 and flag.booth_e_plays <= 0) or (flag.revelers_freed == 1 and flag.booth_e_plays <= 1) or (flag.revelers_freed == 2 and flag.booth_e_plays <= 2) or (flag.revelers_freed == 3 and flag.booth_e_plays <= 3) or (flag.revelers_freed == 4 and flag.booth_e_plays <= 4) or (flag.revelers_freed == 5 and flag.booth_e_plays <= 5) or (flag.revelers_freed == 6 and flag.booth_e_plays <= 6) or (flag.revelers_freed == 7 and flag.booth_e_plays <= 7) or (flag.revelers_freed == 8 and flag.booth_e_plays <= 8) or (flag.revelers_freed == 9 and flag.booth_e_plays <= 9) or (flag.revelers_freed == 10 and flag.booth_e_plays <= 10) or (flag.revelers_freed == 11 and flag.booth_e_plays <= 11) or (flag.revelers_freed == 12 and flag.booth_e_plays <= 12))] Play a round -> e_play
+* Ask how the game works -> e_rules
+* Look around the booth -> e_notice
+* Challenge the worker -> e_fight
+* Walk on -> END
+
+~ e_rules
+fd_host_strongarm [neutral]: Plant your elbow in the notch, clasp the hairy paw, and press until knuckles kiss the wood. Small mercy wins one ticket, true might takes ten.
+-> e_start
+
+~ e_notice
+Narrator: Behind a rack of dried antlers and tallow ribbons, a villager sewn into a clumsy bear pelt sways in time to the pipes, grinning through painted wooden teeth.
+set found_bear
+-> e_start
+
+~ e_fight
+fd_host_strongarm [smile]: Oh, a free-for-all is grand sport too. Mind the splinters when the table goes over.
+Narrator: The bear host never drops that wide carnival grin, even as he squares his shoulders; strike him down and another pair of hands will staff the plank before the sawdust settles.
+combat booth_e
+
+~ e_play
+if flag.revelers_freed == 0
+set booth_e_plays = 1
+elif flag.revelers_freed == 1
+set booth_e_plays = 2
+elif flag.revelers_freed == 2
+set booth_e_plays = 3
+elif flag.revelers_freed == 3
+set booth_e_plays = 4
+elif flag.revelers_freed == 4
+set booth_e_plays = 5
+elif flag.revelers_freed == 5
+set booth_e_plays = 6
+elif flag.revelers_freed == 6
+set booth_e_plays = 7
+elif flag.revelers_freed == 7
+set booth_e_plays = 8
+elif flag.revelers_freed == 8
+set booth_e_plays = 9
+elif flag.revelers_freed == 9
+set booth_e_plays = 10
+elif flag.revelers_freed == 10
+set booth_e_plays = 11
+elif flag.revelers_freed == 11
+set booth_e_plays = 12
+elif flag.revelers_freed == 12
+set booth_e_plays = 13
+endif
+set found_bear
+Narrator: The plank smells of old mutton fat and pine resin. Across it, the host sets a massive scarred forearm down with a dull thud that rattles the bone charms on his coat.
+* [Athletics DC 20] Arm wrestle for one ticket -> e_win | e_lose
+* [Athletics DC 25] Go for the big wrestle for ten tickets -> e_big | e_lose
+* [Intimidation DC 15] Stare the bear down -> e_win | e_lose
+* [Deception DC 15] Slip in a trick elbow -> e_win | e_lose
+* Back away -> END
+
+~ e_win
+set fool_tickets += 1
+fd_host_strongarm [smile]: Down goes the paw, fair enough for carnival work. Take your ticket before the grease cools.
+-> e_start
+
+~ e_big
+set fool_tickets += 10
+fd_host_strongarm [weary]: By the old horns, you cracked the grain right down the middle of my good oak board. Take the whole ribbon of ten before you tear my shoulder out of its stitching.
+-> e_start
+
+~ e_lose
+Narrator: Your arm trembles against a limb like seasoned bog oak, and the table does not budge a hair.
+fd_host_strongarm [sly]: Still as a headstone, little mortal. Shake out your wrist and try again when the music changes.
+-> e_start
+
+~ f_start
+fd_host_drink [smile]: Mind the skirts and mind the shingles, darlings, there is always a fresh kettle steeping under the eaves. Step up and wet your whistle.
+if not ((flag.revelers_freed == 0 and flag.booth_f_plays <= 0) or (flag.revelers_freed == 1 and flag.booth_f_plays <= 1) or (flag.revelers_freed == 2 and flag.booth_f_plays <= 2) or (flag.revelers_freed == 3 and flag.booth_f_plays <= 3) or (flag.revelers_freed == 4 and flag.booth_f_plays <= 4) or (flag.revelers_freed == 5 and flag.booth_f_plays <= 5) or (flag.revelers_freed == 6 and flag.booth_f_plays <= 6) or (flag.revelers_freed == 7 and flag.booth_f_plays <= 7) or (flag.revelers_freed == 8 and flag.booth_f_plays <= 8) or (flag.revelers_freed == 9 and flag.booth_f_plays <= 9) or (flag.revelers_freed == 10 and flag.booth_f_plays <= 10) or (flag.revelers_freed == 11 and flag.booth_f_plays <= 11) or (flag.revelers_freed == 12 and flag.booth_f_plays <= 12))
+fd_host_drink [weary]: Now, now, you have had your sip from the cellar already. Come back when something in the square has changed.
+endif
+* [if ((flag.revelers_freed == 0 and flag.booth_f_plays <= 0) or (flag.revelers_freed == 1 and flag.booth_f_plays <= 1) or (flag.revelers_freed == 2 and flag.booth_f_plays <= 2) or (flag.revelers_freed == 3 and flag.booth_f_plays <= 3) or (flag.revelers_freed == 4 and flag.booth_f_plays <= 4) or (flag.revelers_freed == 5 and flag.booth_f_plays <= 5) or (flag.revelers_freed == 6 and flag.booth_f_plays <= 6) or (flag.revelers_freed == 7 and flag.booth_f_plays <= 7) or (flag.revelers_freed == 8 and flag.booth_f_plays <= 8) or (flag.revelers_freed == 9 and flag.booth_f_plays <= 9) or (flag.revelers_freed == 10 and flag.booth_f_plays <= 10) or (flag.revelers_freed == 11 and flag.booth_f_plays <= 11) or (flag.revelers_freed == 12 and flag.booth_f_plays <= 12))] Play a round -> f_play
+* Ask how the game works -> f_rules
+* Look around the booth -> f_notice
+* Challenge the worker -> f_fight
+* Walk on -> END
+
+~ f_rules
+fd_host_drink [sly]: One tin cup of house cordial at a time, sweethearts. Keep it down with a smile and two tickets are yours, though three cups will turn a stout stomach inside out.
+-> f_start
+
+~ f_notice
+Narrator: Half-hidden behind the painted dollhouse counter, a townsfolk trapped inside a teetering wicker manor on yellow chicken legs hops from foot to foot, humming merrily.
+set found_hut
+-> f_start
+
+~ f_fight
+fd_host_drink [smile]: Spilling the punch already, are we? Do be careful not to tread on my good crockery.
+Narrator: Her painted smile never wavers as she reaches beneath the counter; even if you smash this booth to kindling, another smiling host will pour the next round before anyone notices.
+combat booth_f
+
+~ f_play
+if flag.revelers_freed == 0
+set booth_f_plays = 1
+elif flag.revelers_freed == 1
+set booth_f_plays = 2
+elif flag.revelers_freed == 2
+set booth_f_plays = 3
+elif flag.revelers_freed == 3
+set booth_f_plays = 4
+elif flag.revelers_freed == 4
+set booth_f_plays = 5
+elif flag.revelers_freed == 5
+set booth_f_plays = 6
+elif flag.revelers_freed == 6
+set booth_f_plays = 7
+elif flag.revelers_freed == 7
+set booth_f_plays = 8
+elif flag.revelers_freed == 8
+set booth_f_plays = 9
+elif flag.revelers_freed == 9
+set booth_f_plays = 10
+elif flag.revelers_freed == 10
+set booth_f_plays = 11
+elif flag.revelers_freed == 11
+set booth_f_plays = 12
+elif flag.revelers_freed == 12
+set booth_f_plays = 13
+endif
+set found_hut
+set fd_drinks = 0
+-> f_cup
+
+~ f_cup
+Narrator: She ladles out a dented tin cup of thick, greenish liquor that smells of pond weeds, burnt sugar, and cellar damp.
+* [Constitution DC 12] Down the cup -> f_ok | f_bad
+* [Sleight of Hand DC 14] Pour it into a plant pot when the hostess looks away -> f_ok | f_bad
+* Decline -> f_start
+
+~ f_ok
+set fool_tickets += 2
+set fd_drinks += 1
+if flag.fd_drinks >= 3
+-> f_sick
+endif
+fd_host_drink [smile]: Down the hatch and not a drop wasted on your collar. Here are two tickets, thirsty lamb, unless you fancy another ladle.
+* Another cup -> f_cup
+* Enough -> f_start
+
+~ f_bad
+damage 1d4 poison
+Narrator: Your throat clenches around the rank, oily brew, and your eyes water as a sour heat curdles in your belly.
+fd_host_drink [sly]: Oh dear, that is the face of someone chewing on a toad. Best wipe your chin and step back from the kettle.
+-> f_start
+
+~ f_sick
+damage 1d6 poison
+disadvantage checks 1h: the cups
+Narrator: A third measure is more than flesh was made to hold; the carnival lanterns spin in greasy circles as your stomach heaves.
+fd_host_drink [smile]: Three cups deep and green around the gills, just as promised. Take your tickets and go lean against a fence post, darling.
+-> f_start
+
+~ g_start
+fd_host_puppets [smile]: Draw near the velvet curtain, heroes of the hour. Every grand deed deserves a second life in painted wood and bright red ribbon.
+if not ((flag.revelers_freed == 0 and flag.booth_g_plays <= 0) or (flag.revelers_freed == 1 and flag.booth_g_plays <= 1) or (flag.revelers_freed == 2 and flag.booth_g_plays <= 2) or (flag.revelers_freed == 3 and flag.booth_g_plays <= 3) or (flag.revelers_freed == 4 and flag.booth_g_plays <= 4) or (flag.revelers_freed == 5 and flag.booth_g_plays <= 5) or (flag.revelers_freed == 6 and flag.booth_g_plays <= 6) or (flag.revelers_freed == 7 and flag.booth_g_plays <= 7) or (flag.revelers_freed == 8 and flag.booth_g_plays <= 8) or (flag.revelers_freed == 9 and flag.booth_g_plays <= 9) or (flag.revelers_freed == 10 and flag.booth_g_plays <= 10) or (flag.revelers_freed == 11 and flag.booth_g_plays <= 11) or (flag.revelers_freed == 12 and flag.booth_g_plays <= 12))
+fd_host_puppets [neutral]: The curtain is drawn on your act for now, my friends. Return when something out on the cobbles has changed.
+endif
+* [if ((flag.revelers_freed == 0 and flag.booth_g_plays <= 0) or (flag.revelers_freed == 1 and flag.booth_g_plays <= 1) or (flag.revelers_freed == 2 and flag.booth_g_plays <= 2) or (flag.revelers_freed == 3 and flag.booth_g_plays <= 3) or (flag.revelers_freed == 4 and flag.booth_g_plays <= 4) or (flag.revelers_freed == 5 and flag.booth_g_plays <= 5) or (flag.revelers_freed == 6 and flag.booth_g_plays <= 6) or (flag.revelers_freed == 7 and flag.booth_g_plays <= 7) or (flag.revelers_freed == 8 and flag.booth_g_plays <= 8) or (flag.revelers_freed == 9 and flag.booth_g_plays <= 9) or (flag.revelers_freed == 10 and flag.booth_g_plays <= 10) or (flag.revelers_freed == 11 and flag.booth_g_plays <= 11) or (flag.revelers_freed == 12 and flag.booth_g_plays <= 12))] Play a round -> g_play
+* Ask how the game works -> g_rules
+* Look around the booth -> g_notice
+* Challenge the worker -> g_fight
+* Walk on -> END
+
+~ g_rules
+fd_host_puppets [sly]: Watch my little darlings act out your finest triumph. Spot the stagecraft in the strings or give the play a true line from your own mouth, and three tickets are yours.
+-> g_start
+
+~ g_notice
+Narrator: Just beside the puppet booth's striped valance, a dazed villager laced into the stiff motley of Chuckles's flag-bearer waves a tattered pennant in endless figure-eights.
+set found_flag
+-> g_start
+
+~ g_fight
+fd_host_puppets [smile]: Ah, the audience storms the stage. Mind the wires, they tangle terribly round the throat.
+Narrator: The puppeteer beams without a flicker of fear as his wooden fingers clack together; break him if you must, for another smiling player will take up the strings before the crowd blinks.
+combat booth_g
+
+~ g_play
+if flag.revelers_freed == 0
+set booth_g_plays = 1
+elif flag.revelers_freed == 1
+set booth_g_plays = 2
+elif flag.revelers_freed == 2
+set booth_g_plays = 3
+elif flag.revelers_freed == 3
+set booth_g_plays = 4
+elif flag.revelers_freed == 4
+set booth_g_plays = 5
+elif flag.revelers_freed == 5
+set booth_g_plays = 6
+elif flag.revelers_freed == 6
+set booth_g_plays = 7
+elif flag.revelers_freed == 7
+set booth_g_plays = 8
+elif flag.revelers_freed == 8
+set booth_g_plays = 9
+elif flag.revelers_freed == 9
+set booth_g_plays = 10
+elif flag.revelers_freed == 10
+set booth_g_plays = 11
+elif flag.revelers_freed == 11
+set booth_g_plays = 12
+elif flag.revelers_freed == 12
+set booth_g_plays = 13
+endif
+set found_flag
+Narrator: Tiny tin footlights flare along the miniature stage, and red silk ribbons spill from the rafters like cartoon blood as the wooden figures jerk into motion.
+if flag.raum_slain
+-> g_raum
+elif flag.vessla_slain
+-> g_vessla
+else
+-> g_generic
+endif
+
+~ g_raum
+set fd_fallen_harvest
+Narrator: A ragged scarecrow puppet with a carved crow's beak rattles across the boards, shedding tufts of straw and loops of crimson ribbon as four tiny hero dolls whack it flat.
+fd_host_puppets [smile]: Behold the terror of the cornfield, snipped and stuffed and tumbled into the chaff. Tell me, brave ones, what did you make of the strings?
+* [Arcana DC 20] Name the trick behind the puppet -> g_win | g_lose
+* Tell the puppeteer something true about that fight -> g_share
+
+~ g_vessla
+set fd_fallen_vessla
+Narrator: A crooked-house witch in a tall pointed hat capers across the stage, until four button-eyed hero puppets topple her into a laughable heap of red satin streamers.
+fd_host_puppets [smile]: Down goes the old crone of the eaves, all spools and splinters now. Tell me, sharpest eyes, how does the little show hold together?
+* [Arcana DC 20] Name the trick behind the puppet -> g_win | g_lose
+* Tell the puppeteer something true about that fight -> g_share
+
+~ g_generic
+Narrator: A faceless shadow cut from black felt looms over a doll in a hero's tin hat, before bursting apart into harmless curls of scarlet ribbon.
+fd_host_puppets [smile]: Look how the great dark pops like a paper bag when the heroes swing their sticks. Now then, what secret hides behind my velvet valence?
+* [Arcana DC 20] Name the trick behind the puppet -> g_win | g_lose
+* Tell the puppeteer something true about that fight -> g_share
+
+~ g_share
+Narrator: {name} speaks plainly of the cold dread and the cost of that real night, and for a breath the red ribbon puppets hang dead still against the painted sky.
+check Arcana DC 15 -> g_win | g_lose
+
+~ g_win
+set fool_tickets += 3
+fd_host_puppets [weary]: Ah, you see right through the varnish to the knot beneath. Take your three tickets before you spoil the comedy for the whole row.
+-> g_start
+
+~ g_lose
+fd_host_puppets [smile]: Pretty words, my dears, though far too heavy for a puppet booth. The ribbons dance on, and my tickets stay on the hook.
+-> g_start
