@@ -1018,8 +1018,19 @@ func show_ending() -> void:
 	ModeController.force(ModeController.Mode.CUTSCENE)
 	ending = EndingScreen.new()
 	ending.closed.connect(func() -> void: ending = null)
+	ending.continued.connect(_after_ending)
 	add_child(ending)
 	ending.play(st, Endings.get_ending(id))
+
+
+## The player went on past the ending (Moonfall): the game plays on where the party stands (the place built again, so
+## its own music comes back), and saves.
+func _after_ending() -> void:
+	ending = null
+	hud.visible = true
+	ModeController.force(ModeController.Mode.EXPLORATION)
+	rebuild()
+	_autosave.call_deferred()
 
 
 # --- Travel (ADR 0010) ----------------------------------------------------------------------------

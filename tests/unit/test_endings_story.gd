@@ -142,3 +142,25 @@ func test_the_epilogue_reads_the_world() -> void:
 	assert_true(str(texts.get("crooked_house", "")).contains("cellar hole"), "the house is gone")
 	assert_true(str(texts.get("sin", "")).contains("bargains"), "a wicked party's slide")
 	assert_false(texts.has("foxwillow"), "Raum still stands: no slide for a harvest without him")
+
+
+func test_the_good_endings_let_the_story_go_on_into_moonfall() -> void:
+	var st := _bound(0)
+	assert_eq(Endings.request(st), "underneath_the_crooked_moon")
+	assert_false(Endings.continues(Endings.get_ending("underneath_the_crooked_moon")).is_empty(), "it offers Moonfall")
+	assert_true(Endings.go_on(st))
+	assert_eq(Endings.reached(st), "", "the game plays on")
+	assert_true(bool(st.get_flag("moonfall_started", false)), "Moonfall's start is set")
+	assert_eq(Endings.seen(st), ["underneath_the_crooked_moon"] as Array[String])
+	assert_true(Endings.pick(st).is_empty(), "the ending gone past is never picked again")
+	st.set_flag("moonfall_fled")
+	assert_eq(Endings.request(st), "the_last_train_out", "a Moonfall ending can come after it")
+	assert_false(Endings.go_on(st), "Moonfall's endings only end")
+
+
+func test_a_dark_ending_offers_no_way_on() -> void:
+	var st := StoryState.new()
+	st.set_flag("crooked_cause", "refused")
+	assert_eq(Endings.request(st), "all_will_be_crooked")
+	assert_false(Endings.go_on(st))
+	assert_eq(Endings.reached(st), "all_will_be_crooked")

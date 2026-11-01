@@ -7,12 +7,15 @@ extends CanvasLayer
 ## the narration or of the slides. The title key art lies behind it all, lit by the ending's tone (dawn, night, blood).
 ## The End also lists the achievements this run earned, and opens the company's tally (N8): each hero's kills, Critical
 ## Hits, natural 20s and 1s, falls and deaths over the whole run (RunStats), the party's fights and gold, and every
-## achievement.
+## achievement. An ending with a `continue` (Underneath the Crooked Moon, Embers of the Fallen) also offers the way on
+## past it: its button keeps the finished save, clears the ending and hands the game back (signal continued).
 
 ## The last card is up and the save is marked finished.
 signal finished_shown
 ## The player left for the title.
 signal closed
+## The player went on past the ending (its `continue`, Endings.go_on): the game plays on (Moonfall).
+signal continued
 
 enum Phase { TITLE, NARRATION, SLIDES, END }
 
@@ -103,6 +106,16 @@ func skip() -> void:
 			_to_slides()
 		Phase.SLIDES:
 			_to_end()
+
+
+## The way on past the ending: the finished save stays as it was written, the story clears its ending
+## (Endings.go_on) and the screen closes, handing the game back.
+func go_on() -> void:
+	if not Endings.go_on(st):
+		return
+	VoiceOver.stop()
+	continued.emit()
+	queue_free()
 
 
 ## Back to the title screen (or just closed, for captures and tests).
@@ -409,6 +422,11 @@ func _show_end() -> void:
 	var home := UiParts.primary_button("Return to the title", leave)
 	home.name = "ReturnToTitle"
 	row.add_child(home)
+	var way_on := Endings.continues(ending)
+	if not way_on.is_empty():
+		var on := UiKit.button(str(way_on["label"]), go_on, 18)
+		on.name = "GoOn"
+		row.add_child(on)
 	var stats := UiKit.button("The company's tally", show_tally, 18)
 	stats.name = "Tally"
 	row.add_child(stats)

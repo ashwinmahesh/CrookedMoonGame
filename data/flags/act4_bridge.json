@@ -1,22 +1,113 @@
 {
   "_note": "A bridge until act4-finale-merge lands: the finale chapters' own flags (data/flags/crooked_tree.json, vigil.json, moonfall.json on that branch) that the story systems read or set, registered here so main validates without them. DELETE THIS FILE when act4-finale-merge lands; its own registrations replace these. Marked set_by engine only because nothing on main sets them yet.",
   "flags": [
-    {"id": "kehlenn_bound", "type": "bool", "summary": "Kehlenn is bound in the moon (R24; story/sacrifice_ritual.gd sets it when every offering is accepted).", "set_by": "engine"},
-    {"id": "kehlenn_sided", "type": "bool", "summary": "The party sided with Kehlenn in the barrow (R24).", "set_by": "engine"},
-    {"id": "ct_kneeled", "type": "bool", "summary": "The party knelt at the goat skull (R24).", "set_by": "engine"},
-    {"id": "horned_bargains", "type": "int", "summary": "The Horned King's bargains taken (R24); Sin counts them.", "set_by": "engine"},
-    {"id": "horned_king_destroyed", "type": "bool", "summary": "The Born King is destroyed (R24).", "set_by": "engine"},
-    {"id": "last_act_count", "type": "int", "summary": "Heroes who gave their lives in the ritual (story/sacrifice_ritual.gd finish).", "set_by": "engine"},
-    {"id": "party_size", "type": "int", "summary": "Heroes who stood at the ritual (story/sacrifice_ritual.gd finish).", "set_by": "engine"},
-    {"id": "ritual_fails", "type": "int", "summary": "Offerings refused at the ritual.", "set_by": "engine"},
-    {"id": "ritual_points", "type": "int", "summary": "Kehlenn's Ritual Points left as the ritual ends.", "set_by": "engine"},
-    {"id": "crooked_cause", "type": "string", "summary": "Why All Will Be Crooked: wipe, ritual_failed or refused.", "set_by": "engine"},
-    {"id": "wicker_man_burned", "type": "bool", "summary": "The Wicker Man burned (R23).", "set_by": "engine"},
-    {"id": "wicker_man_triumphant", "type": "bool", "summary": "The Wicker Man triumphed (R23).", "set_by": "engine"},
-    {"id": "moonfall_begun", "type": "bool", "summary": "Moonfall has begun (R26).", "set_by": "engine"},
-    {"id": "moonfall_offer", "type": "string", "summary": "Kehlenn's last offer: accepted or refused (R26).", "set_by": "engine"},
-    {"id": "moonfall_fled", "type": "bool", "summary": "The party fled on the Vagrant's last train (R26).", "set_by": "engine"},
-    {"id": "moonfall_nights_left", "type": "int", "summary": "Nights left before the moon falls (R26).", "set_by": "engine"},
-    {"id": "old_fears_slain", "type": "int", "summary": "Old Fears slain, 0 to 8 (R26).", "set_by": "engine"}
+    {
+      "id": "kehlenn_bound",
+      "type": "bool",
+      "summary": "Kehlenn is bound in the moon (R24; story/sacrifice_ritual.gd sets it when every offering is accepted).",
+      "set_by": "engine"
+    },
+    {
+      "id": "kehlenn_sided",
+      "type": "bool",
+      "summary": "The party sided with Kehlenn in the barrow (R24).",
+      "set_by": "engine"
+    },
+    {
+      "id": "ct_kneeled",
+      "type": "bool",
+      "summary": "The party knelt at the goat skull (R24).",
+      "set_by": "engine"
+    },
+    {
+      "id": "horned_bargains",
+      "type": "int",
+      "summary": "The Horned King's bargains taken (R24); Sin counts them.",
+      "set_by": "engine"
+    },
+    {
+      "id": "horned_king_destroyed",
+      "type": "bool",
+      "summary": "The Born King is destroyed (R24).",
+      "set_by": "engine"
+    },
+    {
+      "id": "last_act_count",
+      "type": "int",
+      "summary": "Heroes who gave their lives in the ritual (story/sacrifice_ritual.gd finish).",
+      "set_by": "engine"
+    },
+    {
+      "id": "party_size",
+      "type": "int",
+      "summary": "Heroes who stood at the ritual (story/sacrifice_ritual.gd finish).",
+      "set_by": "engine"
+    },
+    {
+      "id": "ritual_fails",
+      "type": "int",
+      "summary": "Offerings refused at the ritual.",
+      "set_by": "engine"
+    },
+    {
+      "id": "ritual_points",
+      "type": "int",
+      "summary": "Kehlenn's Ritual Points left as the ritual ends.",
+      "set_by": "engine"
+    },
+    {
+      "id": "crooked_cause",
+      "type": "string",
+      "summary": "Why All Will Be Crooked: wipe, ritual_failed or refused.",
+      "set_by": "engine"
+    },
+    {
+      "id": "wicker_man_burned",
+      "type": "bool",
+      "summary": "The Wicker Man burned (R23).",
+      "set_by": "engine"
+    },
+    {
+      "id": "wicker_man_triumphant",
+      "type": "bool",
+      "summary": "The Wicker Man triumphed (R23).",
+      "set_by": "engine"
+    },
+    {
+      "id": "moonfall_begun",
+      "type": "bool",
+      "summary": "Moonfall has begun (R26).",
+      "set_by": "engine"
+    },
+    {
+      "id": "moonfall_offer",
+      "type": "string",
+      "summary": "Kehlenn's last offer: accepted or refused (R26).",
+      "set_by": "engine"
+    },
+    {
+      "id": "moonfall_fled",
+      "type": "bool",
+      "summary": "The party fled on the Vagrant's last train (R26).",
+      "set_by": "engine"
+    },
+    {
+      "id": "moonfall_nights_left",
+      "type": "int",
+      "summary": "Nights left before the moon falls (R26).",
+      "set_by": "engine"
+    },
+    {
+      "id": "old_fears_slain",
+      "type": "int",
+      "summary": "Old Fears slain, 0 to 8 (R26).",
+      "set_by": "engine"
+    },
+    {
+      "id": "moonfall_started",
+      "type": "bool",
+      "summary": "The player stayed on past the main ending for Moonfall (Endings.go_on, an ending's `continue`).",
+      "set_by": "engine"
+    }
   ]
 }

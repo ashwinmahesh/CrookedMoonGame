@@ -78,12 +78,55 @@ static func _load() -> void:
 			push_error("Endings: %s is not a JSON object" % f)
 
 
-## The highest-priority ending whose `when` holds now, or {} if none does.
+## The highest-priority ending whose `when` holds now, or {} if none does. An ending the story has already gone on
+## past (go_on) is never picked again.
 static func pick(st: StoryState) -> Dictionary:
+	var past := seen(st)
 	for e in all():
+		if str(e["id"]) in past:
+			continue
 		if StoryConditions.check(str(e.get("when", "")), st):
 			return e
 	return {}
+
+
+# --- Endings the story goes on past (Moonfall, plan F8 and 5.7) ---------------------------------------------------
+
+## The flag listing the endings the story went on past, comma-separated, oldest first.
+const SEEN_FLAG := "endings_seen"
+
+
+## What an ending offers instead of only The End: {label, flag} from its `continue` (the button's words, and the flag set
+## when the player goes on), or {} for an ending that only ends.
+static func continues(ending: Dictionary) -> Dictionary:
+	var c: Variant = ending.get("continue", {})
+	return c as Dictionary if c is Dictionary else {}
+
+
+## The endings this playthrough has reached and gone on past, oldest first.
+static func seen(st: StoryState) -> Array[String]:
+	var out: Array[String] = []
+	for id: String in str(st.get_flag(SEEN_FLAG, "")).split(",", false):
+		out.append(id)
+	return out
+
+
+## The player goes on past the ending reached (its `continue`): the ending is kept in `endings_seen`, its `continue`
+## flag is set (Moonfall's start), and `campaign_ending` is cleared, so the game plays on and a later ending can come.
+## False when the ending reached offers no way on.
+static func go_on(st: StoryState) -> bool:
+	var id := reached(st)
+	var c := continues(get_ending(id))
+	if id == "" or c.is_empty():
+		return false
+	var past := seen(st)
+	if not past.has(id):
+		past.append(id)
+	st.set_flag(SEEN_FLAG, ",".join(past))
+	if str(c.get("flag", "")) != "":
+		st.set_flag(str(c["flag"]))
+	st.set_flag(FLAG, "")
+	return true
 
 
 ## The ending this playthrough reached, or "" while it goes on.
@@ -111,7 +154,10 @@ static func request(st: StoryState) -> String:
 static func auto_due(st: StoryState) -> String:
 	if reached(st) != "":
 		return ""
+	var past := seen(st)
 	for e in all():
+		if str(e["id"]) in past:
+			continue
 		if bool(e.get("auto", false)) and StoryConditions.check(str(e.get("when", "")), st):
 			st.set_flag(FLAG, str(e["id"]))
 			return str(e["id"])

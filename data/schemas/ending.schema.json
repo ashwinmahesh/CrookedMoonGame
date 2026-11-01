@@ -96,6 +96,24 @@
       "items": {
         "$ref": "#/$defs/slide"
       }
+    },
+    "continue": {
+      "type": "object",
+      "required": [
+        "label",
+        "flag"
+      ],
+      "additionalProperties": false,
+      "description": "The way on past this ending (Endings.go_on): The End offers a button with `label`; going on sets `flag` (true), keeps the ending in endings_seen and clears campaign_ending so the game plays on (Moonfall).",
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "flag": {
+          "$ref": "common.schema.json#/$defs/id"
+        }
+      }
     }
   }
 }
