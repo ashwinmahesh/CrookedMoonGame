@@ -63,7 +63,7 @@
       "summary": "Five heads. 25 damage or more in one turn kills a head; it regrows two per lost head (and regains 20 HP) unless it took Fire damage; all heads dead means death.",
       "text": "The hydra has five heads. Whenever it takes 25 damage or more on a single turn, one of its heads dies. It dies if all its heads are dead. At the end of each of its turns while it has at least one living head, it grows two heads for each head that died since its last turn, unless it has taken Fire damage since its last turn. It regains 20 Hit Points when it grows new heads.",
       "heads": 5,
-      "implemented": "text"
+      "implemented": "engine"
     },
     {
       "id": "reactive_heads",
@@ -82,7 +82,8 @@
       "multiattack": [
         {
           "action": "bite",
-          "count": 5
+          "count": 5,
+          "per_head": true
         }
       ],
       "summary": "As many Bite attacks as it has heads (five at full strength)."
