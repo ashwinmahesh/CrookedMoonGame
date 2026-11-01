@@ -26,3 +26,13 @@ func test_the_rotten_hearts_symptoms() -> void:
 	assert_true(str(sy["when"]).contains("at:hb_wellspring") and str(sy["when"]).contains("at:hb_den"), "only in the Rotten Heart")
 	for loc: String in ["hb_wellspring", "hb_den"]:
 		assert_false(Compendium.shared().get_entry("locations", loc).is_empty(), loc)
+
+
+func test_the_symptoms_that_act_in_a_fight() -> void:
+	var by := {}
+	for t: Dictionary in (Compendium.shared().get_entry("afflictions", "hartsblight")["symptoms"] as Dictionary)["table"]:
+		by[str(t["id"])] = t
+	assert_eq(str((by["addled"]["on_initiative"] as Dictionary)["flag"]), "confused", "Confusion as Initiative is rolled")
+	assert_eq(str((by["bleeding"]["on_hurt"] as Dictionary)["dice"]), "1d10", "1d10 Necrotic with every wound")
+	assert_true((by["fever"]["modifiers"] as Array).any(func(m: Dictionary) -> bool: return str(m["on"]) == "attack:str"))
+	assert_true((by["shakes"]["modifiers"] as Array).any(func(m: Dictionary) -> bool: return str(m["on"]) == "attack:dex"))

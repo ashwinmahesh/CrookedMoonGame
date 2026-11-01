@@ -65,7 +65,7 @@
       "ability": "con",
       "dc": 10
     },
-    "_note": "The Rotten Heart's symptoms (book p. 360), in our words. Left out until the engine has them: no. 4's Confusion when Initiative is rolled, and no. 6's extra damage each time the creature is hurt.",
+    "_note": "The Rotten Heart's symptoms (book p. 360), in our words. \"D20 Tests with Strength/Dexterity\" are checks, saves and that ability's weapon attacks (attack:str, attack:dex).",
     "table": [
       {
         "id": "milky_eyes",
@@ -88,7 +88,7 @@
       {
         "id": "fever",
         "name": "Raging Fever",
-        "summary": "a fever burns through: worse at Strength checks and saves",
+        "summary": "a fever burns through: worse at everything done with Strength",
         "modifiers": [
           {
             "stat": "disadvantage",
@@ -97,6 +97,10 @@
           {
             "stat": "disadvantage",
             "on": "save:str"
+          },
+          {
+            "stat": "disadvantage",
+            "on": "attack:str"
           }
         ]
       },
@@ -126,7 +130,7 @@
       {
         "id": "addled",
         "name": "Addled Thoughts",
-        "summary": "thoughts go muddy: worse at Intelligence checks and saves",
+        "summary": "thoughts go muddy: worse at Intelligence checks and saves, and a fight can leave them reeling",
         "modifiers": [
           {
             "stat": "disadvantage",
@@ -136,12 +140,19 @@
             "stat": "disadvantage",
             "on": "save:int"
           }
-        ]
+        ],
+        "on_initiative": {
+          "save": {
+            "ability": "wis",
+            "dc": 10
+          },
+          "flag": "confused"
+        }
       },
       {
         "id": "shakes",
         "name": "The Shakes",
-        "summary": "a shaking that won't stop: worse at Dexterity checks and saves",
+        "summary": "a shaking that won't stop: worse at everything done with Dexterity",
         "modifiers": [
           {
             "stat": "disadvantage",
@@ -150,13 +161,17 @@
           {
             "stat": "disadvantage",
             "on": "save:dex"
+          },
+          {
+            "stat": "disadvantage",
+            "on": "attack:dex"
           }
         ]
       },
       {
         "id": "bleeding",
         "name": "Weeping Wounds",
-        "summary": "blood that won't clot: worse at Constitution checks and saves",
+        "summary": "blood that won't clot: worse at Constitution checks and saves, and every wound bleeds more",
         "modifiers": [
           {
             "stat": "disadvantage",
@@ -166,7 +181,11 @@
             "stat": "disadvantage",
             "on": "save:con"
           }
-        ]
+        ],
+        "on_hurt": {
+          "dice": "1d10",
+          "type": "necrotic"
+        }
       }
     ]
   }
