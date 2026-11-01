@@ -1,0 +1,767 @@
+{
+  "id": "mm_corpse_road",
+  "name": "The Corpse Road",
+  "region": "maidenmist_cemetery",
+  "summary": "Three miles of cobbled hearse road between dense grave markers, in mist at its thickest.",
+  "text": "The road runs straight and wide enough for a hearse, and every yard of its edge is a grave. The mist sits on it like a lid.",
+  "map": {
+    "rows": [
+      "########################################",
+      "#......................................#",
+      "#..=.=~.=~=~~~=...=...=......=.........#",
+      "#...~~~~~~~~~~~~.........=.............#",
+      "#~.=~~~~~~~~~~~~~.=.........=.=...=.=..#",
+      "#~~~~~~~~~~~~~~~~~.~.=.=...............#",
+      "#~~~~~~~~~~~~~~~~~.~...................#",
+      "#.=.~~~~~~~~~~~~~.~....=...............#",
+      "#.~.~~~~~~~~~~~~~..~..............=.=..#",
+      "#...~~.~~~~~~~~~~.....=.........=......#",
+      "#..=.~.=.=..~~...........=.............#",
+      "#....=......=........=.......=.=.....=.#",
+      "#......................................#",
+      "........................................",
+      "........................................",
+      "........................................",
+      "........................................",
+      "........................................",
+      "#......................................#",
+      "#..............=.......=.......=.=.=.=.#",
+      "#.=.=..............=.=....~=~=..~......#",
+      "#.....=...=............~~~~~~~~~~~~=~=.#",
+      "#.=.............=.=....~~~~~~~~~~~~~.~.#",
+      "#......=............~~.~~~~~~~~~~~~~~~.#",
+      "#.=.=..............=~~~~~~~~~~~~~~~~~~.#",
+      "#.......=..=...........~~~~~~~~~~~~~~=~#",
+      "#.............=.=.....=..~~~~~~~~~~~~..#",
+      "#...........=......=...~~~~~~~~=~~~=~~.#",
+      "#...........................~~..~.~~...#",
+      "########################################"
+    ],
+    "theme": "road",
+    "light": "dim",
+    "outdoors": true,
+    "elevation": [
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222233333332222222222222222",
+      "2222222222222233333333333332222222222222",
+      "2222222222222333333333333333222222222222",
+      "2222222222233333333333333333332222222222",
+      "2222222222333333333333333333333222222222",
+      "2222222222333333333333333333333222222222",
+      "2222222223333333333333333333333322222222",
+      "2222222233333333333333333333333332222222",
+      "2222222233333333333333333333333332222222",
+      "2222222233333333334444433333333332222222",
+      "2222222333333333344444443333333333222222",
+      "2222222333333333444444444333333333222222",
+      "2222222333333333444444444333333333222222",
+      "2222222333333333444444444333333333222222",
+      "2222222333333333444444444333333333222222",
+      "2222222333333333444444444333333333222222",
+      "2222222333333333344444443333333333222222",
+      "2222222233333333334444433333333332222222",
+      "2222222233333333333333333333333332222222",
+      "2222222233333333333333333333333332222222",
+      "2222222223333333333333333333333322222222",
+      "2222222222333333333333333333333222222222",
+      "2222222222333333333333333333333222222222",
+      "2222222222233333333333333333332222222222",
+      "2222222222222333333333333333222222222222",
+      "2222222222222233333333333332222222222222",
+      "2222222222222222233333332222222222222222",
+      "2222222222222222222222222222222222222222"
+    ]
+  },
+  "areas": [
+    {
+      "id": "mile_1",
+      "name": "The first mile",
+      "cells": [
+        [
+          1,
+          12
+        ],
+        [
+          12,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "mile_2",
+      "name": "The second mile",
+      "cells": [
+        [
+          14,
+          12
+        ],
+        [
+          25,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "mile_3",
+      "name": "The third mile",
+      "cells": [
+        [
+          27,
+          12
+        ],
+        [
+          38,
+          18
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      2,
+      15
+    ],
+    "from_gate": [
+      2,
+      15
+    ],
+    "from_sepulcher": [
+      37,
+      15
+    ]
+  },
+  "exits": [
+    {
+      "id": "gate_back",
+      "cell": [
+        0,
+        15
+      ],
+      "to": "mm_gate",
+      "spawn": "from_corpse",
+      "label": "Back toward the gate"
+    },
+    {
+      "id": "to_sepulcher",
+      "cell": [
+        39,
+        15
+      ],
+      "to": "mm_sepulcher",
+      "spawn": "from_road",
+      "label": "On to the sepulcher"
+    }
+  ],
+  "props": [
+    {
+      "id": "mm_mile_one",
+      "cell": [
+        6,
+        15
+      ],
+      "kind": "decor",
+      "label": "The first mile: the fog leans on you",
+      "call": "maidenmist/road:mile1",
+      "approach": 3,
+      "call_when": "not flag.mm_mile1_done"
+    },
+    {
+      "id": "mm_mile_three",
+      "cell": [
+        30,
+        15
+      ],
+      "kind": "decor",
+      "label": "The third mile: the cold deepens",
+      "call": "maidenmist/road:mile3",
+      "approach": 3,
+      "call_when": "not flag.mm_mile3_done"
+    },
+    {
+      "id": "mm_milestone_a",
+      "cell": [
+        10,
+        14
+      ],
+      "kind": "decor",
+      "label": "A mile marker, worn smooth",
+      "model": "milestone"
+    },
+    {
+      "id": "mm_milestone_b",
+      "cell": [
+        24,
+        14
+      ],
+      "kind": "decor",
+      "label": "A mile marker, worn smooth",
+      "model": "milestone"
+    },
+    {
+      "id": "mm_hearse_wreck",
+      "cell": [
+        17,
+        17
+      ],
+      "kind": "decor",
+      "label": "A hearse wheel, long since broken",
+      "model": "cart_broken"
+    },
+    {
+      "id": "mm_road_n_0",
+      "cell": [
+        23,
+        4
+      ],
+      "kind": "decor",
+      "label": "A leaning marker, the name worn away",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_road_n_1",
+      "cell": [
+        18,
+        10
+      ],
+      "kind": "decor",
+      "label": "A scatter of old bones",
+      "model": "bones"
+    },
+    {
+      "id": "mm_road_n_2",
+      "cell": [
+        37,
+        5
+      ],
+      "kind": "decor",
+      "label": "A dead tree, bent toward the sepulcher",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_road_n_3",
+      "cell": [
+        32,
+        7
+      ],
+      "kind": "decor",
+      "label": "A cairn of grave-stones",
+      "model": "cairn"
+    },
+    {
+      "id": "mm_road_n_4",
+      "cell": [
+        27,
+        5
+      ],
+      "kind": "decor",
+      "label": "A scatter of old bones",
+      "model": "bones"
+    },
+    {
+      "id": "mm_road_n_5",
+      "cell": [
+        34,
+        11
+      ],
+      "kind": "decor",
+      "label": "A cairn of grave-stones",
+      "model": "cairn"
+    },
+    {
+      "id": "mm_road_n_6",
+      "cell": [
+        21,
+        7
+      ],
+      "kind": "decor",
+      "label": "A scatter of old bones",
+      "model": "bones"
+    },
+    {
+      "id": "mm_road_n_7",
+      "cell": [
+        33,
+        4
+      ],
+      "kind": "decor",
+      "label": "A cairn of grave-stones",
+      "model": "cairn"
+    },
+    {
+      "id": "mm_road_n_8",
+      "cell": [
+        37,
+        9
+      ],
+      "kind": "decor",
+      "label": "A scatter of old bones",
+      "model": "bones"
+    },
+    {
+      "id": "mm_road_n_9",
+      "cell": [
+        4,
+        11
+      ],
+      "kind": "decor",
+      "label": "A dead tree, bent toward the sepulcher",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_road_n_10",
+      "cell": [
+        27,
+        11
+      ],
+      "kind": "decor",
+      "label": "A dead tree hung with fog",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "mm_road_n_11",
+      "cell": [
+        17,
+        4
+      ],
+      "kind": "decor",
+      "label": "A weathered headstone",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_road_n_12",
+      "cell": [
+        9,
+        11
+      ],
+      "kind": "decor",
+      "label": "A dead tree hung with fog",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "mm_road_n_13",
+      "cell": [
+        24,
+        11
+      ],
+      "kind": "decor",
+      "label": "A leaning marker, the name worn away",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_road_n_14",
+      "cell": [
+        27,
+        8
+      ],
+      "kind": "decor",
+      "label": "A scatter of old bones",
+      "model": "bones"
+    },
+    {
+      "id": "mm_road_n_15",
+      "cell": [
+        15,
+        11
+      ],
+      "kind": "decor",
+      "label": "A dead tree hung with fog",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "mm_road_n_16",
+      "cell": [
+        1,
+        9
+      ],
+      "kind": "decor",
+      "label": "A headstone with a rhyme nobody finished",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_road_n_17",
+      "cell": [
+        30,
+        3
+      ],
+      "kind": "decor",
+      "label": "A weathered headstone",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_road_n_18",
+      "cell": [
+        37,
+        2
+      ],
+      "kind": "decor",
+      "label": "A headstone with a rhyme nobody finished",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_road_n_19",
+      "cell": [
+        7,
+        2
+      ],
+      "kind": "decor",
+      "label": "A cairn of grave-stones",
+      "model": "cairn"
+    },
+    {
+      "id": "mm_road_n_20",
+      "cell": [
+        26,
+        2
+      ],
+      "kind": "decor",
+      "label": "A dead tree hung with fog",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "mm_road_n_21",
+      "cell": [
+        20,
+        3
+      ],
+      "kind": "decor",
+      "label": "A scatter of old bones",
+      "model": "bones"
+    },
+    {
+      "id": "mm_road_s_0",
+      "cell": [
+        6,
+        23
+      ],
+      "kind": "decor",
+      "label": "A headstone with a rhyme nobody finished",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_road_s_1",
+      "cell": [
+        18,
+        20
+      ],
+      "kind": "decor",
+      "label": "A headstone with a rhyme nobody finished",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_road_s_2",
+      "cell": [
+        3,
+        19
+      ],
+      "kind": "decor",
+      "label": "A leaning marker, the name worn away",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_road_s_3",
+      "cell": [
+        14,
+        19
+      ],
+      "kind": "decor",
+      "label": "A weathered headstone",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_road_s_4",
+      "cell": [
+        14,
+        23
+      ],
+      "kind": "decor",
+      "label": "A sunken grave",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_road_s_5",
+      "cell": [
+        8,
+        27
+      ],
+      "kind": "decor",
+      "label": "A dead tree, bent toward the sepulcher",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_road_s_6",
+      "cell": [
+        3,
+        23
+      ],
+      "kind": "decor",
+      "label": "A weathered headstone",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_road_s_7",
+      "cell": [
+        14,
+        27
+      ],
+      "kind": "decor",
+      "label": "A weathered headstone",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_road_s_8",
+      "cell": [
+        9,
+        22
+      ],
+      "kind": "decor",
+      "label": "A sunken grave",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_road_s_9",
+      "cell": [
+        18,
+        23
+      ],
+      "kind": "decor",
+      "label": "A scatter of old bones",
+      "model": "bones"
+    },
+    {
+      "id": "mm_road_s_10",
+      "cell": [
+        17,
+        27
+      ],
+      "kind": "decor",
+      "label": "A dead tree hung with fog",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "mm_road_s_11",
+      "cell": [
+        38,
+        20
+      ],
+      "kind": "decor",
+      "label": "A dead tree hung with fog",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "mm_road_s_12",
+      "cell": [
+        27,
+        19
+      ],
+      "kind": "decor",
+      "label": "A dead tree, bent toward the sepulcher",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_road_s_13",
+      "cell": [
+        1,
+        28
+      ],
+      "kind": "decor",
+      "label": "A dead tree hung with fog",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "mm_road_s_14",
+      "cell": [
+        22,
+        21
+      ],
+      "kind": "decor",
+      "label": "A sunken grave",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_road_s_15",
+      "cell": [
+        33,
+        28
+      ],
+      "kind": "decor",
+      "label": "A cairn of grave-stones",
+      "model": "cairn"
+    },
+    {
+      "id": "mm_road_s_16",
+      "cell": [
+        38,
+        23
+      ],
+      "kind": "decor",
+      "label": "A sunken grave",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_road_s_17",
+      "cell": [
+        9,
+        19
+      ],
+      "kind": "decor",
+      "label": "A dead tree, bent toward the sepulcher",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_road_s_18",
+      "cell": [
+        24,
+        26
+      ],
+      "kind": "decor",
+      "label": "A dead tree, bent toward the sepulcher",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_road_s_19",
+      "cell": [
+        6,
+        19
+      ],
+      "kind": "decor",
+      "label": "A scatter of old bones",
+      "model": "bones"
+    },
+    {
+      "id": "mm_road_s_20",
+      "cell": [
+        5,
+        27
+      ],
+      "kind": "decor",
+      "label": "A dead tree, bent toward the sepulcher",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_road_s_21",
+      "cell": [
+        33,
+        20
+      ],
+      "kind": "decor",
+      "label": "A sunken grave",
+      "model": "grave_mound"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "mm_mile2",
+      "trigger": "enter_area:mile_2",
+      "flag": "mm_mile2_done",
+      "monsters": [
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            20,
+            11
+          ],
+          "name": "A shrouded, boiling out of the mist",
+          "facing": "west"
+        },
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            16,
+            15
+          ],
+          "name": "A shrouded, boiling out of the mist",
+          "facing": "west"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            24,
+            15
+          ],
+          "name": "A shrouded, boiling out of the mist",
+          "facing": "west"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            20,
+            19
+          ],
+          "name": "A shrouded, boiling out of the mist",
+          "facing": "west"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            17,
+            12
+          ],
+          "name": "A shrouded, boiling out of the mist",
+          "facing": "west"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            23,
+            12
+          ],
+          "name": "A shrouded, boiling out of the mist",
+          "facing": "west"
+        }
+      ]
+    }
+  ],
+  "rest": "risky",
+  "foe_spots": [
+    [
+      20,
+      10
+    ],
+    [
+      17,
+      11
+    ],
+    [
+      23,
+      11
+    ],
+    [
+      15,
+      15
+    ],
+    [
+      25,
+      15
+    ],
+    [
+      16,
+      18
+    ],
+    [
+      24,
+      18
+    ],
+    [
+      20,
+      20
+    ],
+    [
+      14,
+      12
+    ],
+    [
+      26,
+      12
+    ],
+    [
+      17,
+      21
+    ],
+    [
+      23,
+      21
+    ]
+  ]
+}

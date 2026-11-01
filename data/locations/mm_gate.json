@@ -1,0 +1,553 @@
+{
+  "id": "mm_gate",
+  "name": "The Maidenmist Gate",
+  "region": "maidenmist_cemetery",
+  "summary": "A bent iron gate between two hooded reapers, and a fence that runs off into fog.",
+  "text": "A fifteen-foot iron picket fence on a stone footing runs into the mist both ways. The gate hangs bent outward between two hooded iron reapers, and a broken chain lies in the mud. Beyond it, cobbles climb into grey.",
+  "map": {
+    "rows": [
+      "###################..###################",
+      "#.....=....................=...........#",
+      "#.=..=......=.........==.=.............#",
+      "#...............................=......#",
+      "#.....#....=..=........................#",
+      "#=..=......=....=..............=....=..#",
+      "#..........................=........=..#",
+      "#.........=.........................=..#",
+      "#.......=.................=..=#........#",
+      "#............=.........=...............#",
+      "#....=.....=................=..=...=...#",
+      "#......................................#",
+      "##################....##################",
+      "#......................................#",
+      "#.=...........=.............=...=......#",
+      "#...=...=~~...................=........#",
+      "#....#~~~..............=........=......#",
+      "#..~~~~~~~~~~==..=.........~~~~.=..=...#",
+      "#.~~~~~~~~~~~~..............~=~~~......#",
+      "#.~~~~~~~~~~~=~.........=..~~~~~~~=.~..#",
+      "#.~~~~~~~~~~~~~~...........~~~~~~~~~.~.#",
+      "#~~~~~~~~~~~~~~=....=....~~~~~~~~~~~~~.#",
+      "#.~~~~~~~~~~~~~..........=~~~~~~~~~~~..#",
+      "#.~~~~~~~~~~~~~...........~~~~~~~~~~~~.#",
+      "#....~~~~~~~~~~~......=..=.~~~~~~~~~...#",
+      "#.=.~.~.~~~=~~=.=........=.~~~~~~~.....#",
+      "#=....~~~~~~...............~~.~~~~~....#",
+      "#.=......=.==............=...~...=.~.=.#",
+      "#......................................#",
+      "###################..###################"
+    ],
+    "theme": "wilderness",
+    "light": "dim",
+    "outdoors": true,
+    "elevation": [
+      "2222222222333333333343333333333222222222",
+      "2222222223333333344444443333333322222222",
+      "2222222223333334444444444433333322222222",
+      "2222222233333344444444444443333332222222",
+      "2222222233333344444444444443333332222222",
+      "2222222233333444444444444444333332222222",
+      "2222222333333444444555444444333333222222",
+      "2222222333333444445555544444333333222222",
+      "2222222333334444445555544444433333222222",
+      "2222222333333444445555544444333333222222",
+      "2222222333333444444555444444333333222222",
+      "2222222233333444444444444444333332222222",
+      "2222222233333344444444444443333332222222",
+      "2222222233333344444444444443333332222222",
+      "2222222223333334444444444433333322222222",
+      "2222222223333333344444443333333322222222",
+      "2222222222333333333343333333333222222222",
+      "2222222222233333333333333333332222222222",
+      "2222222222223333333333333333322222222222",
+      "2222222222222333333333333333222222222222",
+      "2222222222222223333333333322222222222222",
+      "2222222222222222223333322222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222"
+    ]
+  },
+  "areas": [
+    {
+      "id": "approach",
+      "name": "The approach",
+      "cells": [
+        [
+          1,
+          13
+        ],
+        [
+          38,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "gate_line",
+      "name": "The gate",
+      "cells": [
+        [
+          14,
+          10
+        ],
+        [
+          25,
+          14
+        ]
+      ]
+    },
+    {
+      "id": "beyond",
+      "name": "Beyond the fence",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          38,
+          11
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      19,
+      27
+    ],
+    "from_road": [
+      19,
+      27
+    ],
+    "from_corpse": [
+      19,
+      2
+    ]
+  },
+  "exits": [
+    {
+      "id": "road_back",
+      "cell": [
+        19,
+        29
+      ],
+      "to": "travel",
+      "spawn": "default",
+      "label": "The road back to Wickermoor"
+    },
+    {
+      "id": "corpse_road",
+      "cell": [
+        19,
+        0
+      ],
+      "to": "mm_corpse_road",
+      "spawn": "from_gate",
+      "label": "The Corpse Road, north into the fog"
+    }
+  ],
+  "props": [
+    {
+      "id": "mm_reaper_west",
+      "cell": [
+        17,
+        12
+      ],
+      "kind": "decor",
+      "label": "A hooded iron reaper",
+      "model": "statue_knight",
+      "scale": 1.6,
+      "tint": "#1c1c24"
+    },
+    {
+      "id": "mm_reaper_east",
+      "cell": [
+        22,
+        12
+      ],
+      "kind": "decor",
+      "label": "A hooded iron reaper",
+      "model": "statue_knight",
+      "scale": 1.6,
+      "tint": "#1c1c24"
+    },
+    {
+      "id": "mm_gate_bent",
+      "cell": [
+        19,
+        11
+      ],
+      "kind": "decor",
+      "label": "The bent gate",
+      "model": "gate_iron",
+      "facing": "north"
+    },
+    {
+      "id": "mm_gate_chain",
+      "cell": [
+        22,
+        16
+      ],
+      "kind": "examine",
+      "label": "A snapped iron chain in the mud",
+      "model": "rope_coils",
+      "call": "maidenmist/road:gate_chain",
+      "approach": 4,
+      "call_when": "not flag.mm_chain_seen"
+    },
+    {
+      "id": "mm_gate_first",
+      "cell": [
+        19,
+        24
+      ],
+      "kind": "decor",
+      "label": "The fog, thickening",
+      "call": "maidenmist/road:gate_arrive",
+      "approach": 6,
+      "call_when": "not flag.mm_gate_seen"
+    },
+    {
+      "id": "mm_gate_lamp",
+      "cell": [
+        17,
+        25
+      ],
+      "kind": "decor",
+      "label": "A lamp the fog has drowned",
+      "model": "lantern_post"
+    },
+    {
+      "id": "mm_gate_lamp2",
+      "cell": [
+        22,
+        25
+      ],
+      "kind": "decor",
+      "label": "A lamp the fog has drowned",
+      "model": "lantern_post"
+    },
+    {
+      "id": "mm_pickets_0",
+      "cell": [
+        1,
+        12
+      ],
+      "kind": "decor",
+      "label": "Iron pickets, cold to the touch",
+      "model": "fence"
+    },
+    {
+      "id": "mm_pickets_1",
+      "cell": [
+        4,
+        12
+      ],
+      "kind": "decor",
+      "label": "Iron pickets, cold to the touch",
+      "model": "fence"
+    },
+    {
+      "id": "mm_pickets_2",
+      "cell": [
+        7,
+        12
+      ],
+      "kind": "decor",
+      "label": "Iron pickets, cold to the touch",
+      "model": "fence"
+    },
+    {
+      "id": "mm_pickets_3",
+      "cell": [
+        10,
+        12
+      ],
+      "kind": "decor",
+      "label": "Iron pickets, cold to the touch",
+      "model": "fence"
+    },
+    {
+      "id": "mm_pickets_4",
+      "cell": [
+        13,
+        12
+      ],
+      "kind": "decor",
+      "label": "Iron pickets, cold to the touch",
+      "model": "fence"
+    },
+    {
+      "id": "mm_pickets_5",
+      "cell": [
+        25,
+        12
+      ],
+      "kind": "decor",
+      "label": "Iron pickets, cold to the touch",
+      "model": "fence"
+    },
+    {
+      "id": "mm_pickets_6",
+      "cell": [
+        28,
+        12
+      ],
+      "kind": "decor",
+      "label": "Iron pickets, cold to the touch",
+      "model": "fence"
+    },
+    {
+      "id": "mm_pickets_7",
+      "cell": [
+        31,
+        12
+      ],
+      "kind": "decor",
+      "label": "Iron pickets, cold to the touch",
+      "model": "fence"
+    },
+    {
+      "id": "mm_pickets_8",
+      "cell": [
+        34,
+        12
+      ],
+      "kind": "decor",
+      "label": "Iron pickets, cold to the touch",
+      "model": "fence"
+    },
+    {
+      "id": "mm_pickets_9",
+      "cell": [
+        37,
+        12
+      ],
+      "kind": "decor",
+      "label": "Iron pickets, cold to the touch",
+      "model": "fence"
+    },
+    {
+      "id": "mm_gate_stone_0",
+      "cell": [
+        12,
+        27
+      ],
+      "kind": "decor",
+      "label": "A sunken grave",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_gate_stone_1",
+      "cell": [
+        13,
+        17
+      ],
+      "kind": "decor",
+      "label": "A sunken grave",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_gate_stone_2",
+      "cell": [
+        1,
+        26
+      ],
+      "kind": "decor",
+      "label": "A headstone with a rhyme nobody finished",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_gate_stone_3",
+      "cell": [
+        35,
+        17
+      ],
+      "kind": "decor",
+      "label": "A cairn of grave-stones",
+      "model": "cairn"
+    },
+    {
+      "id": "mm_gate_stone_4",
+      "cell": [
+        15,
+        21
+      ],
+      "kind": "decor",
+      "label": "A sunken grave",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_gate_stone_5",
+      "cell": [
+        5,
+        16
+      ],
+      "kind": "decor",
+      "label": "A dead tree hung with fog",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "mm_gate_stone_6",
+      "cell": [
+        20,
+        21
+      ],
+      "kind": "decor",
+      "label": "A weathered headstone",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_gate_stone_7",
+      "cell": [
+        32,
+        16
+      ],
+      "kind": "decor",
+      "label": "A leaning marker, the name worn away",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_gate_stone_8",
+      "cell": [
+        27,
+        18
+      ],
+      "kind": "decor",
+      "label": "A scatter of old bones",
+      "model": "bones"
+    },
+    {
+      "id": "mm_gate_stone_9",
+      "cell": [
+        25,
+        24
+      ],
+      "kind": "decor",
+      "label": "A cairn of grave-stones",
+      "model": "cairn"
+    },
+    {
+      "id": "mm_gate_in_0",
+      "cell": [
+        27,
+        1
+      ],
+      "kind": "decor",
+      "label": "A weathered headstone",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_gate_in_1",
+      "cell": [
+        36,
+        6
+      ],
+      "kind": "decor",
+      "label": "A cairn of grave-stones",
+      "model": "cairn"
+    },
+    {
+      "id": "mm_gate_in_2",
+      "cell": [
+        31,
+        5
+      ],
+      "kind": "decor",
+      "label": "A leaning marker, the name worn away",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_gate_in_3",
+      "cell": [
+        6,
+        1
+      ],
+      "kind": "decor",
+      "label": "A cairn of grave-stones",
+      "model": "cairn"
+    },
+    {
+      "id": "mm_gate_in_4",
+      "cell": [
+        22,
+        2
+      ],
+      "kind": "decor",
+      "label": "A headstone with a rhyme nobody finished",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_gate_in_5",
+      "cell": [
+        6,
+        4
+      ],
+      "kind": "decor",
+      "label": "A dead tree, bent toward the sepulcher",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_gate_in_6",
+      "cell": [
+        1,
+        5
+      ],
+      "kind": "decor",
+      "label": "A weathered headstone",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_gate_in_7",
+      "cell": [
+        12,
+        9
+      ],
+      "kind": "decor",
+      "label": "A scatter of old bones",
+      "model": "bones"
+    },
+    {
+      "id": "mm_gate_in_8",
+      "cell": [
+        11,
+        5
+      ],
+      "kind": "decor",
+      "label": "A sunken grave",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_gate_in_9",
+      "cell": [
+        30,
+        8
+      ],
+      "kind": "decor",
+      "label": "A dead tree hung with fog",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "mm_grammar_stone",
+      "cell": [
+        16,
+        22
+      ],
+      "kind": "examine",
+      "label": "A headstone in a prissy hand",
+      "model": "gravestone",
+      "call": "maidenmist/folk:grammar_stone",
+      "approach": 2
+    }
+  ],
+  "npcs": [],
+  "encounters": [],
+  "rest": "risky"
+}

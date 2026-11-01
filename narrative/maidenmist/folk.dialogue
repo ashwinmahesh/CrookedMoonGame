@@ -1,0 +1,192 @@
+# Drafted by Gemini (R19 folk), edited. Tobias Dibbs, Hester Bolton, the grammar headstone, the Epitaph Competition and Names on Stones.
+
+~ dibbs
+Narrator: Behind the parlour counter, a rosy-cheeked lad in a canvas apron whets an iron spade with a stone as briskly as if packing for a summer picnic.
+tobias_dibbs [smile]: Tobias Dibbs at your service, apprentice in earth and ash. It is a rare treat to meet travellers who know the business end of a good shovel.
+* What do you do here? -> dibbs_job
+* [if not flag.mm_epitaph_asked] Is there anything we can help with? -> dibbs_contest
+* Goodbye -> END
+
+~ dibbs_job
+tobias_dibbs [neutral]: Mostly I drain the bloat, wire the jaws shut so they look polite, and sweep the teeth out of the grate. You work up a grand appetite for mutton pie by noon.
+-> dibbs
+
+~ dibbs_contest
+set mm_epitaph_asked
+quest epitaph_competition asked
+tobias_dibbs [smile]: The folk here write their own epitaphs before they stiffen, and most are far too honest for church. I propped the best three on the bricks in the Cremation Gardens. Go pick me a champion.
+-> END
+
+~ epitaph_plaque_a
+set mm_epitaph_a_read
+Narrator: Scratched into a soot-stained brick is a neat, blunt rhyme: I TOLD THE APOTHECARY THOSE MUSHROOMS WERE SPOTTED, NOW HE IS PAID AND I AM ROTTED.
+-> END
+
+~ epitaph_plaque_b
+set mm_epitaph_b_read
+Narrator: A crooked slate plaque beside a clump of nettles reads: BURY ME FACE DOWN SO BARNABY NEXT DOOR CAN KISS WHAT IS LEFT.
+-> END
+
+~ epitaph_plaque_c
+set mm_epitaph_c_read
+Narrator: Chiseled deep into a cracked sandstone slab is a belated confession: THE SILVERGRAVE FAMILY SPOONS ARE UNDER THE THIRD FLOORBOARD BY THE CHIMNEY, SORRY MOTHER.
+-> END
+
+~ epitaph_judge
+Narrator: Tobias bounces on his heels by the dry stone fountain, twirling a faded blue prize ribbon and a stub of carpenter's pencil.
+* The one that complained about the neighbours -> epitaph_win_b
+* The blunt one -> epitaph_win_a
+* The honest confession -> epitaph_win_c
+* [if flag.mm_epitaph_a_read or flag.mm_epitaph_b_read or flag.mm_epitaph_c_read] A tie, honestly -> epitaph_tie
+* [ends:epitaph_competition] They are all too honest. Call it off -> epitaph_off
+
+~ epitaph_win_a
+quest epitaph_competition done
+set mm_epitaph_winner = 1
+gold +25
+tobias_dibbs [smile]: The mushroom man takes the blue ribbon, short and sweet as arsenic. Listen to the ashes rustling in the urns, they always love a punchline.
+-> END
+
+~ epitaph_win_b
+quest epitaph_competition done
+set mm_epitaph_winner = 2
+gold +25
+tobias_dibbs [smile]: A prize for neighbourly spite, and well earned too. Old Barnaby in plot four is going to rattle his lid off when he hears.
+-> END
+
+~ epitaph_win_c
+quest epitaph_competition done
+set mm_epitaph_winner = 3
+gold +25
+tobias_dibbs [smile]: Nothing warms the Cremation Gardens like a deathbed confession about stolen silver. I will chisel that in deep before his mother digs herself up to check.
+-> END
+
+~ epitaph_tie
+quest epitaph_competition done
+set mm_epitaph_winner = 4
+tobias_dibbs [neutral]: A three-way split means nobody sulks and everybody gets a snippet of ribbon. Best fetch my chisel and three fresh bricks from the shed.
+-> END
+
+~ epitaph_off
+quest epitaph_competition lost
+tobias_dibbs [sad]: Well, I will fold the ribbon away, though the urns take a snub terribly hard. By cockcrow you will find they have scraped their own letters right off the brick.
+-> END
+
+~ hester
+Narrator: Hester Bolton plants her boots on the wet cobbles of the square, her raw red forearms folded tight beneath a lifted chin.
+hester_bolton [angry]: My useless husband Gregor has gone and turned himself into a flesh-eating ghast, and the first of the month is tomorrow. Dying twice does not excuse a man from owing five gold to the landlord.
+* We are sorry for your loss -> hester_loss
+* [if gold >= 5] Pay the rent for her -> hester_rent
+* Where is Gregor now? -> hester_where
+* Goodbye -> END
+
+~ hester_loss
+hester_bolton [weary]: The man himself I can forgive, he was cold in the feet anyway. It is the six silver crowns for the cellar roof that breaks my heart.
+-> hester
+
+~ hester_rent
+gold -5
+hester_bolton [smile]: Six honest crowns, warm in the palm and counted twice. When I see Gregor shuffling by the fence, I will tell him a stranger had better manners.
+set mm_hester_paid
+-> END
+
+~ hester_where
+hester_bolton [neutral]: Look for Gregor wherever the ghasts are thickest and doing the least work. If the Mayor had mended our leaky slate roof, the damp would never have taken him.
+-> hester
+
+~ grammar_stone
+Narrator: Beside the rusted iron gate leans a narrow granite headstone engraved in a fussy, pinched hand: HERE LYES A PEDANT, WHO CORRECTS YOU. Below the moss, someone has scratched a comma out and carved it back in deeper.
+* Read the epitaph aloud -> grammar_read
+* Misspell something on purpose -> grammar_correct
+* Leave -> END
+
+~ grammar_read
+Narrator: A dry, papery cough rises from the lichen on the granite slab, and a disembodied voice informs you that lyes is archaic, not an error, and that your vowels are slovenly.
+-> END
+
+~ grammar_correct
+Narrator: The mossy headstone exhales a long sigh through its chiseled letters, and the crooked spelling shifts in the cold air until it reads true.
+-> END
+
+~ names_start
+set mm_names_asked
+quest names_on_stones asked
+mori_shade [neutral]: Three graves in the Potter's Field still stand with bare cedar posts. My ledger holds the names of everyone our village lost to the mist. Match the tokens left beside them, and we can carve their proper stones.
+-> END
+
+~ names_graves
+Narrator: Three unpainted cedar posts stand in a neat row through the wet grass, each with a small keepsake resting in the mud at its foot.
+* [Investigation DC 12] Study the first token -> names_a | names_a_plain
+* [Medicine DC 12] Study the second token -> names_b | names_b_plain
+* [History DC 12] Study the third token -> names_c | names_c_plain
+* Ask Mori to place them by the ledger -> names_mori
+* Leave it -> END
+
+~ names_a
+set mm_names_a
+Narrator: The first token is a singed corner of a linen baker's apron, still dusted with flour from the hearth of Holly Aster's mother.
+-> names_graves
+
+~ names_a_plain
+Narrator: The first token is only a frayed scrap of gray linen, soaked with rain and bearing no mark to show whose hand once held it.
+-> names_graves
+
+~ names_b
+set mm_names_b
+Narrator: The second token is a carved wooden horse with one ear chipped away, the sort of pocket toy Old Rusty still remembers a Lockwood child carrying.
+-> names_graves
+
+~ names_b_plain
+Narrator: The second token is a small wooden toy worn smooth by rainwater and thumbs, telling you nothing at all of the child who dropped it.
+-> names_graves
+
+~ names_c
+set mm_names_c
+Narrator: The third token is a tarnished brass thimble stamped with a tiny shears mark, left in memory of someone dear that Thomasin Ardor lost.
+-> names_graves
+
+~ names_c_plain
+Narrator: The third token is a dented brass thimble crusted with dark peat, its rim too worn for your eyes to read any maker's stamp.
+-> names_graves
+
+~ names_mori
+mori_shade [neutral]: My ledger matches every one of these small tokens to a name in faded ink. You ought to carry word to their kin in person before I take up the chisel.
+set mm_names_a
+set mm_names_b
+set mm_names_c
+-> names_graves
+
+~ names_tell_holly
+if flag.mm_names_a
+set mm_names_told_a
+Narrator: Holly Aster sets her warm tin tray upon the counter, wipes her floury palms, and speaks her mother's name aloud for the first time in years.
+endif
+-> END
+
+~ names_tell_rusty
+if flag.mm_names_b
+set mm_names_told_b
+Narrator: Old Rusty leans on his birch broom in the lane and murmurs a child's name that nobody on the hill has spoken since the fog took them.
+endif
+-> END
+
+~ names_tell_thomasin
+if flag.mm_names_c
+set mm_names_told_c
+Narrator: Thomasin Ardor closes both calloused hands around the cold brass thimble and stares at her worktable without speaking a word for a long while.
+endif
+-> END
+
+~ names_done
+if flag.mm_names_told_a and flag.mm_names_told_b and flag.mm_names_told_c
+quest names_on_stones done
+mori_shade [smile]: Those three graves bear their true names in clean slate at last. Even the damp earth of the Potter's Field will remember who rests under the grass.
+else
+mori_shade [neutral]: The names are inked beside my chisel, though some among the bereaved down in Wickermoor still wait to hear the news from your lips.
+endif
+-> END
+
+~ names_drop
+quest names_on_stones lost
+mori_shade [sad]: The three cedar posts will stay blank against the rain a while longer. Without a spoken name to anchor it, this field will simply keep forgetting its dead.
+-> END

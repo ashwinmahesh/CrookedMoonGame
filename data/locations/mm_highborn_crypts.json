@@ -1,0 +1,651 @@
+{
+  "id": "mm_highborn_crypts",
+  "name": "The Highborn Crypts",
+  "region": "maidenmist_cemetery",
+  "summary": "Crypts of polished dark stone round small iron-fenced courtyards, with a brazier of dull red coals at the heart.",
+  "text": "Family names stand over the crypt doors in letters as sharp as the gargoyles' teeth. Bats turn in the grey above, and a brazier of dull red coals waits at the centre.",
+  "map": {
+    "rows": [
+      "########################",
+      "#......................#",
+      "#......................#",
+      "#.######..####..######.#",
+      "#.######..####..######.#",
+      "#.######..####..######.#",
+      "#.######..####..######.#",
+      "#.######........######.#",
+      "#.######........######.#",
+      "#......................#",
+      "#......................#",
+      "#..............=.......#",
+      "#.=...==...............#",
+      "#.......................",
+      "#=.....................#",
+      "#........=.....=.......#",
+      "#...........=..........#",
+      "#.......#...=.........=#",
+      "#.######........######=#",
+      "#.######........######.#",
+      "#=######..=.....########",
+      "#.######........######.#",
+      "#.######=.......######.#",
+      "#.######.......=######.#",
+      "#................=..=..#",
+      "#.....=#...............#",
+      "#.............#.....=..#",
+      "############.###########"
+    ],
+    "theme": "wilderness",
+    "light": "dim",
+    "outdoors": true,
+    "elevation": [
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222223333333332222222",
+      "222222233333333333222222",
+      "222222333333333333322222",
+      "222223333333333333332222",
+      "222233333333333333333222",
+      "222233333333433333333222",
+      "222233333344444333333222",
+      "222233333344444333333222",
+      "222233333444444433333222",
+      "222233333344444333333222",
+      "222233333344444333333222",
+      "222233333333433333333222",
+      "222233333333333333333222",
+      "222223333333333333332222",
+      "222222333333333333322222",
+      "222222233333333333222222",
+      "222222223333333332222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222"
+    ]
+  },
+  "areas": [
+    {
+      "id": "courtyard",
+      "name": "The brazier courtyard",
+      "cells": [
+        [
+          9,
+          11
+        ],
+        [
+          15,
+          17
+        ]
+      ]
+    },
+    {
+      "id": "fronts",
+      "name": "The crypt fronts",
+      "cells": [
+        [
+          1,
+          9
+        ],
+        [
+          22,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "path",
+      "name": "The path in",
+      "cells": [
+        [
+          8,
+          18
+        ],
+        [
+          16,
+          26
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      12,
+      25
+    ],
+    "from_hub": [
+      12,
+      25
+    ],
+    "from_a": [
+      21,
+      13
+    ],
+    "from_crypt": [
+      18,
+      10
+    ]
+  },
+  "exits": [
+    {
+      "id": "hub_path",
+      "cell": [
+        12,
+        27
+      ],
+      "to": "mm_sepulcher",
+      "spawn": "from_crypts",
+      "label": "The paved path back to the sepulcher"
+    },
+    {
+      "id": "short_a",
+      "cell": [
+        23,
+        13
+      ],
+      "to": "mm_gravestones_a",
+      "spawn": "from_crypts",
+      "label": "Across the Endless Gravestones to the Cremation Gardens"
+    }
+  ],
+  "props": [
+    {
+      "id": "mm_brazier_crimson",
+      "cell": [
+        12,
+        14
+      ],
+      "kind": "decor",
+      "label": "The brazier of dull red coals",
+      "model": "brazier_cold",
+      "call": "maidenmist/rites:crimson_start",
+      "approach": 3,
+      "call_when": "not flag.beacon_crimson"
+    },
+    {
+      "id": "mm_brazier_crimson_lit",
+      "cell": [
+        12,
+        14
+      ],
+      "kind": "decor",
+      "label": "The Crimson Beacon, burning",
+      "model": "brazier",
+      "when": "flag.beacon_crimson",
+      "tint": "#d04040"
+    },
+    {
+      "id": "mm_crimson_stone",
+      "cell": [
+        12,
+        10
+      ],
+      "kind": "examine",
+      "label": "A crypt wall with suns and roses worked into it",
+      "model": "relief",
+      "call": "maidenmist/sites:crypt_study",
+      "approach": 3
+    },
+    {
+      "id": "mm_crypt_a",
+      "cell": [
+        5,
+        9
+      ],
+      "kind": "examine",
+      "label": "A crypt door, a basin at its foot",
+      "model": "door_double",
+      "call": "maidenmist/sites:crypt_wrong_a"
+    },
+    {
+      "id": "mm_crypt_b",
+      "cell": [
+        18,
+        9
+      ],
+      "kind": "examine",
+      "label": "A crypt door, a basin at its foot",
+      "model": "door_double",
+      "call": "maidenmist/sites:crypt_right"
+    },
+    {
+      "id": "mm_crypt_c",
+      "cell": [
+        5,
+        17
+      ],
+      "kind": "examine",
+      "label": "A crypt door, a basin at its foot",
+      "model": "door_double",
+      "call": "maidenmist/sites:crypt_wrong_c"
+    },
+    {
+      "id": "mm_crypt_d",
+      "cell": [
+        18,
+        17
+      ],
+      "kind": "decor",
+      "label": "A crypt door with a rusted lock",
+      "model": "door_double"
+    },
+    {
+      "id": "mm_yorgrim_site_crypts",
+      "cell": [
+        13,
+        22
+      ],
+      "kind": "decor",
+      "label": "The lantern's edge",
+      "call": "maidenmist/yorgrim:site_crypts",
+      "approach": 4,
+      "call_when": "flag.yorgrim_with_party and not flag.mm_site_crypts_told"
+    },
+    {
+      "id": "mm_gargoyle_0",
+      "cell": [
+        3,
+        10
+      ],
+      "kind": "decor",
+      "label": "A leering gargoyle",
+      "model": "gargoyle"
+    },
+    {
+      "id": "mm_gargoyle_1",
+      "cell": [
+        20,
+        10
+      ],
+      "kind": "decor",
+      "label": "A leering gargoyle",
+      "model": "gargoyle"
+    },
+    {
+      "id": "mm_gargoyle_2",
+      "cell": [
+        3,
+        24
+      ],
+      "kind": "decor",
+      "label": "A leering gargoyle",
+      "model": "gargoyle"
+    },
+    {
+      "id": "mm_gargoyle_3",
+      "cell": [
+        20,
+        24
+      ],
+      "kind": "decor",
+      "label": "A leering gargoyle",
+      "model": "gargoyle"
+    },
+    {
+      "id": "mm_crypts_stone_0",
+      "cell": [
+        7,
+        12
+      ],
+      "kind": "decor",
+      "label": "A sunken grave",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_crypts_stone_1",
+      "cell": [
+        8,
+        17
+      ],
+      "kind": "decor",
+      "label": "A dead tree hung with fog",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "mm_crypts_stone_2",
+      "cell": [
+        15,
+        11
+      ],
+      "kind": "decor",
+      "label": "A headstone with a rhyme nobody finished",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_crypts_stone_3",
+      "cell": [
+        22,
+        17
+      ],
+      "kind": "decor",
+      "label": "A weathered headstone",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_crypts_stone_4",
+      "cell": [
+        17,
+        24
+      ],
+      "kind": "decor",
+      "label": "A weathered headstone",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_crypts_stone_5",
+      "cell": [
+        1,
+        14
+      ],
+      "kind": "decor",
+      "label": "A weathered headstone",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_crypts_stone_6",
+      "cell": [
+        12,
+        17
+      ],
+      "kind": "decor",
+      "label": "A headstone with a rhyme nobody finished",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_crypts_stone_7",
+      "cell": [
+        7,
+        25
+      ],
+      "kind": "decor",
+      "label": "A dead tree, bent toward the sepulcher",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_crypts_stone_8",
+      "cell": [
+        1,
+        20
+      ],
+      "kind": "decor",
+      "label": "A sunken grave",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_crypts_stone_9",
+      "cell": [
+        10,
+        22
+      ],
+      "kind": "decor",
+      "label": "A scatter of old bones",
+      "model": "bones"
+    },
+    {
+      "id": "mm_crypts_stone_10",
+      "cell": [
+        22,
+        20
+      ],
+      "kind": "decor",
+      "label": "A dead tree, bent toward the sepulcher",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_crypts_stone_11",
+      "cell": [
+        14,
+        26
+      ],
+      "kind": "decor",
+      "label": "A dead tree, bent toward the sepulcher",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_walk_crimson_prop",
+      "cell": [
+        13,
+        14
+      ],
+      "kind": "decor",
+      "label": "Something in the ash of the brazier",
+      "call": "maidenmist/epilogue:walk_crimson",
+      "approach": 2,
+      "call_when": "flag.mm_isolde_walk_started and not flag.mm_walk_crimson"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "mm_crimson_rite",
+      "trigger": "dialogue",
+      "when": "not flag.mm_crimson_fails",
+      "flag": "mm_crimson_guardians_dead",
+      "monsters": [
+        {
+          "monster": "night_creature",
+          "cell": [
+            12,
+            11
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "night_creature",
+          "cell": [
+            9,
+            14
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "night_creature",
+          "cell": [
+            15,
+            14
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "night_creature",
+          "cell": [
+            11,
+            17
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "night_creature",
+          "cell": [
+            13,
+            17
+          ],
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "gargoyle_fear",
+          "name": "Grotesque Gargoyles",
+          "summary": "The gargoyles leer, and fear takes whoever sees them.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 15
+          },
+          "condition": "frightened",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1,
+          "say": "The gargoyles seem to lean in, and every shadow has teeth."
+        }
+      ]
+    },
+    {
+      "id": "mm_crimson_rite",
+      "trigger": "dialogue",
+      "when": "flag.mm_crimson_fails == 1",
+      "flag": "mm_crimson_guardians_dead",
+      "monsters": [
+        {
+          "monster": "night_creature",
+          "cell": [
+            12,
+            11
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "night_creature",
+          "cell": [
+            9,
+            14
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "night_creature",
+          "cell": [
+            15,
+            14
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "night_creature",
+          "cell": [
+            11,
+            17
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "night_creature",
+          "cell": [
+            13,
+            17
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            10,
+            11
+          ],
+          "name": "Roused by the failed search",
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "gargoyle_fear",
+          "name": "Grotesque Gargoyles",
+          "summary": "The gargoyles leer, and fear takes whoever sees them.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 15
+          },
+          "condition": "frightened",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1,
+          "say": "The gargoyles seem to lean in, and every shadow has teeth."
+        }
+      ]
+    },
+    {
+      "id": "mm_crimson_rite",
+      "trigger": "dialogue",
+      "when": "flag.mm_crimson_fails >= 2",
+      "flag": "mm_crimson_guardians_dead",
+      "monsters": [
+        {
+          "monster": "night_creature",
+          "cell": [
+            12,
+            11
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "night_creature",
+          "cell": [
+            9,
+            14
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "night_creature",
+          "cell": [
+            15,
+            14
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "night_creature",
+          "cell": [
+            11,
+            17
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "night_creature",
+          "cell": [
+            13,
+            17
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            10,
+            11
+          ],
+          "name": "Roused by the failed search",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            14,
+            11
+          ],
+          "name": "Roused by the failed search",
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "gargoyle_fear",
+          "name": "Grotesque Gargoyles",
+          "summary": "The gargoyles leer, and fear takes whoever sees them.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 15
+          },
+          "condition": "frightened",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1,
+          "say": "The gargoyles seem to lean in, and every shadow has teeth."
+        }
+      ]
+    }
+  ],
+  "rest": "risky"
+}

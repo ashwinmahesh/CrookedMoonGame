@@ -1,0 +1,593 @@
+{
+  "id": "mm_tomb",
+  "name": "The Tomb of the Shrouded",
+  "region": "maidenmist_cemetery",
+  "summary": "A cavern of balefire turned Shroud-coloured: three-pronged platforms hung on giant chains under a tear in the ceiling.",
+  "text": "Down a stair carved with a thousand screaming faces and along a hall of wailing, a hooded woman holding a lantern watches the door. Beyond it, a cavern. The air above its highest platform is torn open.",
+  "map": {
+    "rows": [
+      "######################",
+      "#####............#####",
+      "####..44..44..44..####",
+      "##....44..44..44....##",
+      "##....44..44..44....##",
+      "##..=.4444444444.=..##",
+      "##....4444444444....##",
+      "##....33..33..33....##",
+      "##....22..22..22....##",
+      "##....22..22..22....##",
+      "##....22..22..22....##",
+      "##.=..22..22..22..=.##",
+      "##....2222222222....##",
+      "##....2222222222....##",
+      "##.....11111111.....##",
+      "##..................##",
+      "##..................##",
+      "##.=..............=.##",
+      "##..................##",
+      "##..................##",
+      "##.....=......=.....##",
+      "####..............####",
+      "#####............#####",
+      "#########....#########",
+      "#########....#########",
+      "#########....#########",
+      "#########....#########",
+      "#########....#########",
+      "#########....#########",
+      "#########....#########",
+      "#########....#########",
+      "##########..##########"
+    ],
+    "theme": "dungeon",
+    "light": "bright",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "hallway",
+      "name": "The hall of faces",
+      "cells": [
+        [
+          9,
+          23
+        ],
+        [
+          12,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "floor",
+      "name": "The tomb floor",
+      "cells": [
+        [
+          2,
+          15
+        ],
+        [
+          19,
+          22
+        ]
+      ]
+    },
+    {
+      "id": "first",
+      "name": "The first platform",
+      "cells": [
+        [
+          6,
+          8
+        ],
+        [
+          15,
+          13
+        ]
+      ]
+    },
+    {
+      "id": "second",
+      "name": "The hanging platform",
+      "cells": [
+        [
+          6,
+          2
+        ],
+        [
+          15,
+          6
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      10,
+      30
+    ],
+    "from_stair": [
+      10,
+      30
+    ],
+    "from_below": [
+      10,
+      30
+    ],
+    "from_tomb": [
+      10,
+      19
+    ]
+  },
+  "exits": [
+    {
+      "id": "stair_up",
+      "cell": [
+        10,
+        31
+      ],
+      "to": "mm_undercroft",
+      "spawn": "from_tomb",
+      "label": "Back up the Stygian Descent",
+      "when": "not flag.mm_harrowing_begun"
+    }
+  ],
+  "props": [
+    {
+      "id": "mm_statue_lantern_woman",
+      "cell": [
+        19,
+        18
+      ],
+      "kind": "decor",
+      "label": "A hooded woman carved in stone, holding a lantern",
+      "model": "statue_mother_night"
+    },
+    {
+      "id": "mm_descent_enter",
+      "cell": [
+        10,
+        29
+      ],
+      "kind": "decor",
+      "label": "The hall of wailing faces",
+      "call": "maidenmist/descent:stygian",
+      "approach": 4,
+      "call_when": "not flag.mm_stygian_seen"
+    },
+    {
+      "id": "mm_tomb_door",
+      "cell": [
+        10,
+        24
+      ],
+      "kind": "examine",
+      "label": "A door carved with a hooded woman and a lantern",
+      "model": "door_carved",
+      "call": "maidenmist/descent:tomb_door",
+      "approach": 2,
+      "call_when": "not flag.mm_harrowing_begun"
+    },
+    {
+      "id": "mm_tear",
+      "cell": [
+        10,
+        2
+      ],
+      "kind": "decor",
+      "label": "A twenty-foot tear in the air, gyrating mist",
+      "model": "glass_ring",
+      "scale": 3.0
+    },
+    {
+      "id": "mm_grand_lantern",
+      "cell": [
+        10,
+        18
+      ],
+      "kind": "examine",
+      "label": "A big ornate lantern left on the floor, its flame faint",
+      "model": "lantern_stand",
+      "call": "maidenmist/descent:azure_rites",
+      "approach": 2,
+      "call_when": "flag.chained_reaper_destroyed and not flag.shroud_tear_sealed"
+    },
+    {
+      "id": "mm_lantern_item",
+      "cell": [
+        11,
+        18
+      ],
+      "kind": "search",
+      "label": "A lantern in a pool of light",
+      "search_dc": 5,
+      "item": "lantern_of_the_chained_reaper",
+      "when": "flag.shroud_tear_sealed and treasure_at:tomb_of_the_shrouded"
+    },
+    {
+      "id": "mm_balefire_0",
+      "cell": [
+        3,
+        17
+      ],
+      "kind": "decor",
+      "label": "A brazier of corrupted balefire",
+      "model": "brazier",
+      "flame": "bile"
+    },
+    {
+      "id": "mm_balefire_1",
+      "cell": [
+        18,
+        17
+      ],
+      "kind": "decor",
+      "label": "A brazier of corrupted balefire",
+      "model": "brazier",
+      "flame": "bile"
+    },
+    {
+      "id": "mm_balefire_2",
+      "cell": [
+        3,
+        11
+      ],
+      "kind": "decor",
+      "label": "A brazier of corrupted balefire",
+      "model": "brazier",
+      "flame": "bile"
+    },
+    {
+      "id": "mm_balefire_3",
+      "cell": [
+        18,
+        11
+      ],
+      "kind": "decor",
+      "label": "A brazier of corrupted balefire",
+      "model": "brazier",
+      "flame": "bile"
+    },
+    {
+      "id": "mm_balefire_4",
+      "cell": [
+        4,
+        5
+      ],
+      "kind": "decor",
+      "label": "A brazier of corrupted balefire",
+      "model": "brazier",
+      "flame": "bile"
+    },
+    {
+      "id": "mm_balefire_5",
+      "cell": [
+        17,
+        5
+      ],
+      "kind": "decor",
+      "label": "A brazier of corrupted balefire",
+      "model": "brazier",
+      "flame": "bile"
+    },
+    {
+      "id": "mm_balefire_6",
+      "cell": [
+        7,
+        20
+      ],
+      "kind": "decor",
+      "label": "A brazier of corrupted balefire",
+      "model": "brazier",
+      "flame": "bile"
+    },
+    {
+      "id": "mm_balefire_7",
+      "cell": [
+        14,
+        20
+      ],
+      "kind": "decor",
+      "label": "A brazier of corrupted balefire",
+      "model": "brazier",
+      "flame": "bile"
+    },
+    {
+      "id": "mm_effigy_0",
+      "cell": [
+        6,
+        8
+      ],
+      "kind": "decor",
+      "label": "A stone coffin, glowing faintly",
+      "model": "coffin"
+    },
+    {
+      "id": "mm_effigy_1",
+      "cell": [
+        11,
+        8
+      ],
+      "kind": "decor",
+      "label": "A stone coffin, glowing faintly",
+      "model": "coffin"
+    },
+    {
+      "id": "mm_effigy_2",
+      "cell": [
+        15,
+        8
+      ],
+      "kind": "decor",
+      "label": "A stone coffin, glowing faintly",
+      "model": "coffin"
+    },
+    {
+      "id": "mm_effigy_3",
+      "cell": [
+        6,
+        2
+      ],
+      "kind": "decor",
+      "label": "A stone coffin, glowing faintly",
+      "model": "coffin"
+    },
+    {
+      "id": "mm_effigy_4",
+      "cell": [
+        11,
+        2
+      ],
+      "kind": "decor",
+      "label": "A stone coffin, glowing faintly",
+      "model": "coffin"
+    },
+    {
+      "id": "mm_effigy_5",
+      "cell": [
+        15,
+        2
+      ],
+      "kind": "decor",
+      "label": "A stone coffin, empty",
+      "model": "coffin"
+    },
+    {
+      "id": "mm_chain_0",
+      "cell": [
+        3,
+        4
+      ],
+      "kind": "decor",
+      "label": "A giant chain, vanishing upward",
+      "model": "wall_chains"
+    },
+    {
+      "id": "mm_chain_1",
+      "cell": [
+        18,
+        4
+      ],
+      "kind": "decor",
+      "label": "A giant chain, vanishing upward",
+      "model": "wall_chains"
+    },
+    {
+      "id": "mm_chain_2",
+      "cell": [
+        3,
+        20
+      ],
+      "kind": "decor",
+      "label": "A giant chain, vanishing upward",
+      "model": "wall_chains"
+    },
+    {
+      "id": "mm_chain_3",
+      "cell": [
+        18,
+        20
+      ],
+      "kind": "decor",
+      "label": "A giant chain, vanishing upward",
+      "model": "wall_chains"
+    },
+    {
+      "id": "mm_faces_0",
+      "cell": [
+        9,
+        24
+      ],
+      "kind": "decor",
+      "label": "A wall of carved, wailing faces",
+      "model": "stone_faces"
+    },
+    {
+      "id": "mm_faces_1",
+      "cell": [
+        9,
+        27
+      ],
+      "kind": "decor",
+      "label": "A wall of carved, wailing faces",
+      "model": "stone_faces"
+    },
+    {
+      "id": "mm_faces_2",
+      "cell": [
+        9,
+        30
+      ],
+      "kind": "decor",
+      "label": "A wall of carved, wailing faces",
+      "model": "stone_faces"
+    },
+    {
+      "id": "mm_harrow_start",
+      "cell": [
+        10,
+        20
+      ],
+      "kind": "decor",
+      "label": "The tomb floor, and the tear above the highest platform",
+      "call": "maidenmist/descent:harrowing",
+      "approach": 4,
+      "call_when": "flag.mm_tomb_door_open and not flag.mm_harrowing_begun"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "yorgrim",
+      "cell": [
+        10,
+        19
+      ],
+      "dialogue": "maidenmist/descent:harrow_hold",
+      "when": "flag.mm_harrowing_begun and not flag.chained_reaper_destroyed"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "mm_harrowing",
+      "trigger": "dialogue",
+      "flag": "chained_reaper_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "maidenmist_dead_rise",
+        "stage": "azure_rites"
+      },
+      "monsters": [
+        {
+          "monster": "chained_reaper_harrowing",
+          "cell": [
+            10,
+            10
+          ],
+          "name": "Yorgrim, the Chained Reaper",
+          "boss": true,
+          "facing": "south",
+          "steps_down": {
+            "npc": "yorgrim"
+          }
+        },
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            5,
+            18
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            15,
+            17
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            10,
+            16
+          ],
+          "facing": "north"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "shroud_influence",
+          "name": "Shroud Influence",
+          "summary": "The tear acts on its own count, and never the same way twice.",
+          "kind": "save",
+          "affects": "party",
+          "pick": "random",
+          "at": 20,
+          "every": 1,
+          "table": [
+            {
+              "id": "abominable_spirits",
+              "name": "Abominable Spirits",
+              "summary": "Three shrouded tear out of the mist.",
+              "kind": "summon",
+              "monster": "shrouded_reaper",
+              "count": 3,
+              "side": "enemies",
+              "cells": [
+                [
+                  4,
+                  18
+                ],
+                [
+                  16,
+                  18
+                ],
+                [
+                  10,
+                  20
+                ]
+              ],
+              "say": "Three shrouded tear out of the mist."
+            },
+            {
+              "id": "oppressive_gloom",
+              "name": "Oppressive Gloom",
+              "summary": "The tomb dims to a blur of grey.",
+              "kind": "text",
+              "say": "The tomb dims until your own hands are shapes."
+            },
+            {
+              "id": "tide_of_death",
+              "name": "Tide of Death",
+              "summary": "A wave of cold shoves the living back.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "str",
+                "dc": 15
+              },
+              "damage": {
+                "dice": "1d6",
+                "type": "necrotic"
+              },
+              "say": "A wave of cold shoves at your chest."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mm_tear_wave",
+      "trigger": "dialogue",
+      "flag": "mm_wave_done",
+      "monsters": [
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            4,
+            17
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            16,
+            17
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            10,
+            15
+          ],
+          "facing": "south"
+        }
+      ]
+    }
+  ],
+  "rest": "risky"
+}

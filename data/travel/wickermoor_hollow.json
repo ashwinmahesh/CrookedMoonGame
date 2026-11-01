@@ -144,6 +144,19 @@
       "region": "hartsblight_forest",
       "when": "flag.hb_asked or visited:hb_patient_commune",
       "summary": "A dead commune at the edge of a rotting forest, north-west of Moonsong Lake."
+    },
+    {
+      "id": "maidenmist_gate",
+      "name": "Maidenmist Cemetery",
+      "location": "mm_gate",
+      "spawn": "from_road",
+      "pos": [
+        0.66,
+        0.72
+      ],
+      "region": "maidenmist_cemetery",
+      "when": "flag.mm_asked or visited:mm_gate",
+      "summary": "A fogbound cemetery behind a bent iron gate, south-east of Wickermoor."
     }
   ],
   "roads": [
@@ -226,6 +239,14 @@
       "hours": 32,
       "name": "The spore trail",
       "when": "flag.hb_asked or visited:hb_patient_commune"
+    },
+    {
+      "id": "wickermoor_to_maidenmist",
+      "from": "wickermoor_village",
+      "to": "maidenmist_gate",
+      "hours": 5,
+      "name": "The cemetery road",
+      "when": "flag.mm_asked or visited:mm_gate"
     }
   ]
 }
