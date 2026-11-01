@@ -219,7 +219,7 @@ def human_block(src, mid, name, hp, dice, ac, cr, xp, sword_bonus, sword_dmg, sw
 def prior(src, nc, mid, name, hp, dice, ac, cr, xp, art, summary, boss=False):
     m = human_block(src, mid, name, hp, dice, ac, cr, xp, 5, "1d8+3", 7, art, summary)
     m["phases"] = [{"id": "true_form", "name": "Night Creature", "when": {"at_zero": True}, "hp": 75, "ac": 15,
-                    "summary": "The man falls, and rises at full strength in the shape of a Night Creature, Large and clawed.", "art": "vampire_spawn",
+                    "summary": "The man falls, and rises at full strength in the shape of a Night Creature, Large and clawed.", "art": "night_creature",
                     "actions_remove": ["blade", "human_multiattack"], "actions_add": copy.deepcopy(nc["actions"]), "traits_add": copy.deepcopy(nc["traits"]), "end_conditions": True,
                     "flag": "prior_second_form_seen"}]
     return m
