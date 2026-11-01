@@ -1,0 +1,302 @@
+# Delphine's camp talks (story/camp_talk.gd): offered after a Long Rest or at camp once the opening `if` holds, each once a playthrough, the first that
+# holds in this order: when Delphine is Strained or Doubtful (story/approval.gd), the acts' words, then Warm, Close and Devoted.
+# Delphine's Thread of Fate beats are in delphine_ravelle_thread.dialogue. Dark secrets are the world lane's (Raum's gate): nothing here states one.
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+~ talk_strained
+if name:delphine_ravelle and approval.delphine_ravelle <= strained
+-> strained
+endif
+-> END
+
+~ strained
+Narrator: Delphine sits on an overturned crate outside the firelight, snappin' her silver scissors shut against her thumb.
+interject name:delphine_ravelle: I signed on for a grand touring company, darling, not a pack of joyless bailiffs who treat every stitched soul like scrap for the bin.
+interject name:delphine_ravelle: Somewhere along the road this company stopped listening for the cues that matter to me, and took to walking the boards with its boots loud.
+interject name:delphine_ravelle: If this is the way things have gone, I would rather watch my own seams rot in the rain than take second billing in a show without a heart.
+* We have been wrong, tell us how to mend this. -> strained_1
+* Keep your complaints to yourself and do your job. -> strained_2
+* Stay by the fire and say nothing. -> strained_3
+
+~ strained_1
+interject name:delphine_ravelle: Start by remembering that a creature made of spare parts still feels the shear, and stop treating this valley like a ledger to balance.
+interject name:delphine_ravelle: Give me a little flair when the curtain rises tomorrow, and we will see if this frayed hem will hold another stitch.
+approve delphine_ravelle +8: You owned your mistakes and asked how to mend things
+-> END
+
+~ strained_2
+interject name:delphine_ravelle: Spoken like a true taskmaster from the cheap seats, so do not expect an encore when the house comes down.
+approve delphine_ravelle -3: You told me to keep my complaints to myself
+-> END
+
+~ strained_3
+Narrator: Delphine slides the scissors into her coat lining and turns her button eye toward the dark trees.
+interject name:delphine_ravelle: Silence is a fine cue for an exit, so I will leave you to the ashes.
+-> END
+
+~ talk_doubt
+if name:delphine_ravelle and approval.delphine_ravelle == doubtful
+-> doubt
+endif
+-> END
+
+~ doubt
+Narrator: Delphine kneels near the edge of the embers, testin' the tension of a red thread between her gloved fingers.
+interject name:delphine_ravelle: I have been watching our little troupe work the house, darlings, and I cannot quite make sense of the choreography.
+interject name:delphine_ravelle: Half the time we charge through the curtain when a clever word would unpick the lock, and the rest of the time we play it terribly safe.
+interject name:delphine_ravelle: Mind the seams, because a company that cannot decide whether it is a tragedy or a farce usually closes by midnight.
+* You know the stage better, what would you change? -> doubt_1
+* Our way keeps us breathing, so leave it alone. -> doubt_2
+* Sit quietly and let the fire burn. -> doubt_3
+
+~ doubt_1
+interject name:delphine_ravelle: A little misdirection before the blades come out, and a willingness to take a bow when fortune offers a dare.
+interject name:delphine_ravelle: Let the monsters trip over their own hems while we read the fine print behind the scenes.
+approve delphine_ravelle +5: You asked how we could play our hand better
+-> END
+
+~ doubt_2
+interject name:delphine_ravelle: Breathing is a very low bar for a headliner, though I suppose even a wooden dummy manages to stay on the shelf.
+approve delphine_ravelle -2: You brushed off my doubts about how we work
+-> END
+
+~ doubt_3
+Narrator: Delphine wraps the loose thread back around her wrist and smooths her velvet lapel.
+interject name:delphine_ravelle: Keep your cards against your chest if you must, the night is long enough for all of us.
+-> END
+
+~ talk_act1
+if name:delphine_ravelle and flag.gl_crashed and not flag.vessla_slain
+-> act1
+endif
+-> END
+
+~ act1
+Narrator: Delphine perches on a dry log close to the flames, brushing gray soot and pine needles from her hem.
+interject name:delphine_ravelle: Well, that was a dreadful way to make an entrance, darlings, tumbling out of the Ghostlight Express like spilled luggage.
+interject name:delphine_ravelle: Look at this sky, not a hint of morning in the wings, just that giant Crooked Moon grinning down like a sour critic in the gallery.
+interject name:delphine_ravelle: Back in Picco we knew how to string up proper lanterns, yet here in Wickermoor the fog smells of wet wool and old pennies.
+Narrator: Above her left shoulder the empty air shivers once, as if something unseen just took a tumble.
+interject name:delphine_ravelle: Your Foolishness thinks the crash was a marvelous bit of slapstick, of course, because a floating head never has to scrub mud out of good felt.
+interject name:delphine_ravelle: He says you're lying, and he doesn't even have eyes, whenever I tell myself the next train will roll in by dawn.
+interject name:delphine_ravelle: Still, I refuse to let this damp hollow shrink my coat before we even find out who is running the show.
+* How are you holding up after that wreck? -> act1_1
+* None of us asked for this ticket either. -> act1_2
+* Put the brush away and get some sleep. -> act1_3
+
+~ act1_1
+interject name:delphine_ravelle: My pride took a nastier bruise than my stuffing, though I did lose two perfectly good brass pins in the wreck.
+interject name:delphine_ravelle: Give me a dry fire and a decent audience, and I will be ready for the matinee by morning.
+approve delphine_ravelle +2: You asked how I was holding up after the crash
+-> END
+
+~ act1_2
+interject name:delphine_ravelle: Then we are all booked into the same crooked theater, and we might as well steal the spotlight while we are here.
+interject name:delphine_ravelle: Stick close to my cue, and we will make sure the management regrets locking the doors.
+approve delphine_ravelle +3: You shared how it felt to be stranded here
+-> END
+
+~ act1_3
+interject name:delphine_ravelle: A lady does not retire with cinder in her seams, though I will rest my eyes once this velvet is respectable.
+approve delphine_ravelle -1: You told me to put the brush away and rest
+-> END
+
+~ talk_act2
+if name:delphine_ravelle and flag.act2_done >= 2
+-> act2
+endif
+-> END
+
+~ act2
+Narrator: Delphine sits cross-legged by the kettle, warming her palms near the steam while her glass button eye catches the orange glow.
+interject name:delphine_ravelle: When we first crawled out of that wreck, darlings, I figured you for a band of amateurs who would fold before the second act.
+interject name:delphine_ravelle: Ever since we walked out of that dreadful Crooked House with our skins intact, I have had to revise my review.
+interject name:delphine_ravelle: We have taken some ugly tumbles in this hollow, the kind where the music stops and the sawdust tastes like iron.
+interject name:delphine_ravelle: Yet every time the dark tries to pull our threads, somebody in this circle steps up and holds the line.
+interject name:delphine_ravelle: Even Your Foolishness has stopped placing bets on which one of you will bolt for the exits first.
+interject name:delphine_ravelle: In Funtopia, performers only caught you if the ringmistress was watching, and they always sent a bill for the trouble.
+interject name:delphine_ravelle: It is a strange thing, learning to trust a net you did not have to stitch yourself.
+* How is that change sitting with you tonight? -> act2_1
+* We watch your back because you are one of us. -> act2_2
+* Save your strength for tomorrow and get some rest. -> act2_3
+
+~ act2_1
+interject name:delphine_ravelle: It makes my chest feel a bit too tight for the buttons, if you want the honest truth.
+interject name:delphine_ravelle: Still, it beats standing under the arch alone waiting for the rope to fray.
+approve delphine_ravelle +2: You asked how trusting the troupe sat with me
+-> END
+
+~ act2_2
+Narrator: Delphine tilts her chin up, tap-tappin' one booted heel against a root to hide the pause.
+interject name:delphine_ravelle: Careful with that sentimental billing, or people will think I have gone soft in the felt.
+interject name:delphine_ravelle: All the same, if anything reaches for your collar out there, my shears are already open.
+approve delphine_ravelle +3: You told me I was one of your own
+-> END
+
+~ act2_3
+interject name:delphine_ravelle: Very sensible, the road ahead is bound to be muddy and I need my voice in working order.
+approve delphine_ravelle -1: You told me to save my strength and rest
+-> END
+
+~ talk_act3
+if name:delphine_ravelle and flag.act2_done >= 5
+-> act3
+endif
+-> END
+
+~ act3
+Narrator: Delphine rests her back against a pack by the low fire, her fingers still in her lap and her coat mended with three colors of thread.
+interject name:delphine_ravelle: Look at the lot of us, darlings, patched up like a carnival tent after a gale and still waiting for the final bell.
+interject name:delphine_ravelle: If Master Orsino could see this coat now, he would weep into his worktable over the mismatched stitching.
+interject name:delphine_ravelle: I spent my whole life terrified of coming unpicked, certain that one loose loop meant the end of Delphine Ravelle.
+interject name:delphine_ravelle: Now the biggest curtain in the valley is about to drop on our heads, and my hands are not even shaking.
+interject name:delphine_ravelle: The Hollow has chewed on our hems and spat us out, yet here we sit by the coals like we own the lease.
+interject name:delphine_ravelle: Whatever waits for us down that last stretch of road, it will not find a box of spare stuffing.
+interject name:delphine_ravelle: It is going to find a headliner and the finest company she ever shared a bill with.
+* Are you ready for whatever waits at the end? -> act3_1
+* Whatever comes next, we face that curtain together. -> act3_2
+* Get some rest while the fire is still warm. -> act3_3
+
+~ act3_1
+interject name:delphine_ravelle: I have my needles sharp and my lines by heart, though I will admit the quiet before the cue is always the hardest part.
+interject name:delphine_ravelle: Keep the footlights burning a little longer, and I will give them a finale they cannot forget.
+approve delphine_ravelle +2: You asked if I was ready for the end
+-> END
+
+~ act3_2
+Narrator: Delphine reaches out and touches the edge of your sleeve with two gloved fingers.
+interject name:delphine_ravelle: Together, right on the bias, and let the house lights try to keep up with us.
+interject name:delphine_ravelle: Win or lose, there is no other troupe I would rather take the last bow beside.
+approve delphine_ravelle +3: You promised we would face the final curtain together
+-> END
+
+~ act3_3
+interject name:delphine_ravelle: I will close my eyes for an hour, so wake me before the overture starts.
+approve delphine_ravelle -1: You told me to rest while the fire stayed warm
+-> END
+
+~ talk_warm
+if name:delphine_ravelle and approval.delphine_ravelle >= warm and level >= 3
+-> warm
+endif
+-> END
+
+~ warm
+Narrator: Delphine sits near the coals with her coat spread across her knees, tap-tappin' a finger against a row of three tiny knots tied in her hem.
+interject name:delphine_ravelle: Pull up a log and keep your voice down, darlings, because I am not about to broadcast a trade secret to the cheap seats.
+interject name:delphine_ravelle: You have proved yourselves finer company than any troupe in Picco, so I will let you peek behind the curtain.
+interject name:delphine_ravelle: Every time we step onto a fresh threshold, I tap my left heel twice and tie a blind knot on the bias of my lining.
+interject name:delphine_ravelle: It is an old carnival superstition to keep the floorboards from swallowing the act whole.
+interject name:delphine_ravelle: Worse than that, if I pass a dark mirror or a puddle, I have to tip my chin and mouth my own name to the glass.
+interject name:delphine_ravelle: A doll who forgets to introduce herself to her reflection might wake up belonging to somebody else.
+interject name:delphine_ravelle: Your Foolishness laughs himself dizzy every time I do it, of course, though he is welcome to try walking through a doorway with ankles of his own.
+* Tell us more about those carnival superstitions. -> warm_1
+* Your secret is safe with us. -> warm_2
+* Does the reflection ever answer back? -> warm_3
+
+~ warm_1
+Narrator: She flicks a speck of ash off her velvet cuff and leans in with her glass button eye catching the firelight.
+interject name:delphine_ravelle: Oh, there are dozens, like never whistling in the dressing room or mending a tear with green thread before a matinee.
+interject name:delphine_ravelle: Stick with me and you will have enough lucky charms to make the whole valley give us a standing ovation.
+approve delphine_ravelle +2: You asked to hear more of my carnival superstitions
+-> END
+
+~ warm_2
+Narrator: Delphine smooths her coat hem down over her boots, her fingers lingering on the three little knots.
+interject name:delphine_ravelle: Mind the seams, because a headliner needs a loyal crew in the wings to keep the show running.
+interject name:delphine_ravelle: If you catch me pulling faces at a puddle tomorrow, just pretend I am rehearsing my big finale.
+approve delphine_ravelle +3: You promised to keep my little superstition to yourself
+-> END
+
+~ warm_3
+Narrator: The floating jester's head spins once over her shoulder as Delphine gives a brisk, brassy laugh.
+interject name:delphine_ravelle: Only to tell me my collar is crooked, and that I am still the sharpest billing in the house.
+interject name:delphine_ravelle: Go on and laugh, it is good for the acoustics in this dreary hollow.
+approve delphine_ravelle -1: You teased me kindly about talking to my reflection
+-> END
+
+~ talk_close
+if name:delphine_ravelle and approval.delphine_ravelle >= close and level >= 5
+-> close
+endif
+-> END
+
+~ close
+Narrator: Delphine turns her ink-stained notebook over in her hands without opening it, the firelight warm against her felt cheek.
+interject name:delphine_ravelle: Look at us, darlings, still in one piece after everything this crooked valley has thrown at the stage.
+interject name:delphine_ravelle: When I first took up with Your Foolishness, all I wanted was to crack his riddles and claim the grand prize at the end of the billing.
+interject name:delphine_ravelle: I thought if I climbed high enough, I would turn into something whole and untouchable, a porcelain queen no hand could ever unpick.
+interject name:delphine_ravelle: No more counting stitches in the dark, no more wondering if one bad fall would leave me in a heap of felt and sawdust.
+interject name:delphine_ravelle: Only the road with you lot has played a funny trick on the script.
+interject name:delphine_ravelle: I still want to be real enough that nobody can pull my threads, I cannot lie about that.
+interject name:delphine_ravelle: It is just harder to picture sitting on a high throne when the company down by the footlights is this good.
+* We will help you solve his riddles. -> close_1
+* What will it take to make you whole? -> close_2
+* You do not need porcelain to be real to us. -> close_3
+
+~ close_1
+Narrator: She slips the notebook back into her lining right over her ribs and pats the coat flat.
+interject name:delphine_ravelle: With you reading over my shoulder, Your Foolishness does not stand a chance of keeping his punchlines to himself.
+interject name:delphine_ravelle: Just stay close when the final curtain goes up, so I know who I am bowing to.
+approve delphine_ravelle +3: You promised to help me solve the Fool's riddles
+-> END
+
+~ close_2
+Narrator: Above her left shoulder the jester's head hangs still, his painted grin tilted toward the coals.
+interject name:delphine_ravelle: A final verse, a steady nerve, and a bill I am not sure I want to read out loud.
+interject name:delphine_ravelle: Never mind the price tonight, the fire is warm and my seams are holding fine.
+approve delphine_ravelle +2: You asked what it would take to make me whole
+-> END
+
+~ close_3
+Narrator: Her voice drops out of its bright stage cadence into a quiet, papery hush as she touches her wrist thread.
+interject name:delphine_ravelle: Careless talk like that is going to ruin my posture, and I worked very hard on this spine.
+interject name:delphine_ravelle: Still, if felt and thread are enough for this table, maybe the toymaker in Funtopia did not know everything after all.
+approve delphine_ravelle -1: You told me I was already real to you
+-> END
+
+~ talk_devoted
+if name:delphine_ravelle and approval.delphine_ravelle >= devoted and level >= 8
+-> devoted
+endif
+-> END
+
+~ devoted
+Narrator: Delphine draws her silver scissors from her pocket, clicks them shut once, and sets them down on the log between you.
+interject name:delphine_ravelle: Listen to me, darlings, and do not interrupt, because I am dropping the barker's routine for a minute.
+interject name:delphine_ravelle: We are marching straight toward the Crooked Tree, and I would follow this troupe up the trunk and back down into the cinders.
+interject name:delphine_ravelle: For as long as I have walked on two boots, the only thing that mattered was the headline act.
+interject name:delphine_ravelle: Top of the bill, name in lights, a stage where nobody else could reach the ropes.
+interject name:delphine_ravelle: I have carried this little book of riddles like a ticket to a throne.
+interject name:delphine_ravelle: If keeping you lot breathing means tossing the notebook in the brazier and walking away from the crown, I will strike the match myself.
+interject name:delphine_ravelle: Let Your Foolishness find another star for his curtain call, because my contract is right here at this fire.
+* We would do the same for you. -> devoted_1
+* Keep your crown, we will win this together. -> devoted_2
+* Thank you for standing with us. -> devoted_3
+
+~ devoted_1
+Narrator: She picks up her silver scissors and slides them back into her pocket with a clean click.
+interject name:delphine_ravelle: Well, look at us, a whole company of fools refusing to leave the stage early.
+interject name:delphine_ravelle: Come on then, let the valley do its worst, we have an encore to put on.
+approve delphine_ravelle +3: You said you would give up just as much for me
+inspire name:delphine_ravelle: put the party before the crown
+inspiration
+-> END
+
+~ devoted_2
+Narrator: Delphine tilts her chin up, the brassy warmth coming back into her voice as she taps her notebook through her coat.
+interject name:delphine_ravelle: Oh, I am not surrendering the spotlight unless the roof caves in, you know my habits better than that.
+interject name:delphine_ravelle: It is simply good to know what is worth keeping if the house catches fire.
+approve delphine_ravelle +3: You told me we would win without me giving up my wish
+inspire name:delphine_ravelle: pledged her headline to the party
+inspiration
+-> END
+
+~ devoted_3
+Narrator: She reaches out a gloved hand and gives your sleeve a quick, neat tug to straighten the seam.
+interject name:delphine_ravelle: No need to get misty in the front row, it spoils the powder.
+interject name:delphine_ravelle: Just keep your boots moving when the music starts, and I will handle the rest.
+approve delphine_ravelle +2: You thanked me for standing with the party to the end
+inspire name:delphine_ravelle: chose her friends over top billing
+inspiration
+-> END

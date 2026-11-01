@@ -12,16 +12,40 @@ const DISCOVERY_FLAG := {"rook_coldwake": "raum_slain", "tobin_hayward": "stonog
 const CONFRONTATION_FLAG := {"rook_coldwake": "nm_chapter_done", "tobin_hayward": "gorthos_slain", "silas_vane": "chuckles_dead",
 	"delphine_ravelle": "chuckles_dead", "lucan_houndstooth": "gorthos_slain", "cordelia_skein": "nm_chapter_done"}
 const THREAD_TALKS: Array[String] = ["talk_incitement", "talk_discovery", "talk_confrontation_wait", "talk_confrontation"]
+const APPROVAL_TALKS: Array[String] = ["talk_strained", "talk_doubt", "talk_act1", "talk_act2", "talk_act3", "talk_warm", "talk_close", "talk_devoted"]
+## Where each approval talk comes up: {approval score, flags} (the talk's own opening `if` says the rest). Devoted needs level 8.
+const APPROVAL_STATE := {
+	"talk_strained": {"score": -30}, "talk_doubt": {"score": -15}, "talk_act1": {"flags": {"gl_crashed": true}},
+	"talk_act2": {"flags": {"act2_done": 2}}, "talk_act3": {"flags": {"act2_done": 5}},
+	"talk_warm": {"score": 12}, "talk_close": {"score": 30}, "talk_devoted": {"score": 55},
+}
+const BANTER_ACTS := {"act1": "flag.gl_crashed and not flag.act2_done", "act2": "flag.vessla_slain and flag.act2_done < 5", "act3": "flag.act2_done >= 5"}
 
 
 func after_each() -> void:
 	Campaign.use(null)
 
 
-func _story(id: String) -> StoryState:
+func _story(id: String, level: int = 5) -> StoryState:
 	var st := StoryState.new()
-	st.party.append(TestChars.pregen(id, 5))
+	st.party.append(TestChars.pregen(id, level))
 	return st
+
+
+## The raw text of a dialogue file, split into {node: [lines]} (comments and blanks dropped).
+func _raw_nodes(path: String) -> Dictionary:
+	var out := {}
+	var cur := ""
+	for line in FileAccess.get_file_as_string(path).split("\n"):
+		var l := line.strip_edges()
+		if l == "" or l.begins_with("#"):
+			continue
+		if l.begins_with("~ "):
+			cur = l.substr(2)
+			out[cur] = []
+		elif cur != "":
+			(out[cur] as Array).append(l)
+	return out
 
 
 func _camp_files() -> Array[String]:
@@ -178,3 +202,85 @@ func test_a_strained_companion_holds_the_confrontation_back_until_the_word_that_
 		assert_false(Fateweaving.beat_done(st, t, "confrontation"), "%s: nothing is paid by waiting" % id)
 		offered = CampTalk.offered(df, st)
 		assert_eq(str(offered.get("ref", "")), "camp/%s_thread:talk_confrontation" % id, "%s: nothing is lost for good" % id)
+
+
+# --- Approval and the acts (narrative/camp/<id>.dialogue) --------------------------------------------------------------------
+
+func test_each_approval_file_holds_the_eight_talks_in_the_order_they_are_offered() -> void:
+	for id in IDS:
+		var df := DialogueFile.load_key("camp/" + id)
+		assert_true(df != null, id)
+		var talks: Array[String] = []
+		for node in df.order:
+			if node.begins_with(CampTalk.TALK):
+				talks.append(node)
+		assert_eq(talks, APPROVAL_TALKS, id)
+
+
+func test_a_strained_companion_is_offered_the_strained_talk_first() -> void:
+	for id in IDS:
+		var st := _story(id)
+		# Everything else that could hold at once holds too: the acts, and Warm's level.
+		st.set_flag("gl_crashed", true)
+		st.set_flag("act2_done", 5)
+		st.approval[id] = {"score": -30, "memories": []}
+		var offered := CampTalk.offered(DialogueFile.load_key("camp/" + id), st)
+		assert_eq(str(offered.get("ref", "")), "camp/%s:talk_strained" % id, "%s is Strained" % id)
+		assert_eq(CampTalk.label_for(CampTalk.opening_condition(DialogueFile.load_key("camp/" + id), "talk_strained"), st), "%s wants a word" % str(st.party[0].name).get_slice(" ", 0))
+
+
+func test_a_doubtful_companion_is_offered_the_doubt_talk_before_the_acts() -> void:
+	for id in IDS:
+		var st := _story(id)
+		st.set_flag("gl_crashed", true)
+		st.approval[id] = {"score": -15, "memories": []}
+		var offered := CampTalk.offered(DialogueFile.load_key("camp/" + id), st)
+		assert_eq(str(offered.get("ref", "")), "camp/%s:talk_doubt" % id, id)
+
+
+func test_the_acts_come_up_in_order_for_a_companion_in_good_standing() -> void:
+	for id in IDS:
+		var df := DialogueFile.load_key("camp/" + id)
+		var st := _story(id)
+		assert_true(CampTalk.offered(df, st).is_empty(), "%s: nothing at the start" % id)
+		for step: Array in [["gl_crashed", true, "talk_act1"], ["act2_done", 2, "talk_act2"], ["act2_done", 5, "talk_act3"]]:
+			st.set_flag(str(step[0]), step[1])
+			var offered := CampTalk.offered(df, st)
+			assert_eq(str(offered.get("ref", "")), "camp/%s:%s" % [id, step[2]], id)
+			CampTalk.mark(st, str(offered["ref"]))
+		assert_true(CampTalk.offered(df, st).is_empty(), "%s: the acts are done" % id)
+
+
+func test_warm_close_and_devoted_wait_for_their_tier_and_level() -> void:
+	for id in IDS:
+		var df := DialogueFile.load_key("camp/" + id)
+		var st := _story(id, 5)
+		st.approval[id] = {"score": 12, "memories": []}
+		assert_eq(str(CampTalk.offered(df, st).get("ref", "")), "camp/%s:talk_warm" % id, id)
+		CampTalk.mark(st, "camp/%s:talk_warm" % id)
+		assert_true(CampTalk.offered(df, st).is_empty(), "%s: Warm only unlocks Warm" % id)
+		st.approval[id] = {"score": 30, "memories": []}
+		assert_eq(str(CampTalk.offered(df, st).get("ref", "")), "camp/%s:talk_close" % id, id)
+		CampTalk.mark(st, "camp/%s:talk_close" % id)
+		st.approval[id] = {"score": 55, "memories": []}
+		assert_true(CampTalk.offered(df, st).is_empty(), "%s: Devoted waits for level 8" % id)
+		var late := _story(id, 8)
+		late.approval[id] = {"score": 55, "memories": []}
+		late.flags = st.flags.duplicate(true)
+		assert_eq(str(CampTalk.offered(df, late).get("ref", "")), "camp/%s:talk_devoted" % id, id)
+
+
+func test_every_approval_talk_plays_through_each_of_its_options() -> void:
+	for id in IDS:
+		for talk in APPROVAL_TALKS:
+			for pick in 3:
+				var state := APPROVAL_STATE[talk] as Dictionary
+				var st := _story(id, 8)
+				if state.has("score"):
+					st.approval[id] = {"score": int(state["score"]), "memories": []}
+				for f: String in (state.get("flags", {}) as Dictionary):
+					st.set_flag(f, (state["flags"] as Dictionary)[f])
+				var lines := _play(st, "camp/%s:%s" % [id, talk], pick)
+				assert_true(lines.size() >= 3, "%s %s option %d speaks" % [id, talk, pick + 1])
+				if talk == "talk_devoted":
+					assert_true(st.party[0].heroic_inspiration, "%s: Devoted ends in Heroic Inspiration (option %d)" % [id, pick + 1])

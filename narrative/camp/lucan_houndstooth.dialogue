@@ -1,0 +1,306 @@
+# Lucan's camp talks (story/camp_talk.gd): offered after a Long Rest or at camp once the opening `if` holds, each once a playthrough, the first that
+# holds in this order: when Lucan is Strained or Doubtful (story/approval.gd), the acts' words, then Warm, Close and Devoted.
+# Lucan's Thread of Fate beats are in lucan_houndstooth_thread.dialogue. Dark secrets are the world lane's (Raum's gate): nothing here states one.
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+~ talk_strained
+if name:lucan_houndstooth and approval.lucan_houndstooth <= strained
+-> strained
+endif
+-> END
+
+~ strained
+Narrator: Lucan sits well back from the firelight, thumbing the brass clasp of his closed field journal while his spectral hound curls tight around his boots.
+interject name:lucan_houndstooth: I must speak plainly, if you please, though a low growl is pressing rather unpleasantly against my collar.
+interject name:lucan_houndstooth: The way things have gone on our trail bears no resemblance to the conduct of proper hunters.
+interject name:lucan_houndstooth: I fear we trample the brush with clattering haste and have forgotten what the hunt is for.
+interject name:lucan_houndstooth: I cannot walk calmly beside companions who treat the hunt as a brawl in a slaughterhouse.
+* You are right. Tell us how to mend our ways. -> strained_1
+* We survive however we must. Keep up or stay behind. -> strained_2
+* Stay quiet by the fire. -> strained_3
+
+~ strained_1
+interject name:lucan_houndstooth: Keep your hands gentle toward helpless creatures, read the spoor before you charge, and stand firm when the alpha lunges.
+interject name:lucan_houndstooth: Do that much, friends, and you shall have my bow and my manners at your shoulder until the end.
+approve lucan_houndstooth +8: You owned your missteps and asked how to mend the hunt
+-> END
+
+~ strained_2
+interject name:lucan_houndstooth: Then I shall walk at the rear to guard your flank, though we are no longer hunting as colleagues.
+approve lucan_houndstooth -3: You brushed off my concerns and told me to keep up
+-> END
+
+~ strained_3
+Narrator: Lucan waits while the birch bark pops in the flames, then tucks his journal deep into his crimson coat.
+interject name:lucan_houndstooth: Silence is at least quieter in the thicket than our usual approach.
+-> END
+
+~ talk_doubt
+if name:lucan_houndstooth and approval.lucan_houndstooth == doubtful
+-> doubt
+endif
+-> END
+
+~ doubt
+Narrator: Lucan stands near the edge of the camp, brushin' grey ash from his cuff while his hound watches the dark trees.
+interject name:lucan_houndstooth: Pardon the interruption, friends, as I am still puzzling over our recent habits in the field.
+interject name:lucan_houndstooth: We rush past fresh spoor without reading the wind, and we treat every crossroads like a tavern doorway.
+interject name:lucan_houndstooth: In Edwardia, a hunter who ignores the small noses in the brush does not keep his throat for long.
+* Fair warning. How would you have us read the trail? -> doubt_1
+* Our throats are still whole, so our luck holds. -> doubt_2
+* Say nothing and watch the embers. -> doubt_3
+
+~ doubt_1
+interject name:lucan_houndstooth: Slow your stride at the edge of a clearing, if you please, and listen when a stray beast gives warning.
+interject name:lucan_houndstooth: Patience is the finest shelter a company can carry under these trees.
+approve lucan_houndstooth +5: You took my doubts to heart and asked for fieldcraft advice
+-> END
+
+~ doubt_2
+Narrator: Lucan clears a low rumble from his throat and adjusts the brim of his tricorn hat.
+interject name:lucan_houndstooth: Luck is a thin coat in a winter storm, though I pray yours does not tear.
+approve lucan_houndstooth -2: You laughed off my warning and trusted to luck
+-> END
+
+~ doubt_3
+Narrator: Lucan watches the smoke drift toward the pines and rests a gloved palm on his hound's ghostly skull.
+interject name:lucan_houndstooth: Keep your lanterns trimmed tonight, if you please, whatever path we take tomorrow.
+-> END
+
+~ talk_act1
+if name:lucan_houndstooth and flag.gl_crashed and not flag.vessla_slain
+-> act1
+endif
+-> END
+
+~ act1
+Narrator: Lucan kneels beside a pile of twisted iron from the Ghostlight Express, sniffing a splintered sleeper before wiping his fingers on a handkerchief.
+interject name:lucan_houndstooth: Good heavens, what an extraordinary display of poor railway posture.
+interject name:lucan_houndstooth: One moment we are taking tea in the carriage, and the next the whole train is lying in the turf of Wickermoor Hollow like a startled boar.
+interject name:lucan_houndstooth: I have walked the grey lanes of Baskerton in deep winter, yet I have never seen a sky refuse the dawn like this one.
+interject name:lucan_houndstooth: That Crooked Moon hangs above the village with the sour look of a landlady waiting on overdue rent.
+Narrator: His spectral hound presses close to his knee, and Lucan steadies his own trembling left hand against the stave of his bow.
+interject name:lucan_houndstooth: Look at the pine needles around Wickermoor, friends, every twig bent toward the dark as if the valley itself were holding its breath.
+interject name:lucan_houndstooth: Still, the air smells of cold iron and damp moss, which means any quarry on these roads will leave a clean track.
+interject name:lucan_houndstooth: Hush now, the dark has teeth in this hollow, so we must simply keep our manners sharper than its jaw.
+* How are you holding up after that crash? -> act1_1
+* None of us expected to wake up in a haunted valley. -> act1_2
+* Put the journal away and get some rest tonight. -> act1_3
+
+~ act1_1
+Narrator: Lucan straightens his lapel with careful fingers, though a brief yellow glint catches the edge of his eyes.
+interject name:lucan_houndstooth: Quite sound in wind and limb, I assure you, apart from a bruised shoulder and a singing in the ears.
+interject name:lucan_houndstooth: As long as the lantern oil holds and my hound keeps his nose to the wind, I shall manage splendidly.
+approve lucan_houndstooth +2: You asked how I was holding up after the wreck
+-> END
+
+~ act1_2
+interject name:lucan_houndstooth: Indeed, it is a rude surprise to step off a train into a nursery tale gone rotten.
+interject name:lucan_houndstooth: Yet there is great comfort in facing an unfamiliar thicket with capable company at one's elbow.
+approve lucan_houndstooth +3: You shared your own unease about waking in the Hollow
+-> END
+
+~ act1_3
+interject name:lucan_houndstooth: A sensible prescription, if you please, as a tired eye misreads the brush.
+interject name:lucan_houndstooth: Take the warm side of the fire, and my hound and I shall keep the first watch.
+approve lucan_houndstooth -1: You told me to put the journal away and rest
+-> END
+
+~ talk_act2
+if name:lucan_houndstooth and flag.act2_done >= 2
+-> act2
+endif
+-> END
+
+~ act2
+Narrator: Lucan sits on a dry stump warmin' a tin cup between his gloves while his spectral mastiff stretches out across the moss.
+interject name:lucan_houndstooth: Ever since we walked out of the Crooked House, I have been revising my early notes on this company.
+interject name:lucan_houndstooth: When the Ghostlight Express first spilled us into the Hollow, I feared we were merely a parcel of lost passengers.
+interject name:lucan_houndstooth: In Baskerton, I knew seasoned trackers who would have bolted at the first howl from these woods.
+interject name:lucan_houndstooth: Yet I have watched you take hard blows in the mire, wipe the blood from your sleeves, and step right back into the breach.
+interject name:lucan_houndstooth: Even when the hollow takes a heavy toll, nobody here abandons a friend to the fog.
+interject name:lucan_houndstooth: My hound has stopped pacing the perimeter when you sleep, which is the highest compliment a hunting dog can pay.
+interject name:lucan_houndstooth: Prime specimen of a hunting party, if you please, and I am proud to walk in your stride.
+* How are you faring after everything we have faced? -> act2_1
+* We only made it this far because we stood together. -> act2_2
+* Save your strength for the morning trail. -> act2_3
+
+~ act2_1
+interject name:lucan_houndstooth: The yellow behind my eyes has been remarkably quiet of late, even when the brush grows loud.
+interject name:lucan_houndstooth: It is far easier to hold a civilised posture when one is not afraid of standing alone.
+approve lucan_houndstooth +2: You checked on my spirits deep in the Hollow
+-> END
+
+~ act2_2
+Narrator: Lucan tips his tin cup toward you in a quiet salute, a warm grain in his low voice.
+interject name:lucan_houndstooth: Quite right, as a pack that holds its line can turn any beast in the forest.
+interject name:lucan_houndstooth: Whatever waits further down the road will find us hard to scatter.
+approve lucan_houndstooth +3: You reminded me that we survived by standing together
+-> END
+
+~ act2_3
+interject name:lucan_houndstooth: Most prudent, for the damp air is settling into the boots.
+interject name:lucan_houndstooth: Sleep deeply, and I shall wake you when the kettle boils.
+approve lucan_houndstooth -1: You urged me to save my strength for the morning
+-> END
+
+~ talk_act3
+if name:lucan_houndstooth and flag.act2_done >= 5
+-> act3
+endif
+-> END
+
+~ act3
+Narrator: Lucan rests his bow across his knees with his tricorn off, lettin' the firelight catch the grey at his temples.
+interject name:lucan_houndstooth: The wind through the Hollow has changed its note tonight, friends, if you care to listen.
+interject name:lucan_houndstooth: Every bird in the brush has gone still, the way the woods always do before the real quarry steps into the lane.
+interject name:lucan_houndstooth: When I first buttoned on this crimson coat, I thought a huntsman needed a grand title and a terrible hound to walk the dark.
+interject name:lucan_houndstooth: Now my coat is mended with plain thread, my boots are scarred to the welt, and I have never felt steadier on my heels.
+interject name:lucan_houndstooth: This valley strips the swagger off a man until only the bone and the company remain.
+interject name:lucan_houndstooth: If the yellow takes my eyes in the last thicket, I know you will keep the lantern steady until I find my name again.
+interject name:lucan_houndstooth: Whatever beast waits at the end of this spoor, it is about to meet very polite ruin.
+* How are you holding up before the final push? -> act3_1
+* Whatever waits ahead, we finish this hunt side by side. -> act3_2
+* Get some sleep while the woods are still quiet. -> act3_3
+
+~ act3_1
+Narrator: Lucan lets out a soft breath that fogs the cold air, his shoulders easy inside his worn coat.
+interject name:lucan_houndstooth: Tired in the marrow, if you please, yet my hands have not shaken once since we made camp.
+interject name:lucan_houndstooth: My hound and I are ready for the whistle whenever you give the word.
+approve lucan_houndstooth +2: You asked how I was holding up before the end
+-> END
+
+~ act3_2
+interject name:lucan_houndstooth: Side by side it shall be, with clean posture and not a single step yielded.
+interject name:lucan_houndstooth: Good heavens, I almost pity the creature that tries to part us now.
+approve lucan_houndstooth +3: You promised we would finish the hunt side by side
+-> END
+
+~ act3_3
+interject name:lucan_houndstooth: I shall turn in presently, once the embers settle to a tidy glow.
+interject name:lucan_houndstooth: Rest well, and thank you for the road.
+approve lucan_houndstooth -1: You told me to sleep while the woods were quiet
+-> END
+
+~ talk_warm
+if name:lucan_houndstooth and approval.lucan_houndstooth >= warm and level >= 3
+-> warm
+endif
+-> END
+
+~ warm
+Narrator: Lucan sits with a needle pinched in his thick claws, darning the hem of his crimson coat by the firelight.
+interject name:lucan_houndstooth: Do sit down, friends, though I must ask your strict discretion regarding the domestic craft currently in my lap.
+interject name:lucan_houndstooth: In Baskerton, they imagine a gentleman of the hunt sleeps hanging from the rafters, chewing on raw gristle.
+interject name:lucan_houndstooth: The truth is that my hound has a habit of nibbling my cuffs whenever a shadow startles him in the brush.
+interject name:lucan_houndstooth: If I paid a tailor for every frayed hem, the Zoological Society would soon find me hunting in my waistcoat.
+interject name:lucan_houndstooth: Besides, I find that a neat herringbone stitch settles the breath far better than a glass of brandy.
+interject name:lucan_houndstooth: Every monster in this valley tears at the cloth, and it is a comfort to mend one small tear before bed.
+interject name:lucan_houndstooth: I have even stitched a small pocket inside the lining solely for carrying dry biscuits for the boy.
+* Where did you learn to sew so neatly? -> warm_1
+* Your secret is safe with us. -> warm_2
+* A dread harbinger with a sewing basket. -> warm_3
+
+~ warm_1
+Narrator: Lucan holds the crimson wool up to the embers, squinting through the smoke to check the line of the thread.
+interject name:lucan_houndstooth: My grandfather insisted that a kennel-master's grandson should know how to mend a torn leather lead and a winter coat.
+interject name:lucan_houndstooth: He had very little patience for frayed edges, if you please, whether in a hound's temper or a woollen lapel.
+approve lucan_houndstooth +2: You asked where I learned to stitch so neatly
+-> END
+
+~ warm_2
+interject name:lucan_houndstooth: That is most sporting of you, as my terrifying reputation is already thin enough round the elbows.
+interject name:lucan_houndstooth: Let me know if your own cloaks catch on the brambles tomorrow, for I carry plenty of spare thread.
+approve lucan_houndstooth +3: You promised to keep my mending a secret
+-> END
+
+~ warm_3
+Narrator: A low rumble starts in Lucan's chest before he clears his throat and tucks the needle into his lapel.
+interject name:lucan_houndstooth: Good heavens, it is a strictly tactical repair kit, not a basket, and the thimble is made of heavy brass.
+interject name:lucan_houndstooth: Though I grant you that my posture over a darning needle is hardly a ten out of ten for menace.
+approve lucan_houndstooth -1: You teased me about my mending by the fire
+-> END
+
+~ talk_close
+if name:lucan_houndstooth and approval.lucan_houndstooth >= close and level >= 5
+-> close
+endif
+-> END
+
+~ close
+Narrator: Lucan rests his bow across his knees, his yellow eyes fixed on the dark tree line beyond the camp's ring of light.
+interject name:lucan_houndstooth: When I first stepped off the train into this hollow, I thought I only needed a grander specimen for my ledger.
+interject name:lucan_houndstooth: I told myself that if I could track the worst horrors in these woods, the beast in my blood would finally stand tall.
+interject name:lucan_houndstooth: Yet the deeper we walk into the brush, the less I care for what the halls in Edwardia would say of the spoor.
+interject name:lucan_houndstooth: My only wish now is to hunt the foulest things in the dark and remain the hunter when the smoke clears.
+interject name:lucan_houndstooth: Not the monster that loses its manners to the yellow glare, and not the coward who steps back from the throat.
+interject name:lucan_houndstooth: Travelling in your company has shown me that a steady hand needs no applause from a warm parlour.
+interject name:lucan_houndstooth: I would very much like to walk out of these pines knowing my hound and I kept the watch properly.
+* You won't face the dark alone. We'll see it through. -> close_1
+* What will it take to stay the hunter? -> close_2
+* Is hunting the next beast really enough for you? -> close_3
+
+~ close_1
+Narrator: Lucan's spectral hound rests its heavy chin on his boot, and Lucan touches the vapour between its ears.
+interject name:lucan_houndstooth: Prime specimen of comradeship, friends, and I shall endeavour to match your stride when the boughs close in.
+interject name:lucan_houndstooth: With your lanterns beside me, the yellow in the dark seems a great deal easier to stare down.
+approve lucan_houndstooth +3: You promised to stand with me against the dark
+-> END
+
+~ close_2
+interject name:lucan_houndstooth: Clean aim, an honest ledger, and the resolve not to look away when the quarry bares its teeth, if you please.
+interject name:lucan_houndstooth: As long as I remember why I hold the bow, the wolf remains a gentleman.
+approve lucan_houndstooth +2: You asked what it would take to stay the hunter
+-> END
+
+~ close_3
+Narrator: Lucan looks down at his clawed knuckles, flexin' them once against the polished wood of his bow.
+interject name:lucan_houndstooth: Perhaps not forever, friends, for even an old hound eventually tires of the damp grass.
+interject name:lucan_houndstooth: Yet while there are teeth in the thicket and good company at my shoulder, it is a worthy enough trade.
+approve lucan_houndstooth -1: You wondered if the hunt was truly enough for me
+-> END
+
+~ talk_devoted
+if name:lucan_houndstooth and approval.lucan_houndstooth >= devoted and level >= 8
+-> devoted
+endif
+-> END
+
+~ devoted
+Narrator: Lucan holds his leather field journal near the coals, his thumb brushin' the brass clasp without opening it.
+interject name:lucan_houndstooth: We are drawing near the root of this valley's rot, and the air smells of old iron and burnt straw.
+interject name:lucan_houndstooth: I have spent years filling this leather journal with grades and scores so the folk in Baskerton would call me a master of the brush.
+interject name:lucan_houndstooth: Every page is proof that Lucan Houndstooth walked into the fog and came back with a tidy margin.
+interject name:lucan_houndstooth: Yet if the road requires it, I would follow you straight up the Crooked Tree and back down into the ash.
+interject name:lucan_houndstooth: I would toss this journal and every title I hold in Edwardia right into the embers to keep this company whole.
+interject name:lucan_houndstooth: A gentleman's name is a fine coat, if you please, but it is poor shelter compared to the friends beside him.
+interject name:lucan_houndstooth: Hush now, the dark has teeth ahead of us, and my bow is yours until the last lantern goes out.
+* We'd do the same for you, down to the last ember. -> devoted_1
+* Keep your journal. We're bringing you and your stories home. -> devoted_2
+* Thank you. There's no finer hunter to have at our side. -> devoted_3
+
+~ devoted_1
+Narrator: Lucan slips the journal back into his coat and tips his tricorn toward you with a slow, solemn nod.
+interject name:lucan_houndstooth: Then the beasts of this hollow have my deepest sympathies, for their posture will not save them.
+interject name:lucan_houndstooth: We shall hold the brush together, and let the legends take care of themselves.
+approve lucan_houndstooth +3: You said you would give as much for me
+inspire name:lucan_houndstooth: pledged his bow to the company
+inspiration
+-> END
+
+~ devoted_2
+interject name:lucan_houndstooth: Good heavens, you will make me smudge my ink with such talk, and I have no spare blotting paper.
+interject name:lucan_houndstooth: Very well, I shall keep the book dry, and the best chapters will be the ones we walked together.
+approve lucan_houndstooth +3: You told me to keep my journal and come home
+inspire name:lucan_houndstooth: kept his ledger for the road ahead
+inspiration
+-> END
+
+~ devoted_3
+Narrator: Beside Lucan's boots, the ghost dog gives a single, quiet thump of its tail against the dirt.
+interject name:lucan_houndstooth: You are far too generous with your marks, though I accept the grade with all my heart.
+interject name:lucan_houndstooth: Sleep well tonight, for the good boy and I have the first watch.
+approve lucan_houndstooth +2: You thanked me for standing at your side
+inspire name:lucan_houndstooth: stood guard over the company's rest
+inspiration
+-> END

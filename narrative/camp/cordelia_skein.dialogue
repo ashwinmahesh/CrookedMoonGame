@@ -1,0 +1,303 @@
+# Cordelia's camp talks (story/camp_talk.gd): offered after a Long Rest or at camp once the opening `if` holds, each once a playthrough, the first that
+# holds in this order: when Cordelia is Strained or Doubtful (story/approval.gd), the acts' words, then Warm, Close and Devoted.
+# Cordelia's Thread of Fate beats are in cordelia_skein_thread.dialogue. Dark secrets are the world lane's (Raum's gate): nothing here states one.
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+~ talk_strained
+if name:cordelia_skein and approval.cordelia_skein <= strained
+-> strained
+endif
+-> END
+
+~ strained
+Narrator: Cordelia sits well back from the firelight on a damp root, her four lower hands wiping soot from her thorax vials with a linen rag.
+interject name:cordelia_skein: I have been reviewing the trajectory of our recent decisions, and the methodology is frankly appalling.
+interject name:cordelia_skein: When presented with rare anomalies, I fear we reach too quickly for a blunt instrument, or for pity, before we have understood.
+interject name:cordelia_skein: A good deal of priceless data is being lost to superstition and panic, and I did not leave the dark of Nerukhet to watch ignorance triumph.
+interject name:cordelia_skein: If you intend to treat every pathology in this valley as a monster to be smashed or wept over, my expertise is entirely redundant.
+* We have been careless. Tell us how to approach this properly. -> strained_1
+* We do what keeps us alive, not what fills your notebooks. -> strained_2
+* Say nothing and stay by the fire. -> strained_3
+
+~ strained_1
+interject name:cordelia_skein: You could begin by holding the torch steady before you swing the axe, darling.
+interject name:cordelia_skein: Bring me the next intact specimen we encounter, and let us see if your discipline improves under observation.
+approve cordelia_skein +8: You heard my complaint and asked how to mend our methods
+-> END
+
+~ strained_2
+interject name:cordelia_skein: Survival without comprehension is merely the reflex of a lower organism, though I suppose it keeps the blood pumping.
+approve cordelia_skein -3: You brushed off my work at the fire
+-> END
+
+~ strained_3
+Narrator: The logs settle in a shower of red sparks while Cordelia checks the brass seal on her pack in the quiet.
+interject name:cordelia_skein: Silence is at least clean data, so I shall leave you to the smoke.
+-> END
+
+~ talk_doubt
+if name:cordelia_skein and approval.cordelia_skein == doubtful
+-> doubt
+endif
+-> END
+
+~ doubt
+Narrator: Cordelia stands near the edge of the camp, spinning a short strand of crimson silk between two fingers and watchin' it dissolve into mist.
+interject name:cordelia_skein: Forgive the interruption, darling, I am merely trying to calibrate the logic behind the way things have gone lately.
+interject name:cordelia_skein: You leave half our inquiries unfinished in the dirt, as though curiosity were a hazard rather than our sole advantage.
+interject name:cordelia_skein: One begins to wonder whether you are conducting an expedition or simply stumbling from one loud noise to the next.
+* Fair point. What are we missing when we move on so fast? -> doubt_1
+* Overthinking gets people killed out here. -> doubt_2
+* Say nothing and stay by the fire. -> doubt_3
+
+~ doubt_1
+interject name:cordelia_skein: Every aberration in this valley carries the signature of what altered it in the humours and the bone.
+interject name:cordelia_skein: Give me five quiet minutes with a scalpel after the next scuffle, and I promise the ratio of answers to bruises will improve.
+approve cordelia_skein +5: You took my doubts seriously and asked what I would change
+-> END
+
+~ doubt_2
+interject name:cordelia_skein: How delightfully brisk, I shall remember that philosophy when your humours require an urgent assay.
+approve cordelia_skein -2: You laughed off my doubts about our pace
+-> END
+
+~ doubt_3
+Narrator: Cordelia lets the last red thread vanish from her knuckles and folds her lower arms neat across her ribs.
+interject name:cordelia_skein: We can resume the peer review when the morning mist clears, provided morning ever arrives.
+-> END
+
+~ talk_act1
+if name:cordelia_skein and flag.gl_crashed and not flag.vessla_slain
+-> act1
+endif
+-> END
+
+~ act1
+Narrator: Cordelia perches on an upturned crate near the coals, six eyes wide under the leering crone's face of the Crooked Moon.
+interject name:cordelia_skein: Fascinating pathology!
+interject name:cordelia_skein: When the Ghostlight Express left the rails, the sudden deceleration nearly unseated the third ruby vial on my thorax.
+interject name:cordelia_skein: Had the glass fractured against the upholstery, my somatic calibration would have soured before we crawled out of the wreckage.
+interject name:cordelia_skein: Look at the sky above Wickermoor Hollow, darling, not a single solar clue to regulate the pineal humours.
+interject name:cordelia_skein: Just that enormous, grinning moon hanging over the trees like a preservative lamp in an old lecture hall.
+interject name:cordelia_skein: I have already catalogued three distinct fungal spores in the fog, and none of them belong to a waking meteorology.
+interject name:cordelia_skein: Still, so long as my vials remain stoppered and the fire stays bright, I have no intention of slipping back into the dark.
+* Your hands are steady now, but how are you holding up? -> act1_1
+* None of us expected to walk away from a wreck like that. -> act1_2
+* Put the vials away for tonight and get some rest. -> act1_3
+
+~ act1_1
+Narrator: She taps the glass plug over her sternum with a clean, sharp click of her fingernail.
+interject name:cordelia_skein: My resting pulse is eleven beats above baseline, which is an entirely rational response to derailment.
+interject name:cordelia_skein: Keep the lantern lit near my branch tonight, and my cortex will settle by the third watch.
+approve cordelia_skein +2: You asked how I was holding up after the crash
+-> END
+
+~ act1_2
+interject name:cordelia_skein: Statistically, our survival argues for either extraordinary bone density or an experiment that has not yet reached its second chapter.
+interject name:cordelia_skein: I much prefer to be the one holding the pencil when the variables turn lethal.
+approve cordelia_skein +3: You shared a quiet word with me about surviving the wreck
+-> END
+
+~ act1_3
+interject name:cordelia_skein: A prudent prescription, though I shall sleep with my upper eyes half-open until I trust this fog.
+interject name:cordelia_skein: Do try not to roll into the embers, as burn salve takes three hours to distil properly.
+approve cordelia_skein -1: You told me to pack my notes and get some rest
+-> END
+
+~ talk_act2
+if name:cordelia_skein and flag.act2_done >= 2
+-> act2
+endif
+-> END
+
+~ act2
+Narrator: Cordelia warms a glass dropper between her upper palms while her lower hands mend a frayed strap on her leather pack.
+interject name:cordelia_skein: Since we walked out of the Crooked House, I have been forced to revise several foundational hypotheses about this company.
+interject name:cordelia_skein: Back in Nerukhet, any group subjected to that degree of ectoplasmic stress would have fractured into mutual vivisection by the second hour.
+interject name:cordelia_skein: Yet here we sit in the Hollow, bruised and lightly scorched, passing the kettle as though haunts were merely inclement weather.
+interject name:cordelia_skein: Do hold still, this will only tingle.
+interject name:cordelia_skein: There, a tiny smear of soot on your sleeve that was obscuring my view of the weave.
+interject name:cordelia_skein: I used to regard companions strictly as mobile control groups with regrettably thin skin.
+interject name:cordelia_skein: It is mildly alarming to discover that I now factor your survival into my primary equations rather than the margin of error.
+* How are you holding up after everything we have seen here? -> act2_1
+* We have all grown used to watching each other's backs. -> act2_2
+* Save the equations for tomorrow and get some rest. -> act2_3
+
+~ act2_1
+interject name:cordelia_skein: My humours are remarkably lucid, darling, though the air in this valley leaves an odd mineral taste on the tongue.
+interject name:cordelia_skein: So long as there is a clean fire and a sharp mind beside me, the old caverns feel very far away.
+approve cordelia_skein +2: You asked how I was faring deep in the Hollow
+-> END
+
+~ act2_2
+Narrator: Cordelia tilts her head, the firelight catchin' the six dark lenses of her eyes.
+interject name:cordelia_skein: Mutual preservation is a sound evolutionary strategy, even if you insist on calling it friendship.
+interject name:cordelia_skein: I shall endeavour to keep my acid splashes well clear of your boots on the next road.
+approve cordelia_skein +3: You spoke of how the party looks out for one another
+-> END
+
+~ act2_3
+interject name:cordelia_skein: Even the most rigorous researcher must occasionally yield to cellular fatigue.
+interject name:cordelia_skein: Wake me if the fog thickens, darling, or if anything with more than four legs approaches the perimeter.
+approve cordelia_skein -1: You told me to set my work aside and rest
+-> END
+
+~ talk_act3
+if name:cordelia_skein and flag.act2_done >= 5
+-> act3
+endif
+-> END
+
+~ act3
+Narrator: The fire burns low and blue at the edge of the dark, and Cordelia sits close to the heat with all eight limbs drawn in.
+interject name:cordelia_skein: If you examine the state of my boots, darling, you will observe that Wickermoor Hollow has thoroughly eroded the polish.
+interject name:cordelia_skein: We are nearing the final stage of the assay, and even the air smells like a condenser about to boil over.
+interject name:cordelia_skein: When we first crawled out of the train, I was terrified that one cracked vial would send my mind straight back to the nursery dark.
+interject name:cordelia_skein: Now my knuckles are barked, my ratios are written on the wind, and I have never thought more clearly in my life.
+interject name:cordelia_skein: Whatever waits for us at the end of this valley, it is going to find us exceedingly difficult to digest.
+interject name:cordelia_skein: I must confess, having stubborn anomalies at my shoulder makes the prospect of a lethal conclusion almost invigorating.
+* You sound tired beneath the lecture. How are you holding up? -> act3_1
+* Whatever comes next, we will face it together. -> act3_2
+* Rest while we still have the fire to ourselves. -> act3_3
+
+~ act3_1
+Narrator: She lets out a breath that mists in the chill and rests two lower hands flat on her knees.
+interject name:cordelia_skein: Tired to the very marrow, yet my hand has not shaken once since the moon rose.
+interject name:cordelia_skein: It is a novel sensation to be exhausted by the road ahead rather than the past behind me.
+approve cordelia_skein +2: You looked past my lecture to ask how I was holding up
+-> END
+
+~ act3_2
+interject name:cordelia_skein: Together is an imprecise metric, yet in your case the calibration has proven unimpeachable.
+interject name:cordelia_skein: Let us make sure the final record shows we gave the dark a thorough examination before the end.
+approve cordelia_skein +3: You promised we would face the end of the road together
+-> END
+
+~ act3_3
+interject name:cordelia_skein: A brief suspension of consciousness seems acceptable before the final trial.
+interject name:cordelia_skein: Keep the coals banked, I have grown rather fond of waking up to this untidy little camp.
+approve cordelia_skein -1: You urged me to rest by the fire before the end
+-> END
+
+~ talk_warm
+if name:cordelia_skein and approval.cordelia_skein >= warm and level >= 3
+-> warm
+endif
+-> END
+
+~ warm
+Narrator: Cordelia sits near the embers with four lower hands tucked into her waistcoat, rollin' a tiny bead of cooled candle tallow between two fingertips.
+interject name:cordelia_skein: I must confess a minor methodological failing, darling, as your company has made me alarmingly lax with my evening protocols.
+interject name:cordelia_skein: Look at these lower four hands, idling in my lap like four bored students at the back of a lecture hall.
+interject name:cordelia_skein: Whenever my primary pair is occupied with a pestle or a teacup, the others grow terribly restless without a task.
+interject name:cordelia_skein: Left to themselves, they begin braiding whatever falls within reach, from bootlaces and blanket fringes to loose strands of moss.
+interject name:cordelia_skein: Back in Nerukhet, an unscheduled movement on the bench was treated as a regression of the nervous system.
+interject name:cordelia_skein: Out here by the fire, I have caught my lowest left fingers secretly plaiting little decorative knots into the edge of my cloak.
+interject name:cordelia_skein: It serves zero anatomical purpose, yet I find I lack the academic rigour to untie them before bed.
+* Tell us what else those spare hands get up to. -> warm_1
+* Your secret is safe by this fire. -> warm_2
+* Keep them away from our bootlaces while we sleep. -> warm_3
+
+~ warm_1
+Narrator: Two of her lower fingers flick out and tie a neat double bow in a dry blade of grass before she stills them.
+interject name:cordelia_skein: Yesterday they sorted a pouch of salt by crystal geometry while I was trying to read Doctor Hespa Marlowe's margins.
+interject name:cordelia_skein: It is a soothing little pathology, truth be told, when nobody is grading the specimen.
+approve cordelia_skein +2: You asked to hear more about my restless extra hands
+-> END
+
+~ warm_2
+interject name:cordelia_skein: How remarkably discreet of you, to overlook such frivolous needlework in a serious researcher.
+interject name:cordelia_skein: It is rather pleasant to travel with colleagues who do not audit every twitch of my thorax.
+approve cordelia_skein +3: You promised to keep my small habit to yourself
+-> END
+
+~ warm_3
+Narrator: All six of Cordelia's eyes narrow in bright amusement as she taps her ruby-glass vials.
+interject name:cordelia_skein: Do hold still, this will only tingle if I decide to braid your cuffs together before dawn.
+interject name:cordelia_skein: Though I promise to restrict my illicit macrame to my own hems until breakfast.
+approve cordelia_skein -1: You teased me about braiding the camp's bootlaces
+-> END
+
+~ talk_close
+if name:cordelia_skein and approval.cordelia_skein >= close and level >= 5
+-> close
+endif
+-> END
+
+~ close
+Narrator: Cordelia holds a page of water-stained notes toward the firelight, watching a diagram of crimson silk-thread shimmer in the heat.
+interject name:cordelia_skein: When Provost Alaric Glass first altered my humours in the caverns, he designed a specimen that required constant calibration just to stay awake.
+interject name:cordelia_skein: Every vial plugged into my thorax is a borrowed measure, an unfinished equation written by someone else's knife.
+interject name:cordelia_skein: I came into this valley chasing Doctor Hespa Marlowe's final treatise because I refused to remain another scholar's rough draft.
+interject name:cordelia_skein: My hope has always been to finish the change they began in me, cleanly and entirely on my own terms.
+interject name:cordelia_skein: Before this road, I imagined that perfection meant sealing myself behind cold glass where nothing could ever shift my ratios again.
+interject name:cordelia_skein: Travelling beside you has altered the hypothesis, darling, in a way my margins never accounted for.
+interject name:cordelia_skein: I no longer wish to be a sterile monument to transmutation, only a whole creature who owns her own waking mind.
+* We will help you finish the work on your terms. -> close_1
+* What will it take to stabilise the change for good? -> close_2
+* Will perfecting the formula truly let you rest? -> close_3
+
+~ close_1
+Narrator: She folds the monograph carefully and slips it back inside her charcoal silk waistcoat.
+interject name:cordelia_skein: Having peer reviewers who care whether the researcher survives the experiment is a novel luxury.
+interject name:cordelia_skein: With your steadiness at my elbow, I believe my final calibration will hold.
+approve cordelia_skein +3: You promised to help me complete my change on my own terms
+-> END
+
+~ close_2
+interject name:cordelia_skein: A reagent that does not decay like common blood, and the nerve to rewrite the Provost's baseline from the marrow up.
+interject name:cordelia_skein: The assay will be delicate, yet my hands have never been steadier than they are in this camp.
+approve cordelia_skein +2: You asked what it would take to finish my work
+-> END
+
+~ close_3
+Narrator: The crimson thread between her fingers dissolves into faint red mist as she looks into the coals.
+interject name:cordelia_skein: Perhaps no formula cures a restless intellect, and I shall always find another ratio to test.
+interject name:cordelia_skein: Still, it will be a profound relief to know the breath in my lungs belongs solely to me.
+approve cordelia_skein -1: You wondered kindly whether finishing the formula would bring me peace
+-> END
+
+~ talk_devoted
+if name:cordelia_skein and approval.cordelia_skein >= devoted and level >= 8
+-> devoted
+endif
+-> END
+
+~ devoted
+Narrator: Cordelia sets her lead-lined jar on a flat stone by the fire, her six eyes clear and unblinking in the amber light.
+interject name:cordelia_skein: We are marching toward the roots of the Crooked Tree, and I have been calculating the odds of our little expedition.
+interject name:cordelia_skein: You have never once looked at my six eyes or my thorax vials as a curiosity to be catalogued or pitied.
+interject name:cordelia_skein: For all my talk of clinical detachment, I find my priorities have undergone a rather drastic recalibration.
+interject name:cordelia_skein: I have carried Doctor Hespa Marlowe's monograph and this calibration jar as if they were the only bridge out of the dark.
+interject name:cordelia_skein: If the work ahead demands a price, I would smash every vial of my research and empty the Provost's jar into the ash to keep you standing.
+interject name:cordelia_skein: Let the Apex Humour go unwritten if it must, darling.
+interject name:cordelia_skein: I would rather walk into the fog with an unfinished thesis than lose a single pulse around this fire.
+* We would give up just as much for you. -> devoted_1
+* Keep your notes safe, we will survive together. -> devoted_2
+* Thank you for standing with us to the end. -> devoted_3
+
+~ devoted_1
+Narrator: She rests two lower hands lightly over the brass latch of the jar, her mouth curving in a quiet smile.
+interject name:cordelia_skein: Fascinating pathology, that a handful of travellers can outweigh a lifetime of laboratory ambition.
+interject name:cordelia_skein: Let us make sure neither side of the ledger has to pay that tuition tomorrow.
+approve cordelia_skein +3: You said the party would sacrifice just as much for me
+inspire name:cordelia_skein: put the party above her lifework
+inspiration
+-> END
+
+~ devoted_2
+interject name:cordelia_skein: A sound hypothesis, and one I intend to test with every alchemical trick in my coat.
+interject name:cordelia_skein: Still, the ratio is fixed in my mind if the equation ever turns against us.
+approve cordelia_skein +3: You told me not to give up my research for the party
+inspire name:cordelia_skein: swore to put the party first
+inspiration
+-> END
+
+~ devoted_3
+Narrator: Cordelia inclines her head, the ruby-glass vials at her chest catchin' the steady glow of the coals.
+interject name:cordelia_skein: Gratitude is unnecessary among colleagues, though it warms the humours all the same.
+interject name:cordelia_skein: Do get some rest before we test the tree's anatomy in the morning.
+approve cordelia_skein +2: You thanked me for standing with the party
+inspire name:cordelia_skein: pledged her loyalty at the fire
+inspiration
+-> END

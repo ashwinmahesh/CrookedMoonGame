@@ -1,0 +1,306 @@
+# Tobin's camp talks (story/camp_talk.gd): offered after a Long Rest or at camp once the opening `if` holds, each once a playthrough, the first that
+# holds in this order: when Tobin is Strained or Doubtful (story/approval.gd), the acts' words, then Warm, Close and Devoted.
+# Tobin's Thread of Fate beats are in tobin_hayward_thread.dialogue. Dark secrets are the world lane's (Raum's gate): nothing here states one.
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+~ talk_strained
+if name:tobin_hayward and approval.tobin_hayward <= strained
+-> strained
+endif
+-> END
+
+~ strained
+Narrator: Tobin sits on an upturned crate well back from the firelight, scraping dry mud from his pruning knife with a thumb of stiff burlap.
+interject name:tobin_hayward: I have kept a clean ledger all my life, and I do not care for the entries we have been making lately.
+interject name:tobin_hayward: Sparks carried carelessly, sick ground written off when it could still be mended, hurt things left behind. That is the ledger I fear we are keeping.
+interject name:tobin_hayward: That is not field surgery, that is plain butchery, and I did not stitch my boots on to walk behind a blight.
+interject name:tobin_hayward: If we are only here to scorch what looks ugly, you and I are going to have a very short season together.
+* You're right. Tell me how we set the ledger straight. -> strained_1
+* The valley is ugly, Tobin. We do what works. -> strained_2
+* Say nothing and stay by the fire. -> strained_3
+
+~ strained_1
+interject name:tobin_hayward: Start by minding your sparks and tending what can still draw breath instead of kicking the taproot out.
+interject name:tobin_hayward: Keep your hands steady on the next row, and we will see if the soil holds.
+approve tobin_hayward +8: You listened when I called you out on our work
+-> END
+
+~ strained_2
+interject name:tobin_hayward: Any fool with a torch can clear an acre, and all he gets for his trouble is a mouthful of ash.
+approve tobin_hayward -3: You brushed off my warning at the fire
+-> END
+
+~ strained_3
+Narrator: Tobin slides the knife back into his belt and pulls his hat low, watchin' the dark beyond the trees.
+interject name:tobin_hayward: Right, well, keep your boots out of the embers before you turn in.
+-> END
+
+~ talk_doubt
+if name:tobin_hayward and approval.tobin_hayward == doubtful
+-> doubt
+endif
+-> END
+
+~ doubt
+Narrator: Tobin squats three paces from the fire with a bundle of dry rushes across his knees, twisting a splint and pulling the knot too tight.
+interject name:tobin_hayward: I have been watching the way we move through this parish, and the stitchwork is getting sloppy.
+interject name:tobin_hayward: Half the time we charge through the rows like stray cattle, wasting good herbs and leaving bruised stems behind us.
+interject name:tobin_hayward: You cannot cure a rot if you do not stop to read the bark first.
+* Fair point. How would you have us work the next stretch? -> doubt_1
+* We're alive, aren't we? Save the lecture for the crops. -> doubt_2
+* Say nothing and stay by the fire. -> doubt_3
+
+~ doubt_1
+interject name:tobin_hayward: Slower on the approach, quieter with the lanterns, and we salvage what timber and medicine the ruins leave us.
+interject name:tobin_hayward: A tidy camp keeps the pulse steady when the hexing thickens.
+approve tobin_hayward +5: You asked how I would mend our pace
+-> END
+
+~ doubt_2
+interject name:tobin_hayward: Alive for today, maybe, though a frayed seam always parts when the frost bites hardest.
+approve tobin_hayward -2: You laughed off my doubts about the road
+-> END
+
+~ doubt_3
+Narrator: A field-mouse pokes its nose from Tobin's lapel, and he taps it gently back into his pocket with a wooden finger.
+interject name:tobin_hayward: Sleep while you can, then, I will finish sorting these rushes myself.
+-> END
+
+~ talk_act1
+if name:tobin_hayward and flag.gl_crashed and not flag.vessla_slain
+-> act1
+endif
+-> END
+
+~ act1
+Narrator: Tobin sits on a dry stone three paces from the fire, pluckin' splinters of train-car oak out of his burlap knees.
+interject name:tobin_hayward: Hold still, you're fraying at the cuff and your collar has got half a window-frame tangled in the hem.
+interject name:tobin_hayward: Never mind, that is my own sleeve I am looking at, my eyes are still rattling from the crash.
+interject name:tobin_hayward: One minute we are rolling through the fog, and the next the whole carriage goes over like an overturned hay-wain.
+Narrator: He tips his head back toward the crone-faced moon, one wooden hand resting over the turnip-lantern cold against his collarbone.
+interject name:tobin_hayward: Look at that sour old face up there, staring down like a bailiff over a bad harvest.
+interject name:tobin_hayward: No dawn coming to dry the dew, just damp soil that smells of fifty-year canker and wet iron.
+interject name:tobin_hayward: My mice have not stopped shivering since the crash, and I had to evict a cinder the size of a walnut from my hatband.
+interject name:tobin_hayward: Still, the ribs held, the herb satchel stayed dry, and nobody here has split a main seam yet.
+* Never mind our cuffs. How are you holding up after that wreck? -> act1_1
+* None of us expected to wake up under that moon. -> act1_2
+* Put the needle away and get some rest, Tobin. -> act1_3
+
+~ act1_1
+interject name:tobin_hayward: Dry and intact, which is all a straw man can ask after flying through a carriage door.
+interject name:tobin_hayward: Give me an hour to re-tie my left wrist and I will be ready to inspect the parish.
+approve tobin_hayward +2: You asked how I held up after the crash
+-> END
+
+~ act1_2
+interject name:tobin_hayward: Right, well, when you are dropped in a strange orchard in the dark, you check the roots at your boots first.
+interject name:tobin_hayward: We will take the measure of that moon once we have the camp in order.
+approve tobin_hayward +3: You shared a quiet word on our first night
+-> END
+
+~ act1_3
+interject name:tobin_hayward: Rest is for people whose stuffing does not shift when they roll over.
+interject name:tobin_hayward: Go on to your bedroll, I will keep an eye on the sparks until the wood settles.
+approve tobin_hayward -1: You told me to rest after the crash
+-> END
+
+~ talk_act2
+if name:tobin_hayward and flag.act2_done >= 2
+-> act2
+endif
+-> END
+
+~ act2
+Narrator: Tobin sits on a dry root with his herb satchel open between his boots, sorting bundles of fever-bark by the light of the fire.
+interject name:tobin_hayward: When we walked down from the Crooked House with the glass still ringing in our ears, I figured this lot would come apart at the first hard frost.
+interject name:tobin_hayward: Too much noise, too many loose threads, and not one of you knows how to walk past a bramble without snagging a cloak.
+interject name:tobin_hayward: Instead we have been knee-deep in every sour ditch in Wickermoor Hollow, and you are all still standing on your own two feet.
+interject name:tobin_hayward: You take a blow, you bleed a little sap, and then you tie the rag tight and step right back into the row.
+interject name:tobin_hayward: Good soil, bad seed, I used to say, and I was sure this valley had nothing left in it worth grafting.
+interject name:tobin_hayward: Now I catch myself counting four pulses every ten minutes just to make sure the ledger has not gone short.
+interject name:tobin_hayward: Do not let it go to your head, mind, your posture is still dreadful.
+* And how is the surgeon holding up under all this mud? -> act2_1
+* We only keep standing because you keep stitching us back together. -> act2_2
+* Get some rest, Tobin. The ledger looks fine tonight. -> act2_3
+
+~ act2_1
+interject name:tobin_hayward: Damp around the ankles and running low on clean linen thread, if you want the honest tally.
+interject name:tobin_hayward: Still, the core straw is dry, and the work beats sitting on a fence post.
+approve tobin_hayward +2: You checked on me deep in the Hollow
+-> END
+
+~ act2_2
+interject name:tobin_hayward: Sound husbandry, nothing more, it wastes less medicine if I catch the tear before it reaches the bone.
+interject name:tobin_hayward: Though I will admit you lot make finer timber than I first marked you for.
+approve tobin_hayward +3: You thanked me for keeping the party mended
+-> END
+
+~ act2_3
+interject name:tobin_hayward: Fine is a big word for a camp with three frayed hems and a dented kettle.
+interject name:tobin_hayward: Go on and sleep, I am only waxing this twine before the damp gets in.
+approve tobin_hayward -1: You sent me to bed with a steady word
+-> END
+
+~ talk_act3
+if name:tobin_hayward and flag.act2_done >= 5
+-> act3
+endif
+-> END
+
+~ act3
+Narrator: The fire has burned down to low red coals, and Tobin sits closer than usual, turnin' a small braided rush ring between his fingers.
+interject name:tobin_hayward: Listen to the wind coming down the Hollow tonight, thick as cellar-damp and twice as cold.
+interject name:tobin_hayward: Whatever has been rotting at the taproot of this valley is just up the lane now, you can taste the iron on the tongue.
+interject name:tobin_hayward: Funny thing is, my chest is not hammering the way it did the night the train came off the rails.
+interject name:tobin_hayward: I spent my whole second life keeping three paces from every lantern, fussing over cuffs so I would not have to look at the ash.
+interject name:tobin_hayward: Then I fell in with a pack of stubborn fools who walk straight into the dark and expect a straw man to keep up.
+interject name:tobin_hayward: Whatever happens at the end of this row, I am glad my stitching held long enough to walk it with you.
+interject name:tobin_hayward: Now wipe that look off your face before the mice think I have gone soft in the gourd.
+* How are you feeling with the end of the road so close? -> act3_1
+* We walked it together, Tobin. Nobody's stitching fails tonight. -> act3_2
+* Rest up while the coals are low. Tomorrow will be heavy. -> act3_3
+
+~ act3_1
+Narrator: Tobin touches the front of his coat once, right over the dry rustle in his ribs, then drops his hand to his knee.
+interject name:tobin_hayward: Lighter than I have been in a long time, and ready to see the bill paid in full.
+interject name:tobin_hayward: Just keep your boots clear of the cinders when the work starts.
+approve tobin_hayward +2: You asked how I felt before the last stretch
+-> END
+
+~ act3_2
+interject name:tobin_hayward: That is the spirit, clean knots and steady hands all the way to the boundary stone.
+interject name:tobin_hayward: If the blight wants this parish, it will have to chew through some very tough burlap first.
+approve tobin_hayward +3: You stood by me before the final stretch
+-> END
+
+~ act3_3
+interject name:tobin_hayward: Right, even a field surgeon knows when to shut the ledger and save his breath.
+interject name:tobin_hayward: Goodnight, then, I will see you when the lanterns go up.
+approve tobin_hayward -1: You bade me rest before the last fight
+-> END
+
+~ talk_warm
+if name:tobin_hayward and approval.tobin_hayward >= warm and level >= 3
+-> warm
+endif
+-> END
+
+~ warm
+Narrator: Tobin sits three paces from the fire, rollin' his wooden shoulders and dabbing a drop of flax oil into the joint of his thumb.
+interject name:tobin_hayward: Hold still, you're fraying at the hem, though I suppose I am in no position to lecture tonight.
+interject name:tobin_hayward: This valley damp gets right into my wooden collarbone until I sound like a rusty cellar door every time I reach for a bandage.
+interject name:tobin_hayward: Back in the parishes, if a harvest hand creaked on the march, the whole crew made him carry the turnip basket at the rear.
+interject name:tobin_hayward: If you catch me humming old threshing jigs under my breath while we walk, do not go making a fuss about it.
+interject name:tobin_hayward: A brisk tune keeps the step even and drowns out the squeak in my elbow before anyone gets sentimental and asks if I am aching.
+interject name:tobin_hayward: Truth is, I have grown fond of marching with this noisy lot.
+interject name:tobin_hayward: You all clatter loud enough to hide a dozen creaky joints, and the road feels half as long for it.
+* Hum a bar of it for us now. -> warm_1
+* Your secret is safe with us. -> warm_2
+* So the stern surgeon is a songbird on the sly. -> warm_3
+
+~ warm_1
+Narrator: Tobin taps his boot heel twice against the dirt and lets out a dry, reedy hum like wind through standing barley.
+interject name:tobin_hayward: There, that is the whole reel, three notes for the sickle and one for the sheaf.
+interject name:tobin_hayward: Don't go expecting a tavern ballad, I am a field diagnostician, not a village fiddler.
+approve tobin_hayward +2: You asked me to hum my marching tune at the fire
+-> END
+
+~ warm_2
+Narrator: Tobin pulls his hat brim down a fraction and tucks the tiny oil vial back into his duster.
+interject name:tobin_hayward: Good, then we can strike it from the ledger and say no more about it.
+interject name:tobin_hayward: Still, it is a rare comfort not having to watch every step for fear of a noisy hinge.
+approve tobin_hayward +3: You promised to keep my habit to yourself
+-> END
+
+~ warm_3
+Narrator: A dry rustle moves through Tobin's chest-straw, the closest his stitched mouth comes to a laugh.
+interject name:tobin_hayward: Songbird is a slanderous word for a man keeping his joints in working order.
+interject name:tobin_hayward: Mock all you like, so long as you keep marching loud enough to cover my left knee.
+approve tobin_hayward -1: You teased me kindly about humming on the road
+-> END
+
+~ talk_close
+if name:tobin_hayward and approval.tobin_hayward >= close and level >= 5
+-> close
+endif
+-> END
+
+~ close
+Narrator: Tobin kneels at the edge of the firelight, crumbling a pinch of dark hollow dirt between his burlap fingers.
+interject name:tobin_hayward: When I first stepped off those rails, I treated this whole valley like a sour ledger that only needed a sharp scraping.
+interject name:tobin_hayward: Find the bad taproot, tie off the canker, and walk away with clean boots.
+interject name:tobin_hayward: Walking these lanes with you lot has changed the arithmetic on me.
+interject name:tobin_hayward: Good soil, bad seed, that is what we keep walking through, and my fingers ache to see what this dirt could do if it were clean.
+interject name:tobin_hayward: I want to track down the very first root where this Hollow went sick, pull the rot out by the teeth, and watch clean green shoots come up again.
+interject name:tobin_hayward: Not just to balance the books, mind you, I want to stand on the ridge and smell honest rain on living clover.
+interject name:tobin_hayward: It is a foolish, soft-headed hope for a man made of dry straw, and I would not trust anyone else with the hearing of it.
+* We will find the root and make it grow again. -> close_1
+* What will it take to cure a whole valley? -> close_2
+* Can one clean harvest really mend a place this cursed? -> close_3
+
+~ close_1
+Narrator: Tobin dusts his palms together with a soft papery whisper in the quiet.
+interject name:tobin_hayward: With you lot holding the line, I almost believe the soil stands a fighting chance.
+interject name:tobin_hayward: Come morning, we keep following the bad sap until we hit the heart of it.
+approve tobin_hayward +3: You promised to help me heal the Hollow's soil
+-> END
+
+~ close_2
+Narrator: Tobin looks out past the fire toward the dark tree line, his thumb resting on his pruning knife.
+interject name:tobin_hayward: A steady hand, a refusal to burn what can still be mended, and the stomach to dig down to the oldest rot.
+interject name:tobin_hayward: We have the tools between us, if our nerve holds out.
+approve tobin_hayward +2: You asked what it would take to cure the valley
+-> END
+
+~ close_3
+Narrator: The embers settle while Tobin turns a dry twig over in his fingers.
+interject name:tobin_hayward: Maybe it only mends one acre at a time, and maybe that has to be enough for us.
+interject name:tobin_hayward: Even a single clean row of barley beats leaving the whole parish to the mould, and I am glad you are here to ask the honest question.
+approve tobin_hayward -1: You wondered aloud if healing the soil would be enough
+-> END
+
+~ talk_devoted
+if name:tobin_hayward and approval.tobin_hayward >= devoted and level >= 8
+-> devoted
+endif
+-> END
+
+~ devoted
+Narrator: The fire burns low and even, and Tobin sits closer to the ring of stones than he ever has before.
+interject name:tobin_hayward: I have spent this whole journey keeping three paces back from every lantern and counting the sparks on the wind.
+interject name:tobin_hayward: A man stitched together out of dry straw and old regrets learns to guard his own chest first.
+interject name:tobin_hayward: Inside my front seam I carry a small bundle of dried meadow-rue and white clover from my wedding morning.
+interject name:tobin_hayward: It is the only clean thing I brought with me out of the old life, and I have guarded it like a miser.
+interject name:tobin_hayward: We are heading toward the Crooked Tree now, where the rot and the fire meet at the taproot.
+interject name:tobin_hayward: I want it plain in the ledger that I would follow you straight up those boughs and back down again.
+interject name:tobin_hayward: If the work takes a spark to finish, I will put my own dry ribs and that last bundle of clover between you and the flame.
+* And we would walk through the fire for you. -> devoted_1
+* Keep those wedding flowers safe in your chest. -> devoted_2
+* Thank you for trusting us that far. -> devoted_3
+
+~ devoted_1
+Narrator: Tobin rests two burlap fingers against his breastbone and gives a single crisp nod.
+interject name:tobin_hayward: Then the rows are straight between us, whatever waits in the clearing.
+interject name:tobin_hayward: Get your rest now, I have the watch and my seams are holding fine.
+approve tobin_hayward +3: You swore you would walk through fire for me too
+inspire name:tobin_hayward: pledged everything to protect the party
+inspiration
+-> END
+
+~ devoted_2
+Narrator: Tobin touches the braided seam over his heart, his voice dropping plain and quiet.
+interject name:tobin_hayward: I will keep them if I can, I promise you that much.
+interject name:tobin_hayward: Just know that if the ledger comes due between dry flowers and living friends, my choice is already made.
+approve tobin_hayward +3: You told me not to give up my wedding flowers
+inspire name:tobin_hayward: put the party before his dearest keepsake
+inspiration
+-> END
+
+~ devoted_3
+Narrator: Tobin straightens his coat lapels, settlin' the sleeping field-mice in his pocket with a gentle thumb.
+interject name:tobin_hayward: No need for speeches, it is simple field arithmetic when you travel with good company.
+interject name:tobin_hayward: Go on to your bedroll, and let me mind the ashes until dawn.
+approve tobin_hayward +2: You thanked me for standing by the party
+inspire name:tobin_hayward: stood ready to burn for the party
+inspiration
+-> END
