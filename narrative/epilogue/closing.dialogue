@@ -1,0 +1,271 @@
+# Drafted by Gemini (R25 closing), edited.
+
+~ marianna_grey
+Narrator: She smells of warm hay and spilled cider, twisting a length of braided horsehair around her thumb.
+marianna_grey [smile]: You are still here. I kept looking toward the arch, thinking you might have gone without a word.
+if flag.alda_will_delivered
+marianna_grey [weary]: Alda left me the Green Queen Inn, all of it, in writing. I burn the toast and drop the tankards, yet folks keep coming in for the warmth.
+endif
+if not flag.alda_will_delivered
+marianna_grey [sad]: They nailed planks across the Green Queen's doors yesterday. I still sleep up in the stable loft, where the horses breathe slow and nobody asks for ale.
+endif
+marianna_grey [smile]: Take this braid from Clover's tail, please, to keep in your pocket for luck on the road.
+set ep_closing_marianna_grey
+set ep_closings += 1
+-> END
+
+~ siv_harga
+Narrator: Siv's apron is scrubbed clean, though the salt of old blood and fresh tears clings to her knuckles.
+siv_harga [sad]: I washed the block and hung the cleavers high. Holly is gone into the cold dirt at the Rise, and the shop is too quiet for one pair of boots.
+if flag.feast_winner == "siv"
+siv_harga [weary]: When my sausage rolls won the feast, she laughed so hard she spilled her cider. I would trade the ribbon for one more scolding from her.
+endif
+if flag.feast_winner == "holly"
+siv_harga [weary]: Her braided loaf won the feast, you know, golden and sweet as summer. She was proud of that crust, even with the rot in her heart.
+endif
+if flag.feast_winner == "both"
+siv_harga [smile]: We shared the feast table, my meat and her bread side by side. That is how I will keep her in my head, not how she fell.
+endif
+siv_harga [neutral]: I still whisper a prayer when the blade comes down, for the beast, and for her foolish soul. Walk safe under the moon, friends.
+set ep_closing_siv_harga
+set ep_closings += 1
+-> END
+
+~ doris_squire
+Narrator: Her lantern glass is cracked down the middle, and a folded scrap of ink-stained paper pokes from her cuff.
+doris_squire [weary]: Still breathing. They took me early at the Rise, tied me tight, and Howie just stood there watching the rope bite.
+if flag.mori_outcome == "doris"
+doris_squire [neutral]: You brought Mori's word to me straight when you did not have to. I keep that in mind while I sort the keys.
+endif
+doris_squire [sad]: Watchhouse has got one chair left and one coat on the peg. I will walk the rounds alone till I find folk who do not turn in the dark.
+doris_squire [neutral]: Made a rhyme about the moon last hour. Kept it to four lines. Goodnight to you.
+set ep_closing_doris_squire
+set ep_closings += 1
+-> END
+
+~ wendel_somerton
+Narrator: Wendel clutches a sheaf of damp parchment to his waistcoat, his ink-horn clinking against his brass chain of office.
+wendel_somerton [weary]: What a shambles, what an irregular, undocumented catastrophe for the parish register! Half the Round blames me for the weather, the weeds, and the late unpleasantness.
+if flag.quarantine_forged
+wendel_somerton [sly]: Someone forged my seal on a quarantine writ during the panic, a passable hand, though the loop on the W was vulgar. I shall not inquire further.
+endif
+if flag.golub_dead
+wendel_somerton [smile]: At least the Hollow breathes easier without Golub rattling the fences, rest his terrible soul.
+endif
+wendel_somerton [neutral]: Inform the public that the Mayor's Office resumes regular hours from Twilight to Nightfall, pending form seven-B. You have my gratitude, officially and otherwise.
+set ep_closing_wendel_somerton
+set ep_closings += 1
+-> END
+
+~ jean_myriel
+Narrator: Soot streaks his thick forearms, and the iron in his bucket still hisses steam into the damp night air.
+jean_myriel [weary]: Holly used to bring me cold pies when the bellows broke. Hard to think a girl who baked like that wanted the world torn open.
+jean_myriel [neutral]: Got iron grave-markers on the left of the anvil and cart-horse shoes on the right. The living and the dead both need nails, so I keep swinging.
+jean_myriel [smile]: All that twisted cult scrap you lot shook loose makes fine hinges once you beat the malice out of it. Fare you well, travelers.
+set ep_closing_jean_myriel
+set ep_closings += 1
+-> END
+
+~ eleanor_heyling
+Narrator: Three sleepy children cling to the hem of her dusty shawl while she marks her place in a folio with a dried dandelion.
+eleanor_heyling [smile]: Oh, there you are, right on the closing page, much like the wandering knights in Holcroft's third appendix, footnote twelve.
+if flag.price_outcome == "eleanor"
+eleanor_heyling [smile]: The silver from that fair book-trade you brokered bought winter boots for all three little ones, with pennies left for tallow.
+endif
+if not flag.price_outcome
+eleanor_heyling [neutral]: Before you vanish into the mist, do return my copy of "On Bog-Lights and Barrow-Wights," though I suppose I may have lent it to the baker.
+endif
+eleanor_heyling [weary]: The children asked if the moon would stop grinning now. I cited Peake on lunar phases, then simply held them until they slept.
+set ep_closing_eleanor_heyling
+set ep_closings += 1
+-> END
+
+~ finneas_trout
+Narrator: Chalk dust powders his cuffs, and the smell of beeswax candles drifts from the small package under his arm.
+finneas_trout [neutral]: I have been drafting a curriculum on recent municipal history for the youngsters. One must frame terror as a civic lesson, or they will never sleep.
+if flag.thread_duality_catharsis == "taken"
+finneas_trout [weary]: Since the shadow split from me, my own voice sounds quieter in the schoolroom. It is a relief, I think, to be only one man.
+endif
+if not flag.thread_duality_catharsis
+finneas_trout [smile]: Oswick Frey gave me fresh tapers for the desks, and Oswick says the wax burns cleaner now. Did I mention Wick twice? Purely pedagogical.
+endif
+finneas_trout [smile]: Go with good grammar and stout hearts, my friends. The children will know your names.
+set ep_closing_finneas_trout
+set ep_closings += 1
+-> END
+
+~ sister_rain
+Narrator: Her red hair shines like copper wire in the lantern light, and mud cakes the hem of her sunflower-stitched robe.
+sister_rain [smile]: Look at the sky, dry as a bone, and yet I could weep buckets for joy and fury both! The Patient Lady keeps her garden even in the ash.
+if flag.crow_outcome == "freed"
+sister_rain [smile]: The Foxwillow crow-folk are loose in the high branches again, cawing their ragged throats raw, blessed little thieves every one.
+endif
+if flag.crow_outcome == "kept"
+sister_rain [angry]: My heart still knots up thinking of those Foxwillow crows left in their cages. A caged wing is an insult to the rain.
+endif
+if flag.crow_outcome == "music"
+sister_rain [weary]: Sometimes on the wind from Foxwillow I hear that strange crow-music rising, sweet and hollow as a reed pipe.
+endif
+sister_rain [smile]: Down at the edge of the burned Wytchwood, green shoots are pushing through the char already. Nothing stays dead here, least of all hope.
+set ep_closing_sister_rain
+set ep_closings += 1
+-> END
+
+~ weston_murdoch
+Narrator: His voice carries over the murmur of the Round, warm as chestnuts roasting in a tin pail.
+weston_murdoch [smile]: Bless your weary feet, travelers, for you walked through the furnace and brought back the dawn in your pockets.
+if flag.bell_outcome == "restored"
+weston_murdoch [smile]: Listen close and you can hear the monastery bell ringing clear across the moor, bronze and bright as a robin's throat.
+endif
+if flag.bell_outcome == "left"
+weston_murdoch [weary]: The old bell hangs silent in its tower still, so I raise my own voice twice as loud to fill the hollow air.
+endif
+if flag.thread_rapture_catharsis == "taken"
+weston_murdoch [sad]: So many of our little flock rose up in pale light and left their shoes behind. The benches are empty, yet the song remains.
+endif
+weston_murdoch [smile]: Keep a verse on your tongue when the track grows dark.
+set ep_closing_weston_murdoch
+set ep_closings += 1
+-> END
+
+~ solomon_roderick
+Narrator: Marble dust sits white in the deep scars along his jaw, and little Sofia sleeps against his shoulder.
+solomon_roderick [weary]: My mallet has not cooled since the shouting stopped. Every family wants good slate and deep letters so the rain will not wash the names away.
+if flag.vigil_deaths >= 4
+solomon_roderick [sad]: The new row in the yard stretches longer than the quarry can answer. My wrists ache with the weight of so many neighbors.
+endif
+solomon_roderick [smile]: Sofia drew four little figures in chalk on my workbench this hour. She says they are the ones who kept the roof from falling.
+set ep_closing_solomon_roderick
+set ep_closings += 1
+-> END
+
+~ mori_shade
+Narrator: She smells of dried lavender and cold spade-iron, her pale hands folded neat as a closed book.
+mori_shade [neutral]: The earth is tucked in tight tonight, travelers, and not a soul wanders without a stone to mark their pillow.
+if flag.mori_outcome == "burn"
+mori_shade [smile]: I burned those dreadful papers you brought me until the ash went up the chimney like grey moths.
+endif
+if flag.mori_outcome == "warn"
+mori_shade [weary]: I took your warning to heart and bolted the lych-gate before the dark came down heavy.
+endif
+if flag.mori_outcome == "silent"
+mori_shade [sly]: What you told me stays down in the clay with the roots, quiet as a coffin nail.
+endif
+if flag.mori_outcome == "doris"
+mori_shade [neutral]: I carried the whole ugly truth straight to Constable Squire, just as we agreed.
+endif
+mori_shade [smile]: Every grave in my care has its proper name carved clean now. May your own rest be a long way off.
+set ep_closing_mori_shade
+set ep_closings += 1
+-> END
+
+~ morgan
+Narrator: Their pockets clink with stoppered vials, and a smudge of blue ointment sits behind their left ear.
+morgan [neutral]: I bottled three drams of moon-dew before I remembered the nightmare was over, or perhaps that was Tuesday.
+if flag.quack_outcome == "exposed"
+morgan [smile]: Since you ran that fraud Barnaby out of the square, folk actually drink my willow-bark draughts without asking for coloured sugar.
+endif
+if flag.quack_outcome == "left"
+morgan [weary]: Barnaby packed his painted bottles and slipped off in the fog, leaving me three crates of corks that fit nothing.
+endif
+if flag.quack_outcome == "partner"
+morgan [sad]: I am now legally "Morgan and Barnaby, Purveyors of Wonder," which is mortifying, as he puts cinnamon in the poultices.
+endif
+morgan [smile]: Sometimes when I smell bruised mint, I almost remember my mother's apron from before I woke here. Perhaps tomorrow it will come clear.
+set ep_closing_morgan
+set ep_closings += 1
+-> END
+
+~ geneva_fairchild
+Narrator: Her leather mailbag hangs light at her hip, buckled with polished brass, her lilac eyes bright in the torchlight.
+geneva_fairchild [smile]: The sorting racks are clean from top to bottom, and I am running the post office all by myself now.
+if flag.letter_outcome == "seized"
+geneva_fairchild [sad]: I still fret over that letter you seized from the bag, since a postmistress ought to deliver every word, even wicked ones.
+endif
+if flag.letter_outcome == "sent"
+geneva_fairchild [weary]: I delivered that last terrible letter with my own hands, and the seal felt heavy as lead until it left my fingers.
+endif
+geneva_fairchild [smile]: If you ever write back from wherever the train takes you, put "Wickermoor Round" on the front and I will see it read.
+set ep_closing_geneva_fairchild
+set ep_closings += 1
+-> END
+
+~ jeremiah_stover
+Narrator: Crumbled peat clings to his boots, and he tests a small, knobbed tuber with his thumbnail.
+jeremiah_stover [neutral]: Ground took a beating from all that tramping and witch-fire, no two ways about it.
+if flag.field_outcome == "truth"
+jeremiah_stover [smile]: Foxwillow folk heard the straight truth of it, and the union ledger is squared up fair to the last copper.
+endif
+if flag.field_outcome == "lie"
+jeremiah_stover [weary]: That lie we told at Foxwillow held fast enough, though it sits like a cold stone in my belly when I pass the stiles.
+endif
+if flag.field_outcome == "silence"
+jeremiah_stover [neutral]: Nobody spoke a word about the Foxwillow business, and a quiet ditch keeps the sheep from straying, I reckon.
+endif
+jeremiah_stover [smile]: Yield is thin this digging, small roots and twisted skins, but the soil beneath is sweet again. Thank you for that.
+set ep_closing_jeremiah_stover
+set ep_closings += 1
+-> END
+
+~ hilda_brom
+Narrator: The scent of pine resin and wet fur hangs where the shadow of the eaves meets the square.
+if flag.thread_slaughter_catharsis == "taken"
+Narrator: Hilda is gone to the deep wilds; pinned to the oak is acured winter wolf-pelt and a scrap of birchbark in her blunt hand.
+hilda_brom [neutral]: "Gone where the tracks have no boots in them. Keep the pelt warm. The Queen knows your scent."
+endif
+if not flag.thread_slaughter_catharsis
+hilda_brom [neutral]: Bow is unstrung. Snare-wire is coiled in the grease-pot.
+hilda_brom [smile]: I sit on the black ridge and watch the fern-heads uncurl through the Wytchwood ash. The Green Queen breathes slow tonight, and so do I.
+endif
+set ep_closing_hilda_brom
+set ep_closings += 1
+-> END
+
+~ thomasin_ardor
+Narrator: Silver pins gleam along her lapel, and four folded coats of plum and midnight wool rest over her arm.
+thomasin_ardor [smile]: Stand still a moment and let me look at your shoulders. You have torn every seam I mended, just as I expected.
+if flag.curses_outcome == "apology"
+thomasin_ardor [neutral]: Your apology stitched up an old rent in my pride, cleaner than silk thread.
+endif
+if flag.curses_outcome == "truth"
+thomasin_ardor [weary]: The truth pricked like a bodkin when you spoke it, yet a clean cut heals straighter than a tear.
+endif
+if flag.curses_outcome == "warned"
+thomasin_ardor [neutral]: You heeded my warning when the threads grew tangled, and that spared us all a darker shroud.
+endif
+if flag.curses_outcome == "unpicked"
+thomasin_ardor [smile]: Watching that foul curse unpicked knot by knot was the finest needlework I have seen in Druskenvald.
+endif
+thomasin_ardor [smile]: I made a travelling coat for each of you, lined with satin and cut for high winds, no drab village grey about them.
+set ep_closing_thomasin_ardor
+set ep_closings += 1
+-> END
+
+~ beatrice_wells
+Narrator: Sweet-smelling shavings of charred oak curl in her hair, and her cousins hum a low chord behind her.
+beatrice_wells [smile]: Hear the saws go, high and low, raising up the Brightsinger roof where the fire left the sky bare!
+beatrice_wells [neutral]: We hauled the black timber out of the burned wood, and the heartwood underneath is sound and golden as honey.
+if flag.wicker_man_burned
+beatrice_wells [smile]: We wove the charred ribs of that great wicker effigy right into the high rafters, so the terror holds up the song.
+endif
+beatrice_wells [smile]: "Nail the beam and plumb the wall, night is long and roofs are tall!" Go in tune, my darlings.
+set ep_closing_beatrice_wells
+set ep_closings += 1
+-> END
+
+~ mrs_oakum
+Narrator: She stands half behind the water-butt, her shawl pulled low, smelling of wet wool and mountain sage.
+mrs_oakum [weary]: Fair's too loud for my ears, all that fiddle-scrape and laughing. Came down only to see your faces before the mist takes you.
+if flag.oakum_outcome == "help"
+mrs_oakum [smile]: You held the chain and saw me through the bad moon without flinching. I never had friends who stayed till the fur shed.
+endif
+if flag.oakum_outcome == "kept"
+mrs_oakum [neutral]: You kept your mouths shut about what I am, and that gave me breath enough to pack my bundle in peace.
+endif
+if flag.oakum_outcome == "told"
+mrs_oakum [afraid]: Folk cross the street when my shadow falls now, since you told them what howls in me. I cannot bide where doors bolt at my step.
+endif
+mrs_oakum [neutral]: I am going quiet into the high hills where only the heather cares what teeth I carry. Fare well.
+set ep_closing_mrs_oakum
+set ep_closings += 1
+-> END

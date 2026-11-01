@@ -1,0 +1,150 @@
+{
+  "id": "ep_car",
+  "name": "The Last Car",
+  "region": "ghostlight_express",
+  "summary": "The Ghostlight Express's passenger car, empty and warm, for the last ride.",
+  "text": "Two rows of red leather seats and a lit aisle. No pale passengers this time. Through the window the Hollow slides away under the Crooked Moon.",
+  "map": {
+    "rows": [
+      "####################",
+      "#====.==.==.==.====#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#====.==.==.==.====#",
+      "####################"
+    ],
+    "theme": "manor",
+    "light": "bright",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "ep_car_rear",
+      "name": "The rear end",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          8,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "ep_car_front",
+      "name": "The front end",
+      "cells": [
+        [
+          9,
+          1
+        ],
+        [
+          18,
+          5
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      3,
+      3
+    ]
+  },
+  "exits": [
+    {
+      "id": "ep_car_door",
+      "cell": [
+        0,
+        3
+      ],
+      "to": "ep_fog",
+      "spawn": "from_car",
+      "label": "Step down to the platform"
+    }
+  ],
+  "props": [
+    {
+      "id": "ep_car_seats",
+      "cell": [
+        6,
+        1
+      ],
+      "kind": "examine",
+      "label": "Paired seats",
+      "model": "chairs",
+      "text": "Red leather, worn smooth by passengers who did not mind waiting."
+    },
+    {
+      "id": "ep_car_window",
+      "cell": [
+        10,
+        1
+      ],
+      "kind": "examine",
+      "label": "The window",
+      "model": "window",
+      "text": "The Hollow, small and dark under a moon that scowls. Further on, only fog."
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "the_vagrant",
+      "cell": [
+        12,
+        3
+      ],
+      "dialogue": "epilogue/last_ride:start",
+      "when": "flag.ep_boarded and not flag.ep_last_ride_asked",
+      "approach": 12,
+      "facing": "west"
+    },
+    {
+      "npc": "the_vagrant",
+      "cell": [
+        12,
+        3
+      ],
+      "dialogue": "epilogue/last_ride:destination",
+      "when": "flag.ep_last_ride_asked",
+      "facing": "west"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The rocking of the train will not let anyone sleep. A short breath, then.",
+  "lights": [
+    {
+      "cell": [
+        4,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        16,
+        3
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    }
+  ]
+}

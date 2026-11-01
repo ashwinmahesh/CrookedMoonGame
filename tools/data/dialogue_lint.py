@@ -99,7 +99,7 @@ def conditions_flags(expr):
 # What a condition's terms may be (story/story_conditions.gd): a bare word, a `kind.name` or a `kind:name`. Anything else is
 # a warning and false at run time, so a condition in new data (a quest's `closes`) is checked against them.
 CONDITION_WORDS = {"true", "false", "night", "day", "indoors", "hour", "attention", "weather", "gold", "level", "check.last",
-                   "graphic", "jailed"}
+                   "graphic", "jailed", "party_alive", "party_size"}
 CONDITION_DOTTED = {"flag", "quest", "quest_days", "days_since", "attitude", "approval", "tarokka", "standing"}
 CONDITION_COLONED = {"final_room", "guest", "treasure_at", "gift", "gifted", "fallen", "spell", "at", "region", "option", "visited", "leader", "item",
                      "class", "species", "background", "tag", "name", "knows"}

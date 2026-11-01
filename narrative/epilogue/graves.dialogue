@@ -1,0 +1,53 @@
+# Drafted by Gemini (R25 graves), edited.
+
+~ start
+Narrator: Out where the cobblestones give way to black heather, a fresh row of headstones leans into the moorland wind. Stone-dust still clings to Solomon Roderick's chiselled letters, and puddles of tallow wax have hardened around the wildflowers at their feet.
+if party_size > party_alive
+-> fallen_graves
+endif
+-> vigil_graves
+
+~ vigil_graves
+Narrator: These are Wickermoor's own, the neighbours and night-watchmen who went out onto the turf and did not walk back.
+if flag.vigil_deaths >= 4
+Narrator: The line of turned earth stretches further than any small parish ought to bear, the damp clay still raw and smelling of iron.
+endif
+* Leave a flower -> flower
+* Read the names -> names
+* Walk on -> END
+
+~ flower
+Narrator: You lay a stem of moor-heather against the cold slate, where the night dew will keep it a little longer.
+-> vigil_graves_menu
+
+~ names
+Narrator: There are no lords or captains carved here, only millers, herdsmen, and weavers whose fires have gone cold in the cottages down the lane.
+-> vigil_graves_menu
+
+~ vigil_graves_menu
+Narrator: The wind rustles the dry stems along the low stone wall.
+* Leave a flower -> flower
+* Read the names -> names
+* Walk on -> END
+
+~ fallen_graves
+Narrator: At the end of the row, the villagers have dug and kerbed empty plots for the companions you left behind, setting each with a clean headstone and a lantern of its own. Nobody asked them to do it, and nobody left a name for thanks.
+set ep_fallen_graves_seen
+quest ep_empty_seats graves
+* Say a few words for the fallen -> goodbye
+* Leave a flower -> fallen_flower
+* Walk on -> END
+
+~ goodbye
+Narrator: You speak their names into the hush at the edge of the pasture, telling the dark grass what they carried and what they gave up.
+Narrator: The candle-flames gutter in their glass jars, throwing small, steady circles of amber across the fresh-cut grey stone.
+Narrator: Druskenvald keeps no bodies here, only the memory of the seats that went empty before the journey's end.
+set ep_goodbyes_said
+quest ep_empty_seats done
+-> END
+
+~ fallen_flower
+Narrator: You press a sprig of wild gorse into the dark soil at the headstone's base, leaving a bright drop of yellow against the ash-grey slate.
+set ep_goodbyes_said
+quest ep_empty_seats done
+-> END

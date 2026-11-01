@@ -1,0 +1,152 @@
+{
+  "id": "ep_fog",
+  "name": "The Old Station",
+  "region": "wickermoor",
+  "summary": "A disused halt south of the bridge where the fog lies thickest, and the Ghostlight Express stops once the moon is crooked no longer.",
+  "text": "Rails of mist run into the fog under a broken lamp. Somewhere out in the white, one fiddle plays, and a ghostly blue-green headlamp grows slowly larger.",
+  "map": {
+    "rows": [
+      "################################",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "#..............................#",
+      "################################"
+    ],
+    "theme": "village",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "ep_platform",
+      "name": "The platform",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          30,
+          12
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      3,
+      6
+    ],
+    "from_car": [
+      22,
+      8
+    ],
+    "from_village": [
+      3,
+      6
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_village",
+      "cell": [
+        0,
+        6
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_fog",
+      "label": "Back up the lane to Wickermoor"
+    }
+  ],
+  "props": [
+    {
+      "id": "ep_fog_signpost",
+      "cell": [
+        5,
+        4
+      ],
+      "kind": "examine",
+      "label": "The halt's signpost",
+      "model": "signpost",
+      "text": "The board once named a place. The paint has run, and what is left says only: Destination, and a smudge."
+    },
+    {
+      "id": "ep_fog_rails",
+      "cell": [
+        14,
+        7
+      ],
+      "kind": "examine",
+      "label": "Rails of mist",
+      "model": "rocks",
+      "text": "The rails are not iron. They hold their shape the way a held breath does."
+    },
+    {
+      "id": "ep_fog_lamp",
+      "cell": [
+        8,
+        2
+      ],
+      "kind": "decor",
+      "label": "A broken lamp",
+      "model": "crow"
+    },
+    {
+      "id": "ep_fog_bench",
+      "cell": [
+        10,
+        10
+      ],
+      "kind": "examine",
+      "label": "A platform bench",
+      "model": "table_round",
+      "text": "Someone has left a sprig of wheat on the bench, as if keeping a place."
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "the_vagrant",
+      "cell": [
+        20,
+        6
+      ],
+      "dialogue": "epilogue/vagrant:arrive",
+      "when": "not flag.ep_vagrant_met",
+      "approach": 12,
+      "facing": "west"
+    },
+    {
+      "npc": "the_vagrant",
+      "cell": [
+        20,
+        6
+      ],
+      "dialogue": "epilogue/vagrant:again",
+      "when": "flag.ep_vagrant_met",
+      "facing": "west"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The fog does not let anyone sleep here. A short breath, then.",
+  "lights": [
+    {
+      "cell": [
+        8,
+        2
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    }
+  ]
+}

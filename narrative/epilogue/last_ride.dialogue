@@ -1,0 +1,78 @@
+# Drafted by Gemini (R25 last), edited.
+
+~ start
+Narrator: The passenger car is empty and warm, smelling faintly of polished brass and old wool. Outside the frosted glass, the pale face of the Crooked Moon hangs low over the moor.
+the_vagrant [smile]: Settle your bones, friends, the boiler has plenty of steam left in her tonight. Tell me where you would like the old iron to carry you next.
+set ep_last_ride_asked
+-> thread_exits
+
+~ thread_exits
+if flag.thread_apocalypse_catharsis == "taken"
+Narrator: One of your number parted from you on the platform, vanishing in a clean flash of white light to weave a gentler hour from the beginning.
+endif
+if flag.thread_ascendancy_catharsis == "taken"
+Narrator: One who walked beside you stayed behind at the station, crowned in quiet dread to keep watch from a throne of cold ash.
+endif
+if flag.thread_deliverance_catharsis == "taken"
+Narrator: One companion lingered on the platform with a lantern in hand, staying behind to guide the lost souls gently into the mist.
+endif
+if flag.thread_kindred_catharsis == "taken"
+Narrator: One of your company stepped back into the brambles at the wayside, taking their kin's burden as a crooked spirit bound forever to the valley.
+endif
+if flag.thread_malediction_catharsis == "taken"
+Narrator: One soul among you did not board, blinking out on the cold stones to wander the dark spaces beyond the stars.
+endif
+if flag.thread_rapture_catharsis == "taken"
+Narrator: One friend parted from your side at the last step, rising in a soft chorus of morning light alongside the believing.
+endif
+if flag.thread_slaughter_catharsis == "taken"
+Narrator: One of your pack turned away from the carriage door, slipping into the deep timber as a hungry shadow with too many teeth.
+endif
+if flag.thread_evolution_catharsis == "taken"
+Narrator: One among you stepped across the threshold changed in bone and breath, the cold silver of stardust glimmering beneath their skin.
+endif
+-> empty_seats
+
+~ empty_seats
+if party_size > party_alive
+the_vagrant [sad]: I brushed the soot from the cushions across the aisle and kept them aired for the ones who paid the toll in full. A good traveller always leaves room for the company that got them to the station.
+Narrator: The velvet seats opposite sit neat and undisturbed, holding the quiet shape of the friends who fell along the road.
+endif
+-> destination
+
+~ destination
+the_vagrant [neutral]: The points are set and the track is clear as glass. Name your harbour, friends, and I will pull the lever.
+* Home, the land of the living -> go_home
+* Another province of the land of eternal night -> go_province
+* Another world, in the Shroud -> go_beyond
+* Not yet, we want to say another goodbye -> step_off
+
+~ go_home
+the_vagrant [smile]: Back to the morning sun and the ticking clocks, then. Mind you tell them a good story when you wake, though nobody ever believes the best parts.
+set last_ride_destination = "home"
+-> depart
+
+~ go_province
+the_vagrant [smile]: Plenty of strange country left under this old sky, and plenty of folk who could use a steady hand in the dark. I know a few junctions where the cider is sweet.
+set last_ride_destination = "province"
+-> depart
+
+~ go_beyond
+the_vagrant [sly]: Out into the deep fog where the maps run out of ink, is it. Hold onto your hats, then, for the rails get mighty queer once we pass the border.
+set last_ride_destination = "beyond"
+-> depart
+
+~ step_off
+the_vagrant [smile]: Take your time, friends, the night is not going anywhere and neither am I. I will keep the coals banked and the kettle warm until you are ready.
+Narrator: He reaches down a broad, webbed hand to steady you on the iron steps as the moorland air meets your face.
+move wickermoor_village:from_fog
+
+~ depart
+the_vagrant [neutral]: All aboard that is going aboard, then. May the road rise up to meet you, wherever the mist lets you down.
+cutscene ep_last_ride
+Narrator: The brass couplings clank and the carriage lurches forward, rolling past the dark hollows of the moor while the Crooked Moon sneers down through her prison of silver light.
+cutscene ep_last_ride_2
+Narrator: The trees and lanterns fall away behind the glass until only thick white fog rushes past the windows. Across the aisle, the ferryman tucks his fiddle beneath his chin and draws a single, sweet bar that hums through the floorboards.
+cutscene end
+quest ep_the_last_ride done
+end_game
