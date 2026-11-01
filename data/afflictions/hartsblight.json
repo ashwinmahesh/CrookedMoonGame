@@ -1,0 +1,24 @@
+{
+  "id": "hartsblight",
+  "name": "Hartsblight",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 347,
+    "note": "The Crooked Moon (Legends of Avantris), chapter 18. Numbers are the book's; the words are ours."
+  },
+  "summary": "A fungal rot that grows in the body level by level: each level takes 1 off Constitution saves, attack rolls and every healing received, and at level 6 or more the Hit Points are halved.",
+  "modifiers": [
+    {"stat": "save", "ability": "con", "per_level": -1},
+    {"stat": "attack", "per_level": -1},
+    {"stat": "healing_received", "per_level": -1}
+  ],
+  "thresholds": [
+    {"at": 6, "halve_hp": true, "modifiers": [{"stat": "hp_max_percent", "value": 50}]}
+  ],
+  "long_rest": {"save": {"ability": "con", "dc": 10}, "success": "mod:con", "failure": "half_mod:con", "min": 1},
+  "cures": [
+    {"ends": "poisoned", "remove": 1},
+    {"spells": ["greater_restoration", "heal", "power_word_heal", "wish"], "remove": "all"}
+  ]
+}
