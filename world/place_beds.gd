@@ -50,9 +50,10 @@ static func bed_for(location_id: String, st: StoryState = null) -> String:
 	return str(beds.get(region, "")) if region != "" else ""
 
 
-## Crossfades to the bed of `location_id`; the same bed keeps playing where it is.
-func enter(location_id: String, st: StoryState = null) -> void:
-	var next := bed_for(location_id, st)
+## Crossfades to the bed of `location_id`, or with `camped` to a camp's (art/audio.json loops "camp": its fire and the night
+## round it); the same bed keeps playing where it is.
+func enter(location_id: String, st: StoryState = null, camped: bool = false) -> void:
+	var next := "camp" if camped and not Audio.files("loops", "camp").is_empty() else bed_for(location_id, st)
 	if next == bed_id:
 		return
 	bed_id = next
@@ -129,6 +130,15 @@ static func quest_sound(quest_id: String, ending: String) -> String:
 	var id := str((Audio._data.get("quest_sfx", {}) as Dictionary).get(quest_id, ""))
 	Audio.sfx(id, 0.0)
 	return id
+
+
+## The music a fight starts with where `location_id` is (art/audio.json "region_fights": a region's own fight mood,
+## which must be a fight mood, one of "boss_music"'s, so it swells like "combat"), else "combat". A foe's own music
+## ("boss_music") and a boss's still take over once the fight is set up.
+static func fight_music(location_id: String) -> String:
+	var region := str(Compendium.shared().get_entry("locations", location_id).get("region", ""))
+	var m := str((Audio._data.get("region_fights", {}) as Dictionary).get(region, ""))
+	return m if m != "" and Audio.is_fight_mood(m) and not Audio.entries("music", m).is_empty() else "combat"
 
 
 ## Fades the bed out (a fight's music over a quiet car keeps it; the title screen does not).

@@ -1,5 +1,5 @@
 {
- "_note": "The Crooked Moon's music, ambience and its own effects (vault Build/Audio Plan.md), merged over the engine's art/audio.json key by key (ArtPaths.json). Recordings are free-licensed files kept in art/sourced/<pack>/ (SOURCE.md and LICENSE.md in each, credited in art/credits.json); art/sourced/audio_act1_picks.json and audio_act2_picks.json say why each was picked. Act 1 (the Ghostlight Express), then Wickermoor, the Crooked House and Foxwillow.",
+ "_note": "The Crooked Moon's music, ambience and its own effects (vault Build/Audio Plan.md), merged over the engine's art/audio.json key by key (ArtPaths.json). Recordings are free-licensed files kept in art/sourced/<pack>/ (SOURCE.md and LICENSE.md in each, credited in art/credits.json); art/sourced/audio_act1_picks.json and audio_act2_picks.json say why each was picked. Act 1 (the Ghostlight Express), then Wickermoor, the Crooked House and Foxwillow. boss_music \"_region_fights\" is no monster: it only lists a region fight mood (region_fights) that no foe carries, so the engine counts it as a fight mood and it swells like \"combat\".",
  "music": {
   "title": [
    "res://art/sourced/incompetech_macleod/danse_macabre.ogg",
@@ -93,6 +93,38 @@
   "mill": [
    "res://art/sourced/incompetech_macleod/pippin_the_hunchback.ogg",
    "res://art/sourced/incompetech_macleod/cattails.ogg"
+  ],
+  "wickermoor_combat": [
+   "res://art/sourced/incompetech_macleod/witch_hunt.ogg",
+   "res://art/sourced/incompetech_macleod/master_disorder.ogg"
+  ],
+  "wilds": [
+   "res://art/sourced/incompetech_macleod/magic_forest.ogg",
+   "res://art/sourced/incompetech_macleod/myst_on_the_moor.ogg"
+  ],
+  "indoors": [
+   "res://art/sourced/incompetech_macleod/penumbra.ogg",
+   "res://art/sourced/incompetech_macleod/lightless_dawn.ogg"
+  ],
+  "village": [
+   "res://art/sourced/incompetech_macleod/village_consort.ogg",
+   "res://art/sourced/incompetech_macleod/mischief_maker.ogg"
+  ],
+  "road": [
+   "res://art/sourced/incompetech_macleod/long_road_ahead.ogg",
+   "res://art/sourced/incompetech_macleod/serpentine_trek.ogg"
+  ],
+  "dungeon": [
+   "res://art/sourced/incompetech_macleod/ossuary_1_a_beginning.ogg",
+   "res://art/sourced/incompetech_macleod/ossuary_2_turn.ogg"
+  ],
+  "camp": [
+   "res://art/sourced/incompetech_macleod/suonatore_di_liuto.ogg",
+   "res://art/sourced/incompetech_macleod/anguish.ogg"
+  ],
+  "ending": [
+   "res://art/sourced/incompetech_macleod/enchanted_journey.ogg",
+   "res://art/sourced/incompetech_macleod/promises_to_keep.ogg"
   ]
  },
  "regions": {
@@ -182,15 +214,14 @@
   "ketgrinn": "crooked_house_combat",
   "lurker_in_the_dark": "crooked_house_combat",
   "marble_peacock": "crooked_house_combat",
-  "ochre_jelly": "crooked_house_combat",
   "petunia_lockwood": "crooked_house_combat",
   "pumpkin_head": "foxwillow_combat",
   "quasit_bunny": "crooked_house_combat",
   "quasit_crow": "crooked_house_combat",
   "quasit_goat": "crooked_house_combat",
   "vermin_familiar_weasel": "crooked_house_combat",
-  "weasel": "crooked_house_combat",
-  "weasel_hag": "crooked_house_combat"
+  "weasel_hag": "crooked_house_combat",
+  "_region_fights": "wickermoor_combat"
  },
  "loops": {
   "train_interior": [
@@ -258,6 +289,16 @@
   ],
   "clock_chamber": [
    "res://art/sourced/wikimedia_wws/bed_clock_chamber.ogg"
+  ],
+  "camp": [
+   "res://art/sourced/crooked_moon_mixes/bed_camp.ogg"
+  ],
+  "hearth": [
+   "res://art/sourced/wikimedia_commons/bed_fire.ogg",
+   "res://art/sourced/oga_fire_crackling/bed_fire_small.ogg"
+  ],
+  "river": [
+   "res://art/sourced/oga_stream_sounds/bed_water.ogg"
   ]
  },
  "place_beds": {
@@ -394,6 +435,10 @@
    "res://art/sourced/crooked_moon_mixes/stoker_roar_1.ogg",
    "res://art/sourced/crooked_moon_mixes/stoker_roar_2.ogg"
   ],
+  "stoker_sear": [
+   "res://art/sourced/crooked_moon_mixes/stoker_sear_1.ogg",
+   "res://art/sourced/crooked_moon_mixes/stoker_sear_2.ogg"
+  ],
   "ticket_punch": [
    "res://art/sourced/wikimedia_wws/ticket_punch_1.ogg",
    "res://art/sourced/wikimedia_wws/ticket_punch_2.ogg"
@@ -411,6 +456,10 @@
   "wheel_squeal": [
    "res://art/sourced/crooked_moon_mixes/wheel_squeal_1.ogg",
    "res://art/sourced/crooked_moon_mixes/wheel_squeal_2.ogg"
+  ],
+  "wildpyre_rake": [
+   "res://art/sourced/crooked_moon_mixes/wildpyre_rake_1.ogg",
+   "res://art/sourced/crooked_moon_mixes/wildpyre_rake_2.ogg"
   ],
   "wildpyre_snarl": [
    "res://art/sourced/wikimedia_commons/wildpyre_snarl_1.ogg",
@@ -601,7 +650,7 @@
     ]
    },
    "ghostlight_locomotive.rail_slam": {
-    "cast": [
+    "hit": [
      "rail_slam"
     ]
    },
@@ -620,6 +669,21 @@
     "cast": [
      "steam_hiss",
      "stoker_roar@0.2"
+    ]
+   },
+   "corrupted_soulfire_stoker.sear": {
+    "hit": [
+     "stoker_sear"
+    ]
+   },
+   "soulfire_stoker.sear": {
+    "hit": [
+     "stoker_sear"
+    ]
+   },
+   "wildpyre.blazing_rend": {
+    "hit": [
+     "wildpyre_rake"
     ]
    }
   }
@@ -697,12 +761,34 @@
   "clock_chime": -3.0,
   "church_bell": -4.0,
   "crow_flock": -3.0,
-  "wheel_squeal": -3.0
+  "wheel_squeal": -3.0,
+  "river": -2.0
  },
  "fight_sfx": {
   "wildpyre": "wildpyre_wake",
   "corrupted_soulfire_stoker": "stoker_roar",
   "soulfire_stoker": "stoker_roar",
   "ghostlight_locomotive": "locomotive_roar"
- }
+ },
+ "region_fights": {
+  "crooked_house": "crooked_house_combat",
+  "foxwillow": "foxwillow_combat",
+  "wickermoor": "wickermoor_combat"
+ },
+ "themes": {
+  "forest": "wilds",
+  "wilderness": "wilds",
+  "riverside": "wilds",
+  "road": "road",
+  "village": "village",
+  "manor": "indoors",
+  "tavern": "tavern",
+  "church": "church",
+  "dungeon": "dungeon",
+  "cave": "dungeon",
+  "caves": "dungeon"
+ },
+ "region_keeps": [
+  "tavern"
+ ]
 }
