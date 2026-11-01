@@ -938,10 +938,11 @@ func _open_loot(container_id: String, items: Array, gold: float) -> void:
 	loot.show_loot(st, container_id, items, gold, view)
 
 
-## The sting a fight's end plays: "defeat" for a wipe (or the party taken), nothing for a fight that ended with no winner (`ends_when`: a sleeper going
+## The sting a fight's end plays: "defeat" for a wipe (or the party taken), nothing for a fight a phase moved on (it goes
+## on elsewhere), nothing for a fight that ended with no winner (`ends_when`: a sleeper going
 ## back to sleep, outcome "ended"), "victory" otherwise.
 static func sting_for(outcome: String) -> String:
-	if outcome == "ended":
+	if outcome in ["ended", "moved"]:   # no winner yet; "moved": a boss's phase carried the fight to another place
 		return ""
 	# Taken, not killed (an encounter's `defeat`, DefeatCapture): it sounds like the loss it is, with no game over.
 	return "defeat" if outcome in ["defeat", "captured"] else "victory"

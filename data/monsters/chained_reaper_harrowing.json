@@ -120,6 +120,28 @@
       "summary": "Within a mile of its mausoleum a long rest can cost 5 Hit Point maximum (DC 15 Con save), and mist gives incorporeal Undead Advantage on Stealth.",
       "text": "Regional effects, within 1 mile of the mausoleum while the reaper lives and keeps its lair there. Chained Vitality: a creature that isn't a Construct or Undead and finishes a Long Rest there makes a DC 15 Constitution save or its Hit Point maximum drops by 5 (to a minimum of 1). Falling Shroud: thin mist rises, and Undead with Incorporeal Movement have Advantage on Dexterity (Stealth) checks. Both end the moment it dies or moves its lair.",
       "implemented": "text"
+    },
+    {
+      "id": "the_jailer",
+      "name": "The Jailer",
+      "action": "passive",
+      "summary": "Once a turn, when an attack roll hits him, a chain shoots at the attacker: DC 15 Str save or Grappled (escape DC 13).",
+      "text": "Once on each turn, when an attack roll hits him, one of his chains lashes out at the attacker, who must make a DC 15 Strength saving throw or be Grappled (escape DC 13).",
+      "when_hit": {
+        "once_per_turn": true,
+        "riders": [
+          {
+            "do": "grapple",
+            "escape_dc": 13,
+            "until": "target_turn_end",
+            "save": {
+              "ability": "str",
+              "dc": 15
+            }
+          }
+        ]
+      },
+      "implemented": "data"
     }
   ],
   "actions": [
@@ -372,6 +394,9 @@
           "name": "Devouring Balefire",
           "summary": "A creature starting its turn within 10 ft of the Reaper makes a DC 15 Constitution save or takes 1d6 necrotic."
         }
+      ],
+      "traits_remove": [
+        "the_jailer"
       ]
     }
   ]
