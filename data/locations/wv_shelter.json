@@ -1,0 +1,180 @@
+{
+  "id": "wv_shelter",
+  "name": "The Silent Church",
+  "region": "wickers_vigil",
+  "summary": "The half-rebuilt Brightsinger chapel, where no hymn carries: the one roof the cult's song cannot reach.",
+  "text": "The vigil's song stops at the door as if cut with a knife. Pews have been dragged into rows for the sick, the children are asleep on the altar steps in a heap of coats, and the stone knight stands in the nave with his sneer, listening for the fire.",
+  "map": {
+    "rows": [
+      "######################",
+      "#.......______.......#",
+      "#.......______.......#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "#..=====......=====..#",
+      "#....................#",
+      "#....................#",
+      "#..=====......=====..#",
+      "#....................#",
+      "#....................#",
+      "#..=====......=====..#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "###########.##########"
+    ],
+    "theme": "church",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "church",
+      "name": "The Silent Church",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          20,
+          18
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      11,
+      17
+    ],
+    "from_square": [
+      11,
+      17
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        11,
+        19
+      ],
+      "to": "wv_square",
+      "spawn": "from_shelter",
+      "label": "Out into the Round"
+    }
+  ],
+  "props": [
+    {
+      "id": "wv_sh_altar",
+      "cell": [
+        10,
+        2
+      ],
+      "kind": "decor",
+      "label": "The altar, half rebuilt",
+      "model": "dais"
+    },
+    {
+      "id": "wv_sh_tarps",
+      "cell": [
+        2,
+        3
+      ],
+      "kind": "decor",
+      "label": "Tarps where the windows will go",
+      "model": "rags"
+    },
+    {
+      "id": "wv_sh_timber",
+      "cell": [
+        19,
+        3
+      ],
+      "kind": "decor",
+      "label": "New timber, still sweet with resin",
+      "model": "crate_stack"
+    },
+    {
+      "id": "wv_sh_cots",
+      "cell": [
+        4,
+        15
+      ],
+      "kind": "decor",
+      "label": "Cots in the aisle",
+      "model": "bed_small"
+    },
+    {
+      "id": "wv_sh_cots2",
+      "cell": [
+        16,
+        15
+      ],
+      "kind": "decor",
+      "label": "Cots in the aisle",
+      "model": "bed_small"
+    },
+    {
+      "id": "wv_sh_coats",
+      "cell": [
+        10,
+        4
+      ],
+      "kind": "decor",
+      "label": "A heap of coats and sleeping children",
+      "model": "sack_pile"
+    },
+    {
+      "id": "wv_sh_candles",
+      "cell": [
+        5,
+        3
+      ],
+      "kind": "decor",
+      "label": "Candles in jam jars",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "wv_sh_arrive",
+      "cell": [
+        11,
+        17
+      ],
+      "kind": "decor",
+      "label": "The door shuts out the song",
+      "call": "vigil/shelter:arrive",
+      "approach": 12,
+      "call_when": "not flag.wv_shelter_seen"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "man_in_marble",
+      "cell": [
+        11,
+        8
+      ],
+      "dialogue": "vigil/shelter:marble",
+      "facing": "south"
+    },
+    {
+      "npc": "weston_murdoch",
+      "cell": [
+        13,
+        3
+      ],
+      "dialogue": "vigil/shelter:weston",
+      "facing": "south",
+      "when": "flag.wv_started"
+    }
+  ],
+  "encounters": [],
+  "rest": "safe",
+  "rest_text": "The song cannot reach you here. You may rest, but the fire on the hill is not resting."
+}

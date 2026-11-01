@@ -1,0 +1,388 @@
+{
+  "id": "wicker_man_vigil",
+  "name": "The Wicker Man, possessed",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 576,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Block on the facing page (PDF 579). The block itself has no Secret; the chapter ties its damage threshold to the living Old Ways Chosen. The vigil variant (R23): phases Dying Embers and Furnace, the Old Ways Influence lair turn, the push the text promises."
+  },
+  "size": "gargantuan",
+  "type": "construct",
+  "alignment": "chaotic evil",
+  "ac": 18,
+  "initiative": 12,
+  "hp": {
+    "average": 155,
+    "dice": "10d20+50"
+  },
+  "speed": {
+    "walk": 40
+  },
+  "abilities": {
+    "str": 22,
+    "dex": 14,
+    "con": 20,
+    "int": 10,
+    "wis": 10,
+    "cha": 10
+  },
+  "saves": {
+    "dex": 7
+  },
+  "skills": {
+    "perception": 5
+  },
+  "immunities": [
+    "fire",
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened",
+    "incapacitated",
+    "paralyzed",
+    "petrified",
+    "poisoned",
+    "stunned",
+    "unconscious"
+  ],
+  "senses": {
+    "truesight": 120
+  },
+  "passive_perception": 15,
+  "languages": [
+    "understands all languages but can't speak"
+  ],
+  "cr": 15,
+  "xp": 13000,
+  "proficiency_bonus": 5,
+  "traits": [
+    {
+      "id": "burning_aura",
+      "name": "Burning Aura",
+      "action": "passive",
+      "summary": "At the end of each of its turns, creatures it chooses within 15 ft take 1d10 Fire and start burning; flammable objects there ignite too.",
+      "text": "At the end of each of the Wicker Man's turns, every creature of its choice within 15 feet takes 5 (1d10) Fire damage. Creatures and flammable objects in that area start burning.",
+      "aura": {
+        "radius": 15,
+        "trigger": "own_turn_end",
+        "damage": {
+          "dice": "1d10",
+          "type": "fire"
+        },
+        "riders": [
+          {
+            "do": "burning"
+          }
+        ]
+      },
+      "implemented": "engine"
+    },
+    {
+      "id": "legendary_resistance",
+      "name": "Legendary Resistance (4/Day)",
+      "action": "special",
+      "summary": "Four times a day, a failed saving throw becomes a success.",
+      "text": "When the Wicker Man fails a saving throw, it can choose to succeed instead, 4 times a day.",
+      "implemented": "engine"
+    },
+    {
+      "id": "magic_resistance",
+      "name": "Magic Resistance",
+      "action": "passive",
+      "summary": "Advantage on saving throws against spells and other magical effects.",
+      "modifiers": [
+        {
+          "stat": "advantage",
+          "on": "save_vs:spell"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "reactive",
+      "name": "Reactive",
+      "action": "passive",
+      "summary": "Can take one Reaction on every turn of combat, not only once a round.",
+      "text": "The Wicker Man can take a Reaction on every turn of combat, its own included.",
+      "implemented": "text"
+    },
+    {
+      "id": "soul_motes",
+      "name": "Soul Motes",
+      "action": "passive",
+      "summary": "Holds 3 Soul Motes (reset to 3 on a long rest), gaining 1 when a non-Construct, non-Undead creature dies within 30 ft; they fuel its two Reactions.",
+      "text": "The Wicker Man has 3 Soul Motes. It gains 1 more whenever a creature that isn't a Construct or Undead dies within 30 feet of it. It can spend motes to power its Soul Mote Reactions, and when it finishes a Long Rest the total goes back to 3.",
+      "resource": {
+        "id": "soul_motes",
+        "name": "Soul Motes",
+        "recharge": "long",
+        "max": 3
+      },
+      "implemented": "text"
+    },
+    {
+      "id": "regional_lair",
+      "name": "Regional Effects (Lair)",
+      "action": "special",
+      "summary": "Within a mile of its hill: Fire damage to a Fire-resistant or Fire-immune creature outside its cult adds 1d6 Necrotic, and cult hymns carry 300 ft, even through Silence.",
+      "text": "Regional effects, within 1 mile of the hilltop where it stands while the Wicker Man lives and keeps its lair there. Biting Flames: when Fire damage is dealt to a creature outside the Wicker Man's cult that has Resistance or Immunity to Fire, it takes an extra 1d6 Necrotic damage. Endless Praise: cultists of the Wicker Man who sing its praises or hymns can be heard up to 300 feet away, even through a Silence spell. Both end the moment it dies or moves its lair.",
+      "implemented": "text"
+    },
+    {
+      "id": "blazing_ardor",
+      "name": "Blazing Ardor",
+      "action": "passive",
+      "summary": "While Old Ways Chosen live it ignores damage below 10 times their number (30 at the start). Kill the Chosen first.",
+      "text": "The Wicker Man ignores any damage from a single source below a threshold of 10 times the number of Old Ways Chosen alive (30 to begin with).",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "blazing_slam",
+          "count": 2
+        }
+      ],
+      "summary": "Two Blazing Slams."
+    },
+    {
+      "id": "blazing_slam",
+      "name": "Blazing Slam",
+      "kind": "melee",
+      "attack": {
+        "bonus": 11,
+        "reach": 15
+      },
+      "damage": [
+        {
+          "average": 15,
+          "dice": "2d8+6",
+          "type": "bludgeoning"
+        },
+        {
+          "average": 9,
+          "dice": "2d8",
+          "type": "fire"
+        }
+      ],
+      "summary": "+11, reach 15 ft, 2d8+6 Bludgeoning plus 2d8 Fire. A Large or smaller target is pushed up to 10 ft, toward a bonfire if there is one.",
+      "on_hit": [
+        {
+          "do": "push",
+          "feet": 10,
+          "max_size": "large"
+        }
+      ]
+    },
+    {
+      "id": "cremating_flame",
+      "name": "Cremating Flame",
+      "kind": "save",
+      "recharge": "6",
+      "save": {
+        "ability": "dex",
+        "dc": 18,
+        "success": "half"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 60
+      },
+      "targets": {
+        "range": 60
+      },
+      "damage": [
+        {
+          "average": 35,
+          "dice": "10d6",
+          "type": "fire"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "reduce_to_ash",
+          "params": {
+            "when": "a creature is reduced to 0 Hit Points by this damage, on a failed or a successful save",
+            "effect": "turned to ash, soul taken into the Wicker Man, can't be restored to life by any means until it is destroyed"
+          }
+        }
+      ],
+      "summary": "Recharge 6. 60-ft cone, DC 18 Dex save: 10d6 Fire (half on a success); a creature this drops to 0 is burned to ash and its soul is bound in the Wicker Man until it is destroyed.",
+      "text": "A column of fire rolls out in a 60-foot cone. DC 18 Dexterity save: 35 (10d6) Fire damage on a failure, half on a success. Whether or not it saved, a creature brought to 0 Hit Points by this fire is burned to ash and its soul is drawn into the Wicker Man; it can't be restored to life by any means until the Wicker Man is destroyed."
+    },
+    {
+      "id": "burning_clutch",
+      "name": "Burning Clutch",
+      "kind": "save",
+      "save": {
+        "ability": "str",
+        "dc": 19,
+        "success": "none"
+      },
+      "targets": {
+        "range": 15,
+        "count": 1
+      },
+      "on_fail": [
+        {
+          "do": "grapple",
+          "escape_dc": 16,
+          "limit": 2,
+          "restrain": true,
+          "hold_damage": {
+            "dice": "3d6",
+            "type": "fire"
+          }
+        }
+      ],
+      "summary": "Legendary only, once a round. One creature within 15 ft: DC 19 Str save or Grappled (escape DC 16, one of two hands) and Restrained; the held creature takes 3d6 Fire at the start of the Wicker Man's turns."
+    }
+  ],
+  "reactions": [
+    {
+      "id": "crushing_blow",
+      "name": "Crushing Blow (Soul Mote)",
+      "kind": "special",
+      "do": "soul_mote_crit",
+      "cost": 1,
+      "trigger": "The Wicker Man hits with an attack roll.",
+      "summary": "Spends 1 Soul Mote: the hit becomes a Critical Hit."
+    },
+    {
+      "id": "repair",
+      "name": "Repair (Soul Mote)",
+      "kind": "special",
+      "do": "soul_mote_repair",
+      "cost": 1,
+      "trigger": "The Wicker Man's turn starts.",
+      "summary": "Spends 1 Soul Mote: it regains 20 Hit Points."
+    }
+  ],
+  "legendary_actions": {
+    "per_round": 3,
+    "options": [
+      {
+        "id": "burning_clutch",
+        "name": "Burning Clutch",
+        "cost": 1,
+        "action": "burning_clutch",
+        "once": true,
+        "summary": "One creature within 15 ft: DC 19 Str save or Grappled and Restrained, burning 3d6 a turn. Once a round."
+      },
+      {
+        "id": "slam",
+        "name": "Slam",
+        "cost": 1,
+        "action": "blazing_slam",
+        "once": true,
+        "summary": "One Blazing Slam attack; not again until its next turn."
+      },
+      {
+        "id": "stride",
+        "name": "Stride",
+        "cost": 1,
+        "move": true,
+        "half": true,
+        "summary": "Moves up to half its Speed with no Opportunity Attacks."
+      }
+    ]
+  },
+  "legendary_resistance": 4,
+  "ai_profile": "brute",
+  "summary": "The effigy of Rowan's Rise with the Crooked Man in its head, as the vigil meets it: heavy burning slams that push, a roaring cone, an aura, and motes of stolen souls (its mote count is the vigil's tally of the dead, here as extra Hit Points it mends) that fall to a damage threshold while the Old Ways Chosen live.",
+  "lair_actions": [
+    {
+      "id": "hymn_hearten",
+      "name": "The Chosen Sing",
+      "kind": "text",
+      "summary": "Surviving Old Ways Chosen gain 10 temporary Hit Points.",
+      "text": "A hymn rises from the masks and the surviving Chosen are filled with fire."
+    },
+    {
+      "id": "hymn_falter",
+      "name": "A Hymn Out of Tune",
+      "kind": "save",
+      "save": {
+        "ability": "wis",
+        "dc": 15,
+        "success": "none"
+      },
+      "targets": {
+        "range": 120,
+        "count": 4
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "frightened"
+        }
+      ],
+      "summary": "Up to four heroes: a DC 15 Wisdom save or their aim wavers in the song (modelled as Frightened until the lair's next turn).",
+      "text": "The hymn runs a bar out of step and four heads swim: a DC 15 Wisdom save or they falter."
+    },
+    {
+      "id": "hymn_burn",
+      "name": "Embers in the Wind",
+      "kind": "save",
+      "save": {
+        "ability": "dex",
+        "dc": 15,
+        "success": "none"
+      },
+      "targets": {
+        "range": 120,
+        "count": 3
+      },
+      "damage": [
+        {
+          "average": 5,
+          "dice": "1d10",
+          "type": "fire"
+        }
+      ],
+      "summary": "Up to three heroes: a DC 15 Dex save or 1d10 Fire from the embers on the wind.",
+      "text": "Sparks lift off the nearest bonfire and find the nearest living flesh."
+    }
+  ],
+  "phases": [
+    {
+      "id": "dying_embers",
+      "name": "Dying Embers",
+      "when": {
+        "gone": {
+          "monster": "old_ways_chosen",
+          "at_least": 3
+        },
+        "flag": "wv_chosen_fallen"
+      },
+      "traits_remove": [
+        "blazing_ardor"
+      ],
+      "legendary_refill": true,
+      "lair": true,
+      "flag": "wv_embers",
+      "say": "wv_wicker_embers",
+      "summary": "The last Chosen falls and its soul pours into the effigy. The threshold is gone, and the Wicker Man lurches to the front, burning hotter."
+    },
+    {
+      "id": "furnace",
+      "name": "The Furnace",
+      "when": {
+        "bloodied": true
+      },
+      "legendary_resistance": "refill",
+      "lair": true,
+      "flag": "wv_furnace",
+      "say": "wv_wicker_furnace",
+      "summary": "Bloodied, the weave splits and the fire inside goes white: its Legendary Resistance returns and the lair turns on every hymn."
+    }
+  ]
+}

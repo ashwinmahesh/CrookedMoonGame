@@ -1,0 +1,662 @@
+{
+  "id": "wv_hardpan",
+  "name": "The hardpan",
+  "region": "wickers_vigil",
+  "summary": "Firmer ground, rusted sickles and pitchforks dropped by Foxwillow farmhands, and the path up the Rise.",
+  "text": "Firmer ground at last, packed hard as a threshing floor. Rusted sickles and pitchforks lie where their owners dropped them, and four figures are sitting very still in the middle of the field. The path to the hill runs north from here, and the revel's song comes down it.",
+  "map": {
+    "rows": [
+      "########################################",
+      "#......................................#",
+      "#......................................#",
+      "#......................................#",
+      "#......................................#",
+      "#......................................#",
+      "#......................................#",
+      "#.................................#....#",
+      "#...........#..........................#",
+      "#......................................#",
+      "#......................................#",
+      "#.........#...................#........#",
+      "#......................................#",
+      "#......................................#",
+      "#..........#.#............==...........#",
+      "#......................................#",
+      "#................#......#..............#",
+      "#......................................#",
+      "#.............==....................#..#",
+      "#......#...............................#",
+      "#.................#..###...............#",
+      "#......................................#",
+      "#.....#.........#......................#",
+      "#......................................#",
+      "#......................................#",
+      "#.............##.......................#",
+      "#......................................#",
+      "########################################"
+    ],
+    "theme": "wilderness",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "pan",
+      "name": "The hardpan",
+      "cells": [
+        [
+          1,
+          7
+        ],
+        [
+          38,
+          26
+        ]
+      ]
+    },
+    {
+      "id": "foot",
+      "name": "The foot of the Rise",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          38,
+          6
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      3,
+      19
+    ],
+    "from_quagmire": [
+      3,
+      19
+    ],
+    "from_stones": [
+      19,
+      4
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_quagmire",
+      "cell": [
+        2,
+        19
+      ],
+      "to": "wv_quagmire",
+      "spawn": "from_hardpan",
+      "label": "Back to the bog"
+    },
+    {
+      "id": "to_stones",
+      "cell": [
+        19,
+        2
+      ],
+      "to": "wv_stones",
+      "spawn": "from_hardpan",
+      "label": "Up the path to the stones",
+      "when": "flag.wv_h3_done or flag.wv_h3_skipped or flag.wv_h3_walked"
+    }
+  ],
+  "props": [
+    {
+      "id": "wv_pan_arrive",
+      "cell": [
+        3,
+        19
+      ],
+      "kind": "decor",
+      "label": "The hardpan, from the bog",
+      "call": "vigil/moor:pan_start",
+      "approach": 12,
+      "call_when": "not flag.wv_h3_started"
+    },
+    {
+      "id": "wv_pan_axes",
+      "cell": [
+        9,
+        21
+      ],
+      "kind": "examine",
+      "label": "Axes and billhooks stacked against a fence",
+      "model": "woodpile",
+      "dialogue": "vigil/moor:axes",
+      "when": "not flag.wv_h3_done"
+    },
+    {
+      "id": "wv_pan_after",
+      "cell": [
+        20,
+        19
+      ],
+      "kind": "decor",
+      "label": "The hardpan, after",
+      "call": "vigil/moor:pan_after",
+      "approach": 12,
+      "call_when": "flag.wv_h3_done and not flag.wv_h3_tallied"
+    },
+    {
+      "id": "wv_pan_sickles",
+      "cell": [
+        24,
+        22
+      ],
+      "kind": "decor",
+      "label": "Rusted sickles in the dirt",
+      "model": "stake_bundle"
+    },
+    {
+      "id": "wv_pan_forks",
+      "cell": [
+        30,
+        9
+      ],
+      "kind": "decor",
+      "label": "Pitchforks dropped in a line",
+      "model": "fence"
+    },
+    {
+      "id": "wv_pan_foot",
+      "cell": [
+        19,
+        6
+      ],
+      "kind": "decor",
+      "label": "The foot of the Rise",
+      "call": "vigil/moor:foot",
+      "approach": 3,
+      "call_when": "not flag.wv_foot_seen"
+    },
+    {
+      "id": "wv_pan_song",
+      "cell": [
+        19,
+        3
+      ],
+      "kind": "decor",
+      "label": "The song coming down the hill",
+      "model": "stone_faces"
+    },
+    {
+      "id": "wv_pan_lantern",
+      "cell": [
+        21,
+        5
+      ],
+      "kind": "decor",
+      "label": "A hurricane lantern on the path",
+      "model": "lantern_post"
+    },
+    {
+      "id": "wv_pan_fallback",
+      "cell": [
+        19,
+        4
+      ],
+      "kind": "examine",
+      "label": "The way back down",
+      "dialogue": "vigil/moor:fall_back_foot",
+      "when": "not flag.vigil_fled"
+    },
+    {
+      "id": "wv_pan_walk",
+      "cell": [
+        19,
+        7
+      ],
+      "kind": "decor",
+      "label": "The path north",
+      "call": "vigil/moor:pan_walk",
+      "approach": 1,
+      "call_when": "not flag.wv_h3_done and not flag.wv_h3_skipped and not flag.wv_h3_walked"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "wv_woodwarped",
+      "trigger": "dialogue",
+      "when": "level <= 11",
+      "flag": "wv_h3_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "ring_of_fire"
+      },
+      "monsters": [
+        {
+          "monster": "woodwarped",
+          "cell": [
+            14,
+            14
+          ],
+          "name": "A woodwarped farmhand",
+          "facing": "south",
+          "hp": 70,
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning",
+              "necrotic"
+            ],
+            "count": "vigil_deaths",
+            "warn": "A Foxwillow villager is inside. Fire or crushing blows would kill them for good; cuts and radiance would not."
+          },
+          "boss": false
+        },
+        {
+          "monster": "woodwarped",
+          "cell": [
+            18,
+            12
+          ],
+          "name": "A woodwarped farmhand",
+          "facing": "south",
+          "hp": 70,
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning",
+              "necrotic"
+            ],
+            "count": "vigil_deaths",
+            "warn": "A Foxwillow villager is inside. Fire or crushing blows would kill them for good; cuts and radiance would not."
+          },
+          "boss": false
+        },
+        {
+          "monster": "woodwarped",
+          "cell": [
+            22,
+            14
+          ],
+          "name": "A woodwarped farmhand",
+          "facing": "south",
+          "hp": 70,
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning",
+              "necrotic"
+            ],
+            "count": "vigil_deaths",
+            "warn": "A Foxwillow villager is inside. Fire or crushing blows would kill them for good; cuts and radiance would not."
+          },
+          "boss": false
+        },
+        {
+          "monster": "woodwarped",
+          "cell": [
+            26,
+            12
+          ],
+          "name": "A woodwarped farmhand",
+          "facing": "south",
+          "hp": 70,
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning",
+              "necrotic"
+            ],
+            "count": "vigil_deaths",
+            "warn": "A Foxwillow villager is inside. Fire or crushing blows would kill them for good; cuts and radiance would not."
+          },
+          "boss": false
+        }
+      ],
+      "round_events": [
+        {
+          "id": "wv_torn_out",
+          "name": "Torn out of the heroes",
+          "summary": "Roots tear out of each hero's chest: a DC 17 Con save or 2d10 Necrotic.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "con",
+            "dc": 17
+          },
+          "damage": {
+            "dice": "2d10",
+            "type": "necrotic"
+          },
+          "area": {
+            "around": [
+              20,
+              18
+            ],
+            "radius": 40
+          },
+          "at": 20,
+          "from_round": 1,
+          "times": 1,
+          "say": "Something green and cold wrenches out of every hero's chest."
+        },
+        {
+          "id": "wv_hero_born",
+          "name": "Hero-born woodwarped",
+          "summary": "Two woodwarped tear out of the heroes' own backs.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "woodwarped",
+          "count": 2,
+          "side": "enemies",
+          "cells": [
+            [
+              14,
+              21
+            ],
+            [
+              26,
+              21
+            ]
+          ],
+          "at": 20,
+          "from_round": 1,
+          "every": 1,
+          "times": 1,
+          "say": "The torn-out roots stand up on their own."
+        }
+      ]
+    },
+    {
+      "id": "wv_woodwarped",
+      "trigger": "dialogue",
+      "when": "level == 12",
+      "flag": "wv_h3_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "ring_of_fire"
+      },
+      "monsters": [
+        {
+          "monster": "woodwarped",
+          "cell": [
+            14,
+            14
+          ],
+          "name": "A woodwarped farmhand",
+          "facing": "south",
+          "hp": 82,
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning",
+              "necrotic"
+            ],
+            "count": "vigil_deaths",
+            "warn": "A Foxwillow villager is inside. Fire or crushing blows would kill them for good; cuts and radiance would not."
+          },
+          "boss": false
+        },
+        {
+          "monster": "woodwarped",
+          "cell": [
+            18,
+            12
+          ],
+          "name": "A woodwarped farmhand",
+          "facing": "south",
+          "hp": 82,
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning",
+              "necrotic"
+            ],
+            "count": "vigil_deaths",
+            "warn": "A Foxwillow villager is inside. Fire or crushing blows would kill them for good; cuts and radiance would not."
+          },
+          "boss": false
+        },
+        {
+          "monster": "woodwarped",
+          "cell": [
+            22,
+            14
+          ],
+          "name": "A woodwarped farmhand",
+          "facing": "south",
+          "hp": 82,
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning",
+              "necrotic"
+            ],
+            "count": "vigil_deaths",
+            "warn": "A Foxwillow villager is inside. Fire or crushing blows would kill them for good; cuts and radiance would not."
+          },
+          "boss": false
+        },
+        {
+          "monster": "woodwarped",
+          "cell": [
+            26,
+            12
+          ],
+          "name": "A woodwarped farmhand",
+          "facing": "south",
+          "hp": 82,
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning",
+              "necrotic"
+            ],
+            "count": "vigil_deaths",
+            "warn": "A Foxwillow villager is inside. Fire or crushing blows would kill them for good; cuts and radiance would not."
+          },
+          "boss": false
+        }
+      ],
+      "round_events": [
+        {
+          "id": "wv_torn_out",
+          "name": "Torn out of the heroes",
+          "summary": "Roots tear out of each hero's chest: a DC 17 Con save or 2d10 Necrotic.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "con",
+            "dc": 17
+          },
+          "damage": {
+            "dice": "2d10",
+            "type": "necrotic"
+          },
+          "area": {
+            "around": [
+              20,
+              18
+            ],
+            "radius": 40
+          },
+          "at": 20,
+          "from_round": 1,
+          "times": 1,
+          "say": "Something green and cold wrenches out of every hero's chest."
+        },
+        {
+          "id": "wv_hero_born",
+          "name": "Hero-born woodwarped",
+          "summary": "Two woodwarped tear out of the heroes' own backs.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "woodwarped",
+          "count": 2,
+          "side": "enemies",
+          "cells": [
+            [
+              14,
+              21
+            ],
+            [
+              26,
+              21
+            ]
+          ],
+          "at": 20,
+          "from_round": 1,
+          "every": 1,
+          "times": 1,
+          "say": "The torn-out roots stand up on their own."
+        }
+      ]
+    },
+    {
+      "id": "wv_woodwarped",
+      "trigger": "dialogue",
+      "when": "level >= 13",
+      "flag": "wv_h3_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "ring_of_fire"
+      },
+      "monsters": [
+        {
+          "monster": "woodwarped",
+          "cell": [
+            14,
+            14
+          ],
+          "name": "A woodwarped farmhand",
+          "facing": "south",
+          "hp": 92,
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning",
+              "necrotic"
+            ],
+            "count": "vigil_deaths",
+            "warn": "A Foxwillow villager is inside. Fire or crushing blows would kill them for good; cuts and radiance would not."
+          },
+          "boss": false
+        },
+        {
+          "monster": "woodwarped",
+          "cell": [
+            18,
+            12
+          ],
+          "name": "A woodwarped farmhand",
+          "facing": "south",
+          "hp": 92,
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning",
+              "necrotic"
+            ],
+            "count": "vigil_deaths",
+            "warn": "A Foxwillow villager is inside. Fire or crushing blows would kill them for good; cuts and radiance would not."
+          },
+          "boss": false
+        },
+        {
+          "monster": "woodwarped",
+          "cell": [
+            22,
+            14
+          ],
+          "name": "A woodwarped farmhand",
+          "facing": "south",
+          "hp": 92,
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning",
+              "necrotic"
+            ],
+            "count": "vigil_deaths",
+            "warn": "A Foxwillow villager is inside. Fire or crushing blows would kill them for good; cuts and radiance would not."
+          },
+          "boss": false
+        },
+        {
+          "monster": "woodwarped",
+          "cell": [
+            26,
+            12
+          ],
+          "name": "A woodwarped farmhand",
+          "facing": "south",
+          "hp": 92,
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning",
+              "necrotic"
+            ],
+            "count": "vigil_deaths",
+            "warn": "A Foxwillow villager is inside. Fire or crushing blows would kill them for good; cuts and radiance would not."
+          },
+          "boss": false
+        }
+      ],
+      "round_events": [
+        {
+          "id": "wv_torn_out",
+          "name": "Torn out of the heroes",
+          "summary": "Roots tear out of each hero's chest: a DC 17 Con save or 2d10 Necrotic.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "con",
+            "dc": 17
+          },
+          "damage": {
+            "dice": "2d10",
+            "type": "necrotic"
+          },
+          "area": {
+            "around": [
+              20,
+              18
+            ],
+            "radius": 40
+          },
+          "at": 20,
+          "from_round": 1,
+          "times": 1,
+          "say": "Something green and cold wrenches out of every hero's chest."
+        },
+        {
+          "id": "wv_hero_born",
+          "name": "Hero-born woodwarped",
+          "summary": "Two woodwarped tear out of the heroes' own backs.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "woodwarped",
+          "count": 2,
+          "side": "enemies",
+          "cells": [
+            [
+              14,
+              21
+            ],
+            [
+              26,
+              21
+            ]
+          ],
+          "at": 20,
+          "from_round": 1,
+          "every": 1,
+          "times": 1,
+          "say": "The torn-out roots stand up on their own."
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "rest_text": "Not tonight. The fire on the hill is in sight and the burning has begun; a few breaths, and then you must go on."
+}

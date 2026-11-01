@@ -1,0 +1,1372 @@
+{
+  "id": "wv_summit",
+  "name": "The summit of Rowan's Rise",
+  "region": "wickers_vigil",
+  "summary": "A spiral of small stones on scorched red earth, ten bonfires round the edge, and the Wicker Man at the heart of it.",
+  "text": "A spiral of small stones is laid on the crown of the hill, with satellite rings and stone-lined rays running out of it, and ten bonfires round the edge on scorched rust-red earth. At the spiral's centre stands a thing of woven willow bound with wire and iron, sixty feet of it, its chest and limbs hollow cages, and in the cages people are praying.",
+  "map": {
+    "rows": [
+      "######################################",
+      "#....................................#",
+      "#....................................#",
+      "#.................=..................#",
+      "#....................................#",
+      "#....=..........................=....#",
+      "#....................................#",
+      "#....................................#",
+      "#..........=..............=..........#",
+      "#....................................#",
+      "#....................................#",
+      "#.................=..................#",
+      "#...............=...=................#",
+      "#....................................#",
+      "#..=...........=.....=............=..#",
+      "#....................................#",
+      "#...............=...=................#",
+      "#.................=..................#",
+      "#....................................#",
+      "#....................................#",
+      "#....................................#",
+      "#....................................#",
+      "#....................................#",
+      "#....................................#",
+      "#....=..........................=....#",
+      "#....................................#",
+      "#....................................#",
+      "#....................................#",
+      "#....................................#",
+      "#.................=..................#",
+      "#....................................#",
+      "#....................................#",
+      "#....................................#",
+      "######################################"
+    ],
+    "theme": "wilderness",
+    "light": "bright",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "crown",
+      "name": "The crown",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          36,
+          32
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      18,
+      31
+    ],
+    "from_stones": [
+      18,
+      31
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_stones",
+      "cell": [
+        18,
+        32
+      ],
+      "to": "wv_stones",
+      "spawn": "from_summit",
+      "label": "Back down to the stones",
+      "when": "flag.vigil_fled or flag.wicker_man_destroyed"
+    }
+  ],
+  "props": [
+    {
+      "id": "wv_su_arrive",
+      "cell": [
+        18,
+        30
+      ],
+      "kind": "decor",
+      "label": "The summit",
+      "call": "vigil/summit:arrive",
+      "approach": 12,
+      "call_when": "not flag.wv_summit_seen"
+    },
+    {
+      "id": "wv_su_effigy",
+      "cell": [
+        18,
+        8
+      ],
+      "kind": "examine",
+      "label": "The Wicker Man, unlit",
+      "model": "scarecrow",
+      "scale": 6.0,
+      "dialogue": "vigil/summit:effigy",
+      "when": "not flag.wv_wicker_lit and not flag.wicker_man_destroyed"
+    },
+    {
+      "id": "wv_su_cage",
+      "cell": [
+        18,
+        10
+      ],
+      "kind": "decor",
+      "label": "The chest cage: Adela's small face behind the weave",
+      "model": "cage",
+      "scale": 2.0,
+      "when": "not flag.wicker_man_destroyed"
+    },
+    {
+      "id": "wv_su_ash",
+      "cell": [
+        18,
+        9
+      ],
+      "kind": "decor",
+      "label": "A smoking heap of ash",
+      "model": "soot_patch",
+      "scale": 2.5,
+      "when": "flag.wicker_man_destroyed"
+    },
+    {
+      "id": "wv_su_end",
+      "cell": [
+        18,
+        12
+      ],
+      "kind": "decor",
+      "label": "The ash, where the Crooked Man crawled",
+      "call": "vigil/summit:crooked_end",
+      "approach": 12,
+      "call_when": "flag.wicker_man_destroyed and not flag.wv_crooked_end_seen"
+    },
+    {
+      "id": "wv_su_ash_phillip",
+      "cell": [
+        18,
+        13
+      ],
+      "kind": "decor",
+      "label": "Phillip, kneeling in the ash",
+      "call": "vigil/summit:phillip_ash",
+      "approach": 6,
+      "call_when": "flag.wv_crooked_end_seen and not flag.wv_phillip_seen"
+    },
+    {
+      "id": "wv_su_locket",
+      "cell": [
+        22,
+        10
+      ],
+      "kind": "search",
+      "label": "A silver locket in the heather: an antlered hare",
+      "model": "scattered_notes",
+      "search_dc": 10,
+      "item": "rowans_locket",
+      "when": "flag.wv_summit_seen"
+    },
+    {
+      "id": "wv_su_rowan",
+      "cell": [
+        18,
+        14
+      ],
+      "kind": "examine",
+      "label": "The spiral's centre stone, carved with a woman's name",
+      "model": "stone_faces",
+      "dialogue": "vigil/summit:rowan"
+    },
+    {
+      "id": "wv_su_fallback",
+      "cell": [
+        18,
+        26
+      ],
+      "kind": "examine",
+      "label": "The way back down",
+      "dialogue": "vigil/summit:fall_back",
+      "when": "not flag.vigil_fled and not flag.wv_wicker_lit and not flag.wicker_man_destroyed"
+    },
+    {
+      "id": "wv_su_home",
+      "cell": [
+        18,
+        28
+      ],
+      "kind": "examine",
+      "label": "The path home",
+      "dialogue": "vigil/summit:home",
+      "when": "flag.wv_phillip_seen"
+    },
+    {
+      "id": "wv_su_fire_0",
+      "cell": [
+        5,
+        5
+      ],
+      "kind": "decor",
+      "label": "A bonfire",
+      "model": "brazier",
+      "scale": 1.6
+    },
+    {
+      "id": "wv_su_fire_1",
+      "cell": [
+        18,
+        3
+      ],
+      "kind": "decor",
+      "label": "A bonfire",
+      "model": "brazier",
+      "scale": 1.6
+    },
+    {
+      "id": "wv_su_fire_2",
+      "cell": [
+        32,
+        5
+      ],
+      "kind": "decor",
+      "label": "A bonfire",
+      "model": "brazier",
+      "scale": 1.6
+    },
+    {
+      "id": "wv_su_fire_3",
+      "cell": [
+        34,
+        14
+      ],
+      "kind": "decor",
+      "label": "A bonfire",
+      "model": "brazier",
+      "scale": 1.6
+    },
+    {
+      "id": "wv_su_fire_4",
+      "cell": [
+        32,
+        24
+      ],
+      "kind": "decor",
+      "label": "A bonfire",
+      "model": "brazier",
+      "scale": 1.6
+    },
+    {
+      "id": "wv_su_fire_5",
+      "cell": [
+        18,
+        29
+      ],
+      "kind": "decor",
+      "label": "A bonfire",
+      "model": "brazier",
+      "scale": 1.6
+    },
+    {
+      "id": "wv_su_fire_6",
+      "cell": [
+        5,
+        24
+      ],
+      "kind": "decor",
+      "label": "A bonfire",
+      "model": "brazier",
+      "scale": 1.6
+    },
+    {
+      "id": "wv_su_fire_7",
+      "cell": [
+        3,
+        14
+      ],
+      "kind": "decor",
+      "label": "A bonfire",
+      "model": "brazier",
+      "scale": 1.6
+    },
+    {
+      "id": "wv_su_fire_8",
+      "cell": [
+        11,
+        8
+      ],
+      "kind": "decor",
+      "label": "A bonfire",
+      "model": "brazier",
+      "scale": 1.6
+    },
+    {
+      "id": "wv_su_fire_9",
+      "cell": [
+        26,
+        8
+      ],
+      "kind": "decor",
+      "label": "A bonfire",
+      "model": "brazier",
+      "scale": 1.6
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "phillip_druskenvald",
+      "cell": [
+        18,
+        13
+      ],
+      "dialogue": "vigil/summit:phillip_ash",
+      "when": "flag.wv_crooked_end_seen and not flag.wv_phillip_seen",
+      "facing": "south"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level <= 11 and flag.vigil_deaths <= 0 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 132
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level <= 11 and flag.vigil_deaths >= 1 and flag.vigil_deaths <= 3 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 149
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level <= 11 and flag.vigil_deaths >= 4 and flag.vigil_deaths <= 6 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 166
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level <= 11 and flag.vigil_deaths >= 7 and flag.vigil_deaths <= 9 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 183
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level <= 11 and flag.vigil_deaths >= 10 and flag.vigil_deaths <= 12 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 200
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level <= 11 and flag.vigil_deaths >= 13 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 217
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 75
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level == 12 and flag.vigil_deaths <= 0 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 155
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level == 12 and flag.vigil_deaths >= 1 and flag.vigil_deaths <= 3 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 175
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level == 12 and flag.vigil_deaths >= 4 and flag.vigil_deaths <= 6 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 195
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level == 12 and flag.vigil_deaths >= 7 and flag.vigil_deaths <= 9 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 215
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level == 12 and flag.vigil_deaths >= 10 and flag.vigil_deaths <= 12 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 235
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level == 12 and flag.vigil_deaths >= 13 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 255
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 88
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level >= 13 and flag.vigil_deaths <= 0 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 174
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level >= 13 and flag.vigil_deaths >= 1 and flag.vigil_deaths <= 3 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 196
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level >= 13 and flag.vigil_deaths >= 4 and flag.vigil_deaths <= 6 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 218
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level >= 13 and flag.vigil_deaths >= 7 and flag.vigil_deaths <= 9 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 241
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level >= 13 and flag.vigil_deaths >= 10 and flag.vigil_deaths <= 12 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 263
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_man",
+      "trigger": "dialogue",
+      "when": "level >= 13 and flag.vigil_deaths >= 13 and not flag.vigil_fled",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            18,
+            9
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 286
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "Alda Farnum, the Hare",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Gaston Doray, the Crow",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        },
+        {
+          "monster": "old_ways_chosen",
+          "cell": [
+            18,
+            19
+          ],
+          "name": "Randall Graham, the Stag",
+          "facing": "south",
+          "boss": false,
+          "hp": 99
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "rest_text": "Not tonight. The fire on the hill is in sight and the burning has begun; a few breaths, and then you must go on.",
+  "lights": [
+    {
+      "cell": [
+        18,
+        8
+      ],
+      "kind": "fire",
+      "bright_ft": 60,
+      "dim_ft": 120,
+      "color": "fire"
+    }
+  ]
+}

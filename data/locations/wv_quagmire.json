@@ -1,0 +1,980 @@
+{
+  "id": "wv_quagmire",
+  "name": "The quagmire",
+  "region": "wickers_vigil",
+  "summary": "Waterlogged bog, all Difficult Terrain, the rain stopped; six villagers stuck at the waist and something moving under the mud.",
+  "text": "The rain has stopped. The bog lies black and still, and in it stand six villagers sunk to the waist, not speaking. The surface of the mud moves in a line toward one of them.",
+  "map": {
+    "rows": [
+      "########################################",
+      "#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#",
+      "#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#",
+      "#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#",
+      "#~~~~~~~~~~~~~.~~~~~~~~~~~~~~~~~~~~~~~~#",
+      "#~~~~~~~~~~~..#..~~~~~~~~~~~~~~~~~~~~~~#",
+      "#~~~~~~~~~~......~~~~~~~~~~~.~~~~~~~~~~#",
+      "#~~~~~~~~~~~.....~~~~~~~~~~...~~~~~~~~~#",
+      "#~~~~~~~~~~~~~~~~~~~~~~~~~~#..~~~~~~~~~#",
+      "#.....~~~~~~~~~~~~~~~~~~~~~...~~~~.....#",
+      "#.....~~~~~~~~~~~~~~~~~~~~~~.~~~~~.....#",
+      "#.....~~~~~~~~~~.....~~~~~~~~~~~~~.....#",
+      "#.....~~~~~~~~~~~~~~~~~~~~~~~~~~~~.....#",
+      "#.....~~~~~~~~~~~~~~~~~~~~~~~~~~~~.....#",
+      "#.....~~~~~~~~~~~~~~~~~~~~~~~~~~~~.....#",
+      "#~~~~~~~~~~~~~~~~~~~.....~~~~~~~~~~~~~~#",
+      "#~~~~~~~~...~~~~~~~~......~~~~~~~~~~~~~#",
+      "#~~~~~~~~....~~~~~~~.....~~~~~~~~~~~~~~#",
+      "#~~~~~~~~...~~~~~~~~~.~~~~~~~~~~~~~~~~~#",
+      "#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#",
+      "#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#",
+      "#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#",
+      "#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#",
+      "########################################"
+    ],
+    "theme": "wilderness",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "bog",
+      "name": "The quagmire",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          38,
+          22
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      3,
+      12
+    ],
+    "from_heath": [
+      3,
+      12
+    ],
+    "from_hardpan": [
+      37,
+      12
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_heath",
+      "cell": [
+        2,
+        12
+      ],
+      "to": "wv_heath",
+      "spawn": "from_quagmire",
+      "label": "Back to the heath"
+    },
+    {
+      "id": "to_hardpan",
+      "cell": [
+        37,
+        12
+      ],
+      "to": "wv_hardpan",
+      "spawn": "from_quagmire",
+      "label": "On to firmer ground",
+      "when": "flag.wv_h2_done or flag.wv_h2_skipped or flag.wv_h2_walked"
+    }
+  ],
+  "props": [
+    {
+      "id": "wv_quag_arrive",
+      "cell": [
+        3,
+        12
+      ],
+      "kind": "decor",
+      "label": "The quagmire, from the heath",
+      "call": "vigil/moor:quag_start",
+      "approach": 12,
+      "call_when": "not flag.wv_h2_started"
+    },
+    {
+      "id": "wv_quag_horn",
+      "cell": [
+        6,
+        10
+      ],
+      "kind": "examine",
+      "label": "A drover's horn hanging on a post",
+      "model": "lantern_bracket",
+      "dialogue": "vigil/moor:horn",
+      "when": "not flag.wv_h2_done"
+    },
+    {
+      "id": "wv_quag_pole",
+      "cell": [
+        5,
+        14
+      ],
+      "kind": "examine",
+      "label": "Long poles and a coil of rope",
+      "model": "rope_coils",
+      "dialogue": "vigil/moor:poles",
+      "when": "not flag.wv_h2_done"
+    },
+    {
+      "id": "wv_quag_after",
+      "cell": [
+        35,
+        12
+      ],
+      "kind": "decor",
+      "label": "The quagmire, after",
+      "call": "vigil/moor:quag_after",
+      "approach": 10,
+      "call_when": "flag.wv_h2_done and not flag.wv_h2_tallied"
+    },
+    {
+      "id": "wv_quag_reeds",
+      "cell": [
+        30,
+        20
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "wv_quag_reeds2",
+      "cell": [
+        12,
+        3
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "wv_quag_walk",
+      "cell": [
+        36,
+        12
+      ],
+      "kind": "decor",
+      "label": "The far shore of the bog",
+      "call": "vigil/moor:quag_walk",
+      "approach": 1,
+      "call_when": "not flag.wv_h2_done and not flag.wv_h2_skipped and not flag.wv_h2_walked"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "sister_lumen",
+      "cell": [
+        36,
+        10
+      ],
+      "dialogue": "vigil/moor:lumen",
+      "when": "flag.wv_h2_tallied and flag.wv_h2_lost <= 2 and not flag.wv_lumen_done",
+      "facing": "west"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "wv_wellwyrms",
+      "trigger": "dialogue",
+      "when": "level <= 11 and flag.wv_horn_ready",
+      "flag": "wv_h2_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "death_from_within"
+      },
+      "monsters": [
+        {
+          "monster": "wellwyrm",
+          "cell": [
+            12,
+            12
+          ],
+          "name": "A wellwyrm",
+          "facing": "west",
+          "hp": 130,
+          "boss": false
+        },
+        {
+          "monster": "wellwyrm",
+          "cell": [
+            20,
+            10
+          ],
+          "name": "A wellwyrm",
+          "facing": "west",
+          "hp": 130,
+          "boss": false
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            10,
+            8
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_1"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            14,
+            14
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_2"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            18,
+            7
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_3"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            22,
+            18
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_4"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            26,
+            11
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_5"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            30,
+            15
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_6"
+          },
+          "facing": "north"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "wv_horn",
+          "name": "The horn sounds",
+          "summary": "The drover's horn is blown across the bog: the wellwyrms recoil from the sound.",
+          "kind": "save",
+          "affects": "enemies",
+          "save": {
+            "ability": "wis",
+            "dc": 15
+          },
+          "condition": "frightened",
+          "until": "target_turn_end",
+          "area": {
+            "around": [
+              20,
+              12
+            ],
+            "radius": 40
+          },
+          "at": 20,
+          "every": 2,
+          "say": "The horn rolls over the bog, and the mud shudders."
+        }
+      ]
+    },
+    {
+      "id": "wv_wellwyrms",
+      "trigger": "dialogue",
+      "when": "level <= 11 and not flag.wv_horn_ready",
+      "flag": "wv_h2_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "death_from_within"
+      },
+      "monsters": [
+        {
+          "monster": "wellwyrm",
+          "cell": [
+            12,
+            12
+          ],
+          "name": "A wellwyrm",
+          "facing": "west",
+          "hp": 130,
+          "boss": false
+        },
+        {
+          "monster": "wellwyrm",
+          "cell": [
+            20,
+            10
+          ],
+          "name": "A wellwyrm",
+          "facing": "west",
+          "hp": 130,
+          "boss": false
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            10,
+            8
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_1"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            14,
+            14
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_2"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            18,
+            7
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_3"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            22,
+            18
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_4"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            26,
+            11
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_5"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            30,
+            15
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_6"
+          },
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "wv_wellwyrms",
+      "trigger": "dialogue",
+      "when": "level == 12 and flag.wv_horn_ready",
+      "flag": "wv_h2_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "death_from_within"
+      },
+      "monsters": [
+        {
+          "monster": "wellwyrm",
+          "cell": [
+            12,
+            12
+          ],
+          "name": "A wellwyrm",
+          "facing": "west",
+          "hp": 153,
+          "boss": false
+        },
+        {
+          "monster": "wellwyrm",
+          "cell": [
+            20,
+            10
+          ],
+          "name": "A wellwyrm",
+          "facing": "west",
+          "hp": 153,
+          "boss": false
+        },
+        {
+          "monster": "wellwyrm",
+          "cell": [
+            28,
+            13
+          ],
+          "name": "A wellwyrm",
+          "facing": "west",
+          "hp": 153,
+          "boss": false
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            10,
+            8
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_1"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            14,
+            14
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_2"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            18,
+            7
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_3"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            22,
+            18
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_4"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            26,
+            11
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_5"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            30,
+            15
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_6"
+          },
+          "facing": "north"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "wv_horn",
+          "name": "The horn sounds",
+          "summary": "The drover's horn is blown across the bog: the wellwyrms recoil from the sound.",
+          "kind": "save",
+          "affects": "enemies",
+          "save": {
+            "ability": "wis",
+            "dc": 15
+          },
+          "condition": "frightened",
+          "until": "target_turn_end",
+          "area": {
+            "around": [
+              20,
+              12
+            ],
+            "radius": 40
+          },
+          "at": 20,
+          "every": 2,
+          "say": "The horn rolls over the bog, and the mud shudders."
+        }
+      ]
+    },
+    {
+      "id": "wv_wellwyrms",
+      "trigger": "dialogue",
+      "when": "level == 12 and not flag.wv_horn_ready",
+      "flag": "wv_h2_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "death_from_within"
+      },
+      "monsters": [
+        {
+          "monster": "wellwyrm",
+          "cell": [
+            12,
+            12
+          ],
+          "name": "A wellwyrm",
+          "facing": "west",
+          "hp": 153,
+          "boss": false
+        },
+        {
+          "monster": "wellwyrm",
+          "cell": [
+            20,
+            10
+          ],
+          "name": "A wellwyrm",
+          "facing": "west",
+          "hp": 153,
+          "boss": false
+        },
+        {
+          "monster": "wellwyrm",
+          "cell": [
+            28,
+            13
+          ],
+          "name": "A wellwyrm",
+          "facing": "west",
+          "hp": 153,
+          "boss": false
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            10,
+            8
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_1"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            14,
+            14
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_2"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            18,
+            7
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_3"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            22,
+            18
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_4"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            26,
+            11
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_5"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            30,
+            15
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_6"
+          },
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "wv_wellwyrms",
+      "trigger": "dialogue",
+      "when": "level >= 13 and flag.wv_horn_ready",
+      "flag": "wv_h2_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "death_from_within"
+      },
+      "monsters": [
+        {
+          "monster": "wellwyrm",
+          "cell": [
+            12,
+            12
+          ],
+          "name": "A wellwyrm",
+          "facing": "west",
+          "hp": 171,
+          "boss": false
+        },
+        {
+          "monster": "wellwyrm",
+          "cell": [
+            20,
+            10
+          ],
+          "name": "A wellwyrm",
+          "facing": "west",
+          "hp": 171,
+          "boss": false
+        },
+        {
+          "monster": "wellwyrm",
+          "cell": [
+            28,
+            13
+          ],
+          "name": "A wellwyrm",
+          "facing": "west",
+          "hp": 171,
+          "boss": false
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            10,
+            8
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_1"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            14,
+            14
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_2"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            18,
+            7
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_3"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            22,
+            18
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_4"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            26,
+            11
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_5"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            30,
+            15
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_6"
+          },
+          "facing": "north"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "wv_horn",
+          "name": "The horn sounds",
+          "summary": "The drover's horn is blown across the bog: the wellwyrms recoil from the sound.",
+          "kind": "save",
+          "affects": "enemies",
+          "save": {
+            "ability": "wis",
+            "dc": 15
+          },
+          "condition": "frightened",
+          "until": "target_turn_end",
+          "area": {
+            "around": [
+              20,
+              12
+            ],
+            "radius": 40
+          },
+          "at": 20,
+          "every": 2,
+          "say": "The horn rolls over the bog, and the mud shudders."
+        }
+      ]
+    },
+    {
+      "id": "wv_wellwyrms",
+      "trigger": "dialogue",
+      "when": "level >= 13 and not flag.wv_horn_ready",
+      "flag": "wv_h2_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "death_from_within"
+      },
+      "monsters": [
+        {
+          "monster": "wellwyrm",
+          "cell": [
+            12,
+            12
+          ],
+          "name": "A wellwyrm",
+          "facing": "west",
+          "hp": 171,
+          "boss": false
+        },
+        {
+          "monster": "wellwyrm",
+          "cell": [
+            20,
+            10
+          ],
+          "name": "A wellwyrm",
+          "facing": "west",
+          "hp": 171,
+          "boss": false
+        },
+        {
+          "monster": "wellwyrm",
+          "cell": [
+            28,
+            13
+          ],
+          "name": "A wellwyrm",
+          "facing": "west",
+          "hp": 171,
+          "boss": false
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            10,
+            8
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_1"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            14,
+            14
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_2"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            18,
+            7
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_3"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            22,
+            18
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_4"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            26,
+            11
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_5"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            30,
+            15
+          ],
+          "name": "A mired villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h2_saved_6"
+          },
+          "facing": "north"
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "rest_text": "Not tonight. The fire on the hill is in sight and the burning has begun; a few breaths, and then you must go on."
+}

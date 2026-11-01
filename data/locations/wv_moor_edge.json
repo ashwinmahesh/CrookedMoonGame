@@ -1,0 +1,234 @@
+{
+  "id": "wv_moor_edge",
+  "name": "The moor's edge",
+  "region": "wickers_vigil",
+  "summary": "Heath and mud under a violent storm; bodies in the muck, townsfolk scattering both ways, and a bonfire on a hill that every eye keeps finding.",
+  "text": "Rain comes sideways across the heather and the sky flashes white over a bonfire on the highest hill north of the village. Townsfolk run past you in both directions. Someone lies in the mud and is not going to get up.",
+  "map": {
+    "rows": [
+      "####################################",
+      "#..................................#",
+      "#.....................#............#",
+      "#.......~~.........................#",
+      "#....~~~~~~~.......................#",
+      "#...~~~~~~~~~......................#",
+      "#..~~~~~~~~~~~..#....#.............#",
+      "#...~~~~~~~~~~.....................#",
+      "#..#~~~~~~~~................#......#",
+      "#......~.~....#....................#",
+      "#..................................#",
+      "#............#..........#.......#..#",
+      "#..#.......................~.......#",
+      "#......................~~~~~~~.....#",
+      "#....................~~~~~~~~~~~~..#",
+      "#....................~~~~~~~~~~~...#",
+      "#....................~~~~~~~~~~~...#",
+      "#......................~~~~~~~.....#",
+      "#..........................~~..#...#",
+      "#..................................#",
+      "#..................................#",
+      "####################################"
+    ],
+    "theme": "wilderness",
+    "light": "dark",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "edge",
+      "name": "The moor's edge",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          34,
+          20
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      3,
+      18
+    ],
+    "from_village": [
+      3,
+      18
+    ],
+    "from_heath": [
+      33,
+      10
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_village",
+      "cell": [
+        2,
+        19
+      ],
+      "to": "wv_square",
+      "spawn": "from_moors",
+      "label": "Back to the village",
+      "when": "flag.wv_started and not flag.wicker_man_burned"
+    },
+    {
+      "id": "to_travel",
+      "cell": [
+        2,
+        18
+      ],
+      "to": "travel",
+      "spawn": "default",
+      "label": "Back down the moor road"
+    },
+    {
+      "id": "to_heath",
+      "cell": [
+        34,
+        10
+      ],
+      "to": "wv_heath",
+      "spawn": "from_edge",
+      "label": "On across the heath"
+    }
+  ],
+  "props": [
+    {
+      "id": "wv_edge_sky",
+      "cell": [
+        4,
+        17
+      ],
+      "kind": "decor",
+      "label": "The sky over the moor",
+      "call": "vigil/moor:sky",
+      "approach": 12,
+      "call_when": "not flag.wv_sky_seen"
+    },
+    {
+      "id": "wv_edge_body_a",
+      "cell": [
+        12,
+        12
+      ],
+      "kind": "decor",
+      "label": "A body in the mud",
+      "model": "bones"
+    },
+    {
+      "id": "wv_edge_body_b",
+      "cell": [
+        20,
+        5
+      ],
+      "kind": "decor",
+      "label": "A body in the mud",
+      "model": "bones"
+    },
+    {
+      "id": "wv_edge_cart",
+      "cell": [
+        9,
+        15
+      ],
+      "kind": "decor",
+      "label": "An overturned handcart",
+      "model": "cart_broken"
+    },
+    {
+      "id": "wv_edge_tracks",
+      "cell": [
+        15,
+        10
+      ],
+      "kind": "examine",
+      "label": "Drag marks in the peat",
+      "model": "claw_marks",
+      "dialogue": "vigil/moor:tracks"
+    },
+    {
+      "id": "wv_edge_mask",
+      "cell": [
+        22,
+        9
+      ],
+      "kind": "examine",
+      "label": "A dropped antlered-hare mask",
+      "model": "stag_head",
+      "dialogue": "vigil/moor:mask"
+    },
+    {
+      "id": "wv_edge_lantern",
+      "cell": [
+        7,
+        19
+      ],
+      "kind": "decor",
+      "label": "A lantern left burning on a post",
+      "model": "lantern_post"
+    },
+    {
+      "id": "wv_edge_cairn",
+      "cell": [
+        28,
+        4
+      ],
+      "kind": "decor",
+      "label": "A rain-slick cairn",
+      "model": "cairn"
+    },
+    {
+      "id": "wv_edge_dead_tree",
+      "cell": [
+        31,
+        17
+      ],
+      "kind": "decor",
+      "label": "A dead tree against the lightning",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "wv_edge_leave",
+      "cell": [
+        33,
+        10
+      ],
+      "kind": "decor",
+      "label": "The path onto the heath",
+      "call": "vigil/moor:leave_edge",
+      "approach": 1,
+      "call_when": "not flag.wv_edge_left"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        14,
+        16
+      ],
+      "dialogue": "vigil/moor:eyewitness",
+      "when": "not flag.wv_eyewitness_done",
+      "facing": "east"
+    }
+  ],
+  "encounters": [],
+  "rest": "no",
+  "rest_text": "Not tonight. The fire on the hill is in sight and the burning has begun; a few breaths, and then you must go on.",
+  "lights": [
+    {
+      "cell": [
+        7,
+        19
+      ],
+      "kind": "lamp",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

@@ -1,0 +1,1110 @@
+{
+  "id": "wv_heath",
+  "name": "The heath",
+  "region": "wickers_vigil",
+  "summary": "Open heather and stony rises in a storm, with room above for flyers; boneflayers stooping out of the smoke.",
+  "text": "Open heather, stony rises and scattered boulders under a roaring sky. The smoke of the bonfire comes down the hill in sheets, and in it, wide as a barn door, something large is turning.",
+  "map": {
+    "rows": [
+      "########################################",
+      "#......................................#",
+      "#.........................#............#",
+      "#......#...............................#",
+      "#......................................#",
+      "#..............#.#.....................#",
+      "#.....#..............#..#.......#......#",
+      "#......................................#",
+      "#...........==.........................#",
+      "#.....................#....#...........#",
+      "#............#.........................#",
+      "#......................#...............#",
+      "#.................#..............#.....#",
+      "#........................#.............#",
+      "#........................#.....#.......#",
+      "#.................#.....==.............#",
+      "#..................#.....=........#....#",
+      "#........#.............................#",
+      "#........#..............#..............#",
+      "#.........#............................#",
+      "#......................................#",
+      "#......................................#",
+      "#......................................#",
+      "########################################"
+    ],
+    "theme": "wilderness",
+    "light": "dark",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "heath",
+      "name": "The heath",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          38,
+          22
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      3,
+      10
+    ],
+    "from_edge": [
+      3,
+      10
+    ],
+    "from_quagmire": [
+      37,
+      12
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_edge",
+      "cell": [
+        2,
+        10
+      ],
+      "to": "wv_moor_edge",
+      "spawn": "from_heath",
+      "label": "Back to the moor's edge"
+    },
+    {
+      "id": "to_quagmire",
+      "cell": [
+        37,
+        12
+      ],
+      "to": "wv_quagmire",
+      "spawn": "from_heath",
+      "label": "On to the quagmire",
+      "when": "flag.wv_h1_done or flag.wv_h1_skipped or flag.wv_h1_walked"
+    }
+  ],
+  "props": [
+    {
+      "id": "wv_heath_arrive",
+      "cell": [
+        3,
+        10
+      ],
+      "kind": "decor",
+      "label": "The heath, from the edge",
+      "call": "vigil/moor:heath_start",
+      "approach": 12,
+      "call_when": "not flag.wv_h1_started"
+    },
+    {
+      "id": "wv_heath_gong",
+      "cell": [
+        13,
+        9
+      ],
+      "kind": "examine",
+      "label": "A rusted ploughman's gong on a post",
+      "model": "lantern_stand",
+      "dialogue": "vigil/moor:gong",
+      "when": "not flag.wv_h1_done"
+    },
+    {
+      "id": "wv_heath_net",
+      "cell": [
+        25,
+        13
+      ],
+      "kind": "examine",
+      "label": "A drover's net and poles in the heather",
+      "model": "rope_coils",
+      "dialogue": "vigil/moor:net",
+      "when": "not flag.wv_h1_done"
+    },
+    {
+      "id": "wv_heath_after",
+      "cell": [
+        20,
+        11
+      ],
+      "kind": "decor",
+      "label": "The heath, after",
+      "call": "vigil/moor:heath_after",
+      "approach": 12,
+      "call_when": "flag.wv_h1_done and not flag.wv_h1_tallied"
+    },
+    {
+      "id": "wv_heath_body",
+      "cell": [
+        30,
+        5
+      ],
+      "kind": "decor",
+      "label": "A body in the heather",
+      "model": "bones"
+    },
+    {
+      "id": "wv_heath_feathers",
+      "cell": [
+        9,
+        14
+      ],
+      "kind": "decor",
+      "label": "Black feathers the length of an arm",
+      "model": "leaves"
+    },
+    {
+      "id": "wv_heath_cairn",
+      "cell": [
+        33,
+        18
+      ],
+      "kind": "decor",
+      "label": "A cairn",
+      "model": "cairn"
+    },
+    {
+      "id": "wv_heath_walk",
+      "cell": [
+        36,
+        12
+      ],
+      "kind": "decor",
+      "label": "The far side of the heath",
+      "call": "vigil/moor:heath_walk",
+      "approach": 1,
+      "call_when": "not flag.wv_h1_done and not flag.wv_h1_skipped and not flag.wv_h1_walked"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "wv_fleeing_villager",
+      "cell": [
+        35,
+        8
+      ],
+      "dialogue": "vigil/moor:potions",
+      "when": "flag.wv_h1_tallied and flag.wv_h1_lost <= 1 and not flag.wv_potions_given",
+      "facing": "west"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "wv_boneflayers",
+      "trigger": "dialogue",
+      "when": "level <= 11 and flag.wv_gong_ready",
+      "flag": "wv_h1_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "death_from_below"
+      },
+      "monsters": [
+        {
+          "monster": "boneflayer",
+          "cell": [
+            12,
+            4
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 80,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            20,
+            3
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 80,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            28,
+            5
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 80,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            33,
+            9
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 80,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            8,
+            14
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 80,
+          "boss": false
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            14,
+            10
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_1"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            18,
+            14
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_2"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            22,
+            8
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_3"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            26,
+            12
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_4"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            16,
+            17
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_5"
+          },
+          "facing": "north"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "wv_gong",
+          "name": "The gong rings",
+          "summary": "The gong on the post is struck: the boneflayers' hearing goes and their blows go wild.",
+          "kind": "save",
+          "affects": "enemies",
+          "save": {
+            "ability": "con",
+            "dc": 14
+          },
+          "condition": "frightened",
+          "until": "target_turn_end",
+          "area": {
+            "around": [
+              19,
+              12
+            ],
+            "radius": 40
+          },
+          "at": 20,
+          "every": 2,
+          "say": "The gong booms, and the boneflayers flinch from the noise."
+        }
+      ]
+    },
+    {
+      "id": "wv_boneflayers",
+      "trigger": "dialogue",
+      "when": "level <= 11 and not flag.wv_gong_ready",
+      "flag": "wv_h1_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "death_from_below"
+      },
+      "monsters": [
+        {
+          "monster": "boneflayer",
+          "cell": [
+            12,
+            4
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 80,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            20,
+            3
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 80,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            28,
+            5
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 80,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            33,
+            9
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 80,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            8,
+            14
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 80,
+          "boss": false
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            14,
+            10
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_1"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            18,
+            14
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_2"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            22,
+            8
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_3"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            26,
+            12
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_4"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            16,
+            17
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_5"
+          },
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "wv_boneflayers",
+      "trigger": "dialogue",
+      "when": "level == 12 and flag.wv_gong_ready",
+      "flag": "wv_h1_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "death_from_below"
+      },
+      "monsters": [
+        {
+          "monster": "boneflayer",
+          "cell": [
+            12,
+            4
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 94,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            20,
+            3
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 94,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            28,
+            5
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 94,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            33,
+            9
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 94,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            8,
+            14
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 94,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            26,
+            18
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 94,
+          "boss": false
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            14,
+            10
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_1"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            18,
+            14
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_2"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            22,
+            8
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_3"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            26,
+            12
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_4"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            16,
+            17
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_5"
+          },
+          "facing": "north"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "wv_gong",
+          "name": "The gong rings",
+          "summary": "The gong on the post is struck: the boneflayers' hearing goes and their blows go wild.",
+          "kind": "save",
+          "affects": "enemies",
+          "save": {
+            "ability": "con",
+            "dc": 14
+          },
+          "condition": "frightened",
+          "until": "target_turn_end",
+          "area": {
+            "around": [
+              19,
+              12
+            ],
+            "radius": 40
+          },
+          "at": 20,
+          "every": 2,
+          "say": "The gong booms, and the boneflayers flinch from the noise."
+        }
+      ]
+    },
+    {
+      "id": "wv_boneflayers",
+      "trigger": "dialogue",
+      "when": "level == 12 and not flag.wv_gong_ready",
+      "flag": "wv_h1_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "death_from_below"
+      },
+      "monsters": [
+        {
+          "monster": "boneflayer",
+          "cell": [
+            12,
+            4
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 94,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            20,
+            3
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 94,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            28,
+            5
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 94,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            33,
+            9
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 94,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            8,
+            14
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 94,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            26,
+            18
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 94,
+          "boss": false
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            14,
+            10
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_1"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            18,
+            14
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_2"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            22,
+            8
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_3"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            26,
+            12
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_4"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            16,
+            17
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_5"
+          },
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "wv_boneflayers",
+      "trigger": "dialogue",
+      "when": "level >= 13 and flag.wv_gong_ready",
+      "flag": "wv_h1_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "death_from_below"
+      },
+      "monsters": [
+        {
+          "monster": "boneflayer",
+          "cell": [
+            12,
+            4
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 105,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            20,
+            3
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 105,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            28,
+            5
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 105,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            33,
+            9
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 105,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            8,
+            14
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 105,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            26,
+            18
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 105,
+          "boss": false
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            14,
+            10
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_1"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            18,
+            14
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_2"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            22,
+            8
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_3"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            26,
+            12
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_4"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            16,
+            17
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_5"
+          },
+          "facing": "north"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "wv_gong",
+          "name": "The gong rings",
+          "summary": "The gong on the post is struck: the boneflayers' hearing goes and their blows go wild.",
+          "kind": "save",
+          "affects": "enemies",
+          "save": {
+            "ability": "con",
+            "dc": 14
+          },
+          "condition": "frightened",
+          "until": "target_turn_end",
+          "area": {
+            "around": [
+              19,
+              12
+            ],
+            "radius": 40
+          },
+          "at": 20,
+          "every": 2,
+          "say": "The gong booms, and the boneflayers flinch from the noise."
+        }
+      ]
+    },
+    {
+      "id": "wv_boneflayers",
+      "trigger": "dialogue",
+      "when": "level >= 13 and not flag.wv_gong_ready",
+      "flag": "wv_h1_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "death_from_below"
+      },
+      "monsters": [
+        {
+          "monster": "boneflayer",
+          "cell": [
+            12,
+            4
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 105,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            20,
+            3
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 105,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            28,
+            5
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 105,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            33,
+            9
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 105,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            8,
+            14
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 105,
+          "boss": false
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            26,
+            18
+          ],
+          "name": "A boneflayer",
+          "facing": "south",
+          "hp": 105,
+          "boss": false
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            14,
+            10
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_1"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            18,
+            14
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_2"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            22,
+            8
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_3"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            26,
+            12
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_4"
+          },
+          "facing": "north"
+        },
+        {
+          "monster": "commoner",
+          "cell": [
+            16,
+            17
+          ],
+          "name": "A fleeing villager",
+          "side": "neutral",
+          "catch": {
+            "flag": "wv_h1_saved_5"
+          },
+          "facing": "north"
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "rest_text": "Not tonight. The fire on the hill is in sight and the burning has begun; a few breaths, and then you must go on."
+}

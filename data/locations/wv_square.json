@@ -1,0 +1,641 @@
+{
+  "id": "wv_square",
+  "name": "Wickermoor, the night before",
+  "region": "wickers_vigil",
+  "summary": "The Founder's Round on the eve of the burning: carts across the moor road, a long table under lanterns, a bonfire on the hill, a goat on the notice board.",
+  "text": "The bonfire on the hill north of the village is visible from every window, and the village has gone out to meet it: carts and planks barring the moor road, volunteers lining up in a queue that bends round the well, a long table under lanterns, and across the way the stone door of the Silent Church standing open. The goat is on the notice board.",
+  "map": {
+    "rows": [
+      "##########################################",
+      "#........................................#",
+      "#.########..#######.....#######..#######.#",
+      "#.########..#######.....#######..#######.#",
+      "#.########..#######.....#######..#######.#",
+      "#.########..#######.....#######..#######.#",
+      "#.########..#######.....#######..#######.#",
+      "#.########.......................#######.#",
+      "#..................==.==.........#######.#",
+      "#................................###.###.#",
+      "#........................................#",
+      "#........................................#",
+      "#.........................==.............#",
+      "#........................................#",
+      "#.......=======..........................#",
+      "#........................................#",
+      "#....................=...................#",
+      "#........................................#",
+      "#........................................#",
+      "#........................................#",
+      "#.........==..................==.........#",
+      "#........................................#",
+      "#........................................#",
+      "#........................................#",
+      "#.............======..=======...########.#",
+      "#...............................########.#",
+      "#.########......................########.#",
+      "#.########...#######..#######...########.#",
+      "#.########...#..####..##.####...########.#",
+      "#.########...#######..#######...########.#",
+      "#.########...#######..#######...########.#",
+      "#.########...#######..#######...########.#",
+      "#........................................#",
+      "##########################################"
+    ],
+    "theme": "village",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "sq_round",
+      "name": "The Round",
+      "cells": [
+        [
+          10,
+          10
+        ],
+        [
+          32,
+          22
+        ]
+      ]
+    },
+    {
+      "id": "sq_barricade",
+      "name": "The barricade",
+      "cells": [
+        [
+          14,
+          8
+        ],
+        [
+          28,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "sq_inn_yard",
+      "name": "The inn yard",
+      "cells": [
+        [
+          4,
+          12
+        ],
+        [
+          16,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "sq_church",
+      "name": "The church steps",
+      "cells": [
+        [
+          33,
+          9
+        ],
+        [
+          39,
+          14
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      21,
+      22
+    ],
+    "from_moors": [
+      21,
+      10
+    ],
+    "from_shelter": [
+      36,
+      11
+    ],
+    "from_travel": [
+      21,
+      22
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_moors",
+      "cell": [
+        21,
+        3
+      ],
+      "to": "wv_moor_edge",
+      "spawn": "from_village",
+      "label": "North up the moor road to the burning",
+      "when": "flag.wv_started and not flag.wicker_man_burned"
+    },
+    {
+      "id": "to_shelter",
+      "cell": [
+        36,
+        9
+      ],
+      "to": "wv_shelter",
+      "spawn": "from_square",
+      "label": "Into the Silent Church"
+    },
+    {
+      "id": "south_lane",
+      "cell": [
+        21,
+        32
+      ],
+      "to": "travel",
+      "spawn": "default",
+      "label": "South, out of the village"
+    }
+  ],
+  "props": [
+    {
+      "id": "wv_sq_arrive",
+      "cell": [
+        21,
+        22
+      ],
+      "kind": "decor",
+      "label": "The Round, on the eve",
+      "call": "vigil/square:arrive",
+      "approach": 12,
+      "call_when": "not flag.wv_square_seen"
+    },
+    {
+      "id": "wv_sq_barricade",
+      "cell": [
+        21,
+        8
+      ],
+      "kind": "examine",
+      "label": "A barricade of carts and planks",
+      "model": "cart_broken",
+      "dialogue": "vigil/square:barricade",
+      "span": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "wv_sq_barricade_a",
+      "cell": [
+        19,
+        8
+      ],
+      "kind": "decor",
+      "label": "A hay cart on its side",
+      "model": "cart"
+    },
+    {
+      "id": "wv_sq_barricade_b",
+      "cell": [
+        23,
+        8
+      ],
+      "kind": "decor",
+      "label": "A stack of planks",
+      "model": "woodpile"
+    },
+    {
+      "id": "wv_sq_board",
+      "cell": [
+        30,
+        14
+      ],
+      "kind": "examine",
+      "label": "The notice board, and the goat on it",
+      "model": "notice_board",
+      "dialogue": "vigil/goat:board",
+      "when": "not flag.goat_resolved"
+    },
+    {
+      "id": "wv_sq_board_after",
+      "cell": [
+        30,
+        14
+      ],
+      "kind": "decor",
+      "label": "The notice board, empty of goat",
+      "model": "notice_board",
+      "when": "flag.goat_resolved"
+    },
+    {
+      "id": "wv_sq_dinner",
+      "cell": [
+        11,
+        14
+      ],
+      "kind": "examine",
+      "label": "The long table under the lanterns",
+      "model": "table_meal",
+      "dialogue": "vigil/dinner:table",
+      "span": [
+        4,
+        1
+      ]
+    },
+    {
+      "id": "wv_sq_post",
+      "cell": [
+        27,
+        17
+      ],
+      "kind": "examine",
+      "label": "The post cart, loaded with letters",
+      "model": "handcart",
+      "dialogue": "vigil/letters:cart",
+      "when": "flag.wv_letters_asked and not flag.letters_done"
+    },
+    {
+      "id": "wv_sq_well",
+      "cell": [
+        21,
+        16
+      ],
+      "kind": "decor",
+      "label": "The village well",
+      "model": "well_stone"
+    },
+    {
+      "id": "wv_sq_sick",
+      "cell": [
+        31,
+        12
+      ],
+      "kind": "examine",
+      "label": "A wagon of the sick, under blankets",
+      "model": "cart",
+      "dialogue": "vigil/sleep:sick"
+    },
+    {
+      "id": "wv_sq_children",
+      "cell": [
+        13,
+        20
+      ],
+      "kind": "examine",
+      "label": "The children, huddled under the inn's awning",
+      "model": "bench",
+      "dialogue": "vigil/sleep:children"
+    },
+    {
+      "id": "wv_sq_old",
+      "cell": [
+        27,
+        20
+      ],
+      "kind": "examine",
+      "label": "The old folk, on chairs, refusing to move",
+      "model": "chairs",
+      "dialogue": "vigil/sleep:old"
+    },
+    {
+      "id": "wv_sq_queue",
+      "cell": [
+        23,
+        13
+      ],
+      "kind": "examine",
+      "label": "The volunteers' queue and a trestle desk",
+      "model": "desk",
+      "dialogue": "vigil/volunteers:desk",
+      "when": "flag.wv_vol_asked and not flag.vol_resolved"
+    },
+    {
+      "id": "wv_sq_hill",
+      "cell": [
+        21,
+        2
+      ],
+      "kind": "decor",
+      "label": "The bonfire on the hill",
+      "call": "vigil/square:bonfire",
+      "approach": 3,
+      "call_when": "not flag.wv_bonfire_watched"
+    },
+    {
+      "id": "wv_sq_lantern_a",
+      "cell": [
+        9,
+        12
+      ],
+      "kind": "decor",
+      "label": "Lanterns on the inn's yard posts",
+      "model": "lantern_post"
+    },
+    {
+      "id": "wv_sq_lantern_b",
+      "cell": [
+        16,
+        12
+      ],
+      "kind": "decor",
+      "label": "Lanterns on the inn's yard posts",
+      "model": "lantern_post"
+    },
+    {
+      "id": "wv_sq_barrels",
+      "cell": [
+        4,
+        16
+      ],
+      "kind": "decor",
+      "label": "Barrels of lamp oil, rolled out",
+      "model": "barrel"
+    },
+    {
+      "id": "wv_sq_buckets",
+      "cell": [
+        16,
+        10
+      ],
+      "kind": "decor",
+      "label": "Buckets of water along the wall",
+      "model": "bucket_brush"
+    },
+    {
+      "id": "wv_sq_hay",
+      "cell": [
+        12,
+        22
+      ],
+      "kind": "decor",
+      "label": "Hay bales for the cattle",
+      "model": "hay_bale"
+    },
+    {
+      "id": "wv_sq_fence",
+      "cell": [
+        24,
+        24
+      ],
+      "kind": "decor",
+      "label": "A fence, dragged across",
+      "model": "fence"
+    },
+    {
+      "id": "wv_sq_fallback",
+      "cell": [
+        21,
+        12
+      ],
+      "kind": "examine",
+      "label": "The gap in the line, and the road to the barricade",
+      "dialogue": "vigil/square:fall_back_gate",
+      "when": "flag.vigil_fled and not flag.wicker_man_destroyed"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "tamsin_ledger",
+      "cell": [
+        23,
+        13
+      ],
+      "dialogue": "vigil/volunteers:start",
+      "when": "not flag.wv_vol_asked",
+      "facing": "west"
+    },
+    {
+      "npc": "tamsin_ledger",
+      "cell": [
+        23,
+        13
+      ],
+      "dialogue": "vigil/volunteers:progress",
+      "when": "flag.wv_vol_asked and not flag.vol_resolved",
+      "facing": "west"
+    },
+    {
+      "npc": "tamsin_ledger",
+      "cell": [
+        23,
+        13
+      ],
+      "dialogue": "vigil/volunteers:after",
+      "when": "flag.vol_resolved",
+      "facing": "west"
+    },
+    {
+      "npc": "sgt_gaunt",
+      "cell": [
+        25,
+        11
+      ],
+      "dialogue": "vigil/volunteers:gaunt",
+      "when": "flag.wv_vol_asked and not flag.vol_gaunt",
+      "facing": "south"
+    },
+    {
+      "npc": "sgt_gaunt",
+      "cell": [
+        25,
+        11
+      ],
+      "dialogue": "vigil/folk:gaunt",
+      "when": "not flag.wv_vol_asked or flag.vol_gaunt",
+      "facing": "south"
+    },
+    {
+      "npc": "ambrose_quill",
+      "cell": [
+        16,
+        15
+      ],
+      "dialogue": "vigil/folk:quill",
+      "facing": "east"
+    },
+    {
+      "npc": "pip_oakum",
+      "cell": [
+        14,
+        21
+      ],
+      "dialogue": "vigil/folk:pip",
+      "facing": "north"
+    },
+    {
+      "npc": "barnaby_pennywhistle",
+      "cell": [
+        29,
+        18
+      ],
+      "dialogue": "vigil/folk:barnaby",
+      "facing": "west"
+    },
+    {
+      "npc": "geneva_fairchild",
+      "cell": [
+        26,
+        17
+      ],
+      "dialogue": "vigil/letters:start",
+      "when": "not flag.wv_letters_asked",
+      "facing": "east"
+    },
+    {
+      "npc": "geneva_fairchild",
+      "cell": [
+        26,
+        17
+      ],
+      "dialogue": "vigil/letters:progress",
+      "when": "flag.wv_letters_asked and not flag.letters_done",
+      "facing": "east"
+    },
+    {
+      "npc": "geneva_fairchild",
+      "cell": [
+        26,
+        17
+      ],
+      "dialogue": "vigil/letters:after",
+      "when": "flag.letters_done",
+      "facing": "east"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        10,
+        17
+      ],
+      "dialogue": "vigil/dinner:host",
+      "when": "not flag.dinner_resolved",
+      "facing": "east"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        10,
+        17
+      ],
+      "dialogue": "vigil/dinner:after",
+      "when": "flag.dinner_resolved",
+      "facing": "east"
+    },
+    {
+      "npc": "morgan",
+      "cell": [
+        30,
+        13
+      ],
+      "dialogue": "vigil/sleep:morgan",
+      "when": "flag.wv_sleep_asked and not flag.sleep_resolved",
+      "facing": "west"
+    },
+    {
+      "npc": "dani_jenkin",
+      "cell": [
+        20,
+        20
+      ],
+      "dialogue": "vigil/square:dani",
+      "when": "flag.wv_started",
+      "facing": "north"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "wv_wicker_square",
+      "trigger": "dialogue",
+      "when": "level <= 11",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            21,
+            12
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 217
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_square",
+      "trigger": "dialogue",
+      "when": "level == 12",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            21,
+            12
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 255
+        }
+      ]
+    },
+    {
+      "id": "wv_wicker_square",
+      "trigger": "dialogue",
+      "when": "level >= 13",
+      "flag": "wicker_man_destroyed",
+      "lair": true,
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "the_ash"
+      },
+      "monsters": [
+        {
+          "monster": "wicker_man_vigil",
+          "cell": [
+            21,
+            12
+          ],
+          "name": "The Wicker Man",
+          "boss": true,
+          "facing": "south",
+          "hp": 286
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "rest_text": "Not tonight. The fire on the hill is in sight and the burning has begun; a few breaths, and then you must go on.",
+  "lights": [
+    {
+      "cell": [
+        11,
+        13
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        21,
+        2
+      ],
+      "kind": "fire",
+      "bright_ft": 40,
+      "dim_ft": 80,
+      "color": "fire"
+    }
+  ]
+}

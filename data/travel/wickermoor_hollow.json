@@ -235,6 +235,32 @@
       "region": "crooked_nightmare",
       "when": "flag.crooked_house_destroyed",
       "summary": "A heap of wood and plaster where the Crooked House stood."
+    },
+    {
+      "id": "wv_square",
+      "name": "Wickermoor, barricaded",
+      "location": "wv_square",
+      "spawn": "from_travel",
+      "pos": [
+        0.5,
+        0.47
+      ],
+      "region": "wickers_vigil",
+      "when": "flag.wv_started and not flag.wicker_man_burned",
+      "summary": "The Founder's Round on the night before the burning: barricades, a long table, the Silent Church open."
+    },
+    {
+      "id": "wv_moor_edge",
+      "name": "The moor's edge",
+      "location": "wv_moor_edge",
+      "spawn": "default",
+      "pos": [
+        0.5,
+        0.33
+      ],
+      "region": "wickers_vigil",
+      "when": "flag.crooked_man_slain and not flag.wicker_man_burned",
+      "summary": "Where the moor road ends and the storm begins, with a bonfire on the hill above."
     }
   ],
   "roads": [
@@ -373,6 +399,38 @@
       "hours": 1,
       "name": "The hill road, to the ruins",
       "when": "flag.crooked_house_destroyed"
+    },
+    {
+      "id": "wv_village_to_square",
+      "from": "wickermoor_village",
+      "to": "wv_square",
+      "hours": 1,
+      "name": "Through the barricade",
+      "when": "flag.wv_started and not flag.wicker_man_burned"
+    },
+    {
+      "id": "wv_square_to_edge",
+      "from": "wv_square",
+      "to": "wv_moor_edge",
+      "hours": 1,
+      "name": "Up the moor road",
+      "when": "flag.wv_started and not flag.wicker_man_burned"
+    },
+    {
+      "id": "wv_village_to_edge",
+      "from": "wickermoor_village",
+      "to": "wv_moor_edge",
+      "hours": 1,
+      "name": "The moor road",
+      "when": "flag.crooked_man_slain and not flag.wicker_man_burned"
+    },
+    {
+      "id": "wv_ruins_to_edge",
+      "from": "nm_estate_ruins",
+      "to": "wv_moor_edge",
+      "hours": 1,
+      "name": "The spirits' road, north over the moor",
+      "when": "flag.crooked_man_slain and not flag.wicker_man_burned"
     }
   ]
 }

@@ -1,0 +1,1239 @@
+{
+  "id": "wv_stones",
+  "name": "The stone circle",
+  "region": "wickers_vigil",
+  "summary": "Nine standing stones round a bonfire, chains melded into six of them, masked dancers capering in the firelight.",
+  "text": "Nine standing stones stand in a ring with a bonfire at the heart of it, runes burning orange along their edges. Chains run out of the rock to six figures kneeling at its foot. Round them, dozens of dancers in animal masks sway to a hymn that has no words you can hold on to, and in the middle of the song, one of them turns and waves.",
+  "map": {
+    "rows": [
+      "####################################",
+      "#..................................#",
+      "#..................................#",
+      "#.............................#....#",
+      "#....#.............................#",
+      "#.................=................#",
+      "#..................................#",
+      "#................................#.#",
+      "#.................=................#",
+      "#..................................#",
+      "#............=.........=...........#",
+      "#..................................#",
+      "#..................................#",
+      "#..................................#",
+      "#.........=......===......=........#",
+      "#................===...............#",
+      "#................===...............#",
+      "#..................................#",
+      "#..................................#",
+      "#...........=...........=.....#....#",
+      "#..................................#",
+      "#.................=................#",
+      "#..................................#",
+      "#..................................#",
+      "#.#....#...........................#",
+      "#..................................#",
+      "#..................................#",
+      "#....#.....................#.......#",
+      "#..................................#",
+      "####################################"
+    ],
+    "theme": "wilderness",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "below",
+      "name": "The slope",
+      "cells": [
+        [
+          1,
+          22
+        ],
+        [
+          34,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "ring",
+      "name": "The stone circle",
+      "cells": [
+        [
+          7,
+          3
+        ],
+        [
+          29,
+          23
+        ]
+      ],
+      "light": "bright"
+    },
+    {
+      "id": "beyond",
+      "name": "Beyond the ring",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          34,
+          3
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      18,
+      27
+    ],
+    "from_hardpan": [
+      18,
+      27
+    ],
+    "from_summit": [
+      18,
+      4
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_hardpan",
+      "cell": [
+        18,
+        28
+      ],
+      "to": "wv_hardpan",
+      "spawn": "from_stones",
+      "label": "Back down the hill"
+    },
+    {
+      "id": "to_summit",
+      "cell": [
+        18,
+        3
+      ],
+      "to": "wv_summit",
+      "spawn": "from_stones",
+      "label": "Up to the summit",
+      "when": "flag.wv_ring_down and flag.wv_cult_done"
+    }
+  ],
+  "props": [
+    {
+      "id": "wv_st_arrive",
+      "cell": [
+        18,
+        26
+      ],
+      "kind": "decor",
+      "label": "The hymn, loud now",
+      "call": "vigil/stones:arrive",
+      "approach": 12,
+      "call_when": "not flag.wv_stones_seen"
+    },
+    {
+      "id": "wv_st_skip",
+      "cell": [
+        18,
+        24
+      ],
+      "kind": "decor",
+      "label": "The slope below the stones",
+      "call": "vigil/stones:slope",
+      "approach": 2,
+      "call_when": "flag.wv_stones_seen and not flag.wv_ring_started and not flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_1",
+      "cell": [
+        18,
+        8
+      ],
+      "kind": "examine",
+      "label": "Standing stone 1, runes burning",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:stone_1",
+      "when": "flag.wv_ring_started and not flag.wv_stone_1_down and not flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_1_calm",
+      "cell": [
+        18,
+        8
+      ],
+      "kind": "examine",
+      "label": "Standing stone 1, runes burning (the dancers' song holds the fire back)",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:calm",
+      "when": "not flag.wv_ring_started"
+    },
+    {
+      "id": "wv_stone_1_dark",
+      "cell": [
+        18,
+        8
+      ],
+      "kind": "decor",
+      "label": "Standing stone 1, dark",
+      "model": "standing_stones",
+      "tint": "#3a3a40",
+      "when": "flag.wv_stone_1_down or flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_2",
+      "cell": [
+        23,
+        10
+      ],
+      "kind": "examine",
+      "label": "Standing stone 2, runes burning",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:stone_2",
+      "when": "flag.wv_ring_started and not flag.wv_stone_2_down and not flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_2_calm",
+      "cell": [
+        23,
+        10
+      ],
+      "kind": "examine",
+      "label": "Standing stone 2, runes burning (the dancers' song holds the fire back)",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:calm",
+      "when": "not flag.wv_ring_started"
+    },
+    {
+      "id": "wv_stone_2_dark",
+      "cell": [
+        23,
+        10
+      ],
+      "kind": "decor",
+      "label": "Standing stone 2, dark",
+      "model": "standing_stones",
+      "tint": "#3a3a40",
+      "when": "flag.wv_stone_2_down or flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_3",
+      "cell": [
+        26,
+        14
+      ],
+      "kind": "examine",
+      "label": "Standing stone 3, runes burning",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:stone_3",
+      "when": "flag.wv_ring_started and not flag.wv_stone_3_down and not flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_3_calm",
+      "cell": [
+        26,
+        14
+      ],
+      "kind": "examine",
+      "label": "Standing stone 3, runes burning (the dancers' song holds the fire back)",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:calm",
+      "when": "not flag.wv_ring_started"
+    },
+    {
+      "id": "wv_stone_3_dark",
+      "cell": [
+        26,
+        14
+      ],
+      "kind": "decor",
+      "label": "Standing stone 3, dark",
+      "model": "standing_stones",
+      "tint": "#3a3a40",
+      "when": "flag.wv_stone_3_down or flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_4",
+      "cell": [
+        24,
+        19
+      ],
+      "kind": "examine",
+      "label": "Standing stone 4, runes burning",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:stone_4",
+      "when": "flag.wv_ring_started and not flag.wv_stone_4_down and not flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_4_calm",
+      "cell": [
+        24,
+        19
+      ],
+      "kind": "examine",
+      "label": "Standing stone 4, runes burning (the dancers' song holds the fire back)",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:calm",
+      "when": "not flag.wv_ring_started"
+    },
+    {
+      "id": "wv_stone_4_dark",
+      "cell": [
+        24,
+        19
+      ],
+      "kind": "decor",
+      "label": "Standing stone 4, dark",
+      "model": "standing_stones",
+      "tint": "#3a3a40",
+      "when": "flag.wv_stone_4_down or flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_5",
+      "cell": [
+        18,
+        21
+      ],
+      "kind": "examine",
+      "label": "Standing stone 5, runes burning",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:stone_5",
+      "when": "flag.wv_ring_started and not flag.wv_stone_5_down and not flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_5_calm",
+      "cell": [
+        18,
+        21
+      ],
+      "kind": "examine",
+      "label": "Standing stone 5, runes burning (the dancers' song holds the fire back)",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:calm",
+      "when": "not flag.wv_ring_started"
+    },
+    {
+      "id": "wv_stone_5_dark",
+      "cell": [
+        18,
+        21
+      ],
+      "kind": "decor",
+      "label": "Standing stone 5, dark",
+      "model": "standing_stones",
+      "tint": "#3a3a40",
+      "when": "flag.wv_stone_5_down or flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_6",
+      "cell": [
+        12,
+        19
+      ],
+      "kind": "examine",
+      "label": "Standing stone 6, runes burning",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:stone_6",
+      "when": "flag.wv_ring_started and not flag.wv_stone_6_down and not flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_6_calm",
+      "cell": [
+        12,
+        19
+      ],
+      "kind": "examine",
+      "label": "Standing stone 6, runes burning (the dancers' song holds the fire back)",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:calm",
+      "when": "not flag.wv_ring_started"
+    },
+    {
+      "id": "wv_stone_6_dark",
+      "cell": [
+        12,
+        19
+      ],
+      "kind": "decor",
+      "label": "Standing stone 6, dark",
+      "model": "standing_stones",
+      "tint": "#3a3a40",
+      "when": "flag.wv_stone_6_down or flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_7",
+      "cell": [
+        10,
+        14
+      ],
+      "kind": "examine",
+      "label": "Standing stone 7, runes burning",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:stone_7",
+      "when": "flag.wv_ring_started and not flag.wv_stone_7_down and not flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_7_calm",
+      "cell": [
+        10,
+        14
+      ],
+      "kind": "examine",
+      "label": "Standing stone 7, runes burning (the dancers' song holds the fire back)",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:calm",
+      "when": "not flag.wv_ring_started"
+    },
+    {
+      "id": "wv_stone_7_dark",
+      "cell": [
+        10,
+        14
+      ],
+      "kind": "decor",
+      "label": "Standing stone 7, dark",
+      "model": "standing_stones",
+      "tint": "#3a3a40",
+      "when": "flag.wv_stone_7_down or flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_8",
+      "cell": [
+        13,
+        10
+      ],
+      "kind": "examine",
+      "label": "Standing stone 8, runes burning",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:stone_8",
+      "when": "flag.wv_ring_started and not flag.wv_stone_8_down and not flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_8_calm",
+      "cell": [
+        13,
+        10
+      ],
+      "kind": "examine",
+      "label": "Standing stone 8, runes burning (the dancers' song holds the fire back)",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:calm",
+      "when": "not flag.wv_ring_started"
+    },
+    {
+      "id": "wv_stone_8_dark",
+      "cell": [
+        13,
+        10
+      ],
+      "kind": "decor",
+      "label": "Standing stone 8, dark",
+      "model": "standing_stones",
+      "tint": "#3a3a40",
+      "when": "flag.wv_stone_8_down or flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_9",
+      "cell": [
+        18,
+        5
+      ],
+      "kind": "examine",
+      "label": "Standing stone 9, runes burning",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:stone_9",
+      "when": "flag.wv_ring_started and not flag.wv_stone_9_down and not flag.wv_ring_down"
+    },
+    {
+      "id": "wv_stone_9_calm",
+      "cell": [
+        18,
+        5
+      ],
+      "kind": "examine",
+      "label": "Standing stone 9, runes burning (the dancers' song holds the fire back)",
+      "model": "standing_stones",
+      "dialogue": "vigil/stones:calm",
+      "when": "not flag.wv_ring_started"
+    },
+    {
+      "id": "wv_stone_9_dark",
+      "cell": [
+        18,
+        5
+      ],
+      "kind": "decor",
+      "label": "Standing stone 9, dark",
+      "model": "standing_stones",
+      "tint": "#3a3a40",
+      "when": "flag.wv_stone_9_down or flag.wv_ring_down"
+    },
+    {
+      "id": "wv_st_bonfire",
+      "cell": [
+        18,
+        15
+      ],
+      "kind": "decor",
+      "label": "The bonfire",
+      "model": "brazier",
+      "scale": 2.4,
+      "when": "not flag.wv_ring_down"
+    },
+    {
+      "id": "wv_st_bonfire_low",
+      "cell": [
+        18,
+        15
+      ],
+      "kind": "decor",
+      "label": "The bonfire, burning low",
+      "model": "brazier_cold",
+      "scale": 1.6,
+      "when": "flag.wv_ring_down"
+    },
+    {
+      "id": "wv_st_gem",
+      "cell": [
+        27,
+        6
+      ],
+      "kind": "search",
+      "label": "A rune-marked shard of a stone",
+      "model": "rocks",
+      "search_dc": 8,
+      "item": "elemental_gem_yellow_diamond",
+      "when": "flag.wv_ring_down and flag.wv_captives_lost <= 2"
+    },
+    {
+      "id": "wv_st_welcome",
+      "cell": [
+        18,
+        20
+      ],
+      "kind": "decor",
+      "label": "The dancers, turning to greet you",
+      "call": "vigil/stones:welcome",
+      "approach": 6,
+      "call_when": "flag.wv_stones_seen and not flag.wv_welcome_done and not flag.wv_ring_started"
+    },
+    {
+      "id": "wv_st_after",
+      "cell": [
+        18,
+        19
+      ],
+      "kind": "decor",
+      "label": "The ring, fallen",
+      "call": "vigil/stones:ring_fall_scene",
+      "approach": 8,
+      "call_when": "flag.wv_ring_down and not flag.wv_cult_started"
+    },
+    {
+      "id": "wv_st_aftermath",
+      "cell": [
+        18,
+        12
+      ],
+      "kind": "decor",
+      "label": "The circle, after",
+      "call": "vigil/stones:aftermath",
+      "approach": 8,
+      "call_when": "flag.wv_cult_done and not flag.wv_aftermath_done"
+    },
+    {
+      "id": "wv_st_effigy",
+      "cell": [
+        18,
+        2
+      ],
+      "kind": "decor",
+      "label": "The Wicker Man, against the moon",
+      "call": "vigil/stones:effigy",
+      "approach": 8,
+      "call_when": "flag.wv_aftermath_done and not flag.wv_effigy_seen"
+    },
+    {
+      "id": "wv_st_fallback",
+      "cell": [
+        18,
+        22
+      ],
+      "kind": "examine",
+      "label": "The way back down the hill",
+      "dialogue": "vigil/stones:fall_back",
+      "when": "not flag.vigil_fled and not flag.wv_aftermath_done"
+    },
+    {
+      "id": "wv_dancer_0",
+      "cell": [
+        16,
+        13
+      ],
+      "kind": "decor",
+      "label": "A masked dancer, swaying",
+      "model": "scarecrow_stitched",
+      "when": "not flag.wv_cult_started"
+    },
+    {
+      "id": "wv_dancer_1",
+      "cell": [
+        20,
+        13
+      ],
+      "kind": "decor",
+      "label": "A masked dancer, swaying",
+      "model": "scarecrow_stitched",
+      "when": "not flag.wv_cult_started"
+    },
+    {
+      "id": "wv_dancer_2",
+      "cell": [
+        15,
+        15
+      ],
+      "kind": "decor",
+      "label": "A masked dancer, swaying",
+      "model": "scarecrow_stitched",
+      "when": "not flag.wv_cult_started"
+    },
+    {
+      "id": "wv_dancer_3",
+      "cell": [
+        21,
+        15
+      ],
+      "kind": "decor",
+      "label": "A masked dancer, swaying",
+      "model": "scarecrow_stitched",
+      "when": "not flag.wv_cult_started"
+    },
+    {
+      "id": "wv_dancer_4",
+      "cell": [
+        16,
+        17
+      ],
+      "kind": "decor",
+      "label": "A masked dancer, swaying",
+      "model": "scarecrow_stitched",
+      "when": "not flag.wv_cult_started"
+    },
+    {
+      "id": "wv_dancer_5",
+      "cell": [
+        20,
+        17
+      ],
+      "kind": "decor",
+      "label": "A masked dancer, swaying",
+      "model": "scarecrow_stitched",
+      "when": "not flag.wv_cult_started"
+    },
+    {
+      "id": "wv_dancer_6",
+      "cell": [
+        14,
+        12
+      ],
+      "kind": "decor",
+      "label": "A masked dancer, swaying",
+      "model": "scarecrow_stitched",
+      "when": "not flag.wv_cult_started"
+    },
+    {
+      "id": "wv_dancer_7",
+      "cell": [
+        22,
+        12
+      ],
+      "kind": "decor",
+      "label": "A masked dancer, swaying",
+      "model": "scarecrow_stitched",
+      "when": "not flag.wv_cult_started"
+    },
+    {
+      "id": "wv_dancer_8",
+      "cell": [
+        14,
+        18
+      ],
+      "kind": "decor",
+      "label": "A masked dancer, swaying",
+      "model": "scarecrow_stitched",
+      "when": "not flag.wv_cult_started"
+    },
+    {
+      "id": "wv_dancer_9",
+      "cell": [
+        22,
+        18
+      ],
+      "kind": "decor",
+      "label": "A masked dancer, swaying",
+      "model": "scarecrow_stitched",
+      "when": "not flag.wv_cult_started"
+    },
+    {
+      "id": "wv_dancer_10",
+      "cell": [
+        18,
+        12
+      ],
+      "kind": "decor",
+      "label": "A masked dancer, swaying",
+      "model": "scarecrow_stitched",
+      "when": "not flag.wv_cult_started"
+    },
+    {
+      "id": "wv_dancer_11",
+      "cell": [
+        18,
+        18
+      ],
+      "kind": "decor",
+      "label": "A masked dancer, swaying",
+      "model": "scarecrow_stitched",
+      "when": "not flag.wv_cult_started"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "doris_squire",
+      "cell": [
+        13,
+        11
+      ],
+      "dialogue": "vigil/stones:captive",
+      "when": "flag.wv_stones_seen and not flag.vigil_burned_doris_squire and not flag.vigil_saved_doris_squire",
+      "facing": "north"
+    },
+    {
+      "npc": "doris_squire",
+      "cell": [
+        13,
+        11
+      ],
+      "dialogue": "vigil/stones:captive_freed",
+      "when": "flag.vigil_saved_doris_squire and not flag.wv_doris_squire_thanked",
+      "facing": "north"
+    },
+    {
+      "npc": "siv_harga",
+      "cell": [
+        23,
+        11
+      ],
+      "dialogue": "vigil/stones:captive",
+      "when": "flag.wv_stones_seen and not flag.vigil_burned_siv_harga and not flag.vigil_saved_siv_harga",
+      "facing": "north"
+    },
+    {
+      "npc": "siv_harga",
+      "cell": [
+        23,
+        11
+      ],
+      "dialogue": "vigil/stones:captive_freed",
+      "when": "flag.vigil_saved_siv_harga and not flag.wv_siv_harga_thanked",
+      "facing": "north"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        26,
+        15
+      ],
+      "dialogue": "vigil/stones:captive",
+      "when": "flag.wv_stones_seen and not flag.vigil_burned_marianna_grey and not flag.vigil_saved_marianna_grey",
+      "facing": "north"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        26,
+        15
+      ],
+      "dialogue": "vigil/stones:captive_freed",
+      "when": "flag.vigil_saved_marianna_grey and not flag.wv_marianna_grey_thanked",
+      "facing": "north"
+    },
+    {
+      "npc": "beatrice_wells",
+      "cell": [
+        24,
+        20
+      ],
+      "dialogue": "vigil/stones:captive",
+      "when": "flag.wv_stones_seen and not flag.vigil_burned_beatrice_wells and not flag.vigil_saved_beatrice_wells",
+      "facing": "north"
+    },
+    {
+      "npc": "beatrice_wells",
+      "cell": [
+        24,
+        20
+      ],
+      "dialogue": "vigil/stones:captive_freed",
+      "when": "flag.vigil_saved_beatrice_wells and not flag.wv_beatrice_wells_thanked",
+      "facing": "north"
+    },
+    {
+      "npc": "jean_myriel",
+      "cell": [
+        12,
+        20
+      ],
+      "dialogue": "vigil/stones:captive",
+      "when": "flag.wv_stones_seen and not flag.vigil_burned_jean_myriel and not flag.vigil_saved_jean_myriel",
+      "facing": "north"
+    },
+    {
+      "npc": "jean_myriel",
+      "cell": [
+        12,
+        20
+      ],
+      "dialogue": "vigil/stones:captive_freed",
+      "when": "flag.vigil_saved_jean_myriel and not flag.wv_jean_myriel_thanked",
+      "facing": "north"
+    },
+    {
+      "npc": "finneas_trout",
+      "cell": [
+        10,
+        15
+      ],
+      "dialogue": "vigil/stones:captive",
+      "when": "flag.wv_stones_seen and not flag.vigil_burned_finneas_trout and not flag.vigil_saved_finneas_trout",
+      "facing": "north"
+    },
+    {
+      "npc": "finneas_trout",
+      "cell": [
+        10,
+        15
+      ],
+      "dialogue": "vigil/stones:captive_freed",
+      "when": "flag.vigil_saved_finneas_trout and not flag.wv_finneas_trout_thanked",
+      "facing": "north"
+    },
+    {
+      "npc": "holly_aster",
+      "cell": [
+        17,
+        20
+      ],
+      "dialogue": "vigil/stones:holly",
+      "when": "flag.wv_welcome_done and attitude.holly_aster == friendly and not flag.cultist_holly_turned and not flag.wv_ring_down and not flag.wv_holly_declined",
+      "facing": "north"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "wv_cult",
+      "trigger": "dialogue",
+      "flag": "wv_cult_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "shadow_of_the_wicker_man"
+      },
+      "monsters": [
+        {
+          "monster": "cultist",
+          "cell": [
+            15,
+            13
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            21,
+            13
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            14,
+            16
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            22,
+            16
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            16,
+            18
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            17,
+            17
+          ],
+          "name": "A masked fanatic",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            19,
+            17
+          ],
+          "name": "A masked fanatic",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            18,
+            20
+          ],
+          "name": "Baltus Tolliver, masked",
+          "facing": "south"
+        },
+        {
+          "monster": "spy",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Howie Butterman, unmasked",
+          "facing": "west"
+        }
+      ],
+      "loot": {
+        "gold": 120,
+        "items": [
+          {
+            "id": "potion_of_healing_greater",
+            "qty": 1
+          }
+        ]
+      },
+      "when": "level <= 11"
+    },
+    {
+      "id": "wv_cult",
+      "trigger": "dialogue",
+      "flag": "wv_cult_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "shadow_of_the_wicker_man"
+      },
+      "monsters": [
+        {
+          "monster": "cultist",
+          "cell": [
+            15,
+            13
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            21,
+            13
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            14,
+            16
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            22,
+            16
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            16,
+            18
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            20,
+            18
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            18,
+            11
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            17,
+            17
+          ],
+          "name": "A masked fanatic",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            19,
+            17
+          ],
+          "name": "A masked fanatic",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            18,
+            20
+          ],
+          "name": "Baltus Tolliver, masked",
+          "facing": "south"
+        },
+        {
+          "monster": "spy",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Howie Butterman, unmasked",
+          "facing": "west"
+        }
+      ],
+      "loot": {
+        "gold": 120,
+        "items": [
+          {
+            "id": "potion_of_healing_greater",
+            "qty": 1
+          }
+        ]
+      },
+      "when": "level == 12"
+    },
+    {
+      "id": "wv_cult",
+      "trigger": "dialogue",
+      "flag": "wv_cult_done",
+      "quest": {
+        "id": "wickers_vigil",
+        "stage": "shadow_of_the_wicker_man"
+      },
+      "monsters": [
+        {
+          "monster": "cultist",
+          "cell": [
+            15,
+            13
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            21,
+            13
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            14,
+            16
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            22,
+            16
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            16,
+            18
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            20,
+            18
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            18,
+            11
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            13,
+            14
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            12,
+            12
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            24,
+            12
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            12,
+            18
+          ],
+          "name": "A masked dancer",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            17,
+            17
+          ],
+          "name": "A masked fanatic",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            19,
+            17
+          ],
+          "name": "A masked fanatic",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            18,
+            20
+          ],
+          "name": "Baltus Tolliver, masked",
+          "facing": "south"
+        },
+        {
+          "monster": "spy",
+          "cell": [
+            23,
+            14
+          ],
+          "name": "Howie Butterman, unmasked",
+          "facing": "west"
+        }
+      ],
+      "loot": {
+        "gold": 120,
+        "items": [
+          {
+            "id": "potion_of_healing_greater",
+            "qty": 1
+          }
+        ]
+      },
+      "when": "level >= 13"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "Not tonight. The fire on the hill is in sight and the burning has begun; a few breaths, and then you must go on.",
+  "lights": [
+    {
+      "cell": [
+        18,
+        15
+      ],
+      "kind": "fire",
+      "bright_ft": 60,
+      "dim_ft": 120,
+      "color": "fire"
+    }
+  ]
+}
