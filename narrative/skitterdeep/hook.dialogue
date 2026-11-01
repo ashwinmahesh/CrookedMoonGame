@@ -1,0 +1,101 @@
+# Drafted by Gemini (R16 hook), edited.
+
+~ bitten
+if not flag.plague_started
+set plague_started = now
+set plague_day = 0
+set plague_toll = 10
+endif
+set bitten_seen
+quest skitter_plague the_bitten
+Narrator: Shivering townsfolk huddle in damp blankets across the Founder's Round, clutching buckets of sour black bile. Beside the cobbles, a split flour sack writhes with pale, clicking centipedes.
+cutscene sk_bitten
+holly_aster [angry]: Every sack in my larder is split from the bottom up, and the loaves are hollow crusts full of legs. You sweep one out and ten more boil up through the floorboards.
+cutscene sk_bitten_2
+howie_butterman [afraid]: Folk wake up with red pinpricks on their ankles and something thick as a thumb squirming beneath the skin. By suppertime their blood runs hot as kettle water.
+cutscene end
+-> bitten_menu
+
+~ bitten_menu
+* Ask Holly about the flour -> holly
+* Ask what the barber says -> randall
+* [Survival DC 15] Follow the tiny tunnels in the cobbles -> trail_ok | trail_fail
+* [Investigation DC 15] Study the pattern of the bites and the sack -> trail_ok | trail_fail
+* We will see to it -> END
+
+~ holly
+holly_aster [weary]: My best white flour is ruined, every last pound of it. I swept up a hundred of the little beasts this morning, and every single one crawled straight out from the north-west wall.
+-> bitten_menu
+
+~ randall
+randall_graham [smile]: Now, there is no call for panic, friends. A seasonal humor always passes on its own with a hot toddy, a clean shirt, and a bit of quiet rest.
+Narrator: He offers this reassuring diagnosis while standing two paces from a bucket brimming with fresh black bile.
+-> bitten_menu
+
+~ trail_ok
+Narrator: You trace the crumbled mortar between the cobbles and the chewed sills of the cellar doors. Every burrow, crack, and greasy chitin track points like a compass needle toward the wooded hills north-west.
+cutscene sk_tunnels
+cutscene sk_tunnels_2
+cutscene end
+set skitter_trail_known
+quest skitter_plague trail_of_corruption
+Narrator: Whatever foul thing is feeding on Wickermoor, you have its scent now, and the hill road waits.
+-> END
+
+~ trail_fail
+Narrator: Thousands of tiny tracks cross and tangle in the spilled flour until your eyes ache, going every way at once.
+howie_butterman [sad]: They scatter too quick to count, friends. Mrs. Oakum over at the butcher's knows the north-west hills better than anyone, and poor Morgan at the apothecary was asking after capable strangers.
+-> bitten_menu
+
+~ morgan_asks
+if not flag.plague_started
+set plague_started = now
+set plague_day = 0
+set plague_toll = 10
+endif
+Narrator: The apothecary smells of boiled willow bark, vinegar, and fever sweat. Cots crowd the floorboards from counter to door.
+morgan [weary]: Come in, mind the basins by your boots, there is hardly room to turn. I have poultices on the boil, only there are too many cots, and I had another jar of... well, it is gone now.
+-> morgan_menu
+
+~ morgan_menu
+* What do you need? -> need
+* [Medicine DC 13] Look at the sick in the back -> sick_ok | sick_fail
+* Where would we even start? -> where
+* [if flag.skitter_trail_known] We will go to the mine -> accept
+* Not yet -> later
+
+~ need
+morgan [sad]: I have herbs and hands enough for a dozen sick folk, not forty. Master Graham tells everyone the fever passes of its own accord, though I cannot see how anyone believes that.
+-> morgan_menu
+
+~ sick_ok
+Narrator: Beneath the mauve pustules and burning skin, a segmented lump shifts against your fingertips. A lesser restoration prayer stills the writhing for a day, no more, and every patient took their bites in a north-west room.
+morgan [neutral]: You see it too, then. Always the north-west walls, in every cottage down the lane.
+set skitter_trail_known
+-> morgan_menu
+
+~ sick_fail
+Narrator: Their skin burns and their breathing rattles wetly in the dark, though the root of the malady eludes your eye.
+-> morgan_menu
+
+~ where
+morgan [neutral]: The tiny tunnels in the cellars all run north-west toward the old timber hills. Mrs. Oakum at the butcher's shop came down from those woods years ago, so she might know what lies up there.
+set skitter_trail_known
+-> morgan_menu
+
+~ accept
+morgan [smile]: Oh, thank the quiet stars. Wait, do not go empty-handed, I set something aside on the shelf for... yes, here, take these vials before I misplace them again.
+if not flag.bitten_seen
+give potion_of_healing_greater 4
+endif
+set skitter_asked
+if not flag.oakum_guiding
+if not flag.oakum_declined
+quest skitter_plague trail_of_corruption
+endif
+endif
+-> END
+
+~ later
+morgan [weary]: Of course, tread carefully out there. The kettle will still be on the hearth when you return.
+-> END

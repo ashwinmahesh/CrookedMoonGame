@@ -1,0 +1,37 @@
+# Drafted by Gemini (R16 letter), edited.
+
+~ arrives
+Narrator: A slate-grey carrier pigeon drops from the dark onto {name}'s shoulder, smelling of wet feathers and sealing wax. Bound to its scaly leg is a tight little scroll.
+theodora_mayville [neutral]: Wickermoor is overrun with crawling vermin, and the post cannot abide disorder. I suspect the abandoned mine eight hours north-west of the village.
+theodora_mayville [neutral]: I dispatched a parcel rider along that road, and he has not returned. End this nuisance at its source, and this office will pay fifty gold pieces to each of you.
+give theodora_letter
+set skitter_letter_hook
+set skitter_trail_known
+quest skitter_plague trail_of_corruption
+Narrator: The bird cocks its head, watching you with one flat orange eye a moment too long before beating back into the gloom.
+* Make for the mine -> END
+* Hold the letter back, go home first -> END
+
+~ theodora_pays
+Narrator: Theodora sets four neat stacks of coin along the brass counter while a heavy grey pigeon shifts on her shoulder.
+theodora_mayville [smile]: Fifty pieces each, counted to the penny, with my congratulations. The old workings are fit for a proper reopening at last.
+theodora_mayville [sly]: A filthy business, of course, though one almost pities the surviving sisters of such wretched creatures.
+gold +200
+set theodora_paid
+* Ask about the rider -> rider_q
+* [Insight DC 14] Watch her face while we mention Stonoga -> tell_ok | tell_fail
+* Take our leave -> END
+
+~ rider_q
+theodora_mayville [neutral]: He was punctual, quiet, and rarely bruised the parcels. I regret the loss to the service.
+Narrator: Her kidskin glove tightens on the edge of the ledger until the leather creaks.
+-> END
+
+~ tell_ok
+Narrator: The pigeon on her shoulder swivels its head toward you, and Theodora smiles a moment too late, as if she had been listening for a different name.
+set theodora_tell_seen
+-> END
+
+~ tell_fail
+Narrator: You find nothing in her grey eyes at all, save a tidy postmistress pleased to close an untidy account.
+-> END

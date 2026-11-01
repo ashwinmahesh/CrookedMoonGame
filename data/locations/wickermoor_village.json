@@ -369,6 +369,84 @@
           "name": "Marta's hireling"
         }
       ]
+    },
+    {
+      "id": "sk_round_swarms",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            29,
+            24
+          ],
+          "name": "A skitterswarm out of the cobbles"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            31,
+            23
+          ],
+          "name": "A skitterswarm out of the cobbles"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            33,
+            24
+          ],
+          "name": "A skitterswarm out of the cobbles"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            30,
+            26
+          ],
+          "name": "A skitterswarm out of the cobbles"
+        }
+      ],
+      "flag": "sk_round_done",
+      "when": "level >= 5"
+    },
+    {
+      "id": "sk_round_swarms",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            29,
+            24
+          ],
+          "name": "A skitterswarm out of the cobbles"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            33,
+            24
+          ],
+          "name": "A skitterswarm out of the cobbles"
+        }
+      ],
+      "flag": "sk_round_done"
+    },
+    {
+      "id": "sk_midnight_swarm",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            30,
+            24
+          ],
+          "name": "A skitterswarm out of a dead villager"
+        }
+      ],
+      "flag": "sk_midnight_done"
     }
   ],
   "exits": [
@@ -665,6 +743,17 @@
       "to": "wickermoor_studio",
       "spawn": "default",
       "label": "Enter Gaston's Studio"
+    },
+    {
+      "id": "hills_road",
+      "cell": [
+        0,
+        29
+      ],
+      "to": "travel",
+      "spawn": "default",
+      "label": "The hill road, north-west to Glitterdeep",
+      "when": "flag.skitter_trail_known or visited:sk_hills_trail"
     }
   ],
   "id": "wickermoor_village",
@@ -1191,6 +1280,42 @@
       ],
       "dialogue": "monastery/hook:melina_wait",
       "when": "flag.gareth_asked and not flag.crimson_farewell"
+    },
+    {
+      "npc": "haldor_vane",
+      "cell": [
+        12,
+        32
+      ],
+      "dialogue": "skitterdeep/queue:haldor",
+      "when": "flag.plague_started and not flag.stonoga_slain and not flag.queue_done"
+    },
+    {
+      "npc": "ottilie_reed",
+      "cell": [
+        13,
+        33
+      ],
+      "dialogue": "skitterdeep/queue:ottilie",
+      "when": "flag.plague_started and not flag.stonoga_slain and not flag.queue_done"
+    },
+    {
+      "npc": "pim_fenwick",
+      "cell": [
+        11,
+        33
+      ],
+      "dialogue": "skitterdeep/queue:pim",
+      "when": "flag.plague_started and not flag.stonoga_slain and not flag.queue_done"
+    },
+    {
+      "npc": "mrs_oakum",
+      "cell": [
+        31,
+        24
+      ],
+      "dialogue": "skitterdeep/guide:offer",
+      "when": "flag.bitten_seen and not flag.oakum_guiding and not flag.oakum_declined and not flag.stonoga_slain"
     }
   ],
   "props": [
@@ -1516,6 +1641,151 @@
       "model": "hearth",
       "dialogue": "wickermoor/soup:stove",
       "when": "flag.soup_asked and not flag.soup_stove"
+    },
+    {
+      "id": "sk_bitten_scene",
+      "cell": [
+        30,
+        22
+      ],
+      "kind": "decor",
+      "label": "Villagers in blankets, and a split sack of flour",
+      "call": "skitterdeep/hook:bitten",
+      "approach": 8,
+      "call_when": "flag.act2_done >= 1 and not flag.bitten_seen and not flag.stonoga_slain"
+    },
+    {
+      "id": "sk_notice_a",
+      "cell": [
+        36,
+        26
+      ],
+      "kind": "examine",
+      "label": "A quarantine notice, nailed to the post",
+      "model": "notice_board",
+      "when": "flag.plague_started and not flag.stonoga_slain"
+    },
+    {
+      "id": "sk_notice_b",
+      "cell": [
+        24,
+        23
+      ],
+      "kind": "examine",
+      "label": "A second notice: no bread to be baked in the open",
+      "model": "signpost",
+      "when": "flag.plague_day >= 1 and not flag.stonoga_slain"
+    },
+    {
+      "id": "sk_sickbed_a",
+      "cell": [
+        27,
+        27
+      ],
+      "kind": "examine",
+      "label": "A sick bed under a blanket",
+      "model": "bed",
+      "when": "flag.plague_started and not flag.stonoga_slain"
+    },
+    {
+      "id": "sk_sickbed_b",
+      "cell": [
+        33,
+        28
+      ],
+      "kind": "examine",
+      "label": "A sick bed under a blanket",
+      "model": "bed",
+      "when": "flag.plague_started and not flag.stonoga_slain"
+    },
+    {
+      "id": "sk_sickbed_c",
+      "cell": [
+        25,
+        21
+      ],
+      "kind": "examine",
+      "label": "A sick bed, empty and stripped",
+      "model": "bed",
+      "when": "flag.plague_day >= 2 and not flag.stonoga_slain"
+    },
+    {
+      "id": "sk_bile_bucket",
+      "cell": [
+        28,
+        25
+      ],
+      "kind": "examine",
+      "label": "A bucket of black bile",
+      "model": "bucket_brush",
+      "when": "flag.plague_started and not flag.stonoga_slain"
+    },
+    {
+      "id": "sk_vil_crawlers_a",
+      "cell": [
+        24,
+        18
+      ],
+      "kind": "decor",
+      "label": "Centipedes on the wall of the Round",
+      "model": "soot_patch",
+      "when": "flag.plague_started and not flag.stonoga_slain"
+    },
+    {
+      "id": "sk_vil_crawlers_b",
+      "cell": [
+        35,
+        19
+      ],
+      "kind": "decor",
+      "label": "Centipedes on the wall of the Round",
+      "model": "soot_patch",
+      "when": "flag.plague_day >= 1 and not flag.stonoga_slain"
+    },
+    {
+      "id": "sk_vil_crawlers_c",
+      "cell": [
+        31,
+        30
+      ],
+      "kind": "decor",
+      "label": "Centipedes crawling up the oak",
+      "model": "soot_patch",
+      "when": "flag.plague_day >= 2 and not flag.stonoga_slain"
+    },
+    {
+      "id": "sk_shut_a",
+      "cell": [
+        29,
+        17
+      ],
+      "kind": "decor",
+      "label": "A shop with its shutters nailed shut",
+      "model": "barred_door",
+      "when": "flag.plague_day >= 3 and not flag.stonoga_slain"
+    },
+    {
+      "id": "sk_ribbons",
+      "cell": [
+        22,
+        24
+      ],
+      "kind": "decor",
+      "label": "Mourning ribbons on a door",
+      "model": "bunting",
+      "when": "flag.queue_haldor_worse or flag.queue_lost"
+    },
+    {
+      "id": "sk_reopening_scene",
+      "cell": [
+        32,
+        25
+      ],
+      "kind": "decor",
+      "label": "Lord Phillip and the Mayor with a roll of plans",
+      "call": "skitterdeep/farewell:reopening",
+      "approach": 8,
+      "call_when": "flag.skitter_farewell and not flag.glitterdeep_reopening"
     }
   ],
   "region": "wickermoor",
@@ -1649,6 +1919,10 @@
     "from_studio": [
       16,
       18
+    ],
+    "from_hills": [
+      2,
+      29
     ]
   },
   "summary": "The hub: a village round a trodden square, an oak of carved faces, a clocktower, the Silverbell along the south and the crooked estate on its hill.",

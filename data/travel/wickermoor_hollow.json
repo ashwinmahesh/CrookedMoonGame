@@ -92,6 +92,32 @@
       "region": "drowned_crossroads",
       "when": "visited:dc_murkwater",
       "summary": "A stilt town in the bayou, under the Bayou King's flag."
+    },
+    {
+      "id": "sk_hills_trail",
+      "name": "The Hill Trail",
+      "location": "sk_hills_trail",
+      "spawn": "default",
+      "pos": [
+        0.31,
+        0.41
+      ],
+      "region": "skitterdeep_mine",
+      "when": "flag.skitter_trail_known or visited:sk_hills_trail",
+      "summary": "A rutted trail through wooded hills north-west of Wickermoor."
+    },
+    {
+      "id": "sk_camp",
+      "name": "Glitterdeep Mine",
+      "location": "sk_camp",
+      "spawn": "from_road",
+      "pos": [
+        0.17,
+        0.3
+      ],
+      "region": "skitterdeep_mine",
+      "when": "flag.skitter_trail_known or visited:sk_camp",
+      "summary": "The abandoned mine, eight hours north-west of Wickermoor, with its sign painted over to read Skitterdeep."
     }
   ],
   "roads": [
@@ -142,6 +168,22 @@
       "hours": 36,
       "name": "Through the swamp",
       "when": "visited:dc_murkwater"
+    },
+    {
+      "id": "wickermoor_to_sk_trail",
+      "from": "wickermoor_village",
+      "to": "sk_hills_trail",
+      "hours": 6,
+      "name": "The hill road",
+      "when": "flag.skitter_trail_known or visited:sk_hills_trail"
+    },
+    {
+      "id": "sk_trail_to_camp",
+      "from": "sk_hills_trail",
+      "to": "sk_camp",
+      "hours": 2,
+      "name": "The hill trail",
+      "when": "flag.skitter_trail_known or visited:sk_camp"
     }
   ]
 }

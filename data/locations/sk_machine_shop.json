@@ -1,0 +1,345 @@
+{
+  "id": "sk_machine_shop",
+  "name": "The Machine Shop",
+  "region": "skitterdeep_mine",
+  "summary": "A rusted shop of three rooms; the middle one smells of horse and rot.",
+  "text": "Warped boards leak green gas. Three rooms, two doors between them, and handprints in the dust.",
+  "map": {
+    "rows": [
+      "##########################",
+      "#.=====.#........#.......#",
+      "#.......#.=...=..#.......#",
+      "#.......#.=...=..#..==...#",
+      "#.......#........#.......#",
+      "#........................#",
+      "#.......#........#.......#",
+      "#.......#........#.......#",
+      "#.==..=.#.==..==.#.......#",
+      "#.......#........#.......#",
+      "#.......#........#.......#",
+      "##########################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "spawns": {
+    "default": [
+      12,
+      9
+    ],
+    "from_camp": [
+      12,
+      9
+    ]
+  },
+  "areas": [
+    {
+      "id": "shop_tools",
+      "name": "Tool storage",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          7,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "shop_lair",
+      "name": "The fleshdobbins' lair",
+      "cells": [
+        [
+          9,
+          1
+        ],
+        [
+          16,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "shop_winch",
+      "name": "The winch house",
+      "cells": [
+        [
+          18,
+          1
+        ],
+        [
+          24,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "shop_floor",
+      "name": "The machine shop",
+      "cells": [
+        [
+          9,
+          9
+        ],
+        [
+          16,
+          10
+        ]
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        12,
+        11
+      ],
+      "to": "sk_camp",
+      "spawn": "from_shop",
+      "label": "Out to the camp"
+    }
+  ],
+  "props": [
+    {
+      "id": "sk_handprints",
+      "cell": [
+        4,
+        5
+      ],
+      "kind": "examine",
+      "label": "Handprints in the dust",
+      "model": "claw_marks",
+      "dialogue": "skitterdeep/camp:handprints"
+    },
+    {
+      "id": "sk_tool_maul",
+      "cell": [
+        3,
+        2
+      ],
+      "kind": "search",
+      "label": "A maul under a tarp",
+      "search_dc": 20,
+      "item": "maul",
+      "skill": "perception"
+    },
+    {
+      "id": "sk_tool_pack",
+      "cell": [
+        5,
+        2
+      ],
+      "kind": "search",
+      "label": "A dungeoneer's pack, half buried",
+      "search_dc": 20,
+      "item": "dungeoneers_pack",
+      "skill": "perception"
+    },
+    {
+      "id": "sk_tool_rack",
+      "cell": [
+        2,
+        3
+      ],
+      "kind": "examine",
+      "label": "A rack of ruined tools",
+      "model": "shelves"
+    },
+    {
+      "id": "sk_bed_1",
+      "cell": [
+        10,
+        2
+      ],
+      "kind": "examine",
+      "label": "A rubbish-pile bed under a horse blanket",
+      "model": "bed_small"
+    },
+    {
+      "id": "sk_bed_2",
+      "cell": [
+        14,
+        2
+      ],
+      "kind": "examine",
+      "label": "A rubbish-pile bed under a wine-red surcoat",
+      "model": "bed_small"
+    },
+    {
+      "id": "sk_bed_4",
+      "cell": [
+        10,
+        8
+      ],
+      "kind": "examine",
+      "label": "A rubbish-pile bed",
+      "model": "bed_small"
+    },
+    {
+      "id": "sk_surcoats",
+      "cell": [
+        12,
+        5
+      ],
+      "kind": "examine",
+      "label": "Rotted wine-red surcoats",
+      "model": "rags",
+      "dialogue": "skitterdeep/camp:surcoats"
+    },
+    {
+      "id": "sk_winch",
+      "cell": [
+        20,
+        3
+      ],
+      "kind": "examine",
+      "label": "The winch drum and its lever box",
+      "model": "case",
+      "dialogue": "skitterdeep/camp:winch"
+    },
+    {
+      "id": "sk_chain_port",
+      "cell": [
+        23,
+        1
+      ],
+      "kind": "examine",
+      "label": "The chain port",
+      "model": "window"
+    },
+    {
+      "id": "sk_lye_barrel_note",
+      "cell": [
+        3,
+        9
+      ],
+      "kind": "examine",
+      "label": "A barrel of grey lye",
+      "model": "barrel"
+    },
+    {
+      "id": "sk_shop_crawlers",
+      "cell": [
+        12,
+        7
+      ],
+      "kind": "decor",
+      "label": "Tiny centipedes in the straw",
+      "model": "soot_patch"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "parcel_rider",
+      "cell": [
+        14,
+        8
+      ],
+      "dialogue": "skitterdeep/trail:rider_bed",
+      "when": "not flag.skitter_letter_hook and not flag.parcel_rider_met",
+      "steps_aside": true,
+      "lying": true
+    }
+  ],
+  "encounters": [
+    {
+      "id": "sk_lair_fleshdobbins",
+      "trigger": "open:sk_door_a",
+      "monsters": [
+        {
+          "monster": "fleshdobbin",
+          "cell": [
+            11,
+            3
+          ],
+          "name": "A fleshdobbin in a wine-red surcoat",
+          "facing": "south"
+        },
+        {
+          "monster": "fleshdobbin",
+          "cell": [
+            15,
+            3
+          ],
+          "name": "A fleshdobbin in a wine-red surcoat",
+          "facing": "south"
+        }
+      ],
+      "flag": "sk_lair_done",
+      "when": "level >= 7"
+    },
+    {
+      "id": "sk_lair_fleshdobbins",
+      "trigger": "open:sk_door_a",
+      "monsters": [
+        {
+          "monster": "fleshdobbin",
+          "cell": [
+            11,
+            3
+          ],
+          "name": "A fleshdobbin in a wine-red surcoat",
+          "facing": "south"
+        }
+      ],
+      "flag": "sk_lair_done"
+    }
+  ],
+  "rest": "risky",
+  "doors": [
+    {
+      "id": "sk_door_a",
+      "cell": [
+        8,
+        5
+      ],
+      "label": "The tool storage door",
+      "locked": true,
+      "lock_dc": 15,
+      "key": "sk_iron_key",
+      "locked_text": "It is locked. The iron key hangs on a cord somewhere in this mine."
+    },
+    {
+      "id": "sk_door_b",
+      "cell": [
+        17,
+        5
+      ],
+      "label": "The winch house door",
+      "locked": true,
+      "lock_dc": 15,
+      "key": "sk_iron_key",
+      "locked_text": "It is locked, and the iron key is not on you."
+    }
+  ],
+  "containers": [
+    {
+      "id": "sk_lye_barrel",
+      "cell": [
+        4,
+        9
+      ],
+      "label": "A lye barrel and a stack of cakes",
+      "items": [
+        {
+          "id": "lye_soap_flask",
+          "qty": 2
+        },
+        {
+          "id": "oil",
+          "qty": 1
+        },
+        {
+          "id": "alchemists_fire",
+          "qty": 1
+        }
+      ],
+      "gold": 0,
+      "lock_dc": 0
+    }
+  ]
+}

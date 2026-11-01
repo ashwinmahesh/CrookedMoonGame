@@ -1,0 +1,535 @@
+{
+  "map": {
+    "elevation": [
+      "76665554443333333333333332222222222234555555555554",
+      "76665554443333333333333332222222222235555555555555",
+      "76665554443333333333333332222222222234555555555555",
+      "76665554443333333333333332222222222234555555555555",
+      "76665554443333333333333332222222222234555555555555",
+      "76665554443333333333333332222222222234555555555555",
+      "76665554443333333333333332222222222223444555555544",
+      "76665554443333333333333332222222222222333333333433",
+      "76655544443333333333333332222222222222222222222222",
+      "66554444443333333333333332222222222222222222222222",
+      "66544444433333333333333332222222222222111111111222",
+      "65444444433333333333333332222222222222111111111222",
+      "65444444433333333333333332222222222222111111111222",
+      "65444444433333333333333332222222222222111111111222",
+      "65444444433333333333333332222222222222111111111222",
+      "66544444433333333333333332222222222222111111111222",
+      "66554444443333333333333332222222222222111111111222",
+      "76655544443333333333333332222222222222111111111222",
+      "76665554443333333333333332222222222222111111111222",
+      "76665554443333333333333332222222222222111111111222",
+      "76665554443333333333333332222222222222111111111222",
+      "76665554443333333333333332222222222222111111111222",
+      "76665554443333333333333332222222222222111111111222",
+      "76665554443333333333333332222222222222111111111222",
+      "76665554443333333333333332222222222222111111111222",
+      "76665554443333333333333332222222222222111111111222",
+      "76665554443333333333333332222222222222111111111222",
+      "76665554443333333333333332222222222222111111111222"
+    ],
+    "rows": [
+      "#################################################.",
+      "##################################################",
+      "########..........................###.....########",
+      "########.###############...#############.########.",
+      "########.###############...#############...######.",
+      "########.###############...#############...####.##",
+      "########.###############...#############.....#####",
+      "########.###############...#############.....#####",
+      "########.###############...#############.....#####",
+      "########.###############...#############.....#####",
+      "########......~~~~............................####",
+      "######......~~~~~~~~..............................",
+      "##..........~~~~~~~~......=.......................",
+      "##.......=...~~~~.............=...................",
+      "##........~~=........~=~~~~...~~~~~....~..........",
+      "######....~~.........~~~~~~..~~~~~~~~~~~   .......",
+      "########....................~~~~~~~~~~~~   .......",
+      "########...................~~~~~~~~~~~~~   .......",
+      "########.....................~~~~~~~~~~~..........",
+      "########......#####.........~~~~~.~~~~~.....==....",
+      "########......#####..........~...==.......~..##...",
+      "########......#####.......~~~~~~~~......~~~~~#####",
+      "########......#####.......~~~~~~~~.....~~~~~~#####",
+      "########...................................#######",
+      "########....####....===....................#######",
+      "########..#####################.............######",
+      "##################################################",
+      "##################################################"
+    ]
+  },
+  "id": "sk_camp",
+  "name": "Glitterdeep Mine",
+  "region": "skitterdeep_mine",
+  "summary": "An abandoned mining camp in a ridge of wooded hills, with a headframe over a black shaft and a sign with two letters painted over.",
+  "text": "The camp is sagging timber, rust and rail. A headframe stands over a square hole that breathes green gas, and the sign over the warehouse says Skitterdeep.",
+  "spawns": {
+    "default": [
+      47,
+      13
+    ],
+    "from_road": [
+      47,
+      13
+    ],
+    "from_drift": [
+      6,
+      13
+    ],
+    "from_warehouse": [
+      16,
+      10
+    ],
+    "from_shop": [
+      33,
+      10
+    ],
+    "from_shaft": [
+      38,
+      16
+    ],
+    "from_lift": [
+      38,
+      17
+    ]
+  },
+  "areas": [
+    {
+      "id": "sk_shaft_head",
+      "name": "The shaft head",
+      "cells": [
+        [
+          36,
+          13
+        ],
+        [
+          46,
+          19
+        ]
+      ]
+    },
+    {
+      "id": "sk_drift_mouth",
+      "name": "The old drift's mouth",
+      "cells": [
+        [
+          2,
+          11
+        ],
+        [
+          8,
+          15
+        ]
+      ]
+    },
+    {
+      "id": "sk_warehouse_yard",
+      "name": "The warehouse yard",
+      "cells": [
+        [
+          9,
+          10
+        ],
+        [
+          24,
+          13
+        ]
+      ]
+    },
+    {
+      "id": "sk_east_road",
+      "name": "The camp road",
+      "cells": [
+        [
+          43,
+          10
+        ],
+        [
+          49,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "sk_kennel_yard",
+      "name": "The kennel yard",
+      "cells": [
+        [
+          14,
+          19
+        ],
+        [
+          24,
+          25
+        ]
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "id": "road_back",
+      "cell": [
+        49,
+        13
+      ],
+      "to": "travel",
+      "spawn": "default",
+      "label": "The hill trail back to Wickermoor"
+    },
+    {
+      "id": "old_drift",
+      "cell": [
+        2,
+        13
+      ],
+      "to": "sk_upper",
+      "spawn": "from_drift",
+      "label": "Into the old drift"
+    },
+    {
+      "id": "warehouse",
+      "cell": [
+        16,
+        9
+      ],
+      "to": "sk_warehouse",
+      "spawn": "default",
+      "label": "Enter the warehouse"
+    },
+    {
+      "id": "machine_shop",
+      "cell": [
+        33,
+        9
+      ],
+      "to": "sk_machine_shop",
+      "spawn": "default",
+      "label": "Enter the machine shop"
+    },
+    {
+      "id": "chain_down",
+      "cell": [
+        39,
+        16
+      ],
+      "to": "sk_upper",
+      "spawn": "from_shaft",
+      "label": "Climb down the chain to the landing"
+    },
+    {
+      "id": "lift_down",
+      "cell": [
+        39,
+        17
+      ],
+      "to": "sk_upper",
+      "spawn": "from_lift",
+      "label": "Ride the lift down",
+      "when": "flag.sk_lift_ready and not flag.skitterdeep_lift_fell"
+    }
+  ],
+  "props": [
+    {
+      "id": "sk_sign",
+      "cell": [
+        20,
+        10
+      ],
+      "kind": "examine",
+      "label": "The warehouse sign",
+      "model": "sign",
+      "dialogue": "skitterdeep/camp:sign"
+    },
+    {
+      "id": "sk_arrival",
+      "cell": [
+        44,
+        13
+      ],
+      "kind": "decor",
+      "label": "The camp, and the headframe beyond",
+      "call": "skitterdeep/camp:arrival",
+      "approach": 10,
+      "call_when": "not flag.sk_arrived"
+    },
+    {
+      "id": "sk_headframe",
+      "cell": [
+        43,
+        16
+      ],
+      "kind": "examine",
+      "label": "The headframe over the shaft",
+      "model": "gate",
+      "scale": 2.5
+    },
+    {
+      "id": "sk_headframe_beam",
+      "cell": [
+        43,
+        14
+      ],
+      "kind": "examine",
+      "label": "The beam and the hanging chain",
+      "model": "fallen_beam"
+    },
+    {
+      "id": "sk_shaft_gas",
+      "cell": [
+        41,
+        14
+      ],
+      "kind": "decor",
+      "label": "Green gas, rising",
+      "model": "soot_patch"
+    },
+    {
+      "id": "sk_rungs",
+      "cell": [
+        38,
+        15
+      ],
+      "kind": "examine",
+      "label": "Old maintenance rungs in the shaft wall",
+      "model": "ladder"
+    },
+    {
+      "id": "sk_kennel",
+      "cell": [
+        19,
+        23
+      ],
+      "kind": "examine",
+      "label": "An old kennel with a numbered brass collar",
+      "model": "cage",
+      "dialogue": "skitterdeep/thirteen:kennel"
+    },
+    {
+      "id": "sk_camp_oakum_spot",
+      "cell": [
+        44,
+        12
+      ],
+      "kind": "decor",
+      "label": "A flat stone at the camp's edge",
+      "model": "rocks"
+    },
+    {
+      "id": "sk_cart_a",
+      "cell": [
+        12,
+        14
+      ],
+      "kind": "examine",
+      "label": "An ore cart, on its side",
+      "model": "cart_broken"
+    },
+    {
+      "id": "sk_cart_b",
+      "cell": [
+        26,
+        12
+      ],
+      "kind": "examine",
+      "label": "An ore cart on its rails",
+      "model": "cart"
+    },
+    {
+      "id": "sk_cart_c",
+      "cell": [
+        30,
+        13
+      ],
+      "kind": "examine",
+      "label": "A rusted handcart",
+      "model": "handcart"
+    },
+    {
+      "id": "sk_barrels",
+      "cell": [
+        20,
+        12
+      ],
+      "kind": "examine",
+      "label": "Split barrels, black with rot",
+      "model": "barrel"
+    },
+    {
+      "id": "sk_crates",
+      "cell": [
+        23,
+        11
+      ],
+      "kind": "examine",
+      "label": "Stacked crates, mostly splinters",
+      "model": "crate_stack"
+    },
+    {
+      "id": "sk_woodpile",
+      "cell": [
+        25,
+        10
+      ],
+      "kind": "examine",
+      "label": "A woodpile gone to mulch",
+      "model": "woodpile"
+    },
+    {
+      "id": "sk_pumphouse_bucket",
+      "cell": [
+        16,
+        18
+      ],
+      "kind": "examine",
+      "label": "A bucket by the dead pump",
+      "model": "bucket_brush"
+    },
+    {
+      "id": "sk_boulder_a",
+      "cell": [
+        8,
+        11
+      ],
+      "kind": "decor",
+      "model": "boulder"
+    },
+    {
+      "id": "sk_boulder_b",
+      "cell": [
+        8,
+        15
+      ],
+      "kind": "decor",
+      "model": "boulder"
+    },
+    {
+      "id": "sk_pine_a",
+      "cell": [
+        44,
+        10
+      ],
+      "kind": "decor",
+      "model": "pine_a"
+    },
+    {
+      "id": "sk_pine_b",
+      "cell": [
+        9,
+        24
+      ],
+      "kind": "decor",
+      "model": "pine_b"
+    },
+    {
+      "id": "sk_dead_a",
+      "cell": [
+        30,
+        24
+      ],
+      "kind": "decor",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "sk_dead_b",
+      "cell": [
+        10,
+        22
+      ],
+      "kind": "decor",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "sk_crawlers_a",
+      "cell": [
+        14,
+        12
+      ],
+      "kind": "decor",
+      "label": "A trail of tiny centipedes",
+      "model": "soot_patch"
+    },
+    {
+      "id": "sk_crawlers_b",
+      "cell": [
+        35,
+        18
+      ],
+      "kind": "decor",
+      "label": "Tiny centipedes on the rails",
+      "model": "soot_patch"
+    },
+    {
+      "id": "sk_crawlers_c",
+      "cell": [
+        26,
+        21
+      ],
+      "kind": "decor",
+      "label": "Tiny centipedes in the weeds",
+      "model": "soot_patch"
+    },
+    {
+      "id": "sk_lantern_post",
+      "cell": [
+        31,
+        11
+      ],
+      "kind": "examine",
+      "label": "A lantern post, long dark",
+      "model": "lantern_post"
+    },
+    {
+      "id": "sk_signpost",
+      "cell": [
+        46,
+        14
+      ],
+      "kind": "examine",
+      "label": "A signpost with no arms",
+      "model": "signpost_broken"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "mrs_oakum",
+      "cell": [
+        44,
+        12
+      ],
+      "dialogue": "skitterdeep/guide:ashamed",
+      "when": "flag.oakum_wolf_seen and not flag.oakum_choice_done"
+    },
+    {
+      "npc": "thirteenth_centipede",
+      "cell": [
+        21,
+        23
+      ],
+      "dialogue": "skitterdeep/thirteen:meet",
+      "when": "flag.thirteen_asked and not flag.thirteen_outcome"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "sk_thirteen_fight",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            21,
+            23
+          ],
+          "name": "Thirteen"
+        }
+      ],
+      "flag": "thirteen_slain"
+    }
+  ],
+  "rest": "risky",
+  "rest_text": "Rail and timber tick and settle, and the green haze lies on your blanket.",
+  "recheck_minutes": 10
+}
