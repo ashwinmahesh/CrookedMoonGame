@@ -1,0 +1,193 @@
+{
+  "id": "ct_barrow",
+  "name": "Kehlenn's barrow",
+  "region": "crooked_tree",
+  "summary": "A low earthen hollow of packed dirt and knotted roots, a huge mossy skeleton against the far wall, a man kneeling in the middle.",
+  "text": "Packed earth and roots, and a ceiling you could touch. Against the far wall a skeleton the size of a cart lies wrapped in roots, glowing the colours of a campfire, and images of slain fey flicker in the light. Phillip Druskenvald kneels in the middle of the floor with the roots crushing him down. Trophies hang in the roots along the walls.",
+  "map": {
+    "rows": [
+      "############",
+      "#~~.====.~~#",
+      "#...====...#",
+      "#..........#",
+      "#..........#",
+      "#..........#",
+      "#~........~#",
+      "#..........#",
+      "#..........#",
+      "#..........#",
+      "#..........#",
+      "#..=....=..#",
+      "#~........~#",
+      "############"
+    ],
+    "theme": "cave",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "barrow",
+      "name": "The barrow",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          10,
+          12
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      6,
+      11
+    ]
+  },
+  "exits": [
+    {
+      "id": "out",
+      "cell": [
+        6,
+        12
+      ],
+      "to": "ct_crooked_tree",
+      "spawn": "from_barrow",
+      "label": "Out of the barrow",
+      "when": "flag.ct_phillip_taken or flag.ct_barrow_leaving"
+    }
+  ],
+  "props": [
+    {
+      "id": "ct_barrow_arrive",
+      "cell": [
+        6,
+        11
+      ],
+      "kind": "decor",
+      "label": "The barrow, from the mouth",
+      "call": "crooked_tree/barrow:arrive",
+      "approach": 12,
+      "call_when": "not flag.ct_barrow_entered"
+    },
+    {
+      "id": "ct_kehlenn_bones",
+      "cell": [
+        5,
+        2
+      ],
+      "kind": "examine",
+      "label": "Kehlenn's skeleton, wrapped in roots",
+      "model": "skeleton_shackles",
+      "dialogue": "crooked_tree/barrow:kehlenn",
+      "scale": 2.0,
+      "when": "not flag.ct_phillip_taken"
+    },
+    {
+      "id": "ct_trophies_a",
+      "cell": [
+        2,
+        4
+      ],
+      "kind": "examine",
+      "label": "Trophies in the roots",
+      "model": "relics",
+      "dialogue": "crooked_tree/barrow:trophies",
+      "when": "not flag.ct_trophies_taken"
+    },
+    {
+      "id": "ct_trophies_b",
+      "cell": [
+        9,
+        5
+      ],
+      "kind": "examine",
+      "label": "Trophies in the roots",
+      "model": "relics",
+      "dialogue": "crooked_tree/barrow:trophies",
+      "when": "not flag.ct_trophies_taken"
+    },
+    {
+      "id": "ct_trophies_c",
+      "cell": [
+        2,
+        9
+      ],
+      "kind": "examine",
+      "label": "A bird's nest of human hair, a jar of teeth",
+      "model": "jars",
+      "dialogue": "crooked_tree/barrow:trophies",
+      "when": "not flag.ct_trophies_taken"
+    },
+    {
+      "id": "ct_barrow_roots_a",
+      "cell": [
+        1,
+        6
+      ],
+      "kind": "decor",
+      "label": "Roots, thick as a man",
+      "model": "vines"
+    },
+    {
+      "id": "ct_barrow_roots_b",
+      "cell": [
+        10,
+        6
+      ],
+      "kind": "decor",
+      "label": "Roots, thick as a man",
+      "model": "vines"
+    },
+    {
+      "id": "ct_barrow_fey_a",
+      "cell": [
+        3,
+        1
+      ],
+      "kind": "decor",
+      "label": "A slain fey's face in the glow",
+      "model": "stone_faces"
+    },
+    {
+      "id": "ct_barrow_fey_b",
+      "cell": [
+        8,
+        1
+      ],
+      "kind": "decor",
+      "label": "A slain fey's face in the glow",
+      "model": "stone_faces"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "phillip_druskenvald",
+      "cell": [
+        6,
+        7
+      ],
+      "dialogue": "crooked_tree/barrow:phillip",
+      "when": "not flag.ct_phillip_taken",
+      "facing": "south"
+    }
+  ],
+  "encounters": [],
+  "rest": "no",
+  "rest_text": "No one regains Hit Points here, and every hour costs a level of Exhaustion. You would not rest if you could.",
+  "lights": [
+    {
+      "cell": [
+        5,
+        2
+      ],
+      "kind": "fire",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "fire"
+    }
+  ]
+}

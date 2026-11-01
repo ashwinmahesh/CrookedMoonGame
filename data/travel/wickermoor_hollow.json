@@ -235,6 +235,19 @@
       "region": "crooked_nightmare",
       "when": "flag.crooked_house_destroyed",
       "summary": "A heap of wood and plaster where the Crooked House stood."
+    },
+    {
+      "id": "ct_wytchwood",
+      "name": "The Wytchwood",
+      "location": "ct_wytchwood",
+      "spawn": "default",
+      "pos": [
+        0.5,
+        0.1
+      ],
+      "region": "the_wytchwood",
+      "when": "flag.wytchwood_open or visited:ct_wytchwood",
+      "summary": "A dense old forest north of the moors, where every path bends back to the edge until it wants you."
     }
   ],
   "roads": [
@@ -373,6 +386,14 @@
       "hours": 1,
       "name": "The hill road, to the ruins",
       "when": "flag.crooked_house_destroyed"
+    },
+    {
+      "id": "wickermoor_to_wytchwood",
+      "from": "wickermoor_village",
+      "to": "ct_wytchwood",
+      "hours": 14,
+      "name": "The moor road north",
+      "when": "flag.wytchwood_open or visited:ct_wytchwood"
     }
   ]
 }

@@ -1302,6 +1302,101 @@
   "name": "Wickermoor Village",
   "npcs": [
     {
+      "npc": "doris_squire",
+      "cell": [
+        31,
+        8
+      ],
+      "dialogue": "crooked_tree/hook:doris_start",
+      "when": "flag.wicker_man_burned and not flag.ct_hook_given",
+      "approach": 10,
+      "facing": "south"
+    },
+    {
+      "npc": "doris_squire",
+      "cell": [
+        31,
+        8
+      ],
+      "dialogue": "crooked_tree/hook:doris_again",
+      "when": "flag.ct_hook_given and not flag.ct_barrow_entered",
+      "facing": "south"
+    },
+    {
+      "npc": "ct_confessor_a",
+      "cell": [
+        33,
+        8
+      ],
+      "dialogue": "crooked_tree/chaos:confess_a",
+      "when": "flag.wicker_man_burned and days_since.ct_clock >= 1 and not flag.ct_confessed_a",
+      "facing": "west"
+    },
+    {
+      "npc": "ct_confessor_b",
+      "cell": [
+        34,
+        9
+      ],
+      "dialogue": "crooked_tree/chaos:confess_b",
+      "when": "flag.wicker_man_burned and days_since.ct_clock >= 2 and not flag.ct_confessed_b",
+      "facing": "west"
+    },
+    {
+      "npc": "ct_confessor_c",
+      "cell": [
+        29,
+        9
+      ],
+      "dialogue": "crooked_tree/chaos:confess_c",
+      "when": "flag.wicker_man_burned and days_since.ct_clock >= 3 and not flag.ct_confessed_c",
+      "facing": "east"
+    },
+    {
+      "npc": "ct_mob_leader",
+      "cell": [
+        28,
+        8
+      ],
+      "dialogue": "crooked_tree/mayor:mob_start",
+      "when": "flag.wicker_man_burned and not flag.ct_mayor_settled and flag.ct_hook_given",
+      "approach": 8,
+      "facing": "east"
+    },
+    {
+      "npc": "ct_mob_leader",
+      "cell": [
+        28,
+        8
+      ],
+      "dialogue": "crooked_tree/mayor:mob_start",
+      "when": "flag.wicker_man_burned and not flag.ct_mayor_settled and flag.ct_hook_given",
+      "approach": 8,
+      "facing": "east"
+    },
+    {
+      "npc": "ct_mob_leader",
+      "cell": [
+        28,
+        8
+      ],
+      "dialogue": "crooked_tree/mayor:mob_start",
+      "when": "flag.wicker_man_burned and not flag.ct_mayor_settled and flag.ct_hook_given",
+      "approach": 8,
+      "facing": "east"
+    },
+    {
+      "npc": "ct_mob_leader",
+      "cell": [
+        28,
+        8
+      ],
+      "dialogue": "crooked_tree/mayor:mob_start",
+      "when": "flag.wicker_man_burned and not flag.ct_mayor_settled and flag.ct_hook_given",
+      "approach": 8,
+      "facing": "east"
+    },
+    {
       "npc": "geneva_fairchild",
       "cell": [
         33,
