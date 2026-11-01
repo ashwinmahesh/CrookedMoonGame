@@ -68,6 +68,14 @@ func capture_shots(tool: Node, out: String) -> void:
 			rig.horizon_shown = 1.0
 			rig.distance = rig.zoom_max
 			await tool.call("wait_frames", 40)
+			# The moon in a clear sky straight ahead (the weather's cloud and the moon's own bearing hide it), to see its face.
+			var post := view.atmosphere.get("_post") as ShaderMaterial
+			if post != null:
+				post.set_shader_parameter("sky_cover", 0.0)
+				post.set_shader_parameter("sky_moon", 1.0)
+				var ahead := -view.rig.camera.global_basis.z
+				post.set_shader_parameter("sky_moon_dir", Vector3(ahead.x, 0.07, ahead.z).normalized())
+				await tool.call("wait_frames", 10)
 			tool.call("_shot", "%s_%s_sky.png" % [out, place])
 		rig.horizon = 0.0
 		rig.horizon_shown = 0.0
