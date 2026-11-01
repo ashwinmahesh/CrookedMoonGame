@@ -1,0 +1,79 @@
+# Drafted by Gemini (side quests act 2 batch 1: quarantine), edited.
+
+~ start
+Narrator: Stacks of damp parchment lean across the mayor's desk like toppling gravestones, smelling faintly of boiled vinegar and sealing wax.
+wendel_somerton [weary]: Dreadful business, friends, dreadful! Half the parish is coughing up centipedes in the taproom, yet I cannot legally bar the inn doors without three county seals in triplicate.
+wendel_somerton [smile]: My hands are tied with red ribbon while the kettle boils over. Would you take the sheaf to Miss Ledger and Miss Mayville for their stamps?
+* We will fetch the seals -> accept
+* Why triplicate? -> why
+* Not now -> END
+
+~ why
+wendel_somerton [neutral]: Why, one for the parish chest, one for the post bag, and one nailed to the Oak so the Green Queen sees we did things properly.
+wendel_somerton [weary]: Nobody remembers which magistrate wrote the statute, only that an unsealed plague is an unlawful plague.
+-> start
+
+~ accept
+wendel_somerton [smile]: Bless your brisk boots! Mind the ink does not smudge in the fog, or Miss Ledger will make us start from the first sheet.
+quest quarantine_notices asked
+set quarantine_asked
+-> END
+
+~ tamsin_seal
+Narrator: Tamsin Ledger wets her thumb and turns a fresh page, her spectacles gleaming like two brass coins in the lantern light.
+tamsin_ledger [smile]: Form Seven-B, Emergency Pestilence and Bedstead Tally. What a treat! I can countersign the second copy the moment we verify the active cots in the common room.
+* [Medicine DC 10] Count the beds carefully -> count_ok | count_off
+* Take her word for it -> count_ok
+
+~ count_ok
+tamsin_ledger [smile]: Fourteen feverish, three merely twitching, and two sharing a bolster. Everything reconciles to the half-column.
+Narrator: Her iron stamp comes down with a crisp, joyful thud that rattles the inkwell.
+set seal_tamsin
+-> END
+
+~ count_off
+tamsin_ledger [sly]: Fifteen? No, no, the drover under the settle is only sleeping off turnip gin. I have struck him from the pestilence column in red ink.
+tamsin_ledger [smile]: There. Nothing warms the blood like a corrected ledger.
+set seal_tamsin
+-> END
+
+~ post_seal
+Narrator: Behind the wicket, Theodora Mayville sorts dead letters with a bone knife, her head tilting in sharp, birdlike jerks.
+theodora_mayville [neutral]: The Mayor's quarantine circulars. Set them by the brass scale and do not breathe on the gummed edges. I stamp emergency notices after the afternoon sorting.
+* [Persuasion DC 13] Press her -> post_ok | post_stall
+* [if flag.seal_tamsin] Show Tamsin's countersign -> post_ok
+* [Deception DC 12] Forge the stamp -> forge_ok | forge_caught
+
+~ post_ok
+Narrator: She fixes you with a round, unblinking stare and drives the postmark into the wax with a single sharp peck of her wrist.
+theodora_mayville [angry]: Properly witnessed, properly weighed. Take your papers off my counter before you shed road grit into the pigeonholes.
+set seal_post
+-> END
+
+~ post_stall
+theodora_mayville [sly]: Haste is how envelopes lose their corners. Come back when the kettle has cooled and I have finished the dead-letter bundle.
+-> post_seal
+
+~ forge_ok
+Narrator: While her back is turned to the sorting rack, {name} rolls a carved cork in purple ink and presses three neat rings across the parchment.
+theodora_mayville [neutral]: Hmph. Still standing there? Keep your elbows off the blotter.
+set seal_post
+set quarantine_forged
+-> END
+
+~ forge_caught
+Narrator: A heavy gloved hand closes on {name}'s wrist just as the counterfeit stamp leaves a smeared purple crescent on the page.
+doris_squire [angry]: Counterfeiting the parish postmark during a pestilence. Keep the smudged copy for the Mayor, and bring your boots to the cells until morning.
+set seal_post
+set quarantine_forged
+jail wickermoor_constable_station:cells until days_since.jailed >= 1
+-> END
+
+~ file
+Narrator: Wendel presses his own brass signet into the warm wax, then holds all three sheets up to the hearth like prize marrow squashes.
+wendel_somerton [smile]: Three ribbons, nine stamps, and not a single blot on the margin! Now the village may be Deathly Ill in full compliance with the bylaws.
+wendel_somerton [weary]: Take this for your shoe-leather, friends, and step lively around the inn porch.
+quest quarantine_notices done
+set quarantine_done
+gold +25
+-> END

@@ -821,6 +821,15 @@
         48,
         28
       ],
+      "dialogue": "wickermoor/letter:hilda",
+      "when": "flag.letter_asked and not flag.letter_outcome"
+    },
+    {
+      "npc": "hilda_brom",
+      "cell": [
+        48,
+        28
+      ],
       "dialogue": "wickermoor/connections:hilda_lucan_start",
       "when": "name:lucan_houndstooth and flag.vessla_slain and not flag.connection_slaughter"
     },
@@ -1083,6 +1092,33 @@
       ],
       "dialogue": "wickermoor/elias:start",
       "when": "flag.wm_welcomed"
+    },
+    {
+      "npc": "barnaby_pennywhistle",
+      "cell": [
+        33,
+        34
+      ],
+      "dialogue": "wickermoor/quack:settle",
+      "when": "flag.quack_known and not flag.quack_outcome"
+    },
+    {
+      "npc": "barnaby_pennywhistle",
+      "cell": [
+        33,
+        34
+      ],
+      "dialogue": "wickermoor/quack:verdict",
+      "when": "flag.quack_asked and not flag.quack_known"
+    },
+    {
+      "npc": "barnaby_pennywhistle",
+      "cell": [
+        33,
+        34
+      ],
+      "dialogue": "wickermoor/quack:pitch",
+      "when": "flag.act2_done >= 1"
     }
   ],
   "props": [
@@ -1396,6 +1432,18 @@
       "model": "rope",
       "dialogue": "wickermoor/fieldtrip:rope",
       "when": "flag.field_trip_asked and not flag.field_rope"
+    },
+    {
+      "id": "wm_shared_stove",
+      "cell": [
+        26,
+        20
+      ],
+      "kind": "examine",
+      "label": "The shared stove",
+      "model": "hearth",
+      "dialogue": "wickermoor/soup:stove",
+      "when": "flag.soup_asked and not flag.soup_stove"
     }
   ],
   "region": "wickermoor",
