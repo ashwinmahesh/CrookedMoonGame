@@ -2,7 +2,7 @@
 """ONE-SHOT (R25 Epilogue and the Last Ride, and the endings of the whole game; vault Packages/R25 - Epilogue and the Last Ride.md): the endings
 (data/endings), the quests, flags, the Ghostlight ticket, the old station (ep_fog) and the Last Ride car (ep_car), the post-finale fair and closing
 talks in Wickermoor Village, the graves, and the cutscene lists. Dialogue: narrative/endings/*.dialogue and narrative/epilogue/*.dialogue (drafted
-by Gemini, tools/content/epilogue_dialogue_notes.txt). Idempotent; run from the repo root."""
+by Gemini, tools/content/epilogue_dialogue_specs.py). Idempotent; run from the repo root."""
 import json
 import sys
 from pathlib import Path

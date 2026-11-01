@@ -90,7 +90,7 @@ func test_all_eleven_endings_are_loaded() -> void:
 	var ids: Array[String] = []
 	for e in Endings.all():
 		ids.append(str(e["id"]))
-	for want in ["empty_car", "embers_of_the_fallen", "under_the_crooked_moon", "queens_consort", "live_deliciously", "crooked_rebirth",
+	for want: String in ["empty_car", "embers_of_the_fallen", "under_the_crooked_moon", "queens_consort", "live_deliciously", "crooked_rebirth",
 			"ash_over_the_hollow", "moon_unbent", "green_sea", "last_train_out", "moonfall"]:
 		assert_true(want in ids, "%s is an ending" % want)
 	assert_eq(ids.size(), 11)
@@ -260,7 +260,7 @@ func test_the_good_ending_reads_the_village_outcomes() -> void:
 	st.set_flag("golub_dead")
 	st.set_flag("chuckles_dead")
 	var topics := _topics("under_the_crooked_moon")
-	for t in ["village_feast", "village_price", "village_mori", "village_oakum", "village_curses", "foxwillow", "village_quack", "village_quarantine",
+	for t: String in ["village_feast", "village_price", "village_mori", "village_oakum", "village_curses", "foxwillow", "village_quack", "village_quarantine",
 			"village_letter", "village_bell", "foxwillow_fields", "village_punch", "village_seating", "village_golub", "village_chuckles"]:
 		assert_true(t in topics, "the slide %s is shown" % t)
 	assert_true(_slide("under_the_crooked_moon", "village_feast").contains("both"))
@@ -283,9 +283,9 @@ func test_a_topic_is_shown_once_and_the_most_specific_variant_wins() -> void:
 
 
 func test_each_thread_has_a_slide_for_taken_and_declined() -> void:
-	for tid in ["apocalypse", "ascendancy", "deliverance", "duality", "evolution", "immortality", "kindred", "liberation", "malediction", "pilgrimage", "rapture",
+	for tid: String in ["apocalypse", "ascendancy", "deliverance", "duality", "evolution", "immortality", "kindred", "liberation", "malediction", "pilgrimage", "rapture",
 			"rejuvenation", "slaughter"]:
-		for answer in ["taken", "declined"]:
+		for answer: String in ["taken", "declined"]:
 			GameState.reset()
 			st = GameState.story
 			st.set_flag("kehlenn_bound")
@@ -314,7 +314,7 @@ func test_the_lost_heroes_close_the_slides() -> void:
 
 
 func test_the_crooked_endings_inherit_the_crooked_set() -> void:
-	for id in ["queens_consort", "live_deliciously", "ash_over_the_hollow"]:
+	for id: String in ["queens_consort", "live_deliciously", "ash_over_the_hollow"]:
 		var topics := _topics(id)
 		assert_true("foxwillow" in topics, "%s follows the crooked set" % id)
 		assert_true(not ("village_feast" in topics), "%s shows no good-ending village slides" % id)
@@ -391,7 +391,7 @@ func test_every_closing_talk_plays_once_and_counts() -> void:
 	st.set_flag("kehlenn_bound")
 	st.set_flag("ep_started")
 	var done := 0
-	for id in ids:
+	for id: String in ids:
 		_play("epilogue/closing:" + id)
 		assert_true(bool(st.get_flag("ep_closing_" + id)), "%s's talk is marked" % id)
 		done += 1
@@ -425,7 +425,7 @@ func test_the_fair_audit_passes_with_the_permit_and_is_fined_without_it() -> voi
 	var gold := st.gold
 	_play("epilogue/fair:audit_start", ["Show the permit"])
 	assert_eq(str(st.get_flag("ep_fair_outcome")), "passed")
-	assert_eq(st.gold, gold + 10)
+	assert_eq(int(st.gold), int(gold) + 10)
 	assert_eq(st.quest_stage("ep_fair_on_the_round"), "done")
 
 
@@ -437,7 +437,7 @@ func test_the_goat_eating_the_permit_costs_ten_gold_and_locks_nothing() -> void:
 	st.gold = 50
 	_play("epilogue/fair:audit_start", ["Admit the goat"])
 	assert_eq(str(st.get_flag("ep_fair_outcome")), "fined")
-	assert_eq(st.gold, 40)
+	assert_eq(int(st.gold), 40)
 	assert_eq(st.quest_stage("ep_fair_on_the_round"), "done")
 
 
@@ -506,7 +506,7 @@ func test_the_car_door_leads_back_and_the_ride_can_be_postponed() -> void:
 
 
 func test_the_last_ride_to_each_destination_ends_the_game_with_the_good_ending() -> void:
-	for pair in [["Home", "home"], ["Another province", "province"], ["Another world", "beyond"]]:
+	for pair: Array in [["Home", "home"], ["Another province", "province"], ["Another world", "beyond"]]:
 		GameState.reset()
 		st = GameState.story
 		for id: String in GAME.NEW_GAME_PARTY:
@@ -548,10 +548,44 @@ func test_a_hero_whose_thread_took_them_is_missed_on_the_platform() -> void:
 
 
 func test_the_station_and_the_car_are_places_with_their_vagrant() -> void:
-	for id in ["ep_fog", "ep_car"]:
+	for id: String in ["ep_fog", "ep_car"]:
 		var loc := Compendium.shared().get_entry("locations", id)
 		assert_true(not loc.is_empty(), "%s exists" % id)
 		var found := false
 		for n: Variant in loc["npcs"]:
 			found = found or str((n as Dictionary)["npc"]) == "the_vagrant"
 		assert_true(found, "%s has the Vagrant" % id)
+
+
+func test_the_empty_seats_are_named_only_when_a_hero_fell() -> void:
+	for fallen: bool in [false, true]:
+		GameState.reset()
+		st = GameState.story
+		for id: String in GAME.NEW_GAME_PARTY:
+			st.party.append(Pregens.build(id, 3))
+		st.set_flag("kehlenn_bound")
+		if fallen:
+			st.lose_member(st.party[3], "the Last Act")
+		var r := DialogueRunner.new(st, dice)
+		assert_true(r.start("epilogue/last_ride:start"))
+		var text := ""
+		var b := r.next()
+		for i in 40:
+			if str(b["kind"]) == "options" or str(b["kind"]) == "end":
+				break
+			text += str(b.get("text", "")) + "\n"
+			b = r.next()
+		assert_eq(text.contains("aired"), fallen, "the Vagrant keeps the seats aired only for the fallen")
+
+
+func test_party_terms_compare_the_company() -> void:
+	assert_true(not _holds("party_size > party_alive"))
+	st.lose_member(st.party[0], "test")
+	assert_true(_holds("party_size > party_alive"))
+	assert_true(_holds("party_alive == 3"))
+	assert_true(_holds("party_size == 4"))
+	st.set_flag("horned_bargains", 4)
+	assert_true(_holds("flag.horned_bargains >= party_size"))
+	st.set_flag("horned_bargains", 3)
+	assert_true(not _holds("flag.horned_bargains >= party_size"))
+	assert_true(_holds("flag.horned_bargains == party_alive"))
