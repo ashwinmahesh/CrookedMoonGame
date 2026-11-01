@@ -125,7 +125,7 @@ FINALE_READS = [
     ("vigil_deaths", "int", "R23: innocents lost on the moors and at the stones."),
     ("vigil_fled", "bool", "R23: the heroes left the moors before the Wicker Man fell."),
     ("horned_bedlam_nights", "int", "R24: nights spent before entering the Wytchwood."),
-    ("mayor_fate", "string", "R23/R24: cultist_dead, cultist_spared, jailed, lynched or saved."),
+    ("ct_mayor_fate", "string", "R23/R24: cultist_dead, cultist_spared, jailed, lynched or saved."),
     ("alda_will_delivered", "bool", "R24: Alda Farnum's will was found and delivered."),
     ("kehlenn_bound", "bool", "R24: the ritual succeeded and Kehlenn is bound in the moon."),
     ("kehlenn_sided", "bool", "R24: the heroes sided with Kehlenn at the barrow."),
