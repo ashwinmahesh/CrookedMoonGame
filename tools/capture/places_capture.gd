@@ -9,9 +9,12 @@ const GAME := preload("res://world/game_root.gd")
 
 func capture_shots(tool: Node, out: String) -> void:
 	var places: PackedStringArray = []
+	var sky := false
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--places="):
 			places = a.get_slice("=", 1).split(",")
+		if a == "--sky":
+			sky = true   # one more shot per place with the camera tilted to the horizon: the sky and the moon in it
 	for place in places:
 		GameState.reset()
 		var st := GameState.story
@@ -32,7 +35,14 @@ func capture_shots(tool: Node, out: String) -> void:
 		tool.call("_shot", "%s_%s_play.png" % [out, place])
 		var view := game.get("view") as LocationView
 		var rig := view.rig
+		if sky:
+			rig.horizon = 1.0
+			rig.horizon_shown = 1.0
+			rig.distance = rig.zoom_max
+			await tool.call("wait_frames", 40)
+			tool.call("_shot", "%s_%s_sky.png" % [out, place])
 		rig.horizon = 0.0
+		rig.horizon_shown = 0.0
 		rig.follow = null
 		rig.distance = maxf(view.grid.width, view.grid.depth) * 1.05
 		rig.global_position = Vector3(view.grid.width / 2.0, 0, view.grid.depth / 2.0)
