@@ -2,32 +2,32 @@
 
 ~ arrive
 set mf_dusk_arrived
-Narrator: A homestead at the edge of a spider forest, cots empty, shutters hung with white thread, a doll on every windowsill.
+Narrator: At the spider-wood's edge stands a silent homestead, its cots cold and empty. Pale thread hangs from the shutters, and a cloth doll watches from every windowsill.
 check Dexterity DC 20 -> arrive_ok | arrive_hit
 
 ~ arrive_ok
-Narrator: You cut a path through the webs with a blade and the poison never touches you.
+Narrator: Your blade parts the heavy silk like old linen, and the sour bead of spider venom never touches your skin.
 set mf_dusk_resisted
 -> END
 
 ~ arrive_hit
-Narrator: Webs catch a hero and the spiders' poison burns in their veins before they cut free.
+Narrator: The sticky cords snare {name}, and a cold, sour venom burns in the veins before the blade can saw them free.
 damage 4d10 poison party
 -> END
 
 ~ region
-Narrator: You walk the Webwoods, and strands of web drape across the path like ribbons.
+Narrator: You tread the hushed paths of the Webwoods, where pale strands of silk drape from the boughs like mourning ribbons.
 time +60
 check Dexterity DC 20 -> arrive_ok | arrive_hit
 
 ~ hook
-mf_ysolde_teen [angry]: She says her brothers and sisters were taken from their beds, and the grown folk walk about like sacks and will not say why.
+mf_ysolde_teen [angry]: Something took my brothers and sisters right out of their warm beds! The grown folk just shuffle about like sacks of meal and won't say a word of why.
 set mf_dusk_asked
 quest mf_dusk asked
 -> menu
 
 ~ hook_again
-mf_ysolde_teen [sad]: She says another cot was empty this morning, and asks if you have found them.
+mf_ysolde_teen [sad]: Another little cot was cold and empty come the morning bell. Tell me true, have you found any sign of them out there?
 -> menu
 
 ~ menu
@@ -37,22 +37,22 @@ mf_ysolde_teen [sad]: She says another cot was empty this morning, and asks if y
 * Say we will deal with it -> END
 
 ~ trouble
-mf_ysolde_teen [afraid]: Webs choke the woods, wails come at every hour, and the grown ones are empty as dolls, stitched at the seams.
+mf_ysolde_teen [afraid]: Thick webs choke the timber, and a weeping comes on every bell. Worse still are the elders, walking empty as cloth dolls with gray thread at their seams.
 -> menu
 
 ~ where
-mf_ysolde_teen [sad]: She says a seamstress went mad and killed her children while possessed, and now she weeps in white, taking the rest.
+mf_ysolde_teen [sad]: An old seamstress went mad once, possessed by some foul thing, and slew her own babes. Now she walks in weeping white and steals ours to fill her arms.
 -> menu
 
 ~ route_a
-mf_ysolde_teen [neutral]: She says the children's rhymes hold what happened, if someone puts the verses together.
+mf_ysolde_teen [neutral]: The little ones kept the truth of it inside their skipping rhymes. Put the scattered verses together in order, and you'll know where she hides.
 * [Arcana DC 20] Piece together the children's rhymes -> a_ok | a_slow
 * [History DC 20] Match the verses to what the old folk remember -> a_ok | a_slow
 * Gather every rhyme the children ever sang, however long it takes -> a_slow
 * Another time -> menu
 
 ~ a_ok
-mf_ysolde_teen [smile]: The rhymes fit together into a story, and the last verse names the hut where the seamstress still sits.
+mf_ysolde_teen [smile]: Listen how the verses mend together into one plain tale! Look there at the last line: it names the very clearing where her sewing hut still stands.
 time +60
 set mf_dusk_found
 set mf_dusk_clue_a
@@ -60,19 +60,19 @@ quest mf_dusk trail
 -> menu
 
 ~ a_slow
-Narrator: It takes all night to gather the rhymes, but laid together they point to the hut in the woods.
+Narrator: It takes the long, cold hours of the night to gather every scattered verse, but laid side by side, the children's rhymes point straight toward a hidden hut.
 time +300
 set mf_dusk_found
 quest mf_dusk trail
 -> menu
 
 ~ clue
-mf_pennywhistle_nurse [smile]: She says she has been waiting for someone sensible, and sets her mending aside to look you over.
+mf_pennywhistle_nurse [smile]: Well now, I have been waiting on someone with clear eyes and a steady hand. Let me set this mending down and have a proper look at you.
 set mf_dusk_clue_met
 -> clue_menu
 
 ~ clue_again
-mf_pennywhistle_nurse [neutral]: A short greeting back, in character, that welcomes the heroes to ask again.
+mf_pennywhistle_nurse [neutral]: Back again, my dears? Speak plain, the kettle is warm and my needle can wait a moment.
 -> clue_menu
 
 ~ clue_menu
@@ -82,18 +82,18 @@ mf_pennywhistle_nurse [neutral]: A short greeting back, in character, that welco
 * Take our leave -> END
 
 ~ clue_talk
-mf_pennywhistle_nurse [sad]: She says the seamstress's own children were small and loved their toys, and that their toys are what the weeping thing cannot bear to see.
+mf_pennywhistle_nurse [sad]: Her own poor babes were small, and how they loved their wooden playthings. Those old toys are the one sight that weeping creature cannot bear to look upon.
 -> clue_menu
 
 ~ route_b
-mf_pennywhistle_nurse [neutral]: She says the spiders of the Webwoods go straight to the hut as to a hearth; follow them and you will not go wrong.
+mf_pennywhistle_nurse [neutral]: Mind the little spiders under the ferns, for they march straight to her door like cats to a hearth. Follow the eight-legged trail and you won't go astray.
 * [Animal Handling DC 20] Follow the spiders through the Webwoods -> b_ok | b_slow
 * [Survival DC 20] Read the webs for the way to the hut -> b_ok | b_slow
 * Follow the webs the long way round -> b_slow
 * Another time -> clue_menu
 
 ~ b_ok
-mf_pennywhistle_nurse [smile]: The spiders lead you unerringly, a river of small legs, to the hut in the clearing.
+mf_pennywhistle_nurse [smile]: There now, see how the little spinners stream ahead like a dark ribbon over the moss? Step lively behind them, and they will bring you straight to her door.
 time +60
 set mf_dusk_found
 set mf_dusk_clue_b
@@ -101,21 +101,21 @@ quest mf_dusk trail
 -> clue_menu
 
 ~ b_slow
-Narrator: You lose hours to wrong turns in the webs, but the spiders do at last bring you to the clearing.
+Narrator: You lose long hours to blind turns and tangled silk, until at last the patient stream of spiders brings you out into a dead clearing.
 time +300
 set mf_dusk_found
 quest mf_dusk trail
 -> clue_menu
 
 ~ weak
-mf_pennywhistle_nurse [sad]: She presses a small bundle on you: the children's toys, saved from the fire. Show them to the Mother and she will not be able to fight.
+mf_pennywhistle_nurse [sad]: Take this bundle, I pulled her children's playthings from the ashes myself. Hold them up before the Mother's eyes, and all the fight will go right out of her.
 * [Insight DC 20] Read the toys for the children's memories -> weak_ok | weak_slow
 * [Investigation DC 20] Gather the toys and the children's spirits gently -> weak_ok | weak_slow
 * Hold each toy and wait, slowly, for it to speak -> weak_slow
 * Another time -> clue_menu
 
 ~ weak_ok
-mf_pennywhistle_nurse [sad]: The toys hold the shape of small hands, and when you turn them over each one seems to hum a lullaby.
+mf_pennywhistle_nurse [sad]: Feel how the wood holds the shape of their small hands, smooth and warm. Turn each little toy over in your palm, and you can almost hear it hum a lullaby.
 time +60
 give mf_children_toys
 set mf_dusk_weak
@@ -123,7 +123,7 @@ quest mf_dusk ready
 -> clue_menu
 
 ~ weak_slow
-Narrator: You sit with the toys through a long hour, quietly, until each is ready to be shown.
+Narrator: You sit in the hush for a long, heavy hour, turning the charred playthings in your hands until each small memory wakes and is ready to be shown.
 time +300
 give mf_children_toys
 set mf_dusk_weak
@@ -131,15 +131,15 @@ quest mf_dusk ready
 -> clue_menu
 
 ~ lair
-Narrator: The seamstress's hut stands in the clearing, small from outside, its door ajar and a sound of shears inside.
+Narrator: The seamstress's hut sits small and crooked in the clearing, its door ajar and the cold, steady snick of iron shears sounding from within.
 * Go in and face it -> fight
 * Not yet -> END
 
 ~ fight
 cutscene mf_dusk_reveals
-Narrator: The Dusk Mother rises from her loom, a weeping shade in white, huge shears in her hands, a doll hanging from each finger.
+Narrator: Up from the loom rises the Dusk Mother, a weeping shade in winding-white with great iron shears in her grip and a hanging doll tied to every finger.
 cutscene mf_dusk_reveals_2
-Narrator: She wails, and the whole hut seems to listen.
+Narrator: She lets out a thin, keening wail, and every timber of the dark hut seems to lean in and listen.
 cutscene end
 if flag.mf_dusk_weak
 combat mf_dusk_weak
@@ -151,9 +151,9 @@ endif
 
 ~ aftermath
 cutscene mf_dusk_falls
-Narrator: The Dusk Mother's shears fall, her shape dissolves into dust and white thread, and from the hut small voices laugh, once.
+Narrator: The heavy iron shears clatter to the floorboards as her pale shape unravels into dust and white thread, and from the rafters, small voices laugh just once.
 cutscene mf_dusk_falls_2
-Narrator: The moon turns its face slowly north and east, toward the burning hill.
+Narrator: High above the boughs, the leering moon turns her crooked face slowly north and east, fixing her gaze upon the burning hill.
 cutscene end
 set mf_dusk_aftermath
 set old_fears_slain += 1
@@ -162,5 +162,5 @@ set moonfall_nights_left += 1
 give bell_of_the_dusk_mother
 quest mf_dusk slain
 xp milestone
-Narrator: Beyond the moors Rowan's Rise cracks open, and a red light shines.
+Narrator: Far beyond the dark moors, the crest of Rowan's Rise splits open like a hearth-coal, and a deep red glare spills across the sky.
 -> END

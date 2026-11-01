@@ -2,32 +2,32 @@
 
 ~ arrive
 set mf_worm_arrived
-Narrator: A lakeside village of grey huts, nets draped on every post, and white worms gleaming in the shallows.
+Narrator: Grey huts huddle along the shingle where old nets sag from every post, and pale worms gleam like peeled twigs in the dark shallows.
 check Wisdom DC 17 -> arrive_ok | arrive_hit
 
 ~ arrive_ok
-Narrator: You keep your mind on the names of those you love and the water's whisper slides off.
+Narrator: You hold tight to the names of those you love like warm stones in your pocket, and the water's hungry whisper slides harmlessly off your ears.
 set mf_worm_resisted
 -> END
 
 ~ arrive_hit
-Narrator: A hero breathes the lake's mist and loses a quarter hour entirely; they come back with a headache and no memory of why.
+Narrator: You draw a breath of the damp lake mist and lose a whole quarter hour between one blink and the next, left only with a ringing skull and no notion why.
 damage 2d10 psychic party
 -> END
 
 ~ region
-Narrator: You walk the shore, and the lake mist drifts into your mouth with a taste of cold pennies.
+Narrator: You walk the wet stones of the shore as the mist curls into your mouth with the sharp, cold taste of old copper pennies.
 time +60
 check Wisdom DC 17 -> arrive_ok | arrive_hit
 
 ~ hook
-mf_pell_fisher [afraid]: He says the nets come up full of white worms, and the water makes a man forget his own children's names.
+mf_pell_fisher [afraid]: We haul the nets up heavy with fat white worms every tide now, and a single splash of that water makes a man forget his own children's names.
 set mf_worm_asked
 quest mf_worm asked
 -> menu
 
 ~ hook_again
-mf_pell_fisher [weary]: He says another family lost their memory in the shallows this morning, and asks for news.
+mf_pell_fisher [weary]: Another whole family waded into the shallows at daybreak and came out staring like strangers, so tell me true if you bring any word of help.
 -> menu
 
 ~ menu
@@ -37,22 +37,22 @@ mf_pell_fisher [weary]: He says another family lost their memory in the shallows
 * Say we will deal with it -> END
 
 ~ trouble
-mf_pell_fisher [afraid]: Drink from the lake and you forget everything for hours; swim and the worms get in under your skin; and the lake cultists say they hear it singing.
+mf_pell_fisher [afraid]: One swallow from the lake steals your mind for hours, swimming lets the worms burrow right under your skin, and those shore cultists swear they hear it singing.
 -> menu
 
 ~ where
-mf_pell_fisher [sad]: He says it was something pulled through from another place by a woman called Matron Lethica, and it fell into the deep lake.
+mf_pell_fisher [sad]: It does not belong to our waters at all, for that wicked hag Matron Lethica tore a hole from somewhere else and let it drop into the deep.
 -> menu
 
 ~ route_a
-mf_pell_fisher [neutral]: He says the first people of the lake left black obelisks on the shore; they might tell what lies in the water, if someone could read them.
+mf_pell_fisher [neutral]: The first folk who lived by this water raised black stone obelisks along the bank, and their carvings might name what sleeps down there if you have the wit to read them.
 * [Arcana DC 17] Decipher the black obelisks -> a_ok | a_slow
 * [Investigation DC 17] Study the lake's first people's carvings -> a_ok | a_slow
 * Copy every carving and puzzle at them for hours -> a_slow
 * Another time -> menu
 
 ~ a_ok
-mf_pell_fisher [smile]: The carvings are a warning, plain once you see it, and a map of the rift where the thing came through.
+mf_pell_fisher [smile]: Look there, those carvings are a plain warning once your eyes catch the shape of them, and they map the very rift where the creature spilled through.
 time +60
 set mf_worm_found
 set mf_worm_clue_a
@@ -60,19 +60,19 @@ quest mf_worm trail
 -> menu
 
 ~ a_slow
-Narrator: You spend a long afternoon copying the obelisks onto your sleeves, and by evening the pattern at last makes sense.
+Narrator: You spend a damp, squinting afternoon rubbing charcoal and copying the stone marks onto your sleeves until, by evening light, the crooked pattern finally speaks sense.
 time +300
 set mf_worm_found
 quest mf_worm trail
 -> menu
 
 ~ clue
-mf_lake_cultist [smile]: He greets you like old friends and asks if you have heard the Worm singing under the lake, and would you like to join the choir.
+mf_lake_cultist [smile]: Welcome back to the water's edge, dear friends, have you heard our pale lord singing beneath the ripples yet, and will you lend your voices to our choir?
 set mf_worm_clue_met
 -> clue_menu
 
 ~ clue_again
-mf_lake_cultist [neutral]: A short greeting back, in character, that welcomes the heroes to ask again.
+mf_lake_cultist [neutral]: The water keeps its patience and so do we, friends, so ask whatever still troubles your heavy minds.
 -> clue_menu
 
 ~ clue_menu
@@ -82,18 +82,18 @@ mf_lake_cultist [neutral]: A short greeting back, in character, that welcomes th
 * Take our leave -> END
 
 ~ clue_talk
-mf_lake_cultist [sly]: He says the Worm eats minds and the faithful are those it has already tasted; the choir meets on the long jetty each midnight.
+mf_lake_cultist [sly]: The Great Worm sups on heavy memories, and we faithful are simply the blessed ones it has already tasted, gathering on the long jetty every midnight to sing.
 -> clue_menu
 
 ~ route_b
-mf_lake_cultist [sly]: He says the Order is always glad of new voices; you would only have to pretend to love the Worm convincingly.
+mf_lake_cultist [sly]: Our humble Order is always glad of fresh throats on the planks, and truth be told, you only need to pretend you love the Worm well enough to fool the water.
 * [Deception DC 17] Pretend to join the Worm's order -> b_ok | b_slow
 * [Persuasion DC 17] Talk the cultists into taking you to the rift -> b_ok | b_slow
 * Sit through the whole sermon and follow them out -> b_slow
 * Another time -> clue_menu
 
 ~ b_ok
-mf_lake_cultist [smile]: Brother Silt weeps with joy, and the choir leads you down the jetty to the rift.
+mf_lake_cultist [smile]: Oh, your sweet words make old Brother Silt weep for pure joy, so walk with our choir now as we lead you down the jetty to the rift!
 time +60
 set mf_worm_found
 set mf_worm_clue_b
@@ -101,21 +101,21 @@ quest mf_worm trail
 -> clue_menu
 
 ~ b_slow
-Narrator: It is an unpleasantly long sermon, but the choir does at last walk you down the jetty to the rift.
+Narrator: You endure a damp and unpleasantly winding sermon about the mercy of emptiness, though the choir does at last shuffle you down the creaking jetty toward the rift.
 time +300
 set mf_worm_found
 quest mf_worm trail
 -> clue_menu
 
 ~ weak
-mf_lake_cultist [sly]: He whispers that the Worm fears one star pattern, the ones the lake's first people painted; show it that sequence and it will choke on whoever knows it.
+mf_lake_cultist [sly]: Listen close, the Worm dreads a single constellation painted by the lake's first folk, and if you hold that star sequence in your mind it will choke trying to swallow you.
 * [Arcana DC 17] Work out the constellations from the obelisks -> weak_ok | weak_slow
 * [Nature DC 17] Chart the stars by the lake's reflection -> weak_ok | weak_slow
 * Trace the whole sky on the shore, star by star -> weak_slow
 * Another time -> clue_menu
 
 ~ weak_ok
-mf_lake_cultist [smile]: You mark the seven stars in order on a scrap of oilcloth, and the lake seems to flinch from it.
+mf_lake_cultist [smile]: Mark those seven stars in their true order upon that scrap of oilcloth, and watch how the black water already flinches back from the shore.
 time +60
 give mf_star_chart
 set mf_worm_weak
@@ -123,7 +123,7 @@ quest mf_worm ready
 -> clue_menu
 
 ~ weak_slow
-Narrator: It takes the whole night, lying on the shore with a lamp, but the chart is finished by dawn.
+Narrator: It takes the whole cold night lying belly-down on the shingle by the smoky glow of a shuttered lamp, but your star chart is inked and dry by dawn.
 time +300
 give mf_star_chart
 set mf_worm_weak
@@ -131,15 +131,15 @@ quest mf_worm ready
 -> clue_menu
 
 ~ lair
-Narrator: Down the long jetty a tear in the air hangs open over black water, and a white shape coils beyond it.
+Narrator: Out past the rotting pilings of the long jetty, a jagged tear in the air hangs open above the black water while something vast and pale coils behind it.
 * Go in and face it -> fight
 * Not yet -> END
 
 ~ fight
 cutscene mf_worm_reveals
-Narrator: The White Worm rises, vast and pale, from the rift in the lake bed, its mouth a ring of soft teeth.
+Narrator: The White Worm heaves its bulk up from the split lake bed, vast and tallow-pale, its yawning mouth ringed with circles of soft, wet teeth.
 cutscene mf_worm_reveals_2
-Narrator: It sings, and every worm in the water turns toward you at once.
+Narrator: A low, boneless note hums from its gullet, and every small worm in the dark shallows swings its blind head toward you at once.
 cutscene end
 if flag.mf_worm_weak
 combat mf_worm_weak
@@ -151,9 +151,9 @@ endif
 
 ~ aftermath
 cutscene mf_worm_falls
-Narrator: The Worm shudders, coils tight, and falls back through the rift, which closes on it like a wound.
+Narrator: The great pale bulk shudders, knots itself tight in sudden agony, and tumbles backward through the rift as the air seals shut behind it like a healing wound.
 cutscene mf_worm_falls_2
-Narrator: The moon swings its gaze over the water toward a dark forest to the north.
+Narrator: High above the quiet ripples, the leering crone in the moon rolls her heavy eye away from the water and fixes her gaze upon the dark timberline to the north.
 cutscene end
 set mf_worm_aftermath
 set old_fears_slain += 1
@@ -162,5 +162,5 @@ set moonfall_nights_left += 1
 give eye_of_the_white_worm
 quest mf_worm slain
 xp milestone
-Narrator: In Hartsblight, the trees are already bending their heads toward something tall.
+Narrator: Deep within Hartsblight Forest, the healed boughs are already bowing their crowns toward something tall that walks between the trunks.
 -> END

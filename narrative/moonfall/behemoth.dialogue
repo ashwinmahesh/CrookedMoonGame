@@ -3,36 +3,36 @@
 ~ arrive
 set mf_behemoth_arrived
 cutscene mf_rowans_erupts
-Narrator: Rowan's Rise bursts open like a boil, red light pouring from the hill, and the moor around it going to ash.
+Narrator: Rowan's Rise splits open like an old boil, spilling red light down its flank while the surrounding heather turns to grey ash.
 cutscene mf_rowans_erupts_2
-Narrator: Winged fiends rise from rivers of lava over the dark moors, and the sky above them is the colour of an old bruise.
+Narrator: Winged shapes haul themselves up from the rivers of slag, beating heavy through a sky the colour of a three-day bruise.
 cutscene end
-Narrator: Rowan's Rise has burst open, a volcano over a moor of ash, and the doomsday camp is hung with red cloth.
+Narrator: The burst hill smokes over a mile of cinders, and down in the camp the faithful have hung their tents with strips of red rag.
 check Dexterity DC 20 -> arrive_ok | arrive_hit
 
 ~ arrive_ok
-Narrator: You throw yourself behind a rock as the meteor falls, and it burns past.
+Narrator: {name} drops flat behind a split boulder as a falling stone roars past, leaving the smell of scorched hair and hot iron on the wind.
 set mf_behemoth_resisted
 -> END
 
 ~ arrive_hit
-Narrator: A burning boulder falls near a hero and the flame bites their arm before they roll clear.
+Narrator: A white-hot stone shatters against the turf beside {name}, and the stray cinders bite deep into their sleeve before they can roll clear.
 damage 4d10 fire party
 -> END
 
 ~ region
-Narrator: You cross the ash moor, and burning rocks drop out of the red sky.
+Narrator: Your boots sink ankle-deep in warm soot as you cross the moor, while burning stones drop whistling from the low red clouds.
 time +60
 check Dexterity DC 20 -> arrive_ok | arrive_hit
 
 ~ hook
-mf_ash_cultist [smile]: He says the hill has opened at last, as it was always going to, and would you like a good seat for the end.
+mf_ash_cultist [smile]: The hill has opened at last, just as the old verses promised it would. Come sit by the braziers, friends, and take a good seat for the end of all things.
 set mf_behemoth_asked
 quest mf_behemoth asked
 -> menu
 
 ~ hook_again
-mf_ash_cultist [smile]: He says it will be soon, and wonders if you have changed your minds about joining the prayer.
+mf_ash_cultist [smile]: It will not be long now, you can feel the heat of it through your soles. Have you changed your minds, then, about joining us in the last prayer?
 -> menu
 
 ~ menu
@@ -42,22 +42,22 @@ mf_ash_cultist [smile]: He says it will be soon, and wonders if you have changed
 * Say we will deal with it -> END
 
 ~ trouble
-mf_ash_cultist [afraid]: Meteors fall every hour, the cultists burst like firecrackers, and the fire marks those it touches until they change.
+mf_ash_cultist [afraid]: The sky throws down its stones every hour on the bell, and our brothers pop like dry pine needles in a hearth. Whoever the fire only grazes wakes up changed, and not for the better.
 -> menu
 
 ~ where
-mf_ash_cultist [sad]: He says a fiend born of every culture's fear of the end was called up by the spirit of a girl named Rowan, who wanted the world to burn.
+mf_ash_cultist [sad]: That thing in the pit was born from every old tale of the world's end, called up by the spiteful ghost of little Rowan. She hated the whole living realm and wished it all to cinders.
 -> menu
 
 ~ route_a
-mf_ash_cultist [sly]: He says Rowan's spirit is the key; learn the truth of her wickedness and shame her, and the thing weakens.
+mf_ash_cultist [sly]: If you mean tospoil our great night, look to the girl's spirit first. Dig up the plain truth of her wickedness and cast it in her teeth, and her pet beast will lose its stomach.
 * [Persuasion DC 20] Learn the truth of Rowan's wickedness -> a_ok | a_slow
 * [Intimidation DC 20] Press her story until she admits it -> a_ok | a_slow
 * Gather every tale of Rowan, however long it takes -> a_slow
 * Another time -> menu
 
 ~ a_ok
-mf_ash_cultist [neutral]: You piece it together: she was proud, cruel, a girl who wanted the apocalypse, and only love for her sister ever moved her.
+mf_ash_cultist [neutral]: So you pieced her sordid little history together, did you? Proud as a queen and twice as cruel, longing for the sky to fall, with never a soft thought save for her sister.
 time +60
 set mf_behemoth_found
 set mf_behemoth_clue_a
@@ -65,19 +65,19 @@ quest mf_behemoth trail
 -> menu
 
 ~ a_slow
-Narrator: It takes hours of old folk and older letters, but the truth of Rowan comes together at last.
+Narrator: It takes hours of coaxing dry memories from old folk and squinting at faded ink, until the shape of Rowan's short, bitter life lies plain before you.
 time +300
 set mf_behemoth_found
 quest mf_behemoth trail
 -> menu
 
 ~ clue
-mf_rowan_spirit [angry]: She tells you you are late, and that the end is already here and she was merely the first to ask for it.
+mf_rowan_spirit [angry]: You have come a long way through the soot for nothing, strangers, because you are far too late. The end is already here, and I was only the first honest soul to ask for it.
 set mf_behemoth_clue_met
 -> clue_menu
 
 ~ clue_again
-mf_rowan_spirit [neutral]: A short greeting back, in character, that welcomes the heroes to ask again.
+mf_rowan_spirit [neutral]: Back again through the cinders, are you? Speak quickly if you have anything left to say, before the mountain finishes clearing its throat.
 -> clue_menu
 
 ~ clue_menu
@@ -87,18 +87,18 @@ mf_rowan_spirit [neutral]: A short greeting back, in character, that welcomes th
 * Take our leave -> END
 
 ~ clue_talk
-mf_rowan_spirit [sad]: She says she was wicked and wanted the world over, and the only thing she ever loved was her sister.
+mf_rowan_spirit [sad]: I will not play penitent for you: I was wicked to the marrow, and I wanted this dirty world scrubbed out. Only my sister Clara ever kept my hand from the match.
 -> clue_menu
 
 ~ route_b
-mf_rowan_spirit [sad]: She asks, almost against her will, if her sister ever had children.
+mf_rowan_spirit [sad]: Do not look at me with those wet eyes, I asked for no pity. Tell me one thing only, and be plain about it: did my sister ever have children of her own?
 * [Arcana DC 20] Find Rowan's sister's descendant in the camp -> b_ok | b_slow
 * [History DC 20] Trace the family line from the barrow's portrait -> b_ok | b_slow
 * Search the camp for anyone with her sister's eyes -> b_slow
 * Another time -> clue_menu
 
 ~ b_ok
-mf_rowan_spirit [smile]: A woman in the camp has her sister's eyes, and she steps forward, blinking, and says, quietly, that she remembers the name.
+mf_rowan_spirit [smile]: Step closer to the embers and let me look at your face, girl. You have Clara's eyes down to the very squint, and I see my name is not quite dead on your tongue.
 time +60
 set mf_behemoth_found
 set mf_behemoth_clue_b
@@ -106,21 +106,21 @@ quest mf_behemoth trail
 -> clue_menu
 
 ~ b_slow
-Narrator: It takes hours of asking in the camp, but at last you find the one who is her sister's blood.
+Narrator: You go from tent to tent through the drifting ash, asking quiet questions of frightened folk, until at last you find one who carries her sister's blood.
 time +300
 set mf_behemoth_found
 quest mf_behemoth trail
 -> clue_menu
 
 ~ weak
-mf_rowan_spirit [sad]: She whispers that if she were to go willingly into the fire, the Behemoth that wears her wickedness would be hurt in its turn.
+mf_rowan_spirit [sad]: The beast down there wears my spite like a coat of iron. If I walk into the pit of my own free will, the fire that feeds it will turn and scald its belly instead.
 * [Persuasion DC 20] Persuade Rowan to go willingly into the lava -> weak_ok | weak_slow
 * [Insight DC 20] Show her the sister's love and let her choose -> weak_ok | weak_slow
 * Sit with her through the long hour until she is ready -> weak_slow
 * Another time -> clue_menu
 
 ~ weak_ok
-mf_rowan_spirit [sad]: Rowan looks at the descendant, whispers her sister's name, and walks calmly toward the fire.
+mf_rowan_spirit [sad]: Clara, she used to hold my wrist just so when the temper took me. Stand back from the rim now, all of you, while I go down and put my house in order.
 time +60
 give mf_rowan_locket
 set mf_behemoth_weak
@@ -128,7 +128,7 @@ quest mf_behemoth ready
 -> clue_menu
 
 ~ weak_slow
-Narrator: You stay by her through a long hour of silence, and at the end she rises, ready.
+Narrator: You sit beside the quiet girl while the ash settles on your shoulders for a long, wordless hour, until at last she stands and brushes her skirt.
 time +300
 give mf_rowan_locket
 set mf_behemoth_weak
@@ -136,15 +136,15 @@ quest mf_behemoth ready
 -> clue_menu
 
 ~ lair
-Narrator: The crater's lip lies ahead, hot and glowing, and something vast stirs in the lava below.
+Narrator: The cracked lip of the crater glows dull orange ahead of you, the heat wavering like summer glass as something vast shifts in the molten stone below.
 * Go in and face it -> fight
 * Not yet -> END
 
 ~ fight
 cutscene mf_behemoth_reveals
-Narrator: The Brimstone Behemoth climbs out of the crater, a mountain of horn and flame, wings of smoke spread across the sky.
+Narrator: The Brimstone Behemoth hauls its bulk over the crater's rim, a mountain of blackened horn and Split stone with wings of greasy smoke blotting out the stars.
 cutscene mf_behemoth_reveals_2
-Narrator: It speaks no word, and the whole moor lights with its breath.
+Narrator: It wastes no breath on boasts or curses, only opens its furnace jaws until the whole grey moor glares bright as noon.
 cutscene end
 if flag.mf_behemoth_weak
 combat mf_behemoth_weak
@@ -156,9 +156,9 @@ endif
 
 ~ aftermath
 cutscene mf_behemoth_falls
-Narrator: The Behemoth gutters, sinks into the lava, and the sky above the crater begins, slowly, to clear.
+Narrator: The great beast gutters like a tallow candle in a draught, sliding back into the cooling slag as the bruised sky above the hill begins to clear.
 cutscene mf_behemoth_falls_2
-Narrator: Far above, the moon has stopped turning away. It hangs low now, looking at you, and it is smiling.
+Narrator: High overhead, the Crooked Moon has stopped its slow turn away from the earth. It hangs low above the chimney pots now, staring straight down at you with a wide, patient smile.
 cutscene end
 set mf_behemoth_aftermath
 set old_fears_slain += 1
@@ -167,21 +167,21 @@ set moonfall_nights_left += 1
 give hide_of_the_brimstone_behemoth
 quest mf_behemoth slain
 quest moonfall one_last_choice
-Narrator: The last of the eight is gone, and the moon waits for you alone.
+Narrator: The eighth and last of the Old Fears lies cold in the ash, and up in the quiet sky the moon waits for you alone.
 move mf_last_hill:from_rise
 
 ~ descendant
-marianna_grey [afraid]: Marianna Grey says a name her family never spoke, and does not know why she has it on her tongue.
+marianna_grey [afraid]: Rowan... I do not know why that name comes to my mouth so easily, truly I don't. My mother's people never spoke it inside the house, not once while I was growing.
 * Tell her about Rowan -> descendant_told
 * Ask her what she remembers -> descendant_memory
 * Leave her be -> END
 
 ~ descendant_memory
-marianna_grey [sad]: She says her grandmother used to stop sewing at dusk and look at the hill, and never said why.
+marianna_grey [sad]: My grandmother would always set her mending down in her lap when the dusk came on. She used to stare out the parlour window toward that hill for the longest time, and never said why.
 -> descendant
 
 ~ descendant_told
-marianna_grey [sad]: She listens to the whole sad story with her hand on her mouth, and says she will go to her, if Rowan will have her.
+marianna_grey [sad]: Oh, the poor, bitter creature, to carry such a coal in her chest for all those years. I will go up the hill to her, if you think she would bear to look at me.
 set mf_behemoth_descendant
 advantage persuasion 2h: Rowan's sister's blood stands beside you
 -> END

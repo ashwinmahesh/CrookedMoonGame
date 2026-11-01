@@ -2,32 +2,32 @@
 
 ~ arrive
 set mf_leviathan_arrived
-Narrator: Murkwater Bend, stilt shacks and swamplights, boats sunk at their moorings, and a stink of old luck gone sour.
+Narrator: Stilt shacks lean over Murkwater Bend where swamplights bob above sunken boats, and the wet air reeks of old luck gone sour.
 check Wisdom DC 19 -> arrive_ok | arrive_hit
 
 ~ arrive_ok
-Narrator: You follow your own lantern and the swamplights lose their pull.
+Narrator: You keep your eyes on the warm brass glow of your own lantern, and the cold pale swamplights lose their pull.
 set mf_leviathan_resisted
 -> END
 
 ~ arrive_hit
-Narrator: The swamplights lure a hero off the boardwalk, and they come back damp and muddled.
+Narrator: A pale glow coaxes {name} right off the slick planks, and they wade back up out of the duckweed, sodden and blinking.
 damage 3d10 psychic party
 -> END
 
 ~ region
-Narrator: You walk the boardwalk, and every third plank gives way, and the swamplights wink knowingly.
+Narrator: Every third plank groans or snaps beneath your boots, while the little lights out in the cypress knees wink like knowing eyes.
 time +60
 check Wisdom DC 19 -> arrive_ok | arrive_hit
 
 ~ hook
-mf_nadine_bayou [weary]: She says everything in the bayou has been going wrong this week: the boats sink, the dice fall badly, and something huge turns in the water at night.
+mf_nadine_bayou [weary]: Nothing goes right in Murkwater this week, strangers. Boats sink at the rope, every roll comes up snake eyes, and something huge rolls in the dark water.
 set mf_leviathan_asked
 quest mf_leviathan asked
 -> menu
 
 ~ hook_again
-mf_nadine_bayou [weary]: She says another punt sank on a calm morning, and asks what you have learned.
+mf_nadine_bayou [weary]: Another flatbottom punt went down in dead calm water this morning, right at the post. Tell me you've learned something useful out there.
 -> menu
 
 ~ menu
@@ -37,22 +37,22 @@ mf_nadine_bayou [weary]: She says another punt sank on a calm morning, and asks 
 * Say we will deal with it -> END
 
 ~ trouble
-mf_nadine_bayou [weary]: Everything goes wrong by a little, always, swamplights lead folk astray, and the party-goers dance until they drop.
+mf_nadine_bayou [weary]: Everything misses by an inch now. Knots slip, lanterns crack, the lights lead folk into the muck, and the revellers dance till their knees give out.
 -> menu
 
 ~ where
-mf_nadine_bayou [sad]: She says an alligator was hexed into a colossus of bad luck to fight Snake Eye Jack, and it ate its makers, and it is in the bayou's deep pool.
+mf_nadine_bayou [sad]: Old fools hexed a bull gator into a colossus of bad luck to spite Snake Eye Jack. It ate its makers first, and now itwallows in the deep pool.
 -> menu
 
 ~ route_a
-mf_nadine_bayou [neutral]: She says a giant serpent sacred to Jack's followers nests upstream; the Leviathan hates it, and might follow you if you used it.
+mf_nadine_bayou [neutral]: A great river serpent sacred to Jack's people nests upstream in the reeds. That gator hates it fiercely, and might follow if you drove it down.
 * [Animal Handling DC 19] Bait the Leviathan with the sacred serpent -> a_ok | a_slow
 * [Survival DC 19] Read the serpent's nesting place to lead the Leviathan -> a_ok | a_slow
 * Drag bait through the swamp and see what follows -> a_slow
 * Another time -> menu
 
 ~ a_ok
-mf_nadine_bayou [smile]: The great serpent drifts through the water, and the Leviathan turns slowly, drawn after it toward its pool.
+mf_nadine_bayou [smile]: Look there, the great serpent is sliding down the channel, and that wicked old gator is turning its snout to follow it home.
 time +60
 set mf_leviathan_found
 set mf_leviathan_clue_a
@@ -60,19 +60,19 @@ quest mf_leviathan trail
 -> menu
 
 ~ a_slow
-Narrator: It takes a long wet afternoon of luring and bad luck, but the Leviathan finally turns toward the pool.
+Narrator: It takes a long, sodden afternoon of cursed ropes and slipped footing, but at last the great bulk in the black water turns toward the deep pool.
 time +300
 set mf_leviathan_found
 quest mf_leviathan trail
 -> menu
 
 ~ clue
-mf_jack_follower [smile]: He tips his hat and says it is a fine day for tempting fate, and would you like a drink to your health.
+mf_jack_follower [smile]: A fine damp evening for tempting fate, friends. Care to wet your whistles and drink to whatever luck you have left?
 set mf_leviathan_clue_met
 -> clue_menu
 
 ~ clue_again
-mf_jack_follower [neutral]: A short greeting back, in character, that welcomes the heroes to ask again.
+mf_jack_follower [neutral]: Back again, and still dry above the knees. Ask what you like, friends, the night isn't getting any younger.
 -> clue_menu
 
 ~ clue_menu
@@ -82,18 +82,18 @@ mf_jack_follower [neutral]: A short greeting back, in character, that welcomes t
 * Take our leave -> END
 
 ~ clue_talk
-mf_jack_follower [smile]: He says the followers bless idols of Jack for luck, and that a blessed idol rebounds a curse, which would be very bad news for a Leviathan.
+mf_jack_follower [smile]: We bless little wooden idols of old Jack for good fortune. Turn a blessed idol on a hex-beast, and all its sour luck rebounds right down its gullet.
 -> clue_menu
 
 ~ route_b
-mf_jack_follower [sly]: He says he knows where the beast was made, and might tell you for a fair bargain or a fair threat.
+mf_jack_follower [sly]: I know the black hole where those witches brewed that beast, sure enough. Might even point you there, for a fair wager or a very convincing reason.
 * [Intimidation DC 19] Intimidate him into telling where it was made -> b_ok | b_slow
 * [Persuasion DC 19] Charm him into telling where it was made -> b_ok | b_slow
 * Let him talk and listen to every wandering tale -> b_slow
 * Another time -> clue_menu
 
 ~ b_ok
-mf_jack_follower [sly]: He tells you the whole sorry story, the hexing and the sinking, and where the pool is.
+mf_jack_follower [sly]: They piled every spiteful hex they knew onto one mean gator, and it dragged them straight down to the black pool at the end of the rotten walk.
 time +60
 set mf_leviathan_found
 set mf_leviathan_clue_b
@@ -101,21 +101,21 @@ quest mf_leviathan trail
 -> clue_menu
 
 ~ b_slow
-Narrator: It takes a long drunken afternoon of rambling, but in the end he tells where the pool is.
+Narrator: It takes a long, bleary afternoon of spilled sour mash and crooked tales, but at last he points a wavering finger toward the black pool.
 time +300
 set mf_leviathan_found
 quest mf_leviathan trail
 -> clue_menu
 
 ~ weak
-mf_jack_follower [smile]: He says you need an idol of Snake Eye Jack blessed by a true follower; and he happens to be one.
+mf_jack_follower [smile]: What you need is an idol of Snake Eye Jack blessed by a true believer. Lucky for you, you're looking right at one.
 * [Religion DC 19] Persuade him to bless an idol for you -> weak_ok | weak_slow
 * [Persuasion DC 19] Show proper reverence so he blesses it freely -> weak_ok | weak_slow
 * Pay your respects at the shrine and ask politely, over hours -> weak_slow
 * Another time -> clue_menu
 
 ~ weak_ok
-mf_jack_follower [smile]: He lays a small idol in your hands and murmurs a blessing, and for a moment the whole swamp seems to wink.
+mf_jack_follower [smile]: Take this little carved fella and keep him dry. May Jack turn the bad dice back on the house, and may the swamp wink in your favour.
 time +60
 give mf_blessed_idol
 set mf_leviathan_weak
@@ -123,7 +123,7 @@ quest mf_leviathan ready
 -> clue_menu
 
 ~ weak_slow
-Narrator: It takes hours of dutiful respect at the shrine, but he finally blesses the idol.
+Narrator: It takes hours of quiet coin-tossing and muttered prayers beside the mossy shrine, but at last he presses the blessed wood into your palm.
 time +300
 give mf_blessed_idol
 set mf_leviathan_weak
@@ -131,15 +131,15 @@ quest mf_leviathan ready
 -> clue_menu
 
 ~ lair
-Narrator: The boardwalk ends at a cursed pool, black and still, with an island of mud and bones in its middle.
+Narrator: The rotten boardwalk gives out at the edge of a still, oil-black pool, with a low hump of mud and bleached ribs rising in its middle.
 * Go in and face it -> fight
 * Not yet -> END
 
 ~ fight
 cutscene mf_leviathan_reveals
-Narrator: The Jinxed Leviathan breaks the surface of the pool, a colossal alligator with a crown of old hexes, grinning.
+Narrator: The black water splits without a ripple, and the Jinxed Leviathan rises, a mountain of scarred hide crowned in tangled hex-charms and grinning wide.
 cutscene mf_leviathan_reveals_2
-Narrator: Its mouth opens, and the air fills with sour luck.
+Narrator: Its pale jaws yawn open, and a gust of river-rot and sour fortune washes over the planks.
 cutscene end
 if flag.mf_leviathan_weak
 combat mf_leviathan_weak
@@ -151,9 +151,9 @@ endif
 
 ~ aftermath
 cutscene mf_leviathan_falls
-Narrator: The Leviathan sinks beneath the pool, finally unlucky, and the swamplights wink out one by one.
+Narrator: The great scarred bulk rolls belly-up and sinks into the black mire, out of luck at last, as the swamplights wink out one by one.
 cutscene mf_leviathan_falls_2
-Narrator: The moon turns its gaze south and west, toward a forest of spiders.
+Narrator: High above the cypress tops, the leering moon shifts her sour gaze south and west, toward a dark tangle of web-hung pines.
 cutscene end
 set mf_leviathan_aftermath
 set old_fears_slain += 1
@@ -162,5 +162,5 @@ set moonfall_nights_left += 1
 give tooth_of_the_jinxed_leviathan
 quest mf_leviathan slain
 xp milestone
-Narrator: In the Webwoods something is stitching, and children have stopped playing.
+Narrator: Deep in the Webwoods, a long needle pulls silver thread through the hush, and the lost children have gone very quiet.
 -> END

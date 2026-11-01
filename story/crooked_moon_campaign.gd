@@ -10,6 +10,20 @@ const OUTCOMES := "res://data/tarot/outcomes.json"
 static var _outcomes: Dictionary = {}
 
 
+## `text` with `{flag.<id>}` filled by that story flag's value, so a quest's journal line, objective or hint can show a count (Moonfall's
+## "Nights left: {flag.moonfall_nights_left}" and "Old Fears slain: {flag.old_fears_slain} of 8"); a flag that is not set reads 0.
+func fill(text: String, st: StoryState) -> String:
+	if not text.contains("{flag."):
+		return text
+	var out := text
+	var re := RegEx.new()
+	re.compile("\\{flag\\.([a-z0-9_]+)\\}")
+	for m in re.search_all(text):
+		var v: Variant = st.get_flag(m.get_string(1), 0)
+		out = out.replace(m.get_string(0), "0" if v is bool and not v else str(v))
+	return out
+
+
 ## The reading: one card for every hero at the table, in party order (slots hero_1 to hero_N), drawn once from the playthrough's seed so
 ## a reload never changes it. Each slot's card id is also a string flag, tarot_hero_N, which conversations and places read.
 func ensure_drawn(st: StoryState) -> void:
