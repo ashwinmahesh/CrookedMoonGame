@@ -1,0 +1,96 @@
+You are drafting DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue, skill checks, a storyteller Narrator). It is folk horror set in Druskenvald, an afterlife realm of endless night under a gargantuan crescent moon with a leering crone's face; drawn like a 1960s monster cartoon stuck in Halloween, but the stakes are real. Humour is deadpan and sits beside the dread.
+
+THIS SCENE: Chapter 20, "The Roving Rookery". The village of Wickermoor has been swept into a mass hysteria by Golub Graygullet, a pigeon hag who has lived seventy years among the villagers wearing other women's skins, lately as the postmaster Theodora Mayville. She staged a murder, pinned it on the party (four level 10 heroes) with a forged letter, and charmed the whole village: every neighbour is hostile, doors are barred, shops shut, mobs with torches walk the lanes, and grey pigeons line every roof. A tell of the charm is a lilac glint in the eyes. Her flying, walking dovecote stands up on pigeon legs and roams between four roosts. Peeping Albert is her spy: a pudgy pigeon with a wrinkled bald human head, human ears, and hands for talons; he is terrified of dogs. Cast: Constable Doris Squire (tall, stocky, laconic, writes poetry in secret), Deputy Howie Butterman (friendly, false, a hidden cultist), Mayor Wendel Somerton (officious, loves forms, bowler hat, waxed moustache), Tamsin Ledger (deadpan auditor, treats strangeness as a clerical error), Ambrose Quill (grand hopeless poet), Sergeant Gaunt (overconfident coward), Pip Oakum (a small boy who trades buttons), Mrs. Oakum (hill-country twang, a werewolf who only wants to hurt no one), Marianna Grey (shy stablemistress), Weston Murdoch (warm Brightsinger preacher), Hilda Brom (terse huntress), Geneva Fairchild (earnest assistant, lilac eyes), Phillip and Adela Druskenvald (dapper theatrical lord; bright slangy lady), Dani Jenkin (child with a hound called Shuck), Jeremiah Stover (stubborn tuber farmer).
+
+RULES FOR THE TEXT
+- Spoken lines: 1 to 3 short sentences, about 12 to 30 words, never over 45. Contractions are normal. People talk in their own voice and do not explain the plot to the audience. Accent is word choice and rhythm, never phonetic spelling.
+- Option lines (what the player's party says or does): under 12 words, plain, in the party's voice ("We..." or an imperative).
+- Narrator lines ("The Vagrant", a frog-faced ferryman telling the tale afterwards: warm, folksy, wry, never gloating): second person, present tense, one or two sentences, only what a hero could perceive, concrete senses (smell, sound, texture), no game words (HP, roll, level, check, DC, save), no modern slang, never the word "suddenly". Never mention the Vagrant by name inside the line.
+- No stage directions, asterisks, italics, brackets, placeholders, emoji or em dashes (use commas, periods, colons). Straight quotes only. Do not use the arrow characters -> or => inside the text.
+- Content is dark but restrained: no gore, no graphic detail.
+- Each brief inside <<...>> says what the line must do; keep its facts, write it as the speaker would say it. Where it says "The Vagrant:" it is a Narrator line.
+
+## The conversation file `narrator` (structure is fixed; only the [[n]] markers are yours)
+
+```
+# R20 Narrator lines: the walking dovecote, the four roosts, and the fights' retries. Triggers: enter:<location or area id>, examine:<prop id>, defeat:<fight id>.
+# The Vagrant: second person, present tense, one or two sentences, no game words. Every key has a plain variant.
+
+~ enter:rk_dovecote_r1
+| [[1]]
+| [[2]]
+once
+
+~ enter:rk_dovecote_r2
+| [[3]]
+| [[4]]
+once
+
+~ enter:r2_rafters
+| [[5]]
+
+~ enter:rk_roost_prairie
+| [[6]]
+| [[7]]
+once
+
+~ enter:rk_roost_swamp
+| [[8]]
+| [[9]]
+once
+
+~ enter:rk_roost_foothills
+| [[10]]
+| [[11]]
+once
+
+~ enter:rk_roost_lakeshore
+| [[12]]
+| [[13]]
+once
+
+~ examine:rk_r1_cord
+| [[14]]
+
+~ examine:rk_r1_window
+| [[15]]
+
+~ examine:rk_r2_window_a
+| [[16]]
+
+~ defeat:rk_golub
+| [[17]]
+
+~ defeat:rk_posse
+| [[18]]
+
+~ defeat:rk_mob_fight
+| [[19]]
+```
+
+## Briefs
+
+1. node `enter:rk_dovecote_r1`, narrator: The Vagrant: stepping inside the walking dovecote, the floor moving gently underfoot, straw, seed, feathers, crates and cooing
+2. node `enter:rk_dovecote_r1`, narrator: The Vagrant: the ground floor of a building that is also a bird, a smell of grain and droppings, letters in drifts
+3. node `enter:rk_dovecote_r2`, narrator: The Vagrant: climbing into the roost floor, cubbies to the rafters stuffed with stolen letters, the thatch low overhead, a platform at the far end
+4. node `enter:rk_dovecote_r2`, narrator: The Vagrant: the roost is warm and close, and every cubby holds a pair of orange eyes watching you
+5. node `enter:r2_rafters`, narrator: The Vagrant: the high platform of straw and cloth, four windows open on the night, and the moor moving past like a slow river
+6. node `enter:rk_roost_prairie`, narrator: The Vagrant: the rolling prairie at night, gold-grey grass in the wind, the dark shape of the dovecote in the middle of it
+7. node `enter:rk_roost_prairie`, narrator: The Vagrant: tall grass whispers round your knees, and a big sky keeps its own counsel above
+8. node `enter:rk_roost_swamp`, narrator: The Vagrant: the murky swamp, green-black water between dead trees and reeds, the dovecote standing in the shallows on its bird legs
+9. node `enter:rk_roost_swamp`, narrator: The Vagrant: fog sits on still water and the dovecote's reflection stands upside down in it
+10. node `enter:rk_roost_foothills`, narrator: The Vagrant: the barren foothills under the Howlers, scree and thin cold air, the dovecote perched on a rise like a nest on a cliff
+11. node `enter:rk_roost_foothills`, narrator: The Vagrant: bare rock, a bitter wind, and the faint cooing that carries a long way on stone
+12. node `enter:rk_roost_lakeshore`, narrator: The Vagrant: the stormy north shore of Moonsong Lake, rain on shingle, the dovecote squatting on the stones against a dark treeline
+13. node `enter:rk_roost_lakeshore`, narrator: The Vagrant: grey water slaps the beach and the rain runs off the dovecote's thatch in ropes
+14. node `examine:rk_r1_cord`, narrator: The Vagrant: coils of leather cord, a hag's knotwork, tied and re-tied
+15. node `examine:rk_r1_window`, narrator: The Vagrant: the round window shows the moor sliding by, a dark and patient landscape being walked over
+16. node `examine:rk_r2_window_a`, narrator: The Vagrant: the tall window frames the night, the ground a very long way down
+17. node `defeat:rk_golub`, narrator: The Vagrant: the hag's laughter is the last thing you hear, high and delighted, and the roost goes around again
+18. node `defeat:rk_posse`, narrator: The Vagrant: a boot, a cudgel, and then the lane tilts; you wake to the sound of a key turning, though not in your favour
+19. node `defeat:rk_mob_fight`, narrator: The Vagrant: the torches close in, the chanting fills your ears, and the world goes dark at the edges
+
+## Reply format
+One line per marker, in order, exactly `n => text` (no quotes around the text, no extra lines, no commentary). 19 lines.

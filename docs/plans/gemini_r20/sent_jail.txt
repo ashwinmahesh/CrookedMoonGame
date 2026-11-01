@@ -1,0 +1,203 @@
+You are drafting DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue, skill checks, a storyteller Narrator). It is folk horror set in Druskenvald, an afterlife realm of endless night under a gargantuan crescent moon with a leering crone's face; drawn like a 1960s monster cartoon stuck in Halloween, but the stakes are real. Humour is deadpan and sits beside the dread.
+
+THIS SCENE: Chapter 20, "The Roving Rookery". The village of Wickermoor has been swept into a mass hysteria by Golub Graygullet, a pigeon hag who has lived seventy years among the villagers wearing other women's skins, lately as the postmaster Theodora Mayville. She staged a murder, pinned it on the party (four level 10 heroes) with a forged letter, and charmed the whole village: every neighbour is hostile, doors are barred, shops shut, mobs with torches walk the lanes, and grey pigeons line every roof. A tell of the charm is a lilac glint in the eyes. Her flying, walking dovecote stands up on pigeon legs and roams between four roosts. Peeping Albert is her spy: a pudgy pigeon with a wrinkled bald human head, human ears, and hands for talons; he is terrified of dogs. Cast: Constable Doris Squire (tall, stocky, laconic, writes poetry in secret), Deputy Howie Butterman (friendly, false, a hidden cultist), Mayor Wendel Somerton (officious, loves forms, bowler hat, waxed moustache), Tamsin Ledger (deadpan auditor, treats strangeness as a clerical error), Ambrose Quill (grand hopeless poet), Sergeant Gaunt (overconfident coward), Pip Oakum (a small boy who trades buttons), Mrs. Oakum (hill-country twang, a werewolf who only wants to hurt no one), Marianna Grey (shy stablemistress), Weston Murdoch (warm Brightsinger preacher), Hilda Brom (terse huntress), Geneva Fairchild (earnest assistant, lilac eyes), Phillip and Adela Druskenvald (dapper theatrical lord; bright slangy lady), Dani Jenkin (child with a hound called Shuck), Jeremiah Stover (stubborn tuber farmer).
+
+RULES FOR THE TEXT
+- Spoken lines: 1 to 3 short sentences, about 12 to 30 words, never over 45. Contractions are normal. People talk in their own voice and do not explain the plot to the audience. Accent is word choice and rhythm, never phonetic spelling.
+- Option lines (what the player's party says or does): under 12 words, plain, in the party's voice ("We..." or an imperative).
+- Narrator lines ("The Vagrant", a frog-faced ferryman telling the tale afterwards: warm, folksy, wry, never gloating): second person, present tense, one or two sentences, only what a hero could perceive, concrete senses (smell, sound, texture), no game words (HP, roll, level, check, DC, save), no modern slang, never the word "suddenly". Never mention the Vagrant by name inside the line.
+- No stage directions, asterisks, italics, brackets, placeholders, emoji or em dashes (use commas, periods, colons). Straight quotes only. Do not use the arrow characters -> or => inside the text.
+- Content is dark but restrained: no gore, no graphic detail.
+- Each brief inside <<...>> says what the line must do; keep its facts, write it as the speaker would say it. Where it says "The Vagrant:" it is a Narrator line.
+
+## The conversation file `jail` (structure is fixed; only the [[n]] markers are yours)
+
+```
+# R20: the jail beat. A timed escape with six ways out and no execution: the Witching Hour march ends in a slipped rope.
+
+~ cell
+Narrator: [[1]]
+doris_squire [neutral]: [[2]]
+-> cell_menu
+
+~ cell_menu
+* [[3]] -> trial
+* [if flag.quill_poem_found] [[4]] -> poems
+* [Insight DC 18] [[5]] -> noticed | notice_missed
+* [if flag.rk_charm_seen] [Persuasion DC 18] [[6]] -> persuaded | persuade_failed
+* [knows:dispel_magic] [[7]] -> out_spell
+* [knows:remove_curse] [[8]] -> out_spell
+* [[9]] -> END
+
+~ trial
+doris_squire [neutral]: [[10]]
+Narrator: [[11]]
+-> cell_menu
+
+~ poems
+doris_squire [afraid]: [[12]]
+Narrator: [[13]]
+set jail_key_left
+doris_squire [weary]: [[14]]
+-> END
+
+~ noticed
+set rk_charm_seen
+Narrator: [[15]]
+-> cell_menu
+~ notice_missed
+Narrator: [[16]]
+-> cell_menu
+
+~ persuaded
+set jail_key_left
+doris_squire [sad]: [[17]]
+-> END
+~ persuade_failed
+doris_squire [angry]: [[18]]
+-> END
+
+~ out_spell
+set jail_escape = "spell"
+set jail_free
+jail release
+quest roving_rookery hysteria
+Narrator: [[19]]
+doris_squire [weary]: [[20]]
+-> END
+
+~ bars
+Narrator: [[21]]
+* [if item:rk_improvised_picks] [Sleight of Hand DC 18] [[22]] -> out_picks | pick_failed
+* [Athletics DC 20] [[23]] -> out_bars | bar_failed
+* [[24]] -> END
+~ pick_failed
+Narrator: [[25]]
+-> END
+~ bar_failed
+Narrator: [[26]]
+-> END
+~ out_picks
+set jail_escape = "picks"
+set jail_free
+jail release
+quest roving_rookery hysteria
+Narrator: [[27]]
+-> END
+~ out_bars
+set jail_escape = "bars"
+set jail_free
+jail release
+quest roving_rookery hysteria
+Narrator: [[28]]
+-> END
+
+~ keys
+Narrator: [[29]]
+* [if flag.jail_key_left] [[30]] -> out_keys
+* [knows:mage_hand] [[31]] -> out_keys
+* [Sleight of Hand DC 14] [[32]] -> out_keys | keys_failed
+* [[33]] -> END
+~ keys_failed
+Narrator: [[34]]
+-> END
+~ out_keys
+set jail_escape = "keys"
+set jail_free
+jail release
+quest roving_rookery hysteria
+Narrator: [[35]]
+-> END
+
+~ window
+Narrator: [[36]]
+* [if attitude.weston_murdoch == friendly] [[37]] -> out_songbird
+* [[38]] -> END
+~ out_songbird
+set jail_escape = "help"
+set jail_free
+jail release
+quest roving_rookery hysteria
+Narrator: [[39]]
+-> END
+
+~ wall
+Narrator: [[40]]
+* [if minutes_since.jail_began >= 120] [[41]] -> wall_dani
+* [[42]] -> END
+~ wall_dani
+dani_jenkin [smile]: [[43]]
+set jail_escape = "help"
+set jail_free
+jail release
+quest roving_rookery hysteria
+Narrator: [[44]]
+-> END
+
+~ march
+Narrator: [[45]]
+doris_squire [neutral]: [[46]]
+Narrator: [[47]]
+set jail_escape = "march"
+set jail_free
+jail release
+quest roving_rookery hysteria
+Narrator: [[48]]
+move wickermoor_village:from_estate
+```
+
+## Briefs
+
+1. node `cell`, narrator: The Vagrant: the constable's cells, gear locked away, and through the wall the sound of the mob chanting your names
+2. node `cell`, spoken by doris_squire: Doris, at the bars, keeps it short: the trial is at the Witching Hour at the Oak; she does not say more
+3. node `cell_menu`, option: Ask about the trial.
+4. node `cell_menu`, option: Mention that we have read her poems.
+5. node `cell_menu`, option: Study Doris: is she herself?
+6. node `cell_menu`, option: Appeal to the Patient Lady's gentler side in her.
+7. node `cell_menu`, option: Cast Dispel Magic on Doris through the bars.
+8. node `cell_menu`, option: Cast Remove Curse on Doris through the bars.
+9. node `cell_menu`, option: Let her be; look for another way out.
+10. node `trial`, spoken by doris_squire: Doris says the mayor reads the letter at the Witching Hour in the Round, the crowd chants, and then the Oak; she does not look away when she says it
+11. node `trial`, narrator: The Vagrant: she says it like a thing she has been told rather than a thing she believes
+12. node `poems`, spoken by doris_squire: Doris goes still and says very quietly that nobody was meant to read those
+13. node `poems`, narrator: The Vagrant: something in her face loosens, the way a knot does when the right end is pulled
+14. node `poems`, spoken by doris_squire: Doris says she must think, and walks away from the bars, leaving her key ring on its peg
+15. node `noticed`, narrator: The Vagrant: the glint is under her eyes like a coin at the bottom of a well; she is hurting inside the charm
+16. node `notice_missed`, narrator: The Vagrant: her face is stone and you cannot read a thing in it
+17. node `persuaded`, spoken by doris_squire: Doris says the Patient Lady would not like this; she walks away to think and leaves her key ring on its peg, in reach of a long arm
+18. node `persuade_failed`, spoken by doris_squire: Doris says no, and turns her back
+19. node `out_spell`, narrator: The Vagrant: the lilac glint goes out of her eyes; she sniffs the forged letter, mutters about pigeon ink, and unlocks the door herself
+20. node `out_spell`, spoken by doris_squire: Doris tells you to go, quickly, before it comes back; she will be very bad at forgetting this
+21. node `bars`, narrator: The Vagrant: iron bars set in oak, with a lock the size of a fist
+22. node `bars`, option: Pick the lock with the improvised picks.
+23. node `bars`, option: Bend the bars apart with brute strength.
+24. node `bars`, option: Leave the bars.
+25. node `pick_failed`, narrator: The Vagrant: a nail snaps in the lock; there is a second nail, and another hour
+26. node `bar_failed`, narrator: The Vagrant: the bars shudder and hold, and somewhere a deputy shouts and then goes away again
+27. node `out_picks`, narrator: The Vagrant: the lock gives with a soft click; the picks go in your boot
+28. node `out_bars`, narrator: The Vagrant: iron screams, an oak post splinters, and the cell door swings open crooked
+29. node `keys`, narrator: The Vagrant: the key ring hangs on its peg across the office, a long arm's length beyond the bars
+30. node `keys`, option: Take the key ring from its peg.
+31. node `keys`, option: Fetch the keys with Mage Hand.
+32. node `keys`, option: Hook the ring with a belt and drag it over.
+33. node `keys`, option: Leave it.
+34. node `keys_failed`, narrator: The Vagrant: the ring slides, jingles, and stops two inches short
+35. node `out_keys`, narrator: The Vagrant: the ring comes sliding across the boards into your hand, and the cell opens like any other door
+36. node `window`, narrator: The Vagrant: a small window under the eaves, and on the sill a bird that is not a pigeon
+37. node `window`, option: Call to the songbirds Weston sent.
+38. node `window`, option: Leave the window.
+39. node `out_songbird`, narrator: The Vagrant: a sparrow lets a heavy iron key fall through the bars, then twenty more of them sing the deputies away
+40. node `wall`, narrator: The Vagrant: the back wall of the cell, and from the other side a scratching and a soft whine
+41. node `wall`, option: Whisper through the boards.
+42. node `wall`, option: Leave the wall.
+43. node `wall_dani`, spoken by dani_jenkin: Dani, whispering through a hole under the sill: Shuck dug it, hurry, nobody is looking
+44. node `wall_dani`, narrator: The Vagrant: a wolfhound-sized hole, and a child with her finger to her lips; you crawl out into the dark
+45. node `march`, narrator: The Vagrant: the Witching Hour has come; the door opens, the constable walks you out into the torches, and the Oak of Many Faces is lit from below
+46. node `march`, spoken by doris_squire: Doris says nothing at all, and puts a hand on your shoulder
+47. node `march`, narrator: The Vagrant: the crowd surges; the mayor reads the letter; the rope in the deputy's hands jerks and slips, and someone is shouting that the Oak is alive
+48. node `march`, narrator: The Vagrant: in the crush you slip the rope, shoulder through a torch-lit knot of neighbours, and run for the estate road with a hundred pigeons exploding off the roofs
+
+## Reply format
+One line per marker, in order, exactly `n => text` (no quotes around the text, no extra lines, no commentary). 48 lines.

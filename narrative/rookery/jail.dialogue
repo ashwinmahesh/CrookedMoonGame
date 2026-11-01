@@ -1,0 +1,131 @@
+# Drafted by Gemini (R20), edited. R20: the jail beat. A timed escape with six ways out and no execution: the Witching Hour march ends in a slipped rope.
+
+~ cell
+Narrator: Cold iron bars shut you into the constable's cell while your gear sits locked across the room. Through the timber wall, the muffled roar of a mob chants your names.
+doris_squire [neutral]: Trial's at the Witching Hour, down by the Oak. Save your breath till then.
+-> cell_menu
+
+~ cell_menu
+* Ask about the trial. -> trial
+* [if flag.quill_poem_found] Tell her we read her poems. -> poems
+* [Insight DC 18] Study Doris to see if she is herself. -> noticed | notice_missed
+* [if flag.rk_charm_seen] [Persuasion DC 18] Appeal to the Patient Lady's mercy in her. -> persuaded | persuade_failed
+* [knows:dispel_magic] Cast Dispel Magic on Doris through the bars. -> out_spell
+* [knows:remove_curse] Cast Remove Curse on Doris through the bars. -> out_spell
+* Leave her be and look for another way out. -> END
+
+~ trial
+doris_squire [neutral]: Mayor Somerton reads the letter in the Round at the Witching Hour. The neighbours answer, and then we walk you to the Oak.
+Narrator: Her gaze stays fixed on yours, flat and unblinking. She recites the words like a lesson learned by rote, not a truth she holds.
+-> cell_menu
+
+~ poems
+doris_squire [afraid]: Where did you find those? Nobody was ever meant to read those pages.
+Narrator: Something tight behind her eyes gives way, like a wet knot loosening when the right cord is drawn.
+set jail_key_left
+doris_squire [weary]: I need a quiet minute to think. My head's too loud right now.
+-> END
+
+~ noticed
+set rk_charm_seen
+Narrator: Deep in her eyes, a pale lilac glint sits like a tarnished coin at the bottom of a well. Beneath that cold glaze, she is straining against the charm.
+-> cell_menu
+~ notice_missed
+Narrator: Her broad face is set like quarry stone, giving nothing away.
+-> cell_menu
+
+~ persuaded
+set jail_key_left
+doris_squire [sad]: The Patient Lady wouldn't care for a night like this, not one bit. I need to step away and clear my head.
+-> END
+~ persuade_failed
+doris_squire [angry]: No. Keep your tongue behind your teeth till the hour comes.
+-> END
+
+~ out_spell
+set jail_escape = "spell"
+set jail_free
+jail release
+quest roving_rookery hysteria
+Narrator: The lilac gleam fades from her eyes like blown candle smoke. She sniffs the forged letter on her desk, mutters about foul pigeon ink, and turns the heavy iron key in your lock.
+doris_squire [weary]: Get out of here, quick, before that fog settles back in my skull. I'm going to be mighty poor at forgetting I did this.
+-> END
+
+~ bars
+Narrator: Thick iron bars sit rooted in seasoned oak, held fast by a padlock the size of a blacksmith's fist.
+* [if item:rk_improvised_picks] [Sleight of Hand DC 18] Pick the lock with the improvised picks. -> out_picks | pick_failed
+* [Athletics DC 20] Bend the iron bars apart by force. -> out_bars | bar_failed
+* Step back from the bars. -> END
+~ pick_failed
+Narrator: A bent nail snaps inside the keyhole with a sharp ping. You still have a second nail, and one dwindling hour.
+-> END
+~ bar_failed
+Narrator: The iron groans under your hands but holds fast in the oak. Down the lane, a deputy barks an order before his heavy boots fade into the night.
+-> END
+~ out_picks
+set jail_escape = "picks"
+set jail_free
+jail release
+quest roving_rookery hysteria
+Narrator: The heavy tumblers yield with a greased click, and you tuck the bent iron picks back into your boot.
+-> END
+~ out_bars
+set jail_escape = "bars"
+set jail_free
+jail release
+quest roving_rookery hysteria
+Narrator: Wrought iron shrieks, dry oak splinters like kindling, and the crooked cell door swings wide.
+-> END
+
+~ keys
+Narrator: The brass key ring glints on its wooden peg across the office, just a long arm's reach beyond the bars.
+* [if flag.jail_key_left] Reach out and take the key ring from the peg. -> out_keys
+* [knows:mage_hand] Float the key ring over with Mage Hand. -> out_keys
+* [Sleight of Hand DC 14] Loop a belt through the bars and snag the ring. -> out_keys | keys_failed
+* Leave the keys alone. -> END
+~ keys_failed
+Narrator: The iron ring scrapes across the wood with a tinny jingle, then catches on a splinter two inches past your fingertips.
+-> END
+~ out_keys
+set jail_escape = "keys"
+set jail_free
+jail release
+quest roving_rookery hysteria
+Narrator: The heavy ring whispers across the floorboards into your palm, and the padlock turns as smoothly as any tavern latch.
+-> END
+
+~ window
+Narrator: High under the eaves sits a narrow barred window, where a small brown bird with bright, clear eyes perches on the damp sill.
+* [if attitude.weston_murdoch == friendly] Whistle to the songbirds Weston sent. -> out_songbird
+* Step away from the window. -> END
+~ out_songbird
+set jail_escape = "help"
+set jail_free
+jail release
+quest roving_rookery hysteria
+Narrator: A brown sparrow drops a heavy iron key cleanly between the bars, while a score of songbirds trill outside the porch to draw the deputies down the lane.
+-> END
+
+~ wall
+Narrator: Along the low back timbers of the cell, rough claws scrape at the dirt and a hound lets out a muffled whine.
+* [if minutes_since.jail_began >= 120] Whisper through the loose boards. -> wall_dani
+* Step back from the wall. -> END
+~ wall_dani
+dani_jenkin [smile]: Shuck dug right under the sill for you. Hurry up and crawl through, nobody's watching the back lane.
+set jail_escape = "help"
+set jail_free
+jail release
+quest roving_rookery hysteria
+Narrator: Dirt crumbles away from a gap wide enough for a wolfhound, where a small girl presses one muddy finger to her lips as you belly out into the cold night air.
+-> END
+
+~ march
+Narrator: The Witching Hour tolls, and the constable marches you out into the pitch-smoke of a hundred torches. Down in the hollow, lanterns throw crooked shadows up the bark of the Oak of Many Faces.
+doris_squire [neutral]: Walk steady, now. Keep your feet under you.
+Narrator: The crowd surges forward as the mayor drones through the letter, until the hemp rope in the deputy's sweating hands jerks loose and a villager howls that the old Oak is moving.
+set jail_escape = "march"
+set jail_free
+jail release
+quest roving_rookery hysteria
+Narrator: You slip the slack hemp in the crush and shoulder past a knot of shouting neighbours, bolting for the estate road as a hundred grey pigeons clatter up from the roofs.
+move wickermoor_village:from_estate

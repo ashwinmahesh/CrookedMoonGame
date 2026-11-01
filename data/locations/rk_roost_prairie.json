@@ -1,0 +1,198 @@
+{
+  "id": "rk_roost_prairie",
+  "name": "Rolling Prairie",
+  "region": "wickermoor",
+  "summary": "Gold-grey grass under a big sky, with the dark shape of the dovecote squatting in it.",
+  "text": "Gold-grey grass under a big sky, with the dark shape of the dovecote squatting in it.",
+  "map": {
+    "rows": [
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "............~~~~~.................",
+      "............~~~~~.................",
+      "............~~~~~.................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      ".................................."
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "roost",
+      "name": "Rolling Prairie",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          32,
+          22
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      2,
+      12
+    ],
+    "from_dovecote": [
+      17,
+      11
+    ]
+  },
+  "exits": [
+    {
+      "id": "road_back",
+      "cell": [
+        0,
+        12
+      ],
+      "to": "travel",
+      "label": "The road back to Wickermoor"
+    },
+    {
+      "id": "dovecote_door",
+      "cell": [
+        17,
+        10
+      ],
+      "to": "rk_dovecote_r1",
+      "label": "Into the dovecote",
+      "spawn": "default",
+      "when": "flag.dovecote_roost == 0"
+    }
+  ],
+  "props": [
+    {
+      "id": "rk_dovecote_ext_prairie",
+      "cell": [
+        15,
+        5
+      ],
+      "kind": "examine",
+      "label": "The dovecote, squatting on its pigeon legs",
+      "model": "cottage",
+      "span": [
+        4,
+        4
+      ],
+      "when": "flag.dovecote_roost == 0",
+      "dialogue": "rookery/hunt:dovecote_here"
+    },
+    {
+      "id": "rk_footprints_prairie",
+      "cell": [
+        17,
+        8
+      ],
+      "kind": "examine",
+      "label": "Footprints the size of carts",
+      "model": "rocks",
+      "when": "flag.dovecote_roost != 0 and flag.hysteria_began",
+      "dialogue": "rookery/hunt:tracks"
+    },
+    {
+      "id": "rk_ring_prairie",
+      "cell": [
+        17,
+        8
+      ],
+      "kind": "decor",
+      "label": "A ring of flattened ground",
+      "model": "rocks",
+      "when": "flag.dovecote_roost != 0 and not flag.hysteria_began"
+    },
+    {
+      "id": "rk_arrive_prairie",
+      "cell": [
+        6,
+        12
+      ],
+      "kind": "decor",
+      "label": "The roost, and the sky above it",
+      "call": "rookery/hunt:arrive",
+      "approach": 10,
+      "call_when": "flag.dovecote_roost == 0 and flag.hysteria_began and not flag.golub_dead and not flag.rk_seen_prairie"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "rk_minions_prairie",
+      "trigger": "enter_area:roost",
+      "when": "flag.dovecote_roost == 0 and not flag.golub_dead and not flag.rk_minions_prairie_done",
+      "flag": "rk_minions_prairie_done",
+      "text": "Golub's charmed minions rise to meet you, a lilac glint in every eye.",
+      "monsters": [
+        {
+          "monster": "ettin",
+          "cell": [
+            24,
+            6
+          ],
+          "name": "A charmed ettin",
+          "facing": "west"
+        },
+        {
+          "monster": "ettin",
+          "cell": [
+            26,
+            14
+          ],
+          "name": "A charmed ettin",
+          "facing": "west"
+        },
+        {
+          "monster": "dire_wolf",
+          "cell": [
+            10,
+            4
+          ],
+          "name": "A charmed wolf",
+          "facing": "south"
+        },
+        {
+          "monster": "dire_wolf",
+          "cell": [
+            12,
+            20
+          ],
+          "name": "A charmed wolf",
+          "facing": "north"
+        },
+        {
+          "monster": "dire_wolf",
+          "cell": [
+            28,
+            20
+          ],
+          "name": "A charmed wolf",
+          "facing": "north"
+        }
+      ]
+    }
+  ],
+  "rest": "risky",
+  "rest_text": "The grass hisses and a pigeon watches from a stone."
+}

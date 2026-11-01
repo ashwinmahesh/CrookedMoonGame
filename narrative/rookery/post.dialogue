@@ -1,0 +1,77 @@
+# Drafted by Gemini (R20), edited. R20: the crime scene in the post office, the master stroke, and the envelopes.
+
+~ false_geneva
+quest roving_rookery crime_scene
+Narrator: The post office lamp stands cold and unlit above a scatter of fallen letters. Behind the counter lies what remains of Theodora Mayville, while little Geneva clings to the doorjamb.
+geneva_fairchild [afraid]: Please, you have to look at poor Miss Theodora. I tried to go near the counter, truly I did, but my legs won't carry me another step.
+* Tell us everything you saw, Geneva. -> geneva_story
+* Step behind the counter and examine the body. -> body_look
+* Study Geneva closely. -> accuse
+* Back away from the counter. -> stroke
+
+~ geneva_story
+geneva_fairchild [sad]: I came in at daybreak to sort the morning sacks and saw her lying there. I didn't touch a single letter, I swear it, I only ran for you.
+Narrator: Her tale comes out smooth as a river pebble, though the dusty floorboards where she claims she stood bear not a single footprint.
+-> false_geneva
+
+~ body_look
+Narrator: A woman lies crumpled behind the sorting table, yet her shape is all wrong, folded flat like a heavy winter coat dropped from its peg.
+* [Medicine DC 15] Check the remains for wounds, bone, and blood. -> body_skin | body_missed
+* [Investigation DC 15] Search the floorboards for tracks, feathers, or spilled ink. -> body_skin | body_missed
+* Step back from the counter. -> false_geneva
+
+~ body_skin
+set rk_skin_known
+Narrator: There is no bone here, nor flesh, nor a drop of blood. Someone has laid out the postmaster's empty, eyeless skin like a cast-off garment.
+geneva_fairchild [afraid]: I can't bear to look at her, I really can't. I'll just wait right here by the latch until you're done.
+-> false_geneva
+
+~ body_missed
+Narrator: It is a ruin of a woman, cold and dreadful in the gloom, and your eyes can make no further sense of it.
+-> false_geneva
+
+~ accuse
+Narrator: You turn from the counter and fix your gaze on the small clerk by the door.
+geneva_fairchild [afraid]: Why are you staring at me like that? I'm the one who fetched you, aren't I?
+-> stroke
+
+~ stroke
+cutscene rk_master_stroke
+geneva_fairchild [angry]: Murderers! Help, they've slain poor Theodora right before my eyes! Oh, look at your faces, my sweet gulls, walked right into the coop!
+cutscene rk_master_stroke_2
+Narrator: She folds inward with a dry rush of grey feathers, and a second empty skin settles softly onto the floorboards where the girl just stood.
+cutscene rk_master_stroke_3
+Narrator: Beyond the north window, the great dovecote rises on scaly pigeon legs, spreads broad wings of thatch, and lurches into the dark above the roofs.
+cutscene end
+set golub_exposed
+set hysteria_began = now
+set rk_posse_out
+quest roving_rookery posse
+Narrator: From the Founder's Round comes the roar of a dozen angry voices, followed by the heavy, oncoming stamp of boots down the lane.
+move wickermoor_village:from_post_office
+
+~ skin_theodora
+Narrator: Theodora Mayville's hollow skin lies slack as a shed coat on the boards, its eye sockets empty, reeking of old straw and wet feathers.
+* [Medicine DC 15] Examine the skin for wounds, bones, and how it was shed. -> skin_known | skin_unknown
+* Leave the skin where it lies. -> END
+~ skin_known
+set rk_skin_known
+Narrator: The hide was worn like a coat for years and slipped off whole at the seams, scored inside by something with hooked claws.
+-> END
+~ skin_unknown
+Narrator: It is a body and yet no body at all, and you cannot fathom how such a thing could be.
+-> END
+
+~ skin_geneva
+Narrator: A second skin lies crumpled by the threshold, small and fine-boned, its lilac eyes gone. Real Geneva Fairchild could not have been past twenty.
+-> END
+
+~ letters
+Narrator: A tray of crisp blank envelopes sits beside an open pot of black ink, while a grey pigeon on the window rail tilts its head at you.
+* Address an envelope to Theodora Mayville. -> letters_take
+* Leave the envelopes alone. -> END
+~ letters_take
+give rk_letter_theodora
+set rk_letter_ready
+Narrator: You write the postmaster's name in a neat, steady hand and press the wax seal; any post bird that takes it will fly straight to its mistress.
+-> END

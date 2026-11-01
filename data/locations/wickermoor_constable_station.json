@@ -146,9 +146,117 @@
       "model": "table_round",
       "dialogue": "wickermoor/misdelivered:doris_desk",
       "when": "flag.misdelivered_asked and not flag.letter_doris"
+    },
+    {
+      "id": "rk_cell_bars",
+      "cell": [
+        9,
+        6
+      ],
+      "kind": "examine",
+      "label": "The cell door, a barred frame",
+      "model": "barred_door",
+      "dialogue": "rookery/jail:bars",
+      "when": "jailed and flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_cell_floor",
+      "cell": [
+        8,
+        2
+      ],
+      "kind": "search",
+      "label": "Loose boards in the cell floor",
+      "search_dc": 12,
+      "item": "rk_improvised_picks",
+      "when": "jailed and flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_cell_window",
+      "cell": [
+        10,
+        1
+      ],
+      "kind": "examine",
+      "label": "A barred window under the eaves",
+      "model": "window",
+      "dialogue": "rookery/jail:window",
+      "when": "jailed and flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_cell_wall",
+      "cell": [
+        11,
+        3
+      ],
+      "kind": "examine",
+      "label": "The cell's back wall",
+      "model": "rocks",
+      "dialogue": "rookery/jail:wall",
+      "when": "jailed and flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_key_peg",
+      "cell": [
+        13,
+        8
+      ],
+      "kind": "examine",
+      "label": "A ring of keys on a peg",
+      "model": "lantern_bracket",
+      "dialogue": "rookery/jail:keys",
+      "when": "jailed and flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_doris_poems",
+      "cell": [
+        7,
+        13
+      ],
+      "kind": "examine",
+      "label": "A desk drawer that sticks",
+      "model": "papers",
+      "dialogue": "rookery/poetry:drawer",
+      "when": "(jailed or (not flag.hysteria_began or flag.golub_dead)) and not flag.quill_poem_found"
     }
   ],
   "npcs": [
+    {
+      "npc": "doris_squire",
+      "cell": [
+        9,
+        8
+      ],
+      "dialogue": "rookery/jail:cell",
+      "when": "jailed and flag.hysteria_began and not flag.golub_dead and minutes_since.jail_began < 360"
+    },
+    {
+      "npc": "doris_squire",
+      "cell": [
+        9,
+        8
+      ],
+      "dialogue": "rookery/jail:march",
+      "when": "jailed and flag.hysteria_began and not flag.golub_dead and minutes_since.jail_began >= 360"
+    },
+    {
+      "npc": "doris_squire",
+      "cell": [
+        5,
+        11
+      ],
+      "dialogue": "rookery/poetry:doris_station",
+      "when": "flag.golub_dead and flag.quill_poem_found and not flag.rk_poetry_met"
+    },
+    {
+      "npc": "mrs_oakum",
+      "cell": [
+        3,
+        3
+      ],
+      "dialogue": "rookery/quiet_door:prisoner",
+      "when": "flag.rk_oakum_taken and not flag.golub_dead"
+    },
     {
       "npc": "doris_squire",
       "cell": [
@@ -198,5 +306,7 @@
       "dim_ft": 30,
       "color": "candle"
     }
-  ]
+  ],
+  "encounters": [],
+  "recheck_minutes": 30
 }

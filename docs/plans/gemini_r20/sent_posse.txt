@@ -1,0 +1,135 @@
+You are drafting DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue, skill checks, a storyteller Narrator). It is folk horror set in Druskenvald, an afterlife realm of endless night under a gargantuan crescent moon with a leering crone's face; drawn like a 1960s monster cartoon stuck in Halloween, but the stakes are real. Humour is deadpan and sits beside the dread.
+
+THIS SCENE: Chapter 20, "The Roving Rookery". The village of Wickermoor has been swept into a mass hysteria by Golub Graygullet, a pigeon hag who has lived seventy years among the villagers wearing other women's skins, lately as the postmaster Theodora Mayville. She staged a murder, pinned it on the party (four level 10 heroes) with a forged letter, and charmed the whole village: every neighbour is hostile, doors are barred, shops shut, mobs with torches walk the lanes, and grey pigeons line every roof. A tell of the charm is a lilac glint in the eyes. Her flying, walking dovecote stands up on pigeon legs and roams between four roosts. Peeping Albert is her spy: a pudgy pigeon with a wrinkled bald human head, human ears, and hands for talons; he is terrified of dogs. Cast: Constable Doris Squire (tall, stocky, laconic, writes poetry in secret), Deputy Howie Butterman (friendly, false, a hidden cultist), Mayor Wendel Somerton (officious, loves forms, bowler hat, waxed moustache), Tamsin Ledger (deadpan auditor, treats strangeness as a clerical error), Ambrose Quill (grand hopeless poet), Sergeant Gaunt (overconfident coward), Pip Oakum (a small boy who trades buttons), Mrs. Oakum (hill-country twang, a werewolf who only wants to hurt no one), Marianna Grey (shy stablemistress), Weston Murdoch (warm Brightsinger preacher), Hilda Brom (terse huntress), Geneva Fairchild (earnest assistant, lilac eyes), Phillip and Adela Druskenvald (dapper theatrical lord; bright slangy lady), Dani Jenkin (child with a hound called Shuck), Jeremiah Stover (stubborn tuber farmer).
+
+RULES FOR THE TEXT
+- Spoken lines: 1 to 3 short sentences, about 12 to 30 words, never over 45. Contractions are normal. People talk in their own voice and do not explain the plot to the audience. Accent is word choice and rhythm, never phonetic spelling.
+- Option lines (what the player's party says or does): under 12 words, plain, in the party's voice ("We..." or an imperative).
+- Narrator lines ("The Vagrant", a frog-faced ferryman telling the tale afterwards: warm, folksy, wry, never gloating): second person, present tense, one or two sentences, only what a hero could perceive, concrete senses (smell, sound, texture), no game words (HP, roll, level, check, DC, save), no modern slang, never the word "suddenly". Never mention the Vagrant by name inside the line.
+- No stage directions, asterisks, italics, brackets, placeholders, emoji or em dashes (use commas, periods, colons). Straight quotes only. Do not use the arrow characters -> or => inside the text.
+- Content is dark but restrained: no gore, no graphic detail.
+- Each brief inside <<...>> says what the line must do; keep its facts, write it as the speaker would say it. Where it says "The Vagrant:" it is a Narrator line.
+
+## The conversation file `posse` (structure is fixed; only the [[n]] markers are yours)
+
+```
+# R20: the posse at the post office door. Doris holds a forged letter; they are charmed. Talk, run, give up or fight.
+
+~ start
+Narrator: [[1]]
+doris_squire [angry]: [[2]]
+-> menu
+
+~ menu
+* [Insight DC 18] [[3]] -> charm | charm_missed
+* [if flag.rk_charm_seen] [Persuasion DC 18] [[4]] -> talk_down | talk_fail
+* [if flag.rk_charm_seen] [Deception DC 18] [[5]] -> talk_down | talk_fail
+* [Intimidation DC 20] [[6]] -> talk_down | talk_fail
+* [knows:dispel_magic] [[7]] -> spell
+* [knows:remove_curse] [[8]] -> spell
+* [[9]] -> flee
+* [[10]] -> surrender
+* [[11]] -> fight
+
+~ charm
+set rk_charm_seen
+Narrator: [[12]]
+-> menu
+~ charm_missed
+Narrator: [[13]]
+-> menu
+
+~ talk_fail
+doris_squire [angry]: [[14]]
+-> menu_after_fail
+
+~ menu_after_fail
+* [knows:dispel_magic] [[15]] -> spell
+* [knows:remove_curse] [[16]] -> spell
+* [[17]] -> flee
+* [[18]] -> surrender
+* [[19]] -> fight
+
+~ talk_down
+set posse_outcome = "talked"
+set rk_posse_done
+quest roving_rookery hysteria
+doris_squire [weary]: [[20]]
+Narrator: [[21]]
+-> END
+
+~ spell
+set posse_outcome = "talked"
+set rk_posse_done
+set doris_cleared
+quest roving_rookery hysteria
+Narrator: [[22]]
+doris_squire [neutral]: [[23]]
+-> END
+
+~ flee
+set posse_outcome = "fled"
+set rk_posse_done
+quest roving_rookery hysteria
+Narrator: [[24]]
+move wickermoor_village:from_estate
+
+~ fight
+set posse_outcome = "fought"
+Narrator: [[25]]
+combat rk_posse
+
+~ surrender
+set posse_outcome = "surrendered"
+set rk_posse_done
+set jail_began = now
+quest roving_rookery jailed
+doris_squire [neutral]: [[26]]
+Narrator: [[27]]
+jail wickermoor_constable_station:cells until flag.jail_free
+
+~ howie
+howie_butterman [smile]: [[28]]
+-> start
+
+~ grunt
+Narrator: [[29]]
+-> END
+```
+
+## Briefs
+
+1. node `start`, narrator: The Vagrant: the posse fills the lane, torches and cudgels, Doris Squire in front with a letter held up like a warrant
+2. node `start`, spoken by doris_squire: Doris, clipped, says the letter names you as the postmaster's killers; hands up, quietly, or she takes you by force; she says very few words
+3. node `menu`, option: Look closely at Doris's eyes and the faces behind her.
+4. node `menu`, option: Tell Doris the letter is a forgery and she is not herself.
+5. node `menu`, option: Swear we found the body that way and send the posse after Geneva.
+6. node `menu`, option: Warn her what the posse will cost her if it comes closer.
+7. node `menu`, option: Cast Dispel Magic on Doris.
+8. node `menu`, option: Cast Remove Curse on Doris.
+9. node `menu`, option: Run: the east alley behind the post office.
+10. node `menu`, option: Put our hands up and go with them.
+11. node `menu`, option: Fight our way out.
+12. node `charm`, narrator: The Vagrant: a lilac glint in every eye, steady and unblinking; the posse is not angry, it is being walked
+13. node `charm_missed`, narrator: The Vagrant: all you see is an angry mob with the sort of faces that came straight from supper
+14. node `talk_fail`, spoken by doris_squire: Doris says no, and signals the deputies forward; two words and a step
+15. node `menu_after_fail`, option: Cast Dispel Magic on Doris.
+16. node `menu_after_fail`, option: Cast Remove Curse on Doris.
+17. node `menu_after_fail`, option: Run: the east alley behind the post office.
+18. node `menu_after_fail`, option: Put our hands up and go with them.
+19. node `menu_after_fail`, option: Fight our way out.
+20. node `talk_down`, spoken by doris_squire: Doris wavers, frowns at the letter, and says she gives you an hour, no more; she has seen the pigeons too
+21. node `talk_down`, narrator: The Vagrant: the posse goes slowly back toward the Round, still chanting; the hysteria has not lifted, only paused
+22. node `spell`, narrator: The Vagrant: the magic runs over her like cold water and the lilac glint goes out of her eyes; for an hour Doris Squire is herself
+23. node `spell`, spoken by doris_squire: Doris sniffs the letter, mutters that the ink stinks of pigeon, and tells you to go, quickly, before the charm creeps back
+24. node `flee`, narrator: The Vagrant: you bolt down the east alley, over a fence, and through someone's cabbages; the shouting follows you all the way to the estate road
+25. node `fight`, narrator: The Vagrant: Doris sets her feet and the deputies come on
+26. node `surrender`, spoken by doris_squire: Doris, grimly, says gear off, hands where she can see them; a bed and a bucket until the Witching Hour
+27. node `surrender`, narrator: The Vagrant: the cell door is only a barred frame, but there is nowhere in Wickermoor to take what they have kept; across the Round the mob is already chanting
+28. node `howie`, spoken by howie_butterman: Howie, friendly and false, says it would all go easier if you come along quietly; he can speak to Doris about a quick trial
+29. node `grunt`, narrator: The Vagrant: a deputy in an armband stares through you and mutters your names in rhythm, over and over
+
+## Reply format
+One line per marker, in order, exactly `n => text` (no quotes around the text, no extra lines, no commentary). 29 lines.

@@ -1,0 +1,125 @@
+You are drafting DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue, skill checks, a storyteller Narrator). It is folk horror set in Druskenvald, an afterlife realm of endless night under a gargantuan crescent moon with a leering crone's face; drawn like a 1960s monster cartoon stuck in Halloween, but the stakes are real. Humour is deadpan and sits beside the dread.
+
+THIS SCENE: Chapter 20, "The Roving Rookery". The village of Wickermoor has been swept into a mass hysteria by Golub Graygullet, a pigeon hag who has lived seventy years among the villagers wearing other women's skins, lately as the postmaster Theodora Mayville. She staged a murder, pinned it on the party (four level 10 heroes) with a forged letter, and charmed the whole village: every neighbour is hostile, doors are barred, shops shut, mobs with torches walk the lanes, and grey pigeons line every roof. A tell of the charm is a lilac glint in the eyes. Her flying, walking dovecote stands up on pigeon legs and roams between four roosts. Peeping Albert is her spy: a pudgy pigeon with a wrinkled bald human head, human ears, and hands for talons; he is terrified of dogs. Cast: Constable Doris Squire (tall, stocky, laconic, writes poetry in secret), Deputy Howie Butterman (friendly, false, a hidden cultist), Mayor Wendel Somerton (officious, loves forms, bowler hat, waxed moustache), Tamsin Ledger (deadpan auditor, treats strangeness as a clerical error), Ambrose Quill (grand hopeless poet), Sergeant Gaunt (overconfident coward), Pip Oakum (a small boy who trades buttons), Mrs. Oakum (hill-country twang, a werewolf who only wants to hurt no one), Marianna Grey (shy stablemistress), Weston Murdoch (warm Brightsinger preacher), Hilda Brom (terse huntress), Geneva Fairchild (earnest assistant, lilac eyes), Phillip and Adela Druskenvald (dapper theatrical lord; bright slangy lady), Dani Jenkin (child with a hound called Shuck), Jeremiah Stover (stubborn tuber farmer).
+
+RULES FOR THE TEXT
+- Spoken lines: 1 to 3 short sentences, about 12 to 30 words, never over 45. Contractions are normal. People talk in their own voice and do not explain the plot to the audience. Accent is word choice and rhythm, never phonetic spelling.
+- Option lines (what the player's party says or does): under 12 words, plain, in the party's voice ("We..." or an imperative).
+- Narrator lines ("The Vagrant", a frog-faced ferryman telling the tale afterwards: warm, folksy, wry, never gloating): second person, present tense, one or two sentences, only what a hero could perceive, concrete senses (smell, sound, texture), no game words (HP, roll, level, check, DC, save), no modern slang, never the word "suddenly". Never mention the Vagrant by name inside the line.
+- No stage directions, asterisks, italics, brackets, placeholders, emoji or em dashes (use commas, periods, colons). Straight quotes only. Do not use the arrow characters -> or => inside the text.
+- Content is dark but restrained: no gore, no graphic detail.
+- Each brief inside <<...>> says what the line must do; keep its facts, write it as the speaker would say it. Where it says "The Vagrant:" it is a Narrator line.
+
+## The conversation file `poetry` (structure is fixed; only the [[n]] markers are yours)
+
+```
+# R20 side quest: Doris Writes Poetry. Ambrose Quill finds a nameless poem better than his own; the party finds the rest in Doris's desk and, when the charm lifts, brings him to her.
+
+~ start
+Narrator: [[1]]
+ambrose_quill [smile]: [[2]]
+* [[3]] -> read
+* [[4]] -> accept
+* [[5]] -> END
+
+~ read
+ambrose_quill [sad]: [[6]]
+Narrator: [[7]]
+-> start
+
+~ accept
+set quill_asked
+quest doris_poetry asked
+ambrose_quill [smile]: [[8]]
+-> END
+
+~ progress
+if flag.golub_dead and flag.quill_poem_found and not flag.rk_poetry_met
+ambrose_quill [smile]: [[9]]
+* [[10]] -> go_station
+* [[11]] -> END
+endif
+if flag.quill_poem_found
+ambrose_quill [weary]: [[12]]
+-> END
+endif
+ambrose_quill [sly]: [[13]]
+-> END
+
+~ go_station
+Narrator: [[14]]
+move wickermoor_constable_station
+
+~ drawer
+Narrator: [[15]]
+* [Sleight of Hand DC 10] [[16]] -> found | found
+* [[17]] -> found
+* [[18]] -> END
+
+~ found
+set quill_poem_found
+give rk_doris_poems
+if flag.quill_asked
+quest doris_poetry poem_found
+endif
+Narrator: [[19]]
+* [[20]] -> keep
+* [ends:doris_poetry] [[21]] -> burn
+
+~ keep
+Narrator: [[22]]
+-> END
+
+~ burn
+quest doris_poetry burned
+take rk_doris_poems
+Narrator: [[23]]
+-> END
+
+~ doris_station
+appear ambrose_quill
+Narrator: [[24]]
+ambrose_quill [smile]: [[25]]
+doris_squire [afraid]: [[26]]
+ambrose_quill [sly]: [[27]]
+set rk_poetry_met
+quest doris_poetry met
+doris_squire [smile]: [[28]]
+-> END
+```
+
+## Briefs
+
+1. node `start`, narrator: The Vagrant: Ambrose Quill on an upturned crate, reciting to a mob that has stopped to listen, every bit as grand and hopeless as ever
+2. node `start`, spoken by ambrose_quill: Quill, flourishing a sheet, says he found a nameless poem pinned to the notice board that is better than anything he has written, and he is furious, and he must find the poet
+3. node `start`, option: Ask to see the poem.
+4. node `start`, option: Offer to find the poet.
+5. node `start`, option: Say we are busy.
+6. node `read`, spoken by ambrose_quill: Quill reads four lines about the moor in the rain, in a plain square voice, and goes quiet
+7. node `read`, narrator: The Vagrant: it is a good poem, plain as a stone and twice as heavy
+8. node `accept`, spoken by ambrose_quill: Quill declares the quest a noble one and says the hand is square and the paper is the constable's; he is not accusing anyone
+9. node `progress`, spoken by ambrose_quill: Quill says the charm is over, and the poet may be told; he has prepared a modest critique
+10. node `progress`, option: Take Quill to the constable's station.
+11. node `progress`, option: Not yet.
+12. node `progress`, spoken by ambrose_quill: Quill asks that nothing be done until the mob stops chanting, as he does not fancy reading verse to a posse
+13. node `progress`, spoken by ambrose_quill: Quill asks if there is any word of the poet, and says the constable's desk is a place a rhymer might look
+14. node `go_station`, narrator: The Vagrant: the two of you walk to the constable's station, Quill rehearsing under his breath
+15. node `drawer`, narrator: The Vagrant: the desk drawer sticks, then gives with a soft squeak; inside, a stack of neat square sheets tied with a bootlace
+16. node `drawer`, option: Work the drawer open quietly.
+17. node `drawer`, option: Force it with a knife.
+18. node `drawer`, option: Leave it.
+19. node `found`, narrator: The Vagrant: twenty poems about the moor, a lost sister and the Patient Lady, in a hand you recognise from every warning ticket in the village; they are good
+20. node `found`, option: Keep them safe, to bring to Ambrose Quill.
+21. node `found`, option: Burn them: nobody should read her heart without leave.
+22. node `keep`, narrator: The Vagrant: you tie the bootlace again and tuck the stack into your coat
+23. node `burn`, narrator: The Vagrant: the stove takes them hungrily; for a moment each page glows with its own words before the words go out
+24. node `doris_station`, narrator: The Vagrant: Doris Squire at her desk, cap straight; Ambrose Quill stands in the doorway holding the stack of poems like a baby
+25. node `doris_station`, spoken by ambrose_quill: Quill, solemn for once, says he has read all twenty and the third is the best thing he has heard in a decade; he would be honoured to publish it under her name
+26. node `doris_station`, spoken by doris_squire: Doris stares at the poems, then at Quill, and says four words: it is not very good
+27. node `doris_station`, spoken by ambrose_quill: Quill says that is exactly the sort of thing a poet says when it is very good indeed
+28. node `doris_station`, spoken by doris_squire: Doris says to leave the stack on the desk, and not to tell anyone, and perhaps to come back on Thursday
+
+## Reply format
+One line per marker, in order, exactly `n => text` (no quotes around the text, no extra lines, no commentary). 28 lines.

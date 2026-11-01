@@ -1,0 +1,82 @@
+# Drafted by Gemini (R20), edited. R20: the posse at the post office door. Doris holds a forged letter; they are charmed. Talk, run, give up or fight.
+
+~ start
+Narrator: Torches and heavy cudgels crowd the narrow lane, smelling of pitch and sour wool. Doris Squire stands in front, holding up a folded letter like a warrant.
+doris_squire [angry]: This letter names you the postmaster's killers. Hands up, come along quiet, or we take you down by force.
+-> menu
+
+~ menu
+* [Insight DC 18] Study Doris's eyes and the faces crowded behind her. -> charm | charm_missed
+* [if flag.rk_charm_seen] [Persuasion DC 18] Tell Doris the letter is forged and her mind isn't her own. -> talk_down | talk_fail
+* [if flag.rk_charm_seen] [Deception DC 18] Swear we found the body and blame Geneva instead. -> talk_down | talk_fail
+* [Intimidation DC 20] Warn her what this mob will cost her if they step closer. -> talk_down | talk_fail
+* [knows:dispel_magic] Cast Dispel Magic on Doris. -> spell
+* [knows:remove_curse] Cast Remove Curse on Doris. -> spell
+* Bolt down the east alley behind the post office. -> flee
+* Put our hands up and go with them quietly. -> surrender
+* Draw weapons and fight our way through. -> fight
+
+~ charm
+set rk_charm_seen
+Narrator: A flat lilac glint sits in every single eye, steady and unblinking in the torchlight. This posse isn't angry, friends: it's being walked on a leash.
+-> menu
+~ charm_missed
+Narrator: All you can make out in the smoky glare is a press of grim, tight-jawed faces that came straight from the supper table.
+-> menu
+
+~ talk_fail
+doris_squire [angry]: No. Take them.
+-> menu_after_fail
+
+~ menu_after_fail
+* [knows:dispel_magic] Cast Dispel Magic on Doris. -> spell
+* [knows:remove_curse] Cast Remove Curse on Doris. -> spell
+* Bolt down the east alley behind the post office. -> flee
+* Put our hands up and go with them quietly. -> surrender
+* Draw weapons and fight our way through. -> fight
+
+~ talk_down
+set posse_outcome = "talked"
+set rk_posse_done
+quest roving_rookery hysteria
+doris_squire [weary]: Wait a minute, this hand isn't right. I've seen those grey birds watching the roofs too, so you get one hour, no more.
+Narrator: The crowd shuffles slowly back toward the Round, their boots scraping the cobbles as they keep up a low chant. The fever hasn't broken, only paused.
+-> END
+
+~ spell
+set posse_outcome = "talked"
+set rk_posse_done
+set doris_cleared
+quest roving_rookery hysteria
+Narrator: The spell runs over her like a bucket of well water, and the lilac shine drains right out of her eyes. For the next hour, Doris Squire is her own woman.
+doris_squire [neutral]: Bah, this ink reeks of wet pigeon feathers. Get moving, quick now, before that purple fog creeps back into my head.
+-> END
+
+~ flee
+set posse_outcome = "fled"
+set rk_posse_done
+quest roving_rookery hysteria
+Narrator: You bolt down the dark alley, vault a splintered rail, and tear straight through somebody's winter cabbages. Their hoarse shouting chases your heels all the way to the estate road.
+move wickermoor_village:from_estate
+
+~ fight
+set posse_outcome = "fought"
+Narrator: Doris plants her heavy boots on the stones, and the deputies surge forward with their clubs raised.
+combat rk_posse
+
+~ surrender
+set posse_outcome = "surrendered"
+set rk_posse_done
+set jail_began = now
+quest roving_rookery jailed
+doris_squire [neutral]: Gear on the stones, hands where I can see them. You get a cot and a bucket until the Witching Hour.
+Narrator: The cell door is little more than an iron frame, though there's nowhere in Wickermoor left to run. Across the Round, you can already hear the mob chanting in the dark.
+jail wickermoor_constable_station:cells until flag.jail_free
+
+~ howie
+howie_butterman [smile]: It'll go a whole lot easier on everyone if you just walk along quiet-like, friends. I can put a warm word in Doris's ear for a quick trial.
+-> start
+
+~ grunt
+Narrator: A deputy in a linen armband stares straight through your shoulder, muttering your names under his breath in a slow, steady rhythm.
+-> END

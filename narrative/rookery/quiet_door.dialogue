@@ -1,0 +1,91 @@
+# Drafted by Gemini (R20), edited. R20 side quest: The Quiet Door. Marianna Grey is hiding Mrs. Oakum from the mob; the party escorts her to the estate in three legs.
+
+~ start
+Narrator: Marianna Grey stands pressed against the rough timber at the corner of the stable yard, her face pale in the gloom. She beckons to you with a cold, trembling hand, not making a sound.
+marianna_grey [afraid]: I have Mrs. Oakum hidden up in the loft above the stalls. The mob has her name now. I need to get her out of Wickermoor, and I didn't know who else to ask.
+* We will take her up to the estate. -> accept
+* Why does the mob want Mrs. Oakum? -> why
+* We cannot help her right now. -> refuse
+
+~ why
+marianna_grey [sad]: She is a good woman, truly, though she walks out alone when the moon is high. Tonight, with the village in this fever, the mob won't need more reason than that.
+-> start
+~ refuse
+marianna_grey [sad]: Oh. Yes, I understand. It is a terrible night to ask so much of anyone.
+-> END
+~ accept
+set rk_quiet_asked
+quest quiet_door asked
+marianna_grey [smile]: Thank you, truly. She is up in the hayloft right now. Go in by the side door and keep low.
+-> END
+
+~ progress
+if flag.rk_oakum_gone
+marianna_grey [weary]: The stable is quiet again now. Thank you for what you did.
+-> END
+endif
+Narrator: Marianna's wide eyes flick toward the latched stable door and right back to you, the smell of damp straw and nervous horses thick in the air.
+marianna_grey [afraid]: Mrs. Oakum is still waiting up in the loft. Please, you must hurry before the torches come back down this lane.
+-> END
+
+~ oakum
+Narrator: Mrs. Oakum sits among the scratchy hay bales, a big woman folded small in the dark. She holds an iron pitchfork across her knees that you can tell she has no intention of using.
+mrs_oakum [afraid]: I don't want to hurt a living soul, truly I don't. But if that crowd corners me in the dark, I might lose hold of myself, and I'd never forgive that.
+* Come on, we are leading you out now. -> leg1
+* Stay quiet and wait here a little longer. -> END
+
+~ leg1
+Narrator: The lane behind the stalls offers forty yards of deep shadow before the Founder's Round. Beyond the split-rail fence, pitch torches hiss and bob in the night wind.
+* [Stealth DC 15] Creep along the wall in the shadow. -> leg2 | spotted
+* [Deception DC 14] Cover her in a sack and claim she is a butcher's pig. -> leg2 | spotted
+* Take Marianna's mare and cart the long way by the river. -> leg2_long
+
+~ leg2_long
+time +120
+Narrator: The old mare plods slow and steady beside the wet, rushing hush of the river. Nobody looks twice at a heavy woman riding a cart of sweet hay.
+-> leg2
+
+~ leg2
+Narrator: You reach the edge of the Founder's Round, where the press of bodies is thickest. Acrid smoke drifts beneath the great Oak, its crooked boughs lit orange from below.
+* [Stealth DC 15] Slip along the dark shadow of the buildings. -> leg3 | spotted
+* [Performance DC 14] Stumble through like drunks singing the mob's chant. -> leg3 | spotted
+* Hide in the dark and wait an hour for them to scatter. -> leg3_wait
+
+~ leg3_wait
+time +60
+Narrator: The torches finally bob away down a crooked side lane, taking their angry muttering with them. For a brief, breathless stretch, the cobblestones of the Round lie empty.
+-> leg3
+
+~ leg3
+Narrator: Ahead lies the open moor road and the long, steep climb through the mist. At the crest of the hill, the tall iron gates of the crooked estate wait against the sky.
+* [Survival DC 12] Take the back path through the tangled heather. -> arrive | spotted
+* Walk straight up the open road together. -> arrive
+
+~ spotted
+Narrator: A blazing pitch torch swings round, throwing harsh light across your faces. A hundred lilac-tinted eyes lock onto you, and a hundred throats take up the chant for Mrs. Oakum's blood.
+mrs_oakum [afraid]: Leave me here, please. I can hold them off long enough for the rest of you to run.
+* Draw steel and fight the mob off. -> fight_for_her
+* [ends:quiet_door] Hand her over, we cannot win this. -> give_up
+
+~ fight_for_her
+set rk_mob_down = now
+combat rk_mob_fight
+
+~ give_up
+set rk_oakum_gone
+set rk_oakum_taken
+quest quiet_door taken
+Narrator: The villagers take her arms with a strange, almost gentle care, and she does not look back as they lead her away. A heavy cell door clangs shut, and the whole lane goes quiet.
+-> END
+
+~ arrive
+set rk_oakum_gone
+quest quiet_door delivered
+Narrator: The crooked iron gates of the estate swing shut and swallow you in cool shadow. Beside you, Mrs. Oakum lets out a long, shaky breath she has been holding since supper.
+mrs_oakum [smile]: I reckon I owe you my life, and maybe theirs too. It is a mighty peculiar house up here, though it feels warm enough.
+move druskenvald_estate:from_village
+
+~ prisoner
+Narrator: Mrs. Oakum sits on the cold stone bench in the end cell, her broad hands folded neatly in her lap, patient as a barn cow waiting out a storm.
+mrs_oakum [weary]: Don't you fret none over me, I've weathered worse nights than this. The constable even brought me a wool blanket to keep the chill off.
+-> END
