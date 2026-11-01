@@ -1,0 +1,174 @@
+{
+  "id": "ferryman_husk",
+  "name": "Ferryman of Jack's",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 501,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "medium",
+  "type": "undead",
+  "alignment": "neutral evil",
+  "ac": 15,
+  "initiative": 2,
+  "hp": {
+    "average": 10,
+    "dice": "2d8+1"
+  },
+  "speed": {
+    "walk": 30
+  },
+  "abilities": {
+    "str": 18,
+    "dex": 14,
+    "con": 16,
+    "int": 8,
+    "wis": 10,
+    "cha": 14
+  },
+  "saves": {
+    "wis": 3,
+    "cha": 5
+  },
+  "resistances": [
+    "necrotic"
+  ],
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened",
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 10,
+  "languages": [
+    "Common",
+    "one other language"
+  ],
+  "cr": 0.5,
+  "xp": 100,
+  "proficiency_bonus": 2,
+  "gear": [
+    "Hooded Lantern"
+  ],
+  "traits": [
+    {
+      "id": "coffin_boat",
+      "name": "Coffin Boat",
+      "action": "passive",
+      "summary": "Rides an open coffin on a swell of swamp water: Speed 40 ft over any surface, ignoring Difficult Terrain, and immune to Prone; the coffin (AC 15, HP 25) carries two Medium passengers.",
+      "text": "While riding its coffin the ferryman has a Speed of 40 feet over any surface, liquids included, ignores Difficult Terrain and is immune to the Prone condition. The coffin moves with it unless it is Incapacitated, and carries two other Medium creatures (two Small or four Tiny count as one Medium). The coffin has AC 15, 25 Hit Points and Immunity to Necrotic, Poison and Psychic damage. If it is destroyed the ferryman raises a new one with a 10-minute ritual.",
+      "implemented": "text"
+    },
+    {
+      "id": "payment",
+      "name": "Payment",
+      "action": "passive",
+      "summary": "A creature that takes the Influence action to offer it 3 cp must be offered a peaceful ride, and any curse of this ferryman on it ends.",
+      "text": "The ferryman must peacefully give a ride in its boat to a creature that uses the Influence action to hand it 3 copper pieces, and if that creature is cursed by the ferryman the curse ends. If the boat is full, the ferryman comes back to offer the ride once its passengers have gone. If the creature or its allies hurt the ferryman or force it to make a saving throw, the effect ends and that creature can't use this ferryman's Payment again.",
+      "implemented": "text"
+    },
+    {
+      "id": "regeneration",
+      "name": "Regeneration",
+      "action": "passive",
+      "summary": "Regains 10 HP at the start of its turn while it has at least 1 HP.",
+      "text": "The ferryman regains 10 Hit Points at the start of each of its turns while it has at least 1 Hit Point.",
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "lantern_pole",
+          "count": 2
+        }
+      ],
+      "summary": "Two Lantern Poles, and Hexed Lantern if it is available."
+    },
+    {
+      "id": "lantern_pole",
+      "name": "Lantern Pole",
+      "kind": "melee",
+      "attack": {
+        "bonus": 7,
+        "reach": 10
+      },
+      "damage": [
+        {
+          "average": 9,
+          "dice": "1d10+4",
+          "type": "bludgeoning"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "necrotic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "prone",
+          "max_size": "medium",
+          "until": "permanent"
+        }
+      ],
+      "summary": "+7, reach 10 ft, 1d10+4 Bludgeoning plus 2d6 Necrotic; a Medium or smaller target falls Prone."
+    },
+    {
+      "id": "hexed_lantern",
+      "name": "Hexed Lantern",
+      "kind": "save",
+      "uses": {
+        "count": 1,
+        "per": "day"
+      },
+      "save": {
+        "ability": "wis",
+        "dc": 13,
+        "success": "none"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 30
+      },
+      "targets": {
+        "range": 30
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "until": "minute",
+          "modifiers": [
+            {
+              "stat": "penalty_die",
+              "dice": "1d4",
+              "on": [
+                "attack",
+                "save:all",
+                "check:all"
+              ]
+            }
+          ]
+        }
+      ],
+      "summary": "1/Day. Creatures of its choice in a 30-ft cone, DC 13 Wis save or cursed for 1 minute: -1d4 on D20 Tests."
+    }
+  ],
+  "regenerates": {
+    "hp": 10
+  },
+  "ai_profile": "brute",
+  "summary": "A Ferryman called up by Snake Eye Jack: the stat block of the Ferryman at 10 Hit Points."
+}

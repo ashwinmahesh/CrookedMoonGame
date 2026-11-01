@@ -1,0 +1,97 @@
+{
+  "id": "blood_elemental",
+  "name": "Blood Elemental",
+  "source": {
+    "book": "MM2025",
+    "edition": "2024",
+    "checked_against": "BR2024",
+    "note": "The 2024 Mud Mephit (2025 Monster Manual). Every number compared with the page fetched from aidedd.org (Monster Manual 2024 stat block). Death Burst restrains rather than damages, so it is text only."
+  },
+  "size": "large",
+  "type": "elemental",
+  "alignment": "neutral evil",
+  "ac": 14,
+  "initiative": 1,
+  "hp": {
+    "average": 114,
+    "dice": "12d10+48"
+  },
+  "speed": {
+    "walk": 20,
+    "fly": 20,
+    "swim": 20
+  },
+  "abilities": {
+    "str": 8,
+    "dex": 12,
+    "con": 12,
+    "int": 9,
+    "wis": 11,
+    "cha": 7
+  },
+  "skills": {
+    "stealth": 3
+  },
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "exhaustion",
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 10,
+  "languages": [
+    "Primordial (Aquan, Terran)"
+  ],
+  "cr": 5,
+  "xp": 1800,
+  "proficiency_bonus": 3,
+  "traits": [
+    {
+      "id": "holy_water",
+      "name": "Holy Water Destroys It",
+      "action": "passive",
+      "summary": "A flask of holy water thrown at it destroys it at once.",
+      "text": "A flask of holy water thrown at the elemental destroys it. (The engine does not do this yet: see the package doc.)",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "slam",
+      "name": "Slam",
+      "kind": "melee",
+      "attack": {
+        "bonus": 7,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 13,
+          "dice": "2d8+4",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "+7, 2d8+4 Necrotic."
+    },
+    {
+      "id": "blood_multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "slam",
+          "count": 2
+        }
+      ],
+      "summary": "Two Slams."
+    }
+  ],
+  "ai_profile": "skirmisher",
+  "summary": "A water elemental made of the sanctum's blood: two slams of Necrotic. Holy water destroys it at once.",
+  "art": "water_elemental",
+  "bonus_actions": []
+}

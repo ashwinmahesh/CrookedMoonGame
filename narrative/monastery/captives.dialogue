@@ -1,0 +1,135 @@
+# Drafted by Gemini (R14 captives), edited.
+
+~ larder_wake
+set larder_woke
+Narrator: You wake in a freezing metal-plated larder, chained to the wall, while pale carcasses swing from iron hooks over an inch of black blood.
+axel_farley [weary]: Easy there, friends, do not rattle the iron if you want to keep your skin.
+* Ask Axel what this place is. -> larder_axel
+* Look at our shackles. -> shackles
+* Wait for the next Night of Flames. -> pyre_wait
+
+~ larder_axel
+axel_farley [weary]: The Dead Larder, where the Abbot hangs the meat and keeps the sinners three nights before the courtyard pyre. Check your wall ring, the mortar around that third bolt is rotten.
+-> larder_wake
+
+~ pyre_wait
+Narrator: The cold hours crawl by in the reek of copper and frost, until boots finally thunder down the stairs.
+-> pyre_atonement
+
+~ shackles
+Narrator: Frost crusts the iron cuffs biting your wrists, though one masonry pin sits crooked in its socket.
+* [Sleight of Hand DC 13] Work the loose shackle with a bent nail. -> shackle_ok | shackle_miss
+* [Athletics DC 15] Wrench it off the wall. -> shackle_ok | shackle_miss
+* Take Axel's trick: a loose pin he shows you. -> shackle_ok
+* Back. -> END
+
+~ shackle_miss
+Narrator: The iron clanks hard against the tin sheeting, though no footsteps come down the hall.
+-> shackles
+
+~ shackle_ok
+Narrator: The rusted pin gives way with a wet scrape, and your chains drop into the slush.
+set larder_out
+jail release
+-> END
+
+~ axel_start
+axel_farley [afraid]: Keep your voice down, the walls carry every breath straight to the Inquisitor's ear.
+* Ask what he saw below the altar. -> axel_saw
+* Ask how to get down there. -> axel_below
+* Ask about the other prisoners. -> axel_others
+* [if flag.axel_freed and not flag.axel_debts_asked] Ask about his debts -> axel_debts
+* [if flag.axel_debts_asked] [ends:axels_debts] Tell him we will not carry them. -> axel_debts_skip
+* Leave him for now. -> END
+
+~ axel_saw
+axel_farley [afraid]: Red basins, and a great painting of a smiling woman soaked in wine and marrow. Father Renathyr was on his knees before the canvas, weeping like a scolded boy.
+Narrator: His hands begin to tremble so fiercely the chain links chatter against the tin wall.
+-> axel_start
+
+~ axel_below
+axel_farley [weary]: Slip behind the red dossal cloth in the choir and pour a chalice of blood into the dry basin. The stone under the altar parts on its own.
+set src_axel
+set way_down_known
+quest crimson_monastery the_way_down
+-> axel_start
+
+~ axel_others
+axel_farley [sad]: Three village folk who missed the tithe or spoke out of turn. Even with the chains off, they will not dare cross the threshold unless someone leads them out.
+-> group
+
+~ axel_debts
+axel_farley [weary]: If I do not make it down the mountain, take these back to Dawn's Gate for me. A felt hat for Toma Flint, Dagny Voll's braided leash, and a letter for Widow Wren.
+give toma_hat
+give dagny_leash
+give halka_letter
+quest axels_debts asked
+set axel_debts_asked
+-> axel_start
+
+~ axel_debts_skip
+quest axels_debts forgotten
+Narrator: Axel lowers his gaze to the red frost on the floorboards and says nothing more.
+-> END
+
+~ group
+Narrator: Four shivering captives huddle against the tin plating, Axel Farley watching you from the end of the row.
+* [Sleight of Hand DC 13] Pick the shackles. -> freed | group_miss
+* [if item:skeleton_key] Use a skeleton key. -> freed
+* [Athletics DC 15] Break the chains. -> freed | group_miss
+* Leave them for now. -> END
+
+~ group_miss
+Narrator: The heavy links rattle and hold fast, leaving only the drip of thaw in the quiet larder.
+-> group
+
+~ freed
+Narrator: The last iron cuff falls open, and the prisoners rub their raw wrists while looking to you for the word.
+set axel_freed
+quest free_the_captives asked
+* [ends:free_the_captives] Lead them out the gate in plain sight. -> lead_seen
+* [Stealth DC 15] Over the east wall quietly. -> lead_hidden | lead_spotted
+* Wait until the Evening bell empties the halls. -> lead_hidden
+
+~ lead_spotted
+Narrator: A novice carrying tallow candles spots the last prisoner scrambling over the frostbitten stones and raises a shout, though the four vanish down the scree.
+set crimson_infractions += 1
+standing crimson_faith -1
+set crimson_captives_freed
+quest free_the_captives freed
+-> END
+
+~ lead_seen
+Narrator: You march the prisoners right past the courtyard braziers while a stone-faced warden marks your names upon his slate, yet none steps forward to bar the road.
+set crimson_infractions += 1
+standing crimson_faith -1
+quest free_the_captives seen
+set crimson_captives_freed
+-> END
+
+~ lead_hidden
+set crimson_captives_freed
+quest free_the_captives freed
+Narrator: Under the shadow of the ridge, the four captives slip between the snowdrifts and vanish down the winding miner's trail.
+-> END
+
+~ pyre_atonement
+Narrator: Rough hands drag you from the Dead Larder into the red glare of the courtyard, where fresh brushwood waits around the stakes.
+friar_olaf [sly]: So the unruly sheep come to the shearer at last. Speak the Rose's creed before my congregation, or warm yourselves on the kindling.
+* Recant. -> atone_recant
+* Refuse, and fight. -> atone_fight
+
+~ atone_recant
+set crimson_recanted
+set larder_out
+jail release
+standing crimson_faith +4
+friar_olaf [sly]: See how quickly iron bends when the hearth grows hot. Walk among us, then, though I shall remember the smell of your pride.
+Narrator: The cords fall away and the red-robed crowd parts for you with cold, indifferent eyes.
+-> END
+
+~ atone_fight
+Narrator: An unlatched crate beside the pyre holds your stolen gear, within reach of a quick hand.
+set larder_out
+jail release
+combat mon_pyre_fight

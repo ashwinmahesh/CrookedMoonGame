@@ -1,0 +1,62 @@
+# Drafted by Gemini (R18 hook), edited.
+
+~ rain_start
+Narrator: Sister Rain steps beneath the pavilion lanterns with damp soil on her hem and a tremor in her fingers. The smell of cold turnip broth hangs between you.
+sister_rain [afraid]: Forgive me for coming late to the table, friends, but the commune north of Moonsong Lake is failing. Their orchards, their cattle, and their folk are rotting where they stand.
+sister_rain [weary]: While I laid cool cloths on the fevered this morning, a waking vision struck me blind. Please, someone steady has to walk into those woods before nothing remains.
+* What did you see? -> vision
+* Tell us about the commune. -> commune
+* We will go. -> accept
+* Not yet. -> refuse
+
+~ vision
+sister_rain [afraid]: I saw a canopy of wet emerald timber stretching out under the moon, and every trunk was crowded with watching faces. Mouths full of moss, weeping and waiting for us.
+-> rain_start
+
+~ commune
+sister_rain [sad]: They are quiet Patient Lady folk who built a longhouse and planted apple trees by the water. They sent one runner begging for medicine, and then the road went silent.
+sister_rain [angry]: You can feel the land aching right through the soles of your boots if you stand still enough. Something up there is eating the green out of the world.
+-> rain_start
+
+~ accept
+sister_rain [smile]: Bless your boots and your blades, truly. Take these bottles of Harvest Brew for the road, and do not drink the forest water once the moss turns pale.
+give harvest_brew 4
+set hb_asked
+set hb_rain_hook_accepted
+quest q_hartsblight hook
+Narrator: Outside the palisade, a carpet of green-white spores glows faintly in the wheel ruts, pointing north-west toward the lake. It looks to be four nights on foot.
+-> END
+
+~ refuse
+sister_rain [sad]: I cannot force your steps onto a dark road, and the Lady knows you carry enough already. Pray the wind stays in the south tonight.
+set hb_refused = now
+-> END
+
+~ rain_again
+sister_rain [weary]: I promised myself I would not beg twice over the same cold supper, so I will speak plainly. The sickness north of the lake is not waiting on our courage.
+* We will go now. -> accept
+* Still no. -> END
+
+~ wendel_offer
+cutscene hb_sporefall
+Narrator: For eight quiet hours before dawn, pale green dust sifts down from the crone's moon like greasy snow, coating every roof and rain barrel in Wickermoor Hollow.
+cutscene hb_sporefall_2
+cutscene end
+wendel_somerton [afraid]: Lock the casement behind you, I beg you, before more of that dreadful powder drifts onto the carpet. The wells taste of cellar mould and the whole parish is panicking.
+wendel_somerton [weary]: The Old Ways elders are holding emergency rituals in the lanes, and folks are whispering of famine. I will pay three hundred gold pieces to each of you to end this.
+* We will end it. -> wendel_accept
+* What are the rituals? -> wendel_rituals
+* Not yet. -> END
+
+~ wendel_rituals
+wendel_somerton [neutral]: Little wicker stag effigies burned at the crossroads to turn the rot aside, all properly licensed and modest in size. My clerk issued the permits before his throat swelled shut.
+-> wendel_offer
+
+~ wendel_accept
+wendel_somerton [smile]: Splendid, truly a weight off the municipal ledger and my own poor chest. Sister Rain left these cordials on my porch for you before she went back to the infirmary.
+give harvest_brew 4
+set hb_asked
+set hb_sporefall
+quest q_hartsblight hook
+Narrator: The spore trail lies thick as lamb's wool along the north-west cart track, smelling faintly of bruised apples and wet bone.
+-> END

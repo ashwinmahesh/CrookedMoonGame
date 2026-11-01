@@ -1,0 +1,141 @@
+# Drafted by Gemini (R18 forest1), edited.
+
+~ effigy
+Narrator: A towering effigy of woven boughs wears a hollow woman's face beneath damp sheets of fungus, turned away from the heart of the wood. Beside its branch crown, a rotting stag lies across an altar of stacked stone.
+* [Perception DC 15] Search near the effigy -> eff_found | eff_miss
+* Burn the effigy down -> eff_burn
+* [Athletics DC 14] Topple it -> eff_burn | eff_fall
+* Study the altar -> altar_look
+* Leave -> END
+
+~ eff_found
+Narrator: Pale spores stream through the hollow of its woven head, rising and falling like a slow, wet breath.
+-> effigy
+
+~ eff_miss
+Narrator: You find nothing among the tangled roots but damp moss and the sour smell of old leaves.
+-> effigy
+
+~ eff_fall
+Narrator: The woven wood groans and holds fast against your shoulder, shaking down a thick, choking cloud of yellow dust.
+set hb_blight += 1
+-> effigy
+
+~ eff_burn
+Narrator: The dry brush catches with a grease-thick crackle, and the towering figure collapses inward, bursting like an overripe puffball.
+check Constitution DC 15 -> burst_ok | burst_bad
+
+~ burst_ok
+set hb_effigy_burned
+Narrator: You hold your breath until the worst of the ash blows past, and the drifting spores thin and settle for a time.
+-> effigy
+
+~ burst_bad
+set hb_effigy_burned
+set hb_blight += 1
+Narrator: The hot, bitter cloud catches in your throat as the effigy crumbles into black ash, though the air grows clearer once it settles.
+-> effigy
+
+~ altar_look
+Narrator: The dead stag on the cold stones has had its neck twisted round, its cloudy eye and wet ear turned toward you as if waiting for a word.
+* Speak to the carcass -> hartsblight/gorthos:parley1
+* Leave -> END
+
+~ leash
+Narrator: A frayed leather leash hangs tied around the scaly bark of a pine, its brass collar snapped clean off at the ring.
+* [Perception DC 14] Search the roots -> button_ok | button_fail
+* [Investigation DC 14] Look closer -> button_ok | button_fail
+* Leave -> END
+
+~ button_ok
+Narrator: Tucked down between two mossy roots sits a small button carved from pale bone, still faintly warm against your fingers.
+give devilbone_button
+set hb_button_found
+-> END
+
+~ button_fail
+Narrator: You turn over a few handfuls of brown pine needles and cold grit, finding nothing left behind.
+-> END
+
+~ trap_dead
+Narrator: A rusted iron jaw-trap lies sprung in the mire, its pan stamped with the mark of Criswell and Paulson Trapping Co. It takes a stubborn sort of optimist to bring traps into a wood that traps back.
+-> END
+
+~ camp
+set hb_camp_seen
+Narrator: Four canvas tents sit within a ring of thick grey smoke pouring from an unstoppered brass bottle, keeping the buzzing flies and clicks of beetles at bay. Inside the circle, four bloated botanists sit slumped across their camp logs.
+* Read the field journal -> journal
+* Search the tents -> tents
+* Take the Eversmoking Bottle -> bottle
+* Rest in the smoke -> camp_rest
+* Leave -> END
+
+~ journal
+Narrator: A oilskin notebook lies open on a knee, its pages swollen with damp and covered in cramped, hurried ink.
+* [Nature DC 15] Study it for an hour -> journal_ok | journal_fail
+* Skim it for what you can -> journal_skim
+* Back -> camp
+
+~ journal_ok
+Narrator: By the end of the hour, four notes stand clear in the botanist's shaky hand: the rot is fey in origin, driven by a single waking will, able to keep its hosts alive and spoiling for years, and far thicker deeper in.
+set hb_journal_read
+time +60
+-> camp
+
+~ journal_fail
+Narrator: An hour passes deciphering water-blurred tables and cramped margins, leaving you certain only that the rot grows much worse deeper in the trees.
+time +60
+-> camp
+
+~ journal_skim
+Narrator: A quick glance through the stained pages shows measurements rising day by day as the expedition looked toward the heart of the wood.
+-> camp
+
+~ tents
+Narrator: You sort quickly through the damp bedrolls and satchels, recovering a leather kit, four stoppered draughts, a serviceable axe, and four tarnished silver bracelets from the quiet sleepers.
+give healers_kit
+give potion_of_healing_greater 4
+give handaxe
+gold +100
+set hb_tents_searched
+-> camp
+
+~ bottle
+Narrator: The moment you press the lead stopper home, the grey curtain thins and vanishes, and the dark soil all around the outcrop begins to seethe and click.
+give eversmoking_bottle
+set hb_bottle_taken
+combat hb_beetles
+
+~ camp_rest
+Narrator: The coal-thick smoke stings the eyes and tastes of old chimneys, yet nothing with wings or six legs dares cross the line while you catch your breath.
+time +60
+-> camp
+
+~ corpse
+Narrator: In a mossy dip stands a broad beech draped in white-green mould, a skeletal stag gouged deep into its bark. Slumped against the roots is the half-eaten corpse of Halden Wreath.
+* [Nature DC 15] Examine the corpse -> corpse_ok | corpse_fail
+* [Medicine DC 15] Examine the corpse -> corpse_ok | corpse_fail
+* Read the carving -> shrine
+* [if not flag.hb_halden_journal] Take its journal -> hartsblight/halden:journal_find
+* Wait a moment -> corpse_wait
+
+~ corpse_ok
+Narrator: Heavy claws and a hooked beak tore the trapper open, though the grey mould blooming through his ribs is weeks too old for a fresh kill: the work of a blighted owlbear.
+set hb_halden_examined
+-> corpse_wait
+
+~ corpse_fail
+Narrator: Between the teeth marks and the thick sheets of creeping mould, it is hard to say what killed the man first.
+-> corpse_wait
+
+~ corpse_wait
+set hb_halden_torso_seen
+Narrator: Thick ropes of pale fungus tighten in the branches overhead, and with a wet rip the trapper's torso tears free and is hauled up against the trunk.
+cutscene hb_halden_torso
+cutscene hb_halden_torso_2
+cutscene end
+-> hartsblight/gorthos:parley2
+
+~ shrine
+Narrator: The skeletal stag is cut deep into the living wood as a shrine to Gorthos. Any healing prayer spoken in this hollow will curdle in the mouth, adding fresh rot instead of mending flesh.
+-> corpse

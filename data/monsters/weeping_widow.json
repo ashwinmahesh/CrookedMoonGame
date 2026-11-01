@@ -197,5 +197,21 @@
   },
   "legendary_resistance": 3,
   "ai_profile": "support",
-  "summary": "A fallen priestess-turned-experimenter who fights with poisoned needles at range, loads each prick with fear, sleep or spell-failure, and keeps her allies dosed; a reminder of her husband breaks her focus."
+  "summary": "A fallen priestess-turned-experimenter who fights with poisoned needles at range, loads each prick with fear, sleep or spell-failure, and keeps her allies dosed; a reminder of her husband breaks her focus.",
+  "phases": [
+    {
+      "id": "desperate_measures",
+      "name": "Desperate Measures",
+      "when": {
+        "bloodied": true
+      },
+      "summon": {
+        "monster": "hospital_horror",
+        "count": 3
+      },
+      "say": "mr_widow_phase2",
+      "summary": "Bloodied, she sacrifices her work to live: three hospital horrors burst from their tanks.",
+      "flag": "mr_widow_phase2"
+    }
+  ]
 }

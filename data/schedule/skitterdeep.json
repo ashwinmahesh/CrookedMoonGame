@@ -1,0 +1,102 @@
+{
+  "id": "skitterdeep",
+  "region": "skitterdeep_mine",
+  "summary": "The Skitter Plague's clock: nights in the village, and a pigeon with a letter.",
+  "events": [
+    {
+      "id": "sk_night_1",
+      "summary": "Night 1 of the Skitter Plague.",
+      "hour": 23,
+      "once": true,
+      "when": "flag.plague_started and not flag.stonoga_slain and flag.plague_day < 1 and days_since.plague_started >= 1",
+      "set": {
+        "plague_day": 1,
+        "plague_toll": 10
+      },
+      "location": "wickermoor_village",
+      "narration": "Bread is dearer by morning, and the centipedes have come up the walls of every house on the Round."
+    },
+    {
+      "id": "sk_night_2",
+      "summary": "Night 2 of the Skitter Plague.",
+      "hour": 23,
+      "once": true,
+      "when": "flag.plague_started and not flag.stonoga_slain and flag.plague_day < 2 and days_since.plague_started >= 2",
+      "set": {
+        "plague_day": 2,
+        "plague_toll": 12
+      }
+    },
+    {
+      "id": "sk_night_3",
+      "summary": "Night 3 of the Skitter Plague.",
+      "hour": 23,
+      "once": true,
+      "when": "flag.plague_started and not flag.stonoga_slain and flag.plague_day < 3 and days_since.plague_started >= 3",
+      "set": {
+        "plague_day": 3,
+        "plague_toll": 14
+      },
+      "location": "wickermoor_village",
+      "narration": "Shutters stay closed along the north row, and the Green Queen's common room has become a sickroom. This is no longer a bad week. This is an epidemic."
+    },
+    {
+      "id": "sk_night_4",
+      "summary": "Night 4 of the Skitter Plague.",
+      "hour": 23,
+      "once": true,
+      "when": "flag.plague_started and not flag.stonoga_slain and flag.plague_day < 4 and days_since.plague_started >= 4",
+      "set": {
+        "plague_day": 4,
+        "plague_toll": 16
+      }
+    },
+    {
+      "id": "sk_night_5",
+      "summary": "Night 5 of the Skitter Plague.",
+      "hour": 23,
+      "once": true,
+      "when": "flag.plague_started and not flag.stonoga_slain and flag.plague_day < 5 and days_since.plague_started >= 5",
+      "set": {
+        "plague_day": 5,
+        "plague_toll": 18
+      }
+    },
+    {
+      "id": "sk_midnight_swarm",
+      "summary": "A dead villager bursts into a skitterswarm at the Midnight Hour.",
+      "hour": 23,
+      "location": "wickermoor_village",
+      "here_only": true,
+      "when": "flag.plague_day >= 2 and not flag.stonoga_slain and not flag.sk_midnight_done",
+      "dialogue": "skitterdeep/clock:midnight_swarm"
+    },
+    {
+      "id": "sk_letter_pigeon_foxwillow",
+      "summary": "Theodora's pigeon finds the party while it is away from the village.",
+      "hour": 8,
+      "once": true,
+      "location": "foxwillow",
+      "when": "flag.plague_started and not flag.skitter_asked and not flag.skitter_letter_hook and days_since.plague_started >= 1",
+      "dialogue": "skitterdeep/letter:arrives"
+    },
+    {
+      "id": "sk_letter_pigeon_druskenvald_estate",
+      "summary": "Theodora's pigeon finds the party while it is away from the village.",
+      "hour": 8,
+      "once": true,
+      "location": "druskenvald_estate",
+      "when": "flag.plague_started and not flag.skitter_asked and not flag.skitter_letter_hook and days_since.plague_started >= 1",
+      "dialogue": "skitterdeep/letter:arrives"
+    },
+    {
+      "id": "sk_letter_pigeon_sk_hills_trail",
+      "summary": "Theodora's pigeon finds the party while it is away from the village.",
+      "hour": 8,
+      "once": true,
+      "location": "sk_hills_trail",
+      "when": "flag.plague_started and not flag.skitter_asked and not flag.skitter_letter_hook and days_since.plague_started >= 1",
+      "dialogue": "skitterdeep/letter:arrives"
+    }
+  ]
+}

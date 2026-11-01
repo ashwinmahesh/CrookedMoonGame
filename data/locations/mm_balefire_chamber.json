@@ -1,0 +1,785 @@
+{
+  "id": "mm_balefire_chamber",
+  "name": "The Balefire Chamber",
+  "region": "maidenmist_cemetery",
+  "summary": "The sepulcher's entry hall: a sixty-foot ceiling, sconces of coloured fire, a collapsed passage at the far end.",
+  "text": "Six sconces down each wall burn in the colours of the beacons outside. At the far end the passage has fallen in, and grey mist wells through the rubble.",
+  "map": {
+    "rows": [
+      "####################",
+      "#########..#########",
+      "##~~~~~~~~~~~~~~~~##",
+      "##~~~~~~~~~~~~~~~~##",
+      "##~~~~~~~~~~~~~~~~##",
+      "##................##",
+      "##................##",
+      "##................##",
+      "##................##",
+      "##................##",
+      "##...=........=...##",
+      "##................##",
+      "##................##",
+      "##................##",
+      "##................##",
+      "##................##",
+      "##...=........=...##",
+      "##................##",
+      "##................##",
+      "##................##",
+      "##................##",
+      "##................##",
+      "##########.#########",
+      "##########.#########"
+    ],
+    "theme": "dungeon",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "hall",
+      "name": "The entry hall",
+      "cells": [
+        [
+          2,
+          5
+        ],
+        [
+          17,
+          21
+        ]
+      ]
+    },
+    {
+      "id": "rubble",
+      "name": "The collapsed passage",
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          17,
+          4
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      10,
+      21
+    ],
+    "from_doors": [
+      10,
+      21
+    ],
+    "from_undercroft": [
+      9,
+      2
+    ]
+  },
+  "exits": [
+    {
+      "id": "doors_out",
+      "cell": [
+        10,
+        23
+      ],
+      "to": "mm_sepulcher",
+      "spawn": "from_below",
+      "label": "Out through the great doors"
+    },
+    {
+      "id": "passage_on",
+      "cell": [
+        9,
+        1
+      ],
+      "to": "mm_undercroft",
+      "spawn": "from_chamber",
+      "label": "Through the cleared passage, down to the undercroft",
+      "when": "flag.mm_rubble_cleared",
+      "locked_text": "Rubble fills the passage to the ceiling."
+    }
+  ],
+  "props": [
+    {
+      "id": "mm_rubble",
+      "cell": [
+        10,
+        4
+      ],
+      "kind": "examine",
+      "label": "The fallen passage, rubble to the ceiling",
+      "model": "rubble",
+      "call": "maidenmist/descent:rubble",
+      "approach": 3,
+      "call_when": "flag.mm_chamber_done and not flag.mm_rubble_cleared"
+    },
+    {
+      "id": "mm_chamber_start",
+      "cell": [
+        10,
+        18
+      ],
+      "kind": "decor",
+      "label": "The hall, and the mist at its end",
+      "call": "maidenmist/descent:chamber",
+      "approach": 8,
+      "call_when": "not flag.mm_chamber_started"
+    },
+    {
+      "id": "mm_chamber_sconce_w0",
+      "cell": [
+        2,
+        7
+      ],
+      "kind": "decor",
+      "label": "A sconce of crimson fire",
+      "model": "brazier",
+      "tint": "#d04040"
+    },
+    {
+      "id": "mm_chamber_sconce_w1",
+      "cell": [
+        2,
+        11
+      ],
+      "kind": "decor",
+      "label": "A sconce of violet fire",
+      "model": "brazier",
+      "tint": "#9a5fd0"
+    },
+    {
+      "id": "mm_chamber_sconce_w2",
+      "cell": [
+        2,
+        15
+      ],
+      "kind": "decor",
+      "label": "A sconce of amber fire",
+      "model": "brazier",
+      "tint": "#e0a030"
+    },
+    {
+      "id": "mm_chamber_sconce_w3",
+      "cell": [
+        2,
+        19
+      ],
+      "kind": "decor",
+      "label": "A sconce of magenta fire",
+      "model": "brazier",
+      "tint": "#d050a0"
+    },
+    {
+      "id": "mm_chamber_sconce_e0",
+      "cell": [
+        17,
+        7
+      ],
+      "kind": "decor",
+      "label": "A sconce of amber fire",
+      "model": "brazier",
+      "tint": "#e0a030"
+    },
+    {
+      "id": "mm_chamber_sconce_e1",
+      "cell": [
+        17,
+        11
+      ],
+      "kind": "decor",
+      "label": "A sconce of magenta fire",
+      "model": "brazier",
+      "tint": "#d050a0"
+    },
+    {
+      "id": "mm_chamber_sconce_e2",
+      "cell": [
+        17,
+        15
+      ],
+      "kind": "decor",
+      "label": "A sconce of emerald fire",
+      "model": "brazier",
+      "flame": "bile"
+    },
+    {
+      "id": "mm_chamber_sconce_e3",
+      "cell": [
+        17,
+        19
+      ],
+      "kind": "decor",
+      "label": "A sconce of azure fire",
+      "model": "brazier",
+      "flame": "frost"
+    },
+    {
+      "id": "mm_chamber_col_0",
+      "cell": [
+        5,
+        10
+      ],
+      "kind": "decor",
+      "label": "A cracked pillar",
+      "model": "gate_pillar"
+    },
+    {
+      "id": "mm_chamber_col_1",
+      "cell": [
+        14,
+        10
+      ],
+      "kind": "decor",
+      "label": "A cracked pillar",
+      "model": "gate_pillar"
+    },
+    {
+      "id": "mm_chamber_col_2",
+      "cell": [
+        5,
+        16
+      ],
+      "kind": "decor",
+      "label": "A cracked pillar",
+      "model": "gate_pillar"
+    },
+    {
+      "id": "mm_chamber_col_3",
+      "cell": [
+        14,
+        16
+      ],
+      "kind": "decor",
+      "label": "A cracked pillar",
+      "model": "gate_pillar"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "mm_chamber",
+      "trigger": "dialogue",
+      "when": "flag.mm_chamber_n == 1",
+      "flag": "mm_chamber_done",
+      "monsters": [
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            9
+          ],
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "mm_chamber",
+      "trigger": "dialogue",
+      "when": "flag.mm_chamber_n == 2",
+      "flag": "mm_chamber_done",
+      "monsters": [
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            7,
+            12
+          ],
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "mm_chamber",
+      "trigger": "dialogue",
+      "when": "flag.mm_chamber_n == 3",
+      "flag": "mm_chamber_done",
+      "monsters": [
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            7,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            13,
+            12
+          ],
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "mm_chamber",
+      "trigger": "dialogue",
+      "when": "flag.mm_chamber_n == 4",
+      "flag": "mm_chamber_done",
+      "monsters": [
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            7,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            13,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            15
+          ],
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "mm_chamber",
+      "trigger": "dialogue",
+      "when": "flag.mm_chamber_n == 5",
+      "flag": "mm_chamber_done",
+      "monsters": [
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            7,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            13,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            15
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            8,
+            9
+          ],
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "mm_chamber",
+      "trigger": "dialogue",
+      "when": "flag.mm_chamber_n == 6",
+      "flag": "mm_chamber_done",
+      "monsters": [
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            7,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            13,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            15
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            8,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            12,
+            9
+          ],
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "mm_chamber",
+      "trigger": "dialogue",
+      "when": "flag.mm_chamber_n == 7",
+      "flag": "mm_chamber_done",
+      "monsters": [
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            7,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            13,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            15
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            8,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            12,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            7,
+            14
+          ],
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "mm_chamber",
+      "trigger": "dialogue",
+      "when": "flag.mm_chamber_n == 8",
+      "flag": "mm_chamber_done",
+      "monsters": [
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            7,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            13,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            15
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            8,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            12,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            7,
+            14
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            13,
+            14
+          ],
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "mm_chamber",
+      "trigger": "dialogue",
+      "when": "flag.mm_chamber_n == 9",
+      "flag": "mm_chamber_done",
+      "monsters": [
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            7,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            13,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            15
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            8,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            12,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            7,
+            14
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            13,
+            14
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            6,
+            10
+          ],
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "mm_chamber",
+      "trigger": "dialogue",
+      "when": "flag.mm_chamber_n == 10",
+      "flag": "mm_chamber_done",
+      "monsters": [
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            7,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            13,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            10,
+            15
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            8,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            12,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            7,
+            14
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            13,
+            14
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            6,
+            10
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            8,
+            16
+          ],
+          "facing": "south"
+        }
+      ]
+    }
+  ],
+  "rest": "risky"
+}

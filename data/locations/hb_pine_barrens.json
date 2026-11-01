@@ -1,0 +1,958 @@
+{
+  "map": {
+    "elevation": [
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "222222222222222222222222222222222222",
+      "222222222222222222222222222222222222",
+      "222222222222222222222222222222222222",
+      "222222222222222222222222222222222222",
+      "222222222222222222222222222222222222",
+      "222222222222222222222222222222222222",
+      "222222222222222222222222222222222222",
+      "222222222222222222222222222222222222",
+      "222222222222222222222222222222222222",
+      "222222222222222222222222222222222222",
+      "222222222222222222222222222222222222",
+      "222222222222222222222222222222222222",
+      "222222222222222222222222222222222222",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111"
+    ],
+    "rows": [
+      "####################################",
+      "####################################",
+      "##........##........##............##",
+      "##..................##.~~~....##..##",
+      "##..................#..~~~~.......##",
+      "##.......~~~~.........#~~~~.......##",
+      "##......#~~~~..........~~~~.......##",
+      "##......#~~~~~........#~~~~..~~~..##",
+      "##..~~..#~~~~~........#......~~~..##",
+      "##.~~~~.~~~~~.......#....~~~~~~~~.##",
+      "###~~~~~~~~...#....~~~..~~~~~~~~..##",
+      "###~~~~.~~~#...##.~~~~..~~~~~~~~~.##",
+      "##.#~~...~###.####~~~~.~~~~~.~~...##",
+      "##.##......#..###...~..~~~~.........",
+      "##...~~.......#.......#~~~~.#.......",
+      "####~~~~......#........~~~.~~~......",
+      "####~~~~~................~~~~~......",
+      "##...~~~..............##..~~~.......",
+      "##........................~~~~....##",
+      "##.........................~~~~.~~##",
+      "##...............##........~~~~~~~##",
+      "##...............##.........~~~~~~##",
+      "#~~~#.........##.......#.......~..##",
+      "#~~~#.~....~~~~~.......#..........##",
+      "~~~~~~~~..~~~~~~................#.##",
+      "~~~~~~~~~.~~~~~~.......##.......#.##",
+      "#~~~~~~~~..~~~~~.......##...##....##",
+      "##~.~~~~~...................##....##",
+      "#######~############################",
+      "####################################"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "id": "hb_pine_barrens",
+  "region": "hartsblight_forest",
+  "props": [
+    {
+      "id": "hb_pines_leg",
+      "cell": [
+        31,
+        15
+      ],
+      "kind": "decor",
+      "label": "The way in, and the smell of it",
+      "call": "hartsblight/trek:leg_pines",
+      "approach": 8,
+      "call_when": "not flag.hb_leg_pines"
+    },
+    {
+      "id": "hb_leash",
+      "cell": [
+        6,
+        8
+      ],
+      "kind": "examine",
+      "label": "A leash tied to a pine, its collar gone",
+      "model": "rope",
+      "dialogue": "hartsblight/forest1:leash"
+    },
+    {
+      "id": "hb_seed_iron_site",
+      "cell": [
+        16,
+        19
+      ],
+      "kind": "examine",
+      "label": "Blighted roots round an old trap's iron",
+      "model": "vines",
+      "dialogue": "hartsblight/harvest:seed_iron"
+    },
+    {
+      "id": "hb_trap_dead",
+      "cell": [
+        24,
+        20
+      ],
+      "kind": "examine",
+      "label": "A trap stamped with a trapper's name",
+      "model": "claw_marks",
+      "dialogue": "hartsblight/forest1:trap_dead"
+    },
+    {
+      "id": "hb_bear_skull",
+      "cell": [
+        12,
+        22
+      ],
+      "kind": "decor",
+      "label": "A bear skull grown with yellow fungus",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_rib_bones",
+      "cell": [
+        14,
+        11
+      ],
+      "kind": "decor",
+      "label": "Green-stained ribs",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_lh_trinkets",
+      "cell": [
+        28,
+        8
+      ],
+      "kind": "search",
+      "label": "Old coins and a buckle in the needles",
+      "model": "satchel",
+      "search_dc": 12,
+      "skill": "investigation"
+    },
+    {
+      "id": "hb_camp_spot_p",
+      "cell": [
+        30,
+        24
+      ],
+      "kind": "examine",
+      "label": "A dry hollow among the pines",
+      "model": "rune_circle",
+      "dialogue": "hartsblight/night:camp"
+    },
+    {
+      "id": "hb_pine_barrens_tree_0",
+      "cell": [
+        27,
+        8
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_pine_barrens_tree_1",
+      "cell": [
+        29,
+        4
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_pine_barrens_tree_2",
+      "cell": [
+        21,
+        4
+      ],
+      "kind": "decor",
+      "label": "A split trunk bursting with shelf fungus",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "hb_pine_barrens_tree_3",
+      "cell": [
+        14,
+        17
+      ],
+      "kind": "decor",
+      "label": "A dead tree, furred with fungus",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "hb_pine_barrens_tree_4",
+      "cell": [
+        32,
+        13
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_pine_barrens_tree_5",
+      "cell": [
+        20,
+        26
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_pine_barrens_tree_6",
+      "cell": [
+        11,
+        22
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_pine_barrens_tree_7",
+      "cell": [
+        12,
+        18
+      ],
+      "kind": "decor",
+      "label": "A split trunk bursting with shelf fungus",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "hb_pine_barrens_tree_8",
+      "cell": [
+        3,
+        7
+      ],
+      "kind": "decor",
+      "label": "A split trunk bursting with shelf fungus",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "hb_pine_barrens_tree_9",
+      "cell": [
+        7,
+        18
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_pine_barrens_tree_10",
+      "cell": [
+        8,
+        3
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_pine_barrens_tree_11",
+      "cell": [
+        21,
+        7
+      ],
+      "kind": "decor",
+      "label": "A split trunk bursting with shelf fungus",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "hb_pine_barrens_tree_12",
+      "cell": [
+        22,
+        4
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_pine_barrens_tree_13",
+      "cell": [
+        15,
+        16
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_pine_barrens_tree_14",
+      "cell": [
+        22,
+        12
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_pine_barrens_tree_15",
+      "cell": [
+        16,
+        20
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_pine_barrens_tree_16",
+      "cell": [
+        30,
+        22
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_pine_barrens_tree_17",
+      "cell": [
+        7,
+        20
+      ],
+      "kind": "decor",
+      "label": "A dead tree, furred with fungus",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "hb_pine_barrens_tree_18",
+      "cell": [
+        10,
+        18
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_pine_barrens_tree_19",
+      "cell": [
+        13,
+        22
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_pine_barrens_tree_20",
+      "cell": [
+        7,
+        8
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_pine_barrens_tree_21",
+      "cell": [
+        28,
+        5
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_pine_barrens_tree_22",
+      "cell": [
+        3,
+        14
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_pine_barrens_tree_23",
+      "cell": [
+        4,
+        17
+      ],
+      "kind": "decor",
+      "label": "A dead tree, furred with fungus",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "hb_pine_barrens_tree_24",
+      "cell": [
+        30,
+        25
+      ],
+      "kind": "decor",
+      "label": "A split trunk bursting with shelf fungus",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "hb_pine_barrens_tree_25",
+      "cell": [
+        31,
+        19
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_pine_barrens_tree_26",
+      "cell": [
+        21,
+        18
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_pine_barrens_tree_27",
+      "cell": [
+        17,
+        13
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_pine_barrens_tree_28",
+      "cell": [
+        21,
+        9
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_pine_barrens_tree_29",
+      "cell": [
+        28,
+        3
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_pine_barrens_bones_0",
+      "cell": [
+        10,
+        22
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_pine_barrens_bones_1",
+      "cell": [
+        16,
+        15
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_pine_barrens_bones_2",
+      "cell": [
+        22,
+        24
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_pine_barrens_bones_3",
+      "cell": [
+        30,
+        18
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_pine_barrens_bones_4",
+      "cell": [
+        9,
+        21
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_pine_barrens_bones_5",
+      "cell": [
+        30,
+        16
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_pine_barrens_bones_6",
+      "cell": [
+        17,
+        24
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_pine_barrens_bones_7",
+      "cell": [
+        31,
+        18
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_pine_barrens_misc_0",
+      "cell": [
+        7,
+        2
+      ],
+      "kind": "decor",
+      "label": "Drifts of grey leaves",
+      "model": "leaves"
+    },
+    {
+      "id": "hb_pine_barrens_misc_1",
+      "cell": [
+        24,
+        18
+      ],
+      "kind": "decor",
+      "label": "A puddle that is not water",
+      "model": "puddle"
+    },
+    {
+      "id": "hb_pine_barrens_misc_2",
+      "cell": [
+        33,
+        18
+      ],
+      "kind": "decor",
+      "label": "A puddle that is not water",
+      "model": "puddle"
+    },
+    {
+      "id": "hb_pine_barrens_misc_3",
+      "cell": [
+        10,
+        15
+      ],
+      "kind": "decor",
+      "label": "Cobwebs hung with spores",
+      "model": "cobwebs"
+    },
+    {
+      "id": "hb_pine_barrens_misc_4",
+      "cell": [
+        22,
+        26
+      ],
+      "kind": "decor",
+      "label": "Cobwebs hung with spores",
+      "model": "cobwebs"
+    },
+    {
+      "id": "hb_pine_barrens_misc_5",
+      "cell": [
+        34,
+        15
+      ],
+      "kind": "decor",
+      "label": "Mossy stones",
+      "model": "rocks"
+    },
+    {
+      "id": "hb_pine_barrens_misc_6",
+      "cell": [
+        13,
+        6
+      ],
+      "kind": "decor",
+      "label": "Drifts of grey leaves",
+      "model": "leaves"
+    },
+    {
+      "id": "hb_pine_barrens_misc_7",
+      "cell": [
+        5,
+        18
+      ],
+      "kind": "decor",
+      "label": "Mossy stones",
+      "model": "rocks"
+    }
+  ],
+  "npcs": [],
+  "exits": [
+    {
+      "id": "to_altar",
+      "cell": [
+        35,
+        15
+      ],
+      "to": "hb_altar_of_rot",
+      "spawn": "from_pines",
+      "label": "Back to the altar of rot"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "hb_drums",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "rotweaver",
+          "cell": [
+            33,
+            24
+          ],
+          "name": "Rotweaver",
+          "facing": "west"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            33,
+            23
+          ],
+          "name": "Rotweaver",
+          "facing": "west"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            33,
+            25
+          ],
+          "name": "Rotweaver",
+          "facing": "west"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            33,
+            22
+          ],
+          "name": "Rotweaver",
+          "facing": "west"
+        }
+      ],
+      "flag": "hb_drums_done"
+    },
+    {
+      "id": "hb_mammoth",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "mammoth",
+          "cell": [
+            33,
+            26
+          ],
+          "name": "A blighted mammoth",
+          "facing": "west"
+        }
+      ],
+      "flag": "hb_mammoth_done"
+    },
+    {
+      "id": "hb_owlbears",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "owlbear",
+          "cell": [
+            32,
+            22
+          ],
+          "name": "A rotting owlbear",
+          "facing": "west"
+        },
+        {
+          "monster": "owlbear",
+          "cell": [
+            32,
+            23
+          ],
+          "name": "A rotting owlbear",
+          "facing": "west"
+        }
+      ],
+      "flag": "hb_owlbears_done"
+    },
+    {
+      "id": "hb_hounds",
+      "trigger": "enter_area:pine_deep",
+      "flag": "hb_hounds_done",
+      "monsters": [
+        {
+          "monster": "death_dog",
+          "cell": [
+            9,
+            15
+          ],
+          "name": "A one-headed hound",
+          "facing": "east"
+        },
+        {
+          "monster": "death_dog",
+          "cell": [
+            8,
+            15
+          ],
+          "name": "A one-headed hound",
+          "facing": "east"
+        },
+        {
+          "monster": "death_dog",
+          "cell": [
+            9,
+            14
+          ],
+          "name": "A one-headed hound",
+          "facing": "east"
+        },
+        {
+          "monster": "death_dog",
+          "cell": [
+            9,
+            16
+          ],
+          "name": "A one-headed hound",
+          "facing": "east"
+        },
+        {
+          "monster": "death_dog",
+          "cell": [
+            8,
+            14
+          ],
+          "name": "A one-headed hound",
+          "facing": "east"
+        },
+        {
+          "monster": "death_dog",
+          "cell": [
+            10,
+            14
+          ],
+          "name": "A one-headed hound",
+          "facing": "east"
+        },
+        {
+          "monster": "death_dog",
+          "cell": [
+            10,
+            16
+          ],
+          "name": "A one-headed hound",
+          "facing": "east"
+        },
+        {
+          "monster": "death_dog",
+          "cell": [
+            9,
+            13
+          ],
+          "name": "A one-headed hound",
+          "facing": "east"
+        }
+      ],
+      "when": "not flag.hb_hounds_done"
+    }
+  ],
+  "areas": [
+    {
+      "id": "pine_east",
+      "name": "The edge of the barrens",
+      "cells": [
+        [
+          20,
+          2
+        ],
+        [
+          34,
+          27
+        ]
+      ]
+    },
+    {
+      "id": "pine_deep",
+      "name": "The deep pines",
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          18,
+          27
+        ]
+      ]
+    }
+  ],
+  "lights": [],
+  "traps": [
+    {
+      "id": "hb_trap_0",
+      "cells": [
+        [
+          25,
+          8
+        ]
+      ],
+      "detect_dc": 17,
+      "disarm_dc": 15,
+      "save": {
+        "ability": "dex",
+        "dc": 15
+      },
+      "damage": "1d8",
+      "damage_type": "piercing",
+      "flag": "hb_trap_found"
+    },
+    {
+      "id": "hb_trap_1",
+      "cells": [
+        [
+          21,
+          13
+        ]
+      ],
+      "detect_dc": 17,
+      "disarm_dc": 15,
+      "save": {
+        "ability": "dex",
+        "dc": 15
+      },
+      "damage": "1d8",
+      "damage_type": "piercing",
+      "flag": "hb_trap_found"
+    },
+    {
+      "id": "hb_trap_2",
+      "cells": [
+        [
+          29,
+          17
+        ]
+      ],
+      "detect_dc": 17,
+      "disarm_dc": 15,
+      "save": {
+        "ability": "dex",
+        "dc": 15
+      },
+      "damage": "1d8",
+      "damage_type": "piercing",
+      "flag": "hb_trap_found"
+    },
+    {
+      "id": "hb_trap_3",
+      "cells": [
+        [
+          24,
+          23
+        ]
+      ],
+      "detect_dc": 17,
+      "disarm_dc": 15,
+      "save": {
+        "ability": "dex",
+        "dc": 15
+      },
+      "damage": "1d8",
+      "damage_type": "piercing",
+      "flag": "hb_trap_found"
+    },
+    {
+      "id": "hb_trap_4",
+      "cells": [
+        [
+          18,
+          9
+        ]
+      ],
+      "detect_dc": 17,
+      "disarm_dc": 15,
+      "save": {
+        "ability": "dex",
+        "dc": 15
+      },
+      "damage": "1d8",
+      "damage_type": "piercing",
+      "flag": "hb_trap_found"
+    },
+    {
+      "id": "hb_trap_5",
+      "cells": [
+        [
+          31,
+          12
+        ]
+      ],
+      "detect_dc": 17,
+      "disarm_dc": 15,
+      "save": {
+        "ability": "dex",
+        "dc": 15
+      },
+      "damage": "1d8",
+      "damage_type": "piercing",
+      "flag": "hb_trap_found"
+    }
+  ],
+  "spawns": {
+    "default": [
+      33,
+      15
+    ],
+    "from_altar": [
+      33,
+      15
+    ]
+  },
+  "name": "The Pine Barrens",
+  "summary": "Thin, peeling pines over a black-green carpet of needles with rusted traps hidden in it.",
+  "text": "Thin, peeling pines over a black-green carpet of needles with rusted traps hidden in it. Everything grows in straight, thin lines, and nothing moves among them.",
+  "rest": "risky",
+  "rest_text": "The spores drift down on your bedrolls like a slow, soft snow, and the trees are listening."
+}

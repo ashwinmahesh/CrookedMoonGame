@@ -1,0 +1,539 @@
+{
+  "id": "mr_grotto",
+  "name": "The Grotto of Tears",
+  "region": "memorys_rest",
+  "summary": "Folded grey walls like a brain, glowing pools, and the White Worm on its chains.",
+  "text": "A cavern like the inside of a skull. Purple and teal water bubbles; vats of verdigris copper hiss along the walls; and over a round stone platform, a pale thing as long as a barn hangs in chains.",
+  "map": {
+    "rows": [
+      "#################################",
+      "#######..####........####.#######",
+      "#######..####........####.#######",
+      "#######..####........####.#######",
+      "#######...................#######",
+      "#######.~~~~~~~...~~~~~~~.#######",
+      "#######.~~~~~~~...~~~~~~~.......#",
+      "#.......~~~~~~~...~~~~~~~.......#",
+      "#.......~~~~~~~...~~~~~~~.......#",
+      "#.....==~~~~~~~...~~~~~~~==.....#",
+      "#.......~~~~~~~...~~~~~~~.......#",
+      "#.......~~~~~~~...~~~~~~~.......#",
+      "#.......~~_____________~~....####",
+      "#........._____________......####",
+      "####......_____________......####",
+      "####.==..._____________...==.####",
+      "####.==..._____________...==.####",
+      "####.==..._____________...==.####",
+      "####......_____________......####",
+      "####......_____________......####",
+      "####....~._____________.~....####",
+      "#............................####",
+      "#...~~~~~....................####",
+      "#...~~~~~...............~~~~~...#",
+      "#...~~~~~....~~~~~~~....~~~~~...#",
+      "#...~~~~~....~~~~~~~....~~~~~...#",
+      "#...~~~~~....~~~~~~~....~~~~~...#",
+      "#...~~~~~...............~~~~~...#",
+      "#.......................~~~~~...#",
+      "#...............................#",
+      "######....===.......===....######",
+      "######....===.......===....######",
+      "######.....................######",
+      "######==.................==######",
+      "######.....................######",
+      "######.....................######",
+      "######.....................######",
+      "#..........................######",
+      "#............#.....#.......######",
+      "#............#.....#............#",
+      "#.......######.....#######......#",
+      "#.......######.....#######......#",
+      "#.......######.....#######......#",
+      "#################################"
+    ],
+    "theme": "cave",
+    "light": "bright",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "mr_g_tunnel",
+      "name": "The south tunnel",
+      "cells": [
+        [
+          14,
+          38
+        ],
+        [
+          18,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "mr_g_lift",
+      "name": "The lift landing",
+      "cells": [
+        [
+          1,
+          21
+        ],
+        [
+          3,
+          23
+        ]
+      ]
+    },
+    {
+      "id": "mr_g_platform",
+      "name": "The platform of glyphs",
+      "cells": [
+        [
+          10,
+          12
+        ],
+        [
+          22,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "mr_g_bridge",
+      "name": "The stone bridge",
+      "cells": [
+        [
+          15,
+          5
+        ],
+        [
+          17,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "mr_g_vats",
+      "name": "The fermentation vats",
+      "cells": [
+        [
+          10,
+          30
+        ],
+        [
+          22,
+          31
+        ]
+      ]
+    },
+    {
+      "id": "mr_g_tanks",
+      "name": "The mutation tanks",
+      "cells": [
+        [
+          5,
+          15
+        ],
+        [
+          27,
+          17
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      16,
+      22
+    ],
+    "from_hatch": [
+      16,
+      40
+    ],
+    "from_lift": [
+      2,
+      22
+    ],
+    "from_wile": [
+      16,
+      23
+    ]
+  },
+  "exits": [
+    {
+      "id": "hatch_up",
+      "cell": [
+        16,
+        42
+      ],
+      "to": "mr_ground",
+      "spawn": "from_hatch",
+      "label": "The stair up to the hatch room"
+    },
+    {
+      "id": "lift_up",
+      "cell": [
+        1,
+        22
+      ],
+      "to": "mr_upper",
+      "spawn": "from_lab",
+      "label": "The Plunge Platform, up (five minutes)"
+    }
+  ],
+  "props": [
+    {
+      "id": "mr_g_arrival",
+      "cell": [
+        16,
+        25
+      ],
+      "kind": "decor",
+      "label": "The grotto opens out",
+      "call": "memorys_rest/grotto:arrival",
+      "approach": 12,
+      "call_when": "not flag.mr_grotto_seen"
+    },
+    {
+      "id": "mr_g_worm",
+      "cell": [
+        16,
+        15
+      ],
+      "kind": "decor",
+      "label": "The White Worm, on its chains",
+      "model": "gate_pillar"
+    },
+    {
+      "id": "mr_g_drip",
+      "cell": [
+        14,
+        17
+      ],
+      "kind": "decor",
+      "label": "Ichor dripping onto the glyph ring",
+      "model": "blood_pool"
+    },
+    {
+      "id": "mr_g_vat_a",
+      "cell": [
+        11,
+        30
+      ],
+      "kind": "decor",
+      "label": "A verdigris copper vat",
+      "model": "barrel"
+    },
+    {
+      "id": "mr_g_vat_b",
+      "cell": [
+        21,
+        30
+      ],
+      "kind": "decor",
+      "label": "A verdigris copper vat",
+      "model": "barrel"
+    },
+    {
+      "id": "mr_g_tank_a",
+      "cell": [
+        5,
+        16
+      ],
+      "kind": "decor",
+      "label": "A tank of distilled serum, a shape inside",
+      "model": "jars"
+    },
+    {
+      "id": "mr_g_tank_b",
+      "cell": [
+        26,
+        16
+      ],
+      "kind": "decor",
+      "label": "A tank of distilled serum, a shape inside",
+      "model": "jars"
+    },
+    {
+      "id": "mr_g_carvings",
+      "cell": [
+        30,
+        40
+      ],
+      "kind": "decor",
+      "label": "Eel-people carvings down a side passage",
+      "model": "floor_glyphs"
+    },
+    {
+      "id": "mr_g_widow_end",
+      "cell": [
+        16,
+        21
+      ],
+      "kind": "decor",
+      "label": "Lethica's veil, on the glyph ring",
+      "call": "memorys_rest/grotto:lethica_dies",
+      "approach": 10,
+      "call_when": "flag.mr_widow_done and not flag.lethica_slain"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "doctor_belkin",
+      "cell": [
+        13,
+        29
+      ],
+      "dialogue": "memorys_rest/belkin:after_belkin",
+      "when": "flag.lethica_slain and not flag.belkin_fate"
+    },
+    {
+      "npc": "hugo",
+      "cell": [
+        16,
+        18
+      ],
+      "dialogue": "memorys_rest/hugo:peace",
+      "when": "flag.mr_widow_done and not flag.hugo_fate",
+      "facing": "north"
+    },
+    {
+      "npc": "lethica_nightborne",
+      "cell": [
+        16,
+        20
+      ],
+      "dialogue": "memorys_rest/grotto:widow_arrives",
+      "when": "flag.mr_grotto_seen and not flag.mr_widow_done",
+      "approach": 6
+    }
+  ],
+  "encounters": [
+    {
+      "id": "mr_widow",
+      "trigger": "dialogue",
+      "flag": "mr_widow_done",
+      "when": "level >= 8",
+      "lair": true,
+      "objects": [
+        {
+          "id": "mr_vat_0",
+          "kind": "vessel",
+          "cell": [
+            11,
+            30
+          ],
+          "name": "A pressurised vat",
+          "model": "barrel",
+          "ac": 13,
+          "hp": 10,
+          "immune": [
+            "poison",
+            "psychic"
+          ]
+        },
+        {
+          "id": "mr_vat_1",
+          "kind": "vessel",
+          "cell": [
+            21,
+            30
+          ],
+          "name": "A pressurised vat",
+          "model": "barrel",
+          "ac": 13,
+          "hp": 10,
+          "immune": [
+            "poison",
+            "psychic"
+          ]
+        },
+        {
+          "id": "mr_vat_2",
+          "kind": "vessel",
+          "cell": [
+            6,
+            33
+          ],
+          "name": "A pressurised vat",
+          "model": "barrel",
+          "ac": 13,
+          "hp": 10,
+          "immune": [
+            "poison",
+            "psychic"
+          ]
+        },
+        {
+          "id": "mr_vat_3",
+          "kind": "vessel",
+          "cell": [
+            26,
+            33
+          ],
+          "name": "A pressurised vat",
+          "model": "barrel",
+          "ac": 13,
+          "hp": 10,
+          "immune": [
+            "poison",
+            "psychic"
+          ]
+        }
+      ],
+      "monsters": [
+        {
+          "monster": "weeping_widow",
+          "cell": [
+            16,
+            14
+          ],
+          "name": "Matron Lethica, the Weeping Widow",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "serum_brute",
+          "cell": [
+            16,
+            15
+          ],
+          "name": "Hugo, the Serum Brute",
+          "boss": false,
+          "facing": "south"
+        },
+        {
+          "monster": "mutant_nurse_cerebral_graft",
+          "cell": [
+            12,
+            16
+          ],
+          "name": "A masked orderly",
+          "facing": "east"
+        },
+        {
+          "monster": "mutant_nurse_tentacle_lash",
+          "cell": [
+            20,
+            16
+          ],
+          "name": "A masked orderly",
+          "facing": "west"
+        }
+      ]
+    },
+    {
+      "id": "mr_widow",
+      "trigger": "dialogue",
+      "flag": "mr_widow_done",
+      "lair": true,
+      "objects": [
+        {
+          "id": "mr_vat_0",
+          "kind": "vessel",
+          "cell": [
+            11,
+            30
+          ],
+          "name": "A pressurised vat",
+          "model": "barrel",
+          "ac": 13,
+          "hp": 10,
+          "immune": [
+            "poison",
+            "psychic"
+          ]
+        },
+        {
+          "id": "mr_vat_1",
+          "kind": "vessel",
+          "cell": [
+            21,
+            30
+          ],
+          "name": "A pressurised vat",
+          "model": "barrel",
+          "ac": 13,
+          "hp": 10,
+          "immune": [
+            "poison",
+            "psychic"
+          ]
+        },
+        {
+          "id": "mr_vat_2",
+          "kind": "vessel",
+          "cell": [
+            6,
+            33
+          ],
+          "name": "A pressurised vat",
+          "model": "barrel",
+          "ac": 13,
+          "hp": 10,
+          "immune": [
+            "poison",
+            "psychic"
+          ]
+        },
+        {
+          "id": "mr_vat_3",
+          "kind": "vessel",
+          "cell": [
+            26,
+            33
+          ],
+          "name": "A pressurised vat",
+          "model": "barrel",
+          "ac": 13,
+          "hp": 10,
+          "immune": [
+            "poison",
+            "psychic"
+          ]
+        }
+      ],
+      "monsters": [
+        {
+          "monster": "weeping_widow",
+          "cell": [
+            16,
+            14
+          ],
+          "name": "Matron Lethica, the Weeping Widow",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "serum_brute",
+          "cell": [
+            16,
+            15
+          ],
+          "name": "Hugo, the Serum Brute",
+          "boss": false,
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "mr_hugo_after",
+      "trigger": "dialogue",
+      "flag": "mr_hugo_after_done",
+      "monsters": [
+        {
+          "monster": "serum_brute",
+          "cell": [
+            16,
+            19
+          ],
+          "name": "Hugo",
+          "boss": false,
+          "facing": "south"
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The worm's dreams press at the edge of sleep."
+}

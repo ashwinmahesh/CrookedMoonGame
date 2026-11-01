@@ -1,0 +1,109 @@
+# Drafted by Gemini (R16 guide), edited.
+
+~ offer
+Narrator: Mrs. Oakum hurries across the cobbles, wiping her hands on her butcher's apron and glancing toward the dark hills.
+mrs_oakum [weary]: Pardon me, strangers. I heard you askin' 'round about them tiny tunnels under the cellars, and I know where they lead.
+mrs_oakum [neutral]: My pa logged and trapped the north-west ridge, and he worked old Glitterdeep Mine when I was just a girl. I can walk you out to the camp, though I can't go no further.
+if flag.oakum_known
+mrs_oakum [afraid]: You already seen what comes over me when the hour turns, and I pray you keep that quiet between us.
+endif
+-> offer_menu
+
+~ offer_menu
+* Ask about her father's tale -> tale
+* Ask her to guide the party -> accept
+* [Insight DC 12] Ask why she stops at the camp -> insight_ok | insight_fail
+* We will find the mine alone -> alone
+* Not yet -> END
+
+~ tale
+cutscene sk_cave_in
+mrs_oakum [sad]: Pa said a tall woman came down the ridge with pots of hot soup and sweet drink, fair dazzlin' the boys with her glamour. They feasted every hour till the timbers rotted and the tunnels came thunderin' down.
+cutscene sk_cave_in_2
+mrs_oakum [angry]: Lords sent knights in wine-red coats with torches, and none rode back. It was the miners' wives who drove that stink-witch off the camp, scrubbin' the stones with strong lye soap till she screamed and crawled below.
+cutscene end
+mrs_oakum [neutral]: Take these two flasks of my pa's boiling-lye. If that thing's still down in the dark, soap and ash will scald her worse than fire.
+give lye_soap_flask 2
+set skitter_trail_known
+quest skitter_plague oakums_tale
+-> offer_menu
+
+~ insight_ok
+Narrator: Her knuckles whiten on her shawl as she checks the clocktower hand, dreading both the bells and the tight stone roof of a tunnel.
+mrs_oakum [afraid]: A body shouldn't be shut under rock when the bad hour strikes. Lookin' after my own skin is all, and keepin' yours safe from me.
+-> offer_menu
+
+~ insight_fail
+Narrator: She only folds her arms over her apron, a plain country woman anxious to do a neighbourly turn before the night wears on.
+mrs_oakum [weary]: My knees ain't made for ladder rungs no more, that's all. The trail is steep enough.
+-> offer_menu
+
+~ accept
+mrs_oakum [smile]: Right then. Keep your lanterns trimmed and stay close behind me till we hit the old timber clearing.
+Narrator: She ties up a oilcloth bag of salted mutton scraps from the shop block and nods toward the north-west gate.
+join mrs_oakum
+set oakum_guiding
+set skitter_trail_known
+quest skitter_plague into_the_hills
+-> END
+
+~ alone
+mrs_oakum [neutral]: Suit yourselves, then. Follow the north-west cart ruts past the split pine, and watch for the painted sign at the ridge.
+set oakum_declined
+set skitter_trail_known
+quest skitter_plague into_the_hills
+-> END
+
+~ turn
+Narrator: At the bend of the hill trail, Mrs. Oakum stops dead in the pine needles, her nose lifted toward a startled deer between the trees.
+cutscene sk_oakum_turn
+Narrator: Her spine bends and lengthens with a dry crack, coarse grey fur swallowing her woollen shawl until a heavy wolf crouches in the bracken with its yellow eyes lowered.
+cutscene sk_oakum_turn_2
+mrs_oakum [afraid]: Don't follow me, please don't look at me.
+cutscene end
+leave mrs_oakum
+set oakum_wolf_seen
+Narrator: Brush snaps as she bolts into the dark timber, though by the heavy pant in the thicket she will not have gone far.
+* Let her go -> END
+* Call after her softly -> call
+
+~ call
+Narrator: The cold pines answer only with a distant, ashamed whine before the wind settles.
+-> END
+
+~ ashamed
+Narrator: At the edge of the ruined mining camp, Mrs. Oakum waits beside a rusted ore cart, herself again, eyes down and hands wringing her torn shawl.
+mrs_oakum [sad]: I told you I shouldn't have come out so late. I won't step a foot past these posts, and I can't ask you to forgive the fright.
+-> ashamed_menu
+
+~ ashamed_menu
+* Keep her secret -> keep
+* Tell Siv Harga when we are home -> tell
+* Offer to find a cure -> help
+* Ask what she knows about the mine -> mine_tips
+
+~ mine_tips
+mrs_oakum [neutral]: Pa always said nobody watches the old drift cut into the west ridge, and a steady hand can climb the hoist chain on the main shaft head.
+mrs_oakum [weary]: Mind the jars on the shelves, too. The boys kept little blind centipedes in glass to smell out the bad gas before it choked 'em.
+-> ashamed_menu
+
+~ keep
+mrs_oakum [smile]: Thank the Lady for a kind heart. A woman works hard for an honest roof, and I'd hate to lose the shop.
+standing patient_lady +1
+set oakum_secret_kept
+set oakum_choice_done
+-> END
+
+~ tell
+Narrator: She lets out a long, slow breath into the hill mist and nods once.
+mrs_oakum [weary]: Maybe that's fair. Siv's been good to me, and I'd rather she heard it plain from a friend than found blood on the apron.
+set oakum_secret_told
+set oakum_choice_done
+-> END
+
+~ help
+Narrator: Tears spill down her wind-chapped cheeks, and she sinks onto a mossy sleeper timber.
+mrs_oakum [sad]: I didn't think there was a herb or prayer left for the likes of me. I'll wait right here by the pines till you come back up.
+set oakum_help_offered
+set oakum_choice_done
+-> END

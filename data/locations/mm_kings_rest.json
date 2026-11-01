@@ -1,0 +1,258 @@
+{
+  "id": "mm_kings_rest",
+  "name": "King's Rest",
+  "region": "maidenmist_cemetery",
+  "summary": "An enormous palatial barrow, a giant armoured king raising a sword through the fog, huge rune-covered doors.",
+  "text": "Past a field of wrecked iron the barrow rises, and on its roof a king of stone lifts a sword into the fog. Wights and shrouded fight at its doors, endlessly, and none of them look over.",
+  "map": {
+    "rows": [
+      "##############################",
+      "#............................#",
+      "#......################......#",
+      "#......######....######......#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#....=..........=............#",
+      "#............................#",
+      "#.......=.......=............#",
+      "#.=...................=......#",
+      "#............................#",
+      "#............................#",
+      "#.......=......=......=......#",
+      "#............................#",
+      "#=.................=.........#",
+      "#...=.=......................#",
+      "#............................#",
+      "#......=.....................#",
+      "#................=..=........#",
+      "#=...........................#",
+      "#.........................=..#",
+      "#...............=............#",
+      "#...........=.......=........#",
+      "#............................#",
+      "#................=...........#",
+      "#............................#",
+      "#............................#",
+      "###############.##############"
+    ],
+    "theme": "wilderness",
+    "light": "dim",
+    "outdoors": true,
+    "elevation": [
+      "222223333333444444433333332222",
+      "222223333334444444443333332222",
+      "222223333344444444444333332222",
+      "222233333444444444444433333222",
+      "222233333444445554444433333222",
+      "222233333444455555444433333222",
+      "222233334444455555444443333222",
+      "222233333444455555444433333222",
+      "222233333444445554444433333222",
+      "222233333444444444444433333222",
+      "222223333344444444444333332222",
+      "222223333334444444443333332222",
+      "222223333333444444433333332222",
+      "222222333333333433333333322222",
+      "222222233333333333333333222222",
+      "222222223333333333333332222222",
+      "222222222333333333333322222222",
+      "222222222222333333322222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222"
+    ]
+  },
+  "areas": [
+    {
+      "id": "approach",
+      "name": "The approach",
+      "cells": [
+        [
+          1,
+          17
+        ],
+        [
+          28,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "doors",
+      "name": "The rune doors",
+      "cells": [
+        [
+          10,
+          2
+        ],
+        [
+          20,
+          7
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      15,
+      27
+    ],
+    "from_hub": [
+      15,
+      27
+    ]
+  },
+  "exits": [
+    {
+      "id": "hub_path",
+      "cell": [
+        15,
+        29
+      ],
+      "to": "mm_sepulcher",
+      "spawn": "from_kings",
+      "label": "The paved path back to the sepulcher"
+    }
+  ],
+  "props": [
+    {
+      "id": "mm_king_statue",
+      "cell": [
+        15,
+        1
+      ],
+      "kind": "decor",
+      "label": "A giant armoured king, sword raised",
+      "model": "colossus",
+      "scale": 2.4
+    },
+    {
+      "id": "mm_king_doors",
+      "cell": [
+        15,
+        4
+      ],
+      "kind": "examine",
+      "label": "Huge doors, rune-covered stone",
+      "model": "great_doors",
+      "scale": 1.8,
+      "call": "maidenmist/road:kings_rest",
+      "approach": 6,
+      "facing": "south"
+    },
+    {
+      "id": "mm_war_0",
+      "cell": [
+        6,
+        11
+      ],
+      "kind": "decor",
+      "label": "Wights and shrouded, locked in a war that does not end",
+      "model": "skeleton_shackles"
+    },
+    {
+      "id": "mm_war_1",
+      "cell": [
+        9,
+        13
+      ],
+      "kind": "decor",
+      "label": "Wights and shrouded, locked in a war that does not end",
+      "model": "skeleton_shackles"
+    },
+    {
+      "id": "mm_war_2",
+      "cell": [
+        12,
+        11
+      ],
+      "kind": "decor",
+      "label": "Wights and shrouded, locked in a war that does not end",
+      "model": "skeleton_shackles"
+    },
+    {
+      "id": "mm_war_3",
+      "cell": [
+        15,
+        13
+      ],
+      "kind": "decor",
+      "label": "Wights and shrouded, locked in a war that does not end",
+      "model": "skeleton_shackles"
+    },
+    {
+      "id": "mm_war_4",
+      "cell": [
+        18,
+        11
+      ],
+      "kind": "decor",
+      "label": "Wights and shrouded, locked in a war that does not end",
+      "model": "skeleton_shackles"
+    },
+    {
+      "id": "mm_war_5",
+      "cell": [
+        21,
+        13
+      ],
+      "kind": "decor",
+      "label": "Wights and shrouded, locked in a war that does not end",
+      "model": "skeleton_shackles"
+    },
+    {
+      "id": "mm_wreck_0",
+      "cell": [
+        4,
+        20
+      ],
+      "kind": "decor",
+      "label": "Broken iron and older bones",
+      "model": "bones"
+    },
+    {
+      "id": "mm_wreck_1",
+      "cell": [
+        25,
+        20
+      ],
+      "kind": "decor",
+      "label": "Broken iron and older bones",
+      "model": "bones"
+    },
+    {
+      "id": "mm_wreck_2",
+      "cell": [
+        8,
+        24
+      ],
+      "kind": "decor",
+      "label": "Broken iron and older bones",
+      "model": "bones"
+    },
+    {
+      "id": "mm_wreck_3",
+      "cell": [
+        22,
+        24
+      ],
+      "kind": "decor",
+      "label": "Broken iron and older bones",
+      "model": "bones"
+    }
+  ],
+  "npcs": [],
+  "encounters": [],
+  "rest": "risky"
+}

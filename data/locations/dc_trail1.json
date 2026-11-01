@@ -1,0 +1,283 @@
+{
+  "id": "dc_trail1",
+  "name": "The Dry Hummock",
+  "region": "drowned_crossroads",
+  "summary": "A raised island of cypress roots in black water",
+  "text": "A raised island of cypress roots in black water: dry enough for a fire, if you do not mind what watches from the reeds.",
+  "map": {
+    "rows": [
+      "########################################",
+      "#~~~~~~~~~~~#~~~~~~~~~~#~~~#~~~~~~~~~~~#",
+      "#~~~~#~~~~~~~~~~~~~~wwwwww~~~~#~~~~~~#~#",
+      "##~~~~~~w#~~~~#~~~~wwwwwww~~#~~~~~~~~~~#",
+      "#~~~~wwwww~~~~~~~~~~wwwwww~~~~~~~~~#~~~#",
+      "#~#~~wwwww~~~.~~~~#~~~~~~~~.~~~~~~~~~#~#",
+      "#~~~~wwwww~....~~~~~~~~~~~~...~~~~~~~~~#",
+      "#~~~#~ww~~.....~~~~.#...~.......##~~~~##",
+      "#~~~..~~~~......................~~~..~~#",
+      "##~.....~~.......=......=......~~~....~#",
+      "#~.......~.....................~.......#",
+      "#......................................#",
+      "........................................",
+      "#........~~~~................~~.........",
+      "#~.......~~~.................~~~.......#",
+      "#~~.....~~~.....=......=......~~.~....~#",
+      "#~~~.~~~~~~..............~.....~~~~~~#~#",
+      "#~~~~~~~#~......~~~~...~~~.....~~~~~~~~#",
+      "#~~~~~~~~~~......~~~~~~~~.......w~~~#~##",
+      "#~~~~~~~~~~~....~~~~~~~~~~....~wwwwww~~#",
+      "#~~~~~~~~~~~~.~~~~~~~~~~~~#~.wwwwwwwww~#",
+      "##~~~~~~#~~~~~~~~~~~~~~~#~#~~~wwwwwww~~#",
+      "#~~~~~~~##~~~~~~~~#~~~#~~~#~~~~~w~w~~~~#",
+      "########################################"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "trail",
+      "name": "The Dry Hummock",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          38,
+          22
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      3,
+      12
+    ],
+    "from_west": [
+      3,
+      12
+    ],
+    "from_east": [
+      36,
+      12
+    ]
+  },
+  "exits": [
+    {
+      "id": "west",
+      "cell": [
+        0,
+        12
+      ],
+      "to": "travel",
+      "spawn": "default",
+      "label": "The road back to Wickermoor"
+    },
+    {
+      "id": "east",
+      "cell": [
+        39,
+        12
+      ],
+      "to": "dc_trail2",
+      "spawn": "from_west",
+      "label": "On along the trail"
+    }
+  ],
+  "props": [
+    {
+      "id": "dc_t1_cypress0",
+      "cell": [
+        8,
+        8
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dc_t1_cypress1",
+      "cell": [
+        11,
+        15
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "dc_t1_cypress2",
+      "cell": [
+        30,
+        6
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dc_t1_cypress3",
+      "cell": [
+        33,
+        17
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "dc_t1_cypress4",
+      "cell": [
+        14,
+        4
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dc_t1_cypress5",
+      "cell": [
+        26,
+        19
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "dc_t1_reeds0",
+      "cell": [
+        9,
+        11
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "dc_t1_reeds1",
+      "cell": [
+        24,
+        13
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "dc_t1_reeds2",
+      "cell": [
+        31,
+        14
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "dc_t1_fire",
+      "cell": [
+        19,
+        12
+      ],
+      "kind": "examine",
+      "label": "The camp fire on the hummock",
+      "model": "rocks"
+    },
+    {
+      "id": "dc_t1_hand",
+      "cell": [
+        15,
+        11
+      ],
+      "kind": "decor",
+      "label": "A withered hand at the edge of the light",
+      "call": "drowned_crossroads/trek:hand_comes",
+      "approach": 7,
+      "call_when": "not flag.dc_hand_seen"
+    },
+    {
+      "id": "dc_t1_remains",
+      "cell": [
+        24,
+        10
+      ],
+      "kind": "examine",
+      "label": "Splintered wood and a hexed mask",
+      "dialogue": "drowned_crossroads/trek:beast_remains",
+      "when": "flag.dc_beast_done and not flag.dc_beast_lore"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "dc_beast_camp",
+      "trigger": "dialogue",
+      "flag": "dc_beast_done",
+      "quest": {
+        "id": "withered_arm",
+        "stage": "trek"
+      },
+      "monsters": [
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            25,
+            10
+          ],
+          "name": "The Bayou Beast",
+          "facing": "west"
+        }
+      ],
+      "when": "level <= 5"
+    },
+    {
+      "id": "dc_beast_camp",
+      "trigger": "dialogue",
+      "flag": "dc_beast_done",
+      "quest": {
+        "id": "withered_arm",
+        "stage": "trek"
+      },
+      "monsters": [
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            25,
+            10
+          ],
+          "name": "The Bayou Beast",
+          "facing": "west"
+        }
+      ],
+      "when": "level == 6"
+    },
+    {
+      "id": "dc_beast_camp",
+      "trigger": "dialogue",
+      "flag": "dc_beast_done",
+      "quest": {
+        "id": "withered_arm",
+        "stage": "trek"
+      },
+      "monsters": [
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            25,
+            10
+          ],
+          "name": "The Bayou Beast",
+          "facing": "west"
+        }
+      ],
+      "when": "level >= 7"
+    }
+  ],
+  "rest": "risky",
+  "rest_text": "Something in the water is awake all night."
+}

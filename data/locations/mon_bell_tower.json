@@ -1,0 +1,216 @@
+{
+  "id": "mon_bell_tower",
+  "name": "The Bell Tower",
+  "region": "crimson_monastery",
+  "summary": "Two floors of spiral stair, then a landing where bat hounds sleep, and a ladder to a trapdoor.",
+  "text": "Cold stone, a spiral stair, and the stink of wet dog and bat.",
+  "map": {
+    "rows": [
+      "############################",
+      "#.........#................#",
+      "#.........#................#",
+      "#..==.....#................#",
+      "#..==.....#...==....=.=....#",
+      "#.........#................#",
+      "#.........#................#",
+      "#.........#................#",
+      "#.........#................#",
+      "#...............=....=.....#",
+      "#..........................#",
+      "#.........#................#",
+      "#.........#................#",
+      "#####.######################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "tower_stair",
+      "name": "The spiral stair",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          9,
+          12
+        ]
+      ]
+    },
+    {
+      "id": "landing",
+      "name": "The landing",
+      "cells": [
+        [
+          11,
+          1
+        ],
+        [
+          26,
+          12
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      5,
+      11
+    ],
+    "from_cathedral": [
+      5,
+      11
+    ],
+    "from_belfry": [
+      22,
+      3
+    ]
+  },
+  "exits": [
+    {
+      "id": "tower_door",
+      "cell": [
+        5,
+        13
+      ],
+      "to": "mon_ground",
+      "spawn": "from_tower",
+      "label": "Back to the cathedral"
+    },
+    {
+      "id": "ladder_up",
+      "cell": [
+        22,
+        1
+      ],
+      "to": "mon_belfry",
+      "spawn": "from_ladder",
+      "label": "Up the ladder to the trapdoor"
+    }
+  ],
+  "props": [
+    {
+      "id": "mon_bt_ladder",
+      "cell": [
+        22,
+        2
+      ],
+      "kind": "decor",
+      "label": "A twenty-foot ladder to a trapdoor",
+      "model": "roof_hatch"
+    },
+    {
+      "id": "mon_bt_beds",
+      "cell": [
+        17,
+        10
+      ],
+      "kind": "decor",
+      "label": "Straw beds fouled by dogs",
+      "model": "straw_pallet"
+    },
+    {
+      "id": "mon_bt_window",
+      "cell": [
+        26,
+        6
+      ],
+      "kind": "decor",
+      "label": "A slit window over the valley",
+      "model": "window_tall"
+    },
+    {
+      "id": "mon_bt_bones",
+      "cell": [
+        14,
+        11
+      ],
+      "kind": "decor",
+      "label": "Gnawed bones",
+      "model": "bone_scatter"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "mon_landing",
+      "trigger": "enter_area:landing",
+      "when": "not flag.mon_landing_done and not flag.dagny_hounds_calmed",
+      "waiting": true,
+      "flag": "mon_landing_done",
+      "monsters": [
+        {
+          "monster": "bat_hound",
+          "cell": [
+            14,
+            8
+          ],
+          "name": "A sleeping bat hound",
+          "facing": "east"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            17,
+            6
+          ],
+          "name": "A sleeping bat hound",
+          "facing": "east"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            19,
+            10
+          ],
+          "name": "A sleeping bat hound",
+          "facing": "north"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            23,
+            7
+          ],
+          "name": "A sleeping bat hound",
+          "facing": "west"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            24,
+            11
+          ],
+          "name": "A sleeping bat hound",
+          "facing": "north"
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "lights": [
+    {
+      "cell": [
+        5,
+        6
+      ],
+      "kind": "torch",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        20,
+        8
+      ],
+      "kind": "torch",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "ember"
+    }
+  ]
+}

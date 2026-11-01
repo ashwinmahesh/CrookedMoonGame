@@ -1,0 +1,174 @@
+# Drafted by Gemini (R15 sinner), edited.
+
+~ invite
+set sinner_roll_started
+quest withered_arm roll_the_bones
+cutscene dc_roll_bones
+Narrator: The room stretches out like old taffy, the ceiling lifting while a four-legged coffin carved with a dice-eyed skeleton settles between you.
+cutscene dc_roll_bones_2
+Narrator: Across the green felt, his yellow grin catches the lantern light while his hollow-eyed crew crowds close at his back.
+cutscene end
+mister_crossroads [smile]: Welcome, honoured guests, to my humble parlour. Sit yourselves down, rest your boots, and let a simple sinner propose a friendly wager.
+-> invite_menu
+
+~ invite_again
+mister_crossroads [smile]: There is no hurry on the river, friends. The felt is brushed, the ivory is warm, and your chairs are waiting.
+-> invite_menu
+
+~ invite_menu
+* Ask about Adela -> invite_adela
+* [Insight DC 20] Judge whether he will keep his word -> invite_insight | invite_insight_miss
+* Take the table -> table_play
+* Not yet -> invite_refuse
+* Draw steel and fight -> sinner_fight
+
+~ invite_adela
+mister_crossroads [sly]: Lady Adela's ring and her recovery are right here on the cloth, beside my boat and every poor soul aboard, against your own bright spirits.
+mister_crossroads [smile]: Should the stakes feel a touch steep, you are always welcome to take a purse of river gold and walk away happy.
+-> invite_menu
+
+~ invite_insight
+Narrator: For all his soft manners, his tail twitches hard against the floorboards. He cannot bear to lose, and he will never pay out.
+mister_crossroads [smile]: Haha, you look at me like a tax collector inspecting the ledgers. I assure you, my word is as solid as cypress heartwood.
+-> invite_menu
+
+~ invite_insight_miss
+Narrator: He pours himself a glass of dark rum and tips the bottle toward you, every inch the easygoing riverboat captain.
+-> invite_menu
+
+~ invite_refuse
+mister_crossroads [smile]: Take all the time you please to enjoy the music and the night air. My table is not going anywhere.
+-> END
+
+~ table_play
+set dice_score = 0
+mister_crossroads [smile]: A dry throat and a bold heart, that is what the river likes. For every chair you fill, I shall set another bone under my cup.
+mister_crossroads [sly]: I am a man of large appetites, friends, so do not expect me to bid small.
+-> sdice_round1
+
+~ sdice_round1
+Narrator: The cups rattle like dry reeds, and he opens the first hand by calling a bold, improbable stack of sixes.
+* [Insight DC 16] Hard read: study his grin for the cup's story -> s1_ok | s1_miss
+* [Sleight of Hand DC 17] Deft hands: nudge a die -> s1_ok | s1_caught
+* [Deception DC 17] Poker face: bluff a big bid -> s1_ok | s1_miss
+* Bid cautiously -> s1_miss
+
+~ s1_ok
+set dice_score += 1
+Narrator: His yellow eyes narrow a fraction as you call the table right, and he sweeps one of his own carved bones into the pot.
+-> sdice_round2
+
+~ s1_miss
+Narrator: He lifts his cup with a deep, warm chuckle, showing the exact count he boasted while you surrender a die.
+-> sdice_round2
+
+~ s1_caught
+Narrator: He clicks his tongue gently against his teeth, tapping a clawed finger on the felt before claiming the hand for the house.
+-> sdice_round2
+
+~ sdice_round2
+Narrator: The leather cups slam down a second time, and he leans forward, raising the call before the ivory even stops spinning.
+* [Insight DC 16] Hard read: study his grin for the cup's story -> s2_ok | s2_miss
+* [Sleight of Hand DC 17] Deft hands: nudge a die -> s2_ok | s2_caught
+* [Deception DC 17] Poker face: bluff a big bid -> s2_ok | s2_miss
+* Bid cautiously -> s2_miss
+
+~ s2_ok
+set dice_score += 1
+Narrator: A muscle jumps in his scaly jaw when the cups rise in your favour, costing him another bone from his pile.
+-> sdice_round3
+
+~ s2_miss
+Narrator: The ivory shows nothing but bad news for your side of the cloth, and his belly laugh shakes the hanging lamps.
+-> sdice_round3
+
+~ s2_caught
+Narrator: He shakes his head with fatherly disappointment, clicks his tongue, and rakes the round neatly to his side of the wood.
+-> sdice_round3
+
+~ sdice_round3
+Narrator: Sweat beads on the brass lamps as the final cups come down hard, and he calls a high, reckless number across the baize.
+* [Insight DC 16] Hard read: study his grin for the cup's story -> s3_ok | s3_miss
+* [Sleight of Hand DC 17] Deft hands: nudge a die -> s3_ok | s3_caught
+* [Deception DC 17] Poker face: bluff a big bid -> s3_ok | s3_miss
+* Bid cautiously -> s3_miss
+
+~ s3_ok
+set dice_score += 1
+Narrator: You catch him out in the cold one last time, and the grin freezes on his snout as his hand falls short.
+-> sdice_result
+
+~ s3_miss
+Narrator: He turns his cup over with a flourish of his cuffs, and the bones sit smiling up at him in neat, cruel rows.
+-> sdice_result
+
+~ s3_caught
+Narrator: He gives a polite little click of his tongue, wagging one claw at your cuff before taking the final pot.
+-> sdice_result
+
+~ sdice_result
+Narrator: The leather cups lift one last time, leaving the pale ivory exposed on the green cloth.
+if flag.dice_score >= 2
+-> table_win
+else
+-> table_lose
+endif
+
+~ table_win
+set sinner_dice = "won"
+set jack_boon = 1
+Narrator: His last die vanishes, and the four-legged coffin shudders hard, sliding two ghostly numbers into your palms to spend when steel is drawn.
+mister_crossroads [angry]: Cheaters and river thieves at my own table. Nobody cleans out this house while I still draw breath.
+-> sinner_fight
+
+~ table_lose
+set sinner_dice = "lost"
+mister_crossroads [smile]: Well played, my dear friends, though luck is a fickle lady on the black water. Now hold still while I collect my winnings.
+Narrator: He rises from his chair and hefts a massive blunderbuss etched with weeping sigils, aiming the wide brass barrel across the felt.
+-> sinner_fight
+
+~ sinner_fight
+cutscene dc_all_in
+Narrator: All around the hall, his crew drops to its knees and shrivels like dry leaves, their pale light pouring straight into his gun.
+cutscene dc_all_in_2
+Narrator: The tall windows shatter inward in a spray of glass and black swamp water as the bayou rushes into the room.
+cutscene end
+quest withered_arm bayou_boogie
+move dc_casino:from_hall
+
+~ ship_bottle
+Narrator: Inside the green glass sits a miniature Dead Man's Hand, flying a black flag no bigger than a fingernail painted with a crocodile skull.
+-> END
+
+~ desk
+Narrator: The dark wood is scored deep with jinxcraft sigils that make your eyes water and your teeth ache if you stare too long.
+-> END
+
+~ coffin
+Narrator: Snake Eye Jack's coffin stands on four carved legs, and the pair of bone dice resting on its lid always turns up double ones.
+-> END
+
+~ after
+cutscene dc_jack_due
+Narrator: The coffin lid flies wide, and a tangle of skeletal arms and shadow snakes boils out around a tall, laughing shade of magenta light.
+cutscene dc_jack_due_2
+Narrator: The lid slams shut with the crack of a pistol shot, leaving a fresh crocodile skull and crossbones gouged deep into the wood.
+cutscene dc_jack_due_3
+Narrator: Shadows settle back over the quiet hall where the Sinner's body slumps in his coat, wide eyes fixed on nothing and the cold gun in his lap.
+cutscene end
+set grinning_sinner_slain
+set sinner_after_seen
+-> farewell
+
+~ farewell
+if flag.elias_freed
+elias_greaves [weary]: The crew is turning to river dust, and the folks at the tables are finally waking up. I am glad I lived to see the morning, friends.
+else
+Narrator: The old thralls let out a long, dusty sigh before crumbling to ash, while the patrons blink their glassy eyes and ask what time it is.
+endif
+Narrator: The borrowed luck fades from your fingers and the brass band falls silent, leaving only the smell of spilled rum and gunsmoke.
+set act2_done += 1
+xp milestone
+quest withered_arm return
+set crossroads_done
+-> END

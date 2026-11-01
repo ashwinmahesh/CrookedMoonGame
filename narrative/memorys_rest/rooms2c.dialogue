@@ -1,0 +1,124 @@
+# Drafted by Gemini (R17 rooms2c), edited.
+
+~ l23_journal
+Narrator: Shelves of pale specimens line Doctor Belkin's study, smelling sharply of vinegar and cold brine. Beside a jar of sleeping white grubs lies a thick leather ledger titled the Anatomist's Journal.
+* [Arcana DC 14] Read the journal -> l23_journal_ok | l23_journal_fail
+* Open the larvae jar -> l23_swarm
+* Leave -> END
+
+~ l23_journal_ok
+Narrator: Beneath Belkin's cramped diagrams of a great chained worm in a flooded grotto, {name} deciphers a phrase in the wet, clicking script of the deep-lake folk: the words that unseal a hidden hatch in the recovery ward.
+give mr_belkin_journal
+set mr_hatch_words
+set mr_hatch_hint
+set mr_truth_clues += 1
+if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+quest all_is_well the_truth
+endif
+-> l23_journal
+
+~ l23_journal_fail
+Narrator: The pages are a tangle of cramped anatomical ciphers and strange aquatic script that refuses to yield its meaning.
+-> l23_journal
+
+~ l23_swarm
+Narrator: The glass stopper comes free with a sour hiss, and the pale grubs wake all at once, boiling over the rim in a hungry tide.
+combat mr_swarm
+
+~ l24_pods
+Narrator: The unlit room is clammy as a cellar, lined with six tall cradles of weeping grey membrane. Three of the pods hold sleeping surgeons, their chests rising slow and heavy beneath the slime.
+* Touch a pod's gel -> l24_gel
+* Search an empty pod -> l24_search
+* Leave -> END
+
+~ l24_gel
+Narrator: The cold jelly numbs {name}'s fingertips, and for ten breathless minutes another sight crowds in: a vast blind worm in chains far below, looking out through a hundred wet eyes in a dark cavern.
+set mr_worm_seen
+-> END
+
+~ l24_search
+Narrator: {name} parts the slick husk of an empty cradle, disturbing a knot of pale grubs coiled in the warmth at the bottom.
+combat mr_swarm
+
+~ l25_glass
+Narrator: Through the observation glass, one tiled cell stands empty save for a warning scratched into the grout: DO NOT LET IT IN YOUR HEAD. In the next, a shivering patient clutches their open crown, where pale shapes stir.
+mr_glass_patient [afraid]: Make them be still, please, they are whispering so loudly...
+* [Medicine DC 15] Treat them with psychic harm to the worms -> l25_saved | l25_fail
+* [if flag.lethic_antidote_doses >= 1] Draw the worms out with serum -> l25_saved
+* Leave -> END
+
+~ l25_saved
+Narrator: The parasites shrivel and drop away from the wound, leaving the poor soul blinking in the violet gloom.
+mr_glass_patient [weary]: It is quiet now, thank you. I cannot recall my name, only Doctor Belkin speaking strange words to a secret door in the recovery room...
+set l25_patient_fate = "saved"
+set mr_patients_saved += 1
+set mr_hatch_hint
+-> END
+
+~ l25_fail
+Narrator: The brood flinches deeper into the bone at {name}'s touch, and the patient's eyes glaze over with a cold, hollow calm.
+mr_glass_patient [neutral]: We hear the choir beneath the stone now. You may leave us.
+set l25_patient_fate = "lost"
+-> END
+
+~ l27_eye
+Narrator: The corridor ends at a smooth plaster wall painted with a white barn owl perched in the boughs of a weeping willow.
+* [Perception DC 16] Search the mural -> l27_eye_found | l27_eye_miss
+* [if item:mr_lethic_serum and (flag.mr_lab_open_known or flag.mr_eye_found)] Inject the owl's eye with a full dose of serum -> l27_open
+* Leave -> END
+
+~ l27_eye_found
+set mr_eye_found
+Narrator: Looking close at the painted feathers, {name} spots a tiny brass-ringed aperture in the owl's left eye, crusted with dried violet serum.
+-> l27_eye
+
+~ l27_eye_miss
+Narrator: The brushwork is fine and cold to the touch, showing nothing more than paint on seamless plaster.
+-> END
+
+~ l27_open
+Narrator: The needle clicks home into the brass ring; as the serum drains inside, hidden counterweights groan and the painted wall swings open.
+take mr_lethic_serum
+set mr_lab_open
+move mr_upper:from_lab
+
+~ l27_lab
+Narrator: Glass coils and brass tubing bubble with violet distillation across the worktables, filling the room with a sweet, numbing vapour. At the far end stand a crackling glass orb and a broad iron lift platform over a dark shaft.
+* Search the alchemical chaos -> l27_search
+* Take the unrefined ichor decanters -> l27_ichor
+* Use the foot lever to the Widow's Wile -> l27_wile
+* Ride the Plunge Platform down -> l27_platform
+* Leave -> END
+
+~ l27_search
+Narrator: Among the warm retorts and notes, {name} finds a stoppered vial of refined violet serum ready for the needle.
+give mr_lethic_serum
+-> l27_lab
+
+~ l27_ichor
+Narrator: Heavy glass decanters sit in a rack of crushed ice, thick with milky, unrefined ichor drawn fresh from below.
+if not flag.mr_ichor_taken
+set mr_ichor_taken
+set unrefined_ichor += 6
+endif
+-> l27_lab
+
+~ l27_wile
+Narrator: Wires trail from the mounted glass orb down into the shadow beneath the iron workbench.
+* [Investigation DC 16] Find the foot lever -> l27_wile_ok | l27_lab
+* Step back -> l27_lab
+
+~ l27_wile_ok
+Narrator: {name}'s boot finds a recessed brass pedal; the glass orb splits the air with purple lightning, and the floor vanishes in a roar of ozone and cold lake water.
+set mr_wile_used
+if not flag.mr_grotto_seen
+quest all_is_well the_way_down
+endif
+move mr_grotto:from_wile
+
+~ l27_platform
+Narrator: Chains clank and the iron platform lurches downward, sinking into the pitch-dark shaft toward the sound of lapping water.
+if not flag.mr_grotto_seen
+quest all_is_well the_way_down
+endif
+move mr_grotto:from_lift

@@ -1,0 +1,55 @@
+# Drafted by Gemini (R14 hounds), edited.
+
+~ dagny_start
+Narrator: A leathery woman crouches by the kennels, smelling of wet fur and tallow. When a bat-eared hound growls, she barks twice from her chest.
+dagny_voll [neutral]: "Hush up, Barnaby, they got boots on, not hooves." He says you smell like cold iron and road mud. What do you want with my pack?
+* Ask about the bat hounds -> dagny_hounds
+* Ask how to calm the monastery's hounds -> dagny_calm
+* [if flag.axel_debts_asked and not flag.dagny_paid and item:dagny_leash] Give her the leash back -> dagny_leash
+* Ask about the priors -> dagny_priors
+* Take our leave -> END
+
+~ dagny_hounds
+dagny_voll [sly]: Half mastiff, half cave-leather. Once they latch onto a leg, they drag you into the dark.
+dagny_voll [neutral]: Mind you, they won't cross running water, it scalds their paws like lye. Toss 'em a bloody treat and they'll tear each other up over the scrap.
+-> dagny_start
+
+~ dagny_calm
+dagny_voll [weary]: Sigmund's kennel up on the rock only listens to the pack-tongue or the bone call. You can try pitching your throat to 'em, or buy a whistle for ten gold.
+* [Animal Handling DC 12] Ask them in dog -> dagny_ok | dagny_no
+* Pay her ten gold for a whistle -> dagny_pay
+
+~ dagny_ok
+Narrator: The largest hound cocks its leathery ears at {name}'s low rumble, then thumps its tail once against the frozen dirt.
+dagny_voll [smile]: Well now, you got a clean bark on you. Take this hollow bone anyway, one sharp blow and the hill pack won't nip your heels.
+give dagnys_whistle
+set dagny_hounds_calmed
+-> dagny_start
+
+~ dagny_no
+dagny_voll [sly]: Ha! Barnaby thinks you got a turnip stuck in your gullet. Dogs don't take kindly to a bad accent, stranger, best reach for your coin purse.
+-> dagny_calm
+
+~ dagny_pay
+gold -10
+dagny_voll [neutral]: Good silver spends better than a sore throat. Blow that carved knuckle once when the kennel gate swings wide, and they'll sit on their haunches.
+give dagnys_whistle
+set dagny_hounds_calmed
+-> dagny_start
+
+~ dagny_leash
+take dagny_leash
+set dagny_paid
+Narrator: She catches the braided hide strap, sniffs the brass swivel, and gives a single brisk shake of her hips like a pleased hound.
+dagny_voll [smile]: Thought Axel lost this down a mine shaft. Good leather, cured in mutton fat. Tell him his slate with me is wiped clean.
+if flag.toma_paid and flag.dagny_paid and flag.halka_paid
+quest axels_debts done
+endif
+-> dagny_start
+
+~ dagny_priors
+dagny_voll [afraid]: Keep your nose downwind of those three priors. My hounds whine whenever they walk past, because what wears their skin ain't what it looks.
+dagny_voll [weary]: Strike one down and it gets back up angrier, twisted into a night creature. Rub coarse salt along your blade if you want the cut to bite.
+give salt_pouch
+set prior_second_form_known
+-> dagny_start

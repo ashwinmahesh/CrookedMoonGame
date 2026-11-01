@@ -1,0 +1,41 @@
+# Drafted by Gemini (R15 village_after), edited.
+
+~ adela_cure
+Narrator: Adela peels back the long kidskin glove one button at a time, and the hand beneath it is pink, warm, and entirely whole.
+adela_druskenvald [sad]: Oh, mercy. For a month I have smelled river mud every time I unpinned my sleeves, and now it is simply my own hand again.
+adela_druskenvald [neutral]: Forgive me, a lady ought not to go to pieces in the parlour. Here is every coin I promised you for riding down into that dreadful sink.
+set adela_cured
+gold +150 each
+if flag.adela_secret_kept
+adela_druskenvald [smile]: And this second purse is for your discretion. Not a soul in the manor has looked crookedly at my gloves, and I am in your debt.
+gold +50 each
+endif
+quest withered_arm done
+-> adela_ring_menu
+
+~ adela_ring_menu
+adela_druskenvald [neutral]: Is there anything else before I ring for fresh tea, my dears?
+* [if item:adelas_wedding_ring] Return her wedding ring -> ring_return
+* [if item:adelas_wedding_ring] Keep her ring for ourselves -> ring_keep
+* Tell her what the Grinning Sinner truly was -> adela_told
+* Take our leave -> END
+
+~ ring_return
+Narrator: Her fingers tremble so badly that the gold band clicks against her knuckle twice before it settles into its old groove.
+adela_druskenvald [smile]: I told Phillip it was at the jeweller's having the clasp tightened. You have saved more than my arm tonight, and I will not forget it.
+take adelas_wedding_ring
+set adela_ring = "returned"
+gold +25 each
+inspiration party
+-> adela_ring_menu
+
+~ ring_keep
+Narrator: Her gaze lingers a beat too long on the familiar band of gold before she folds her bare hands neatly in her lap.
+adela_druskenvald [weary]: Keep it, then, as the price of a foolish woman's vanity. A jeweller in town can copy the filigree before Phillip thinks to ask.
+set adela_ring = "kept"
+-> adela_ring_menu
+
+~ adela_told
+adela_druskenvald [afraid]: Please, spare me the particulars of his coffins and his debts. I already see that dreadful scaly smile whenever the hearth fire burns low.
+adela_druskenvald [weary]: Only promise me that Phillip never hears how closely my little bargain brushed against his name. He has burden enough keeping this valley upright.
+-> adela_ring_menu

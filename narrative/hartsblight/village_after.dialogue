@@ -1,0 +1,65 @@
+# Drafted by Gemini (R18 village_after), edited.
+
+~ rain_sick
+Narrator: Pale grey spores drift across the cobblestones like ash. Beneath the chapel eaves, villagers cough into damp rags while Sister Rain presses cool cloths to their brows.
+sister_rain [afraid]: The rot is in the well water and the bread troughs already. Please, tell me you are bound for the deep wood to cut its root.
+sister_rain [weary]: The Patient Lady gives us strength to endure the night, yet my hands are shaking. Hurry back before there is no one left to pray for.
+-> END
+
+~ rain_report
+Narrator: The yellow haze has lifted from the eaves, leaving the air sharp and clean. Sister Rain catches your sleeve, laughing aloud before tears spill down her cheeks.
+sister_rain [smile]: The fever broke across the parish at the very same hour! Blessed mercy, you actually slew the beast that poisoned the wood.
+sister_rain [sad]: Forgive me, I am weeping like a leaky gutter. Tell me what you found in that awful dark, and what became of our people.
+* Tell her about Gwenna and Farryn. -> rain_gwenna
+* Tell her about the commune. -> rain_commune
+* We are done. -> rain_done
+
+~ rain_gwenna
+sister_rain [sad]: Little Gwenna, loved so fiercely that grief itself turned monstrous. To think Farryn swallowed a dead god just to keep her from the grave.
+sister_rain [weary]: Love without patience curdles into a terrible hunger. I will speak both their names at vespers tonight, so neither soul walks alone.
+-> rain_report
+
+~ rain_commune
+sister_rain [angry]: Druids drumming to the rot while good folk choked on mould! Yet I suppose despair makes fools of the wisest wardens.
+sister_rain [neutral]: Those who remain at the forest edge will need clean broth and plain truth. We shall see they get both.
+-> rain_report
+
+~ rain_done
+quest q_hartsblight reported
+set hb_rain_done
+standing patient_lady +2
+sister_rain [smile]: Go and wash the mire from your boots, my friends. The bells of Wickermoor ring for your return tonight.
+cutscene hb_missionaries
+Narrator: At the timber gate, Sister Rain's novices shoulder baskets of dry loaves and clean linen, marching toward the receding edge of the blighted trees.
+cutscene hb_missionaries_2
+Narrator: In the square behind them, followers of the Old Ways hoist an antlered effigy above crackling bonfires, roasting venison and pouring spiced cider for the whole town.
+cutscene end
+-> END
+
+~ rain_garden
+sister_rain [neutral]: Before you go, did you ever happen upon Gwenna's little patch of sunflowers out by the wood's border? She tended them like altar candles.
+if flag.hb_garden_tended
+sister_rain [smile]: You cleared the weeds and left them standing tall? Bless your gentle hands, she would have loved to know they still face the moon.
+elif flag.hb_garden_moved
+sister_rain [sad]: You brought the roots back to me from that mire? Come, help me dig a trench by the churchyard wall so they can bloom in peace.
+elif flag.hb_garden_burned
+Narrator: Sister Rain stares down at her clasped hands for a long, quiet moment, the wind tugging at her copper hair while the chapel bell tolls once.
+sister_rain [weary]: Ash is cleaner than rot, I suppose. Even so, it is a hard thing to hear.
+endif
+set hb_garden_told
+-> END
+
+~ wendel_pay
+Narrator: Mayor Wendel Somerton Smooths his handlebar moustache with both thumbs, clearing his throat until a small crowd gathers around his ribboned ledger.
+wendel_somerton [smile]: By the authority of Wickermoor Hollow and the ancient charters, I hereby present the Sporefall bounty, alongside a stamped permit of civic gratitude!
+gold +300 each
+set hb_wendel_paid
+standing old_ways +1
+wendel_somerton [neutral]: Tonight the Old Ways host a grand stag feast right here in the square. Eat your fill of the roast, for you have earned every rib!
+-> END
+
+~ spore_after
+Narrator: Beside the canvas pavilion, Brother Spore swirls a tin mug of herbal tea under his nose, squinting into the steam with solemn concentration.
+brother_spore [neutral]: Boiled nettle and dried chamomile, harvested from the southern ditch. Notice how the steam carries a faint, Ghostly memory of wet wool and kettle iron.
+brother_spore [weary]: On the palate, of course, it remains an absolute void, indistinguishable from warm rainwater. Still, a remarkably cheerful vintage to survive a plague with.
+-> END

@@ -1,0 +1,340 @@
+{
+  "id": "dc_casino",
+  "name": "The Jinxcraft Casino",
+  "region": "drowned_crossroads",
+  "summary": "The Gambling Hall stretched into a demiplane: 2 ft of glowing bayou water, a balcony all round, and a coffin on four legs for a dice table.",
+  "text": "The hall stretches. Tall windows rise through walls etched with skeletal serpents, grown over with swamp vines. 2 ft of glowing green water covers the floor. At the centre, a coffin stands on four legs, with dice on its lid.",
+  "map": {
+    "rows": [
+      "##################",
+      "#________________#",
+      "#________________#",
+      "#__............__#",
+      "#__.~~~~~~~~~~.__#",
+      "#__.~~~~~~~~~~.__#",
+      "#__.~~~~~~~~~~.__#",
+      "#__.~==~~~~==~.__#",
+      "#__.~~~~~~~~~~.__#",
+      "#__.~~~~~~~~~~.__#",
+      "#__.~~~~~~~~~~.__#",
+      "#__.~~~~~~~~~~.__#",
+      "#__.~~~~==~~~~.__#",
+      "#__.~~~~==~~~~.__#",
+      "#__.~~~~~~~~~~.__#",
+      "#__.~~~~~~~~~~.__#",
+      "#__.~~~~~~~~~~.__#",
+      "#__.~~~~~~~~~~.__#",
+      "#__.~==~~~~==~.__#",
+      "#__.~~~~~~~~~~.__#",
+      "#__.~~~~~~~~~~.__#",
+      "#__.~~~~~~~~~~.__#",
+      "#__............__#",
+      "#________________#",
+      "#________________#",
+      "########.#########"
+    ],
+    "theme": "manor",
+    "light": "bright",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "dc_casino_floor",
+      "name": "The floor",
+      "cells": [
+        [
+          3,
+          3
+        ],
+        [
+          14,
+          24
+        ]
+      ]
+    },
+    {
+      "id": "dc_balcony_ring",
+      "name": "The balcony",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          16,
+          24
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      8,
+      23
+    ],
+    "from_hall": [
+      8,
+      23
+    ]
+  },
+  "exits": [
+    {
+      "id": "back_to_hall",
+      "cell": [
+        8,
+        25
+      ],
+      "to": "dc_boat_hall",
+      "spawn": "from_casino",
+      "label": "Back into the real hall",
+      "when": "flag.grinning_sinner_slain"
+    }
+  ],
+  "props": [
+    {
+      "id": "dc_jack_coffin",
+      "cell": [
+        8,
+        12
+      ],
+      "kind": "examine",
+      "label": "Snake Eye Jack's coffin, on four legs",
+      "model": "case",
+      "dialogue": "drowned_crossroads/sinner:coffin",
+      "when": "not flag.grinning_sinner_slain"
+    },
+    {
+      "id": "dc_jack_coffin_shut",
+      "cell": [
+        8,
+        12
+      ],
+      "kind": "decor",
+      "label": "The coffin, lid shut, a crocodile skull cut in it",
+      "model": "case",
+      "when": "flag.grinning_sinner_slain"
+    },
+    {
+      "id": "dc_after_call",
+      "cell": [
+        8,
+        20
+      ],
+      "kind": "decor",
+      "label": "The still hall, and the body at the table",
+      "call": "drowned_crossroads/sinner:after",
+      "approach": 9,
+      "call_when": "flag.dc_sinner_done and not flag.sinner_after_seen"
+    },
+    {
+      "id": "dc_blunderbuss",
+      "cell": [
+        7,
+        13
+      ],
+      "kind": "search",
+      "label": "The Sinner's blunderbuss in his dead hands",
+      "search_dc": 5,
+      "item": "blunderbuss_of_the_grinning_sinner",
+      "when": "flag.dc_sinner_done and treasure_at:dead_mans_hand_casino"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "dc_sinner",
+      "trigger": "enter_area:dc_casino_floor",
+      "flag": "dc_sinner_done",
+      "lair": true,
+      "quest": {
+        "id": "withered_arm",
+        "stage": "return"
+      },
+      "monsters": [
+        {
+          "monster": "grinning_sinner_boss",
+          "cell": [
+            8,
+            7
+          ],
+          "name": "Mister Crossroads, the Grinning Sinner",
+          "boss": true,
+          "facing": "south",
+          "hp": 118
+        }
+      ],
+      "round_events": [
+        {
+          "id": "jacks_ferrymen",
+          "name": "Snake Eye Jack's Ferrymen",
+          "summary": "Three Ferrymen rise at Jack's call, 10 Hit Points each.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "ferryman_husk",
+          "count": 3,
+          "side": "enemies",
+          "cells": [
+            [
+              5,
+              8
+            ],
+            [
+              8,
+              9
+            ],
+            [
+              12,
+              8
+            ]
+          ],
+          "at": 20,
+          "from_round": 2,
+          "every": 99,
+          "times": 1,
+          "say": "Jack's Influence: three Ferrymen climb out of the water."
+        }
+      ],
+      "when": "level <= 5"
+    },
+    {
+      "id": "dc_sinner",
+      "trigger": "enter_area:dc_casino_floor",
+      "flag": "dc_sinner_done",
+      "lair": true,
+      "quest": {
+        "id": "withered_arm",
+        "stage": "return"
+      },
+      "monsters": [
+        {
+          "monster": "grinning_sinner_boss",
+          "cell": [
+            8,
+            7
+          ],
+          "name": "Mister Crossroads, the Grinning Sinner",
+          "boss": true,
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "jacks_ferrymen",
+          "name": "Snake Eye Jack's Ferrymen",
+          "summary": "Three Ferrymen rise at Jack's call, 10 Hit Points each.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "ferryman_husk",
+          "count": 3,
+          "side": "enemies",
+          "cells": [
+            [
+              5,
+              8
+            ],
+            [
+              8,
+              9
+            ],
+            [
+              12,
+              8
+            ]
+          ],
+          "at": 20,
+          "from_round": 2,
+          "every": 99,
+          "times": 1,
+          "say": "Jack's Influence: three Ferrymen climb out of the water."
+        }
+      ],
+      "when": "level == 6"
+    },
+    {
+      "id": "dc_sinner",
+      "trigger": "enter_area:dc_casino_floor",
+      "flag": "dc_sinner_done",
+      "lair": true,
+      "quest": {
+        "id": "withered_arm",
+        "stage": "return"
+      },
+      "monsters": [
+        {
+          "monster": "grinning_sinner_boss",
+          "cell": [
+            8,
+            7
+          ],
+          "name": "Mister Crossroads, the Grinning Sinner",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "ferryman_husk",
+          "cell": [
+            4,
+            10
+          ],
+          "name": "A Ferryman of Jack's",
+          "facing": "east"
+        },
+        {
+          "monster": "ferryman_husk",
+          "cell": [
+            12,
+            10
+          ],
+          "name": "A Ferryman of Jack's",
+          "facing": "west"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "jacks_ferrymen",
+          "name": "Snake Eye Jack's Ferrymen",
+          "summary": "Three Ferrymen rise at Jack's call, 10 Hit Points each.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "ferryman_husk",
+          "count": 3,
+          "side": "enemies",
+          "cells": [
+            [
+              5,
+              8
+            ],
+            [
+              8,
+              9
+            ],
+            [
+              12,
+              8
+            ]
+          ],
+          "at": 20,
+          "from_round": 2,
+          "every": 99,
+          "times": 1,
+          "say": "Jack's Influence: three Ferrymen climb out of the water."
+        }
+      ],
+      "when": "level >= 7"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "No.",
+  "lights": [
+    {
+      "cell": [
+        8,
+        12
+      ],
+      "kind": "lamp",
+      "bright_ft": 30,
+      "dim_ft": 60,
+      "color": "bile"
+    }
+  ]
+}

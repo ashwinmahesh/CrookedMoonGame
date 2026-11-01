@@ -1,0 +1,357 @@
+{
+  "id": "dg_briar",
+  "name": "The Briar Public House",
+  "region": "dawns_gate",
+  "summary": "Kristoff Gruber's inn: a low taproom of black beams, a kitchen, a cellar stair and rooms above.",
+  "text": "A low room of black beams and hunters' coats on pegs. The bar is scarred, the fire is good and nobody sings.",
+  "map": {
+    "rows": [
+      "##############################",
+      "#...................#........#",
+      "#.==========........#........#",
+      "#...................#........#",
+      "#............................#",
+      "#.===...............#........#",
+      "#.............=============..#",
+      "#...................#........#",
+      "#######.#####................#",
+      "#............................#",
+      "#............................#",
+      "#.............==...==...==...#",
+      "#.=..........................#",
+      "#.=..........................#",
+      "#.=...........==...==...==...#",
+      "#.........................#.##",
+      "#.........................####",
+      "#............................#",
+      "#............................#",
+      "##############.###############"
+    ],
+    "theme": "tavern",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "taproom",
+      "name": "The taproom",
+      "cells": [
+        [
+          1,
+          9
+        ],
+        [
+          28,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "kitchen",
+      "name": "The kitchen",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          11,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "bar",
+      "name": "The bar",
+      "cells": [
+        [
+          13,
+          1
+        ],
+        [
+          28,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "stairs",
+      "name": "The stair",
+      "cells": [
+        [
+          26,
+          14
+        ],
+        [
+          28,
+          18
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      14,
+      17
+    ],
+    "from_town": [
+      14,
+      17
+    ],
+    "from_cellar": [
+      6,
+      6
+    ],
+    "from_upstairs": [
+      27,
+      14
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        14,
+        19
+      ],
+      "to": "dawns_gate",
+      "spawn": "from_briar",
+      "label": "Out to the square"
+    },
+    {
+      "id": "cellar_stair",
+      "cell": [
+        6,
+        7
+      ],
+      "to": "dg_briar_cellar",
+      "spawn": "from_stair",
+      "label": "Down to the cellar"
+    },
+    {
+      "id": "stairs_up",
+      "cell": [
+        27,
+        15
+      ],
+      "to": "dg_briar_upper",
+      "spawn": "from_stairs",
+      "label": "Up to the rooms"
+    }
+  ],
+  "props": [
+    {
+      "id": "dg_briar_noticeboard",
+      "cell": [
+        24,
+        2
+      ],
+      "kind": "examine",
+      "label": "A board of Hunt notices",
+      "model": "notice_board",
+      "dialogue": "monastery/kristoff:board"
+    },
+    {
+      "id": "dg_briar_hearth",
+      "cell": [
+        24,
+        9
+      ],
+      "kind": "decor",
+      "label": "The taproom fire",
+      "model": "fireplace"
+    },
+    {
+      "id": "dg_briar_barrels",
+      "cell": [
+        3,
+        14
+      ],
+      "kind": "decor",
+      "label": "Barrels of black beer",
+      "model": "barrel"
+    },
+    {
+      "id": "dg_briar_pegs",
+      "cell": [
+        2,
+        17
+      ],
+      "kind": "decor",
+      "label": "Hunters' coats on pegs",
+      "model": "cloak_pegs"
+    },
+    {
+      "id": "dg_briar_roses",
+      "cell": [
+        10,
+        16
+      ],
+      "kind": "decor",
+      "label": "A golden rose nailed over the door",
+      "model": "crest"
+    },
+    {
+      "id": "dg_briar_pot",
+      "cell": [
+        5,
+        3
+      ],
+      "kind": "decor",
+      "label": "A pot of something that was a goat",
+      "model": "cookpot"
+    },
+    {
+      "id": "dg_briar_larder",
+      "cell": [
+        9,
+        4
+      ],
+      "kind": "decor",
+      "label": "Hanging meat and strings of onions",
+      "model": "drying_herbs"
+    },
+    {
+      "id": "dg_briar_stool_1",
+      "cell": [
+        16,
+        7
+      ],
+      "kind": "decor",
+      "label": "A bar stool",
+      "model": "chair"
+    },
+    {
+      "id": "dg_briar_stool_2",
+      "cell": [
+        18,
+        7
+      ],
+      "kind": "decor",
+      "label": "A bar stool",
+      "model": "chair"
+    },
+    {
+      "id": "dg_briar_stool_3",
+      "cell": [
+        22,
+        7
+      ],
+      "kind": "decor",
+      "label": "A bar stool",
+      "model": "chair"
+    },
+    {
+      "id": "dg_briar_stool_4",
+      "cell": [
+        25,
+        7
+      ],
+      "kind": "decor",
+      "label": "A bar stool",
+      "model": "chair"
+    },
+    {
+      "id": "dg_briar_table_1",
+      "cell": [
+        14,
+        12
+      ],
+      "kind": "decor",
+      "label": "A taproom table",
+      "model": "table_chairs"
+    },
+    {
+      "id": "dg_briar_table_2",
+      "cell": [
+        19,
+        12
+      ],
+      "kind": "decor",
+      "label": "A taproom table",
+      "model": "table_chairs"
+    },
+    {
+      "id": "dg_briar_table_3",
+      "cell": [
+        24,
+        12
+      ],
+      "kind": "decor",
+      "label": "A taproom table",
+      "model": "table_chairs"
+    },
+    {
+      "id": "dg_briar_table_4",
+      "cell": [
+        14,
+        15
+      ],
+      "kind": "decor",
+      "label": "A taproom table",
+      "model": "table_chairs"
+    },
+    {
+      "id": "dg_briar_table_5",
+      "cell": [
+        19,
+        15
+      ],
+      "kind": "decor",
+      "label": "A taproom table",
+      "model": "table_chairs"
+    },
+    {
+      "id": "dg_briar_table_6",
+      "cell": [
+        24,
+        15
+      ],
+      "kind": "decor",
+      "label": "A taproom table",
+      "model": "table_chairs"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "kristoff_gruber",
+      "cell": [
+        16,
+        5
+      ],
+      "dialogue": "monastery/kristoff:start"
+    }
+  ],
+  "encounters": [],
+  "rest": "safe",
+  "rest_text": "Kristoff's beds are clean and the bar is barred at night.",
+  "lights": [
+    {
+      "cell": [
+        24,
+        8
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30
+    },
+    {
+      "cell": [
+        5,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30
+    },
+    {
+      "cell": [
+        16,
+        16
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30
+    }
+  ]
+}

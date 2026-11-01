@@ -113,6 +113,60 @@
         4,
         8
       ],
+      "dialogue": "skitterdeep/farewell:morgan_thanks",
+      "when": "flag.stonoga_slain and not flag.skitter_farewell"
+    },
+    {
+      "npc": "morgan",
+      "cell": [
+        4,
+        8
+      ],
+      "dialogue": "skitterdeep/queue:morgan_start",
+      "when": "flag.plague_started and not flag.queue_asked and not flag.stonoga_slain"
+    },
+    {
+      "npc": "morgan",
+      "cell": [
+        4,
+        8
+      ],
+      "dialogue": "skitterdeep/queue:morgan_order",
+      "when": "flag.queue_asked and flag.queue_talked and not flag.queue_done"
+    },
+    {
+      "npc": "morgan",
+      "cell": [
+        4,
+        8
+      ],
+      "dialogue": "skitterdeep/hook:morgan_asks",
+      "when": "flag.act2_done >= 1 and not flag.skitter_asked and not flag.stonoga_slain"
+    },
+    {
+      "npc": "morgan",
+      "cell": [
+        4,
+        8
+      ],
+      "dialogue": "memorys_rest/hook:morgan_pamphlet",
+      "when": "flag.vessla_slain and not flag.mr_hook_open"
+    },
+    {
+      "npc": "morgan",
+      "cell": [
+        4,
+        8
+      ],
+      "dialogue": "memorys_rest/ending:morgan_slow_cure",
+      "when": "flag.lethica_slain and flag.mr_farewell_done and not flag.mr_morgan_cure"
+    },
+    {
+      "npc": "morgan",
+      "cell": [
+        4,
+        8
+      ],
       "dialogue": "wickermoor/bad_seed:morgan_apples",
       "when": "flag.picnic_sick and not flag.seed_done"
     },

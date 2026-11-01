@@ -1,0 +1,245 @@
+# Drafted by Gemini (R18 trek), edited.
+
+~ leg_altar
+set hb_leg_altar
+quest q_hartsblight blighted_wood
+time +60
+Narrator: An hour of dead fern and weeping bark brings you to the forest's edge, where a stone altar sits beneath a haze of yellow dust. The air tastes of cellar damp and turned milk.
+if flag.hb_effigy_burned
+Narrator: Smoke still threads the canopy, and the spore-mist hangs thinner than it has any right to be.
+-> END
+else
+check Constitution DC 10 -> leg_altar_ok | leg_altar_bad
+endif
+
+~ leg_altar_ok
+Narrator: You keep your kerchiefs tight across your mouths and breathe shallow until the worst of the drift passes.
+-> END
+
+~ leg_altar_bad
+Narrator: The yellow dust slips past your collar and settles warm and sour at the back of your throat.
+set hb_blight += 1
+-> END
+
+~ leg_pines
+set hb_leg_pines
+time +120
+Narrator: Two hours under the leaning pines, where grey shelf-fungus climbs the trunks like stairsteps to nowhere. Every bootstep breaks a crust of needles that smells of wet wool and old copper.
+if flag.hb_effigy_burned
+Narrator: For all the rot underfoot, the air between the trunks draws surprisingly clear.
+-> END
+else
+check Constitution DC 10 -> leg_pines_ok | leg_pines_bad
+endif
+
+~ leg_pines_ok
+Narrator: You time your breaths between the gusts and spit the bitter grit from your teeth.
+-> END
+
+~ leg_pines_bad
+Narrator: A puffball gives way beneath a heel, and you swallow a mouthful of warm, sweet ash before you can turn your head.
+set hb_blight += 1
+-> END
+
+~ leg_outcrop
+set hb_leg_outcrop
+time +120
+Narrator: The trail climbs two hours over slick shale and bloated roots to a shelf of limestone. Below you, the wood steams like a compost heap in January.
+if flag.hb_effigy_burned
+Narrator: The wind across the rock carries woodsmoke instead of the usual heavy spore-grease.
+-> END
+else
+check Constitution DC 10 -> leg_outcrop_ok | leg_outcrop_bad
+endif
+
+~ leg_outcrop_ok
+Narrator: The breeze off the stone keeps the rising fog just below your chins.
+-> END
+
+~ leg_outcrop_bad
+Narrator: The updraft catches you square in the face, thick as tallow smoke, and sets your lungs rattling.
+set hb_blight += 1
+-> END
+
+~ leg_hollow
+set hb_leg_hollow
+time +120
+Narrator: Two hours down into a sunken hollow where the moss hangs in wet green curtains and the stream runs the colour of dishwater.
+if not flag.hb_vision_wood
+-> vision_wood
+else
+-> leg_hollow_check
+endif
+
+~ vision_wood
+cutscene hb_wood_vision
+Narrator: The grey haze parts on an older wood of tall, clean oak, where a young woman spins barefoot through the sun-dappled grass. Her laughter rings clear as a chapel bell.
+cutscene hb_wood_vision_2
+Narrator: Black rind crawls up the bark, the leaves curl to soot, and the laughter chokes off in a drift of falling spores.
+cutscene end
+Narrator: The hollow snaps back around you, cold and dripping, though the shape of her smile lingers behind your eyes.
+set hb_vision_wood
+set mem_farryn_gwenna
+-> leg_hollow_check
+
+~ leg_hollow_check
+if flag.hb_effigy_burned
+Narrator: Even down in the basin, the spore-haze sits thin and ragged, burned back by distant ash.
+-> END
+else
+check Constitution DC 10 -> leg_hollow_ok | leg_hollow_bad
+endif
+
+~ leg_hollow_ok
+Narrator: You press damp cloth to nose and mouth and wade through the hollow without drawing the mire into your chests.
+-> END
+
+~ leg_hollow_bad
+Narrator: The stagnant air in the dip clings to your tongue like cold gravy, and a slow shiver takes hold of your ribs.
+set hb_blight += 1
+-> END
+
+~ leg_druids
+set hb_leg_druids
+quest q_hartsblight festering_wilds
+time +180
+Narrator: Three hours deeper, the bark gives way to pale fungal rinds and the distant thrum of skin drums. Through the mist, a sideways glance catches a towering bulk of cracked antler and black bone slipping between the trunks, the Lurking Beast.
+if flag.hb_effigy_burned
+Narrator: The air here ought to choke a mule, yet it hangs strangely thin and passable.
+-> END
+else
+check Constitution DC 10 -> leg_druids_ok | leg_druids_bad
+endif
+
+~ leg_druids_ok
+Narrator: You keep your heads down and your wraps knotted tight until the drumming steadies ahead.
+-> END
+
+~ leg_druids_bad
+Narrator: You draw a sharp breath at the sight in the trees, and the wet spore-fog goes straight to the bottom of your lungs.
+set hb_blight += 1
+-> END
+
+~ leg_ravine
+set hb_leg_ravine
+time +120
+Narrator: Two hours scrambling down a narrow gorge where pale gills sprout from the clay walls and drip amber slime onto your shoulders.
+if flag.hb_effigy_burned
+Narrator: A draft down the cut clears the worst of the yellow haze before it can settle.
+-> END
+else
+check Constitution DC 10 -> leg_ravine_ok | leg_ravine_bad
+endif
+
+~ leg_ravine_ok
+Narrator: You hold your breath through the narrowest pinch and come out coughing nothing worse than ditch-damp.
+-> END
+
+~ leg_ravine_bad
+Narrator: Your sleeve brushes a weeping shelf of fungus, sending up a cloud that burns the back of your nose like vinegar.
+set hb_blight += 1
+-> END
+
+~ leg_quagmire
+set hb_leg_quagmire
+time +120
+Narrator: Two hours of sucking mire that pulls at your boots with a sound like a dog licking a bowl. Bubbles rise through the scum and pop with a smell of sweet, rotten venison.
+if not flag.hb_vision_wilds
+-> vision_wilds
+else
+-> leg_quagmire_check
+endif
+
+~ vision_wilds
+cutscene hb_wilds_vision
+Narrator: Your knees hit wet earth before the rotting carcass of a stag as great as a haywain, and someone's trembling hands tear into the black flesh and lift it to your own mouth.
+cutscene hb_wilds_vision_2
+Narrator: Beside the ribs lies the pale young woman, still and cold, until a wash of emerald light sweeps the rot away and she stands smiling in a glade of clean new grass.
+cutscene end
+set hb_vision_wilds
+set mem_farryn_forest_love
+set hb_knows_greenwood
+Narrator: You blink at the mire, the phantom taste of tallow still on your lips, and an old name rises unbidden in your mouths: the Greenwood.
+-> leg_quagmire_check
+
+~ leg_quagmire_check
+if flag.hb_effigy_burned
+Narrator: The marsh gas still stinks to high heaven, mind you, though the spore-cloud above it is remarkably thin.
+-> END
+else
+check Constitution DC 10 -> leg_quagmire_ok | leg_quagmire_bad
+endif
+
+~ leg_quagmire_ok
+Narrator: You step from tussock to root and keep your noses tucked securely into your collars.
+-> END
+
+~ leg_quagmire_bad
+Narrator: A misstep sinks a boot to the knee, and the gas that belches up leaves you retching into your wraps.
+set hb_blight += 1
+-> END
+
+~ leg_grove
+set hb_leg_grove
+time +120
+Narrator: Two hours through a stand of dead elms draped in white mycelium like bridal lace left in a ditch. Not a bird calls, only the soft patter of spores shedding from the boughs.
+if flag.hb_effigy_burned
+Narrator: The white dust falls slack rather than hanging in the air, thinned out by the distant burning.
+-> END
+else
+check Constitution DC 10 -> leg_grove_ok | leg_grove_bad
+endif
+
+~ leg_grove_ok
+Narrator: You brush the white threads from your eyelashes and keep moving at a steady clip.
+-> END
+
+~ leg_grove_bad
+Narrator: The fine white powder sifts through the weave of your kerchiefs and coats your gums like chalk.
+set hb_blight += 1
+-> END
+
+~ leg_wellspring
+set hb_leg_wellspring
+quest q_hartsblight rotten_heart
+time +180
+Narrator: Three hours into the Rotten Heart, where the trees are only hollow chimneys of black sponge and the ground gives beneath your heels like a bruised apple.
+if not flag.hb_vision_heart
+-> vision_heart
+else
+-> leg_wellspring_check
+endif
+
+~ vision_heart
+cutscene hb_heart_vision
+Narrator: Before you towers a gnarled oak bearing a woman's hateful, twisted face, its bark splitting and sloughing into black soil.
+cutscene hb_heart_vision_2
+Narrator: From the mulch a green shoot bursts upward in a flash of summer light, unfolding into a radiant, elf-featured woman wreathed in emerald leaves.
+cutscene end
+Narrator: The light dies, leaving only the black sponge-trees and the slow pulse of the spoiled wellspring ahead.
+set hb_vision_heart
+-> leg_wellspring_check
+
+~ leg_wellspring_check
+if flag.hb_effigy_burned
+Narrator: Even here at the source, the yellow miasma hangs thinner than it should, parted by a faint trace of ash.
+-> END
+else
+check Constitution DC 10 -> leg_wellspring_ok | leg_wellspring_bad
+endif
+
+~ leg_wellspring_ok
+Narrator: You grit your teeth against the stench of spoiled water and hold your wraps fast.
+-> END
+
+~ leg_wellspring_bad
+Narrator: The air by the basin is thick as soup, and every breath drags a wet, rasping ache deeper into your chest.
+set hb_blight += 1
+-> END
+
+~ leg_den
+set hb_leg_den
+quest q_hartsblight den
+time +120
+Narrator: Two hours following a broad smear of black slime and shed antler-velvet bring you to a cave mouth gaping beneath a ridge crusted in shelf-fungus, breathing warm, wet rot into the dark.
+-> END

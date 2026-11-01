@@ -123,6 +123,33 @@
         4,
         15
       ],
+      "dialogue": "memorys_rest/ending:mayor_amulet",
+      "when": "flag.lethica_slain and flag.mr_cure_found and flag.mr_farewell_done and not flag.mayor_amulet_given"
+    },
+    {
+      "npc": "wendel_somerton",
+      "cell": [
+        4,
+        15
+      ],
+      "dialogue": "hartsblight/village_after:wendel_pay",
+      "when": "flag.gorthos_slain and flag.hb_sporefall and not flag.hb_wendel_paid"
+    },
+    {
+      "npc": "wendel_somerton",
+      "cell": [
+        4,
+        15
+      ],
+      "dialogue": "hartsblight/hook:wendel_offer",
+      "when": "flag.hb_refused and not flag.hb_asked and days_since.hb_refused >= 1"
+    },
+    {
+      "npc": "wendel_somerton",
+      "cell": [
+        4,
+        15
+      ],
       "dialogue": "wickermoor/quarantine:file",
       "when": "flag.seal_tamsin and flag.seal_post and not flag.quarantine_done"
     },

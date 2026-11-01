@@ -1,0 +1,71 @@
+# Drafted by Gemini (R18 spore), edited.
+
+~ spore_start
+Narrator: A hollow-cheeked brother in stained linen lifts his nose to the drifting yellow dust, inhaling as though he stands in a duke's cellar.
+brother_spore [smile]: Ah, visitors. Forward notes of damp wool and quiet despair, opening into bruised pine, with a delightfully grassy finish.
+brother_spore [neutral]: A respectable vintage for the end of the world, though it lacks a certain structure on the tongue.
+* Who are you? -> spore_who
+* Taste something for us -> spore_taste
+* What is safe to eat here? -> spore_advice
+* [Insight DC 13] You do not look well -> spore_secret | spore_blur
+* Leave -> END
+
+~ spore_who
+brother_spore [neutral]: Brother Spore, chief and sole surviving forager of this parish. When the larder turns to velvet, someone must keep cataloguing the rot.
+brother_spore [smile]: We all go into the mulch eventually. One might as well appreciate the bouquet on the way down.
+-> spore_start
+
+~ spore_taste
+brother_spore [sly]: Gladly. My palate remains at the service of the curious. What shall we sample from the forest floor today?
+* The spores -> taste_spores
+* The pond water -> taste_water
+* Your own thumb -> taste_thumb
+* Back -> spore_start
+
+~ taste_spores
+Narrator: He catches a pinch of drifting yellow dust on his knuckle and touches it delicately to the tip of his grey tongue.
+brother_spore [neutral]: Brisk and chalky at first blush. Nutmeg, old cellar mortar, and the distinct impression of a wet hound sleeping on a hymnal.
+brother_spore [smile]: Best paired with shallow breathing and a very short life expectancy.
+-> spore_taste
+
+~ taste_water
+Narrator: He dips a wooden spoon into a puddle of greenish scum, swirls it twice, and takes a tiny, solemn sip.
+brother_spore [neutral]: Velvet body, remarkably oily. Bold hints of rusted tin, drowned beetle, and last autumn's regrets.
+brother_spore [weary]: A touch overripe, frankly. It clings to the back of the throat like a bad confession.
+-> spore_taste
+
+~ taste_thumb
+Narrator: He regards his own dirt-rimmed thumb with critical gravity before giving the knuckle a brief, meditative lick.
+brother_spore [sly]: Salt, tallow, and sixty years of poor decisions, mellowed by a gentle fungal rind.
+brother_spore [smile]: Still passable, though I suspect by Tuesday I shall pair better_with a shovel.
+-> spore_taste
+
+~ spore_advice
+brother_spore [neutral]: Nothing at all, if you are fond of your vitals. Even the spring water turns to vinegar and fur within the hour.
+brother_spore [weary]: Though if you must forage, the old orchard tastes less wrong than the sheep pen. A cleaner sort of ruin.
+brother_spore [sly]: And should you walk the middle wood, wear the rot-druids' pelts. The blight respects its own wardrobe.
+-> spore_start
+
+~ spore_secret
+Narrator: Though he rolls the air across his tongue with practiced ceremony, his grey eyes never once flinch at the acrid stench burning your throat.
+brother_spore [weary]: You have a cruel eye. The truth is, my tongue went dead as boot leather four days ago.
+brother_spore [sad]: I cannot taste rain, rot, or my own blood. I am working entirely from memory and stubbornness.
+brother_spore [neutral]: Do keep it to yourselves. The others find comfort in a man who treats the apocalypse like a slightly corked claret.
+set hb_spore_secret
+-> spore_start
+
+~ spore_blur
+Narrator: He smacks his lips twice, entirely absorbed in the imaginary subtleties of the air.
+brother_spore [smile]: Merely the complexion of a dedicated connoisseur. The yellow dust does wonders for tightening the skin.
+-> spore_start
+
+~ goat
+Narrator: Amid the weeping bark and yellow mould stands Biscuit, the commune's old nanny goat, chewing a mouthful of blighted thistle with serene satisfaction.
+Narrator: Her horizontal amber eyes hold neither fear nor wisdom, only an ancient, immovable truce with whatever the woods care to become.
+* Pet the goat -> goat_pet
+* Leave -> END
+
+~ goat_pet
+Narrator: Her coat is coarse and dusty under {name}'s hand, and she leans her warm, bony skull into your palm before going right back to chewing.
+set hb_goat_petted
+-> END

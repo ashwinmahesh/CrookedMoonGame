@@ -1,0 +1,208 @@
+{
+  "id": "mr_shore",
+  "name": "The Moonsong Shore",
+  "region": "memorys_rest",
+  "summary": "Where the marsh trail gives out on a rocky shore, with a rowboat on a stake.",
+  "text": "The last hour of the trail is briars and sucking mud. Then the reeds open on a stony shore, grey water, and far out a low island with violet in its windows.",
+  "map": {
+    "rows": [
+      "wwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+      "wwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+      "wwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+      "wwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+      "wwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+      "wwwwwwwww_wwwwwwwwwwwwwwwwwwww",
+      "wwwwwwwww_wwwwwwwwwwwwwwwwwwww",
+      "wwwwwwwww_wwwwwwwwwwwwwwwwwwww",
+      "wwwwwwwww_wwwwwwwwwwwwwwwwwwww",
+      "~~~~~~~~...~~~~~~~~~~~~~~~~~~~",
+      "~~~~~~~~...~~~~~~~~~~~~~~~~~~~",
+      "~~~~~~~~...~~~~~~~~~~~~~~~~~~~",
+      "..............................",
+      "..............................",
+      "...##.............#######.....",
+      "...#..............#.....#.....",
+      "..................#.....#.....",
+      "..................#.....#.....",
+      "..................#.....#.....",
+      "..................###.###.....",
+      ".............##............#..",
+      "..............................",
+      "..............................",
+      ".............................."
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "mr_landing",
+      "name": "The stony landing",
+      "cells": [
+        [
+          6,
+          9
+        ],
+        [
+          11,
+          13
+        ]
+      ]
+    },
+    {
+      "id": "mr_shore_hut",
+      "name": "The fisher's hut",
+      "cells": [
+        [
+          19,
+          15
+        ],
+        [
+          23,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "mr_marsh_edge",
+      "name": "The marsh edge",
+      "cells": [
+        [
+          0,
+          12
+        ],
+        [
+          29,
+          23
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      2,
+      18
+    ],
+    "from_road": [
+      2,
+      18
+    ],
+    "from_isle": [
+      9,
+      11
+    ]
+  },
+  "exits": [
+    {
+      "id": "road_back",
+      "cell": [
+        0,
+        18
+      ],
+      "to": "travel",
+      "spawn": "default",
+      "label": "The marsh road back to Wickermoor"
+    }
+  ],
+  "props": [
+    {
+      "id": "mr_trail_end",
+      "cell": [
+        3,
+        18
+      ],
+      "kind": "decor",
+      "label": "Where the trail breaks out of the marsh",
+      "call": "memorys_rest/shore:arrive",
+      "approach": 8,
+      "call_when": "not flag.mr_arrived_shore"
+    },
+    {
+      "id": "mr_rowboat",
+      "cell": [
+        9,
+        10
+      ],
+      "kind": "examine",
+      "label": "A rowboat on a stake",
+      "model": "cart_broken",
+      "dialogue": "memorys_rest/shore:boat"
+    },
+    {
+      "id": "mr_hut_carving",
+      "cell": [
+        21,
+        16
+      ],
+      "kind": "examine",
+      "label": "A driftwood carving of a long-jawed thing",
+      "model": "statue_head",
+      "dialogue": "memorys_rest/shore:hut"
+    },
+    {
+      "id": "mr_shore_reeds",
+      "cell": [
+        14,
+        10
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "mr_shore_reeds2",
+      "cell": [
+        22,
+        11
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "mr_shore_boulder",
+      "cell": [
+        13,
+        21
+      ],
+      "kind": "decor",
+      "label": "A black boulder",
+      "model": "boulder"
+    },
+    {
+      "id": "mr_shore_rack",
+      "cell": [
+        19,
+        17
+      ],
+      "kind": "decor",
+      "label": "A net rack and drying fish",
+      "model": "drying_herbs"
+    },
+    {
+      "id": "mr_shore_bed",
+      "cell": [
+        23,
+        16
+      ],
+      "kind": "decor",
+      "label": "A fisher's bunk",
+      "model": "bed_small"
+    },
+    {
+      "id": "mr_shore_dead_tree",
+      "cell": [
+        6,
+        20
+      ],
+      "kind": "decor",
+      "label": "A bleached dead tree",
+      "model": "dead_tree_a"
+    }
+  ],
+  "npcs": [],
+  "encounters": [],
+  "rest": "risky",
+  "rest_text": "Rain bouts and mosquitoes; the water never quite settles."
+}

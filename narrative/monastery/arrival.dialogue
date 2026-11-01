@@ -1,0 +1,113 @@
+# Drafted by Gemini (R14 arrival), edited.
+
+~ dg_arrive
+set dg_arrived
+quest crimson_monastery dawns_gate
+Narrator: The river road gives out at a village of wet slate and coal soot, lit by green-verdigris copper lamps. A red banner bearing a golden rose is nailed to every lintel, and high on the crag above, the monastery's ruby windows bleed light onto the snow.
+* [Insight DC 10] Study the faces -> dg_faces | dg_faces_miss
+* Head into the village -> END
+
+~ dg_faces
+Narrator: Every smile in the lane is pulled too tight, and eyes flick toward the red glow on the peak whenever a door shuts. These folk weigh every word on their tongues before they dare let it out.
+-> END
+
+~ dg_faces_miss
+Narrator: You cannot read much in the soot-streaked faces, save that not a soul in the street looks up toward the mountain.
+-> END
+
+~ bells
+Narrator: When the iron bell up on the crag begins to toll the hour, every soul in the muddy lane drops to their knees right in the slush.
+* Kneel with them in the mud -> bells_kneel
+* Stay on our feet and watch -> bells_stand
+* Walk on -> END
+
+~ bells_kneel
+Narrator: Shoulders loosen by an inch along the street as you drop a knee to the cold cobbles.
+dg_wren_child [afraid]: Seven, eight, nine. Always nine for the evening, Mam, and none left over.
+set dg_bells_seen
+-> END
+
+~ bells_stand
+Narrator: Sideways glances dart toward your boots from under lowered hoods, and when the last stroke fades, the nearest folk edge away to give you the crown of the road.
+set dg_bells_seen
+-> END
+
+~ hill_sign
+Narrator: A fresh-painted timber post stands at the foot of the switchback trail, its carved letters reading: THE CRIMSON ROSE RECEIVES ALL. Upward, the stones are swept clean of snow by the feet of climbers.
+-> END
+
+~ pass_view
+cutscene mon_monastery
+cutscene mon_monastery_2
+set mon_skyline_seen
+Narrator: The path clears the pines, and the whole Crimson Monastery rises against the crooked moon, bats pouring like chimney smoke from its belfry above the blood-red glass.
+-> END
+
+~ gate_watch
+Narrator: Iron-spiked oak doors bar the arch ahead, while two grey-bearded wardens in red tabards lean over the parapet with crossbows resting on the stone.
+gate_veteran_cm [neutral]: Halt there by the lantern, travellers, and state your business on the Rose's hill.
+* We came to see the bell, and to pray. -> gate_welcome
+* We are looking for a pilgrim called Gareth Creed. -> gate_gareth
+* [Stealth DC 17] Climb the wall by the vines and loose stones, unseen. -> gate_climb_ok | gate_climb_miss
+* Fight our way in. -> gate_fight
+* Not today. -> END
+
+~ gate_welcome
+gate_veteran_cm [smile]: Seekers after the blossom, are you? Four more for the fold. Father Renathyr receives all who climb in good faith, so step inside and mind the cobbles.
+set crimson_gate_open
+-> END
+
+~ gate_gareth
+gate_veteran_cm [neutral]: A pilgrim is always a guest of the Rose, friend. The Abbot himself keeps account of our guests and will gladly speak of the lad, so come inside.
+set crimson_gate_open
+-> END
+
+~ gate_climb_ok
+Narrator: Frost-stiffened ivy and deep mortar gaps give you purchase around the dark flank of the buttress, and you drop onto the inner flags without a warden turning his head.
+set crimson_gate_open
+set crimson_sneaked
+-> END
+
+~ gate_climb_miss
+Narrator: A frost-wedged stone gives way under {name}'s boot and clatters down the shale, bringing torches and shouting voices to the battlements.
+gate_veteran_cm [weary]: Come down off that masonry before you break your necks, you foolish strays. The gate isn't locked to visitors, though I'm marking your names on the slate for climbing the walk.
+set crimson_gate_open
+set crimson_infractions += 1
+standing crimson_faith -1
+-> END
+
+~ gate_fight
+gate_veteran_cm [angry]: Wolves at the fold! Sound the alarm bell, brothers, and loose!
+standing crimson_faith -6
+set crimson_gate_open
+combat mon_gate_fight
+
+~ gate_guards
+gate_veteran_cm [neutral]: One, two, three, four in the yard, all accounted for. You need the house rules, strangers, or are you just standing out of the wind?
+* What are the rules of this house? -> rules
+* Where can we find the Abbot? -> abbot
+* Have you seen a pilgrim named Gareth? -> pilgrim
+* [if flag.night_of_flames_done] Ask about the Night of Flames -> flames_talk
+* Leave him to his watch -> END
+
+~ rules
+gate_veteran_cm [neutral]: Open courts are for guests, closed doors are for the sworn, and anyone poking their nose past a latch gets three warnings before the priors step in. Lay a rough hand on the clergy or pilfer a candle, and the whole house will take it poorly.
+-> gate_guards
+
+~ abbot
+gate_veteran_cm [neutral]: Father Renathyr takes the air in the cathedral nave once the Twilight bell has rung. Keep your voices low when you go in.
+-> gate_guards
+
+~ pilgrim
+gate_veteran_cm [weary]: A dark-haired fellow in songbird colours came up the trail a few nights back, escorted by the hounds. That is the Abbot's flock to tally, not mine, so ask him yourself.
+-> gate_guards
+
+~ flames_talk
+gate_veteran_cm [neutral]: Three nights pass between one bonfire and the next, regular as the clock. Tomorrow night the Sanguine Hunt rides down the valley to gather more dry wood for the Rose.
+set hunt_known
+-> gate_guards
+
+~ nook_view
+Narrator: Through the narrow lancet window of the prayer nook, Dawn's Gate glimmers far below like a handful of copper coins dropped in the snow, where the black ribbon of the river vanishes into lake mist.
+set mon_nook_seen
+-> END

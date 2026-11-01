@@ -1,0 +1,1095 @@
+{
+  "id": "sk_deep",
+  "name": "The Deep Level",
+  "region": "skitterdeep_mine",
+  "summary": "The Deep Drift with its sigils, and Stonoga's laboratory.",
+  "text": "Yellow-green haze, walls that squirm when you look at them, and a bronze door lit by a slow green-purple pulse.",
+  "map": {
+    "rows": [
+      "##########################################################",
+      "##########################################################",
+      "##########################################################",
+      "####################################.==.==.###############",
+      "####################################.=...=.###############",
+      "####################################.......###############",
+      "####################################..===..###############",
+      "####################################.......###############",
+      "#.##..............##################.==..=.###############",
+      "##.................#################.......###############",
+      "#..................###.......##########.##################",
+      "#....................................................#####",
+      "#.......~~~..........................................#####",
+      "#.......~~~..........................................#####",
+      "#.......~~~..........................................#####",
+      "#....................................................#####",
+      "#..................###.......#############################",
+      "##.................#######################################",
+      "##...............#########################################",
+      "##########################################################",
+      "##########################################################",
+      "##########################################################",
+      "##########################################################",
+      "##########################################################",
+      "##########################################################",
+      "##########################################################"
+    ],
+    "theme": "dungeon",
+    "light": "dark",
+    "outdoors": false
+  },
+  "spawns": {
+    "default": [
+      26,
+      13
+    ],
+    "from_shaft": [
+      26,
+      13
+    ]
+  },
+  "areas": [
+    {
+      "id": "deep_chamber",
+      "name": "The sigil chamber",
+      "cells": [
+        [
+          1,
+          8
+        ],
+        [
+          18,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "deep_drift",
+      "name": "The Deep Drift",
+      "cells": [
+        [
+          19,
+          11
+        ],
+        [
+          52,
+          15
+        ]
+      ]
+    },
+    {
+      "id": "shaft_foot",
+      "name": "The shaft's foot",
+      "cells": [
+        [
+          22,
+          10
+        ],
+        [
+          28,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "door_guard",
+      "name": "The bronze door",
+      "cells": [
+        [
+          34,
+          11
+        ],
+        [
+          44,
+          15
+        ]
+      ]
+    },
+    {
+      "id": "lab",
+      "name": "Stonoga's laboratory",
+      "cells": [
+        [
+          36,
+          3
+        ],
+        [
+          42,
+          9
+        ]
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "id": "chain_up",
+      "cell": [
+        26,
+        11
+      ],
+      "to": "sk_upper",
+      "spawn": "from_below",
+      "label": "Climb the rungs and chain up"
+    }
+  ],
+  "props": [
+    {
+      "id": "sk_deep_arrive",
+      "cell": [
+        26,
+        13
+      ],
+      "kind": "decor",
+      "label": "The bottom of the shaft",
+      "call": "skitterdeep/deep:arrive",
+      "approach": 4,
+      "call_when": "not flag.sk_deep_seen"
+    },
+    {
+      "id": "sk_miasma_a",
+      "cell": [
+        21,
+        13
+      ],
+      "kind": "decor",
+      "label": "The yellow-green haze",
+      "call": "skitterdeep/deep:miasma_a",
+      "approach": 3,
+      "call_when": "not flag.sk_miasma_a"
+    },
+    {
+      "id": "sk_miasma_b",
+      "cell": [
+        32,
+        13
+      ],
+      "kind": "decor",
+      "label": "The haze, thicker here",
+      "call": "skitterdeep/deep:miasma_b",
+      "approach": 3,
+      "call_when": "not flag.sk_miasma_b"
+    },
+    {
+      "id": "sk_sigils",
+      "cell": [
+        9,
+        13
+      ],
+      "kind": "examine",
+      "label": "A ring of knotted entrails, sweating gas",
+      "model": "floor_glyphs",
+      "dialogue": "skitterdeep/deep:sigils"
+    },
+    {
+      "id": "sk_sigils_ring",
+      "cell": [
+        10,
+        14
+      ],
+      "kind": "decor",
+      "label": "Sinew knotted into the floor",
+      "model": "rune_circle"
+    },
+    {
+      "id": "sk_flesh_a",
+      "cell": [
+        20,
+        12
+      ],
+      "kind": "decor",
+      "label": "A wall of soft, slick flesh",
+      "model": "vines"
+    },
+    {
+      "id": "sk_flesh_b",
+      "cell": [
+        45,
+        12
+      ],
+      "kind": "decor",
+      "label": "A wall of soft, slick flesh",
+      "model": "vines"
+    },
+    {
+      "id": "sk_flesh_c",
+      "cell": [
+        30,
+        15
+      ],
+      "kind": "decor",
+      "label": "A wall of soft, slick flesh",
+      "model": "vines"
+    },
+    {
+      "id": "sk_flesh_d",
+      "cell": [
+        14,
+        9
+      ],
+      "kind": "decor",
+      "label": "A wall of soft, slick flesh",
+      "model": "vines"
+    },
+    {
+      "id": "sk_crawlers_deep_a",
+      "cell": [
+        24,
+        12
+      ],
+      "kind": "decor",
+      "label": "Tiny centipedes, thick as spilled rice",
+      "model": "soot_patch"
+    },
+    {
+      "id": "sk_crawlers_deep_b",
+      "cell": [
+        35,
+        14
+      ],
+      "kind": "decor",
+      "label": "Tiny centipedes, thick as spilled rice",
+      "model": "soot_patch"
+    },
+    {
+      "id": "sk_crawlers_deep_c",
+      "cell": [
+        6,
+        12
+      ],
+      "kind": "decor",
+      "label": "Tiny centipedes, thick as spilled rice",
+      "model": "soot_patch"
+    },
+    {
+      "id": "sk_water",
+      "cell": [
+        3,
+        17
+      ],
+      "kind": "decor",
+      "label": "Water trickling somewhere in the dark",
+      "model": "puddle"
+    },
+    {
+      "id": "sk_lab_arrive",
+      "cell": [
+        39,
+        9
+      ],
+      "kind": "decor",
+      "label": "The laboratory",
+      "call": "skitterdeep/stonoga:enter",
+      "approach": 3,
+      "call_when": "not flag.stonoga_slain and not flag.stonoga_talked"
+    },
+    {
+      "id": "sk_lab_shelves",
+      "cell": [
+        38,
+        3
+      ],
+      "kind": "examine",
+      "label": "Shelves of flasks",
+      "model": "shelves"
+    },
+    {
+      "id": "sk_lab_bench",
+      "cell": [
+        41,
+        4
+      ],
+      "kind": "examine",
+      "label": "A bench of parchment and filthy blades",
+      "model": "table_round"
+    },
+    {
+      "id": "sk_lab_table",
+      "cell": [
+        39,
+        6
+      ],
+      "kind": "examine",
+      "label": "The fusion table",
+      "model": "table_meal",
+      "dialogue": "skitterdeep/stonoga:table"
+    },
+    {
+      "id": "sk_lab_flames",
+      "cell": [
+        37,
+        8
+      ],
+      "kind": "decor",
+      "label": "Dim bruise-coloured flames",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "sk_notes",
+      "cell": [
+        40,
+        4
+      ],
+      "kind": "examine",
+      "label": "Stonoga's notes",
+      "model": "papers",
+      "dialogue": "skitterdeep/stonoga:notes",
+      "when": "flag.stonoga_slain and not flag.stonoga_notes_read"
+    },
+    {
+      "id": "sk_cage",
+      "cell": [
+        37,
+        4
+      ],
+      "kind": "examine",
+      "label": "A cage of a missing person's belongings",
+      "model": "cage",
+      "dialogue": "skitterdeep/stonoga:cage",
+      "when": "flag.stonoga_slain and not flag.fate_kindred_found"
+    },
+    {
+      "id": "sk_after_boss",
+      "cell": [
+        39,
+        8
+      ],
+      "kind": "decor",
+      "label": "The sludge where she fell",
+      "model": "blood_pool",
+      "call": "skitterdeep/stonoga:after",
+      "approach": 5,
+      "call_when": "flag.stonoga_slain and not flag.stonoga_after_seen"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "sk_door_guard",
+      "trigger": "enter_area:door_guard",
+      "monsters": [
+        {
+          "monster": "fleshdobbin",
+          "cell": [
+            38,
+            12
+          ],
+          "name": "A fleshdobbin at the bronze door",
+          "facing": "west"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            37,
+            14
+          ],
+          "name": "A skitterswarm",
+          "facing": "west"
+        }
+      ],
+      "waiting": true,
+      "flag": "sk_door_done",
+      "round_events": [
+        {
+          "id": "sk_walls_burst",
+          "name": "The walls give up their miners",
+          "summary": "Two deepdrecks burrow out of the walls by the sigils.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "deepdreck",
+          "count": 2,
+          "side": "enemies",
+          "cells": [
+            [
+              34,
+              11
+            ],
+            [
+              34,
+              15
+            ]
+          ],
+          "at": 20,
+          "from_round": 2,
+          "every": 1,
+          "times": 1,
+          "say": "The soft walls split, and two miners come out of them."
+        }
+      ]
+    },
+    {
+      "id": "sk_stonoga",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "centipede_hag",
+          "cell": [
+            39,
+            5
+          ],
+          "name": "Stonoga Blackstinger",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            37,
+            6
+          ],
+          "name": "A skitterswarm"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            41,
+            6
+          ],
+          "name": "A skitterswarm"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            39,
+            8
+          ],
+          "name": "A skitterswarm"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            38,
+            7
+          ],
+          "name": "A skitterswarm"
+        },
+        {
+          "monster": "vermin_familiar_centipede",
+          "cell": [
+            40,
+            4
+          ],
+          "name": "Slippery Oswald"
+        }
+      ],
+      "flag": "stonoga_slain",
+      "quest": {
+        "id": "skitter_plague",
+        "stage": "the_sigils"
+      },
+      "round_events": [
+        {
+          "id": "sk_wall_spill",
+          "name": "The walls spill",
+          "summary": "The walls spill one more skitterswarm, never two rounds running.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "skitterswarm",
+          "count": 1,
+          "side": "enemies",
+          "cells": [
+            [
+              36,
+              5
+            ],
+            [
+              42,
+              7
+            ]
+          ],
+          "at": 20,
+          "from_round": 2,
+          "every": 2,
+          "times": 3,
+          "say": "The lab's walls split and another swarm spills out."
+        },
+        {
+          "id": "sk_miasma_surge",
+          "name": "A miasma surge",
+          "summary": "The haze thickens: Constitution save or Poisoned until the end of the creature's next turn.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "con",
+            "dc": 16
+          },
+          "condition": "poisoned",
+          "until": "target_turn_end",
+          "skip_if_resists": [
+            "poison"
+          ],
+          "at": 20,
+          "from_round": 3,
+          "every": 3,
+          "area": {
+            "rect": [
+              36,
+              3,
+              42,
+              9
+            ]
+          },
+          "say": "The haze surges, thick and sweet."
+        }
+      ],
+      "lair": true,
+      "when": "level >= 7 and not flag.oswald_slain and minutes_since.skitterdeep_alert < 120"
+    },
+    {
+      "id": "sk_stonoga",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "centipede_hag",
+          "cell": [
+            39,
+            5
+          ],
+          "name": "Stonoga Blackstinger",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            37,
+            6
+          ],
+          "name": "A skitterswarm"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            41,
+            6
+          ],
+          "name": "A skitterswarm"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            39,
+            8
+          ],
+          "name": "A skitterswarm"
+        },
+        {
+          "monster": "vermin_familiar_centipede",
+          "cell": [
+            40,
+            4
+          ],
+          "name": "Slippery Oswald"
+        }
+      ],
+      "flag": "stonoga_slain",
+      "quest": {
+        "id": "skitter_plague",
+        "stage": "the_sigils"
+      },
+      "round_events": [
+        {
+          "id": "sk_wall_spill",
+          "name": "The walls spill",
+          "summary": "The walls spill one more skitterswarm, never two rounds running.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "skitterswarm",
+          "count": 1,
+          "side": "enemies",
+          "cells": [
+            [
+              36,
+              5
+            ],
+            [
+              42,
+              7
+            ]
+          ],
+          "at": 20,
+          "from_round": 2,
+          "every": 2,
+          "times": 3,
+          "say": "The lab's walls split and another swarm spills out."
+        },
+        {
+          "id": "sk_miasma_surge",
+          "name": "A miasma surge",
+          "summary": "The haze thickens: Constitution save or Poisoned until the end of the creature's next turn.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "con",
+            "dc": 16
+          },
+          "condition": "poisoned",
+          "until": "target_turn_end",
+          "skip_if_resists": [
+            "poison"
+          ],
+          "at": 20,
+          "from_round": 3,
+          "every": 3,
+          "area": {
+            "rect": [
+              36,
+              3,
+              42,
+              9
+            ]
+          },
+          "say": "The haze surges, thick and sweet."
+        }
+      ],
+      "lair": true,
+      "when": "level >= 7 and not flag.oswald_slain"
+    },
+    {
+      "id": "sk_stonoga",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "centipede_hag",
+          "cell": [
+            39,
+            5
+          ],
+          "name": "Stonoga Blackstinger",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            37,
+            6
+          ],
+          "name": "A skitterswarm"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            41,
+            6
+          ],
+          "name": "A skitterswarm"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            39,
+            8
+          ],
+          "name": "A skitterswarm"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            38,
+            7
+          ],
+          "name": "A skitterswarm"
+        }
+      ],
+      "flag": "stonoga_slain",
+      "quest": {
+        "id": "skitter_plague",
+        "stage": "the_sigils"
+      },
+      "round_events": [
+        {
+          "id": "sk_wall_spill",
+          "name": "The walls spill",
+          "summary": "The walls spill one more skitterswarm, never two rounds running.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "skitterswarm",
+          "count": 1,
+          "side": "enemies",
+          "cells": [
+            [
+              36,
+              5
+            ],
+            [
+              42,
+              7
+            ]
+          ],
+          "at": 20,
+          "from_round": 2,
+          "every": 2,
+          "times": 3,
+          "say": "The lab's walls split and another swarm spills out."
+        },
+        {
+          "id": "sk_miasma_surge",
+          "name": "A miasma surge",
+          "summary": "The haze thickens: Constitution save or Poisoned until the end of the creature's next turn.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "con",
+            "dc": 16
+          },
+          "condition": "poisoned",
+          "until": "target_turn_end",
+          "skip_if_resists": [
+            "poison"
+          ],
+          "at": 20,
+          "from_round": 3,
+          "every": 3,
+          "area": {
+            "rect": [
+              36,
+              3,
+              42,
+              9
+            ]
+          },
+          "say": "The haze surges, thick and sweet."
+        }
+      ],
+      "lair": true,
+      "when": "level >= 7 and flag.oswald_slain and minutes_since.skitterdeep_alert < 120"
+    },
+    {
+      "id": "sk_stonoga",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "centipede_hag",
+          "cell": [
+            39,
+            5
+          ],
+          "name": "Stonoga Blackstinger",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            37,
+            6
+          ],
+          "name": "A skitterswarm"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            41,
+            6
+          ],
+          "name": "A skitterswarm"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            39,
+            8
+          ],
+          "name": "A skitterswarm"
+        }
+      ],
+      "flag": "stonoga_slain",
+      "quest": {
+        "id": "skitter_plague",
+        "stage": "the_sigils"
+      },
+      "round_events": [
+        {
+          "id": "sk_wall_spill",
+          "name": "The walls spill",
+          "summary": "The walls spill one more skitterswarm, never two rounds running.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "skitterswarm",
+          "count": 1,
+          "side": "enemies",
+          "cells": [
+            [
+              36,
+              5
+            ],
+            [
+              42,
+              7
+            ]
+          ],
+          "at": 20,
+          "from_round": 2,
+          "every": 2,
+          "times": 3,
+          "say": "The lab's walls split and another swarm spills out."
+        },
+        {
+          "id": "sk_miasma_surge",
+          "name": "A miasma surge",
+          "summary": "The haze thickens: Constitution save or Poisoned until the end of the creature's next turn.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "con",
+            "dc": 16
+          },
+          "condition": "poisoned",
+          "until": "target_turn_end",
+          "skip_if_resists": [
+            "poison"
+          ],
+          "at": 20,
+          "from_round": 3,
+          "every": 3,
+          "area": {
+            "rect": [
+              36,
+              3,
+              42,
+              9
+            ]
+          },
+          "say": "The haze surges, thick and sweet."
+        }
+      ],
+      "lair": true,
+      "when": "level >= 7 and flag.oswald_slain"
+    },
+    {
+      "id": "sk_stonoga",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "centipede_hag",
+          "cell": [
+            39,
+            5
+          ],
+          "name": "Stonoga Blackstinger",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            37,
+            6
+          ],
+          "name": "A skitterswarm"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            41,
+            6
+          ],
+          "name": "A skitterswarm"
+        },
+        {
+          "monster": "vermin_familiar_centipede",
+          "cell": [
+            40,
+            4
+          ],
+          "name": "Slippery Oswald"
+        }
+      ],
+      "flag": "stonoga_slain",
+      "quest": {
+        "id": "skitter_plague",
+        "stage": "the_sigils"
+      },
+      "round_events": [
+        {
+          "id": "sk_wall_spill",
+          "name": "The walls spill",
+          "summary": "The walls spill one more skitterswarm, never two rounds running.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "skitterswarm",
+          "count": 1,
+          "side": "enemies",
+          "cells": [
+            [
+              36,
+              5
+            ],
+            [
+              42,
+              7
+            ]
+          ],
+          "at": 20,
+          "from_round": 2,
+          "every": 2,
+          "times": 3,
+          "say": "The lab's walls split and another swarm spills out."
+        },
+        {
+          "id": "sk_miasma_surge",
+          "name": "A miasma surge",
+          "summary": "The haze thickens: Constitution save or Poisoned until the end of the creature's next turn.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "con",
+            "dc": 16
+          },
+          "condition": "poisoned",
+          "until": "target_turn_end",
+          "skip_if_resists": [
+            "poison"
+          ],
+          "at": 20,
+          "from_round": 3,
+          "every": 3,
+          "area": {
+            "rect": [
+              36,
+              3,
+              42,
+              9
+            ]
+          },
+          "say": "The haze surges, thick and sweet."
+        }
+      ],
+      "lair": true,
+      "when": "not flag.oswald_slain"
+    },
+    {
+      "id": "sk_stonoga",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "centipede_hag",
+          "cell": [
+            39,
+            5
+          ],
+          "name": "Stonoga Blackstinger",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            37,
+            6
+          ],
+          "name": "A skitterswarm"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            41,
+            6
+          ],
+          "name": "A skitterswarm"
+        }
+      ],
+      "flag": "stonoga_slain",
+      "quest": {
+        "id": "skitter_plague",
+        "stage": "the_sigils"
+      },
+      "round_events": [
+        {
+          "id": "sk_wall_spill",
+          "name": "The walls spill",
+          "summary": "The walls spill one more skitterswarm, never two rounds running.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "skitterswarm",
+          "count": 1,
+          "side": "enemies",
+          "cells": [
+            [
+              36,
+              5
+            ],
+            [
+              42,
+              7
+            ]
+          ],
+          "at": 20,
+          "from_round": 2,
+          "every": 2,
+          "times": 3,
+          "say": "The lab's walls split and another swarm spills out."
+        },
+        {
+          "id": "sk_miasma_surge",
+          "name": "A miasma surge",
+          "summary": "The haze thickens: Constitution save or Poisoned until the end of the creature's next turn.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "con",
+            "dc": 16
+          },
+          "condition": "poisoned",
+          "until": "target_turn_end",
+          "skip_if_resists": [
+            "poison"
+          ],
+          "at": 20,
+          "from_round": 3,
+          "every": 3,
+          "area": {
+            "rect": [
+              36,
+              3,
+              42,
+              9
+            ]
+          },
+          "say": "The haze surges, thick and sweet."
+        }
+      ],
+      "lair": true,
+      "when": "flag.oswald_slain"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The haze will not let you rest here.",
+  "doors": [
+    {
+      "id": "sk_bronze_door",
+      "cell": [
+        39,
+        10
+      ],
+      "label": "The bronze door",
+      "locked": false
+    }
+  ],
+  "containers": [
+    {
+      "id": "sk_stonoga_chest",
+      "cell": [
+        41,
+        8
+      ],
+      "label": "Stonoga's shelves and a jar in gel",
+      "items": [
+        {
+          "id": "necklace_of_adaptation",
+          "qty": 1
+        },
+        {
+          "id": "alchemists_supplies",
+          "qty": 1
+        },
+        {
+          "id": "restorative_ointment",
+          "qty": 4
+        }
+      ],
+      "gold": 0,
+      "lock_dc": 0,
+      "when": "flag.stonoga_slain"
+    }
+  ]
+}

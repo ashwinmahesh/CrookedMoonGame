@@ -1,0 +1,132 @@
+{
+  "id": "dg_briar_cellar",
+  "name": "The Briar's Cellar",
+  "region": "dawns_gate",
+  "summary": "A cool cellar of casks, and a false wall behind them.",
+  "text": "Casks, cold stone, and behind the third rack a wall that is newer than the rest.",
+  "map": {
+    "rows": [
+      "####################",
+      "#..................#",
+      "#..................#",
+      "#..==..........==..#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#..==..........==..#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "####################"
+    ],
+    "theme": "tavern",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "cellar",
+      "name": "The cellar",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          18,
+          12
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      9,
+      11
+    ],
+    "from_stair": [
+      9,
+      11
+    ]
+  },
+  "exits": [
+    {
+      "id": "stair_up",
+      "cell": [
+        9,
+        13
+      ],
+      "to": "dg_briar",
+      "spawn": "from_cellar",
+      "label": "Up to the taproom"
+    }
+  ],
+  "props": [
+    {
+      "id": "dg_cellar_wall",
+      "cell": [
+        9,
+        3
+      ],
+      "kind": "examine",
+      "label": "A newer wall behind the casks",
+      "model": "wall_low",
+      "dialogue": "monastery/cellar:refugees",
+      "when": "flag.cellar_asked and not flag.cellar_outcome"
+    },
+    {
+      "id": "dg_cellar_casks",
+      "cell": [
+        6,
+        5
+      ],
+      "kind": "decor",
+      "label": "Casks of black beer",
+      "model": "cask_rack"
+    },
+    {
+      "id": "dg_cellar_crates",
+      "cell": [
+        14,
+        5
+      ],
+      "kind": "decor",
+      "label": "Stacked crates",
+      "model": "crate_stack"
+    },
+    {
+      "id": "dg_cellar_sacks",
+      "cell": [
+        16,
+        10
+      ],
+      "kind": "decor",
+      "label": "Sacks of barley",
+      "model": "sack_pile"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "dg_refugee_ilse",
+      "cell": [
+        8,
+        2
+      ],
+      "dialogue": "monastery/cellar:ilse",
+      "when": "flag.cellar_outcome == \"kept\""
+    },
+    {
+      "npc": "dg_refugee_otto",
+      "cell": [
+        11,
+        2
+      ],
+      "dialogue": "monastery/cellar:otto",
+      "when": "flag.cellar_outcome == \"kept\""
+    }
+  ],
+  "encounters": [],
+  "rest": "risky"
+}

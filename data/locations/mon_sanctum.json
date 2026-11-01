@@ -1,0 +1,282 @@
+{
+  "id": "mon_sanctum",
+  "name": "The Bloody Sanctum",
+  "region": "crimson_monastery",
+  "summary": "A vaulted chamber with a stone island and a round altar ringed by a moat of blood.",
+  "text": "A chandelier lights polished stone. The altar is etched with a rose and drowned in dried roses, and beside it lies a painting of an elf-woman.",
+  "map": {
+    "rows": [
+      "##########################",
+      "##########################",
+      "####~~~~~~~~~~~~~~~~~~####",
+      "##~~~~~~~~~~~~~~~~~~~~~~##",
+      "##~~~~~~~~~~~~~~~~~~~~~~##",
+      "##~~~~..............~~~~##",
+      "##~~~~..............~~~~##",
+      "##~~~~....______....~~~~##",
+      "..~~~~....______....~~~~##",
+      "..~~~~....______....~~~~##",
+      "##~~~~....______....~~~~##",
+      "##~~~~..............~~~~##",
+      "##~~~~..............~~~~##",
+      "##~~~~~~~~~~~~~~~~~~~~~~##",
+      "##~~~~~~~~~~~~~~~~~~~~~~##",
+      "####~~~~~~~~~~~~~~~~~~####",
+      "##########################",
+      "##########################"
+    ],
+    "theme": "cave",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "moat",
+      "name": "The blood channel",
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          23,
+          15
+        ]
+      ]
+    },
+    {
+      "id": "island",
+      "name": "The stone island",
+      "cells": [
+        [
+          6,
+          5
+        ],
+        [
+          19,
+          12
+        ]
+      ]
+    },
+    {
+      "id": "altar_dais",
+      "name": "The altar",
+      "cells": [
+        [
+          10,
+          7
+        ],
+        [
+          15,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      1,
+      8
+    ],
+    "from_vein": [
+      1,
+      8
+    ]
+  },
+  "exits": [
+    {
+      "id": "back_to_vein",
+      "cell": [
+        0,
+        9
+      ],
+      "to": "mon_holy_vein",
+      "spawn": "from_sanctum",
+      "label": "Back into the Holy Vein",
+      "when": "not flag.renathyr_fight_started"
+    }
+  ],
+  "props": [
+    {
+      "id": "mon_sanctum_prefight",
+      "cell": [
+        12,
+        6
+      ],
+      "kind": "decor",
+      "label": "Father Renathyr at the altar",
+      "call": "monastery/sanctum:prefight",
+      "approach": 10,
+      "call_when": "not flag.renathyr_fight_started and not flag.renathyr_slain"
+    },
+    {
+      "id": "mon_sanctum_journal",
+      "cell": [
+        13,
+        8
+      ],
+      "kind": "examine",
+      "label": "A journal on the altar",
+      "model": "book_stack",
+      "dialogue": "monastery/clues:journal",
+      "when": "not flag.renathyr_journal"
+    },
+    {
+      "id": "mon_sanctum_painting",
+      "cell": [
+        11,
+        8
+      ],
+      "kind": "examine",
+      "label": "A painting of an elven woman",
+      "model": "portrait_tatyana",
+      "dialogue": "monastery/clues:painting",
+      "when": "not flag.lethica_painting"
+    },
+    {
+      "id": "mon_sanctum_roses",
+      "cell": [
+        12,
+        9
+      ],
+      "kind": "examine",
+      "label": "Dried roses, heaped",
+      "model": "offering_pile",
+      "dialogue": "monastery/clues:roses",
+      "when": "not flag.dried_roses"
+    },
+    {
+      "id": "mon_sanctum_geyser",
+      "cell": [
+        12,
+        11
+      ],
+      "kind": "decor",
+      "label": "The blood in the channel, stirring",
+      "call": "monastery/sanctum:geyser",
+      "approach": 12,
+      "call_when": "flag.renathyr_fallen_first and not flag.hellfire_seen"
+    },
+    {
+      "id": "mon_sanctum_chandelier",
+      "cell": [
+        12,
+        4
+      ],
+      "kind": "decor",
+      "label": "A chandelier of candles",
+      "model": "skull_chandelier"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "mon_abbot",
+      "trigger": "dialogue",
+      "flag": "renathyr_fallen_first",
+      "when": "level <= 5",
+      "monsters": [
+        {
+          "monster": "crimson_abbot_boss",
+          "cell": [
+            12,
+            7
+          ],
+          "name": "Father Marius Renathyr",
+          "boss": true,
+          "facing": "south",
+          "hp": 85
+        }
+      ]
+    },
+    {
+      "id": "mon_abbot",
+      "trigger": "dialogue",
+      "flag": "renathyr_fallen_first",
+      "when": "level >= 6 and level <= 7",
+      "monsters": [
+        {
+          "monster": "crimson_abbot_boss",
+          "cell": [
+            12,
+            7
+          ],
+          "name": "Father Marius Renathyr",
+          "boss": true,
+          "facing": "south",
+          "hp": 110
+        }
+      ]
+    },
+    {
+      "id": "mon_abbot",
+      "trigger": "dialogue",
+      "flag": "renathyr_fallen_first",
+      "when": "level >= 8",
+      "monsters": [
+        {
+          "monster": "crimson_abbot_boss",
+          "cell": [
+            12,
+            7
+          ],
+          "name": "Father Marius Renathyr",
+          "boss": true,
+          "facing": "south",
+          "hp": 140
+        },
+        {
+          "monster": "blood_effigy",
+          "cell": [
+            8,
+            9
+          ],
+          "name": "A blood effigy",
+          "facing": "south"
+        },
+        {
+          "monster": "blood_effigy",
+          "cell": [
+            17,
+            9
+          ],
+          "name": "A blood effigy",
+          "facing": "south"
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "lights": [
+    {
+      "cell": [
+        12,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 25,
+      "dim_ft": 50,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        7,
+        6
+      ],
+      "kind": "candle",
+      "bright_ft": 25,
+      "dim_ft": 50,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        18,
+        6
+      ],
+      "kind": "candle",
+      "bright_ft": 25,
+      "dim_ft": 50,
+      "color": "ember"
+    }
+  ]
+}

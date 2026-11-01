@@ -1,0 +1,193 @@
+# Drafted by Gemini (R14 clues), edited.
+
+~ altar
+if flag.altar_open
+Narrator: The heavy altar stone stands slid forward on iron rollers, exposing a dark shaft that breathes a cold, coppery draft up through the scent of crushed roses.
+else
+Narrator: Red candles weep tallow over heaps of fresh-cut crimson roses, their thorns glistening in the dim red light that falls through the high cathedral glass.
+endif
+* [if flag.chalice_found and not flag.altar_open] Use the chalice. -> chalice
+* [if not flag.chalice_found] [Perception DC 17] Search the altar. -> found | miss
+* [if flag.way_down_known and not flag.chalice_found] Use what we were told. -> found
+* [if not flag.chalice_found] Wait for the Evening bell and watch an acolyte tend it. -> found
+* Leave. -> END
+
+~ miss
+Narrator: Your fingers find only damp velvet, bruised petals, and warm wax; if the stone hides a latch, it keeps its counsel beneath the thorns.
+-> altar
+
+~ found
+Narrator: Tucked into a niche behind the velvet dossal sits a heavy silver chalice, its bowl ringed with a dry rust that does not smell of wine.
+set chalice_found
+quest crimson_monastery the_way_down
+-> chalice
+
+~ chalice
+Narrator: The chalice rests upon a sunken brass plate behind the stone; the counterweight requires a full pint's weight of warm blood to trip the catch.
+* Fill it with a hero's own blood. -> own_blood
+* Ask a willing faithful for a pint. -> faithful_blood
+* Leave. -> END
+
+~ own_blood
+Narrator: A blade parts skin, and dark blood patters against the silver bowl until the cold metal drinks its fill.
+damage 2d6 necrotic
+-> open_altar
+
+~ faithful_blood
+faithful_novice [smile]: For the Crimson Rose, and for her altar? Take what she asks of me, friend, and let my vein be blessed.
+Narrator: The novice rolls back a sleeve with trembling pride and watches the silver brim without a single flinch.
+set crimson_devotions += 1
+-> open_altar
+
+~ open_altar
+Narrator: The brimming cup sinks into the brass cradle with a greased click, and deep within the stone a hidden chain begins to groan.
+set altar_open
+quest crimson_monastery holy_vein
+cutscene mon_way_down
+cutscene mon_way_down_2
+-> END
+
+~ pulpit
+Narrator: The stone pulpit is carved in the likeness of climbing briars, its lectern worn smooth by gloved hands and dusted with dried petals.
+-> END
+
+~ bell_gate
+Narrator: A heavy iron grille bars the stair to the bell tower, its lock oiled and stout; from high above comes the leathery rustle of roosting wings.
+* [if item:skeleton_key] Use a skeleton key. -> gate_open
+* [Sleight of Hand DC 15] Pick it. -> gate_open | gate_miss
+* [Athletics DC 17] Force it. -> gate_force | gate_miss
+* [if flag.cathedral_audience_done and standing.crimson_faith >= 3] Show the Abbot's invitation. -> gate_open
+* Leave. -> END
+
+~ gate_miss
+Narrator: Iron grates against stone, stubborn and loud in the stairwell, and the bolt refuses to yield.
+-> bell_gate
+
+~ gate_force
+Narrator: With a sharp wrench of iron against stone, the lock gives way with a ring that echoes up the tower steps.
+set crimson_infractions += 1
+standing crimson_faith -1
+-> gate_open
+
+~ gate_open
+Narrator: The iron grille swings inward, letting down a draft of mountain wind and the sour smell of the belfry.
+set bell_gate_open
+-> END
+
+~ workbook
+Narrator: A grease-stained ledger lies open on the butcher's block, smelling of old tallow and iron. Inside are recipes for binding bat hounds, tempering blades in blood, drawing life from one soul into another, and a note that the Abbot descends alone at the Witching Hour.
+give jaegers_workbook
+set src_workbook
+-> END
+
+~ scriptorium
+Narrator: Rows of high oak lecterns stand under red-leaded glass, each holding a volume chained by the spine. The parchment smells of gall ink and dry rose petals.
+* [Investigation DC 13] Search the shelves. -> scrip_ok | scrip_miss
+* Read slowly through a long watch. -> scrip_ok
+* Take the books. -> scrip_take
+* Leave. -> END
+
+~ scrip_ok
+Narrator: Behind the common hymnals sits a treatise penned in a finer hand. It names a chamber beneath the sanctuary altar called the Bloody Sanctum, reached Only when the Holy Vein is opened.
+set src_scriptorium
+set way_down_known
+quest crimson_monastery the_way_down
+-> scriptorium
+
+~ scrip_miss
+Narrator: You turn page after stiff page of liturgical chants and lists of tithed silver, finding nothing more than tired eyes.
+-> scriptorium
+
+~ scrip_take
+Narrator: You slip the finest illuminated testament and a box of brass nibs into your pack while the room keeps its silence.
+give rosen_testament
+give calligraphers_set
+-> scriptorium
+
+~ missal
+Narrator: Friar Olaf's personal missal is bound in red velvet worn bald at the corners. Its margins describe the chalice rite and how the three priors were anointed in the hidden vault directly under the high altar.
+give olafs_missal
+set src_missal
+set way_down_known
+quest crimson_monastery the_way_down
+-> END
+
+~ trophy_chest
+Narrator: An iron-banded chest sits at the foot of Cromwell's bed, fastened with a heavy warded padlock.
+* [if item:skeleton_key] Use a skeleton key. -> chest_open
+* [Sleight of Hand DC 15] Pick it. -> chest_open | chest_miss
+* [Athletics DC 17] Break it open. -> chest_open | chest_miss
+* Leave. -> END
+
+~ chest_miss
+Narrator: The iron hasp groans slightly under {name}'s touch, but the tumblers refuse to yield.
+-> trophy_chest
+
+~ chest_open
+Narrator: The lock snaps back, revealing a cedar jewel box heaped with loose rubies, cut diamonds, and heavy silver coin taken from the condemned.
+give jewel_box_cromwell
+gold +500
+set crimson_infractions += 1
+standing crimson_faith -1
+-> END
+
+~ sanctum_door
+Narrator: The heavy stone slab hums against your knuckles, sealed tight by a spell that tastes of cold iron.
+* [Athletics DC 13] Push it. -> door_open | door_miss
+* Shove it together for ten minutes. -> door_open
+* Leave. -> END
+
+~ door_miss
+Narrator: Your boots scrape on the flagstones, and the warded stone does not budge a hair.
+-> sanctum_door
+
+~ door_open
+Narrator: With a low groan of grinding rock, the seal snaps and the slab scrapes open into the dark.
+set sanctum_door_open
+quest crimson_monastery holy_vein
+-> END
+
+~ vein_warning
+Narrator: Three feet of warm, thick blood sloshes below, rising with a sweet copper stench that turns a living stomach.
+* [Religion DC 13] Recall the old rites for a blood-thing. -> vein_holy | vein_none
+* Leave. -> END
+
+~ vein_holy
+Narrator: An old rubric comes back to you: a single vial of blessed water will curdle a living blood-well to ash.
+set vein_warned
+-> END
+
+~ vein_none
+Narrator: No prayer or page comes to mind, though Axel Farley and his people down here might know the trick of it.
+set vein_warned
+-> END
+
+~ journal
+Narrator: A leather-bound journal rests upon the cold stone of the altar, its pages warped by damp and candle tallow.
+* Take it and read it through. -> journal_read
+* Take it. -> journal_take
+
+~ journal_read
+Narrator: You turn the stiff pages, and the abbot's old hand speaks out of a gentler time.
+cutscene mon_knights_tale
+cutscene mon_knights_tale_2
+cutscene mon_knights_tale_3
+-> journal_take
+
+~ journal_take
+Narrator: You tuck the heavy book away before the chill can have it back.
+give renathyr_journal
+set renathyr_journal
+-> END
+
+~ painting
+Narrator: From a tarnished frame looks an elven woman of quiet grace, her name, Lethica Nightborne, lettered in faded gilt below.
+give lethica_painting
+set lethica_painting
+-> END
+
+~ roses
+Narrator: A bundle of black, dried roses lies here, so brittle that the petals crumble to dry dust against your thumb.
+give dried_roses
+set dried_roses
+-> END

@@ -1,0 +1,81 @@
+# Drafted by Gemini (R17 grotto), edited.
+
+~ arrival
+cutscene mr_worm
+cutscene mr_worm_2
+cutscene end
+Narrator: Folded grey stone curves above pools of glowing purple and teal water, where a stone bridge spans out to a glyph-ringed platform. High on iron chains hangs a vast pallid grub, its tubes pumping violet fluid into vats while it lets out a thin shriek whenever touched.
+quest all_is_well the_weeping_widow
+set mr_grotto_seen
+* Study the worm and the vats -> prep
+* Wait for what comes -> widow_arrives
+
+~ prep
+Narrator: The great grub hangs beyond reach of blade or spell, while copper pipes carry fluid from the vats down into the glowing pools below. Beside the stone bridge stands a heavy iron lever built to raise the platform back toward the wards.
+* [Arcana DC 18] Study the vats -> prep_vats_ok | prep_vats_fail
+* Gather the ichor from the drip -> prep_ichor
+* Step back -> widow_arrives
+
+~ prep_vats_ok
+Narrator: The runes along the copper pipes are etched to sluice the distilled serum straight into the lake bed and the valley's dark waters beyond. A single release will flood every well from here to the moor with sweet, blank forgetfulness.
+set mr_vats_read
+-> prep
+
+~ prep_vats_fail
+Narrator: The violet condensation clouds the glass, and the cramped alchemical marks along the brass valves tell you nothing of their true reach.
+-> prep
+
+~ prep_ichor
+if not flag.mr_drip_taken
+Narrator: You catch the thick, cold droplets from a leaking brass tap before they can hiss into the stone pool.
+set mr_drip_taken
+set unrefined_ichor += 2
+endif
+if flag.mr_drip_taken
+Narrator: The leaking tap holds only a dry crust of violet salt now.
+endif
+-> prep
+
+~ widow_arrives
+Narrator: Iron gears groan overhead as the lift descends, bearing the tall figure of the Matron with Hugo looming broad and silent at her shoulder.
+lethica_nightborne [afraid]: I am truly sorry you came down into the dark, my children. Soon the whole valley will drink of these quiet waters, and no soul will ever ache with grief again.
+if flag.lethica_mementos_carried and not flag.godlee_mementos_destroyed
+Narrator: Her pale eyes catch on the keepsakes of her late husband in your hands, and she turns her face sharply toward the glowing water.
+endif
+if flag.lethica_renathyr_named
+lethica_nightborne [afraid]: You spoke his name in my halls and dragged old ghosts out of the cold rain. I will not let that cruel memory wake again.
+endif
+* [if flag.mr_has_memento and not flag.godlee_mementos_destroyed] Show her the wedding portrait -> show_memento
+* Plead with her to stop -> plead
+* Draw weapons -> fight
+
+~ show_memento
+Narrator: Thick black tears spill down her white cheeks as she stares at the painted canvas, her slender fingers trembling against her skirts.
+lethica_nightborne [sad]: Put it away, I beg you, before my heart breaks all over again. I only wanted the hurting to stop.
+set mr_memento_shown
+-> fight
+
+~ plead
+lethica_nightborne [weary]: You speak of mercy as if memory were a gift, when it is only a blade that turns in the wound. Step aside, or be made whole by force.
+Narrator: Her fingers tighten around a long brass syringe, her gaze cool and unyielding beneath the violet glare.
+-> fight
+
+~ fight
+cutscene mr_first_incision
+cutscene mr_first_incision_2
+cutscene end
+Narrator: She drives a long needle deep into Hugo's shoulder, and the giant swells to twice his size with a low roar before lifting her onto his broad back.
+hugo [angry]: Hugo keep Matron safe from bad strangers.
+combat mr_widow
+
+~ lethica_dies
+cutscene mr_into_oblivion
+cutscene mr_into_oblivion_2
+cutscene end
+Narrator: The Matron sinks to the wet stone with a broken wail, weeping true, dark tears as the great worm above shrieks in answer. Iron chains tear free of the vaulted rock, and the pallid beast plunges into the glowing pool to vanish in the deep water.
+lethica_nightborne [sad]: Marius, my love, the night is so very cold, and I remember every hour of it.
+set lethica_slain
+set white_worm_escaped
+give veil_of_the_weeping_widow
+quest all_is_well unforgettable
+-> END

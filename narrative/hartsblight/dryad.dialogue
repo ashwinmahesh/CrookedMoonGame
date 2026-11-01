@@ -1,0 +1,109 @@
+# Drafted by Gemini (R18 dryad), edited.
+
+~ dryad_arrive
+Narrator: Pale shelf-fungi part along an ancient oak, and a creature of split bark and grey lichen steps into the damp air, smelling faintly of sour sap.
+hb_dryad [weary]: More boots in the mulch. The stag-god promises an endless green tomorrow, yet tonight brings only mud and clattering iron.
+hb_dryad [neutral]: State your business with the wood, or step off my roots before you bruise the moss.
+* [Performance DC 15] Offer a courtly bow and a verse for the old wood. -> dryad_friend | dryad_cool
+* [Persuasion DC 15] Speak plainly of your respect for what this forest was. -> dryad_friend | dryad_cool
+* Show us something worth seeing in these trees. -> dryad_review_start
+* We will leave you to your roots. -> dryad_leave
+
+~ dryad_cool
+hb_dryad [angry]: How unbearably theatrical. Half-rotted badgers have shown better manners and considerably better posture.
+Narrator: She draws back into the wet bark with a dry hiss, leaving a handful of bruised, weeping berries on the moss.
+set hb_dryad_hostile
+give tainted_goodberries
+-> END
+
+~ dryad_friend
+hb_dryad [sly]: Hmph. A tolerable cadence, and only slightly desperate. Best of all, you did not try to recite a ballad.
+hb_dryad [neutral]: Take the high root-path past the sinkhole. The rotweavers keep watch down in the hollow, and their drumming gives me a headache.
+set hb_dryad_friendly
+set hb_dryad_shortcut
+-> dryad_review_start
+
+~ dryad_leave
+hb_dryad [weary]: Wise. Mind the puffballs on your way out; they have no sense of occasion.
+-> END
+
+~ dryad_review_start
+if not flag.hb_review_started
+quest hb_dryad_review asked
+set hb_review_started
+endif
+hb_dryad [weary]: My name rotted out of me three autumns ago, leaving only my impeccable taste. Show me what you carry, and I shall tell you why it fails.
+* Hold out a weapon for inspection. -> review_weapon
+* Offer a travel ration and a flask. -> review_ration
+* [if item:seed_jar] Hold up Elder Brisa's jar of seeds. -> review_seed
+* [if item:gwenna_sketch] Show the charcoal sketch of Gwenna. -> review_sketch
+* [if flag.hb_reviews >= 3] Give us your final verdict on our company. -> review_verdict
+* We have nothing else to show you. -> END
+
+~ review_weapon
+hb_dryad [neutral]: Nicks in the edge, oil gone rancid in the fuller, and all the subtlety of a falling millstone.
+hb_dryad [weary]: Three out of ten. Replacing a personality with the ability to stab things is terribly derivative.
+* [Persuasion DC 12] It is ugly, maybe, but it kept us alive. -> weapon_honest | weapon_lie
+* This blade has felled worse horrors than you. -> weapon_lie
+
+~ weapon_honest
+hb_dryad [sly]: Utility over vanity. A rare confession from creatures who polish their own buckles.
+hb_dryad [neutral]: Very well, four out of ten. An ugly tool that keeps the pulse going has a plain sort of merit.
+set hb_reviews += 1
+set hb_dryad_warmth += 1
+-> dryad_review_start
+
+~ weapon_lie
+hb_dryad [weary]: Boasting to a dying tree. How heroic. I lower my mark to a two for the lack of self-awareness.
+set hb_reviews += 1
+-> dryad_review_start
+
+~ review_ration
+Narrator: She leans toward {name}'s pack, her bark-split nose wrinkling at the sour tang of blighted leather and damp biscuit.
+hb_dryad [angry]: Good heavens, it is not even food; it is a sad rumour of grain held together by grease and regret.
+hb_dryad [neutral]: Even before the spores got in, whoever baked this hated your teeth.
+* Admit it tastes like wet boot leather. -> ration_honest
+* Insist it is fine trail cooking. -> ration_lie
+
+~ ration_honest
+hb_dryad [smile]: Wet boot leather has a livelier bouquet, frankly, but I admire a palate that refuses to lie to itself.
+set hb_reviews += 1
+set hb_dryad_warmth += 1
+-> dryad_review_start
+
+~ ration_lie
+hb_dryad [weary]: Self-deception is a poor seasoning, traveller. Even the maggots are staging a quiet withdrawal.
+set hb_reviews += 1
+-> dryad_review_start
+
+~ review_seed
+Narrator: The dryad's wooden fingers hover near the glass, her milky eyes catching the dry rattle of hulls inside.
+hb_dryad [sad]: Dry barley and winter rye, sealed tight against the damp. No fungal dream, no green delusion, just stubborn little lives waiting for honest dirt.
+hb_dryad [neutral]: That old woman in the hollow kept something true. Nine out of ten, though the jar itself is dreadfully plain.
+set hb_reviews += 1
+set hb_dryad_warmth += 1
+-> dryad_review_start
+
+~ review_sketch
+Narrator: Dry leaves rustle along her shoulders as she studies the smudged charcoal face.
+hb_dryad [sad]: The laughing girl from the village. Her name rots in the wellspring now, feeding a grief too greedy to stay buried.
+hb_dryad [neutral]: Yet the old Greenwood remembers her footstep without the spores. Tell the antlered fool that love should not smell like carrion.
+set hb_knows_greenwood
+set mem_farryn_forest_love
+set hb_reviews += 1
+set hb_dryad_warmth += 1
+-> dryad_review_start
+
+~ review_verdict
+if flag.hb_dryad_warmth >= 2
+hb_dryad [smile]: You are muddy, poorly provisioned, and doomed to an unpleasant week, yet you lack the dreary falseness of this wood.
+hb_dryad [neutral]: I was called Lindeth once, when the boughs were clean. Take this green shoot; it remembers how to breathe.
+Narrator: She snaps a pale, unspoiled sprig from behind her ear; its cool scent cuts through the rot in your lungs.
+quest hb_dryad_review done
+set hb_dryad_cleansed
+heal 2d8 party
+-> END
+endif
+hb_dryad [weary]: Loud, defensive, and entirely predictable. Three stars out of ten, and only because you did not set my bark on fire.
+quest hb_dryad_review done
+-> END

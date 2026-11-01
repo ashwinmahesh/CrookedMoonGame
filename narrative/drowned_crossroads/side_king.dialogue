@@ -1,0 +1,111 @@
+# Drafted by Gemini (R15 side_king), edited.
+
+~ lou_start
+luckless_lou [smile]: Fresh faces by the fight pits! Pull up a dry crate, friends, though I would steer clear of King Vander's card table tonight unless you enjoy donating your boots.
+* What is your system? -> lou_system
+* We will watch the table -> lou_accept
+* [if flag.wedding_asked and not flag.wedding_ring] Ask about a ring he pawned -> drowned_crossroads/side_wedding:lou_ring
+* [if flag.print_asked and not flag.print_lou] Ask for a cautionary tale -> drowned_crossroads/side_print:lou_tale
+* Not interested -> END
+
+~ lou_system
+luckless_lou [smile]: Every hand you lose clears the bad luck out of the deck, see, storing up pure fortune for the next deal. By my count, I am overdue for a royal flush.
+-> lou_start
+
+~ lou_accept
+luckless_lou [sly]: You have sharper eyes than mine, and Lyla does not know your faces yet. Find out how she and Vander signal under the planks, then come tell me.
+set king_asked
+quest a_hand_with_the_king asked
+-> END
+
+~ lou_progress
+luckless_lou [smile]: Back from the lantern smoke already? Tell me you caught them at it, because my pockets are light enough to float right off the boardwalk.
+* [if flag.king_proof] I know how they signal -> lou_proof
+* [if not flag.king_proof] Where should we look? -> lou_hint
+* [if not flag.king_proof] [ends:a_hand_with_the_king] Accuse Vander publicly with no proof -> lou_rash
+* [if flag.wedding_asked and not flag.wedding_ring] Ask about the pawned ring -> drowned_crossroads/side_wedding:lou_ring
+* [if flag.print_asked and not flag.print_lou] Ask for a cautionary tale -> drowned_crossroads/side_print:lou_tale
+* Leave -> END
+
+~ lou_hint
+luckless_lou [neutral]: Linger by the fort's card table after a hand wraps up and watch their hands. Or ask Tibby Marsh, since that child sees under every table in Murkwater.
+-> lou_progress
+
+~ lou_rash
+Narrator: Your accusation rings out over the wet planks, and Vander's purple-suited enforcers do not wait for a second verse. They heave poor Lou past the gate, where his last copper sinks into a black puddle.
+set king_outcome = "lost"
+quest a_hand_with_the_king lost
+-> END
+
+~ lou_proof
+luckless_lou [sly]: A cough, a boot, and two fingers on the cup? I knew my system was sound! Come on, how should we play this hand with the King?
+* Tell Vander quietly, and ask for an honest game -> proof_quiet
+* Tell the whole pit -> proof_public
+* Keep it, and let Lyla pay us to forget it -> proof_kept
+
+~ proof_quiet
+vander_boone [smile]: Caught Lyla's little telegraph, did you? Fair enough, friends, tell Lou to bring his empty pockets back tomorrow and we will deal him an honest hand.
+set king_outcome = "rematch"
+quest a_hand_with_the_king done
+-> END
+
+~ proof_public
+Narrator: The whole pit goes quieter than cypress water as you lay out every signal. Vander slowly lifts his purple top hat, smooths his bald head, and settles the brim back down.
+vander_boone [weary]: Well now, it seems the house owes the table a clean shuffle. Sit down, Lou, before I change my mind.
+set king_outcome = "exposed"
+quest a_hand_with_the_king done
+-> END
+
+~ proof_kept
+lyla_webb [sly]: Fifty gold pieces says you have a poor memory for how we hold our cups. Count it elsewhere, and leave Lou to his famous system.
+Narrator: Her charms click softly as she drops the pouch into your palm, while Lou watches from the rails with a long, damp sulk.
+set king_outcome = "kept"
+gold +50
+quest a_hand_with_the_king done
+-> END
+
+~ lou_after
+if flag.king_outcome == rematch
+luckless_lou [smile]: Vander gave me an honest deal, and I lost three straight hands purely on my own merit! That means my system is finally warming up.
+elif flag.king_outcome == exposed
+luckless_lou [smile]: Half the pit watched Vander deal from the top of the deck, and I still lost my shirt! At least it was an honest fleecing.
+elif flag.king_outcome == kept
+luckless_lou [sad]: Funny how Lyla smiled at you lot right before Vander barred me from the table. My system never accounted for temporary friends.
+else
+luckless_lou [weary]: My last coin is down in the mud with the crawfish, and the fort guards know my boots by sound. Still, tomorrow looks lucky.
+endif
+* [if flag.wedding_asked and not flag.wedding_ring] Ask about the pawned ring -> drowned_crossroads/side_wedding:lou_ring
+* [if flag.print_asked and not flag.print_lou] Ask for a cautionary tale -> drowned_crossroads/side_print:lou_tale
+* Leave -> END
+
+~ table_watch
+Narrator: Tallow smoke hangs low over the scarred planks of the fort's card table, where spilled rye and wet bootmarks mark the evening's heavy play.
+* [Perception DC 14] Watch the way they hold their cups -> proof_ok | proof_miss
+* [Sleight of Hand DC 15] Feel under the table -> proof_ok | proof_caught
+* Leave -> END
+
+~ proof_ok
+set king_proof
+Narrator: A dry cough for spades, a tapped boot heel under the boards, and two fingers resting on a tin cup: you have their signals down cold.
+quest a_hand_with_the_king proof
+-> END
+
+~ proof_miss
+Narrator: You see only dented pewter, thumb-stained pasteboards, and greasy river damp soaking into the pine.
+-> table_watch
+
+~ proof_caught
+Narrator: Your fingers brush a notched strip of wood beneath the rim before Lyla's boot pins your knuckles flat; she gives a brisk little smile and lifts her heel, letting it pass this once.
+-> table_watch
+
+~ tibby_tells
+tibby_marsh [sly]: Looking at the King's table, mister? For one shiny coin I can save your knees the splinters and tell you how the cards go round.
+* [if gold >= 1] Pay a coin -> tibby_paid
+* Never mind -> END
+
+~ tibby_paid
+tibby_marsh [smile]: Lyla coughs for spades, taps her boot when Vander should raise, and puts two fingers on her cup when a sucker holds high cards!
+gold -1
+set king_proof
+quest a_hand_with_the_king proof
+-> END

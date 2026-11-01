@@ -1,0 +1,615 @@
+{
+  "id": "dc_fort",
+  "name": "The Bayou King's Fort",
+  "region": "drowned_crossroads",
+  "summary": "A palisade fort crowded with refugees, with a cramped throne hall of mismatched plush furniture.",
+  "text": "Inside the palisade a yard full of refugees, bandits in tribute and enforcers in purple and black. Beyond it a cramped throne hall of mismatched plush furniture and a cushioned chair by a window.",
+  "map": {
+    "rows": [
+      "##################################",
+      "#...........#....................#",
+      "#...........#.._______________...#",
+      "#..==...==..#.._______________...#",
+      "#...........#.._______________...#",
+      "#...........#....................#",
+      "#..==.......#.===.....===....==..#",
+      "#...........#....................#",
+      "#................................#",
+      "#..==...==....==............==...#",
+      "#...........#....................#",
+      "#...........#....................#",
+      "################...###############",
+      "#................................#",
+      "#................................#",
+      "#...==..==..............==..==...#",
+      "#................................#",
+      "#................................#",
+      "#................................#",
+      "#................................#",
+      "#...==....................==.....#",
+      "#................................#",
+      "#.........==..........==.........#",
+      "#................................#",
+      "#................................#",
+      "#################.################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "dc_yard",
+      "name": "The yard",
+      "cells": [
+        [
+          1,
+          13
+        ],
+        [
+          32,
+          24
+        ]
+      ]
+    },
+    {
+      "id": "dc_throne_hall",
+      "name": "The throne hall",
+      "cells": [
+        [
+          13,
+          1
+        ],
+        [
+          32,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "dc_guest_room",
+      "name": "The guest room",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          11,
+          11
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      17,
+      23
+    ],
+    "from_gate": [
+      17,
+      23
+    ],
+    "from_run": [
+      17,
+      23
+    ]
+  },
+  "exits": [
+    {
+      "id": "gate",
+      "cell": [
+        17,
+        25
+      ],
+      "to": "dc_murkwater",
+      "spawn": "from_fort",
+      "label": "Out through the gate"
+    }
+  ],
+  "props": [
+    {
+      "id": "dc_dice_table",
+      "cell": [
+        29,
+        9
+      ],
+      "kind": "examine",
+      "label": "A card table, a leather cup and five dice",
+      "model": "table_round",
+      "dialogue": "drowned_crossroads/vander:dice_start",
+      "when": "flag.vander_met and not flag.vander_dice"
+    },
+    {
+      "id": "dc_dice_table_after",
+      "cell": [
+        29,
+        9
+      ],
+      "kind": "examine",
+      "label": "The card table, cups put away",
+      "model": "table_round",
+      "dialogue": "drowned_crossroads/side_king:table_watch",
+      "when": "flag.vander_dice"
+    },
+    {
+      "id": "dc_window_chair",
+      "cell": [
+        30,
+        5
+      ],
+      "kind": "examine",
+      "label": "The cushioned chair by the window",
+      "model": "armchair"
+    },
+    {
+      "id": "dc_guest_bed",
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "examine",
+      "label": "A bed in the guest room",
+      "model": "bed",
+      "dialogue": "drowned_crossroads/vander:dinner_rest",
+      "when": "flag.vander_dinner and not flag.dc_fort_rested"
+    },
+    {
+      "id": "dc_fort_sleep",
+      "cell": [
+        8,
+        3
+      ],
+      "kind": "examine",
+      "label": "A bed that has seen worse nights",
+      "model": "bed"
+    },
+    {
+      "id": "dc_wall_alarm",
+      "cell": [
+        17,
+        22
+      ],
+      "kind": "decor",
+      "label": "The dead, at the palisade",
+      "call": "drowned_crossroads/vander:screams",
+      "approach": 5,
+      "call_when": "flag.dc_fort_rested and not flag.screams_done"
+    },
+    {
+      "id": "dc_plush",
+      "cell": [
+        14,
+        6
+      ],
+      "kind": "decor",
+      "label": "A plush sofa from three different houses",
+      "model": "settee"
+    },
+    {
+      "id": "dc_throne_rug",
+      "cell": [
+        20,
+        9
+      ],
+      "kind": "decor",
+      "label": "A rug that was a banner once",
+      "model": "rug_runner"
+    },
+    {
+      "id": "dc_bedrolls",
+      "cell": [
+        25,
+        15
+      ],
+      "kind": "decor",
+      "label": "Bedrolls and a child's wooden boat",
+      "model": "rags"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "vander_boone",
+      "cell": [
+        22,
+        5
+      ],
+      "dialogue": "drowned_crossroads/vander:throne",
+      "when": "not flag.vander_met"
+    },
+    {
+      "npc": "vander_boone",
+      "cell": [
+        22,
+        5
+      ],
+      "dialogue": "drowned_crossroads/vander:throne_again",
+      "when": "flag.vander_met and not flag.screams_done"
+    },
+    {
+      "npc": "vander_boone",
+      "cell": [
+        22,
+        5
+      ],
+      "dialogue": "drowned_crossroads/vander:fort_after",
+      "when": "flag.dc_screams_done"
+    },
+    {
+      "npc": "lyla_webb",
+      "cell": [
+        20,
+        7
+      ],
+      "dialogue": "drowned_crossroads/town:lyla_fort",
+      "when": "flag.vander_met and not flag.screams_done"
+    },
+    {
+      "npc": "fort_refugee",
+      "cell": [
+        6,
+        17
+      ],
+      "dialogue": "drowned_crossroads/folk:refugee",
+      "when": "not flag.screams_done"
+    },
+    {
+      "npc": "fort_refugee",
+      "cell": [
+        26,
+        17
+      ],
+      "dialogue": "drowned_crossroads/folk:refugee",
+      "when": "not flag.screams_done"
+    },
+    {
+      "npc": "fort_enforcer",
+      "cell": [
+        14,
+        14
+      ],
+      "dialogue": "drowned_crossroads/folk:enforcer",
+      "when": "not flag.screams_done"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "dc_screams",
+      "trigger": "dialogue",
+      "flag": "dc_screams_done",
+      "quest": {
+        "id": "withered_arm",
+        "stage": "the_shack"
+      },
+      "monsters": [
+        {
+          "monster": "ghast",
+          "cell": [
+            7,
+            17
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            21,
+            21
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            28,
+            19
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ferryman",
+          "cell": [
+            17,
+            18
+          ],
+          "name": "The Ferryman at the gate",
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "dc_wave_one",
+          "name": "More of the dead",
+          "summary": "More dead hands come over the palisade.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "ghast",
+          "count": 2,
+          "side": "enemies",
+          "cells": [
+            [
+              3,
+              14
+            ],
+            [
+              30,
+              14
+            ]
+          ],
+          "at": 20,
+          "from_round": 5,
+          "every": 99,
+          "times": 1,
+          "say": "More of the dead come over the wall."
+        },
+        {
+          "id": "dc_wave_two",
+          "name": "More of the dead",
+          "summary": "More dead hands come over the palisade.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "ghast",
+          "count": 2,
+          "side": "enemies",
+          "cells": [
+            [
+              3,
+              14
+            ],
+            [
+              30,
+              14
+            ]
+          ],
+          "at": 20,
+          "from_round": 10,
+          "every": 99,
+          "times": 1,
+          "say": "More of the dead come over the wall."
+        }
+      ],
+      "when": "level <= 5"
+    },
+    {
+      "id": "dc_screams",
+      "trigger": "dialogue",
+      "flag": "dc_screams_done",
+      "quest": {
+        "id": "withered_arm",
+        "stage": "the_shack"
+      },
+      "monsters": [
+        {
+          "monster": "ghast",
+          "cell": [
+            7,
+            17
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            12,
+            21
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            21,
+            21
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            28,
+            19
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ferryman",
+          "cell": [
+            17,
+            18
+          ],
+          "name": "The Ferryman at the gate",
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "dc_wave_one",
+          "name": "More of the dead",
+          "summary": "More dead hands come over the palisade.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "ghast",
+          "count": 2,
+          "side": "enemies",
+          "cells": [
+            [
+              3,
+              14
+            ],
+            [
+              30,
+              14
+            ]
+          ],
+          "at": 20,
+          "from_round": 5,
+          "every": 99,
+          "times": 1,
+          "say": "More of the dead come over the wall."
+        },
+        {
+          "id": "dc_wave_two",
+          "name": "More of the dead",
+          "summary": "More dead hands come over the palisade.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "ghast",
+          "count": 2,
+          "side": "enemies",
+          "cells": [
+            [
+              3,
+              14
+            ],
+            [
+              30,
+              14
+            ]
+          ],
+          "at": 20,
+          "from_round": 10,
+          "every": 99,
+          "times": 1,
+          "say": "More of the dead come over the wall."
+        }
+      ],
+      "when": "level == 6"
+    },
+    {
+      "id": "dc_screams",
+      "trigger": "dialogue",
+      "flag": "dc_screams_done",
+      "quest": {
+        "id": "withered_arm",
+        "stage": "the_shack"
+      },
+      "monsters": [
+        {
+          "monster": "ghast",
+          "cell": [
+            7,
+            17
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            12,
+            21
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            21,
+            21
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            28,
+            19
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ferryman",
+          "cell": [
+            17,
+            18
+          ],
+          "name": "The Ferryman at the gate",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            3,
+            22
+          ],
+          "facing": "east"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "dc_wave_one",
+          "name": "More of the dead",
+          "summary": "More dead hands come over the palisade.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "ghast",
+          "count": 2,
+          "side": "enemies",
+          "cells": [
+            [
+              3,
+              14
+            ],
+            [
+              30,
+              14
+            ]
+          ],
+          "at": 20,
+          "from_round": 5,
+          "every": 99,
+          "times": 1,
+          "say": "More of the dead come over the wall."
+        },
+        {
+          "id": "dc_wave_two",
+          "name": "More of the dead",
+          "summary": "More dead hands come over the palisade.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "ghast",
+          "count": 2,
+          "side": "enemies",
+          "cells": [
+            [
+              3,
+              14
+            ],
+            [
+              30,
+              14
+            ]
+          ],
+          "at": 20,
+          "from_round": 10,
+          "every": 99,
+          "times": 1,
+          "say": "More of the dead come over the wall."
+        }
+      ],
+      "when": "level >= 7"
+    }
+  ],
+  "rest": "safe",
+  "rest_text": "The fort is full, but the guest room has beds, and it holds until the dead come.",
+  "lights": [
+    {
+      "cell": [
+        17,
+        6
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        8,
+        18
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40
+    }
+  ]
+}

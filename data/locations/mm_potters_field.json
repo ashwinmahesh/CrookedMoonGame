@@ -1,0 +1,796 @@
+{
+  "id": "mm_potters_field",
+  "name": "The Potter's Field",
+  "region": "maidenmist_cemetery",
+  "summary": "Rolling hills of plain wooden posts over nameless graves, amber lights drifting through the fog.",
+  "text": "Plain posts, no names, a thousand shallow graves, and carrion birds waiting on every second one. Amber lanterns bob in the mist, going nowhere you can follow.",
+  "map": {
+    "rows": [
+      "##############################",
+      "#.............=...........=..#",
+      "#.......=.........=..........#",
+      "#.........=.................=#",
+      "#...........=.....=.=...~....#",
+      "#.............=.....~~~~~~...#",
+      "#........=.........~~~~=~=...#",
+      "#............=......=~~~~....#",
+      "#.......................~....#",
+      "#....=...=...................#",
+      "#=.........=.................#",
+      "#.=.......=...=..............#",
+      "#.................=..........#",
+      "#=...........................#",
+      "#....=......=...........=....#",
+      "#............................#",
+      "#............=...............#",
+      ".......=.....................#",
+      "#......=..............=......#",
+      "#............................#",
+      "#=........=.................=#",
+      "#..................=..=......#",
+      "#......=................=....#",
+      "#.............=..............#",
+      "#.........=..................#",
+      "#.=.......=..................#",
+      "#....................=.......#",
+      "#................=............",
+      "#..........=.................#",
+      "#................=........=..#",
+      "#=.....=.....................#",
+      "#...=......................=.#",
+      "#..........=..=..........=...#",
+      "##############################"
+    ],
+    "theme": "wilderness",
+    "light": "dim",
+    "outdoors": true,
+    "elevation": [
+      "222222222222222222222222222222",
+      "222233333333322222222222222222",
+      "222333333333332222222222222222",
+      "233333333333333322222222222222",
+      "233333334333333322222222222222",
+      "333334444444333332222222222222",
+      "333344444444433333222222222222",
+      "333444444444443333222222222222",
+      "333444444444443333222222222222",
+      "333444455544443333222222222222",
+      "334444455544444333222222222222",
+      "333444455544443333222222222222",
+      "333444444444443333222222222222",
+      "333444444444443333222222222222",
+      "333344444444433333222222222222",
+      "333334444444333332333333333222",
+      "233333334333333323333333333322",
+      "233333333333333433333333333333",
+      "222333333333332333333343333333",
+      "222233333333323333344444443333",
+      "222222222222233333444444444333",
+      "222222222222233334444444444433",
+      "222222222222233334444444444433",
+      "222222222222233334444555444433",
+      "222222222222233344444555444443",
+      "222222222222233334444555444433",
+      "222222222222233334444444444433",
+      "222222222222233334444444444433",
+      "222222222222233333444444444333",
+      "222222222222223333344444443333",
+      "222222222222222333333343333333",
+      "222222222222222333333333333333",
+      "222222222222222223333333333322",
+      "222222222222222222333333333222"
+    ]
+  },
+  "areas": [
+    {
+      "id": "brazier_hollow",
+      "name": "The brazier hollow",
+      "cells": [
+        [
+          11,
+          13
+        ],
+        [
+          19,
+          21
+        ]
+      ]
+    },
+    {
+      "id": "graves",
+      "name": "The shallow graves",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          28,
+          12
+        ]
+      ]
+    },
+    {
+      "id": "mass_grave",
+      "name": "The mass grave pit",
+      "cells": [
+        [
+          20,
+          4
+        ],
+        [
+          25,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "path",
+      "name": "The way in",
+      "cells": [
+        [
+          1,
+          15
+        ],
+        [
+          10,
+          19
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      2,
+      17
+    ],
+    "from_hub": [
+      2,
+      17
+    ],
+    "from_b": [
+      28,
+      27
+    ]
+  },
+  "exits": [
+    {
+      "id": "hub_path",
+      "cell": [
+        0,
+        17
+      ],
+      "to": "mm_sepulcher",
+      "spawn": "from_potters",
+      "label": "The paved path back to the sepulcher"
+    },
+    {
+      "id": "short_b",
+      "cell": [
+        29,
+        27
+      ],
+      "to": "mm_gravestones_b",
+      "spawn": "from_potters",
+      "label": "Across the Endless Gravestones to the Burial Mounds"
+    }
+  ],
+  "props": [
+    {
+      "id": "mm_fog_amber",
+      "cell": [
+        4,
+        17
+      ],
+      "kind": "decor",
+      "label": "Amber lights, drifting in the fog",
+      "call": "maidenmist/sites:amber_find",
+      "approach": 4,
+      "call_when": "not flag.mm_amber_found"
+    },
+    {
+      "id": "mm_brazier_amber",
+      "cell": [
+        15,
+        17
+      ],
+      "kind": "decor",
+      "label": "A brazier of orange coals among the graves",
+      "model": "brazier_cold",
+      "call": "maidenmist/rites:amber_start",
+      "approach": 3,
+      "call_when": "flag.mm_amber_found and not flag.beacon_amber"
+    },
+    {
+      "id": "mm_brazier_amber_lit",
+      "cell": [
+        15,
+        17
+      ],
+      "kind": "decor",
+      "label": "The Amber Beacon, burning",
+      "model": "brazier",
+      "when": "flag.beacon_amber",
+      "tint": "#e0a030"
+    },
+    {
+      "id": "mm_pit_edge",
+      "cell": [
+        22,
+        6
+      ],
+      "kind": "decor",
+      "label": "The edge of a mass grave",
+      "model": "grave_open",
+      "call": "maidenmist/sites:mass_grave",
+      "approach": 2
+    },
+    {
+      "id": "mm_grave_study",
+      "cell": [
+        8,
+        8
+      ],
+      "kind": "examine",
+      "label": "A post the crows will not leave alone",
+      "model": "crow",
+      "call": "maidenmist/sites:grave_study",
+      "approach": 3
+    },
+    {
+      "id": "mm_grave_a",
+      "cell": [
+        6,
+        6
+      ],
+      "kind": "examine",
+      "label": "A shallow grave under a plain post",
+      "model": "grave_mound",
+      "call": "maidenmist/sites:grave_wrong_a"
+    },
+    {
+      "id": "mm_grave_b",
+      "cell": [
+        24,
+        9
+      ],
+      "kind": "examine",
+      "label": "A shallow grave under a plain post",
+      "model": "grave_mound",
+      "call": "maidenmist/sites:grave_right"
+    },
+    {
+      "id": "mm_grave_c",
+      "cell": [
+        6,
+        27
+      ],
+      "kind": "examine",
+      "label": "A shallow grave under a plain post",
+      "model": "grave_mound",
+      "call": "maidenmist/sites:grave_wrong_c"
+    },
+    {
+      "id": "mm_shovel_stand",
+      "cell": [
+        14,
+        28
+      ],
+      "kind": "decor",
+      "label": "A rusted shovel, leaning on a post",
+      "model": "tool_rack"
+    },
+    {
+      "id": "mm_yorgrim_site_potters",
+      "cell": [
+        3,
+        19
+      ],
+      "kind": "decor",
+      "label": "The lantern's edge",
+      "call": "maidenmist/yorgrim:site_potters",
+      "approach": 4,
+      "call_when": "flag.yorgrim_with_party and not flag.mm_site_potters_told"
+    },
+    {
+      "id": "mm_crowpost_0",
+      "cell": [
+        3,
+        5
+      ],
+      "kind": "decor",
+      "label": "A crow on a post",
+      "model": "crow"
+    },
+    {
+      "id": "mm_crowpost_1",
+      "cell": [
+        7,
+        13
+      ],
+      "kind": "decor",
+      "label": "A crow on a post",
+      "model": "crow"
+    },
+    {
+      "id": "mm_crowpost_2",
+      "cell": [
+        11,
+        21
+      ],
+      "kind": "decor",
+      "label": "A crow on a post",
+      "model": "crow"
+    },
+    {
+      "id": "mm_crowpost_3",
+      "cell": [
+        15,
+        5
+      ],
+      "kind": "decor",
+      "label": "A crow on a post",
+      "model": "crow"
+    },
+    {
+      "id": "mm_crowpost_4",
+      "cell": [
+        19,
+        13
+      ],
+      "kind": "decor",
+      "label": "A crow on a post",
+      "model": "crow"
+    },
+    {
+      "id": "mm_crowpost_5",
+      "cell": [
+        23,
+        21
+      ],
+      "kind": "decor",
+      "label": "A crow on a post",
+      "model": "crow"
+    },
+    {
+      "id": "mm_crowpost_6",
+      "cell": [
+        27,
+        5
+      ],
+      "kind": "decor",
+      "label": "A crow on a post",
+      "model": "crow"
+    },
+    {
+      "id": "mm_potters_post_0",
+      "cell": [
+        7,
+        30
+      ],
+      "kind": "decor",
+      "label": "A plain wooden post",
+      "model": "stump"
+    },
+    {
+      "id": "mm_potters_post_1",
+      "cell": [
+        7,
+        2
+      ],
+      "kind": "decor",
+      "label": "Bones, picked clean",
+      "model": "bones"
+    },
+    {
+      "id": "mm_potters_post_2",
+      "cell": [
+        1,
+        27
+      ],
+      "kind": "decor",
+      "label": "Bones, picked clean",
+      "model": "bones"
+    },
+    {
+      "id": "mm_potters_post_3",
+      "cell": [
+        19,
+        5
+      ],
+      "kind": "decor",
+      "label": "Bones, picked clean",
+      "model": "bones"
+    },
+    {
+      "id": "mm_potters_post_4",
+      "cell": [
+        10,
+        14
+      ],
+      "kind": "decor",
+      "label": "Bones, picked clean",
+      "model": "bones"
+    },
+    {
+      "id": "mm_potters_post_5",
+      "cell": [
+        27,
+        23
+      ],
+      "kind": "decor",
+      "label": "Bones, picked clean",
+      "model": "bones"
+    },
+    {
+      "id": "mm_potters_post_6",
+      "cell": [
+        7,
+        22
+      ],
+      "kind": "decor",
+      "label": "A plain wooden post",
+      "model": "stump"
+    },
+    {
+      "id": "mm_potters_post_7",
+      "cell": [
+        20,
+        17
+      ],
+      "kind": "decor",
+      "label": "Bones, picked clean",
+      "model": "bones"
+    },
+    {
+      "id": "mm_potters_post_8",
+      "cell": [
+        11,
+        32
+      ],
+      "kind": "decor",
+      "label": "A shallow grave",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_potters_post_9",
+      "cell": [
+        15,
+        12
+      ],
+      "kind": "decor",
+      "label": "Bones, picked clean",
+      "model": "bones"
+    },
+    {
+      "id": "mm_potters_post_10",
+      "cell": [
+        1,
+        10
+      ],
+      "kind": "decor",
+      "label": "A plain wooden post",
+      "model": "stump"
+    },
+    {
+      "id": "mm_potters_post_11",
+      "cell": [
+        17,
+        26
+      ],
+      "kind": "decor",
+      "label": "Bones, picked clean",
+      "model": "bones"
+    },
+    {
+      "id": "mm_potters_post_12",
+      "cell": [
+        18,
+        2
+      ],
+      "kind": "decor",
+      "label": "A plain wooden post",
+      "model": "stump"
+    },
+    {
+      "id": "mm_potters_post_13",
+      "cell": [
+        10,
+        11
+      ],
+      "kind": "decor",
+      "label": "A shallow grave",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_potters_post_14",
+      "cell": [
+        25,
+        32
+      ],
+      "kind": "decor",
+      "label": "A plain wooden post",
+      "model": "stump"
+    },
+    {
+      "id": "mm_potters_post_15",
+      "cell": [
+        24,
+        18
+      ],
+      "kind": "decor",
+      "label": "Bones, picked clean",
+      "model": "bones"
+    },
+    {
+      "id": "mm_potters_post_16",
+      "cell": [
+        24,
+        27
+      ],
+      "kind": "decor",
+      "label": "Bones, picked clean",
+      "model": "bones"
+    },
+    {
+      "id": "mm_potters_post_17",
+      "cell": [
+        26,
+        13
+      ],
+      "kind": "decor",
+      "label": "Bones, picked clean",
+      "model": "bones"
+    },
+    {
+      "id": "mm_potters_post_18",
+      "cell": [
+        10,
+        24
+      ],
+      "kind": "decor",
+      "label": "A plain wooden post",
+      "model": "stump"
+    },
+    {
+      "id": "mm_potters_post_19",
+      "cell": [
+        21,
+        26
+      ],
+      "kind": "decor",
+      "label": "A shallow grave",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_potters_post_20",
+      "cell": [
+        10,
+        4
+      ],
+      "kind": "decor",
+      "label": "Bones, picked clean",
+      "model": "bones"
+    },
+    {
+      "id": "mm_potters_post_21",
+      "cell": [
+        28,
+        20
+      ],
+      "kind": "decor",
+      "label": "A plain wooden post",
+      "model": "stump"
+    },
+    {
+      "id": "mm_potters_post_22",
+      "cell": [
+        14,
+        32
+      ],
+      "kind": "decor",
+      "label": "A plain wooden post",
+      "model": "stump"
+    },
+    {
+      "id": "mm_potters_post_23",
+      "cell": [
+        1,
+        30
+      ],
+      "kind": "decor",
+      "label": "A plain wooden post",
+      "model": "stump"
+    },
+    {
+      "id": "mm_potters_post_24",
+      "cell": [
+        7,
+        18
+      ],
+      "kind": "decor",
+      "label": "A plain wooden post",
+      "model": "stump"
+    },
+    {
+      "id": "mm_potters_post_25",
+      "cell": [
+        5,
+        9
+      ],
+      "kind": "decor",
+      "label": "A plain wooden post",
+      "model": "stump"
+    },
+    {
+      "id": "mm_names_graves",
+      "cell": [
+        20,
+        14
+      ],
+      "kind": "examine",
+      "label": "Three plain posts, each with a small token at its foot",
+      "model": "stump",
+      "call": "maidenmist/folk:names_graves",
+      "approach": 2,
+      "call_when": "quest.names_on_stones == asked"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "mm_amber_rite",
+      "trigger": "dialogue",
+      "when": "not flag.mm_amber_fails",
+      "flag": "mm_amber_guardians_dead",
+      "monsters": [
+        {
+          "monster": "kackle",
+          "cell": [
+            15,
+            14
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "kackle",
+          "cell": [
+            12,
+            17
+          ],
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "dancing_lanterns",
+          "name": "Dancing Lanterns",
+          "summary": "Amber lights bob in the fog and call to whoever follows them.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 15
+          },
+          "condition": "charmed",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1,
+          "say": "Amber lanterns bob in the fog, and the fog wants you to follow."
+        }
+      ]
+    },
+    {
+      "id": "mm_amber_rite",
+      "trigger": "dialogue",
+      "when": "flag.mm_amber_fails == 1",
+      "flag": "mm_amber_guardians_dead",
+      "monsters": [
+        {
+          "monster": "kackle",
+          "cell": [
+            15,
+            14
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "kackle",
+          "cell": [
+            12,
+            17
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            18,
+            17
+          ],
+          "name": "A specter roused by the failed search",
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "dancing_lanterns",
+          "name": "Dancing Lanterns",
+          "summary": "Amber lights bob in the fog and call to whoever follows them.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 15
+          },
+          "condition": "charmed",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1,
+          "say": "Amber lanterns bob in the fog, and the fog wants you to follow."
+        }
+      ]
+    },
+    {
+      "id": "mm_amber_rite",
+      "trigger": "dialogue",
+      "when": "flag.mm_amber_fails >= 2",
+      "flag": "mm_amber_guardians_dead",
+      "monsters": [
+        {
+          "monster": "kackle",
+          "cell": [
+            15,
+            14
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "kackle",
+          "cell": [
+            12,
+            17
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            18,
+            17
+          ],
+          "name": "A specter roused by the failed search",
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            15,
+            20
+          ],
+          "name": "A specter roused by the failed search",
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "dancing_lanterns",
+          "name": "Dancing Lanterns",
+          "summary": "Amber lights bob in the fog and call to whoever follows them.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 15
+          },
+          "condition": "charmed",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1,
+          "say": "Amber lanterns bob in the fog, and the fog wants you to follow."
+        }
+      ]
+    }
+  ],
+  "rest": "risky"
+}

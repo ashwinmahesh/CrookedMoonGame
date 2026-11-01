@@ -1,0 +1,819 @@
+{
+  "id": "sk_upper",
+  "name": "The Upper Workings",
+  "region": "skitterdeep_mine",
+  "summary": "The old drift, the lift landing 30 feet down the shaft, and the Crosscut.",
+  "text": "Rotten timbering, overturned minecarts, and a smell of old meat rising from far below.",
+  "map": {
+    "rows": [
+      "##################################################################",
+      "##################################################################",
+      "##################################################################",
+      "##################################################################",
+      "##################################################################",
+      "##################################################################",
+      "##################################################################",
+      "##################################################################",
+      "#####...############################################............##",
+      "#####...###############...##########################......=.....##",
+      "#####...###############...##########################..==........##",
+      "#####...###############...#.........################............##",
+      "#####.=.###############.=.#.........################.........==.##",
+      "#####.=.###############.=.#.........################............##",
+      "#####...###############...#...   ...............................##",
+      "#####...###############...#...   ...............................##",
+      "#............######...........   ...............................##",
+      "#...=........######.................################............##",
+      "#.......=...........................################..=.........##",
+      "##########..=.........#####.........################............##",
+      "##########..........=.#####.........################....=...==..##",
+      "##########............##############################............##",
+      "##########.......=....##############################............##",
+      "##########............############################################",
+      "##########............############################################",
+      "##############...#################################################",
+      "##############...#################################################",
+      "##############.=.#################################################",
+      "##############.=.#################################################",
+      "##############...#################################################",
+      "##############...#################################################",
+      "##############...#################################################",
+      "##################################################################",
+      "##################################################################",
+      "##################################################################",
+      "##################################################################",
+      "##################################################################",
+      "##################################################################"
+    ],
+    "theme": "dungeon",
+    "light": "dark",
+    "outdoors": false
+  },
+  "spawns": {
+    "default": [
+      2,
+      17
+    ],
+    "from_drift": [
+      2,
+      17
+    ],
+    "from_shaft": [
+      29,
+      13
+    ],
+    "from_lift": [
+      31,
+      13
+    ],
+    "from_below": [
+      28,
+      15
+    ]
+  },
+  "areas": [
+    {
+      "id": "drift_west",
+      "name": "The old drift",
+      "cells": [
+        [
+          1,
+          16
+        ],
+        [
+          12,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "drift_dig",
+      "name": "The diggers' cavern",
+      "cells": [
+        [
+          11,
+          18
+        ],
+        [
+          18,
+          23
+        ]
+      ]
+    },
+    {
+      "id": "drift_east",
+      "name": "The drift, east",
+      "cells": [
+        [
+          19,
+          16
+        ],
+        [
+          27,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "landing",
+      "name": "The lift landing",
+      "cells": [
+        [
+          27,
+          11
+        ],
+        [
+          35,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "crosscut",
+      "name": "The Crosscut",
+      "cells": [
+        [
+          36,
+          14
+        ],
+        [
+          51,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "hoard",
+      "name": "The hoard chamber",
+      "cells": [
+        [
+          52,
+          8
+        ],
+        [
+          63,
+          22
+        ]
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "id": "drift_mouth",
+      "cell": [
+        1,
+        17
+      ],
+      "to": "sk_camp",
+      "spawn": "from_drift",
+      "label": "Out of the drift"
+    },
+    {
+      "id": "chain_up",
+      "cell": [
+        33,
+        13
+      ],
+      "to": "sk_camp",
+      "spawn": "from_shaft",
+      "label": "Climb the chain to the surface"
+    },
+    {
+      "id": "lift_up",
+      "cell": [
+        31,
+        12
+      ],
+      "to": "sk_camp",
+      "spawn": "from_lift",
+      "label": "Ride the lift up",
+      "when": "flag.sk_lift_ready and not flag.skitterdeep_lift_fell"
+    },
+    {
+      "id": "chain_down",
+      "cell": [
+        29,
+        15
+      ],
+      "to": "sk_deep",
+      "spawn": "from_shaft",
+      "label": "Climb the old rungs and chain to the bottom"
+    }
+  ],
+  "props": [
+    {
+      "id": "sk_lift",
+      "cell": [
+        31,
+        17
+      ],
+      "kind": "examine",
+      "label": "The lift: planks over three iron beams",
+      "model": "dais",
+      "dialogue": "skitterdeep/camp:lift"
+    },
+    {
+      "id": "sk_shaft_rungs",
+      "cell": [
+        29,
+        14
+      ],
+      "kind": "examine",
+      "label": "Old maintenance rungs",
+      "model": "ladder"
+    },
+    {
+      "id": "sk_masons_tools",
+      "cell": [
+        7,
+        17
+      ],
+      "kind": "search",
+      "label": "Working tools along the drift",
+      "search_dc": 12,
+      "item": "masons_tools",
+      "skill": "investigation"
+    },
+    {
+      "id": "sk_spy_ring",
+      "cell": [
+        6,
+        17
+      ],
+      "kind": "search",
+      "label": "The spy centipede's husk",
+      "search_dc": 1,
+      "item": "ring_of_evasion",
+      "when": "flag.sk_spy_done"
+    },
+    {
+      "id": "sk_key_body",
+      "cell": [
+        30,
+        18
+      ],
+      "kind": "search",
+      "label": "The lift fleshdobbin's body, and a cord",
+      "search_dc": 1,
+      "item": "sk_iron_key",
+      "when": "flag.sk_landing_done"
+    },
+    {
+      "id": "sk_eyeball",
+      "cell": [
+        37,
+        14
+      ],
+      "kind": "examine",
+      "label": "An eye hanging by its nerve",
+      "model": "jars",
+      "dialogue": "skitterdeep/camp:eyeball"
+    },
+    {
+      "id": "sk_hoard_gold",
+      "cell": [
+        55,
+        12
+      ],
+      "kind": "examine",
+      "label": "A heap of gold and gems",
+      "model": "gold_spill",
+      "dialogue": "skitterdeep/camp:hoard"
+    },
+    {
+      "id": "sk_hoard_chalices",
+      "cell": [
+        58,
+        14
+      ],
+      "kind": "examine",
+      "label": "Silver chalices and silks",
+      "model": "gold_spill",
+      "dialogue": "skitterdeep/camp:hoard"
+    },
+    {
+      "id": "sk_hoard_jewels",
+      "cell": [
+        60,
+        18
+      ],
+      "kind": "examine",
+      "label": "A scatter of jewels",
+      "model": "gold_spill",
+      "dialogue": "skitterdeep/camp:hoard"
+    },
+    {
+      "id": "sk_hoard_coins",
+      "cell": [
+        56,
+        18
+      ],
+      "kind": "examine",
+      "label": "Coins by the handful",
+      "model": "gold_spill",
+      "dialogue": "skitterdeep/camp:hoard"
+    },
+    {
+      "id": "sk_hoard_guts",
+      "cell": [
+        57,
+        10
+      ],
+      "kind": "examine",
+      "label": "A heap of organs",
+      "model": "blood_pool",
+      "dialogue": "skitterdeep/camp:hoard"
+    },
+    {
+      "id": "sk_drift_timbers",
+      "cell": [
+        12,
+        17
+      ],
+      "kind": "examine",
+      "label": "Rotten, termite-eaten timbering",
+      "model": "fallen_beam"
+    },
+    {
+      "id": "sk_drift_cart",
+      "cell": [
+        6,
+        12
+      ],
+      "kind": "examine",
+      "label": "A minecart, rust-welded",
+      "model": "cart_broken"
+    },
+    {
+      "id": "sk_drift_cart_2",
+      "cell": [
+        24,
+        12
+      ],
+      "kind": "examine",
+      "label": "A minecart on a spur of rail",
+      "model": "cart"
+    },
+    {
+      "id": "sk_drift_pick",
+      "cell": [
+        13,
+        21
+      ],
+      "kind": "examine",
+      "label": "A pickaxe in a drift wall",
+      "model": "bucket_brush"
+    },
+    {
+      "id": "sk_up_crawlers_a",
+      "cell": [
+        9,
+        17
+      ],
+      "kind": "decor",
+      "label": "Tiny centipedes along the wall",
+      "model": "soot_patch"
+    },
+    {
+      "id": "sk_up_crawlers_b",
+      "cell": [
+        21,
+        20
+      ],
+      "kind": "decor",
+      "label": "Tiny centipedes along the wall",
+      "model": "soot_patch"
+    },
+    {
+      "id": "sk_up_crawlers_c",
+      "cell": [
+        40,
+        15
+      ],
+      "kind": "decor",
+      "label": "Tiny centipedes along the wall",
+      "model": "soot_patch"
+    },
+    {
+      "id": "sk_up_webs",
+      "cell": [
+        34,
+        11
+      ],
+      "kind": "decor",
+      "label": "Cobwebs",
+      "model": "cobwebs"
+    },
+    {
+      "id": "sk_up_bones",
+      "cell": [
+        15,
+        29
+      ],
+      "kind": "decor",
+      "label": "Bones in a dead-end cut",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "sk_up_lantern",
+      "cell": [
+        28,
+        12
+      ],
+      "kind": "decor",
+      "label": "A dead lantern bracket",
+      "model": "lantern_bracket"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "sk_drift_diggers",
+      "trigger": "enter_area:drift_dig",
+      "monsters": [
+        {
+          "monster": "deepdreck",
+          "cell": [
+            13,
+            20
+          ],
+          "name": "A digging miner",
+          "facing": "west"
+        },
+        {
+          "monster": "deepdreck",
+          "cell": [
+            14,
+            21
+          ],
+          "name": "A digging miner",
+          "facing": "west"
+        },
+        {
+          "monster": "deepdreck",
+          "cell": [
+            15,
+            19
+          ],
+          "name": "A digging miner",
+          "facing": "west"
+        },
+        {
+          "monster": "deepdreck",
+          "cell": [
+            16,
+            22
+          ],
+          "name": "A digging miner",
+          "facing": "west"
+        },
+        {
+          "monster": "deepdreck",
+          "cell": [
+            17,
+            20
+          ],
+          "name": "A digging miner",
+          "facing": "west"
+        }
+      ],
+      "waiting": true,
+      "flag": "sk_diggers_done",
+      "when": "level >= 7 and not flag.thirteen_returned"
+    },
+    {
+      "id": "sk_drift_diggers",
+      "trigger": "enter_area:drift_dig",
+      "monsters": [
+        {
+          "monster": "deepdreck",
+          "cell": [
+            13,
+            20
+          ],
+          "name": "A digging miner",
+          "facing": "west"
+        },
+        {
+          "monster": "deepdreck",
+          "cell": [
+            14,
+            21
+          ],
+          "name": "A digging miner",
+          "facing": "west"
+        },
+        {
+          "monster": "deepdreck",
+          "cell": [
+            15,
+            19
+          ],
+          "name": "A digging miner",
+          "facing": "west"
+        }
+      ],
+      "waiting": true,
+      "flag": "sk_diggers_done",
+      "when": "level >= 7 and flag.thirteen_returned"
+    },
+    {
+      "id": "sk_drift_diggers",
+      "trigger": "enter_area:drift_dig",
+      "monsters": [
+        {
+          "monster": "deepdreck",
+          "cell": [
+            13,
+            20
+          ],
+          "name": "A digging miner",
+          "facing": "west"
+        },
+        {
+          "monster": "deepdreck",
+          "cell": [
+            14,
+            21
+          ],
+          "name": "A digging miner",
+          "facing": "west"
+        },
+        {
+          "monster": "deepdreck",
+          "cell": [
+            15,
+            19
+          ],
+          "name": "A digging miner",
+          "facing": "west"
+        }
+      ],
+      "waiting": true,
+      "flag": "sk_diggers_done",
+      "when": "not flag.thirteen_returned"
+    },
+    {
+      "id": "sk_drift_diggers",
+      "trigger": "enter_area:drift_dig",
+      "monsters": [
+        {
+          "monster": "deepdreck",
+          "cell": [
+            13,
+            20
+          ],
+          "name": "A digging miner",
+          "facing": "west"
+        },
+        {
+          "monster": "deepdreck",
+          "cell": [
+            14,
+            21
+          ],
+          "name": "A digging miner",
+          "facing": "west"
+        }
+      ],
+      "waiting": true,
+      "flag": "sk_diggers_done",
+      "when": "flag.thirteen_returned"
+    },
+    {
+      "id": "sk_spy",
+      "trigger": "enter_area:drift_west",
+      "monsters": [
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            5,
+            17
+          ],
+          "name": "A spy centipede in a ring",
+          "facing": "east"
+        }
+      ],
+      "waiting": true,
+      "flag": "sk_spy_done"
+    },
+    {
+      "id": "sk_landing",
+      "trigger": "enter_area:landing",
+      "monsters": [
+        {
+          "monster": "fleshdobbin",
+          "cell": [
+            30,
+            18
+          ],
+          "name": "The lift's fleshdobbin",
+          "facing": "north"
+        },
+        {
+          "monster": "deepdreck",
+          "cell": [
+            28,
+            13
+          ],
+          "name": "A deepdreck",
+          "facing": "east"
+        },
+        {
+          "monster": "deepdreck",
+          "cell": [
+            34,
+            13
+          ],
+          "name": "A deepdreck",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            28,
+            19
+          ],
+          "name": "A giant centipede",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            29,
+            17
+          ],
+          "name": "A giant centipede",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            33,
+            18
+          ],
+          "name": "A giant centipede",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            34,
+            19
+          ],
+          "name": "A giant centipede",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            35,
+            17
+          ],
+          "name": "A giant centipede",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            28,
+            16
+          ],
+          "name": "A giant centipede",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            34,
+            15
+          ],
+          "name": "A giant centipede",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            33,
+            12
+          ],
+          "name": "A giant centipede",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            29,
+            20
+          ],
+          "name": "A giant centipede",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            32,
+            19
+          ],
+          "name": "A giant centipede",
+          "facing": "east"
+        }
+      ],
+      "waiting": true,
+      "flag": "sk_landing_done",
+      "when": "level >= 7"
+    },
+    {
+      "id": "sk_landing",
+      "trigger": "enter_area:landing",
+      "monsters": [
+        {
+          "monster": "fleshdobbin",
+          "cell": [
+            30,
+            18
+          ],
+          "name": "The lift's fleshdobbin",
+          "facing": "north"
+        },
+        {
+          "monster": "deepdreck",
+          "cell": [
+            28,
+            13
+          ],
+          "name": "A deepdreck",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            28,
+            19
+          ],
+          "name": "A giant centipede",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            29,
+            17
+          ],
+          "name": "A giant centipede",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            33,
+            18
+          ],
+          "name": "A giant centipede",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            34,
+            19
+          ],
+          "name": "A giant centipede",
+          "facing": "east"
+        }
+      ],
+      "waiting": true,
+      "flag": "sk_landing_done"
+    },
+    {
+      "id": "sk_oswald",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "vermin_familiar_centipede",
+          "cell": [
+            57,
+            11
+          ],
+          "name": "Slippery Oswald",
+          "unseen": true
+        }
+      ],
+      "flag": "oswald_slain"
+    }
+  ],
+  "rest": "risky",
+  "rest_text": "The tunnels breathe. You would not close your eyes.",
+  "lights": [
+    {
+      "cell": [
+        31,
+        12
+      ],
+      "kind": "candle",
+      "bright_ft": 5,
+      "dim_ft": 10,
+      "color": "bile"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+# Drafted by Gemini (R14 kristoff), edited.
+
+~ refugees
+Narrator: Behind the third rack of ale casks stands a course of newer mortared stone with a clever pivoted door. Inside the cramped dark crouch two shivering folk: a tinker's wife clutching a shawl and her hollow-cheeked brother.
+dg_refugee_ilse [afraid]: Please, don't raise a cry. We only missed the kneeling at the bell because our mule went lame in the ditch.
+* We will keep your secret. -> kept
+* [Stealth DC 13] Smuggle them out over the pass at night. -> smuggled | kept
+* [ends:kristoffs_cellar] Turn them over to the Hunt for the bounty. -> betray
+* Leave them be for now. -> END
+
+~ kept
+set cellar_outcome = "kept"
+quest kristoffs_cellar kept
+standing brightsingers +1
+Narrator: You pull the false wall shut and brush the sawdust back over the seam. Halfway up the cellar stair stands Kristoff, who says nothing at all, which in his tongue is a whole speech of thanks.
+-> END
+
+~ smuggled
+Narrator: Under the cloud-shadow before the Morning bell, you guide the pair past the sleeping kennels and up the frostbitten goat path to the river road. They press your hands once and slip away eastward toward Wickermoor.
+set cellar_outcome = "kept"
+set refugees_smuggled
+quest kristoffs_cellar kept
+-> END
+
+~ betray
+set cellar_outcome = "betrayed"
+quest kristoffs_cellar betrayed
+gold +40
+Narrator: Iron hooves ring in the alley before the quarter-hour is out, and the Hunt drags two muffled shapes into the snow while a rider tosses you a clinking leather purse. Inside the taproom, Kristoff stares at the floorboards and will not look at your face.
+-> END
+
+~ ilse
+dg_refugee_ilse [smile]: Bless your quiet tongues, friends. Listen close if you walk the lanes: when the Twilight bell rings after a burning, the Hunt rides the lower road in full pack, and every shutter in town had better be latched.
+-> END
+
+~ otto
+dg_refugee_otto [afraid]: They won't take me alive to that courtyard.
+Narrator: He draws up his trouser leg to show a skinning knife strapped against his boot-top, his knuckles white on the horn grip.
+dg_refugee_otto [weary]: When we crept past the old monastery path, I heard the bats up in the belfry. They weren't squeaking. They were laughing like men.
+-> END

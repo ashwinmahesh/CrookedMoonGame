@@ -1,0 +1,537 @@
+{
+  "id": "dc_trail2",
+  "name": "The Deep Crossing",
+  "region": "drowned_crossroads",
+  "summary": "A channel too deep to wade, spanned by one fallen log. The water between the cypress knees is very still.",
+  "text": "A channel too deep to wade, spanned by one fallen log. The water between the cypress knees is very still.",
+  "map": {
+    "rows": [
+      "########################################",
+      "#~~~#~~~~#~~~~~~wwwwwwww~#~~~~~~~~~~~~~#",
+      "##~~~~~#~~~~~~~~wwwwwwww~~#~~#~~~~~~~~~#",
+      "#~~~~~w~~~~~#~~~wwwwwwww~w~~~~~~~~~~~~~#",
+      "#~~~~wwwww~~~~~~wwwwwwww~w~~~~~~#~~~~~~#",
+      "#~~~wwwwwww~~~~~wwwwwwww~~~...~#~~~~~~~#",
+      "##~#~wwwww....~~wwwwwwww~~.....~~~~~~~~#",
+      "#~~~~~#~~~.....~wwwwwwww#~......~~#~~~~#",
+      "#~~~.~~~~......~wwwwwwww~.......#~~.~~~#",
+      "#~~.....~......~wwwwwwww~......~#.....~#",
+      "#~.......~~..=.~wwwwwwww~~.....~.......#",
+      "#......................................#",
+      "........................................",
+      "#.........~~~#~~wwwwwwww~~~~~~~~........",
+      "#~......~~~=..~~wwwwwwww~~=~~~~#.......#",
+      "#~~.....~#~....~wwwwwwww~~~....~.......#",
+      "#~~~~.#~~~.....~wwwwwwww~......~~~~.~~~#",
+      "#~~#~~~~~~.....~wwwwwwww~~.....~~~~~~~~#",
+      "#~~#~~~~~#~....~wwwwwwww~.......~w~~~~~#",
+      "#~~~~~~~~~~....~wwwwwwww~~....wwwwwww~~#",
+      "#~~~#~~~~~~~~.~~wwwwwwww~~~..wwwwwwww~~#",
+      "#~~~~~~~~~~#~~~~wwwwwwww~#~~~~wwwwwww~~#",
+      "#~~~~~#~~~~~#~~#wwwwwwww~~~~~~~~~ww~~~~#",
+      "########################################"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "trail",
+      "name": "The Deep Crossing",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          38,
+          22
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      3,
+      12
+    ],
+    "from_west": [
+      3,
+      12
+    ],
+    "from_east": [
+      36,
+      12
+    ]
+  },
+  "exits": [
+    {
+      "id": "west",
+      "cell": [
+        0,
+        12
+      ],
+      "to": "dc_trail1",
+      "spawn": "from_east",
+      "label": "The way back"
+    },
+    {
+      "id": "east",
+      "cell": [
+        39,
+        12
+      ],
+      "to": "dc_trail3",
+      "spawn": "from_west",
+      "label": "On along the trail"
+    }
+  ],
+  "props": [
+    {
+      "id": "dc_t2_cypress0",
+      "cell": [
+        8,
+        8
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dc_t2_cypress1",
+      "cell": [
+        11,
+        15
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "dc_t2_cypress2",
+      "cell": [
+        30,
+        6
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dc_t2_cypress3",
+      "cell": [
+        33,
+        17
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "dc_t2_cypress4",
+      "cell": [
+        14,
+        4
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dc_t2_cypress5",
+      "cell": [
+        26,
+        19
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "dc_t2_reeds0",
+      "cell": [
+        9,
+        11
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "dc_t2_reeds1",
+      "cell": [
+        24,
+        13
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "dc_t2_reeds2",
+      "cell": [
+        31,
+        14
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "dc_t2_log",
+      "cell": [
+        19,
+        11
+      ],
+      "kind": "decor",
+      "label": "The fallen log",
+      "model": "broken_boards"
+    },
+    {
+      "id": "dc_t2_crossing",
+      "cell": [
+        13,
+        12
+      ],
+      "kind": "decor",
+      "label": "The channel, black and still",
+      "call": "drowned_crossroads/trek:crossing",
+      "approach": 4,
+      "call_when": "not flag.dc_croc_started"
+    },
+    {
+      "id": "dc_t2_hide",
+      "cell": [
+        24,
+        14
+      ],
+      "kind": "examine",
+      "label": "A crocodile's glyph-scarred hide",
+      "dialogue": "drowned_crossroads/trek:croc_arcana",
+      "when": "flag.dc_croc_done and not flag.dc_croc_lore"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "dc_croc_crossing",
+      "trigger": "dialogue",
+      "flag": "dc_croc_done",
+      "monsters": [
+        {
+          "monster": "giant_crocodile",
+          "cell": [
+            15,
+            7
+          ],
+          "name": "A glyph-scarred crocodile",
+          "facing": "east"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            15,
+            15
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            24,
+            8
+          ],
+          "facing": "west"
+        }
+      ],
+      "when": "(flag.dc_croc_ambush) and level <= 5",
+      "surprise": "party"
+    },
+    {
+      "id": "dc_croc_crossing",
+      "trigger": "dialogue",
+      "flag": "dc_croc_done",
+      "monsters": [
+        {
+          "monster": "giant_crocodile",
+          "cell": [
+            15,
+            7
+          ],
+          "name": "A glyph-scarred crocodile",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_crocodile",
+          "cell": [
+            24,
+            17
+          ],
+          "name": "A glyph-scarred crocodile",
+          "facing": "west"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            15,
+            15
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            24,
+            8
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            15,
+            20
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            24,
+            20
+          ],
+          "facing": "west"
+        }
+      ],
+      "when": "(flag.dc_croc_ambush) and level == 6",
+      "surprise": "party"
+    },
+    {
+      "id": "dc_croc_crossing",
+      "trigger": "dialogue",
+      "flag": "dc_croc_done",
+      "monsters": [
+        {
+          "monster": "giant_crocodile",
+          "cell": [
+            15,
+            7
+          ],
+          "name": "A glyph-scarred crocodile",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_crocodile",
+          "cell": [
+            24,
+            17
+          ],
+          "name": "A glyph-scarred crocodile",
+          "facing": "west"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            15,
+            15
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            24,
+            8
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            15,
+            20
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            24,
+            20
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            15,
+            3
+          ],
+          "facing": "east"
+        }
+      ],
+      "when": "(flag.dc_croc_ambush) and level >= 7",
+      "surprise": "party"
+    },
+    {
+      "id": "dc_croc_crossing",
+      "trigger": "dialogue",
+      "flag": "dc_croc_done",
+      "monsters": [
+        {
+          "monster": "giant_crocodile",
+          "cell": [
+            15,
+            7
+          ],
+          "name": "A glyph-scarred crocodile",
+          "facing": "east"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            15,
+            15
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            24,
+            8
+          ],
+          "facing": "west"
+        }
+      ],
+      "when": "(not flag.dc_croc_ambush) and level <= 5"
+    },
+    {
+      "id": "dc_croc_crossing",
+      "trigger": "dialogue",
+      "flag": "dc_croc_done",
+      "monsters": [
+        {
+          "monster": "giant_crocodile",
+          "cell": [
+            15,
+            7
+          ],
+          "name": "A glyph-scarred crocodile",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_crocodile",
+          "cell": [
+            24,
+            17
+          ],
+          "name": "A glyph-scarred crocodile",
+          "facing": "west"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            15,
+            15
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            24,
+            8
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            15,
+            20
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            24,
+            20
+          ],
+          "facing": "west"
+        }
+      ],
+      "when": "(not flag.dc_croc_ambush) and level == 6"
+    },
+    {
+      "id": "dc_croc_crossing",
+      "trigger": "dialogue",
+      "flag": "dc_croc_done",
+      "monsters": [
+        {
+          "monster": "giant_crocodile",
+          "cell": [
+            15,
+            7
+          ],
+          "name": "A glyph-scarred crocodile",
+          "facing": "east"
+        },
+        {
+          "monster": "giant_crocodile",
+          "cell": [
+            24,
+            17
+          ],
+          "name": "A glyph-scarred crocodile",
+          "facing": "west"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            15,
+            15
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            24,
+            8
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            15,
+            20
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            24,
+            20
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "crocodile",
+          "cell": [
+            15,
+            3
+          ],
+          "facing": "east"
+        }
+      ],
+      "when": "(not flag.dc_croc_ambush) and level >= 7"
+    }
+  ],
+  "rest": "risky",
+  "rest_text": "Something in the water is awake all night."
+}

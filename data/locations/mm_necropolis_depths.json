@@ -1,0 +1,276 @@
+{
+  "id": "mm_necropolis_depths",
+  "name": "The Necropolis Depths",
+  "region": "maidenmist_cemetery",
+  "summary": "A huge cavern widened by claws, tunnels lined with slimed corpses, pockets of glowing Shroud-ooze.",
+  "text": "The cave smells of wet stone and old meat. Something has dug here for a very long time, and it left its slime on everything.",
+  "map": {
+    "rows": [
+      "####################################",
+      "####################################",
+      "####################################",
+      "################.#####.#.###########",
+      "#####.###~######..#...#.#.###..#####",
+      "#######.#.....#..#.#.#.##.#.#...#.##",
+      "####~.............~...#.#........#.#",
+      "###..........#.....................#",
+      "#####........~........~...........##",
+      "#####........~..~..................#",
+      "####.......~.................~....##",
+      "#####......~~.....~............#..##",
+      "###.#.#.......................#..###",
+      "#####~........................#.##.#",
+      "##.................................#",
+      "#####~~...............~~........##.#",
+      "##.#...........................##.##",
+      "###.#............................###",
+      "####....~~..................~...#..#",
+      "###.#.......~........~...........#.#",
+      "##.#.................~........~...#.",
+      "#####~........................~...#.",
+      "####..........~...............##.###",
+      "####..................~.......~#.###",
+      "###..#........................######",
+      "#####.#........~...........~..#.####",
+      "#######.~......................#####",
+      "######.##.....~...................##",
+      "######.##.....~...~........~.....#.#",
+      "########..#..#....................##",
+      "#######~#....#.....#...#.........###",
+      "###########.##......~##.#......#.###",
+      "##########.###......#..####.###.####",
+      "###############.#....######.########",
+      "##################.#################",
+      "####################################"
+    ],
+    "theme": "dungeon",
+    "light": "dark",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "cavern",
+      "name": "The great cavern",
+      "cells": [
+        [
+          3,
+          3
+        ],
+        [
+          32,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "lair",
+      "name": "The necrolisk's lair",
+      "cells": [
+        [
+          12,
+          10
+        ],
+        [
+          24,
+          22
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      18,
+      29
+    ],
+    "from_fall": [
+      18,
+      24
+    ],
+    "from_below": [
+      18,
+      32
+    ]
+  },
+  "exits": [
+    {
+      "id": "burrow_up",
+      "cell": [
+        18,
+        34
+      ],
+      "to": "mm_undercroft",
+      "spawn": "from_depths",
+      "label": "A collapsed burrow, climbing back to the catacombs"
+    },
+    {
+      "id": "to_descent",
+      "cell": [
+        30,
+        18
+      ],
+      "to": "mm_tomb",
+      "spawn": "from_below",
+      "label": "Through the broken wall, to the Stygian Descent",
+      "when": "flag.mm_wall_broken",
+      "locked_text": "The wall is cracked, but whole."
+    }
+  ],
+  "props": [
+    {
+      "id": "mm_depths_crack",
+      "cell": [
+        29,
+        18
+      ],
+      "kind": "examine",
+      "label": "A cracked wall leaking grey mist",
+      "model": "rubble",
+      "call": "maidenmist/descent:wall",
+      "approach": 3,
+      "call_when": "not flag.mm_wall_broken"
+    },
+    {
+      "id": "mm_depths_first",
+      "cell": [
+        18,
+        27
+      ],
+      "kind": "decor",
+      "label": "A broken cavern, and the smell of something large",
+      "call": "maidenmist/descent:depths_arrive",
+      "approach": 6,
+      "call_when": "not flag.mm_depths_seen"
+    },
+    {
+      "id": "mm_slime_0",
+      "cell": [
+        10,
+        12
+      ],
+      "kind": "examine",
+      "label": "A slime blob, trapping something dead",
+      "model": "soul_bags",
+      "call": "maidenmist/descent:slime",
+      "approach": 2,
+      "call_when": "not flag.mm_slime_all"
+    },
+    {
+      "id": "mm_slime_1",
+      "cell": [
+        26,
+        12
+      ],
+      "kind": "examine",
+      "label": "A slime blob, trapping something dead",
+      "model": "soul_bags",
+      "call": "maidenmist/descent:slime",
+      "approach": 2,
+      "call_when": "not flag.mm_slime_all"
+    },
+    {
+      "id": "mm_slime_2",
+      "cell": [
+        12,
+        26
+      ],
+      "kind": "examine",
+      "label": "A slime blob, trapping something dead",
+      "model": "soul_bags",
+      "call": "maidenmist/descent:slime",
+      "approach": 2,
+      "call_when": "not flag.mm_slime_all"
+    },
+    {
+      "id": "mm_slime_3",
+      "cell": [
+        26,
+        26
+      ],
+      "kind": "examine",
+      "label": "A slime blob, trapping something dead",
+      "model": "soul_bags",
+      "call": "maidenmist/descent:slime",
+      "approach": 2,
+      "call_when": "not flag.mm_slime_all"
+    },
+    {
+      "id": "mm_depths_bones_0",
+      "cell": [
+        6,
+        18
+      ],
+      "kind": "decor",
+      "label": "A slimed corpse in a burrow wall",
+      "model": "bones"
+    },
+    {
+      "id": "mm_depths_bones_1",
+      "cell": [
+        20,
+        8
+      ],
+      "kind": "decor",
+      "label": "A slimed corpse in a burrow wall",
+      "model": "bones"
+    },
+    {
+      "id": "mm_depths_bones_2",
+      "cell": [
+        8,
+        28
+      ],
+      "kind": "decor",
+      "label": "A slimed corpse in a burrow wall",
+      "model": "bones"
+    },
+    {
+      "id": "mm_depths_bones_3",
+      "cell": [
+        28,
+        24
+      ],
+      "kind": "decor",
+      "label": "A slimed corpse in a burrow wall",
+      "model": "bones"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "mm_necrolisk",
+      "trigger": "dialogue",
+      "flag": "necrolisk_slain",
+      "monsters": [
+        {
+          "monster": "necrolisk",
+          "cell": [
+            18,
+            14
+          ],
+          "name": "The necrolisk",
+          "facing": "south",
+          "boss": true
+        }
+      ]
+    },
+    {
+      "id": "mm_necrolisk_sick",
+      "trigger": "dialogue",
+      "flag": "necrolisk_slain",
+      "monsters": [
+        {
+          "monster": "necrolisk",
+          "cell": [
+            18,
+            14
+          ],
+          "name": "The necrolisk, heaving",
+          "facing": "south",
+          "boss": true,
+          "hp": 118
+        }
+      ]
+    }
+  ],
+  "rest": "risky"
+}

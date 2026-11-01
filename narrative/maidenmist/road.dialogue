@@ -1,0 +1,68 @@
+# Drafted by Gemini (R19 road), edited. The gate, the Corpse Road and King's Rest.
+
+~ gate_arrive
+set mm_gate_seen
+cutscene mm_broken_gate
+Narrator: A spiked fence of black cold iron runs off into the clammy fog on either hand, bitter to the touch. Before you, the gate hangs twisted off its hinges between two stone pillars carved like hooded reapers.
+interject name:rook_coldwake: From a strictly municipal standpoint, this perimeter fencing represents a catastrophic failure of township maintenance and boundary compliance.
+-> END
+
+~ gate_chain
+set mm_chain_seen
+Narrator: Fifty feet of thick iron chain lies snapped in the black mud beside the gatepost. Its rusted links are wrenched open and bent outward toward the road.
+* [Investigation DC 13] Study how the chain broke -> chain_clever | chain_plain
+* Take the chain, it is iron and the shrouded fear iron -> chain_take
+* Leave it -> END
+
+~ chain_clever
+Narrator: Looking closer at the sheared iron, you see the heavy links were burst outward from the cemetery side. Whatever broke through this gate was already locked inside the fence.
+set mm_gate_burst_known
+-> chain_take
+
+~ chain_plain
+Narrator: The broken iron is old and freezing to the touch, and it tells you nothing more than that.
+-> chain_take
+
+~ chain_take
+give mm_iron_chain
+Narrator: You coil fifty feet of freezing, mud-slick iron over a shoulder, and the dead weight of it feels strangely reassuring.
+-> END
+
+~ mile1
+set mm_mile1_done
+Narrator: In the first mile, the wet fog leans against your shoulders like sodden wool and every tilted headstone seems to turn its face toward you. A thin, reed-like wail sets in right behind your eyes.
+check Wisdom DC 15 -> mile1_ok | mile1_fail
+
+~ mile1_ok
+damage 1d6 psychic party
+Narrator: You grit your teeth against the ringing in your skulls and push through with nothing worse than a dull headache behind your brows.
+-> END
+
+~ mile1_fail
+damage 2d6 psychic party
+damage 2d6 necrotic party
+Narrator: The keen of the dead bores through bone and ear alike, and the graveyard cold sinks into your chests until every one of you staggers in the mud.
+-> END
+
+~ mile3
+set mm_mile3_done
+Narrator: The third mile is the coldest of all, smelling of wet slate and old pennies. Your breath hangs white in the dead air and feels as though it never quite comes back out.
+check Constitution DC 15 -> mile3_ok | mile3_fail
+
+~ mile3_ok
+Narrator: You keep your cloaks tight and march through the freezing mist, cresting the dark hilltop with breath and strength to spare.
+-> END
+
+~ mile3_fail
+disadvantage checks 2h: the long cold walk
+Narrator: The cemetery frost settles deep into the marrow of your bones, leaving a leaden ache that will not leave you for a good long while.
+-> END
+
+~ kings_rest
+set mm_kings_rest_seen
+Narrator: Before a pair of rune-scarred stone doors, armored wights and hollow-eyed shrouded hack at one another in the mist without end. Above the fray stands the weathered statue of a giant king, his broadsword raised to the moon.
+if flag.yorgrim_with_party
+yorgrim [afraid]: Step away from those carved stones if you value your breath. The wards on that threshold kill, and what sleeps behind the iron must never wake.
+endif
+Narrator: The great rune-carved doors do not budge a hair under your hands, and a cold prickle in your palms tells you it would be a grave mistake if they did.
+-> END
