@@ -132,7 +132,7 @@
       "model": "lamp",
       "call": "ghostlight_express/vagrant_intercom:router",
       "approach": 12,
-      "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed"
+      "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed and ((flag.haints_destroyed >= 1 and not flag.gl_destroyed_noted) or (flag.haints_resolved >= 3 and not flag.gl_level2_given) or (flag.haints_all_gone and not flag.gl_checkin_all) or (flag.haints_resolved >= 5 and not flag.gl_checkin_fifth) or (flag.haints_resolved >= 1 and not flag.gl_checkin_first))"
     },
     {
       "id": "g1_boarding_door",
@@ -275,7 +275,7 @@
       "when": "level >= 3",
       "monsters": [
         {
-          "monster": "shadow",
+          "monster": "phantom_trainhopper",
           "cell": [
             7,
             3
@@ -288,7 +288,7 @@
           }
         },
         {
-          "monster": "specter",
+          "monster": "corrupted_passenger",
           "cell": [
             11,
             2
@@ -298,7 +298,7 @@
           "facing": "west"
         },
         {
-          "monster": "specter",
+          "monster": "corrupted_passenger",
           "cell": [
             14,
             4
@@ -308,7 +308,7 @@
           "facing": "west"
         },
         {
-          "monster": "specter",
+          "monster": "corrupted_passenger",
           "cell": [
             17,
             3
@@ -330,7 +330,7 @@
       "when": "level == 2",
       "monsters": [
         {
-          "monster": "shadow",
+          "monster": "phantom_trainhopper",
           "cell": [
             7,
             3
@@ -343,7 +343,7 @@
           }
         },
         {
-          "monster": "specter",
+          "monster": "corrupted_passenger",
           "cell": [
             11,
             2
@@ -353,7 +353,7 @@
           "facing": "west"
         },
         {
-          "monster": "specter",
+          "monster": "corrupted_passenger",
           "cell": [
             14,
             4
@@ -374,7 +374,7 @@
       },
       "monsters": [
         {
-          "monster": "shadow",
+          "monster": "phantom_trainhopper",
           "cell": [
             7,
             3
@@ -387,7 +387,7 @@
           }
         },
         {
-          "monster": "specter",
+          "monster": "corrupted_passenger",
           "cell": [
             11,
             2
