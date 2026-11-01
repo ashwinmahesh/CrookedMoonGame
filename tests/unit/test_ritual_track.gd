@@ -105,3 +105,13 @@ func test_any_stretch_of_druskenvald_s_night_is_night() -> void:
 	var m := Campaign.module()
 	assert_true(m.night_between(600, 600 + 8 * 60), "the night never lifts")
 	assert_false(m.night_between(600, 600), "no time, no night")
+
+
+func test_storms_gather_as_the_grin_widens() -> void:
+	var w := JSON.parse_string(FileAccess.get_file_as_string("res://data/weather/wickermoor_hollow.json")) as Dictionary
+	var by := w.get("storm_by_attention", {}) as Dictionary
+	var last := 0.0
+	for s: Dictionary in RitualTrack.stages():
+		assert_true(float(by.get(str(s["id"]), 0.0)) > last, "more storms at %s" % s["id"])
+		last = float(by.get(str(s["id"]), 0.0))
+	assert_eq(float(by.get("sliver", 0.0)), 1.0, "before the first seal the weather is as it was")
