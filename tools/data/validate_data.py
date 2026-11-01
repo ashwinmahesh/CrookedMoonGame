@@ -1196,6 +1196,9 @@ def story_checks(data, errors, need):
             if search_props.get(pid, 0) != 1:
                 errors.append(f"narrative/{where}: reveal '{pid}' must name one hidden find (a search prop) or trap in one location"
                               f" (found {search_props.get(pid, 0)})")
+        for mid, where in p.get("becomes", []):
+            if mid not in data["monsters"]:
+                errors.append(f"narrative/{where}: leave_party ... becomes '{mid}': no such monster")
         for lead_npc, target, where in p.get("leads", []):
             place, _, spawn = target.partition(":")
             if re.fullmatch(r"\d+,\d+", target) or (place in lead_things and not spawn):
