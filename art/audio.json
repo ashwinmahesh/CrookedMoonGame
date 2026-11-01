@@ -1,5 +1,5 @@
 {
- "_note": "The Crooked Moon's music, ambience and its own effects (vault Build/Audio Plan.md), merged over the engine's art/audio.json key by key (ArtPaths.json). Recordings are free-licensed files kept in art/sourced/<pack>/ (SOURCE.md and LICENSE.md in each, credited in art/credits.json); art/sourced/audio_act1_picks.json and audio_act2_picks.json say why each was picked. Act 1 (the Ghostlight Express), then Wickermoor, the Crooked House and Foxwillow. boss_music \"_region_fights\" is no monster: it only lists a region fight mood (region_fights) that no foe carries, so the engine counts it as a fight mood and it swells like \"combat\".",
+ "_note": "The Crooked Moon's music, ambience and its own effects (vault Build/Audio Plan.md), merged over the engine's art/audio.json key by key (ArtPaths.json). Recordings are free-licensed files kept in art/sourced/<pack>/ (SOURCE.md and LICENSE.md in each, credited in art/credits.json); art/sourced/audio_act1_picks.json and audio_act2_picks.json say why each was picked. Act 1 (the Ghostlight Express), then Wickermoor, the Crooked House and Foxwillow. boss_music's \"_region_fights_<region>\" keys are no monsters: each only lists a region fight mood (region_fights) that no foe carries, so the engine counts it as a fight mood and it swells like \"combat\".",
  "music": {
   "title": [
    "res://art/sourced/incompetech_macleod/danse_macabre.ogg",
@@ -125,21 +125,91 @@
   "ending": [
    "res://art/sourced/incompetech_macleod/enchanted_journey.ogg",
    "res://art/sourced/incompetech_macleod/promises_to_keep.ogg"
+  ],
+  "crimson_monastery": [
+   "res://art/sourced/incompetech_macleod/gregorian_chant.ogg",
+   "res://art/sourced/incompetech_macleod/night_vigil.ogg"
+  ],
+  "crimson_monastery_combat": [
+   "res://art/sourced/incompetech_macleod/hitman.ogg",
+   "res://art/sourced/incompetech_macleod/killers.ogg"
+  ],
+  "crimson_abbot": [
+   "res://art/sourced/incompetech_macleod/unholy_knight.ogg",
+   "res://art/sourced/incompetech_macleod/halls_of_the_undead.ogg"
+  ],
+  "dawns_gate": [
+   "res://art/sourced/incompetech_macleod/frost_waltz.ogg",
+   "res://art/sourced/incompetech_macleod/angevin.ogg"
+  ],
+  "dawns_gate_combat": [
+   "res://art/sourced/incompetech_macleod/crusade.ogg",
+   "res://art/sourced/incompetech_macleod/five_armies.ogg"
+  ],
+  "drowned_crossroads": [
+   "res://art/sourced/incompetech_macleod/octoblues.ogg",
+   "res://art/sourced/incompetech_macleod/night_of_chaos.ogg"
+  ],
+  "drowned_crossroads_combat": [
+   "res://art/sourced/incompetech_macleod/raw.ogg",
+   "res://art/sourced/incompetech_macleod/malicious.ogg"
+  ],
+  "skitterdeep": [
+   "res://art/sourced/incompetech_macleod/chee_zee_caves_v2.ogg",
+   "res://art/sourced/incompetech_macleod/ossuary_5_rest.ogg"
+  ],
+  "skitterdeep_combat": [
+   "res://art/sourced/incompetech_macleod/obliteration.ogg",
+   "res://art/sourced/incompetech_macleod/grim_idol.ogg"
+  ],
+  "memorys_rest": [
+   "res://art/sourced/incompetech_macleod/dreams_become_real.ogg",
+   "res://art/sourced/incompetech_macleod/send_for_the_horses.ogg"
+  ],
+  "memorys_rest_combat": [
+   "res://art/sourced/incompetech_macleod/shadowlands_7_codex.ogg",
+   "res://art/sourced/incompetech_macleod/hush.ogg"
+  ],
+  "hartsblight": [
+   "res://art/sourced/incompetech_macleod/baba_yaga.ogg",
+   "res://art/sourced/incompetech_macleod/dragon_and_toast.ogg"
+  ],
+  "hartsblight_combat": [
+   "res://art/sourced/incompetech_macleod/wretched_destroyer.ogg",
+   "res://art/sourced/incompetech_macleod/burnt_spirit.ogg"
+  ],
+  "maidenmist": [
+   "res://art/sourced/incompetech_macleod/spellbound.ogg",
+   "res://art/sourced/incompetech_macleod/intrepid.ogg"
+  ],
+  "maidenmist_combat": [
+   "res://art/sourced/incompetech_macleod/all_this.ogg",
+   "res://art/sourced/incompetech_macleod/full_on.ogg"
+  ],
+  "combat_hard": [
+   "res://art/sourced/incompetech_macleod/black_vortex.ogg",
+   "res://art/sourced/incompetech_macleod/death_and_axes.ogg"
   ]
  },
  "regions": {
   "ghostlight_express": "train",
   "wickermoor": "wickermoor",
   "crooked_house": "crooked_house",
-  "foxwillow": "foxwillow"
+  "foxwillow": "foxwillow",
+  "crimson_monastery": "crimson_monastery",
+  "dawns_gate": "dawns_gate",
+  "drowned_crossroads": "drowned_crossroads",
+  "skitterdeep_mine": "skitterdeep",
+  "memorys_rest": "memorys_rest",
+  "hartsblight_forest": "hartsblight",
+  "maidenmist_cemetery": "maidenmist"
  },
  "places": {
-  "ghostlight_boarding": "hill",
-  "ghostlight_g3_lounge": "train_lounge",
-  "ghostlight_g4_dining": "train_lounge",
-  "ghostlight_g7_circus": "circus",
-  "ghostlight_limbo": "dread",
-  "ghostlight_wreckage": "wreck",
+  "dc_boat_hall": "train_lounge",
+  "dc_boat_lower": "drowned_crossroads",
+  "dc_boat_promenade": "train_lounge",
+  "dc_casino": "train_lounge",
+  "dc_shack": "drowned_crossroads",
   "fw_circle": "dread",
   "fw_maze_dead1": "maze",
   "fw_maze_dead2": "maze",
@@ -149,6 +219,13 @@
   "fw_maze_j3": "maze",
   "fw_windmill": "mill",
   "fw_windmill_cellar": "mill",
+  "ghostlight_boarding": "hill",
+  "ghostlight_g3_lounge": "train_lounge",
+  "ghostlight_g4_dining": "train_lounge",
+  "ghostlight_g7_circus": "circus",
+  "ghostlight_limbo": "dread",
+  "ghostlight_wreckage": "wreck",
+  "hb_commune_longhouse": "hartsblight",
   "wickermoor_church": "church",
   "wickermoor_funeral_basement": "funeral",
   "wickermoor_funeral_home": "funeral",
@@ -204,16 +281,30 @@
   "fw_coming_home": "last_stop"
  },
  "boss_music": {
+  "_region_fights_crimson_monastery": "crimson_monastery_combat",
+  "_region_fights_dawns_gate": "dawns_gate_combat",
+  "_region_fights_drowned_crossroads": "drowned_crossroads_combat",
+  "_region_fights_hartsblight_forest": "hartsblight_combat",
+  "_region_fights_maidenmist_cemetery": "maidenmist_combat",
+  "_region_fights_memorys_rest": "memorys_rest_combat",
+  "_region_fights_skitterdeep_mine": "skitterdeep_combat",
+  "_region_fights_wickermoor": "wickermoor_combat",
   "amber_crow": "foxwillow_combat",
+  "beast_of_blight": "boss",
   "boogleswarm": "crooked_house_combat",
+  "centipede_hag": "boss",
+  "chained_reaper_harrowing": "boss",
   "corvodaemon_adelaide": "foxwillow_combat",
   "corvodaemon_split": "foxwillow_combat",
+  "crimson_abbot_boss": "crimson_abbot",
   "crowstorm": "foxwillow_combat",
   "ghostlight_locomotive": "boss",
+  "grinning_sinner_boss": "boss",
   "harvest_terror": "boss",
   "ketgrinn": "crooked_house_combat",
   "lurker_in_the_dark": "crooked_house_combat",
   "marble_peacock": "crooked_house_combat",
+  "necrolisk": "boss",
   "petunia_lockwood": "crooked_house_combat",
   "pumpkin_head": "foxwillow_combat",
   "quasit_bunny": "crooked_house_combat",
@@ -221,7 +312,7 @@
   "quasit_goat": "crooked_house_combat",
   "vermin_familiar_weasel": "crooked_house_combat",
   "weasel_hag": "crooked_house_combat",
-  "_region_fights": "wickermoor_combat"
+  "weeping_widow": "boss"
  },
  "loops": {
   "train_interior": [
@@ -299,15 +390,57 @@
   ],
   "river": [
    "res://art/sourced/oga_stream_sounds/bed_water.ogg"
+  ],
+  "mountain_wind": [
+   "res://art/sourced/crooked_moon_mixes/bed_mountain_wind.ogg"
+  ],
+  "cave_drips": [
+   "res://art/sourced/crooked_moon_mixes/bed_cave_drips.ogg"
+  ],
+  "mine": [
+   "res://art/sourced/crooked_moon_mixes/bed_mine.ogg"
+  ],
+  "bayou": [
+   "res://art/sourced/crooked_moon_mixes/bed_bayou.ogg"
+  ],
+  "bayou_indoor": [
+   "res://art/sourced/crooked_moon_mixes/bed_bayou_indoor.ogg"
+  ],
+  "rot_forest": [
+   "res://art/sourced/crooked_moon_mixes/bed_rot_forest.ogg"
+  ],
+  "rot_forest_indoor": [
+   "res://art/sourced/crooked_moon_mixes/bed_rot_forest_indoor.ogg"
+  ],
+  "graveyard_mist": [
+   "res://art/sourced/crooked_moon_mixes/bed_graveyard_mist.ogg"
+  ],
+  "asylum": [
+   "res://art/sourced/crooked_moon_mixes/bed_asylum.ogg"
+  ],
+  "shore": [
+   "res://art/sourced/crooked_moon_mixes/bed_shore.ogg"
   ]
  },
  "place_beds": {
-  "ghostlight_express": "train_interior",
-  "ghostlight_boarding": "hill_night",
-  "ghostlight_g8_tender": "boiler",
-  "ghostlight_limbo": "limbo_drone",
-  "ghostlight_wreckage": "wreck_wind",
   "crooked_house": "house_creaks",
+  "dawns_gate": "mountain_wind",
+  "dc_boat_captain": "bayou_indoor",
+  "dc_boat_hall": "tavern",
+  "dc_boat_lower": "bayou_indoor",
+  "dc_boat_promenade": "tavern",
+  "dc_casino": "tavern",
+  "dc_fort": "bayou_indoor",
+  "dc_lagoon": "bayou",
+  "dc_murkwater": "bayou",
+  "dc_shack": "bayou_indoor",
+  "dc_shack_approach": "bayou",
+  "dc_trail1": "bayou",
+  "dc_trail2": "bayou",
+  "dc_trail3": "bayou",
+  "dg_briar": "tavern",
+  "dg_briar_cellar": "tavern_muffled",
+  "dg_briar_upper": "tavern_muffled",
   "druskenvald_estate": "village_day",
   "foxwillow": "fields",
   "fw_burnt_cottage": "fields_indoor",
@@ -331,6 +464,60 @@
   "fw_tenant_cottage": "fields_indoor",
   "fw_windmill": "windmill",
   "fw_windmill_cellar": "windmill_cellar",
+  "ghostlight_boarding": "hill_night",
+  "ghostlight_express": "train_interior",
+  "ghostlight_g8_tender": "boiler",
+  "ghostlight_limbo": "limbo_drone",
+  "ghostlight_wreckage": "wreck_wind",
+  "hb_altar_of_rot": "rot_forest",
+  "hb_commune_longhouse": "rot_forest_indoor",
+  "hb_den": "cave_drips",
+  "hb_druid_commune": "rot_forest",
+  "hb_fungal_grove": "rot_forest",
+  "hb_infested_outcrop": "rot_forest",
+  "hb_noxious_hollow": "rot_forest",
+  "hb_oozing_ravine": "rot_forest",
+  "hb_patient_commune": "rot_forest",
+  "hb_pine_barrens": "rot_forest",
+  "hb_stinking_quagmire": "rot_forest",
+  "hb_wellspring": "rot_forest",
+  "mm_balefire_chamber": "cave_drips",
+  "mm_burial_mounds": "graveyard_mist",
+  "mm_corpse_road": "graveyard_mist",
+  "mm_cremation_gardens": "graveyard_mist",
+  "mm_crypt_below": "cave_drips",
+  "mm_gate": "graveyard_mist",
+  "mm_gravestones_a": "graveyard_mist",
+  "mm_gravestones_b": "graveyard_mist",
+  "mm_highborn_crypts": "graveyard_mist",
+  "mm_kings_rest": "graveyard_mist",
+  "mm_mausoleum_lanes": "graveyard_mist",
+  "mm_necropolis_depths": "cave_drips",
+  "mm_potters_field": "graveyard_mist",
+  "mm_sepulcher": "graveyard_mist",
+  "mm_shadestone_sanctuary": "graveyard_mist",
+  "mm_tomb": "cave_drips",
+  "mm_undercroft": "cave_drips",
+  "mon_belfry": "mountain_wind",
+  "mon_bell_tower": "church",
+  "mon_cathedral_moon": "mountain_wind",
+  "mon_ground": "church",
+  "mon_holy_vein": "cave_drips",
+  "mon_pass": "mountain_wind",
+  "mon_sanctum": "cave_drips",
+  "mon_stables": "mountain_wind",
+  "mon_upper": "church",
+  "mr_grotto": "cave_drips",
+  "mr_ground": "asylum",
+  "mr_isle": "shore",
+  "mr_shore": "shore",
+  "mr_upper": "asylum",
+  "sk_camp": "mine",
+  "sk_deep": "mine",
+  "sk_hills_trail": "mine",
+  "sk_machine_shop": "mine",
+  "sk_upper": "mine",
+  "sk_warehouse": "mine",
   "wickermoor": "village_indoor",
   "wickermoor_church": "church",
   "wickermoor_clock_chamber": "clock_chamber",
@@ -377,6 +564,10 @@
    "res://art/sourced/wikimedia_commons/fiddle_2.ogg",
    "res://art/sourced/wikimedia_commons/fiddle_3.ogg"
   ],
+  "frog_croak": [
+   "res://art/sourced/oga_frog_croaks/frog_croak_1.ogg",
+   "res://art/sourced/oga_frog_croaks/frog_croak_2.ogg"
+  ],
   "haint_bottle": [
    "res://art/sourced/crooked_moon_mixes/haint_bottle_2.ogg",
    "res://art/sourced/oga_cork/haint_bottle_1.ogg"
@@ -398,6 +589,10 @@
    "res://art/sourced/crooked_moon_mixes/locomotive_roar.ogg",
    "res://art/sourced/crooked_moon_mixes/locomotive_roar_2.ogg",
    "res://art/sourced/crooked_moon_mixes/locomotive_roar_3.ogg"
+  ],
+  "mine_pick": [
+   "res://art/sourced/oga_mining_pick/mine_pick_1.ogg",
+   "res://art/sourced/oga_mining_pick/mine_pick_2.ogg"
   ],
   "owl": [
    "res://art/sourced/wikimedia_commons/owl_1.ogg",
@@ -472,6 +667,10 @@
   ],
   "wind_chime": [
    "res://art/sourced/wikimedia_commons/wind_chime.ogg"
+  ],
+  "wrong_bird": [
+   "res://art/sourced/crooked_moon_mixes/wrong_bird_1.ogg",
+   "res://art/sourced/crooked_moon_mixes/wrong_bird_2.ogg"
   ]
  },
  "ambient": {
@@ -554,6 +753,43 @@
   "mill": [
    "crow",
    "door_creak"
+  ],
+  "crimson_monastery": [
+   "church_bell",
+   "crow",
+   "haint_whisper"
+  ],
+  "dawns_gate": [
+   "church_bell",
+   "dog_bark_far",
+   "anvil_far",
+   "crow"
+  ],
+  "drowned_crossroads": [
+   "frog_croak",
+   "owl",
+   "crow"
+  ],
+  "skitterdeep": [
+   "mine_pick",
+   "door_creak",
+   "haint_whisper"
+  ],
+  "memorys_rest": [
+   "haint_whisper",
+   "door_creak",
+   "clock_chime"
+  ],
+  "hartsblight": [
+   "wrong_bird",
+   "crow_flock",
+   "owl"
+  ],
+  "maidenmist": [
+   "church_bell",
+   "crow",
+   "owl",
+   "haint_whisper"
   ]
  },
  "scene_sfx": {
@@ -701,7 +937,29 @@
    "wickermoor_inn_cellar": "stone",
    "wickermoor_barber_cellar": "stone",
    "wickermoor_trading_cellar": "stone",
-   "fw_windmill_cellar": "stone"
+   "fw_windmill_cellar": "stone",
+   "dc_lagoon": "mud",
+   "dc_murkwater": "mud",
+   "dc_shack_approach": "mud",
+   "dc_trail1": "mud",
+   "dc_trail2": "mud",
+   "dc_trail3": "mud",
+   "mon_belfry": "stone",
+   "mon_bell_tower": "stone",
+   "mon_cathedral_moon": "stone",
+   "mon_ground": "stone",
+   "mon_holy_vein": "stone",
+   "mon_sanctum": "stone",
+   "mon_upper": "stone",
+   "sk_camp": "stone",
+   "sk_deep": "stone",
+   "sk_hills_trail": "stone",
+   "sk_machine_shop": "stone",
+   "sk_upper": "stone",
+   "sk_warehouse": "stone",
+   "dawns_gate": "snow",
+   "mon_pass": "snow",
+   "mon_stables": "snow"
   }
  },
  "region_turns": {
@@ -762,7 +1020,10 @@
   "church_bell": -4.0,
   "crow_flock": -3.0,
   "wheel_squeal": -3.0,
-  "river": -2.0
+  "river": -2.0,
+  "mine_pick": -6.0,
+  "frog_croak": -6.0,
+  "wrong_bird": -5.0
  },
  "fight_sfx": {
   "wildpyre": "wildpyre_wake",
@@ -773,7 +1034,14 @@
  "region_fights": {
   "crooked_house": "crooked_house_combat",
   "foxwillow": "foxwillow_combat",
-  "wickermoor": "wickermoor_combat"
+  "wickermoor": "wickermoor_combat",
+  "crimson_monastery": "crimson_monastery_combat",
+  "dawns_gate": "dawns_gate_combat",
+  "drowned_crossroads": "drowned_crossroads_combat",
+  "skitterdeep_mine": "skitterdeep_combat",
+  "memorys_rest": "memorys_rest_combat",
+  "hartsblight_forest": "hartsblight_combat",
+  "maidenmist_cemetery": "maidenmist_combat"
  },
  "themes": {
   "forest": "wilds",
@@ -790,5 +1058,18 @@
  },
  "region_keeps": [
   "tavern"
- ]
+ ],
+ "rises": {
+  "combat": "combat_hard",
+  "wickermoor_combat": "combat_hard",
+  "crooked_house_combat": "combat_hard",
+  "foxwillow_combat": "combat_hard",
+  "crimson_monastery_combat": "combat_hard",
+  "dawns_gate_combat": "combat_hard",
+  "drowned_crossroads_combat": "combat_hard",
+  "skitterdeep_combat": "combat_hard",
+  "memorys_rest_combat": "combat_hard",
+  "hartsblight_combat": "combat_hard",
+  "maidenmist_combat": "combat_hard"
+ }
 }
