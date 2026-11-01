@@ -36,3 +36,14 @@ func test_the_symptoms_that_act_in_a_fight() -> void:
 	assert_eq(str((by["bleeding"]["on_hurt"] as Dictionary)["dice"]), "1d10", "1d10 Necrotic with every wound")
 	assert_true((by["fever"]["modifiers"] as Array).any(func(m: Dictionary) -> bool: return str(m["on"]) == "attack:str"))
 	assert_true((by["shakes"]["modifiers"] as Array).any(func(m: Dictionary) -> bool: return str(m["on"]) == "attack:dex"))
+
+
+func test_the_skitter_plague() -> void:
+	var d := Compendium.shared().get_entry("afflictions", "skitter_plague")
+	assert_false(d.is_empty())
+	assert_eq([int(d["onset_hours"]), int(d["onset_exhaustion"]), bool(d["exhaustion_lock"])], [2, 1, true], "a fever that won't break")
+	assert_eq(str((d["long_rest"] as Dictionary)["max_hp_loss"]), "1d4", "blisters with every night's sleep")
+	var daily := d["daily"] as Dictionary
+	assert_eq([int(daily["hour"]), int((daily["save"] as Dictionary)["dc"]), int(daily["successes_to_end"])], [7, 15, 3],
+		"DC 15 at the Twilight Hour, three to end it")
+	assert_true("lesser_restoration" in (d["held_off_by"] as Array))
