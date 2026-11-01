@@ -128,6 +128,32 @@ def act1_levels(r: dict, out: str) -> None:
         json.dump(levels, fh, indent=1, sort_keys=True)
 
 
+def cmd_perf(a: argparse.Namespace) -> int:
+    """Each place's build time and per-frame CPU cost, headless (tools/qa/perf.gd), slowest first in perf.md."""
+    os.makedirs(a.out, exist_ok=True)
+    out = os.path.join(a.out, "perf.jsonl")
+    log = os.path.join(a.out, "perf.log")
+    args = [f"--out={out}", f"--frames={a.frames}"]
+    if a.regions:
+        args.append(f"--regions={a.regions}")
+    if a.only:
+        args.append(f"--only={a.only}")
+    code = godot("res://tools/qa/perf.tscn", args, a.timeout, log)
+    rows = [json.loads(l) for l in open(out) if l.strip()] if os.path.exists(out) else []
+    rows.sort(key=lambda r: -r["frame_ms_p95"])
+    lines = ["# Performance pass (headless: CPU only, no drawing)", "",
+             "| Place | Build ms | Slowest settling frame ms | Frame ms median | p95 | max | Nodes | Objects | Static MB |",
+             "| --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
+    for r in rows:
+        lines.append(f"| {r['loc']} | {r['build_ms']:.0f} | {r['settle_ms_max']} | {r['frame_ms_median']} | "
+                     f"{r['frame_ms_p95']} | {r['frame_ms_max']} | {r['nodes']} | {r['objects']} | {r['static_mb']} |")
+    open(os.path.join(a.out, "perf.md"), "w").write("\n".join(lines) + "\n")
+    print(f"{len(rows)} places measured; see {os.path.join(a.out, 'perf.md')}")
+    for e in script_errors(log)[:15]:
+        print("  " + e)
+    return code
+
+
 def cmd_act1(a: argparse.Namespace) -> int:
     os.makedirs(a.out, exist_ok=True)
     rc = 0
@@ -278,7 +304,7 @@ def cmd_report(a: argparse.Namespace) -> int:
 def main() -> int:
     p = argparse.ArgumentParser()
     sub = p.add_subparsers(dest="cmd", required=True)
-    for name in ("story", "fights", "report", "act1"):
+    for name in ("story", "fights", "report", "act1", "perf"):
         s = sub.add_parser(name)
         s.add_argument("--out", default=os.path.join(ROOT, "captures", "qa"))
         s.add_argument("--timeout", type=int, default=3600)
@@ -301,9 +327,13 @@ def main() -> int:
             s.add_argument("--play", default="auto", choices=["auto", "plain", "sharp", "full"])
             s.add_argument("--levels", default="")
             s.add_argument("--rounds", type=int, default=30)
+        if name == "perf":
+            s.add_argument("--regions", default="")
+            s.add_argument("--only", default="")
+            s.add_argument("--frames", type=int, default=180)
     a = p.parse_args()
     a.out = os.path.abspath(a.out)
-    return {"story": cmd_story, "fights": cmd_fights, "report": cmd_report, "act1": cmd_act1}[a.cmd](a)
+    return {"story": cmd_story, "fights": cmd_fights, "report": cmd_report, "act1": cmd_act1, "perf": cmd_perf}[a.cmd](a)
 
 
 if __name__ == "__main__":

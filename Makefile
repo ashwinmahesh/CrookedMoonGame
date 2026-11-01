@@ -82,7 +82,7 @@ arena:
 	@$(PLAYFRESH)
 	$(NOFOCUS) res://scenes/combat/arena.tscn < /dev/null
 
-.PHONY: qa qa-story qa-fights qa-report qa-act1
+.PHONY: qa qa-story qa-fights qa-report qa-act1 qa-perf
 ## Headless QA (tools/qa/qa.py; no window, its own user data folder, output in captures/qa or OUT=dir).
 ## qa-story: the story bot plays the whole campaign from a new game with no script, and reports where it stuck
 ## (DICE=high|seeded SEEDS=1,2 STEPS=n). qa-fights: every fight in the places' data played by the party autopilot at each
@@ -101,6 +101,10 @@ qa-fights:
 qa-act1:
 	@$(FRESH)
 	GODOT=$(GODOT) python3 tools/qa/qa.py act1 --out $(QA_OUT) --seeds $(or $(SEEDS),1) --mode $(or $(MODE),balanced) $(if $(SHUFFLED),--shuffled,)
+## qa-perf: each place's build time and per-frame CPU cost, headless (REGIONS=a,b ONLY=loc,loc FRAMES=n); perf.md.
+qa-perf:
+	@$(FRESH)
+	GODOT=$(GODOT) python3 tools/qa/qa.py perf --out $(QA_OUT) --frames $(or $(FRAMES),180) $(if $(REGIONS),--regions $(REGIONS),) $(if $(ONLY),--only $(ONLY),)
 qa-report:
 	python3 tools/qa/qa.py report --out $(QA_OUT)
 qa: qa-story qa-fights qa-report
