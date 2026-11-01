@@ -1,0 +1,248 @@
+{
+  "id": "nm_throne",
+  "name": "The Root Throne",
+  "region": "crooked_nightmare",
+  "summary": "A freezing, crooked stone basement caked in ice, a throne of roots at its heart.",
+  "text": "A basement older than the house: freezing, crooked, caked in ice and blue light. Wailing souls swirl in a blizzard that has no wind in it. At the heart of it a throne of black roots holds a man in a crown of brambles, a torch in one hand and an apple in the other.",
+  "map": {
+    "rows": [
+      "######################",
+      "#....................#",
+      "#.##################.#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "#...~~..........~~...#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "#...~~..........~~...#",
+      "#....................#",
+      "#......~~~~~~~~......#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "#....................#",
+      "######################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "basement",
+      "name": "The basement",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          20,
+          22
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      11,
+      21
+    ]
+  },
+  "exits": [],
+  "props": [
+    {
+      "id": "nm_throne_arrive",
+      "cell": [
+        11,
+        21
+      ],
+      "kind": "decor",
+      "label": "The cold",
+      "call": "nightmare/n7:throne_start",
+      "approach": 12,
+      "call_when": "not flag.n7_started"
+    },
+    {
+      "id": "nm_throne_seat",
+      "cell": [
+        11,
+        6
+      ],
+      "kind": "examine",
+      "label": "A throne of roots",
+      "model": "chair",
+      "scale": 2.4,
+      "tint": "#2b2118",
+      "dialogue": "nightmare/n7:hub",
+      "when": "not flag.nm_throne_done"
+    },
+    {
+      "id": "nm_throne_door",
+      "cell": [
+        11,
+        3
+      ],
+      "kind": "examine",
+      "label": "A crooked door in the icy roots",
+      "model": "door",
+      "dialogue": "nightmare/n7:door",
+      "when": "flag.nm_throne_done"
+    },
+    {
+      "id": "nm_throne_root_0",
+      "cell": [
+        9,
+        5
+      ],
+      "kind": "decor",
+      "label": "A black root",
+      "model": "vines"
+    },
+    {
+      "id": "nm_throne_root_1",
+      "cell": [
+        13,
+        5
+      ],
+      "kind": "decor",
+      "label": "A black root",
+      "model": "vines"
+    },
+    {
+      "id": "nm_throne_root_2",
+      "cell": [
+        8,
+        8
+      ],
+      "kind": "decor",
+      "label": "A black root",
+      "model": "vines"
+    },
+    {
+      "id": "nm_throne_root_3",
+      "cell": [
+        14,
+        8
+      ],
+      "kind": "decor",
+      "label": "A black root",
+      "model": "vines"
+    },
+    {
+      "id": "nm_throne_root_4",
+      "cell": [
+        10,
+        9
+      ],
+      "kind": "decor",
+      "label": "A black root",
+      "model": "vines"
+    },
+    {
+      "id": "nm_throne_root_5",
+      "cell": [
+        12,
+        9
+      ],
+      "kind": "decor",
+      "label": "A black root",
+      "model": "vines"
+    },
+    {
+      "id": "nm_throne_ice_a",
+      "cell": [
+        4,
+        10
+      ],
+      "kind": "decor",
+      "label": "A drift of ice",
+      "model": "rubble"
+    },
+    {
+      "id": "nm_throne_ice_b",
+      "cell": [
+        18,
+        12
+      ],
+      "kind": "decor",
+      "label": "A drift of ice",
+      "model": "rubble"
+    },
+    {
+      "id": "nm_throne_bones",
+      "cell": [
+        6,
+        19
+      ],
+      "kind": "decor",
+      "label": "Old bones in the rime",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "nm_throne_chains",
+      "cell": [
+        17,
+        19
+      ],
+      "kind": "decor",
+      "label": "Rusted chains",
+      "model": "wall_chains"
+    },
+    {
+      "id": "nm_throne_altar",
+      "cell": [
+        11,
+        14
+      ],
+      "kind": "decor",
+      "label": "A crooked altar stone, iced over",
+      "model": "altar"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "phillip_druskenvald",
+      "cell": [
+        11,
+        6
+      ],
+      "dialogue": "nightmare/n7:hub",
+      "when": "not flag.nm_throne_done",
+      "facing": "south"
+    },
+    {
+      "npc": "nm_vessla",
+      "cell": [
+        7,
+        9
+      ],
+      "dialogue": "nightmare/n7:hub",
+      "when": "not flag.vessla_vision_struck and not flag.nm_throne_done",
+      "facing": "east"
+    }
+  ],
+  "encounters": [],
+  "rest": "no",
+  "rest_text": "You cannot sleep inside a dream, and the dream will not let you stop. A short breath, then.",
+  "lights": [
+    {
+      "cell": [
+        11,
+        8
+      ],
+      "kind": "window",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "moonlight"
+    }
+  ]
+}

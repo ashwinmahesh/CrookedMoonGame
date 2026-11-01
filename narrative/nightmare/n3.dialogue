@@ -1,0 +1,137 @@
+# Drafted by Gemini (R22 n3), edited.
+
+~ oven_start
+set n3_started
+Narrator: You step into a brick oven the size of a parlour, where fat drips hissing onto a bed of white-hot coals. On one iron spit turns a plucked turkey with a lizard's tail, and on the other hangs Gilly Jenkin in three heavy chains.
+nm_stonoga [smile]: Mind the basting, darlings, or the meat dries right out! My sisters can fuss with heads and hearts, I know a proper feast starts with tender flesh.
+quest crooked_nightmare crooked_oven
+gilly_jenkin [afraid]: Dani! Somebody keep my little maid from the door, do not let her look in here!
+-> rescue
+
+~ rescue
+if flag.n3_clock >= 7
+Narrator: The bricks shimmer like summer tar, and the iron links biting Gilly's wrists have begun to glow a dull cherry red.
+endif
+* [Athletics DC 20] Wrench a chain apart -> chain_ok | chain_fail
+* [Sleight of Hand DC 20] Pick a chain's lock -> chain_ok | chain_fail
+* [Investigation DC 20] Find a weak link -> chain_ok | chain_fail
+* [Arcana DC 20] Unpick the spell on a chain -> chain_ok | chain_fail
+* [if flag.n3_slices < 3] Carve a slice of the roast -> carve
+* [if not flag.stonoga_struck] Strike Stonoga -> stonoga_hit
+* Talk to Gilly -> gilly_talk
+* Step back for a moment -> END
+
+~ chain_ok
+Narrator: With a sharp crack, one of the heavy iron chains gives way and drops clanking into the ash.
+set n3_chains += 1
+-> tick
+
+~ chain_fail
+Narrator: The soot-slick iron rattles and burns your fingers, holding fast around her bruised arms.
+-> tick
+
+~ carve
+Narrator: {name} slices a smoking strip from the turning bird; it tastes of sage and sweet orchard apples, cooling the burn in your lungs.
+heal 2d8
+set n3_slices += 1
+-> tick
+
+~ stonoga_hit
+nm_stonoga [angry]: Ruin the gravy, would you? Let it burn, then!
+Narrator: Your blow goes through her paper chef's hat like smoke, and she vanishes in a loud clatter of copper pans.
+vanish nm_stonoga
+set stonoga_struck
+-> rescue
+
+~ gilly_talk
+gilly_jenkin [afraid]: Never mind me, just swear you will look after Dani and my Walter! Leave this hearth and get back to the porch.
+gilly_jenkin [angry]: That child sees clear through the floorboards of the world, and the things she knows by heart frighten even her own mother.
+-> rescue
+
+~ tick
+set n3_clock += 1
+if flag.n3_chains >= 3
+-> freed
+elif flag.n3_clock >= 10
+-> lost
+else
+-> burst
+endif
+
+~ burst
+Narrator: The coals shift with a hollow roar, sending a sheet of yellow flame rolling across the bricks.
+check Dexterity DC 17 -> burst_dodged | burst_hit
+
+~ burst_dodged
+Narrator: You duck behind the iron spit as the wave of heat washes harmlessly overhead.
+-> rescue
+
+~ burst_hit
+Narrator: The fire catches your cloak and licks high around the spit, stealing precious breath from Gilly.
+damage 2d10 fire
+set n3_clock += 1
+if flag.n3_clock >= 10
+-> lost
+endif
+-> rescue
+
+~ freed
+gilly_jenkin [smile]: Oh, bless your hands, it is letting go!
+Narrator: As the third chain falls away, a cool blue mist curls around Gilly's shoulders, smelling of rain on porch boards, and draws her gently up out of the heat.
+cutscene nm_pulled_out
+Narrator: A hand of blue mist closes round a hand, and the captive is drawn up and out of the dream.
+cutscene nm_pulled_out_2
+Narrator: Far away on the porch, Dani keeps her eyes shut, and a thread of blue light runs from her hands into the house.
+cutscene end
+vanish gilly_jenkin
+set gilly_saved
+set nm_oven_done
+-> doorway
+
+~ lost
+Narrator: A ribbon of pale blue mist reaches down through the smoke, brushing Gilly's cheek like a child's hand before the roaring curtain of gold closes softly over her. When the glare parts, the iron spit hangs empty and still.
+set gilly_dead
+set nm_oven_done
+-> doorway
+
+~ doorway
+Narrator: The banked coals settle to a hush, and in the back wall of the brickwork a crooked red door begins to glow.
+-> END
+
+~ door
+if not flag.nm_oven_done
+Narrator: Somewhere behind the wall of fire a door is waiting, but you cannot reach it through the blaze.
+-> END
+endif
+Narrator: The crooked door stands among the cooling ashes, its brass handle warm to the touch.
+* Step through -> toll
+* [Performance DC 12] Tell the oven a joke -> joke_ok | joke_fail
+* Not yet -> END
+
+~ joke_ok
+Narrator: A deep, grating chuckle rumbles up from the ash pit, and the angry coals settle into a gentle, rosy hearth-glow.
+set dream_laughed
+-> toll
+
+~ joke_fail
+Narrator: The bricks give a dry pop, wholly unamused by your wit.
+-> toll
+
+~ toll
+if flag.dream_laughed
+Narrator: Still warm with mirth, the oven lets you pass without taking a single blister for its fee.
+set dream_laughed = false
+-> pass
+else
+Narrator: As you reach for the latch, the brickwork draws one last greedy breath of heat.
+check Constitution DC 17 -> pass | toll_hurt
+endif
+
+~ toll_hurt
+Narrator: The iron latch sears your palm, taking its due in skin and cinder before it turns.
+damage 1d10 fire
+-> pass
+
+~ pass
+quest crooked_nightmare smoking_crater
+move nm_crater

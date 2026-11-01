@@ -1,0 +1,362 @@
+{
+  "id": "nm_pit",
+  "name": "The Falling House",
+  "region": "crooked_nightmare",
+  "summary": "A whirl of walls, floors and furniture falling down an endless earthen shaft.",
+  "text": "The foyer looked perfect for a breath. Now there is no floor: a disc of tumbling timber, a wet earthen shaft that oozes something like rotten blood, the attic floorboards far above through the wreckage, and no up or down in all of it.",
+  "map": {
+    "rows": [
+      "                   ",
+      "         .         ",
+      "      .......      ",
+      "    ...........    ",
+      "   .............   ",
+      "   .............   ",
+      "  ...............  ",
+      "  ...............  ",
+      "  ...............  ",
+      " ................. ",
+      "  ...............  ",
+      "  ...............  ",
+      "  ...............  ",
+      "   .............   ",
+      "   .............   ",
+      "    ...........    ",
+      "      .......      ",
+      "         .         ",
+      "                   "
+    ],
+    "theme": "manor",
+    "light": "dark",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "disc",
+      "name": "The falling disc",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          17,
+          17
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      9,
+      14
+    ]
+  },
+  "exits": [],
+  "props": [
+    {
+      "id": "nm_pit_fall",
+      "cell": [
+        9,
+        14
+      ],
+      "kind": "decor",
+      "label": "The perfect foyer, for a moment",
+      "call": "nightmare/n1:fall_start",
+      "approach": 12,
+      "call_when": "not flag.nm_pit_started"
+    },
+    {
+      "id": "nm_pit_after",
+      "cell": [
+        9,
+        9
+      ],
+      "kind": "decor",
+      "label": "The noose, running out",
+      "call": "nightmare/n1:after",
+      "approach": 12,
+      "call_when": "flag.nm_pit_won and not flag.crooked_man_fell"
+    },
+    {
+      "id": "nm_pit_tub",
+      "cell": [
+        5,
+        7
+      ],
+      "kind": "decor",
+      "label": "A clawfoot bathtub, falling",
+      "model": "bathtub"
+    },
+    {
+      "id": "nm_pit_tree",
+      "cell": [
+        13,
+        6
+      ],
+      "kind": "decor",
+      "label": "A bergamot tree, uprooted",
+      "model": "pine_b"
+    },
+    {
+      "id": "nm_pit_portrait",
+      "cell": [
+        4,
+        11
+      ],
+      "kind": "decor",
+      "label": "The family portrait, face out",
+      "model": "family_portrait"
+    },
+    {
+      "id": "nm_pit_moose",
+      "cell": [
+        14,
+        11
+      ],
+      "kind": "decor",
+      "label": "A moose head, glass-eyed",
+      "model": "stag_head"
+    },
+    {
+      "id": "nm_pit_clock",
+      "cell": [
+        11,
+        13
+      ],
+      "kind": "decor",
+      "label": "A grandfather clock, tolling",
+      "model": "clock_tall"
+    },
+    {
+      "id": "nm_pit_chandelier",
+      "cell": [
+        9,
+        4
+      ],
+      "kind": "decor",
+      "label": "The chandelier, still lit",
+      "model": "skull_chandelier"
+    },
+    {
+      "id": "nm_pit_chair",
+      "cell": [
+        6,
+        13
+      ],
+      "kind": "decor",
+      "label": "A chair, turning slowly",
+      "model": "chair"
+    },
+    {
+      "id": "nm_pit_beams",
+      "cell": [
+        12,
+        4
+      ],
+      "kind": "decor",
+      "label": "A tumbling beam",
+      "model": "fallen_beam"
+    },
+    {
+      "id": "nm_pit_books",
+      "cell": [
+        6,
+        4
+      ],
+      "kind": "decor",
+      "label": "Books, falling in a flock",
+      "model": "floor_books"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "nm_crooked_man",
+      "trigger": "dialogue",
+      "flag": "nm_pit_won",
+      "withdraw": {
+        "who": "crooked_man",
+        "at_hp_below": 40,
+        "flag": "nm_pit_won",
+        "say": "My noose, my noose! Oh, you spoil a show!",
+        "speaker": "crooked_man"
+      },
+      "monsters": [
+        {
+          "monster": "crooked_man",
+          "cell": [
+            9,
+            5
+          ],
+          "name": "The Crooked Man",
+          "boss": true,
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "crooked_debris",
+          "name": "Crooked Debris",
+          "summary": "The house keeps falling with you, and bits of it hit.",
+          "kind": "save",
+          "affects": "party",
+          "at": 20,
+          "every": 1,
+          "pick": "random",
+          "say": "A piece of the house comes tumbling out of the dark.",
+          "table": [
+            {
+              "id": "debris_tub",
+              "name": "A clawfoot bathtub",
+              "summary": "A clawfoot bathtub tumbles down on a hero.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "dex",
+                "dc": 18
+              },
+              "damage": {
+                "dice": "6d6",
+                "type": "bludgeoning"
+              },
+              "area": {
+                "around": [
+                  9,
+                  9
+                ],
+                "radius": 20
+              }
+            },
+            {
+              "id": "debris_tree",
+              "name": "The bergamot tree",
+              "summary": "A bergamot tree wraps a hero in its roots.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "dex",
+                "dc": 18
+              },
+              "damage": {
+                "dice": "2d10",
+                "type": "bludgeoning"
+              },
+              "condition": "restrained",
+              "until": "target_turn_end",
+              "area": {
+                "around": [
+                  9,
+                  9
+                ],
+                "radius": 20
+              }
+            },
+            {
+              "id": "debris_portrait",
+              "name": "The family portrait",
+              "summary": "The portrait sucks a hero in; they are gone until their next turn is over.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "dex",
+                "dc": 18
+              },
+              "condition": "stunned",
+              "until": "target_turn_end",
+              "area": {
+                "around": [
+                  9,
+                  9
+                ],
+                "radius": 20
+              }
+            },
+            {
+              "id": "debris_moose",
+              "name": "The moose head",
+              "summary": "A moose head gores a hero.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "dex",
+                "dc": 18
+              },
+              "damage": {
+                "dice": "6d6",
+                "type": "piercing"
+              },
+              "area": {
+                "around": [
+                  9,
+                  9
+                ],
+                "radius": 20
+              }
+            },
+            {
+              "id": "debris_clock",
+              "name": "The grandfather clock",
+              "summary": "The clock tolls over a hero's head.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "dex",
+                "dc": 18
+              },
+              "damage": {
+                "dice": "2d10",
+                "type": "thunder"
+              },
+              "condition": "deafened",
+              "until": "minute",
+              "area": {
+                "around": [
+                  9,
+                  9
+                ],
+                "radius": 20
+              }
+            },
+            {
+              "id": "debris_chandelier",
+              "name": "The chandelier",
+              "summary": "The chandelier drops on a hero, alight.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "dex",
+                "dc": 18
+              },
+              "damage": {
+                "dice": "2d10",
+                "type": "fire"
+              },
+              "area": {
+                "around": [
+                  9,
+                  9
+                ],
+                "radius": 20
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "rest_text": "You cannot sleep inside a dream, and the dream will not let you stop. A short breath, then.",
+  "lights": [
+    {
+      "cell": [
+        9,
+        4
+      ],
+      "kind": "lamp",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

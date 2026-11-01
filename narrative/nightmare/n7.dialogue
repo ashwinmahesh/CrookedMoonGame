@@ -1,0 +1,123 @@
+# Drafted by Gemini (R22 n7), edited.
+
+~ throne_start
+set n7_started
+Narrator: Frost cakes the crooked stone of this ancient cellar, where a blizzard of wailing souls whirls round a throne of black roots. Lord Phillip sits bound in a bramble crown, clutching a lit torch and a winter apple, while Vessla Browntooth hisses nearby in mock angel wings.
+phillip_druskenvald [afraid]: Adela was just here, I swear it! She looked right through me, and then the floor gave way and these beastly roots had me by the ankles!
+quest crooked_nightmare crooked_throne
+-> hub
+
+~ hub
+Narrator: The roots creak like ships' timbers in the perishing cold, holding the King of All fast to his seat.
+* [Athletics DC 20] Tear at the roots -> root_ok | root_fail
+* [Sleight of Hand DC 20] Work a root loose with fine tools -> root_ok | root_fail
+* [Investigation DC 20] Find the knot where the roots join -> root_ok | root_fail
+* [if flag.n7_fails >= 3] [Athletics DC 15] The roots have loosened: pull -> root_ok | root_fail
+* Help another hero with the roots -> help
+* [if not flag.vessla_vision_struck] Strike Vessla -> vessla_hit
+* Hear Vessla out -> vessla_talk
+* Talk to Phillip -> phillip_talk
+* Step back for a moment -> END
+
+~ help
+Narrator: {name} braces a boot against the icy stone and hauls back on a thick briar, giving the next pair of hands a fair purchase.
+advantage athletics next: help at the roots
+-> hub
+
+~ root_ok
+Narrator: With a sharp crack of frost, one of the great roots splinters and uncoils from Phillip's chest.
+set n7_roots += 1
+-> tick
+
+~ root_fail
+Narrator: The bramble crown twists of its own accord and the torch in Phillip's stiff hand flares out, scorching {name}'s knuckles.
+damage 4d6 fire
+set n7_fails += 1
+-> tick
+
+~ vessla_hit
+nm_vessla [angry]: Touch not the messenger, little mice, or keep the fire and choke on the smoke!
+Narrator: Your blow passes through weasel fur and tarnished tinsel; she dissolves with a wet hiss, leaving her burning gold blade ringing upon the ice.
+vanish nm_vessla
+set vessla_vision_struck
+give flame_tongue
+-> hub
+
+~ vessla_talk
+nm_vessla [sly]: Stonoga salts the meat and Golub plucks the thoughts, clumsy sisters both. Only I know how to pare a soul down to the wick, crowning her sweet lord so her heart breaks clean for the pot.
+-> hub
+
+~ phillip_talk
+phillip_druskenvald [weary]: King of All, they call me! Quite the coronation, wouldn't you say, though the crown is dreadfully tight and I daren't drop this apple.
+phillip_druskenvald [afraid]: Never mind my fingers, have you seen Adela? She was terribly pale, and the attic stairs were bleeding pitch.
+-> hub
+
+~ tick
+Narrator: A bitter gust sweeps off the Frozen Throne, riming your eyelashes and stealing the breath from your lungs.
+check Constitution DC 15 -> tick_soul | tick_cold
+
+~ tick_cold
+Narrator: The cellar cold bites deep into the marrow, numbing fingers and joints alike.
+damage 2d6 cold
+-> tick_soul
+
+~ tick_soul
+Narrator: Pale faces spin out of the driving snow, their open mouths keening at the edges of your mind.
+check Charisma DC 15 -> tick_end | tick_souls
+
+~ tick_souls
+Narrator: Dead fingers rake through your thoughts, leaving a trail of grief that is not your own.
+damage 1d6 psychic
+-> tick_end
+
+~ tick_end
+if flag.n7_roots >= 6
+-> freed
+else
+-> hub
+endif
+
+~ freed
+Narrator: The last root snaps like an icicle, and Phillip pitches forward into a rising coil of Dani's blue porch-mist.
+phillip_druskenvald [afraid]: Adela! Hold on, my darling, I'm coming, I'm right behind them!
+Narrator: He is already running when the mist takes him whole, and in the tangled roots behind the empty throne, a crooked door begins to glow red.
+cutscene nm_pulled_out
+Narrator: A hand of blue mist closes round a hand, and the captive is drawn up and out of the dream.
+cutscene nm_pulled_out_2
+Narrator: Far away on the porch, Dani keeps her eyes shut, and a thread of blue light runs from her hands into the house.
+cutscene end
+vanish phillip_druskenvald
+set phillip_freed
+set nm_throne_done
+if not flag.vessla_vision_struck
+Narrator: Vessla's painted halo gutters out like a tallow dip, and her flaming sword clatters onto the frost.
+give flame_tongue
+endif
+quest crooked_nightmare toil_and_trouble
+-> END
+
+~ door
+if not flag.nm_throne_done
+Narrator: Black roots knot the reddish frame shut, pulsing slow and cold in time with the throne.
+-> END
+else
+Narrator: The reddish door sits crookedly among the severed roots, smelling faintly of cauldron steam and singed hair.
+* Step through the roots -> pass
+* [Performance DC 12] Tell the roots a joke -> joke_ok | joke_fail
+* Not yet -> END
+endif
+
+~ joke_ok
+Narrator: A dry snicker runs through the knotted wood, and the frost along the lintel thaws by a hand's width.
+set dream_laughed
+-> pass
+
+~ joke_fail
+Narrator: The roots keep their counsel, stiff and winter-mean as ever.
+-> pass
+
+~ pass
+Narrator: The roots part without asking a toll, letting you up toward the heat of the attic.
+quest crooked_nightmare toil_and_trouble
+move nm_attic
+-> END

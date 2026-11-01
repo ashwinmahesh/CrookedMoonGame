@@ -1,0 +1,118 @@
+# Drafted by Gemini (R22 n4), edited.
+
+~ crater_start
+set n4_started
+quest crooked_nightmare smoking_crater
+Narrator: A cool summer wind smells of scorched grass and salt water, carrying the hum of a distant, glittering city across the bay. Down in the smoking earth, a seven-foot stone pulses with colours that have no proper business existing.
+nm_adela_teen [smile]: Look how it breathes, like a heart made of glass and summer lightning. I knew if I waited long enough, the sky would send a carriage just for me.
+-> hub
+
+~ hub
+* [Insight DC 15] Look closely at Adela -> insight_ok | insight_fail
+* Call out to Adela -> call_out
+* Cross the ridge toward her -> whispers
+* [if flag.n4_ridge_crossed] Pull Adela back by the arm -> pull
+* [if flag.n4_ridge_crossed] Touch the meteorite -> touch
+* [if flag.nm_invader_done and not flag.n4_shard_taken] Chip a shard off the stone -> shard
+* [if flag.nm_invader_done] The climb up the dead star -> door
+* Step back for a moment -> END
+
+~ insight_ok
+Narrator: Her eyes are glassy and wide, reflecting hues that aren't quite there, and her shoes scrape the cinders without her minding the heat. She is thoroughly charmed, drawn down by a tether she cannot see.
+set n4_adela_charmed_seen
+-> hub
+
+~ insight_fail
+Narrator: With the half-moon silvering her dark hair and the mole on her right cheek, she looks like any young lady struck dumb by a wonder.
+-> hub
+
+~ call_out
+nm_adela_teen [weary]: You don't have to shout so loud, I'm coming as fast as the gravel lets me. Tell the otros I don't need my coat where we're going.
+Narrator: She isn't answering you at all, friends, only the low, greasy hum rising from the pit.
+-> hub
+
+~ whispers
+Narrator: As you crest the warm ash of the ridge, a dry, sweet singing threads right through your teeth. It promises a voyage between the stars, light and painless, if only you'll leave your heavy bones behind.
+check Intelligence DC 17 -> ridge_ok | ridge_hit
+
+~ ridge_ok
+Narrator: You spit out the taste of copper and ozone, planting your boots firm on the lip of the crater.
+set n4_ridge_crossed
+-> hub
+
+~ ridge_hit
+Narrator: For a terrible breath {name} stumbles down the slope, arms out like a sleepwalker, before dragging a boot heel hard into the turf.
+damage 1d10 psychic
+set n4_ridge_crossed
+-> hub
+
+~ pull
+Narrator: You catch her by the sleeve of her thin summer dress, where the fabric is already warm from the stone's breath.
+* [Athletics DC 15] Haul her bodily -> pull_ok | pull_fail
+* [Persuasion DC 15] Say her name until she hears -> pull_ok | pull_fail
+* Give up -> hub
+
+~ pull_ok
+nm_adela_teen [afraid]: Wait, who is holding my arm? I only wanted to see what fell into the pasture, I didn't mean to go so deep.
+Narrator: She blinks at you for one clear heartbeat, before the pulsing light washes over her face and tugs her steps forward again.
+set n4_adela_pulled
+-> hub
+
+~ pull_fail
+Narrator: She slips your grip with the boneless ease of someone turning over in bed, her eyes never leaving the stone.
+-> hub
+
+~ touch
+Narrator: Your fingers brush the blistered crust, and a jagged seam splits the rock from crown to root. Something thin, wet, and entirely wrong unfolds itself from the glare.
+combat nm_invader
+
+~ after_fight
+nm_golub [sly]: Look at the bright little scholar, reaching for the heavens without reading the footnote! Every star is a hook, my dears, and she bit the shiny part right down to the barb.
+Narrator: Unseen hands lift the girl by the shoulders, drawing her straight up into the half-moon dark until she is only one more cold, twinkling pinprick above the bay. A mocking pigeon laugh flutters down like shed feathers, and then the crater is quiet.
+cutscene nm_three_adelas_b
+Narrator: She rises over the crater rim and keeps rising, and the star she becomes takes its place among the others.
+cutscene nm_three_adelas_b_2
+Narrator: Far across the bay, the city's lights go on as if nothing had happened.
+cutscene end
+set nm_crater_done
+quest crooked_nightmare crooked_bookshelf
+-> hub
+
+~ shard
+Narrator: A flake of cooled stardust pries loose with a chime like a struck wineglass, settling warm and humming into your palm.
+give ioun_stone_reserve
+set n4_shard_taken
+-> hub
+
+~ door
+Narrator: Around the dark, leeward flank of the dead star, a crooked door of red-lit timber stands mortared right into the iron rock.
+* Climb up to it -> toll
+* [Performance DC 12] Tell the stone a joke -> joke_ok | joke_fail
+* Not yet -> hub
+
+~ joke_ok
+Narrator: A deep, gravelly snort rumbles out of the cooling fissures, and the stone pops a shower of harmless rainbow sparks that sounds remarkably like a giggle.
+set dream_laughed
+-> toll
+
+~ joke_fail
+Narrator: The blackened rock drinks your words without a ripple, cold and unamused as a tombstone.
+-> toll
+
+~ toll
+if flag.dream_laughed
+Narrator: Still chuckling in its mineral belly, the star lets you scramble up to the crooked threshold without so much as a headache.
+set dream_laughed = false
+-> pass
+else
+check Intelligence DC 17 -> pass | toll_hurt
+endif
+
+~ toll_hurt
+Narrator: As you reach for the latch, the stone's dying colours crawl behind your eyes like hot oil, leaving your skull ringing.
+damage 2d10 psychic
+-> pass
+
+~ pass
+quest crooked_nightmare crooked_bookshelf
+move nm_bookshelf

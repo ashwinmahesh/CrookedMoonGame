@@ -51,7 +51,7 @@
         0.42
       ],
       "region": "crooked_house",
-      "when": "flag.wm_welcomed or visited:druskenvald_estate",
+      "when": "(flag.wm_welcomed or visited:druskenvald_estate) and not flag.chuckles_dead",
       "summary": "The Lockwood manor on the hill above Wickermoor, a pretty house at the end of a hill road."
     },
     {
@@ -209,6 +209,32 @@
       "region": "wickermoor",
       "when": "(flag.rk_hunt and not flag.golub_dead) or visited:rk_roost_lakeshore",
       "summary": "A rainy shingle beach on Moonsong Lake's north shore, and the dovecote on the stones."
+    },
+    {
+      "id": "nm_estate",
+      "name": "The Druskenvald Estate (crooked again)",
+      "location": "nm_estate",
+      "spawn": "from_village",
+      "pos": [
+        0.56,
+        0.42
+      ],
+      "region": "crooked_nightmare",
+      "when": "(flag.nm_hook_given or flag.chuckles_dead) and not flag.crooked_house_destroyed",
+      "summary": "The cleansed manor on the hill, bent crooked again and dreaming."
+    },
+    {
+      "id": "nm_estate_ruins",
+      "name": "The Druskenvald Estate (in ruins)",
+      "location": "nm_estate_ruins",
+      "spawn": "from_village",
+      "pos": [
+        0.56,
+        0.42
+      ],
+      "region": "crooked_nightmare",
+      "when": "flag.crooked_house_destroyed",
+      "summary": "A heap of wood and plaster where the Crooked House stood."
     }
   ],
   "roads": [
@@ -234,7 +260,7 @@
       "to": "druskenvald_estate",
       "hours": 1,
       "name": "The hill road",
-      "when": "flag.wm_welcomed"
+      "when": "(flag.wm_welcomed) and not flag.chuckles_dead"
     },
     {
       "id": "wickermoor_to_dawns_gate",
@@ -331,6 +357,22 @@
       "hours": 30,
       "name": "The road to Stormy Lakeshore",
       "when": "(flag.rk_hunt and not flag.golub_dead) or visited:rk_roost_lakeshore"
+    },
+    {
+      "id": "wickermoor_to_nm_estate",
+      "from": "wickermoor_village",
+      "to": "nm_estate",
+      "hours": 1,
+      "name": "The hill road, again",
+      "when": "(flag.nm_hook_given or flag.chuckles_dead) and not flag.crooked_house_destroyed"
+    },
+    {
+      "id": "wickermoor_to_nm_estate_ruins",
+      "from": "wickermoor_village",
+      "to": "nm_estate_ruins",
+      "hours": 1,
+      "name": "The hill road, to the ruins",
+      "when": "flag.crooked_house_destroyed"
     }
   ]
 }

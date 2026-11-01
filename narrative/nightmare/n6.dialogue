@@ -1,0 +1,142 @@
+# Drafted by Gemini (R22 n6), edited.
+
+~ feast_start
+set n6_started
+Narrator: Lanterns sway over a moonless spring meadow where twenty guests in painted animal masks caper between two long tables. Up on the dais, a bride crowned in fiery roses beams beside a tethered black goat, and twenty papier-mache snouts pivot toward you at once.
+nm_adela_bride [smile]: Look, look, my dearest guests have arrived at last! Come into the lantern light, darlings, you are just in time for the reel!
+quest crooked_nightmare wedding_feast
+-> hub
+
+~ hub
+Narrator: A scratchy fiddle keeps the wedding count while the goat's brass bell clatters against the dais posts.
+* Speak to the bride -> bride
+* [Animal Handling DC 15] Settle the goat -> goat_ok | goat_fail
+* Join the dance -> dance
+* Refuse to dance -> refuse
+* Eat at the feast tables -> feast
+* Go up to the dais -> dais
+* [if flag.nm_wedding_done] The gory feast table, where a crooked door sits -> door
+* Step back for a moment -> END
+
+~ bride
+nm_adela_bride [smile]: Isn't the meadow divine, and isn't my groom the handsomest soul in the county? Here, wear these marigold wreaths, for you are my guests of honour tonight!
+* [Perception DC 12] Notice the mole on her right cheek -> mole_ok | mole_fail
+* Return to the meadow -> hub
+
+~ mole_ok
+Narrator: Just beneath the feverish powder on her right cheek sits a familiar dark mole. Whatever twisted this meadow, the dream belongs to the real Lady Adela.
+set n6_mole_seen
+-> hub
+
+~ mole_fail
+Narrator: Powder and rose-petal rouge catch the lantern glow across her cheeks, hiding anything beneath a bride's bright blush.
+-> hub
+
+~ goat_ok
+Narrator: {name} scratches behind the crooked horns until the black goat sighs, leans its warm flank against your knee, and lets its brass bell fall still.
+set n6_goat_calmed
+-> hub
+
+~ goat_fail
+Narrator: The goat fixes {name} with a flat yellow eye, plants its hooves, and shakes its neck until the brass bell clangs like an alarm.
+-> hub
+
+~ dance
+Narrator: You link elbows with badger and stag masks and step through a stiff, stone-faced reel. Somewhere in the dark, the tight seam of the dream loosens a notch.
+set n6_danced
+-> hub
+
+~ refuse
+check Wisdom DC 18 -> refuse_ok | refuse_dance
+
+~ refuse_ok
+Narrator: You fold your arms and plant your boots in the damp clover while the ring of painted beasts spins harmlessly past.
+-> hub
+
+~ refuse_dance
+Narrator: A crooked wreath drops over {name}'s brow, and your own boots drag you into the ring for a grim, glassy-eyed turn.
+damage 1d4 psychic
+-> hub
+
+~ feast
+Narrator: Upon the gold-edged cloth sit silver platters of sour, greying meats and fruit gone soft as tallow. Masked guests press heavy gold coins and brimming goblets of dark wine toward your hands without a word.
+-> hub
+
+~ dais
+Narrator: As you mount the steps, the ring of dancers bursts apart and a scaled Drakkenhob lunges from the masks. It gulps the black goat down, brass bell still chiming in its gullet, and swings its smoking jaws toward you.
+* Fight it -> fight
+* [if gold >= 50] [Persuasion DC 16] Offer it gold and wine to leave you be -> pay_ok | pay_fail
+* Back away -> hub
+
+~ fight
+combat nm_drakkenhob
+
+~ pay_ok
+Narrator: The great beast's slit eyes flick to the stacked coin and spilled vintage, and with a rumbling snort it slinks back among the masks.
+gold -50
+set n6_paid_off
+set nm_drakkenhob_done
+xp fight nm_drakkenhob
+-> bride_burns
+
+~ pay_fail
+Narrator: The Drakkenhob knocks the goblet aside with a hiss of hot soot, thoroughly insulted by the paltry bribe.
+-> fight
+
+~ bride_burns
+Narrator: The roses on the bride's brow catch like dry tinder, wrapping the dais in sudden flame while unseen claws shred the paper masks across the meadow.
+nm_vessla [sly]: Burn the rind and sear the marrow, little bride, until nothing remains but ash for the altar!
+cutscene nm_three_adelas_c
+Narrator: The bride burns like a lantern, bright and silent, and does not stop smiling.
+cutscene nm_three_adelas_c_2
+Narrator: Around her the masked guests fly apart like paper, and the moonless dark closes over the meadow.
+cutscene end
+set nm_wedding_done
+quest crooked_nightmare crooked_throne
+-> hub
+
+~ door
+if not flag.nm_wedding_done
+Narrator: It is only a long feast table heaped with tarnished silver and spoiled dishes.
+-> hub
+else
+Narrator: A reddish crooked door stands upright in the centre of the ruined feast table, while the remnants of the masked crowd watch in silence.
+* [if not (quest.the_nightmare_forms == asked or quest.the_nightmare_forms == filing)] Climb on to the table -> toll
+* [if not (quest.the_nightmare_forms == asked or quest.the_nightmare_forms == filing)] [Performance DC 12] Tell the guests a joke -> joke_ok | joke_fail
+* [if quest.the_nightmare_forms == asked or quest.the_nightmare_forms == filing] [ends:the_nightmare_forms] Leave the forms unfiled and climb on to the table -> leave_forms
+* Not yet -> hub
+endif
+
+~ joke_ok
+Narrator: Twenty animal masks throw their heads back in a single, barking laugh, and the fouled planks beneath the door turn into a towering tier of sugared wedding cake.
+set dream_laughed
+-> toll
+
+~ joke_fail
+Narrator: The fiddle stops, and twenty painted faces tilt in dead silence, waiting for a punchline worth the trouble.
+-> toll
+
+~ toll
+if flag.dream_laughed
+Narrator: With the crowd still chuckling into their sleeves, the dream forgets to exact its price, and your boots sink harmlessly into the frosting.
+set dream_laughed = false
+-> pass
+else
+check Constitution DC 17 -> pass | toll_hurt
+endif
+
+~ toll_hurt
+Narrator: The thick, sweet rot of the ruined banquet catches in your throat as you clamber across the platters.
+damage 2d6 poison
+-> pass
+
+~ leave_forms
+Narrator: Behind you the desk drawer shuts with a small, final sound, and a stamp comes down on nothing at all.
+quest the_nightmare_forms refused
+set forms_refused
+-> toll
+
+~ pass
+Narrator: You catch the brass handle of the crooked door and pull it wide upon the next nightmare.
+quest crooked_nightmare crooked_throne
+move nm_throne

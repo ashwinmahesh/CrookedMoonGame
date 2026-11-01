@@ -1,0 +1,608 @@
+{
+  "id": "nm_wedding",
+  "name": "The Wedding Feast",
+  "region": "crooked_nightmare",
+  "summary": "A moonless meadow wedding: long tables, a ring of masked dancers, a dais with a bride and a goat.",
+  "text": "A moonless spring night, and a meadow in flower. Lanterns hang on poles. Two long tables groan with food, a ring of guests in animal masks turns in a dance, and on a raised dais a bride in a crown of roses stands beside a black goat with a bell.",
+  "map": {
+    "rows": [
+      "##########################",
+      "#........................#",
+      "#.......__________.......#",
+      "#.......__________.......#",
+      "#.......__________.......#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#..=========..=========..#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#..=========..=========..#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "##########################"
+    ],
+    "theme": "village",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "meadow",
+      "name": "The meadow",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          24,
+          32
+        ]
+      ]
+    },
+    {
+      "id": "dais",
+      "name": "The dais",
+      "cells": [
+        [
+          8,
+          2
+        ],
+        [
+          17,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "ring",
+      "name": "The dance ring",
+      "cells": [
+        [
+          7,
+          9
+        ],
+        [
+          18,
+          16
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      12,
+      30
+    ]
+  },
+  "exits": [],
+  "props": [
+    {
+      "id": "nm_feast_arrive",
+      "cell": [
+        12,
+        30
+      ],
+      "kind": "decor",
+      "label": "The wedding, from the lane",
+      "call": "nightmare/n6:feast_start",
+      "approach": 12,
+      "call_when": "not flag.n6_started"
+    },
+    {
+      "id": "nm_feast_ring",
+      "cell": [
+        12,
+        12
+      ],
+      "kind": "examine",
+      "label": "The dance ring",
+      "model": "offering_circle",
+      "dialogue": "nightmare/n6:hub"
+    },
+    {
+      "id": "nm_feast_table_a",
+      "cell": [
+        7,
+        19
+      ],
+      "kind": "examine",
+      "label": "A long table of food",
+      "model": "table_meal",
+      "dialogue": "nightmare/n6:feast",
+      "span": [
+        4,
+        1
+      ]
+    },
+    {
+      "id": "nm_feast_table_b",
+      "cell": [
+        16,
+        25
+      ],
+      "kind": "examine",
+      "label": "The gory feast table",
+      "model": "table_meal",
+      "dialogue": "nightmare/n6:door",
+      "span": [
+        4,
+        1
+      ]
+    },
+    {
+      "id": "nm_feast_dais",
+      "cell": [
+        12,
+        3
+      ],
+      "kind": "decor",
+      "label": "The dais",
+      "model": "dais"
+    },
+    {
+      "id": "nm_feast_crown",
+      "cell": [
+        6,
+        5
+      ],
+      "kind": "decor",
+      "label": "Flower crowns on a pole",
+      "model": "garden_bed"
+    },
+    {
+      "id": "nm_feast_after",
+      "cell": [
+        12,
+        7
+      ],
+      "kind": "decor",
+      "label": "The dais, afterwards",
+      "call": "nightmare/n6:bride_burns",
+      "approach": 12,
+      "call_when": "flag.nm_drakkenhob_done and not flag.nm_wedding_done"
+    },
+    {
+      "id": "nm_feast_lantern_a",
+      "cell": [
+        3,
+        10
+      ],
+      "kind": "decor",
+      "label": "A wedding lantern",
+      "model": "lantern_post"
+    },
+    {
+      "id": "nm_feast_lantern_b",
+      "cell": [
+        21,
+        10
+      ],
+      "kind": "decor",
+      "label": "A wedding lantern",
+      "model": "lantern_post"
+    },
+    {
+      "id": "nm_feast_lantern_c",
+      "cell": [
+        3,
+        28
+      ],
+      "kind": "decor",
+      "label": "A wedding lantern",
+      "model": "lantern_post"
+    },
+    {
+      "id": "nm_feast_lantern_d",
+      "cell": [
+        21,
+        28
+      ],
+      "kind": "decor",
+      "label": "A wedding lantern",
+      "model": "lantern_post"
+    },
+    {
+      "id": "nm_feast_guest_0",
+      "cell": [
+        8,
+        10
+      ],
+      "kind": "decor",
+      "label": "A guest in an animal mask, still as a post",
+      "model": "scarecrow_stitched"
+    },
+    {
+      "id": "nm_feast_guest_1",
+      "cell": [
+        9,
+        9
+      ],
+      "kind": "decor",
+      "label": "A guest in an animal mask, still as a post",
+      "model": "scarecrow_stitched"
+    },
+    {
+      "id": "nm_feast_guest_2",
+      "cell": [
+        11,
+        8
+      ],
+      "kind": "decor",
+      "label": "A guest in an animal mask, still as a post",
+      "model": "scarecrow_stitched"
+    },
+    {
+      "id": "nm_feast_guest_3",
+      "cell": [
+        14,
+        8
+      ],
+      "kind": "decor",
+      "label": "A guest in an animal mask, still as a post",
+      "model": "scarecrow_stitched"
+    },
+    {
+      "id": "nm_feast_guest_4",
+      "cell": [
+        16,
+        9
+      ],
+      "kind": "decor",
+      "label": "A guest in an animal mask, still as a post",
+      "model": "scarecrow_stitched"
+    },
+    {
+      "id": "nm_feast_guest_5",
+      "cell": [
+        17,
+        11
+      ],
+      "kind": "decor",
+      "label": "A guest in an animal mask, still as a post",
+      "model": "scarecrow_stitched"
+    },
+    {
+      "id": "nm_feast_guest_6",
+      "cell": [
+        17,
+        14
+      ],
+      "kind": "decor",
+      "label": "A guest in an animal mask, still as a post",
+      "model": "scarecrow_stitched"
+    },
+    {
+      "id": "nm_feast_guest_7",
+      "cell": [
+        15,
+        16
+      ],
+      "kind": "decor",
+      "label": "A guest in an animal mask, still as a post",
+      "model": "scarecrow_stitched"
+    },
+    {
+      "id": "nm_feast_guest_8",
+      "cell": [
+        11,
+        16
+      ],
+      "kind": "decor",
+      "label": "A guest in an animal mask, still as a post",
+      "model": "scarecrow_stitched"
+    },
+    {
+      "id": "nm_feast_guest_9",
+      "cell": [
+        9,
+        15
+      ],
+      "kind": "decor",
+      "label": "A guest in an animal mask, still as a post",
+      "model": "scarecrow_stitched"
+    },
+    {
+      "id": "nm_feast_guest_10",
+      "cell": [
+        7,
+        13
+      ],
+      "kind": "decor",
+      "label": "A guest in an animal mask, still as a post",
+      "model": "scarecrow_stitched"
+    },
+    {
+      "id": "nm_feast_guest_11",
+      "cell": [
+        7,
+        11
+      ],
+      "kind": "decor",
+      "label": "A guest in an animal mask, still as a post",
+      "model": "scarecrow_stitched"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "nm_adela_bride",
+      "cell": [
+        12,
+        3
+      ],
+      "dialogue": "nightmare/n6:bride",
+      "when": "not flag.nm_wedding_done",
+      "facing": "south"
+    },
+    {
+      "npc": "tamsin_ledger",
+      "cell": [
+        4,
+        28
+      ],
+      "dialogue": "nightmare/forms:start",
+      "when": "not flag.forms_refused",
+      "facing": "east"
+    },
+    {
+      "npc": "nm_sleeper_feast",
+      "cell": [
+        20,
+        22
+      ],
+      "dialogue": "nightmare/dani_lantern:feast",
+      "when": "flag.danis_lantern_asked and not flag.lantern_feast_done",
+      "facing": "west"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "nm_drakkenhob",
+      "trigger": "dialogue",
+      "when": "flag.n6_goat_calmed",
+      "flag": "nm_drakkenhob_done",
+      "monsters": [
+        {
+          "monster": "drakkenhob",
+          "cell": [
+            12,
+            6
+          ],
+          "name": "The Drakkenhob",
+          "boss": false,
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "wedding_song",
+          "name": "The Wedding Song",
+          "summary": "The masked guests strike up a song, and it finds one hero.",
+          "kind": "save",
+          "affects": "party",
+          "at": 20,
+          "every": 1,
+          "pick": "random",
+          "say": "The guests strike up a wedding song, and it has teeth.",
+          "table": [
+            {
+              "id": "song_drum",
+              "name": "A drum",
+              "summary": "A drum in the Wedding Song picks on one hero.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "damage": {
+                "dice": "2d12",
+                "type": "thunder"
+              }
+            },
+            {
+              "id": "song_hurdy",
+              "name": "A hurdy-gurdy",
+              "summary": "A hurdy-gurdy in the Wedding Song picks on one hero.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "condition": "restrained",
+              "until": "target_turn_end"
+            },
+            {
+              "id": "song_flute",
+              "name": "A flute",
+              "summary": "A flute in the Wedding Song picks on one hero.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "condition": "incapacitated",
+              "until": "target_turn_end"
+            },
+            {
+              "id": "song_fiddle",
+              "name": "A fiddle",
+              "summary": "A fiddle in the Wedding Song picks on one hero.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "condition": "frightened",
+              "until": "target_turn_end"
+            },
+            {
+              "id": "song_jaw",
+              "name": "A jaw harp",
+              "summary": "A jaw harp in the Wedding Song picks on one hero.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "condition": "poisoned",
+              "until": "target_turn_end"
+            },
+            {
+              "id": "song_bells",
+              "name": "Bells",
+              "summary": "Bells in the Wedding Song picks on one hero.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "condition": "deafened",
+              "until": "target_turn_end"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nm_drakkenhob",
+      "trigger": "dialogue",
+      "flag": "nm_drakkenhob_done",
+      "surprise": "party",
+      "monsters": [
+        {
+          "monster": "drakkenhob",
+          "cell": [
+            12,
+            6
+          ],
+          "name": "The Drakkenhob",
+          "boss": false,
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "wedding_song",
+          "name": "The Wedding Song",
+          "summary": "The masked guests strike up a song, and it finds one hero.",
+          "kind": "save",
+          "affects": "party",
+          "at": 20,
+          "every": 1,
+          "pick": "random",
+          "say": "The guests strike up a wedding song, and it has teeth.",
+          "table": [
+            {
+              "id": "song_drum",
+              "name": "A drum",
+              "summary": "A drum in the Wedding Song picks on one hero.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "damage": {
+                "dice": "2d12",
+                "type": "thunder"
+              }
+            },
+            {
+              "id": "song_hurdy",
+              "name": "A hurdy-gurdy",
+              "summary": "A hurdy-gurdy in the Wedding Song picks on one hero.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "condition": "restrained",
+              "until": "target_turn_end"
+            },
+            {
+              "id": "song_flute",
+              "name": "A flute",
+              "summary": "A flute in the Wedding Song picks on one hero.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "condition": "incapacitated",
+              "until": "target_turn_end"
+            },
+            {
+              "id": "song_fiddle",
+              "name": "A fiddle",
+              "summary": "A fiddle in the Wedding Song picks on one hero.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "condition": "frightened",
+              "until": "target_turn_end"
+            },
+            {
+              "id": "song_jaw",
+              "name": "A jaw harp",
+              "summary": "A jaw harp in the Wedding Song picks on one hero.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "condition": "poisoned",
+              "until": "target_turn_end"
+            },
+            {
+              "id": "song_bells",
+              "name": "Bells",
+              "summary": "Bells in the Wedding Song picks on one hero.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "condition": "deafened",
+              "until": "target_turn_end"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "rest_text": "You cannot sleep inside a dream, and the dream will not let you stop. A short breath, then."
+}
