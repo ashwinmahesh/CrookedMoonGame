@@ -46,6 +46,7 @@ var glow := HoverGlow.new()          ## the rim on whatever the mouse is over
 var pad := PadExplore.new(self)      ## exploring on a controller (U6): the marked thing and the pad's buttons
 var notices := ItemNotices.new()     ## items the party comes by outside loot and shops, on the side
 var talk_motion := TalkMotion.new()  ## the one speaking keeps nodding and gesturing while their line is said
+var place_beds := PlaceBeds.new()    ## the sound a whole place sits in: the train's rumble in every car (art/audio.json "place_beds")
 
 
 func _ready() -> void:
@@ -63,6 +64,7 @@ func _ready() -> void:
 	st.quest_finished.connect(_on_quest_finished)   # a failed quest tolls (the notice says "Quest failed: X")
 	add_child(notices)
 	add_child(talk_motion)
+	add_child(place_beds)
 	st.item_gained.connect(_item_gained)
 	narrator = Narrator.new()
 	banter = Banter.new()
@@ -169,6 +171,7 @@ func enter_location(location_id: String, spawn: String, sneaking: bool = false) 
 	# The place's name as it fades in (Visual Polish Plan 6), unless a loading card is up and names it already.
 	_title = PlaceTitle.show_for(self, view.loc)
 	Audio.play_music(_place_mood())
+	place_beds.enter(location_id)
 	view.banter_player = banter
 	_banter_waiting = []
 	_banter_quiet_since = -1
@@ -770,6 +773,7 @@ func _talk_music(speaker_id: String) -> void:
 ## the vineyard) plays it from its picture to the conversation's end, over any speaker's; _dialogue_ended brings the
 ## place's own back.
 func _scene_music(cutscene_id: String) -> void:
+	scene_sounds(cutscene_id)
 	var m := Audio.scene_mood(cutscene_id)
 	if m == "camp":
 		m = _place_mood()   # "back to the camp" is the camp's own music, which turns warm once the festival is over
@@ -1500,10 +1504,21 @@ func play_item_conversation(ref: String, after: String = "") -> bool:
 ## A place cutscene's picture with its own music (art/audio.json "place_scenes", as a conversation's "scenes": _scene_music)
 ## plays until the cutscene closes; play_cutscene brings the place's own back.
 func _cutscene_music(cutscene_id: String) -> void:
+	scene_sounds(cutscene_id)
 	var m := Audio.place_scene_mood(cutscene_id)
 	if m != "":
 		_cutscene_mood = m
 		Audio.play_music(m)
+
+
+## The effects a cutscene's picture brings as it shows (art/audio.json "scene_sfx": cutscene id -> effect ids): the
+## train's whistle as it pulls in, the punch on the ticket, the crash. Returns the ids it played.
+static func scene_sounds(cutscene_id: String) -> Array[String]:
+	var played: Array[String] = []
+	for id: Variant in (Audio._data.get("scene_sfx", {}) as Dictionary).get(cutscene_id, []):
+		Audio.sfx(str(id), 0.0)
+		played.append(str(id))
+	return played
 
 
 ## Plays a Narrator trigger here (rests, dreams). Returns the line, or "".
