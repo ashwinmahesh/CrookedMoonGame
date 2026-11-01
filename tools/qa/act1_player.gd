@@ -341,10 +341,17 @@ func _level_ups() -> void:
 			var why := ""
 			if scr is LevelUpScreen and (scr as LevelUpScreen).ctl != null:
 				var ctl := (scr as LevelUpScreen).ctl
+				# Picks start blank by design; the player presses Use Recommended to fill every open one.
+				var use := _button_named(scr as Node, "Use Recommended")
+				if use != null and not use.disabled:
+					use.pressed.emit()
+					await _frames(2)
+				elif ctl.errors().size() > 0:
+					notes.append("%s, going to level %d: no Use Recommended button to press" % [ch.name, ch.character_level() + 1])
 				why = "; ".join(ctl.errors())
 				if why != "":
-					# What the recommended picks left open, the player picks by hand: here the first legal options.
-					_block("level_up", "%s, going to level %d: the Level Up screen's recommended picks leave choices open (%s); the run picks the first options by hand" % [
+					# What Use Recommended left open, the player picks by hand: here the first legal options.
+					_block("level_up", "%s, going to level %d: Use Recommended leaves choices open (%s); the run picks the first options by hand" % [
 						ch.name, ch.character_level() + 1, why])
 					for guard2 in 6:
 						var open := ctl.pending_choices()
@@ -370,6 +377,16 @@ func _level_ups() -> void:
 					ch.name, st.target_level(), "; ".join((scr as LevelUpScreen).ctl.errors()) if scr is LevelUpScreen and (scr as LevelUpScreen).ctl != null else why])
 				break
 			notes.append("%s levels up to %d" % [ch.name, ch.character_level()])
+
+
+static func _button_named(n: Node, text: String) -> BaseButton:
+	if n is Button and (n as Button).text == text:
+		return n as BaseButton
+	for c in n.get_children():
+		var b := _button_named(c, text)
+		if b != null:
+			return b
+	return null
 
 
 func _idle() -> bool:
