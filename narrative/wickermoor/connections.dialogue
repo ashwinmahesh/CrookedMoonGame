@@ -1,6 +1,6 @@
 # R11: the six companion Connections, converted from the drafts in the vault's Companions/ files (Lane F), plus the seven that custom heroes meet.
 # Each scene is started by a second entry of the villager in the location (a `when` on the companion in the party, their Incitement done and the Crooked House's
-# witch dead: vessla_slain); it sets connection_<thread> and makes the villager Friendly. Bless and Heroic Inspiration wait for the Fateweaving statements.
+# witch dead: vessla_slain); it sets connection_<thread> and makes the villager Friendly. Closing the quest pays the Connection's Bless for a day and starts the Discovery's quest (story/fateweaving.gd).
 
 ~ thomasin_cordelia_start
 thomasin_ardor [neutral]: Hold the lower left arm an inch higher so the brass tape clears the glass.
@@ -34,6 +34,7 @@ thomasin_ardor [smile]: Wear it in good health, and let the lower cuffs hang loo
 thomasin_ardor [neutral]: Come back after the first rain so I can check how the silk settles.
 set connection_evolution
 quest connection_evolution met
+quest discovery_evolution waiting
 attitude thomasin_ardor friendly
 set cordelia_waistcoat
 -> END
@@ -70,6 +71,7 @@ alda_farnum [smile]: May the Green Queen keep your threads dry and your patron p
 alda_farnum [sly]: When you are ready to settle the rest of the account, you know right where the counter is.
 set connection_ascendancy
 quest connection_ascendancy met
+quest discovery_ascendancy waiting
 attitude alda_farnum friendly
 set delphine_tether_noted
 -> END
@@ -106,6 +108,7 @@ hilda_brom [neutral]: May the Green Queen keep your throat whole and your claws 
 hilda_brom [smile]: Ha. Put a hat on that dog if it thunders again.
 set connection_slaughter
 quest connection_slaughter met
+quest discovery_slaughter waiting
 attitude hilda_brom friendly
 set lucan_hilda_kin
 -> END
@@ -142,6 +145,7 @@ mori_shade [neutral]: May the earth lie level under your boots, Warden, and may 
 mori_shade [neutral]: Come back to this room when you have a fresh page filled.
 set connection_pilgrimage
 quest connection_pilgrimage met
+quest discovery_pilgrimage waiting
 attitude mori_shade friendly
 set rook_mori_met
 -> END
@@ -178,6 +182,7 @@ holly_aster [smile]: Hold out your palm and take this pinch of blessed hearth-sa
 holly_aster [smile]: Now eat that crust before it cools, or I'll charge you double just for standing in my flour.
 set connection_liberation
 quest connection_liberation met
+quest discovery_liberation waiting
 attitude holly_aster friendly
 set liberation_holly_page_seen
 -> END
@@ -214,5 +219,6 @@ sister_rain [smile]: Walk in the Lady's patience, stitched man, and don't pluck 
 sister_rain [sad]: When you have the stomach for worse than a bruised vine, the sick places round the village are crying out for a steady hand.
 set connection_rejuvenation
 quest connection_rejuvenation met
+quest discovery_rejuvenation waiting
 attitude sister_rain friendly
 -> END
