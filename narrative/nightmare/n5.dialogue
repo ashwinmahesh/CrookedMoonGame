@@ -1,0 +1,120 @@
+# Drafted by Gemini (R22 n5), edited.
+
+~ shelf_start
+Narrator: Leather book spines tower above you like cliff walls, and grey dust lies drifted ankle-deep like dry snow. Ahead, poor Walter Jenkin stands trapped inside a vast crystal decanter as amber liquor steadily rises around his waist.
+nm_golub [sly]: Class is in session, little mice, and today's lesson is how easily a loyal mind drowns in doubt. Sit straight and watch him sink.
+nm_wisp [sad]: Leave the bottle be, Walter love, you have done more than enough for this house.
+nm_wisp [neutral]: You can go to sleep now, Da. I am right outside on the porch.
+nm_wisp [angry]: By the old custom, a servant who cannot speak his mind has no business keeping his head above water.
+quest crooked_nightmare crooked_bookshelf
+-> hub
+
+~ hub
+if flag.nm_wisp_done and not flag.n5_wisp_counted
+set n5_wisp_counted
+set walter_loyalty += 3
+set n5_clock += 3
+Narrator: The colossal cat thins away until only a floating grin remains in the dark, and inside the glass, Walter lifts his chin.
+-> tick
+endif
+Narrator: The heavy glass stopper presses down over Walter's head while the dark spirits swirl around his knees.
+* [Persuasion DC 20] Rally Walter, tell him Dani needs him -> rally_ok | rally_fail
+* [Intimidation DC 20] Bellow for him to stand up -> rally_ok | rally_fail
+* [History DC 20] Remind him that dreams lie -> rally_ok | rally_fail
+* [Nature DC 20] Reason that a dream cannot drown a man -> rally_ok | rally_fail
+* [Deception DC 20] Distract Wisp with a grand lie -> rally_ok | rally_fail
+* [if not flag.nm_wisp_done] Fight Wisp -> fight_wisp
+* [if not flag.golub_struck] Strike Golub -> golub_hit
+* Hear Golub out -> golub_talk
+
+~ rally_ok
+Narrator: Your call cuts cleanly through the thick crystal. Walter scrawls a quick note, presses the paper flat against the wet glass: I hear you, I am holding fast: and squares his shoulders.
+set walter_loyalty += 1
+-> tick
+
+~ rally_fail
+Narrator: Your words seem to skate off the curved glass without reaching him, drowned out by the purring dark. Walter bows his head a fraction lower.
+-> tick
+
+~ fight_wisp
+Narrator: Great velvet paws the size of hay-wagons sweep across the dusty shelf as the cat lunges in.
+combat nm_wisp
+
+~ golub_hit
+nm_golub [angry]: Rude little beetles, striking your own schoolmistress before the bell has rung.
+Narrator: Your blow passes through her pleated skirt, and she bursts into a dry scatter of grey pigeon feathers.
+vanish nm_golub
+set golub_struck
+-> hub
+
+~ golub_talk
+nm_golub [sly]: Stonoga only knows how to baste flesh, and Vessla fusses over souls with her tin sword. I am the one who cracks a mind open with quiet shame until it begs for the knife.
+nm_golub [smile]: Look at him in the amber dark, half-convinced he already failed his girl.
+-> hub
+
+~ tick
+set n5_clock += 1
+Narrator: Another heavy measure of spiced liquor wells up from the bottom of the decanter, climbing higher up Walter's coat.
+if flag.walter_loyalty >= 6
+-> freed
+endif
+if flag.n5_clock >= 10
+-> drowned
+endif
+-> hub
+
+~ freed
+Narrator: Walter braces his boots against the slick glass walls and drives both hands upward, heaving the massive crystal stopper clean out of the neck. The pigeon-hag's shadow scatters, the great cat fades to a bare grin, and a cool blue mist curls down to lift Walter gently out of the dream.
+cutscene nm_pulled_out
+vanish walter_jenkin
+set walter_saved
+set nm_shelf_done
+-> voices_drop
+
+~ drowned
+Narrator: The dark amber tide closes quietly over Walter's grey head, and his hands slip down from the inside of the glass. The bubbles rise, slow and silver, until the decanter is still.
+set walter_dead
+set nm_shelf_done
+-> voices_drop
+
+~ voices_drop
+Narrator: A sudden rain of tiny glass thimbles patters down from where the cat's mouth hung, rolling across the dusty wood and humming softly with stolen voices. Inside the floating grin, the outline of a crooked red door begins to glow.
+set nm_voices_dropped
+quest voices_not_their_own asked
+-> END
+
+~ door
+if not flag.nm_shelf_done
+Narrator: For now, the floating grin is only a row of gleaming teeth hanging in the dark beyond the shelf.
+-> END
+endif
+Narrator: The crooked red door shimmers between the cat's lingering rows of ivory teeth, smelling faintly of sweet wine and catnip.
+* Step through the grin -> toll
+* [Performance DC 12] Tell the grin a joke -> joke_ok | joke_fail
+* Not yet -> END
+
+~ joke_ok
+Narrator: The wide mouth quivers at the punchline, lets out a wheezing giggle, and its sharp teeth go soft as tallow.
+set dream_laughed
+-> toll
+
+~ joke_fail
+Narrator: The disembodied mouth widens politely at your effort, though the fangs stay just as keen as before.
+-> toll
+
+~ toll
+if flag.dream_laughed
+Narrator: Still chuckling to itself, the grinning doorway forgets to snap shut as you slip across the threshold.
+set dream_laughed = false
+-> pass
+endif
+check Dexterity DC 17 -> pass | toll_hurt
+
+~ toll_hurt
+Narrator: The rows of teeth snap together as you dive through, catching at your cloak and flesh before you tumble out the other side.
+damage 2d10 slashing
+-> pass
+
+~ pass
+quest crooked_nightmare wedding_feast
+move nm_wedding

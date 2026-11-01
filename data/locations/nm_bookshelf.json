@@ -1,0 +1,197 @@
+{
+  "id": "nm_bookshelf",
+  "name": "The Shelf",
+  "region": "crooked_nightmare",
+  "summary": "The party, shrunk, on a shelf in the library: book spines for walls, a decanter the size of a tower, a cat's face at the open edge.",
+  "text": "You are the size of a thimble, on a shelf in the library, and every book is a wall. A decanter stands over you tall as a tower with a man in it up to his waist in rising liquor. Beyond the plank's open edge a cat's face the size of a barn is grinning.",
+  "map": {
+    "rows": [
+      "##########################",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "#........................#",
+      "                          "
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "shelf",
+      "name": "The shelf",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          24,
+          5
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      3,
+      4
+    ]
+  },
+  "exits": [],
+  "props": [
+    {
+      "id": "nm_shelf_arrive",
+      "cell": [
+        3,
+        4
+      ],
+      "kind": "decor",
+      "label": "The shelf",
+      "call": "nightmare/n5:shelf_start",
+      "approach": 12,
+      "call_when": "not flag.n5_started"
+    },
+    {
+      "id": "nm_shelf_decanter",
+      "cell": [
+        19,
+        3
+      ],
+      "kind": "examine",
+      "label": "A decanter the size of a tower",
+      "model": "jars",
+      "scale": 7.0,
+      "span": [
+        3,
+        3
+      ],
+      "dialogue": "nightmare/n5:hub",
+      "when": "not flag.nm_shelf_done"
+    },
+    {
+      "id": "nm_shelf_bookcase_a",
+      "cell": [
+        4,
+        1
+      ],
+      "kind": "decor",
+      "label": "A wall of book spines",
+      "model": "bookcase",
+      "scale": 3.0
+    },
+    {
+      "id": "nm_shelf_bookcase_b",
+      "cell": [
+        10,
+        1
+      ],
+      "kind": "decor",
+      "label": "A wall of book spines",
+      "model": "bookcase",
+      "scale": 3.0
+    },
+    {
+      "id": "nm_shelf_stack",
+      "cell": [
+        8,
+        3
+      ],
+      "kind": "decor",
+      "label": "A book, lying on its back like a hill",
+      "model": "book_stack",
+      "scale": 3.0
+    },
+    {
+      "id": "nm_shelf_dust",
+      "cell": [
+        13,
+        3
+      ],
+      "kind": "decor",
+      "label": "Dust, like snow",
+      "model": "cobwebs"
+    },
+    {
+      "id": "nm_shelf_voices",
+      "cell": [
+        14,
+        4
+      ],
+      "kind": "decor",
+      "label": "Glass thimbles, humming",
+      "model": "sill_cups",
+      "call": "nightmare/voices:start",
+      "approach": 8,
+      "call_when": "flag.nm_voices_dropped and not flag.nm_voices_listened",
+      "when": "flag.nm_voices_dropped"
+    },
+    {
+      "id": "nm_shelf_door",
+      "cell": [
+        12,
+        5
+      ],
+      "kind": "examine",
+      "label": "A crooked door in the cat's grin",
+      "model": "door",
+      "dialogue": "nightmare/n5:door",
+      "when": "flag.nm_shelf_done"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "walter_jenkin",
+      "cell": [
+        18,
+        5
+      ],
+      "dialogue": "nightmare/n5:hub",
+      "when": "not flag.nm_shelf_done",
+      "facing": "north"
+    },
+    {
+      "npc": "nm_golub",
+      "cell": [
+        21,
+        2
+      ],
+      "dialogue": "nightmare/n5:hub",
+      "when": "not flag.golub_struck",
+      "facing": "south"
+    },
+    {
+      "npc": "nm_wisp",
+      "cell": [
+        12,
+        5
+      ],
+      "dialogue": "nightmare/n5:hub",
+      "when": "not flag.nm_wisp_done",
+      "facing": "north"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "nm_wisp",
+      "trigger": "dialogue",
+      "flag": "nm_wisp_done",
+      "monsters": [
+        {
+          "monster": "wisp_nightmare",
+          "cell": [
+            13,
+            5
+          ],
+          "name": "Wisp, grinning",
+          "boss": true,
+          "facing": "north"
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "rest_text": "You cannot sleep inside a dream, and the dream will not let you stop. A short breath, then."
+}

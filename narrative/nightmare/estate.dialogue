@@ -1,0 +1,70 @@
+# Drafted by Gemini (R22 estate), edited.
+
+~ dani_start
+Narrator: A rough red dog barrels out of the writhing briars and bowls a small girl flat across the heaving porch steps. She stands, dusts the dry leaves from her skirt, and looks at you without a blink.
+dani_jenkin [neutral]: Mam and Da ran inside when the Druskenvalds started screaming. Then the gables bent back down, and the doors went wrong again.
+set nm_estate_met
+quest crooked_nightmare estate
+-> menu
+
+~ menu
+* Ask about the house -> house
+* Ask about the dog -> shuck
+* [Perception DC 17] Listen to the voices calling from inside -> voices_ok | voices_fail
+* Ask how to get them out -> plan
+* Tell her to wait here -> keep
+* [if not flag.danis_lantern_asked] Ask about the lantern at her feet -> dani_lantern:offer
+* Leave -> END
+
+~ house
+dani_jenkin [neutral]: The dead sisters are up in the attic, boiled into one bad thing. They've pulled Lady Adela's fever dreams through the rooms, and Mam, Da, and Lord Phillip are caught inside them.
+-> menu
+
+~ shuck
+Narrator: The red hound plants his ribs against her shins, hackles stiff, smelling of wet wool and old pond mud.
+dani_jenkin [neutral]: He knocks me down every time I reach for the brass latch. He doesn't want me crossing the threshold.
+* [Animal Handling DC 15] Read the dog's intent -> shuck_ok | shuck_fail
+* [Insight DC 15] Read the dog's face -> shuck_ok | shuck_fail
+* [knows:speak_with_animals] Speak with the red dog -> sally_voice
+* Back -> menu
+
+~ shuck_ok
+Narrator: There is no fear of the dark foyer in the hound's yellow eyes, only a fierce, trembling dread for the child. He keeps glancing up at the crooked attic window.
+dani_jenkin [neutral]: He knows what's stirring the pot up under the eaves. He thinks it has a place set for me.
+-> menu
+
+~ shuck_fail
+Narrator: The dog lets out a low, rattling whine and leans his whole heavy weight against her knees.
+-> menu
+
+~ sally_voice
+Narrator: The hound's eyes go pale as skimmed milk, and the smell of river reeds rises off his coat.
+sally_lockwood [sad]: Please make her stay on the boards, out in the cold. The thing in the rafters wants another little girl, and I cannot knock her down forever.
+set sally_heard
+-> menu
+
+~ voices_ok
+Narrator: Beneath the groan of warped timber, a dozen dry throats whisper through the keyhole, none of them kind and none of them known, all murmuring a name that slips your mind like cold water.
+dani_jenkin [neutral]: You hear them too. They've been practicing Mam's voice since the clock struck, but they haven't got the breath right yet.
+-> menu
+
+~ voices_fail
+Narrator: You hear only the moorland wind scraping dead ivy across the clapboards.
+dani_jenkin [neutral]: It's all right if your ears are thick. I can hear them well enough for all of us.
+-> menu
+
+~ plan
+dani_jenkin [neutral]: You cannot walk out of Lady Adela's sleep once you step through, the halls just turn you back around. Cut them loose inside, and I'll stay by the sill and pull them out in the blue mist.
+-> menu
+
+~ keep
+dani_jenkin [neutral]: All right. I'll mind the steps and keep the mist ready.
+Narrator: The red dog lets out a long breath and sits squarely on her boots, pinning her to the porch.
+set dani_kept_outside
+-> menu
+
+~ dani_again
+dani_jenkin [neutral]: The house is still dreaming. Mind the doors when you go through.
+* [if not flag.danis_lantern_asked] Ask about the lantern -> dani_lantern:offer
+* We are going in -> END
+* Leave -> END
