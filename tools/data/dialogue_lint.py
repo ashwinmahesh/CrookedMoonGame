@@ -75,6 +75,8 @@ RE_SACRIFICE = re.compile(r"^sacrifice$")
 # `leave_party <speaker|selector> becomes <monster>`: a hero leaves for good, changed (the monster must exist).
 # `afflict <id> <+n|-n|clear> [party]`: levels of an affliction (data/afflictions).
 RE_AFFLICT = re.compile(rf"^afflict\s+({ID})\s+(?:[+-]\d+|clear)(?:\s+party)?$")
+# `companion bond <monster> [<name>]` / `companion release`: the speaking hero's bonded companion (the monster must exist).
+RE_COMPANION = re.compile(rf"^companion\s+(?:bond\s+({ID})(?:\s+.+)?|release)$")
 RE_LEAVE_PARTY = re.compile(rf"^leave_party\s+(speaker|[a-z]+:[a-z0-9_]+)\s+becomes\s+({ID})$")
 RE_READING_GIVE = re.compile(r"^reading\s+give\s+([a-z][a-z0-9_]*(?::[a-z][a-z0-9_]*)?)$")
 RE_DARK_GIFT = re.compile(r"^dark_gift\s+([a-z][a-z0-9_]*)$")
@@ -376,6 +378,11 @@ def parse_file(path):
         m = RE_AFFLICT.match(line)
         if m:
             out.setdefault("afflictions", []).append((m.group(1), where))
+            continue
+        m = RE_COMPANION.match(line)
+        if m:
+            if m.group(1):
+                out.setdefault("becomes", []).append((m.group(1), where))   # a stat block it names, checked as leave_party's are
             continue
         m = RE_LEAVE_PARTY.match(line)
         if m:
