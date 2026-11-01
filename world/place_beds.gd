@@ -122,6 +122,27 @@ static func fight_sounds(combatants: Array[Combatant]) -> Array[String]:
 	return played
 
 
+## The motif a conversation's node plays as its first line shows (art/audio.json "node_sfx": "<file>:<node>" -> effect;
+## a node written "*_<end>" matches every node of that file ending so, one per reveler): the banjo when Raum hears his old
+## song, the bells when the revelers' tune is finished. "" with none, and none twice for the same node in a row (`last`,
+## the ref it played for last).
+static func node_sound(ref: String, last: String) -> String:
+	if ref == last or not ref.contains(":"):
+		return ""
+	var file := ref.get_slice(":", 0)
+	var node := ref.get_slice(":", 1)
+	var table := Audio._data.get("node_sfx", {}) as Dictionary
+	var id := str(table.get(ref, ""))
+	if id == "":
+		for key: String in table.keys():
+			if key.get_slice(":", 0) == file and key.get_slice(":", 1).begins_with("*") and node.ends_with(key.get_slice(":", 1).substr(1)):
+				id = str(table[key])
+				break
+	if id != "":
+		Audio.sfx(id, 0.0)
+	return id
+
+
 ## The effect a quest ending other than a failure plays (art/audio.json "quest_sfx": quest -> effect): a soft chime as a
 ## haint is laid to rest. "" with none.
 static func quest_sound(quest_id: String, ending: String) -> String:

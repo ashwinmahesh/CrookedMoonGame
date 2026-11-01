@@ -32,6 +32,7 @@ var _scene_mood := ""
 var _cutscene_mood := ""
 var _sound_hour := -1   ## the hour the place's music and bed were last chosen for (_turn_sound_with_the_hour)
 var _sound_camped := false   ## whether a camp stood when they were
+var _node_sfx_last := ""   ## the conversation node the last line came from (PlaceBeds.node_sound), so a motif plays once per node
 ## Banter that came while the Narrator was speaking; it plays a moment after the box clears (_process).
 var _banter_waiting: Array = []
 var _banter_quiet_since := -1   ## msec ticks since the box cleared, while banter waits
@@ -717,6 +718,7 @@ func start_dialogue(ref: String, _npc_id: String) -> void:
 	PlaceBeds.dialogue_sound(ref)   # the grille's crackle before the Vagrant speaks over it (art/audio.json "dialogue_sfx")
 	_talk_mood = ""
 	_scene_mood = ""
+	_node_sfx_last = ""
 	hud.visible = false
 	dialogue = DialogueUI.new()
 	add_child(dialogue)
@@ -733,6 +735,12 @@ func start_dialogue(ref: String, _npc_id: String) -> void:
 	dialogue.respec_requested.connect(respec)
 	dialogue.lead_requested.connect(_lead)
 	dialogue.spoke.connect(_talk_music)
+	dialogue.spoke.connect(func(_speaker_id: String) -> void:   # a song played or sung in the conversation (art/audio.json "node_sfx")
+		var r: DialogueRunner = dialogue.runner if is_instance_valid(dialogue) else null
+		if r != null and r.file != null:
+			var at := r.file.key + ":" + r.node
+			PlaceBeds.node_sound(at, _node_sfx_last)
+			_node_sfx_last = at)
 	dialogue.spoke.connect(func(speaker_id: String) -> void:
 		if view != null:
 			view.set_speaking(speaker_id)   # a place's lights follow whoever speaks (CampaignLook.refresh)

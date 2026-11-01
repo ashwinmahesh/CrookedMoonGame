@@ -122,3 +122,37 @@ func test_the_nightmare_the_festival_and_the_rookery() -> void:
 	var crooked: Array[Combatant] = [Combatant.new(Monster.from_data(Compendium.shared().get_entry("monsters", "crooked_man")), &"enemy", Vector2i.ZERO)]
 	assert_eq(Audio.fight_mood(crooked), "crooked_man", "the Crooked Man's own")
 	assert_eq(Audio.talk_mood("fools_day", "chuckles"), "dread", "Chuckles turns the carnival")
+
+
+func test_villains_of_later_chapters_have_their_own_boss_music() -> void:
+	for id: String in ["horned_king", "wicker_man", "tall_man", "dusk_mother", "barrow_king"]:
+		var foe: Array[Combatant] = [Combatant.new(Monster.from_data(Compendium.shared().get_entry("monsters", id)), &"enemy", Vector2i.ZERO)]
+		assert_eq(Audio.fight_mood(foe), id, "%s has its own" % id)
+		assert_true(Audio.entries("music", id).size() >= 2, "and it rotates")
+
+
+## Every node a node_sfx entry names (or, written "*_<end>", every node of its file ending so) exists.
+func test_songs_in_conversations_name_real_nodes() -> void:
+	var table := Audio._data.get("node_sfx", {}) as Dictionary
+	assert_false(table.is_empty(), "songs are wired")
+	for key: String in table.keys():
+		var f := DialogueFile.load_key(key.get_slice(":", 0))
+		assert_true(f != null, "%s is a dialogue file" % key)
+		if f == null:
+			continue
+		var node := key.get_slice(":", 1)
+		var found := f.nodes.has(node)
+		if node.begins_with("*"):
+			for n: String in f.nodes.keys():
+				found = found or n.ends_with(node.substr(1))
+		assert_true(found, "%s names a node" % key)
+		assert_false(Audio.files("sfx", str(table[key])).is_empty(), "%s's motif has a recording" % key)
+
+
+func test_a_song_plays_once_per_node() -> void:
+	assert_eq(PlaceBeds.node_sound("foxwillow/raum:sing", ""), "motif_banjo", "Raum hears his old song on the banjo")
+	assert_eq(PlaceBeds.node_sound("foxwillow/raum:sing", "foxwillow/raum:sing"), "", "not again for the node's next line")
+	assert_eq(PlaceBeds.node_sound("fools_day/reveler_bell:doris_squire_tune_ok", ""), "motif_hymn_bells", "a reveler's tune finished on bells")
+	assert_eq(PlaceBeds.node_sound("fools_day/reveler_bell:doris_squire_tune_banjo", ""), "motif_banjo", "or on Jericho's banjo")
+	assert_eq(PlaceBeds.node_sound("fools_day/reveler_bell:doris_squire_menu", ""), "", "a plain node plays nothing")
+	assert_false(Compendium.shared().get_entry("spells", "tashas_hideous_laughter").is_empty(), "the Lord of Fools' laughter is a real spell")
