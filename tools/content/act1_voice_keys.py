@@ -30,6 +30,11 @@ def key(text: str) -> str:
 def spoken_lines():
     """(speaker, text, file, line number) for every line the game can speak."""
     files = sorted(glob.glob(str(ROOT / ("narrative/%s/*.dialogue" % REGION)))) + [str(ROOT / ("narrative/narrator/%s.dialogue" % REGION))]
+    yield from lines_in(files)
+
+
+def lines_in(files):
+    """(speaker, text, file, line number) for every spoken line in these dialogue files (tools/content/wire_voice.py reads them all)."""
     for f in files:
         narrator_file = "/narrator/" in f
         for n, line in enumerate(open(f, encoding="utf-8"), 1):
