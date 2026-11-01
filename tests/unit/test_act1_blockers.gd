@@ -136,3 +136,32 @@ func test_the_lamps_call_only_when_the_vagrant_has_something_to_say() -> void:
 			assert_false(StoryConditions.check(when, st), "%s: said already" % prop["id"])
 			st.flags.erase("haints_resolved")
 			st.flags.erase("gl_checkin_first")
+
+
+# --- Death on the train ---------------------------------------------------------------------------------------------
+
+func test_whoever_falls_in_a_won_fight_on_the_train_gets_up_with_1_hit_point() -> void:
+	var st := _party(1)
+	st.party[0].dead = true
+	st.party[0].hp = 0
+	st.party[1].hp = 0
+	st.party[1].stable = true
+	var rule := FightRetry.rule_for({"id": "gl_phantom_strikes"}, "ghostlight_g1_passenger")
+	var rose := FightRetry.raise_fallen(st, rule)
+	assert_eq(rose.size(), 2)
+	assert_false(st.party[0].dead, "the dead rise")
+	assert_eq(st.party[0].hp, 1)
+	assert_eq(st.party[1].hp, 1, "the stable get up")
+	assert_eq(st.party[2].hp, st.party[2].max_hp(), "the rest are as they were")
+	for car in CARS:
+		for en: Variant in Compendium.shared().get_entry("locations", car).get("encounters", []):
+			assert_true(bool(FightRetry.rule_for(en as Dictionary, car).get("rise_after_win", false)), "%s in %s" % [(en as Dictionary)["id"], car])
+	assert_true(bool(FightRetry.rule_for({"id": "gl_locomotive"}, "ghostlight_wreckage").get("rise_after_win", false)))
+
+
+func test_off_the_train_the_fallen_stay_fallen() -> void:
+	var st := _party(1)
+	st.party[0].dead = true
+	assert_true(FightRetry.raise_fallen(st, FightRetry.rule_for({"id": "ch_clock"}, "crooked_house_second")).is_empty())
+	assert_true(FightRetry.raise_fallen(st, {}).is_empty())
+	assert_true(st.party[0].dead)
