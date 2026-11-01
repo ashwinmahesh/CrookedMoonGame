@@ -57,6 +57,16 @@ func enter(location_id: String) -> void:
 	_fade(_current, Audio.level_db(next), false)
 
 
+## The effects a cutscene's picture brings as it shows (art/audio.json "scene_sfx": cutscene id -> effect ids): the
+## train's whistle as it pulls in, the punch on the ticket, the crash. Returns the ids it played.
+static func scene_sounds(cutscene_id: String) -> Array[String]:
+	var played: Array[String] = []
+	for id: Variant in (Audio._data.get("scene_sfx", {}) as Dictionary).get(cutscene_id, []):
+		Audio.sfx(str(id), 0.0)
+		played.append(str(id))
+	return played
+
+
 ## Fades the bed out (a fight's music over a quiet car keeps it; the title screen does not).
 func stop() -> void:
 	bed_id = ""

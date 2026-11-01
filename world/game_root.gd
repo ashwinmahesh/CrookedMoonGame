@@ -773,7 +773,7 @@ func _talk_music(speaker_id: String) -> void:
 ## the vineyard) plays it from its picture to the conversation's end, over any speaker's; _dialogue_ended brings the
 ## place's own back.
 func _scene_music(cutscene_id: String) -> void:
-	scene_sounds(cutscene_id)
+	PlaceBeds.scene_sounds(cutscene_id)
 	var m := Audio.scene_mood(cutscene_id)
 	if m == "camp":
 		m = _place_mood()   # "back to the camp" is the camp's own music, which turns warm once the festival is over
@@ -1504,21 +1504,11 @@ func play_item_conversation(ref: String, after: String = "") -> bool:
 ## A place cutscene's picture with its own music (art/audio.json "place_scenes", as a conversation's "scenes": _scene_music)
 ## plays until the cutscene closes; play_cutscene brings the place's own back.
 func _cutscene_music(cutscene_id: String) -> void:
-	scene_sounds(cutscene_id)
+	PlaceBeds.scene_sounds(cutscene_id)
 	var m := Audio.place_scene_mood(cutscene_id)
 	if m != "":
 		_cutscene_mood = m
 		Audio.play_music(m)
-
-
-## The effects a cutscene's picture brings as it shows (art/audio.json "scene_sfx": cutscene id -> effect ids): the
-## train's whistle as it pulls in, the punch on the ticket, the crash. Returns the ids it played.
-static func scene_sounds(cutscene_id: String) -> Array[String]:
-	var played: Array[String] = []
-	for id: Variant in (Audio._data.get("scene_sfx", {}) as Dictionary).get(cutscene_id, []):
-		Audio.sfx(str(id), 0.0)
-		played.append(str(id))
-	return played
 
 
 ## Plays a Narrator trigger here (rests, dreams). Returns the line, or "".
