@@ -3,7 +3,7 @@ extends TestCase
 ## one opens, stands as tall as its creature is drawn, has the clips the game plays (Tripo's combat set: a run, a hit and
 ## a fall too), and its attack window lies inside its swing; the companions wear theirs as their own art, and the Vagrant
 ## and the Druskenvalds wear theirs as people. The monsters' entries (a `sprite` fallback worn until Tripo delivers the model, a
-## `base` body a dressing would lie over, a `ghost` look) are listed before their models exist: the checks on them hold with
+## `base` body for the haint dressings, a `ghost` look) are listed before their models exist: the checks on them hold with
 ## or without the file, and the model checks run on the ones whose file is in the repo.
 
 const QUADRUPEDS: Array[String] = ["barnaby"]

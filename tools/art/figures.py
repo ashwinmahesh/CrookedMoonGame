@@ -121,7 +121,27 @@ def albedo_of(src: Path, dst: Path, max_px: int) -> str:
             image = jpg.read_bytes()
     dst.parent.mkdir(parents=True, exist_ok=True)
     dst.write_bytes(image)
+    paint_import(dst)
     return f'{dst.relative_to(REPO)}: {len(image) / 1e6:.1f} MB from {src.name}'
+
+
+# A picture on its own imports as a flat 2D texture; a dressing's paint is drawn on a model, so it imports as the
+# textures Godot takes out of a GLB do: compressed for the GPU, with mipmaps (the figure shader filters with them).
+PAINT_IMPORT = {'compress/mode': '2', 'mipmaps/generate': 'true', 'detect_3d/compress_to': '0'}
+
+
+def paint_import(dst: Path) -> None:
+    imp = dst.with_name(dst.name + '.import')
+    if not imp.exists():
+        imp.write_text('[remap]\n\nimporter="texture"\ntype="CompressedTexture2D"\n\n[params]\n\n'
+                       + ''.join(f'{k}={v}\n' for k, v in PAINT_IMPORT.items()))
+        return
+    lines = imp.read_text().split('\n')
+    for i, line in enumerate(lines):
+        key = line.split('=', 1)[0]
+        if key in PAINT_IMPORT:
+            lines[i] = f'{key}={PAINT_IMPORT[key]}'
+    imp.write_text('\n'.join(lines))
 
 
 def plain_clip_name(name: str) -> str:
