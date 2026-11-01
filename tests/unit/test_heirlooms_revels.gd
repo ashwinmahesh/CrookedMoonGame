@@ -113,18 +113,18 @@ func test_the_birdcage_catches_a_bloodied_fiend_and_eats_it() -> void:
 	assert_eq(e.items.power_why(hero, capture), "No Bloodied fiend within 30 ft")
 	foe.creature.hp = 20
 	assert_eq(e.items.power_why(hero, capture), "")
-	for i in 20:
-		if str(foe.get_meta("left_fight", "")) == "vanish":
-			break
-		hero.action_available = true
-		assert_true(e.items.use(hero, "amber_birdcage", "capture", [foe]).ok)
-	assert_eq(str(foe.get_meta("left_fight", "")), "vanish", "caught in the cage (Charisma 1 fails DC 15 on all but a 20)")
+	TestCombat.foe(e, "zombie", Vector2i(10, 6))   # a second foe keeps the fight going once the fiend is caught
+	TestCombat.next_d20(e, 5)
+	var r := e.items.use(hero, "amber_birdcage", "capture", [foe])
+	assert_true(r.ok, r.reason)
+	assert_eq(str(foe.get_meta("left_fight", "")), "vanish", "caught in the cage (Charisma 1, a 5 on the d20)")
 	var entry := (hero.creature as Character).entry_of("amber_birdcage")
 	assert_eq((entry.get(CmHeirloomsRevels.BIRDS, []) as Array).size(), 1)
 	assert_eq(int(entry.get(CmHeirloomsRevels.CAGE_CURSE, 0)), 1, "the curse grows")
 	hero.action_available = true
 	var thp := hero.creature.temp_hp
-	assert_true(e.items.use(hero, "amber_birdcage", "eat").ok)
+	var r2 := e.items.use(hero, "amber_birdcage", "eat")
+	assert_true(r2.ok, r2.reason)
 	assert_true((entry.get(CmHeirloomsRevels.BIRDS, []) as Array).is_empty())
 	assert_true(hero.creature.temp_hp > thp, "a CR 1 fiend: no slot of level 0, so Temporary Hit Points")
 	assert_eq(int(entry.get(CmHeirloomsRevels.CAGE_CURSE, 0)), 2)
