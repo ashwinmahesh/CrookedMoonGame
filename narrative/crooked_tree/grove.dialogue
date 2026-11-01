@@ -1,0 +1,69 @@
+# Drafted by Gemini (R24 grove), edited.
+
+~ grove_start
+Narrator: The crooked pines knit their boughs together behind your backs with a sound like dry knuckles cracking. Ahead, in an all too neat circle of trunks, pale women in white linen kneel in the black loam, scratching at the roots.
+set ct_grove_started
+-> END
+
+~ rowan
+ct_false_rowan [afraid]: Please, you have hands that haven't bled yet, come help me dig. My name is Rowan, and I've dropped my gold locket down among the roots where the dark takes everything.
+* [Insight DC 18] See through her -> rowan_seen | rowan_f
+* Listen to her tale -> rowan_tale
+* Walk past, out of reach -> rowan_pass
+* Step closer -> rowan_close
+
+~ rowan_seen
+Narrator: Her chest never rises, and her dirt-caked fingers move in time with the slow, sap-heavy creak of the trunk behind her. The girl is only a soft bait dangling from a very hungry fishing line.
+-> rowan
+
+~ rowan_f
+Narrator: A single tear tracks through the peat on her cheek, and she shivers with a cold that looks entirely human.
+ct_false_rowan [sad]: It has her hair inside it, braided with mine. Don't leave me digging in the cold alone.
+-> rowan
+
+~ rowan_tale
+ct_false_rowan [sad]: Once I was the Green Queen's dearest heart, before she learned how mortal love turns sour in the mouth. Everything she cherished became the knife that carved her, and still I kept her token.
+ct_false_rowan [smile]: It's just under this root, I swear it. Give me your warm hand and pull.
+-> rowan
+
+~ rowan_pass
+Narrator: You keep a wide berth of the white hem and the waiting roots, though her head turns after you further than a neck ought to go.
+-> END
+
+~ rowan_close
+ct_false_rowan [angry]: Too close, sweet meat. The boughs have been thirsty all night.
+Narrator: The pale face splits down the seam of the nose like wet bark, and the great timber behind her uncurls its limbs.
+combat ct_maidenwood
+
+~ centre
+if flag.ct_maidenwood_done
+-> centre_clear
+endif
+Narrator: The turf in the middle of the ring smells of crushed lily and sweet rot, and a low hum tugs at the back of your teeth, bidding you go comfort the weeping girls.
+* Cross the centre, quickly -> centre_cross
+* Go round the edge, out of the centre -> centre_edge
+* Back off -> END
+
+~ centre_cross
+Narrator: You set your boots onto the mossy heart of the ring, where the air hangs thick as honey.
+check Wisdom DC 16 -> centre_ok | centre_charmed
+
+~ centre_edge
+Narrator: You pick your way between the outer stones and the reach of the weeping figures, slow and careful, where the sweet hum is only a draught in the pines.
+-> centre_clear
+
+~ centre_ok
+Narrator: The sorrow in the soil tugs at your sleeves like a child begging, but you keep your eyes on the northern trees and walk on through.
+-> centre_clear
+
+~ centre_charmed
+Narrator: {name}'s eyes go glassy with borrowed grief, feet already drifting toward the nearest white gown and the roots that wait behind her.
+ct_false_rowan [sly]: That's it, darling. Lay your head right down in the loam.
+damage 1d10 psychic
+combat ct_maidenwood
+
+~ centre_clear
+Narrator: On the north side of the ring, the braided branches groan and part around a narrow goat track climbing into the dark.
+set ct_grove_done
+quest the_crooked_tree tracking_phillip
+-> END

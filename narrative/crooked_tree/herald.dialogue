@@ -1,0 +1,49 @@
+# Drafted by Gemini (R24 herald), edited.
+
+~ start
+quest heralds_terms reading
+Narrator: A little creature of dry birch twigs and damp green moss bows low upon the grass before the Born King's vast shadow, unrolling a strip of birch-bark scroll.
+ct_herald [neutral]: And thus, having been duly trampled, devoured, and unmade, let the losers make no further claim upon this mound, amen and good night.
+ct_herald [afraid]: Wait. That is the bottom leaf. Forgive me, the sap is still sticky on the margins.
+ct_herald [neutral]: Should either party step beyond the ring of roots, their marrow forfeits to the boughs above, prior to which all blades must be bared in sight of the skull.
+ct_herald [weary]: Therefore, Hear Ye, Hear Ye, the Born King greets you at the threshold of the Barrow to settle the matter of your trespassing breaths.
+* Offer to put the pages in order -> sort
+* [ends:heralds_terms] Hear the rest -> garbled
+* [ends:heralds_terms] Tell him to stop and let us begin -> stop
+
+~ sort
+ct_herald [afraid]: You would do that? The wind under these pines has no respect for proper filing, and His Majesty is terribly particular about protocol.
+* [Investigation DC 12] Look for the page numbers -> sorted | sort_f
+* Just read the pages aloud together -> sorted
+
+~ sort_f
+Narrator: The corners of the bark strips are notched with crooked tally marks of hare-teeth and pine needles that follow no mortal arithmetic.
+ct_herald [sad]: Those are old wood-reckonings, I am afraid. Six comes before two if the moon is waning.
+-> sort
+
+~ sorted
+Narrator: Laying the birch-bark strips side by side along the frost-bitten grass, you match the torn grain of the wood until the scroll reads from crown to root.
+ct_herald [smile]: Oh, splendid. Hear Ye, Hear Ye: the Born King challenges the four strangers upon the Barrow mound, within the ring of pine roots, until one side yields its breath.
+ct_herald [neutral]: The wager is safe passage to the Crooked Tree against the unmaking of your names, names and marrow alike. There. A proper proclamation at last.
+quest heralds_terms sorted
+set ct_herald_done
+-> crooked_tree/king:emerge
+
+~ garbled
+ct_herald [neutral]: Furthermore, before any blow is struck, the victor shall have already claimed the fallen, who by standing here agree they have not yet arrived. So witnessed.
+Narrator: He taps the birch bark neatly against his mossy knee, quite pleased with the ceremony, while the great horned shadow behind him never stirs.
+quest heralds_terms garbled
+set ct_herald_done
+-> crooked_tree/king:emerge
+
+~ stop
+ct_herald [sad]: Oh. Very well. I spent three hours pressing these leaves flat under a stone, you know, and nobody ever stays for the preamble.
+Narrator: He rolls the bark scroll up with a dry rustle and tucks it beneath his twiggy arm, stepping neatly clear of the grass.
+quest heralds_terms garbled
+set ct_herald_done
+-> crooked_tree/king:emerge
+
+~ again
+ct_herald [neutral]: The Born King is ready, whenever you are. I have the scroll in the right order, now.
+* We are ready -> crooked_tree/king:emerge
+* Not yet -> END

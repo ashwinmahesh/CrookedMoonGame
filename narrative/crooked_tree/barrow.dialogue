@@ -1,0 +1,157 @@
+# Drafted by Gemini (R24 barrow), edited.
+
+~ mouth
+Narrator: A narrow gap opens beneath the twisted roots, breathing out warm, loamy air tinged with campfire smoke and old sap. Anything taller than a badger will have to go in on hands and knees.
+* Crawl in -> mouth_in
+* Not yet -> END
+
+~ mouth_in
+Narrator: You drop to the cold dirt and worm your way down through the clutching roots into the red glow below.
+move ct_barrow
+-> END
+
+~ arrive
+Narrator: Knotted roots choke the earthen chamber, cradling a colossal, moss-furred skeleton against the far wall where phantom embers flicker with the shapes of slaughtered fey. In the center kneels Phillip Druskenvald, pinned and groaning as thick black boughs slowly crush the breath from his ribs.
+set ct_barrow_entered
+quest the_crooked_tree six_horns_his_crown
+quest the_barrows_side heard
+-> END
+
+~ kehlenn
+Narrator: Every root in the ceiling creaks at once, and a voice like splitting timber rasps from the earth itself.
+kehlenn [angry]: Look upon the thief kneeling in my soil. He built his parlor over my bones and drank my rivers until he forgot my name, and now all he loved is mine to unmake.
+phillip_druskenvald [weary]: Adela, my darling, the dark is awfully loud tonight. Wait for me by the hearth, I am nearly home.
+kehlenn [neutral]: You four have walked through blood and ash to reach my threshold. Speak quickly, before the wood finishes with him.
+* Ask for her story -> story
+* Argue with her -> argue
+* [Arcana DC 17] Study Phillip: is he beyond saving? -> beyond | beyond_f
+* We refuse you -> refuse
+* [if flag.ct_kehlenn_story] We will take your side -> side_1
+* Try to free Phillip -> free_try
+* We are done here -> leave
+
+~ story
+kehlenn [weary]: Before the first stone was squared, I wove this night from my own marrow. I was the Green Queen, and the moors, the rivers, and the bright fey courts sang in my branches.
+kehlenn [angry]: Then came this pale lord from a dying world, begging shelter in the dark. I gave him soil and sanctuary, and he repaid me with iron axes and cold masonry.
+kehlenn [sad]: His people cut down my groves and butchered my children to clear their tidy roads. They carved my likeness into tavern signs while my true name rotted out of their prayers.
+kehlenn [angry]: They buried me alive beneath their peaceful little villages and called it civilization. Even when I whispered to the lonely and the broken, they burned my faithful on the moor.
+kehlenn [sly]: Then grief cracked the thief wide open, and he opened the door himself. He begged the old roots to give back his wife, so I took the debtor in her stead.
+kehlenn [neutral]: I will tear down every timber and unmake every thinking soul in Druskenvald. They will be born again from my boughs, crooked and wild, and they will never forget me.
+set ct_kehlenn_story
+quest the_barrows_side listened
+-> kehlenn
+
+~ argue
+kehlenn [weary]: Spare me your small mortal arithmetic of who is innocent and who is guilty. Every breath drawn in this valley was stolen from my lungs, and the debt is due in full.
+quest the_barrows_side argued
+-> kehlenn
+
+~ beyond
+Narrator: You trace the weave of sap and shadow binding the lord and see the truth in the grain. The roots have grown through marrow and spirit alike: nothing mortal can untangle him now, and pulling at those boughs will only tear your own flesh.
+-> kehlenn
+
+~ beyond_f
+Narrator: The amber light and shifting roots blur together before your eyes. You cannot tell where the man ends and the ancient wood begins.
+-> kehlenn
+
+~ refuse
+kehlenn [neutral]: Of course you refuse. The parasites always defend the host until the fire takes them both.
+quest the_barrows_side refused
+-> kehlenn
+
+~ free_try
+Narrator: {name} reaches into the tangle to wrench the boughs apart, and the whole barrow clenches like a fist. A wave of unseen force lashes back while the rootsgrind tighter around Phillip's ribs.
+phillip_druskenvald [afraid]: Do not touch the curtains, Adela, there are thorns in the velvet. Oh, lord, it hurts to breathe.
+damage 1d6 force
+-> kehlenn
+
+~ side_1
+Narrator: The rasping wood falls quiet for a heartbeat, leaving only the crackle of the phantom hearth and Phillip's ragged breathing. Are you certain of this path, knowing she will unmake every living soul in the Hollow?
+* Yes, we will help her -> side_2
+* No, we are not -> kehlenn
+
+~ side_2
+Narrator: There is no turning back once you bow your heads in this dark earth, and the tale you came to tell ends right here. Will you truly give the realm over to her roots?
+* Yes. We kneel to the Crooked Queen -> side_done
+* No. Not that -> kehlenn
+
+~ side_done
+kehlenn [smile]: Wise little branches, bending before the storm breaks you. Kneel in the loam and watch the old world split apart.
+Narrator: The roots rise around you like a dark tide, bursting upward through moor and cobble until every lantern in the Hollow goes out and only the crooked woods remain.
+set kehlenn_sided
+quest the_barrows_side sided
+quest the_crooked_tree crooked_rebirth
+end_game
+-> END
+
+~ leave
+Narrator: You turn toward the mouth of the barrow, and the cold earth under your boots shudders like a waking beast.
+cutscene ct_druskenvald_kneels
+Narrator: Black roots surge up in a tangling tide, crawling over the kneeling lord until only his trembling hands show through the bark.
+cutscene ct_druskenvald_kneels_2
+phillip_druskenvald [sad]: Adela. My dear, I am so sorry.
+Narrator: The ceiling splits with a sound like a felled pine, and the roots haul him upward as his cry curdles into a long, brassy bleat.
+cutscene ct_druskenvald_kneels_3
+Narrator: Above the broken roof, the great trunk of the Crooked Tree swells and splits, unfolding wet leathery wings and a crown of six black horns.
+cutscene end
+check Dexterity DC 17 -> leave_ok | leave_hit
+
+~ leave_ok
+Narrator: You throw yourselves flat against the dry dirt just as a rain of stones and snapped roots crashes down where you stood.
+-> leave_end
+
+~ leave_hit
+Narrator: The falling earth and whipping roots catch you full in the chest, hurling you hard against the barrow floor.
+damage 2d10 force party
+-> leave_end
+
+~ leave_end
+set ct_phillip_taken
+set ct_barrow_leaving
+quest the_crooked_tree born_king
+move ct_crooked_tree:from_barrow
+
+~ phillip
+Narrator: Lord Druskenvald kneels in the cage of roots, his fine coat torn and his breath rattling like dry leaves in a grate.
+phillip_druskenvald [weary]: The white towers by the water, all of it built on her bones. I swore I would remember, Adela, I swore it, and then the centuries wore it thin.
+* Speak to him gently -> phillip_gentle
+* Try to free him -> free_try2
+* Leave him -> END
+
+~ phillip_gentle
+Narrator: His pale eyes roll toward the sound of your voice, clouded and blind to anything in this dark room.
+phillip_druskenvald [sad]: Adela? Put your shawl on, my darling, the wind off the moor has a terrible bite tonight.
+-> phillip
+
+~ free_try2
+Narrator: The moment your fingers touch the wood, the roots lash back like iron springs and crush his ribs tighter.
+damage 1d6 force
+phillip_druskenvald [afraid]: Leave it, please, every pull only feeds the boughs.
+-> phillip
+
+~ trophies
+Narrator: The damp wall roots cradle everything the woods have stolen from you: an oval portrait of a young woman, a wooden toy deer, a tarnished silver posy ring.
+Narrator: Beside them hang stranger keepsakes tangled in the bark, a jar of human teeth, a bird's nest woven from hair, and a carved hypnovulfen figure.
+kehlenn [sly]: The soil remembers every trinket dropped in the dark. Take your little scraps of memory, if you think they will warm you.
+quest lost_and_found seen
+* Take back what was ours -> trophies_take
+* [ends:lost_and_found] Leave it all in the roots -> trophies_left
+
+~ trophies_take
+Narrator: You pry your lost belongings from the flexing roots, brushing the cold grave-loam from wood, glass, and tarnished silver.
+kehlenn [weary]: Clutch your keepsakes tight, little mortals. Soon enough, even the hands that hold them will belong to the bough.
+give rowans_sister_portrait
+give wooden_toy_deer
+give posy_ring
+give jar_of_teeth
+give birds_nest_of_hair
+give hypnovulfen_figure
+set ct_trophies_taken
+quest lost_and_found taken
+-> END
+
+~ trophies_left
+Narrator: You turn your backs on the tangled wall, leaving the portrait, the ring, and the old curiosities for the hungry earth to keep.
+kehlenn [smile]: Wise of you to travel light. The dead have no pockets once the roots take hold.
+quest lost_and_found left
+-> END

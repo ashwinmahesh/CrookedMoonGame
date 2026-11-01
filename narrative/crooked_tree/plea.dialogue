@@ -1,0 +1,36 @@
+# Drafted by Gemini (R24 plea), edited.
+
+~ start
+quest phillips_plea heard
+Narrator: The blackened goat skull rests among the torn roots, cold as river stone, yet the voice rising from its hollow bone is gentle and entirely clear.
+ct_phillip_spirit [sad]: I cannot undo the ruin my grief has wrought upon this valley. Adela has shown me how to bind the Queen, though the price falls upon you, and I shall not pretend otherwise.
+* We will do it -> yes
+* What do you need from us? -> need
+* What will it cost us? -> cost
+* We cannot -> no
+* Say nothing -> silence
+
+~ need
+ct_phillip_spirit [weary]: Each of you must lay a hand upon this bone and surrender something that truly matters to your soul. Once the weight is given, the rest of the work belongs to Adela.
+-> start
+
+~ cost
+ct_phillip_spirit [sad]: It demands whatever each of you holds dearest in this life or the one before, and once given, it is gone forever. I am more sorry than a dead man has any right to be.
+-> start
+
+~ no
+Narrator: A long hush settles over the mound, broken only by the dry clatter of wooden idols in the pines.
+ct_phillip_spirit [weary]: I understand, truly, for I have already asked far too much of strangers. Still, I beg you to consider what awaits this realm if the roots take hold.
+-> start
+
+~ yes
+ct_phillip_spirit [sad]: You honour my house, and you honour her memory far better than I ever managed. May the road beyond this night be kinder to you all.
+quest phillips_plea answered
+set ct_plea_done
+-> END
+
+~ silence
+Narrator: You offer no word to the hollow bone, and after a long, patient while, the faint warmth within its sockets fades into the cold dark.
+quest phillips_plea silence
+set ct_plea_done
+-> END

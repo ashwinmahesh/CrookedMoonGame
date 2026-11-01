@@ -1,0 +1,138 @@
+# Drafted by Gemini (R24 suite), edited.
+
+~ door
+Narrator: The heavy oak door to the master suite is bolted from within, and the bitter smell of tallow and scorched bone seeps through the keyhole.
+* [Sleight of Hand DC 15] Pick the lock -> open | door_slip
+* [Athletics DC 15] Force the door -> open | door_slip
+* [if flag.ct_has_key] Use the spare key from behind the bar -> open
+* [Investigation DC 15] Search the landing for where a spare key hangs -> key_found | door_slip
+* Ask Jean or Siv downstairs -> door_ask
+* Leave -> END
+
+~ door_slip
+Narrator: The old timber groans and sheds a dry splinter, but the iron latch holds fast in its socket.
+-> door
+
+~ door_ask
+Narrator: Down at the bar, Jean or Siv will surely know where old Alda kept her spare key hanging.
+-> door
+
+~ key_found
+Narrator: Behind a loose wainscot board near the floor, your fingers brush a cold iron key hanging on a bent nail.
+set ct_has_key
+-> open
+
+~ open
+Narrator: The heavy lock turns with a dry click, and the oak door swings inward on sour, smoky air.
+set ct_suite_open
+-> END
+
+~ arrive
+Narrator: You step into the wreckage of the suite, where furniture lies shoved against the walls around a circle gouged into the floorboards and ringed with guttered candle stubs.
+cutscene ct_failed_rite
+Narrator: In the center of the gouged runes lie Lady Adela's blackened bones, still warm with the memory of the moorland fire.
+cutscene end
+set ct_suite_seen
+-> END
+
+~ circle
+Narrator: A jagged ring of Old Ways runes encircles the small heap of charred bone and cold tallow.
+* [Arcana DC 15] Read the circle -> circle_ok | circle_f
+* [if not flag.ct_planchette_taken and (flag.tarot_hero_1 == "the_lovers" or flag.tarot_hero_2 == "the_lovers" or flag.tarot_hero_3 == "the_lovers" or flag.tarot_hero_4 == "the_lovers")] Look for what Adela wore -> planchette
+* Leave the bones be -> END
+
+~ circle_ok
+Narrator: This is a calling-back circle, hacked into the pine by a shaking, unpracticed hand that cut the ward backward. Instead of drawing Adela home, it threw open the door of Phillip's grieving mind and let the Crooked Queen step inside.
+-> circle
+
+~ circle_f
+Narrator: Soot and spilled tallow blur the knife marks until they are only crooked scratches in the wood, and grief is a hard language to read.
+-> circle
+
+~ planchette
+Narrator: Half buried in the grey ash lies a delicate planchette of bone and silver on a fine chain, answering the old draw of the Lovers.
+give adelas_planchette
+set ct_planchette_taken
+-> circle
+
+~ desk
+Narrator: A calligrapher's tray of brass nibs and dried ink sits beside a leather-bound ledger on the writing desk.
+* Take the calligrapher's tools -> desk_tools
+* Read the ledger -> desk_ledger
+* Leave -> END
+
+~ desk_tools
+give calligraphers_set
+Narrator: You pack the nibs, brushes, and stoppered inkhorn into your satchel.
+-> desk
+
+~ desk_ledger
+Narrator: Alda's neat, upright hand records every coin owed by travellers and villagers alike, alongside quiet notes on those who kept the antlered hare.
+give ledger_of_debts
+set ct_ledger_taken
+-> desk
+
+~ jewels
+give hare_earrings
+give copper_rings
+set ct_jewels_taken
+Narrator: Inside the velvet-lined box lie a pair of silver earrings shaped like leaping hares and three plain copper bands.
+-> END
+
+~ box
+Narrator: A heavy iron strongbox rests in the bottom of the dresser, its keyhole scratched and stubborn.
+* [Sleight of Hand DC 20] Pick it -> box_open | box_stuck
+* [Athletics DC 20] Break it open -> box_open | box_stuck
+* Leave it -> END
+
+~ box_stuck
+Narrator: The heavy iron refuses to yield, though the lock takes no harm from the attempt.
+-> box
+
+~ box_open
+Narrator: The lid springs back on a neat stack of gold coin and a folded testament in Alda Farnum's hand, leaving the inn and all its goods to Marianna Grey.
+set ct_box_open
+gold +242
+give alda_will
+quest alda_will found
+quest alda_will have
+-> END
+
+~ grimoire
+Narrator: Alda's Grimoire of the Old Ways lies splayed open at a blood-smudged rite, its margins crowded with Phillip's shaking script.
+* Read the margin notes -> grimoire_notes
+* [Arcana DC 15] Study the rite itself -> grimoire_ok | grimoire_f
+* Take the book -> grimoire_take
+* Leave -> END
+
+~ grimoire_notes
+phillip_druskenvald [sad]: Adela, my darling, wait for me. I broke my word before the red towers fell, and the dark took your name.
+phillip_druskenvald [afraid]: I must not forget again. If the earth will not give you back, I will ask the roots themselves.
+phillip_druskenvald [weary]: The candles are out, yet someone is speaking through the floor. She says she has her.
+-> grimoire
+
+~ grimoire_ok
+Narrator: The verses petition the dark queen of the roots to release a soul from her keeping, though the fine script warns that the petitioner's own mind is the toll.
+-> grimoire
+
+~ grimoire_f
+Narrator: The cramped runes seem to crawl across the vellum in the candlelight, showing only that the caster worked in frantic haste.
+-> grimoire
+
+~ grimoire_take
+Narrator: You close the heavy leather boards and stow the grimoire away.
+give grimoire_old_ways
+set ct_grimoire_read
+-> END
+
+~ parchment
+Narrator: A tear-stained sheet of parchment bears a charcoal sketch of a crooked tree atop a barrow mound, and words scratched hard enough to tear the page.
+give crooked_tree_parchment
+set ct_parchment_read
+set wytchwood_open
+cutscene ct_failed_rite_2
+phillip_druskenvald [afraid]: The Crooked Queen holds Adela's soul beneath the Crooked Tree, deep in the Wytchwood.
+cutscene end
+quest the_crooked_tree into_the_wytchwood
+Narrator: The trail leads two nights north over the dark moors, straight into the pines of the Wytchwood.
+-> END

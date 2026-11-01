@@ -181,7 +181,7 @@
       "kind": "examine",
       "label": "The Crooked Tree, burning",
       "model": "brazier",
-      "dialogue": "crooked_tree/ritual:aftermath",
+      "dialogue": "crooked_tree/king:tree_burnt",
       "scale": 3.0,
       "when": "flag.ct_tree_burned"
     },
@@ -283,8 +283,18 @@
         16,
         24
       ],
-      "dialogue": "crooked_tree/king:herald",
-      "when": "flag.ct_phillip_taken and not flag.horned_king_destroyed",
+      "dialogue": "crooked_tree/herald:start",
+      "when": "flag.ct_phillip_taken and not flag.ct_herald_done and not flag.horned_king_destroyed",
+      "facing": "south"
+    },
+    {
+      "npc": "ct_herald",
+      "cell": [
+        16,
+        24
+      ],
+      "dialogue": "crooked_tree/herald:again",
+      "when": "flag.ct_herald_done and not flag.horned_king_destroyed",
       "facing": "south"
     },
     {
@@ -294,7 +304,7 @@
         19
       ],
       "dialogue": "crooked_tree/ember:start",
-      "when": "flag.horned_king_destroyed and not flag.ct_ember_done",
+      "when": "flag.kehlenn_bound and not flag.ct_ember_done",
       "facing": "south"
     },
     {

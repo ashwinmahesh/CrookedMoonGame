@@ -1,0 +1,43 @@
+# Drafted by Gemini (R24 beasts), edited.
+
+~ hare_start
+Narrator: Across the black water, a soot-dark hare squats in the pine needles, crowned with little bone antlers and watching you with flat yellow eyes. Its feathered wings twitch against its flanks, and the creek makes no sound at all around its paws.
+* Approach it -> hare_fight
+* Shoot it from here -> hare_fight
+* [Stealth DC 13] Slip round it -> hare_slip | hare_fight
+* Leave it -> END
+
+~ hare_fight
+kehlenn [angry]: Little axes, little torches, tramping through my roots. Come closer and choke on the bark.
+Narrator: The hare splits its fanged jaw in a dry, cracking shriek of snapping timber, then beats its wings and hurtles straight into your faces.
+combat ct_hare
+
+~ hare_slip
+Narrator: You keep to the mossy stones where the pine shadows pool thickest. The horned hare turns its head like a rusted weathercock to follow your boots, but it lets you pass.
+set ct_hare_done
+-> END
+
+~ illusion_start
+Narrator: The dark brambles ahead shiver against the dead air, smelling of crushed fern and warm tallow. Out of the tangle comes a voice you know by heart, hoarse and begging for a hand.
+set ct_illusion_met
+-> END
+
+~ illusion
+ct_illusion [afraid]: Please, I am caught in the thorns and my ankle is turned. Do not leave me in the dark with those things clicking in the trees.
+* [Insight DC 20] Look closer, something is wrong -> seen | unseen
+* [Perception DC 20] Search the underbrush -> seen | unseen
+* Go to help -> unseen_help
+* Walk on -> END
+
+~ seen
+set ct_beast_seen_through
+Narrator: The pleading face is smooth as candle wax, never blinking once, and it sways on a thick stalk rising from a massive, brindled shoulder in the briars. Behind the lure, a wet jaw unhinges in the gloom.
+combat ct_beast
+
+~ unseen
+Narrator: The moonlight plays tricks through the leaning pines, and all you can make out is a pale hand trembling among the thorns.
+-> illusion
+
+~ unseen_help
+Narrator: You part the wet brambles to reach for your friend, and the whole thicket rises on four heavy paws, stinking of old meat as a cavernous throat yawns wide.
+combat ct_beast

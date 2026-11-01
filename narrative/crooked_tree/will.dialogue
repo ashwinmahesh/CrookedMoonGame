@@ -1,0 +1,33 @@
+# Drafted by Gemini (R24 will), edited.
+
+~ marianna
+Narrator: Damp straw and lantern smoke hang in the stable yard as you hold Alda's folded parchment out to the stablemistress.
+marianna_grey [afraid]: That is Mrs. Farnum's wax seal, sure enough. Why would you bring her private papers out here to the horses, unless there is some mistake?
+* Read it to her -> read_it
+* Give her the will -> deliver
+* [ends:alda_will] Burn the will and say nothing -> burn
+* Keep it, say nothing for now -> END
+
+~ read_it
+Narrator: She rests her palm flat against an old mare's warm neck while you read out the bequest of the Green Queen Inn, its keys, and its ledgers.
+marianna_grey [sad]: All of it left to me, even the cellars and the debt. I only ever swept the cobbles and minded her greys when the nights turned frost.
+-> marianna
+
+~ deliver
+Narrator: Her chapped fingers tremble as she takes the heavy parchment and tucks it beneath her wool shawl.
+marianna_grey [weary]: I will keep the doors open the same way I keep these stalls, quiet and clean, with dry bedding and no hard words.
+take alda_will
+set alda_will_delivered
+quest alda_will delivered
+standing patient_lady +1
+-> after
+
+~ after
+marianna_grey [smile]: First thing I do is light the kitchen grate and put a hot pan of mutton and oats in front of Jean and Siv.
+-> END
+
+~ burn
+Narrator: While Marianna turns to latch a stall door, you feed the parchment into the stable lantern until the wax, the ink, and the inn's old debts curl into black ash.
+take alda_will
+quest alda_will burned
+-> END

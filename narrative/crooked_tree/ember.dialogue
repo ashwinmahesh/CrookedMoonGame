@@ -1,0 +1,56 @@
+# Drafted by Gemini (R24 ember), edited.
+
+~ start
+quest adelas_ember met
+Narrator: A pale blue-green light gathers at the foot of the Crooked Tree. Two shapes stand together in the hush, and in the lady's cupped hands rests a single living coal.
+ct_adela_spirit [smile]: There you are, my dears. You have come a terrible way through the dark for our sakes, and I only need a moment more to lay this fire at the roots.
+* Stand beside her while she lights the tree. -> lit
+* Speak a word to Phillip before the end. -> phillip
+* Ask what she still remembers of her life. -> remember
+* Say nothing at all. -> unlit
+
+~ remember
+ct_adela_spirit [weary]: Less than I would like, if I am honest. Only a garden full of white roses, the rain on a glass roof, and a promise that we would keep each other warm.
+ct_adela_spirit [smile]: It is quite enough to carry into the quiet, I think.
+-> start
+
+~ phillip
+phillip_druskenvald [sad]: I made a dreadful mess of the whole affair, did I not? Forgive an old fool who could not bear an empty house, and thank you for bringing me back to myself.
+ct_adela_spirit [smile]: Hush now, darling. You are here, and the debt is paid.
+-> start
+
+~ lit
+ct_adela_spirit [smile]: Thank you, my friends. Walk home in peace, and do not look back for long.
+quest adelas_ember lit
+set ct_ember_done
+set ct_tree_burned
+cutscene ct_underneath_the_crooked_moon
+Narrator: A single ember drifts from her open palms down into the black, tangled roots.
+cutscene ct_underneath_the_crooked_moon_2
+Narrator: Dry bark catches with a long, dry sigh, and the whole crooked trunk goes up in a pillar of clean gold flame.
+cutscene ct_underneath_the_crooked_moon_3
+Narrator: High above the smoking pines, the old crone's grin in the crescent moon twists into a bitter scowl.
+cutscene ct_underneath_the_crooked_moon_4
+Narrator: By the rising sparks, two blue-green specters fold their arms around each other and thin into the night air.
+cutscene end
+Narrator: The walk back out of the Wytchwood is long and very quiet, with only the smell of woodsmoke following behind you.
+quest the_crooked_tree bound
+-> END
+
+~ unlit
+ct_adela_spirit [sad]: No words left in you after all that? I cannot blame you, my dears. Come along, Phillip, let us finish it ourselves.
+quest adelas_ember unlit
+set ct_ember_done
+set ct_tree_burned
+cutscene ct_underneath_the_crooked_moon
+Narrator: She knelt alone at the mound, and a single ember drifts from her palms down into the black roots.
+cutscene ct_underneath_the_crooked_moon_2
+Narrator: Dry bark catches with a long, dry sigh, and the whole crooked trunk goes up in a pillar of clean gold flame.
+cutscene ct_underneath_the_crooked_moon_3
+Narrator: High above the smoking pines, the old crone's grin in the crescent moon twists into a bitter scowl.
+cutscene ct_underneath_the_crooked_moon_4
+Narrator: By the rising sparks, two blue-green specters fold their arms around each other and thin into the night air.
+cutscene end
+Narrator: The walk back out of the Wytchwood is long and very quiet, with only the smell of woodsmoke following behind you.
+quest the_crooked_tree bound
+-> END

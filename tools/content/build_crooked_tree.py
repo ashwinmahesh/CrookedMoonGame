@@ -223,6 +223,7 @@ def hovel():
     w = read("data/locations/ct_wytchwood.json")
     w["spawns"]["from_hovel"] = [20, 57]
     w["spawns"]["from_clearing"] = [22, 4]
+    w["spawns"]["north_bank"] = [22, 86]
     write("data/locations/ct_wytchwood.json", w)
 
 
@@ -242,7 +243,7 @@ def clearing():
           talk("ct_barrow_mouth", (16, 17), "The barrow mouth, glowing", "barrow:mouth", model="barrow", when="not flag.ct_phillip_taken"),
           talk("ct_skull", (16, 18), "The goat skull, with a carved moon between its horns", "ritual:skull", model="stag_head", when="flag.horned_king_destroyed and not flag.ct_ritual_done"),
           talk("ct_tree", (16, 16), "The Crooked Tree", "king:tree", model="dead_tree_a", scale=3.0, when="not flag.ct_tree_burned"),
-          talk("ct_tree_burnt", (16, 16), "The Crooked Tree, burning", "ritual:aftermath", model="brazier", scale=3.0, when="flag.ct_tree_burned"),
+          talk("ct_tree_burnt", (16, 16), "The Crooked Tree, burning", "king:tree_burnt", model="brazier", scale=3.0, when="flag.ct_tree_burned"),
           prop("ct_sigil_a", (8, 16), "A sigil line in the grass, glowing", kind="decor", model="floor_glyphs"),
           prop("ct_sigil_b", (24, 16), "A sigil line in the grass, glowing", kind="decor", model="floor_glyphs"),
           prop("ct_sigil_c", (16, 6), "A sigil line in the grass, glowing", kind="decor", model="floor_glyphs"),
@@ -252,8 +253,9 @@ def clearing():
           prop("ct_roots_c", (9, 23), "Roots over stones", kind="decor", model="stump"),
           prop("ct_roots_d", (24, 22), "Roots over stones", kind="decor", model="stump"),
           prop("ct_moon_vista", (16, 2), "The Crooked Moon, huge and grinning", kind="decor", model="statue_head")]
-    s["npcs"] = [npc("ct_herald", (16, 24), "king:herald", when="flag.ct_phillip_taken and not flag.horned_king_destroyed", facing="south"),
-                 npc("ct_adela_spirit", (15, 19), "ember:start", when="flag.horned_king_destroyed and not flag.ct_ember_done", facing="south"),
+    s["npcs"] = [npc("ct_herald", (16, 24), "herald:start", when="flag.ct_phillip_taken and not flag.ct_herald_done and not flag.horned_king_destroyed", facing="south"),
+                 npc("ct_herald", (16, 24), "herald:again", when="flag.ct_herald_done and not flag.horned_king_destroyed", facing="south"),
+                 npc("ct_adela_spirit", (15, 19), "ember:start", when="flag.kehlenn_bound and not flag.ct_ember_done", facing="south"),
                  npc("ct_phillip_spirit", (17, 19), "plea:start", when="flag.ct_skull_spoke and not flag.ct_plea_done", facing="south")]
     s["exits"] = [exit_("to_barrow", (16, 17), "ct_barrow", "default", "Down into the barrow", when="not flag.ct_phillip_taken"),
                   exit_("to_wood", (16, 30), "ct_wytchwood", "from_clearing", "Back down the trail", when="flag.ct_tree_burned")]
@@ -327,17 +329,27 @@ def build_village_hooks():
     town["npcs"] = [n for n in town["npcs"] if not str(n.get("dialogue", "")).startswith(mine)]
     doris = next(n for n in town["npcs"] if n["npc"] == "doris_squire")
     c = doris["cell"]
+    rows = town["map"]["rows"]
+    taken = {tuple(n["cell"]) for n in town["npcs"]} | {tuple(p["cell"]) for p in town["props"]}
+    spots = [(x, y) for r in range(1, 8) for y in range(c[1] - r, c[1] + r + 1) for x in range(c[0] - r, c[0] + r + 1)
+             if 0 <= y < len(rows) and 0 <= x < len(rows[0]) and rows[y][x] == "." and (x, y) not in taken and max(abs(x - c[0]), abs(y - c[1])) == r]
+    spots = [s for i, s in enumerate(spots) if s not in spots[:i]][1:]
     after_vigil = "flag.wicker_man_burned"
     town["npcs"][0:0] = [
         {"npc": "doris_squire", "cell": c, "dialogue": CT + "hook:doris_start", "when": f"{after_vigil} and not flag.ct_hook_given", "approach": 10, "facing": "south"},
         {"npc": "doris_squire", "cell": c, "dialogue": CT + "hook:doris_again", "when": f"flag.ct_hook_given and not flag.ct_barrow_entered", "facing": "south"},
-        {"npc": "ct_confessor_a", "cell": [c[0] + 2, c[1]], "dialogue": CT + "chaos:confess_a", "when": f"{after_vigil} and days_since.ct_clock >= 1 and not flag.ct_confessed_a", "facing": "west"},
-        {"npc": "ct_confessor_b", "cell": [c[0] + 3, c[1] + 1], "dialogue": CT + "chaos:confess_b", "when": f"{after_vigil} and days_since.ct_clock >= 2 and not flag.ct_confessed_b", "facing": "west"},
-        {"npc": "ct_confessor_c", "cell": [c[0] - 2, c[1] + 1], "dialogue": CT + "chaos:confess_c", "when": f"{after_vigil} and days_since.ct_clock >= 3 and not flag.ct_confessed_c", "facing": "east"},
-        {"npc": "ct_mob_leader", "cell": [c[0] - 3, c[1]], "dialogue": CT + "mayor:mob_start", "when": f"{after_vigil} and not flag.ct_mayor_settled and flag.ct_hook_given", "approach": 8, "facing": "east"},
+        {"npc": "ct_confessor_a", "cell": list(spots[0]), "dialogue": CT + "chaos:confess_a", "when": f"{after_vigil} and days_since.ct_clock >= 1 and not flag.ct_confessed_a", "facing": "west"},
+        {"npc": "ct_confessor_b", "cell": list(spots[2]), "dialogue": CT + "chaos:confess_b", "when": f"{after_vigil} and days_since.ct_clock >= 2 and not flag.ct_confessed_b", "facing": "west"},
+        {"npc": "ct_confessor_c", "cell": list(spots[4]), "dialogue": CT + "chaos:confess_c", "when": f"{after_vigil} and days_since.ct_clock >= 3 and not flag.ct_confessed_c", "facing": "east"},
+        {"npc": "ct_mob_leader", "cell": list(spots[6]), "dialogue": CT + "mayor:mob_start", "when": f"{after_vigil} and not flag.ct_mayor_settled and flag.ct_hook_given", "approach": 8, "facing": "east"},
     ]
     path.write_text(json.dumps(town, indent=2, ensure_ascii=False) + "\n")
     # Marianna's will delivery uses her stable entry: she is already in the village (alda_will)
+    town = json.loads(path.read_text())
+    town["npcs"] = [n for n in town["npcs"] if not str(n.get("dialogue", "")).startswith(CT + "will:")]
+    town["npcs"].insert(0, {"npc": "marianna_grey", "cell": next(n for n in town["npcs"] if n["npc"] == "marianna_grey")["cell"], "dialogue": CT + "will:marianna",
+                            "when": "item:alda_will and not flag.alda_will_delivered", "facing": "south"})
+    path.write_text(json.dumps(town, indent=2, ensure_ascii=False) + "\n")
     inn = ROOT / "data/locations/wickermoor_green_queen_inn.json"
     d = json.loads(inn.read_text())
     d["npcs"] = [n for n in d["npcs"] if not str(n.get("dialogue", "")).startswith(CT)]
@@ -373,7 +385,7 @@ PEOPLE = [   # id, name, title, summary, attitude, sprite, tags, region
     ("ct_false_rowan", "A white-gowned young woman", "A maidenwood's lure", "A young woman in a white gown, digging at a tree's roots with her bare hands. She says she has lost her locket. There is one at every tree.", "hostile", "villager", ["voice_druskenvald"], R_WOOD),
     ("ct_illusion", "A familiar face in the thicket", "A hypnovulfen's lure", "Someone the party knows and trusts, begging for help from the underbrush. It is not them.", "friendly", "villager", [], R_WOOD),
     ("ct_herald", "The Born King's herald", "A bright-eyed twig of a creature", "A herald of sticks and moss who has been sent to read the terms of the combat, and has the order of the pages wrong.", "indifferent", "villager", ["voice_hollow"], R_TREE),
-    ("ct_phillip_spirit", "Phillip, a specter", "A man in a pinstripe suit, in blue-green light", "Phillip Druskenvald as a specter at the goat skull, mild and clear at last.", "friendly", "phillip_druskenvald", ["voice_druskenvald"], R_TREE),
+    ("ct_phillip_spirit", "Phillip, in the skull", "A mild voice from a goat skull", "Phillip Druskenvald speaking through the goat skull in his own voice, mild and clear at last.", "friendly", "phillip_druskenvald", ["voice_druskenvald"], R_TREE),
     ("ct_adela_spirit", "Adela, a specter", "A woman in blue-green light with an ember in her hands", "Adela Druskenvald's specter, kind and calm, carrying a single ember.", "friendly", "adela_druskenvald", ["voice_druskenvald"], R_TREE),
     ("ct_confessor_a", "A confessing villager", "A baker's apprentice, ashamed", "A village boy who stole bread from the dead and cannot say why. He heard something in the dark whisper that he deserved it.", "friendly", "villager", ["voice_hollow", "child"], "wickermoor"),
     ("ct_confessor_b", "A confessing villager", "A farmhand, shaking", "A woman who struck her brother over a debt and watched him fall. She heard a low voice tell her it was only fair.", "friendly", "villager", ["voice_hollow"], "wickermoor"),
@@ -400,8 +412,8 @@ def stage(sid, journal, hint=None, objectives=None, ends=None):
     return d
 
 
-def quest(qid, name, kind, region, giver, summary, stages):
-    write(f"data/quests/{qid}.json", {"id": qid, "name": name, "kind": kind, "region": region, "giver": giver, "summary": summary, "stages": stages})
+def quest(qid, name, kind, region, giver, summary, stages, **extra):
+    write(f"data/quests/{qid}.json", {"id": qid, "name": name, "kind": kind, "region": region, "giver": giver, "summary": summary, "stages": stages, **extra})
 
 
 def build_quests():
@@ -427,7 +439,7 @@ def build_quests():
            stage("sided", "We took the Crooked Queen's side, and promised to help her.", ends="success")])
     quest("the_horned_kings_offer", "The Horned King's Offer", "main", R_WOOD, "ct_hk_goat",
           "A black goat with three red eyes walks the wood and tempts. His final offer to each hero is their heart's desire, a Dark Bargain with only the features they choose, and a level. He will attack anyway.",
-          [stage("tempted", "The Horned King has spoken to us in the dark."), stage("offered", "He made each of us his offer, with the price left unsaid.", "Accept or refuse, hero by hero."),
+          [stage("tempted", "The Horned King has spoken to us in the dark.", "Keep going north, and keep your wits."), stage("offered", "He made each of us his offer, with the price left unsaid.", "Accept or refuse, hero by hero."),
            stage("refused", "We refused him, each of us.", ends="success"), stage("bargained", "Some of us took his bargain.", ends="success"),
            stage("kneeled", "All of us took his bargain, and we knelt.", ends="success")])
     quest("what_each_hero_offers", "What Each Hero Offers", "main", R_TREE, "ct_phillip_spirit",
@@ -445,7 +457,7 @@ def build_quests():
           "Adela's specter carries a single ember to the Crooked Tree's roots and asks for a word. It can fail only by silence.",
           [stage("met", "Adela's specter waits by the skull with an ember in her hands.", "Speak to her."),
            stage("lit", "We stood with her, and she lit the Crooked Tree.", ends="success"),
-           stage("unlit", "We stood silent, and the ember cooled in her hands.", ends="failure")])
+           stage("unlit", "We stood silent, and she carried the ember to the roots alone.", ends="failure")])
     quest("alda_will", "Alda's Will", "side", "wickermoor", "marianna_grey",
           "Alda Farnum's strongbox in the master suite holds her will, and it leaves the Green Queen Inn and its goods to Marianna Grey. She does not know.",
           [stage("found", "A locked strongbox in the master suite dresser.", "Open the strongbox."),
@@ -460,18 +472,19 @@ def build_quests():
            stage("lynched", "We were too late. The mob hanged him from the oak.", ends="failure")])
     quest("chaos_reigns", "Chaos Reigns", "side", "wickermoor", "ct_confessor_a",
           "Every night we delay, another villager falls to a vice. Each of them heard a three-eyed beast whispering.",
-          [stage("first", "A villager confessed, and said a three-eyed thing whispered to them."), stage("some", "More villagers have confessed."),
+          [stage("first", "A villager confessed, and said a three-eyed thing whispered to them.", "Hear the others out before the village falls apart."), stage("some", "More villagers have confessed.", "Hear the rest, and then go north."),
            stage("heard", "We heard them all and know what the beast promises.", ends="success"),
            stage("bedlam", "The village has gone to bedlam: shops shut and doors barred.", ends="failure")])
     quest("lost_and_found", "Lost and Found", "side", R_TREE, "kehlenn",
           "The barrow walls hold everything the Crooked Queen has taken: the party's lost things from the whole campaign, and a small portrait of a young woman, Rowan's sister.",
-          [stage("seen", "The roots of the barrow hold trophies."), stage("taken", "We took back what was ours.", ends="success"),
+          [stage("seen", "The roots of the barrow hold trophies.", "Take back what is ours, or leave it."), stage("taken", "We took back what was ours.", ends="success"),
            stage("left", "We left it all hanging in the roots.", ends="failure")])
     quest("heralds_terms", "The Herald Reads the Terms", "side", R_TREE, "ct_herald",
           "The Born King's herald is here to read the terms of the combat. He has the pages in the wrong order.",
-          [stage("reading", "The herald is reading the terms of the combat. The pages are out of order."),
+          [stage("reading", "The herald is reading the terms of the combat. The pages are out of order.", "Help the herald, or ignore him."),
            stage("sorted", "We put the herald's pages in order, and he read the terms properly.", ends="success"),
-           stage("garbled", "He read it all the wrong way round and nobody was any the wiser.", ends="failure")])
+           stage("garbled", "He read it all the wrong way round and nobody was any the wiser.", ends="failure")],
+          closes=[{"stage": "garbled", "from": ["reading"], "when": "flag.horned_king_destroyed", "warn": "The herald will go when the Born King falls."}])
 
 
 # ---- items, monsters, dark gifts ---------------------------------------------------------------------------------------------------------
@@ -514,6 +527,18 @@ def build_items():
         "id": "hypnovulfen_figure", "name": "Hypnovulfen Figure", "source": {"book": "CrookedMoon", "note": "A cursed curio from the barrow walls; its focus, biting teeth, Confusion and hunger wait on the engine."},
         "category": "wondrous", "weight_lb": 1, "cost_gp": 0, "magic": {"rarity": "uncommon", "attunement": False}, "theme": "implements", "icon": "bottle",
         "summary": "A small carved hypnovulfen with too many teeth. A cursed curio."})
+
+
+def build_boons():
+    base = read("data/dark_gifts/might_of_the_old.json")
+    for gid, name, ab, abname in (("binding_boon_might", "Boon of the Binding: Might", "str", "Strength"), ("binding_boon_mind", "Boon of the Binding: Mind", "int", "Intelligence"),
+                                  ("binding_boon_grace", "Boon of the Binding: Grace", "cha", "Charisma")):
+        g = copy.deepcopy(base)
+        g.update({"id": gid, "name": name, "vestige": "Adela's power", "summary": f"{abname} +2 (max 24), given when Kehlenn is bound. No price.",
+                  "source": {"book": "CM2024", "note": "chapter 24: +2 to one ability when the ritual binds Kehlenn (the Moonfall variant; level 14 only comes from the Horned King's bargain). Our words."}})
+        g["benefit"] = {"modifiers": [{"stat": "ability", "ability": ab, "value": 2, "max": 24}], "text": f"Adela's power rolls through you as the binding takes. Your {abname} score increases by 2, to a maximum of 24."}
+        g["cost"] = {"modifiers": [], "text": "None. This one was freely given.", "features": []}
+        write(f"data/dark_gifts/{gid}.json", g)
 
 
 def build_monsters():
@@ -598,6 +623,7 @@ if __name__ == "__main__":
     build_quests()
     build_items()
     build_monsters()
+    build_boons()
     build_village_hooks()
     build_travel()
     build_cutscenes()
