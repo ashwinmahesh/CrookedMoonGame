@@ -149,6 +149,27 @@ func test_the_exploration_screen() -> void:
 		return root)
 
 
+## A campaign counter beside the gold with a long label (hud-counters), on the desktop exploring HUD and the mobile one.
+func test_a_long_counter_beside_the_gold() -> void:
+	Campaign.use_config(null)
+	var cfg := (Campaign.config() as Dictionary).duplicate(true)
+	cfg["counters"] = [{"flag": "fool_tickets", "label": "carnival tickets of the Lord of Fools' festival", "when": ""}]
+	Campaign.use_config(cfg)
+	await _check("the exploration screen with a long counter", func() -> Variant:
+		await _game()
+		GameState.story.flags["fool_tickets"] = 9999
+		await _frames(4)
+		return root)
+	MobileDevice.test_size = Vector2(844, 390)
+	await _check("the mobile exploration screen with a long counter", func() -> Variant:
+		await _game()
+		GameState.story.flags["fool_tickets"] = 9999
+		await _frames(4)
+		return root)
+	MobileDevice.test_size = Vector2.ZERO
+	Campaign.use_config(null)
+
+
 func test_the_party_screens() -> void:
 	await _game()
 	for screen: String in ["sheet", "inventory", "journal", "party"]:

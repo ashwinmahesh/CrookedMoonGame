@@ -2,16 +2,22 @@ extends Node
 ## Any places seen from the play camera, as the game shows them: the placeholder party arrives at each location in the list and a shot is
 ## taken of the play view and of the whole place from above.
 ##   make capture SCENE=res://tools/capture/places_capture.tscn NAME=world/places ARGS='--places=ghostlight_boarding,wickermoor_village'
-## Shots: <out>_<place>_play.png and <out>_<place>_whole.png.
+## Shots: <out>_<place>_play.png and <out>_<place>_whole.png. `--flags=a:3,b:true` sets story flags first (a counter, a
+## stage of the story).
 
 const GAME := preload("res://world/game_root.gd")
 
 
 func capture_shots(tool: Node, out: String) -> void:
 	var places: PackedStringArray = []
+	var flags := {}
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--places="):
 			places = a.get_slice("=", 1).split(",")
+		if a.begins_with("--flags="):
+			for pair in a.get_slice("=", 1).split(","):
+				var v := pair.get_slice(":", 1)
+				flags[pair.get_slice(":", 0)] = int(v) if v.is_valid_int() else (v == "true")
 	for place in places:
 		GameState.reset()
 		var st := GameState.story
@@ -20,6 +26,7 @@ func capture_shots(tool: Node, out: String) -> void:
 			ch.finish_long_rest()
 			st.party.append(ch)
 		st.location = place
+		st.flags.merge(flags, true)
 		st.minute_of_day = 23 * 60   # the Midnight Hour
 		Dice.reseed(7)
 		var game := (load("res://scenes/game.tscn") as PackedScene).instantiate()
