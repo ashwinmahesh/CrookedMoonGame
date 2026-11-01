@@ -159,7 +159,7 @@ func test_refusing_rain_leaves_the_door_open_for_the_sporefall_offer() -> void:
 
 
 func test_the_commune_circle_fought_or_left() -> void:
-	_play("hartsblight/commune:arrival", ["Examine the bodies", "Study how they rotted", "Leave them be", "Move on"])
+	_play("hartsblight/commune:arrival", ["Examine the bodies", "Study how they rotted", "Move on"])
 	assert_true(_has_flag("hb_bodies_studied"))
 	assert_eq(st.quest_stage("q_hartsblight"), "commune")
 	_play("hartsblight/commune:circle_glimpse", ["Break up the ritual"])
@@ -181,7 +181,7 @@ func test_walking_past_the_circle_lets_the_cloud_reach_the_village() -> void:
 
 func test_a_failed_search_of_the_bodies_costs_a_level_of_rot() -> void:
 	dice = LowDice.new()
-	_play("hartsblight/commune:arrival", ["Examine the bodies", "Study how they rotted", "Leave them be", "Move on"])
+	_play("hartsblight/commune:arrival", ["Examine the bodies", "Study how they rotted", "Move on"])
 	assert_eq(int(st.get_flag("hb_blight", 0)), 1)
 	assert_true(not _has_flag("hb_bodies_studied"))
 
@@ -246,7 +246,7 @@ func test_the_leash_hides_a_devilbone_button() -> void:
 
 func test_the_outcrop_camp_gives_its_loot_and_the_beetles_come_when_the_bottle_is_taken() -> void:
 	_arrive("hb_infested_outcrop")
-	_play("hartsblight/forest1:camp", ["Search the tents", "Read the field journal", "Study it for an hour", "Back", "Take the Eversmoking Bottle"])
+	_play("hartsblight/forest1:camp", ["Search the tents", "Read the field journal", "Study it for an hour", "Take the Eversmoking Bottle"])
 	assert_true(_has_flag("hb_tents_searched"))
 	assert_true(_has_flag("hb_journal_read"))
 	assert_true(_has_flag("hb_camp_seen"))
@@ -312,7 +312,7 @@ func test_the_clear_pool_cleans_and_then_turns_on_the_greedy() -> void:
 	_play("hartsblight/forest2:pool", ["Immerse"])
 	assert_eq(int(st.get_flag("hb_blight", 0)), 2)
 	dice = LowDice.new()
-	_play("hartsblight/forest2:pool", ["Immerse", "Immerse"])
+	_play("hartsblight/forest2:pool", ["Immerse"])
 	assert_true(_has_flag("hb_pool_fouled"))
 	assert_eq(fights, ["hb_mounds"] as Array[String])
 
