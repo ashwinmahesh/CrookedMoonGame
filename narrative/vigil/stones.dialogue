@@ -1,0 +1,362 @@
+# R23 Rowan's Rise, the stone circle: the cult's welcome, the ring of fire as a puzzle (nine stones, four to break), the captives, the cult and its masks. Logic by hand.
+
+~ arrive
+cutscene wv_effigy_revealed
+Narrator: The hill opens round you. Nine standing stones in a ring, runes burning orange along their edges, a bonfire at the heart. Chains run out of the rock to six figures kneeling at its foot.
+cutscene wv_effigy_revealed_2
+Narrator: Round them, dozens of dancers in animal masks sway to a hymn that has no words you can hold on to, and above the crown of the hill, against the huge moon, something very tall stands without moving.
+cutscene end
+set wv_stones_seen
+quest wickers_vigil ring_of_fire
+-> END
+
+~ calm
+Narrator: The runes along this stone burn steady and orange. The dancers' song seems to be what holds the fire back from the kneeling figures, for now.
+-> END
+
+~ welcome
+Narrator: The nearest dancer, a baker's wife in a hare mask, turns from the hymn with her arms wide as if she had been waiting for you.
+holly_aster [smile]: Friends! You have come to hear the song. It is not hard to learn. Come in, come in, and sing.
+set wv_welcome_n += 1
+-> welcome_menu
+
+~ welcome_menu
+if flag.wv_welcome_n >= 3
+-> ring_lights
+endif
+* Play along and hum the tune -> welcome_hum
+* Ask who the six are and why they are chained -> welcome_ask
+* [Insight DC 14] Watch the dancers' faces for who is who -> welcome_see | welcome_blur
+* Walk toward the stones while they sing -> welcome_walk
+* Ask the dancers to unchain the captives -> welcome_demand
+* Strike the nearest dancer down -> welcome_attack
+
+~ welcome_hum
+Narrator: They beam at you and sing louder. The hymn is warm, and the warmth is wrong, like a hand on the back of the neck.
+set wv_welcome_n += 1
+-> welcome_menu
+
+~ welcome_ask
+holly_aster [sly]: Those are the offering, dear. A gift. They will be glad of it, afterwards, when the Queen walks. Join us and you will be glad too.
+set wv_welcome_n += 1
+-> welcome_menu
+
+~ welcome_see
+Narrator: Under the masks, faces you know. The barber. The merchant. The painter. The deputy, with his hare's foot on a cord. The innkeeper, in a mask with its own antlers, singing with her eyes closed.
+set wv_unmasked_seen
+set wv_welcome_n += 1
+-> welcome_menu
+
+~ welcome_blur
+Narrator: Masks, firelight, motion. You cannot tell one dancer from another, but a few of the voices in the hymn you have heard across a counter.
+set wv_welcome_n += 1
+-> welcome_menu
+
+~ welcome_walk
+Narrator: They part for you with delighted smiles. You walk among them to the rim of the circle before they think to ask why.
+set wv_grace
+-> ring_lights
+
+~ welcome_demand
+holly_aster [angry]: They are not ours to loose. Wait for the Queen.
+Narrator: The song falters, a bar, two. The dancers' smiles hold, but their eyes have stopped being friendly.
+-> ring_lights
+
+~ welcome_attack
+Narrator: The nearest dancer drops, still humming. The hymn does not stop. It rises.
+-> ring_lights
+
+~ ring_lights
+set wv_welcome_done
+set wv_ring_started
+Narrator: Fire runs round the stones' edges, and a wall of it stands up from the ring, white at the core and red at the rim. It will burn anything that touches it, and the only way in or out now is through the hymn.
+Narrator: The bonfire leans toward the kneeling captives, as a dog leans toward a hand. Four of the nine stones must go dark, or one captive a round will be given to it.
+quest wickers_vigil ring_of_fire
+-> END
+
+~ holly
+holly_aster [sad]: Keep my daughters out of this, and the Queen's name out of my mouth. I never wanted her to walk. I only wanted to see them grow.
+Narrator: She tears the hare mask from her face. Her hands shake. She walks to the nearest stone and drives her shoulder into it, and the runes there gutter and go out.
+set wv_stones_down += 1
+set wv_stone_7_down
+set cultist_holly_aster = "turned"
+set cultist_holly_turned
+set wv_holly_declined
+-> END
+
+~ stone_1
+Narrator: Runes along the stone's face crawl and burn. Under them are the cult's chains, and under those, the shape of something that wants the fire to stay.
+set wv_stone_cur = 1
+-> disable
+
+~ stone_2
+Narrator: Runes along the stone's face crawl and burn. Under them are the cult's chains, and under those, the shape of something that wants the fire to stay.
+set wv_stone_cur = 2
+-> disable
+
+~ stone_3
+Narrator: Runes along the stone's face crawl and burn. Under them are the cult's chains, and under those, the shape of something that wants the fire to stay.
+set wv_stone_cur = 3
+-> disable
+
+~ stone_4
+Narrator: Runes along the stone's face crawl and burn. Under them are the cult's chains, and under those, the shape of something that wants the fire to stay.
+set wv_stone_cur = 4
+-> disable
+
+~ stone_5
+Narrator: Runes along the stone's face crawl and burn. Under them are the cult's chains, and under those, the shape of something that wants the fire to stay.
+set wv_stone_cur = 5
+-> disable
+
+~ stone_6
+Narrator: Runes along the stone's face crawl and burn. Under them are the cult's chains, and under those, the shape of something that wants the fire to stay.
+set wv_stone_cur = 6
+-> disable
+
+~ stone_7
+Narrator: Runes along the stone's face crawl and burn. Under them are the cult's chains, and under those, the shape of something that wants the fire to stay.
+set wv_stone_cur = 7
+-> disable
+
+~ stone_8
+Narrator: Runes along the stone's face crawl and burn. Under them are the cult's chains, and under those, the shape of something that wants the fire to stay.
+set wv_stone_cur = 8
+-> disable
+
+~ stone_9
+Narrator: Runes along the stone's face crawl and burn. Under them are the cult's chains, and under those, the shape of something that wants the fire to stay.
+set wv_stone_cur = 9
+-> disable
+
+~ disable
+* [Athletics DC 15] Wrench the runes off the face of it -> stone_ok | stone_fail
+* [Sleight of Hand DC 15] Work the focus out of its socket -> stone_ok | stone_fail
+* [Nature DC 15] Read the runes as a root and cut them -> stone_ok | stone_fail
+* [Religion DC 15] Read the rite and speak the break -> stone_ok | stone_fail
+* [Investigation DC 15] Find the one rune that holds the rest -> stone_ok | stone_fail
+* [Arcana DC 15] Unravel the weave -> stone_ok | stone_fail
+* [knows:dispel_magic] Cast Dispel Magic on the stone -> stone_ok
+* [Athletics DC 17] Smash the stone outright (AC 17) -> stone_ok | stone_fail
+* Step away -> END
+
+~ stone_ok
+Narrator: The runes shudder, gutter and go out. Heat leaves the stone like breath, and it stands grey and blind in the firelight.
+set wv_stones_down += 1
+if flag.wv_stone_cur == 1
+set wv_stone_1_down
+elif flag.wv_stone_cur == 2
+set wv_stone_2_down
+elif flag.wv_stone_cur == 3
+set wv_stone_3_down
+elif flag.wv_stone_cur == 4
+set wv_stone_4_down
+elif flag.wv_stone_cur == 5
+set wv_stone_5_down
+elif flag.wv_stone_cur == 6
+set wv_stone_6_down
+elif flag.wv_stone_cur == 7
+set wv_stone_7_down
+elif flag.wv_stone_cur == 8
+set wv_stone_8_down
+elif flag.wv_stone_cur == 9
+set wv_stone_9_down
+endif
+-> ring_tick
+
+~ stone_fail
+Narrator: A gout of flame bursts out of the stone at the one who touched it.
+check Dexterity DC 17 -> stone_half | stone_full
+
+~ stone_half
+Narrator: You throw yourself aside and take only the edge of it.
+damage 2d8 fire
+-> ring_tick
+
+~ stone_full
+Narrator: The fire catches you full on, and the stone stays lit.
+damage 5d8 fire
+-> ring_tick
+
+~ ring_tick
+set wv_ring_round += 1
+if flag.wv_stones_down >= 4
+-> ring_fall
+endif
+if flag.wv_grace and flag.wv_ring_round <= 2
+Narrator: The dancers are still singing at the edge of the ring and not yet looking. The bonfire does not throw this round.
+-> END
+endif
+-> flame
+
+~ flame
+Narrator: The bonfire leans toward the chained captives and gathers itself into a gout. It is going for one of them. There is a heartbeat to do something about it.
+* [Dexterity DC 17] Throw yourself in the way of the flame -> intercept | burn
+* [Athletics DC 15] Heave the captive's chain out of the rock and haul them clear -> chain | burn
+* Hold your ground at the stones; there is no reaching them -> burn
+
+~ intercept
+Narrator: You hit the flame shoulder first, and it breaks on you instead.
+damage 4d8 fire
+-> END
+
+~ chain
+Narrator: The chain parts in a spray of hot iron, and the captive is out from under the flame, coughing, and crawling away.
+-> END
+
+~ burn
+if flag.wv_captives_lost == 0
+Narrator: The flame takes Doris Squire in the chest. There is a shout, and a light, and a blue-green mote lifts off the stones and goes up the hill.
+set vigil_burned_doris_squire
+elif flag.wv_captives_lost == 1
+Narrator: The flame takes Siv Harga in the chest. There is a shout, and a light, and a blue-green mote lifts off the stones and goes up the hill.
+set vigil_burned_siv_harga
+elif flag.wv_captives_lost == 2
+Narrator: The flame takes Marianna Grey in the chest. There is a shout, and a light, and a blue-green mote lifts off the stones and goes up the hill.
+set vigil_burned_marianna_grey
+elif flag.wv_captives_lost == 3
+Narrator: The flame takes Beatrice Wells in the chest. There is a shout, and a light, and a blue-green mote lifts off the stones and goes up the hill.
+set vigil_burned_beatrice_wells
+elif flag.wv_captives_lost == 4
+Narrator: The flame takes Jean Myriel in the chest. There is a shout, and a light, and a blue-green mote lifts off the stones and goes up the hill.
+set vigil_burned_jean_myriel
+elif flag.wv_captives_lost == 5
+Narrator: The flame takes Finneas Trout in the chest. There is a shout, and a light, and a blue-green mote lifts off the stones and goes up the hill.
+set vigil_burned_finneas_trout
+endif
+set vigil_deaths += 1
+set wv_captives_lost += 1
+if flag.wv_captives_lost >= 6
+Narrator: There is no one left to burn. The ring gutters.
+-> ring_fall
+endif
+-> END
+
+~ ring_fall
+Narrator: The last rune goes dark, and the wall of fire folds in on itself. Silence, for a breath, where the hymn was. Then the sound of dancers drawing in air.
+if not flag.vigil_burned_doris_squire
+set vigil_saved_doris_squire
+endif
+if not flag.vigil_burned_siv_harga
+set vigil_saved_siv_harga
+endif
+if not flag.vigil_burned_marianna_grey
+set vigil_saved_marianna_grey
+endif
+if not flag.vigil_burned_beatrice_wells
+set vigil_saved_beatrice_wells
+endif
+if not flag.vigil_burned_jean_myriel
+set vigil_saved_jean_myriel
+endif
+if not flag.vigil_burned_finneas_trout
+set vigil_saved_finneas_trout
+endif
+set wv_ring_down
+-> cult_turns
+
+~ cult_turns
+Narrator: The dancers drop the hymn, and with it the smiles. Sickles come out of the straw. The baker, the deputy and the merchant draw close together, and the one called Howie lifts his mask like a man at the end of a long day.
+set wv_cult_started
+combat wv_cult
+
+~ ring_fall_scene
+Narrator: The ring is down, and the cult knows it.
+-> cult_turns
+
+~ captive
+Narrator: A chained villager looks up at you with raw eyes.
+* Tell them to hold on -> captive_hold
+* Tell them what you have seen of the cult -> captive_tell
+* Leave them -> END
+
+~ captive_hold
+Narrator: They nod, once, with their jaw clenched.
+-> END
+
+~ captive_tell
+Narrator: You tell them the cult's faces. They do not look surprised, only tired.
+-> END
+
+~ captive_freed
+if flag.vigil_saved_doris_squire and not flag.wv_doris_squire_thanked
+Narrator: Doris Squire stands rubbing their wrists, and says a thing you will not forget.
+set wv_doris_squire_thanked
+elif flag.vigil_saved_siv_harga and not flag.wv_siv_harga_thanked
+Narrator: Siv Harga stands rubbing their wrists, and says a thing you will not forget.
+set wv_siv_harga_thanked
+elif flag.vigil_saved_marianna_grey and not flag.wv_marianna_grey_thanked
+Narrator: Marianna Grey stands rubbing their wrists, and says a thing you will not forget.
+set wv_marianna_grey_thanked
+elif flag.vigil_saved_beatrice_wells and not flag.wv_beatrice_wells_thanked
+Narrator: Beatrice Wells stands rubbing their wrists, and says a thing you will not forget.
+set wv_beatrice_wells_thanked
+elif flag.vigil_saved_jean_myriel and not flag.wv_jean_myriel_thanked
+Narrator: Jean Myriel stands rubbing their wrists, and says a thing you will not forget.
+set wv_jean_myriel_thanked
+elif flag.vigil_saved_finneas_trout and not flag.wv_finneas_trout_thanked
+Narrator: Finneas Trout stands rubbing their wrists, and says a thing you will not forget.
+set wv_finneas_trout_thanked
+endif
+-> END
+
+~ aftermath
+Narrator: The circle is quiet. The dancers who are not dead lie where they fell, masks off, faces slack. The baker sits against a stone with her daughters' names on her lips.
+-> aftermath_menu
+
+~ aftermath_menu
+* Bind the living and leave them for the village to judge -> spare
+* Finish what is left of the cult -> slay
+* Take their masks and leave them to find their own way home -> unmask
+
+~ spare
+Narrator: You bind them with their own ribbons. The cult limps off at dawn, those that can, and the village will live with what it knows.
+set cultist_alda_farnum = "spared"
+set cultist_howie_butterman = "spared"
+set cultist_gaston_doray = "spared"
+set cultist_randall_graham = "spared"
+set cultist_baltus_tolliver = "spared"
+if not flag.cultist_holly_turned
+set cultist_holly_aster = "spared"
+endif
+set wv_aftermath_done
+standing old_ways +1
+-> END
+
+~ slay
+Narrator: It is quick and ugly. The wicker above the hill waits through all of it.
+set cultist_alda_farnum = "slain"
+set cultist_howie_butterman = "slain"
+set cultist_gaston_doray = "slain"
+set cultist_randall_graham = "slain"
+set cultist_baltus_tolliver = "slain"
+if not flag.cultist_holly_turned
+set cultist_holly_aster = "slain"
+endif
+set wv_aftermath_done
+standing old_ways -2
+-> END
+
+~ unmask
+Narrator: Without the masks, the cult is a few frightened villagers in stage clothes. They look at the fire on the hill and begin, very slowly, to leave.
+set cultist_alda_farnum = "unmasked"
+set cultist_howie_butterman = "unmasked"
+set cultist_gaston_doray = "unmasked"
+set cultist_randall_graham = "unmasked"
+set cultist_baltus_tolliver = "unmasked"
+if not flag.cultist_holly_turned
+set cultist_holly_aster = "unmasked"
+endif
+set wv_aftermath_done
+-> END
+
+~ effigy
+Narrator: On the crown of the hill, against the huge moon, it stands: a wicker man sixty feet tall, bound with wire and iron, its chest and limbs hollow cages. In the cages, people are standing very still.
+set wv_effigy_seen
+quest wickers_vigil shadow_of_the_wicker_man
+-> END
+
+~ fall_back
+Narrator: The way back down is open. The village is a long road behind you, and the fire on the hill will not wait for it.
+-> vigil/square:retreat_confirm
+

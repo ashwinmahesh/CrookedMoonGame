@@ -1,0 +1,451 @@
+# R23 moors: the edge, the heath, the quagmire and the hardpan. Logic by hand, spoken text polished by Gemini (R23 moor), unvoiced.
+
+~ sky
+cutscene wv_grinning_storm
+Narrator: The moor runs away from you in rain, and townsfolk run with it, some toward the village and some away. On a far hill a bonfire stands up against the clouds.
+cutscene wv_grinning_storm_2
+Narrator: The clouds coil into a grinning face with hollow eyes and lightning in its mouth. It looks straight down at you and tips its head, like a showman at his first guests.
+crooked_man [sly]: Ohh, my heroes! Look at all that lovely road you have, and all those people on it. Save them all, will you? Do try. I have never seen it done.
+cutscene end
+set wv_sky_seen
+quest wickers_vigil crooked_chaos
+-> END
+
+~ eyewitness
+Narrator: Mori Shade stands in the rain over a body with a shovel, soaked through and perfectly still. Their white hair is plastered flat.
+mori_shade [weary]: I came for the dead. There are more of them than I have graves. The living went north, all in a line, and none of them walked there on their own feet.
+set wv_eyewitness_done
+-> eyewitness_menu
+
+~ eyewitness_menu
+* Ask what they saw -> saw
+* Ask who is still in the village -> village
+* Ask about the fire on the hill -> fire
+* Ask for a word on the road ahead -> road
+* We will go on -> END
+
+~ saw
+mori_shade [neutral]: Masked villagers, hare and crow and stag, knocking people out and dragging them off. Monsters helping them. The mayor was gone at once. The constable was taken first.
+mori_shade [sad]: Strangers came in from three towns, each with captives of their own. Everyone has gone toward the fire.
+-> eyewitness_menu
+
+~ village
+mori_shade [neutral]: Tamsin has a queue and a barricade. Marianna is feeding folk in the inn yard. The sick are being moved to the Silent Church. It is not much, but it is something, and it is yours to look after.
+-> eyewitness_menu
+
+~ fire
+mori_shade [afraid]: It is a man of willow sixty feet tall, with cages for a chest. They are not building a bonfire. They are building a person to burn.
+-> eyewitness_menu
+
+~ road
+mori_shade [neutral]: Boneflayers over the heath. Something in the bog. Something worse on the hard ground after that. I did not go further than I could see.
+-> eyewitness_menu
+
+~ tracks
+Narrator: Drag marks cut the peat in long parallel grooves, as if heels had been hauled through it. They all curve the same way, toward the hill.
+* [Survival DC 13] Read the tracks -> tracks_ok | tracks_none
+* Follow them by eye and count the drags -> tracks_count
+
+~ tracks_ok
+Narrator: Dozens of people, some walking and some carried, and among them the flat three-toed prints of something large that does not touch the ground much.
+set wv_tracks_read
+-> END
+
+~ tracks_none
+Narrator: The rain has been over the prints too long to read more than the direction.
+-> END
+
+~ tracks_count
+Narrator: You count at least forty sets of heels before the rain washes the rest out. They all go north.
+set wv_tracks_read
+-> END
+
+~ mask
+Narrator: An antlered-hare mask of woven willow lies face up in the mud, the eyeholes ringed with soot.
+* [Religion DC 14] Read the mask's marks -> mask_ok | mask_none
+* Turn it over and study the stitching -> mask_turn
+
+~ mask_ok
+Narrator: The chants cut inside the rim name the Old Ways' Chosen: whoever wears the mask sings through it, and whoever tears it off silences the song.
+set wv_mask_known
+-> END
+
+~ mask_none
+Narrator: The marks are old and clumsy, and you cannot tell if the clumsiness is the carver's or the rain's.
+-> END
+
+~ mask_turn
+Narrator: A mask grafted to a face, not tied on. Whoever wears these cannot take them off, but a strong hand might tear one away.
+set wv_mask_known
+-> END
+
+~ leave_edge
+Narrator: Ahead the moor drops into a long heath, and the smoke from the hill lies on it like a lid.
+quest wickers_vigil death_from_above
+set wv_edge_left
+-> END
+
+# ---- the heath ----------------------------------------------------------------------------------------------------------------
+
+~ heath_start
+Narrator: Open heather and scattered boulders. The smoke is coming down the hill in sheets, and in it, wide as a barn door, something large is turning. A line of villagers is running across the heath from the west.
+set wv_h1_started
+quest wickers_vigil death_from_above
+* Look around for anything to use -> END
+* Draw weapons and meet them -> heath_ready
+
+~ heath_ready
+Narrator: Six great shapes stoop out of the smoke on bone-white wings, beaks open, talons hanging. The villagers see them and scatter.
+* Hold the heath against the boneflayers -> heath_fight
+* Look about for something to use first -> END
+
+~ heath_fight
+Narrator: The first one takes a farmer by the shoulders and rises.
+combat wv_boneflayers
+
+~ gong
+Narrator: A ploughman's gong hangs from a post by a chain, scoured by years of weather. It would ring like a church bell.
+* Take the striker and bring the gong to the fight -> gong_take
+* [Athletics DC 12] Haul the whole post to the middle of the heath -> gong_haul | gong_take
+* Leave it -> END
+
+~ gong_take
+Narrator: You carry the striker and drag the gong's cord. A good strike will carry across the whole heath.
+set wv_gong_ready
+give wv_gong_striker
+-> END
+
+~ gong_haul
+Narrator: The post comes out of the peat with the gong still on it, and you plant it where the fight will be. The first strike makes the heather shiver.
+set wv_gong_ready
+-> END
+
+~ net
+Narrator: A drover's net lies in the heather with its poles, the kind you hold between you to catch a falling sheep. Or a falling person.
+* [Athletics DC 13] Rig the net on its poles for the villagers -> net_ok | net_poor
+* [Survival DC 12] Set the net where they run -> net_ok | net_poor
+* Take the poles and hold the net by hand -> net_hand
+
+~ net_ok
+Narrator: The net hangs taut between two poles, wide enough to catch anyone dropped over this stretch.
+set wv_net_ready
+-> END
+
+~ net_poor
+Narrator: The poles slip in the peat, and the net sags. It will catch someone, but it will not catch everyone.
+set wv_net_ready
+-> END
+
+~ net_hand
+Narrator: You and a fighter's strong arms, holding it between you. It will do for one or two.
+set wv_net_ready
+-> END
+
+~ heath_walk
+Narrator: Past the boulders the heath stays open for another stretch, and the shapes in the smoke are circling the running villagers. You could go on without turning.
+* Hold the heath after all -> END
+* Go on and leave the villagers to it -> heath_skip
+
+~ heath_skip
+Narrator: Behind you the shrieking begins. You do not look back.
+set vigil_deaths += 5
+set wv_h1_skipped
+quest wickers_vigil death_from_below
+-> END
+
+~ heath_after
+Narrator: The last boneflayer comes down in a tangle of wings. The heather is quiet except for rain.
+if not flag.wv_h1_saved_1
+set wv_h1_unsaved += 1
+endif
+if not flag.wv_h1_saved_2
+set wv_h1_unsaved += 1
+endif
+if not flag.wv_h1_saved_3
+set wv_h1_unsaved += 1
+endif
+if not flag.wv_h1_saved_4
+set wv_h1_unsaved += 1
+endif
+if not flag.wv_h1_saved_5
+set wv_h1_unsaved += 1
+endif
+-> heath_count
+
+~ heath_count
+if flag.wv_h1_unsaved == 0
+if flag.wv_net_ready
+set wv_h1_lost = 0
+else
+set wv_h1_lost = 0
+endif
+elif flag.wv_h1_unsaved == 1
+if flag.wv_net_ready
+set wv_h1_lost = 0
+else
+set wv_h1_lost = 1
+set vigil_deaths += 1
+endif
+elif flag.wv_h1_unsaved == 2
+if flag.wv_net_ready
+set wv_h1_lost = 0
+else
+set wv_h1_lost = 2
+set vigil_deaths += 2
+endif
+elif flag.wv_h1_unsaved == 3
+if flag.wv_net_ready
+set wv_h1_lost = 1
+set vigil_deaths += 1
+else
+set wv_h1_lost = 3
+set vigil_deaths += 3
+endif
+elif flag.wv_h1_unsaved == 4
+if flag.wv_net_ready
+set wv_h1_lost = 2
+set vigil_deaths += 2
+else
+set wv_h1_lost = 4
+set vigil_deaths += 4
+endif
+else
+if flag.wv_net_ready
+set wv_h1_lost = 3
+set vigil_deaths += 3
+else
+set wv_h1_lost = 5
+set vigil_deaths += 5
+endif
+endif
+set wv_h1_tallied
+-> heath_report
+
+~ heath_report
+if flag.wv_h1_lost == 0
+Narrator: Every villager who ran is alive, shaking, and staring at you.
+elif flag.wv_h1_lost <= 2
+Narrator: Most of them live. A few blue-green motes lift from the heather and stream away toward the hill, and one by one the survivors look up to watch them go.
+else
+Narrator: Too many did not make it. Blue-green motes rise from the heather in a thread and stream north, and the hill takes them.
+endif
+-> END
+
+~ potions
+wv_fleeing_villager [smile]: You kept them off us. Take these, please. They were my father's, for the harvest.
+give potion_of_healing_greater 2
+set wv_potions_given
+-> END
+
+# ---- the quagmire -------------------------------------------------------------------------------------------------------------
+
+~ quag_start
+Narrator: The rain has stopped. The bog lies black and still, and in it six villagers stand sunk to the waist, not speaking. The surface of the mud is moving in a line toward one of them.
+set wv_h2_started
+quest wickers_vigil death_from_below
+* Look around for anything to use -> END
+* Wade in -> quag_ready
+
+~ quag_ready
+Narrator: A wellwyrm's back breaks the mud and sinks again. There are more of them than the villagers.
+* Fight the wellwyrms and pull the villagers out -> quag_fight
+* Look about for something to use first -> END
+
+~ quag_fight
+Narrator: The line in the mud reaches the nearest villager.
+combat wv_wellwyrms
+
+~ horn
+Narrator: A long drover's horn hangs from a post, the kind they blow to bring cattle across a bog. It would carry a mile in this stillness.
+* Take the horn -> horn_take
+* [Performance DC 12] Test a note on it -> horn_blow | horn_take
+* Leave it -> END
+
+~ horn_take
+Narrator: You sling the horn on its cord. When the wyrms come, it will be there.
+set wv_horn_ready
+give wv_horn
+-> END
+
+~ horn_blow
+Narrator: The note rolls out across the black water. Under it the mud stops moving, and does not move again for a long breath.
+set wv_horn_ready
+give wv_horn
+-> END
+
+~ poles
+Narrator: Long poles, a coil of rope, a hurdle gate. Everything a hand needs to pull a person from a bog.
+* Take the rope and poles -> poles_take
+* Leave them -> END
+
+~ poles_take
+Narrator: The rope is in your hand. It will not make the bog shallower, but it will make pulling easier.
+set wv_rope_ready
+-> END
+
+~ quag_walk
+Narrator: Beyond the mud, the ground firms. The villagers are still sunk in it, six of them, and the mud is not going to stop.
+* Stay and fight for them -> END
+* Wade past and leave them -> quag_skip
+
+~ quag_skip
+Narrator: You pick a route over the hummocks. Behind you, one at a time, the mud takes them.
+set vigil_deaths += 6
+set wv_h2_skipped
+quest wickers_vigil death_from_within
+-> END
+
+~ quag_after
+Narrator: The last wellwyrm slides under and does not come up. The mud lies flat.
+if not flag.wv_h2_saved_1
+set wv_h2_unsaved += 1
+endif
+if not flag.wv_h2_saved_2
+set wv_h2_unsaved += 1
+endif
+if not flag.wv_h2_saved_3
+set wv_h2_unsaved += 1
+endif
+if not flag.wv_h2_saved_4
+set wv_h2_unsaved += 1
+endif
+if not flag.wv_h2_saved_5
+set wv_h2_unsaved += 1
+endif
+if not flag.wv_h2_saved_6
+set wv_h2_unsaved += 1
+endif
+-> quag_count
+
+~ quag_count
+if flag.wv_h2_unsaved == 0
+if flag.wv_rope_ready
+set wv_h2_lost = 0
+else
+set wv_h2_lost = 0
+endif
+elif flag.wv_h2_unsaved == 1
+if flag.wv_rope_ready
+set wv_h2_lost = 0
+else
+set wv_h2_lost = 1
+set vigil_deaths += 1
+endif
+elif flag.wv_h2_unsaved == 2
+if flag.wv_rope_ready
+set wv_h2_lost = 1
+set vigil_deaths += 1
+else
+set wv_h2_lost = 2
+set vigil_deaths += 2
+endif
+elif flag.wv_h2_unsaved == 3
+if flag.wv_rope_ready
+set wv_h2_lost = 2
+set vigil_deaths += 2
+else
+set wv_h2_lost = 3
+set vigil_deaths += 3
+endif
+elif flag.wv_h2_unsaved == 4
+if flag.wv_rope_ready
+set wv_h2_lost = 3
+set vigil_deaths += 3
+else
+set wv_h2_lost = 4
+set vigil_deaths += 4
+endif
+elif flag.wv_h2_unsaved == 5
+if flag.wv_rope_ready
+set wv_h2_lost = 4
+set vigil_deaths += 4
+else
+set wv_h2_lost = 5
+set vigil_deaths += 5
+endif
+else
+if flag.wv_rope_ready
+set wv_h2_lost = 5
+set vigil_deaths += 5
+else
+set wv_h2_lost = 6
+set vigil_deaths += 6
+endif
+endif
+set wv_h2_tallied
+-> quag_report
+
+~ quag_report
+if flag.wv_h2_lost == 0
+Narrator: Six villagers sit on the bank, mud to the chest, alive. One of them starts to laugh and cannot stop.
+elif flag.wv_h2_lost <= 2
+Narrator: Most of them live. Blue-green motes slide up off the mud and go north, thin as breath.
+else
+Narrator: The bog gave back fewer than it took. Motes rise from the black water in a long line and stream away to the hill.
+endif
+-> END
+
+~ lumen
+Narrator: A priestess in a patched white cloak steps out of the reeds, singing under her breath. She looks at the survivors, counts them, and stops singing.
+sister_lumen [smile]: Rest a moment. The Brightsingers owe you more than a song, and here is what I can give.
+heal 3d8 party
+inspiration party
+set wv_lumen_done
+Narrator: Warmth runs through you from her hands, three small healings, and for each of you a brightness in the chest that is like a held breath before a hymn.
+-> END
+
+# ---- the hardpan --------------------------------------------------------------------------------------------------------------
+
+~ pan_start
+Narrator: Firmer ground at last, packed hard as a threshing floor. Rusted sickles and pitchforks lie where their owners dropped them. Four figures sit in the middle of the field, so still you took them for scarecrows. They are Foxwillow farmhands, and they are putting out shoots.
+set wv_h3_started
+quest wickers_vigil death_from_within
+* Look around for anything to use -> END
+* Walk toward them -> pan_ready
+
+~ pan_ready
+Narrator: The nearest one lifts a head heavy with bark, and where its eyes were, two buds are opening.
+* Face the woodwarped -> pan_fight
+* Look about for something to use first -> END
+
+~ pan_fight
+Narrator: The first claw comes up out of the ground like a root.
+combat wv_woodwarped
+
+~ axes
+Narrator: A woodpile of axes and billhooks leans against a fence post, dropped by the farmhands when whatever it was came over them.
+* Take an axe -> axes_take
+* Leave them -> END
+
+~ axes_take
+Narrator: The woodwarped will see steel and think of the saw. A woodsman's axe cuts them like smoke.
+give handaxe 2
+set wv_axes_taken
+-> END
+
+~ pan_walk
+Narrator: The path to the hill runs north across the hardpan, past the four sitting figures. Going around them is possible. Leaving them is not kind.
+* Deal with the woodwarped -> END
+* Go around and leave the four -> pan_skip
+
+~ pan_skip
+Narrator: One of the sitters turns its head to watch you pass. You keep walking.
+set vigil_deaths += 4
+set wv_h3_skipped
+quest wickers_vigil ring_of_fire
+-> END
+
+~ pan_after
+Narrator: The last woodwarped goes down in a shower of dry bark. Between the splinters, the farmhands who were not ruined lie breathing in the dirt, naked as the day they were planted.
+set wv_h3_tallied
+-> END
+
+~ foot
+Narrator: The path climbs. Ahead, the hymn comes down the hill through the dark like warm water through cold, and it has no words you can hold on to. The bonfire is a red wound on the cloud base.
+set wv_foot_seen
+quest wickers_vigil ring_of_fire
+-> END
+
+~ fall_back_foot
+Narrator: The way back down is open. The village is a long road behind you, and the fire above is not going to wait for it.
+-> vigil/square:retreat_confirm

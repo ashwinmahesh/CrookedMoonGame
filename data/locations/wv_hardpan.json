@@ -103,7 +103,7 @@
       "to": "wv_stones",
       "spawn": "from_hardpan",
       "label": "Up the path to the stones",
-      "when": "flag.wv_h3_done or flag.wv_h3_skipped or flag.wv_h3_walked"
+      "when": "flag.wv_h3_done or flag.wv_h3_skipped"
     }
   ],
   "props": [
@@ -142,6 +142,18 @@
       "call": "vigil/moor:pan_after",
       "approach": 12,
       "call_when": "flag.wv_h3_done and not flag.wv_h3_tallied"
+    },
+    {
+      "id": "wv_pan_sitters",
+      "cell": [
+        20,
+        15
+      ],
+      "kind": "examine",
+      "label": "Four figures sitting very still in the field",
+      "model": "scarecrow",
+      "dialogue": "vigil/moor:pan_ready",
+      "when": "not flag.wv_h3_done"
     },
     {
       "id": "wv_pan_sickles",
@@ -216,7 +228,7 @@
       "label": "The path north",
       "call": "vigil/moor:pan_walk",
       "approach": 1,
-      "call_when": "not flag.wv_h3_done and not flag.wv_h3_skipped and not flag.wv_h3_walked"
+      "call_when": "not flag.wv_h3_done and not flag.wv_h3_skipped"
     }
   ],
   "npcs": [],

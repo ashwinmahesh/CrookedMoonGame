@@ -85,7 +85,7 @@
       "to": "wv_hardpan",
       "spawn": "from_quagmire",
       "label": "On to firmer ground",
-      "when": "flag.wv_h2_done or flag.wv_h2_skipped or flag.wv_h2_walked"
+      "when": "flag.wv_h2_done or flag.wv_h2_skipped"
     }
   ],
   "props": [
@@ -138,6 +138,18 @@
       "call_when": "flag.wv_h2_done and not flag.wv_h2_tallied"
     },
     {
+      "id": "wv_quag_mud",
+      "cell": [
+        30,
+        12
+      ],
+      "kind": "examine",
+      "label": "The mud, moving in a line",
+      "model": "puddle",
+      "dialogue": "vigil/moor:quag_ready",
+      "when": "not flag.wv_h2_done"
+    },
+    {
       "id": "wv_quag_reeds",
       "cell": [
         30,
@@ -167,7 +179,7 @@
       "label": "The far shore of the bog",
       "call": "vigil/moor:quag_walk",
       "approach": 1,
-      "call_when": "not flag.wv_h2_done and not flag.wv_h2_skipped and not flag.wv_h2_walked"
+      "call_when": "not flag.wv_h2_done and not flag.wv_h2_skipped"
     }
   ],
   "npcs": [

@@ -380,6 +380,29 @@
       "model": "fence"
     },
     {
+      "id": "wv_sq_end",
+      "cell": [
+        21,
+        14
+      ],
+      "kind": "decor",
+      "label": "The ash, where the Crooked Man crawled",
+      "call": "vigil/summit:crooked_end",
+      "approach": 8,
+      "call_when": "flag.vigil_fled and flag.wicker_man_destroyed and not flag.wv_crooked_end_seen"
+    },
+    {
+      "id": "wv_sq_home",
+      "cell": [
+        21,
+        20
+      ],
+      "kind": "examine",
+      "label": "The road home",
+      "dialogue": "vigil/summit:home",
+      "when": "flag.vigil_fled and flag.wv_phillip_seen and not flag.wicker_man_burned"
+    },
+    {
       "id": "wv_sq_fallback",
       "cell": [
         21,
@@ -526,6 +549,16 @@
         13
       ],
       "dialogue": "vigil/sleep:morgan",
+      "when": "not flag.wv_sleep_asked",
+      "facing": "west"
+    },
+    {
+      "npc": "morgan",
+      "cell": [
+        30,
+        13
+      ],
+      "dialogue": "vigil/sleep:morgan_back",
       "when": "flag.wv_sleep_asked and not flag.sleep_resolved",
       "facing": "west"
     },
@@ -538,6 +571,16 @@
       "dialogue": "vigil/square:dani",
       "when": "flag.wv_started",
       "facing": "north"
+    },
+    {
+      "npc": "phillip_druskenvald",
+      "cell": [
+        21,
+        15
+      ],
+      "dialogue": "vigil/summit:phillip_ash",
+      "when": "flag.vigil_fled and flag.wv_crooked_end_seen and not flag.wv_phillip_seen",
+      "facing": "south"
     }
   ],
   "encounters": [

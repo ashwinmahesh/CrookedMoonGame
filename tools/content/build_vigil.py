@@ -143,6 +143,8 @@ def square():
           prop("wv_sq_buckets", (16, 10), "Buckets of water along the wall", kind="decor", model="bucket_brush"),
           prop("wv_sq_hay", (12, 22), "Hay bales for the cattle", kind="decor", model="hay_bale"),
           prop("wv_sq_fence", (24, 24), "A fence, dragged across", kind="decor", model="fence"),
+          prop("wv_sq_end", (21, 14), "The ash, where the Crooked Man crawled", kind="decor", call=VG + "summit:crooked_end", approach=8, call_when="flag.vigil_fled and flag.wicker_man_destroyed and not flag.wv_crooked_end_seen"),
+          prop("wv_sq_home", (21, 20), "The road home", dialogue=VG + "summit:home", when="flag.vigil_fled and flag.wv_phillip_seen and not flag.wicker_man_burned"),
           prop("wv_sq_fallback", (21, 12), "The gap in the line, and the road to the barricade", dialogue=VG + "square:fall_back_gate", when="flag.vigil_fled and not flag.wicker_man_destroyed", kind="examine")]
     s["npcs"] = [npc("tamsin_ledger", (23, 13), "volunteers:start", when="not flag.wv_vol_asked", facing="west"),
                  npc("tamsin_ledger", (23, 13), "volunteers:progress", when="flag.wv_vol_asked and not flag.vol_resolved", facing="west"),
@@ -157,8 +159,10 @@ def square():
                  npc("geneva_fairchild", (26, 17), "letters:after", when="flag.letters_done", facing="east"),
                  npc("marianna_grey", (10, 17), "dinner:host", when="not flag.dinner_resolved", facing="east"),
                  npc("marianna_grey", (10, 17), "dinner:after", when="flag.dinner_resolved", facing="east"),
-                 npc("morgan", (30, 13), "sleep:morgan", when="flag.wv_sleep_asked and not flag.sleep_resolved", facing="west"),
-                 npc("dani_jenkin", (20, 20), "square:dani", when="flag.wv_started", facing="north")]
+                 npc("morgan", (30, 13), "sleep:morgan", when="not flag.wv_sleep_asked", facing="west"),
+                 npc("morgan", (30, 13), "sleep:morgan_back", when="flag.wv_sleep_asked and not flag.sleep_resolved", facing="west"),
+                 npc("dani_jenkin", (20, 20), "square:dani", when="flag.wv_started", facing="north"),
+                 npc("phillip_druskenvald", (21, 15), "summit:phillip_ash", when="flag.vigil_fled and flag.wv_crooked_end_seen and not flag.wv_phillip_seen", facing="south")]
     s["encounters"] = [  # the retreat: the Wicker Man walks into the square at full power (filled by build_fights)
     ]
     s["lights"] = [{"cell": [11, 13], "kind": "lamp", "bright_ft": 20, "dim_ft": 40, "color": "candle"}, {"cell": [21, 2], "kind": "fire", "bright_ft": 40, "dim_ft": 80, "color": "fire"}]
@@ -225,7 +229,7 @@ def moor_edge():
           prop("wv_edge_cairn", (28, 4), "A rain-slick cairn", kind="decor", model="cairn"),
           prop("wv_edge_dead_tree", (31, 17), "A dead tree against the lightning", kind="decor", model="dead_tree_a"),
           prop("wv_edge_leave", (33, 10), "The path onto the heath", kind="decor", call=VG + "moor:leave_edge", approach=1, call_when="not flag.wv_edge_left")]
-    s["npcs"] = [npc("marianna_grey", (14, 16), "moor:eyewitness", when="not flag.wv_eyewitness_done", facing="east")]
+    s["npcs"] = [npc("mori_shade", (14, 16), "moor:eyewitness", when="not flag.wv_eyewitness_done", facing="east")]
     s["lights"] = [{"cell": [7, 19], "kind": "lamp", "bright_ft": 15, "dim_ft": 30, "color": "candle"}]
     write("data/locations/wv_moor_edge.json", s)
 
@@ -245,16 +249,17 @@ def heath():
               "Open heather, stony rises and scattered boulders under a roaring sky. The smoke of the bonfire comes down the hill in sheets, and in it, wide as a barn door, something large is turning.",
               light="dark", areas=[area("heath", "The heath", (1, 1), (w - 2, h - 2))])
     s["exits"] = [exit_("to_edge", (2, 10), "wv_moor_edge", "from_heath", "Back to the moor's edge"),
-                  exit_("to_quagmire", (37, 12), "wv_quagmire", "from_heath", "On to the quagmire", when="flag.wv_h1_done or flag.wv_h1_skipped or flag.wv_h1_walked")]
+                  exit_("to_quagmire", (37, 12), "wv_quagmire", "from_heath", "On to the quagmire", when="flag.wv_h1_done or flag.wv_h1_skipped")]
     P = s["props"]
     P += [prop("wv_heath_arrive", (3, 10), "The heath, from the edge", kind="decor", call=VG + "moor:heath_start", approach=12, call_when="not flag.wv_h1_started"),
           prop("wv_heath_gong", (13, 9), "A rusted ploughman's gong on a post", model="lantern_stand", dialogue=VG + "moor:gong", when="not flag.wv_h1_done"),
           prop("wv_heath_net", (25, 13), "A drover's net and poles in the heather", model="rope_coils", dialogue=VG + "moor:net", when="not flag.wv_h1_done"),
           prop("wv_heath_after", (20, 11), "The heath, after", kind="decor", call=VG + "moor:heath_after", approach=12, call_when="flag.wv_h1_done and not flag.wv_h1_tallied"),
+          prop("wv_heath_smoke", (30, 12), "The smoke coming down the hill, and something in it", model="soot_patch", dialogue=VG + "moor:heath_ready", when="not flag.wv_h1_done"),
           prop("wv_heath_body", (30, 5), "A body in the heather", kind="decor", model="bones"),
           prop("wv_heath_feathers", (9, 14), "Black feathers the length of an arm", kind="decor", model="leaves"),
           prop("wv_heath_cairn", (33, 18), "A cairn", kind="decor", model="cairn"),
-          prop("wv_heath_walk", (36, 12), "The far side of the heath", kind="decor", call=VG + "moor:heath_walk", approach=1, call_when="not flag.wv_h1_done and not flag.wv_h1_skipped and not flag.wv_h1_walked")]
+          prop("wv_heath_walk", (36, 12), "The far side of the heath", kind="decor", call=VG + "moor:heath_walk", approach=1, call_when="not flag.wv_h1_done and not flag.wv_h1_skipped")]
     s["npcs"] = [npc("wv_fleeing_villager", (35, 8), "moor:potions", when="flag.wv_h1_tallied and flag.wv_h1_lost <= 1 and not flag.wv_potions_given", facing="west")]
     write("data/locations/wv_heath.json", s)
 
@@ -275,14 +280,15 @@ def quagmire():
               "The rain has stopped. The bog lies black and still, and in it stand six villagers sunk to the waist, not speaking. The surface of the mud moves in a line toward one of them.",
               light="dim", areas=[area("bog", "The quagmire", (1, 1), (w - 2, h - 2))])
     s["exits"] = [exit_("to_heath", (2, 12), "wv_heath", "from_quagmire", "Back to the heath"),
-                  exit_("to_hardpan", (37, 12), "wv_hardpan", "from_quagmire", "On to firmer ground", when="flag.wv_h2_done or flag.wv_h2_skipped or flag.wv_h2_walked")]
+                  exit_("to_hardpan", (37, 12), "wv_hardpan", "from_quagmire", "On to firmer ground", when="flag.wv_h2_done or flag.wv_h2_skipped")]
     P = s["props"]
     P += [prop("wv_quag_arrive", (3, 12), "The quagmire, from the heath", kind="decor", call=VG + "moor:quag_start", approach=12, call_when="not flag.wv_h2_started"),
           prop("wv_quag_horn", (6, 10), "A drover's horn hanging on a post", model="lantern_bracket", dialogue=VG + "moor:horn", when="not flag.wv_h2_done"),
           prop("wv_quag_pole", (5, 14), "Long poles and a coil of rope", model="rope_coils", dialogue=VG + "moor:poles", when="not flag.wv_h2_done"),
           prop("wv_quag_after", (35, 12), "The quagmire, after", kind="decor", call=VG + "moor:quag_after", approach=10, call_when="flag.wv_h2_done and not flag.wv_h2_tallied"),
+          prop("wv_quag_mud", (30, 12), "The mud, moving in a line", model="puddle", dialogue=VG + "moor:quag_ready", when="not flag.wv_h2_done"),
           prop("wv_quag_reeds", (30, 20), "Reeds", kind="decor", model="reeds"), prop("wv_quag_reeds2", (12, 3), "Reeds", kind="decor", model="reeds"),
-          prop("wv_quag_walk", (36, 12), "The far shore of the bog", kind="decor", call=VG + "moor:quag_walk", approach=1, call_when="not flag.wv_h2_done and not flag.wv_h2_skipped and not flag.wv_h2_walked")]
+          prop("wv_quag_walk", (36, 12), "The far shore of the bog", kind="decor", call=VG + "moor:quag_walk", approach=1, call_when="not flag.wv_h2_done and not flag.wv_h2_skipped")]
     s["npcs"] = [npc("sister_lumen", (36, 10), "moor:lumen", when="flag.wv_h2_tallied and flag.wv_h2_lost <= 2 and not flag.wv_lumen_done", facing="west")]
     write("data/locations/wv_quagmire.json", s)
 
@@ -303,18 +309,19 @@ def hardpan():
               "Firmer ground at last, packed hard as a threshing floor. Rusted sickles and pitchforks lie where their owners dropped them, and four figures are sitting very still in the middle of the field. The path to the hill runs north from here, and the revel's song comes down it.",
               light="dim", areas=[area("pan", "The hardpan", (1, 7), (w - 2, h - 2)), area("foot", "The foot of the Rise", (1, 1), (w - 2, 6))])
     s["exits"] = [exit_("to_quagmire", (2, 19), "wv_quagmire", "from_hardpan", "Back to the bog"),
-                  exit_("to_stones", (19, 2), "wv_stones", "from_hardpan", "Up the path to the stones", when="flag.wv_h3_done or flag.wv_h3_skipped or flag.wv_h3_walked")]
+                  exit_("to_stones", (19, 2), "wv_stones", "from_hardpan", "Up the path to the stones", when="flag.wv_h3_done or flag.wv_h3_skipped")]
     P = s["props"]
     P += [prop("wv_pan_arrive", (3, 19), "The hardpan, from the bog", kind="decor", call=VG + "moor:pan_start", approach=12, call_when="not flag.wv_h3_started"),
           prop("wv_pan_axes", (9, 21), "Axes and billhooks stacked against a fence", model="woodpile", dialogue=VG + "moor:axes", when="not flag.wv_h3_done"),
           prop("wv_pan_after", (20, 19), "The hardpan, after", kind="decor", call=VG + "moor:pan_after", approach=12, call_when="flag.wv_h3_done and not flag.wv_h3_tallied"),
+          prop("wv_pan_sitters", (20, 15), "Four figures sitting very still in the field", model="scarecrow", dialogue=VG + "moor:pan_ready", when="not flag.wv_h3_done"),
           prop("wv_pan_sickles", (24, 22), "Rusted sickles in the dirt", kind="decor", model="stake_bundle"),
           prop("wv_pan_forks", (30, 9), "Pitchforks dropped in a line", kind="decor", model="fence"),
           prop("wv_pan_foot", (19, 6), "The foot of the Rise", kind="decor", call=VG + "moor:foot", approach=3, call_when="not flag.wv_foot_seen"),
           prop("wv_pan_song", (19, 3), "The song coming down the hill", kind="decor", model="stone_faces"),
           prop("wv_pan_lantern", (21, 5), "A hurricane lantern on the path", kind="decor", model="lantern_post"),
           prop("wv_pan_fallback", (19, 4), "The way back down", dialogue=VG + "moor:fall_back_foot", when="not flag.vigil_fled"),
-          prop("wv_pan_walk", (19, 7), "The path north", kind="decor", call=VG + "moor:pan_walk", approach=1, call_when="not flag.wv_h3_done and not flag.wv_h3_skipped and not flag.wv_h3_walked")]
+          prop("wv_pan_walk", (19, 7), "The path north", kind="decor", call=VG + "moor:pan_walk", approach=1, call_when="not flag.wv_h3_done and not flag.wv_h3_skipped")]
     write("data/locations/wv_hardpan.json", s)
 
 
@@ -343,8 +350,7 @@ def stones():
     s["exits"] = [exit_("to_hardpan", (18, 28), "wv_hardpan", "from_stones", "Back down the hill"),
                   exit_("to_summit", (18, 3), "wv_summit", "from_stones", "Up to the summit", when="flag.wv_ring_down and flag.wv_cult_done")]
     P = s["props"]
-    P += [prop("wv_st_arrive", (18, 26), "The hymn, loud now", kind="decor", call=VG + "stones:arrive", approach=12, call_when="not flag.wv_stones_seen"),
-          prop("wv_st_skip", (18, 24), "The slope below the stones", kind="decor", call=VG + "stones:slope", approach=2, call_when="flag.wv_stones_seen and not flag.wv_ring_started and not flag.wv_ring_down")]
+    P += [prop("wv_st_arrive", (18, 26), "The hymn, loud now", kind="decor", call=VG + "stones:arrive", approach=12, call_when="not flag.wv_stones_seen")]
     for i, (x, y) in enumerate(STONES, 1):
         P += [prop(f"wv_stone_{i}", (x, y), f"Standing stone {i}, runes burning", model="standing_stones", dialogue=VG + f"stones:stone_{i}", when=f"flag.wv_ring_started and not flag.wv_stone_{i}_down and not flag.wv_ring_down"),
               prop(f"wv_stone_{i}_calm", (x, y), f"Standing stone {i}, runes burning (the dancers' song holds the fire back)", model="standing_stones", dialogue=VG + "stones:calm", when="not flag.wv_ring_started"),

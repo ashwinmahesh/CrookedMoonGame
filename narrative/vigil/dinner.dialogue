@@ -1,0 +1,124 @@
+# R23 The Last Dinner (side quest): Marianna Grey lays the Green Queen's last supper. By hand, polished by Gemini, unvoiced.
+
+~ host
+marianna_grey [neutral]: The inn's cellar is open and the ovens are lit. Alda has gone, and I have the keys. I am putting on a supper for whoever will come. They each want something. A last something. Will you sit and help me?
+set wv_dinner_asked
+quest the_last_dinner asked
+-> host_menu
+
+~ host_menu
+* Sit at the long table -> table
+* Ask what a last request means -> what
+* [if item:wv_last_letters and not flag.letter_marianna] Give her the letter from Walder Pye -> vigil/letters:to_marianna
+* [ends:the_last_dinner] Say there is no time for supper -> cold
+* Leave her to it -> END
+
+~ what
+marianna_grey [sad]: When I was a girl my grandmother said you feed the dying first and ask second. Tonight everyone is dying a little. So I am asking first.
+-> host_menu
+
+~ table
+Narrator: A long table under paper lanterns, set for a feast that does not match the hour. Round it sit the village's oddest guests, each looking at the food rather than each other.
+-> table_menu
+
+~ table_menu
+* [if flag.dinner_fed >= 3] Raise a cup and make it a supper -> toast
+* [if not flag.dinner_quill] Sit by Ambrose Quill -> quill
+* [if not flag.dinner_pip] Sit by Pip Oakum -> pip
+* [if not flag.dinner_gaunt] Sit by Sergeant Gaunt -> gaunt
+* [if not flag.dinner_tamsin] Sit by Tamsin Ledger -> tamsin
+* [ends:the_last_dinner] Get up and leave the table to go cold -> cold
+* Stand up for now -> END
+
+~ quill
+ambrose_quill [sad]: My request is small. Listen to the whole elegy, to the last stanza, and do not look at the door. Nobody has, yet.
+* [Insight DC 12] Guess what the last stanza says -> quill_guess | quill_ask
+* Ask him to read it -> quill_ask
+
+~ quill_guess
+Narrator: It ends on a rhyme for "doom" that is not "room". You nod. He weeps quietly into his pudding.
+set dinner_quill
+set dinner_fed += 1
+-> table_menu
+
+~ quill_ask
+Narrator: He reads. It is a fine elegy, by the third stanza a very good marching song, and by the sixth the whole table is tapping the beat.
+set dinner_quill
+set dinner_fed += 1
+-> table_menu
+
+~ pip
+pip_oakum [smile]: I want a seat at the grown-ups' end, where the bread is. And I want you to tell me the thing you are most afraid of, so I can put it in my collection.
+* [Insight DC 12] Guess what he means -> pip_guess | pip_ask
+* Tell him -> pip_ask
+
+~ pip_guess
+Narrator: He means the old fear, the one that you do not say. You tell him something smaller, and he accepts it, grave as a magistrate.
+set dinner_pip
+set dinner_fed += 1
+-> table_menu
+
+~ pip_ask
+Narrator: You tell him the thing you are most afraid of. He writes it on a card, very seriously, and pockets the card.
+set dinner_pip
+set dinner_fed += 1
+-> table_menu
+
+~ gaunt
+sgt_gaunt [weary]: My request is simple. Seat me at the end farthest from the door, in a chair with a high back, and tell nobody that I asked.
+* [Insight DC 12] Guess why the high back -> gaunt_guess | gaunt_ask
+* Seat him there -> gaunt_ask
+
+~ gaunt_guess
+Narrator: It is so he can see the whole room and be out of sight of the window. You seat him there and say nothing. He nods at you, a soldier's nod.
+set dinner_gaunt
+set dinner_fed += 1
+-> table_menu
+
+~ gaunt_ask
+Narrator: You seat him at the far end of the table in the high-backed chair. He sits like a man in a theatre, watching the exits.
+set dinner_gaunt
+set dinner_fed += 1
+-> table_menu
+
+~ tamsin
+tamsin_ledger [neutral]: I would like the minutes of this supper read aloud, in full, at its end. There should be a record that we ate.
+* [Insight DC 12] Guess what she really means -> tamsin_guess | tamsin_ask
+* Promise to read them -> tamsin_ask
+
+~ tamsin_guess
+Narrator: She wants someone to remember. You promise it, and she writes the promise down, which is the same thing.
+set dinner_tamsin
+set dinner_fed += 1
+-> table_menu
+
+~ tamsin_ask
+Narrator: You promise to read the minutes. She inks the date and the time, and then, after a moment, a smaller note: present, and fed.
+set dinner_tamsin
+set dinner_fed += 1
+-> table_menu
+
+~ toast
+marianna_grey [smile]: To the Green Queen, and everyone at her table. May the next supper be at a better hour.
+Narrator: The cups go round. For a minute nobody looks north.
+quest the_last_dinner served
+set dinner_resolved
+heal 3d8 party
+hit_dice restore 2 party
+give wv_feast_bread
+-> END
+
+~ cold
+marianna_grey [sad]: Then I will keep it warm in the oven. Someone will want it.
+Narrator: The long table sits empty under its lanterns, the food growing cold on every plate.
+quest the_last_dinner cold
+set dinner_resolved
+-> END
+
+~ after
+if quest.the_last_dinner == served
+marianna_grey [smile]: It was a good supper. The best the Queen ever gave. Go carefully.
+else
+marianna_grey [sad]: The oven is still warm. If you come back, I will have something in it.
+endif
+-> END

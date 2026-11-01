@@ -1,0 +1,110 @@
+# R23 the funny people of the eve: Gaunt, Quill, Pip and Barnaby. By hand, polished by Gemini, unvoiced.
+
+~ gaunt
+sgt_gaunt [smile]: Sergeant Gaunt, rear guard. Do not worry about the line. I am behind it, and I have it in hand.
+-> gaunt_menu
+
+~ gaunt_menu
+* [if item:wv_last_letters and not flag.letter_gaunt] Give him the letter from his mother -> vigil/letters:to_gaunt
+* Ask how the rear guard is positioned -> gaunt_position
+* Ask for a word of advice -> gaunt_advice
+* Wish him luck -> END
+
+~ gaunt_position
+sgt_gaunt [neutral]: Behind the barricade, behind the line, behind the village, and, if the wind is right, behind the hill. A good soldier always has something between him and the enemy. Preferably a village.
+-> gaunt_menu
+
+~ gaunt_advice
+sgt_gaunt [sly]: When the line breaks, fall back to a strong position. When the strong position breaks, fall back to a stronger one. I have been falling back for thirty years and I have never once been caught.
+-> gaunt_menu
+
+~ quill
+ambrose_quill [smile]: The village is about to be burned, and I have finished the elegy. It scans. It has a good chorus. I call it "Lament for the Round", and by the third verse it is, I fear, a hymn for charging.
+-> quill_menu
+
+~ quill_menu
+* Ask him to recite it -> quill_elegy
+* [if flag.wv_vol_asked and not flag.vol_quill] Ask him to sign the militia roll -> quill_sign
+* [if item:wv_last_letters and not flag.letter_quill] Give him the letter from the publisher -> vigil/letters:to_quill
+* Leave him to his rhymes -> END
+
+~ quill_elegy
+Narrator: He clears his throat, stands on a bench, and reads. The first stanza mourns the village. The second mourns the dead. By the third it is rhyming "foe" with "go", and by the fourth the bucket line has started marching in step.
+if not flag.quill_blessed
+Narrator: Something rises in your chest that has no business in an elegy. It is, unmistakably, a battle hymn.
+bless party 2h
+set quill_blessed
+endif
+-> quill_menu
+
+~ quill_sign
+ambrose_quill [sad]: I will sign, if the roll will record that my elegy is the regimental hymn. It is only fair. It is the only one that exists.
+* [Performance DC 13] Tell him the hymn will go in the margin, with a flourish -> quill_signed | quill_sulk
+* Promise to put it in the roll yourself -> quill_signed
+
+~ quill_signed
+Narrator: He signs with a flourish that takes up the whole margin, and underlines it twice.
+set vol_quill
+set vol_signed += 1
+-> quill_menu
+
+~ quill_sulk
+ambrose_quill [sad]: I fear that was not a flourish. It was a shrug.
+-> quill_sign
+
+~ pip
+pip_oakum [smile]: I have one hundred and twelve buttons and I am going to trade them for courage. Whose is the best? I will give you three buttons for the best.
+-> pip_menu
+
+~ pip_menu
+* Ask about the buttons -> pip_buttons
+* [if not flag.pip_traded] Trade for his courage button -> pip_trade
+* Wish him luck -> END
+
+~ pip_buttons
+pip_oakum [neutral]: This one is from a hero's coat. This one is from a dead man's shirt. This one is from the door of the church, and it is warm. The warm one is the best one.
+-> pip_menu
+
+~ pip_trade
+pip_oakum [smile]: You can have the warm one. In return I want to know that you will come back, and tell me what it was like.
+Narrator: He presses a brass button into your hand. It is warm, as he said.
+give wv_pip_button
+inspiration party
+set pip_traded
+-> pip_menu
+
+~ barnaby
+barnaby_pennywhistle [smile]: Wicker Man repellent! Two gold for a bottle, five for a case, free for the infirm and the brave. Guaranteed against wicker, men, and, as of this afternoon, Wicker Men. The third is new.
+-> barnaby_menu
+
+~ barnaby_menu
+* [if gold >= 5 and not flag.barnaby_sold] Buy a bottle for five gold -> barnaby_buy
+* [if flag.wv_vol_asked and not flag.vol_barnaby] Ask him to sign the militia roll -> barnaby_sign
+* Ask what is in it -> barnaby_what
+* Leave him to his trade -> END
+
+~ barnaby_what
+barnaby_pennywhistle [sly]: Mostly vinegar. Some cider. A little of something that I cannot name for legal reasons. The label is the important part.
+-> barnaby_menu
+
+~ barnaby_buy
+barnaby_pennywhistle [smile]: A discerning customer. Shake well. Do not drink. Spray liberally at the thing you wish it not to do.
+gold -5
+give wv_barnaby_repellent
+set barnaby_sold
+-> barnaby_menu
+
+~ barnaby_sign
+barnaby_pennywhistle [neutral]: A volunteer? I am a vendor. Vendors are not volunteers. But if the roll records a bulk order, I will sign.
+* [Persuasion DC 13] Argue that a vendor is a volunteer who has not yet been paid -> barnaby_signed | barnaby_no
+* Promise to put a bulk order on the roll -> barnaby_signed
+
+~ barnaby_signed
+Narrator: He signs with the air of a man who has read the small print and found it his own.
+set vol_barnaby
+set vol_signed += 1
+-> barnaby_menu
+
+~ barnaby_no
+barnaby_pennywhistle [sad]: Splendid logic. I am afraid it is also wrong.
+-> barnaby_sign

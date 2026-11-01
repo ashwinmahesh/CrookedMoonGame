@@ -1,0 +1,50 @@
+# R23 The Goat's Stand (side quest, comic). By hand, polished by Gemini, unvoiced.
+
+~ board
+Narrator: A notice, on a board, over which stands a goat. The goat has chosen to stand on the board. The notice says the board is the evacuation point.
+the_notice_goat [neutral]: The goat chews, and holds your eye with a look of absolute disinterest.
+set wv_goat_met
+quest the_goats_stand asked
+-> menu
+
+~ menu
+* [Animal Handling DC 13] Coax the goat down -> moved | bitten
+* [Intimidation DC 14] Stare the goat down -> moved | bitten
+* [if item:wv_feast_bread] Offer the goat a heel of the last loaf -> bread
+* Ask Tamsin to move the evacuation point instead -> point
+* [ends:the_goats_stand] Leave the goat where it is -> stand
+* Leave -> END
+
+~ bitten
+Narrator: The goat reaches out, takes your sleeve in its mouth, and pulls, and holds your eye the whole time.
+damage 1d4 piercing
+-> menu
+
+~ moved
+Narrator: Some silent treaty passes between you. The goat steps off the board with the dignity of a magistrate leaving a bad court, and walks toward the church without looking back.
+quest the_goats_stand moved
+set goat_resolved
+set goat_saved
+-> END
+
+~ bread
+Narrator: The goat takes the bread. The goat considers the bread. The goat gets down off the board with exactly the speed of a creature that was always going to do it, and was only waiting for a better offer.
+take wv_feast_bread
+quest the_goats_stand moved
+set goat_resolved
+set goat_saved
+-> END
+
+~ point
+Narrator: Tamsin has the evacuation notice moved to the well in forty seconds and a stamp. The goat is on the board, and the board is not the point, and the goat, as far as anyone can tell, is satisfied.
+quest the_goats_stand moved
+set goat_resolved
+set goat_saved
+-> END
+
+~ stand
+Narrator: The goat looks at you the way it looked at the sky, and goes on chewing. Whatever walks down the hill tonight is going to meet that expression.
+quest the_goats_stand stands
+set goat_resolved
+set goat_stood
+-> END

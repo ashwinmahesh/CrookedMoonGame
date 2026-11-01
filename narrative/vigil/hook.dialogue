@@ -1,0 +1,75 @@
+# R23 hook: Dani at the ruins and Tamsin in the village. Drafted by hand, polished by Gemini (R23 hook), unvoiced.
+
+~ dani_ruins
+Narrator: The spirits are no longer turning over the ruin. They are leaving, all of them, in one long pale stream north over the moor, and Dani Jenkin stands in the middle of the rubble with her head turned to follow it.
+dani_jenkin [neutral]: They know where they are going. They are going to Adela. Phillip is out there too, lost, with his lamp out. She is in a cage made of sticks, among a lot of frightened people. It is very bright where she is.
+set wv_hook_given
+set wv_started
+quest wickers_vigil follow_the_spirits
+-> dani_menu
+
+~ dani_menu
+* Ask what she can feel -> dani_feel
+* Ask about Phillip -> dani_phillip
+* Ask about the face in the clouds -> dani_face
+* We will go north, after them -> dani_go
+* We should warn the village first -> dani_village
+
+~ dani_feel
+dani_jenkin [afraid]: A fire that has been waiting a long time to be lit. Lots of people standing in wicker, and all of them can hear a song. They do not want to.
+-> dani_menu
+
+~ dani_phillip
+dani_jenkin [sad]: Will-o'-the-wisps. They are leading him the wrong way across the moor. He keeps shouting her name. He will find her too late.
+-> dani_menu
+
+~ dani_face
+dani_jenkin [neutral]: The Crooked Man. He is in the clouds now, not the house. He will say things to you on the moor. He lies, but not about the fire.
+-> dani_menu
+
+~ dani_go
+dani_jenkin [neutral]: Go the way the dead are going. The moor road is the shortest, and the road after that is longer than it looks.
+Narrator: She does not say goodbye. She turns back to the rubble, and the dog sits beside her, ears forward, watching the sky.
+-> END
+
+~ dani_village
+dani_jenkin [neutral]: Tamsin is making a list. She will want you on it. The Round will be where everyone is, if you want to see them before you go.
+-> END
+
+~ dani_again
+dani_jenkin [neutral]: The spirits have all gone. It is only the dog and me now. Go on. The fire will not wait.
+* We are going -> END
+
+~ tamsin_start
+Narrator: The Founder's Round has been rearranged by a clerk. A trestle desk stands across the cobbles, a queue bends round the well, and the whole village is looking north, where a bonfire stands up against the clouds.
+tamsin_ledger [neutral]: You are the party the village keeps leaving its doors open for. The wicker effigy on Rowan's Rise is lit and the militia is not in order. I am enrolling, in triplicate. Come down to the barricade and be seen.
+set wv_started
+quest wickers_vigil follow_the_spirits
+-> tamsin_menu
+
+~ tamsin_menu
+* Ask what is happening -> tamsin_what
+* Ask about the wicker man -> tamsin_wicker
+* Go to the Round and the barricade -> tamsin_come
+* Go straight to the moor road -> tamsin_moor
+
+~ tamsin_what
+tamsin_ledger [neutral]: Masked villagers took the constable first. The mayor is gone. A bonfire went up on the hill at dusk and the sky grew a face. I have written all of it down.
+-> tamsin_menu
+
+~ tamsin_wicker
+tamsin_ledger [weary]: It is a figure of willow sixty feet tall, they say. I have filed it under Structures, Unauthorised. I will correct the heading when it burns something.
+-> tamsin_menu
+
+~ tamsin_come
+tamsin_ledger [smile]: Good. Mind the barricade. It was a cart this morning.
+move wv_square:from_travel
+
+~ tamsin_moor
+tamsin_ledger [neutral]: The road is north of the Round. If you come back through the village, please sign for the gate.
+-> END
+
+~ tamsin_again
+tamsin_ledger [neutral]: The Round is where the village is, if you want to see it before you go up the hill.
+* Take me to the Round -> tamsin_come
+* Not now -> END

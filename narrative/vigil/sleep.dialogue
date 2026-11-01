@@ -1,0 +1,103 @@
+# R23 A Place to Sleep (side quest, escort): the sick, the children and the old folk to the Silent Church. By hand, polished by Gemini, unvoiced.
+
+~ morgan
+morgan [neutral]: The song cannot reach the Silent Church, they say. If they sleep under that roof, they will wake. I do not remember much, but I remember the sick are the first thing a fire takes. Help me move them.
+set wv_sleep_asked
+quest a_place_to_sleep asked
+-> morgan_menu
+
+~ morgan_back
+morgan [neutral]: Where do we stand? The wagon, the children and the old folk. I will not rest until they are under that roof.
+-> morgan_menu
+
+~ morgan_menu
+* [if flag.sleep_count >= 3] Tell Morgan they are all inside -> morgan_done
+* Ask what Morgan needs -> morgan_need
+* [ends:a_place_to_sleep if flag.sleep_count < 3] Tell Morgan it cannot be done -> morgan_fail
+* Leave -> END
+
+~ morgan_need
+morgan [neutral]: The wagon of the sick, the children under the awning, and the old folk on their chairs. They each have their own reasons not to go. I can help with the sick. The rest, I cannot say.
+-> morgan_menu
+
+~ morgan_done
+morgan [smile]: I have never been so relieved, and I do not know why I am surprised. Thank you. They will sleep.
+quest a_place_to_sleep sheltered
+set sleep_resolved
+heal 3d8 party
+-> END
+
+~ morgan_fail
+morgan [sad]: Then I will do what I can with what is left. Go, go. The fire is not waiting.
+quest a_place_to_sleep scattered
+set sleep_resolved
+-> END
+
+~ sick
+Narrator: A wagon with eight beds' worth of the sick in it, under blankets, with a dog for company. Every bump in the cobbles draws a sound out of someone.
+* [Athletics DC 13] Pull the wagon over the cobbles to the church -> sick_ok | sick_slow
+* [Medicine DC 12] Settle them for the move and go gently -> sick_ok | sick_slow
+* Fetch stretchers and carry them one by one -> sick_carry
+
+~ sick_ok
+Narrator: You get the wagon to the church door in one trip, and the sick are carried in with a hand each.
+set sleep_sick
+set sleep_count += 1
+-> END
+
+~ sick_slow
+Narrator: The wagon jolts, and someone cries out. You stop, steady it, and start again more slowly.
+-> sick
+
+~ sick_carry
+Narrator: It takes an hour. Nobody complains. When it is over you are filthy and quiet and the sick are under the church's roof.
+time +60
+set sleep_sick
+set sleep_count += 1
+-> END
+
+~ children
+Narrator: A heap of children under the inn's awning, wide-eyed, whispering, in their coats. A small boy has already been told it is all a game, and is not buying it.
+* [Performance DC 12] Tell them a story all the way to the church -> children_ok | children_slow
+* [Persuasion DC 12] Tell them the church has a stone knight, and ask if they want to meet him -> children_ok | children_slow
+* Carry them across in twos and threes -> children_carry
+
+~ children_ok
+Narrator: They follow you like ducklings, whispering the next part. At the church door you stop, and one of them says "and then what?" in a very small voice.
+set sleep_children
+set sleep_count += 1
+-> END
+
+~ children_slow
+Narrator: A bottom lip goes, and then another. Someone starts to cry. You kneel and start again, more slowly.
+-> children
+
+~ children_carry
+Narrator: It takes four trips. Nobody complains, though one of them bites you.
+time +20
+set sleep_children
+set sleep_count += 1
+-> END
+
+~ old
+Narrator: A row of old folk on kitchen chairs in the lee of the inn, blankets round their knees, refusing to move. One of them has a thermos. One of them has a shotgun.
+* [Persuasion DC 14] Tell them the church needs their chairs more than the Round does -> old_ok | old_stuck
+* [Insight DC 13] Find what each of them actually needs and offer it -> old_ok | old_stuck
+* Carry the chairs and the old folk together, one chair at a time -> old_carry
+
+~ old_ok
+Narrator: They come, grumbling, with their chairs, in a slow procession like a funeral for a very small king. The one with the shotgun carries it unloaded.
+set sleep_old
+set sleep_count += 1
+-> END
+
+~ old_stuck
+Narrator: They fold their arms. The one with the thermos pours herself a cup. It will take another approach.
+-> old
+
+~ old_carry
+Narrator: Carried, chairs and all. They complain the whole way. At the church door, one of them says the stone knight looks like her late husband, which no one thinks is a compliment.
+time +20
+set sleep_old
+set sleep_count += 1
+-> END

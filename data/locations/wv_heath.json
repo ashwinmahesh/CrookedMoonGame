@@ -85,7 +85,7 @@
       "to": "wv_quagmire",
       "spawn": "from_heath",
       "label": "On to the quagmire",
-      "when": "flag.wv_h1_done or flag.wv_h1_skipped or flag.wv_h1_walked"
+      "when": "flag.wv_h1_done or flag.wv_h1_skipped"
     }
   ],
   "props": [
@@ -138,6 +138,18 @@
       "call_when": "flag.wv_h1_done and not flag.wv_h1_tallied"
     },
     {
+      "id": "wv_heath_smoke",
+      "cell": [
+        30,
+        12
+      ],
+      "kind": "examine",
+      "label": "The smoke coming down the hill, and something in it",
+      "model": "soot_patch",
+      "dialogue": "vigil/moor:heath_ready",
+      "when": "not flag.wv_h1_done"
+    },
+    {
       "id": "wv_heath_body",
       "cell": [
         30,
@@ -177,7 +189,7 @@
       "label": "The far side of the heath",
       "call": "vigil/moor:heath_walk",
       "approach": 1,
-      "call_when": "not flag.wv_h1_done and not flag.wv_h1_skipped and not flag.wv_h1_walked"
+      "call_when": "not flag.wv_h1_done and not flag.wv_h1_skipped"
     }
   ],
   "npcs": [

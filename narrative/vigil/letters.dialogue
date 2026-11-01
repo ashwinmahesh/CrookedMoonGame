@@ -1,0 +1,77 @@
+# R23 Letters Home (side quest, delivery): Geneva's last letters, one of them Walder Pye's. By hand, polished by Gemini, unvoiced.
+
+~ start
+geneva_fairchild [neutral]: The post will not run tomorrow, nor for a while, I think. These are last letters, everyone's. Each one has someone in the Round to read it. Will you carry them? I would, but I must stay with the cart.
+give wv_last_letters
+set wv_letters_asked
+quest letters_home asked
+-> menu
+
+~ menu
+* Ask who the letters are for -> who
+* [if flag.letters_n >= 3] Tell her they have all been read -> done
+* [ends:letters_home] Say there is nothing to be done with them -> unsent
+* Take the satchel and go -> END
+
+~ who
+geneva_fairchild [neutral]: Sergeant Gaunt has one from his mother. Mr Quill has one from a publisher. Miss Ledger has one from the county seat. Mrs Grey has one from Walder Pye, a traveller who died, and it should go to her in his own words.
+-> menu
+
+~ progress
+geneva_fairchild [neutral]: Have you found them all? I am counting the pile.
+-> menu
+
+~ after
+if quest.letters_home == delivered
+geneva_fairchild [smile]: The pile is empty. I did not think it could be. Thank you.
+else
+geneva_fairchild [sad]: The letters are on the board. The wind is turning them. I cannot bear to look.
+endif
+-> END
+
+~ done
+geneva_fairchild [smile]: Every one of them read. Thank you. I will tell the post they were delivered.
+take wv_last_letters
+quest letters_home delivered
+set letters_done
+inspiration party
+-> END
+
+~ unsent
+geneva_fairchild [sad]: Then I will pin them to the board where the wind can read them.
+take wv_last_letters
+quest letters_home unsent
+set letters_done
+-> END
+
+~ cart
+Narrator: A post cart half-empty of letters and half-full of lanterns. A pigeon's feather, a stamp, a spool of twine. Geneva has a list on a clipboard, and ticks it each time a letter is out of her hands.
+-> END
+
+~ to_gaunt
+Narrator: Sergeant Gaunt breaks the seal, reads a line, and goes the colour of lard.
+sgt_gaunt [afraid]: My mother says come home, and that I am a coward, and that she has always known it. She says she is proud of me anyway. She is the only person who has ever seen me clearly, and I would like it noted that she is also correct.
+set letter_gaunt
+set letters_n += 1
+-> END
+
+~ to_quill
+Narrator: Ambrose Quill reads it twice, mouthing the words.
+ambrose_quill [sad]: A rejection, from a firm in the city. In verse. It is the best verse that has ever refused me. I shall frame it.
+set letter_quill
+set letters_n += 1
+-> END
+
+~ to_tamsin
+Narrator: Tamsin Ledger opens the county seat's envelope with a letter knife and reads it standing.
+tamsin_ledger [neutral]: My leave is cancelled, and I am to report back to the audit office by the end of the month. They have not noticed the month is not ending. I shall report that.
+set letter_tamsin
+set letters_n += 1
+-> END
+
+~ to_marianna
+Narrator: Marianna Grey holds Walder Pye's letter in both hands for a long time before she opens it.
+marianna_grey [sad]: He asks me to tell the mare he is sorry, and that he meant to come back for her. I will tell her. She is in the stable. She will understand.
+set letter_marianna
+set letters_n += 1
+-> END
