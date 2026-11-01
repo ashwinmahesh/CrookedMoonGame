@@ -240,12 +240,12 @@ def build_monsters():
     bats["actions"] = [{"id": "bite", "name": "Bite", "kind": "melee", "attack": {"bonus": 4, "reach": 5}, "damage": [{"average": 5, "dice": "2d4", "type": "piercing"}], "summary": "+4, 2d4 Piercing."}]
     write("data/monsters/swarm_of_bats.json", bats)
     eff = read("data/monsters/crimson_clergy.json")
-    eff.update({"id": "blood_effigy", "name": "Blood Effigy", "hp": {"average": 10, "dice": "3d6"}, "cr": 0.5, "xp": 100, "minion_of": "crimson_abbot_boss",
+    eff.update({"id": "blood_effigy", "name": "Blood Effigy", "art": "blood_effigy", "hp": {"average": 10, "dice": "3d6"}, "cr": 0.5, "xp": 100, "minion_of": "crimson_abbot_boss",
                 "minions": {"when_it_falls": "vanish", "narration": "The effigy slumps into a puddle."},
                 "summary": "A clergy shape of blood, rising beside the Abbot under the red moon. Ten Hit Points."})
     write("data/monsters/blood_effigy.json", eff)
     be = read("data/monsters/mud_mephit.json")
-    be.update({"id": "blood_elemental", "name": "Blood Elemental", "size": "large", "type": "elemental", "ac": 14, "hp": {"average": 114, "dice": "12d10+48"}, "cr": 5, "xp": 1800, "art": "water_elemental",
+    be.update({"id": "blood_elemental", "name": "Blood Elemental", "size": "large", "type": "elemental", "ac": 14, "hp": {"average": 114, "dice": "12d10+48"}, "cr": 5, "xp": 1800, "art": "blood_elemental",
                "summary": "A water elemental made of the sanctum's blood: two slams of Necrotic. Holy water destroys it at once."})
     be["actions"] = [{"id": "slam", "name": "Slam", "kind": "melee", "attack": {"bonus": 7, "reach": 5}, "damage": [{"average": 13, "dice": "2d8+4", "type": "necrotic"}], "summary": "+7, 2d8+4 Necrotic."},
                      {"id": "blood_multiattack", "name": "Multiattack", "kind": "multiattack", "multiattack": [{"action": "slam", "count": 2}], "summary": "Two Slams."}]

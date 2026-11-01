@@ -149,8 +149,9 @@ def main() -> None:
     json.loads(text)
     open(MANIFEST, "w").write(text)
     height(a.id, a.height)
-    print("wired %s (%s). Next: python3 tools/art/figures.py %s; make import; python3 tools/art/wire_figure.py %s "
-          "--close-ups; make import" % (a.id, "body and head" if a.head else "one model", a.id, a.id))
+    after = "; python3 tools/art/wire_figure.py %s --close-ups; make import" % a.id if "close_up" in fig or a.head else ""
+    print("wired %s (%s). Next: python3 tools/art/figures.py %s; make import%s" % (a.id, "body and head" if a.head else
+                                                                                   "one model", a.id, after))
 
 
 if __name__ == "__main__":
