@@ -283,7 +283,10 @@ func _pick_difficulty() -> void:
 	_view = "difficulty"
 	for c in _box.get_children():
 		c.queue_free()
-	DifficultyPage.build(_box, _difficulty, _set_difficulty, _new_game, _begin, _levelling, _set_levelling)
+	DifficultyPage.build(_box, _difficulty, _set_difficulty, _new_game, _begin, _levelling, _set_levelling,
+		func() -> void:
+			NewPlayerGuide.set_enabled(not NewPlayerGuide.enabled())
+			_pick_difficulty())
 
 
 func _set_difficulty(id: String) -> void:
@@ -341,6 +344,9 @@ func _open_hero() -> void:
 		_box.visible = true
 		_new_game())
 	_creation.open_hero(others)
+	# The new-player guide walks the creator's steps the first time (NewPlayerGuide).
+	if NewPlayerGuide.enabled() and not NewPlayerGuide.creator_seen():
+		CreatorGuide.attach(_creation)
 
 
 ## A fresh playthrough: the party at level 1 at the game's first place (world/game_root.gd FIRST_LOCATION).
@@ -356,6 +362,7 @@ func _start(party: Array[Character], bench: Array[Character] = []) -> void:
 	st.gold = 10.0
 	st.options["difficulty"] = _difficulty
 	st.options[Xp.OPTION] = _levelling
+	st.options[NewPlayerGuide.OPTION] = NewPlayerGuide.enabled()
 	st.location = ""
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
 

@@ -16,9 +16,10 @@ const GROWTH: Array[Dictionary] = [
 
 
 ## Fills `box` with the page, `picked` lit. `on_pick` gets the mode's id; `on_back` and `on_begin` take nothing.
-## `levelling` is how heroes grow ("milestone" or "xp") and `on_levelling` gets the id picked.
+## `levelling` is how heroes grow ("milestone" or "xp") and `on_levelling` gets the id picked. `on_guide` switches the
+## new-player guide (NewPlayerGuide) on or off, from a button beside Begin.
 static func build(box: VBoxContainer, picked: String, on_pick: Callable, on_back: Callable, on_begin: Callable,
-		levelling: String = Xp.MILESTONE, on_levelling: Callable = Callable()) -> void:
+		levelling: String = Xp.MILESTONE, on_levelling: Callable = Callable(), on_guide: Callable = Callable()) -> void:
 	box.add_child(UiKit.title("How hard is the Hollow?"))
 	box.add_child(UiKit.label("Story, Balanced and Tactician can be changed later in Settings. Honour is chosen now or never.",
 		15, "parchment", 560))
@@ -39,6 +40,13 @@ static func build(box: VBoxContainer, picked: String, on_pick: Callable, on_back
 	back.tooltip_text = "Back to choosing the party (Esc)"
 	row.add_child(back)
 	row.add_child(UiParts.gap())
+	if on_guide.is_valid():
+		var guide := UiKit.button("Guide for new players: %s" % ("On" if NewPlayerGuide.enabled() else "Off"), on_guide, 15)
+		guide.name = "Guide"
+		guide.tooltip_text = "On: cards walk you through making a hero and your first fight, pointing at the controls as you use them. They never stop the game, and each shows once."
+		if NewPlayerGuide.enabled():
+			UiParts.light_up(guide)
+		row.add_child(guide)
 	row.add_child(UiParts.primary_button("Begin on %s" % Difficulty.named(picked).name, on_begin))
 	box.add_child(row)
 

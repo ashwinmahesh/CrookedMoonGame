@@ -68,6 +68,9 @@ func _ready() -> void:
 	add_child(notices)
 	add_child(talk_motion)
 	add_child(place_beds)
+	# The new-player guide's first fight (NewPlayerGuide): a new game with the guide on, until it has run.
+	if bool(st.options.get(NewPlayerGuide.OPTION, false)) and not bool(st.get_flag(NewPlayerGuide.FIGHT_DONE, false)):
+		add_child(FightGuide.new())
 	st.item_gained.connect(_item_gained)
 	narrator = Narrator.new()
 	banter = Banter.new()
