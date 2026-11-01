@@ -18,7 +18,7 @@ prop, npc, area, exit_, monster = M.prop, M.npc, M.area, M.exit_, M.monster
 
 # The chapter opens when the last of the other five Fallen is dead (Gorthos is Farryn, chapter 18). Each flag is read tolerantly: the
 # lanes that build those chapters set them (names are the vault's); a test sets them directly.
-HOOK = "flag.gorthos_slain and flag.raum_slain and flag.renathyr_slain and flag.lethica_slain and flag.briggsy_slain"
+HOOK = "flag.gorthos_slain and flag.raum_slain and flag.renathyr_slain and flag.lethica_slain and flag.grinning_sinner_slain"
 
 
 def write(rel, obj):
@@ -405,7 +405,7 @@ FLAG_NOTES = {
     "gorthos_slain": "Gorthos (Farryn, chapter 18) is dead; set by the Hartsblight lane. Read here to open the chapter.",
     "renathyr_slain": "Sir Marius Renathyr (chapter 14) is dead. Read tolerantly: set by that chapter's lane.",
     "lethica_slain": "Lethica Nightborne (chapter 17) is dead. Read tolerantly: set by that chapter's lane.",
-    "briggsy_slain": "Captain Briggsy Kratch (chapter 15) is dead. Read tolerantly: set by that chapter's lane.",
+    "grinning_sinner_slain": "Captain Briggsy Kratch (chapter 15) is dead. Read tolerantly: set by that chapter's lane.",
     "beacon_crimson": "0 unlit, 1 glowing, 2 blazing, 3 roaring (the Crimson Beacon).", "beacon_violet": "0 unlit, 1 glowing, 2 blazing, 3 roaring (the Violet Beacon).",
     "beacon_amber": "0 unlit, 1 glowing, 2 blazing, 3 roaring (the Amber Beacon).", "beacon_magenta": "0 unlit, 1 glowing, 2 blazing, 3 roaring (the Magenta Beacon).",
     "beacon_emerald": "0 unlit, 1 glowing, 2 blazing, 3 roaring (the Emerald Beacon).",
@@ -426,7 +426,7 @@ FLAG_NOTES = {
 }
 
 
-FOREIGN = {"gorthos_slain", "renathyr_slain", "lethica_slain", "briggsy_slain"} | {m for t in ("marius_feats", "marius_oath", "marius_love", "lethica_healing", "lethica_love", "lethica_hymns", "jericho_songs", "jericho_tales",
+FOREIGN = {"gorthos_slain", "renathyr_slain", "lethica_slain", "grinning_sinner_slain"} | {m for t in ("marius_feats", "marius_oath", "marius_love", "lethica_healing", "lethica_love", "lethica_hymns", "jericho_songs", "jericho_tales",
            "jericho_craft", "briggsy_exploits", "briggsy_ruses", "briggsy_luck", "farryn_circle", "farryn_forest_love", "farryn_gwenna", "farryn_greenwood") for m in ("mem_" + t,)}
 
 

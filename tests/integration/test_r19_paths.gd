@@ -5,7 +5,7 @@ extends TestCase
 ## DialogueRunner with dice that always roll high (every check lands) or always roll low (every check fails), the way test_r13_paths does.
 
 const GAME := preload("res://world/game_root.gd")
-const HOOK_FLAGS: Array[String] = ["gorthos_slain", "raum_slain", "renathyr_slain", "lethica_slain", "briggsy_slain"]
+const HOOK_FLAGS: Array[String] = ["gorthos_slain", "raum_slain", "renathyr_slain", "lethica_slain", "grinning_sinner_slain"]
 const COLORS: Array[String] = ["crimson", "violet", "amber", "magenta", "emerald"]
 const THEMES := {
 	"crimson": ["Tell of the rides and the fights", "Speak the oath he kept", "Speak of the one who calmed him"],
