@@ -966,10 +966,11 @@ func _after_combat(outcome: String) -> void:
 		return
 	if outcome == "victory":
 		LongRest.fought(st)   # a fight that broke the night's rest: an hour more to finish it (2024 PHB)
-		if view != null:
-			# On the train (data/fight_retries.json `rise_after_win`) whoever fell in a won fight gets up with 1 Hit Point.
-			for ch in FightRetry.raise_fallen(st, FightRetry.rule_for(view.last_encounter, view.loc_id)):
-				hud.toast("%s gets back up." % ch.name.get_slice(" ", 0))
+	if outcome in ["victory", "ended"] and view != null:
+		# On the train (data/fight_retries.json `rise_after_win`) whoever fell in a fight that's over and not lost (won, or
+		# ended with no winner: the wildpyre settling back into its embers) gets up with 1 Hit Point.
+		for ch in FightRetry.raise_fallen(st, FightRetry.rule_for(view.last_encounter, view.loc_id)):
+			hud.toast("%s gets back up." % ch.name.get_slice(" ", 0))
 	_close_quests()
 	view.refresh_npcs()
 	_refresh()
