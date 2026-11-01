@@ -1,0 +1,360 @@
+{
+  "id": "ct_crooked_tree",
+  "name": "The Crooked Tree",
+  "region": "crooked_tree",
+  "summary": "A flat glade of short green-grey grass in bright moonlight, a steep mound at its heart with a barren, impossibly twisted oak on it, and a goat skull at its foot.",
+  "text": "The moon has never looked closer. It is huge and it is grinning. At the middle of the glade a mound heaves up, and on it stands the Crooked Tree: a bare, twisted oak forty feet to its first limb, its branches knotting themselves as you watch. A great goat skull lies at its base with a carved crescent tied between its horns, and under the trunk a narrow mouth glows the warm colour of a campfire. Embers rise from the grass toward the moon.",
+  "map": {
+    "rows": [
+      "################################",
+      "################################",
+      "################.###############",
+      "###########...........##########",
+      "#########...=...........########",
+      "########.................#######",
+      "#######...................######",
+      "######.....................#####",
+      "#####...=...................####",
+      "####...................=.....###",
+      "####.........................###",
+      "###...........................##",
+      "###...........................##",
+      "###.............1.............##",
+      "###...........11111...........##",
+      "###...........11111...........##",
+      "##...........11===11...........#",
+      "###...........11111...........##",
+      "###...........11111...........##",
+      "###.............1.............##",
+      "###...........................##",
+      "###...........................##",
+      "####....................=....###",
+      "####.....=...................###",
+      "#####.......................####",
+      "######.....................#####",
+      "#######...................######",
+      "########............=....#######",
+      "#########...............########",
+      "###########...........##########",
+      "##############.....#############",
+      "################################"
+    ],
+    "theme": "forest",
+    "light": "bright",
+    "outdoors": true,
+    "ceiling_ft": 400
+  },
+  "areas": [
+    {
+      "id": "glade",
+      "name": "The glade",
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          29,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "mound",
+      "name": "The mound",
+      "cells": [
+        [
+          12,
+          12
+        ],
+        [
+          20,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "south",
+      "name": "Where the trail comes in",
+      "cells": [
+        [
+          13,
+          26
+        ],
+        [
+          19,
+          30
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      16,
+      29
+    ],
+    "from_barrow": [
+      16,
+      22
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_barrow",
+      "cell": [
+        16,
+        17
+      ],
+      "to": "ct_barrow",
+      "spawn": "default",
+      "label": "Down into the barrow",
+      "when": "not flag.ct_phillip_taken"
+    },
+    {
+      "id": "to_wood",
+      "cell": [
+        16,
+        30
+      ],
+      "to": "ct_wytchwood",
+      "spawn": "from_clearing",
+      "label": "Back down the trail",
+      "when": "flag.ct_tree_burned"
+    }
+  ],
+  "props": [
+    {
+      "id": "ct_clearing_arrive",
+      "cell": [
+        16,
+        29
+      ],
+      "kind": "decor",
+      "label": "The glade, from the trail",
+      "call": "crooked_tree/king:arrive",
+      "approach": 12,
+      "call_when": "not flag.ct_clearing_entered"
+    },
+    {
+      "id": "ct_barrow_mouth",
+      "cell": [
+        16,
+        17
+      ],
+      "kind": "examine",
+      "label": "The barrow mouth, glowing",
+      "model": "barrow",
+      "dialogue": "crooked_tree/barrow:mouth",
+      "when": "not flag.ct_phillip_taken"
+    },
+    {
+      "id": "ct_skull",
+      "cell": [
+        16,
+        18
+      ],
+      "kind": "examine",
+      "label": "The goat skull, with a carved moon between its horns",
+      "model": "stag_head",
+      "dialogue": "crooked_tree/ritual:skull",
+      "when": "flag.horned_king_destroyed and not flag.ct_ritual_done"
+    },
+    {
+      "id": "ct_tree",
+      "cell": [
+        16,
+        16
+      ],
+      "kind": "examine",
+      "label": "The Crooked Tree",
+      "model": "dead_tree_a",
+      "dialogue": "crooked_tree/king:tree",
+      "scale": 3.0,
+      "when": "not flag.ct_tree_burned"
+    },
+    {
+      "id": "ct_tree_burnt",
+      "cell": [
+        16,
+        16
+      ],
+      "kind": "examine",
+      "label": "The Crooked Tree, burning",
+      "model": "brazier",
+      "dialogue": "crooked_tree/king:tree_burnt",
+      "scale": 3.0,
+      "when": "flag.ct_tree_burned"
+    },
+    {
+      "id": "ct_sigil_a",
+      "cell": [
+        8,
+        16
+      ],
+      "kind": "decor",
+      "label": "A sigil line in the grass, glowing",
+      "model": "floor_glyphs"
+    },
+    {
+      "id": "ct_sigil_b",
+      "cell": [
+        24,
+        16
+      ],
+      "kind": "decor",
+      "label": "A sigil line in the grass, glowing",
+      "model": "floor_glyphs"
+    },
+    {
+      "id": "ct_sigil_c",
+      "cell": [
+        16,
+        6
+      ],
+      "kind": "decor",
+      "label": "A sigil line in the grass, glowing",
+      "model": "floor_glyphs"
+    },
+    {
+      "id": "ct_sigil_d",
+      "cell": [
+        16,
+        26
+      ],
+      "kind": "decor",
+      "label": "A sigil line in the grass, glowing",
+      "model": "floor_glyphs"
+    },
+    {
+      "id": "ct_roots_a",
+      "cell": [
+        8,
+        8
+      ],
+      "kind": "decor",
+      "label": "Roots over stones",
+      "model": "stump"
+    },
+    {
+      "id": "ct_roots_b",
+      "cell": [
+        23,
+        9
+      ],
+      "kind": "decor",
+      "label": "Roots over stones",
+      "model": "stump"
+    },
+    {
+      "id": "ct_roots_c",
+      "cell": [
+        9,
+        23
+      ],
+      "kind": "decor",
+      "label": "Roots over stones",
+      "model": "stump"
+    },
+    {
+      "id": "ct_roots_d",
+      "cell": [
+        24,
+        22
+      ],
+      "kind": "decor",
+      "label": "Roots over stones",
+      "model": "stump"
+    },
+    {
+      "id": "ct_moon_vista",
+      "cell": [
+        16,
+        2
+      ],
+      "kind": "decor",
+      "label": "The Crooked Moon, huge and grinning",
+      "model": "statue_head"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "ct_herald",
+      "cell": [
+        16,
+        24
+      ],
+      "dialogue": "crooked_tree/herald:start",
+      "when": "flag.ct_phillip_taken and not flag.ct_herald_done and not flag.horned_king_destroyed",
+      "facing": "south"
+    },
+    {
+      "npc": "ct_herald",
+      "cell": [
+        16,
+        24
+      ],
+      "dialogue": "crooked_tree/herald:again",
+      "when": "flag.ct_herald_done and not flag.horned_king_destroyed",
+      "facing": "south"
+    },
+    {
+      "npc": "ct_adela_spirit",
+      "cell": [
+        15,
+        19
+      ],
+      "dialogue": "crooked_tree/ember:start",
+      "when": "flag.kehlenn_bound and not flag.ct_ember_done",
+      "facing": "south"
+    },
+    {
+      "npc": "ct_phillip_spirit",
+      "cell": [
+        17,
+        19
+      ],
+      "dialogue": "crooked_tree/plea:start",
+      "when": "flag.ct_skull_spoke and not flag.ct_plea_done",
+      "facing": "south"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "ct_born_king",
+      "trigger": "dialogue",
+      "final_battle": "crooked_tree",
+      "lair": true,
+      "flag": "horned_king_destroyed",
+      "quest": {
+        "id": "the_crooked_tree",
+        "stage": "end_of_the_crooked_queen"
+      },
+      "monsters": [
+        {
+          "monster": "horned_king_born",
+          "cell": [
+            15,
+            11
+          ],
+          "name": "The Born King",
+          "boss": true,
+          "facing": "south"
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The trees have writhed into a wall that nothing will damage, and the moon is leering. No.",
+  "lights": [
+    {
+      "cell": [
+        16,
+        14
+      ],
+      "kind": "fire",
+      "bright_ft": 20,
+      "dim_ft": 60,
+      "color": "fire"
+    }
+  ]
+}

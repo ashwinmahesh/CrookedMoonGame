@@ -1,0 +1,94 @@
+# Drafted by Gemini (R24 hook), edited.
+
+~ doris_start
+Narrator: Soot still drifts down from the moor like black snow, settling on the constable's slumped shoulders.
+doris_squire [weary]: Town's coming apart at the seams, and my own deputy's among the dead traitors. I cannot hold them back alone.
+doris_squire [neutral]: Lord Phillip stumbled into the Green Queen Inn an hour back. Find him before the mob does, for pity's sake.
+* We will find him -> doris_accept
+* What do the factions want? -> doris_factions
+* Where was he seen? -> doris_where
+* Not now -> END
+
+~ doris_accept
+doris_squire [weary]: Thank the stones. Bring him out quiet if you can.
+set ct_hook_given
+set ct_clock = now
+quest the_crooked_tree the_last_hope
+-> END
+
+~ doris_factions
+doris_squire [angry]: Somerton's lot want him strung up to answer for the burning on the Rise. The Patient Lady's folk beg me to save his neck.
+doris_squire [weary]: And the Brightsingers just stand in the smoke, singing until their throats bleed. None of it stops a rope.
+-> doris_start
+
+~ doris_where
+doris_squire [neutral]: Dead through the doors of the Green Queen, staring at nothing. Has not come out since, and I'm not leaving the square to fetch him.
+-> doris_start
+
+~ doris_again
+doris_squire [weary]: Still here. The rope's getting no shorter.
+* Any news of Phillip? -> doris_news
+* Where was he last seen? -> doris_where2
+* Leave -> END
+
+~ doris_news
+doris_squire [sad]: None. Folk in the Round are looking at their neighbours like wolves over a fence.
+if flag.ct_confessions >= 1
+doris_squire [weary]: Worse now. People are dropping to their knees in the muck, shouting out every foul thing they ever did.
+endif
+-> doris_again
+
+~ doris_where2
+doris_squire [neutral]: Green Queen Inn, up the stair in the master suite. You'll know the door by the heavy lock.
+-> doris_again
+
+~ jean_start
+Narrator: The taproom smells of cold tallow and spilled rye. Jean stares into a pewter mug he hasn't drunk from in an hour.
+jean_myriel [sad]: Pour your own if you're dry. Siv and I have no heart for playing host tonight, not with Holly gone.
+* Ask about Phillip -> jean_phillip
+* Ask about Holly -> jean_holly
+* Ask about the suite key -> jean_key
+* Take our leave -> END
+
+~ jean_phillip
+jean_myriel [weary]: Walked in at the Twilight Hour, grey as clinker, and bolted himself in the master suite upstairs.
+jean_myriel [afraid]: Been a low chanting through the floorboards since, and a stink like wet roots dug from a grave.
+set ct_inn_told
+quest the_crooked_tree the_master_suite
+-> jean_start
+
+~ jean_holly
+jean_myriel [sad]: She always counted the loaves under her breath before she drew them from the brick oven. Seven, eight, nine, never missed one.
+jean_myriel [weary]: Ashes on the moor now. Too good a woman for this crooked dirt.
+-> jean_start
+
+~ jean_key
+jean_myriel [neutral]: Alda kept a brass spare behind the bar somewhere. Take it if you want, I'm not climbing those stairs tonight.
+set ct_has_key
+set ct_inn_told
+-> jean_start
+
+~ siv_start
+Narrator: Siv's knuckles are raw and red from lye water, her butcher's apron folded neat across her lap.
+siv_harga [sad]: The fires are out in the hearth. Speak plain if you need something from us.
+* Ask about Phillip -> siv_phillip
+* How are you holding up? -> siv_grief
+* Is there a key to the suite? -> siv_key
+* Take our leave -> END
+
+~ siv_phillip
+siv_harga [weary]: I heard him through the ceiling planks. Weeping first, then arguing hard with a voice that sounded like dry branches rubbing together.
+siv_harga [afraid]: There was nobody else in that room when he threw the bolt.
+set ct_inn_told
+quest the_crooked_tree the_master_suite
+-> siv_start
+
+~ siv_grief
+siv_harga [sad]: I scrubbed the chopping blocks twice over since we came back from the hill. My hands know how to clean a mess, even when the rest of me doesn't.
+-> siv_start
+
+~ siv_key
+siv_harga [neutral]: Behind the bar, on the iron hook where Alda used to spike her tallow receipts. Help yourself.
+set ct_has_key
+set ct_inn_told
+-> siv_start

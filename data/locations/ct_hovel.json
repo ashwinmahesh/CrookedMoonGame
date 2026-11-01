@@ -1,0 +1,168 @@
+{
+  "id": "ct_hovel",
+  "name": "The Wytchwood hovel",
+  "region": "the_wytchwood",
+  "summary": "A twenty-foot hovel of rotting boards with a bed, a bent table, a broken chair and six chipped painted scenes running round its walls.",
+  "text": "Dust lies thick on everything. Six chipped painted scenes run round the walls at the height of a small woman's eye, and the door has swung shut behind you with a sound like a latch being lowered.",
+  "map": {
+    "rows": [
+      "##########",
+      "#........#",
+      "#.==.....#",
+      "#........#",
+      "#......=.#",
+      "#......=.#",
+      "#........#",
+      "#........#",
+      "#........#",
+      "#........#",
+      "#........#",
+      "##########"
+    ],
+    "theme": "manor",
+    "light": "dark",
+    "outdoors": false,
+    "ceiling_ft": 15
+  },
+  "areas": [
+    {
+      "id": "hovel",
+      "name": "The hovel",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          8,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      4,
+      9
+    ],
+    "to_glade": [
+      4,
+      9
+    ]
+  },
+  "exits": [
+    {
+      "id": "out",
+      "cell": [
+        4,
+        10
+      ],
+      "to": "ct_wytchwood",
+      "spawn": "from_hovel",
+      "label": "Out of the hovel",
+      "when": "not flag.ct_hovel_fire or flag.ct_hovel_escaped"
+    }
+  ],
+  "props": [
+    {
+      "id": "ct_hovel_arrive",
+      "cell": [
+        4,
+        9
+      ],
+      "kind": "decor",
+      "label": "The hovel, from the door",
+      "call": "crooked_tree/hovel:arrive",
+      "approach": 12,
+      "call_when": "not flag.ct_hovel_entered"
+    },
+    {
+      "id": "ct_hovel_paintings",
+      "cell": [
+        4,
+        1
+      ],
+      "kind": "examine",
+      "label": "Six chipped painted scenes",
+      "model": "painting",
+      "dialogue": "crooked_tree/hovel:paintings"
+    },
+    {
+      "id": "ct_hovel_bed",
+      "cell": [
+        2,
+        3
+      ],
+      "kind": "examine",
+      "label": "The rotting bed",
+      "model": "bed",
+      "dialogue": "crooked_tree/hovel:bed"
+    },
+    {
+      "id": "ct_hovel_door_in",
+      "cell": [
+        4,
+        10
+      ],
+      "kind": "examine",
+      "label": "The door, locked itself",
+      "model": "door",
+      "dialogue": "crooked_tree/hovel:escape",
+      "when": "flag.ct_hovel_fire"
+    },
+    {
+      "id": "ct_hovel_table",
+      "cell": [
+        7,
+        4
+      ],
+      "kind": "decor",
+      "label": "A bent table",
+      "model": "table_round"
+    },
+    {
+      "id": "ct_hovel_chair",
+      "cell": [
+        6,
+        6
+      ],
+      "kind": "decor",
+      "label": "A broken chair",
+      "model": "chair"
+    },
+    {
+      "id": "ct_hovel_dust",
+      "cell": [
+        3,
+        6
+      ],
+      "kind": "decor",
+      "label": "Thick dust, undisturbed",
+      "model": "cobwebs"
+    },
+    {
+      "id": "ct_hovel_window_a",
+      "cell": [
+        1,
+        5
+      ],
+      "kind": "decor",
+      "label": "A slatted window, sealed",
+      "model": "window"
+    },
+    {
+      "id": "ct_hovel_window_b",
+      "cell": [
+        8,
+        7
+      ],
+      "kind": "decor",
+      "label": "A slatted window, sealed",
+      "model": "window"
+    }
+  ],
+  "npcs": [],
+  "encounters": [],
+  "rest": "no",
+  "rest_text": "Not in here. The painted walls watch."
+}

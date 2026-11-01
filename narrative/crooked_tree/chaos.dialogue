@@ -1,0 +1,82 @@
+# Drafted by Gemini (R24 chaos), edited.
+
+~ confess_a
+Narrator: Flour dust clings to the boy's sleeves, and his knuckles are white around a cold loaf wrapped in linen.
+ct_confessor_a [afraid]: I took the loaves meant for the burned houses. A low voice in the alley said the dead had no teeth for bread, and that I had earned my fill.
+ct_confessor_a [sad]: I wasn't even hungry, and now I can't swallow a bite. Please, you have to stop whatever is walking the dark.
+* We forgive you. Let the guilt go. -> a_forgive
+* Return the bread and sit with the grieving. -> a_amends
+* Tell us about the voice in the alley. -> a_whisper
+* Leave him to his thoughts. -> END
+
+~ a_forgive
+ct_confessor_a [weary]: Thank you for saying it plain. My chest feels a little less like a millstone now, though I still daren't close my eyes.
+set ct_confessed_a
+set ct_confessions += 1
+quest chaos_reigns first
+-> END
+
+~ a_amends
+ct_confessor_a [sad]: You're right, hiding won't clean my hands. I'll carry the basket to the widow's door myself and stay till the kettle boils.
+set ct_confessed_a
+set ct_confessions += 1
+quest chaos_reigns first
+-> END
+
+~ a_whisper
+ct_confessor_a [afraid]: The dark smelled of wet goat and woodsmoke, and three red eyes blinked between the eaves. It asked what I wanted most, and promised me a peace no prayer could buy.
+-> confess_a
+
+~ confess_b
+Narrator: Drying mud stains the hem of her coat, and she keeps her bruised right hand tucked tight against her apron.
+ct_confessor_b [sad]: My brother owed me three silver from the autumn shearing, so I struck him with a fence rail by the ditch. I watched him fall and didn't reach out a hand.
+ct_confessor_b [afraid]: Something in the hedgerow purred that it was only fair. Tell me what to do before that thing comes back for an answer.
+* You are forgiven. Put the anger down. -> b_forgive
+* Go tend your brother's wound and make amends. -> b_amends
+* What did you see in the hedgerow? -> b_whisper
+* Step away from her. -> END
+
+~ b_forgive
+ct_confessor_b [weary]: Maybe hearing it from strangers is the only grace I'll get tonight. I'll go home and bar the shutters till morning.
+set ct_confessed_b
+set ct_confessions += 1
+quest chaos_reigns some
+-> END
+
+~ b_amends
+ct_confessor_b [sad]: Aye, the silver never mattered a whit. I'll fetch clean linen and sit by his pallet until he wakes enough to curse me.
+set ct_confessed_b
+set ct_confessions += 1
+quest chaos_reigns some
+-> END
+
+~ b_whisper
+ct_confessor_b [afraid]: Three red eyes watched me from the briars, heavy with the reek of wet goat. It asked what I craved, and promised a quiet where nobody ever asks a thing of me again.
+-> confess_b
+
+~ confess_c
+Narrator: Small glass vials clink inside her shawl, and the bitter tang of willow bark follows her like a shadow.
+ct_confessor_c [sad]: When the smoke fever took the lane, I sold my neighbours back the draughts they'd left in my care for three times the copper. I counted the coin while they coughed.
+ct_confessor_c [afraid]: A deep voice behind the woodshed approved of every penny. Please, end the creature in the trees before it makes merchants of us all.
+* We forgive you. The night has been cruel to everyone. -> c_forgive
+* Give back the coin and tend the sick freely. -> c_amends
+* Speak of the thing behind the woodshed. -> c_whisper
+* Walk on without a word. -> END
+
+~ c_forgive
+ct_confessor_c [weary]: You are kinder than I have any right to ask. I'll leave the rest of the tonic on the parish steps and pray the moon looks away.
+set ct_confessed_c
+set ct_confessions += 1
+quest chaos_reigns heard
+-> END
+
+~ c_amends
+ct_confessor_c [sad]: Every copper of it burns my purse. I will return the silver and boil fresh willow tea until my own hands blister.
+set ct_confessed_c
+set ct_confessions += 1
+quest chaos_reigns heard
+-> END
+
+~ c_whisper
+ct_confessor_c [afraid]: I saw three red lanterns in the pines and smelled rank, wet goat hair on the wind. It asked what my heart lacked, and offered a second chance with the dead I've buried.
+-> confess_c

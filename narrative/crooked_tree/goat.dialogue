@@ -1,0 +1,269 @@
+# Drafted by Gemini (R24 goat), edited.
+
+~ visit_1
+cutscene ct_between_the_trees
+Narrator: Beyond the black water, the blue-black pines lean together like old men sharing a secret, and the bone charms click in the windless dark.
+cutscene ct_between_the_trees_2
+Narrator: Something tall and heavy shifts between the trunks, smelling of warm wool and woodsmoke, watching you with three red eyes.
+cutscene end
+ct_hk_goat [sly]: Look at you, trudging through the pine needles with your shoulders bowed down. Tell me, travellers, what makes a pack so heavy on a road like this?
+* Ask who is there -> v1_who
+* Say you carry grief -> v1_pain
+* Say you carry secrets -> v1_secret
+* Say you carry nothing -> v1_nothing
+* Attack the shadow -> v1_attack
+
+~ v1_who
+ct_hk_goat [smile]: Who asks a host his name before stepping into his parlour? And why ask what you already feel in the marrow of your bones?
+-> visit_1
+
+~ v1_pain
+set hk_theme_1 = "pain"
+ct_hk_goat [weary]: Grief is a cold stone in the belly, is it not? Why carry it all the way to the grave when you could set it down beside the path?
+-> v1_end
+
+~ v1_secret
+set hk_theme_1 = "secret"
+ct_hk_goat [sly]: Secrets rot the tongue when you keep them shut behind your teeth. How much lighter would you walk if no one could ever call you to account?
+-> v1_end
+
+~ v1_nothing
+set hk_theme_1 = "nothing"
+ct_hk_goat [smile]: Nothing at all, and yet your boots sink so deep into the moss? Who lies to a friend in the dark when nobody else is listening?
+-> v1_end
+
+~ v1_attack
+check Wisdom DC 18 -> v1_brave | v1_fright
+
+~ v1_brave
+Narrator: Your steel parts only cold pine smoke and dry needles, though your hand stays steady on the hilt.
+ct_hk_goat [smile]: Quick with a blade, slow with your wits. Why swing iron at the only friend you have left in these woods?
+-> visit_1
+
+~ v1_fright
+Narrator: Three crimson eyes flare wide in the dark, and a dread like ice water sends you stumbling blindly through the brambles.
+damage 1d6 psychic party
+ct_hk_goat [sly]: Run if you must, little hares, though the trees only lead one way.
+-> v1_end
+
+~ v1_end
+ct_hk_goat [neutral]: Do not fret for Lord Phillip: he walks ahead as an honoured guest, given safe passage to the root of his desire. Keep your blades for what waits up the trail, for without my blessing you walk unprotected, and the time for bargains is not yet ripe.
+set ct_goat1_done
+quest the_horned_kings_offer tempted
+-> END
+
+~ visit_2
+Narrator: Cloven hooves click once against a mossy root just beyond the lantern light, and the smell of sweet tallow drifts across the path.
+ct_hk_goat [sly]: Still marching toward the mound, worn down to the bone and frayed at the edges. What is it you truly crave at the end of the night: a little rest, a little time, or a life where nothing is ever taken from you?
+* Say you want rest -> v2_rest
+* Say you want your lost back -> v2_lost
+* Say you want time -> v2_time
+* Say you want nothing from him -> v2_nothing
+* Attack the shadow -> v2_attack
+
+~ v2_rest
+set hk_theme_2 = "rest"
+ct_hk_goat [weary]: How sweet it would be to unbuckle the armour and sleep without dreaming of fire. Why must it always be your shoulders that hold up the sky?
+-> v2_end
+
+~ v2_lost
+set hk_theme_2 = "lost"
+ct_hk_goat [sad]: Lord Phillip asked the very same question when he passed this way. Why shouldn't a warm hand reach back from the dark and take yours again?
+-> v2_end
+
+~ v2_time
+set hk_theme_2 = "time"
+ct_hk_goat [sly]: The six hours strike and the moon grins down, chewing up every breath you take. What would you give for an hour that never strikes the bell?
+-> v2_end
+
+~ v2_nothing
+set hk_theme_2 = "nothing"
+ct_hk_goat [smile]: Pride makes a thin cloak when the wind comes off the barrow. How long will you starve at a feast just to prove your teeth are clean?
+-> v2_end
+
+~ v2_attack
+check Wisdom DC 18 -> v2_brave | v2_fright
+
+~ v2_brave
+Narrator: Your strike splits a hanging charm of dry sticks, and a low chuckle rumbles from the trunk behind your back.
+ct_hk_goat [smile]: Still striking at shadows, and with such admirable resolve. Why waste good strength before the real butcher opens his door?
+-> visit_2
+
+~ v2_fright
+Narrator: The forest tilts at a sickening angle as a hot, goatish breath washes over your neck, driving you pell-mell up the stony track.
+damage 1d6 psychic party
+ct_hk_goat [sly]: Careful of the roots, my friends: they love a stumbling foot.
+-> v2_end
+
+~ v2_end
+ct_hk_goat [smile]: Walk on a little farther through the pines, and keep your hunger sharp. The best is still to come, where the path grows steep and we may finally speak of terms.
+set ct_goat2_done
+-> END
+
+~ offer_start
+cutscene ct_live_deliciously
+Narrator: Fat black clouds swallow the grinning moon whole, and the pines round the goat path go still as standing stones.
+cutscene end
+set ct_offer_started
+quest the_crooked_tree live_deliciously
+quest the_horned_kings_offer offered
+Narrator: Out of the pitch dark steps a beast the size of a cart horse, his coat smelled of hearth smoke and sweet clover.
+-> offer_intro
+
+~ offer_intro
+ct_hk_goat [sly]: Easy now, little travellers, for you have walked a long, cold mile. Come sit by the path, and let me make each of you the very same offer.
+* Hear him out -> offer
+* Attack him -> offer_attack
+* [Insight DC 18] Read him -> offer_read | offer_read_f
+
+~ offer_attack
+check Wisdom DC 18 -> offer_brave | offer_fright
+
+~ offer_brave
+Narrator: Your blade meets only warm breath and the clack of heavy horn, though your feet hold the stony ground.
+ct_hk_goat [smile]: Oh, there is iron in your spine after all. I like a guest with an appetite, so put the steel away and listen.
+-> offer_intro
+
+~ offer_fright
+Narrator: The three red eyes widen until they fill the woods, and your fingers go numb around your grip as blind dread drives you stumbling back through the briars.
+damage 1d6 psychic party
+ct_hk_goat [sly]: Hush now, gather your things from the dirt. Nobody here wishes you harm unless you insist upon it.
+-> offer_intro
+
+~ offer_read
+Narrator: Behind the warm rumble of his voice sits a cold, patient hunger. He will give every crumb he promises, yet the gift is a tether meant to serve his own design.
+-> offer_intro
+
+~ offer_read_f
+Narrator: You stare into the three red lamps of his eyes and find only the flat, unblinking calm of an old billy goat in a pasture.
+-> offer_intro
+
+~ offer
+Narrator: The great goat shifts his weight on cloven hooves and turns all three crimson eyes upon the next of you in line.
+ct_hk_goat [smile]: Name the thing your heart aches for, take my blessing of strength without flaw, and rise greater than you came. Why go into the dark empty-handed?
+* What does it cost? -> offer_cost
+* I accept -> accept_1
+* I refuse -> refused
+* Tell me more about the Price -> offer_cost
+
+~ offer_cost
+ct_hk_goat [sly]: A trifle, next to what you gain. Should you ever turn your hand against me or mine, your blows will fall at half their strength, and your own will must strain just to strike me.
+-> offer
+
+~ refused
+ct_hk_goat [weary]: So be it, little lamb. Walk on into the cold with only what you carried in, and remember who offered you a coat.
+set ct_turn += 1
+-> check_done
+
+~ accept_1
+Narrator: The smell of warm tallow and summer hay thickens in your throat. He means every word of it, for good or ill.
+ct_hk_goat [smile]: Speak it plain, my friend. Are you ready to live deliciously?
+* Yes, I want it -> accept_2
+* No, I refuse -> refused
+
+~ accept_2
+ct_hk_goat [sly]: Hear the Price once more: half your might against me and mine, your hand faltering to strike me, and nothing short of a mortal Wish or a god's own intervention can unbind it. Do we have a bargain?
+* Yes, I accept -> wish
+* No, I refuse -> refused
+
+~ wish
+ct_hk_goat [sly]: Name the hollow in your chest, little traveler. What would make this long night sweet to bear?
+* A lost companion restored -> w_companion
+* Riches and a title -> w_riches
+* A memory returned -> w_memory
+* A shortcut on my Thread -> w_thread
+* Rest and healing -> w_rest
+* A gift of luck -> w_luck
+
+~ w_companion
+ct_hk_goat [smile]: The grave is only a door when you know who holds the latch. Look behind you when the mist thins.
+set horned_wish_companion
+-> bargain
+
+~ w_riches
+ct_hk_goat [sly]: Heavy pockets and a high seat at the table. How quickly the dead remember the appetite of lords.
+gold +2000
+set horned_wish_title
+-> bargain
+
+~ w_memory
+ct_hk_goat [neutral]: Take back what the river washed away. Every salt drop of it is yours again.
+set horned_wish_memory
+-> bargain
+
+~ w_thread
+ct_hk_goat [sly]: Why walk the brambles when my horns can part the hedge? Your fate draws closer.
+set horned_wish_thread
+-> bargain
+
+~ w_rest
+ct_hk_goat [smile]: Let the ache leave your bones. Breathe deep of the dark pine and be whole.
+heal 200 party
+hit_dice restore all party
+-> bargain
+
+~ w_luck
+ct_hk_goat [sly]: A thumb upon the scales when the blade falls. Fortune favors those who sup with me.
+inspiration party
+-> bargain
+
+~ bargain
+ct_hk_goat [smile]: Now take the marrow with the meat. Which of my gifts will you carry in your blood, knowing your hand will never strike me true?
+Narrator: The hot reek of musk and hearth-smoke rolls off his coat, thick enough to taste.
+* Might: Strength +2 -> g_might
+* Mind: Intelligence +2 -> g_mind
+* Grace: Charisma +2 -> g_grace
+* Wish only, no bargain -> refused
+
+~ g_might
+ct_hk_goat [smile]: Feel the iron rise in your sinews. Nothing you strike shall stand, save what belongs to me.
+dark_gift horned_gift_might
+-> g_done
+
+~ g_mind
+ct_hk_goat [sly]: Your thoughts sharpen like frost on glass. Every secret opens, save the knot that binds you to my hoof.
+dark_gift horned_gift_mind
+-> g_done
+
+~ g_grace
+ct_hk_goat [smile]: Honey on your tongue and fire in your gaze. All hearts will bend to you, as yours bends to mine.
+dark_gift horned_gift_grace
+-> g_done
+
+~ g_done
+ct_hk_goat [neutral]: It is sealed in the root and the bone. Step aside, and let me hear the next beating heart.
+if check.last
+set horned_bargains += 1
+set horned_bargain_level
+endif
+set ct_turn += 1
+-> check_done
+
+~ check_done
+if flag.ct_turn >= 4
+-> finish
+endif
+if flag.ct_turn >= 3 and flag.party_size <= 3
+-> finish
+endif
+if flag.ct_turn >= 2 and flag.party_size <= 2
+-> finish
+endif
+if flag.ct_turn >= 1 and flag.party_size <= 1
+-> finish
+endif
+-> offer
+
+~ finish
+ct_hk_goat [smile]: I have weighed your hungers and heard your answers, every one. Come along the path; Lord Phillip waits in the heart of the wood, where the roots drink deep.
+set ct_offer_made
+if flag.horned_bargains >= 1
+quest the_horned_kings_offer bargained
+else
+quest the_horned_kings_offer refused
+endif
+if flag.horned_bargains >= 4 or (flag.horned_bargains >= 3 and flag.party_size == 3) or (flag.horned_bargains >= 2 and flag.party_size == 2) or (flag.horned_bargains >= 1 and flag.party_size == 1)
+set ct_all_bargained
+endif
+Narrator: The black pines groan and draw apart, and the clouds above tear open to show the pale road leading north.
+-> END

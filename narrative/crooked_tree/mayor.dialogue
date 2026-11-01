@@ -1,0 +1,84 @@
+# Drafted by Gemini (R24 mayor), edited.
+
+~ mob_start
+if days_since.ct_clock >= 4
+-> mob_late
+endif
+Narrator: Torch smoke and wet wool thicken the porch air while a mill hand loops fresh hemp around his fist.
+ct_mob_leader [angry]: Stand aside, strangers. Somerton put his seal to every permit those hare-masked devils asked for, and the Oak is thirsty tonight.
+wendel_somerton [afraid]: Through the bolted shutters, you hear me! That was municipal routine, pure paperwork, I never signed for a burning!
+* [Persuasion DC 15] Talk the crowd down -> mob_saved_talk | mob_angry
+* [Intimidation DC 15] Face them down -> mob_saved_scare | mob_angry
+* [if item:ledger_of_debts] Hand over Alda's ledger of debts -> mob_ledger
+* Take Wendel into our custody -> mob_custody
+* [ends:save_the_mayor] Let the crowd have him -> mob_jail
+* Not now -> END
+
+~ mob_angry
+Narrator: A low growl ripples from the back row, and boots scrape closer across the gravel.
+ct_mob_leader [angry]: Fine talk does not raise the dead, friend. Give us the doorway or get out of our road.
+set ct_mob_angry
+quest save_the_mayor mob
+-> mob_menu
+
+~ mob_menu
+ct_mob_leader [angry]: Well? Either you have business with the man inside or we do.
+* [if item:ledger_of_debts] Hand over Alda's ledger of debts -> mob_ledger
+* Take Wendel into our custody -> mob_custody
+* [ends:save_the_mayor] Let the crowd have him -> mob_jail
+* Not now -> END
+
+~ mob_saved_talk
+Narrator: One by one, the pitchforks dip toward the mud as the mill hand rubs his jaw and looks to his neighbours.
+ct_mob_leader [weary]: A fool is not a cultist, I grant you that much. Come on, lads, there is ash enough to clear before we make more.
+set ct_mayor_settled
+set ct_mayor_fate = "saved"
+quest save_the_mayor saved
+-> mob_end
+
+~ mob_saved_scare
+Narrator: The mill hand looks from the soot of the moor on your sleeves to the rope in his palm, and lets the coil drop.
+ct_mob_leader [afraid]: Nobody here is looking to cross blades with the lot of you. Keep the old windbag, then, and welcome to him.
+set ct_mayor_settled
+set ct_mayor_fate = "saved"
+quest save_the_mayor saved
+-> mob_end
+
+~ mob_ledger
+Narrator: The mill hand holds the oilskin pages to a lantern, his thumb tracing the inked names and tallies in silence.
+ct_mob_leader [angry]: Here are the real ones who bought and sold us, writ in their own clerk's hand. Leave Somerton, lads, we have proper doors to knock on.
+take ledger_of_debts
+set ct_mayor_settled
+set ct_mayor_fate = "saved"
+quest save_the_mayor saved
+-> mob_end
+
+~ mob_custody
+Narrator: Iron keys clink as Wendel is marched out between your shoulders toward the constable's lockup, his collar pulled high.
+ct_mob_leader [neutral]: Long as he sits behind Doris Squire's bars till the reckoning is done, we can live with that.
+doris_squire [neutral]: In you go, Mayor. Straw is dry enough.
+set ct_mayor_settled
+set ct_mayor_fate = "saved"
+quest save_the_mayor saved
+-> mob_end
+
+~ mob_jail
+Narrator: The shutters splinter inward, and a dozen rough hands haul the mayor out by his velvet lapels toward the lockup.
+wendel_somerton [afraid]: Mind the chain of office, I beg you! This is highly irregular!
+ct_mob_leader [angry]: Doris can keep him under lock and key till we sort the rope from the law.
+set ct_mayor_settled
+set ct_mayor_fate = "jailed"
+quest save_the_mayor jailed
+-> END
+
+~ mob_late
+Narrator: The mayor's porch stands empty with its door off the hinges, and across the Round the old oak bears a fresh, pinched face in its bark.
+doris_squire [weary]: Came too late for him. Crowd took him at the third bell, and the tree had the rest.
+set ct_mayor_settled
+set ct_mayor_fate = "lynched"
+quest save_the_mayor lynched
+-> END
+
+~ mob_end
+wendel_somerton [smile]: A delicate civic moment, my friends, and I am glad my calm bearing gave you the opening you needed! Still, Wickermoor does not forget who stood by its chair.
+-> END

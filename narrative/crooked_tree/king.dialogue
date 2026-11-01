@@ -1,0 +1,71 @@
+# Drafted by Gemini (R24 king), edited.
+
+~ arrive
+cutscene ct_six_horns_his_crown
+Narrator: You step into a wide glade of grey grass where a barren, twisted oak knots its own bare limbs forty feet overhead.
+cutscene ct_six_horns_his_crown_2
+Narrator: Above those tangled boughs, the Crooked Moon hangs terribly close and bright, her carved crone's face grinning down at the mound.
+cutscene end
+set ct_clearing_entered
+-> END
+
+~ tree
+Narrator: Up on its stony mound, the ancient oak smells of cold sap and old iron, with a great bleached goat skull resting among its roots.
+* Look at the bark -> tree_face
+* Look at the skull -> tree_skull
+* Leave -> END
+
+~ tree_face
+Narrator: The ridges of the dark bark shift with a dry creak, shaping the high cheekbones and lidded eyes of a watching queen.
+-> tree
+
+~ tree_skull
+Narrator: Between the sweeping horns of the skull hangs a little wooden crescent moon on twine, bone and carving alike bitter cold to the touch.
+-> tree
+
+~ emerge
+if flag.ct_all_bargained
+-> kneel_offer
+endif
+-> fight
+
+~ kneel_offer
+Narrator: Thirty feet of black fur, leathery wing, and six-horned crown blot out the stars, waiting in the quiet grass as the last of you climbs up.
+ct_hk_goat [smile]: Each of you took my hand in the dark. Why raise cold iron now, when a place at the Queen's right hand awaits you?
+* Fight him anyway -> fight
+* Kneel -> kneel_1
+
+~ kneel_1
+ct_hk_goat [sly]: Be sure of your heart, little lambs. When she rises, the Hollow and every straight thing in it will be unmade and bent anew.
+* Yes, we kneel -> kneel_2
+* No, we fight -> fight
+
+~ kneel_2
+Narrator: The pines around the glade lock their branches tight, and the great beast's three red eyes burn warm against the frost.
+ct_hk_goat [neutral]: Once the knee bends, everything that was is ended. Do you give the world to the root and the briar?
+* Yes. We kneel. -> kneel_done
+* No. We fight. -> fight
+
+~ kneel_done
+Narrator: You sink into the cold grass, and the roots rise gentle around your shoulders to grant every wish you asked for, crooked and eternal.
+ct_hk_goat [smile]: Rise, then, children of the bough. Your heart's desire is yours, crooked and whole, for all the endless night.
+set ct_kneeled
+quest the_horned_kings_offer kneeled
+quest the_crooked_tree crooked_rebirth
+end_game
+-> END
+
+~ fight
+set crooked_cause = "wipe"
+cutscene ct_born_king
+Narrator: The great beast spreads its bat wings and bares a dragon's furnace maw, six horns scraping the silver light.
+cutscene ct_born_king_2
+Narrator: High in the trunk of the Crooked Tree, the fey queen's wooden face splits open in a silent, splintering laugh.
+cutscene end
+quest the_crooked_tree born_king
+combat ct_born_king
+
+~ tree_burnt
+Narrator: The Crooked Tree burns without smoke, a tall clean flame the colour of an old lamp, and the moon above it has stopped grinning.
+Narrator: Embers lift off the branches in the thousands and go up into the dark, and where they pass, the grass is already starting to grow green.
+-> END

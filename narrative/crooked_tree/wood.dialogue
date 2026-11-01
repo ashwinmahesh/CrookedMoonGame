@@ -1,0 +1,247 @@
+# Drafted by Gemini (R24 wood), edited.
+
+~ edge_start
+if not flag.wytchwood_open
+-> early
+endif
+Narrator: The blue-black pines lean at crooked angles, swallowing all sound beyond a few paces while thin shafts of silver moonlight catch hundreds of bone and twig idols clicking overhead.
+set ct_wood_entered
+set party_size = 1
+if flag.tarot_hero_2
+set party_size = 2
+endif
+if flag.tarot_hero_3
+set party_size = 3
+endif
+if flag.tarot_hero_4
+set party_size = 4
+endif
+if days_since.ct_clock >= 4
+set horned_bedlam_nights = 4
+quest chaos_reigns bedlam
+elif days_since.ct_clock >= 3
+set horned_bedlam_nights = 3
+elif days_since.ct_clock >= 2
+set horned_bedlam_nights = 2
+elif days_since.ct_clock >= 1
+set horned_bedlam_nights = 1
+endif
+quest the_crooked_tree into_the_wytchwood
+-> END
+
+~ early
+Narrator: A thick glamour hangs between the trunks, and every path you take bends gently back to the moorland edge.
+-> END
+
+~ track_1
+Narrator: Here at the forest's threshold, Phillip's trail is little more than a rumour in the damp pine needles.
+* [Survival DC 13] Read the ground -> track_1_ok | track_1_fail
+* [Nature DC 13] Read the moss and the bark -> track_1_ok | track_1_fail
+* [if flag.ct_clue_1] [Survival DC 13 adv] Follow the pocket watch's trail -> track_1_ok | track_1_fail
+* Leave -> END
+
+~ track_1_ok
+Narrator: You find the subtle press of a gentleman's boot heel leading deeper into the gloom, toward the scent of cold water.
+set ct_leg_1_done
+-> END
+
+~ track_1_fail
+time +60
+set ct_fail_1 += 1
+if flag.ct_fail_1 >= 2
+-> track_1_found
+endif
+Narrator: An hour slips away in false turns and tangled roots before the clicking overhead stops, and something hungry steps out of the dark.
+combat ct_hw_1
+
+~ track_1_found
+Narrator: Though the woods have spun you round, a freshly snapped bough finally gives the way away, pointing toward the black creek.
+set ct_leg_1_done
+-> END
+
+~ track_2
+Narrator: On the north bank of the black water, the mud gives way to stone and root, and the way forward grows faint again.
+* [Survival DC 13] Read the ground -> track_2_ok | track_2_fail
+* [Nature DC 13] Read the moss and the bark -> track_2_ok | track_2_fail
+* [if flag.ct_clue_2] [Survival DC 13 adv] Follow the torn cuff's trail -> track_2_ok | track_2_fail
+* Leave -> END
+
+~ track_2_ok
+Narrator: Scuffed lichen on a low root marks where a staggering man hauled himself up the bank toward the briar thicket.
+set ct_leg_2_done
+-> END
+
+~ track_2_fail
+time +60
+set ct_fail_2 += 1
+if flag.ct_fail_2 >= 2
+-> track_2_found
+endif
+Narrator: An hour goes by in the freezing damp, and the shadows between the leaning pines begin to crowd in with teeth bared.
+combat ct_hw_2
+
+~ track_2_found
+Narrator: At last, a smear of creek silt on a pale stone shows where Phillip dragged his feet northward.
+set ct_leg_2_done
+-> END
+
+~ track_3
+Narrator: Past the beast's thicket, the briars thin into a silent hollow where the needles lie undisturbed.
+* [Survival DC 13] Read the ground -> track_3_ok | track_3_fail
+* [Nature DC 13] Read the moss and the bark -> track_3_ok | track_3_fail
+* [if flag.ct_clue_3] [Survival DC 13 adv] Follow the bloodied thorns -> track_3_ok | track_3_fail
+* Leave -> END
+
+~ track_3_ok
+Narrator: Crushed nightshade stems and a staggered stride lead through the hollow toward a sagging roof in the clearing ahead.
+set ct_leg_3_done
+-> END
+
+~ track_3_fail
+time +60
+set ct_fail_3 += 1
+if flag.ct_fail_3 >= 2
+-> track_3_found
+endif
+Narrator: You lose a cold hour circling the same bone totems until the branches overhead rustle and the wood's creatures close in.
+combat ct_hw_3
+
+~ track_3_found
+Narrator: Weariness nearly takes your eyes, yet a line of bruised fern fronds reveals the path Phillip took through the gloom.
+set ct_leg_3_done
+-> END
+
+~ track_4
+Narrator: North of the slanted hovel, the mist curls low over the roots, hiding the way into the deeper grove.
+* [Survival DC 13] Read the ground -> track_4_ok | track_4_fail
+* [Nature DC 13] Read the moss and the bark -> track_4_ok | track_4_fail
+* [if flag.ct_clue_4] [Survival DC 13 adv] Follow the spilled ash -> track_4_ok | track_4_fail
+* Leave -> END
+
+~ track_4_ok
+Narrator: The trail cuts straight through the pale mist, the footprints deep and unhurried now, drawn toward a whispering grove.
+set ct_leg_4_done
+quest the_crooked_tree tracking_phillip
+-> END
+
+~ track_4_fail
+time +60
+set ct_fail_4 += 1
+if flag.ct_fail_4 >= 2
+-> track_4_found
+endif
+Narrator: An hour drains away in the winding fog before low shapes detach themselves from the timber and lunge.
+combat ct_hw_4
+
+~ track_4_found
+Narrator: The fog parts around a trail of crushed toadstools, marking Phillip's steady march into the grove ahead.
+set ct_leg_4_done
+quest the_crooked_tree tracking_phillip
+-> END
+
+~ clue_1
+Narrator: Something catches the thin silver moonlight beneath a mat of damp blue-black pine needles.
+* [Investigation DC 13] Search the needles -> clue_1_ok | clue_1_f
+* [Perception DC 13] Look more carefully -> clue_1_ok | clue_1_f
+* Leave -> END
+
+~ clue_1_ok
+give clue_pocket_watch
+set ct_clue_1
+Narrator: You brush the cold needles aside and lift a heavy silver pocket watch, its case engraved with the initials P.D. and its crystal cracked across the midnight hour.
+-> END
+
+~ clue_1_f
+Narrator: Your fingers find only wet pine needles, brittle twigs, and cold black soil.
+-> clue_1
+
+~ clue_2
+Narrator: The smell of spilled lamp oil lingers near the crooked roots beside the trail.
+* [Investigation DC 13] Search the roots -> clue_2_ok | clue_2_f
+* [Perception DC 13] Look more carefully -> clue_2_ok | clue_2_f
+* Leave -> END
+
+~ clue_2_ok
+give clue_lantern
+set ct_clue_2
+Narrator: Wedged between two black roots lies a fine brass hooded lantern, its glass pane shattered and its wick still damp with oil.
+-> END
+
+~ clue_2_f
+Narrator: The shadows beneath the twisted roots yield only dead moss and smooth dark stones.
+-> clue_2
+
+~ clue_3
+Narrator: A faint trace of harsh spirits cuts through the cold scent of pine sap and rot.
+* [Investigation DC 13] Search the brush -> clue_3_ok | clue_3_f
+* [Perception DC 13] Look more carefully -> clue_3_ok | clue_3_f
+* Leave -> END
+
+~ clue_3_ok
+give clue_hip_flask
+set ct_clue_3
+Narrator: Half-buried in the ferns is a dented silver hip flask engraved with the letters P.D., its stopper missing and its last drops soaked into the moss.
+-> END
+
+~ clue_3_f
+Narrator: You part the cold ferns, but find nothing among the tangled stems.
+-> clue_3
+
+~ clue_4
+Narrator: The low briars beside the path have been snapped and trampled by a heavy stride.
+* [Investigation DC 13] Search the briars -> clue_4_ok | clue_4_f
+* [Perception DC 13] Look more carefully -> clue_4_ok | clue_4_f
+* Leave -> END
+
+~ clue_4_ok
+give clue_cloth
+set ct_clue_4
+Narrator: Caught on a long black thorn is a torn scrap of fine pinstriped wool from Lord Phillip's coat, stiff with dried mud.
+-> END
+
+~ clue_4_f
+Narrator: The thorns catch at your sleeves, offering only dead leaves and old cobwebs.
+-> clue_4
+
+~ clue_5
+give clue_cane
+set ct_clue_5
+if flag.tarot_hero_1 == "the_devil" or flag.tarot_hero_2 == "the_devil" or flag.tarot_hero_3 == "the_devil" or flag.tarot_hero_4 == "the_devil"
+give phillips_cane
+endif
+Narrator: Laid neatly across the narrow goat path is Phillip's ebony walking stick, its silver goat head cold as river stone, left behind by a man who no longer needed to lean.
+-> END
+
+~ creek
+if flag.ct_hw_swept_done and not flag.ct_creek_crossed
+-> creek_rejoin
+endif
+Narrator: Black water forty feet across rushes past too quick for the pitch of the land, chattering over its stones like a sack of dry bones. A slick pine trunk spans the froth, a crooked line of wet boulders breaks the current, and a gravel bar offers a chest-deep ford.
+* [Athletics DC 13] Walk the fallen log. -> creek_ok | creek_swept
+* [Acrobatics DC 13] Cross by the wet stones. -> creek_ok | creek_swept
+* [Survival DC 13] Wade the gravel ford. -> creek_ok | creek_swept
+* Turn back from the bank. -> END
+
+~ creek_ok
+Narrator: You gain the north bank with boots full of ice-cold water and pine needles clinging to your hems, the roar of the creek dying behind you after three strides.
+set ct_creek_crossed
+quest the_crooked_tree tracking_phillip
+move ct_wytchwood:north_bank
+-> END
+
+~ creek_swept
+Narrator: The black current takes {name} off their feet in a breath, dragging them downstream into the dark while the rest of you scramble along the roots to catch up. When you haul {name} coughing onto the mud, the root-tangle along the bank begins to uncoil.
+combat ct_hw_swept
+
+~ creek_rejoin
+Narrator: With the bank quiet again, you haul {name} up out of the black silt, link arms against the pull of the water, and cross together to the northern side.
+set ct_creek_crossed
+quest the_crooked_tree tracking_phillip
+move ct_wytchwood:north_bank
+-> END
+
+~ heart_start
+Narrator: Ahead, the leaning pines thin around a low rise, and a warm amber glow flickers between the trunks like a campfire waiting at the end of a long road.
+set ct_heart_reached
+quest the_crooked_tree six_horns_his_crown
+-> END

@@ -1,0 +1,321 @@
+# Drafted by Gemini (R24 ritual), edited.
+
+~ skull
+if not flag.ct_skull_spoke
+cutscene ct_fleeting_victory
+Narrator: For the span of a heartbeat, the monster's great horned head wavers, softening into the thin, tired face of a man you once knew.
+cutscene ct_fleeting_victory_2
+Narrator: The dark flesh scatters like dry ash on the wind, leaving only a bleached goat skull in the flattened grass, a wooden crescent moon carved upon its brow.
+cutscene ct_fleeting_victory_3
+Narrator: High in the twisted trunk above you, the face in the bark wrenches open its mouth and lets out a shriek of splintering timber.
+cutscene end
+set ct_skull_spoke
+set crooked_cause = ""
+quest what_each_hero_offers asked
+endif
+Narrator: From the hollow sockets of the bone comes a quiet voice, clear as bell-glass after a storm.
+phillip_druskenvald [weary]: Do not be afraid, my friends. The beast is spent, though the root that fed it still clutches the earth.
+phillip_druskenvald [sad]: Adela has shown me what remains to be done. My old strength still lingers beyond the Hollow, waiting for an anchor.
+phillip_druskenvald [neutral]: If each of you lays a hand upon this bone and surrenders something deeply cherished, she can take up that power, sever Kehlenn from the soil, and lock her in the moon.
+-> menu
+
+~ menu
+* [if flag.ct_plea_done] Begin the ritual -> begin
+* [if not flag.ct_plea_done] Ask Phillip what he needs -> menu_ask
+* Wait a while -> END
+
+~ menu_ask
+Narrator: The carved crescent on the brow glimmers faintly in the silver light. You ought to hear Phillip's voice out completely before you put your hands to the work.
+-> END
+
+~ begin
+set ct_turn = 0
+set ritual_fails = 0
+set ritual_points = 0
+if flag.horned_bargains >= 1
+set ritual_points += 2
+endif
+if flag.horned_bargains >= 2
+set ritual_points += 2
+endif
+if flag.horned_bargains >= 3
+set ritual_points += 2
+endif
+if flag.horned_bargains >= 4
+set ritual_points += 2
+endif
+quest what_each_hero_offers offering
+Narrator: Above you, the knotted face in the bark shifts and creaks, weighing every promise whispered in the dark of the woods against what you are about to give.
+-> round
+
+~ round
+set ct_turn += 1
+if flag.ct_turn >= 5
+-> resolve
+endif
+if flag.ct_turn >= 4 and flag.party_size <= 3
+-> resolve
+endif
+if flag.ct_turn >= 3 and flag.party_size <= 2
+-> resolve
+endif
+if flag.ct_turn >= 2 and flag.party_size <= 1
+-> resolve
+endif
+-> turn
+
+~ turn
+Narrator: The next of you steps through the cold grass and lays a bare palm upon the bone, where the carved wooden moon presses sharp against the skin.
+kehlenn [angry]: Keep your trinkets and your pride, little moth. What you hold dear is all that keeps you whole.
+phillip_druskenvald [sad]: Do not mind the branches, my friend. Tell me truly, what part of yourself are you willing to part with?
+-> offer
+
+~ offer
+phillip_druskenvald [neutral]: Speak your offering to the bone, and hold nothing back from the weighing.
+* [if item:adelas_planchette] Offer Adela's planchette -> off_planchette
+* [if item:phillips_cane] Offer Phillip's cane -> off_cane
+* Offer a treasure I carry -> off_item
+* Offer two points of an ability -> off_ability
+* Offer a gift of my class -> off_feature
+* Offer my Thread of Fate -> off_thread
+* [if flag.ct_refused_now] Give my life, the Last Act -> last_act_1
+* I will not offer -> wont
+
+~ off_item
+Narrator: You draw forth a prized heirloom that has seen you through the dark, and lay its familiar weight across the goat's brow.
+phillip_druskenvald [weary]: A storied thing, worn smooth by your own hand. Let us see if the memory in it is heavy enough.
+-> rec_item
+
+~ off_ability
+Narrator: You offer up the very marrow of your strength and wit, feeling a cold hollow open inside you that will never quite fill again.
+phillip_druskenvald [sad]: That is a bitter draught to drink, giving away the vigour of your own frame.
+-> rec_ability
+
+~ off_feature
+Narrator: You name a hard-won mastery of your craft, letting the knack and the habit of it slip from your fingers like water.
+phillip_druskenvald [neutral]: The skill that kept you breathing in the dark. A steep price, and an honest one.
+-> rec_feature
+
+~ off_thread
+Narrator: You lay down the long road that brought you here and the grand reckoning at its end, choosing a quiet peace over the triumph you were owed.
+phillip_druskenvald [weary]: To give up your own unfinished tale so another's might end well. Adela would know the weight of that.
+-> rec_thread
+
+~ wont
+Narrator: You draw your hand back from the cold bone, unable to part with what makes you who you are. The skull makes no reproach, only a quiet sigh like ash settling on a hearth.
+set crooked_cause = "refused"
+-> failed
+
+~ rec_item
+if flag.ct_turn == 1
+set sacrifice_1 = "item"
+elif flag.ct_turn == 2
+set sacrifice_2 = "item"
+elif flag.ct_turn == 3
+set sacrifice_3 = "item"
+elif flag.ct_turn == 4
+set sacrifice_4 = "item"
+endif
+-> roll
+
+~ rec_ability
+if flag.ct_turn == 1
+set sacrifice_1 = "ability"
+elif flag.ct_turn == 2
+set sacrifice_2 = "ability"
+elif flag.ct_turn == 3
+set sacrifice_3 = "ability"
+elif flag.ct_turn == 4
+set sacrifice_4 = "ability"
+endif
+-> roll
+
+~ rec_feature
+if flag.ct_turn == 1
+set sacrifice_1 = "feature"
+elif flag.ct_turn == 2
+set sacrifice_2 = "feature"
+elif flag.ct_turn == 3
+set sacrifice_3 = "feature"
+elif flag.ct_turn == 4
+set sacrifice_4 = "feature"
+endif
+-> roll
+
+~ rec_thread
+if flag.ct_turn == 1
+set sacrifice_1 = "thread"
+elif flag.ct_turn == 2
+set sacrifice_2 = "thread"
+elif flag.ct_turn == 3
+set sacrifice_3 = "thread"
+elif flag.ct_turn == 4
+set sacrifice_4 = "thread"
+endif
+-> roll
+
+~ roll
+if flag.ritual_points >= 5
+-> roll_hard
+endif
+if flag.ritual_points >= 2
+-> roll_mid
+endif
+-> roll_easy
+
+~ roll_easy
+Narrator: The carved moon warms beneath your fingers as the old bone takes the measure of your heart.
+check Charisma DC 15 -> accepted | refused
+
+~ roll_mid
+kehlenn [sly]: Shallow and light, like autumn leaves. The roots know how much you kept for yourself.
+Narrator: Black roots writhe against the mound, pressing cold spite into the bone to tip the scales against you.
+check Charisma DC 17 -> accepted | refused
+
+~ roll_hard
+kehlenn [angry]: Nothing you give is enough! Every scrap of your grief and your dread belongs to the wood!
+Narrator: The whole barrow groans as the Crooked Queen pours all her gathered malice into the skull, fighting to choke the ember out.
+check Charisma DC 20 -> accepted | refused
+
+~ accepted
+Narrator: The skull takes what you gave, and something small and hard goes out of you, quietly, like a coin dropped down a well.
+phillip_druskenvald [smile]: Thank you. That was well given, and it was not nothing. I know it was not nothing.
+set ct_refused_now = false
+-> round
+
+~ refused
+Narrator: The bone gives your offering back, cold and unchanged, and in the bark above you a face smiles and takes a little of what you failed to give.
+kehlenn [sly]: Not enough. Not nearly. I can wait.
+set ritual_fails += 1
+set ritual_points += 3
+set ct_refused_now
+if flag.ritual_fails >= 6
+-> failed
+endif
+-> refused_menu
+
+~ refused_menu
+phillip_druskenvald [sad]: It does not take. You may try again with something else, if you have it. Or there is one thing she cannot refuse.
+* Offer something else -> offer
+* [if flag.ct_refused_now] Give my life, the Last Act -> last_act_1
+* I will not offer -> wont
+
+~ last_act_1
+phillip_druskenvald [weary]: The Last Act is taken at once, and it cannot be undone. Whoever gives it will not be brought back, by anyone, for anything.
+* Yes. I will give my life -> last_act_2
+* No -> refused_menu
+
+~ last_act_2
+Narrator: The skull is quiet. Even the roots seem to hold still, waiting to hear what you will say.
+phillip_druskenvald [sad]: Be sure. Please. I would not ask it, if there were any other way.
+* Yes -> last_act
+* No -> refused_menu
+
+~ last_act
+Narrator: You lay your hand flat on the bone and let go of everything, and the skull accepts it before you have finished letting go.
+sacrifice
+if check.last
+set last_act_count += 1
+set ct_refused_now = false
+-> rec_life
+endif
+-> refused_menu
+
+~ resolve
+Narrator: The last of you steps back from the skull, and for a long moment the clearing holds its breath.
+-> bound
+
+~ bound
+Narrator: The face in the bark screams and is dragged out of the wood by roots that have turned against it, up and up, toward the grinning moon, and the moon's grin falters.
+set kehlenn_bound
+set ct_ritual_done
+quest what_each_hero_offers bound
+quest the_crooked_tree flickering_life
+xp milestone
+set ct_boons_left = 0
+if flag.party_size >= 1
+set ct_boons_left += 1
+endif
+if flag.party_size >= 2
+set ct_boons_left += 1
+endif
+if flag.party_size >= 3
+set ct_boons_left += 1
+endif
+if flag.party_size >= 4
+set ct_boons_left += 1
+endif
+Narrator: Warm, strange power comes down through the branches, a gift from a woman who is not here, and settles in each of you who is.
+-> boon
+
+~ boon
+if flag.ct_boons_left <= 0
+-> after
+endif
+adela_druskenvald [smile]: Take what I have left. It was never mine to keep.
+* A boon of Might: Strength +2 -> boon_might
+* A boon of Mind: Intelligence +2 -> boon_mind
+* A boon of Grace: Charisma +2 -> boon_grace
+* No one takes a boon -> after
+
+~ boon_might
+dark_gift binding_boon_might
+set ct_boons_left -= 1
+-> boon
+
+~ boon_mind
+dark_gift binding_boon_mind
+set ct_boons_left -= 1
+-> boon
+
+~ boon_grace
+dark_gift binding_boon_grace
+set ct_boons_left -= 1
+-> boon
+
+~ after
+Narrator: Two shapes of blue-green light have come to stand by the Crooked Tree, a lord in a pinstripe suit and a lady with her hands cupped round something small. They are waiting for you to be ready.
+if flag.last_act_count >= 4 or (flag.last_act_count >= 3 and flag.party_size == 3) or (flag.last_act_count >= 2 and flag.party_size == 2) or (flag.last_act_count >= 1 and flag.party_size == 1)
+end_game
+endif
+-> END
+
+~ failed
+Narrator: Nothing you had was enough, and the skull knows it. The roots of the Crooked Tree draw tight, and the thing that was Phillip begins, slowly, to gather itself back together.
+if not flag.crooked_cause == "refused"
+set crooked_cause = "ritual_failed"
+endif
+quest what_each_hero_offers refused
+quest the_crooked_tree crooked_rebirth
+cutscene ct_crooked_defeat
+Narrator: The beast rears out of the broken ground, bellowing at a moon that grins back at it.
+cutscene ct_crooked_defeat_2
+Narrator: The trunk splits, and a beautiful, terrible queen rises out of it toward the sky.
+cutscene ct_crooked_defeat_3
+Narrator: Below her, the land begins to wither, and to twist, and to grow again in the wrong shapes.
+cutscene end
+end_game
+
+~ rec_life
+if flag.ct_turn == 1
+set sacrifice_1 = "life"
+elif flag.ct_turn == 2
+set sacrifice_2 = "life"
+elif flag.ct_turn == 3
+set sacrifice_3 = "life"
+elif flag.ct_turn == 4
+set sacrifice_4 = "life"
+endif
+-> round
+
+~ off_planchette
+Narrator: Adela's necklace goes into the skull's grinning jaw and does not come out.
+take adelas_planchette
+set ct_item_given
+-> rec_item
+
+~ off_cane
+Narrator: Phillip's cane, silver goat head and all, lies down on the grass by the skull and is still.
+take phillips_cane
+set ct_item_given
+-> rec_item

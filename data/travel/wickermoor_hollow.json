@@ -261,6 +261,19 @@
       "region": "wickers_vigil",
       "when": "flag.crooked_man_slain and not flag.wicker_man_burned",
       "summary": "Where the moor road ends and the storm begins, with a bonfire on the hill above."
+    },
+    {
+      "id": "ct_wytchwood",
+      "name": "The Wytchwood",
+      "location": "ct_wytchwood",
+      "spawn": "default",
+      "pos": [
+        0.5,
+        0.1
+      ],
+      "region": "the_wytchwood",
+      "when": "flag.wytchwood_open or visited:ct_wytchwood",
+      "summary": "A dense old forest north of the moors, where every path bends back to the edge until it wants you."
     }
   ],
   "roads": [
@@ -431,6 +444,14 @@
       "hours": 1,
       "name": "The spirits' road, north over the moor",
       "when": "flag.crooked_man_slain and not flag.wicker_man_burned"
+    },
+    {
+      "id": "wickermoor_to_wytchwood",
+      "from": "wickermoor_village",
+      "to": "ct_wytchwood",
+      "hours": 14,
+      "name": "The moor road north",
+      "when": "flag.wytchwood_open or visited:ct_wytchwood"
     }
   ]
 }

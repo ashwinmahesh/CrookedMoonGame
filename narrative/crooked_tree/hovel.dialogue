@@ -1,0 +1,107 @@
+# Drafted by Gemini (R24 hovel), edited.
+
+~ door
+Narrator: A slanted hovel leans in the quiet glade, its mossy boards weathered grey while hundreds of stick-and-bone idols click softly in the pine boughs overhead.
+* Go in -> go_in
+* Look at the idols first -> idols
+* Leave it -> END
+
+~ go_in
+Narrator: You put your hand to the warped planks and step over the threshold into the musty dark.
+move ct_hovel
+-> END
+
+~ idols
+Narrator: Twigs bound with sinew and bleached knuckles hang from the needles, knocking together like dry teeth in a draft you cannot feel.
+* [Perception DC 13] Look closely at the idols -> idols_lore | idols_lore_f
+* Take one down -> idols_take
+* Leave them be -> END
+
+~ idols_lore
+Narrator: Look long enough and the crooked twigs take the shape of things you left behind in life: a sagging porch, a faithful hound, a face you loved.
+-> idols
+
+~ idols_lore_f
+Narrator: Try as you might to find a pattern in the knots, they remain nothing more than dead wood and old marrow.
+-> idols
+
+~ idols_take
+Narrator: {name} reaches up into the cold needles and closes a hand around the nearest cord.
+check Charisma DC 18 -> idols_ok | idols_hex
+
+~ idols_ok
+Narrator: The cord parts without a sound, and the little bundle comes down cold and quiet into your palm.
+-> idols
+
+~ idols_hex
+Narrator: The clicking stops all at once across the glade, and every little face of bone and twig turns slowly toward {name}.
+set ct_idols_hex
+disadvantage checks 2h: the idols' hex
+-> idols
+
+~ arrive
+Narrator: Behind you, the heavy door swings shut on its own, and the iron latch drops home with a dull, final clack.
+set ct_hovel_entered
+-> END
+
+~ paintings
+Narrator: Six chipped paintings run round the leaning walls, their faded pigments peeling above a bent table and a broken chair.
+* [Nature DC 13] Read the paintings -> paintings_lore | paintings_f
+* [Insight DC 13] Read the faces in the paintings -> paintings_lore | paintings_f
+* Search the room instead -> paintings_skip
+* Leave -> END
+
+~ paintings_lore
+Narrator: You trace the six panels in the hush: a young queen in a green wood, a gift freely given, a bitter betrayal, a long grief, a dark bargain, and a consuming fire.
+Narrator: Sitting a while with that old sorrow lets you catch your breath and bind your scrapes before the road ahead.
+time +60
+heal 2d8 party
+-> fire_starts
+
+~ paintings_f
+Narrator: Damp and age have flaked too much away, leaving only the sixth and final panel clear: a wall of hungry red flame.
+-> paintings
+
+~ paintings_skip
+Narrator: You turn your back on the peeling walls and leave the old queen's story to the dust.
+-> paintings
+
+~ fire_starts
+set ct_paintings_read
+set ct_hovel_fire
+Narrator: The painted flames on the sixth wall begin to blister and hiss, and thick black smoke curls out from the boards as the room remembers how it burned.
+-> END
+
+~ bed
+Narrator: In the corner sits a rotting bedstead, its straw tick split and smelling of wet leaves and mice.
+* [Investigation DC 13] Search under the bed -> bed_ok | bed_f
+* Leave it -> END
+
+~ bed_ok
+Narrator: Half buried in the mouldering straw beneath the frame, {name} hooks a rusted tin of dried pigments and stiff-bristled brushes.
+give painters_supplies
+set ct_painter_found
+-> bed
+
+~ bed_f
+Narrator: {name} sweeps an arm through the dark under the frame and comes back with nothing but grey dust and a dry beetle husk.
+-> bed
+
+~ escape
+Narrator: Smoke chokes the low rafters and flames lick up the walls, while the heavy door holds fast against its self-dropped latch.
+* [Sleight of Hand DC 20] Pick the lock -> out | burn
+* [Athletics DC 25] Force the door -> out | burn
+* [Athletics DC 15] Smash through a slatted window -> out | burn
+* Hold your breath and wait -> burn
+
+~ burn
+Narrator: The heat presses in like an oven door, searing your lungs and blistering your skin as the dry timber roars.
+damage 1d10 fire party
+-> escape
+
+~ out
+Narrator: You spill out coughing onto the cold pine needles, and the moment the last boot clears the sill, the fire inside dies to cold ash.
+set ct_hovel_escaped
+set ct_hovel_done
+move ct_wytchwood:from_hovel
+-> END

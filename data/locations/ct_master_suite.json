@@ -1,0 +1,229 @@
+{
+  "id": "ct_master_suite",
+  "name": "The Green Queen Inn, master suite",
+  "region": "wickermoor",
+  "summary": "The inn's master suite with the furniture shoved to the walls, a runic circle cut in the floor and ringed with burned-out candles, Adela's charred bones inside it.",
+  "text": "The furniture has been shoved to the walls and a runic circle cut into the boards, ringed with candle stubs burned to nothing. The smell of burned flesh is thick and close. Inside the circle, a small heap of charred bones.",
+  "map": {
+    "rows": [
+      "########################",
+      "#......................#",
+      "#.====............====.#",
+      "#.................====.#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#.=====..............=.#",
+      "#.=====.............==.#",
+      "#......................#",
+      "############.###########"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "suite",
+      "name": "The master suite",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          22,
+          13
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      12,
+      12
+    ]
+  },
+  "exits": [
+    {
+      "id": "out",
+      "cell": [
+        12,
+        14
+      ],
+      "to": "wickermoor_green_queen_inn_upper",
+      "spawn": "from_suite",
+      "label": "Out to the landing"
+    }
+  ],
+  "props": [
+    {
+      "id": "ct_suite_arrive",
+      "cell": [
+        12,
+        12
+      ],
+      "kind": "decor",
+      "label": "The suite, from the door",
+      "call": "crooked_tree/suite:arrive",
+      "approach": 12,
+      "call_when": "not flag.ct_suite_seen"
+    },
+    {
+      "id": "ct_suite_circle",
+      "cell": [
+        11,
+        7
+      ],
+      "kind": "examine",
+      "label": "A runic circle cut into the floor",
+      "model": "rune_circle",
+      "dialogue": "crooked_tree/suite:circle",
+      "scale": 2.0
+    },
+    {
+      "id": "ct_suite_bones",
+      "cell": [
+        11,
+        7
+      ],
+      "kind": "decor",
+      "label": "Charred bones, inside the circle",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "ct_suite_desk",
+      "cell": [
+        19,
+        3
+      ],
+      "kind": "examine",
+      "label": "A desk with a calligrapher's tray",
+      "model": "desk",
+      "dialogue": "crooked_tree/suite:desk"
+    },
+    {
+      "id": "ct_suite_jewels",
+      "cell": [
+        4,
+        3
+      ],
+      "kind": "examine",
+      "label": "A jewellery box on the dresser",
+      "model": "case",
+      "dialogue": "crooked_tree/suite:jewels"
+    },
+    {
+      "id": "ct_suite_box",
+      "cell": [
+        3,
+        2
+      ],
+      "kind": "examine",
+      "label": "A locked strongbox",
+      "model": "chest_iron",
+      "dialogue": "crooked_tree/suite:box",
+      "when": "not flag.ct_box_open"
+    },
+    {
+      "id": "ct_suite_grimoire",
+      "cell": [
+        9,
+        7
+      ],
+      "kind": "examine",
+      "label": "An open grimoire by the circle",
+      "model": "lectern",
+      "dialogue": "crooked_tree/suite:grimoire"
+    },
+    {
+      "id": "ct_suite_parchment",
+      "cell": [
+        13,
+        8
+      ],
+      "kind": "examine",
+      "label": "A tear-stained parchment",
+      "model": "letter",
+      "dialogue": "crooked_tree/suite:parchment"
+    },
+    {
+      "id": "ct_suite_candles_a",
+      "cell": [
+        9,
+        5
+      ],
+      "kind": "decor",
+      "label": "A burned-out candle",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "ct_suite_candles_b",
+      "cell": [
+        13,
+        5
+      ],
+      "kind": "decor",
+      "label": "A burned-out candle",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "ct_suite_candles_c",
+      "cell": [
+        9,
+        9
+      ],
+      "kind": "decor",
+      "label": "A burned-out candle",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "ct_suite_candles_d",
+      "cell": [
+        13,
+        9
+      ],
+      "kind": "decor",
+      "label": "A burned-out candle",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "ct_suite_bed",
+      "cell": [
+        3,
+        11
+      ],
+      "kind": "decor",
+      "label": "A bed shoved against the wall",
+      "model": "bed"
+    },
+    {
+      "id": "ct_suite_settee",
+      "cell": [
+        21,
+        11
+      ],
+      "kind": "decor",
+      "label": "A settee, shoved aside",
+      "model": "settee"
+    },
+    {
+      "id": "ct_suite_window",
+      "cell": [
+        12,
+        1
+      ],
+      "kind": "decor",
+      "label": "A window onto the dark",
+      "model": "window"
+    }
+  ],
+  "npcs": [],
+  "encounters": [],
+  "rest": "safe",
+  "rest_text": "You will not sleep in here."
+}

@@ -49,6 +49,10 @@
     "from_stairs": [
       2,
       12
+    ],
+    "from_suite": [
+      14,
+      10
     ]
   },
   "exits": [
@@ -61,6 +65,17 @@
       "to": "wickermoor_green_queen_inn",
       "spawn": "from_stairs",
       "label": "Stairs down"
+    },
+    {
+      "id": "ct_suite_exit",
+      "cell": [
+        15,
+        10
+      ],
+      "to": "ct_master_suite",
+      "spawn": "default",
+      "label": "Into the master suite",
+      "when": "flag.ct_suite_open"
     }
   ],
   "props": [
@@ -98,6 +113,18 @@
       "label": "A window onto the Round",
       "model": "window",
       "text": "From the window you see the whole Round, the oak a dark knot in its middle."
+    },
+    {
+      "id": "ct_suite_door",
+      "cell": [
+        16,
+        10
+      ],
+      "kind": "examine",
+      "label": "The master suite door, shut tight",
+      "model": "door_house",
+      "dialogue": "crooked_tree/suite:door",
+      "when": "flag.ct_hook_given and not flag.ct_suite_open"
     }
   ],
   "npcs": [],
