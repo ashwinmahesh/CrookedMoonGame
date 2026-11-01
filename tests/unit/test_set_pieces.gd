@@ -60,3 +60,21 @@ func test_a_prop_without_a_set_piece_is_left_to_the_catalog() -> void:
 	var l := CrookedMoonLook.new()
 	assert_true(l.place_special("pine_clawed", null, null, Vector2i.ZERO, {}, {"art": "pine_clawed"}).is_empty())
 	assert_true(l.place_special("anything", null, null, Vector2i.ZERO, {}, {}).is_empty())
+
+
+func test_the_express_windows_hang_on_the_far_wall_where_it_meets_open_floor() -> void:
+	var rows := ["####################", "#..................#", "#..................#", "#..................#", "####################"]
+	var elev := ["11111111111111111111", "11111111111111111111", "11111111111111111111", "11111111111111111111", "11111111111111111111"]
+	var b := ArenaBoard.build(CombatGrid.from_rows(rows, elev), "manor", "window_test")
+	add_child(b)
+	var made := ExpressWindows.hang(b, b)
+	if ResourceLoader.exists(ExpressWindows.PICTURE):
+		assert_true(made != null, "windows hang")
+		var windows := made.find_children("*", "Decal", true, false)
+		assert_eq(windows.size(), 5, "every third square from the 4th: 3, 6, 9, 12, 15")
+		for w in windows:
+			assert_between((w as Decal).position.z, 0.99, 1.01, "on the wall's inner face")
+	else:
+		assert_true(made == null, "no picture yet, no windows")
+	assert_true(b.grid.has_flag(Vector2i(3, 0), CombatGrid.WALL) and not b.grid.has_flag(Vector2i(3, 1), CombatGrid.WALL), "the rules' walls stay as they were")
+	b.free()

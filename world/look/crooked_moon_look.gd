@@ -10,6 +10,8 @@ extends CampaignLook
 ## Coming out of the mist between the Ghostlight Express's cars into the next one (E23): the Narrator says the car has changed before the
 ## car's own words. The place the party left is still the story's `location` here (LocationView sets the new one just after).
 func dress_place(view: LocationView) -> void:
+	if CrookedMoonCampaign.is_car(view.loc_id):
+		ExpressWindows.hang(view.board, view.board)   # the Shroud streams past the cars' windows
 	if view.st.location == CrookedMoonCampaign.limbo_place() and CrookedMoonCampaign.is_car(view.loc_id):
 		view._say("switcheroo:arrive")
 

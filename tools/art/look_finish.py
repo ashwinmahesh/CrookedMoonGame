@@ -5,6 +5,7 @@
   look_finish.py icon <picture.png>              art/ui/app_icon.png at 1024 x 1024
   look_finish.py moon <picture.png> <out.png>    the moon on black as a disc with alpha for the sky (Look painted `moon_face`: the
                                                  square's edge is the moon's edge), at 1024 x 1024
+  look_finish.py window <picture.png>            art/props/express/train_window.png: the Shroud window on alpha (white ground cut out), 1024 high
   look_finish.py map <picture.png> [--night]     art/ui/map/wickermoor_hollow.png at 2528 x 1696 (the painting is made at 2048 x 1408);
                                                  --night grades a daytime painting to moonlight
 """
@@ -64,6 +65,28 @@ def main(a: list[str]) -> None:
         if "--night" in a:
             painting = night(painting, (1030, 100, 1190, 240))
         painting.resize((2528, 1696), Image.LANCZOS).save(out)
+    elif cmd == "window":
+        import build_vistas   # the same white-ground cut-out as the vistas
+        out = ROOT / "art/props/express/train_window.png"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        win = build_vistas.cut(src, 1024)
+        r, g, b, al = win.split()
+        al = al.filter(ImageFilter.MinFilter(5)).point(lambda v: 0 if v < 128 else 255).filter(ImageFilter.GaussianBlur(1.0))
+        # No white fringe: the colour under a thin edge is taken from the dark frame, never the ground.
+        dark = Image.new("RGB", win.size, (14, 12, 16))
+        rgb = Image.composite(Image.merge("RGB", (r, g, b)), dark, al.point(lambda v: 255 if v > 200 else 0))
+        rgb.putalpha(al)
+        rgb.save(out)
+        # What shines is only the Shroud and the lantern: the saturated, bright pixels (the brass and ebony stay dark).
+        glow = Image.new("RGB", rgb.size, (0, 0, 0))
+        gp, rp = glow.load(), rgb.load()
+        for y in range(rgb.height):
+            for x in range(rgb.width):
+                cr, cg, cb, ca = rp[x, y]
+                sat = max(cr, cg, cb) - min(cr, cg, cb)
+                if ca > 128 and sat > 70 and max(cr, cg, cb) > 110 and not (cr > cb + 40 and cg > cb and sat < 140 and cr < 190):
+                    gp[x, y] = (cr, cg, cb)
+        glow.save(ROOT / "art/props/express/train_window_glow.png")
     elif cmd == "moon":
         out = Path(a[2])
         moon(src, out)
