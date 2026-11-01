@@ -149,7 +149,7 @@ func after_each() -> void:
 # ---- Wickermoor: the street, Morgan, the clock ---------------------------------------------------------------------------------------
 
 func test_the_street_scene_starts_the_clock_and_finds_the_trail() -> void:
-	_play("skitterdeep/hook:bitten", ["Survival"])
+	_play("skitterdeep/hook:bitten", ["Follow the tiny"])
 	assert_true(bool(st.get_flag("bitten_seen")))
 	assert_true(int(st.get_flag("plague_started", 0)) > 0, "the clock is stamped")
 	assert_eq(int(st.get_flag("plague_toll", 0)), 10)
@@ -159,7 +159,7 @@ func test_the_street_scene_starts_the_clock_and_finds_the_trail() -> void:
 
 func test_the_trail_has_a_second_way_when_both_checks_fail() -> void:
 	dice = LowDice.new()
-	_play("skitterdeep/hook:bitten", ["Survival", "Investigation", "Holly", "barber"])
+	_play("skitterdeep/hook:bitten", ["Follow the tiny", "Study the pattern", "Holly", "barber"])
 	assert_false(bool(st.get_flag("skitter_trail_known")), "both failed rolls found nothing")
 	assert_eq(st.quest_stage("skitter_plague"), "the_bitten", "and the quest is open, not locked")
 	st.location = "wickermoor_apothecary"
@@ -435,7 +435,7 @@ func test_the_hoard_pays_450_and_wakes_oswald_with_or_without_the_trap() -> void
 	_play("skitterdeep/camp:hoard", ["Look closely", "real box"])
 	assert_true(bool(st.get_flag("sk_hoard_seen")))
 	assert_true(bool(st.get_flag("sk_hoard_taken")))
-	assert_eq(st.gold, 450)
+	assert_eq(int(st.gold), 450)
 	assert_eq(fights, ["sk_oswald"] as Array[String])
 	assert_true(int(st.get_flag("skitterdeep_alert", 0)) > 0, "the eye was not dealt with, so the mine knows")
 	assert_true(bool(st.get_flag("oswald_slain")))
@@ -580,8 +580,8 @@ func test_theodora_pays_fifty_each_only_if_her_letter_brought_the_party() -> voi
 	assert_false(_talks("theodora_mayville", "skitterdeep/letter:theodora_pays"))
 	st.set_flag("skitter_letter_hook")
 	assert_true(_talks("theodora_mayville", "skitterdeep/letter:theodora_pays"))
-	_play("skitterdeep/letter:theodora_pays", ["Insight"])
-	assert_eq(st.gold, 200)
+	_play("skitterdeep/letter:theodora_pays", ["Watch her face"])
+	assert_eq(int(st.gold), 200)
 	assert_true(bool(st.get_flag("theodora_paid")))
 	assert_true(bool(st.get_flag("theodora_tell_seen")))
 
@@ -594,7 +594,7 @@ func _talk_to_the_queue() -> void:
 	assert_eq(st.quest_stage("quarantine_queue"), "asked")
 	st.location = "wickermoor_village"
 	for who: String in ["haldor", "ottilie", "pim"]:
-		_play("skitterdeep/queue:" + who, ["Medicine"])
+		_play("skitterdeep/queue:" + who, ["Look at"])
 	assert_true(bool(st.get_flag("queue_talked")))
 	st.location = "wickermoor_apothecary"
 
