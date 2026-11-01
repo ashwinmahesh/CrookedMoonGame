@@ -122,12 +122,12 @@ Narrator: With the crowd still chuckling into their sleeves, the dream forgets t
 set dream_laughed = false
 -> pass
 else
-check Constitution DC 17 -> pass | toll_hurt
+save Constitution DC 17 party -> pass | toll_hurt
 endif
 
 ~ toll_hurt
 Narrator: The thick, sweet rot of the ruined banquet catches in your throat as you clamber across the platters.
-damage 2d6 poison
+damage 2d6 poison failed
 -> pass
 
 ~ leave_forms

@@ -134,11 +134,11 @@ Narrator: Still chuckling to itself, the grinning doorway forgets to snap shut a
 set dream_laughed = false
 -> pass
 endif
-check Dexterity DC 17 -> pass | toll_hurt
+save Dexterity DC 17 party -> pass | toll_hurt
 
 ~ toll_hurt
 Narrator: The rows of teeth snap together as you dive through, catching at your cloak and flesh before you tumble out the other side.
-damage 2d10 slashing
+damage 2d10 slashing failed
 -> pass
 
 ~ leave_voices

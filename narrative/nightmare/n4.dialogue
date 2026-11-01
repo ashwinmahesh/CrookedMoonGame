@@ -105,12 +105,12 @@ Narrator: Still chuckling in its mineral belly, the star lets you scramble up to
 set dream_laughed = false
 -> pass
 else
-check Intelligence DC 17 -> pass | toll_hurt
+save Intelligence DC 17 party -> pass | toll_hurt
 endif
 
 ~ toll_hurt
 Narrator: As you reach for the latch, the stone's dying colours crawl behind your eyes like hot oil, leaving your skull ringing.
-damage 2d10 psychic
+damage 2d10 psychic failed
 -> pass
 
 ~ pass

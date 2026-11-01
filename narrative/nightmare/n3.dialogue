@@ -124,12 +124,12 @@ set dream_laughed = false
 -> pass
 else
 Narrator: As you reach for the latch, the brickwork draws one last greedy breath of heat.
-check Constitution DC 17 -> pass | toll_hurt
+save Constitution DC 17 party unless resists fire -> pass | toll_hurt
 endif
 
 ~ toll_hurt
 Narrator: The iron latch sears your palm, taking its due in skin and cinder before it turns.
-damage 1d10 fire
+exhaust +1 failed
 -> pass
 
 ~ pass
