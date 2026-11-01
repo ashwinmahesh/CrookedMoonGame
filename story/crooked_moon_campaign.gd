@@ -57,6 +57,9 @@ func field(st: StoryState, path: String) -> String:
 	# The ritual track (`tarokka.ritual.stage == wide`, `{tarokka.ritual.vision}` in Adela's lines): RitualTrack.field.
 	if path.begins_with("ritual."):
 		return RitualTrack.field(st, path.trim_prefix("ritual."))
+	# Sin (`tarokka.sin.tier == wicked`, `tarokka.sin.at_least.stained`): Sin.field.
+	if path.begins_with("sin."):
+		return Sin.field(st, path.trim_prefix("sin."))
 	var parts := path.split(".")
 	# The last of the six middle cars, whichever the playthrough's seed makes it (`tarokka.last_car.<place id>` in a door's `when`): its
 	# front door is the Tender's, so that door is the one that waits for the haints.
