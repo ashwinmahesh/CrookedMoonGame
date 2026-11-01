@@ -2,7 +2,8 @@ class_name Endings
 extends RefCounted
 ## The campaign's endings and epilogues (the engine handbook's campaign contract, "Endings"). Each data/endings/<id>.json
 ## has a `when`, a `priority`, a narration node and epilogue slides. When the game ends (the `end_game` statement, a
-## parley that ends it, a wipe in a final battle, a won fight that leaves the villain destroyed) the highest-priority
+## parley that ends it, a wipe in a final battle, a won fight that leaves the villain destroyed, or an `auto` ending's
+## `when` coming true: auto_due) the highest-priority
 ## ending whose `when` holds is recorded in the flag `campaign_ending`; the ending screen (ui/screens/ending_screen.gd)
 ## plays its narration and the slides whose `when` holds, then marks the save finished. Pure logic, like all of story/.
 
@@ -96,6 +97,19 @@ static func request(st: StoryState) -> String:
 		return ""
 	st.set_flag(FLAG, str(e["id"]))
 	return str(e["id"])
+
+
+## An ending marked `auto: true` whose `when` holds now ends the game without an `end_game` (the moon hitting at zero):
+## the highest-priority such one is recorded as request() records it, and its id returned; "" while none holds (or the
+## game has ended already).
+static func auto_due(st: StoryState) -> String:
+	if reached(st) != "":
+		return ""
+	for e in all():
+		if bool(e.get("auto", false)) and StoryConditions.check(str(e.get("when", "")), st):
+			st.set_flag(FLAG, str(e["id"]))
+			return str(e["id"])
+	return ""
 
 
 ## Whether the parley ended the game (a price paid or the party yielding: no battle).

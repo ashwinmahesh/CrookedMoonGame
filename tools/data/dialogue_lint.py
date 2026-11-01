@@ -20,6 +20,8 @@ SKILLS = {"acrobatics", "animal_handling", "arcana", "athletics", "deception", "
           "investigation", "medicine", "nature", "perception", "performance", "persuasion", "religion",
           "sleight_of_hand", "stealth", "survival", "strength", "dexterity", "constitution", "intelligence", "wisdom",
           "charisma"}
+# An attack roll as a check (`check Ranged Attack DC 15`, `[Melee Attack DC 12]`): story/dialogue_runner.gd attack_for.
+ATTACK_CHECKS = {"ranged_attack", "melee_attack"}
 MOODS = {"neutral", "smile", "angry", "afraid", "sad", "sly", "weary"}
 ID = r"[a-z][a-z0-9_]*"
 
@@ -46,7 +48,10 @@ RE_BLESS = re.compile(r"^bless(?:\s+party)?(?:\s+[1-9]\d*[mh])?$")
 RE_INSPIRATION = re.compile(r"^inspiration(?:\s+party)?$")
 # `damage <dice> <type> [party]` (never below 1 Hit Point), `hit_dice restore <n|all> [party]` / `hit_dice grant <n> [party]`, and the story's edge on
 # checks: `advantage|disadvantage <skill|checks> [next|<n>m|<n>h][: why]` (docs/reference/contracts/dialogue.md).
-RE_DAMAGE = re.compile(rf"^damage\s+{RE_DICE}\s+[a-z]+(?:\s+party)?$")
+RE_DAMAGE = re.compile(rf"^damage\s+{RE_DICE}\s+[a-z]+(?:\s+(?:party|failed))?$")
+# `exhaust <+n|-n> [party|failed]`; `save <Ability> DC <n> party -> ok | fail` (every living hero rolls; `failed` are those who missed).
+RE_EXHAUST = re.compile(r"^exhaust\s+[+-][1-6](?:\s+(?:party|failed))?$")
+RE_PARTY_SAVE = re.compile(r"^save\s+(Strength|Dexterity|Constitution|Intelligence|Wisdom|Charisma)\s+DC\s+(\d+)\s+party\s*->\s*([A-Za-z0-9_:/]+|END)(?:\s*\|\s*([A-Za-z0-9_:/]+|END))?$", re.I)
 RE_HIT_DICE = re.compile(r"^hit_dice\s+(?:restore\s+(?:[1-9]\d*|all)|grant\s+[1-9]\d*)(?:\s+party)?$")
 RE_EDGE = re.compile(r"^(?:advantage|disadvantage)\s+([a-z_]+)(?:\s+(?:next|[1-9]\d*[mh]))?(?:\s*:\s*\S.*)?$")
 RE_ATT = re.compile(rf"^attitude\s+({ID})\s+(hostile|indifferent|friendly)$")
@@ -251,7 +256,7 @@ def parse_file(path):
                 if cm:
                     sk = _skill_id(cm.group(1))
                     out["skills"].append((sk, where))
-                    if sk not in SKILLS:
+                    if sk not in SKILLS and sk not in ATTACK_CHECKS:
                         out["errors"].append(f"{where}: unknown skill '{cm.group(1)}'")
                 elif tag.startswith("if "):
                     read(conditions_flags(tag[3:]), where, tag[3:])
@@ -340,7 +345,7 @@ def parse_file(path):
                 if m.group(1) != "checks":
                     out["skills"].append((m.group(1), where))
             else:
-                out["errors"].append(f"{where}: can't read this line (damage <dice> <type> [party], hit_dice restore <n|all> [party], hit_dice grant <n> [party], "
+                out["errors"].append(f"{where}: can't read this line (damage <dice> <type> [party|failed], hit_dice restore <n|all> [party], hit_dice grant <n> [party], "
                                      f"advantage|disadvantage <skill|checks> [next|30m|2h][: why]): {line}")
             continue
         if RE_GOLD.match(line) or RE_XP.match(line) or RE_SACRIFICE.match(line) or RE_READING.match(line) or RE_SHOP.match(line) or RE_TIME.match(line):
@@ -362,11 +367,19 @@ def parse_file(path):
         if m:
             out["speakers"].append((m.group(1), where))
             continue
+        if RE_EXHAUST.match(line):
+            continue
+        m = RE_PARTY_SAVE.match(line)
+        if m:
+            out["jumps"].append((m.group(3), where))
+            if m.group(4):
+                out["jumps"].append((m.group(4), where))
+            continue
         m = RE_CHECK.match(line)
         if m:
             sk = _skill_id(m.group(1))
             out["skills"].append((sk, where))
-            if sk not in SKILLS:
+            if sk not in SKILLS and sk not in ATTACK_CHECKS:
                 out["errors"].append(f"{where}: unknown skill '{m.group(1)}'")
             out["jumps"].append((m.group(3), where))
             if m.group(4):

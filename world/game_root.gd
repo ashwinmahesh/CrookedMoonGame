@@ -245,6 +245,9 @@ func _refresh() -> void:
 	Achievements.check_story(st, hud.toast)   # a hidden achievement whose `when` now holds (data/achievements)
 	if not view.in_combat:
 		_check_fallen()
+	# An ending that comes by itself (`auto: true`: the moon reaching zero) once nothing is in the way.
+	if not view.in_combat and dialogue == null and ending == null and Endings.auto_due(st) != "":
+		show_ending.call_deferred()
 
 
 ## The party cards and the command bar from the party as it is now, without tending anyone (`_refresh` stands the
