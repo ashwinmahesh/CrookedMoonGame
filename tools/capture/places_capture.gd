@@ -12,11 +12,14 @@ func capture_shots(tool: Node, out: String) -> void:
 	var sky := false
 	var travel := false
 	var later := false
+	var flags: PackedStringArray = []
 	var focus := Vector2(-1, -1)
 	var focus_distance := 8.0
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--places="):
 			places = a.get_slice("=", 1).split(",")
+		if a.begins_with("--flags="):
+			flags = a.get_slice("=", 1).split(",")   # story flags to set first, name:value (moon_grin:2,moon_scowl:true)
 		if a == "--later":
 			later = true
 		if a == "--travel":
@@ -36,6 +39,9 @@ func capture_shots(tool: Node, out: String) -> void:
 			ch.finish_long_rest()
 			st.party.append(ch)
 		st.location = place
+		for f in flags:
+			var v := f.get_slice(":", 1)
+			st.set_flag(f.get_slice(":", 0), true if v == "true" else (int(v) if v.is_valid_int() else v))
 		st.minute_of_day = 23 * 60   # the Midnight Hour
 		Dice.reseed(7)
 		var game := (load("res://scenes/game.tscn") as PackedScene).instantiate()

@@ -1,6 +1,6 @@
 ---
 title: G8 The Crooked Moon's face by the ritual track (look lane, hook built; G1 sets the flags)
-status: open
+status: review
 ---
 
 The sky's moon is the game's own picture (`painted.moon_face` in `data/campaign.json`, engine `PaintedFinish`). The picture is chosen
@@ -15,7 +15,7 @@ condition holds wins (an entry with no `when` always does), and a change shows w
   `moon_smirk.png` (narrow smirk: the start), `moon_grin2.png` (a wide grin), `moon_grin3.png` (the grin from edge to edge), and
   `moon_scowl.png` (the scowl after the ritual). Made by `tools/art/generate_local.py` from `tools/art/specs/moon.json` and
   `moon_stages.json`, fitted by `tools/art/look_finish.py moon`.
-- Wired in `data/campaign.json` `painted.moon_face` once the pictures exist (a missing picture keeps the plain disc), keyed on:
+- Wired in `data/campaign.json` `painted.moon_face` (built and tested: `tests/unit/test_moon_stages.gd`; a missing picture would keep the plain disc), keyed on:
 
 | Flag | Meaning | Set by |
 |---|---|---|
