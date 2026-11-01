@@ -114,3 +114,63 @@ The moods every unmapped place, the road, camp and the ending fall back on; no M
 | promises_to_keep.ogg | Promises to Keep | USUAN1200004 | 05:04 | ending | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Promises%20to%20Keep.mp3 |
 
 Credit (required): "Magic Forest", "Myst on the Moor", "Penumbra", "Lightless Dawn", "Village Consort", "Mischief Maker", "Long Road Ahead", "Serpentine Trek", "Ossuary 1 - A Beginning", "Ossuary 2 - Turn", "Suonatore di Liuto", "Anguish", "Enchanted Journey", "Promises to Keep" Kevin MacLeod (incompetech.com) Licensed under Creative Commons: By Attribution 4.0 http://creativecommons.org/licenses/by/4.0/
+
+## Batch 5 (2026-11-01)
+
+The seven regions past Foxwillow, the Crimson Abbot and the harder fight track; no MP3 originals kept (as batch 2).
+
+| Game copy | Track | ISRC | Length | Mood | MP3 |
+| --- | --- | --- | --- | --- | --- |
+| gregorian_chant.ogg | Gregorian Chant | USUAN1600052 | 03:14 | crimson_monastery | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Gregorian%20Chant.mp3 |
+| night_vigil.ogg | Night Vigil | USUAN1900047 | 04:48 | crimson_monastery | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Night%20Vigil.mp3 |
+| hitman.ogg | Hitman | USUAN1300013 | 03:21 | crimson_monastery_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Hitman.mp3 |
+| killers.ogg | Killers | USUAN1600024 | 05:05 | crimson_monastery_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Killers.mp3 |
+| unholy_knight.ogg | Unholy Knight | USUAN1700052 | 02:34 | crimson_abbot | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Unholy%20Knight.mp3 |
+| halls_of_the_undead.ogg | Halls of the Undead | USUAN1100355 | 04:53 | crimson_abbot | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Halls%20of%20the%20Undead.mp3 |
+| frost_waltz.ogg | Frost Waltz | USUAN1100516 | 02:15 | dawns_gate | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Frost%20Waltz.mp3 |
+| angevin.ogg | Angevin | USUAN1200110 | 04:41 | dawns_gate | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Angevin.mp3 |
+| crusade.ogg | Crusade | USUAN1100884 | 03:19 | dawns_gate_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Crusade.mp3 |
+| five_armies.ogg | Five Armies | USUAN1100875 | 02:36 | dawns_gate_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Five%20Armies.mp3 |
+| octoblues.ogg | OctoBlues | USUAN1500083 | 04:16 | drowned_crossroads | https://incompetech.com/music/royalty-free/mp3-royaltyfree/OctoBlues.mp3 |
+| night_of_chaos.ogg | Night of Chaos | USUAN1300042 | 03:30 | drowned_crossroads | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Night%20of%20Chaos.mp3 |
+| raw.ogg | Raw | USUAN1100791 | 01:58 | drowned_crossroads_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Raw.mp3 |
+| malicious.ogg | Malicious | USUAN1700045 | 03:43 | drowned_crossroads_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Malicious.mp3 |
+| chee_zee_caves_v2.ogg | Chee Zee Caves V2 | USUAN1100853 | 03:52 | skitterdeep | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Chee%20Zee%20Caves%20V2.mp3 |
+| ossuary_5_rest.ogg | Ossuary 5 - Rest | USUAN1500047 | 03:56 | skitterdeep | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Ossuary%205%20-%20Rest.mp3 |
+| obliteration.ogg | Obliteration | USUAN1700042 | 02:29 | skitterdeep_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Obliteration.mp3 |
+| grim_idol.ogg | Grim Idol | USUAN1700043 | 03:45 | skitterdeep_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Grim%20Idol.mp3 |
+| dreams_become_real.ogg | Dreams Become Real | USUAN1500027 | 06:50 | memorys_rest | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Dreams%20Become%20Real.mp3 |
+| send_for_the_horses.ogg | Send for the Horses | USUAN1700028 | 03:05 | memorys_rest | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Send%20for%20the%20Horses.mp3 |
+| shadowlands_7_codex.ogg | Shadowlands 7 - Codex | USUAN1700040 | 03:32 | memorys_rest_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Shadowlands%207%20-%20Codex.mp3 |
+| hush.ogg | Hush | USUAN1400004 | 02:29 | memorys_rest_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Hush.mp3 |
+| baba_yaga.ogg | Baba Yaga | USUAN1500079 | 04:12 | hartsblight | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Baba%20Yaga.mp3 |
+| dragon_and_toast.ogg | Dragon and Toast | USUAN1100251 | 05:53 | hartsblight | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Dragon%20and%20Toast.mp3 |
+| wretched_destroyer.ogg | Wretched Destroyer | USUAN1700041 | 03:18 | hartsblight_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Wretched%20Destroyer.mp3 |
+| burnt_spirit.ogg | Burnt Spirit | USUAN1700053 | 01:55 | hartsblight_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Burnt%20Spirit.mp3 |
+| spellbound.ogg | Spellbound | USUAN1500061 | 03:50 | maidenmist | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Spellbound.mp3 |
+| intrepid.ogg | Intrepid | USUAN1500062 | 03:11 | maidenmist | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Intrepid.mp3 |
+| all_this.ogg | All This | USUAN1300001 | 03:49 | maidenmist_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/All%20This.mp3 |
+| full_on.ogg | Full On | USUAN1300005 | 02:36 | maidenmist_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Full%20On.mp3 |
+| black_vortex.ogg | Black Vortex | USUAN1300037 | 02:50 | combat_hard | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Black%20Vortex.mp3 |
+| death_and_axes.ogg | Death and Axes | USUAN1700049 | 02:48 | combat_hard | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Death%20and%20Axes.mp3 |
+
+Credit (required): "Gregorian Chant", "Night Vigil", "Hitman", "Killers", "Unholy Knight", "Halls of the Undead", "Frost Waltz", "Angevin", "Crusade", "Five Armies", "OctoBlues", "Night of Chaos", "Raw", "Malicious", "Chee Zee Caves V2", "Ossuary 5 - Rest", "Obliteration", "Grim Idol", "Dreams Become Real", "Send for the Horses", "Shadowlands 7 - Codex", "Hush", "Baba Yaga", "Dragon and Toast", "Wretched Destroyer", "Burnt Spirit", "Spellbound", "Intrepid", "All This", "Full On", "Black Vortex", "Death and Axes" Kevin MacLeod (incompetech.com) Licensed under Creative Commons: By Attribution 4.0 http://creativecommons.org/licenses/by/4.0/
+
+## Batch 7 (2026-11-01)
+
+The Crooked Nightmare, the Crooked Man and the Festival of Fools; no MP3 originals kept (as batch 2).
+
+| Game copy | Track | ISRC | Length | Mood | MP3 |
+| --- | --- | --- | --- | --- | --- |
+| the_house_of_leaves.ogg | The House of Leaves | USUAN1100710 | 03:26 | crooked_nightmare | https://incompetech.com/music/royalty-free/mp3-royaltyfree/The%20House%20of%20Leaves.mp3 |
+| shadowlands_3_machine.ogg | Shadowlands 3 - Machine | USUAN1700036 | 03:50 | crooked_nightmare | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Shadowlands%203%20-%20Machine.mp3 |
+| unlight.ogg | Unlight | USUAN1100878 | 03:09 | crooked_nightmare_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Unlight.mp3 |
+| cognitive_dissonance.ogg | Cognitive Dissonance | USUAN1100289 | 04:48 | crooked_nightmare_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Cognitive%20Dissonance.mp3 |
+| final_battle_of_the_dark_wizards.ogg | Final Battle of the Dark Wizards | USUAN1500085 | 04:32 | crooked_man | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Final%20Battle%20of%20the%20Dark%20Wizards.mp3 |
+| ignosi.ogg | Ignosi | USUAN1100450 | 03:04 | crooked_man | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Ignosi.mp3 |
+| tenebrous_brothers_carnival_act_one.ogg | Tenebrous Brothers Carnival - Act One | USUAN1100643 | 03:57 | fools_day | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Tenebrous%20Brothers%20Carnival%20-%20Act%20One.mp3 |
+| merry_go_distressed.ogg | Merry Go - Distressed | USUAN1100734 | 02:00 | fools_day | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Merry%20Go%20-%20Distressed.mp3 |
+| sergio_s_magic_dustbin.ogg | Sergio's Magic Dustbin | USUAN2300012 | 02:31 | fools_day_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Sergio%27s%20Magic%20Dustbin.mp3 |
+| tenebrous_brothers_carnival_intermission.ogg | Tenebrous Brothers Carnival - Intermission | USUAN1100640 | 02:56 | fools_day_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Tenebrous%20Brothers%20Carnival%20-%20Intermission.mp3 |
+
+Credit (required): "The House of Leaves", "Shadowlands 3 - Machine", "Unlight", "Cognitive Dissonance", "Final Battle of the Dark Wizards", "Ignosi", "Tenebrous Brothers Carnival - Act One", "Merry Go - Distressed", "Sergio's Magic Dustbin", "Tenebrous Brothers Carnival - Intermission" Kevin MacLeod (incompetech.com) Licensed under Creative Commons: By Attribution 4.0 http://creativecommons.org/licenses/by/4.0/
