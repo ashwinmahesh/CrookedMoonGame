@@ -365,8 +365,8 @@ PEOPLE = [   # id, name, title, summary, attitude
     ("hugo", "Hugo", "The First Experiment", "A huge cursed giant with three eyes sewn shut, devoted to the Matron; few words, speaks of himself by name.", "indifferent"),
     ("sarah_godlee", "Nurse Sarah Godlee", "Head orderly", "A hawk-eyed ward sister with a painted porcelain eyepatch and a tight smile; she loves Lethica and wants her to forget Marius.", "indifferent"),
     ("doctor_belkin", "Doctor Belkin", "Surgeon", "A gaunt, courtly surgeon whose cap covers an open skull of larvae.", "indifferent"),
-    ("mr_orderly_a", "An orderly", "Reception", "A staff member in a blank porcelain mask, soft-voiced and in step with the other.", "indifferent"),
-    ("mr_orderly_b", "An orderly", "Reception", "A staff member in a blank porcelain mask, soft-voiced and in step with the other.", "indifferent"),
+    ("mr_orderly_a", "The orderly at the desk", "Reception", "A staff member in a blank porcelain mask, soft-voiced and in step with the other.", "indifferent"),
+    ("mr_orderly_b", "The orderly by the door", "Reception", "A staff member in a blank porcelain mask, soft-voiced and in step with the other.", "indifferent"),
     ("mr_rocking_patient", "A wild-eyed patient", "In a rocking chair", "A patient who knows your name and says it with three strange phrases.", "friendly"),
     ("mr_restrained_patient", "A restrained patient", "Restraining Room", "A patient in a bolted chair, veins faintly violet, halfway through a second dose.", "friendly"),
     ("mr_glass_patient", "A patient behind glass", "Observation Chambers", "A patient with an open brain, seething with worms, who will not be themselves much longer.", "friendly"),
@@ -494,7 +494,7 @@ def build_items():
 def build_monsters():
     golem = read("addons/dnd_core/data/monsters/flesh_golem.json")
     m = json.loads(json.dumps(golem))
-    m.update({"id": "mutated_patient", "name": "Mutated patient", "type": "aberration", "hp": {"average": 50, "dice": "5d8+25"}, "cr": 5, "xp": 1800,
+    m.update({"id": "mutated_patient", "name": "Mutated patient", "type": "aberration", "hp": {"average": 50, "dice": "6d8+23"}, "cr": 5, "xp": 1800,
               "summary": "A patient the surgeons cut open: an arm and a foot gone wormlike, 50 Hit Points, slams that burn the mind."})
     for t in ("traits",):
         m[t] = [x for x in m.get(t, []) if "absorb" not in x.get("id", "") and "lightning" not in x.get("id", "")]
