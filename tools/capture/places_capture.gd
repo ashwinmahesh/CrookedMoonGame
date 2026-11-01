@@ -9,9 +9,28 @@ const GAME := preload("res://world/game_root.gd")
 
 func capture_shots(tool: Node, out: String) -> void:
 	var places: PackedStringArray = []
+	var sky := false
+	var travel := false
+	var later := false
+	var flags: PackedStringArray = []
+	var focus := Vector2(-1, -1)
+	var focus_distance := 8.0
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--places="):
 			places = a.get_slice("=", 1).split(",")
+		if a.begins_with("--flags="):
+			flags = a.get_slice("=", 1).split(",")   # story flags to set first, name:value (moon_grin:2,moon_scowl:true)
+		if a == "--later":
+			later = true
+		if a == "--travel":
+			travel = true   # one more shot per place of the travel map, every place known
+		if a.begins_with("--focus="):
+			var f := a.get_slice("=", 1).split(",")   # a close shot of that square: x,z[,distance]
+			focus = Vector2(float(f[0]), float(f[1]))
+			if f.size() > 2:
+				focus_distance = float(f[2])
+		if a == "--sky":
+			sky = true   # one more shot per place with the camera tilted to the horizon: the sky and the moon in it
 	for place in places:
 		GameState.reset()
 		var st := GameState.story
@@ -20,6 +39,9 @@ func capture_shots(tool: Node, out: String) -> void:
 			ch.finish_long_rest()
 			st.party.append(ch)
 		st.location = place
+		for f in flags:
+			var v := f.get_slice(":", 1)
+			st.set_flag(f.get_slice(":", 0), true if v == "true" else (int(v) if v.is_valid_int() else v))
 		st.minute_of_day = 23 * 60   # the Midnight Hour
 		Dice.reseed(7)
 		var game := (load("res://scenes/game.tscn") as PackedScene).instantiate()
@@ -32,12 +54,48 @@ func capture_shots(tool: Node, out: String) -> void:
 		tool.call("_shot", "%s_%s_play.png" % [out, place])
 		var view := game.get("view") as LocationView
 		var rig := view.rig
+		if travel:
+			for p: Variant in Travel.map_data().get("places", []) as Array:
+				st.visited[str((p as Dictionary)["location"]).get_slice(":", 0)] = true
+			var t := TravelScreen.new()
+			game.add_child(t)
+			t.open_map(st, Travel.place_for_location(st.location), false)
+			await tool.call("wait_frames", 60)
+			tool.call("_shot", "%s_%s_travel.png" % [out, place])
+			t.queue_free()
+			await tool.call("wait_frames", 5)
+		if focus.x >= 0.0:
+			rig.follow = null
+			rig.horizon = 0.0
+			rig.distance = focus_distance
+			rig.global_position = view.board.cell_center(Vector2i(int(focus.x), int(focus.y)))
+			rig.snap_to_target()
+			await tool.call("wait_frames", 40)
+			tool.call("_shot", "%s_%s_focus.png" % [out, place])
+		if sky:
+			rig.horizon = 1.0
+			rig.horizon_shown = 1.0
+			rig.distance = rig.zoom_max
+			await tool.call("wait_frames", 40)
+			# The moon in a clear sky straight ahead (the weather's cloud and the moon's own bearing hide it), to see its face.
+			var post := view.atmosphere.get("_post") as ShaderMaterial
+			if post != null:
+				post.set_shader_parameter("sky_cover", 0.0)
+				post.set_shader_parameter("sky_moon", 1.0)
+				var ahead := -view.rig.camera.global_basis.z
+				post.set_shader_parameter("sky_moon_dir", Vector3(ahead.x, 0.07, ahead.z).normalized())
+				await tool.call("wait_frames", 10)
+			tool.call("_shot", "%s_%s_sky.png" % [out, place])
 		rig.horizon = 0.0
+		rig.horizon_shown = 0.0
 		rig.follow = null
 		rig.distance = maxf(view.grid.width, view.grid.depth) * 1.05
 		rig.global_position = Vector3(view.grid.width / 2.0, 0, view.grid.depth / 2.0)
 		rig.snap_to_target()
 		await tool.call("wait_frames", 30)
 		tool.call("_shot", "%s_%s_whole.png" % [out, place])
+		if later:
+			await tool.call("wait_frames", 50)
+			tool.call("_shot", "%s_%s_whole_later.png" % [out, place])   # the same view a moment on, to see what moves
 		game.queue_free()
 		await tool.call("wait_frames", 5)

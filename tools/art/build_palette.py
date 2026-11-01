@@ -27,6 +27,17 @@ PALETTE = [
     ("skin_shadow", "7a4a3c"), ("skin", "c48a6a"), ("skin_light", "e6b896"),
     # The crone moon's sea-green disc (a mood's moon_colour), apart from the cold light it casts.
     ("moon_green", "9fe0b8"),
+    # Region signatures (plan 8.3 colour script, look lane 2026-11-01): one or two colours each region's mood needs that the
+    # night, moon and flame ramps above don't have.
+    ("deco_gold", "c9a14a"), ("burgundy", "5e1a2e"), ("shroud_teal", "4fa39a"),   # the Ghostlight Express
+    ("harvest_gold", "d9a43a"),   # Foxwillow and the corn
+    ("gaslight", "e8c25a"), ("bayou", "4a4a2a"), ("jinx_violet", "7d4fc2"),   # Murkwater Bend and the riverboat
+    ("ochre", "a8742a"),   # Skitterdeep Mine
+    ("mint", "b9e3cf"),   # Memory's Rest
+    ("fungal_teal", "1f5f5c"), ("rot_violet", "5a3a5e"), ("vision_emerald", "3fbf6a"),   # Hartsblight Forest
+    ("carnival_yellow", "f2c230"),   # Fool's Day
+    ("storm_slate", "3d4a55"), ("wicker_gold", "c8963c"),   # the moors and Rowan's Rise
+    ("wytch_green", "0f2418"),   # the Wytchwood
 ]
 
 # Menus and overlays only: Witchlight (Ashwin, 2026-10-31: option B of three HUD palettes, "It shouldn't be the same maroon

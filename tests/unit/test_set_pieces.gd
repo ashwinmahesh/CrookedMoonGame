@@ -1,0 +1,119 @@
+extends TestCase
+## The Crooked Moon's set pieces (CrookedMoonLook.place_special, plan G8): built in code through a catalog `set_piece`, over
+## the squares the prop spans, and never claiming, moving or blocking one.
+
+const ROWS := ["..........", "..........", "..........", "..........", "..........", "..........", "..........", ".........."]
+const ELEV := ["1111111111", "1111111111", "1111111111", "1111111111", "1111111111", "1111111111", "1111111111", "1111111111"]
+
+
+func _board() -> ArenaBoard:
+	var b := ArenaBoard.build(CombatGrid.from_rows(ROWS, ELEV), "village", "set_piece_test")
+	add_child(b)
+	return b
+
+
+func _catalog() -> Dictionary:
+	return JSON.parse_string(FileAccess.get_file_as_string("res://art/sprites/props/catalog.json")) as Dictionary
+
+
+func test_the_catalog_gives_the_village_oak_its_set_piece_and_a_fallback_picture() -> void:
+	var ids := _catalog()["ids"] as Dictionary
+	var oak := ids["wm_oak"] as Dictionary
+	assert_eq(str(oak["set_piece"]), "oak")
+	assert_true(SetDressing.has_art(str(oak["art"])), "the fallback art exists, so the oak is always drawn")
+	assert_true(ids.has("wm_oak_roots_call") and ids["wm_oak_roots_call"] == null, "the second oak spot is only a clickable spot")
+
+
+func test_the_oak_stands_over_its_squares_and_leaves_the_rules_alone() -> void:
+	var b := _board()
+	var root := Node3D.new()
+	b.add_child(root)
+	var spec := {"id": "wm_oak", "cell": [4, 3], "span": [2, 2]}
+	var heights := []
+	for z in 8:
+		for x in 10:
+			heights.append(b.grid.height(Vector2i(x, z)))
+	var out := CrookedMoonLook.new().place_special("pine_clawed", b, root, Vector2i(4, 3), spec, {"art": "pine_clawed", "set_piece": "oak"})
+	assert_true(bool(out.get("handled", false)), "the look built it")
+	var oak := root.get_node_or_null("OakOfManyFaces") as Node3D
+	assert_true(oak != null, "an oak stands there")
+	var want := b.cell_center(Vector2i(4, 3)) + Vector3(0.5, 0.0, 0.5)
+	assert_between(oak.position.distance_to(want), 0.0, 0.001, "over the middle of the squares it spans")
+	var trunk := oak.get_node_or_null("Trunk") as MeshInstance3D
+	assert_true(trunk != null and trunk.mesh != null, "a trunk from the engine's dead tree")
+	assert_true(trunk.get_aabb().size.y * trunk.scale.y > 7.0 and trunk.get_aabb().size.x * trunk.scale.x > 5.0, "a tall one")
+	assert_true(oak.get_node_or_null("OakGlow") is OmniLight3D, "its cold light")
+	var faces := oak.find_children("*", "Decal", true, false).size()
+	if ResourceLoader.exists(OakOfManyFaces.FACES_DIR + "face_0.png"):
+		assert_eq(faces, OakOfManyFaces.BANDS.size(), "a face on the bark for each band")
+	else:
+		assert_eq(faces, 0, "no faces until they are painted")
+	var i := 0
+	for z in 8:
+		for x in 10:
+			assert_eq(b.grid.height(Vector2i(x, z)), heights[i], "no square's height moved")
+			i += 1
+	b.free()
+
+
+func test_a_prop_without_a_set_piece_is_left_to_the_catalog() -> void:
+	var l := CrookedMoonLook.new()
+	assert_true(l.place_special("pine_clawed", null, null, Vector2i.ZERO, {}, {"art": "pine_clawed"}).is_empty())
+	assert_true(l.place_special("anything", null, null, Vector2i.ZERO, {}, {}).is_empty())
+
+
+func test_the_express_windows_hang_on_the_far_wall_where_it_meets_open_floor() -> void:
+	var rows := ["####################", "#..................#", "#..................#", "#..................#", "####################"]
+	var elev := ["11111111111111111111", "11111111111111111111", "11111111111111111111", "11111111111111111111", "11111111111111111111"]
+	var b := ArenaBoard.build(CombatGrid.from_rows(rows, elev), "manor", "window_test")
+	b.set_meta("window_view", {"colours": ["bog_deep", "shroud_teal", "moon_green"], "streams": [-1, 0], "speed": 1.5})
+	add_child(b)
+	var made := ExpressWindows.hang(b, b)
+	if ResourceLoader.exists(ExpressWindows.PICTURE):
+		assert_true(made != null, "windows hang")
+		var windows := made.find_children("Window", "Sprite3D", true, false)
+		assert_eq(made.get_child_count(), 5, "every third square from the 4th: 3, 6, 9, 12, 15")
+		for w in made.get_children():
+			assert_between((w as Sprite3D).position.z, 1.0, 1.02, "on the wall's inner face")
+			if ResourceLoader.exists(ExpressWindows.GLASS):
+				assert_eq((w as Node).find_children("WindowView", "MeshInstance3D", true, false).size(), 1, "the moving view over the glass")
+		assert_true(windows.size() >= 1)
+	else:
+		assert_true(made == null, "no picture yet, no windows")
+	assert_true(b.grid.has_flag(Vector2i(3, 0), CombatGrid.WALL) and not b.grid.has_flag(Vector2i(3, 1), CombatGrid.WALL), "the rules' walls stay as they were")
+	b.free()
+
+
+func test_every_ghostlight_car_map_has_a_window_view() -> void:
+	for car: String in ["g1_passenger", "g2_sleeper", "g3_lounge", "g4_dining", "g5_mail", "g6_baggage", "g7_circus", "g8_tender"]:
+		var loc := JSON.parse_string(FileAccess.get_file_as_string("res://data/locations/ghostlight_%s.json" % car)) as Dictionary
+		var view := (loc["map"] as Dictionary).get("window_view", {}) as Dictionary
+		assert_false(view.is_empty(), "%s has a view out" % car)
+		assert_eq((view["colours"] as Array).size(), 3, "deep, mid and light")
+
+
+func test_the_set_pieces_the_later_maps_ask_for_are_keyed_through_the_catalog() -> void:
+	var ids := _catalog()["ids"] as Dictionary
+	for id: String in ["ct_tree", "ct_barrow_mouth", "wv_su_effigy", "wv_st_effigy"]:
+		var e := ids[id] as Dictionary
+		assert_true(str(e["set_piece"]) != "", "%s names its set piece" % id)
+		assert_true(SetDressing.has_art(str(e["art"])), "%s keeps a picture that always exists" % id)
+
+
+func test_the_crooked_tree_stands_and_the_barrow_and_the_wicker_man_only_light() -> void:
+	var b := _board()
+	var root := Node3D.new()
+	b.add_child(root)
+	var l := CrookedMoonLook.new()
+	var tree := l.place_special("dead_tree", b, root, Vector2i(4, 3), {"id": "ct_tree", "cell": [4, 3]}, {"art": "dead_tree", "set_piece": "crooked_tree"})
+	assert_true(bool(tree.get("handled", false)), "the tree is built")
+	var t := root.get_node_or_null("CrookedTree") as Node3D
+	assert_true(t != null and t.get_node_or_null("Trunk") is MeshInstance3D, "a trunk")
+	assert_true(t.get_node_or_null("CrookedGlow") is OmniLight3D, "its ember light")
+	var barrow := l.place_special("barrow", b, root, Vector2i(2, 2), {"id": "ct_barrow_mouth", "cell": [2, 2]}, {"art": "barrow", "set_piece": "barrow_glow"})
+	assert_true(barrow.is_empty(), "the barrow's own picture still draws")
+	assert_true(root.get_node_or_null("BarrowGlow") is OmniLight3D, "with a glow")
+	var giant := l.place_special("wicker_man", b, root, Vector2i(6, 5), {"id": "wv_su_effigy", "cell": [6, 5]}, {"art": "wicker_man", "set_piece": "wicker_man"})
+	assert_true(giant.is_empty(), "the Wicker Man's own picture still draws")
+	assert_true(root.get_node_or_null("WickerLantern") is OmniLight3D, "with the lantern in its chest")
+	b.free()
