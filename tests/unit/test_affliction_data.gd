@@ -51,3 +51,11 @@ func test_the_skitter_plague() -> void:
 	var od := d["on_death"] as Dictionary
 	assert_eq([int(od["hour"]), str(od["becomes"])], [23, "skitterswarm"], "the dead burst into a swarm at the Midnight Hour")
 	assert_false(Compendium.shared().monster_data("skitterswarm").is_empty())
+
+
+func test_the_high_roller_curse() -> void:
+	var d := Compendium.shared().get_entry("afflictions", "high_roller")
+	assert_eq(d["conditions"], ["charmed"], "charmed by the casino")
+	assert_eq([int((d["repeat"] as Dictionary)["every_minutes"]), int(((d["repeat"] as Dictionary)["save"] as Dictionary)["dc"])], [10, 8],
+		"a DC 8 Wisdom save every ten minutes")
+	assert_eq(int(d["max_level"]), 3, "two failed repeats: captivated, no more saves")

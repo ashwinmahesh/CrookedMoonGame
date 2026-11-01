@@ -1,0 +1,36 @@
+{
+  "id": "high_roller",
+  "name": "Curse of the High Roller",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), chapter 15. Numbers are the book's; the words are ours."
+  },
+  "summary": "The casino's charm: the hero wants only to gamble, drink and flirt where they are. Every ten minutes they may shake it off; fail twice more and they are lost to it, with no more chances and no will to spoil the fun.",
+  "max_level": 3,
+  "modifiers": [],
+  "conditions": [
+    "charmed"
+  ],
+  "thresholds": [
+    {
+      "at": 3,
+      "modifiers": [
+        {
+          "stat": "disadvantage",
+          "on": [
+            "attack",
+            "check:all"
+          ]
+        }
+      ]
+    }
+  ],
+  "repeat": {
+    "every_minutes": 10,
+    "save": {
+      "ability": "wis",
+      "dc": 8
+    }
+  }
+}
