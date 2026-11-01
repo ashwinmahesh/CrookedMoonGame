@@ -647,7 +647,8 @@
         12
       ],
       "dialogue": "memorys_rest/rooms2a:l15_patient",
-      "facing": "east"
+      "facing": "east",
+      "when": "not flag.l15_patient_fate"
     },
     {
       "npc": "sarah_godlee",
@@ -655,8 +656,7 @@
         5,
         26
       ],
-      "dialogue": "memorys_rest/godlee:quarters",
-      "when": "not flag.lethica_slain"
+      "dialogue": "memorys_rest/godlee:quarters"
     },
     {
       "npc": "doctor_belkin",
@@ -1000,6 +1000,58 @@
       "locked": true,
       "lock_dc": 20,
       "key": ""
+    }
+  ],
+  "containers": [
+    {
+      "id": "mr_c_lab_cabinet",
+      "cell": [
+        36,
+        5
+      ],
+      "label": "A sealed cabinet of the lab's stock",
+      "model": "cupboard",
+      "gold": 0,
+      "lock_dc": 15,
+      "items": [
+        {
+          "id": "philter_of_love",
+          "qty": 1
+        },
+        {
+          "id": "potion_of_healing_greater",
+          "qty": 4
+        },
+        {
+          "id": "mr_lethic_serum",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "mr_c_godlee_stash",
+      "cell": [
+        3,
+        27
+      ],
+      "label": "A stash under Godlee's bed",
+      "model": "footlocker",
+      "gold": 250,
+      "lock_dc": 14,
+      "items": [
+        {
+          "id": "bead_of_force",
+          "qty": 1
+        },
+        {
+          "id": "wand_of_magic_missiles",
+          "qty": 1
+        },
+        {
+          "id": "ring_of_water_walking",
+          "qty": 1
+        }
+      ]
     }
   ],
   "rest_text": "Not up here."

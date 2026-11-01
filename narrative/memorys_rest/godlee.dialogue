@@ -31,6 +31,7 @@ sarah_godlee [weary]: Close the door behind you. You have the look of people who
 * [Persuasion DC 17] Win her trust -> trust_ok | trust_fail
 * [Deception DC 17] Tell her we share her worry -> trust_ok | trust_fail
 * [if flag.mr_has_memento] Show her a memento of Marius -> trust_proof
+* [if flag.godlee_trust and quest.godlees_mementos == asked] Give her our answer about the mementos -> wish
 * Look for her diary -> diary_search
 * Leave -> END
 
@@ -54,11 +55,23 @@ quest godlees_mementos asked
 sarah_godlee [neutral]: Go up to the Matron's quarters and destroy every keepsake of Sir Marius you find. Free her from him, and I will see that the orderlies look the other way.
 * Agree to destroy them -> destroy
 * [Deception DC 15] Agree, and keep them -> keep_lie | caught
-* Refuse -> refuse
+* [ends:godlees_mementos] Refuse -> refuse
+* We need time to think -> END
 
 ~ destroy
 sarah_godlee [smile]: Good. Burn them or break them, so long as nothing remains to wound her. The ward staff will not trouble your steps tonight.
 set godlee_mementos_destroyed
+if item:mr_memento_portrait
+take mr_memento_portrait
+endif
+if item:mr_memento_tabard
+take mr_memento_tabard
+endif
+if item:mr_memento_sonnet
+take mr_memento_sonnet
+endif
+set lethica_mementos_carried = 0
+set mr_has_memento = 0
 quest godlees_mementos destroyed
 -> END
 
@@ -70,6 +83,10 @@ set godlee_lied_to
 
 ~ caught
 sarah_godlee [angry]: Do not lie to my face in my own ward. Leave this room at once before I have the orderlies escort you from the island.
+* [ends:godlees_mementos] Insist she is wrong -> caught_end
+* Confess, and agree to destroy them after all -> destroy
+
+~ caught_end
 quest godlees_mementos caught
 set mr_staff_hostile
 -> END

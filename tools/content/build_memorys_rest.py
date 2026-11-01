@@ -216,7 +216,7 @@ def build_ground():
           npc("lethica_nightborne", (14, 4), "lethica:office", when="not flag.lethica_slain", facing="south"),
           npc("catherine_winthrop", (23, 4), "cousin:visit", when="not flag.amos_cousin_met"),
           npc("catherine_winthrop", (32, 6), "cousin:visit", when="flag.amos_cousin_met"),
-          npc("sarah_godlee", (6, 31), "godlee:common_room", when="not flag.lethica_slain"),
+          npc("sarah_godlee", (6, 31), "godlee:common_room"),
           npc("mr_rocking_patient", (37, 6), "cousin:porch_rocking"), npc("doctor_belkin", (7, 12), "belkin:exam", when="not flag.lethica_slain and not flag.mr_lockdown"),
           npc("samuel_blake", (33, 2), "patients:samuel"), npc("thomas_adams", (33, 5), "patients:thomas_a"), npc("emily_hale", (32, 8), "patients:emily_h"),
           npc("wendy_holden", (35, 9), "patients:wendy"), npc("agnes_thorpe", (36, 2), "patients:agnes"),
@@ -295,10 +295,14 @@ def build_upper():
           prop("mr_l27_bench", (22, 32), "A workbench among the flasks", model="table_round", dlg="workbench:bench"),
           prop("mr_l27_lift", (18, 34), "The lift platform of beams and slats", "decor", model="roof_hatch"),
           prop("mr_u_panel", (11, 12), "A Lockdown panel with a ward-key slot", "decor", model="case")]
-    N = loc["npcs"] = [npc("mr_restrained_patient", (3, 12), "rooms2a:l15_patient", facing="east"),
-                       npc("sarah_godlee", (5, 26), "godlee:quarters", when="not flag.lethica_slain"),
+    N = loc["npcs"] = [npc("mr_restrained_patient", (3, 12), "rooms2a:l15_patient", facing="east", when="not flag.l15_patient_fate"),
+                       npc("sarah_godlee", (5, 26), "godlee:quarters"),
                        npc("doctor_belkin", (33, 4), "belkin:lab_offer", when="not flag.lethica_slain and not flag.belkin_offer", approach=3),
                        npc("mr_glass_patient", (36, 33), "rooms2c:l25_glass", when="not flag.l25_patient_fate")]
+    loc["containers"] = [{"id": "mr_c_lab_cabinet", "cell": [36, 5], "label": "A sealed cabinet of the lab's stock", "model": "cupboard", "gold": 0, "lock_dc": 15,
+                          "items": [{"id": "philter_of_love", "qty": 1}, {"id": "potion_of_healing_greater", "qty": 4}, {"id": "mr_lethic_serum", "qty": 1}]},
+                         {"id": "mr_c_godlee_stash", "cell": [3, 27], "label": "A stash under Godlee's bed", "model": "footlocker", "gold": 250, "lock_dc": 14,
+                          "items": [{"id": "bead_of_force", "qty": 1}, {"id": "wand_of_magic_missiles", "qty": 1}, {"id": "ring_of_water_walking", "qty": 1}]}]
     loc["encounters"] = [
         {"id": "mr_patrol_up", "trigger": "dialogue", "flag": "mr_patrol_up_done", "monsters": [
             monster("mutant_nurse_cerebral_graft", (4, 5), "A masked orderly", facing="south"), monster("mutant_nurse_tentacle_lash", (6, 5), "A masked orderly", facing="south")]},
@@ -451,7 +455,6 @@ def build_quests():
 
 # ---- items -------------------------------------------------------------------------------------------------------------------------
 ITEMS = [
-    ("renathyr_journal", "Father Renathyr's journal", "quest", "The Crimson Abbot's journal: his wife fled to the Isle of Mourn. (R14 gives it; R17's third hook reads it.)"),
     ("mr_pamphlet", "The sanatorium's pamphlet", "quest", "A glossy pamphlet: a painted hospital on a calm lake and the words Memory's Rest, a place for peace."),
     ("mr_letter", "Catherine's letter", "quest", "A letter in a neat, strange hand that says all is well."),
     ("mr_porch_note", "A patient's note", "quest", "A note hidden in a picture book: one name written over and over, and a plea not to take the medicine, not to be taken upstairs. There must be an antidote."),
@@ -558,6 +561,10 @@ def build_flags():
     found.update({k: "int" for k in ("mr_register_named", "mr_conduct_strikes", "mr_truth_clues", "mnemonic_residue", "noetic_extract", "unrefined_ichor", "lethic_antidote_doses",
                                      "mr_patients_saved", "mr_patients_cured", "mr_orderly_cured")})
     flags = [{"id": i, "type": t, "summary": "Memory's Rest: " + i.replace("_", " ") + ".", "read_later": True} for i, t in sorted(found.items()) if i not in existing]
+    for f in flags:
+        if f["id"] == "renathyr_journal":
+            f["summary"] = "The party has read Father Renathyr's journal at the Crimson Monastery (R14 sets it; R17's third hook reads it)."
+            f["set_by"] = "engine"
     write("data/flags/memorys_rest.json", {"flags": flags})
     return len(flags)
 
@@ -627,7 +634,7 @@ def build_village_hooks():
     i = town["npcs"].index(jer)
     town["npcs"][i:i] = [
         npc("amos_dority", cell_amos, "ending:amos_reward", when="flag.lethica_slain and flag.mr_farewell_done and not flag.mr_paid"),
-        npc("amos_dority", cell_amos, "hook:amos_start", when="flag.vessla_slain and not flag.amos_asked and (flag.act2_done >= 1 or item:renathyr_journal or flag.mr_hook_open)")]
+        npc("amos_dority", cell_amos, "hook:amos_start", when="flag.vessla_slain and not flag.amos_asked and (flag.act2_done >= 1 or flag.renathyr_journal or flag.mr_hook_open)")]
     path.write_text(json.dumps(town, indent=2, ensure_ascii=False) + "\n")
 
 

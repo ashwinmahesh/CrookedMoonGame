@@ -217,6 +217,7 @@ func test_the_code_has_two_strikes() -> void:
 
 func test_catherine_counts_once_and_the_porch_note_teaches_the_antidote() -> void:
 	_arrive("mr_ground")
+	st.set_quest_stage("all_is_well", "find_the_cousin")
 	_play("memorys_rest/cousin:visit", ["Study the way", "let you rest"])
 	assert_true(_flag("amos_cousin_met"))
 	assert_eq(st.quest_stage("amos_cousin"), "found")
@@ -301,9 +302,17 @@ func test_godlee_caught_and_refused_are_visible_failures_and_trust_has_a_second_
 	_play("memorys_rest/godlee:quarters", ["Win her trust", "Tell her we share"])
 	assert_true(not _flag("godlee_trust"))
 	st.set_flag("mr_has_memento")
-	_play("memorys_rest/godlee:quarters", ["Show her a memento", "and keep them"])
-	assert_eq(st.quest_stage("godlees_mementos"), "caught", "a lie told on low dice is heard")
+	_play("memorys_rest/godlee:quarters", ["Show her a memento", "and keep them", "Insist she is wrong"])
+	assert_eq(st.quest_stage("godlees_mementos"), "caught", "a lie told on low dice is heard, and the player may still insist")
 	assert_true(_flag("mr_staff_hostile"))
+	# a caught lie is not a locked door: confessing still reaches the destroyed ending
+	GameState.reset()
+	before_each()
+	dice = LowDice.new()
+	st.location = "mr_upper"
+	st.set_flag("mr_has_memento")
+	_play("memorys_rest/godlee:quarters", ["Show her a memento", "and keep them", "Confess"])
+	assert_eq(st.quest_stage("godlees_mementos"), "destroyed")
 
 
 func test_the_diary_opens_the_laboratory_knowledge() -> void:
@@ -381,3 +390,318 @@ func test_the_theater_fight_and_the_pharmacy() -> void:
 	assert_eq(fights, ["mr_theatre"] as Array[String])
 	_play("memorys_rest/rooms1:l8_pharmacy", ["tranquilizer", "healing potions"])
 	assert_eq(_loc().get("id"), "mr_ground")
+
+
+# ---- the antidote, the boss, the farewell ------------------------------------------------------------------------------------------------
+
+func _stock() -> void:
+	st.set_flag("mr_antidote_known")
+	st.set_flag("mnemonic_residue", 3)
+	st.set_flag("noetic_extract", 4)
+	st.set_flag("unrefined_ichor", 2)
+	st.set_quest_stage("the_lethic_antidote", "learned")
+
+
+func test_the_bench_brews_a_dose_by_arcana_or_by_kit_and_a_failed_brew_wastes_only_one_ingredient() -> void:
+	_arrive("mr_upper")
+	_stock()
+	_play("memorys_rest/workbench:bench", ["Brew one dose", "arcane knowledge"])
+	assert_eq(_n("lethic_antidote_doses"), 1)
+	assert_eq(_n("mnemonic_residue"), 2)
+	assert_eq(_n("noetic_extract"), 3)
+	assert_eq(st.quest_stage("the_lethic_antidote"), "brewed")
+	assert_true(_flag("mr_cure_found"))
+	_play("memorys_rest/workbench:bench", ["Brew one dose", "Alchemist"])
+	assert_eq(_n("lethic_antidote_doses"), 2, "the kit is a second way to the same dose")
+	dice = LowDice.new()
+	st.set_flag("unrefined_ichor", 3)
+	_play("memorys_rest/workbench:bench", ["Brew one dose", "arcane knowledge"])
+	assert_eq(_n("lethic_antidote_doses"), 2, "a failed brew makes nothing")
+	assert_eq(_n("unrefined_ichor"), 2, "and eats one ingredient")
+	assert_eq(_n("mnemonic_residue"), 1, "keeping the rest")
+
+
+func test_the_bench_will_not_brew_without_the_recipe() -> void:
+	st.set_flag("mnemonic_residue", 3)
+	st.set_flag("noetic_extract", 4)
+	st.set_flag("unrefined_ichor", 2)
+	_play("memorys_rest/workbench:bench")
+	assert_eq(_n("lethic_antidote_doses"), 0)
+
+
+func test_the_triage_gives_doses_to_catherine_the_patients_or_an_orderly() -> void:
+	st.set_flag("lethic_antidote_doses", 3)
+	_play("memorys_rest/workbench:triage", ["Catherine", "patients first", "mutant orderly", "slow cure"])
+	assert_true(_flag("amos_cousin_cured"))
+	assert_eq(_n("mr_patients_cured"), 2, "Catherine's dose and the patients' dose")
+	assert_eq(_n("mr_orderly_cured"), 1)
+	assert_eq(_n("lethic_antidote_doses"), 0)
+
+
+func test_the_widow_falls_and_the_worm_goes() -> void:
+	_arrive("mr_grotto")
+	_play("memorys_rest/grotto:arrival", ["Study the worm", "Gather the ichor", "Step back", "Draw weapons"])
+	assert_eq(_n("unrefined_ichor"), 2)
+	assert_eq(fights, ["mr_widow"] as Array[String])
+	assert_eq(st.quest_stage("all_is_well"), "the_weeping_widow")
+	_play("memorys_rest/grotto:lethica_dies")
+	assert_true(_flag("lethica_slain"))
+	assert_true(_flag("white_worm_escaped"))
+	assert_eq(st.quest_stage("all_is_well"), "unforgettable")
+
+
+func test_the_boss_has_a_bloodied_phase_and_a_level_eight_variant() -> void:
+	var w := Compendium.shared().get_entry("monsters", "weeping_widow")
+	var phases := w.get("phases", []) as Array
+	assert_eq(phases.size(), 1)
+	assert_eq(int(((phases[0] as Dictionary)["summon"] as Dictionary)["count"]), 3)
+	var variants := 0
+	for e: Variant in (Compendium.shared().get_entry("locations", "mr_grotto")["encounters"] as Array):
+		if str((e as Dictionary)["id"]) == "mr_widow":
+			variants += 1
+	assert_eq(variants, 2)
+
+
+func test_the_matron_shown_a_portrait_falters() -> void:
+	_arrive("mr_grotto")
+	st.set_flag("mr_has_memento")
+	st.set_flag("lethica_mementos_carried")
+	_play("memorys_rest/grotto:widow_arrives", ["wedding portrait"])
+	assert_true(_flag("mr_memento_shown"))
+	assert_eq(fights, ["mr_widow"] as Array[String])
+
+
+func test_the_farewell_pays_the_chapter_once_and_amos_waits_in_the_village() -> void:
+	_arrive("mr_isle")
+	st.set_flag("lethica_slain")
+	st.set_quest_stage("the_lethic_antidote", "learned")
+	_play("memorys_rest/ending:farewell", ["with Catherine"])
+	assert_eq(_n("act2_done"), 1)
+	assert_true(_flag("mr_farewell_done"))
+	assert_eq(st.location, "wickermoor_village")
+	assert_eq(st.quest_stage("the_lethic_antidote"), "lost", "no antidote was made, and the worm took its ichor")
+	_arrive("mr_isle")
+	_play("memorys_rest/ending:farewell", ["with Catherine"])
+	assert_eq(_n("act2_done"), 1, "the counter moves once")
+	_arrive("wickermoor_village")
+	var gold := st.gold
+	_play("memorys_rest/ending:amos_reward")
+	assert_eq(st.quest_stage("amos_cousin"), "home_hollow")
+	assert_eq(st.quest_stage("all_is_well"), "back_in_wickermoor")
+	assert_true(st.gold > gold)
+
+
+func test_a_cured_cousin_comes_home_herself_and_the_mayor_pays_for_a_cure() -> void:
+	st.set_flag("lethica_slain")
+	st.set_flag("amos_cousin_cured")
+	st.set_flag("mr_cure_found")
+	st.set_quest_stage("amos_cousin", "found")
+	_arrive("wickermoor_village")
+	_play("memorys_rest/ending:amos_reward")
+	assert_eq(st.quest_stage("amos_cousin"), "home_cured")
+	_arrive("wickermoor_mayors_house")
+	_play("memorys_rest/ending:mayor_amulet")
+	assert_true(_flag("mayor_amulet_given"))
+	_arrive("wickermoor_apothecary")
+	_play("memorys_rest/ending:morgan_slow_cure")
+	assert_true(_flag("mr_morgan_cure"))
+
+
+func test_leaving_catherine_on_the_island_is_a_marked_failure_with_a_visible_end() -> void:
+	_arrive("mr_isle")
+	st.set_flag("lethica_slain")
+	st.set_quest_stage("amos_cousin", "found")
+	_play("memorys_rest/ending:farewell", ["without Catherine"])
+	assert_eq(st.quest_stage("amos_cousin"), "left")
+	_arrive("wickermoor_village")
+	_play("memorys_rest/ending:amos_reward")
+	assert_eq(st.quest_stage("amos_cousin"), "left")
+	assert_eq(st.quest_stage("all_is_well"), "back_in_wickermoor")
+
+
+# ---- the places ------------------------------------------------------------------------------------------------------------------------
+
+func _walkable(rows: Array, x: int, y: int) -> bool:
+	if y < 0 or y >= rows.size() or x < 0 or x >= str(rows[y]).length():
+		return false
+	return not (str(rows[y])[x] in ["#", "w", " ", "="])
+
+
+## Flood fill from a spawn over open squares (doors count as open), for the squares beside every prop, person, door and exit.
+func test_every_prop_person_door_and_exit_can_be_reached_from_the_way_in() -> void:
+	var starts := {"mr_shore": "from_road", "mr_isle": "from_boat", "mr_ground": "from_isle", "mr_upper": "from_elevator", "mr_grotto": "from_hatch"}
+	for loc_id: String in starts:
+		var loc := Compendium.shared().get_entry("locations", loc_id)
+		var rows := (loc["map"] as Dictionary)["rows"] as Array
+		var sp := ((loc["spawns"] as Dictionary)[starts[loc_id]]) as Array
+		var seen := {Vector2i(int(sp[0]), int(sp[1])): true}
+		var q: Array[Vector2i] = [Vector2i(int(sp[0]), int(sp[1]))]
+		while not q.is_empty():
+			var c: Vector2i = q.pop_back()
+			for d: Vector2i in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+				var n := c + d
+				if not seen.has(n) and _walkable(rows, n.x, n.y):
+					seen[n] = true
+					q.append(n)
+		for kind: String in ["props", "npcs", "exits", "doors"]:
+			for e: Variant in loc.get(kind, []):
+				var cell := (e as Dictionary)["cell"] as Array
+				var at := Vector2i(int(cell[0]), int(cell[1]))
+				var near := seen.has(at)
+				for d: Vector2i in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+					near = near or seen.has(at + d)
+				assert_true(near, "%s: %s at %s can be reached" % [loc_id, str((e as Dictionary).get("id", (e as Dictionary).get("npc", ""))), at])
+
+
+func test_every_floor_is_joined_to_the_next() -> void:
+	var ground := Compendium.shared().get_entry("locations", "mr_ground")
+	var exits := (ground["exits"] as Array).map(func(e: Variant) -> String: return str((e as Dictionary)["to"]))
+	assert_true("mr_isle" in exits)
+	var isle := Compendium.shared().get_entry("locations", "mr_isle")
+	assert_true("mr_ground" in (isle["exits"] as Array).map(func(e: Variant) -> String: return str((e as Dictionary)["to"])))
+	var shore := Compendium.shared().get_entry("locations", "mr_shore")
+	assert_true("travel" in (shore["exits"] as Array).map(func(e: Variant) -> String: return str((e as Dictionary)["to"])))
+	var grotto := Compendium.shared().get_entry("locations", "mr_grotto")
+	var to := (grotto["exits"] as Array).map(func(e: Variant) -> String: return str((e as Dictionary)["to"]))
+	assert_true("mr_ground" in to and "mr_upper" in to)
+
+
+func test_the_register_has_twelve_names_and_catherine_is_amos_cousin() -> void:
+	var names: Array[String] = ["catherine_winthrop", "samuel_blake", "thomas_adams", "victor_lane", "emily_hale", "wendy_holden", "agnes_thorpe",
+		"james_pelham", "geoffrey_barnes", "thomas_redding", "emily_voss", "harold_stiles"]
+	for n in names:
+		assert_true(not Compendium.shared().get_entry("npcs", n).is_empty(), "%s is a person" % n)
+	assert_eq(names.size(), 12)
+
+
+# ---- the second floor ----------------------------------------------------------------------------------------------------------------
+
+func test_the_apartments_can_be_passed_by_stealth_or_uniform_or_fought() -> void:
+	_arrive("mr_upper")
+	_play("memorys_rest/rooms2a:l14_apartments", ["Slip past"])
+	assert_eq(fights.size(), 0)
+	dice = LowDice.new()
+	_play("memorys_rest/rooms2a:l14_apartments", ["Slip past"])
+	assert_eq(fights, ["mr_patrol_up"] as Array[String])
+	GameState.reset()
+	before_each()
+	dice = LowDice.new()
+	st.location = "mr_upper"
+	st.set_flag("mr_disguised")
+	_play("memorys_rest/rooms2a:l14_apartments", ["Walk through in uniform"])
+	assert_eq(fights.size(), 0)
+
+
+func test_the_restrained_patient_can_be_cured_spared_the_clock_or_lost_to_it() -> void:
+	_arrive("mr_upper")
+	st.set_flag("lethic_antidote_doses", 1)
+	_play("memorys_rest/rooms2a:l15_patient", ["Give a dose"])
+	assert_eq(str(st.get_flag("l15_patient_fate")), "cured")
+	assert_eq(_n("lethic_antidote_doses"), 0)
+	GameState.reset()
+	before_each()
+	st.location = "mr_upper"
+	_play("memorys_rest/rooms2a:l15_patient", ["Calm them and leave"])
+	assert_true(_flag("mr_l15_left"))
+	assert_true(not _flag("l15_patient_fate"), "walking away does not decide it yet")
+	st.advance_minutes(150)
+	_play("memorys_rest/rooms2a:l15_patient")
+	assert_eq(str(st.get_flag("l15_patient_fate")), "mutated", "two hours on, the change has come")
+
+
+func test_the_cremator_gives_a_key_and_the_ash_once() -> void:
+	_arrive("mr_upper")
+	_play("memorys_rest/rooms2a:l18_ash", ["ward key", "Scoop the ash"])
+	assert_true(_flag("mr_ward_key"))
+	assert_eq(_n("mnemonic_residue"), 3)
+	_play("memorys_rest/rooms2a:l18_ash", ["Scoop the ash"])
+	assert_eq(_n("mnemonic_residue"), 3)
+
+
+func test_the_diagrams_the_log_and_the_register_each_teach_the_truth() -> void:
+	_arrive("mr_upper")
+	st.set_quest_stage("all_is_well", "find_the_cousin")
+	_play("memorys_rest/rooms2b:l19_diagrams", ["Study them"])
+	assert_true(_flag("mr_antidote_known"))
+	_play("memorys_rest/extras:l15_log")
+	assert_eq(st.quest_stage("all_is_well"), "the_truth")
+	assert_eq(st.quest_stage("the_lethic_antidote"), "learned")
+
+
+func test_the_shrine_gives_mementos_once_and_godlees_pyre_empties_it() -> void:
+	_arrive("mr_upper")
+	_play("memorys_rest/rooms2b:l19_shrine", ["Take the mementos", "ring and mask", "phial"])
+	assert_true(_flag("lethica_mementos_carried"))
+	assert_eq(_n("unrefined_ichor"), 1)
+	_play("memorys_rest/rooms2b:l19_shrine")
+	assert_eq(_n("unrefined_ichor"), 1, "the phial is taken once, and the shrine offers nothing twice")
+	_play("memorys_rest/godlee:quarters", ["Win her trust", "Agree to destroy"])
+	assert_true(not _flag("lethica_mementos_carried"), "destroyed with Godlee's help")
+
+
+func test_the_engineering_room_throws_lockdown_on_off_or_breaks_into_mouthers() -> void:
+	_arrive("mr_upper")
+	_play("memorys_rest/rooms2b:l20_unit", ["lever OFF"])
+	assert_true(_flag("mr_lockdown"))
+	_play("memorys_rest/rooms2b:l20_unit", ["lever ON"])
+	assert_true(not _flag("mr_lockdown"))
+	_play("memorys_rest/rooms2b:l20_unit", ["Smash the unit"])
+	assert_eq(fights, ["mr_mouthers"] as Array[String])
+	assert_true(_flag("mr_engineering_broken"))
+
+
+func test_hugos_den_containment_and_belkins_office() -> void:
+	_arrive("mr_upper")
+	_play("memorys_rest/rooms2b:l21_file", ["stabilizer", "Look under the mat"])
+	assert_true(_flag("mr_hugo_file_read"))
+	_play("memorys_rest/rooms2b:l22_chamber", ["noetic extract"])
+	assert_eq(_n("noetic_extract"), 4)
+	_play("memorys_rest/rooms2b:l22_chamber", ["Open the chamber"])
+	assert_eq(fights, ["mr_otyugh"] as Array[String])
+	_play("memorys_rest/rooms2c:l23_journal", ["Read the journal"])
+	assert_true(_flag("mr_hatch_words"))
+	_play("memorys_rest/rooms2c:l23_journal", ["larvae"])
+	assert_eq(fights, ["mr_otyugh", "mr_swarm"] as Array[String])
+
+
+func test_the_glass_patient_is_saved_by_medicine_or_by_serum_and_the_pods_show_the_grotto() -> void:
+	_arrive("mr_upper")
+	_play("memorys_rest/rooms2c:l25_glass", ["Treat them"])
+	assert_eq(str(st.get_flag("l25_patient_fate")), "saved")
+	GameState.reset()
+	before_each()
+	dice = LowDice.new()
+	st.location = "mr_upper"
+	st.set_flag("lethic_antidote_doses", 1)
+	_play("memorys_rest/rooms2c:l25_glass", ["Treat them"])
+	assert_eq(str(st.get_flag("l25_patient_fate")), "lost", "a failed treatment loses them, and the serum was a second way")
+	_play("memorys_rest/rooms2c:l24_pods", ["gel"])
+	assert_true(_flag("mr_worm_seen"))
+
+
+func test_the_laboratory_opens_to_serum_and_every_way_down_ends_in_the_grotto() -> void:
+	_arrive("mr_upper")
+	st.set_flag("mr_lab_open_known")
+	st.give_item("mr_lethic_serum", 1)
+	_play("memorys_rest/rooms2c:l27_eye", ["Inject the owl"])
+	assert_true(_flag("mr_lab_open"))
+	_play("memorys_rest/rooms2c:l27_lab", ["unrefined ichor"])
+	assert_eq(_n("unrefined_ichor"), 6)
+	_play("memorys_rest/rooms2c:l27_lab", ["Plunge Platform"])
+	assert_eq(st.location, "mr_grotto")
+	assert_eq(st.quest_stage("all_is_well"), "the_way_down")
+	GameState.reset()
+	before_each()
+	st.location = "mr_upper"
+	_play("memorys_rest/rooms2c:l27_lab", ["foot lever", "Find the foot lever"])
+	assert_eq(st.location, "mr_grotto")
+	assert_true(_flag("mr_wile_used"))
+
+
+func test_the_owl_eye_has_a_second_way_in_by_search() -> void:
+	_arrive("mr_upper")
+	st.give_item("mr_lethic_serum", 1)
+	_play("memorys_rest/rooms2c:l27_eye", ["Search the mural"])
+	assert_true(_flag("mr_eye_found"))
+	_play("memorys_rest/rooms2c:l27_eye", ["Inject the owl"])
+	assert_true(_flag("mr_lab_open"))

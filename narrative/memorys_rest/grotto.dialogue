@@ -39,13 +39,13 @@ endif
 ~ widow_arrives
 Narrator: Iron gears groan overhead as the lift descends, bearing the tall figure of the Matron with Hugo looming broad and silent at her shoulder.
 lethica_nightborne [afraid]: I am truly sorry you came down into the dark, my children. Soon the whole valley will drink of these quiet waters, and no soul will ever ache with grief again.
-if flag.lethica_mementos_carried
+if flag.lethica_mementos_carried and not flag.godlee_mementos_destroyed
 Narrator: Her pale eyes catch on the keepsakes of her late husband in your hands, and she turns her face sharply toward the glowing water.
 endif
 if flag.lethica_renathyr_named
 lethica_nightborne [afraid]: You spoke his name in my halls and dragged old ghosts out of the cold rain. I will not let that cruel memory wake again.
 endif
-* [if flag.mr_has_memento] Show her the wedding portrait -> show_memento
+* [if flag.mr_has_memento and not flag.godlee_mementos_destroyed] Show her the wedding portrait -> show_memento
 * Plead with her to stop -> plead
 * Draw weapons -> fight
 
