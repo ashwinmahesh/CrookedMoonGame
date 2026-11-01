@@ -7,12 +7,13 @@ extends RefCounted
 ## is claimed, moved or blocked.
 
 const TREE := "dead_b"
-## How many times the plant's own size: the dead tree is about 5 units (25 ft) tall, so this is a 45 foot oak.
-const GROW := 1.8
+## How much the plant is grown: the dead tree is about 5 units (25 ft) tall and slender, so the oak is 50 feet tall and far
+## stouter (the trunk's width is stretched more than its height).
+const GROW := Vector3(2.8, 2.0, 2.8)
 const FACES_DIR := "res://art/props/oak_faces/"
 const FACE_COUNT := 8
 ## Heights up the trunk the faces sit at, in the plant's own units, and the light's height.
-const BANDS: Array[float] = [0.30, 0.55, 0.85, 1.15, 1.45, 0.45, 0.95, 1.30, 0.70, 1.05, 0.25, 1.60]
+const BANDS: Array[float] = [0.30, 0.62, 0.95, 1.25, 0.46, 0.80, 1.10, 1.40, 0.38, 0.70, 1.02, 1.32]
 
 
 ## Builds the oak over `centre` (the middle of the squares it spans) under `parent`. Returns the node that holds it all.
@@ -23,7 +24,8 @@ static func build(parent: Node3D, centre: Vector3, seed_: int) -> Node3D:
 	holder.set_meta("set_piece", "oak")
 	holder.set_meta("nature", true)
 	parent.add_child(holder)
-	var trunk := Flora.instance(TREE, GROW)
+	var trunk := Flora.instance(TREE, 1.0)
+	trunk.scale = GROW
 	trunk.name = "Trunk"
 	trunk.rotation.y = float(seed_ % 360) * PI / 180.0
 	holder.add_child(trunk)
@@ -36,8 +38,8 @@ static func build(parent: Node3D, centre: Vector3, seed_: int) -> Node3D:
 		var round_ := _round(mesh, y)
 		var angle := float(i) * 2.399963 + float(seed_ % 7)   # the golden angle: no two faces side by side
 		var out := Vector3(cos(angle), 0.0, sin(angle))
-		var at := Vector3(round_.centre.x, y, round_.centre.y) * GROW + out * round_.radius * GROW
-		holder.add_child(_decal(face, at, out, 0.9 + 0.1 * float(i % 3)))
+		var at := Vector3(round_.centre.x * GROW.x, y * GROW.y, round_.centre.y * GROW.z) + out * round_.radius * GROW.x
+		holder.add_child(_decal(face, at, out, 0.75 + 0.1 * float(i % 3)))
 	holder.add_child(_light(holder))
 	return holder
 
@@ -55,11 +57,11 @@ static func _decal(face: Texture2D, at: Vector3, out: Vector3, size: float) -> D
 	d.name = "Face"
 	d.texture_albedo = face
 	d.texture_emission = face
-	d.emission_energy = 1.6
-	d.modulate = Color(0.85, 0.92, 1.0)
+	d.emission_energy = 0.55
+	d.modulate = Color(0.8, 0.88, 1.0)
 	var x := Vector3.UP.cross(out).normalized()
 	d.transform = Transform3D(Basis(x, out, x.cross(out)), at)
-	d.size = Vector3(size, 0.7, size)
+	d.size = Vector3(size, 1.2, size)
 	d.upper_fade = 0.3
 	d.lower_fade = 0.3
 	return d
@@ -70,16 +72,16 @@ static func _light(holder: Node3D) -> OmniLight3D:
 	var l := OmniLight3D.new()
 	l.name = "OakGlow"
 	l.light_color = Look.color("moon_blue").lerp(Color.WHITE, 0.3)
-	l.light_energy = 1.1
+	l.light_energy = 0.8
 	l.omni_range = 7.5
 	l.shadow_enabled = false
-	l.position = Vector3(0, 1.4, 0)
+	l.position = Vector3(0, 2.2, 0)
 	l.set_meta("light_kind", "lantern")
 	l.set_meta("no_shadow", true)
 	var breathe := func() -> void:
 		var t := holder.create_tween().set_loops()
-		t.tween_property(l, "light_energy", 1.5, 2.4).set_trans(Tween.TRANS_SINE)
-		t.tween_property(l, "light_energy", 0.8, 2.9).set_trans(Tween.TRANS_SINE)
+		t.tween_property(l, "light_energy", 1.1, 2.4).set_trans(Tween.TRANS_SINE)
+		t.tween_property(l, "light_energy", 0.55, 2.9).set_trans(Tween.TRANS_SINE)
 	if holder.is_inside_tree():
 		breathe.call()
 	else:

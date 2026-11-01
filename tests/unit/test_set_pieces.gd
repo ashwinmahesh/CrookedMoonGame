@@ -41,9 +41,9 @@ func test_the_oak_stands_over_its_squares_and_leaves_the_rules_alone() -> void:
 	assert_between(oak.position.distance_to(want), 0.0, 0.001, "over the middle of the squares it spans")
 	var trunk := oak.get_node_or_null("Trunk") as MeshInstance3D
 	assert_true(trunk != null and trunk.mesh != null, "a trunk from the engine's dead tree")
-	assert_true(trunk.get_aabb().size.y * trunk.scale.y > 7.0, "a tall one")
+	assert_true(trunk.get_aabb().size.y * trunk.scale.y > 7.0 and trunk.get_aabb().size.x * trunk.scale.x > 5.0, "a tall one")
 	assert_true(oak.get_node_or_null("OakGlow") is OmniLight3D, "its cold light")
-	var faces := oak.find_children("Face", "Decal", true, false).size()
+	var faces := oak.find_children("*", "Decal", true, false).size()
 	if ResourceLoader.exists(OakOfManyFaces.FACES_DIR + "face_0.png"):
 		assert_eq(faces, OakOfManyFaces.BANDS.size(), "a face on the bark for each band")
 	else:

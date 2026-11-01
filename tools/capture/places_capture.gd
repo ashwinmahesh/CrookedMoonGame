@@ -11,11 +11,18 @@ func capture_shots(tool: Node, out: String) -> void:
 	var places: PackedStringArray = []
 	var sky := false
 	var travel := false
+	var focus := Vector2(-1, -1)
+	var focus_distance := 8.0
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--places="):
 			places = a.get_slice("=", 1).split(",")
 		if a == "--travel":
 			travel = true   # one more shot per place of the travel map, every place known
+		if a.begins_with("--focus="):
+			var f := a.get_slice("=", 1).split(",")   # a close shot of that square: x,z[,distance]
+			focus = Vector2(float(f[0]), float(f[1]))
+			if f.size() > 2:
+				focus_distance = float(f[2])
 		if a == "--sky":
 			sky = true   # one more shot per place with the camera tilted to the horizon: the sky and the moon in it
 	for place in places:
@@ -48,6 +55,14 @@ func capture_shots(tool: Node, out: String) -> void:
 			tool.call("_shot", "%s_%s_travel.png" % [out, place])
 			t.queue_free()
 			await tool.call("wait_frames", 5)
+		if focus.x >= 0.0:
+			rig.follow = null
+			rig.horizon = 0.0
+			rig.distance = focus_distance
+			rig.global_position = view.board.cell_center(Vector2i(int(focus.x), int(focus.y)))
+			rig.snap_to_target()
+			await tool.call("wait_frames", 40)
+			tool.call("_shot", "%s_%s_focus.png" % [out, place])
 		if sky:
 			rig.horizon = 1.0
 			rig.horizon_shown = 1.0
