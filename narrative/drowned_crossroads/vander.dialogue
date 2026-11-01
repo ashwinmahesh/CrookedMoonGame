@@ -1,0 +1,223 @@
+# Drafted by Gemini (R15 vander), edited.
+
+~ throne
+Narrator: Mismatched velvet armchairs crowd the damp planks of the hall. At the shuttered window, a broad man in a purple top hat watches the black water.
+vander_boone [smile]: Step in out of the damp and let the King of Murkwater have a look at you. Folks do not come down the road from Wickermoor unless they have bad luck or expensive business.
+set vander_met
+-> throne_menu
+
+~ throne_again
+vander_boone [neutral]: Back in the dry, are we? Speak your piece while the lanterns have oil.
+-> throne_menu
+
+~ throne_menu
+* Ask about the jinx on his town -> v_jinx
+* Ask about Mister Crossroads -> v_sinner
+* [Insight DC 14] Weigh how afraid he is -> v_afraid | v_afraid_miss
+* [if not flag.vander_dinner] Accept dinner -> dinner
+* Ask about the card table -> v_table
+* Take our leave -> END
+
+~ v_jinx
+vander_boone [weary]: A year back, every net came up silver and every dice cup spilled gold. Now the skiffs split on clear water, the marsh cough takes the hale, and the drowned climb the pilings at dusk.
+-> throne_menu
+
+~ v_sinner
+vander_boone [angry]: Twelve months ago that scaled gentleman walked up to my gate and offered me his hand in partnership. I told him I keep my own fingers and my own ledger, and I want him buried.
+-> throne_menu
+
+~ v_afraid
+Narrator: For all his easy posture, his thumb worries the felt rim of his purple hat in a slow, worn circle. He knows the water is rising, and he is counting how many planks he has left.
+-> throne_menu
+
+~ v_afraid_miss
+Narrator: He leans against the cypress frame like he owns the river and the mud beneath it, offering nothing but brass buttons and a gambler's steady grin.
+-> throne_menu
+
+~ v_table
+vander_boone [sly]: Lyla and I keep the cups warm with Liar's Dice when the rain sets in. Take a chair with us, and if you beat the house, I will double whatever purse brought you down to this swamp.
+-> throne_menu
+
+~ dinner
+Narrator: You crowd knees around a small pine table while a pot of peppered catfish and turnip broth goes round in tin bowls.
+vander_boone [smile]: Eat up, it is the same pot the families in the yard get. Before I wore a tall hat I fought in the dry-dock pits for copper pieces, and a man learns quick that nobody fights well on hollow ribs.
+set vander_dinner
+vander_boone [neutral]: We have a dry room nailed together behind the armoury if you want a mattress before you walk north.
+-> throne_menu
+
+~ dinner_rest
+Narrator: You stretch out on canvas cots while rain drums on the tin roof and fifty strangers cough, whisper, and turn in the rooms below.
+time +480
+hit_dice restore all party
+heal 4d8 party
+set dc_fort_rested
+-> screams
+
+~ screams
+Narrator: A high, wet shriek splits the dark outside, answered by the iron clatter of the gatehouse bell.
+quest withered_arm fort_falls
+cutscene dc_screams
+Narrator: By the pitch torches on the walk, grey fingers hook over the sharpened cypress stakes of the palisade.
+cutscene dc_screams_2
+Narrator: The throne-room door splinters inward as a sentry in a torn purple coat pitches face-first across the threshold, swamp mud and dark blood pooling under his cheek.
+cutscene end
+vander_boone [angry]: They are over the timber! I will hold this hall and keep the families behind the benches, while you take the Marshwinder Road north and gut that grinning lizard in his shack.
+lyla_webb [neutral]: The lower gate is buckling, Vander. I am taking the riflemen down to the mud to wedge the crossbars.
+* Run north now -> screams_run
+* Stay and fight beside Lyla -> screams_stay
+
+~ screams_run
+vander_boone [weary]: Go on and make the road count. It is the smart play, and I never faulted a table for playing the odds.
+lyla_webb [neutral]: Keep your lanterns hooded until you clear the outer boardwalks.
+set screams_done
+set screams_fled
+quest withered_arm the_shack
+Narrator: You bolt out onto the slick rope walkways as the roar of black water and splintering pine rises behind the fort.
+move dc_murkwater:from_fort
+
+~ screams_stay
+set screams_done
+vander_boone [angry]: Then clear the yard and give my people room to reload! Put steel in anything that does not breathe!
+Narrator: You drop into the churned mud of the courtyard beside Lyla, her coat charms clicking like bone dice as the wet dead clamber down the timbers.
+combat dc_screams
+
+~ fort_after
+vander_boone [weary]: That was ugly work, and you stood your ground when you did not owe us a copper. Take the north road through the cypress knees to his shack, and finish what we started here.
+-> END
+
+~ dice_start
+Narrator: Worn leather cups and bone dice sit on green baize scarred by cigar burns.
+vander_boone [smile]: Five dice under each cup, ones are wild, and you bid how many of a face sit on the whole table. The player to your left calls you a liar or raises the count.
+lyla_webb [sly]: Watch your own cup, watch your neighbour's eyes, and remember the house has been playing since the river was a creek.
+set dice_score = 0
+* Play properly -> dice_round1
+* Let fate decide at one roll -> dice_fate
+* Decline -> END
+
+~ dice_fate
+* [Wisdom DC 17] Pull the lucky cup -> dice_win | dice_lose
+* Play properly instead -> dice_round1
+
+~ dice_round1
+Narrator: Three leather cups slam down on the baize, the bone dice clattering inside like dry teeth.
+* [Insight DC 14] Hard read: study their faces for the cup's story -> r1_ok | r1_miss
+* [Sleight of Hand DC 15] Deft hands: nudge a die under the cup -> r1_ok | r1_caught
+* [Deception DC 15] Poker face: bluff a big bid -> r1_ok | r1_miss
+* Bid cautiously -> r1_miss
+
+~ r1_ok
+set dice_score += 1
+Narrator: Vander's boot taps once against Lyla's shin under the table, a fraction too late to save his bid from your call.
+-> dice_round2
+
+~ r1_miss
+Narrator: Lyla lifts her cup with two fingers to show three ones in a neat row, and the first chalk mark goes to the house.
+-> dice_round2
+
+~ r1_caught
+Narrator: Lyla's eyebrow arches as her boot pins the edge of the baize, and Vander barks a laugh, telling you those are quick fingers at the wrong table.
+-> dice_round2
+
+~ dice_round2
+Narrator: The cups whirl and thump down a second time, smelling of tallow and old river damp.
+* [Insight DC 14] Watch the charm on Lyla's cuff when she peaks -> r2_ok | r2_miss
+* [Sleight of Hand DC 15] Tip a wild pip up with your pinky nail -> r2_ok | r2_caught
+* [Deception DC 15] Smile wide and name an outrageous count of sixes -> r2_ok | r2_miss
+* Keep your bid low and honest -> r2_miss
+
+~ r2_ok
+set dice_score += 1
+Narrator: You catch the tiny tilt of Lyla's chin before Vander speaks, and your challenge leaves him staring at a barren scatter of twos.
+-> dice_round3
+
+~ r2_miss
+Narrator: Vander grins under his purple brim and uncovers four fives, sweeping the second mark to his side of the slate.
+-> dice_round3
+
+~ r2_caught
+Narrator: Lyla's eyebrow lifts as your knuckle brushes the rim, and Vander chuckles that good hands still lose the round in a small room.
+-> dice_round3
+
+~ dice_round3
+Narrator: The last rattle of bone echoes off the low rafters before all three cups settle dead still.
+* [Insight DC 14] Measure the pause before Vander names his number -> r3_ok | r3_miss
+* [Sleight of Hand DC 15] Roll the edge die flat as you lift the leather -> r3_ok | r3_caught
+* [Deception DC 15] Tap your cup twice and claim a table full of ones -> r3_ok | r3_miss
+* Play the safe numbers in front of you -> r3_miss
+
+~ r3_ok
+set dice_score += 1
+Narrator: Lyla reaches for her cup a breath too soon, and Vander's scowl tells you the third chalk mark belongs to you.
+-> dice_result
+
+~ r3_miss
+Narrator: The house pair trade a sidelong glance, and when the leather clears, their wild ones outnumber yours by a mile.
+-> dice_result
+
+~ r3_caught
+Narrator: Lyla's eyebrow rises an inch, and Vander laughs aloud, calling it fine work for a fairground but a forfeit in his hall.
+-> dice_result
+
+~ dice_result
+Narrator: The three leather cups lift from the worn green baize one last time.
+if flag.dice_score >= 2
+-> dice_win
+else
+-> dice_lose
+endif
+
+~ dice_win
+Narrator: Vander stares hard at the traitor dice, blows out his cheeks like an irritated bullfrog, and tips his purple hat a grudging inch.
+vander_boone [smile]: Well, curse this damp baize and Lyla's blind thumb. A king keeps his word at his own table, so tell me straight what your patron is paying you to skin that lizard.
+set vander_dice = "won"
+* Tell him the truth: 150 each, 200 with the secrecy money -> stakes_truth
+* [Deception DC 15] Tell him 300 each -> stakes_lie_ok | stakes_lie_miss
+
+~ stakes_truth
+set vander_pay = 150
+if flag.adela_secret_kept
+set vander_pay = 200
+endif
+vander_boone [weary]: Cheap coin for wading into black water after a fiend, though I suppose I cannot complain when I am matching it. Bring me proof the Sinner is dead and you will have every piece.
+-> dice_end
+
+~ stakes_lie_ok
+set vander_pay = 300
+vander_boone [smile]: Three hundred a head? You either work for a duke or you have the brass of a canal pirate, and either way I will pay it when his coat is on my floor.
+-> dice_end
+
+~ stakes_lie_miss
+set vander_lied_to
+set vander_pay = 150
+if flag.adela_secret_kept
+set vander_pay = 200
+endif
+vander_boone [sly]: Do not try to bluff a man while his dice are still warm on the cloth, friend. I know the going rate from Wickermoor, and I will match the honest figure when the job is done.
+-> dice_end
+
+~ dice_lose
+Narrator: Vander leans back until his plush chair groans, sweeping the bone dice into his palm with an easy, practiced flick.
+vander_boone [smile]: Never feel bad losing to a table that built the roof over it. You owe the house a favour now, so go north and put that grinning dealer in the mud for us.
+set vander_dice = "lost"
+set vander_pay = 0
+-> dice_end
+
+~ dice_end
+vander_boone [neutral]: The cots behind the armoury are yours whenever you want to shut your eyes. Get some sleep, then take the Marshwinder Road north.
+-> END
+
+~ vander_after
+vander_boone [neutral]: Look at the water under the boardwalks, dark and quiet like a river ought to be. You lifted the boot off Murkwater's neck, and nobody here will forget who did the cutting.
+set vander_settled
+if flag.vander_dice == won
+if flag.vander_pay == 300
+gold +300 each
+elif flag.vander_pay == 200
+gold +200 each
+else
+gold +150 each
+endif
+endif
+lyla_webb [sly]: Before you get too poetic, Vander, the iron box is unlocked and the table debt is waiting.
+vander_boone [smile]: Right you are, count it out to the last piece. Once the pilings are shored up, I am sending word to the Crescent Court that Murkwater Bend stands as its own town, with a proper mayor in a purple hat.
+-> END

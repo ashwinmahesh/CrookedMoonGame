@@ -1,0 +1,121 @@
+# Drafted by Gemini (R15 trek), edited.
+
+~ hand_comes
+quest withered_arm trek
+set dc_hand_seen
+cutscene dc_hand_comes
+Narrator: Something dry and leathery scrapes across a mossy cypress root, dragging itself toward the warmth of your campfire. It is a severed hand, inked with faded tattoos and shriveled like smoked meat.
+cutscene dc_hand_comes_2
+Narrator: At the edge of the firelight it halts with its fingers spread wide, trailing thin magenta threads that twitch back into the dark.
+cutscene end
+-> hand_menu
+
+~ hand_menu
+Narrator: The dry knuckles tap once against the damp root and wait.
+* Touch the hand -> hand_touch
+* [Arcana DC 15] Study the magenta threads -> hand_study | hand_study_miss
+* Leave it where it lies -> hand_leave
+
+~ hand_touch
+Narrator: The dead fingers curl at {name}'s touch, sending a river-water chill up the arm as it binds itself to a piece of your own warmth. You have the hand now, though a little of you stays behind inside it.
+set withered_hand_taken
+give withered_hand
+-> beast_arrives
+
+~ hand_study
+Narrator: Those magenta filaments are spun from pure soul-stuff, a stolen mote tugged on a tether. Whatever poor creature owns this hand is still out in the reeds, and not far off.
+-> hand_menu
+
+~ hand_study_miss
+Narrator: The magenta shimmer dances at the corner of your eye like marsh gas, leaving only a sour tang of ozone on your tongue.
+-> hand_menu
+
+~ hand_leave
+Narrator: You leave the thing in the mud, though the whole camp can feel it lingering just beyond the lantern light. It will trail behind your heels for a night or two before it gives up and crawls home.
+-> beast_arrives
+
+~ beast_arrives
+Narrator: An hour later the tall reeds part with a wet crack, and something huge and wooden-faced steps into the firelight, reeking of swamp rot and old rum.
+combat dc_beast_camp
+
+~ beast_remains
+Narrator: Where the beast fell lies a heap of wet splinters, tangled vines, and a carved wooden mask still warm with a sour, drunken hex.
+* [Arcana DC 13] Study the mask -> beast_lore_ok | beast_lore_miss
+* Pick through the splinters slowly -> beast_lore_slow
+
+~ beast_lore_ok
+Narrator: The carvings bind a hungry swamp spirit into the wood, thirsty for warmth and liquor alike. A good splash of strong drink in its face would make a creature like this flinch and stall.
+set dc_beast_lore
+-> END
+
+~ beast_lore_miss
+Narrator: There is a spirit bound in the grain and a heavy stink of spilled rum, though how the two fit together is hard to tell in a hurry.
+-> beast_lore_slow
+
+~ beast_lore_slow
+Narrator: Patience does the work where book-learning falls short as you turn the stained wood over by the fire. By the way the hex is soaked in spirits, a splash of strong drink thrown on the beast would have stopped it cold.
+time +30
+set dc_beast_lore
+-> END
+
+~ crossing
+Narrator: The second night brings you to a black channel too deep to wade, spanned only by one slick cypress log above water that lies far too still.
+set dc_croc_started
+* [Perception DC 15] Watch the water first -> croc_seen | croc_ambush
+* Throw something heavy ahead of us -> croc_seen
+* Cross at once -> croc_ambush
+
+~ croc_seen
+Narrator: Yellow eyes blink open among the duckweed as two huge, armored shapes and four smaller ones slide off the mudbank. They know you are here, and they are already coming.
+combat dc_croc_crossing
+
+~ croc_ambush
+Narrator: Halfway across the mossy log, the black water boils and explodes upward in a spray of foul silt and snapping jaws.
+set dc_croc_ambush
+combat dc_croc_crossing
+
+~ croc_arcana
+Narrator: Even in death the great reptile looks wrong, its scarred hide scored with deep, deliberate glyphs that smell of burnt tallow.
+* [Arcana DC 13] Read the glyphs -> croc_lore_ok | croc_lore_miss
+* Cut a strip of hide and study it -> croc_lore_ok
+
+~ croc_lore_ok
+Narrator: Someone took a knife and a mean piece of magic to these beasts, carving growth-hexes into their scales to make them bigger, hungrier, and twice as spiteful.
+set dc_croc_lore
+-> END
+
+~ croc_lore_miss
+Narrator: The cuts are too clotted with bayou mud and old blood to read at a glance.
+-> croc_arcana
+
+~ battlefield
+Narrator: On the third night a green fog rolls across a hummock of old bones, torn purple cloth, and an overturned strongbox cart smashed into the mire.
+set dc_ghoul_started
+* [Survival DC 14] Read the mud for tracks -> fog_tracks | fog_walk
+* Walk on -> fog_walk
+
+~ fog_tracks
+Narrator: The soft silt is stamped with dozens of bare, dragging footprints, and every last one of them is pointed straight toward you.
+-> ghoul_ambush
+
+~ fog_walk
+Narrator: The green fog thickens until it tastes of copper and wet wool, and something heavy shuffles through the mud ahead.
+-> ghoul_ambush
+
+~ ghoul_ambush
+Narrator: Hoarse voices rasp out of the mist, taking you for the Bayou King's friends come to finish them off. Eight dead throats rattle in the murk, led by a hunched pole-man swinging a guttering lantern.
+combat dc_ghoul_ambush
+
+~ battlefield_clue
+Narrator: Half-buried beside the broken cart lies a tattered banner of purple and black silk, stiff with dried mud and older blood.
+* [History DC 18] Place the crest -> clue_ok | clue_miss
+* Look at the dead more closely -> clue_ok
+
+~ clue_ok
+Narrator: These dead brigands wore the purple and black of Vander Boone's own crew, left to rot beside an empty strongbox. Whatever the Bayou King tells the folks in Murkwater Bend, it is not the whole truth.
+set dc_clue_banner
+-> END
+
+~ clue_miss
+Narrator: It is only a torn rag in the mire, too stained to tell one river gang from another.
+-> battlefield_clue

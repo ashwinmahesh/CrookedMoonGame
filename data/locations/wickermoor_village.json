@@ -780,6 +780,33 @@
   "name": "Wickermoor Village",
   "npcs": [
     {
+      "npc": "adela_druskenvald",
+      "cell": [
+        30,
+        30
+      ],
+      "dialogue": "drowned_crossroads/village_after:adela_cure",
+      "when": "flag.grinning_sinner_slain and not flag.adela_cured"
+    },
+    {
+      "npc": "adela_druskenvald",
+      "cell": [
+        30,
+        30
+      ],
+      "dialogue": "drowned_crossroads/hook:adela_hex",
+      "when": "flag.crossroads_asked and flag.act2_done >= 1 and not flag.adela_hex_seen and not flag.grinning_sinner_slain"
+    },
+    {
+      "npc": "adela_druskenvald",
+      "cell": [
+        30,
+        30
+      ],
+      "dialogue": "drowned_crossroads/hook:adela_start",
+      "when": "flag.vessla_slain and not flag.crossroads_asked"
+    },
+    {
       "npc": "lottery_stranger",
       "cell": [
         26,

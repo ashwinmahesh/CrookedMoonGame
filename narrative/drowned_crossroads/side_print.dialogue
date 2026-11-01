@@ -1,0 +1,95 @@
+# Drafted by Gemini (R15 side_print), edited.
+
+~ cora_start
+cora_beaudry [sad]: My Ansel bought a carved bone charm from that shack down the boardwalk. The paper tag said three copper pieces, so that is what he laid on the counter.
+cora_beaudry [neutral]: The real price never fits on the little tag. If folk saw the whole bill written plain on the town board, they might walk past his door.
+* What happened to him? -> cora_ansel
+* We will gather the tales. -> cora_accept
+* Not now. -> END
+
+~ cora_ansel
+cora_beaudry [weary]: He sits out on our back porch in his good Sunday shirt, watching the black water go by. He has not spoken a word to me in a year.
+-> cora_start
+
+~ cora_accept
+cora_beaudry [neutral]: Bring me three honest accounts from people who paid the Sinner's second price. I have paper, good dark ink, and a hammer waiting.
+set print_asked
+quest the_sinners_small_print asked
+-> END
+
+~ cora_progress
+cora_beaudry [neutral]: Have you written down what those curios truly cost, or are the folk here still buying blind?
+* [if flag.small_print_read] Give her the three tales. -> cora_post
+* [if flag.small_print_read] Keep the tales to ourselves. -> cora_keep
+* [if not flag.small_print_read] Ask who to ask. -> cora_who
+* [if flag.deal_taken_blind] [ends:the_sinners_small_print] Tell her we took a bargain before reading the tales. -> cora_lost
+* Leave. -> END
+
+~ cora_who
+cora_beaudry [neutral]: Try Luckless Lou by the tables, Odell Tarrant at the boathouse, and Mama Pelletier over her stewpot. All three know someone who took a bargain HOME.
+-> cora_progress
+
+~ cora_post
+cora_beaudry [neutral]: Thank you. Here is what I set aside for Ansel's winter coat; he has no need of wool in the heat anyway.
+Narrator: She nails the three sheets deep into the cypress board, and before the iron stops ringing, a quiet queue of townsfolk has gathered to read them.
+set print_outcome = "posted"
+gold +60
+quest the_sinners_small_print done
+-> END
+
+~ cora_keep
+cora_beaudry [weary]: I see. You mean to hold the knowledge close until you face him yourselves.
+cora_beaudry [sad]: Well, I cannot fault you for it. Around here, even the small print can be a weapon if you know where to point it.
+set print_outcome = "kept"
+quest the_sinners_small_print done
+-> END
+
+~ cora_lost
+Narrator: Cora looks at you for a long, quiet moment, picks up her woven reed basket, and is gone on the next flatboat out of the bend.
+set print_outcome = "lost"
+quest the_sinners_small_print lost
+-> END
+
+~ lou_tale
+luckless_lou [smile]: I drank a measure of Jinxed Rum for a silver wager once. Tasted like burnt molasses and riverbed mud, but it went down smooth enough.
+luckless_lou [weary]: For a solid hour, every throw of the bones came up short by up to four pips, as if an unseen thumb pressed them down. I have never lost so well.
+set print_lou
+set print_tales += 1
+if flag.print_tales >= 3
+set small_print_read
+quest the_sinners_small_print read
+endif
+-> END
+
+~ odell_tale
+odell_tarrant [afraid]: My cousin took a Jinxed Poker Chip from the Sinner's tray. He flips it across his knuckles whenever a hand turns sour, and it spares him the worst.
+odell_tarrant [weary]: Only the clay chip takes its tithe out of the next good turn instead, shaving his fortune down until his pockets and his lungs feel like lead.
+set print_odell
+set print_tales += 1
+if flag.print_tales >= 3
+set small_print_read
+quest the_sinners_small_print read
+endif
+-> END
+
+~ mama_tale
+mama_pelletier [weary]: My sister's girl bought a green bottle of Haint Hooch to ease her toothache. Took one swallow in the kitchen and stepped clean through the pantry wall.
+mama_pelletier [sad]: Left her apron caught on a nail, and walked right out into some other parish. We have not seen hide nor shadow of her since.
+set print_mama
+set print_tales += 1
+if flag.print_tales >= 3
+set small_print_read
+quest the_sinners_small_print read
+endif
+-> END
+
+~ board
+Narrator: The damp cypress tally board smells of rust and river fog, pinned over with faded slips naming who bought what curio and what grief came of it.
+* [if flag.small_print_read and not flag.print_outcome] Post the three tales here. -> post_board
+* Leave. -> END
+
+~ post_board
+Narrator: You drive the nails home through all three pages, and within the minute a silent crowd of bayou folk has gathered with their lanterns to read.
+set print_outcome = "posted"
+quest the_sinners_small_print done
+-> END

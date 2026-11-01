@@ -1,0 +1,926 @@
+{
+  "id": "dc_boat_lower",
+  "name": "The Dead Man's Hand: Lower Deck",
+  "region": "drowned_crossroads",
+  "summary": "The boiler room, the coin vault, the galley and the quarters.",
+  "text": "Corridors of bare plank under bright pipes. The galley smells of superb food; the boiler room at the stern glows magenta.",
+  "map": {
+    "rows": [
+      "####################################################",
+      "#...........#........#........#.........#..........#",
+      "#...........#........#........#.........#..........#",
+      "#...........#........#........#..====...#..====....#",
+      "#...........#........#........#.........#..........#",
+      "#...........#........#........#..====...#..====....#",
+      "#...........#........#........#.........#..........#",
+      "#...........#........#........#.........#..........#",
+      "#######.#######.########.#########.#########.#######",
+      "...................................................#",
+      "#..................................................#",
+      "#######.#######.########.#########.#########.#######",
+      "#...........#.................#.........#..........#",
+      "#..==.==.==.#.................#.........#..........#",
+      "#...........#.===.===.===.....#.........#..........#",
+      "#...........#.................#.........#..........#",
+      "#..==.==.==.#.................#.........#..........#",
+      "#...........#.................#.........#..........#",
+      "#...........#.................#.........#..........#",
+      "####################################################"
+    ],
+    "theme": "tavern",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "dc_corridor",
+      "name": "The corridor",
+      "cells": [
+        [
+          1,
+          9
+        ],
+        [
+          50,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "dc_boiler",
+      "name": "B4: Boiler Room",
+      "cells": [
+        [
+          41,
+          1
+        ],
+        [
+          50,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "dc_vault",
+      "name": "B5: Coin Vault",
+      "cells": [
+        [
+          31,
+          1
+        ],
+        [
+          39,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "dc_galley",
+      "name": "B6: Galley",
+      "cells": [
+        [
+          13,
+          12
+        ],
+        [
+          29,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "dc_quarters",
+      "name": "B7: Crew and Guest Quarters",
+      "cells": [
+        [
+          1,
+          12
+        ],
+        [
+          11,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "dc_stores",
+      "name": "Storerooms",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          29,
+          7
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      4,
+      9
+    ],
+    "from_hall": [
+      4,
+      9
+    ]
+  },
+  "exits": [
+    {
+      "id": "stairs_up",
+      "cell": [
+        0,
+        9
+      ],
+      "to": "dc_boat_hall",
+      "spawn": "from_below",
+      "label": "Up to the Gambling Hall"
+    }
+  ],
+  "props": [
+    {
+      "id": "dc_boiler",
+      "cell": [
+        46,
+        4
+      ],
+      "kind": "examine",
+      "label": "A coffin-shaped boiler glowing magenta, stamped Stranger Ferryworks",
+      "model": "case",
+      "dialogue": "drowned_crossroads/boat:boiler_open",
+      "when": "flag.dc_boiler_done and not flag.elias_freed"
+    },
+    {
+      "id": "dc_boiler_cold",
+      "cell": [
+        46,
+        4
+      ],
+      "kind": "decor",
+      "label": "The boiler, gone cold",
+      "model": "case",
+      "when": "flag.elias_freed"
+    },
+    {
+      "id": "dc_boiler_stamp",
+      "cell": [
+        45,
+        3
+      ],
+      "kind": "examine",
+      "label": "Stranger Ferryworks, stamped into the iron",
+      "dialogue": "drowned_crossroads/boat:ferryworks",
+      "when": "not flag.dc_boiler_done"
+    },
+    {
+      "id": "dc_galley_drinks",
+      "cell": [
+        17,
+        15
+      ],
+      "kind": "examine",
+      "label": "Superb food and strong drinks",
+      "model": "table_meal",
+      "dialogue": "drowned_crossroads/boat:galley"
+    },
+    {
+      "id": "dc_galley_chefs",
+      "cell": [
+        22,
+        16
+      ],
+      "kind": "decor",
+      "label": "Dead chefs, working",
+      "model": "table_round"
+    },
+    {
+      "id": "dc_quarters_bunks",
+      "cell": [
+        5,
+        15
+      ],
+      "kind": "decor",
+      "label": "Crew bunks and guest cots",
+      "model": "bed"
+    },
+    {
+      "id": "dc_hand_trail",
+      "cell": [
+        8,
+        10
+      ],
+      "kind": "decor",
+      "label": "A withered hand, tugging toward the stern",
+      "model": "rags",
+      "when": "flag.withered_hand_taken and not flag.dc_boiler_done"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "soulfire_engineer",
+      "cell": [
+        47,
+        5
+      ],
+      "dialogue": "drowned_crossroads/boat:engineer",
+      "when": "not flag.dc_boiler_done"
+    },
+    {
+      "npc": "coin_keeper",
+      "cell": [
+        35,
+        6
+      ],
+      "dialogue": "drowned_crossroads/boat:keeper",
+      "when": "not flag.dc_keeper_done"
+    },
+    {
+      "npc": "elias_greaves",
+      "cell": [
+        8,
+        9
+      ],
+      "dialogue": "drowned_crossroads/boat:elias_again",
+      "when": "flag.dc_boiler_lead and not flag.elias_freed"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "dc_boiler_fight",
+      "trigger": "dialogue",
+      "flag": "dc_boiler_done",
+      "quest": {
+        "id": "withered_arm",
+        "stage": "elias"
+      },
+      "monsters": [
+        {
+          "monster": "soulfire_engineer",
+          "cell": [
+            47,
+            4
+          ],
+          "name": "The Soulfire Engineer",
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            43,
+            2
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            45,
+            6
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            49,
+            2
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            49,
+            6
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "soulfire_stoker",
+          "cell": [
+            44,
+            4
+          ],
+          "name": "The Soulfire Stoker",
+          "facing": "west"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "blasting_furnace",
+          "name": "The Blasting Furnace",
+          "summary": "The furnace vents: everyone but the spirits takes fire.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "dex",
+            "dc": 13
+          },
+          "half": true,
+          "damage": {
+            "dice": "2d6",
+            "type": "fire"
+          },
+          "at": 20,
+          "every": 1,
+          "area": {
+            "cells": [
+              [
+                41,
+                1
+              ],
+              [
+                50,
+                7
+              ]
+            ]
+          },
+          "say": "The furnace roars, and the room is fire."
+        }
+      ],
+      "when": "level <= 5"
+    },
+    {
+      "id": "dc_boiler_fight",
+      "trigger": "dialogue",
+      "flag": "dc_boiler_done",
+      "quest": {
+        "id": "withered_arm",
+        "stage": "elias"
+      },
+      "monsters": [
+        {
+          "monster": "soulfire_engineer",
+          "cell": [
+            47,
+            4
+          ],
+          "name": "The Soulfire Engineer",
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            43,
+            2
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            45,
+            6
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            49,
+            2
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            49,
+            6
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            42,
+            6
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "soulfire_stoker",
+          "cell": [
+            44,
+            4
+          ],
+          "name": "The Soulfire Stoker",
+          "facing": "west"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "blasting_furnace",
+          "name": "The Blasting Furnace",
+          "summary": "The furnace vents: everyone but the spirits takes fire.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "dex",
+            "dc": 13
+          },
+          "half": true,
+          "damage": {
+            "dice": "2d6",
+            "type": "fire"
+          },
+          "at": 20,
+          "every": 1,
+          "area": {
+            "cells": [
+              [
+                41,
+                1
+              ],
+              [
+                50,
+                7
+              ]
+            ]
+          },
+          "say": "The furnace roars, and the room is fire."
+        }
+      ],
+      "when": "level == 6"
+    },
+    {
+      "id": "dc_boiler_fight",
+      "trigger": "dialogue",
+      "flag": "dc_boiler_done",
+      "quest": {
+        "id": "withered_arm",
+        "stage": "elias"
+      },
+      "monsters": [
+        {
+          "monster": "soulfire_engineer",
+          "cell": [
+            47,
+            4
+          ],
+          "name": "The Soulfire Engineer",
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            43,
+            2
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            45,
+            6
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            49,
+            2
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            49,
+            6
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            42,
+            6
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "soulfire_stoker",
+          "cell": [
+            44,
+            4
+          ],
+          "name": "The Soulfire Stoker",
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            48,
+            4
+          ],
+          "facing": "west"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "blasting_furnace",
+          "name": "The Blasting Furnace",
+          "summary": "The furnace vents: everyone but the spirits takes fire.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "dex",
+            "dc": 13
+          },
+          "half": true,
+          "damage": {
+            "dice": "2d6",
+            "type": "fire"
+          },
+          "at": 20,
+          "every": 1,
+          "area": {
+            "cells": [
+              [
+                41,
+                1
+              ],
+              [
+                50,
+                7
+              ]
+            ]
+          },
+          "say": "The furnace roars, and the room is fire."
+        }
+      ],
+      "when": "level >= 7"
+    },
+    {
+      "id": "dc_vault_fight",
+      "trigger": "dialogue",
+      "flag": "dc_keeper_done",
+      "monsters": [
+        {
+          "monster": "wight",
+          "cell": [
+            35,
+            6
+          ],
+          "name": "The Coin Keeper",
+          "facing": "west"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            32,
+            6
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            38,
+            6
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            39,
+            2
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            31,
+            4
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            35,
+            7
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            39,
+            7
+          ],
+          "facing": "south"
+        }
+      ],
+      "when": "level <= 5"
+    },
+    {
+      "id": "dc_vault_fight",
+      "trigger": "dialogue",
+      "flag": "dc_keeper_done",
+      "monsters": [
+        {
+          "monster": "wight",
+          "cell": [
+            35,
+            6
+          ],
+          "name": "The Coin Keeper",
+          "facing": "west"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            32,
+            3
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            38,
+            3
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            32,
+            6
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            38,
+            6
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            33,
+            2
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            36,
+            2
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            39,
+            2
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            31,
+            4
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            39,
+            4
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            31,
+            7
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            35,
+            7
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            39,
+            7
+          ],
+          "facing": "south"
+        }
+      ],
+      "when": "level == 6"
+    },
+    {
+      "id": "dc_vault_fight",
+      "trigger": "dialogue",
+      "flag": "dc_keeper_done",
+      "monsters": [
+        {
+          "monster": "wight",
+          "cell": [
+            35,
+            6
+          ],
+          "name": "The Coin Keeper",
+          "facing": "west"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            32,
+            3
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            38,
+            3
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            32,
+            6
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            38,
+            6
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            33,
+            2
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            36,
+            2
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            39,
+            2
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            31,
+            4
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            39,
+            4
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            31,
+            7
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            35,
+            7
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            39,
+            7
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            34,
+            1
+          ],
+          "facing": "south"
+        }
+      ],
+      "when": "level >= 7"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "No.",
+  "doors": [
+    {
+      "id": "dc_boiler_door",
+      "cell": [
+        44,
+        8
+      ],
+      "locked": false,
+      "lock_dc": 0,
+      "key": "",
+      "secret_dc": 0
+    },
+    {
+      "id": "dc_vault_door",
+      "cell": [
+        34,
+        8
+      ],
+      "locked": true,
+      "lock_dc": 15,
+      "key": "coin_keepers_key",
+      "secret_dc": 0,
+      "locked_text": "A soggy hold behind an iron door."
+    }
+  ],
+  "containers": [
+    {
+      "id": "dc_vault_cage",
+      "cell": [
+        37,
+        4
+      ],
+      "label": "The iron cage and its coin sacks",
+      "items": [],
+      "gold": 710,
+      "lock_dc": 20,
+      "flag": "coin_vault_looted"
+    },
+    {
+      "id": "dc_keeper_desk",
+      "cell": [
+        47,
+        9
+      ],
+      "label": "A drawer of keys",
+      "items": [
+        {
+          "id": "coin_keepers_key",
+          "qty": 1
+        }
+      ],
+      "gold": 0,
+      "lock_dc": 0
+    }
+  ]
+}

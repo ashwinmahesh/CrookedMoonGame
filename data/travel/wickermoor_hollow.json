@@ -66,6 +66,32 @@
       "region": "dawns_gate",
       "when": "flag.vessla_slain or visited:dawns_gate",
       "summary": "A dour mining village in the Howlers' foothills, below the Crimson Monastery."
+    },
+    {
+      "id": "dc_trail1",
+      "name": "The Marshwinder Trail",
+      "location": "dc_trail1",
+      "spawn": "from_west",
+      "pos": [
+        0.5,
+        0.88
+      ],
+      "region": "drowned_crossroads",
+      "when": "flag.crossroads_asked or visited:dc_trail1",
+      "summary": "The start of three nights' trek south, down to the valley's lowest point."
+    },
+    {
+      "id": "dc_murkwater",
+      "name": "Murkwater Bend",
+      "location": "dc_murkwater",
+      "spawn": "from_trail",
+      "pos": [
+        0.56,
+        0.96
+      ],
+      "region": "drowned_crossroads",
+      "when": "visited:dc_murkwater",
+      "summary": "A stilt town in the bayou, under the Bayou King's flag."
     }
   ],
   "roads": [
@@ -100,6 +126,22 @@
       "hours": 14,
       "name": "The Silverbell river road",
       "when": "flag.vessla_slain or visited:dawns_gate"
+    },
+    {
+      "id": "wickermoor_to_crossroads",
+      "from": "wickermoor_village",
+      "to": "dc_trail1",
+      "hours": 24,
+      "name": "The road to the Drowned Crossroads",
+      "when": "flag.crossroads_asked or visited:dc_trail1"
+    },
+    {
+      "id": "crossroads_to_murkwater",
+      "from": "dc_trail1",
+      "to": "dc_murkwater",
+      "hours": 36,
+      "name": "Through the swamp",
+      "when": "visited:dc_murkwater"
     }
   ]
 }

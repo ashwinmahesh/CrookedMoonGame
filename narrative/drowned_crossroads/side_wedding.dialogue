@@ -1,0 +1,156 @@
+# Drafted by Gemini (R15 side_wedding), edited.
+
+~ thibault_start
+Narrator: Black water laps over the porch planks, soaking the hem of the minister's cassock while she wrings out a soggy prayer book.
+odalys_thibault [weary]: Mind the second step, the catfish nested under it again. I am supposed to marry Marguerite and Ignatius before high tide, and nothing in this parish is ready.
+* What is needed? -> thibault_need
+* We will help -> thibault_accept
+* Not now -> END
+
+~ thibault_need
+odalys_thibault [weary]: Luckless Lou pawned the wedding band to cover a wager on a one-legged heron. Beyond that, we have no fiddler for the aisle and no supper for the table.
+-> thibault_start
+
+~ thibault_accept
+odalys_thibault [neutral]: Bless your dry boots. Speak with Lou, Tibby, and Mama Pelletier, and come back before the pews float off their blocks.
+set wedding_asked
+quest a_wedding_at_the_mud_church asked
+-> END
+
+~ thibault_progress
+Narrator: The Reverend shakes her pocket watch, watching a tiny minnow swim past the Roman numerals.
+odalys_thibault [weary]: The water is up to the altar rail and the groom is still breathing into a paper sack. Tell me we have something to show the bride.
+* [if flag.wedding_score >= 1] Begin the wedding with what we have -> ceremony
+* Ask what is done -> thibault_status
+* [ends:a_wedding_at_the_mud_church] Call the wedding off -> call_off
+* Leave -> END
+
+~ thibault_status
+odalys_thibault [neutral]: Let us see what grace has spared us between the mud and the mosquitoes.
+if flag.wedding_ring
+odalys_thibault [smile]: We have the brass ring back from the pawn ledger, which is one miracle.
+endif
+if flag.wedding_music
+odalys_thibault [smile]: There is music waiting on the porch, even if the fiddler is leaning against a post.
+endif
+if flag.wedding_supper
+odalys_thibault [smile]: Mama Pelletier sent word that the big kettle is coming down the boardwalk.
+endif
+-> thibault_progress
+
+~ ceremony
+set wedding_outcome = "held"
+quest a_wedding_at_the_mud_church done
+Narrator: Lantern light trembles on the black water between the pews as Marguerite and Ignatius join hands above the flood.
+if flag.wedding_score >= 3
+odalys_thibault [smile]: With a ring, a tune, and hot gumbo waiting on the dock, I have never seen a finer wedding in six inches of swamp.
+gold +80
+else
+odalys_thibault [smile]: It was short on trimmings and wet around the ankles, yet they are lawfully wed and smiling through the damp.
+gold +30
+endif
+-> END
+
+~ call_off
+set wedding_outcome = "off"
+quest a_wedding_at_the_mud_church lost
+Narrator: The Reverend sits down on the step, the bride and groom go their separate ways, and the water comes up another inch.
+odalys_thibault [sad]: Perhaps we will try again when the river goes down, though I have been saying that since last autumn.
+-> END
+
+~ lou_ring
+luckless_lou [sly]: Look, the heron had a terrible limp and four-to-one odds, so pawning Ignatius's ring was practically an investment. I still hold the ticket right here in my vest.
+* [Persuasion DC 13] Talk him into giving the pawn ticket up -> lou_ring_ok | lou_ring_no
+* [if gold >= 5] Buy the pawn ticket for five gold -> lou_ring_paid
+* Leave -> END
+
+~ lou_ring_ok
+set wedding_ring
+set wedding_score += 1
+Narrator: Lou lets out a long breath that smells of cheap rye and hands over the crumpled pasteboard stub.
+luckless_lou [weary]: Take it, then, before you make me feel like a churchwarden. A man cannot even back a bird in peace.
+-> END
+
+~ lou_ring_no
+luckless_lou [smile]: Friends, I operate on a strict mathematical system, and charity prior to the third race ruins the whole arithmetic.
+-> lou_ring
+
+~ lou_ring_paid
+gold -5
+set wedding_ring
+set wedding_score += 1
+luckless_lou [smile]: Five gold covers the bird, the ticket, and my bruised pride. Give the bride my warm regards.
+-> END
+
+~ music
+tibby_marsh [smile]: You need a fiddler before the tide turns? Old Ches is sleeping under a skiff by the eel pens, and I know which plank to kick.
+* [if gold >= 2] Pay Tibby two gold for a fiddler -> music_pay
+* [Performance DC 12] Play something ourselves -> music_play | music_miss
+* Leave -> END
+
+~ music_pay
+gold -2
+set wedding_music
+set wedding_score += 1
+Narrator: Tibby is gone and back before the coin stops spinning, towing a fiddler who is asleep on his feet.
+tibby_marsh [smile]: Prop him against the doorframe and poke his ribs when the bride walks in. He knows three reels and a hymn.
+-> END
+
+~ music_play
+set wedding_music
+set wedding_score += 1
+tibby_marsh [smile]: Well, that beats the bullfrogs hollow. The Reverend says just keep playing that until everyone sits down.
+-> END
+
+~ music_miss
+Narrator: A sour note skitters across the dark lagoon, and a one-legged heron on the piling turns to look at {name}.
+tibby_marsh [sly]: My aunt had a dying billy goat that made that exact noise. Maybe try again once your fingers warm up.
+-> music
+
+~ supper
+mama_pelletier [neutral]: A wedding without a hot pot is just two damp people arguing in front of a preacher. My crawfish gumbo is thick enough to stand a spoon in.
+* [if flag.gumbo_tasted] Ask her to cook the supper -> supper_yes
+* Taste the gumbo first -> supper_taste
+* [if gold >= 15] Pay fifteen gold for it -> supper_paid
+* Leave -> END
+
+~ supper_yes
+set wedding_supper
+set wedding_score += 1
+mama_pelletier [smile]: Since you know good roux when it hits your tongue, I will haul the iron kettle over to the church porch myself.
+-> END
+
+~ supper_taste
+mama_pelletier [sly]: Take a ladle from the simmering pot by my elbow before we talk business. I do not cook for strangers who eat with their eyes shut.
+-> END
+
+~ supper_paid
+gold -15
+set wedding_supper
+set wedding_score += 1
+mama_pelletier [smile]: Fifteen gold buys the whole kettle, six loaves of tallow bread, and my promise to keep Lou out of the gravy.
+-> END
+
+~ bride
+marguerite_salt [neutral]: Ignatius will show up once his boots stop shaking, so do not fret over him. Tell me instead if anyone has seen my cousin Odell down by the boathouse.
+-> END
+
+~ groom
+Narrator: Ignatius sits on the wet church step in his good leather boots, staring down at the minnows around his heels.
+ignatius_fontaine [afraid]: I love Marguerite more than dry land, truly I do. It is just that every good thing in Murkwater Bend goes bad the moment you put your name to it.
+* [Persuasion DC 12] Steady him -> groom_ok | groom_miss
+* Sit with him a while -> groom_ok
+* Leave -> END
+
+~ groom_ok
+Narrator: He nods, gets up, sits down again, and gets up, squaring his shoulders against the damp night air.
+ignatius_fontaine [smile]: You are right, the water is rising whether I stand at that altar or not. Best to meet it beside a sensible woman.
+-> END
+
+~ groom_miss
+ignatius_fontaine [weary]: My head knows every word you are saying, friend, but my feet have taken root in this porch.
+-> groom
+
+~ bell
+Narrator: You tug the rope on the cracked ship's bell, which rings a flat iron note that shivers the porch and brings dark water welling up through the planks.
+-> END
