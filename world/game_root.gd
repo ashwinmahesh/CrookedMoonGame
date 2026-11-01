@@ -171,7 +171,7 @@ func enter_location(location_id: String, spawn: String, sneaking: bool = false) 
 	# The place's name as it fades in (Visual Polish Plan 6), unless a loading card is up and names it already.
 	_title = PlaceTitle.show_for(self, view.loc)
 	Audio.play_music(_place_mood())
-	place_beds.enter(location_id)
+	place_beds.enter(location_id, st)
 	view.banter_player = banter
 	_banter_waiting = []
 	_banter_quiet_since = -1
@@ -209,6 +209,7 @@ func enter_location(location_id: String, spawn: String, sneaking: bool = false) 
 		LayerFade.fade(self, hud, false, 0.25)   # the combat HUD fades up in its place
 		Audio.play_music("combat")
 		_boss_music.call_deferred(cv)   # the fight is set up just after this signal
+		_fight_sounds.call_deferred(cv)   # the wildpyre roars as it wakes (art/audio.json "fight_sfx")
 		Audio.follow_fight.call_deferred(cv)   # the music swells while a boss stands or someone is Bloodied (A2)
 		Achievements.watch(cv, st, hud.toast)   # the run's record for the ending, and achievements (N8)
 		cv.menu_requested.connect(func() -> void:
@@ -1096,6 +1097,11 @@ func _arrive(place_id: String) -> void:
 		_title.set_subtitle(hour)   # the place's title names it; the hour goes beneath
 	else:
 		hud.toast("%s · %s" % [pl.get("name", place_id), hour])
+
+
+func _fight_sounds(cv: CombatView) -> void:
+	if is_instance_valid(cv) and cv.e != null:
+		PlaceBeds.fight_sounds(cv.e.combatants)
 
 
 ## A fight with a foe that has legendary actions plays the boss music.

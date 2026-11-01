@@ -2,9 +2,10 @@ class_name PlaceBeds
 extends Node
 ## The sound a whole place sits in (Audio Plan, Act 1): the train's wheels on the rails in every car, the night wind and
 ## crickets on the boarding hill, the low drone of the limbo. art/audio.json "place_beds" names a place's bed (a
-## location id, else its region, to an id in "loops"); the engine's WorldSounds keeps the beds heard from where they are
-## (fires, water), this is the one heard everywhere in a place. A place with no bed, or a bed with no recording, is
-## silent, and the bed fades across a change of place instead of cutting.
+## location id, else its region, to an id in "loops"), and "bed_turns" a later one once the story allows (Wickermoor's
+## crickets and a far dog at night); the engine's WorldSounds keeps the beds heard from where they are (fires, water),
+## this is the one heard everywhere in a place. A place with no bed, or a bed with no recording, is silent, and the bed
+## fades across a change of place instead of cutting.
 
 ## Seconds a bed takes to fade in or out.
 const FADE := 1.4
@@ -28,18 +29,30 @@ func _ready() -> void:
 		_players.append(p)
 
 
-## The bed for a place: its own entry, else its region's, else "".
-static func bed_for(location_id: String) -> String:
+## The bed for a place: its own turn or entry, else its region's, else "". A turn (art/audio.json "bed_turns": a place
+## or region to [{when, bed}]) is the first whose StoryConditions `when` holds and whose bed has a recording; with no
+## story to ask (`st` null) there is none.
+static func bed_for(location_id: String, st: StoryState = null) -> String:
 	var beds := Audio._data.get("place_beds", {}) as Dictionary
+	var region := str(Compendium.shared().get_entry("locations", location_id).get("region", ""))
+	var turns := Audio._data.get("bed_turns", {}) as Dictionary
+	if st != null:
+		for key: String in [location_id, region]:
+			for t: Variant in turns.get(key, []):
+				var turn := t as Dictionary
+				var bed := str(turn.get("bed", ""))
+				if not Audio.files("loops", bed).is_empty() and StoryConditions.check(str(turn.get("when", "")), st):
+					return bed
+			if beds.has(key):
+				break   # a place's own bed outranks its region's turns
 	if beds.has(location_id):
 		return str(beds[location_id])
-	var region := str(Compendium.shared().get_entry("locations", location_id).get("region", ""))
 	return str(beds.get(region, "")) if region != "" else ""
 
 
 ## Crossfades to the bed of `location_id`; the same bed keeps playing where it is.
-func enter(location_id: String) -> void:
-	var next := bed_for(location_id)
+func enter(location_id: String, st: StoryState = null) -> void:
+	var next := bed_for(location_id, st)
 	if next == bed_id:
 		return
 	bed_id = next
@@ -68,11 +81,17 @@ static func scene_sounds(cutscene_id: String) -> Array[String]:
 
 
 ## The effect of walking from one place into another of the same region (art/audio.json "exit_sfx": region -> effect):
-## the sliding door between two cars of the train. "" when it has none; the id otherwise, played.
+## the sliding door between two cars of the train, a creaking door into a Wickermoor shop. Walking between two open-air
+## places (the village street and the orchard, two turns of the maze) passes no door. "" when it has none; the id
+## otherwise, played.
 static func exit_sound(from_id: String, to_id: String) -> String:
 	var lib := Compendium.shared()
-	var region := str(lib.get_entry("locations", from_id).get("region", ""))
-	if region == "" or str(lib.get_entry("locations", to_id).get("region", "")) != region:
+	var from := lib.get_entry("locations", from_id)
+	var to := lib.get_entry("locations", to_id)
+	var region := str(from.get("region", ""))
+	if region == "" or str(to.get("region", "")) != region:
+		return ""
+	if CampSite.setting(from) != CampSite.INDOORS and CampSite.setting(to) != CampSite.INDOORS:
 		return ""
 	var id := str((Audio._data.get("exit_sfx", {}) as Dictionary).get(region, ""))
 	Audio.sfx(id)
@@ -85,6 +104,21 @@ static func dialogue_sound(ref: String) -> String:
 	var id := str((Audio._data.get("dialogue_sfx", {}) as Dictionary).get(ref.get_slice(":", 0), ""))
 	Audio.sfx(id, 0.0)
 	return id
+
+
+## The sounds of the foes who open a fight (art/audio.json "fight_sfx": monster id -> effect), each kind once: the
+## wildpyre's roar as it wakes, the Stoker's furnace roar. Returns the ids it played.
+static func fight_sounds(combatants: Array[Combatant]) -> Array[String]:
+	var own := Audio._data.get("fight_sfx", {}) as Dictionary
+	var played: Array[String] = []
+	for c in combatants:
+		if c.side != &"enemy" or not c.creature is Monster:
+			continue
+		var id := str(own.get(str((c.creature as Monster).data.get("id", "")), ""))
+		if id != "" and not played.has(id):
+			Audio.sfx(id, 0.0)
+			played.append(id)
+	return played
 
 
 ## The effect a quest ending other than a failure plays (art/audio.json "quest_sfx": quest -> effect): a soft chime as a

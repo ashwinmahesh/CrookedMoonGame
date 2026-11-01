@@ -1,8 +1,9 @@
 {
- "_note": "The Crooked Moon's music, ambience and its own effects (vault Build/Audio Plan.md), merged over the engine's art/audio.json key by key (ArtPaths.json). Recordings are free-licensed files kept in art/sourced/<pack>/ (SOURCE.md and LICENSE.md in each, credited in art/credits.json); art/sourced/audio_act1_picks.json says why each was picked. Act 1 (the Ghostlight Express) first.",
+ "_note": "The Crooked Moon's music, ambience and its own effects (vault Build/Audio Plan.md), merged over the engine's art/audio.json key by key (ArtPaths.json). Recordings are free-licensed files kept in art/sourced/<pack>/ (SOURCE.md and LICENSE.md in each, credited in art/credits.json); art/sourced/audio_act1_picks.json and audio_act2_picks.json say why each was picked. Act 1 (the Ghostlight Express), then Wickermoor, the Crooked House and Foxwillow.",
  "music": {
   "title": [
-   "res://art/sourced/incompetech_macleod/danse_macabre.ogg"
+   "res://art/sourced/incompetech_macleod/danse_macabre.ogg",
+   "res://art/sourced/incompetech_macleod/crowd_hammer.ogg"
   ],
   "hill": [
    "res://art/sourced/incompetech_macleod/southern_gothic.ogg",
@@ -31,7 +32,8 @@
    "res://art/sourced/incompetech_macleod/darkling.ogg"
   ],
   "boss": [
-   "res://art/sourced/incompetech_macleod/crusade_heavy_industry.ogg"
+   "res://art/sourced/incompetech_macleod/crusade_heavy_industry.ogg",
+   "res://art/sourced/incompetech_macleod/industrial_revolution.ogg"
   ],
   "dread": [
    "res://art/sourced/incompetech_macleod/unseen_horrors.ogg",
@@ -42,11 +44,62 @@
    "res://art/sourced/incompetech_macleod/decline.ogg"
   ],
   "last_stop": [
-   "res://art/sourced/incompetech_macleod/teller_of_the_tales.ogg"
+   "res://art/sourced/incompetech_macleod/teller_of_the_tales.ogg",
+   "res://art/sourced/incompetech_macleod/midnight_tale.ogg"
+  ],
+  "wickermoor": [
+   "res://art/sourced/incompetech_macleod/one_eyed_maestro.ogg",
+   "res://art/sourced/incompetech_macleod/netherworld_shanty.ogg",
+   "res://art/sourced/incompetech_macleod/duet_musette.ogg"
+  ],
+  "wickermoor_night": [
+   "res://art/sourced/incompetech_macleod/ghost_story.ogg",
+   "res://art/sourced/incompetech_macleod/miri_s_magic_dance.ogg"
+  ],
+  "tavern": [
+   "res://art/sourced/incompetech_macleod/galway.ogg",
+   "res://art/sourced/incompetech_macleod/fiddles_mcginty.ogg",
+   "res://art/sourced/incompetech_macleod/minstrel_guild.ogg"
+  ],
+  "church": [
+   "res://art/sourced/incompetech_macleod/agnus_dei_x.ogg",
+   "res://art/sourced/wikimedia_commons/church_mass_organ.ogg"
+  ],
+  "funeral": [
+   "res://art/sourced/incompetech_macleod/music_for_funeral_home_part_11.ogg",
+   "res://art/sourced/incompetech_macleod/dark_times.ogg"
+  ],
+  "crooked_house": [
+   "res://art/sourced/incompetech_macleod/darkest_child.ogg",
+   "res://art/sourced/incompetech_macleod/gymnopedie_no_3.ogg",
+   "res://art/sourced/incompetech_macleod/industrial_music_box.ogg"
+  ],
+  "crooked_house_combat": [
+   "res://art/sourced/incompetech_macleod/volatile_reaction.ogg",
+   "res://art/sourced/incompetech_macleod/gnarled_situation.ogg"
+  ],
+  "foxwillow": [
+   "res://art/sourced/incompetech_macleod/windswept.ogg",
+   "res://art/sourced/incompetech_macleod/lost_frontier.ogg"
+  ],
+  "foxwillow_combat": [
+   "res://art/sourced/incompetech_macleod/shamanistic.ogg",
+   "res://art/sourced/incompetech_macleod/the_descent.ogg"
+  ],
+  "maze": [
+   "res://art/sourced/incompetech_macleod/enter_the_maze.ogg",
+   "res://art/sourced/incompetech_macleod/confused_state.ogg"
+  ],
+  "mill": [
+   "res://art/sourced/incompetech_macleod/pippin_the_hunchback.ogg",
+   "res://art/sourced/incompetech_macleod/cattails.ogg"
   ]
  },
  "regions": {
-  "ghostlight_express": "train"
+  "ghostlight_express": "train",
+  "wickermoor": "wickermoor",
+  "crooked_house": "crooked_house",
+  "foxwillow": "foxwillow"
  },
  "places": {
   "ghostlight_boarding": "hill",
@@ -54,7 +107,22 @@
   "ghostlight_g4_dining": "train_lounge",
   "ghostlight_g7_circus": "circus",
   "ghostlight_limbo": "dread",
-  "ghostlight_wreckage": "wreck"
+  "ghostlight_wreckage": "wreck",
+  "fw_circle": "dread",
+  "fw_maze_dead1": "maze",
+  "fw_maze_dead2": "maze",
+  "fw_maze_dead3": "maze",
+  "fw_maze_j1": "maze",
+  "fw_maze_j2": "maze",
+  "fw_maze_j3": "maze",
+  "fw_windmill": "mill",
+  "fw_windmill_cellar": "mill",
+  "wickermoor_church": "church",
+  "wickermoor_funeral_basement": "funeral",
+  "wickermoor_funeral_home": "funeral",
+  "wickermoor_green_queen_inn": "tavern",
+  "wickermoor_green_queen_inn_upper": "tavern",
+  "wickermoor_inn_cellar": "tavern"
  },
  "place_turns": {
   "ghostlight_wreckage": [
@@ -85,10 +153,44 @@
   "gl_songstress_last_song": "sorrow",
   "gl_crash_and_moon": "dread",
   "gl_locomotive_wakes": "boss",
-  "gl_last_stop": "last_stop"
+  "gl_last_stop": "last_stop",
+  "ch_apparition_1": "dread",
+  "ch_apparition_2": "dread",
+  "ch_apparition_2_tame": "dread",
+  "ch_apparition_3": "dread",
+  "ch_house_turns": "dread",
+  "ch_portraits": "dread",
+  "ch_arthur_sleeps": "sorrow",
+  "ch_gail_freed": "sorrow",
+  "ch_petunia_ribbon": "sorrow",
+  "ch_petunia_ribbon_tame": "sorrow",
+  "ch_house_unbends": "sorrow",
+  "fw_burning": "dread",
+  "fw_mill_falls": "dread",
+  "fw_virgil_comes": "dread",
+  "fw_farewell": "sorrow",
+  "fw_coming_home": "last_stop"
  },
  "boss_music": {
-  "ghostlight_locomotive": "boss"
+  "amber_crow": "foxwillow_combat",
+  "boogleswarm": "crooked_house_combat",
+  "corvodaemon_adelaide": "foxwillow_combat",
+  "corvodaemon_split": "foxwillow_combat",
+  "crowstorm": "foxwillow_combat",
+  "ghostlight_locomotive": "boss",
+  "harvest_terror": "boss",
+  "ketgrinn": "crooked_house_combat",
+  "lurker_in_the_dark": "crooked_house_combat",
+  "marble_peacock": "crooked_house_combat",
+  "ochre_jelly": "crooked_house_combat",
+  "petunia_lockwood": "crooked_house_combat",
+  "pumpkin_head": "foxwillow_combat",
+  "quasit_bunny": "crooked_house_combat",
+  "quasit_crow": "crooked_house_combat",
+  "quasit_goat": "crooked_house_combat",
+  "vermin_familiar_weasel": "crooked_house_combat",
+  "weasel": "crooked_house_combat",
+  "weasel_hag": "crooked_house_combat"
  },
  "loops": {
   "train_interior": [
@@ -114,6 +216,48 @@
   ],
   "water": [
    "res://art/sourced/oga_stream_sounds/bed_water.ogg"
+  ],
+  "village_day": [
+   "res://art/sourced/crooked_moon_mixes/bed_village_day.ogg"
+  ],
+  "village_night": [
+   "res://art/sourced/crooked_moon_mixes/bed_village_night.ogg"
+  ],
+  "village_indoor": [
+   "res://art/sourced/crooked_moon_mixes/bed_village_indoor.ogg"
+  ],
+  "village_indoor_night": [
+   "res://art/sourced/crooked_moon_mixes/bed_village_indoor_night.ogg"
+  ],
+  "tavern": [
+   "res://art/sourced/crooked_moon_mixes/bed_tavern.ogg"
+  ],
+  "tavern_muffled": [
+   "res://art/sourced/crooked_moon_mixes/bed_tavern_muffled.ogg"
+  ],
+  "church": [
+   "res://art/sourced/crooked_moon_mixes/bed_church.ogg"
+  ],
+  "house_creaks": [
+   "res://art/sourced/crooked_moon_mixes/bed_house_creaks.ogg"
+  ],
+  "fields": [
+   "res://art/sourced/crooked_moon_mixes/bed_fields_crows.ogg"
+  ],
+  "fields_indoor": [
+   "res://art/sourced/crooked_moon_mixes/bed_fields_indoor.ogg"
+  ],
+  "windmill": [
+   "res://art/sourced/crooked_moon_mixes/bed_windmill.ogg"
+  ],
+  "windmill_cellar": [
+   "res://art/sourced/crooked_moon_mixes/bed_windmill_cellar.ogg"
+  ],
+  "maze": [
+   "res://art/sourced/crooked_moon_mixes/bed_maze.ogg"
+  ],
+  "clock_chamber": [
+   "res://art/sourced/wikimedia_wws/bed_clock_chamber.ogg"
   ]
  },
  "place_beds": {
@@ -121,16 +265,71 @@
   "ghostlight_boarding": "hill_night",
   "ghostlight_g8_tender": "boiler",
   "ghostlight_limbo": "limbo_drone",
-  "ghostlight_wreckage": "wreck_wind"
+  "ghostlight_wreckage": "wreck_wind",
+  "crooked_house": "house_creaks",
+  "druskenvald_estate": "village_day",
+  "foxwillow": "fields",
+  "fw_burnt_cottage": "fields_indoor",
+  "fw_butcher": "fields_indoor",
+  "fw_circle": "fields",
+  "fw_hall": "fields_indoor",
+  "fw_langtree_farmhouse": "fields_indoor",
+  "fw_lantern": "fields_indoor",
+  "fw_library": "fields_indoor",
+  "fw_lodge_farmhouse": "fields_indoor",
+  "fw_maze_dead1": "maze",
+  "fw_maze_dead2": "maze",
+  "fw_maze_dead3": "maze",
+  "fw_maze_j1": "maze",
+  "fw_maze_j2": "maze",
+  "fw_maze_j3": "maze",
+  "fw_sawyer_house": "fields_indoor",
+  "fw_schoolhouse": "fields_indoor",
+  "fw_smokehouse": "fields_indoor",
+  "fw_store": "fields_indoor",
+  "fw_tenant_cottage": "fields_indoor",
+  "fw_windmill": "windmill",
+  "fw_windmill_cellar": "windmill_cellar",
+  "wickermoor": "village_indoor",
+  "wickermoor_church": "church",
+  "wickermoor_clock_chamber": "clock_chamber",
+  "wickermoor_funeral_basement": "church",
+  "wickermoor_funeral_home": "church",
+  "wickermoor_green_queen_inn": "tavern",
+  "wickermoor_green_queen_inn_upper": "tavern_muffled",
+  "wickermoor_inn_cellar": "tavern_muffled",
+  "wickermoor_orchard": "village_day",
+  "wickermoor_village": "village_day"
  },
  "sfx": {
+  "anvil_far": [
+   "res://art/sourced/wikimedia_wws/anvil_far.ogg"
+  ],
   "car_door": [
    "res://art/sourced/wikimedia_wws/car_door_1.ogg",
    "res://art/sourced/wikimedia_wws/car_door_2.ogg"
   ],
+  "church_bell": [
+   "res://art/sourced/wikimedia_commons/church_bell.ogg"
+  ],
+  "clock_chime": [
+   "res://art/sourced/wikimedia_commons/clock_chime.ogg"
+  ],
   "coupler_clank": [
    "res://art/sourced/crooked_moon_mixes/coupler_clank_1.ogg",
    "res://art/sourced/oga_metal_impact_sounds/coupler_clank_2.ogg"
+  ],
+  "crow_flock": [
+   "res://art/sourced/crooked_moon_mixes/crow_flock_1.ogg",
+   "res://art/sourced/crooked_moon_mixes/crow_flock_2.ogg"
+  ],
+  "dog_bark_far": [
+   "res://art/sourced/oga_dog_barking_mono/dog_bark_far_1.ogg",
+   "res://art/sourced/oga_dog_barking_mono/dog_bark_far_2.ogg"
+  ],
+  "door_creak": [
+   "res://art/sourced/oga_creaky_light_wooden_door/door_creak_1.ogg",
+   "res://art/sourced/oga_creaky_light_wooden_door/door_creak_2.ogg"
   ],
   "fiddle": [
    "res://art/sourced/wikimedia_commons/fiddle_1.ogg",
@@ -145,20 +344,35 @@
    "res://art/sourced/oga_bell_dings/haint_rest_1.ogg",
    "res://art/sourced/oga_bell_dings/haint_rest_2.ogg"
   ],
+  "haint_whisper": [
+   "res://art/sourced/crooked_moon_mixes/haint_whisper_1.ogg",
+   "res://art/sourced/crooked_moon_mixes/haint_whisper_2.ogg",
+   "res://art/sourced/crooked_moon_mixes/haint_whisper_3.ogg"
+  ],
   "intercom": [
    "res://art/sourced/oga_frequency_static_sound_effects/intercom_1.ogg",
    "res://art/sourced/oga_frequency_static_sound_effects/intercom_2.ogg"
   ],
   "locomotive_roar": [
-   "res://art/sourced/crooked_moon_mixes/locomotive_roar.ogg"
+   "res://art/sourced/crooked_moon_mixes/locomotive_roar.ogg",
+   "res://art/sourced/crooked_moon_mixes/locomotive_roar_2.ogg",
+   "res://art/sourced/crooked_moon_mixes/locomotive_roar_3.ogg"
   ],
   "owl": [
    "res://art/sourced/wikimedia_commons/owl_1.ogg",
    "res://art/sourced/wikimedia_commons/owl_2.ogg"
   ],
+  "phantom_shriek": [
+   "res://art/sourced/oga_phantom_scream/phantom_shriek_1.ogg",
+   "res://art/sourced/crooked_moon_mixes/phantom_shriek_2.ogg"
+  ],
   "phantom_strike": [
    "res://art/sourced/oga_wind_hit_time_morph/phantom_strike_1.ogg",
    "res://art/sourced/oga_wind_hit_time_morph/phantom_strike_2.ogg"
+  ],
+  "rail_slam": [
+   "res://art/sourced/crooked_moon_mixes/rail_slam_1.ogg",
+   "res://art/sourced/crooked_moon_mixes/rail_slam_2.ogg"
   ],
   "soul_can_break": [
    "res://art/sourced/crooked_moon_mixes/soul_can_break_1.ogg",
@@ -167,10 +381,18 @@
   "soul_can_eaten": [
    "res://art/sourced/crooked_moon_mixes/soul_can_eaten.ogg"
   ],
+  "spirit_exhaust": [
+   "res://art/sourced/crooked_moon_mixes/spirit_exhaust_1.ogg",
+   "res://art/sourced/crooked_moon_mixes/spirit_exhaust_2.ogg"
+  ],
   "steam_hiss": [
    "res://art/sourced/oga_steam_release_sounds/steam_hiss_1.ogg",
    "res://art/sourced/oga_steam_release_sounds/steam_hiss_2.ogg",
    "res://art/sourced/wikimedia_wws/steam_hiss_3.ogg"
+  ],
+  "stoker_roar": [
+   "res://art/sourced/crooked_moon_mixes/stoker_roar_1.ogg",
+   "res://art/sourced/crooked_moon_mixes/stoker_roar_2.ogg"
   ],
   "ticket_punch": [
    "res://art/sourced/wikimedia_wws/ticket_punch_1.ogg",
@@ -186,10 +408,21 @@
    "res://art/sourced/oga_steam_whistle/train_whistle_2.ogg",
    "res://art/sourced/wikimedia_wws/train_whistle_1.ogg"
   ],
+  "wheel_squeal": [
+   "res://art/sourced/crooked_moon_mixes/wheel_squeal_1.ogg",
+   "res://art/sourced/crooked_moon_mixes/wheel_squeal_2.ogg"
+  ],
   "wildpyre_snarl": [
    "res://art/sourced/wikimedia_commons/wildpyre_snarl_1.ogg",
    "res://art/sourced/wikimedia_commons/wildpyre_snarl_2.ogg",
    "res://art/sourced/wikimedia_commons/wildpyre_snarl_3.ogg"
+  ],
+  "wildpyre_wake": [
+   "res://art/sourced/wikimedia_commons/wildpyre_wake_1.ogg",
+   "res://art/sourced/crooked_moon_mixes/wildpyre_wake_2.ogg"
+  ],
+  "wind_chime": [
+   "res://art/sourced/wikimedia_commons/wind_chime.ogg"
   ]
  },
  "ambient": {
@@ -201,11 +434,14 @@
   "train": [
    "train_whistle",
    "coupler_clank",
-   "steam_hiss"
+   "steam_hiss",
+   "wheel_squeal",
+   "haint_whisper"
   ],
   "train_lounge": [
    "coupler_clank",
-   "feast_clink"
+   "feast_clink",
+   "wheel_squeal"
   ],
   "circus": [
    "coupler_clank",
@@ -219,6 +455,56 @@
   "last_stop": [
    "fiddle",
    "owl"
+  ],
+  "dread": [
+   "haint_whisper",
+   "crow"
+  ],
+  "wickermoor": [
+   "crow",
+   "dog_bark_far",
+   "church_bell",
+   "anvil_far",
+   "wind_chime"
+  ],
+  "wickermoor_night": [
+   "owl",
+   "dog_bark_far",
+   "wind_chime",
+   "haint_whisper"
+  ],
+  "tavern": [
+   "feast_clink",
+   "feast_plates",
+   "fiddle"
+  ],
+  "church": [
+   "door_creak",
+   "owl",
+   "crow"
+  ],
+  "funeral": [
+   "door_creak",
+   "clock_chime"
+  ],
+  "crooked_house": [
+   "door_creak",
+   "haint_whisper",
+   "clock_chime"
+  ],
+  "foxwillow": [
+   "crow_flock",
+   "crow",
+   "dog_bark_far"
+  ],
+  "maze": [
+   "crow",
+   "crow_flock",
+   "haint_whisper"
+  ],
+  "mill": [
+   "crow",
+   "door_creak"
   ]
  },
  "scene_sfx": {
@@ -233,7 +519,8 @@
    "train_whistle"
   ],
   "gl_phantom_strikes": [
-   "phantom_strike"
+   "phantom_strike",
+   "phantom_shriek"
   ],
   "gl_phantom_strikes_2": [
    "phantom_strike"
@@ -255,10 +542,34 @@
   ],
   "gl_last_stop": [
    "train_whistle"
+  ],
+  "gl_locomotive_wakes_2": [
+   "rail_slam"
+  ],
+  "ch_apparition_1": [
+   "haint_whisper"
+  ],
+  "ch_house_turns": [
+   "door_creak"
+  ],
+  "fw_into_the_fields": [
+   "crow_flock"
+  ],
+  "fw_virgil_comes": [
+   "crow_flock"
+  ],
+  "fw_burning": [
+   "fire_whoosh"
+  ],
+  "fw_mill_falls_2": [
+   "thud_heavy"
   ]
  },
  "exit_sfx": {
-  "ghostlight_express": "car_door"
+  "ghostlight_express": "car_door",
+  "wickermoor": "door_creak",
+  "crooked_house": "door_creak",
+  "foxwillow": "door_creak"
  },
  "dialogue_sfx": {
   "ghostlight_express/vagrant_intercom": "intercom"
@@ -279,24 +590,36 @@
  },
  "combat": {
   "keys": {
-   "haunting_whistle": {
+   "ghostlight_locomotive.haunting_whistle": {
     "cast": [
      "train_whistle"
     ]
    },
-   "spirit_exhaust": {
+   "ghostlight_locomotive.spirit_exhaust": {
     "cast": [
-     "steam_hiss"
+     "spirit_exhaust"
     ]
    },
-   "flame_bind": {
+   "ghostlight_locomotive.rail_slam": {
+    "cast": [
+     "rail_slam"
+    ]
+   },
+   "wildpyre.flame_bind": {
     "cast": [
      "wildpyre_snarl"
     ]
    },
-   "blazing_rend": {
+   "corrupted_soulfire_stoker.spectral_steam": {
     "cast": [
-     "wildpyre_snarl"
+     "steam_hiss",
+     "stoker_roar@0.2"
+    ]
+   },
+   "soulfire_stoker.spectral_steam": {
+    "cast": [
+     "steam_hiss",
+     "stoker_roar@0.2"
     ]
    }
   }
@@ -304,7 +627,82 @@
  "steps": {
   "places": {
    "ghostlight_boarding": "grass",
-   "ghostlight_wreckage": "grass"
+   "ghostlight_wreckage": "grass",
+   "wickermoor_village": "dirt",
+   "foxwillow": "dirt",
+   "druskenvald_estate": "grass",
+   "fw_circle": "grass",
+   "wickermoor_church": "stone",
+   "wickermoor_funeral_basement": "stone",
+   "wickermoor_inn_cellar": "stone",
+   "wickermoor_barber_cellar": "stone",
+   "wickermoor_trading_cellar": "stone",
+   "fw_windmill_cellar": "stone"
   }
+ },
+ "region_turns": {
+  "wickermoor": [
+   {
+    "when": "hour >= 15 or hour < 7",
+    "mood": "wickermoor_night"
+   }
+  ]
+ },
+ "bed_turns": {
+  "wickermoor": [
+   {
+    "when": "hour >= 15 or hour < 7",
+    "bed": "village_indoor_night"
+   }
+  ],
+  "wickermoor_village": [
+   {
+    "when": "hour >= 15 or hour < 7",
+    "bed": "village_night"
+   }
+  ],
+  "wickermoor_orchard": [
+   {
+    "when": "hour >= 15 or hour < 7",
+    "bed": "village_night"
+   }
+  ],
+  "druskenvald_estate": [
+   {
+    "when": "hour >= 15 or hour < 7",
+    "bed": "village_night"
+   }
+  ],
+  "foxwillow": [
+   {
+    "when": "hour >= 15 or hour < 7",
+    "bed": "village_night"
+   }
+  ],
+  "fw_circle": [
+   {
+    "when": "hour >= 15 or hour < 7",
+    "bed": "village_night"
+   }
+  ]
+ },
+ "levels": {
+  "intercom": -5.0,
+  "haint_rest": -4.0,
+  "owl": -4.0,
+  "haint_whisper": -4.0,
+  "wind_chime": -7.0,
+  "dog_bark_far": -5.0,
+  "anvil_far": -7.0,
+  "clock_chime": -3.0,
+  "church_bell": -4.0,
+  "crow_flock": -3.0,
+  "wheel_squeal": -3.0
+ },
+ "fight_sfx": {
+  "wildpyre": "wildpyre_wake",
+  "corrupted_soulfire_stoker": "stoker_roar",
+  "soulfire_stoker": "stoker_roar",
+  "ghostlight_locomotive": "locomotive_roar"
  }
 }
