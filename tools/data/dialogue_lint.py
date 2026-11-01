@@ -53,6 +53,8 @@ RE_DAMAGE = re.compile(rf"^damage\s+{RE_DICE}\s+[a-z]+(?:\s+(?:party|failed))?$"
 # <type> passes; `failed` are those who missed).
 RE_EXHAUST = re.compile(r"^exhaust\s+[+-][1-6](?:\s+(?:party|failed))?$")
 # `twist +<n> [party]`: Twists of Fate for the hero in the conversation or every living hero.
+# `store_d20 <n>`: d20s rolled now and kept for the party's next fight.
+RE_STORE_D20 = re.compile(r"^store_d20\s+[1-9]\d*$")
 RE_TWIST = re.compile(r"^twist\s+\+[1-9](?:\s+party)?$")
 # `condition <Condition> <minutes> [party|failed]`: a condition for a while on the exploration clock.
 RE_TIMED_CONDITION = re.compile(r"^condition\s+(Blinded|Charmed|Deafened|Frightened|Incapacitated|Invisible|Paralyzed|Petrified|Poisoned|Prone|Restrained|Stunned|Unconscious)\s+[1-9]\d*(?:\s+(?:party|failed))?$", re.I)
@@ -378,7 +380,7 @@ def parse_file(path):
         if m:
             out["speakers"].append((m.group(1), where))
             continue
-        if RE_EXHAUST.match(line) or RE_TIMED_CONDITION.match(line) or RE_TWIST.match(line):
+        if RE_EXHAUST.match(line) or RE_TIMED_CONDITION.match(line) or RE_TWIST.match(line) or RE_STORE_D20.match(line):
             continue
         m = RE_AFFLICT.match(line)
         if m:
