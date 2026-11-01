@@ -41,9 +41,13 @@ func test_the_symptoms_that_act_in_a_fight() -> void:
 func test_the_skitter_plague() -> void:
 	var d := Compendium.shared().get_entry("afflictions", "skitter_plague")
 	assert_false(d.is_empty())
-	assert_eq([int(d["onset_hours"]), int(d["onset_exhaustion"]), bool(d["exhaustion_lock"])], [2, 1, true], "a fever that won't break")
+	assert_eq([str(d["onset_hours"]), int(d["onset_exhaustion"]), bool(d["exhaustion_lock"])], ["1d4", 1, true], "1d4 hours, then a fever that won't break")
 	assert_eq(str((d["long_rest"] as Dictionary)["max_hp_loss"]), "1d4", "blisters with every night's sleep")
 	var daily := d["daily"] as Dictionary
 	assert_eq([int(daily["hour"]), int((daily["save"] as Dictionary)["dc"]), int(daily["successes_to_end"])], [7, 15, 3],
 		"DC 15 at the Twilight Hour, three to end it")
-	assert_true("lesser_restoration" in (d["held_off_by"] as Array))
+	var sup := d["suppressed_by"] as Dictionary
+	assert_eq([(sup["spells"] as Array)[0], int(sup["hours"])], ["lesser_restoration", 24], "Lesser Restoration holds it down a day")
+	var od := d["on_death"] as Dictionary
+	assert_eq([int(od["hour"]), str(od["becomes"])], [23, "skitterswarm"], "the dead burst into a swarm at the Midnight Hour")
+	assert_false(Compendium.shared().monster_data("skitterswarm").is_empty())
