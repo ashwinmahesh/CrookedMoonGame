@@ -10,9 +10,12 @@ const GAME := preload("res://world/game_root.gd")
 func capture_shots(tool: Node, out: String) -> void:
 	var places: PackedStringArray = []
 	var sky := false
+	var travel := false
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--places="):
 			places = a.get_slice("=", 1).split(",")
+		if a == "--travel":
+			travel = true   # one more shot per place of the travel map, every place known
 		if a == "--sky":
 			sky = true   # one more shot per place with the camera tilted to the horizon: the sky and the moon in it
 	for place in places:
@@ -35,6 +38,16 @@ func capture_shots(tool: Node, out: String) -> void:
 		tool.call("_shot", "%s_%s_play.png" % [out, place])
 		var view := game.get("view") as LocationView
 		var rig := view.rig
+		if travel:
+			for p: Variant in Travel.map_data().get("places", []) as Array:
+				st.visited[str((p as Dictionary)["location"]).get_slice(":", 0)] = true
+			var t := TravelScreen.new()
+			game.add_child(t)
+			t.open_map(st, Travel.place_for_location(st.location), false)
+			await tool.call("wait_frames", 60)
+			tool.call("_shot", "%s_%s_travel.png" % [out, place])
+			t.queue_free()
+			await tool.call("wait_frames", 5)
 		if sky:
 			rig.horizon = 1.0
 			rig.horizon_shown = 1.0

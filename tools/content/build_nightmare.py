@@ -563,9 +563,9 @@ def build_travel():
         if r["id"] == "wickermoor_to_estate" and "chuckles_dead" not in r.get("when", ""):
             r["when"] = f"({r['when']}) and not flag.chuckles_dead"
     t["places"] = [x for x in t["places"] if x["id"] not in ("nm_estate", "nm_estate_ruins")] + [
-        {"id": "nm_estate", "name": "The Druskenvald Estate (crooked again)", "location": "nm_estate", "spawn": "from_village", "pos": [0.56, 0.42], "region": REGION,
+        {"id": "nm_estate", "name": "The Druskenvald Estate (crooked again)", "location": "nm_estate", "spawn": "from_village", "pos": [0.43, 0.24], "region": REGION,
          "when": f"{on} and not flag.crooked_house_destroyed", "summary": "The cleansed manor on the hill, bent crooked again and dreaming."},
-        {"id": "nm_estate_ruins", "name": "The Druskenvald Estate (in ruins)", "location": "nm_estate_ruins", "spawn": "from_village", "pos": [0.56, 0.42], "region": REGION,
+        {"id": "nm_estate_ruins", "name": "The Druskenvald Estate (in ruins)", "location": "nm_estate_ruins", "spawn": "from_village", "pos": [0.43, 0.24], "region": REGION,
          "when": "flag.crooked_house_destroyed", "summary": "A heap of wood and plaster where the Crooked House stood."}]
     t["roads"] = [x for x in t["roads"] if x["id"] not in ("wickermoor_to_nm_estate", "wickermoor_to_nm_estate_ruins")] + [
         {"id": "wickermoor_to_nm_estate", "from": "wickermoor_village", "to": "nm_estate", "hours": 1, "name": "The hill road, again", "when": f"{on} and not flag.crooked_house_destroyed"},

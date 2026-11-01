@@ -279,7 +279,7 @@ def build_travel():
     path = ROOT / "data/travel/wickermoor_hollow.json"
     t = json.loads(path.read_text())
     t["places"] = [x for x in t["places"] if x["id"] != "dawns_gate"] + [
-        {"id": "dawns_gate", "name": "Dawn's Gate", "location": "dawns_gate", "spawn": "from_road", "pos": [0.12, 0.56], "region": "dawns_gate",
+        {"id": "dawns_gate", "name": "Dawn's Gate", "location": "dawns_gate", "spawn": "from_road", "pos": [0.17, 0.57], "region": "dawns_gate",
          "when": "flag.vessla_slain or visited:dawns_gate", "summary": "A dour mining village in the Howlers' foothills, below the Crimson Monastery."}]
     t["roads"] = [x for x in t["roads"] if x["id"] != "wickermoor_to_dawns_gate"] + [
         {"id": "wickermoor_to_dawns_gate", "from": "wickermoor_village", "to": "dawns_gate", "hours": 14, "name": "The Silverbell river road",
