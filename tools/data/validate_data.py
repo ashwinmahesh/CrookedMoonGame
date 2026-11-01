@@ -1196,6 +1196,9 @@ def story_checks(data, errors, need):
             if search_props.get(pid, 0) != 1:
                 errors.append(f"narrative/{where}: reveal '{pid}' must name one hidden find (a search prop) or trap in one location"
                               f" (found {search_props.get(pid, 0)})")
+        for aid, where in p.get("afflictions", []):
+            if not (ROOT / "data" / "afflictions" / f"{aid}.json").exists():
+                errors.append(f"narrative/{where}: afflict {aid}: no data/afflictions/{aid}.json")
         for mid, where in p.get("becomes", []):
             if mid not in data["monsters"]:
                 errors.append(f"narrative/{where}: leave_party ... becomes '{mid}': no such monster")

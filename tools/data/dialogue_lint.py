@@ -73,6 +73,8 @@ RE_XP = re.compile(r"^xp\s+milestone$")
 RE_XP_FIGHT = re.compile(rf"^xp\s+fight\s+({ID})$")
 RE_SACRIFICE = re.compile(r"^sacrifice$")
 # `leave_party <speaker|selector> becomes <monster>`: a hero leaves for good, changed (the monster must exist).
+# `afflict <id> <+n|-n|clear> [party]`: levels of an affliction (data/afflictions).
+RE_AFFLICT = re.compile(rf"^afflict\s+({ID})\s+(?:[+-]\d+|clear)(?:\s+party)?$")
 RE_LEAVE_PARTY = re.compile(rf"^leave_party\s+(speaker|[a-z]+:[a-z0-9_]+)\s+becomes\s+({ID})$")
 RE_READING_GIVE = re.compile(r"^reading\s+give\s+([a-z][a-z0-9_]*(?::[a-z][a-z0-9_]*)?)$")
 RE_DARK_GIFT = re.compile(r"^dark_gift\s+([a-z][a-z0-9_]*)$")
@@ -108,7 +110,7 @@ def conditions_flags(expr):
 CONDITION_WORDS = {"true", "false", "night", "day", "indoors", "hour", "attention", "weather", "gold", "level", "check.last",
                    "graphic", "jailed", "party_alive", "party_size"}
 # `flag?.<id>` reads a flag another chapter sets: RE_FLAG_REF doesn't match it, so it needs no registration here.
-CONDITION_DOTTED = {"flag", "flag?", "quest", "quest_days", "days_since", "attitude", "approval", "tarokka", "standing"}
+CONDITION_DOTTED = {"affliction", "flag", "flag?", "quest", "quest_days", "days_since", "attitude", "approval", "tarokka", "standing"}
 CONDITION_COLONED = {"became", "final_room", "guest", "treasure_at", "gift", "gifted", "fallen", "spell", "at", "region", "option", "visited", "leader", "item",
                      "class", "species", "background", "tag", "name", "knows"}
 RE_CONDITION_TOKEN = re.compile(r'\(|\)|==|!=|>=|<=|=|>|<|"[^"]*"|[^\s()=!<>]+')
@@ -370,6 +372,10 @@ def parse_file(path):
             out["speakers"].append((m.group(1), where))
             continue
         if RE_EXHAUST.match(line):
+            continue
+        m = RE_AFFLICT.match(line)
+        if m:
+            out.setdefault("afflictions", []).append((m.group(1), where))
             continue
         m = RE_LEAVE_PARTY.match(line)
         if m:
