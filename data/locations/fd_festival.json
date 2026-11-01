@@ -1,0 +1,1689 @@
+{
+  "id": "fd_festival",
+  "name": "The Festival of Fools",
+  "region": "wickermoor",
+  "summary": "Wickermoor Village swollen to three times its size, strung with ribbon and ringing with carnival music, with no way out that stays out.",
+  "text": "The village is the wrong size. The streets twist back on themselves between buildings stuffed to the rafters with hand pies, ribbons run roof to roof in green, red and gold, and in the middle of a square that used to be round a maypole carries a grinning balloon up into the smoke of the bonfires.",
+  "map": {
+    "rows": [
+      "########################################.#######################################",
+      "########################################.#######################################",
+      "##.....................................~~~....................................##",
+      "##.....................................~~~....................................##",
+      "##..########......########......########......########......#######...........##",
+      "##..########......########......########......########......#######...........##",
+      "##..########......########......########......########......#######...........##",
+      "##..########......########......########......########......#######...........##",
+      "##..########......########......########......########......###.###...........##",
+      "##..########......########......########......########........................##",
+      "##..................###...................###.................................##",
+      "##..................###...................###.................................##",
+      "##..................###...................###.................................##",
+      "##.......###...................###...................###......................##",
+      "##.......###...................###...................###......................##",
+      "##.......###...................###...................###......................##",
+      "##..########................................................########..........##",
+      "##..########................................................########..........##",
+      "##..########................................................########..........##",
+      "##..########................................................########..........##",
+      "##..########................................................########..........##",
+      "##..########................................................########..........##",
+      "##.......###...................===...===...===................................##",
+      "##.......###..................................................................##",
+      "##.......###..................................................................##",
+      "##..............................................................###...........##",
+      "##..............................................................###...........##",
+      "##...........................=.....................=............###...........##",
+      "##...........................=.....................=........########..........##",
+      "##~~.........................=..........=..........=........########........~~##",
+      "..~~...................................=.=..................########........~~..",
+      "##~~....................................=...................########........~~##",
+      "##..........................................................########..........##",
+      "##..........................................................########..........##",
+      "##..............................................................###...........##",
+      "##..............................................................###...........##",
+      "##..............................................................###...........##",
+      "##.......###..................................................................##",
+      "##.......###....................===..........===..............................##",
+      "##.......###..................................................................##",
+      "##..########................................................########..........##",
+      "##..########................................................########..........##",
+      "##..########................................................########..........##",
+      "##..########................................................########..........##",
+      "##..########.........................=======................########..........##",
+      "##..########................................................########..........##",
+      "##.......###......########...........................###......................##",
+      "##.......###......########...........................###......................##",
+      "##.......###......########...........................###......................##",
+      "##................########......................................###...........##",
+      "##................########......................................###...........##",
+      "##................########......................................###...........##",
+      "##............................................................................##",
+      "##............................................................................##",
+      "##............................................................................##",
+      "##............................................................................##",
+      "##.....................................~~~....................................##",
+      "##.....................................~~~....................................##",
+      "########################################.#######################################",
+      "########################################.#######################################"
+    ],
+    "theme": "village",
+    "light": "bright",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "fd_streets",
+      "name": "The Absurd Streets",
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          77,
+          57
+        ]
+      ]
+    },
+    {
+      "id": "fd_square",
+      "name": "Festival Square",
+      "cells": [
+        [
+          28,
+          20
+        ],
+        [
+          52,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "fd_prize_lot",
+      "name": "The Prize Counter",
+      "cells": [
+        [
+          32,
+          42
+        ],
+        [
+          48,
+          49
+        ]
+      ]
+    },
+    {
+      "id": "fd_church_lot",
+      "name": "A shuttered door",
+      "cells": [
+        [
+          58,
+          9
+        ],
+        [
+          68,
+          11
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      6,
+      30
+    ],
+    "from_hub": [
+      6,
+      30
+    ],
+    "from_church": [
+      63,
+      10
+    ],
+    "from_ring": [
+      40,
+      36
+    ],
+    "from_roads": [
+      40,
+      36
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_church",
+      "cell": [
+        63,
+        8
+      ],
+      "to": "fd_silent_church",
+      "spawn": "from_festival",
+      "label": "A door with no sound behind it",
+      "when": "flag.fd_church_found"
+    }
+  ],
+  "props": [
+    {
+      "id": "fd_maypole",
+      "cell": [
+        40,
+        28
+      ],
+      "kind": "examine",
+      "label": "The maypole, and its grinning balloon",
+      "model": "lantern_post",
+      "scale": 3.5,
+      "tint": "#d94a3d",
+      "call": "fools_day/welcome:welcome",
+      "approach": 9,
+      "call_when": "flag.absurd_streets_seen and not flag.fd_welcomed"
+    },
+    {
+      "id": "fd_balloon",
+      "cell": [
+        40,
+        27
+      ],
+      "kind": "decor",
+      "label": "A clown balloon the size of a cart",
+      "model": "statue_head",
+      "scale": 3,
+      "tint": "#e8c23a"
+    },
+    {
+      "id": "fd_streamers",
+      "cell": [
+        38,
+        28
+      ],
+      "kind": "decor",
+      "label": "Ribbons, roof to roof",
+      "model": "bunting"
+    },
+    {
+      "id": "fd_streamers_b",
+      "cell": [
+        42,
+        28
+      ],
+      "kind": "decor",
+      "label": "Ribbons, roof to roof",
+      "model": "bunting"
+    },
+    {
+      "id": "fd_bonfire_w",
+      "cell": [
+        31,
+        30
+      ],
+      "kind": "decor",
+      "label": "A bonfire",
+      "model": "hearth"
+    },
+    {
+      "id": "fd_bonfire_e",
+      "cell": [
+        49,
+        30
+      ],
+      "kind": "decor",
+      "label": "A bonfire",
+      "model": "hearth"
+    },
+    {
+      "id": "fd_calliope",
+      "cell": [
+        34,
+        33
+      ],
+      "kind": "examine",
+      "label": "A calliope wagon",
+      "model": "cart",
+      "call": "fools_day/crowd:calliope",
+      "approach": 3,
+      "call_when": "flag.connection_apocalypse and not flag.apocalypse_calliope"
+    },
+    {
+      "id": "fd_joker_card",
+      "cell": [
+        46,
+        33
+      ],
+      "kind": "examine",
+      "label": "A gleaming joker card pinned to a stall",
+      "model": "papers",
+      "call": "fools_day/crowd:joker",
+      "approach": 3,
+      "call_when": "flag.connection_liberation and not flag.liberation_wild_joker"
+    },
+    {
+      "id": "fd_streets_herd",
+      "cell": [
+        12,
+        30
+      ],
+      "kind": "decor",
+      "label": "The crowd, closing in",
+      "call": "fools_day/welcome:streets",
+      "approach": 8,
+      "call_when": "not flag.absurd_streets_seen"
+    },
+    {
+      "id": "fd_crowd_search",
+      "cell": [
+        34,
+        25
+      ],
+      "kind": "decor",
+      "label": "The crowd of dancers",
+      "model": "scarecrow",
+      "dialogue": "fools_day/crowd:search"
+    },
+    {
+      "id": "fd_crowd_shove",
+      "cell": [
+        28,
+        25
+      ],
+      "kind": "decor",
+      "label": "Dancers shoving to the music",
+      "model": "scarecrow",
+      "dialogue": "fools_day/crowd:shove"
+    },
+    {
+      "id": "fd_parade_ground",
+      "cell": [
+        40,
+        35
+      ],
+      "kind": "decor",
+      "label": "The parade forms up",
+      "call": "fools_day/parade:begin",
+      "approach": 12,
+      "call_when": "(flag.revelers_freed >= 12 or flag.told_chuckles_hate or flag.parade_offer_taken) and not flag.parade_begun"
+    },
+    {
+      "id": "fd_unmask",
+      "cell": [
+        40,
+        32
+      ],
+      "kind": "decor",
+      "label": "Two masks, cracked down the middle",
+      "call": "fools_day/parade:unmask",
+      "approach": 12,
+      "call_when": "flag.parade_heralds_done and not flag.druskenvalds_unmasked"
+    },
+    {
+      "id": "fd_hold_door",
+      "cell": [
+        63,
+        9
+      ],
+      "kind": "decor",
+      "label": "The shuttered door",
+      "call": "fools_day/church:hold_door",
+      "approach": 6,
+      "call_when": "flag.parade_begun and flag.church_quest_asked and not flag.church_door_done"
+    },
+    {
+      "id": "fd_pie_shop_0",
+      "cell": [
+        16,
+        3
+      ],
+      "kind": "decor",
+      "label": "A building packed to the rafters with scotch eggs and hand pies",
+      "model": "crate_stack"
+    },
+    {
+      "id": "fd_pie_shop_1",
+      "cell": [
+        30,
+        15
+      ],
+      "kind": "decor",
+      "label": "A building packed to the rafters with scotch eggs and hand pies",
+      "model": "crate_stack"
+    },
+    {
+      "id": "fd_pie_shop_2",
+      "cell": [
+        58,
+        16
+      ],
+      "kind": "decor",
+      "label": "A building packed to the rafters with scotch eggs and hand pies",
+      "model": "crate_stack"
+    },
+    {
+      "id": "fd_pie_shop_3",
+      "cell": [
+        66,
+        28
+      ],
+      "kind": "decor",
+      "label": "A building packed to the rafters with scotch eggs and hand pies",
+      "model": "crate_stack"
+    },
+    {
+      "id": "fd_pie_shop_4",
+      "cell": [
+        10,
+        40
+      ],
+      "kind": "decor",
+      "label": "A building packed to the rafters with scotch eggs and hand pies",
+      "model": "crate_stack"
+    },
+    {
+      "id": "fd_pie_shop_5",
+      "cell": [
+        24,
+        52
+      ],
+      "kind": "decor",
+      "label": "A building packed to the rafters with scotch eggs and hand pies",
+      "model": "crate_stack"
+    },
+    {
+      "id": "fd_pie_shop_6",
+      "cell": [
+        58,
+        52
+      ],
+      "kind": "decor",
+      "label": "A building packed to the rafters with scotch eggs and hand pies",
+      "model": "crate_stack"
+    },
+    {
+      "id": "fd_pie_shop_7",
+      "cell": [
+        44,
+        15
+      ],
+      "kind": "decor",
+      "label": "A building packed to the rafters with scotch eggs and hand pies",
+      "model": "crate_stack"
+    },
+    {
+      "id": "fd_dancer_0",
+      "cell": [
+        14,
+        26
+      ],
+      "kind": "decor",
+      "label": "A costumed dancer, not stopping",
+      "model": "scarecrow"
+    },
+    {
+      "id": "fd_dancer_1",
+      "cell": [
+        20,
+        34
+      ],
+      "kind": "decor",
+      "label": "A costumed dancer, not stopping",
+      "model": "scarecrow"
+    },
+    {
+      "id": "fd_dancer_2",
+      "cell": [
+        26,
+        22
+      ],
+      "kind": "decor",
+      "label": "A costumed dancer, not stopping",
+      "model": "scarecrow"
+    },
+    {
+      "id": "fd_dancer_3",
+      "cell": [
+        54,
+        22
+      ],
+      "kind": "decor",
+      "label": "A costumed dancer, not stopping",
+      "model": "scarecrow"
+    },
+    {
+      "id": "fd_dancer_4",
+      "cell": [
+        60,
+        34
+      ],
+      "kind": "decor",
+      "label": "A costumed dancer, not stopping",
+      "model": "scarecrow"
+    },
+    {
+      "id": "fd_dancer_5",
+      "cell": [
+        50,
+        44
+      ],
+      "kind": "decor",
+      "label": "A costumed dancer, not stopping",
+      "model": "scarecrow"
+    },
+    {
+      "id": "fd_dancer_6",
+      "cell": [
+        22,
+        44
+      ],
+      "kind": "decor",
+      "label": "A costumed dancer, not stopping",
+      "model": "scarecrow"
+    },
+    {
+      "id": "fd_dancer_7",
+      "cell": [
+        56,
+        38
+      ],
+      "kind": "decor",
+      "label": "A costumed dancer, not stopping",
+      "model": "scarecrow"
+    },
+    {
+      "id": "fd_dancer_8",
+      "cell": [
+        46,
+        18
+      ],
+      "kind": "decor",
+      "label": "A costumed dancer, not stopping",
+      "model": "scarecrow"
+    },
+    {
+      "id": "fd_dancer_9",
+      "cell": [
+        34,
+        18
+      ],
+      "kind": "decor",
+      "label": "A costumed dancer, not stopping",
+      "model": "scarecrow"
+    },
+    {
+      "id": "fd_road_w",
+      "cell": [
+        2,
+        30
+      ],
+      "kind": "decor",
+      "label": "The road out, west",
+      "call": "fools_day/roads:attempt",
+      "approach": 2
+    },
+    {
+      "id": "fd_road_e",
+      "cell": [
+        77,
+        30
+      ],
+      "kind": "decor",
+      "label": "The road out, east",
+      "call": "fools_day/roads:attempt",
+      "approach": 2
+    },
+    {
+      "id": "fd_road_n",
+      "cell": [
+        40,
+        2
+      ],
+      "kind": "decor",
+      "label": "The road out, north",
+      "call": "fools_day/roads:attempt",
+      "approach": 2
+    },
+    {
+      "id": "fd_road_s",
+      "cell": [
+        40,
+        57
+      ],
+      "kind": "decor",
+      "label": "The road out, south",
+      "call": "fools_day/roads:attempt",
+      "approach": 2
+    },
+    {
+      "id": "fd_church_door",
+      "cell": [
+        63,
+        9
+      ],
+      "kind": "decor",
+      "label": "A shuttered door with no sound behind it",
+      "model": "door_house",
+      "when": "not flag.fd_church_found"
+    },
+    {
+      "id": "fd_booth_a",
+      "cell": [
+        31,
+        22
+      ],
+      "kind": "decor",
+      "label": "Apiary Aim",
+      "model": "bar",
+      "span": [
+        3,
+        1
+      ]
+    },
+    {
+      "id": "fd_booth_b",
+      "cell": [
+        37,
+        22
+      ],
+      "kind": "decor",
+      "label": "Bell and Ball",
+      "model": "bar",
+      "span": [
+        3,
+        1
+      ]
+    },
+    {
+      "id": "fd_booth_c",
+      "cell": [
+        43,
+        22
+      ],
+      "kind": "decor",
+      "label": "Riddles and Rhymes",
+      "model": "bar",
+      "span": [
+        3,
+        1
+      ]
+    },
+    {
+      "id": "fd_booth_d",
+      "cell": [
+        29,
+        27
+      ],
+      "kind": "decor",
+      "label": "Rhythm Hero",
+      "model": "bar",
+      "span": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "fd_booth_e",
+      "cell": [
+        51,
+        27
+      ],
+      "kind": "decor",
+      "label": "Strongarm",
+      "model": "bar",
+      "span": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "fd_booth_f",
+      "cell": [
+        32,
+        38
+      ],
+      "kind": "decor",
+      "label": "Wretched Drink",
+      "model": "bar",
+      "span": [
+        3,
+        1
+      ]
+    },
+    {
+      "id": "fd_booth_g",
+      "cell": [
+        45,
+        38
+      ],
+      "kind": "decor",
+      "label": "Puppet Theater",
+      "model": "bar",
+      "span": [
+        3,
+        1
+      ]
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "fd_host_apiary",
+      "cell": [
+        32,
+        21
+      ],
+      "dialogue": "fools_day/booths:a_start"
+    },
+    {
+      "npc": "fd_host_bell",
+      "cell": [
+        38,
+        21
+      ],
+      "dialogue": "fools_day/booths:b_start"
+    },
+    {
+      "npc": "fd_host_riddles",
+      "cell": [
+        44,
+        21
+      ],
+      "dialogue": "fools_day/booths:c_start"
+    },
+    {
+      "npc": "fd_host_rhythm",
+      "cell": [
+        28,
+        28
+      ],
+      "dialogue": "fools_day/booths:d_start"
+    },
+    {
+      "npc": "fd_host_strongarm",
+      "cell": [
+        52,
+        28
+      ],
+      "dialogue": "fools_day/booths:e_start"
+    },
+    {
+      "npc": "fd_host_drink",
+      "cell": [
+        33,
+        39
+      ],
+      "dialogue": "fools_day/booths:f_start"
+    },
+    {
+      "npc": "fd_host_puppets",
+      "cell": [
+        46,
+        39
+      ],
+      "dialogue": "fools_day/booths:g_start"
+    },
+    {
+      "npc": "ambrose_quill",
+      "cell": [
+        36,
+        27
+      ],
+      "dialogue": "fools_day/quill:festival",
+      "when": "flag.fd_welcomed"
+    },
+    {
+      "npc": "fd_understudy",
+      "cell": [
+        24,
+        37
+      ],
+      "dialogue": "fools_day/understudy:start",
+      "when": "flag.fd_welcomed"
+    },
+    {
+      "npc": "chuckles",
+      "cell": [
+        40,
+        43
+      ],
+      "dialogue": "fools_day/prize:counter",
+      "when": "flag.fd_welcomed"
+    },
+    {
+      "npc": "solomon_roderick",
+      "cell": [
+        50,
+        26
+      ],
+      "dialogue": "fools_day/reveler_bear:solomon_roderick_start",
+      "when": "flag.found_bear and not flag.reveler_solomon_roderick_freed and not flag.reveler_solomon_roderick_beaten",
+      "steps_aside": true
+    },
+    {
+      "npc": "solomon_roderick",
+      "cell": [
+        50,
+        26
+      ],
+      "dialogue": "fools_day/reveler_bear:solomon_roderick_beaten",
+      "when": "flag.reveler_solomon_roderick_beaten and not flag.reveler_solomon_roderick_freed",
+      "steps_aside": true
+    },
+    {
+      "npc": "hilda_brom",
+      "cell": [
+        50,
+        31
+      ],
+      "dialogue": "fools_day/reveler_bear:hilda_brom_start",
+      "when": "flag.found_bear and not flag.reveler_hilda_brom_freed and not flag.reveler_hilda_brom_beaten",
+      "steps_aside": true
+    },
+    {
+      "npc": "hilda_brom",
+      "cell": [
+        50,
+        31
+      ],
+      "dialogue": "fools_day/reveler_bear:hilda_brom_beaten",
+      "when": "flag.reveler_hilda_brom_beaten and not flag.reveler_hilda_brom_freed",
+      "steps_aside": true
+    },
+    {
+      "npc": "wendel_somerton",
+      "cell": [
+        44,
+        37
+      ],
+      "dialogue": "fools_day/reveler_flag:wendel_somerton_start",
+      "when": "flag.found_flag and not flag.connection_ascendancy and not flag.connection_immortality and not flag.reveler_wendel_somerton_freed and not flag.reveler_wendel_somerton_beaten",
+      "steps_aside": true
+    },
+    {
+      "npc": "wendel_somerton",
+      "cell": [
+        44,
+        37
+      ],
+      "dialogue": "fools_day/reveler_flag:wendel_somerton_beaten",
+      "when": "not flag.connection_ascendancy and not flag.connection_immortality and flag.reveler_wendel_somerton_beaten and not flag.reveler_wendel_somerton_freed",
+      "steps_aside": true
+    },
+    {
+      "npc": "alda_farnum",
+      "cell": [
+        44,
+        37
+      ],
+      "dialogue": "fools_day/reveler_flag:alda_farnum_start",
+      "when": "flag.found_flag and flag.connection_ascendancy and not flag.reveler_alda_farnum_freed and not flag.reveler_alda_farnum_beaten",
+      "steps_aside": true
+    },
+    {
+      "npc": "alda_farnum",
+      "cell": [
+        44,
+        37
+      ],
+      "dialogue": "fools_day/reveler_flag:alda_farnum_beaten",
+      "when": "flag.connection_ascendancy and flag.reveler_alda_farnum_beaten and not flag.reveler_alda_farnum_freed",
+      "steps_aside": true
+    },
+    {
+      "npc": "jean_myriel",
+      "cell": [
+        44,
+        37
+      ],
+      "dialogue": "fools_day/reveler_flag:jean_myriel_start",
+      "when": "flag.found_flag and flag.connection_immortality and not flag.connection_ascendancy and not flag.reveler_jean_myriel_freed and not flag.reveler_jean_myriel_beaten",
+      "steps_aside": true
+    },
+    {
+      "npc": "jean_myriel",
+      "cell": [
+        44,
+        37
+      ],
+      "dialogue": "fools_day/reveler_flag:jean_myriel_beaten",
+      "when": "flag.connection_immortality and not flag.connection_ascendancy and flag.reveler_jean_myriel_beaten and not flag.reveler_jean_myriel_freed",
+      "steps_aside": true
+    },
+    {
+      "npc": "finneas_trout",
+      "cell": [
+        42,
+        23
+      ],
+      "dialogue": "fools_day/reveler_knight:finneas_trout_start",
+      "when": "flag.found_knight and not flag.reveler_finneas_trout_freed and not flag.reveler_finneas_trout_beaten",
+      "steps_aside": true
+    },
+    {
+      "npc": "finneas_trout",
+      "cell": [
+        42,
+        23
+      ],
+      "dialogue": "fools_day/reveler_knight:finneas_trout_beaten",
+      "when": "flag.reveler_finneas_trout_beaten and not flag.reveler_finneas_trout_freed",
+      "steps_aside": true
+    },
+    {
+      "npc": "eleanor_heyling",
+      "cell": [
+        47,
+        23
+      ],
+      "dialogue": "fools_day/reveler_knight:eleanor_heyling_start",
+      "when": "flag.found_knight and not flag.reveler_eleanor_heyling_freed and not flag.reveler_eleanor_heyling_beaten",
+      "steps_aside": true
+    },
+    {
+      "npc": "eleanor_heyling",
+      "cell": [
+        47,
+        23
+      ],
+      "dialogue": "fools_day/reveler_knight:eleanor_heyling_beaten",
+      "when": "flag.reveler_eleanor_heyling_beaten and not flag.reveler_eleanor_heyling_freed",
+      "steps_aside": true
+    },
+    {
+      "npc": "doris_squire",
+      "cell": [
+        36,
+        23
+      ],
+      "dialogue": "fools_day/reveler_bell:doris_squire_start",
+      "when": "flag.found_bell and not flag.reveler_doris_squire_freed and not flag.reveler_doris_squire_beaten",
+      "steps_aside": true
+    },
+    {
+      "npc": "doris_squire",
+      "cell": [
+        36,
+        23
+      ],
+      "dialogue": "fools_day/reveler_bell:doris_squire_beaten",
+      "when": "flag.reveler_doris_squire_beaten and not flag.reveler_doris_squire_freed",
+      "steps_aside": true
+    },
+    {
+      "npc": "weston_murdoch",
+      "cell": [
+        40,
+        23
+      ],
+      "dialogue": "fools_day/reveler_bell:weston_murdoch_start",
+      "when": "flag.found_bell and not flag.reveler_weston_murdoch_freed and not flag.reveler_weston_murdoch_beaten",
+      "steps_aside": true
+    },
+    {
+      "npc": "weston_murdoch",
+      "cell": [
+        40,
+        23
+      ],
+      "dialogue": "fools_day/reveler_bell:weston_murdoch_beaten",
+      "when": "flag.reveler_weston_murdoch_beaten and not flag.reveler_weston_murdoch_freed",
+      "steps_aside": true
+    },
+    {
+      "npc": "holly_aster",
+      "cell": [
+        31,
+        37
+      ],
+      "dialogue": "fools_day/reveler_hut:holly_aster_start",
+      "when": "flag.found_hut and not (flag.connection_evolution and not flag.connection_liberation) and not flag.reveler_holly_aster_freed and not flag.reveler_holly_aster_beaten",
+      "steps_aside": true
+    },
+    {
+      "npc": "holly_aster",
+      "cell": [
+        31,
+        37
+      ],
+      "dialogue": "fools_day/reveler_hut:holly_aster_beaten",
+      "when": "not (flag.connection_evolution and not flag.connection_liberation) and flag.reveler_holly_aster_beaten and not flag.reveler_holly_aster_freed",
+      "steps_aside": true
+    },
+    {
+      "npc": "thomasin_ardor",
+      "cell": [
+        31,
+        37
+      ],
+      "dialogue": "fools_day/reveler_hut:thomasin_ardor_start",
+      "when": "flag.found_hut and flag.connection_evolution and not flag.connection_liberation and not flag.reveler_thomasin_ardor_freed and not flag.reveler_thomasin_ardor_beaten",
+      "steps_aside": true
+    },
+    {
+      "npc": "thomasin_ardor",
+      "cell": [
+        31,
+        37
+      ],
+      "dialogue": "fools_day/reveler_hut:thomasin_ardor_beaten",
+      "when": "flag.connection_evolution and not flag.connection_liberation and flag.reveler_thomasin_ardor_beaten and not flag.reveler_thomasin_ardor_freed",
+      "steps_aside": true
+    },
+    {
+      "npc": "morgan",
+      "cell": [
+        30,
+        23
+      ],
+      "dialogue": "fools_day/reveler_hive:morgan_start",
+      "when": "flag.found_hive and not flag.reveler_morgan_freed and not flag.reveler_morgan_beaten",
+      "steps_aside": true
+    },
+    {
+      "npc": "morgan",
+      "cell": [
+        30,
+        23
+      ],
+      "dialogue": "fools_day/reveler_hive:morgan_beaten",
+      "when": "flag.reveler_morgan_beaten and not flag.reveler_morgan_freed",
+      "steps_aside": true
+    },
+    {
+      "npc": "baltus_tolliver",
+      "cell": [
+        35,
+        23
+      ],
+      "dialogue": "fools_day/reveler_hive:baltus_tolliver_start",
+      "when": "flag.found_hive and not flag.reveler_baltus_tolliver_freed and not flag.reveler_baltus_tolliver_beaten",
+      "steps_aside": true
+    },
+    {
+      "npc": "baltus_tolliver",
+      "cell": [
+        35,
+        23
+      ],
+      "dialogue": "fools_day/reveler_hive:baltus_tolliver_beaten",
+      "when": "flag.reveler_baltus_tolliver_beaten and not flag.reveler_baltus_tolliver_freed",
+      "steps_aside": true
+    },
+    {
+      "npc": "old_rusty",
+      "cell": [
+        30,
+        26
+      ],
+      "dialogue": "fools_day/reveler_stork:old_rusty_start",
+      "when": "flag.found_stork and not flag.reveler_old_rusty_freed and not flag.reveler_old_rusty_beaten",
+      "steps_aside": true
+    },
+    {
+      "npc": "old_rusty",
+      "cell": [
+        30,
+        26
+      ],
+      "dialogue": "fools_day/reveler_stork:old_rusty_beaten",
+      "when": "flag.reveler_old_rusty_beaten and not flag.reveler_old_rusty_freed",
+      "steps_aside": true
+    },
+    {
+      "npc": "sister_rain",
+      "cell": [
+        30,
+        31
+      ],
+      "dialogue": "fools_day/reveler_stork:sister_rain_start",
+      "when": "flag.found_stork and not flag.reveler_sister_rain_freed and not flag.reveler_sister_rain_beaten",
+      "steps_aside": true
+    },
+    {
+      "npc": "sister_rain",
+      "cell": [
+        30,
+        31
+      ],
+      "dialogue": "fools_day/reveler_stork:sister_rain_beaten",
+      "when": "flag.reveler_sister_rain_beaten and not flag.reveler_sister_rain_freed",
+      "steps_aside": true
+    }
+  ],
+  "encounters": [
+    {
+      "id": "booth_a",
+      "trigger": "dialogue",
+      "flag": "booth_a_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_song_drone",
+          "cell": [
+            32,
+            24
+          ],
+          "name": "The Beekeeper"
+        }
+      ]
+    },
+    {
+      "id": "booth_b",
+      "trigger": "dialogue",
+      "flag": "booth_b_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_song_bell",
+          "cell": [
+            38,
+            24
+          ],
+          "name": "The Bell Sewer"
+        }
+      ]
+    },
+    {
+      "id": "booth_c",
+      "trigger": "dialogue",
+      "flag": "booth_c_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_stories_hero",
+          "cell": [
+            44,
+            24
+          ],
+          "name": "The Blinkered Rider"
+        }
+      ]
+    },
+    {
+      "id": "booth_d",
+      "trigger": "dialogue",
+      "flag": "booth_d_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_song_drum",
+          "cell": [
+            28,
+            28
+          ],
+          "name": "The Stilted Drummer"
+        }
+      ]
+    },
+    {
+      "id": "booth_e",
+      "trigger": "dialogue",
+      "flag": "booth_e_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            52,
+            28
+          ],
+          "name": "The Horned Bear"
+        }
+      ]
+    },
+    {
+      "id": "booth_f",
+      "trigger": "dialogue",
+      "flag": "booth_f_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_stories_witch",
+          "cell": [
+            33,
+            36
+          ],
+          "name": "The Hen-Legged Hostess"
+        }
+      ]
+    },
+    {
+      "id": "booth_g",
+      "trigger": "dialogue",
+      "flag": "booth_g_beaten",
+      "monsters": [
+        {
+          "monster": "herald_of_fools",
+          "cell": [
+            46,
+            36
+          ],
+          "name": "The Puppet Master"
+        }
+      ]
+    },
+    {
+      "id": "reveler_solomon_roderick",
+      "trigger": "dialogue",
+      "flag": "reveler_solomon_roderick_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            50,
+            28
+          ],
+          "name": "Solomon Roderick, in costume",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "reveler_hilda_brom",
+      "trigger": "dialogue",
+      "flag": "reveler_hilda_brom_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            50,
+            33
+          ],
+          "name": "Hilda Brom, in costume",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "reveler_wendel_somerton",
+      "trigger": "dialogue",
+      "flag": "reveler_wendel_somerton_beaten",
+      "monsters": [
+        {
+          "monster": "herald_of_fools",
+          "cell": [
+            44,
+            39
+          ],
+          "name": "Wendel Somerton, in costume",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "reveler_alda_farnum",
+      "trigger": "dialogue",
+      "flag": "reveler_alda_farnum_beaten",
+      "monsters": [
+        {
+          "monster": "herald_of_fools",
+          "cell": [
+            44,
+            39
+          ],
+          "name": "Alda Farnum, in costume",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "reveler_jean_myriel",
+      "trigger": "dialogue",
+      "flag": "reveler_jean_myriel_beaten",
+      "monsters": [
+        {
+          "monster": "herald_of_fools",
+          "cell": [
+            44,
+            39
+          ],
+          "name": "Jean Myriel, in costume",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "reveler_finneas_trout",
+      "trigger": "dialogue",
+      "flag": "reveler_finneas_trout_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_stories_hero",
+          "cell": [
+            42,
+            25
+          ],
+          "name": "Finneas Trout, in costume",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "reveler_eleanor_heyling",
+      "trigger": "dialogue",
+      "flag": "reveler_eleanor_heyling_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_stories_hero",
+          "cell": [
+            47,
+            25
+          ],
+          "name": "Eleanor Heyling, in costume",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "reveler_doris_squire",
+      "trigger": "dialogue",
+      "flag": "reveler_doris_squire_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_song_bell",
+          "cell": [
+            36,
+            25
+          ],
+          "name": "Doris Squire, in costume",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "reveler_weston_murdoch",
+      "trigger": "dialogue",
+      "flag": "reveler_weston_murdoch_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_song_bell",
+          "cell": [
+            40,
+            25
+          ],
+          "name": "Weston Murdoch, in costume",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "reveler_holly_aster",
+      "trigger": "dialogue",
+      "flag": "reveler_holly_aster_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_stories_witch",
+          "cell": [
+            31,
+            39
+          ],
+          "name": "Holly Aster, in costume",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "reveler_thomasin_ardor",
+      "trigger": "dialogue",
+      "flag": "reveler_thomasin_ardor_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_stories_witch",
+          "cell": [
+            31,
+            39
+          ],
+          "name": "Thomasin Ardor, in costume",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "reveler_morgan",
+      "trigger": "dialogue",
+      "flag": "reveler_morgan_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_song_drone",
+          "cell": [
+            30,
+            25
+          ],
+          "name": "Morgan, in costume",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "reveler_baltus_tolliver",
+      "trigger": "dialogue",
+      "flag": "reveler_baltus_tolliver_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_song_drone",
+          "cell": [
+            35,
+            25
+          ],
+          "name": "Baltus Tolliver, in costume",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "reveler_old_rusty",
+      "trigger": "dialogue",
+      "flag": "reveler_old_rusty_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_song_drum",
+          "cell": [
+            30,
+            28
+          ],
+          "name": "Old Rusty, in costume",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "reveler_sister_rain",
+      "trigger": "dialogue",
+      "flag": "reveler_sister_rain_beaten",
+      "monsters": [
+        {
+          "monster": "reveler_of_song_drum",
+          "cell": [
+            30,
+            33
+          ],
+          "name": "Sister Rain, in costume",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "follow_follow_brawl",
+      "trigger": "dialogue",
+      "flag": "fd_brawl_done",
+      "monsters": [
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            14,
+            30
+          ],
+          "name": "A dancer in a bear's head",
+          "facing": "west"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "brawl_0",
+          "name": "Another dancer joins",
+          "summary": "The crowd sends another costume to herd you.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "reveler_of_song_drone",
+          "count": 1,
+          "side": "enemies",
+          "cells": [
+            [
+              12,
+              28
+            ],
+            [
+              12,
+              32
+            ]
+          ],
+          "at": 20,
+          "every": 1,
+          "from_round": 2,
+          "times": 1,
+          "say": "fd_brawl_join"
+        },
+        {
+          "id": "brawl_1",
+          "name": "Another dancer joins",
+          "summary": "The crowd sends another costume to herd you.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "reveler_of_stories_hero",
+          "count": 1,
+          "side": "enemies",
+          "cells": [
+            [
+              12,
+              28
+            ],
+            [
+              12,
+              32
+            ]
+          ],
+          "at": 20,
+          "every": 1,
+          "from_round": 3,
+          "times": 1,
+          "say": "fd_brawl_join"
+        },
+        {
+          "id": "brawl_2",
+          "name": "Another dancer joins",
+          "summary": "The crowd sends another costume to herd you.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "reveler_of_song_drum",
+          "count": 1,
+          "side": "enemies",
+          "cells": [
+            [
+              12,
+              28
+            ],
+            [
+              12,
+              32
+            ]
+          ],
+          "at": 20,
+          "every": 1,
+          "from_round": 4,
+          "times": 1,
+          "say": "fd_brawl_join"
+        },
+        {
+          "id": "brawl_3",
+          "name": "Another dancer joins",
+          "summary": "The crowd sends another costume to herd you.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "reveler_of_stories_witch",
+          "count": 1,
+          "side": "enemies",
+          "cells": [
+            [
+              12,
+              28
+            ],
+            [
+              12,
+              32
+            ]
+          ],
+          "at": 20,
+          "every": 1,
+          "from_round": 5,
+          "times": 1,
+          "say": "fd_brawl_join"
+        },
+        {
+          "id": "brawl_4",
+          "name": "Another dancer joins",
+          "summary": "The crowd sends another costume to herd you.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "reveler_of_song_bell",
+          "count": 1,
+          "side": "enemies",
+          "cells": [
+            [
+              12,
+              28
+            ],
+            [
+              12,
+              32
+            ]
+          ],
+          "at": 20,
+          "every": 1,
+          "from_round": 6,
+          "times": 1,
+          "say": "fd_brawl_join"
+        },
+        {
+          "id": "brawl_5",
+          "name": "Another dancer joins",
+          "summary": "The crowd sends another costume to herd you.",
+          "kind": "summon",
+          "affects": "enemies",
+          "monster": "herald_of_fools",
+          "count": 1,
+          "side": "enemies",
+          "cells": [
+            [
+              12,
+              28
+            ],
+            [
+              12,
+              32
+            ]
+          ],
+          "at": 20,
+          "every": 1,
+          "from_round": 7,
+          "times": 1,
+          "say": "fd_brawl_join"
+        }
+      ]
+    },
+    {
+      "id": "parade_heralds",
+      "trigger": "dialogue",
+      "flag": "parade_heralds_done",
+      "quest": {
+        "id": "fools_day",
+        "stage": "heralds_unmasked"
+      },
+      "monsters": [
+        {
+          "monster": "herald_of_fools",
+          "cell": [
+            38,
+            33
+          ],
+          "name": "Phillip, Herald of Fools, masked",
+          "facing": "south"
+        },
+        {
+          "monster": "herald_of_fools",
+          "cell": [
+            42,
+            33
+          ],
+          "name": "Adela, Herald of Fools, masked",
+          "facing": "south"
+        }
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        31,
+        30
+      ],
+      "kind": "fire",
+      "bright_ft": 40,
+      "dim_ft": 80,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        49,
+        30
+      ],
+      "kind": "fire",
+      "bright_ft": 40,
+      "dim_ft": 80,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        40,
+        24
+      ],
+      "kind": "fire",
+      "bright_ft": 40,
+      "dim_ft": 80,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        40,
+        36
+      ],
+      "kind": "fire",
+      "bright_ft": 40,
+      "dim_ft": 80,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        40,
+        44
+      ],
+      "kind": "fire",
+      "bright_ft": 40,
+      "dim_ft": 80,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        20,
+        30
+      ],
+      "kind": "fire",
+      "bright_ft": 40,
+      "dim_ft": 80,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        60,
+        30
+      ],
+      "kind": "fire",
+      "bright_ft": 40,
+      "dim_ft": 80,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        40,
+        10
+      ],
+      "kind": "fire",
+      "bright_ft": 40,
+      "dim_ft": 80,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        40,
+        52
+      ],
+      "kind": "fire",
+      "bright_ft": 40,
+      "dim_ft": 80,
+      "color": "ember"
+    }
+  ],
+  "doors": [],
+  "rest": "no",
+  "rest_text": "Nobody can sleep in the festival, however tired they are: not by drink, not by spell. The only place that lets you is a quiet church."
+}

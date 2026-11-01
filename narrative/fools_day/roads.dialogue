@@ -1,0 +1,58 @@
+# Drafted by Gemini (R21 roads), edited.
+
+~ attempt
+Narrator: You set your boots toward the edge of the village, where the cart-track ought to run out into the dark moor.
+if not flag.fd_church_found
+-> first
+elif flag.roads_failures >= 3
+-> offer
+else
+-> try
+endif
+
+~ first
+Narrator: The lane bends round a row of grinning lanterns, then bends again, and sets you down before a shuttered church door with no sound at all behind it.
+set fd_church_found
+move fd_silent_church:from_festival
+-> END
+
+~ try
+Narrator: Strings of red and yellow bunting sway across the ditch ahead, and the smell of hot lard and scorched sugar hangs thick over the ruts.
+* [Survival DC 20] Find the true road out -> escape | escape_fail
+* [Investigation DC 20] Study the loop for the seam -> escape | escape_fail
+* Turn back -> END
+
+~ escape
+Narrator: Between two painted posts {name} spots a gap in the bunting where the reed-pipes thin to nothing. Beyond it lies the village at its ordinary size, while the festival waits behind you like a held breath.
+set left_festival
+set fd_away = 1
+move wickermoor_village:default
+-> END
+
+~ escape_fail
+Narrator: You walk hard for ten minutes by the stars, only for the hedgerow to curl back into the square, where the ribbon-dancers wave their greasy hand pies in welcome.
+set roads_failures += 1
+if flag.roads_failures >= 3
+-> offer
+endif
+move fd_festival:from_roads
+-> END
+
+~ offer
+Narrator: A bladder-stick prods your elbow, and a smell of vinegar and sawdust rises from the cobbles.
+chuckles [sly]: Leaving so soon, hip-hip-heroes? Sick-sick of poor Chuckles and his little games? Say the wordy-word and we can skip right to the grand parade!
+* Yes, take us to the parade -> offer_yes
+* No. -> offer_no
+
+~ offer_yes
+set parade_offer_taken
+quest fools_day parade
+chuckles [smile]: Wheee-hee! Strike up the brass, boys, the guests of honour are ready for their fun-fun!
+move fd_festival:from_roads
+-> END
+
+~ offer_no
+set roads_failures = 0
+chuckles [sad]: Awww, spoil-sports! Back to the booths you toddle, then, until your little feet give out!
+move fd_festival:from_roads
+-> END

@@ -1047,6 +1047,16 @@
   "name": "Wickermoor Village",
   "npcs": [
     {
+      "npc": "bess_crumley",
+      "cell": [
+        30,
+        14
+      ],
+      "dialogue": "fools_day/hook:messenger",
+      "when": "flag.golub_dead and not flag.fools_letter_given",
+      "approach": 12
+    },
+    {
       "npc": "adela_druskenvald",
       "cell": [
         30,
@@ -1636,6 +1646,90 @@
     }
   ],
   "props": [
+    {
+      "id": "wm_fd_takeover_a",
+      "cell": [
+        7,
+        21
+      ],
+      "kind": "decor",
+      "label": "The village, swelling",
+      "call": "fools_day/hook:takeover",
+      "approach": 12,
+      "call_when": "flag.festival_active and not flag.shows_over and not flag.fd_away"
+    },
+    {
+      "id": "wm_fd_takeover_b",
+      "cell": [
+        30,
+        3
+      ],
+      "kind": "decor",
+      "label": "The village, swelling",
+      "call": "fools_day/hook:takeover",
+      "approach": 12,
+      "call_when": "flag.festival_active and not flag.shows_over and not flag.fd_away"
+    },
+    {
+      "id": "wm_fd_takeover_c",
+      "cell": [
+        30,
+        44
+      ],
+      "kind": "decor",
+      "label": "The village, swelling",
+      "call": "fools_day/hook:takeover",
+      "approach": 12,
+      "call_when": "flag.festival_active and not flag.shows_over and not flag.fd_away"
+    },
+    {
+      "id": "wm_fd_takeover_d",
+      "cell": [
+        14,
+        12
+      ],
+      "kind": "decor",
+      "label": "The village, swelling",
+      "call": "fools_day/hook:takeover",
+      "approach": 12,
+      "call_when": "flag.festival_active and not flag.shows_over and not flag.fd_away"
+    },
+    {
+      "id": "wm_fd_takeover_e",
+      "cell": [
+        46,
+        22
+      ],
+      "kind": "decor",
+      "label": "The village, swelling",
+      "call": "fools_day/hook:takeover",
+      "approach": 12,
+      "call_when": "flag.festival_active and not flag.shows_over and not flag.fd_away"
+    },
+    {
+      "id": "wm_fd_takeover_f",
+      "cell": [
+        22,
+        36
+      ],
+      "kind": "decor",
+      "label": "The village, swelling",
+      "call": "fools_day/hook:takeover",
+      "approach": 12,
+      "call_when": "flag.festival_active and not flag.shows_over and not flag.fd_away"
+    },
+    {
+      "id": "wm_fd_return",
+      "cell": [
+        31,
+        26
+      ],
+      "kind": "decor",
+      "label": "Carnival music, just past the last house",
+      "call": "fools_day/hook:return_gate",
+      "approach": 4,
+      "call_when": "flag.festival_active and not flag.shows_over and flag.fd_away"
+    },
     {
       "id": "wm_statue",
       "cell": [

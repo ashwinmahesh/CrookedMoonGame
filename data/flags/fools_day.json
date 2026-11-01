@@ -1,0 +1,826 @@
+{
+  "flags": [
+    {
+      "id": "golub_dead",
+      "type": "bool",
+      "summary": "Golub Graygullet is dead (the Roving Rookery); Chuckles's letter waits on it.",
+      "read_later": true
+    },
+    {
+      "id": "fools_letter_given",
+      "type": "bool",
+      "summary": "The dying bell reveler has handed over Chuckles's letter.",
+      "read_later": true
+    },
+    {
+      "id": "bess_dead",
+      "type": "bool",
+      "summary": "Bess Crumley is dead in a coat of bells.",
+      "read_later": true
+    },
+    {
+      "id": "festival_active",
+      "type": "bool",
+      "summary": "The Festival of Fools has taken over Wickermoor.",
+      "read_later": true
+    },
+    {
+      "id": "fd_away",
+      "type": "int",
+      "summary": "1 while the party has fled the festival and the hub is ordinary for now, 0 when they step back in.",
+      "read_later": true
+    },
+    {
+      "id": "absurd_streets_seen",
+      "type": "bool",
+      "summary": "The party has been herded out of the Absurd Streets.",
+      "read_later": true
+    },
+    {
+      "id": "fd_brawl_done",
+      "type": "bool",
+      "summary": "The follow-the-crowd brawl is over.",
+      "read_later": true
+    },
+    {
+      "id": "fd_resisted",
+      "type": "bool",
+      "summary": "The party resisted the crowd.",
+      "read_later": true
+    },
+    {
+      "id": "fd_welcomed",
+      "type": "bool",
+      "summary": "Chuckles has welcomed the party and laid out the game.",
+      "read_later": true
+    },
+    {
+      "id": "parade_offer_taken",
+      "type": "bool",
+      "summary": "The party said yes to Chuckles's offer to skip to the parade.",
+      "read_later": true
+    },
+    {
+      "id": "parade_begun",
+      "type": "bool",
+      "summary": "The Parade of Fools has begun.",
+      "read_later": true
+    },
+    {
+      "id": "parade_heralds_done",
+      "type": "bool",
+      "summary": "The two Heralds are beaten.",
+      "read_later": true
+    },
+    {
+      "id": "druskenvalds_unmasked",
+      "type": "bool",
+      "summary": "Phillip and Adela's masks cracked.",
+      "read_later": true
+    },
+    {
+      "id": "ring_started",
+      "type": "bool",
+      "summary": "The Ring of Fools fight has begun.",
+      "read_later": true
+    },
+    {
+      "id": "ring_of_fools_done",
+      "type": "bool",
+      "summary": "The Lord of Fools is dead.",
+      "read_later": true
+    },
+    {
+      "id": "chuckles_dead",
+      "type": "bool",
+      "summary": "Chuckles is dead; the Magician card pays out.",
+      "read_later": true
+    },
+    {
+      "id": "marotte_found",
+      "type": "bool",
+      "summary": "The Marotte of the Lord of Fools was taken from the dead marionette.",
+      "read_later": true
+    },
+    {
+      "id": "shows_over",
+      "type": "bool",
+      "summary": "The festival is over, the town shrunk back.",
+      "read_later": true
+    },
+    {
+      "id": "fool_tickets",
+      "type": "int",
+      "summary": "Carnival tickets the party holds.",
+      "read_later": true
+    },
+    {
+      "id": "revelers_bought",
+      "type": "int",
+      "summary": "Release slips bought at the Prize Counter; each makes the next dearer.",
+      "read_later": true
+    },
+    {
+      "id": "release_slips",
+      "type": "int",
+      "summary": "Release slips in hand, each good for one reveler.",
+      "read_later": true
+    },
+    {
+      "id": "revelers_freed",
+      "type": "int",
+      "summary": "Forced revelers freed, 0 to 12.",
+      "read_later": true
+    },
+    {
+      "id": "church_guests",
+      "type": "int",
+      "summary": "Revelers or villagers brought to the Silent Church.",
+      "read_later": true
+    },
+    {
+      "id": "told_chuckles_hate",
+      "type": "bool",
+      "summary": "The party told Chuckles to his face that they hate him; the parade begins now.",
+      "read_later": true
+    },
+    {
+      "id": "refused_to_hate",
+      "type": "bool",
+      "summary": "The party pitied Chuckles aloud and would not hate him.",
+      "read_later": true
+    },
+    {
+      "id": "left_festival",
+      "type": "bool",
+      "summary": "The party escaped the festival by the roads out.",
+      "read_later": true
+    },
+    {
+      "id": "roads_failures",
+      "type": "int",
+      "summary": "Failed attempts on the roads out.",
+      "read_later": true
+    },
+    {
+      "id": "fd_church_found",
+      "type": "bool",
+      "summary": "The first road out landed the party at the Silent Church.",
+      "read_later": true
+    },
+    {
+      "id": "man_in_marble_met",
+      "type": "bool",
+      "summary": "The Man in Marble has asked who the party is.",
+      "read_later": true
+    },
+    {
+      "id": "church_rest_taken",
+      "type": "bool",
+      "summary": "The party rested in the Silent Church.",
+      "read_later": true
+    },
+    {
+      "id": "church_quest_asked",
+      "type": "bool",
+      "summary": "The Man in Marble asked for villagers.",
+      "read_later": true
+    },
+    {
+      "id": "church_door_done",
+      "type": "bool",
+      "summary": "The church door's moment has passed.",
+      "read_later": true
+    },
+    {
+      "id": "apocalypse_calliope",
+      "type": "bool",
+      "summary": "The party pressed the calliope's moon button (Apocalypse).",
+      "read_later": true
+    },
+    {
+      "id": "liberation_wild_joker",
+      "type": "bool",
+      "summary": "The party's shadow took the joker card (Liberation).",
+      "read_later": true
+    },
+    {
+      "id": "ascendancy_fool_reborn",
+      "type": "bool",
+      "summary": "The party's spectral fool took the marionette (Ascendancy).",
+      "read_later": true
+    },
+    {
+      "id": "fd_searched",
+      "type": "int",
+      "summary": "How many hours the party has searched the crowd.",
+      "read_later": true
+    },
+    {
+      "id": "fd_chuckles_amused",
+      "type": "bool",
+      "summary": "A failed attempt at the revelers made Chuckles laugh.",
+      "read_later": true
+    },
+    {
+      "id": "bell_tune_known",
+      "type": "bool",
+      "summary": "The party knows how the Bell's tune ends.",
+      "read_later": true
+    },
+    {
+      "id": "bell_tune_banjo",
+      "type": "bool",
+      "summary": "The Bell's tune was finished on Jericho's banjo.",
+      "read_later": true
+    },
+    {
+      "id": "understudy_outcome",
+      "type": "string",
+      "summary": "How Barnaby Tuppence's claim ended.",
+      "read_later": true
+    },
+    {
+      "id": "stork_letter_outcome",
+      "type": "string",
+      "summary": "How Bess's letter reached Old Rusty.",
+      "read_later": true
+    },
+    {
+      "id": "quill_costume_matches",
+      "type": "int",
+      "summary": "Troupe members Quill's program has right.",
+      "read_later": true
+    },
+    {
+      "id": "twelve_costumes_done",
+      "type": "bool",
+      "summary": "Quill's program is matched.",
+      "read_later": true
+    },
+    {
+      "id": "fd_darts_hits",
+      "type": "int",
+      "summary": "Darts that landed this round.",
+      "read_later": true
+    },
+    {
+      "id": "fd_beats_ok",
+      "type": "int",
+      "summary": "Drum beats answered.",
+      "read_later": true
+    },
+    {
+      "id": "fd_beats_bad",
+      "type": "int",
+      "summary": "Drum beats missed.",
+      "read_later": true
+    },
+    {
+      "id": "fd_drinks",
+      "type": "int",
+      "summary": "Cups drunk at the Wretched Drink booth.",
+      "read_later": true
+    },
+    {
+      "id": "fd_riddle_bet",
+      "type": "int",
+      "summary": "Which riddle bet is on the table.",
+      "read_later": true
+    },
+    {
+      "id": "fd_bess_letter_taken",
+      "type": "bool",
+      "summary": "The party took Bess's second letter from her pocket.",
+      "read_later": true
+    },
+    {
+      "id": "fd_unmasked_told",
+      "type": "bool",
+      "summary": "The unmasking has been narrated.",
+      "read_later": true
+    },
+    {
+      "id": "phillip_adela_taken",
+      "type": "bool",
+      "summary": "Chuckles turned Phillip and Adela to streamers.",
+      "read_later": true
+    },
+    {
+      "id": "twelve_costumes_asked",
+      "type": "bool",
+      "summary": "Quill has told the party about the torn program.",
+      "read_later": true
+    },
+    {
+      "id": "free_bell_asked",
+      "type": "bool",
+      "summary": "The Bell's unfinished tune was asked about.",
+      "read_later": true
+    },
+    {
+      "id": "bell_tune_lost",
+      "type": "bool",
+      "summary": "The party gave up on the Bell's tune.",
+      "read_later": true
+    },
+    {
+      "id": "fd_ring_phase2",
+      "type": "bool",
+      "summary": "The balloon tore the maypole out (the Lord of Fools' second phase).",
+      "read_later": true
+    },
+    {
+      "id": "keg_dead_note",
+      "type": "bool",
+      "summary": "Reserved: a reveler the Powder Keg killed is replaced by the next candidate (set by the hysteria chapter).",
+      "read_later": true
+    },
+    {
+      "id": "booth_a_plays",
+      "type": "int",
+      "summary": "Times booth A was played; allowed while this is no more than the revelers freed (one play per wave).",
+      "read_later": true
+    },
+    {
+      "id": "booth_a_beaten",
+      "type": "bool",
+      "summary": "Booth A's worker was beaten.",
+      "read_later": true
+    },
+    {
+      "id": "booth_b_plays",
+      "type": "int",
+      "summary": "Times booth B was played; allowed while this is no more than the revelers freed (one play per wave).",
+      "read_later": true
+    },
+    {
+      "id": "booth_b_beaten",
+      "type": "bool",
+      "summary": "Booth B's worker was beaten.",
+      "read_later": true
+    },
+    {
+      "id": "booth_c_plays",
+      "type": "int",
+      "summary": "Times booth C was played; allowed while this is no more than the revelers freed (one play per wave).",
+      "read_later": true
+    },
+    {
+      "id": "booth_c_beaten",
+      "type": "bool",
+      "summary": "Booth C's worker was beaten.",
+      "read_later": true
+    },
+    {
+      "id": "booth_d_plays",
+      "type": "int",
+      "summary": "Times booth D was played; allowed while this is no more than the revelers freed (one play per wave).",
+      "read_later": true
+    },
+    {
+      "id": "booth_d_beaten",
+      "type": "bool",
+      "summary": "Booth D's worker was beaten.",
+      "read_later": true
+    },
+    {
+      "id": "booth_e_plays",
+      "type": "int",
+      "summary": "Times booth E was played; allowed while this is no more than the revelers freed (one play per wave).",
+      "read_later": true
+    },
+    {
+      "id": "booth_e_beaten",
+      "type": "bool",
+      "summary": "Booth E's worker was beaten.",
+      "read_later": true
+    },
+    {
+      "id": "booth_f_plays",
+      "type": "int",
+      "summary": "Times booth F was played; allowed while this is no more than the revelers freed (one play per wave).",
+      "read_later": true
+    },
+    {
+      "id": "booth_f_beaten",
+      "type": "bool",
+      "summary": "Booth F's worker was beaten.",
+      "read_later": true
+    },
+    {
+      "id": "booth_g_plays",
+      "type": "int",
+      "summary": "Times booth G was played; allowed while this is no more than the revelers freed (one play per wave).",
+      "read_later": true
+    },
+    {
+      "id": "booth_g_beaten",
+      "type": "bool",
+      "summary": "Booth G's worker was beaten.",
+      "read_later": true
+    },
+    {
+      "id": "found_bear",
+      "type": "bool",
+      "summary": "The party has found the bear costume's players.",
+      "read_later": true
+    },
+    {
+      "id": "found_flag",
+      "type": "bool",
+      "summary": "The party has found the flag costume's players.",
+      "read_later": true
+    },
+    {
+      "id": "found_knight",
+      "type": "bool",
+      "summary": "The party has found the knight costume's players.",
+      "read_later": true
+    },
+    {
+      "id": "found_bell",
+      "type": "bool",
+      "summary": "The party has found the bell costume's players.",
+      "read_later": true
+    },
+    {
+      "id": "found_hut",
+      "type": "bool",
+      "summary": "The party has found the hut costume's players.",
+      "read_later": true
+    },
+    {
+      "id": "found_hive",
+      "type": "bool",
+      "summary": "The party has found the hive costume's players.",
+      "read_later": true
+    },
+    {
+      "id": "found_stork",
+      "type": "bool",
+      "summary": "The party has found the stork costume's players.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_solomon_roderick",
+      "type": "string",
+      "summary": "How Solomon Roderick was freed (tickets, beaten, uncharmed, church, finale).",
+      "read_later": true
+    },
+    {
+      "id": "reveler_solomon_roderick_freed",
+      "type": "bool",
+      "summary": "Solomon Roderick is free of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_solomon_roderick_beaten",
+      "type": "bool",
+      "summary": "Solomon Roderick was knocked out of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_hilda_brom",
+      "type": "string",
+      "summary": "How Hilda Brom was freed (tickets, beaten, uncharmed, church, finale).",
+      "read_later": true
+    },
+    {
+      "id": "reveler_hilda_brom_freed",
+      "type": "bool",
+      "summary": "Hilda Brom is free of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_hilda_brom_beaten",
+      "type": "bool",
+      "summary": "Hilda Brom was knocked out of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_wendel_somerton",
+      "type": "string",
+      "summary": "How Wendel Somerton was freed (tickets, beaten, uncharmed, church, finale).",
+      "read_later": true
+    },
+    {
+      "id": "reveler_wendel_somerton_freed",
+      "type": "bool",
+      "summary": "Wendel Somerton is free of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_wendel_somerton_beaten",
+      "type": "bool",
+      "summary": "Wendel Somerton was knocked out of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_alda_farnum",
+      "type": "string",
+      "summary": "How Alda Farnum was freed (tickets, beaten, uncharmed, church, finale).",
+      "read_later": true
+    },
+    {
+      "id": "reveler_alda_farnum_freed",
+      "type": "bool",
+      "summary": "Alda Farnum is free of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_alda_farnum_beaten",
+      "type": "bool",
+      "summary": "Alda Farnum was knocked out of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_jean_myriel",
+      "type": "string",
+      "summary": "How Jean Myriel was freed (tickets, beaten, uncharmed, church, finale).",
+      "read_later": true
+    },
+    {
+      "id": "reveler_jean_myriel_freed",
+      "type": "bool",
+      "summary": "Jean Myriel is free of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_jean_myriel_beaten",
+      "type": "bool",
+      "summary": "Jean Myriel was knocked out of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_finneas_trout",
+      "type": "string",
+      "summary": "How Finneas Trout was freed (tickets, beaten, uncharmed, church, finale).",
+      "read_later": true
+    },
+    {
+      "id": "reveler_finneas_trout_freed",
+      "type": "bool",
+      "summary": "Finneas Trout is free of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_finneas_trout_beaten",
+      "type": "bool",
+      "summary": "Finneas Trout was knocked out of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_eleanor_heyling",
+      "type": "string",
+      "summary": "How Eleanor Heyling was freed (tickets, beaten, uncharmed, church, finale).",
+      "read_later": true
+    },
+    {
+      "id": "reveler_eleanor_heyling_freed",
+      "type": "bool",
+      "summary": "Eleanor Heyling is free of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_eleanor_heyling_beaten",
+      "type": "bool",
+      "summary": "Eleanor Heyling was knocked out of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_doris_squire",
+      "type": "string",
+      "summary": "How Doris Squire was freed (tickets, beaten, uncharmed, church, finale).",
+      "read_later": true
+    },
+    {
+      "id": "reveler_doris_squire_freed",
+      "type": "bool",
+      "summary": "Doris Squire is free of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_doris_squire_beaten",
+      "type": "bool",
+      "summary": "Doris Squire was knocked out of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_weston_murdoch",
+      "type": "string",
+      "summary": "How Weston Murdoch was freed (tickets, beaten, uncharmed, church, finale).",
+      "read_later": true
+    },
+    {
+      "id": "reveler_weston_murdoch_freed",
+      "type": "bool",
+      "summary": "Weston Murdoch is free of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_weston_murdoch_beaten",
+      "type": "bool",
+      "summary": "Weston Murdoch was knocked out of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_holly_aster",
+      "type": "string",
+      "summary": "How Holly Aster was freed (tickets, beaten, uncharmed, church, finale).",
+      "read_later": true
+    },
+    {
+      "id": "reveler_holly_aster_freed",
+      "type": "bool",
+      "summary": "Holly Aster is free of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_holly_aster_beaten",
+      "type": "bool",
+      "summary": "Holly Aster was knocked out of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_thomasin_ardor",
+      "type": "string",
+      "summary": "How Thomasin Ardor was freed (tickets, beaten, uncharmed, church, finale).",
+      "read_later": true
+    },
+    {
+      "id": "reveler_thomasin_ardor_freed",
+      "type": "bool",
+      "summary": "Thomasin Ardor is free of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_thomasin_ardor_beaten",
+      "type": "bool",
+      "summary": "Thomasin Ardor was knocked out of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_morgan",
+      "type": "string",
+      "summary": "How Morgan was freed (tickets, beaten, uncharmed, church, finale).",
+      "read_later": true
+    },
+    {
+      "id": "reveler_morgan_freed",
+      "type": "bool",
+      "summary": "Morgan is free of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_morgan_beaten",
+      "type": "bool",
+      "summary": "Morgan was knocked out of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_baltus_tolliver",
+      "type": "string",
+      "summary": "How Baltus Tolliver was freed (tickets, beaten, uncharmed, church, finale).",
+      "read_later": true
+    },
+    {
+      "id": "reveler_baltus_tolliver_freed",
+      "type": "bool",
+      "summary": "Baltus Tolliver is free of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_baltus_tolliver_beaten",
+      "type": "bool",
+      "summary": "Baltus Tolliver was knocked out of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_old_rusty",
+      "type": "string",
+      "summary": "How Old Rusty was freed (tickets, beaten, uncharmed, church, finale).",
+      "read_later": true
+    },
+    {
+      "id": "reveler_old_rusty_freed",
+      "type": "bool",
+      "summary": "Old Rusty is free of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_old_rusty_beaten",
+      "type": "bool",
+      "summary": "Old Rusty was knocked out of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_sister_rain",
+      "type": "string",
+      "summary": "How Sister Rain was freed (tickets, beaten, uncharmed, church, finale).",
+      "read_later": true
+    },
+    {
+      "id": "reveler_sister_rain_freed",
+      "type": "bool",
+      "summary": "Sister Rain is free of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "reveler_sister_rain_beaten",
+      "type": "bool",
+      "summary": "Sister Rain was knocked out of the costume.",
+      "read_later": true
+    },
+    {
+      "id": "prize_crow_taken",
+      "type": "bool",
+      "summary": "The crow prize was taken from the counter (one of each).",
+      "read_later": true
+    },
+    {
+      "id": "prize_sword_taken",
+      "type": "bool",
+      "summary": "The sword prize was taken from the counter (one of each).",
+      "read_later": true
+    },
+    {
+      "id": "prize_shoes_taken",
+      "type": "bool",
+      "summary": "The shoes prize was taken from the counter (one of each).",
+      "read_later": true
+    },
+    {
+      "id": "prize_doll_taken",
+      "type": "bool",
+      "summary": "The doll prize was taken from the counter (one of each).",
+      "read_later": true
+    },
+    {
+      "id": "prize_glue_taken",
+      "type": "bool",
+      "summary": "The glue prize was taken from the counter (one of each).",
+      "read_later": true
+    },
+    {
+      "id": "prize_shovel_taken",
+      "type": "bool",
+      "summary": "The shovel prize was taken from the counter (one of each).",
+      "read_later": true
+    },
+    {
+      "id": "prize_card_taken",
+      "type": "bool",
+      "summary": "The card prize was taken from the counter (one of each).",
+      "read_later": true
+    },
+    {
+      "id": "prize_potion_taken",
+      "type": "bool",
+      "summary": "The potion prize was taken from the counter (one of each).",
+      "read_later": true
+    },
+    {
+      "id": "prize_bag_taken",
+      "type": "bool",
+      "summary": "The bag prize was taken from the counter (one of each).",
+      "read_later": true
+    },
+    {
+      "id": "prize_suit_taken",
+      "type": "bool",
+      "summary": "The suit prize was taken from the counter (one of each).",
+      "read_later": true
+    },
+    {
+      "id": "prize_paranormal_taken",
+      "type": "bool",
+      "summary": "The paranormal prize was taken from the counter (one of each).",
+      "read_later": true
+    },
+    {
+      "id": "prize_curio_taken",
+      "type": "bool",
+      "summary": "The curio prize was taken from the counter (one of each).",
+      "read_later": true
+    },
+    {
+      "id": "prize_scroll_taken",
+      "type": "bool",
+      "summary": "The scroll prize was taken from the counter (one of each).",
+      "read_later": true
+    },
+    {
+      "id": "fd_fallen_harvest",
+      "type": "bool",
+      "summary": "Puppet theatre: the show of harvest has been seen.",
+      "read_later": true
+    },
+    {
+      "id": "fd_fallen_vessla",
+      "type": "bool",
+      "summary": "Puppet theatre: the show of vessla has been seen.",
+      "read_later": true
+    }
+  ]
+}

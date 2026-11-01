@@ -1,0 +1,87 @@
+# Drafted by Gemini (R21 welcome), edited.
+
+~ streets
+Narrator: Ribbons and hot tallow choke the lane, and the cobbles heave under a hundred stamping boots. Painted dancers press in close, smelling of burnt sugar, their wide grins stretched a fraction too far across faces that do not quite fit.
+Narrator: Strong hands in bright sleeves catch your elbows, shoving you merrily toward the heart of the din.
+if flag.fd_brawl_done
+-> after_brawl
+endif
+* Let the crowd carry us to the middle -> follow
+* Push back through the dancers -> resist
+
+~ follow
+Narrator: You let your feet leave the stones, and the warm tide of velvet and bells carries you along like driftwood on a remarkably cheerful river.
+set absurd_streets_seen
+-> END
+
+~ resist
+Narrator: You plant your heels and shove. A dancer in a carved bear's head takes the push personally, and others step out of the reel one by one, cracking their knuckles while their painted smiles never twitch.
+set fd_resisted
+combat follow_follow_brawl
+
+~ after_brawl
+Narrator: The last dancer sits down hard in the spilled pie crust, bruised and still humming the tune through split lips. Around you, the crowd parts like velvet curtains.
+set absurd_streets_seen
+-> END
+
+~ welcome
+Narrator: High above the square, a small jester in motley flips off the top of the maypole, drops like a plumb weight into a net held by dancers, and bounces to his feet.
+chuckles [smile]: Hip-hip-heroes! How do you do-do, how is the weather in your boots, my, what lovely elbows! Welcome to the festy-val!
+chuckles [sly]: Play the booths, win-win the tickets, and cash them at my Prize Counter for your dear little friends, or find the friends yourselves, hip-hip! Keep smiling, though, because if you stop having fun-fun, your chums lead the big parade!
+set fd_welcomed
+quest fools_day welcome
+-> menu
+
+~ menu
+* Ask how the game works -> rules
+* Ask where our friends are -> friends
+* Ask who he is -> who
+* [Persuasion DC 14] Ask him to just let them go -> let_go | let_go_fail
+* I hate you. -> hate
+* We pity you. -> pity
+* Play along. -> play
+
+~ rules
+chuckles [smile]: Easy-peasy pudding and pie! Every booth pays out shiny tickets, and my Prize Counter sells slips that let one pal go free. The first is one ticket, the next is two, hee-hee, and up and up we go!
+chuckles [sly]: Or you can thump the stuffing out of them until they only get bruised, cast a clever spell to pop the charm, or drag them to that dreary quiet church! So many ways to play-play!
+-> menu
+
+~ friends
+chuckles [smile]: Oh, they are right here in the crowd, dressed up in my troupe's best-best costumes! Look near the booths if you have eyes in your heads, hee-hee, they are having the time of their lives!
+-> menu
+
+~ who
+chuckles [smile]: I am Chuckles, the Lord of Fools, master of this merry-merry ring! Once upon a hungry winter I had a little travelling show, before I swore my bells to the Horned King, my bestest boss!
+chuckles [angry]: He promised the show would never have to stop, and it never, ever does.
+-> menu
+
+~ let_go
+chuckles [smile]: Well, knock me flat with a bladder on a stick, somebody remembered the magic word! Here is one whole ticket just for asking nicely, you polite little peach!
+set fool_tickets += 1
+-> menu
+
+~ let_go_fail
+chuckles [sly]: Please-please, pretty please with sugar and maggots on top! Oh, listen to the big brave heroes whine, it makes my little ribs ache!
+set fd_chuckles_amused
+-> menu
+
+~ hate
+Narrator: Chuckles throws back his bells and laughs until the net shakes under his pointed shoes, the squeak rotting in his throat.
+chuckles [angry]: There it is, good and sour. Strike up the brass, boys, the parade starts now.
+Narrator: High in the dark, a heavy bell rings that no hand rang.
+set told_chuckles_hate
+quest fools_day parade
+-> END
+
+~ pity
+chuckles [afraid]: Pity-pity? What kind of funny-bone talk is that, you cannot pity the ringmaster!
+Narrator: He gives a thin squeak and fumbles at his belt, suddenly unsure what to do with his own gloved hands. Across his face, the painted smile does not move at all.
+set refused_to_hate
+inspiration
+-> menu
+
+~ play
+chuckles [smile]: That is the spirit-spirit! Run along and spend your teeth on the pies, my darlings!
+Narrator: He claps his hands once and bursts into a shower of paper confetti ribbons that curl on the wind, leaving the net empty.
+quest fools_day revelry
+-> END
