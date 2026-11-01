@@ -1,0 +1,75 @@
+# Drafted by Gemini (R18 night), edited.
+
+~ camp
+Narrator: A hollow between great grey roots offers a dry patch of moss, though the air still tastes of cellar damp and old spores.
+* Make camp for the night -> camp_chain
+* Press on -> END
+
+~ camp_chain
+time +60
+if not flag.hb_night_drums
+set hb_night_drums
+-> drums
+elif not flag.hb_night_shadow
+set hb_night_shadow
+-> hartsblight/gorthos:shadow
+elif not flag.hb_night_shriek
+set hb_night_shriek
+-> shriek
+elif not flag.hb_night_dryad
+set hb_night_dryad
+-> hartsblight/dryad:dryad_arrive
+else
+Narrator: Nothing stirs beyond the firelight save the slow drip of grey dew from the fungal shelves, and you sleep until a pale, sunless morning.
+-> END
+endif
+
+~ drums
+Narrator: Low hide drums thump through the mist from a quarter-mile off, keeping a slow, wet pulse while several throats chant in the old tongue of the woods.
+* Follow the drums -> drums_follow
+* Leave them -> drums_leave
+
+~ drums_follow
+time +15
+Narrator: You pick your way over slick roots toward the beat until torchlight glimmers on four antlered figures Hammering on skins stretched over hollow logs.
+set hb_drums_followed
+combat hb_drums
+
+~ drums_leave
+Narrator: The drumming dies away toward false dawn, and an hour later the ground trembles under a heavy, rotting tread crashing straight for your embers.
+set hb_mammoth_woke
+combat hb_mammoth
+
+~ shriek
+Narrator: From somewhere out in the dark, a couple of hundred yards through the mist, a young man's voice tears the night open, begging for help.
+* [Perception DC 13] Find where it comes from -> shriek_found | shriek_lost
+* [Insight DC 17] It is not a human voice -> shriek_notice | shriek_lost
+* Go to him -> shriek_go
+* Stay put -> shriek_stay
+
+~ shriek_found
+Narrator: The cry echoes off a ridge of dead, barkless pines just up the slope, where heavy shapes are snapping the lower boughs.
+-> shriek
+
+~ shriek_lost
+Narrator: The fog and the thick shelving fungus scatter the sound until it seems to come from every hollow at once.
+-> shriek
+
+~ shriek_notice
+Narrator: The cry repeats with the exact same catch in the throat and no breath taken between words, like a clacking beak repeating a trick.
+set hb_heard_halden
+set hb_screams_mimic
+-> shriek_stay
+
+~ shriek_go
+Narrator: You push through the wet ferns toward the voice, and two feathered hulks with hooked beaks wheel around from a bare carcass in the gloom.
+set hb_heard_halden
+combat hb_owlbears
+
+~ shriek_stay
+Narrator: You keep low by the cold ashes until the screaming cuts off mid-syllable, and two heavy, feathered shapes lumber away through the brush.
+set hb_heard_halden
+if flag.hb_halden_journal
+quest hb_halden_hunt traced
+endif
+-> END

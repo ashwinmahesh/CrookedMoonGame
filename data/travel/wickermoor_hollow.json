@@ -131,6 +131,19 @@
       "region": "memorys_rest",
       "when": "flag.mr_hook_open or visited:mr_shore",
       "summary": "The last of the marsh trail, and the lake that holds Memory's Rest."
+    },
+    {
+      "id": "hartsblight_forest",
+      "name": "The Hartsblight",
+      "location": "hb_patient_commune",
+      "spawn": "from_road",
+      "pos": [
+        0.2,
+        0.2
+      ],
+      "region": "hartsblight_forest",
+      "when": "flag.hb_asked or visited:hb_patient_commune",
+      "summary": "A dead commune at the edge of a rotting forest, north-west of Moonsong Lake."
     }
   ],
   "roads": [
@@ -205,6 +218,14 @@
       "hours": 72,
       "name": "The marsh road west",
       "when": "flag.mr_hook_open or visited:mr_shore"
+    },
+    {
+      "id": "wickermoor_to_hartsblight",
+      "from": "wickermoor_village",
+      "to": "hartsblight_forest",
+      "hours": 32,
+      "name": "The spore trail",
+      "when": "flag.hb_asked or visited:hb_patient_commune"
     }
   ]
 }

@@ -1,0 +1,53 @@
+# Drafted by Gemini (R18 garden), edited.
+
+~ bed_find
+Narrator: A single patch of bright yellow sunflowers stands defiant in the grey mold, smelling faintly of warm summer loam. A wooden stake beside the stalks bears the name Gwenna in smeared charcoal.
+quest hb_gwennas_garden found
+set hb_garden_found
+* Tend the bed. -> tend
+* Dig it up and carry it away. -> move
+* Burn it. -> burn_ask
+* Leave it as it is. -> END
+
+~ tend
+Narrator: The dark soil around the roots is crusted with pale, creeping threads of fungus, thirsty for clean water.
+* [Nature DC 13] Tend it with water and care. -> tend_ok | tend_fail
+* Water it from your own flask. -> tend_ok
+
+~ tend_ok
+Narrator: The heavy golden heads lift ever so slightly toward the dark sky as the clean water sinks into the loam.
+set hb_garden_tended
+set hb_garden_outcome = "tended"
+quest hb_gwennas_garden done
+interject name:tobin_hayward: Good soil remembers the hand that turned it, even when the rest of the field goes to rot.
+-> END
+
+~ tend_fail
+Narrator: Your fingers bruise the brittle stems, and the yellow petals flinch back from the creeping spores.
+-> bed_find
+
+~ move
+Narrator: You work your fingers deep into the cold earth, lifting the tangled root-ball free of the encroaching grey mold.
+interject name:rook_coldwake: Unregistered agricultural transport from a quarantined zone is a clear municipal liability.
+* [if item:seed_jar] Carry it in the seed jar. -> move_ok
+* Carry it in a sack. -> move_ok
+
+~ move_ok
+Narrator: The sunflowers settle into their new cradle of dark soil, safe from the thirsty rot of the clearing.
+set hb_garden_moved
+set hb_garden_outcome = "moved"
+quest hb_gwennas_garden done
+-> END
+
+~ burn_ask
+Narrator: You hold a spark near the dry, golden leaves, where the smell of summer still lingers against the damp.
+interject name:delphine_ravelle: Oh, what a dreary, dreadful desecration, to ash the only gold left in this ghastly grey gallery!
+* [ends:hb_gwennas_garden] Burn it for the commune's sake. -> burn
+* Not after all. -> bed_find
+
+~ burn
+Narrator: The bright petals curl and blacken in the flame, leaving only a bitter smudge of ash upon the grey moss.
+set hb_garden_burned
+set hb_garden_outcome = "burned"
+quest hb_gwennas_garden lost
+-> END
