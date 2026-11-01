@@ -169,7 +169,7 @@ func _arrive(id: String) -> void:
 
 
 func _hook() -> void:
-	for f in HOOK_FLAGS:
+	for f: String in HOOK_FLAGS:
 		st.set_flag(f)
 
 
@@ -196,7 +196,7 @@ func test_the_raid_waits_for_the_last_fallen_and_names_every_flag_it_reads() -> 
 	var e := _entry_for("wickermoor_village", "maidenmist/raid:alarm")
 	assert_true(not e.is_empty(), "Doris has the alarm entry")
 	assert_false(_holds(e["when"]), "nothing yet")
-	for f in HOOK_FLAGS.slice(0, 4):
+	for f: String in HOOK_FLAGS.slice(0, 4):
 		st.set_flag(f)
 	assert_false(_holds(e["when"]), "four of the five are not enough")
 	st.set_flag(HOOK_FLAGS[4])
@@ -238,10 +238,12 @@ func test_the_raid_can_be_put_off_up_to_four_nights_and_doubles_in_size() -> voi
 func test_doris_asks_again_only_after_the_night_has_passed() -> void:
 	_hook()
 	var e := _entry_for("wickermoor_village", "maidenmist/raid:alarm")
-	_play("maidenmist/raid:delay")
+	st.set_flag("mm_raid_delay", st.total_minutes())
 	assert_false(_holds(e["when"]), "the night is still on")
 	st.advance_minutes(601)
 	assert_true(_holds(e["when"]), "next dusk she is back")
+	_play("maidenmist/raid:delay")
+	assert_true(_holds(e["when"]), "the delay conversation lets the night pass, and she is waiting at dusk")
 
 
 func test_the_militia_can_be_posted_well_or_badly_and_never_locks() -> void:
@@ -440,7 +442,7 @@ func test_a_rite_backed_by_two_themes_blazes() -> void:
 
 
 func test_all_five_beacons_open_the_sepulcher() -> void:
-	for c in COLORS:
+	for c: String in COLORS:
 		_light(c)
 	assert_eq(int(st.get_flag("mm_beacons_lit", 0)), 5)
 	assert_true(bool(st.get_flag("sepulcher_open")))
@@ -522,7 +524,7 @@ func test_the_moth_the_nightshade_and_the_lavender_are_scavenged() -> void:
 
 func test_the_gravestone_shortcuts_hold_eight_different_hordes() -> void:
 	var ids: Dictionary = {}
-	for g in ["mm_gravestones_a", "mm_gravestones_b"]:
+	for g: String in ["mm_gravestones_a", "mm_gravestones_b"]:
 		var loc := Compendium.shared().get_entry("locations", g)
 		assert_true((loc["foe_spots"] as Array).size() >= 8)
 		var enc := loc["encounters"] as Array
@@ -687,7 +689,7 @@ func test_the_boss_is_two_phase_with_cutscenes_that_exist() -> void:
 	assert_eq(phases.size(), 1)
 	assert_true(bool((phases[0]["when"] as Dictionary)["bloodied"]))
 	assert_true(not Compendium.shared().get_entry("cutscenes", str(phases[0]["cutscene"])).is_empty())
-	for c in ["mm_dusk_of_the_dead", "mm_broken_gate", "mm_gravedigger_door", "mm_beacon_lit", "mm_isolde_fades", "mm_penitent_pilgrim", "mm_six_beacons", "mm_stygian_descent",
+	for c: String in ["mm_dusk_of_the_dead", "mm_broken_gate", "mm_gravedigger_door", "mm_beacon_lit", "mm_isolde_fades", "mm_penitent_pilgrim", "mm_six_beacons", "mm_stygian_descent",
 			"mm_harrowing", "mm_azure_defiance", "mm_tear_sealed", "mm_isolde_farewell"]:
 		var cs := Compendium.shared().get_entry("cutscenes", c)
 		assert_eq((cs["images"] as Array).size(), 2, "%s has two scenes" % c)
@@ -767,6 +769,7 @@ func test_names_on_stones_can_be_done_by_hand_or_by_the_ledger_or_dropped() -> v
 
 func test_hester_wants_her_rent_and_the_grammar_stone_corrects() -> void:
 	st.set_flag("mm_raid_done")
+	st.gold = 20
 	_play("maidenmist/folk:hester", ["Pay the rent"])
 	assert_true(bool(st.get_flag("mm_hester_paid")))
 	_arrive("mm_gate")
@@ -775,7 +778,7 @@ func test_hester_wants_her_rent_and_the_grammar_stone_corrects() -> void:
 
 func test_the_epilogue_beats_hang_off_the_sealed_tear() -> void:
 	st.set_flag("shroud_tear_sealed")
-	for who in [["epilogue:adela", "adela_druskenvald"], ["epilogue:weston", "weston_murdoch"], ["epilogue:doris_after", "doris_squire"]]:
+	for who: Array in [["epilogue:adela", "adela_druskenvald"], ["epilogue:weston", "weston_murdoch"], ["epilogue:doris_after", "doris_squire"]]:
 		var e := _entry_for("wickermoor_village", "maidenmist/" + str(who[0]))
 		assert_true(not e.is_empty(), "%s has an entry" % who[0])
 		assert_true(_holds(e["when"]))
