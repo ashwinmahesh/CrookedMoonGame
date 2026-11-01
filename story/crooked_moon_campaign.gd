@@ -91,6 +91,19 @@ func field(st: StoryState, path: String) -> String:
 	return ""
 
 
+# --- Comfort and content notes (plan 13.6, G9; story/comfort.gd) ---------------------------------------------------
+
+## The content note for `region`'s loading card ("" for none), saying which topics this playthrough softens. For the
+## engine's loading card once it asks the module (a requested hook); until then nothing calls it.
+func content_note(region: String, st: StoryState = null) -> String:
+	return Comfort.note(region, st)
+
+
+## The comfort settings as playthrough options for the pause menu's Content rows: [{key, label, tip, default}].
+func comfort_options() -> Array[Dictionary]:
+	return Comfort.options()
+
+
 # --- How the game ends (plan 5.7; story/endings.gd, data/endings/) ---------------------------------------------------
 
 ## Moonfall's outcome (R26: unbent, green_sea, last_train, fallen), set by its chapter.
