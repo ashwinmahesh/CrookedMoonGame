@@ -1,0 +1,20 @@
+{
+  "id": "night_events",
+  "summary": "Named night events (story/night_events.gd): what comes for a real Long Rest in certain places while a story condition holds, before the rest's benefits.",
+  "events": [
+    {
+      "id": "hb_dead_of_night",
+      "locations": [
+        "hb_altar_of_rot",
+        "hb_druid_commune",
+        "hb_noxious_hollow",
+        "hb_pine_barrens",
+        "hb_wellspring"
+      ],
+      "when": "not flag.hb_night_drums or not flag.hb_night_shadow or not flag.hb_night_shriek or not flag.hb_night_dryad",
+      "once": false,
+      "dialogue": "hartsblight/night:camp_chain",
+      "text": "Deep in the night, something in the forest wakes the camp."
+    }
+  ]
+}

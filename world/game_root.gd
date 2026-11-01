@@ -872,6 +872,8 @@ func _dialogue_ended(combat: String) -> void:
 	_refresh()
 	if combat == "" and _night_visit_over():
 		_sleep_again()   # his visit broke the night's rest, and he's gone: the party sleeps on
+	elif combat == "" and LongRest.event_waiting(st):
+		visit_after_rest.call_deferred(0)   # a night event came while another talk was open: it plays now
 	if not _road_event.is_empty() and str(_road_event["ref"]) == _dialogue_ref:
 		if combat == "":
 			_give_road_event()
@@ -1166,6 +1168,13 @@ func _boss_music(cv: CombatView) -> void:
 func _visit(on: String, _ctx: Dictionary = {}) -> bool:
 	if view == null or view.in_combat or (dialogue != null and on != "rest"):
 		return false
+	# A named night event broke the rest (NightEvents): its talk plays now, and the party sleeps on once it, and any
+	# fight it starts, is over.
+	if on == "rest" and LongRest.event_waiting(st) and dialogue == null:
+		var ev := LongRest.night_event(st)
+		LongRest.event_played(st)
+		start_dialogue(str(ev["dialogue"]), "")
+		return true
 	if on == "rest" and LongRest.waits_on_visit(st):
 		_sleep_again()   # the visit that broke the rest isn't due after all: the party sleeps on
 	return false
@@ -1183,9 +1192,10 @@ func visit_after_rest(minutes: int) -> void:
 	_visit("rest", {"night": night})
 
 
-## Whether the visit that broke a Long Rest is over: with no visits, a rest that waits on one has nothing left to wait for.
+## Whether the visit that broke a Long Rest is over: with no visits, a rest that waits on one has nothing left to wait
+## for, once a named night event's talk has started.
 func _night_visit_over() -> bool:
-	return LongRest.waits_on_visit(st)
+	return LongRest.waits_on_visit(st) and not LongRest.event_waiting(st)
 
 
 ## What broke the night's rest is over (its fight won, a visit done): the party lies down again and finishes
