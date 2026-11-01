@@ -79,8 +79,13 @@ func test_the_discovery_owes_a_twist_of_fate_once() -> void:
 func test_the_confrontation_raises_the_threads_ability_past_twenty() -> void:
 	var st := _story(["delphine_ravelle"])
 	var ch := st.party[0]
-	ch.build["base_scores"]["cha"] = 20
+	# Her origin increases are clamped at 20 until the story's boon lifts the limit, then they land too: start from a base that already
+	# totals exactly 20, so the +2 is the only thing that moves.
+	ch.build["base_scores"]["cha"] = 8
 	ch.refresh()
+	ch.build["base_scores"]["cha"] = 8 + 20 - ch.ability_score(&"cha")
+	ch.refresh()
+	assert_eq(ch.ability_score(&"cha"), 20, "starts at the old limit")
 	var before := ch.ability_score(&"cha")
 	var said := Fateweaving.quest_finished(st, "confrontation_ascendancy", "success")
 	assert_eq(ch.ability_score(&"cha"), mini(before + 2, Campaign.boon_ability_max()))
