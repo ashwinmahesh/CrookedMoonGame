@@ -17,19 +17,20 @@ const GAME := preload("res://world/game_root.gd")
 
 ## Each place's plan: steps in order. A step: [kind, target, picks]. kind: talk (an NPC), use (click a prop: a call, a
 ## conversation, an examine), search (Search until the prop shows, then click it), exit (walk out by it). picks: at each
-## menu the first enabled option containing one of the "a|b" words, in order; the last option once they run out.
+## menu an enabled option containing the first of the "a|b|c" words it offers (a haint's own way first, "Draw a weapon"
+## when the token or bottle it needs wasn't found); the last option once they run out. A pick waits for a menu that has it.
 const PLAN := {
 	"ghostlight_boarding": [["talk", "the_vagrant", ["fare", "Tell him something true|Check our pockets", "Check our pockets|ready to board", "ready to board"]]],
 	"ghostlight_g1_passenger": [["talk", "the_vagrant", ["Go on to your cab"]], ["search", "g1_marble_jar", []],
 		["talk", "phantom_trainhopper", []], ["use", "grille_g1", ["Understood"]], ["exit", "front_door", []]],
-	"ghostlight_g2_sleeper": [["use", "g2_phonograph", ["Carry it with us"]], ["talk", "haint_sweetheart", ["bottle"]],
+	"ghostlight_g2_sleeper": [["use", "g2_phonograph", ["Carry it with us"]], ["talk", "haint_sweetheart", ["bottle|Draw a weapon"]],
 		["exit", "front_door", []]],
 	"ghostlight_g3_lounge": [["search", "g3_seascape", []], ["search", "g3_whiskey_bottle", []],
-		["talk", "haint_songstress", ["help you finish", "Sing the melody", "Trace the magic", "Speak the lonely word"]], ["exit", "front_door", []]],
+		["talk", "haint_songstress", ["help you finish|Draw a weapon", "Sing the melody", "Trace the magic", "Speak the lonely word"]], ["exit", "front_door", []]],
 	"ghostlight_g4_dining": [["use", "g4_big_booth", []], ["use", "g4_booth_n1", ["Steak and eggs", "Get up"]],
-		["talk", "haint_daydreamer", ["empty glass jar|bottle"]], ["exit", "front_door", []]],
-	"ghostlight_g5_mail": [["search", "g5_pink_envelope", []], ["talk", "haint_mariner", ["painting"]], ["exit", "front_door", []]],
-	"ghostlight_g6_baggage": [["talk", "haint_jailbird", ["talk with you", "gallows custom", "hot plate", "campfire skillets"]],
+		["talk", "haint_daydreamer", ["empty glass jar|bottle|Draw a weapon"]], ["exit", "front_door", []]],
+	"ghostlight_g5_mail": [["search", "g5_pink_envelope", []], ["talk", "haint_mariner", ["painting|Draw a weapon"]], ["exit", "front_door", []]],
+	"ghostlight_g6_baggage": [["talk", "haint_jailbird", ["talk with you|Draw a weapon", "gallows custom", "hot plate", "campfire skillets"]],
 		["exit", "front_door", []]],
 	"ghostlight_g7_circus": [["talk", "haint_harlequin", ["Draw a weapon"]], ["exit", "front_door", []]],
 	"ghostlight_g8_tender": [["use", "g8_firebox", []], ["use", "g8_tank", []]],
@@ -51,6 +52,8 @@ var notes: Array[String] = []
 var steps: Array[Dictionary] = []
 var fights: Array[Dictionary] = []
 var toasts: Array[String] = []
+var _tried_help: Dictionary = {}
+var choices: Array[String] = []   ## every option chosen: "<place> <file>:<node> > <text>"
 var roster: Array[String] = []
 var _pilot: PartyAutopilot = null
 var _pilot_e: Encounter = null
@@ -81,13 +84,20 @@ func _go() -> void:
 	var report := {"end": end, "seed": seed_value, "book_order": book_order, "mode": mode, "frames": frame,
 		"ms": Time.get_ticks_msec() - t0, "roster": roster, "blockers": blockers, "notes": notes, "steps": steps,
 		"fights": fights, "toasts": toasts, "stage": GameState.story.quest_stage("ghostlight_express"),
-		"location": GameState.story.location}
+		"location": GameState.story.location, "quests": _quests(), "party": _party_line(), "choices": choices}
 	var f := FileAccess.open(out_path, FileAccess.WRITE)
 	if f != null:
 		f.store_string(JSON.stringify(report, "  "))
 		f.close()
 	print("qa: act 1 %s, %d blockers, stage %s at %s" % [end, blockers.size(), report["stage"], report["location"]])
 	get_tree().quit(0)
+
+
+func _quests() -> Dictionary:
+	var out := {}
+	for q: String in GameState.story.quests:
+		out[q] = GameState.story.quest_stage(q)
+	return out
 
 
 func _block(what: String, detail: String) -> void:
@@ -210,7 +220,7 @@ func _play() -> String:
 	while frame < max_frames and guard < 200:
 		guard += 1
 		var st := GameState.story
-		if st.quest_ended("ghostlight_express") and st.location in ["travel", ""] or _travel_open():
+		if st.quest_ended("ghostlight_express") and st.location != "ghostlight_wreckage" or _travel_open():
 			return "done"
 		if root.get("ending") != null or _game_over():
 			_block("game_over", "the game ended (the party fell where no retry catches it)")
@@ -224,6 +234,7 @@ func _play() -> String:
 			_block("place", "no plan for '%s' (the party arrived somewhere the book's route doesn't go)" % here)
 			return "blocked_place"
 		await _level_ups()
+		await _rest_if_hurt()
 		var acted := false
 		for i in plan.size():
 			var key := "%s|%d" % [here, i]
@@ -271,6 +282,49 @@ func _party_line() -> String:
 	return ", ".join(out)
 
 
+## A hurt party rests as a player would: the Rest screen, a Short Rest (Hit Point Dice spent as it plans them), and a
+## Long Rest when the place allows one and someone is still under half. What the screen refuses, and why, is noted.
+var _rested_at := -1
+
+
+func _rest_if_hurt() -> void:
+	var st := GameState.story
+	var hurt := st.party.any(func(ch: Character) -> bool: return not ch.dead and ch.hp * 2 < ch.max_hp())
+	if not hurt or _rested_at == st.total_minutes():
+		return
+	_rested_at = st.total_minutes()
+	root.call("open_screen", "rest", 0)
+	await _frames(4)
+	var scr: Variant = root.get("screen")
+	if not scr is RestScreen:
+		notes.append("%s: the Rest screen didn't open" % st.location)
+		return
+	var rs := scr as RestScreen
+	var before := _party_line()
+	var why := rs._short_refusals()
+	if why.is_empty():
+		rs.heal_up()
+		rs._finish_short()
+		await _frames(4)
+	else:
+		notes.append("%s: Short Rest refused: %s" % [st.location, " ".join(why)])
+	var long_why := RestRules.long_rest_refusals(st)
+	if long_why.is_empty() and st.party.any(func(ch: Character) -> bool: return not ch.dead and ch.hp * 2 < ch.max_hp()):
+		var all: Array[Button] = []
+		_buttons(rs, all)
+		for b in all:
+			if (b.text.begins_with("Take a Long Rest") or b.text.begins_with("Make camp") or b.text.begins_with("Sleep")) and not b.disabled:
+				b.pressed.emit()
+				break
+		await _until(_idle, 3000)
+	elif not long_why.is_empty():
+		notes.append("%s: Long Rest refused: %s" % [st.location, " ".join(long_why)])
+	if root.get("screen") != null:
+		root.call("close_screen")
+		await _frames(2)
+	notes.append("%s: rested. Before: %s. After: %s" % [st.location, before, _party_line()])
+
+
 ## Levels the story allows are taken as the player takes them: the level-up screen for each hero who can, its
 ## recommended picks confirmed.
 func _level_ups() -> void:
@@ -284,14 +338,36 @@ func _level_ups() -> void:
 			root.call("open_screen", "level_up", i)
 			await _frames(4)
 			var scr: Variant = root.get("screen")
+			var why := ""
 			if scr is LevelUpScreen and (scr as LevelUpScreen).ctl != null:
+				var ctl := (scr as LevelUpScreen).ctl
+				why = "; ".join(ctl.errors())
+				if why != "":
+					# What the recommended picks left open, the player picks by hand: here the first legal options.
+					_block("level_up", "%s, going to level %d: the Level Up screen's recommended picks leave choices open (%s); the run picks the first options by hand" % [
+						ch.name, ch.character_level() + 1, why])
+					for guard2 in 6:
+						var open := ctl.pending_choices()
+						if open.is_empty():
+							break
+						for c in open:
+							var picks: Array = c.picks.duplicate()
+							for o in c.options:
+								if picks.size() >= c.count:
+									break
+								if o.legal and not o.id in picks:
+									picks.append(o.id)
+							ctl.choose(c.key, picks)
 				(scr as LevelUpScreen)._confirm()
+			else:
+				why = "the screen had no level to take"
 			await _frames(4)
 			if root.get("screen") != null:
 				root.call("close_screen")
 				await _frames(2)
 			if ch.character_level() == was:
-				_block("level_up", "%s could level up but the level-up screen's recommended picks didn't confirm" % ch.name)
+				_block("level_up", "%s can go up to level %d, but the Level Up screen won't confirm even with every choice filled: %s" % [
+					ch.name, st.target_level(), "; ".join((scr as LevelUpScreen).ctl.errors()) if scr is LevelUpScreen and (scr as LevelUpScreen).ctl != null else why])
 				break
 			notes.append("%s levels up to %d" % [ch.name, ch.character_level()])
 
@@ -439,6 +515,7 @@ func _do(step: Array, here: String) -> void:
 	rec["stage"] = st.quest_stage("ghostlight_express")
 	rec["now_at"] = st.location
 	rec["party"] = _party_line()
+	rec["quests"] = _quests()
 	steps.append(rec)
 
 
@@ -479,12 +556,11 @@ func _talk(d: DialogueUI, picks: Array) -> void:
 		# The next pick is used only by a menu that offers it: a call or a companion's aside that comes up in between
 		# is left by its last option and the pick waits for its own conversation.
 		var want := str(picks[0])
-		for j in d._option_buttons.size():
-			if d._option_buttons[j].disabled or j >= opts.size():
-				continue
-			var text := str((opts[j] as Dictionary).get("text", ""))
-			for w: String in want.split("|"):
-				if text.contains(w):
+		for w: String in want.split("|"):
+			for j in d._option_buttons.size():
+				if d._option_buttons[j].disabled or j >= opts.size():
+					continue
+				if str((opts[j] as Dictionary).get("text", "")).contains(w):
 					pick = j
 					break
 			if pick >= 0:
@@ -497,11 +573,24 @@ func _talk(d: DialogueUI, picks: Array) -> void:
 				shown.append(str((o as Dictionary).get("text", "")))
 			notes.append("%s at %s: no option '%s' (had: %s); took the last" % [GameState.story.location,
 				d.runner.node if d.runner != null else "?", want, " / ".join(shown)])
+	# Out of picks while talking a haint round (its `help` menu): the approaches not tried yet, before stepping back,
+	# as a player keeps at it until three land or three fall flat.
+	if pick < 0 and picks.is_empty() and d.runner != null and d.runner.node == "help":
+		for j in d._option_buttons.size():
+			if j == last or d._option_buttons[j].disabled or j >= opts.size():
+				continue
+			var key := "%s:%s" % [d.runner.file.key if d.runner.file != null else "", str((opts[j] as Dictionary).get("text", ""))]
+			if not _tried_help.has(key):
+				_tried_help[key] = true
+				pick = j
+				break
 	if pick < 0:
 		pick = last
 	if pick < 0:
 		_block("menu", "a menu with nothing to choose (%s)" % _screen())
 		return
+	choices.append("%s %s:%s > %s" % [GameState.story.location, d.runner.file.key if d.runner != null and d.runner.file != null else "?",
+		d.runner.node if d.runner != null else "?", str((opts[pick] as Dictionary).get("text", "")) if pick < opts.size() else "?"])
 	d._option_buttons[pick].pressed.emit()
 
 
