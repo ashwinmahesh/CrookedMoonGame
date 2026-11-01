@@ -44,6 +44,7 @@ const BANTER_PAUSE_MS := 1200
 var _road_event := {}
 ## Loot windows waiting their turn: a fight's spoils and a road meeting's reward can both come at once.
 var _loot_queue: Array[Array] = []
+var _dead_at_fight_start: Array[Character] = []   ## who was already dead as this fight began (FightRetry.restore keeps them so)
 var menu: ContextMenu                ## the right-click menu on things in the world
 var _menu_cell := Vector2i(-1, -1)
 var ending: EndingScreen = null      ## the campaign's last screen, once the game has ended (ADR 0014)
@@ -209,6 +210,7 @@ func enter_location(location_id: String, spawn: String, sneaking: bool = false) 
 	view.aid_asked.connect(_ask_aid)
 	view.loot_opened.connect(_open_loot)
 	view.combat_started.connect(func(cv: CombatView) -> void:
+		_dead_at_fight_start = FightRetry.dead_now(st)   # a retry brings back only who fell in this fight
 		Cursors.show("pointer")
 		glow.clear()
 		LayerFade.fade(self, hud, false, 0.25)   # the combat HUD fades up in its place
@@ -984,7 +986,8 @@ func _after_combat(outcome: String) -> void:
 ## The party fell in a fight that retries (story/fight_retry.gd): it gets back up, the Narrator speaks, and the fight begins again, from the
 ## rule's spawn when it names one (the room's entry), else where the party stands.
 func _retry_fight(rule: Dictionary, spec: Dictionary) -> void:
-	FightRetry.restore(st, rule)
+	FightRetry.restore(st, rule, _dead_at_fight_start)
+	FightRetry.close_lost(st, view.loc_id, rule, spec)
 	_refresh()
 	var spawn := FightRetry.spawn_for(rule, view.loc_id, view.loc)
 	if spawn == "":
