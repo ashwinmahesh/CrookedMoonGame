@@ -6,8 +6,8 @@ import json, sys
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parents[2]
-# The prompt lists whose pictures get a stand-in: R10's, R12's and R13's (a list on the command line replaces them all).
-LISTS = sys.argv[1:] or ["tools/content/ghostlight_cutscenes.json", "tools/content/crooked_house_cutscenes.json", "tools/content/foxwillow_cutscenes.json"]
+# The prompt lists whose pictures get a stand-in: R10's, R12's, R13's and R18's (a list on the command line replaces them all).
+LISTS = sys.argv[1:] or ["tools/content/ghostlight_cutscenes.json", "tools/content/crooked_house_cutscenes.json", "tools/content/foxwillow_cutscenes.json", "tools/content/hartsblight_cutscenes.json"]
 pics: dict = {}
 for lst in LISTS:
     if (ROOT / lst).exists():

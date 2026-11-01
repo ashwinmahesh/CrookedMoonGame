@@ -53,6 +53,19 @@
       "region": "crooked_house",
       "when": "flag.wm_welcomed or visited:druskenvald_estate",
       "summary": "The Lockwood manor on the hill above Wickermoor, a pretty house at the end of a hill road."
+    },
+    {
+      "id": "hartsblight_forest",
+      "name": "The Hartsblight",
+      "location": "hb_patient_commune",
+      "spawn": "from_road",
+      "pos": [
+        0.2,
+        0.2
+      ],
+      "region": "hartsblight_forest",
+      "when": "flag.hb_asked or visited:hb_patient_commune",
+      "summary": "A dead commune at the edge of a rotting forest, north-west of Moonsong Lake."
     }
   ],
   "roads": [
@@ -79,6 +92,14 @@
       "hours": 1,
       "name": "The hill road",
       "when": "flag.wm_welcomed"
+    },
+    {
+      "id": "wickermoor_to_hartsblight",
+      "from": "wickermoor_village",
+      "to": "hartsblight_forest",
+      "hours": 32,
+      "name": "The spore trail",
+      "when": "flag.hb_asked or visited:hb_patient_commune"
     }
   ]
 }

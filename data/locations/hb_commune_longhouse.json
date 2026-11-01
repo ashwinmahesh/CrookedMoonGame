@@ -1,0 +1,158 @@
+{
+  "id": "hb_commune_longhouse",
+  "name": "The Commune Longhouse",
+  "region": "hartsblight_forest",
+  "summary": "The longhouse of woven branches and clay, where the commune's last elder lies.",
+  "text": "A long dim room of woven branches and clay, pallets in rows, and the smell of sweet damp.",
+  "map": {
+    "rows": [
+      "########################",
+      "#......................#",
+      "#.======...............#",
+      "#......................#",
+      "#......................#",
+      "#.............==.......#",
+      "#.............==.......#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "########################"
+    ],
+    "theme": "tavern",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "hall",
+      "name": "The longhouse",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          22,
+          12
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      12,
+      11
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        12,
+        13
+      ],
+      "to": "hb_patient_commune",
+      "spawn": "from_longhouse",
+      "label": "Out to the commune"
+    }
+  ],
+  "props": [
+    {
+      "id": "hb_lh_pallets",
+      "cell": [
+        5,
+        8
+      ],
+      "kind": "decor",
+      "label": "Rows of empty pallets",
+      "model": "bed"
+    },
+    {
+      "id": "hb_lh_pallets_b",
+      "cell": [
+        18,
+        8
+      ],
+      "kind": "decor",
+      "label": "Pallets, most of them occupied",
+      "model": "bed_small"
+    },
+    {
+      "id": "hb_lh_hearth",
+      "cell": [
+        11,
+        2
+      ],
+      "kind": "decor",
+      "label": "A hearth gone cold",
+      "model": "hearth"
+    },
+    {
+      "id": "hb_lh_sketch",
+      "cell": [
+        4,
+        4
+      ],
+      "kind": "examine",
+      "label": "A charcoal sketch pinned over the lintel",
+      "model": "painting",
+      "dialogue": "hartsblight/harvest:elder_sketch",
+      "when": "not item:gwenna_sketch"
+    },
+    {
+      "id": "hb_lh_jars",
+      "cell": [
+        20,
+        3
+      ],
+      "kind": "decor",
+      "label": "Jars of seed, most of them black",
+      "model": "jars"
+    },
+    {
+      "id": "hb_lh_keepsakes",
+      "cell": [
+        9,
+        10
+      ],
+      "kind": "decor",
+      "label": "Keepsakes of the dead",
+      "model": "rags"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "elder_brisa_thorne",
+      "cell": [
+        16,
+        8
+      ],
+      "dialogue": "hartsblight/harvest:elder_progress",
+      "when": "flag.hb_harvest_asked and not flag.hb_harvest_lost and not flag.hb_harvest_done"
+    },
+    {
+      "npc": "elder_brisa_thorne",
+      "cell": [
+        15,
+        7
+      ],
+      "dialogue": "hartsblight/harvest:elder_start"
+    }
+  ],
+  "rest": "safe",
+  "lights": [
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

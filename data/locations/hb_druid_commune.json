@@ -1,0 +1,835 @@
+{
+  "map": {
+    "elevation": [
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "0000000000000000000000000000000000000000",
+      "0000000000000000000000000000000000000000",
+      "0000000000000000000000000000000000000000",
+      "0000000000000000000000000000000000000000",
+      "0000000000000000000000000000000000000000",
+      "0000000000000000000000000000000000000000",
+      "0000000000000000000000000000000000000000",
+      "0000000000000000000000000000000000000000",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "2222222222222222222222222222222222222222",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111"
+    ],
+    "rows": [
+      "##################.....#################",
+      "##################.....#################",
+      "##.......................~~...........##",
+      "##.......................~~...........##",
+      "##....................................##",
+      "##...............###..................##",
+      "##..............#####......#...#####..##",
+      "##..............#####..~~~~##..#####..##",
+      "##..####.###...~####...~~~~##..#####..##",
+      "##..#########.~~..#....~~~###..#####..##",
+      ".....########.~~.......~~~###......~~.##",
+      ".....###.####.....................~~~.##",
+      ".........##.....................##~~~~##",
+      "...............................####...##",
+      "..............................#####...##",
+      "##...###.......................####...##",
+      "##..#####......................##~....##",
+      "##..#####.......................~~~...##",
+      "##..####.......................~~~~.....",
+      "##...##..........................~......",
+      "##...............................##.....",
+      "##..............................###.....",
+      "##..............................###.....",
+      "##....###.......................###~..##",
+      "##...####........................#~~~~##",
+      "##...####..........................~~~##",
+      "##...####.................~~.......~~.##",
+      "##....####.................~###.......##",
+      "##....####.................####.......##",
+      "##....####..###............########...##",
+      "##....####.####............#####~~#...##",
+      "##.........#####...#####....####~~#...##",
+      "##.........####....#####......#####...##",
+      "##..........#......#####................",
+      "##..................####................",
+      "#.......................................",
+      "#.......................................",
+      "........................................",
+      "......##################################",
+      "......##################################"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "id": "hb_druid_commune",
+  "region": "hartsblight_forest",
+  "props": [
+    {
+      "id": "hb_druids_leg",
+      "cell": [
+        4,
+        35
+      ],
+      "kind": "decor",
+      "label": "The way in, and the smell of it",
+      "call": "hartsblight/trek:leg_druids",
+      "approach": 8,
+      "call_when": "not flag.hb_leg_druids"
+    },
+    {
+      "id": "hb_f5_common",
+      "cell": [
+        20,
+        26
+      ],
+      "kind": "decor",
+      "label": "The open common, the drum circle at its heart",
+      "model": "offering_circle",
+      "call": "hartsblight/forest2:common",
+      "approach": 8,
+      "call_when": "not flag.hb_f5_seen"
+    },
+    {
+      "id": "hb_dwelling_a",
+      "cell": [
+        6,
+        12
+      ],
+      "kind": "examine",
+      "label": "A dwelling burrowed into a rotting trunk",
+      "model": "cobwebs",
+      "dialogue": "hartsblight/forest2:dwelling"
+    },
+    {
+      "id": "hb_dwelling_b",
+      "cell": [
+        33,
+        11
+      ],
+      "kind": "examine",
+      "label": "A dwelling, mouldy bedding at its door",
+      "model": "cobwebs",
+      "dialogue": "hartsblight/forest2:dwelling"
+    },
+    {
+      "id": "hb_dwelling_c",
+      "cell": [
+        8,
+        31
+      ],
+      "kind": "decor",
+      "label": "A dwelling, its prayer rings broken",
+      "model": "cobwebs"
+    },
+    {
+      "id": "hb_drum_circle",
+      "cell": [
+        20,
+        20
+      ],
+      "kind": "decor",
+      "label": "The drum circle",
+      "model": "rune_circle"
+    },
+    {
+      "id": "hb_antler_idols",
+      "cell": [
+        13,
+        22
+      ],
+      "kind": "decor",
+      "label": "Antler idols on a stone",
+      "model": "stag_head"
+    },
+    {
+      "id": "hb_bone_pipes",
+      "cell": [
+        27,
+        22
+      ],
+      "kind": "decor",
+      "label": "Gourd-and-bone instruments",
+      "model": "lute"
+    },
+    {
+      "id": "hb_camp_spot_d",
+      "cell": [
+        4,
+        30
+      ],
+      "kind": "examine",
+      "label": "A hollow at the edge of the common",
+      "model": "rune_circle",
+      "dialogue": "hartsblight/night:camp"
+    },
+    {
+      "id": "hb_druid_commune_tree_0",
+      "cell": [
+        3,
+        36
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_druid_commune_tree_1",
+      "cell": [
+        22,
+        29
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_druid_commune_tree_2",
+      "cell": [
+        36,
+        36
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_druid_commune_tree_3",
+      "cell": [
+        3,
+        34
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_druid_commune_tree_4",
+      "cell": [
+        4,
+        3
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_druid_commune_tree_5",
+      "cell": [
+        9,
+        16
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_druid_commune_tree_6",
+      "cell": [
+        14,
+        27
+      ],
+      "kind": "decor",
+      "label": "A split trunk bursting with shelf fungus",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "hb_druid_commune_tree_7",
+      "cell": [
+        23,
+        29
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_druid_commune_tree_8",
+      "cell": [
+        25,
+        19
+      ],
+      "kind": "decor",
+      "label": "A split trunk bursting with shelf fungus",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "hb_druid_commune_tree_9",
+      "cell": [
+        36,
+        17
+      ],
+      "kind": "decor",
+      "label": "A dead tree, furred with fungus",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "hb_druid_commune_tree_10",
+      "cell": [
+        34,
+        16
+      ],
+      "kind": "decor",
+      "label": "A dead tree, furred with fungus",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "hb_druid_commune_tree_11",
+      "cell": [
+        24,
+        3
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_druid_commune_tree_12",
+      "cell": [
+        22,
+        17
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_druid_commune_tree_13",
+      "cell": [
+        5,
+        28
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_druid_commune_bones_0",
+      "cell": [
+        29,
+        22
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_druid_commune_bones_1",
+      "cell": [
+        12,
+        5
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_druid_commune_bones_2",
+      "cell": [
+        28,
+        3
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_druid_commune_bones_3",
+      "cell": [
+        22,
+        22
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_druid_commune_bones_4",
+      "cell": [
+        31,
+        34
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_druid_commune_bones_5",
+      "cell": [
+        32,
+        19
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_druid_commune_misc_0",
+      "cell": [
+        32,
+        11
+      ],
+      "kind": "decor",
+      "label": "Drifts of grey leaves",
+      "model": "leaves"
+    },
+    {
+      "id": "hb_druid_commune_misc_1",
+      "cell": [
+        33,
+        10
+      ],
+      "kind": "decor",
+      "label": "Pale vines",
+      "model": "vines"
+    },
+    {
+      "id": "hb_druid_commune_misc_2",
+      "cell": [
+        7,
+        4
+      ],
+      "kind": "decor",
+      "label": "Cobwebs hung with spores",
+      "model": "cobwebs"
+    },
+    {
+      "id": "hb_druid_commune_misc_3",
+      "cell": [
+        32,
+        25
+      ],
+      "kind": "decor",
+      "label": "Cobwebs hung with spores",
+      "model": "cobwebs"
+    },
+    {
+      "id": "hb_druid_commune_misc_4",
+      "cell": [
+        25,
+        12
+      ],
+      "kind": "decor",
+      "label": "Drifts of grey leaves",
+      "model": "leaves"
+    },
+    {
+      "id": "hb_druid_commune_misc_5",
+      "cell": [
+        5,
+        21
+      ],
+      "kind": "decor",
+      "label": "Drifts of grey leaves",
+      "model": "leaves"
+    },
+    {
+      "id": "hb_druid_commune_misc_6",
+      "cell": [
+        34,
+        36
+      ],
+      "kind": "decor",
+      "label": "Cobwebs hung with spores",
+      "model": "cobwebs"
+    },
+    {
+      "id": "hb_druid_commune_misc_7",
+      "cell": [
+        31,
+        20
+      ],
+      "kind": "decor",
+      "label": "Drifts of grey leaves",
+      "model": "leaves"
+    },
+    {
+      "id": "hb_druid_commune_misc_8",
+      "cell": [
+        25,
+        35
+      ],
+      "kind": "decor",
+      "label": "A puddle that is not water",
+      "model": "puddle"
+    },
+    {
+      "id": "hb_druid_commune_misc_9",
+      "cell": [
+        9,
+        5
+      ],
+      "kind": "decor",
+      "label": "Mossy stones",
+      "model": "rocks"
+    }
+  ],
+  "npcs": [],
+  "exits": [
+    {
+      "id": "to_altar",
+      "cell": [
+        1,
+        39
+      ],
+      "to": "hb_altar_of_rot",
+      "spawn": "from_druids",
+      "label": "Back to the altar of rot"
+    },
+    {
+      "id": "to_ravine",
+      "cell": [
+        20,
+        0
+      ],
+      "to": "hb_oozing_ravine",
+      "spawn": "from_druids",
+      "label": "North, to the ravine",
+      "when": "visited:hb_druid_commune"
+    },
+    {
+      "id": "to_quagmire",
+      "cell": [
+        39,
+        20
+      ],
+      "to": "hb_stinking_quagmire",
+      "spawn": "from_druids",
+      "label": "East, to the quagmire"
+    },
+    {
+      "id": "to_grove",
+      "cell": [
+        0,
+        12
+      ],
+      "to": "hb_fungal_grove",
+      "spawn": "from_druids",
+      "label": "West, to the fungal grove"
+    },
+    {
+      "id": "to_wellspring",
+      "cell": [
+        39,
+        35
+      ],
+      "to": "hb_wellspring",
+      "spawn": "from_druids",
+      "label": "Deeper in, to the river and the wellspring",
+      "when": "visited:hb_oozing_ravine and visited:hb_stinking_quagmire and visited:hb_fungal_grove"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "hb_drums",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "rotweaver",
+          "cell": [
+            10,
+            30
+          ],
+          "name": "Rotweaver",
+          "facing": "west"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            10,
+            29
+          ],
+          "name": "Rotweaver",
+          "facing": "west"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            10,
+            31
+          ],
+          "name": "Rotweaver",
+          "facing": "west"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            9,
+            31
+          ],
+          "name": "Rotweaver",
+          "facing": "west"
+        }
+      ],
+      "flag": "hb_drums_done"
+    },
+    {
+      "id": "hb_mammoth",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "mammoth",
+          "cell": [
+            10,
+            32
+          ],
+          "name": "A blighted mammoth",
+          "facing": "west"
+        }
+      ],
+      "flag": "hb_mammoth_done"
+    },
+    {
+      "id": "hb_owlbears",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "owlbear",
+          "cell": [
+            12,
+            28
+          ],
+          "name": "A rotting owlbear",
+          "facing": "west"
+        },
+        {
+          "monster": "owlbear",
+          "cell": [
+            11,
+            28
+          ],
+          "name": "A rotting owlbear",
+          "facing": "west"
+        }
+      ],
+      "flag": "hb_owlbears_done"
+    },
+    {
+      "id": "hb_f5",
+      "trigger": "enter_area:f5_common",
+      "flag": "hb_f5_done",
+      "waiting": true,
+      "monsters": [
+        {
+          "monster": "keeper_of_the_blight",
+          "cell": [
+            20,
+            19
+          ],
+          "name": "Keeper of the Blight",
+          "facing": "south"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            24,
+            20
+          ],
+          "name": "Rotweaver",
+          "facing": "north"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            24,
+            22
+          ],
+          "name": "Rotweaver",
+          "facing": "north"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            22,
+            24
+          ],
+          "name": "Rotweaver",
+          "facing": "north"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            20,
+            24
+          ],
+          "name": "Rotweaver",
+          "facing": "north"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            18,
+            24
+          ],
+          "name": "Rotweaver",
+          "facing": "north"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            16,
+            22
+          ],
+          "name": "Rotweaver",
+          "facing": "north"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            16,
+            20
+          ],
+          "name": "Rotweaver",
+          "facing": "north"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            16,
+            18
+          ],
+          "name": "Rotweaver",
+          "facing": "north"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            18,
+            16
+          ],
+          "name": "Rotweaver",
+          "facing": "north"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            20,
+            16
+          ],
+          "name": "Rotweaver",
+          "facing": "north"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            22,
+            16
+          ],
+          "name": "Rotweaver",
+          "facing": "north"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            24,
+            18
+          ],
+          "name": "Rotweaver",
+          "facing": "north"
+        }
+      ],
+      "when": "not flag.hb_garb_taken and not flag.hb_f5_done"
+    }
+  ],
+  "areas": [
+    {
+      "id": "f5_common",
+      "name": "The common",
+      "cells": [
+        [
+          8,
+          8
+        ],
+        [
+          31,
+          31
+        ]
+      ],
+      "light": "dim"
+    },
+    {
+      "id": "dwellings",
+      "name": "The burrowed dwellings",
+      "cells": [
+        [
+          3,
+          6
+        ],
+        [
+          36,
+          33
+        ]
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        20,
+        20
+      ],
+      "kind": "candle",
+      "bright_ft": 40,
+      "dim_ft": 80,
+      "color": "bile"
+    }
+  ],
+  "traps": [],
+  "spawns": {
+    "default": [
+      3,
+      37
+    ],
+    "from_altar": [
+      3,
+      37
+    ],
+    "from_ravine": [
+      20,
+      2
+    ],
+    "from_quagmire": [
+      37,
+      20
+    ],
+    "from_grove": [
+      2,
+      12
+    ],
+    "from_wellspring": [
+      37,
+      35
+    ]
+  },
+  "name": "The Druids' Commune",
+  "summary": "An open common ringed by giant rotting trees burrowed out as homes, with a drum circle at its heart.",
+  "text": "An open common ringed by giant rotting trees burrowed out as homes, with a drum circle at its heart. Spore clouds thicken the air until the far trees are only a rumour.",
+  "rest": "risky",
+  "rest_text": "The spores drift down on your bedrolls like a slow, soft snow, and the trees are listening."
+}

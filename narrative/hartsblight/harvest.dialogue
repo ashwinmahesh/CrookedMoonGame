@@ -1,0 +1,140 @@
+# Drafted by Gemini (R18 harvest), edited.
+
+~ elder_start
+Narrator: An old woman lies on a damp straw pallet, her chest rattling like dry peas in a gourd. A stoppered clay jar rests by her crooked fingers.
+elder_brisa_thorne [weary]: Still got your legs under you, have you? Don't stand in the doorway letting the spores drift in. Take a breath and state your business.
+* Who are you? -> elder_who
+* What happened here? -> elder_what
+* [Insight DC 13] You are hiding something. -> elder_gwenna | elder_sharp
+* Ask about the longhouse's keepsakes. -> elder_sketch
+* We can help with the seeds. -> elder_accept
+* We cannot help you. -> elder_decline
+* Leave. -> END
+
+~ elder_who
+elder_brisa_thorne [neutral]: Brisa Thorne. Seventy winters on my back, and the last soul in this longhouse still stubborn enough to chew her own bread. The Patient Lady hasn't called my name yet.
+-> elder_start
+
+~ elder_what
+elder_brisa_thorne [weary]: The grey dust blew down from the inner wood. Folks coughed, sat down by the hearth to rest their bones, and never got up again. Now the moss eats their boots.
+-> elder_start
+
+~ elder_gwenna
+Narrator: Her jaw tightens, and her thumb rubs a dark smudge of charcoal on the hem of her blanket.
+elder_brisa_thorne [sad]: Too sharp for your own good. Our Gwenna gave her heart to a girl from the Greenwood, an antlered thing. I held my tongue for the shame of it, and now the wood eats us.
+elder_brisa_thorne [weary]: We kept a likeness of the girl by the hearth. Take it out of my sight before I cough my last on it.
+give gwenna_sketch
+set hb_has_likeness
+set mem_farryn_gwenna
+-> elder_start
+
+~ elder_sharp
+Narrator: She turns her cheek to the damp wall, shutting her eyes until her breathing steadies.
+elder_brisa_thorne [angry]: I am hiding seventy years of aches and a lungful of rot, stranger. Mind your own tally and leave an old woman her quiet. Speak of the seed jar or walk on.
+-> elder_start
+
+~ elder_sketch
+elder_brisa_thorne [weary]: Nothing left worth stealing but charcoal on dry bark. That is young Gwenna, drawn before the wolves had her. Take it if you want a face to remember us by.
+give gwenna_sketch
+set hb_has_likeness
+-> elder_start
+
+~ elder_accept
+Narrator: She presses a cold clay jar into your palm. Inside, a few dry husks rattle like beetles.
+elder_brisa_thorne [neutral]: Three things still wake under the rot if you know the old answers. Cold iron at the pine barrens, clean fire at the quagmire, and a true song by the black river.
+give seed_jar
+set hb_harvest_asked
+quest hb_commune_harvest asked
+-> END
+
+~ elder_decline
+elder_brisa_thorne [weary]: Then shut the door behind you. No sense wasting the heat I have left.
+-> END
+
+~ elder_progress
+Narrator: Elder Thorne lifts her chin from the blanket, her cloudy eyes fixed on the clay jar at your hip.
+elder_brisa_thorne [weary]: You walked out of the spores upright. Tell me you did not come back with an empty pot.
+* [if flag.hb_seed_iron and flag.hb_seed_fire and flag.hb_seed_song] Hand over the jar. -> elder_return
+* Remind us of the three answers. -> elder_accept_repeat
+* [ends:hb_commune_harvest] We give up. -> elder_giveup
+* Leave. -> END
+
+~ elder_accept_repeat
+elder_brisa_thorne [neutral]: Keep your ears open this time. Drive cold iron into the pine barrens, burn the mould off the quagmire reeds, and sing to the black stalks by the river.
+-> elder_progress
+
+~ elder_giveup
+Narrator: She lets out a thin breath and sinks back into the mouldering straw, her hand falling from the edge of the bed.
+elder_brisa_thorne [weary]: Aye. The dirt is heavy and your hands are small. Leave the jar on the step if you please.
+quest hb_commune_harvest lost
+set hb_harvest_lost
+-> END
+
+~ elder_return
+set hb_harvest_done
+Narrator: She scrapes a shallow trench in the packed dirt beside her pallet and buries a single pale seed with her thumb.
+elder_brisa_thorne [smile]: Good. Let the beasts howl in the timber. Come spring or come nothing, this longhouse will not be remembered solely as a grave. Take what coin the dead don't need.
+quest hb_commune_harvest done
+take seed_jar
+gold +100
+standing patient_lady +1
+-> END
+
+~ seed_iron
+Narrator: Rusted hunting traps litter the pine barrens, their iron teeth tangled in grey fungal roots that smell of wet pennies.
+* [Survival DC 13] Drive a trap's iron spike into the blighted roots. -> iron_ok | iron_fail
+* Pry a spike free by hand and drive it in. -> iron_hand
+* Leave. -> END
+
+~ iron_ok
+Narrator: The iron spike bites deep into the knot of fungus. With a sour hiss, the grey rind splits, and a clean green pine shoot lifts through the dead needles.
+set hb_seed_iron
+-> END
+
+~ iron_hand
+Narrator: Rusted jaws snap across {name}'s knuckles as the spike comes free, drawing dark blood, but when driven home it splits the rot and a green shoot lifts through the dead needles.
+damage 1d8 piercing
+set hb_seed_iron
+-> END
+
+~ iron_fail
+Narrator: The rusted spike glances off the hardened fungal bark with a dull clatter. You will have to wrench one loose and force it in by hand.
+-> seed_iron
+
+~ seed_fire
+Narrator: At the quagmire's edge, a mat of white-green mould smothers a bed of living reeds, hissing softly in the bog damp.
+* [if item:torch] Burn the mould with a torch. -> fire_ok
+* [Arcana DC 14] Burn it with a spell. -> fire_ok | fire_fail
+* [if item:tinderbox] Light a hunting-trap's tinder with a spark. -> fire_ok
+* Leave. -> END
+
+~ fire_ok
+Narrator: The mould catches like tallow, crisping away in a foul yellow smoke until the fresh reed-heads beneath pop open and spill their clean seeds into your jar.
+set hb_seed_fire
+-> END
+
+~ fire_fail
+Narrator: The damp air swallows the arcane spark before it can catch, leaving only a smell of singed hair over the bog.
+-> seed_fire
+
+~ seed_song
+Narrator: Beside the black river, hollow reeds rattle against one another in the windless dark, their seed-pods locked tight as fists.
+* [Performance DC 14] Sing to the reeds. -> song_ok | song_fail
+* [if flag.hb_has_likeness] Hum the commune's hymn from the Elder's lips. -> song_ok
+* Pull a root out with your bare hands. -> song_hand
+* Leave. -> END
+
+~ song_ok
+Narrator: At the sound of a clear note, the black husks tremble and uncurl, dropping pale, dry grains into the waiting clay jar.
+set hb_seed_song
+-> END
+
+~ song_hand
+Narrator: Black sap blisters {name}'s skin with a graveyard chill as the root tears free, but a handful of living grain shakes loose into the jar.
+damage 2d8 necrotic
+set hb_seed_song
+-> END
+
+~ song_fail
+Narrator: Your voice cracks in the heavy spore-choked air, and the black reeds remain shut tight.
+-> seed_song

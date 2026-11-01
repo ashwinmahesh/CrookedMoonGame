@@ -1,0 +1,473 @@
+{
+  "map": {
+    "elevation": [
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "111111111111111111111111111111111111",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000",
+      "000000000000000000000000000000000000"
+    ],
+    "rows": [
+      "####################################",
+      "####################################",
+      "###...##.#..............#.........##",
+      "##....#.................#.........##",
+      "##.....................##.........##",
+      "##......................#.........##",
+      "##......................##........##",
+      "##......................##........##",
+      "##............................##..##",
+      "##............................##..##",
+      "##................................##",
+      "##.................#.......#......##",
+      "##................................##",
+      "##.........................~~.....##",
+      "##.........................~~.....##",
+      "##...........##.....................",
+      "##..........####......~~~##.........",
+      "##..........#####.....~~~##.........",
+      "##.........#####.........#..........",
+      "##..........####...........#........",
+      "##................................##",
+      "##..............................#.##",
+      "##.#.........~~...................##",
+      "####.........~~.............#.....##",
+      "##...........~~...................##",
+      "##..........................##....##",
+      "##...............~..~~.......#.#..##",
+      "##..............~~..~~........##..##",
+      "##.............~~~................##",
+      "##.##.........##.~................##",
+      "##.##.~~..........................##",
+      "##....~~........~.................##",
+      "##....~~........~~................##",
+      "##....#...........................##",
+      "####################################",
+      "####################################"
+    ],
+    "theme": "forest",
+    "light": "bright",
+    "outdoors": true
+  },
+  "id": "hb_fungal_grove",
+  "region": "hartsblight_forest",
+  "props": [
+    {
+      "id": "hb_grove_leg",
+      "cell": [
+        31,
+        17
+      ],
+      "kind": "decor",
+      "label": "The way in, and the smell of it",
+      "call": "hartsblight/trek:leg_grove",
+      "approach": 8,
+      "call_when": "not flag.hb_leg_grove"
+    },
+    {
+      "id": "hb_gloomwood",
+      "cell": [
+        16,
+        16
+      ],
+      "kind": "examine",
+      "label": "The gloomwood, covered in corpse flowers",
+      "model": "tree_marked",
+      "scale": 3.0,
+      "dialogue": "hartsblight/forest2:gloom_start",
+      "when": "not flag.hb_gloomwood_done and not flag.hb_grove_done"
+    },
+    {
+      "id": "hb_corpse_flower",
+      "cell": [
+        9,
+        27
+      ],
+      "kind": "examine",
+      "label": "A wilted corpse flower with a pod",
+      "model": "vines",
+      "dialogue": "hartsblight/forest2:flower",
+      "when": "not flag.hb_pod_taken"
+    },
+    {
+      "id": "hb_stalk_0",
+      "cell": [
+        8,
+        8
+      ],
+      "kind": "decor",
+      "label": "A ten-foot fungal stalk",
+      "model": "vines"
+    },
+    {
+      "id": "hb_stalk_1",
+      "cell": [
+        20,
+        8
+      ],
+      "kind": "decor",
+      "label": "A ten-foot fungal stalk",
+      "model": "vines"
+    },
+    {
+      "id": "hb_stalk_2",
+      "cell": [
+        26,
+        12
+      ],
+      "kind": "decor",
+      "label": "A ten-foot fungal stalk",
+      "model": "vines"
+    },
+    {
+      "id": "hb_stalk_3",
+      "cell": [
+        10,
+        14
+      ],
+      "kind": "decor",
+      "label": "A ten-foot fungal stalk",
+      "model": "vines"
+    },
+    {
+      "id": "hb_stalk_4",
+      "cell": [
+        22,
+        24
+      ],
+      "kind": "decor",
+      "label": "A ten-foot fungal stalk",
+      "model": "vines"
+    },
+    {
+      "id": "hb_stalk_5",
+      "cell": [
+        28,
+        26
+      ],
+      "kind": "decor",
+      "label": "A ten-foot fungal stalk",
+      "model": "vines"
+    },
+    {
+      "id": "hb_stalk_6",
+      "cell": [
+        6,
+        22
+      ],
+      "kind": "decor",
+      "label": "A ten-foot fungal stalk",
+      "model": "vines"
+    },
+    {
+      "id": "hb_grove_parley",
+      "cell": [
+        13,
+        20
+      ],
+      "kind": "decor",
+      "label": "The gloomwood's trunk",
+      "model": "tree_marked",
+      "call": "hartsblight/gorthos:parley3",
+      "approach": 4,
+      "call_when": "(flag.hb_gloomwood_done or flag.hb_grove_done) and not flag.hb_parley3"
+    },
+    {
+      "id": "hb_fungal_grove_tree_0",
+      "cell": [
+        29,
+        13
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_fungal_grove_tree_1",
+      "cell": [
+        13,
+        13
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_fungal_grove_tree_2",
+      "cell": [
+        19,
+        14
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_fungal_grove_tree_3",
+      "cell": [
+        27,
+        17
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_fungal_grove_tree_4",
+      "cell": [
+        28,
+        9
+      ],
+      "kind": "decor",
+      "label": "A dead tree, furred with fungus",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "hb_fungal_grove_tree_5",
+      "cell": [
+        23,
+        6
+      ],
+      "kind": "decor",
+      "label": "A dead tree, furred with fungus",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "hb_fungal_grove_bones_0",
+      "cell": [
+        15,
+        4
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_fungal_grove_bones_1",
+      "cell": [
+        8,
+        26
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_fungal_grove_bones_2",
+      "cell": [
+        10,
+        8
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_fungal_grove_bones_3",
+      "cell": [
+        17,
+        7
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_fungal_grove_misc_0",
+      "cell": [
+        12,
+        4
+      ],
+      "kind": "decor",
+      "label": "Pale vines",
+      "model": "vines"
+    },
+    {
+      "id": "hb_fungal_grove_misc_1",
+      "cell": [
+        31,
+        21
+      ],
+      "kind": "decor",
+      "label": "Mossy stones",
+      "model": "rocks"
+    },
+    {
+      "id": "hb_fungal_grove_misc_2",
+      "cell": [
+        5,
+        26
+      ],
+      "kind": "decor",
+      "label": "Pale vines",
+      "model": "vines"
+    },
+    {
+      "id": "hb_fungal_grove_misc_3",
+      "cell": [
+        10,
+        12
+      ],
+      "kind": "decor",
+      "label": "Mossy stones",
+      "model": "rocks"
+    },
+    {
+      "id": "hb_fungal_grove_misc_4",
+      "cell": [
+        16,
+        18
+      ],
+      "kind": "decor",
+      "label": "Drifts of grey leaves",
+      "model": "leaves"
+    },
+    {
+      "id": "hb_fungal_grove_misc_5",
+      "cell": [
+        15,
+        31
+      ],
+      "kind": "decor",
+      "label": "Pale vines",
+      "model": "vines"
+    },
+    {
+      "id": "hb_fungal_grove_misc_6",
+      "cell": [
+        21,
+        30
+      ],
+      "kind": "decor",
+      "label": "Mossy stones",
+      "model": "rocks"
+    },
+    {
+      "id": "hb_fungal_grove_misc_7",
+      "cell": [
+        17,
+        3
+      ],
+      "kind": "decor",
+      "label": "Drifts of grey leaves",
+      "model": "leaves"
+    }
+  ],
+  "npcs": [],
+  "exits": [
+    {
+      "id": "to_druids",
+      "cell": [
+        35,
+        17
+      ],
+      "to": "hb_druid_commune",
+      "spawn": "from_grove",
+      "label": "Back to the druids' commune"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "hb_gloomwood",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "gloomwood",
+          "cell": [
+            14,
+            20
+          ],
+          "name": "The gloomwood",
+          "facing": "east"
+        }
+      ],
+      "flag": "hb_gloomwood_done"
+    }
+  ],
+  "areas": [
+    {
+      "id": "grove",
+      "name": "The grove",
+      "cells": [
+        [
+          3,
+          3
+        ],
+        [
+          32,
+          32
+        ]
+      ],
+      "light": "bright"
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        14,
+        18
+      ],
+      "kind": "candle",
+      "bright_ft": 40,
+      "dim_ft": 80,
+      "color": "bile"
+    },
+    {
+      "cell": [
+        22,
+        22
+      ],
+      "kind": "candle",
+      "bright_ft": 30,
+      "dim_ft": 60,
+      "color": "bile"
+    }
+  ],
+  "traps": [],
+  "spawns": {
+    "default": [
+      33,
+      17
+    ],
+    "from_druids": [
+      33,
+      17
+    ]
+  },
+  "name": "The Fungal Grove",
+  "summary": "Ten-foot fungal stalks and hanging tendrils under a soft green glow, tended by a blighted tree-man.",
+  "text": "Ten-foot fungal stalks and hanging tendrils under a soft green glow, tended by a blighted tree-man. The whole grove glows a soft, patient green.",
+  "rest": "risky",
+  "rest_text": "The spores drift down on your bedrolls like a slow, soft snow, and the trees are listening."
+}

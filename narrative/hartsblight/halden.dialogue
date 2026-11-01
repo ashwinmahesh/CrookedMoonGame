@@ -1,0 +1,63 @@
+# Drafted by Gemini (R18 halden), edited.
+
+~ journal_find
+Narrator: You pry a oilskin notebook from the dead trapper's stiff fingers. The leather smells of tallow and sour moss, and the name Halden Wreath is scratched inside the cover.
+give halden_journal
+set hb_halden_journal
+quest hb_halden_hunt asked
+-> END
+
+~ journal_read
+Narrator: The pages map a winding trail from the hollow, full of hopeful notes about catching sight of the Tall Man dancing in the deep timber. The final entry is blotched and shaky, claiming the dark trees have begun shouting his own voice back at him.
+* [Survival DC 15] Follow the trail it describes -> trail_ok | trail_fail
+* Read the last entry again -> journal_last
+* Leave -> END
+
+~ journal_last
+Narrator: You trace the last cramped words on the damp page: "I called out to ask who was there, and my own scream came back twice from the ridge."
+-> journal_read
+
+~ trail_ok
+Narrator: You match Halden's landmarks to the rotting trunks and follow old boot-marks east toward a ridge of dead pines. From a hollow beneath the roots ahead comes a man's raw scream, cut short and repeated on the exact same note.
+set hb_owlbears_traced
+quest hb_halden_hunt traced
+-> END
+
+~ trail_fail
+Narrator: The thick shelf-moulds and weeping moss swallow the boot-prints after twenty paces, leaving you turned around in the spores.
+-> journal_read
+
+~ den_prop
+Narrator: Up on the dead ridge, a tangle of snapped boughs and furred pellets marks an owlbear den. The rank smell of wet feathers and old meat hangs heavy in the cold air.
+* [Stealth DC 14] Watch the den from cover -> den_watch | den_spotted
+* Lure them away with a sound -> den_lure
+* Burn the den -> den_burn
+* Leave -> END
+
+~ den_watch
+Narrator: Through the dead brush, you watch two mould-crusted owlbears crouched over a pile of gnawed bones. One opens its hooked beak and lets out Halden's exact dying cry, and the other answers with the same stolen voice like a parlour trick. In the dry twigs beside your boot glints the trapper's dropped coin-pouch.
+set hb_owlbears_understood
+quest hb_halden_hunt done
+gold +50
+-> END
+
+~ den_spotted
+Narrator: A rotten branch snaps underfoot, and two huge, spore-matted heads whip around toward you with Halden's scream still rattling in their throats.
+combat hb_owlbears
+
+~ den_lure
+Narrator: You pitch a heavy stone into the ravine below. A stolen human scream answers from the brush as the two hulking shapes lumber down the slope to hunt the noise.
+set hb_owlbears_understood
+quest hb_halden_hunt done
+-> END
+
+~ den_burn
+Narrator: You touch a spark to the dry brush at the mouth of the hollow, and two rotting shapes burst through the smoke with stolen human shrieks.
+set hb_owlbears_understood
+quest hb_halden_hunt done
+combat hb_owlbears
+
+~ buried
+Narrator: You stack grey stones over what remains of Halden Wreath, scratch his name into a flat piece of slate, and leave a tarnished coin on top for the ferry.
+set hb_halden_buried
+-> END

@@ -836,6 +836,63 @@
     {
       "npc": "sister_rain",
       "cell": [
+        19,
+        10
+      ],
+      "dialogue": "hartsblight/hook:rain_start",
+      "when": "flag.act2_done >= 5 and not flag.hb_asked and not flag.hb_refused",
+      "facing": "east"
+    },
+    {
+      "npc": "sister_rain",
+      "cell": [
+        19,
+        10
+      ],
+      "dialogue": "hartsblight/hook:rain_again",
+      "when": "flag.act2_done >= 5 and flag.hb_refused and not flag.hb_asked",
+      "facing": "east"
+    },
+    {
+      "npc": "sister_rain",
+      "cell": [
+        33,
+        23
+      ],
+      "dialogue": "hartsblight/village_after:rain_report",
+      "when": "flag.gorthos_slain and not flag.hb_rain_done"
+    },
+    {
+      "npc": "sister_rain",
+      "cell": [
+        33,
+        23
+      ],
+      "dialogue": "hartsblight/village_after:rain_garden",
+      "when": "flag.hb_rain_done and flag.hb_garden_found and not flag.hb_garden_told"
+    },
+    {
+      "npc": "sister_rain",
+      "cell": [
+        33,
+        23
+      ],
+      "dialogue": "hartsblight/village_after:rain_sick",
+      "when": "flag.hb_cloud_reached_village and not flag.gorthos_slain and flag.hb_asked"
+    },
+    {
+      "npc": "brother_spore",
+      "cell": [
+        19,
+        12
+      ],
+      "dialogue": "hartsblight/village_after:spore_after",
+      "when": "flag.hb_rain_done",
+      "facing": "west"
+    },
+    {
+      "npc": "sister_rain",
+      "cell": [
         33,
         23
       ],

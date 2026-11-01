@@ -1,0 +1,662 @@
+{
+  "map": {
+    "elevation": [
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "000000000000000000000000000000",
+      "000000000000000000000000000000",
+      "000000000000000000000000000000",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222"
+    ],
+    "rows": [
+      "#############.....############",
+      "#############.....############",
+      "##..........................##",
+      "##................#.........##",
+      "##................#.........##",
+      "##.......#........#.........##",
+      "##.......#............#.....##",
+      "##............w......##.....##",
+      "####........wwwww.....#.....##",
+      "####..##...wwwwwww..........##",
+      "####..#....wwwwwwww.........##",
+      "##.........wwwwwwww....#....##",
+      "##.........wwwwwwww....#....##",
+      "##....##...wwwwwwww.........##",
+      "##....##...wwwwwwww.........##",
+      "##..........wwwww.....#.....##",
+      "##.............w.....##.....##",
+      "##.......#..................##",
+      "##.......#........#.........##",
+      "##...........#....#.........##",
+      "##...........##...#.........##",
+      "##..........................##",
+      "##.......................##.##",
+      "##.......................##.##",
+      "##..........................##",
+      "##.....~~...................##",
+      "##~~~~~~~~~~~~~~~~~~~~~~~~~~##",
+      "##~~~~~~~~~~~~~~~~~~~~~~~~~~##",
+      "##~~~~~~~~~~~~~~~~~~~~~~~~~~##",
+      "##~~~~~~~~~~~~~~~~~~~~~~~~~~##",
+      "##~~~~~~~~~~~~~~~~~~~~~~~~~~##",
+      "##~~~~~~~~~~~~~~~~~~~~~~~~~~##",
+      "#~~~~~~~~~~~~~~~~~~~~~~~~~~~##",
+      "#~~~~~~~~~~~~~~~~~~~~~~~~~~~##",
+      "#~~~~.......................##",
+      "#~~~........................##",
+      "##..........................##",
+      "##..........................##",
+      "#############.....############",
+      "#############.....############"
+    ],
+    "theme": "forest",
+    "light": "bright",
+    "outdoors": true
+  },
+  "id": "hb_wellspring",
+  "region": "hartsblight_forest",
+  "props": [
+    {
+      "id": "hb_wellspring_leg",
+      "cell": [
+        15,
+        36
+      ],
+      "kind": "decor",
+      "label": "The way in, and the smell of it",
+      "call": "hartsblight/trek:leg_wellspring",
+      "approach": 8,
+      "call_when": "not flag.hb_leg_wellspring"
+    },
+    {
+      "id": "hb_river_toll",
+      "cell": [
+        15,
+        35
+      ],
+      "kind": "decor",
+      "label": "The Withering River",
+      "model": "reeds",
+      "call": "hartsblight/wellspring:river",
+      "approach": 6,
+      "call_when": "not flag.hb_river_paid"
+    },
+    {
+      "id": "hb_pool",
+      "cell": [
+        15,
+        18
+      ],
+      "kind": "examine",
+      "label": "The churning pool",
+      "model": "puddle",
+      "dialogue": "hartsblight/wellspring:stones",
+      "when": "not flag.hb_festerhulk_done"
+    },
+    {
+      "id": "hb_pool_after",
+      "cell": [
+        14,
+        17
+      ],
+      "kind": "decor",
+      "label": "The pool, still and spent",
+      "model": "puddle",
+      "call": "hartsblight/wellspring:pool_memory",
+      "approach": 6,
+      "call_when": "flag.hb_festerhulk_done and not flag.hb_pool_memory_seen"
+    },
+    {
+      "id": "hb_staff",
+      "cell": [
+        13,
+        17
+      ],
+      "kind": "search",
+      "label": "A crooked staff among the stones",
+      "model": "rope",
+      "search_dc": 8,
+      "item": "staff_of_farryn",
+      "when": "flag.hb_festerhulk_done and treasure_at:befouled_wellspring"
+    },
+    {
+      "id": "hb_seed_song_site",
+      "cell": [
+        5,
+        34
+      ],
+      "kind": "examine",
+      "label": "Black reeds by the water, listening",
+      "model": "reeds",
+      "dialogue": "hartsblight/harvest:seed_song"
+    },
+    {
+      "id": "hb_camp_spot_w",
+      "cell": [
+        22,
+        36
+      ],
+      "kind": "examine",
+      "label": "A bank above the water",
+      "model": "rune_circle",
+      "dialogue": "hartsblight/night:camp"
+    },
+    {
+      "id": "hb_pustule_0",
+      "cell": [
+        8,
+        5
+      ],
+      "kind": "decor",
+      "label": "A glowing pustule",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "hb_pustule_1",
+      "cell": [
+        21,
+        5
+      ],
+      "kind": "decor",
+      "label": "A glowing pustule",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "hb_pustule_2",
+      "cell": [
+        8,
+        13
+      ],
+      "kind": "decor",
+      "label": "A glowing pustule",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "hb_pustule_3",
+      "cell": [
+        23,
+        15
+      ],
+      "kind": "decor",
+      "label": "A glowing pustule",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "hb_pustule_4",
+      "cell": [
+        12,
+        22
+      ],
+      "kind": "decor",
+      "label": "A glowing pustule",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "hb_pustule_5",
+      "cell": [
+        20,
+        21
+      ],
+      "kind": "decor",
+      "label": "A glowing pustule",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "hb_gwenna_trail",
+      "cell": [
+        15,
+        5
+      ],
+      "kind": "decor",
+      "label": "A slime trail leading north",
+      "model": "bloodstain",
+      "when": "flag.hb_festerhulk_done"
+    },
+    {
+      "id": "hb_wellspring_tree_0",
+      "cell": [
+        17,
+        6
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_wellspring_tree_1",
+      "cell": [
+        8,
+        8
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_wellspring_tree_2",
+      "cell": [
+        14,
+        18
+      ],
+      "kind": "decor",
+      "label": "A dead tree, furred with fungus",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "hb_wellspring_tree_3",
+      "cell": [
+        16,
+        16
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_wellspring_tree_4",
+      "cell": [
+        26,
+        21
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_wellspring_tree_5",
+      "cell": [
+        10,
+        22
+      ],
+      "kind": "decor",
+      "label": "A split trunk bursting with shelf fungus",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "hb_wellspring_tree_6",
+      "cell": [
+        10,
+        5
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_wellspring_tree_7",
+      "cell": [
+        12,
+        18
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_wellspring_tree_8",
+      "cell": [
+        16,
+        4
+      ],
+      "kind": "decor",
+      "label": "A dead tree, furred with fungus",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "hb_wellspring_tree_9",
+      "cell": [
+        12,
+        23
+      ],
+      "kind": "decor",
+      "label": "A split trunk bursting with shelf fungus",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "hb_wellspring_bones_0",
+      "cell": [
+        15,
+        3
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_wellspring_bones_1",
+      "cell": [
+        17,
+        18
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_wellspring_bones_2",
+      "cell": [
+        7,
+        23
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_wellspring_bones_3",
+      "cell": [
+        23,
+        5
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_wellspring_misc_0",
+      "cell": [
+        9,
+        21
+      ],
+      "kind": "decor",
+      "label": "Drifts of grey leaves",
+      "model": "leaves"
+    },
+    {
+      "id": "hb_wellspring_misc_1",
+      "cell": [
+        8,
+        20
+      ],
+      "kind": "decor",
+      "label": "Cobwebs hung with spores",
+      "model": "cobwebs"
+    },
+    {
+      "id": "hb_wellspring_misc_2",
+      "cell": [
+        12,
+        16
+      ],
+      "kind": "decor",
+      "label": "A puddle that is not water",
+      "model": "puddle"
+    },
+    {
+      "id": "hb_wellspring_misc_3",
+      "cell": [
+        7,
+        18
+      ],
+      "kind": "decor",
+      "label": "Cobwebs hung with spores",
+      "model": "cobwebs"
+    },
+    {
+      "id": "hb_wellspring_misc_4",
+      "cell": [
+        20,
+        13
+      ],
+      "kind": "decor",
+      "label": "Mossy stones",
+      "model": "rocks"
+    },
+    {
+      "id": "hb_wellspring_misc_5",
+      "cell": [
+        4,
+        22
+      ],
+      "kind": "decor",
+      "label": "Drifts of grey leaves",
+      "model": "leaves"
+    }
+  ],
+  "npcs": [],
+  "exits": [
+    {
+      "id": "to_druids",
+      "cell": [
+        15,
+        39
+      ],
+      "to": "hb_druid_commune",
+      "spawn": "from_wellspring",
+      "label": "Back to the druids' commune"
+    },
+    {
+      "id": "to_den",
+      "cell": [
+        15,
+        0
+      ],
+      "to": "hb_den",
+      "spawn": "from_wellspring",
+      "label": "North, along the slime trail to the den",
+      "when": "flag.hb_festerhulk_done"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "hb_drums",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "rotweaver",
+          "cell": [
+            27,
+            36
+          ],
+          "name": "Rotweaver",
+          "facing": "west"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            27,
+            35
+          ],
+          "name": "Rotweaver",
+          "facing": "west"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            27,
+            37
+          ],
+          "name": "Rotweaver",
+          "facing": "west"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            26,
+            36
+          ],
+          "name": "Rotweaver",
+          "facing": "west"
+        }
+      ],
+      "flag": "hb_drums_done"
+    },
+    {
+      "id": "hb_mammoth",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "mammoth",
+          "cell": [
+            26,
+            37
+          ],
+          "name": "A blighted mammoth",
+          "facing": "west"
+        }
+      ],
+      "flag": "hb_mammoth_done"
+    },
+    {
+      "id": "hb_owlbears",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "owlbear",
+          "cell": [
+            27,
+            34
+          ],
+          "name": "A rotting owlbear",
+          "facing": "west"
+        },
+        {
+          "monster": "owlbear",
+          "cell": [
+            26,
+            34
+          ],
+          "name": "A rotting owlbear",
+          "facing": "west"
+        }
+      ],
+      "flag": "hb_owlbears_done"
+    },
+    {
+      "id": "hb_festerhulk",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "festerhulk",
+          "cell": [
+            15,
+            19
+          ],
+          "name": "Gwenna's remains, risen",
+          "facing": "north",
+          "boss": true
+        }
+      ],
+      "flag": "hb_festerhulk_done",
+      "lair": true
+    }
+  ],
+  "areas": [
+    {
+      "id": "river",
+      "name": "The Withering River",
+      "cells": [
+        [
+          2,
+          26
+        ],
+        [
+          27,
+          33
+        ]
+      ]
+    },
+    {
+      "id": "wellspring_clearing",
+      "name": "The clearing of stones",
+      "cells": [
+        [
+          4,
+          3
+        ],
+        [
+          25,
+          23
+        ]
+      ],
+      "light": "bright"
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        15,
+        12
+      ],
+      "kind": "candle",
+      "bright_ft": 60,
+      "dim_ft": 120,
+      "color": "bile"
+    },
+    {
+      "cell": [
+        8,
+        8
+      ],
+      "kind": "candle",
+      "bright_ft": 30,
+      "dim_ft": 60,
+      "color": "bile"
+    },
+    {
+      "cell": [
+        22,
+        8
+      ],
+      "kind": "candle",
+      "bright_ft": 30,
+      "dim_ft": 60,
+      "color": "bile"
+    }
+  ],
+  "traps": [],
+  "spawns": {
+    "default": [
+      15,
+      37
+    ],
+    "from_druids": [
+      15,
+      37
+    ],
+    "from_den": [
+      15,
+      2
+    ]
+  },
+  "name": "The Withering River and the Befouled Wellspring",
+  "summary": "A sallow river across the south and, beyond it, a ring of leaning standing stones round a churning green pool.",
+  "text": "A sallow river across the south and, beyond it, a ring of leaning standing stones round a churning green pool. The ceiling is a living wall of fungus, sixty feet up.",
+  "rest": "risky",
+  "rest_text": "The spores drift down on your bedrolls like a slow, soft snow, and the trees are listening."
+}
