@@ -5,7 +5,9 @@ res://audio/voice/<speaker>/<key>.mp3. Reads the voice jobs file (CM_VOICE_JOBS,
 narrative/ghostlight_express/ and narrative/narrator/ghostlight_express.dialogue; skips quietly when the jobs file isn't there.
 Exit 1 when a job's line is no longer in the dialogue (it was edited or removed). Lines with {name}, and a class interject whose
 speaker is whichever hero matches, are never voiced and are not counted.
-    python3 tools/content/act1_voice_keys.py [--region crooked_house] [--list]"""
+    python3 tools/content/act1_voice_keys.py [--region crooked_house|camp|banter] [--list]
+--region camp and --region banter read narrative/camp/ and narrative/banter/ (the companions' camp talks and party banter, which have no Narrator file:
+the Narrator rows are in the talks); --list prints every line with no job yet, whether or not a jobs file exists."""
 import glob
 import hashlib
 import json
@@ -29,7 +31,8 @@ def key(text: str) -> str:
 
 def spoken_lines():
     """(speaker, text, file, line number) for every line the game can speak."""
-    files = sorted(glob.glob(str(ROOT / ("narrative/%s/*.dialogue" % REGION)))) + [str(ROOT / ("narrative/narrator/%s.dialogue" % REGION))]
+    narrator_file = ROOT / ("narrative/narrator/%s.dialogue" % REGION)
+    files = sorted(glob.glob(str(ROOT / ("narrative/%s/*.dialogue" % REGION)))) + ([str(narrator_file)] if narrator_file.exists() else [])
     yield from lines_in(files)
 
 
@@ -61,10 +64,11 @@ def lines_in(files):
 
 
 def main() -> int:
-    if not JOBS.exists():
+    if not JOBS.exists() and "--list" not in sys.argv:
         print(f"voice keys: {JOBS} isn't here; skipped")
         return 0
-    jobs = json.load(open(JOBS))
+    ## No jobs file yet (the camp and banter lines were drafted before the voice lane): --list names every line as one with no job.
+    jobs = json.load(open(JOBS)) if JOBS.exists() else {}
     lines = [(sp, t, f, n) for sp, t, f, n in spoken_lines() if "{name}" not in t]
     have = {f"{sp}/{key(t)}" for sp, t, _, _ in lines}
     missing = sorted(set(jobs) - have)

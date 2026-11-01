@@ -1,0 +1,224 @@
+THE NOTE ON DELPHINE RAVELLE, part 2: the camp talks already written (voice examples: do not repeat their topics or lines) and a Connection scene.
+
+## Camp talks
+
+Three personal talks, drafted by Gemini (briefs `Gemini/brief_B_delphine.txt`, raw replies `Gemini/reply_B_delphine.json`) and converted by Lane F into the camp-file format: the companion's lines as `interject name:delphine:`, long lines split, approvals and flags added (the edit log is in `Gemini/README.md`). They are offered at a camp or after a Long Rest, each plays once, and each takes one of the companion's two words a day; they come after any Strained or Doubtful talk and before the Warm, Close and Devoted talks.
+
+- **Unlocks.** Talk 1 `flag.connection_ascendancy`. Talk 2 `flag.connection_ascendancy`, the next word after talk 1; it is where `secret_known_delphine` is set, at Warm approval or better, which is what lets another hero pay Delphine's dark secret at Raum's gate. Talk 3 `flag.ascendancy_fool_reborn`.
+- **The talks.**
+  1. The notebook: she has cracked the Fool's blueprint; the turn is a loose page of crossed-out nursery rhymes.
+  2. Buttons: a beast-tooth button on her coat; the turn is that she is sure she will spill into sawdust if she stops mending.
+  3. The waltz: a crooked carnival step; the turn is that she never learned how the song ends.
+- **Rules kept.** No roll or check anywhere; every menu has the kind exit "Not now. Rest easy, Delphine."; the dark secret is never stated in a camp talk, only approached.
+
+```text
+# Delphine's camp talks (narrative/camp/delphine.dialogue). Each plays once; the file offers the first talk whose condition holds.
+# Talk 2 opens on the same condition as talk 1 and plays at the next word, so it is heard before Raum's gate in any Act II order.
+# Approval reasons are notice text written by Lane F (mechanical), not Gemini lines; deltas follow the engine's size guide.
+
+~ talk_delphine_notebook
+if name:delphine and flag.connection_ascendancy
+-> camp_delphine_1
+endif
+-> END
+
+~ talk_delphine_buttons
+if name:delphine and flag.connection_ascendancy
+-> camp_delphine_2
+endif
+-> END
+
+~ talk_delphine_waltz
+if name:delphine and flag.ascendancy_fool_reborn
+-> camp_delphine_3
+endif
+-> END
+
+~ camp_delphine_1
+interject name:delphine: Gather round the footlights, darlings, because I have finally cracked the grand cosmic billing of Your Foolishness.
+interject name:delphine: Every riddle, every rhyme, all neatly stitched into this little ink-stained book from my lining.
+* Show us the blueprint. -> d1_show
+* What does the Fool say about it? -> d1_fool
+* Not now. Rest easy, Delphine. -> END
+
+~ d1_show
+interject name:delphine: A drumroll from the cheap seats, if you please, while I open to the premier act.
+interject name:delphine: Behold the master pattern, drafted on the bias in the finest midnight ink.
+interject name:delphine: It states quite plainly that when the moon grins twice, the teapot owes the waistcoat a penny.
+-> d1_turn
+
+~ d1_fool
+interject name:delphine: He says my penmanship is a tragedy in three acts, and frankly, he has no room to critique.
+interject name:delphine: Put a sock in it, Your Foolishness, if you can find a chin to tuck it under.
+interject name:delphine: What he means to say is that a true headliner never reveals the curtain call for free.
+-> d1_turn
+
+~ d1_turn
+interject name:delphine: You see, darlings, you simply follow the loops from the riddle to the hook, and then you have it.
+interject name:delphine: Blast this breeze, catch that loose leaf before the fire takes my best margin notes.
+interject name:delphine: It is only crossed-out nursery rhymes, and I cannot actually read the half of what I wrote.
+* You can't read them either? -> d1_cant
+* We'll help you read them. -> d1_help
+* Rest easy, Delphine. -> END
+
+~ d1_cant
+interject name:delphine: Well, one glass button eye is hardly built for fine print by firelight, is it.
+interject name:delphine: Half of this book is pure guesswork, and the other half is ink I spilled trying to keep up.
+approve delphine +2: You asked "You can't read them either?"
+-> d1_close
+
+~ d1_help
+interject name:delphine: Of course you will, darlings, every great act needs a sharp pair of eyes in the wings.
+interject name:delphine: Just hold the page steady and tell me if that smudge is a prophecy or a thumbprint.
+approve delphine +2: You said "We'll help you read them"
+-> d1_close
+
+~ d1_close
+interject name:delphine: Back into the lining it goes, right over the ribs, before the night air curls the corners.
+interject name:delphine: The house lights are down for the evening, darlings, so save your applause for the morning.
+approve delphine +1: You sat with me at the fire
+-> END
+
+~ camp_delphine_2
+interject name:delphine: Look at the shine on this beast-tooth button, darlings, freshly harvested and begging for a lapel.
+interject name:delphine: A quick loop of thread from the wrist, and my coat is ready for top billing again.
+* Show us your best button. -> d2_button
+* Who made you, Delphine? -> d2_maker
+* Not now. Rest easy, Delphine. -> END
+
+~ d2_button
+interject name:delphine: Step right up and admire this oversized glass eye, the finest mismatched treasure in the province.
+interject name:delphine: The rest I pried from the jaws and coats of whatever foolish monsters tried to spoil my hem.
+interject name:delphine: If a thing has the audacity to bite my sleeve, it owes me an upgrade to the wardrobe.
+-> d2_turn
+
+~ d2_maker
+interject name:delphine: A toymaker in Funtopia named Master Orsino, who swept his worktable clean to piece me together.
+interject name:delphine: Leftover scraps of carnival felt, stitched on the bias when the good velvet ran out.
+interject name:delphine: He told me I was only stuffing meant to take a fall, so I walked out of his shop.
+-> d2_turn
+
+~ d2_turn
+interject name:delphine: Mind the seams, darling, that is the first rule of staying in one piece.
+interject name:delphine: Pull the wrist-thread tight, knot the cuff, never leave a single loop for the dark to catch.
+interject name:delphine: If I stop mending for a single night, I am certain I will spill right out into dry sawdust.
+* You're more than stuffing. -> d2_more
+* Then we mend you. -> d2_mend
+* [if approval.delphine >= warm] Is that really all of it? -> d2_open
+* Rest easy, Delphine. -> END
+
+~ d2_more
+interject name:delphine: That is very sweet for the cheap seats, darling, even if the tailor would disagree.
+interject name:delphine: Still, it is nice to hear someone say it while my fingers are stiff from the needle.
+approve delphine +2: You said "You're more than stuffing"
+-> d2_close
+
+~ d2_mend
+interject name:delphine: Good, because my left shoulder is a terrible reach, and I refuse to trust a crooked stitch.
+interject name:delphine: You may hold the spool, darling, provided your hands are clean and you know a proper knot.
+approve delphine +2: You said "Then we mend you"
+-> d2_close
+
+~ d2_open
+set secret_known_delphine
+interject name:delphine: I once took a bow on a stage that was never meant to be mine, darling.
+interject name:delphine: Someone else paid the bill for that curtain call, down to the very last thread.
+interject name:delphine: That is all the matinee you are getting tonight, so do not ask for an encore.
+approve delphine +3: You asked "Is that really all of it?"
+-> d2_close
+
+~ d2_close
+interject name:delphine: There, one last knot bitten off clean, and the cuff is as sharp as a fresh ticket.
+interject name:delphine: Always give a little bow at the finish, darlings, even when the house is completely empty.
+approve delphine +1: You sat with me at the fire
+-> END
+
+~ camp_delphine_3
+interject name:delphine: Up on your feet, darlings, this dead valley needs a crooked carnival step from Picco.
+interject name:delphine: One-two-three, hop on the bias, and try not to look like luggage on a platform.
+* Teach us the step. -> d3_step
+* Who taught you the waltz? -> d3_waltz
+* Not now. Rest easy, Delphine. -> END
+
+~ d3_step
+interject name:delphine: Heel to the mud, toe to the spark, and spin before the music catches your coat.
+interject name:delphine: Mind my boots, darling, it takes an hour to buff a scuff out of good scavenged leather.
+interject name:delphine: Faster now, let the hem fly out like you own the whole tent.
+-> d3_turn
+
+~ d3_waltz
+interject name:delphine: You pick it up in the lanes of Picco, between the painted wagons and the sawdust rings.
+interject name:delphine: Everyone there dances before they can walk, or at least that is the story on the handbill.
+interject name:delphine: If I forgot a partner or two along the way, well, a lady is allowed her mysteries.
+-> d3_turn
+
+~ d3_turn
+interject name:delphine: Now the turn, right on the third count, with the chin up for the gallery.
+interject name:delphine: Wait, quiet a second, Your Foolishness is humming that slow waltz again.
+interject name:delphine: I have to stop there, because I never actually learned how the song ends.
+* How does the song end? -> d3_end
+* Hum it with him. -> d3_hum
+* Rest easy, Delphine. -> END
+
+~ d3_end
+interject name:delphine: I do not know, darling, the music always cut out before the last measure.
+interject name:delphine: All I have are the middle bars and a floating head who never keeps time.
+approve delphine +2: You asked "How does the song end?"
+-> d3_close
+
+~ d3_hum
+interject name:delphine: La-da-dum, three beats to the bar, soft as felt on a wooden floor.
+interject name:delphine: Look at that, darlings, the old tune still sits in the chest after all.
+approve delphine +2: You said "Hum it with him"
+-> d3_close
+
+~ d3_close
+interject name:delphine: That is quite enough dancing for one camp, and the curtain is coming down.
+interject name:delphine: He just made a dreadful joke about having two left feet, and I do not even have the heart to scold him.
+approve delphine +1: You sat with me at the fire
+-> END
+```
+
+## The Connection scene (dialogue draft)
+
+Alda Farnum's meeting with Delphine, drafted the same way and converted the same way. It is a few nodes in Alda Farnum's own conversation file, started by the trigger in beat 2. Bless for a day, the ally and the Heroic Inspiration are rewards the Fateweaving statements will give (listed in the overview); the `set` and `attitude` lines are the ones the grammar has today.
+
+```text
+# Delphine meets Alda Farnum (a node of Alda Farnum's own conversation file; the trigger is in the beat above).
+# Bless for a day and Heroic Inspiration need the Fateweaving statements the overview lists; they are not written here.
+
+~ alda_delphine_start
+alda_farnum [smile]: Welcome to the Green Queen, my dears, though I see your table will require an extra place setting.
+alda_farnum [sly]: Forgive the liberty, my dear, but a gentleman's invisible lapel should lie flat when he visits my house.
+alda_farnum [smile]: Such lively company rarely lingers without a heavy ledger, so let me offer a house blessing for the story of how you met.
+interject name:delphine: Keep your fingers off the billing, madam, Your Foolishness is very particular about his tailoring.
+interject name:delphine: Though if your house blessing is half as warm as that spiced wine, we might discuss a matinee.
+* Let her read the ledger. A free blessing's good business. -> alda_ledger
+* Careful, she's pricing your stitches like cloth. -> alda_careful
+* We want a room, not a reading. -> alda_room
+
+~ alda_ledger
+alda_farnum [smile]: Sensible friends are worth their weight in silver, and a good story pours better than vintage wine.
+alda_farnum [sly]: We can tally the finer details by the hearth once your glasses are empty.
+interject name:delphine: He says you are lying, and he doesn't even have eyes, so do keep your thumb off the scale.
+-> alda_close
+
+~ alda_careful
+alda_farnum [smile]: I admire fine needlework wherever it walks in, and Picco felt is so rarely seen this far out.
+alda_farnum [sly]: Every sturdy seam has its provenance, and I always pay fair market value for a rarity.
+interject name:delphine: Touch a single thread on my cuff, darling, and we will see how neatly your own sleeves come unpicked.
+-> alda_close
+
+~ alda_room
+alda_farnum [smile]: Of course, a clean key and a quiet door are the simplest transaction in the book.
+interject name:delphine: Mind the stairs on the way up, darlings, our hostess counts the creaks on the floorboards.
+-> alda_close
+
+~ alda_close
+alda_farnum [smile]: May the Green Queen keep your threads dry and your patron polite while you rest under my roof.
+alda_farnum [sly]: When you are ready to settle the rest of the account, you know right where the counter is.
+set connection_ascendancy
+attitude alda_farnum friendly
+set delphine_tether_noted
+-> END
+```

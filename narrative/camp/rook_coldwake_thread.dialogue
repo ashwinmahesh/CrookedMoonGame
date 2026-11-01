@@ -1,0 +1,168 @@
+# Rook's Thread of Fate at camp (Pilgrimage): the beats that wait for a rest (story/camp_talk.gd offers the first `talk_` node whose opening `if` holds,
+# once a playthrough). Order matters: the Incitement's echo, the Discovery, the Confrontation (held back while Rook is Strained until the
+# `talk_confrontation_wait` word has been had, never for good). Rewards come from Fateweaving when each beat's quest ends (story/fateweaving.gd).
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+~ talk_incitement
+if name:rook_coldwake and flag.pending_pilgrimage_incitement and not flag.incitement_pilgrimage
+-> incitement
+endif
+-> END
+
+~ incitement
+Narrator: Rook sits with his damp ledger open on his knee, thumbin' the scraped brass badge pinned to his coat.
+interject name:rook_coldwake: Stepped back into the Parlour of the Crooked House while the rain was coming down.
+interject name:rook_coldwake: The crystal ball on the shelf was choked with pale frost instead of smoke.
+interject name:rook_coldwake: Tiny faces pressed up hard against the glass, mouthing complaints with no sound to them, and the brass knocker on my shield gave a sharp clack by itself.
+interject name:rook_coldwake: Flipped my book to the back and found three blank sheets waiting, one for each district in this valley left without proper stone or seal.
+interject name:rook_coldwake: Marked the first complaint down in white chalk, because the dead don't settle when the parish bounds are left in arrears.
+* We will help you clear that docket. -> incitement_1
+* Keep your ledger dry and get some rest. -> incitement_2
+
+~ incitement_1
+Narrator: Rook rests his broad palm flat over the brass knocker on his shield and gives a slow, square nod.
+interject name:rook_coldwake: Good to have proper cover on a night shift. Settle down now, we've got work ahead when the road opens.
+set incitement_pilgrimage
+set rook_inc_choice = "asked"
+inspire name:rook_coldwake: logged the spirits' plea
+-> END
+
+~ incitement_2
+Narrator: Rook slips his stub of chalk into his belt pouch and closes the damp calfskin cover with a soft thud.
+interject name:rook_coldwake: Sound advice in weather like this. I'll keep an eye on the perimeter while the camp is quiet.
+set incitement_pilgrimage
+set rook_inc_choice = "moved_on"
+inspire name:rook_coldwake: shut the ledger on the frost
+-> END
+
+~ talk_discovery
+if name:rook_coldwake and flag.connection_pilgrimage and flag.raum_slain and not flag.discovery_pilgrimage
+-> discovery
+endif
+-> END
+
+~ discovery
+Narrator: Rook scrapes dried mud from the rim of his shield with a flat stick, a grey smudge of mason's chalk across his knuckles.
+interject name:rook_coldwake: Walked the back rows in the Fields of the Crow after the noise died down. The soil out in Foxwillow's cornfields was sour and churned to mire.
+interject name:rook_coldwake: Found graves out there that nobody had ever counted, packed in between the roots without a kerb or a boundary stake to mark the lease.
+interject name:rook_coldwake: No names on the stones, no dates in the parish register, just folk left in the wet clay like unfiled paperwork.
+Narrator: He opens his ledger to a fresh sheet filled with neat, square columns of grey chalk marks.
+interject name:rook_coldwake: Cut temporary markers into the fieldstone where I could and logged every plot into the book by row and pace.
+interject name:rook_coldwake: Mori Shade knew my name before I gave it at her door, and she knew what an honest ledger requires.
+interject name:rook_coldwake: Every soul is owed six feet of level ground and a clean entry on the roll, with my own plot waiting at the end of the road.
+interject name:rook_coldwake: Still have three blank pages at the back that no amount of field tallies seem to fill, though that's an audit for another night.
+* Whose names belong on those three blank pages? -> discovery_1
+* Those graves are on the roll now because of you. -> discovery_2
+* The tally is done. Pack the ledger away. -> discovery_3
+
+~ discovery_1
+Narrator: Rook runs a thumb along the stiff edge of the back cover, where the calfskin has gone soft with damp.
+interject name:rook_coldwake: Folk from an older district where the drainage failed and the timber gave out. When the masonry is plumb, the names will go down in order.
+interject name:rook_coldwake: Best not rush the clerk before the ground is ready.
+approve rook_coldwake +2: You asked about the blank pages at the back of my ledger.
+set discovery_pilgrimage
+quest discovery_pilgrimage done
+quest confrontation_pilgrimage waiting
+-> END
+
+~ discovery_2
+Narrator: Rook lets out a long, deliberate breath he had forgotten to take, his shoulders droppin' half an inch.
+interject name:rook_coldwake: Obliged for that. A watchman doesn't ask for brass bands, just a clean page and a dry seal.
+interject name:rook_coldwake: Mind the turf by the embers when you turn in.
+approve rook_coldwake +3: You respected the tally I kept for the unmarked graves.
+set discovery_pilgrimage
+quest discovery_pilgrimage done
+quest confrontation_pilgrimage waiting
+-> END
+
+~ discovery_3
+Narrator: Rook buckles the leather strap around his book and sets it neatly beside his shield.
+interject name:rook_coldwake: Logged and witnessed, at any rate. The cornfields have their count now, and the shift can move along.
+approve rook_coldwake -1: You kept things brisk after I logged the unmarked graves.
+set discovery_pilgrimage
+quest discovery_pilgrimage done
+quest confrontation_pilgrimage waiting
+-> END
+
+~ talk_confrontation_wait
+if name:rook_coldwake and flag.discovery_pilgrimage and flag.nm_chapter_done and not flag.confrontation_pilgrimage and approval.rook_coldwake <= strained and not flag.rook_coldwake_confrontation_waited
+-> confrontation_wait
+endif
+-> END
+
+~ confrontation_wait
+Narrator: Rook stands near the edge of the firelight with his shield grounded between his boots, the ledger strapped tight under his arm.
+interject name:rook_coldwake: Something came up in the Crooked Nightmare that belongs on the shift log, and I wrote the first of the three blank names down.
+interject name:rook_coldwake: The full report will keep for now, because we've got a wider breach in the parish code to settle first.
+interject name:rook_coldwake: My trade is built on keeping sworn word, respecting the dead, and leaving the stone level where we pass.
+interject name:rook_coldwake: Lately your boots have been drifting across the boundary line, and a warden can't file a clean account when the watch is unruly.
+* You are right. We will keep to the code. -> confrontation_wait_1
+* Keep your bylaws to yourself and do your job. -> confrontation_wait_2
+* Say nothing. Stay by the fire. -> confrontation_wait_3
+
+~ confrontation_wait_1
+Narrator: Rook checks the iron buckle on his shield strap and gives a firm, level nod.
+interject name:rook_coldwake: That's fair phrasing. Let's see how the footing holds on the next stretch, and we'll open the book when the line is straight.
+approve rook_coldwake +6: You owned the drift and promised to keep to the code.
+set rook_coldwake_confrontation_waited
+-> END
+
+~ confrontation_wait_2
+Narrator: Rook's face goes stiff as cold slate, his hands settling square on the rim of his shield.
+interject name:rook_coldwake: I'll keep my post and my shield in line, never fret. The paperwork stays shut until the conduct improves.
+approve rook_coldwake -2: You told me to keep my bylaws to myself.
+set rook_coldwake_confrontation_waited
+-> END
+
+~ confrontation_wait_3
+Narrator: Rook turns back toward the dark beyond the firelight, standing quiet at parade rest.
+interject name:rook_coldwake: Best let the embers settle. The night watch is covered.
+set rook_coldwake_confrontation_waited
+-> END
+
+~ talk_confrontation
+if name:rook_coldwake and flag.discovery_pilgrimage and flag.nm_chapter_done and not flag.confrontation_pilgrimage and (approval.rook_coldwake > strained or flag.rook_coldwake_confrontation_waited)
+-> confrontation
+endif
+-> END
+
+~ confrontation
+Narrator: Rook sits close to the coals with his ledger open to the back, a snapped stub of white chalk resting in his palm.
+interject name:rook_coldwake: Back in the Crooked Nightmare, when the lath and plaster came down, it sounded for all the world like a trench caving in.
+interject name:rook_coldwake: Heard a flat northern voice calling out for a spade under the weight, and my fingers went soft as river mud against the shield.
+interject name:rook_coldwake: Thought for a long count it was something I left behind a long way north, come to audit the badge on my coat.
+Narrator: He touches the scraped service number on his brass pin, then lays his thumb beside a fresh name written on the first of the three blank sheets.
+interject name:rook_coldwake: Wasn't anybody else's at all, when I stood my ground and listened past the draught in the flues.
+interject name:rook_coldwake: It was my own voice from a ditch up north, calling for a shovel.
+interject name:rook_coldwake: Put the first of the three blank names down on the page right there in the dust, in clean block capitals.
+interject name:rook_coldwake: A watchman can square every neglected grave in the parish, and still wonder who is going to sign off on his own plot when the shift ends.
+interject name:rook_coldwake: Suppose you've seen enough rough masonry by now to know when a stone is leaning past regulation.
+* Tell me what you heard in there. -> confrontation_1
+* You stood your ground this time, and wrote the name. -> confrontation_2
+* The name is in the book now. Get some rest. -> confrontation_3
+
+~ confrontation_1
+Narrator: Rook folds the corner of the back lining down with a steady grey thumb.
+interject name:rook_coldwake: A voice from a ditch a long way north, and a debt I won't name tonight. Two pages left to fill before the file is squared.
+interject name:rook_coldwake: Obliged to you for hearing the first line of it without making a fuss.
+approve rook_coldwake +4: You asked what I heard in there.
+set confrontation_pilgrimage
+quest confrontation_pilgrimage done
+-> END
+
+~ confrontation_2
+Narrator: Rook takes a slow, square breath for the log, the brass knocker on his shield resting quiet against his knee.
+interject name:rook_coldwake: Held the line and kept the chalk level, which is a start. Good to know the company on this watch keeps a steady eye on the grade.
+interject name:rook_coldwake: We'll see the other two pages filled properly before the road runs out.
+approve rook_coldwake +6: You told me I stood my ground when I wrote the first name.
+set confrontation_pilgrimage
+quest confrontation_pilgrimage done
+-> END
+
+~ confrontation_3
+Narrator: Rook shuts the ledger carefully so the fresh chalk won't smear and ties the twine around the binding.
+interject name:rook_coldwake: Entered and filed, and the page is dry. I'll take the first turn by the perimeter while the fire burns down.
+approve rook_coldwake -2: You let the matter rest once the first blank name was logged.
+set confrontation_pilgrimage
+quest confrontation_pilgrimage done
+-> END

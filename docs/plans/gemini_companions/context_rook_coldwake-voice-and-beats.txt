@@ -1,0 +1,154 @@
+VOICE SHEET: ROOK COLDWAKE.
+Male, apparent age 36, an undead Graveborn fighter and graveyard-shift watchman from Syndramas, the frozen north. Timbre: cool, dry, chest-resonant, like slate tiles sliding together in a damp cellar; a crisp chalky edge to his consonants. Pace: measured and unhurried, neat square pauses between clauses as if filing paperwork before the next thought. Accent: flat Northern English, Yorkshire-adjacent, clipped definite articles, firm unfussy endings. Temperament: calmly procedural and earnest, treating mortal peril like a minor municipal code violation. Under stress he does not shout; his cadence goes stiff and cold. Municipal and masonry words (zoning, subsidence, drainage, unruly, regulation, docket, shift log). Dry deadpan gallows humour. Pet phrases: "Mind the turf" and "Settle down now". He forgets to breathe until someone points it out. He must never sound like a rasping zombie, a pompous knight, a doom-laden gothic villain or a sleepy comic oaf.
+His existing lines (match them, do not repeat them):
+- "Ground here has decent drainage, good firm clay under the moss, though the headstones are leaning five degrees past regulation. Mind the turf where you step."
+- "Technically I stopped breathing three parishes back, so if someone reminds me to sigh before supper, I can check it off the shift log."
+- "My fingers aren't taking the chill right anymore, they feel soft, like river mud, and if the Deep Thaw sets in, lock the gate behind me."
+- "That grave was consecrated, sealed, and paid for in full, and you will put those bones back in the earth before I cite you for trespass."
+- "Gross neglect of parish bounds, that is, and three districts without proper stone or seal. Settle down now, we've a docket to clear."
+- "Proper shop, this: slabs level, ledgers dry. A warden can work when the clerk knows where the drainage fails."
+
+THE NOTE ON ROOK COLDWAKE, part 1 (the character file: beats, approval likes and dislikes, the dark secret). Never state the dark secret.
+
+# Rook Coldwake: the Thread of Pilgrimage
+
+> Lane F, 2026-10-29. Drafted by Gemini 4 Argon (medium) through ai-bridge (brief `Gemini/brief_A_rook.txt`, raw reply `Gemini/reply_A_rook.json`), then edited by Lane F; every edit is in `Gemini/README.md`.
+> Shared rules (benching, echoes, flag names, rewards, the three mirrored pairs) are in [[00 - Overview and Shared Rules]]. Voice: [[Rook_Coldwake]] in `Voice/Bibles/`.
+> **Species and class:** Graveborn (Undead) Fighter, Barrow Guard. **Background:** Rest Warden (feat Grave Keeper). **Thread:** Pilgrimage. **Age:** 36.
+
+## At a glance
+
+| # | Beat | Where | Fires when | Reward | Flag set |
+|---|---|---|---|---|---|
+| 1 | Incitement | Crooked House, the Parlour (H3), R12 | first entry to the Parlour with Rook in the party | Heroic Inspiration | `incitement_pilgrimage` |
+| 2 | Connection | Shade Funeral Home (V22), Mori Shade, R11 hub | a card from Mori, at the inn or the village gate, after the house is cleansed | Mori Friendly, Bless for a day, halved raising price | `connection_pilgrimage` |
+| 3 | Discovery | Foxwillow's corn wall, R13, after Raum | Raum dead, Rook in the party | a Twist of Fate | `discovery_pilgrimage`, `pilgrimage_monument_one` |
+| 4 | Confrontation | the ruins of the Crooked House, R22, after the attic | the abomination dead, Rook in the party | +2 Constitution (any ability) | `pilgrimage_confronted`, `pilgrimage_monument_two` |
+| 5 | Climax | the Wytchwood clearing, R24, after the tree burns | the skull ritual resolved, Rook in the party | the feat Death Defier (alternate: Shield Master) | `climax_pilgrimage`, `thread_pilgrimage_catharsis` = `taken` / `declined` |
+| 6 | Catharsis | the village's edge graves, R25 | the epilogue, before the Last Ride | none (the end of his story) | `catharsis_pilgrimage` |
+
+Nobody leaves the party in this Thread. Rook rides the Last Ride whichever way the Climax goes.
+
+## The one idea
+
+Rook treats his pilgrimage as a municipal audit of neglected graves, and hides a stolen commission behind regulations and shift logs. Every monument he raises is the headstone he never gave **Bram Harker**, the Rest Warden he left under the ice of Syndramas. The Thread keeps returning to one contrast: the weight of a name carved in stone and the weight of a name worn in secret. Rook's soggy chalk-rubbing ledger is the Thread's object: each monument gets a page, and the last page stays blank until the third monument. His blue cornflower seeds were never for his own grave. They came to Bram in his coat from Bram's sister, and Rook has carried them ever since.
+
+People invented for this Thread (all minor, none appears alive on screen):
+- **Bram Harker**, the true Rest Warden, service number 414, a stonemason's son. Rook left him alive under a collapsing glacial trench in the Corpse-Ditch Mutinies.
+- **Corporal Fenwick**, quartermaster of the Third Barrow Watch, who stamped Bram's papers into Rook's hands without looking up.
+- **Elsie Harker**, Bram's younger sister, who sent the seeds.
+
+## The six beats
+
+### 1. Incitement: the crystal ball
+
+- **Where and when.** The Parlour of the Crooked House (R12), the first time Rook is in the party when the party steps in. It plays on entry; the player never has to examine anything.
+- **Prerequisite.** None.
+- **The player sees.** Rain on the shuttered windows. The crystal ball on the shelf fills with pale, churning frost instead of smoke, and tiny faces press out against the glass, mouthing words. The brass knocker on Rook's shield clacks once by itself. He opens his soggy ledger past pages of grey rubbings to three blank sheets at the back, and thumbs his Rest Warden badge: the service number stamped on it has been scraped over with a knife.
+- **Choices** (all three complete the beat):
+  - "What are the spirits telling you, Rook?" Rook files it as a notice of neglected parish ground.
+  - "Hand on the glass. We've got your back." Rook takes the party's close order as a shared shift.
+  - "Leave it. We need a way out." Rook pockets his chalk, glad not to explain the frost.
+- **Sets.** `incitement_pilgrimage`; `rook_inc_choice` = `asked` / `steadied` / `moved_on` (Mori's greeting reads it). Rook marks three blank ledger pages for three monuments.
+- **Reward.** Heroic Inspiration to Rook.
+- **If benched.** Pending (`pending_pilgrimage_incitement`). The Parlour keeps the trigger armed while the estate stands; if the house falls first (R22), it plays as the echo at the next camp.
+- **Signature line.** "Gross neglect of parish bounds, that is, and three districts without proper stone or seal. Settle down now, we've a docket to clear."
+
+### 2. Connection: Mori Shade
+
+- **Where and when.** Shade Funeral Home (V22), at the village's south-east corner. Mori is at the far end of the hub, so the trigger is an invitation, whichever comes first with Rook in the party after the Crooked House is cleansed: the first Long Rest at the Green Queen Inn, which leaves a black-edged card at the desk, or the first departure from the village, when Mori herself, in black, is waiting at the gate with the card. The card reads: *the one who keeps a ledger of stones is wanted at the funeral home.* It comes back at every rest and every departure until it is answered; the walk is a marked lead. (That makes the Connection certain to play before any Act II chapter, whichever one the party picks first.)
+- **Prerequisite.** `incitement_pilgrimage`.
+- **The player sees.** The black marble ceremony room smells of clove oil, pine sawdust and cold tallow. Mori Shade, slight and white-haired in black, sets a tin of grey grave-wax on the worktable and looks at Rook's ledger with dry, exact approval. She asks nothing about his story. She puts a mason's chalk stick beside the wax and marks one heavy cross on a parish map: the soured fields of Foxwillow. The rest, she says, will show themselves. Rook stands at parade rest and forgets to breathe until she slides the chalk to him.
+- **Choices:**
+  - "You two talk like the same union." Rook relaxes, pleased to be recognised as a professional.
+  - "She's seen that badge, Rook." Rook polishes his knuckles harder and retreats into regulation.
+  - "Take the map and the chalk. Let's go." Rook files her blessing as standard issue.
+- **Sets.** `connection_pilgrimage`; `attitude mori_shade friendly`; `rook_mori_met`.
+- **Reward.** Mori is Friendly and Rook is blessed for a day (the book). Ours, small: while Rook is in the party Mori raises a fallen hero for half her price, because she treats him as a colleague. The map's one cross sets a marker on Foxwillow.
+- **If benched.** The card is not left; Mori stays an ordinary hub NPC. The beat is pending, with a marker on V22; Mori's first line to Rook ("You keep a ledger") plays whenever he is next active and the player walks in.
+- **Signature line.** "Proper shop, this: slabs level, ledgers dry. A warden can work when the clerk knows where the drainage fails."
+
+### 3. Discovery: the first monument
+
+- **Where and when.** Foxwillow (R13), at the eastern corn wall where the party paid its secrets to Raum, as soon as Raum is destroyed and the party steps back out of the corn. Rook in the party.
+- **Prerequisite.** `connection_pilgrimage`.
+- **The player sees.** Ash and bruised stalks litter the mud. The souls of villagers whose straw bodies burned drift between the rows like grey laundry; a thin shape that was Ol' Jericho Sticks's last song hangs by the wall. Rook drives a slab of fieldstone into the churned clay, squares its base with his shield and binds it with iron wire, while whispers from the burned crowd press at his boots. He lays a ledger page on the fresh chisel marks and rubs it flat with grey chalk until the spirits sink into the frost at his heels. The stone goes ice-cold, and a vision splits the sky over the corn: the Crooked House falling to splinters, and a storm of shrieking souls bursting out of it.
+- **Choices:**
+  - "You built that stone for someone else too." A few cornflower seeds have spilled; Rook blames the damp.
+  - "Good masonry, Warden. The field is quiet." Rook lets out a loud sigh he forgot he was holding.
+  - "Pack the ledger. The house is next." Rook shoulders his shield and watches the drainage.
+- **Variants.** If Rook paid his own secret at Raum's gate, his stone-talk is shorter and plainer: he has already said it to the corn. If another hero paid it, he works in silence and the first option is greyed out for that hero.
+- **Sets.** `discovery_pilgrimage`, `pilgrimage_monument_one`; the augury sets `augury_crooked_house_souls`.
+- **Reward.** One Twist of Fate (set a seen creature's d20 to a 1 or a 20, once).
+- **If benched.** Pending, and nothing is lost: Foxwillow stays open, and a marker waits at the corn wall. The stone is not raised until Rook raises it. The Narrator says once on leaving the town: "The fields are quiet. They are not at rest."
+- **Signature line.** "Clay here's churned to soup, no footing for the parish dead. Mind the turf by the plinth, it wants a night to settle."
+
+### 4. Confrontation: the second monument
+
+- **Where and when.** The ruins of the Crooked House (R22), at the `dreaming_no_more` stage, once the abomination is dead and the house has collapsed. Rook in the party.
+- **Prerequisite.** `discovery_pilgrimage`.
+- **The player sees.** A clear night sky over a smoking heap of splintered lath and plaster, with spirits swirling over it like wasps round a kicked hive. Dani Jenkin stands calmly in the dust beside her dog Shuck. Rook hauls a cracked chimney lintel to the centre of the ruin for the second monument. As he lays his ledger against the soot-black stone, one shriek in the swarm drops into a flat northern voice shouting for a trench-spade under falling ice. Rook freezes on one knee, his chalk snaps, and his fingers go soft as river mud until Dani reaches out and steadies the edge of his shield. (The voice is Rook's own, from the trench, calling for a spade he never fetched. The house gave back what he left behind.)
+- **Choices:**
+  - "Who was calling out, Rook?" Rook says it was wind in the flues and subsidence.
+  - "Steady. Look at Dani, not the sky." Rook matches his breath to the girl and the dog.
+  - "Finish the rubbing. We can't stay here." Rook completes the page in silence, a grey smudge from his thawing thumb on it.
+- **Sets.** `pilgrimage_confronted`, `pilgrimage_monument_two`; the augury sets `augury_wytchwood_tree`.
+- **Reward.** +2 to one ability (default Constitution; the player may redirect; maximum 24).
+- **If benched.** Pending. The ruins stay as a place (the estate is a heap of wood under a clear sky) and the trigger re-arms there; if the player has gone on to R23 without it, the beat converts to its echo at the next camp. The reminder: the last door of the Nightmare (the attic) shows a one-line prompt when a benched companion has an unplayed beat in this chapter.
+- **Signature line.** "Just backdraft in the old masonry, nothing for the shift log. Settle down, little miss, the stone will hold the roof off."
+
+### 5. Climax: the third monument
+
+- **Where and when.** The Wytchwood clearing (R24), after the skull ritual is resolved and the Crooked Tree has burned. Rook in the party.
+- **Prerequisite.** `pilgrimage_confronted`. If Rook offered his Thread at the skull, this beat does not play (see below).
+- **The player sees.** Hot white ash falls like snow; the Crooked Queen's face glares from the moon. Rook sets a block of root-split granite into the char for the third monument. From the press of twisted souls steps **Bram Harker**, his collar still rimed with blue ice, and says quietly that Rook kept the brass clean, and may sign his own shift now. (He adds that the voice in the ruins was never his: Bram never called for anyone.) Rook takes the badge off his coat, lays it on the stone, says his own name aloud, and says he left Bram under the ice to buy his own breath. He presses the last blank ledger page over the stone and the badge and takes the rubbing: his name beside Bram's. Every soul in the wood waits.
+- **Choices** (the book's A and B, personalised):
+  - **A**, the bigger price: "Give them another life. Rook, reborn folk." The souls are reborn as the thirteen reborn folk of Druskenvald, with no memory. Rook accepts that he is answering for lives that did not ask.
+  - **B**: "Let them sleep. Their shift is done." The souls and Bram fade in peace, the quiet he has always wanted for everyone.
+  - Quiet way on: "Your call, Rook. We stand with it." Rook decides, and his oldest instinct is B.
+- **Sets.** `climax_pilgrimage`; `thread_pilgrimage_catharsis` = `taken` (A) or `declined` (B); `rook_confessed`.
+- **Reward.** A feat: **Death Defier** (alternate Shield Master).
+- **If benched.** The Wytchwood clearing stays open after the tree burns, as the epilogue's "Wytchwood ash" place: a short walk from the village with no fights, marked on the map, and the Last Ride prompt names Rook's unfinished stone. If the player boards anyway, the quiet Catharsis plays (below).
+- **If he offered his Thread at the skull.** No Climax. The ledger's last page stays blank. In the epilogue Rook hands the Vagrant the seed packet to carry "where the ground is kind".
+- **If he gave his life at the skull (the Last Act).** The epilogue slide shows blue flowers at the Wytchwood's edge and one new line in chalk on a headstone.
+- **Signature line.** "Name is Rook Coldwake, private of the ditch, and I left Warden Bram Harker under the glacier to buy my own breath. The stone is square now, Bram. Take your rest."
+
+### 6. Catharsis: the seeds
+
+- **Where and when.** The graves at the village's edge (the epilogue's vigil graves, R25), in the village's `loose_ends`, before the Last Ride. Plays by the Climax flag.
+- **The player sees.** Lantern light on the flagstones of the Founder's Round; the Express's whistle down the valley. At the edge of town, among the graves of the vigil, Rook kneels in the loam, unwraps Elsie Harker's oilskin packet and presses the blue cornflower seeds into clean earth beside a plain stone he has cut for Bram. He takes one loud, deliberate sigh, closes the ledger, and straps it with belt twine.
+  - **If A (`taken`).** Twenty strangers wake in the Foxwillow corn speaking no names, and in the epilogue's village they come to Rook, because he keeps a roll. He writes each one a page and asks what they would like to be called.
+  - **If B (`declined`).** The valley's graves are finally quiet. Rook stays standing a long time after the last of the lanterns burns low, and at the platform the brass knocker on his shield gives one soft, settled clack.
+- **Choices.** One: "Stay with him a while." / "Say something over Bram's stone." / "The train's whistling, Rook." All lead to the platform.
+- **Sets.** `catharsis_pilgrimage`.
+- **Reward.** None. He rides the Last Ride with the party.
+- **If benched.** If Rook is not in the party at the epilogue, the beat plays anyway as a short village scene when the party passes the edge graves; benching never takes the Catharsis.
+- **Signature line.** "Good dark loam, proper drainage, and blue flowers come the spring. Mind the turf while I'm off the clock."
+
+## Approval moments
+
+Likes and dislikes (the drafts): burying or consecrating the fallen, keeping sworn contracts, holding ground against odds; looting graves, mocking the dead, smashing shrines. Deltas are on the engine's -20 to +20 scale.
+
+| The party | Rook | Reason (his memory of it) |
+|---|---|---|
+| buries a roadside corpse and marks the mound | +3 | Proper depth and a marker at the head. Even a stranger is owed six feet of quiet. |
+| leaves a sealed family crypt unopened | +2 | Lock is stamped and the lease is perpetual. Good to see folk respect the paperwork. |
+| holds a narrow place against the dead without falling back | +2 | Shields in line and heels in the gravel. That's how the Third Watch holds a ditch. |
+| takes rings or coins from a fresh grave | -3 | Put that back in the sod. A grave's a private dwelling, not a penny bazaar. |
+| mocks a ghost's grief or laughs at a corpse | -3 | Keep a civil tongue by the slab. They've had a rough enough night without your noise. |
+| breaks a wayside shrine or headstone in a fight | -2 | Mind the masonry. Someone paid mason's rates for that stone. |
+
+## The dark secret (Raum's gate, R13)
+
+- **The confession, if Rook pays it himself.** "In the Corpse-Ditch Mutinies, when the ice shelf split over Trench Four, Bram Harker held the shoring timber on his own back so I could crawl out. I heard him knocking under the ice with his spade handle for three hours, and I took his Rest Warden badge off his spare coat in the dugout and told Corporal Fenwick the trench was dead."
+- **The Narrator.** "The gate drinks the frost out of his voice. The corn smells of old glacier water and rusted iron."
+- **The proof.** Corporal Fenwick's transfer chit, in the lining of the ledger's back cover: the name Rook Coldwake, ditch-hand, crossed out in thawed red ink, and Warden Bram Harker, 414, written over it.
+- **If Rook pays it** (`paid_own_secret_rook`): Raum gains a hold on Rook for the maze (the book). Rook's approval of the player rises by 2 (he chose to be honest) and falls to a flat silence for the rest of the chapter; the other companions hear it.
+- **If another hero pays it** (possible only when `secret_known_rook`, set by camp talk 2 at Warm approval or better): it becomes a rumour in Foxwillow and Wickermoor (`rumour_rook_badge`), Rook's approval falls by 8, and the first camp talk afterwards is the cold one (the exit option is "Not now").
+- **Reveal reactions.** Lucan, who has done the same thing, goes silent; his ghost dog lies down against Rook's shield. Rook does not mention it again; Lucan brings it up once, at the Mirror scene below.
+
+## How his arc meets the others
+
+- **Rook and Lucan** (the mirror: both froze, both took credit). Optional, plays only if both are in the party. At the ruins of the Crooked House after the second monument, Lucan's ghost dog clamps its jaws on the knocker of Rook's shield. Rook starts to write a leash-law citation in the ledger, sees Lucan staring up at the vanishing spirits with the look of a man who ran when the line broke, tears the page out, folds it into his pocket, and lets the dog gnaw the brass.
+- **Rook and Tobin.** At the first monument in Foxwillow, Tobin kneels in the ash where the scarecrow bodies burned. A fence post still smoulders; Rook plants his shield between it and Tobin and checks the soil round Tobin's boots. When Tobin asks why a grave-guard cares about straw and twine, Rook taps the ledger and says a watchman counts everyone on the parish roll, in bone or burlap.
+- **Rook and Yorgrim** (R19, a warding guest). Rook is a Rest Warden who has heard of the gravedigger; if Rook is in the party when Yorgrim is a guest, Yorgrim's first line to him is a quiet one in the Warden's own terms. No flag; flavour only.

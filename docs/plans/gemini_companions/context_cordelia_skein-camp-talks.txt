@@ -1,0 +1,218 @@
+THE NOTE ON CORDELIA SKEIN, part 2: the camp talks already written (voice examples: do not repeat their topics or lines) and a Connection scene.
+
+## Camp talks
+
+Three personal talks, drafted by Gemini (briefs `Gemini/brief_B_cordelia.txt`, raw replies `Gemini/reply_B_cordelia.json`) and converted by Lane F into the camp-file format: the companion's lines as `interject name:cordelia:`, long lines split, approvals and flags added (the edit log is in `Gemini/README.md`). They are offered at a camp or after a Long Rest, each plays once, and each takes one of the companion's two words a day; they come after any Strained or Doubtful talk and before the Warm, Close and Devoted talks.
+
+- **Unlocks.** Talk 1 `flag.connection_evolution`. Talk 2 `flag.connection_evolution`, the next word after talk 1; it is where `secret_known_cordelia` is set, at Warm approval or better, which is what lets another hero pay Cordelia's dark secret at Raum's gate. Talk 3 `flag.evolution_confronted`.
+- **The talks.**
+  1. Upside down: tea by one ankle-thread; the turn is that lying flat in the dark feels like a cocoon.
+  2. The jar: a lecture on calibration; the turn is that she kept the heart beating after she outgrew his laboratory.
+  3. Pulses: macabre teasing about the party's circulation; the turn is that she checks their pulses because she forgets how easily they stop.
+- **Rules kept.** No roll or check anywhere; every menu has the kind exit "Not now. Rest easy, Cordelia."; the dark secret is never stated in a camp talk, only approached.
+
+```text
+# Cordelia's camp talks (narrative/camp/cordelia.dialogue). Each plays once; the file offers the first talk whose condition holds.
+# Talk 2 opens on the same condition as talk 1 and plays at the next word, so it is heard before Raum's gate in any Act II order.
+# Approval reasons are notice text written by Lane F (mechanical), not Gemini lines; deltas follow the engine's size guide.
+
+~ talk_cordelia_upside_down
+if name:cordelia and flag.connection_evolution
+-> camp_cordelia_1
+endif
+-> END
+
+~ talk_cordelia_jar
+if name:cordelia and flag.connection_evolution
+-> camp_cordelia_2
+endif
+-> END
+
+~ talk_cordelia_pulses
+if name:cordelia and flag.evolution_confronted
+-> camp_cordelia_3
+endif
+-> END
+
+~ camp_cordelia_1
+interject name:cordelia: Ankle-thread suspension at a forty-degree incline, darling, and my cephalic humours are settling splendidly.
+interject name:cordelia: Do pass a biscuit if you have one, though I will need to chew against gravity.
+* Why hang upside down to drink tea? -> c1_why
+* Is it comfortable? -> c1_comfy
+* Not now. Rest easy, Cordelia. -> END
+
+~ c1_why
+interject name:cordelia: Arachnid vasculature requires periodic inversion to keep the lower humours from pooling in the ankles.
+interject name:cordelia: Besides, the leaves stay at the bottom of the cup when one tilts the chin properly.
+interject name:cordelia: I have spilled only three drops on my waistcoat all week, which is a personal record.
+-> c1_turn
+
+~ c1_comfy
+interject name:cordelia: The tensile ratio of a single silk strand distributes the weight across the tarsus without pinching.
+interject name:cordelia: As for the tea, the oesophageal peristalsis cares very little which way the moon is pointing.
+interject name:cordelia: One merely swallows with conviction and lets anatomy handle the rest.
+-> c1_turn
+
+~ c1_turn
+interject name:cordelia: I prefer the breeze up here in the branches, truth be told.
+interject name:cordelia: A bedroll on the earth requires too much stillness in too little space.
+interject name:cordelia: Lying flat in the dark feels far too much like a cocoon, and I prefer to keep my eyes open.
+* We'll rig you a branch. -> c1_branch
+* What's wrong with a cocoon? -> c1_cocoon
+* Rest easy, Cordelia. -> END
+
+~ c1_branch
+interject name:cordelia: How terribly considerate of you, darling.
+interject name:cordelia: Leave the bark rough on the eastern bough so my anchor-thread catches on the first spin.
+approve cordelia +2: You said "We'll rig you a branch"
+-> c1_close
+
+~ c1_cocoon
+interject name:cordelia: When the silk closes over your face, the higher cortex dissolves long before the legs stop twitching.
+interject name:cordelia: Look at the condensation on my teacup, the air in this valley carries an intriguing chill.
+approve cordelia +2: You asked "What's wrong with a cocoon?"
+-> c1_close
+
+~ c1_close
+interject name:cordelia: Just one last sip before the tannin cools completely.
+interject name:cordelia: Let me spin a quick note on the humidity, and it will dissolve into blood-mist by morning.
+approve cordelia +1: You sat with me at the fire
+-> END
+
+~ camp_cordelia_2
+interject name:cordelia: Do mind the stump, darling, I have just levelled the lead casing for my evening assay.
+interject name:cordelia: Every proper bio-arcanist requires a reliable metronome if her ratios are to survive the field.
+* Whose heart is that? -> c2_whose
+* Does it ever stop? -> c2_stop
+* Not now. Rest easy, Cordelia. -> END
+
+~ c2_whose
+interject name:cordelia: This specimen belonged to Provost Alaric Glass, my chief experimenter back in Nerukhet.
+interject name:cordelia: A man of indifferent imagination, truthfully, yet his myocardium possesses an admirable tolerance for preservative salts.
+interject name:cordelia: He was never half so punctual in the lecture hall as he is in this jar.
+-> c2_turn
+
+~ c2_stop
+interject name:cordelia: Never, provided the saline viscosity is adjusted at the turn of every week.
+interject name:cordelia: Forty-two beats to the minute, crisp as a pocket watch, which calibrates my somatic timing to the half-second.
+interject name:cordelia: If it ever skips a contraction, half my vials will curdle before I finish a syllable.
+-> c2_turn
+
+~ c2_turn
+interject name:cordelia: Any brass pendulum would keep the same measure, of course, at a fraction of the weight.
+interject name:cordelia: I outgrew his laboratory years ago, and his notes held nothing I had not already improved upon.
+interject name:cordelia: Yet I keep the salt fresh and the glass sealed, and I do not care to examine why.
+* [if not (approval.cordelia >= warm)] Why keep it, then? -> c2_why
+* [if approval.cordelia >= warm] Why keep it, then? -> c2_open
+* You don't have to say. -> c2_close
+* Rest easy, Cordelia. -> END
+
+~ c2_why
+interject name:cordelia: One hundred and thirty-two million contractions since the lid was soldered shut.
+interject name:cordelia: That is the only figure I am prepared to enter into the record tonight.
+approve cordelia +2: You asked "Why keep it, then?"
+-> c2_close
+
+~ c2_open
+set secret_known_cordelia
+interject name:cordelia: My education was paid for by people who did not choose to pay.
+interject name:cordelia: I have calibrated every ratio I know, and I have never found a way to repay it.
+interject name:cordelia: That is the entirety of the theorem, darling.
+approve cordelia +3: You asked "Why keep it, then?"
+-> c2_close
+
+~ c2_close
+interject name:cordelia: Back into the pack you go, Provost, right between the bandages and the spare teacup.
+interject name:cordelia: Do tell me if I leave a tea ring on the lead, it ruins the academic gravitas.
+approve cordelia +1: You sat with me at the fire
+-> END
+
+~ camp_cordelia_3
+interject name:cordelia: I have been charting the camp's carotid rhythms by firelight, and you are a fascinatingly untidy collection.
+interject name:cordelia: Four distinct pressures, three minor arrhythmias, and not a single drop of proper alchemical stabilisation among you.
+* What's wrong with ours? -> c3_wrong
+* Whose pulse is the best? -> c3_best
+* Not now. Rest easy, Cordelia. -> END
+
+~ c3_wrong
+interject name:cordelia: Nothing fatal, darling, though your resting rate climbs whenever the logs pop in the grate.
+interject name:cordelia: One of you runs as thick as cold treacle, and another races like a trapped finch.
+interject name:cordelia: Do hold still, this will only tingle if I decide to check the viscosity myself.
+-> c3_turn
+
+~ c3_best
+interject name:cordelia: Yours holds the middle rank, brisk under pressure with a remarkably tidy recovery curve.
+interject name:cordelia: Second place goes to the loudest snorer by the baggage cart, purely for sheer ventricular volume.
+interject name:cordelia: Top marks, however, belong to my own thorax, though six auxiliary valves give me an unfair advantage.
+-> c3_turn
+
+~ c3_turn
+interject name:cordelia: It has become a habit to listen while the fire dies down.
+interject name:cordelia: Where I was made, a body only stopped when someone unbolted the table and drained the jars.
+interject name:cordelia: I check your pulses every night because I forget how easily friends who have not been altered stop breathing.
+* We're hard to kill. -> c3_hard
+* Count it if it helps. -> c3_count
+* Rest easy, Cordelia. -> END
+
+~ c3_hard
+interject name:cordelia: See that you remain so, as I detest revising my baseline charts.
+interject name:cordelia: Thank you for humoring a small clinical fixation, darling.
+approve cordelia +2: You said "We're hard to kill"
+-> c3_close
+
+~ c3_count
+interject name:cordelia: Sixty-four, sixty-five, sixty-six, steady against the ribs.
+interject name:cordelia: Sixty-seven, sixty-eight, and still warm.
+approve cordelia +2: You said "Count it if it helps"
+-> c3_close
+
+~ c3_close
+interject name:cordelia: Let me tie that figure into a crimson thread before I turn in.
+interject name:cordelia: Watch it dissolve into blood-mist, and the record is clean until tomorrow.
+approve cordelia +1: You sat with me at the fire
+-> END
+```
+
+## The Connection scene (dialogue draft)
+
+Thomasin Ardor's meeting with Cordelia, drafted the same way and converted the same way. It is a few nodes in Thomasin Ardor's own conversation file, started by the trigger in beat 2. Bless for a day, the ally and the Heroic Inspiration are rewards the Fateweaving statements will give (listed in the overview); the `set` and `attitude` lines are the ones the grammar has today.
+
+```text
+# Cordelia meets Thomasin Ardor (a node of Thomasin Ardor's own conversation file; the trigger is in the beat above).
+# Bless for a day and Heroic Inspiration need the Fateweaving statements the overview lists; they are not written here.
+
+~ thomasin_cordelia_start
+thomasin_ardor [neutral]: Hold the lower left arm an inch higher so the brass tape clears the glass.
+thomasin_ardor [neutral]: I know the pull of a tight seam along the ribs, and the thread has to give when you breathe.
+thomasin_ardor [smile]: Try this charcoal silk on, I lined the ruby-glass buttonholes to cushion your vials.
+interject name:cordelia: You measured all eight shoulders without pausing once to ask what the surgeon left underneath.
+interject name:cordelia: My apologies, the collar sits to the millimetre, and I appear to have misplaced my phrasing.
+* You two know what it takes to mend what others broke. -> thomasin_kin
+* Ask her what holds up against alchemical heat. -> thomasin_fabric
+* Thank the tailor and step out. -> thomasin_go
+
+~ thomasin_kin
+thomasin_ardor [neutral]: Glass leaves a jagged line when it goes in, and the needle leaves a straight one coming out.
+thomasin_ardor [smile]: What matters is that the cloth lies flat over both.
+interject name:cordelia: A remarkably sound pathology, Miss Ardor, and I shall endeavour not to tear the gussets.
+-> thomasin_close
+
+~ thomasin_fabric
+thomasin_ardor [neutral]: Double-weight charcoal silk under the arms, stitched with silver thread that will not char.
+thomasin_ardor [neutral]: If a vial boils over, the lining takes the burn before your skin does.
+interject name:cordelia: Silver thread for thermal dissipation, darling, you put the academy quartermasters to shame.
+-> thomasin_close
+
+~ thomasin_go
+thomasin_ardor [neutral]: The lamplight is always on if a button loosens in the wet.
+interject name:cordelia: Thank you, Miss Ardor, for the bias cut and the quiet.
+-> thomasin_close
+
+~ thomasin_close
+thomasin_ardor [smile]: Wear it in good health, and let the lower cuffs hang loose when you climb.
+thomasin_ardor [neutral]: Come back after the first rain so I can check how the silk settles.
+set connection_evolution
+attitude thomasin_ardor friendly
+set cordelia_waistcoat
+-> END
+```

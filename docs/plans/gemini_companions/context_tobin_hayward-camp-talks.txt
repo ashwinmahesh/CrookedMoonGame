@@ -1,0 +1,216 @@
+THE NOTE ON TOBIN HAYWARD, part 2: the camp talks already written (voice examples: do not repeat their topics or lines) and a Connection scene.
+
+## Camp talks
+
+Three personal talks, drafted by Gemini (briefs `Gemini/brief_B_tobin.txt`, raw replies `Gemini/reply_B_tobin.json`) and converted by Lane F into the camp-file format: the companion's lines as `interject name:tobin:`, long lines split, approvals and flags added (the edit log is in `Gemini/README.md`). They are offered at a camp or after a Long Rest, each plays once, and each takes one of the companion's two words a day; they come after any Strained or Doubtful talk and before the Warm, Close and Devoted talks.
+
+- **Unlocks.** Talk 1 `flag.connection_rejuvenation`. Talk 2 `flag.connection_rejuvenation`, the next word after talk 1; it is where `secret_known_tobin` is set, at Warm approval or better, which is what lets another hero pay Tobin's dark secret at Raum's gate. Talk 3 `flag.rejuvenation_confronted`.
+- **The talks.**
+  1. The head: shaking out beetles three paces from the fire; the turn is that he cannot sleep with woodsmoke on his burlap.
+  2. Frayed seams: why Morgan and Randall may not mend him; the slip is the wedding flowers in his chest.
+  3. Poppets: a tiny wicker shield on every poppet; the turn is that he has never woven one for himself.
+- **Rules kept.** No roll or check anywhere; every menu has the kind exit "Not now. Rest easy, Tobin."; the dark secret is never stated in a camp talk, only approached.
+
+```text
+# Tobin's camp talks (narrative/camp/tobin.dialogue). Each plays once; the file offers the first talk whose condition holds.
+# Talk 2 opens on the same condition as talk 1 and plays at the next word, so it is heard before Raum's gate in any Act II order.
+# Approval reasons are notice text written by Lane F (mechanical), not Gemini lines; deltas follow the engine's size guide.
+
+~ talk_tobin_head
+if name:tobin and flag.connection_rejuvenation
+-> camp_tobin_1
+endif
+-> END
+
+~ talk_tobin_seams
+if name:tobin and flag.connection_rejuvenation
+-> camp_tobin_2
+endif
+-> END
+
+~ talk_tobin_poppets
+if name:tobin and flag.rejuvenation_confronted
+-> camp_tobin_3
+endif
+-> END
+
+~ camp_tobin_1
+interject name:tobin: Give me a second to knock the beetles out of my ears. A man neglects his own seams and he is nothing but a walking granary.
+* Is it safe to talk with your head off? -> t1_safe
+* Do the mice mind? -> t1_mice
+* Not now. Rest easy, Tobin. -> END
+
+~ t1_safe
+interject name:tobin: Best way to hold a conversation, if you ask me.
+interject name:tobin: My neck stitching gets a rest, the beetles get evicted, and I can see my own boots for a change.
+interject name:tobin: So long as I sit three paces back from the sparks, I am right as rain.
+-> t1_turn
+
+~ t1_mice
+interject name:tobin: The mice have strong opinions about the beetles, mostly that they crunch too loud after dark.
+interject name:tobin: You would think they paid rent on my lapels, the way they carry on.
+interject name:tobin: Still, they keep the weevils out of my collarbone, so we have a working ledger.
+-> t1_turn
+
+~ t1_turn
+interject name:tobin: I will button my chin back on before the dew settles, never fret.
+interject name:tobin: No sense tying the knot early when there is no sleep to be had.
+interject name:tobin: If I smell woodsmoke on my own burlap, I just lie here and count the sparks until they die.
+* Is it the smoke that bothers you? -> t1_smoke
+* Then we'll bank the fire early. -> t1_bank
+* Rest easy, Tobin. -> END
+
+~ t1_smoke
+interject name:tobin: Smoke clings to dry straw like canker to a taproot, and it takes three days of clean wind to air out.
+interject name:tobin: And once the smell gets in my ribs, my chest forgets the fire is three paces off.
+approve tobin +2: You asked "Is it the smoke that bothers you?"
+-> t1_close
+
+~ t1_bank
+interject name:tobin: Leave the shovel be, I will rake the ashes down myself from three paces back with a long stick.
+interject name:tobin: Though I will mark it in the ledger that you offered.
+approve tobin +2: You said "Then we'll bank the fire early"
+-> t1_close
+
+~ t1_close
+interject name:tobin: Hand me that needle by my boot, will you?
+interject name:tobin: Off to your bedroll before you catch a chill in your seams.
+approve tobin +1: You sat with me at the fire
+-> END
+
+~ camp_tobin_2
+interject name:tobin: Look at this left cuff, sprouting a pale primrose right through the hemp while I am trying to whip-stitch the fray.
+interject name:tobin: Morgan and Randall both offered to mend it in the village, and I told them both to keep their hands in their own pockets.
+* Why won't you let Morgan mend you? -> t2_morgan
+* Why not Randall, the barber-surgeon? -> t2_randall
+* Not now. Rest easy, Tobin. -> END
+
+~ t2_morgan
+interject name:tobin: Morgan never stops at a tidy seam, that one wants to catalogue the stuffing.
+interject name:tobin: What a man carries inside his burlap is his own private ledger.
+interject name:tobin: I am not having my ribs written up between the dried herbs and the jars.
+-> t2_turn
+
+~ t2_randall
+interject name:tobin: A man who pulls molars for copper has no business near good linen thread.
+interject name:tobin: Give Randall an inch of frayed burlap and he will try to bleed it with a lancet.
+interject name:tobin: I know my own rows and I mend my own rows.
+-> t2_turn
+
+~ t2_turn
+interject name:tobin: Besides, the cuff is nothing, just a loose hem and an impudent flower.
+interject name:tobin: It is the front seam that takes a careful thumb, if you don't want the older straw shifting.
+interject name:tobin: The middle of my chest is braided tight round dried wildflowers from my wedding morning.
+* [if not (approval.tobin >= warm)] Your wedding morning? -> t2_wedding
+* [if approval.tobin >= warm] Your wedding morning? -> t2_wedding_open
+* We won't touch a stitch. -> t2_close
+* Rest easy, Tobin. -> END
+
+~ t2_wedding
+interject name:tobin: Meadow-rue and white clover, still dry and clean after all the damp in this valley.
+interject name:tobin: That part of the ledger is closed, so don't go pulling at the thread.
+approve tobin +2: You asked "Your wedding morning?"
+-> t2_close
+
+~ t2_wedding_open
+set secret_known_tobin
+interject name:tobin: Tamsin was a flax-weaver, quickest fingers in the parish, and she braided meadow-rue and white clover into my coat that morning.
+interject name:tobin: The famine year took her before the clover even lost its scent.
+interject name:tobin: Thread holds when the hand was steady, that is all you need to know about it.
+approve tobin +3: You asked "Your wedding morning?"
+-> t2_close
+
+~ t2_close
+interject name:tobin: Now let me finish this cuff before the primrose takes over the whole sleeve.
+interject name:tobin: And you, out of my pocket, I am not running a tavern for field-mice.
+approve tobin +1: You sat with me at the fire
+-> END
+
+~ camp_tobin_3
+interject name:tobin: Don't look at me like I am working a hex, I am only twisting a few spare straws from my ribs.
+interject name:tobin: A little poppet for each of you lets me track your posture and your pulse when the rot gets thick.
+* Why does each one have a tiny shield? -> t3_shield
+* Is there one of you? -> t3_self
+* Not now. Rest easy, Tobin. -> END
+
+~ t3_shield
+interject name:tobin: Because a curse is lazy, it always strikes the weakest seam first.
+interject name:tobin: You bind a scrap of bark over the poppet's heart, and a cheap hex spends its teeth on the bark instead of you.
+interject name:tobin: Purely practical fieldwork, nothing sentimental about it.
+-> t3_turn
+
+~ t3_self
+interject name:tobin: What would I do with a straw doll of a straw man?
+interject name:tobin: Pull too much from my own ribs and the turnip-lantern on my collarbone won't have a perch.
+interject name:tobin: Nobody weaves for the weaver, that is the first rule of the trade.
+-> t3_turn
+
+~ t3_turn
+interject name:tobin: Still, look at the four of them lined up by my knee, neat as a row of winter cabbage.
+interject name:tobin: Every last one braced and shielded from collar to heel.
+interject name:tobin: Funny thing is, in all my seasons I have never once woven a shield for myself.
+* Weave one. We'll carry it. -> t3_weave
+* You've got us instead. -> t3_us
+* Rest easy, Tobin. -> END
+
+~ t3_weave
+interject name:tobin: Fine, if it stops you hovering over my shoulder while I work.
+interject name:tobin: Keep it in a dry pocket, and if you let it get singed I am taking it straight back.
+approve tobin +2: You said "Weave one. We'll carry it"
+-> t3_close
+
+~ t3_us
+interject name:tobin: Terrible craftsmanship, the lot of you, noisy seams and no sense of pacing.
+interject name:tobin: Though I suppose you have kept the sparks off my back so far.
+approve tobin +2: You said "You've got us instead"
+-> t3_close
+
+~ t3_close
+interject name:tobin: Hold still, you're fraying at the shoulder and throwing my whole model off.
+interject name:tobin: Go on, get some sleep while I tie off this last knot.
+approve tobin +1: You sat with me at the fire
+-> END
+```
+
+## The Connection scene (dialogue draft)
+
+Sister Rain's meeting with Tobin, drafted the same way and converted the same way. It is a few nodes in Sister Rain's own conversation file, started by the trigger in beat 2. Bless for a day, the ally and the Heroic Inspiration are rewards the Fateweaving statements will give (listed in the overview); the `set` and `attitude` lines are the ones the grammar has today.
+
+```text
+# Tobin meets Sister Rain (a node of Sister Rain's own conversation file; the trigger is in the beat above).
+# Bless for a day and Heroic Inspiration need the Fateweaving statements the overview lists; they are not written here.
+
+~ rain_tobin_start
+sister_rain [smile]: That is a surgeon's knot on a pumpkin stem, friend, and the sap is already settling.
+sister_rain [sad]: Oh, your poor collarbone is as dry and aching as the soil under this green.
+sister_rain [neutral]: The Patient Lady says we tend what grows and bind what splits, and we never answer blight with a torch.
+interject name:tobin: Careful on the collarbone, miss, it's old wood and dry.
+interject name:tobin: A clean splice stops the bleeding, that is just sound husbandry, no sermon required.
+* Her way makes sense. You can't heal soil by scorching it. -> rain_gentle
+* Patience is fine for daisies, not for a plague. -> rain_blunt
+* Take her blessing. We should keep moving. -> rain_go
+
+~ rain_gentle
+sister_rain [smile]: You hear that, mister scarecrow, your friends have the right of it.
+sister_rain [neutral]: Ash never grew an apple yet, no matter how deep the rot went.
+interject name:tobin: Good soil, bad seed, and a great deal of weeding left to do before anyone talks of apples.
+-> rain_close
+
+~ rain_blunt
+sister_rain [angry]: Bite your tongue, the land is bleeding enough without you calling down iron and fire on it!
+sister_rain [smile]: Listen to me roaring like a March gale when your friend here just saved my best pumpkin.
+interject name:tobin: You have a brisk way with a congregation, I will give you that much.
+-> rain_close
+
+~ rain_go
+sister_rain [smile]: Always rushing off, you travellers, though at least this one stops to mend a vine.
+interject name:tobin: A split stem is a split stem, and it takes ten seconds to tie it right.
+-> rain_close
+
+~ rain_close
+sister_rain [smile]: Walk in the Lady's patience, stitched man, and don't pluck what grows from your cuff.
+sister_rain [sad]: When you have the stomach for worse than a bruised vine, the sick places round the village are crying out for a steady hand.
+set connection_rejuvenation
+attitude sister_rain friendly
+-> END
+```

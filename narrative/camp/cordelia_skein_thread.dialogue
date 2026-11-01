@@ -1,0 +1,175 @@
+# Cordelia's Thread of Fate at camp (Evolution): the beats that wait for a rest (story/camp_talk.gd offers the first `talk_` node whose opening `if` holds,
+# once a playthrough). Order matters: the Incitement's echo, the Discovery, the Confrontation (held back while Cordelia is Strained until the
+# `talk_confrontation_wait` word has been had, never for good). Rewards come from Fateweaving when each beat's quest ends (story/fateweaving.gd).
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+~ talk_incitement
+if name:cordelia_skein and flag.pending_evolution_incitement and not flag.incitement_evolution
+-> incitement
+endif
+-> END
+
+~ incitement
+Narrator: Cordelia sits near the embers with her lower hands spread out, dryin' a damp leather medical bag that smells of camphor and clove.
+interject name:cordelia_skein: I slipped back into the Baggage Car before we left the rails, darling, right past that sleeping prisoner in his stripes.
+interject name:cordelia_skein: Wedged beneath his iron ball was this surgical kit, holding a water-stained monograph by Doctor Hespa Marlowe titled "On the Final Stage".
+interject name:cordelia_skein: She mapped all six chambers of the thoracic pump to synthesise what she called the Apex Humour.
+interject name:cordelia_skein: Whoever altered my blood left the assay half-finished, and it appears I have finally found the missing pages of my own anatomy.
+* Read the margins aloud. What was her method? -> incitement_1
+* Keep the notes dry. We have a long road ahead. -> incitement_2
+
+~ incitement_1
+Narrator: The ruby vials in her thorax catch the firelight as she traces a six-chambered diagram in crimson silk that dissolves into red mist.
+interject name:cordelia_skein: Her ratios for venous distillation are remarkably crisp for a practitioner working with only two hands.
+interject name:cordelia_skein: If her clinic mark leads us to her table in this valley, I intend to finish the textbook myself.
+set incitement_evolution
+quest connection_evolution waiting
+set cordelia_inc_choice = "read"
+inspire name:cordelia_skein: found a doctor's unfinished notes
+-> END
+
+~ incitement_2
+Narrator: Cordelia folds the damp pages into oilcloth and slips them inside her coat, her four extra arms tucking neat against her ribs.
+interject name:cordelia_skein: Quite right, the night air is dreadful for unbound paper and delicate calibration alike.
+interject name:cordelia_skein: I shall review the doctor's thoracic diagrams in private before the humours cool.
+set incitement_evolution
+quest connection_evolution waiting
+set cordelia_inc_choice = "packed"
+inspire name:cordelia_skein: found a doctor's unfinished notes
+-> END
+
+~ talk_discovery
+if name:cordelia_skein and flag.connection_evolution and flag.lethica_slain and not flag.discovery_evolution
+-> discovery
+endif
+-> END
+
+~ discovery
+Narrator: Cordelia balances a pair of scorched brass spectacles on her knee, turnin' a ciphered ledger toward the firelight with two lower fingers.
+interject name:cordelia_skein: Memory's Rest was a dismal display of wasted inquiry, darling, though the crematorium ash kept Doctor Marlowe's second monograph remarkably dry.
+interject name:cordelia_skein: Fascinating pathology, she documented the exact cellular stage that comes after my current state.
+interject name:cordelia_skein: For years I assumed my instability was a flaw in the saline ratio, a simple failure of the blood.
+Narrator: She taps a fingernail against the ruby glass in her chest, where the dark liquid sits thick and still.
+interject name:cordelia_skein: Marlowe found that transmutative humours always decay unless the weak flesh is anchored by a mineral catalyst.
+interject name:cordelia_skein: She lost her own mind to the clinic's serum before she could finish the work, forgetting her very name at the end.
+interject name:cordelia_skein: Yet her final equations remain scrupulously exact, pointing to a stage where the mind can never be dragged back into the dark.
+interject name:cordelia_skein: It is a complete blueprint for survival, even if I would rather not examine the price of the first draft.
+* Does it frighten you, seeing how she ended? -> discovery_1
+* Her data survived. You will succeed where her method failed. -> discovery_2
+* Put the ledger away and get some rest. -> discovery_3
+
+~ discovery_1
+Narrator: Cordelia's six eyes go still as the fire pops, her voice dropping to a thin, cool whisper.
+interject name:cordelia_skein: To lose one's diction and revert to a blind thing in the dark is the only pathology I cannot stomach.
+interject name:cordelia_skein: That is precisely why my calibration must be cleaner than hers, down to the last drop.
+approve cordelia_skein +2: You asked whether Doctor Marlowe's fate frightened me.
+set discovery_evolution
+quest discovery_evolution done
+quest confrontation_evolution waiting
+-> END
+
+~ discovery_2
+Narrator: She closes the ledger with a crisp snap and adjusts the charcoal cuffs of her eight sleeves.
+interject name:cordelia_skein: Spoken like a true colleague, darling, sentiment should never invalidate a sound theorem.
+interject name:cordelia_skein: Marlowe lacked the proper thoracic vessels to house the reaction, whereas I am already built for the strain.
+approve cordelia_skein +3: You trusted my intellect to finish Doctor Marlowe's work.
+set discovery_evolution
+quest discovery_evolution done
+quest confrontation_evolution waiting
+-> END
+
+~ discovery_3
+Narrator: Cordelia slips the scorched spectacles into her pocket and smooths her waistcoat over her vials.
+interject name:cordelia_skein: A sensible prescription, the soot in that place has left my throat decidedly dry.
+interject name:cordelia_skein: The second stage is safely catalogued, and it will keep until we are ready to test the ratio.
+approve cordelia_skein -1: You told me to put the ledger away and rest.
+set discovery_evolution
+quest discovery_evolution done
+quest confrontation_evolution waiting
+-> END
+
+~ talk_confrontation_wait
+if name:cordelia_skein and flag.discovery_evolution and flag.nm_chapter_done and not flag.confrontation_evolution and approval.cordelia_skein <= strained and not flag.cordelia_skein_confrontation_waited
+-> confrontation_wait
+endif
+-> END
+
+~ confrontation_wait
+Narrator: Cordelia sits a little back from the fire, her four lower arms folded tight across her waistcoat while she wipes a glass vial clean.
+interject name:cordelia_skein: Before you ask about the Crooked Nightmare, darling, my notes on the final stage are sealed for the evening.
+interject name:cordelia_skein: Proper bio-arcana requires discipline, brisk inquiry and a basic respect for rare specimens, qualities our company has lately neglected.
+interject name:cordelia_skein: Until our methods align with reason again, I prefer to keep my observations to myself.
+* We have been careless lately. Tell me how we fix it. -> confrontation_wait_1
+* Keep your notes to yourself, then. -> confrontation_wait_2
+* Say nothing. Stay by the fire. -> confrontation_wait_3
+
+~ confrontation_wait_1
+Narrator: Her lower hands unclasping a fraction, she tilts her head and studies your face in the ember glow.
+interject name:cordelia_skein: Precision is a habit, darling, not an apology, so let us see how you handle the next anomaly we meet.
+interject name:cordelia_skein: Once our baseline steadies, I will gladly walk you through the whole assay.
+approve cordelia_skein +6: You owned your carelessness and asked how to make it right.
+set cordelia_skein_confrontation_waited
+-> END
+
+~ confrontation_wait_2
+Narrator: Cordelia's expression stays glass-smooth as she tucks the polishing cloth into her sleeve.
+interject name:cordelia_skein: Brevity has its virtues, I suppose, when the humours are already sour.
+interject name:cordelia_skein: The data will remain in my coat until you are in a mood for serious scholarship.
+approve cordelia_skein -2: You told me coldly to keep my notes to myself.
+set cordelia_skein_confrontation_waited
+-> END
+
+~ confrontation_wait_3
+Narrator: Cordelia watches the sparks rise into the dark for a minute, keepin' her hands folded over her chest.
+interject name:cordelia_skein: Silence is a clean medium, at least, and it does not cloud the glass.
+interject name:cordelia_skein: We can revisit the ledger when the air between us has cleared.
+set cordelia_skein_confrontation_waited
+-> END
+
+~ talk_confrontation
+if name:cordelia_skein and flag.discovery_evolution and flag.nm_chapter_done and not flag.confrontation_evolution and (approval.cordelia_skein > strained or flag.cordelia_skein_confrontation_waited)
+-> confrontation
+endif
+-> END
+
+~ confrontation
+Narrator: Cordelia unbuttons the middle cuffs of her waistcoat by the fire, watchin' the ruby vials in her thorax glint with a pale opal light.
+interject name:cordelia_skein: In the Crooked Nightmare, darling, the assay finally reached its threshold, and I let the final change run through my veins.
+interject name:cordelia_skein: Every equation Doctor Marlowe left promised that the last stage would burn away the unstable blood and leave a pure, untouchable vessel.
+interject name:cordelia_skein: Do hold still, this will only tingle if you lean too close to the glass while the humours settle.
+interject name:cordelia_skein: As the synthesis took hold, an old debt from before my surgery rose up in the dark to meet me.
+Narrator: Her voice drops to a breathless whisper, and her four lower hands hold dead still in her lap.
+interject name:cordelia_skein: I could have let the reaction erase the whole ledger, turning my mind into cold, clean stone that remembers nothing.
+interject name:cordelia_skein: Instead, I held my ground against the change and forced the ratio to obey my own pulse.
+interject name:cordelia_skein: The metamorphosis is complete on my terms, and my mind is permanently awake, yet the old weight in my chest has not shifted a gram.
+interject name:cordelia_skein: Tell me, is a specimen truly perfected if she chooses to keep the flaw that hurts?
+* Why keep the part that hurts when you could be free of it? -> confrontation_1
+* Staying yourself is what made the work yours, flaw and all. -> confrontation_2
+* You survived the change. Let that be enough for tonight. -> confrontation_3
+
+~ confrontation_1
+Narrator: Cordelia touches the lowest cuff of her sleeve with one finger, her eyes plain and level in the firelight.
+interject name:cordelia_skein: Because an equation that erases its own premises is not science, darling, it is cowardice.
+interject name:cordelia_skein: If I paid a ruinous tuition for this waking mind, the least I can do is stay awake to audit the bill.
+approve cordelia_skein +4: You asked why I chose to keep the memory that hurts.
+set confrontation_evolution
+quest confrontation_evolution done
+-> END
+
+~ confrontation_2
+Narrator: A small, crisp breath leaves her, and her four lower hands relax against the charcoal silk of her waistcoat.
+interject name:cordelia_skein: That is a remarkably tidy formulation, and far kinder than any theorem I was taught.
+interject name:cordelia_skein: My pulse is my own tonight, viscosity and all, and I find the calibration entirely acceptable.
+approve cordelia_skein +6: You reminded me that staying myself made the work my own.
+set confrontation_evolution
+quest confrontation_evolution done
+-> END
+
+~ confrontation_3
+Narrator: Cordelia fastens her waistcoat buttons from bottom to top with brisk, practiced clicks.
+interject name:cordelia_skein: Practical as ever, darling, and my thoracic pressure is indeed completely stabilised.
+interject name:cordelia_skein: The final stage is recorded, I am still myself, and the rest of the night is ours.
+approve cordelia_skein -2: You told me that surviving the change was enough for tonight.
+set confrontation_evolution
+quest confrontation_evolution done
+-> END
