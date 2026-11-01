@@ -1,0 +1,164 @@
+You are drafting DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue, skill checks, a storyteller Narrator). It is folk horror set in Druskenvald, an afterlife realm of endless night under a gargantuan crescent moon with a leering crone's face; drawn like a 1960s monster cartoon stuck in Halloween, but the stakes are real. Humour is deadpan and sits beside the dread.
+
+THIS SCENE: Chapter 20, "The Roving Rookery". The village of Wickermoor has been swept into a mass hysteria by Golub Graygullet, a pigeon hag who has lived seventy years among the villagers wearing other women's skins, lately as the postmaster Theodora Mayville. She staged a murder, pinned it on the party (four level 10 heroes) with a forged letter, and charmed the whole village: every neighbour is hostile, doors are barred, shops shut, mobs with torches walk the lanes, and grey pigeons line every roof. A tell of the charm is a lilac glint in the eyes. Her flying, walking dovecote stands up on pigeon legs and roams between four roosts. Peeping Albert is her spy: a pudgy pigeon with a wrinkled bald human head, human ears, and hands for talons; he is terrified of dogs. Cast: Constable Doris Squire (tall, stocky, laconic, writes poetry in secret), Deputy Howie Butterman (friendly, false, a hidden cultist), Mayor Wendel Somerton (officious, loves forms, bowler hat, waxed moustache), Tamsin Ledger (deadpan auditor, treats strangeness as a clerical error), Ambrose Quill (grand hopeless poet), Sergeant Gaunt (overconfident coward), Pip Oakum (a small boy who trades buttons), Mrs. Oakum (hill-country twang, a werewolf who only wants to hurt no one), Marianna Grey (shy stablemistress), Weston Murdoch (warm Brightsinger preacher), Hilda Brom (terse huntress), Geneva Fairchild (earnest assistant, lilac eyes), Phillip and Adela Druskenvald (dapper theatrical lord; bright slangy lady), Dani Jenkin (child with a hound called Shuck), Jeremiah Stover (stubborn tuber farmer).
+
+RULES FOR THE TEXT
+- Spoken lines: 1 to 3 short sentences, about 12 to 30 words, never over 45. Contractions are normal. People talk in their own voice and do not explain the plot to the audience. Accent is word choice and rhythm, never phonetic spelling.
+- Option lines (what the player's party says or does): under 12 words, plain, in the party's voice ("We..." or an imperative).
+- Narrator lines ("The Vagrant", a frog-faced ferryman telling the tale afterwards: warm, folksy, wry, never gloating): second person, present tense, one or two sentences, only what a hero could perceive, concrete senses (smell, sound, texture), no game words (HP, roll, level, check, DC, save), no modern slang, never the word "suddenly". Never mention the Vagrant by name inside the line.
+- No stage directions, asterisks, italics, brackets, placeholders, emoji or em dashes (use commas, periods, colons). Straight quotes only. Do not use the arrow characters -> or => inside the text.
+- Content is dark but restrained: no gore, no graphic detail.
+- Each brief inside <<...>> says what the line must do; keep its facts, write it as the speaker would say it. Where it says "The Vagrant:" it is a Narrator line.
+
+## The conversation file `forms` (structure is fixed; only the [[n]] markers are yours)
+
+```
+# R20 side quest: Forms for the End of the World. Mayor Somerton will not let the hysteria proceed without three stamps; the last may be forged, at a price.
+
+~ start
+Narrator: [[1]]
+wendel_somerton [neutral]: [[2]]
+* [[3]] -> accept
+* [[4]] -> writ_for
+* [[5]] -> END
+
+~ writ_for
+wendel_somerton [smile]: [[6]]
+-> start
+
+~ accept
+set rk_forms_asked
+quest forms_for_the_end asked
+wendel_somerton [smile]: [[7]]
+-> END
+
+~ progress
+wendel_somerton [neutral]: [[8]]
+-> menu
+
+~ menu
+* [if not flag.rk_stamp_a] [[9]] -> stamp_a
+* [if not flag.rk_stamp_b] [[10]] -> stamp_b
+* [if not flag.rk_stamp_c] [[11]] -> stamp_c
+* [if flag.rk_stamp_a and flag.rk_stamp_b and flag.rk_stamp_c] [[12]] -> deliver
+* [[13]] -> END
+
+~ stamp_a
+Narrator: [[14]]
+* [Persuasion DC 13] [[15]] -> stamp_a_ok | stamp_a_poor
+* [[16]] -> stamp_a_receipt
+~ stamp_a_poor
+Narrator: [[17]]
+-> menu
+~ stamp_a_receipt
+time +60
+-> stamp_a_ok
+~ stamp_a_ok
+set rk_stamp_a
+give rk_stamp_clock
+Narrator: [[18]]
+-> menu
+
+~ stamp_b
+Narrator: [[19]]
+* [if gold >= 2] [[20]] -> stamp_b_paid
+* [Persuasion DC 12] [[21]] -> stamp_b_ok | stamp_b_poor
+~ stamp_b_poor
+Narrator: [[22]]
+-> menu
+~ stamp_b_paid
+gold -2
+-> stamp_b_ok
+~ stamp_b_ok
+set rk_stamp_b
+give rk_stamp_school
+Narrator: [[23]]
+-> menu
+
+~ stamp_c
+Narrator: [[24]]
+* [Sleight of Hand DC 15] [[25]] -> forge_ok | forge_poor
+* [if gold >= 20] [[26]] -> fee
+* [if flag.doris_cleared] [[27]] -> stamp_c_ok
+* [[28]] -> menu
+~ forge_poor
+Narrator: [[29]]
+* [[30]] -> fee
+* [ends:forms_for_the_end] [[31]] -> forged
+~ forge_ok
+Narrator: [[32]]
+-> stamp_c_ok
+~ fee
+gold -20
+Narrator: [[33]]
+-> stamp_c_ok
+~ stamp_c_ok
+set rk_stamp_c
+-> menu
+
+~ forged
+set rk_forms_forged
+set jail_began = now
+quest forms_for_the_end forged
+Narrator: [[34]]
+jail wickermoor_constable_station:cells until days_since.jailed >= 1
+
+~ deliver
+quest forms_for_the_end stamped
+wendel_somerton [smile]: [[35]]
+give rk_writ_of_passage
+set rk_writ
+set rk_forms_done
+quest forms_for_the_end done
+Narrator: [[36]]
+-> END
+
+~ after
+wendel_somerton [weary]: [[37]]
+-> END
+```
+
+## Briefs
+
+1. node `start`, narrator: The Vagrant: Mayor Wendel Somerton at a trestle table in the Founder's Round, bowler hat on, cane across the forms, supervising the end of the world
+2. node `start`, spoken by wendel_somerton: Wendel, officious, says matters of public hysteria cannot proceed without Form 14-B, Form 22, and a Writ of Passage, all stamped in triplicate; the stamps are missing; he will give a Writ to whoever finds them
+3. node `start`, option: Agree to find the stamps.
+4. node `start`, option: Ask what the Writ is for.
+5. node `start`, option: Say we have other business.
+6. node `writ_for`, spoken by wendel_somerton: Wendel says a Writ of Passage entitles the bearer to walk the village unmolested provided the molesters can be shown the correct form
+7. node `accept`, spoken by wendel_somerton: Wendel lists them: the clock-chamber stamp, the schoolhouse seal, and the constable's; he trusts he need not say that forging is illegal
+8. node `progress`, spoken by wendel_somerton: Wendel taps the table: clock stamp, schoolhouse seal, constable's stamp; what has the party brought?
+9. node `menu`, option: The clock-chamber stamp: ask Tamsin Ledger, who audits all stamps.
+10. node `menu`, option: The schoolhouse seal: ask Pip Oakum, who owns everyone's buttons.
+11. node `menu`, option: The constable's stamp.
+12. node `menu`, option: Deliver the three stamped forms.
+13. node `menu`, option: Come back later.
+14. node `stamp_a`, narrator: The Vagrant: Tamsin Ledger holds the clock-chamber stamp as if it were a baby, and will not let go without a receipt
+15. node `stamp_a`, option: Ask Tamsin to lend the stamp for one signature.
+16. node `stamp_a`, option: Sign her receipt in triplicate, an hour of paperwork.
+17. node `stamp_a_poor`, narrator: The Vagrant: Tamsin says stamps are not lent; they are requisitioned
+18. node `stamp_a_ok`, narrator: The Vagrant: the stamp is yours for one signature, and TIME OF THE ESSENCE is printed on the forms in violet ink
+19. node `stamp_b`, narrator: The Vagrant: Pip Oakum has the schoolhouse seal in his button tin; the owl on it glares at you
+20. node `stamp_b`, option: Pay Pip two gold for the seal.
+21. node `stamp_b`, option: Tell Pip the village needs the seal for a good cause.
+22. node `stamp_b_poor`, narrator: The Vagrant: Pip says the village owes him for the last good cause and he is still waiting
+23. node `stamp_b_ok`, narrator: The Vagrant: the seal is warm from his pocket, and you press it hard on the form
+24. node `stamp_c`, narrator: The Vagrant: the constable's stamp is in the locked station, in Doris Squire's desk
+25. node `stamp_c`, option: Forge the constable's stamp from a potato and a penknife.
+26. node `stamp_c`, option: Pay Wendel a twenty-gold filing fee instead.
+27. node `stamp_c`, option: Ask Doris, who is clear-headed, to stamp it.
+28. node `stamp_c`, option: Come back to this one.
+29. node `forge_poor`, narrator: The Vagrant: the potato crumbles, the ink smears, and a deputy is looking over your shoulder
+30. node `forge_poor`, option: Pay the twenty-gold fee and tear up the forgery.
+31. node `forge_poor`, option: Surrender the forgery and go quietly to the cells.
+32. node `forge_ok`, narrator: The Vagrant: the stamp is rough but passes at a glance; Wendel will not look closely
+33. node `fee`, narrator: The Vagrant: Wendel accepts the fee with the delicacy of a man who has never accepted a bribe in his life
+34. node `forged`, narrator: The Vagrant: a deputy takes the forgery between two fingers; Wendel looks very pained; the cell door shuts
+35. node `deliver`, spoken by wendel_somerton: Wendel studies each form for a very long time, finds nothing wrong, and with enormous reluctance prepares the Writ
+36. node `deliver`, narrator: The Vagrant: the Writ is ornate and mostly seals; you suspect no mob in the valley has ever read one
+37. node `after`, spoken by wendel_somerton: Wendel says that, strictly speaking, the world has not ended, and he would prefer to keep it so
+
+## Reply format
+One line per marker, in order, exactly `n => text` (no quotes around the text, no extra lines, no commentary). 37 lines.

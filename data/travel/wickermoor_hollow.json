@@ -51,7 +51,7 @@
         0.42
       ],
       "region": "crooked_house",
-      "when": "flag.wm_welcomed or visited:druskenvald_estate",
+      "when": "(flag.wm_welcomed or visited:druskenvald_estate) and not flag.chuckles_dead",
       "summary": "The Lockwood manor on the hill above Wickermoor, a pretty house at the end of a hill road."
     },
     {
@@ -157,6 +157,84 @@
       "region": "maidenmist_cemetery",
       "when": "flag.mm_asked or visited:mm_gate",
       "summary": "A fogbound cemetery behind a bent iron gate, south-east of Wickermoor."
+    },
+    {
+      "id": "rk_roost_prairie",
+      "name": "Rolling Prairie (a roost)",
+      "location": "rk_roost_prairie",
+      "spawn": "default",
+      "pos": [
+        0.66,
+        0.74
+      ],
+      "region": "wickermoor",
+      "when": "(flag.rk_hunt and not flag.golub_dead) or visited:rk_roost_prairie",
+      "summary": "Gold-grey grass under a big sky, with the dark shape of the dovecote squatting in it."
+    },
+    {
+      "id": "rk_roost_swamp",
+      "name": "Murky Swamp (a roost)",
+      "location": "rk_roost_swamp",
+      "spawn": "default",
+      "pos": [
+        0.4,
+        0.84
+      ],
+      "region": "wickermoor",
+      "when": "(flag.rk_hunt and not flag.golub_dead) or visited:rk_roost_swamp",
+      "summary": "Green-black water, dead trees and reeds, and a dovecote standing in the shallows."
+    },
+    {
+      "id": "rk_roost_foothills",
+      "name": "Barren Foothills (a roost)",
+      "location": "rk_roost_foothills",
+      "spawn": "default",
+      "pos": [
+        0.52,
+        0.12
+      ],
+      "region": "wickermoor",
+      "when": "(flag.rk_hunt and not flag.golub_dead) or visited:rk_roost_foothills",
+      "summary": "Bare rock and scree under the Howlers, with the dovecote high on a rise."
+    },
+    {
+      "id": "rk_roost_lakeshore",
+      "name": "Stormy Lakeshore (a roost)",
+      "location": "rk_roost_lakeshore",
+      "spawn": "default",
+      "pos": [
+        0.2,
+        0.3
+      ],
+      "region": "wickermoor",
+      "when": "(flag.rk_hunt and not flag.golub_dead) or visited:rk_roost_lakeshore",
+      "summary": "A rainy shingle beach on Moonsong Lake's north shore, and the dovecote on the stones."
+    },
+    {
+      "id": "nm_estate",
+      "name": "The Druskenvald Estate (crooked again)",
+      "location": "nm_estate",
+      "spawn": "from_village",
+      "pos": [
+        0.56,
+        0.42
+      ],
+      "region": "crooked_nightmare",
+      "when": "(flag.nm_hook_given or flag.chuckles_dead) and not flag.crooked_house_destroyed",
+      "summary": "The cleansed manor on the hill, bent crooked again and dreaming."
+    },
+    {
+      "id": "nm_estate_ruins",
+      "name": "The Druskenvald Estate (in ruins)",
+      "location": "nm_estate_ruins",
+      "spawn": "from_village",
+      "pos": [
+        0.56,
+        0.42
+      ],
+      "region": "crooked_nightmare",
+      "when": "flag.crooked_house_destroyed",
+      "summary": "A heap of wood and plaster where the Crooked House stood."
     }
   ],
   "roads": [
@@ -182,7 +260,7 @@
       "to": "druskenvald_estate",
       "hours": 1,
       "name": "The hill road",
-      "when": "flag.wm_welcomed"
+      "when": "(flag.wm_welcomed) and not flag.chuckles_dead"
     },
     {
       "id": "wickermoor_to_dawns_gate",
@@ -247,6 +325,54 @@
       "hours": 5,
       "name": "The cemetery road",
       "when": "flag.mm_asked or visited:mm_gate"
+    },
+    {
+      "id": "wickermoor_to_rk_roost_prairie",
+      "from": "wickermoor_village",
+      "to": "rk_roost_prairie",
+      "hours": 30,
+      "name": "The road to Rolling Prairie",
+      "when": "(flag.rk_hunt and not flag.golub_dead) or visited:rk_roost_prairie"
+    },
+    {
+      "id": "wickermoor_to_rk_roost_swamp",
+      "from": "wickermoor_village",
+      "to": "rk_roost_swamp",
+      "hours": 30,
+      "name": "The road to Murky Swamp",
+      "when": "(flag.rk_hunt and not flag.golub_dead) or visited:rk_roost_swamp"
+    },
+    {
+      "id": "wickermoor_to_rk_roost_foothills",
+      "from": "wickermoor_village",
+      "to": "rk_roost_foothills",
+      "hours": 30,
+      "name": "The road to Barren Foothills",
+      "when": "(flag.rk_hunt and not flag.golub_dead) or visited:rk_roost_foothills"
+    },
+    {
+      "id": "wickermoor_to_rk_roost_lakeshore",
+      "from": "wickermoor_village",
+      "to": "rk_roost_lakeshore",
+      "hours": 30,
+      "name": "The road to Stormy Lakeshore",
+      "when": "(flag.rk_hunt and not flag.golub_dead) or visited:rk_roost_lakeshore"
+    },
+    {
+      "id": "wickermoor_to_nm_estate",
+      "from": "wickermoor_village",
+      "to": "nm_estate",
+      "hours": 1,
+      "name": "The hill road, again",
+      "when": "(flag.nm_hook_given or flag.chuckles_dead) and not flag.crooked_house_destroyed"
+    },
+    {
+      "id": "wickermoor_to_nm_estate_ruins",
+      "from": "wickermoor_village",
+      "to": "nm_estate_ruins",
+      "hours": 1,
+      "name": "The hill road, to the ruins",
+      "when": "flag.crooked_house_destroyed"
     }
   ]
 }

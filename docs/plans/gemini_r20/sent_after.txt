@@ -1,0 +1,87 @@
+You are drafting DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue, skill checks, a storyteller Narrator). It is folk horror set in Druskenvald, an afterlife realm of endless night under a gargantuan crescent moon with a leering crone's face; drawn like a 1960s monster cartoon stuck in Halloween, but the stakes are real. Humour is deadpan and sits beside the dread.
+
+THIS SCENE: Chapter 20, "The Roving Rookery". The village of Wickermoor has been swept into a mass hysteria by Golub Graygullet, a pigeon hag who has lived seventy years among the villagers wearing other women's skins, lately as the postmaster Theodora Mayville. She staged a murder, pinned it on the party (four level 10 heroes) with a forged letter, and charmed the whole village: every neighbour is hostile, doors are barred, shops shut, mobs with torches walk the lanes, and grey pigeons line every roof. A tell of the charm is a lilac glint in the eyes. Her flying, walking dovecote stands up on pigeon legs and roams between four roosts. Peeping Albert is her spy: a pudgy pigeon with a wrinkled bald human head, human ears, and hands for talons; he is terrified of dogs. Cast: Constable Doris Squire (tall, stocky, laconic, writes poetry in secret), Deputy Howie Butterman (friendly, false, a hidden cultist), Mayor Wendel Somerton (officious, loves forms, bowler hat, waxed moustache), Tamsin Ledger (deadpan auditor, treats strangeness as a clerical error), Ambrose Quill (grand hopeless poet), Sergeant Gaunt (overconfident coward), Pip Oakum (a small boy who trades buttons), Mrs. Oakum (hill-country twang, a werewolf who only wants to hurt no one), Marianna Grey (shy stablemistress), Weston Murdoch (warm Brightsinger preacher), Hilda Brom (terse huntress), Geneva Fairchild (earnest assistant, lilac eyes), Phillip and Adela Druskenvald (dapper theatrical lord; bright slangy lady), Dani Jenkin (child with a hound called Shuck), Jeremiah Stover (stubborn tuber farmer).
+
+RULES FOR THE TEXT
+- Spoken lines: 1 to 3 short sentences, about 12 to 30 words, never over 45. Contractions are normal. People talk in their own voice and do not explain the plot to the audience. Accent is word choice and rhythm, never phonetic spelling.
+- Option lines (what the player's party says or does): under 12 words, plain, in the party's voice ("We..." or an imperative).
+- Narrator lines ("The Vagrant", a frog-faced ferryman telling the tale afterwards: warm, folksy, wry, never gloating): second person, present tense, one or two sentences, only what a hero could perceive, concrete senses (smell, sound, texture), no game words (HP, roll, level, check, DC, save), no modern slang, never the word "suddenly". Never mention the Vagrant by name inside the line.
+- No stage directions, asterisks, italics, brackets, placeholders, emoji or em dashes (use commas, periods, colons). Straight quotes only. Do not use the arrow characters -> or => inside the text.
+- Content is dark but restrained: no gore, no graphic detail.
+- Each brief inside <<...>> says what the line must do; keep its facts, write it as the speaker would say it. Where it says "The Vagrant:" it is a Narrator line.
+
+## The conversation file `after` (structure is fixed; only the [[n]] markers are yours)
+
+```
+# R20: the village after Golub: the new postmaster, the constable, the Druskenvalds' repairs.
+
+~ geneva_postmaster
+Narrator: [[1]]
+geneva_fairchild [sad]: [[2]]
+* [[3]] -> geneva_forgive
+* [[4]] -> geneva_remember
+* [[5]] -> END
+~ geneva_forgive
+set rk_geneva_back
+geneva_fairchild [smile]: [[6]]
+-> END
+~ geneva_remember
+geneva_fairchild [afraid]: [[7]]
+-> geneva_postmaster
+
+~ wynn
+Narrator: [[8]]
+wynn_carter [smile]: [[9]]
+* [[10]] -> wynn_how
+* [[11]] -> END
+~ wynn_how
+wynn_carter [weary]: [[12]]
+-> wynn
+
+~ doris_after
+set rk_doris_after
+Narrator: [[13]]
+doris_squire [weary]: [[14]]
+if flag.jail_key_left
+doris_squire [sad]: [[15]]
+endif
+-> END
+
+~ phillip_repairs
+Narrator: [[16]]
+phillip_druskenvald [smile]: [[17]]
+set rk_repairs_paid
+-> END
+
+~ adela_worry
+Narrator: [[18]]
+adela_druskenvald [afraid]: [[19]]
+-> END
+```
+
+## Briefs
+
+1. node `geneva_postmaster`, narrator: The Vagrant: Geneva Fairchild is back behind the post office counter, a little thinner, her lilac eyes tired but clear
+2. node `geneva_postmaster`, spoken by geneva_fairchild: Geneva, earnest and quiet, says she remembers shouting at you and cannot say why; she is the postmaster now and means to do it by the book
+3. node `geneva_postmaster`, option: Tell her it was not her fault.
+4. node `geneva_postmaster`, option: Ask what she remembers of the postmaster.
+5. node `geneva_postmaster`, option: Wish her well.
+6. node `geneva_forgive`, spoken by geneva_fairchild: Geneva smiles shakily and says she will read every letter exactly once, and never twice
+7. node `geneva_remember`, spoken by geneva_fairchild: Geneva says Theodora taught her to read lilac eyes as luck, not a curse, and that is the nicest thing anyone ever said to her
+8. node `wynn`, narrator: The Vagrant: a broad young inn hand sorts letters at the post office counter with enormous, slow care
+9. node `wynn`, spoken by wynn_carter: Wynn, earnest, says somebody had to take the keys, and nobody else would; he has read the rules twice and means to read them again
+10. node `wynn`, option: Ask how he came to the job.
+11. node `wynn`, option: Wish him luck.
+12. node `wynn_how`, spoken by wynn_carter: Wynn says Alda Farnum put him forward because he can read and keep quiet; he did not know that was a warning
+13. node `doris_after`, narrator: The Vagrant: Doris Squire stands in the Round, cap straight, looking at the wreckage and at her own hands
+14. node `doris_after`, spoken by doris_squire: Doris says she remembers all of it and would sooner not; she is sorry; she does not say it twice
+15. node `doris_after`, spoken by doris_squire: Doris adds that somebody read a few lines of hers, and it was kind, and she has not decided how she feels about that
+16. node `phillip_repairs`, narrator: The Vagrant: Phillip Druskenvald, in a dapper coat, is handing out purses to a line of people who cannot meet his eye
+17. node `phillip_repairs`, spoken by phillip_druskenvald: Phillip, theatrical, says the Druskenvalds will rebuild what the madness broke, down to the last shutter; it is the least a landowner can do
+18. node `adela_worry`, narrator: The Vagrant: Adela Druskenvald stands with her hands tucked in her sleeves, looking at a roof where pigeons have settled
+19. node `adela_worry`, spoken by adela_druskenvald: Adela says in her bright, slangy way that she had a dream about a laughing sun, and that she did not like the look of it at all
+
+## Reply format
+One line per marker, in order, exactly `n => text` (no quotes around the text, no extra lines, no commentary). 19 lines.

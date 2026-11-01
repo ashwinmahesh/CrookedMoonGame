@@ -1,0 +1,58 @@
+# Drafted by Gemini (R22 hook), edited.
+
+~ rusty_start
+Narrator: The fog in the old groundskeeper's eyes has parted, leaving a dark, startling clarity as he grips his broom with steady hands.
+old_rusty [afraid]: The house on the hill is dreaming again, and the vermin are back inside the walls. I saw the man who killed my mother and father.
+set nm_hook_given
+quest crooked_nightmare prodigal_son
+* Ask what he saw -> saw
+* Ask about the house -> house
+* [if not flag.nm_star_given] Ask if he has anything to keep the vermin off -> star_ask
+* [History DC 15] Wonder who he really is -> link_ok | link_fail
+* [Investigation DC 15] Study the old scar and his hands -> link_ok | link_fail
+if not flag.rusty_named_patrini
+* [if flag.rusty_told_patrini or flag.nm_rusty_linked] Say the name: Patrini -> patrini
+endif
+* We will go to the house -> go
+
+~ saw
+old_rusty [sad]: A goat and a lamb in a dark room, a lord and a lady on the floor. I was small enough to hide behind the wainscoting, watching his crooked grin.
+-> rusty_start
+
+~ house
+old_rusty [weary]: The rafters are bent like broken ribs, and the hill is dreaming with teeth. Keep out of the middle of it, or the rooms will chew you up.
+-> rusty_start
+
+~ star_ask
+Narrator: He reaches into his patched coat and presses a seven-pointed star of dry, woven wicker into your palm.
+old_rusty [neutral]: Swept this out of the hearth ash years back and kept it tucked close. Things that gobble and snatch in the dark will not come near it.
+give nm_wicker_star
+set nm_star_given
+-> rusty_start
+
+~ link_ok
+Narrator: Something in the set of his jaw and the faded signet callous on his finger clicks into place, surfacing an old family name.
+old_rusty [weary]: Patrini. That sits in the ear like a bell I used to know before the cellar took me.
+set nm_rusty_linked
+-> rusty_start
+
+~ link_fail
+Narrator: His gaze slips sideways toward the cobblestones for a heartbeat, the lucidity thinning before he shakes himself back.
+old_rusty [weary]: Just old Rusty with a broom in his fist, minding the leaves. Do not waste the hour looking at an old bone.
+-> rusty_start
+
+~ patrini
+Narrator: A sudden warmth settles over the cold stones of the square, carrying the faint, stately chime of a distant harpsichord. Old Joseph's last wish is finally met.
+old_rusty [smile]: Francis Patrini. The boy who got out of the house, and the old man who stayed by the gate.
+set rusty_named_patrini
+bless party 2h
+-> rusty_start
+
+~ go
+old_rusty [neutral]: Take the hill road and do not dawdle on the steps. When that roof starts laughing, the doors forget where they lead.
+-> END
+
+~ rusty_again
+old_rusty [weary]: The broom knows the stones, the goat knows the gate, and the clock does not wait. Go on up the hill before the dream locks the latch.
+* We are going -> END
+* [if not flag.nm_star_given] Ask for the charm -> star_ask

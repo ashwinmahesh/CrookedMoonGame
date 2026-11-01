@@ -1,0 +1,106 @@
+You are drafting DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue, skill checks, a storyteller Narrator). It is folk horror set in Druskenvald, an afterlife realm of endless night under a gargantuan crescent moon with a leering crone's face; drawn like a 1960s monster cartoon stuck in Halloween, but the stakes are real. Humour is deadpan and sits beside the dread.
+
+THIS SCENE: Chapter 20, "The Roving Rookery". The village of Wickermoor has been swept into a mass hysteria by Golub Graygullet, a pigeon hag who has lived seventy years among the villagers wearing other women's skins, lately as the postmaster Theodora Mayville. She staged a murder, pinned it on the party (four level 10 heroes) with a forged letter, and charmed the whole village: every neighbour is hostile, doors are barred, shops shut, mobs with torches walk the lanes, and grey pigeons line every roof. A tell of the charm is a lilac glint in the eyes. Her flying, walking dovecote stands up on pigeon legs and roams between four roosts. Peeping Albert is her spy: a pudgy pigeon with a wrinkled bald human head, human ears, and hands for talons; he is terrified of dogs. Cast: Constable Doris Squire (tall, stocky, laconic, writes poetry in secret), Deputy Howie Butterman (friendly, false, a hidden cultist), Mayor Wendel Somerton (officious, loves forms, bowler hat, waxed moustache), Tamsin Ledger (deadpan auditor, treats strangeness as a clerical error), Ambrose Quill (grand hopeless poet), Sergeant Gaunt (overconfident coward), Pip Oakum (a small boy who trades buttons), Mrs. Oakum (hill-country twang, a werewolf who only wants to hurt no one), Marianna Grey (shy stablemistress), Weston Murdoch (warm Brightsinger preacher), Hilda Brom (terse huntress), Geneva Fairchild (earnest assistant, lilac eyes), Phillip and Adela Druskenvald (dapper theatrical lord; bright slangy lady), Dani Jenkin (child with a hound called Shuck), Jeremiah Stover (stubborn tuber farmer).
+
+RULES FOR THE TEXT
+- Spoken lines: 1 to 3 short sentences, about 12 to 30 words, never over 45. Contractions are normal. People talk in their own voice and do not explain the plot to the audience. Accent is word choice and rhythm, never phonetic spelling.
+- Option lines (what the player's party says or does): under 12 words, plain, in the party's voice ("We..." or an imperative).
+- Narrator lines ("The Vagrant", a frog-faced ferryman telling the tale afterwards: warm, folksy, wry, never gloating): second person, present tense, one or two sentences, only what a hero could perceive, concrete senses (smell, sound, texture), no game words (HP, roll, level, check, DC, save), no modern slang, never the word "suddenly". Never mention the Vagrant by name inside the line.
+- No stage directions, asterisks, italics, brackets, placeholders, emoji or em dashes (use commas, periods, colons). Straight quotes only. Do not use the arrow characters -> or => inside the text.
+- Content is dark but restrained: no gore, no graphic detail.
+- Each brief inside <<...>> says what the line must do; keep its facts, write it as the speaker would say it. Where it says "The Vagrant:" it is a Narrator line.
+
+## The conversation file `ledger` (structure is fixed; only the [[n]] markers are yours)
+
+```
+# R20 side quest: The Powder Keg Ledger. Weston Murdoch's list of who the hysteria will take; the party crosses names off before the seventh dawn.
+
+~ start
+Narrator: [[1]]
+weston_murdoch [sad]: [[2]]
+* [[3]] -> names
+* [[4]] -> accept
+* [[5]] -> END
+
+~ names
+weston_murdoch [weary]: [[6]]
+-> start
+
+~ accept
+set rk_ledger_asked
+quest powder_keg_ledger asked
+weston_murdoch [smile]: [[7]]
+-> END
+
+~ progress
+if days_since.hysteria_began >= 7
+if flag.rk_jeremiah_hidden or flag.rk_school_saved
+quest powder_keg_ledger done
+weston_murdoch [weary]: [[8]]
+-> END
+else
+quest powder_keg_ledger burned
+weston_murdoch [sad]: [[9]]
+-> END
+endif
+endif
+Narrator: [[10]]
+-> menu
+
+~ menu
+* [if not flag.rk_school_saved] [[11]] -> school
+* [if not flag.rk_jeremiah_hidden] [[12]] -> jeremiah
+* [if flag.rk_jeremiah_hidden and flag.rk_school_saved] [[13]] -> both
+* [[14]] -> END
+
+~ school
+* [Athletics DC 12] [[15]] -> school_ok | school_poor
+* [if gold >= 20] [[16]] -> school_paid
+~ school_poor
+Narrator: [[17]]
+-> menu
+~ school_paid
+gold -20
+-> school_ok
+~ school_ok
+set rk_school_saved
+Narrator: [[18]]
+-> menu
+
+~ jeremiah
+weston_murdoch [neutral]: [[19]]
+-> menu
+
+~ both
+quest powder_keg_ledger done
+weston_murdoch [smile]: [[20]]
+-> END
+```
+
+## Briefs
+
+1. node `start`, narrator: The Vagrant: Weston Murdoch at the church door, a ledger open in his hands and the light gone from his face
+2. node `start`, spoken by weston_murdoch: Weston, warm even now, says the madness will break out in the village on the seventh dawn, a neighbour dead and a house burned, twice as much every week after; he has the first names
+3. node `start`, option: Ask who is on the list.
+4. node `start`, option: Offer to help cross them off.
+5. node `start`, option: Say we are searching for the cause.
+6. node `names`, spoken by weston_murdoch: Weston says Jeremiah Stover, who the mob thinks hides strangers, and the schoolhouse, which has the driest roof in the village
+7. node `accept`, spoken by weston_murdoch: Weston presses the ledger into your hand and says to hide Jeremiah and wet the schoolhouse roof, and God keep us
+8. node `progress`, spoken by weston_murdoch: Weston closes the ledger and says one name is crossed out, and that is one more than it would have been
+9. node `progress`, spoken by weston_murdoch: Weston says the seventh dawn came and nothing was crossed out; he does not blame you, and cannot look at you
+10. node `progress`, narrator: The Vagrant: Weston turns the ledger toward you; two names, two days of the seventh
+11. node `menu`, option: Wet the schoolhouse roof: organise a bucket line.
+12. node `menu`, option: Ask Weston where Jeremiah is hiding.
+13. node `menu`, option: Both are done.
+14. node `menu`, option: Not yet.
+15. node `school`, option: Haul water yourselves, up the schoolhouse roof.
+16. node `school`, option: Pay Beatrice Wells twenty gold for her rain barrels.
+17. node `school_poor`, narrator: The Vagrant: the bucket line collapses in a clatter and a spill; the roof is no wetter
+18. node `school_ok`, narrator: The Vagrant: the schoolhouse roof streams and steams, the slates black and heavy with water; if a spark lands it will find nothing to hold
+19. node `jeremiah`, spoken by weston_murdoch: Weston says Jeremiah is crouched behind the carts in the Round; ask him to come up the hill after dark
+20. node `both`, spoken by weston_murdoch: Weston crosses off both names with a trembling pen, and weeps a little
+
+## Reply format
+One line per marker, in order, exactly `n => text` (no quotes around the text, no extra lines, no commentary). 20 lines.

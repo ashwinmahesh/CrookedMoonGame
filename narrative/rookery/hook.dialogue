@@ -1,0 +1,73 @@
+# Drafted by Gemini (R20), edited. R20 hook: Geneva's plea (route A), Geneva's accusation (route B), and the accusation of the postmaster across her counter (route B, earlier).
+
+~ plea
+Narrator: A pale girl with lilac eyes comes pelting up the north lane, her skirts bunched tight in her fists. Her breath tears in her throat like dry paper.
+geneva_fairchild [afraid]: Miss Theodora is dead on the post office floor. Please, the constable will blame the first strangers she sees, so you have to come look at her right now.
+* Tell us what happened. -> plea_what
+* Lead the way, we will come at once. -> plea_go
+* We cannot come just yet. -> plea_wait
+
+~ plea_what
+geneva_fairchild [afraid]: I found her face down among the morning letters. Nothing is taken, nothing is broken, and there is not a mark on her, though I dare not say more in the street.
+-> plea
+~ plea_wait
+geneva_fairchild [sad]: Please do not be long. I cannot bear to stay in that room alone with her.
+-> END
+
+~ plea_go
+set rk_started
+quest roving_rookery plea
+geneva_fairchild [afraid]: Thank heavens. Follow me quickly, and keep your heads down.
+Narrator: You hurry after her down the narrow lane to where the post office door gapes open onto a cold, unlit room.
+move wickermoor_post_office
+
+~ geneva_accuses
+Narrator: Pine torches sputter in the damp at the lane's end, and Geneva steps out before the whole massed village.
+geneva_fairchild [angry]: There they are, the butchers who plotted to murder Mayor Somerton and spilled poor Theodora's secrets! We have your letter in hand, and you will answer for every word!
+set hysteria_began = now
+set rk_posse_out
+quest roving_rookery posse
+* [Insight DC 16] Study the lilac glint in her eyes, like someone standing behind them. -> geneva_charmed | geneva_missed
+* We never laid a finger on the mayor. -> geneva_end
+* Say nothing and look for a way out. -> geneva_end
+
+~ geneva_charmed
+set rk_charm_seen
+Narrator: That lilac glint burns in her eyes and in every pair of eyes behind her, steady as a marsh lantern. This is no honest fury: it is a cold hand working a row of puppets.
+-> geneva_end
+~ geneva_missed
+Narrator: For all your squinting through the torchlight, you see only a terrified young woman and a lane full of angry neighbours.
+-> geneva_end
+~ geneva_end
+cutscene rk_village_turns
+geneva_fairchild [angry]: The constable will hear what you have to say. Do not try to run.
+cutscene rk_village_turns_2
+Narrator: High along every wet roof ridge, rows of grey pigeons pivot their heads as one to fix you with their bead-black eyes.
+cutscene end
+-> END
+
+~ accuse_theodora
+Narrator: Theodora stands trim behind her counter with her gloved left hand flat on the open ledger, while the fat pigeon on her shoulder watches you without blinking.
+theodora_mayville [neutral]: Good evening to you, travellers. Have you a parcel for the post, or only a letter that wants a clean seal?
+* [Investigation DC 15] Lay out the mismatched seals, the altered letters, and her unremoved glove. -> exposed | exposed
+* [Intimidation DC 16] We know what you are, and you have one chance to confess. -> exposed | exposed
+* You are the hag who has been reading this valley's mail. -> exposed
+* Post a letter and keep our suspicions to ourselves. -> accuse_wait
+
+~ accuse_wait
+theodora_mayville [neutral]: There you are, stamped and sorted. Do come again when you have news worth sending.
+-> END
+
+~ exposed
+theodora_mayville [angry]: Oh, clever little strays, poking your noses into my pigeonholes! This whole valley was mine to pluck, and it will weep feathers before I am done with it!
+Narrator: The postmaster sags behind the counter like an old coat slipped off a peg, a thick reek of wet feathers fills the room, and outside the north window something round heaves up on scaly pigeon legs.
+cutscene rk_master_stroke_2
+Narrator: Beyond the glass, the great dovecote rises on legs as thick as birch trunks, while Theodora's empty skin lies crumpled on the floorboards.
+cutscene rk_master_stroke_3
+Narrator: The rookery hops once, twice, and stalks away across the groaning roofs toward the dark moors, leaving its mischief behind for the valley to keep.
+cutscene end
+set golub_exposed
+set golub_exposed_early
+set geneva_alive
+quest roving_rookery exposed
+-> END

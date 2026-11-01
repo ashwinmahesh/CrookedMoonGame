@@ -1,0 +1,99 @@
+# Drafted by Gemini (R20), edited. R20 side quest: A Jury of Pigeons. Tamsin Ledger will not let a mob try anyone without a docket, a quorum and sworn witnesses.
+
+~ start
+Narrator: Tamsin Ledger perches on an overturned crate at the edge of the Round, clipboard balanced on her knee. Her pen scratches steadily through the torchsmoke, auditing the howling mob as if it were a column of bad sums.
+tamsin_ledger [neutral]: This riot is entirely out of order: no docket, no quorum, and not a single sworn witness. I am taking the minutes regardless, and since I require an impartial jury, you four are hereby drafted.
+* We'll sit on your jury. -> accept
+* What is the charge? -> charge
+* We have no time for a mock trial. -> END
+
+~ charge
+tamsin_ledger [neutral]: As near as I can tell from the shouting, the charge is being a pigeon. I have yet to establish whether that is a statutory offence in Wickermoor.
+-> start
+
+~ accept
+set rk_jury_asked
+quest jury_of_pigeons asked
+tamsin_ledger [smile]: Very good, I have ticked the box. I require a ruled docket, a seated quorum, and an oath from the witnesses, preferably before the Witching Hour.
+-> END
+
+~ progress
+tamsin_ledger [neutral]: Let us consult the checklist: a docket, a quorum, and a binding oath. Tell me which irregularity we are correcting next.
+-> menu
+
+~ menu
+* [if not flag.rk_jury_docket] Let's get a docket from Mayor Somerton. -> docket
+* [if not flag.rk_jury_quorum] Let's seat a quorum from the crowd. -> quorum
+* [if not flag.rk_jury_oath] Let's swear in the pigeons as witnesses. -> oath
+* [if flag.rk_jury_docket and flag.rk_jury_quorum and flag.rk_jury_oath] Call the hearing to order. -> hearing
+* [ends:jury_of_pigeons] Give it up. This hearing is hopeless. -> quit
+* We'll come back to the audit later. -> END
+
+~ docket
+* [Persuasion DC 13] Ask Mayor Somerton politely for an official docket form. -> docket_ok | docket_poor
+* Copy a blank docket by hand from his desk. -> docket_copy
+~ docket_poor
+Narrator: Mayor Somerton waxes his moustache and informs you through the barred casement that blank forms are issued on Thursdays only.
+-> menu
+~ docket_copy
+time +60
+-> docket_ok
+~ docket_ok
+set rk_jury_docket
+give rk_docket
+Narrator: The crisp, ruled paper smells faintly of iron gall and municipal dust. Tamsin's eyes follow the blank docket in your hand like a hawk watching a fieldmouse.
+-> menu
+
+~ quorum
+* [Intimidation DC 12] Order the mob to sit down in proper rows. -> quorum_ok | quorum_poor
+* Point out that the village goat counts toward a quorum. -> quorum_goat
+~ quorum_poor
+Narrator: Pitchforks shift and lilac eyes stare straight through you. Clearly, nobody has told them they are dismissed.
+-> menu
+~ quorum_goat
+Narrator: Tamsin peers at the chewing goat, consults a footnote on her clipboard, and marks the beast down as a ratepayer in good standing.
+-> quorum_ok
+~ quorum_ok
+set rk_jury_quorum
+Narrator: By some miracle of stubborn habit, twelve villagers fold their knees and sit in crooked rows upon the cold cobbles, torches held upright like bailiffs' staves.
+-> menu
+
+~ oath
+* [Animal Handling DC 12] Coax a pigeon onto your arm to take the oath. -> oath_ok | oath_poor
+* [Performance DC 12] Swear the roof-pigeons in with a grand, solemn flourish. -> oath_ok | oath_poor
+* Request a solemn affirmation from the birds instead. -> oath_affirm
+~ oath_poor
+Narrator: The fat grey bird fixes you with one bright orange eye, ruffles its neck, and leaves a warm white deposit squarely in the margin of the docket.
+-> menu
+~ oath_affirm
+Narrator: Tamsin lowers her pen, consults the parish bylaws, and notes that under section nine a solemn affirmation is equally binding upon poultry and waterfowl.
+-> oath_ok
+~ oath_ok
+set rk_jury_oath
+Narrator: A low, bubbling coo ripples along the slate eaves, and Tamsin's pen scratches it into the record as a unanimous assent.
+-> menu
+
+~ hearing
+quest jury_of_pigeons sitting
+tamsin_ledger [neutral]: This sitting of the Wickermoor Assizes is now in session. The accused stands charged with willful and habitual pigeonry: has the bird anything to say before we proceed?
+Narrator: The grey cock on the roof-beam puffs his crop and warbles a long, liquid cadence. Torchlight wavers over silent faces as the villagers listen, rapt, as though the bird were reciting scripture.
+tamsin_ledger [smile]: A weighty deposition, I am sure, yet the bylaw is quite clear. No verdict may be entered until the prior minutes are read aloud in full, beginning with page one.
+set rk_mob_calm = now
+set rk_jury_done
+quest jury_of_pigeons done
+Narrator: By the third page the pitch-torches are guttering in their sockets, and by the tenth the charmed villagers lie snoring in neat rows upon the stones. For the first hour in days, the Round is entirely quiet.
+-> END
+
+~ quit
+set rk_jury_abandoned
+quest jury_of_pigeons abandoned
+tamsin_ledger [sad]: Oh. Yes, I suppose the paperwork was rather ambitious under the circumstances; I shall pack the docket away.
+-> END
+
+~ after
+if flag.rk_jury_done
+tamsin_ledger [smile]: You will be pleased to hear the minutes were adopted without objection. Mind you, no one was awake to second the motion.
+-> END
+endif
+tamsin_ledger [weary]: I am still recording the irregularities, for all the good it does. Nobody in this parish ever reads the audit.
+-> END

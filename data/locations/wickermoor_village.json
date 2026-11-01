@@ -625,6 +625,221 @@
           "facing": "south"
         }
       ]
+    },
+    {
+      "id": "rk_mob_fight",
+      "trigger": "dialogue",
+      "text": "The mob closes in, torches high.",
+      "monsters": [
+        {
+          "monster": "tough",
+          "cell": [
+            24,
+            19
+          ],
+          "name": "A charmed neighbour",
+          "facing": "east"
+        },
+        {
+          "monster": "tough",
+          "cell": [
+            36,
+            19
+          ],
+          "name": "A charmed neighbour",
+          "facing": "west"
+        },
+        {
+          "monster": "tough",
+          "cell": [
+            24,
+            25
+          ],
+          "name": "A charmed neighbour",
+          "facing": "east"
+        },
+        {
+          "monster": "tough",
+          "cell": [
+            36,
+            25
+          ],
+          "name": "A charmed neighbour",
+          "facing": "west"
+        },
+        {
+          "monster": "tough",
+          "cell": [
+            30,
+            22
+          ],
+          "name": "A charmed neighbour",
+          "facing": "south"
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            23,
+            22
+          ],
+          "name": "A charmed veteran",
+          "facing": "east"
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            37,
+            22
+          ],
+          "name": "A charmed veteran",
+          "facing": "west"
+        }
+      ]
+    },
+    {
+      "id": "rk_squabs",
+      "trigger": "dialogue",
+      "flag": "rk_squabs_down",
+      "text": "A grey wave of wings comes off the roof.",
+      "monsters": [
+        {
+          "monster": "squabswarm",
+          "cell": [
+            26,
+            21
+          ],
+          "name": "A squabswarm",
+          "facing": "east"
+        },
+        {
+          "monster": "squabswarm",
+          "cell": [
+            35,
+            21
+          ],
+          "name": "A squabswarm",
+          "facing": "west"
+        },
+        {
+          "monster": "squabswarm",
+          "cell": [
+            30,
+            17
+          ],
+          "name": "A squabswarm",
+          "facing": "south"
+        },
+        {
+          "monster": "squabswarm",
+          "cell": [
+            30,
+            26
+          ],
+          "name": "A squabswarm",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "rk_albert_town",
+      "trigger": "dialogue",
+      "flag": "albert_dead",
+      "text": "The pigeon with the man's ears bolts for the roofs.",
+      "monsters": [
+        {
+          "monster": "vermin_familiar_pigeon",
+          "cell": [
+            37,
+            9
+          ],
+          "name": "Peeping Albert",
+          "facing": "west"
+        }
+      ]
+    },
+    {
+      "id": "rk_posse",
+      "trigger": "dialogue",
+      "flag": "rk_posse_done",
+      "text": "The posse comes on, shouting for the party's names.",
+      "quest": {
+        "id": "roving_rookery",
+        "stage": "hysteria"
+      },
+      "monsters": [
+        {
+          "monster": "tough",
+          "cell": [
+            22,
+            8
+          ],
+          "name": "A charmed deputy",
+          "facing": "east"
+        },
+        {
+          "monster": "tough",
+          "cell": [
+            26,
+            8
+          ],
+          "name": "A charmed deputy",
+          "facing": "east"
+        },
+        {
+          "monster": "knight",
+          "cell": [
+            28,
+            8
+          ],
+          "name": "Doris Squire",
+          "facing": "east"
+        },
+        {
+          "monster": "tough",
+          "cell": [
+            31,
+            9
+          ],
+          "name": "A charmed deputy",
+          "facing": "east"
+        },
+        {
+          "monster": "tough",
+          "cell": [
+            38,
+            9
+          ],
+          "name": "A charmed deputy",
+          "facing": "west"
+        },
+        {
+          "monster": "spy",
+          "cell": [
+            40,
+            8
+          ],
+          "name": "Howie Butterman",
+          "facing": "west"
+        },
+        {
+          "monster": "tough",
+          "cell": [
+            43,
+            8
+          ],
+          "name": "A charmed deputy",
+          "facing": "west"
+        },
+        {
+          "monster": "tough",
+          "cell": [
+            47,
+            8
+          ],
+          "name": "A charmed deputy",
+          "facing": "west"
+        }
+      ]
     }
   ],
   "exits": [
@@ -643,7 +858,9 @@
         "from": [
           "parting"
         ]
-      }
+      },
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "trading_post",
@@ -653,7 +870,9 @@
       ],
       "to": "wickermoor_trading_post",
       "spawn": "default",
-      "label": "Enter Tolliver's Trading Post"
+      "label": "Enter Tolliver's Trading Post",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "mayors_house",
@@ -663,7 +882,9 @@
       ],
       "to": "wickermoor_mayors_house",
       "spawn": "default",
-      "label": "Enter The Mayor's House"
+      "label": "Enter The Mayor's House",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "barber_shop",
@@ -673,7 +894,9 @@
       ],
       "to": "wickermoor_barber_shop",
       "spawn": "default",
-      "label": "Enter Graham's Barber Shop"
+      "label": "Enter Graham's Barber Shop",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "constable_station",
@@ -683,7 +906,9 @@
       ],
       "to": "wickermoor_constable_station",
       "spawn": "default",
-      "label": "Enter The Constable's Station"
+      "label": "Enter The Constable's Station",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "post_office",
@@ -693,7 +918,9 @@
       ],
       "to": "wickermoor_post_office",
       "spawn": "default",
-      "label": "Enter The Post Office"
+      "label": "Enter The Post Office",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "A CLOSED sign, a constable's seal, and a smell of death behind the door."
     },
     {
       "id": "dovecote",
@@ -703,7 +930,9 @@
       ],
       "to": "wickermoor_dovecote",
       "spawn": "default",
-      "label": "Enter The Dovecote"
+      "label": "Enter The Dovecote",
+      "when": "not flag.golub_exposed",
+      "locked_text": "The plot is an empty ring of foundation stones, where a dovecote stood until it stood up."
     },
     {
       "id": "schoolhouse",
@@ -713,7 +942,9 @@
       ],
       "to": "wickermoor_schoolhouse",
       "spawn": "default",
-      "label": "Enter The Schoolhouse"
+      "label": "Enter The Schoolhouse",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "bookstore",
@@ -723,7 +954,9 @@
       ],
       "to": "wickermoor_bookstore",
       "spawn": "default",
-      "label": "Enter The Antique Bookstore"
+      "label": "Enter The Antique Bookstore",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "apothecary",
@@ -733,7 +966,9 @@
       ],
       "to": "wickermoor_apothecary",
       "spawn": "default",
-      "label": "Enter The Apothecary"
+      "label": "Enter The Apothecary",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "funeral_home",
@@ -743,7 +978,9 @@
       ],
       "to": "wickermoor_funeral_home",
       "spawn": "default",
-      "label": "Enter Shade Funeral Home"
+      "label": "Enter Shade Funeral Home",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "church",
@@ -753,7 +990,9 @@
       ],
       "to": "wickermoor_church",
       "spawn": "default",
-      "label": "Enter The Abandoned Church"
+      "label": "Enter The Abandoned Church",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "shop_bakery",
@@ -763,7 +1002,9 @@
       ],
       "to": "wickermoor_shop_bakery",
       "spawn": "default",
-      "label": "Enter Bread by Holly"
+      "label": "Enter Bread by Holly",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "shop_tailor",
@@ -773,7 +1014,9 @@
       ],
       "to": "wickermoor_shop_tailor",
       "spawn": "default",
-      "label": "Enter A Stitch in Time"
+      "label": "Enter A Stitch in Time",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "shop_smithy",
@@ -783,7 +1026,9 @@
       ],
       "to": "wickermoor_shop_smithy",
       "spawn": "default",
-      "label": "Enter The Smithy"
+      "label": "Enter The Smithy",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "shop_wickery",
@@ -793,7 +1038,9 @@
       ],
       "to": "wickermoor_shop_wickery",
       "spawn": "default",
-      "label": "Enter The Wickery"
+      "label": "Enter The Wickery",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "shop_butcher",
@@ -803,7 +1050,9 @@
       ],
       "to": "wickermoor_shop_butcher",
       "spawn": "default",
-      "label": "Enter Harga's Meats"
+      "label": "Enter Harga's Meats",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "shop_masonry",
@@ -813,7 +1062,9 @@
       ],
       "to": "wickermoor_shop_masonry",
       "spawn": "default",
-      "label": "Enter Roderick Masonry"
+      "label": "Enter Roderick Masonry",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "shop_carpentry",
@@ -823,7 +1074,9 @@
       ],
       "to": "wickermoor_shop_carpentry",
       "spawn": "default",
-      "label": "Enter The Carpentry Workshop"
+      "label": "Enter The Carpentry Workshop",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "road_to_estate",
@@ -920,7 +1173,9 @@
       ],
       "to": "wickermoor_studio",
       "spawn": "default",
-      "label": "Enter Gaston's Studio"
+      "label": "Enter Gaston's Studio",
+      "when": "(not flag.hysteria_began or flag.golub_dead)",
+      "locked_text": "Barred from within. A shutter twitches, and a chalked word on the door says what the village thinks of you."
     },
     {
       "id": "hills_road",
@@ -1046,6 +1301,469 @@
   },
   "name": "Wickermoor Village",
   "npcs": [
+    {
+      "npc": "geneva_fairchild",
+      "cell": [
+        33,
+        9
+      ],
+      "dialogue": "rookery/hook:plea",
+      "approach": 10,
+      "when": "flag.gorthos_slain and flag.raum_slain and flag.renathyr_slain and flag.lethica_slain and flag.grinning_sinner_slain and not flag.golub_exposed_early and not flag.rk_started"
+    },
+    {
+      "npc": "geneva_fairchild",
+      "cell": [
+        33,
+        9
+      ],
+      "dialogue": "rookery/hook:geneva_accuses",
+      "approach": 10,
+      "when": "flag.gorthos_slain and flag.raum_slain and flag.renathyr_slain and flag.lethica_slain and flag.grinning_sinner_slain and flag.golub_exposed_early and not flag.hysteria_began"
+    },
+    {
+      "npc": "doris_squire",
+      "cell": [
+        31,
+        8
+      ],
+      "dialogue": "rookery/posse:start",
+      "approach": 9,
+      "steps_aside": true,
+      "when": "flag.rk_posse_out and not flag.rk_posse_done"
+    },
+    {
+      "npc": "howie_butterman",
+      "cell": [
+        37,
+        8
+      ],
+      "dialogue": "rookery/posse:howie",
+      "steps_aside": true,
+      "when": "flag.rk_posse_out and not flag.rk_posse_done"
+    },
+    {
+      "npc": "rk_posse_a",
+      "cell": [
+        28,
+        8
+      ],
+      "dialogue": "rookery/posse:grunt",
+      "steps_aside": true,
+      "when": "flag.rk_posse_out and not flag.rk_posse_done"
+    },
+    {
+      "npc": "rk_posse_b",
+      "cell": [
+        40,
+        8
+      ],
+      "dialogue": "rookery/posse:grunt",
+      "steps_aside": true,
+      "when": "flag.rk_posse_out and not flag.rk_posse_done"
+    },
+    {
+      "npc": "rk_mob_a",
+      "cell": [
+        25,
+        19
+      ],
+      "dialogue": "rookery/folk:mob_a",
+      "approach": 4,
+      "path": [
+        [
+          25,
+          19
+        ],
+        [
+          35,
+          19
+        ],
+        [
+          35,
+          22
+        ],
+        [
+          25,
+          22
+        ]
+      ],
+      "pause": 2,
+      "steps_aside": true,
+      "when": "flag.hysteria_began and not flag.golub_dead and (not flag.rk_posse_out or flag.rk_posse_done) and (not flag.rk_mob_down or minutes_since.rk_mob_down >= 240) and (not flag.rk_mob_calm or minutes_since.rk_mob_calm >= 600)"
+    },
+    {
+      "npc": "rk_mob_b",
+      "cell": [
+        27,
+        33
+      ],
+      "dialogue": "rookery/folk:mob_b",
+      "approach": 4,
+      "path": [
+        [
+          27,
+          33
+        ],
+        [
+          37,
+          33
+        ],
+        [
+          37,
+          35
+        ],
+        [
+          27,
+          35
+        ]
+      ],
+      "pause": 2,
+      "steps_aside": true,
+      "when": "flag.hysteria_began and not flag.golub_dead and (not flag.rk_posse_out or flag.rk_posse_done) and (not flag.rk_mob_down or minutes_since.rk_mob_down >= 240) and (not flag.rk_mob_calm or minutes_since.rk_mob_calm >= 600)"
+    },
+    {
+      "npc": "rk_mob_c",
+      "cell": [
+        20,
+        8
+      ],
+      "dialogue": "rookery/folk:mob_c",
+      "approach": 4,
+      "path": [
+        [
+          20,
+          8
+        ],
+        [
+          46,
+          8
+        ]
+      ],
+      "pause": 2,
+      "steps_aside": true,
+      "when": "flag.hysteria_began and not flag.golub_dead and (not flag.rk_posse_out or flag.rk_posse_done) and (not flag.rk_mob_down or minutes_since.rk_mob_down >= 240) and (not flag.rk_mob_calm or minutes_since.rk_mob_calm >= 600)"
+    },
+    {
+      "npc": "rk_mob_round",
+      "cell": [
+        31,
+        25
+      ],
+      "dialogue": "rookery/folk:mob_round",
+      "approach": 3,
+      "steps_aside": true,
+      "when": "flag.hysteria_began and not flag.golub_dead and (not flag.rk_posse_out or flag.rk_posse_done) and (not flag.rk_mob_calm or minutes_since.rk_mob_calm >= 600)"
+    },
+    {
+      "npc": "peeping_albert",
+      "cell": [
+        36,
+        9
+      ],
+      "dialogue": "rookery/folk:albert_town",
+      "approach": 6,
+      "when": "flag.hysteria_began and not flag.golub_dead and not flag.albert_dead and not flag.rk_albert_fled"
+    },
+    {
+      "npc": "sgt_gaunt",
+      "cell": [
+        26,
+        37
+      ],
+      "dialogue": "rookery/folk:gaunt",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "npc": "pip_oakum",
+      "cell": [
+        24,
+        20
+      ],
+      "dialogue": "rookery/folk:pip",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "npc": "tamsin_ledger",
+      "cell": [
+        23,
+        21
+      ],
+      "dialogue": "rookery/jury:start",
+      "when": "flag.hysteria_began and not flag.golub_dead and not flag.rk_jury_asked"
+    },
+    {
+      "npc": "tamsin_ledger",
+      "cell": [
+        23,
+        21
+      ],
+      "dialogue": "rookery/jury:progress",
+      "when": "flag.hysteria_began and not flag.golub_dead and flag.rk_jury_asked and not flag.rk_jury_done and not flag.rk_jury_abandoned"
+    },
+    {
+      "npc": "tamsin_ledger",
+      "cell": [
+        23,
+        21
+      ],
+      "dialogue": "rookery/jury:after",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "npc": "wendel_somerton",
+      "cell": [
+        32,
+        22
+      ],
+      "dialogue": "rookery/forms:start",
+      "when": "flag.hysteria_began and not flag.golub_dead and not flag.rk_forms_asked"
+    },
+    {
+      "npc": "wendel_somerton",
+      "cell": [
+        32,
+        22
+      ],
+      "dialogue": "rookery/forms:progress",
+      "when": "flag.hysteria_began and not flag.golub_dead and flag.rk_forms_asked and not flag.rk_forms_done and not flag.rk_forms_forged"
+    },
+    {
+      "npc": "wendel_somerton",
+      "cell": [
+        32,
+        22
+      ],
+      "dialogue": "rookery/forms:after",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "npc": "ambrose_quill",
+      "cell": [
+        27,
+        22
+      ],
+      "dialogue": "rookery/poetry:start",
+      "when": "flag.hysteria_began and not flag.golub_dead and not flag.quill_asked"
+    },
+    {
+      "npc": "ambrose_quill",
+      "cell": [
+        27,
+        22
+      ],
+      "dialogue": "rookery/poetry:progress",
+      "when": "flag.hysteria_began and not flag.golub_dead and flag.quill_asked"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        23,
+        37
+      ],
+      "dialogue": "rookery/quiet_door:start",
+      "when": "flag.hysteria_began and not flag.golub_dead and not flag.rk_quiet_asked"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        23,
+        37
+      ],
+      "dialogue": "rookery/quiet_door:progress",
+      "when": "flag.hysteria_began and not flag.golub_dead and flag.rk_quiet_asked"
+    },
+    {
+      "npc": "weston_murdoch",
+      "cell": [
+        7,
+        30
+      ],
+      "dialogue": "rookery/ledger:start",
+      "when": "flag.hysteria_began and not flag.golub_dead and not flag.rk_ledger_asked"
+    },
+    {
+      "npc": "weston_murdoch",
+      "cell": [
+        7,
+        30
+      ],
+      "dialogue": "rookery/ledger:progress",
+      "when": "flag.hysteria_began and not flag.golub_dead and flag.rk_ledger_asked"
+    },
+    {
+      "npc": "hilda_brom",
+      "cell": [
+        48,
+        28
+      ],
+      "dialogue": "rookery/hunt:hilda",
+      "when": "flag.hysteria_began and not flag.golub_dead and flag.rk_hunt"
+    },
+    {
+      "npc": "jeremiah_stover",
+      "cell": [
+        37,
+        22
+      ],
+      "dialogue": "rookery/folk:jeremiah_body",
+      "lying": true,
+      "when": "flag.hysteria_began and days_since.hysteria_began >= 7 and not flag.rk_jeremiah_hidden and not flag.golub_dead"
+    },
+    {
+      "npc": "jeremiah_stover",
+      "cell": [
+        13,
+        12
+      ],
+      "dialogue": "rookery/folk:jeremiah_hiding",
+      "when": "flag.hysteria_began and not flag.golub_dead and flag.rk_jeremiah_hidden"
+    },
+    {
+      "npc": "jeremiah_stover",
+      "cell": [
+        37,
+        22
+      ],
+      "dialogue": "rookery/folk:jeremiah_escort",
+      "when": "flag.hysteria_began and not flag.golub_dead and flag.rk_ledger_asked and not flag.rk_jeremiah_hidden and not (flag.hysteria_began and days_since.hysteria_began >= 7)"
+    },
+    {
+      "npc": "geneva_fairchild",
+      "cell": [
+        33,
+        9
+      ],
+      "dialogue": "rookery/after:geneva_postmaster",
+      "when": "flag.golub_dead and flag.geneva_alive and not flag.rk_geneva_back"
+    },
+    {
+      "npc": "doris_squire",
+      "cell": [
+        31,
+        24
+      ],
+      "dialogue": "rookery/after:doris_after",
+      "when": "flag.golub_dead and not flag.rk_doris_after and flag.rk_posse_done"
+    },
+    {
+      "npc": "phillip_druskenvald",
+      "cell": [
+        34,
+        24
+      ],
+      "dialogue": "rookery/after:phillip_repairs",
+      "when": "flag.golub_dead and not flag.rk_repairs_paid"
+    },
+    {
+      "npc": "adela_druskenvald",
+      "cell": [
+        35,
+        24
+      ],
+      "dialogue": "rookery/after:adela_worry",
+      "when": "flag.golub_dead and not flag.rk_repairs_paid"
+    },
+    {
+      "npc": "old_rusty",
+      "cell": [
+        28,
+        24
+      ],
+      "dialogue": "rookery/folk:shun",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "npc": "sister_rain",
+      "cell": [
+        19,
+        10
+      ],
+      "dialogue": "rookery/folk:shun",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "npc": "gaston_doray",
+      "cell": [
+        19,
+        15
+      ],
+      "dialogue": "rookery/folk:shun",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "npc": "joan_murdoch",
+      "cell": [
+        4,
+        27
+      ],
+      "dialogue": "rookery/folk:shun",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "npc": "peter_murdoch",
+      "cell": [
+        11,
+        26
+      ],
+      "dialogue": "rookery/folk:shun",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "npc": "charlotte_murdoch",
+      "cell": [
+        11,
+        28
+      ],
+      "dialogue": "rookery/folk:shun",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "npc": "dani_jenkin",
+      "cell": [
+        15,
+        12
+      ],
+      "dialogue": "rookery/folk:shun",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "npc": "brother_elias",
+      "cell": [
+        38,
+        3
+      ],
+      "dialogue": "rookery/folk:shun",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "npc": "barnaby_pennywhistle",
+      "cell": [
+        33,
+        34
+      ],
+      "dialogue": "rookery/folk:shun",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "npc": "joan_murdoch",
+      "cell": [
+        4,
+        27
+      ],
+      "dialogue": "rookery/folk:shun",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "npc": "bess_crumley",
+      "cell": [
+        31,
+        14
+      ],
+      "dialogue": "fools_day/hook:messenger",
+      "when": "flag.golub_dead and not flag.fools_letter_given",
+      "approach": 12
+    },
     {
       "npc": "adela_druskenvald",
       "cell": [
@@ -1265,6 +1983,55 @@
       ],
       "dialogue": "wickermoor/connections_custom:weston_start",
       "when": "background:druskenvald_dweller and flag.vessla_slain and not flag.connection_rapture"
+    },
+    {
+      "npc": "old_rusty",
+      "cell": [
+        28,
+        24
+      ],
+      "dialogue": "nightmare/hook:rusty_start",
+      "when": "flag.chuckles_dead and not flag.nm_hook_given and not flag.crooked_house_destroyed",
+      "path": [
+        [
+          28,
+          24
+        ],
+        [
+          32,
+          23
+        ],
+        [
+          31,
+          26
+        ]
+      ],
+      "pause": 4,
+      "approach": 8
+    },
+    {
+      "npc": "old_rusty",
+      "cell": [
+        28,
+        24
+      ],
+      "dialogue": "nightmare/hook:rusty_again",
+      "when": "flag.nm_hook_given and not flag.crooked_house_destroyed",
+      "path": [
+        [
+          28,
+          24
+        ],
+        [
+          32,
+          23
+        ],
+        [
+          31,
+          26
+        ]
+      ],
+      "pause": 4
     },
     {
       "npc": "old_rusty",
@@ -1636,6 +2403,90 @@
     }
   ],
   "props": [
+    {
+      "id": "wm_fd_takeover_a",
+      "cell": [
+        7,
+        21
+      ],
+      "kind": "decor",
+      "label": "The village, swelling",
+      "call": "fools_day/hook:takeover",
+      "approach": 12,
+      "call_when": "flag.festival_active and not flag.shows_over and not flag.fd_away"
+    },
+    {
+      "id": "wm_fd_takeover_b",
+      "cell": [
+        30,
+        3
+      ],
+      "kind": "decor",
+      "label": "The village, swelling",
+      "call": "fools_day/hook:takeover",
+      "approach": 12,
+      "call_when": "flag.festival_active and not flag.shows_over and not flag.fd_away"
+    },
+    {
+      "id": "wm_fd_takeover_c",
+      "cell": [
+        30,
+        44
+      ],
+      "kind": "decor",
+      "label": "The village, swelling",
+      "call": "fools_day/hook:takeover",
+      "approach": 12,
+      "call_when": "flag.festival_active and not flag.shows_over and not flag.fd_away"
+    },
+    {
+      "id": "wm_fd_takeover_d",
+      "cell": [
+        14,
+        12
+      ],
+      "kind": "decor",
+      "label": "The village, swelling",
+      "call": "fools_day/hook:takeover",
+      "approach": 12,
+      "call_when": "flag.festival_active and not flag.shows_over and not flag.fd_away"
+    },
+    {
+      "id": "wm_fd_takeover_e",
+      "cell": [
+        46,
+        22
+      ],
+      "kind": "decor",
+      "label": "The village, swelling",
+      "call": "fools_day/hook:takeover",
+      "approach": 12,
+      "call_when": "flag.festival_active and not flag.shows_over and not flag.fd_away"
+    },
+    {
+      "id": "wm_fd_takeover_f",
+      "cell": [
+        22,
+        36
+      ],
+      "kind": "decor",
+      "label": "The village, swelling",
+      "call": "fools_day/hook:takeover",
+      "approach": 12,
+      "call_when": "flag.festival_active and not flag.shows_over and not flag.fd_away"
+    },
+    {
+      "id": "wm_fd_return",
+      "cell": [
+        31,
+        26
+      ],
+      "kind": "decor",
+      "label": "Carnival music, just past the last house",
+      "call": "fools_day/hook:return_gate",
+      "approach": 4,
+      "call_when": "flag.festival_active and not flag.shows_over and flag.fd_away"
+    },
     {
       "id": "wm_statue",
       "cell": [
@@ -2115,6 +2966,257 @@
       "call": "maidenmist/epilogue:golub_tease",
       "approach": 6,
       "call_when": "flag.shroud_tear_sealed and not flag.mm_epilogue_golub"
+    },
+    {
+      "id": "rk_scaffold",
+      "cell": [
+        33,
+        28
+      ],
+      "kind": "examine",
+      "label": "A scaffold of new planks beside the oak",
+      "model": "dais",
+      "when": "flag.hysteria_began and not flag.golub_dead",
+      "text": "New planks, still pale, and a rope coiled where a rope should not need to be."
+    },
+    {
+      "id": "rk_chalk_a",
+      "cell": [
+        26,
+        17
+      ],
+      "kind": "examine",
+      "label": "Chalk on a shutter",
+      "model": "papers",
+      "when": "flag.hysteria_began and not flag.golub_dead",
+      "text": "MURDERERS, in a hand that has pressed hard enough to snap the chalk."
+    },
+    {
+      "id": "rk_chalk_b",
+      "cell": [
+        33,
+        17
+      ],
+      "kind": "examine",
+      "label": "Chalk on a door",
+      "model": "papers",
+      "when": "flag.hysteria_began and not flag.golub_dead",
+      "text": "A list of names, and four of them are yours."
+    },
+    {
+      "id": "rk_chalk_c",
+      "cell": [
+        40,
+        17
+      ],
+      "kind": "examine",
+      "label": "Chalk on a wall",
+      "model": "papers",
+      "when": "flag.hysteria_began and not flag.golub_dead",
+      "text": "A drawing of a pigeon wearing a crown, and under it, in tidy script, THE POST IS WATCHING."
+    },
+    {
+      "id": "rk_goat",
+      "cell": [
+        32,
+        24
+      ],
+      "kind": "examine",
+      "label": "The village goat",
+      "model": "horse",
+      "scale": 0.5,
+      "when": "flag.hysteria_began and not flag.golub_dead",
+      "dialogue": "rookery/folk:goat"
+    },
+    {
+      "id": "rk_sky_watch",
+      "cell": [
+        15,
+        12
+      ],
+      "kind": "examine",
+      "label": "The estate road, and the open sky",
+      "model": "signpost",
+      "when": "flag.hysteria_began and not flag.golub_dead",
+      "dialogue": "rookery/hunt:sky"
+    },
+    {
+      "id": "rk_ring_stones",
+      "cell": [
+        44,
+        7
+      ],
+      "kind": "decor",
+      "label": "A ring of foundation stones",
+      "model": "rocks",
+      "when": "flag.golub_exposed"
+    },
+    {
+      "id": "rk_wendel_desk",
+      "cell": [
+        31,
+        22
+      ],
+      "kind": "decor",
+      "label": "A trestle table of forms",
+      "model": "table_round",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_keg_school",
+      "cell": [
+        7,
+        19
+      ],
+      "kind": "examine",
+      "label": "The schoolhouse, burned to its footings",
+      "model": "scorch",
+      "when": "flag.hysteria_began and days_since.hysteria_began >= 7 and not flag.rk_school_saved",
+      "text": "The schoolhouse is blackened timber and standing chimney. Nobody has cleared the slates."
+    },
+    {
+      "id": "rk_keg_carpentry",
+      "cell": [
+        50,
+        28
+      ],
+      "kind": "examine",
+      "label": "The carpentry workshop, burned",
+      "model": "scorch",
+      "when": "flag.hysteria_began and days_since.hysteria_began >= 14",
+      "text": "The Wells family's workshop is a shell, and the whole family sings no more."
+    },
+    {
+      "id": "rk_pigeons_0",
+      "cell": [
+        26,
+        16
+      ],
+      "kind": "decor",
+      "label": "Pigeons, in rows",
+      "model": "crow",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_pigeons_1",
+      "cell": [
+        31,
+        16
+      ],
+      "kind": "decor",
+      "label": "Pigeons, in rows",
+      "model": "crow",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_pigeons_2",
+      "cell": [
+        38,
+        16
+      ],
+      "kind": "decor",
+      "label": "Pigeons, in rows",
+      "model": "crow",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_pigeons_3",
+      "cell": [
+        17,
+        19
+      ],
+      "kind": "decor",
+      "label": "Pigeons, in rows",
+      "model": "crow",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_pigeons_4",
+      "cell": [
+        22,
+        17
+      ],
+      "kind": "decor",
+      "label": "Pigeons, in rows",
+      "model": "crow",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_pigeons_5",
+      "cell": [
+        44,
+        7
+      ],
+      "kind": "decor",
+      "label": "Pigeons, in rows",
+      "model": "crow",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_pigeons_6",
+      "cell": [
+        13,
+        22
+      ],
+      "kind": "decor",
+      "label": "Pigeons, in rows",
+      "model": "crow",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_pigeons_7",
+      "cell": [
+        28,
+        30
+      ],
+      "kind": "decor",
+      "label": "Pigeons, in rows",
+      "model": "crow",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_pigeons_8",
+      "cell": [
+        37,
+        39
+      ],
+      "kind": "decor",
+      "label": "Pigeons, in rows",
+      "model": "crow",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_pigeons_9",
+      "cell": [
+        24,
+        34
+      ],
+      "kind": "decor",
+      "label": "Pigeons, in rows",
+      "model": "crow",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_pigeons_10",
+      "cell": [
+        47,
+        18
+      ],
+      "kind": "decor",
+      "label": "Pigeons, in rows",
+      "model": "crow",
+      "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "rk_pigeons_11",
+      "cell": [
+        10,
+        36
+      ],
+      "kind": "decor",
+      "label": "Pigeons, in rows",
+      "model": "crow",
+      "when": "flag.hysteria_began and not flag.golub_dead"
     }
   ],
   "region": "wickermoor",
@@ -2252,9 +3354,14 @@
     "from_hills": [
       2,
       29
+    ],
+    "from_post_office_back": [
+      38,
+      8
     ]
   },
   "summary": "The hub: a village round a trodden square, an oak of carved faces, a clocktower, the Silverbell along the south and the crooked estate on its hill.",
   "text": "Timber-framed houses with steep roofs crowd round a trodden square where a faceless statue stands on one side and a gnarled oak, bark carved all over with faces, on the other. A clocktower rises over the village and the river runs dark along its southern edge.",
-  "watch": "doris_squire"
+  "watch": "doris_squire",
+  "recheck_minutes": 30
 }

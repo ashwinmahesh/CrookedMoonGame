@@ -1,0 +1,37 @@
+# Drafted by Gemini (R21 parade), edited.
+
+~ begin
+set parade_begun
+if quest.twelve_costumes == asked
+quest twelve_costumes lost
+endif
+if quest.free_the_bell == asked
+quest free_the_bell silenced
+endif
+if quest.fools_day == revelry
+quest fools_day parade
+endif
+Narrator: A high brass bell tolls without a hand on the rope, and the painted ribbons snap taut overhead. All around the square, the costumed dancers stiffen and fall into a single marching line.
+if flag.told_chuckles_hate
+chuckles [angry]: Look at your eyes, little heroes. That hate is good, thick and dark and nourishing, just the meat to feed a proper parade.
+else
+chuckles [smile]: Hip-hip-hooray, hip-hip-heroes, hear the drum-drum! All your dearest chum-chums are marching right up front to lead my grand parade!
+endif
+Narrator: Two tall figures in spotless porcelain harlequin masks step out of the parting throng, heavy banner poles balanced across their shoulders.
+chuckles [smile]: Make way, make way for the finest pair in the whole wide festy-val! Put your hands together for my glorious Heralds of Fools!
+combat parade_heralds
+
+~ unmask
+cutscene fd_unmasking
+Narrator: A hairline crack runs from brow to chin across both white porcelain faces, and the halves shell away onto the cobbles.
+cutscene fd_unmasking_2
+phillip_druskenvald [smile]: My word, Adela darling, what a perfectly splendid crush of people! I do believe the punch has spilled right down my collar, though it tastes awfully of iron.
+adela_druskenvald [smile]: Nonsense, Phillip dearest, it is only theatrical paint, and the music is simply divine! Look how our dear friends have come to dance with us.
+chuckles [sly]: Oh, bravo, tip-top and tweedle-dee, you played your parts so sweet-sweet! Now take a little bow-bow before the curtain drops.
+cutscene fd_unmasking_3
+Narrator: Where the jester's gloved fingertips brush their cheeks, lord and lady pop like paper lanterns into ribbons of red and gold that scatter on the night wind.
+set druskenvalds_unmasked
+set phillip_adela_taken
+quest fools_day ring_of_fools
+Narrator: With a single shuffling step, the masked crowd turns its back on the empty cobbles and marches toward the blazing torches of the Ring of Fools.
+move fd_ring_of_fools:from_parade

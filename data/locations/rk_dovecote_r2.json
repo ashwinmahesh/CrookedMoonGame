@@ -1,0 +1,490 @@
+{
+  "id": "rk_dovecote_r2",
+  "name": "The Dovecote: Golub's Roost",
+  "region": "wickermoor",
+  "summary": "The roost floor of the walking dovecote: cubbies to the rafters, a swivel ladder, and a platform where a hag keeps her vanity.",
+  "text": "A tall round chamber walled with roost cubbies up to a walkway under the thatch, stuffed with stolen letters. A platform of straw and cloth hangs at the north end, with four tall windows.",
+  "map": {
+    "rows": [
+      "########################",
+      "#......................#",
+      "#.=====..........=====.#",
+      "#.=..................=.#",
+      "#.=..................=.#",
+      "#.=..................=.#",
+      "#.=..................=.#",
+      "#.=..................=.#",
+      "#.=..................=.#",
+      "#.=..................=.#",
+      "#.=..................=.#",
+      "#.=..................=.#",
+      "#.=..................=.#",
+      "#.=..................=.#",
+      "#.=..................=.#",
+      "#......................#",
+      "#......................#",
+      "########################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "r2_floor",
+      "name": "The roost floor",
+      "cells": [
+        [
+          3,
+          3
+        ],
+        [
+          20,
+          15
+        ]
+      ]
+    },
+    {
+      "id": "r2_rafters",
+      "name": "The rafter roost",
+      "cells": [
+        [
+          8,
+          2
+        ],
+        [
+          15,
+          4
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      11,
+      15
+    ],
+    "from_r1": [
+      11,
+      15
+    ]
+  },
+  "exits": [
+    {
+      "id": "ladder_down",
+      "cell": [
+        11,
+        17
+      ],
+      "to": "rk_dovecote_r1",
+      "label": "Down the ladder to the parcel store",
+      "spawn": "from_r2"
+    }
+  ],
+  "props": [
+    {
+      "id": "rk_rafter_platform_w",
+      "cell": [
+        8,
+        2
+      ],
+      "kind": "decor",
+      "label": "The rafter roost, ten feet up",
+      "model": "dais",
+      "span": [
+        4,
+        3
+      ],
+      "stand_ft": 10
+    },
+    {
+      "id": "rk_rafter_platform_e",
+      "cell": [
+        12,
+        2
+      ],
+      "kind": "decor",
+      "label": "The rafter roost, ten feet up",
+      "model": "dais",
+      "span": [
+        4,
+        3
+      ],
+      "stand_ft": 10
+    },
+    {
+      "id": "rk_swivel_ladder",
+      "cell": [
+        6,
+        14
+      ],
+      "kind": "examine",
+      "label": "The swivel ladder, on its track",
+      "model": "ladder",
+      "text": "A ladder on a ring-track round the cubbies. It swings wherever the one who rides it pushes."
+    },
+    {
+      "id": "rk_cubbies",
+      "cell": [
+        6,
+        7
+      ],
+      "kind": "examine",
+      "label": "Cubbies stuffed with letters and sins",
+      "model": "shelves",
+      "dialogue": "rookery/dovecote:cubbies",
+      "when": "flag.rk_golub_done and not flag.golub_secrets_read"
+    },
+    {
+      "id": "rk_cubbies_empty",
+      "cell": [
+        6,
+        7
+      ],
+      "kind": "decor",
+      "label": "Cubbies, emptied",
+      "model": "shelves",
+      "when": "flag.golub_secrets_read"
+    },
+    {
+      "id": "rk_r2_cages",
+      "cell": [
+        18,
+        7
+      ],
+      "kind": "examine",
+      "label": "Rodent cages",
+      "model": "cage",
+      "text": "Cages of rats and a few big, bored mice. All of them look as if they have been listening."
+    },
+    {
+      "id": "rk_r2_window_a",
+      "cell": [
+        4,
+        9
+      ],
+      "kind": "decor",
+      "label": "A tall window, the moor sliding past",
+      "model": "window_tall"
+    },
+    {
+      "id": "rk_r2_window_b",
+      "cell": [
+        19,
+        9
+      ],
+      "kind": "decor",
+      "label": "A tall window, the moor sliding past",
+      "model": "window_tall"
+    },
+    {
+      "id": "rk_r2_window_c",
+      "cell": [
+        4,
+        13
+      ],
+      "kind": "decor",
+      "label": "A tall window, the moor sliding past",
+      "model": "window_tall"
+    },
+    {
+      "id": "rk_r2_window_d",
+      "cell": [
+        19,
+        13
+      ],
+      "kind": "decor",
+      "label": "A tall window, the moor sliding past",
+      "model": "window_tall"
+    },
+    {
+      "id": "rk_diary",
+      "cell": [
+        13,
+        3
+      ],
+      "kind": "search",
+      "label": "Golub's diary, open on a perch",
+      "search_dc": 5,
+      "item": "golubs_diary",
+      "when": "flag.rk_golub_done"
+    },
+    {
+      "id": "rk_crystal_ball",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "search",
+      "label": "A crystal ball on the platform",
+      "search_dc": 5,
+      "item": "golub_crystal_ball",
+      "when": "flag.rk_golub_done"
+    },
+    {
+      "id": "rk_midnight_tears",
+      "cell": [
+        14,
+        3
+      ],
+      "kind": "search",
+      "label": "A stoppered vial among the feathers",
+      "search_dc": 12,
+      "item": "midnight_tears",
+      "when": "flag.rk_golub_done"
+    },
+    {
+      "id": "rk_golub_farewell",
+      "cell": [
+        11,
+        12
+      ],
+      "kind": "decor",
+      "label": "The roost, settled and still",
+      "call": "rookery/dovecote:home_to_roost",
+      "approach": 10,
+      "call_when": "flag.rk_golub_done and not flag.golub_dead"
+    }
+  ],
+  "containers": [
+    {
+      "id": "rk_golub_cage",
+      "cell": [
+        4,
+        5
+      ],
+      "label": "A gold birdcage",
+      "items": [
+        {
+          "id": "golub_birdcage",
+          "qty": 1
+        }
+      ],
+      "gold": 0
+    },
+    {
+      "id": "rk_golub_chest",
+      "cell": [
+        19,
+        5
+      ],
+      "label": "A chest of nuggets",
+      "items": [
+        {
+          "id": "skitterdeep_nuggets",
+          "qty": 1
+        }
+      ],
+      "gold": 0
+    }
+  ],
+  "encounters": [
+    {
+      "id": "rk_golub",
+      "trigger": "dialogue",
+      "when": "not flag.albert_dead",
+      "flag": "rk_golub_done",
+      "quest": {
+        "id": "roving_rookery",
+        "stage": "dovecote"
+      },
+      "monsters": [
+        {
+          "monster": "pigeon_hag",
+          "cell": [
+            11,
+            3
+          ],
+          "name": "Golub Graygullet",
+          "boss": true,
+          "facing": "south",
+          "steps_down": {
+            "npc": "golub_graygullet"
+          }
+        },
+        {
+          "monster": "squabswarm",
+          "cell": [
+            5,
+            10
+          ],
+          "name": "A squabswarm",
+          "facing": "east"
+        },
+        {
+          "monster": "squabswarm",
+          "cell": [
+            18,
+            10
+          ],
+          "name": "A squabswarm",
+          "facing": "west"
+        },
+        {
+          "monster": "squabswarm",
+          "cell": [
+            11,
+            12
+          ],
+          "name": "A squabswarm",
+          "facing": "north"
+        },
+        {
+          "monster": "vermin_familiar_pigeon",
+          "cell": [
+            16,
+            6
+          ],
+          "name": "Peeping Albert",
+          "facing": "west"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "rk_lurch",
+          "name": "Violent lurch",
+          "summary": "The dovecote heaves on its pigeon legs; anyone not holding on goes over.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "dex",
+            "dc": 15
+          },
+          "condition": "prone",
+          "at": 20,
+          "every": 1,
+          "area": {
+            "cells": [
+              [
+                1,
+                1
+              ],
+              [
+                22,
+                16
+              ]
+            ]
+          },
+          "say": "The whole roost lurches, and the floor tilts under your boots."
+        }
+      ]
+    },
+    {
+      "id": "rk_golub",
+      "trigger": "dialogue",
+      "when": "flag.albert_dead",
+      "flag": "rk_golub_done",
+      "quest": {
+        "id": "roving_rookery",
+        "stage": "dovecote"
+      },
+      "monsters": [
+        {
+          "monster": "pigeon_hag",
+          "cell": [
+            11,
+            3
+          ],
+          "name": "Golub Graygullet",
+          "boss": true,
+          "facing": "south",
+          "steps_down": {
+            "npc": "golub_graygullet"
+          }
+        },
+        {
+          "monster": "squabswarm",
+          "cell": [
+            5,
+            10
+          ],
+          "name": "A squabswarm",
+          "facing": "east"
+        },
+        {
+          "monster": "squabswarm",
+          "cell": [
+            18,
+            10
+          ],
+          "name": "A squabswarm",
+          "facing": "west"
+        },
+        {
+          "monster": "squabswarm",
+          "cell": [
+            11,
+            12
+          ],
+          "name": "A squabswarm",
+          "facing": "north"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "rk_lurch",
+          "name": "Violent lurch",
+          "summary": "The dovecote heaves on its pigeon legs; anyone not holding on goes over.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "dex",
+            "dc": 15
+          },
+          "condition": "prone",
+          "at": 20,
+          "every": 1,
+          "area": {
+            "cells": [
+              [
+                1,
+                1
+              ],
+              [
+                22,
+                16
+              ]
+            ]
+          },
+          "say": "The whole roost lurches, and the floor tilts under your boots."
+        }
+      ]
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "golub_graygullet",
+      "cell": [
+        11,
+        3
+      ],
+      "dialogue": "rookery/dovecote:golub",
+      "approach": 9,
+      "when": "not flag.rk_golub_done"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The building lurches too often for a long rest.",
+  "lights": [
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 10,
+      "dim_ft": 25,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        19,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 10,
+      "dim_ft": 25,
+      "color": "candle"
+    }
+  ]
+}

@@ -1,0 +1,327 @@
+{
+  "id": "nm_attic",
+  "name": "Toil and Trouble",
+  "region": "crooked_nightmare",
+  "summary": "The attic swollen with old rituals, its walls one seething layer of vermin, a clawed cauldron over a fire.",
+  "text": "The attic of the Crooked House, swollen and fouled by every ritual it has ever seen. Its walls are a single seething layer of weasels, centipedes and pigeons. On a floor scrawled with sigils a huge clawed cauldron boils over a fire, and then it takes a step.",
+  "map": {
+    "rows": [
+      "########################",
+      "#......................#",
+      "#......................#",
+      "#..==..............==..#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#..==..............==..#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "########################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "attic",
+      "name": "The attic",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          22,
+          26
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      12,
+      25
+    ]
+  },
+  "exits": [],
+  "props": [
+    {
+      "id": "nm_attic_arrive",
+      "cell": [
+        12,
+        25
+      ],
+      "kind": "decor",
+      "label": "The attic, from the stair",
+      "call": "nightmare/n8:attic_start",
+      "approach": 12,
+      "call_when": "not flag.n8_started"
+    },
+    {
+      "id": "nm_attic_cauldron",
+      "cell": [
+        12,
+        8
+      ],
+      "kind": "examine",
+      "label": "A clawed cauldron, boiling",
+      "model": "cauldron",
+      "scale": 3.0,
+      "dialogue": "nightmare/n8:hub",
+      "when": "not flag.nm_toil_won"
+    },
+    {
+      "id": "nm_attic_sigil",
+      "cell": [
+        12,
+        14
+      ],
+      "kind": "examine",
+      "label": "A seven-pointed star in the floor",
+      "model": "floor_glyphs",
+      "scale": 2.0,
+      "dialogue": "nightmare/n8:hub",
+      "when": "not flag.nm_toil_won"
+    },
+    {
+      "id": "nm_attic_after",
+      "cell": [
+        12,
+        18
+      ],
+      "kind": "decor",
+      "label": "The attic, afterwards",
+      "call": "nightmare/n8:after",
+      "approach": 12,
+      "call_when": "flag.nm_toil_won and not flag.abomination_dead"
+    },
+    {
+      "id": "nm_attic_bones",
+      "cell": [
+        6,
+        12
+      ],
+      "kind": "decor",
+      "label": "Bones, gnawed",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "nm_attic_trunk",
+      "cell": [
+        18,
+        12
+      ],
+      "kind": "decor",
+      "label": "A wrecked trunk",
+      "model": "footlocker"
+    },
+    {
+      "id": "nm_attic_webs_a",
+      "cell": [
+        2,
+        6
+      ],
+      "kind": "decor",
+      "label": "Cobwebs and feathers",
+      "model": "cobwebs"
+    },
+    {
+      "id": "nm_attic_webs_b",
+      "cell": [
+        21,
+        6
+      ],
+      "kind": "decor",
+      "label": "Cobwebs and feathers",
+      "model": "cobwebs"
+    },
+    {
+      "id": "nm_attic_glyphs_a",
+      "cell": [
+        7,
+        20
+      ],
+      "kind": "decor",
+      "label": "Scrawled sigils",
+      "model": "rune_circle"
+    },
+    {
+      "id": "nm_attic_glyphs_b",
+      "cell": [
+        17,
+        20
+      ],
+      "kind": "decor",
+      "label": "Scrawled sigils",
+      "model": "rune_circle"
+    },
+    {
+      "id": "nm_attic_crib",
+      "cell": [
+        4,
+        17
+      ],
+      "kind": "decor",
+      "label": "A swollen crib",
+      "model": "crib"
+    },
+    {
+      "id": "nm_attic_chair",
+      "cell": [
+        20,
+        17
+      ],
+      "kind": "decor",
+      "label": "A wrecked rocking chair",
+      "model": "rocking_chair"
+    },
+    {
+      "id": "nm_attic_hatch",
+      "cell": [
+        12,
+        1
+      ],
+      "kind": "decor",
+      "label": "The roof hatch, shut",
+      "model": "roof_hatch"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "nm_stonoga",
+      "cell": [
+        8,
+        6
+      ],
+      "dialogue": "nightmare/n8:hub",
+      "when": "not flag.n8_hags_gone",
+      "facing": "south"
+    },
+    {
+      "npc": "nm_golub",
+      "cell": [
+        12,
+        5
+      ],
+      "dialogue": "nightmare/n8:hub",
+      "when": "not flag.n8_hags_gone",
+      "facing": "south"
+    },
+    {
+      "npc": "nm_vessla",
+      "cell": [
+        16,
+        6
+      ],
+      "dialogue": "nightmare/n8:hub",
+      "when": "not flag.n8_hags_gone",
+      "facing": "south"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "vermintoll_abomination",
+      "trigger": "dialogue",
+      "flag": "nm_toil_won",
+      "lair": true,
+      "quest": {
+        "id": "crooked_nightmare",
+        "stage": "dreaming_no_more"
+      },
+      "monsters": [
+        {
+          "monster": "vermintoll_abomination_dream",
+          "cell": [
+            12,
+            9
+          ],
+          "name": "The Vermintoll Abomination",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "vermin_infestation",
+          "cell": [
+            6,
+            12
+          ],
+          "name": "A vermin infestation",
+          "facing": "east"
+        },
+        {
+          "monster": "vermin_infestation",
+          "cell": [
+            18,
+            12
+          ],
+          "name": "A vermin infestation",
+          "facing": "west"
+        },
+        {
+          "monster": "vermin_infestation",
+          "cell": [
+            12,
+            16
+          ],
+          "name": "A vermin infestation",
+          "facing": "north"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "endless_bites",
+          "name": "Endless Bites",
+          "summary": "The vermin frenzy over every surface: bites for all who stand on them.",
+          "kind": "save",
+          "affects": "party",
+          "from_round": 3,
+          "at": 20,
+          "every": 1,
+          "save": {
+            "ability": "dex",
+            "dc": 12
+          },
+          "damage": {
+            "dice": "2d8",
+            "type": "piercing"
+          },
+          "condition": "poisoned",
+          "until": "target_turn_end",
+          "say": "The walls shiver loose and the vermin pour over every surface at once."
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "rest_text": "You cannot sleep inside a dream, and the dream will not let you stop. A short breath, then.",
+  "lights": [
+    {
+      "cell": [
+        12,
+        9
+      ],
+      "kind": "fire",
+      "bright_ft": 30,
+      "dim_ft": 60,
+      "color": "fire"
+    }
+  ]
+}
