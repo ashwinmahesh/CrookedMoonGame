@@ -207,7 +207,7 @@ func enter_location(location_id: String, spawn: String, sneaking: bool = false) 
 		Cursors.show("pointer")
 		glow.clear()
 		LayerFade.fade(self, hud, false, 0.25)   # the combat HUD fades up in its place
-		Audio.play_music("combat")
+		Audio.play_music(PlaceBeds.fight_music(st.location))   # the region's own fight music, else "combat"
 		_boss_music.call_deferred(cv)   # the fight is set up just after this signal
 		_fight_sounds.call_deferred(cv)   # the wildpyre roars as it wakes (art/audio.json "fight_sfx")
 		Audio.follow_fight.call_deferred(cv)   # the music swells while a boss stands or someone is Bloodied (A2)
