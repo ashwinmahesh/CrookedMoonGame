@@ -1,0 +1,106 @@
+# Drafted by Gemini (R15 side_ledger), edited.
+
+~ lyla_start
+lyla_webb [weary]: Keep your voices down. Someone is skimming the town's coin between the docks and the fort, and if Vander hears of it, he will burn three stalls to find one thief.
+set ledger_asked
+quest lylas_ledger asked
+lyla_webb [neutral]: Look over the tallies at the boathouses, the fighting pit, and Traders' Row. Bring me a name when you are certain, and not a breath sooner.
+-> END
+
+~ report
+lyla_webb [neutral]: You have been walking the planks long enough. Have you found the leak in my books, or are you still counting on your fingers?
+* [if flag.ledger_boathouse and flag.ledger_pits and flag.ledger_traders] Name Odell Tarrant -> accuse_odell
+* [if flag.ledger_boathouse and flag.ledger_pits and flag.ledger_traders] Name Maude Ledoux -> accuse_maude
+* [if flag.ledger_boathouse and flag.ledger_pits and flag.ledger_traders] Name Bo Gaspard -> accuse_bo
+* [if not flag.ledger_boathouse or not flag.ledger_pits or not flag.ledger_traders] Ask what is left to check -> report_left
+* Not yet -> END
+
+~ report_left
+lyla_webb [angry]: I will not hang a neighbor's name on a guess. Check all three tallies at the boathouses, the pit, and Traders' Row before you stand at my table again.
+-> report
+
+~ accuse_odell
+set ledger_outcome = "right"
+gold +100
+quest lylas_ledger done
+lyla_webb [sly]: Always the neat ones with the clean cuffs. Odell will work that silver off on the tow-ropes, hauling flatboats through the reeds until his new boots rot right off.
+-> END
+
+~ accuse_maude
+lyla_webb [weary]: Think carefully before you say that twice. If Maude is stealing, I shut the pit down tonight, and a dozen bruised fighters go hungry before morning.
+* [ends:lylas_ledger] Yes, it was Maude -> lost_maude
+* Look again -> report
+
+~ lost_maude
+set ledger_outcome = "wrong"
+set pits_closed
+quest lylas_ledger lost
+lyla_webb [neutral]: Then it is done, and the ring gets padlocked at dusk. I hope your eyes are sharper than your conscience.
+Narrator: By nightfall the pit lanterns are dark, and Maude stands on the wet dock with her scarred arms crossed, watching the water in silence.
+-> END
+
+~ accuse_bo
+lyla_webb [weary]: Be sure of your numbers. If Bo Gaspard has his thumb on the scale, the market loses its smoked eel and the only honest weight in the Row.
+* [ends:lylas_ledger] Yes, it was Bo -> lost_bo
+* Look again -> report
+
+~ lost_bo
+set ledger_outcome = "wrong"
+quest lylas_ledger lost
+lyla_webb [neutral]: Then my people take his hooks and weights at sunrise. Here is hoping you read the ink right.
+Narrator: Come morning, Bo's stall is shuttered tight with raw pine boards, and the smell of woodsmoke is gone from that end of the plankway.
+-> END
+
+~ tally_board
+Narrator: A slate board hangs by the boathouse pilings, damp with river mist and crowded with chalked wharfage fees and boat-hire columns.
+* [Investigation DC 12] Read the columns -> tally_ok | tally_miss
+* Read them slowly, line by line -> tally_slow
+
+~ tally_ok
+set ledger_boathouse
+Narrator: One column of rounded figures sits in a tidy, upright clerk's hand, and every single entry is shaved two coppers short of the dock tariff.
+-> END
+
+~ tally_miss
+Narrator: The damp chalk blurs into rows of boat names and mud-streaked numbers that refuse to add up while the lantern swings.
+-> tally_board
+
+~ tally_slow
+time +30
+set ledger_boathouse
+Narrator: Tracing each row with a fingernail takes half an hour, until a neat column of rounded figures gives itself away, every sum shaved a fraction short.
+-> END
+
+~ odell
+odell_tarrant [afraid]: Mind where you step on the planking, friends, the river mud tracks terribly. I keep the boathouse slips in strict order, so tell me what you require.
+* Ask about the tallies -> odell_tally
+* Ask about the boots plainly -> odell_boots
+* [Insight DC 14] Watch him as you ask about the boots -> odell_boots | odell_boots_miss
+* [if flag.print_asked and not flag.print_odell] Ask for a cautionary tale -> drowned_crossroads/side_print:odell_tale
+* [if flag.coins_asked and not flag.coin_boathouses] Ask for a copper -> drowned_crossroads/side_coins:odell_coin
+* Take our leave -> END
+
+~ odell_tally
+odell_tarrant [smile]: Every skiff, punt, and pole-barge is entered to the penny in my ledger. You will not find a cleaner set of columns between here and the upper valley.
+set ledger_boathouse
+-> odell
+
+~ odell_boots
+odell_tarrant [afraid]: These? Just calfskin, a gift from a cousin upriver who had no need of them. A clerk ought to keep his feet dry on the docks, that is all.
+Narrator: He tucks one heel behind the other under his desk, glancing down at the stitched leather as though the boots might open their mouths and testify.
+-> odell
+
+~ odell_boots_miss
+odell_tarrant [smile]: Fine dry leather makes all the difference when the mist rolls in off the cypress knees. A man cannot tally columns with swamp rot in his toes.
+Narrator: He shifts his weight on the stool, looking like nothing more than a fussy clerk proud of a dry pair of soles.
+-> odell
+
+~ maude
+maude_ledoux [neutral]: You want my books, take them right off the peg. This pit runs at a loss half the week because I pay the poultice-woman before I pay the house.
+set ledger_pits
+-> END
+
+~ bo_tally
+bo_gaspard [neutral]: Count every smoked eel on the rack and every penny in the tin, it matches to the bone. Mind you, every receipt on Traders' Row goes through Odell at the boathouse.
+set ledger_traders
+-> END

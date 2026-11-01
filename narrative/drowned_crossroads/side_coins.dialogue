@@ -1,0 +1,114 @@
+# Drafted by Gemini (R15 side_coins), edited.
+
+~ ferryman_start
+Narrator: A narrow coffin-boat bobs at the mossy post, smelling of wet pine and river silt. Its driver stands still as cypress wood, three tarnished coppers pressed into his brow and eyes.
+ferryman_chauffeur [neutral]: Four coppers. Four corners. No yellow metal. Pay the fare, walk unburdened.
+* Ask what he wants from the town -> fs_what
+* We will gather the four coppers -> fs_accept
+* [ends:the_ferrymans_coins] Offer him a gold piece -> fs_insult
+* Step back from the mooring -> END
+
+~ fs_what
+ferryman_chauffeur [neutral]: Pits. Boathouses. Traders' Row. Mud Church. One small coin from each. Keep your gold.
+-> ferryman_start
+
+~ fs_accept
+Narrator: He extends a grey, water-wrinkled hand palm up over the dark water, then folds it back beneath his coat without a sound.
+set coins_asked
+quest the_ferrymans_coins asked
+-> END
+
+~ ferryman_progress
+Narrator: The lantern on the coffin-boat's prow swings in the damp breeze, throwing pale light across the銅 coins sunk into the driver's stillness.
+ferryman_chauffeur [neutral]: The water waits. Have you the toll, four times paid in honest copper?
+* [if flag.ferry_coins >= 4] Give him the four coppers -> fs_paid
+* [if flag.ferry_coins < 4] Ask what is still owed -> fp_left
+* [ends:the_ferrymans_coins] Offer him a gold piece -> fs_insult
+* Leave him to the water -> END
+
+~ fp_left
+Narrator: He does not speak a word, only lifts one cold hand from his pole and holds up stiff fingers for the quarters of the town still unpaid.
+-> ferryman_progress
+
+~ fs_paid
+Narrator: He takes the four green-tarnished coppers into his palm, then lifts his lantern pole and touches each of your brows; a damp, leaden weight you scarcely knew you carried slips away into the mud.
+ferryman_chauffeur [neutral]: Toll is met. The road is clear. Step light on the boards.
+set ferryman_paid
+set coins_outcome = "paid"
+quest the_ferrymans_coins paid
+gold +40
+-> END
+
+~ fs_insult
+Narrator: He stares down at the bright gold through his copper-stopped eyes, looks once at your faces, and steps backward off the piling into the black water without a ripple; when you blink, the coffin-boat is gone.
+set coins_outcome = "insulted"
+quest the_ferrymans_coins lost
+-> END
+
+~ pit_coin
+Narrator: Beside the fighting pit sits a cedar cigar box greasy with thumbprints, heaped with damp copper bits and chalked tally slips while the bookie watches the crowd.
+* [Sleight of Hand DC 14] Palm a copper from the box -> pit_ok | pit_miss
+* Leave a silver piece and take a copper -> pit_ok
+* Leave the box alone -> END
+
+~ pit_ok
+Narrator: Your fingers close around a warm, scarred penny smelling of tallow and sour beer, and you slip it cleanly into your pocket.
+set coin_pits
+set ferry_coins += 1
+-> END
+
+~ pit_miss
+Narrator: A heavy knuckle raps the lid before {name} can draw back, and the bookie mutters through his teeth that clumsy fingers pay double at the rail.
+-> pit_coin
+
+~ odell_coin
+odell_tarrant [afraid]: Please do not lean on the ledger table, the pilings are rotten enough as it is. If you only want a boatman's penny to make change, take it and let me finish my tallies.
+* Pay a gold piece for a single copper -> odell_pay
+* [Persuasion DC 12] Ask politely for a spare copper -> odell_ok | odell_no
+* Leave him to his books -> END
+
+~ odell_pay
+odell_tarrant [weary]: A whole crown for a green penny? This town has lost the last of its arithmetic, I swear it, but here you are.
+gold -1
+set coin_boathouses
+set ferry_coins += 1
+-> END
+
+~ odell_ok
+odell_tarrant [neutral]: Here, take this one from the mooring dish and go cleanly. At least you asked like decent folk instead of shaking the strongbox.
+set coin_boathouses
+set ferry_coins += 1
+-> END
+
+~ odell_no
+odell_tarrant [angry]: I cannot simply hand out the wharfage float to every traveller who asks nicely. Every penny in that dish is accounted for twice over.
+-> odell_coin
+
+~ bo_coin
+bo_gaspard [sly]: Nothing drops off my rack for free, friends, not even a bent penny to weigh down a dead man's eyelid. Buy an eel or speak me fair, and we will see about small change.
+* Buy a smoked eel for a gold piece -> bo_pay
+* [Persuasion DC 12] Ask for a copper for the boatman -> bo_ok | bo_no
+* Move on down the row -> END
+
+~ bo_pay
+bo_gaspard [smile]: Now that is brisk trade. Take your eel wrapped in dock leaf, and take this black penny from the grease tin with my blessing.
+gold -1
+set coin_traders
+set ferry_coins += 1
+-> END
+
+~ bo_ok
+bo_gaspard [neutral]: If it is for the quiet fellow at the piling, take one from the salt jar. Even an eel-smoker pays the river its due when the mist rises.
+set coin_traders
+set ferry_coins += 1
+-> END
+
+~ bo_no
+bo_gaspard [weary]: Hold on now, let me count this stack again before I go parting with good copper. Come back at me with a straighter face or an open purse.
+-> bo_coin
+
+~ thibault_coin
+odalys_thibault [weary]: Take one from the pewter plate, child, though you will have to shake the tadpoles off it first. That silent boatman down by the reeds has kept more of my flock out of the mud than the elders ever did.
+set coin_church
+set ferry_coins += 1
+-> END

@@ -1,0 +1,67 @@
+# Drafted by Gemini (R15 hook), edited.
+
+~ adela_start
+Narrator: The midnight bells have gone quiet in Founder's Round, and a woman in a heavy fur coat and low-brimmed hat beckons from the shadow of the stone statue.
+cutscene dc_adela_arm
+Narrator: By the guttering tallow of a hooded lantern, her trembling fingers peel back a long woollen glove.
+cutscene dc_adela_arm_2
+Narrator: The forearm beneath is the colour of wet ash, withered nearly to the bone from wrist to elbow, with the fingers curled in tight.
+if flag.act2_done >= 1
+Narrator: The creeping grey has climbed well past the joint now, drinking the life from her upper arm.
+endif
+cutscene end
+adela_druskenvald [afraid]: Forgive the dreadful theatrics, darlings, truly, I am at my wits' end. Please keep your voices down and tell me you can help a foolish woman undo a bargain.
+* Ask what happened to her arm -> adela_deal
+* Ask about the prophecy that frightened her -> adela_prophecy
+* Ask what she is offering in return -> adela_pay
+* We will go down to the bayou -> adela_accept
+* Not right now -> adela_later
+
+~ adela_deal
+adela_druskenvald [sad]: Gaston Doray filled my head with tales of a gentleman dealmaker down in the Drowned Crossroads. I crept into the swamp and traded my wedding band for a promise that Phillip's old strength would return when we must leave.
+adela_druskenvald [afraid]: Now the road has vanished from my memory altogether, and every morning this dreadful grey creeps another inch up my arm.
+-> adela_start
+
+~ adela_prophecy
+adela_druskenvald [weary]: I had the most ghastly waking dream of the Crooked Moon splitting the sky in a rage. It showed me that my husband and I would only ever leave this valley upon a road of drifting ash.
+-> adela_start
+
+~ adela_pay
+adela_druskenvald [neutral]: I can give you one hundred and fifty gold pieces each from my private pin-money. There will be fifty more apiece if my husband never hears a breath of my indiscretion.
+-> adela_start
+
+~ adela_accept
+adela_druskenvald [afraid]: Oh, bless you. Only promise me one thing before you set out: Phillip carries quite enough sorrow, and he must not know what I have done.
+* We will keep your counsel -> adela_secret
+* We make no promises about Phillip -> adela_open
+
+~ adela_secret
+adela_druskenvald [smile]: You have the gratitude of a very tired lady, my dears. Look for the gentleman in the good coat where the black water pools, and bring my ring home.
+set adela_secret_kept
+set crossroads_asked
+quest withered_arm asked
+Narrator: She slips back into the mist toward the manor, leaving you with the damp wind rising off the south road, where the valley sinks into the bayou.
+-> END
+
+~ adela_open
+adela_druskenvald [weary]: Fair enough, I suppose a beggar in borrowed wool can hardly dictate terms. Just bring my ring back from those black waters before there is nothing left of me to scold.
+set crossroads_asked
+quest withered_arm asked
+Narrator: She lifts her chin with practiced grace and melts into the fog, leaving the south road open before you toward the dark water at the valley's floor.
+-> END
+
+~ adela_later
+adela_druskenvald [sad]: I see. Do not take too long to find your charity, darlings, or there will be very little of me left to hire you.
+Narrator: She draws the long woollen glove back over the brittle grey bone and retreats into the shadow of the plinth.
+-> END
+
+~ adela_hex
+Narrator: Lady Adela steps out from behind a colonnade to bar your path, her breath pluming in the chill air and her left sleeve hanging frighteningly hollow.
+adela_druskenvald [weary]: I saw you ride back through the gates, and I could not wait another hour in the dark. The rot has passed my elbow now, creeping toward the shoulder, and the cold never stops.
+set adela_hex_seen
+* Ask how long she has left -> hex_arm
+* We are going now -> END
+
+~ hex_arm
+adela_druskenvald [afraid]: I cannot count the days when there is no sun to measure them by, my dears. All I know is that the ring's absence sits like an icy draught inside my very bones.
+-> END

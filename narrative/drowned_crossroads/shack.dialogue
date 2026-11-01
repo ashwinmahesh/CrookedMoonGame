@@ -1,0 +1,501 @@
+# Drafted by Gemini (R15 shack), edited.
+
+~ arrive
+set shack_met
+quest withered_arm the_shack
+cutscene dc_shack
+Narrator: Green glass bottles bob in pairs across the black water, marking a sunken path of boards toward the lantern-lit shack.
+cutscene dc_shack_2
+Narrator: Up on the porch, a steel guitar rests across an empty rocking chair, humming a mournful tune all on its own.
+cutscene end
+-> END
+
+~ guitar
+Narrator: The damp cedar rocker creaks against the floorboards, and a single steel string rings out under no hand at all.
+-> END
+
+~ bay_bottle
+Narrator: A lone bottle glows pale green in the weeds off the boards. Where one floats without its twin, something hungry sleeps in the silt.
+-> END
+
+~ parley
+Narrator: Claws click down the iron spiral stair into the warm clutter of neon signs and bottled curios.
+mister_crossroads [smile]: Step right in out of the damp, my friends. A humble sinner rarely gets the pleasure of the folks who rode the Ghostlight Express down the hill.
+-> parley_menu
+
+~ parley_menu
+* Ask about Lady Adela's wedding ring. -> parley_adela
+* [Insight DC 18] Watch how eagerly he mentions the Ghostlight Express. -> parley_keen | parley_keen_miss
+* Ask to see his wares. -> wares
+* Ask for passage to his riverboat. -> parley_passage
+* [Intimidation DC 15] Threaten to take what we came for. -> parley_threat | parley_threat_miss
+* Refuse any deal and leave. -> refuse
+* Draw weapons and attack him. -> refuse
+
+~ parley_adela
+mister_crossroads [sly]: Ah, a lady of her breeding really ought to read the small print before signing. Still, she got her wish, and I keep her little gold band safe.
+-> parley_menu
+
+~ parley_keen
+Narrator: His wide grin never wavers, yet his yellow eyes linger on your boots whenever the Ghostlight Express is named, hungry to know how you rode that iron train.
+-> parley_menu
+
+~ parley_keen_miss
+Narrator: He stands with his hands folded over his waistcoat, nothing more than a polite host making small talk in a swamp.
+-> parley_menu
+
+~ parley_passage
+mister_crossroads [smile]: Take any one thing from my shelves, a bargain or a simple curio tagged at three copper, and you are honoured guests aboard my boat. No catch at all.
+-> parley_menu
+
+~ parley_threat
+mister_crossroads [smile]: Ha, now that is a warm welcome. Forgive an old sinner his chuckle, friends, but steel and bluster only spoil a pleasant evening among neighbours.
+-> parley_menu
+
+~ parley_threat_miss
+mister_crossroads [smile]: Oh, splendid, it is always a genuine pleasure to be threatened by professionals. Do let me know when you are ready to talk business like civilised folk.
+-> parley_menu
+
+~ done_trading
+mister_crossroads [smile]: Sold and sealed, my dear friends, as tidy as if you had bought the whole shop.
+set crossroads_passage
+give sinners_tag
+set sinner_gone
+mister_crossroads [smile]: Present that tag at the pier and join me aboard the Dead Man's Hand as my honoured guests.
+Narrator: He snaps his clawed fingers and vanishes in a gout of sweet-smelling magenta fire.
+-> END
+
+~ refuse
+mister_crossroads [weary]: Now look at the hour on my watch. You must excuse a busy man, friends, though I hate to leave you to the night air.
+Narrator: He snaps his fingers and vanishes in a flash of magenta flame.
+set crossroads_refused
+set sinner_gone
+Narrator: A wet roar shakes the pilings as a Bayou Beast splinters the front door inward, trailing six jinxed mosquitoes in its wake.
+combat dc_shack_stalkers
+
+~ steal_one
+Narrator: The shack stands quiet in the lingering smoke, its shelves crowded with carved idols and stitched dolls, each neatly marked at three copper pieces.
+* Take one tagged idol. -> steal_take
+* Take nothing. -> END
+
+~ steal_take
+set crossroads_passage
+give sinners_tag
+Narrator: Three copper coins vanish from your purse to settle the price. You have your pass, though the riverboat will know you came as intruders.
+-> END
+
+# The wares (hand-written; see tools/content/crossroads_shop.py)
+
+~ wares
+mister_crossroads [smile]: Every bargain here costs a handshake and every trinket three copper, friend. One to a customer, and I am a stickler.
+if flag.small_print_read
+Narrator: Cora Beaudry's three tales sit in your head like a lamp: you can read the small print on every tag.
+endif
+* [if flag.sinner_deals < 4] A dark bargain, for a handshake -> bargains
+* [if flag.sinner_deals < 4] A potion, tagged 3 CP -> potions
+* [if flag.sinner_deals < 4] A curio or an idol, tagged 3 CP -> curios
+* [if flag.sinner_deals >= 1] That is all of us -> done_trading
+* Back to our talk -> parley_menu
+
+~ bargains
+mister_crossroads [sly]: A handshake is a small thing. It is binding once sealed, but small. Choose with your eyes open: each one shows its price.
+* [if not flag.deal_bestial_awakening] Bestial Awakening -> take_bestial_awakening
+* [if not flag.deal_call_of_the_lonely] Call of the Lonely -> take_call_of_the_lonely
+* [if not flag.deal_collector_of_stories] Collector of Stories -> take_collector_of_stories
+* [if not flag.deal_crooked_fortune] Crooked Fortune -> take_crooked_fortune
+* [if not flag.deal_cult_of_personality] Cult of Personality -> take_cult_of_personality
+* [if not flag.deal_hand_of_death] Hand of Death -> take_hand_of_death
+* [if not flag.deal_might_of_the_old] Might of the Old -> take_might_of_the_old
+* [if not flag.deal_self_serving_sacrifice] Self-Serving Sacrifice -> take_self_serving_sacrifice
+* [if not flag.deal_shrouded_spirit] Shrouded Spirit -> take_shrouded_spirit
+* [if not flag.deal_skin_of_coffin_nails] Skin of Coffin Nails -> take_skin_of_coffin_nails
+* [if not flag.deal_stilled_hungers] Stilled Hungers -> take_stilled_hungers
+* [if not flag.deal_unquenchable_fury] Unquenchable Fury -> take_unquenchable_fury
+* [if not flag.deal_wings_of_whispers] Wings of Whispers -> take_wings_of_whispers
+* Look at something else -> wares
+
+~ take_bestial_awakening
+Narrator: A paper tag on a string reads 3 CP, and under it, in small print: Polymorph, free once per Long Rest on yourself. The price: silvered weapons ignore your Resistances, and silver stops your healing.
+mister_crossroads [smile]: A handshake, then. Who is it to be?
+dark_gift bestial_awakening
+if gift:bestial_awakening and not flag.deal_bestial_awakening and not flag.small_print_read
+set deal_taken_blind
+endif
+if gift:bestial_awakening and not flag.deal_bestial_awakening
+set deal_bestial_awakening
+set sinner_deals += 1
+Narrator: His hand is warm and dry, and something in your chest signs.
+endif
+-> wares
+
+~ take_call_of_the_lonely
+Narrator: A paper tag on a string reads 3 CP, and under it, in small print: Once per Long Rest, when unseen, call a Doppelganger companion for 1 hour. The price: your frightened allies.
+mister_crossroads [smile]: A handshake, then. Who is it to be?
+dark_gift call_of_the_lonely
+if gift:call_of_the_lonely and not flag.deal_call_of_the_lonely and not flag.small_print_read
+set deal_taken_blind
+endif
+if gift:call_of_the_lonely and not flag.deal_call_of_the_lonely
+set deal_call_of_the_lonely
+set sinner_deals += 1
+Narrator: His hand is warm and dry, and something in your chest signs.
+endif
+-> wares
+
+~ take_collector_of_stories
+Narrator: A paper tag on a string reads 3 CP, and under it, in small print: Legend Lore, free once per Long Rest. The price: each free casting makes a Friendly NPC forget you for good.
+mister_crossroads [smile]: A handshake, then. Who is it to be?
+dark_gift collector_of_stories
+if gift:collector_of_stories and not flag.deal_collector_of_stories and not flag.small_print_read
+set deal_taken_blind
+endif
+if gift:collector_of_stories and not flag.deal_collector_of_stories
+set deal_collector_of_stories
+set sinner_deals += 1
+Narrator: His hand is warm and dry, and something in your chest signs.
+endif
+-> wares
+
+~ take_crooked_fortune
+Narrator: A paper tag on a string reads 3 CP, and under it, in small print: Turn a failed save into a success (and take no damage where success would halve it). The price: your next three saves.
+mister_crossroads [smile]: A handshake, then. Who is it to be?
+dark_gift crooked_fortune
+if gift:crooked_fortune and not flag.deal_crooked_fortune and not flag.small_print_read
+set deal_taken_blind
+endif
+if gift:crooked_fortune and not flag.deal_crooked_fortune
+set deal_crooked_fortune
+set sinner_deals += 1
+Narrator: His hand is warm and dry, and something in your chest signs.
+endif
+-> wares
+
+~ take_cult_of_personality
+Narrator: A paper tag on a string reads 3 CP, and under it, in small print: Charm a creature for a day with no save, as your ally. The price: weakness whenever you stand alone.
+mister_crossroads [smile]: A handshake, then. Who is it to be?
+dark_gift cult_of_personality
+if gift:cult_of_personality and not flag.deal_cult_of_personality and not flag.small_print_read
+set deal_taken_blind
+endif
+if gift:cult_of_personality and not flag.deal_cult_of_personality
+set deal_cult_of_personality
+set sinner_deals += 1
+Narrator: His hand is warm and dry, and something in your chest signs.
+endif
+-> wares
+
+~ take_hand_of_death
+Narrator: A paper tag on a string reads 3 CP, and under it, in small print: Advantage on Constitution saves and one rise from the brink. The price: those near you die easier and you cannot raise a downed ally.
+mister_crossroads [smile]: A handshake, then. Who is it to be?
+dark_gift hand_of_death
+if gift:hand_of_death and not flag.deal_hand_of_death and not flag.small_print_read
+set deal_taken_blind
+endif
+if gift:hand_of_death and not flag.deal_hand_of_death
+set deal_hand_of_death
+set sinner_deals += 1
+Narrator: His hand is warm and dry, and something in your chest signs.
+endif
+-> wares
+
+~ take_might_of_the_old
+Narrator: A paper tag on a string reads 3 CP, and under it, in small print: Strength +2 (max 22) and, once per Long Rest, Strength 25 for a minute. The price: Dexterity -2 and bark skin, Vulnerable to fire.
+mister_crossroads [smile]: A handshake, then. Who is it to be?
+dark_gift might_of_the_old
+if gift:might_of_the_old and not flag.deal_might_of_the_old and not flag.small_print_read
+set deal_taken_blind
+endif
+if gift:might_of_the_old and not flag.deal_might_of_the_old
+set deal_might_of_the_old
+set sinner_deals += 1
+Narrator: His hand is warm and dry, and something in your chest signs.
+endif
+-> wares
+
+~ take_self_serving_sacrifice
+Narrator: A paper tag on a string reads 3 CP, and under it, in small print: Swap places with a creature taking a Critical Hit or falling to 0, and eventually cast True Resurrection by dying. The price: every rest drains Hit Dice from all near you.
+mister_crossroads [smile]: A handshake, then. Who is it to be?
+dark_gift self_serving_sacrifice
+if gift:self_serving_sacrifice and not flag.deal_self_serving_sacrifice and not flag.small_print_read
+set deal_taken_blind
+endif
+if gift:self_serving_sacrifice and not flag.deal_self_serving_sacrifice
+set deal_self_serving_sacrifice
+set sinner_deals += 1
+Narrator: His hand is warm and dry, and something in your chest signs.
+endif
+-> wares
+
+~ take_shrouded_spirit
+Narrator: A paper tag on a string reads 3 CP, and under it, in small print: Resistance to Necrotic and Advantage on saves against Undead magic. The price: a pound of raw flesh a day, and detection reads you as Undead.
+mister_crossroads [smile]: A handshake, then. Who is it to be?
+dark_gift shrouded_spirit
+if gift:shrouded_spirit and not flag.deal_shrouded_spirit and not flag.small_print_read
+set deal_taken_blind
+endif
+if gift:shrouded_spirit and not flag.deal_shrouded_spirit
+set deal_shrouded_spirit
+set sinner_deals += 1
+Narrator: His hand is warm and dry, and something in your chest signs.
+endif
+-> wares
+
+~ take_skin_of_coffin_nails
+Narrator: A paper tag on a string reads 3 CP, and under it, in small print: Resistance to one of Bludgeoning, Piercing or Slashing, and your Critical Hits of that type become normal. The price: water turns it to Vulnerability.
+mister_crossroads [smile]: A handshake, then. Who is it to be?
+dark_gift skin_of_coffin_nails
+if gift:skin_of_coffin_nails and not flag.deal_skin_of_coffin_nails and not flag.small_print_read
+set deal_taken_blind
+endif
+if gift:skin_of_coffin_nails and not flag.deal_skin_of_coffin_nails
+set deal_skin_of_coffin_nails
+set sinner_deals += 1
+Narrator: His hand is warm and dry, and something in your chest signs.
+endif
+-> wares
+
+~ take_stilled_hungers
+Narrator: A paper tag on a string reads 3 CP, and under it, in small print: Resistance to Poison, Advantage against Poisoned, and no Exhaustion from hunger. The price: Vulnerability to Psychic and fear.
+mister_crossroads [smile]: A handshake, then. Who is it to be?
+dark_gift stilled_hungers
+if gift:stilled_hungers and not flag.deal_stilled_hungers and not flag.small_print_read
+set deal_taken_blind
+endif
+if gift:stilled_hungers and not flag.deal_stilled_hungers
+set deal_stilled_hungers
+set sinner_deals += 1
+Narrator: His hand is warm and dry, and something in your chest signs.
+endif
+-> wares
+
+~ take_unquenchable_fury
+Narrator: A paper tag on a string reads 3 CP, and under it, in small print: Enter a fury: an extra melee attack and less damage taken. The price: Red Haze turns you on the nearest creature.
+mister_crossroads [smile]: A handshake, then. Who is it to be?
+dark_gift unquenchable_fury
+if gift:unquenchable_fury and not flag.deal_unquenchable_fury and not flag.small_print_read
+set deal_taken_blind
+endif
+if gift:unquenchable_fury and not flag.deal_unquenchable_fury
+set deal_unquenchable_fury
+set sinner_deals += 1
+Narrator: His hand is warm and dry, and something in your chest signs.
+endif
+-> wares
+
+~ take_wings_of_whispers
+Narrator: A paper tag on a string reads 3 CP, and under it, in small print: Bonus Action flight for 10 minutes in a whirl of shadow-crows. The price: the crows stay and whisper your secrets.
+mister_crossroads [smile]: A handshake, then. Who is it to be?
+dark_gift wings_of_whispers
+if gift:wings_of_whispers and not flag.deal_wings_of_whispers and not flag.small_print_read
+set deal_taken_blind
+endif
+if gift:wings_of_whispers and not flag.deal_wings_of_whispers
+set deal_wings_of_whispers
+set sinner_deals += 1
+Narrator: His hand is warm and dry, and something in your chest signs.
+endif
+-> wares
+
+~ potions
+mister_crossroads [smile]: From the bottles that glow, friend. Three copper a bottle, and I never overcharge.
+* [if not flag.ware_lilypad_tonic] Lilypad Tonic -> take_lilypad_tonic
+* [if not flag.ware_jinxed_rum] Jinxed Rum -> take_jinxed_rum
+* [if not flag.ware_silence_of_the_drowned] Silence of the Drowned -> take_silence_of_the_drowned
+* [if not flag.ware_elixir_of_fogwalking] Elixir of Fogwalking -> take_elixir_of_fogwalking
+* [if not flag.ware_harvest_brew] Harvest Brew -> take_harvest_brew
+* [if not flag.ware_nightwatcher_potion] Nightwatcher Potion -> take_nightwatcher_potion
+* [if not flag.ware_sight_of_sin] Sight of Sin -> take_sight_of_sin
+* [if not flag.ware_tincture_of_mourning] Tincture of Mourning -> take_tincture_of_mourning
+* [if not flag.ware_wytchwood_sap] Wytchwood Sap -> take_wytchwood_sap
+* [if not flag.ware_nectar_of_the_green_man] Nectar of the Green Man -> take_nectar_of_the_green_man
+* [if not flag.ware_draught_of_the_red_hunger] Draught of the Red Hunger -> take_draught_of_the_red_hunger
+* [if not flag.ware_haint_hooch] Haint Hooch -> take_haint_hooch
+* Look at something else -> wares
+
+~ take_lilypad_tonic
+Narrator: A paper tag reads 3 CP. A green, cloudy tonic that lets you stand on water for a minute, bobbing like a pad on a pond.
+Narrator: The small print: the tag says only what the bottle does; the rest is between you and the bottle.
+mister_crossroads [smile]: Wrapped, and on the house, practically.
+give lilypad_tonic
+if not flag.ware_lilypad_tonic and not flag.small_print_read
+set deal_taken_blind
+endif
+set ware_lilypad_tonic
+set sinner_deals += 1
+-> wares
+
+~ take_jinxed_rum
+Narrator: A paper tag reads 3 CP. Dark rum with a salty finish: the drinker is lucky for an hour and unlucky for the hour after.
+Narrator: The small print: the tag says only what the bottle does; the rest is between you and the bottle.
+mister_crossroads [smile]: Wrapped, and on the house, practically.
+give jinxed_rum
+if not flag.ware_jinxed_rum and not flag.small_print_read
+set deal_taken_blind
+endif
+set ware_jinxed_rum
+set sinner_deals += 1
+-> wares
+
+~ take_silence_of_the_drowned
+Narrator: A paper tag reads 3 CP. A bottle of pond-water that cannot be heard to slosh. Drunk, it silences every footstep and word for ten minutes.
+Narrator: The small print: the tag says only what the bottle does; the rest is between you and the bottle.
+mister_crossroads [smile]: Wrapped, and on the house, practically.
+give silence_of_the_drowned
+if not flag.ware_silence_of_the_drowned and not flag.small_print_read
+set deal_taken_blind
+endif
+set ware_silence_of_the_drowned
+set sinner_deals += 1
+-> wares
+
+~ take_elixir_of_fogwalking
+Narrator: A paper tag reads 3 CP. A silver-grey liquid. Drunk, you step through fog and mist as through an open door, and are hard to find in it for an hour.
+Narrator: The small print: the tag says only what the bottle does; the rest is between you and the bottle.
+mister_crossroads [smile]: Wrapped, and on the house, practically.
+give elixir_of_fogwalking
+if not flag.ware_elixir_of_fogwalking and not flag.small_print_read
+set deal_taken_blind
+endif
+set ware_elixir_of_fogwalking
+set sinner_deals += 1
+-> wares
+
+~ take_harvest_brew
+Narrator: A paper tag reads 3 CP. A thick, sweet brew of grain and honey that feeds a person for a day and heals them a little at every meal after.
+Narrator: The small print: the tag says only what the bottle does; the rest is between you and the bottle.
+mister_crossroads [smile]: Wrapped, and on the house, practically.
+give harvest_brew
+if not flag.ware_harvest_brew and not flag.small_print_read
+set deal_taken_blind
+endif
+set ware_harvest_brew
+set sinner_deals += 1
+-> wares
+
+~ take_nightwatcher_potion
+Narrator: A paper tag reads 3 CP. An amber draught that keeps the drinker awake and clear-eyed through a night, and lets them see in the dark.
+Narrator: The small print: the tag says only what the bottle does; the rest is between you and the bottle.
+mister_crossroads [smile]: Wrapped, and on the house, practically.
+give nightwatcher_potion
+if not flag.ware_nightwatcher_potion and not flag.small_print_read
+set deal_taken_blind
+endif
+set ware_nightwatcher_potion
+set sinner_deals += 1
+-> wares
+
+~ take_sight_of_sin
+Narrator: A paper tag reads 3 CP. A bitter violet eyewash. For a minute the drinker sees what each person nearby is most ashamed of.
+Narrator: The small print: the tag says only what the bottle does; the rest is between you and the bottle.
+mister_crossroads [smile]: Wrapped, and on the house, practically.
+give sight_of_sin
+if not flag.ware_sight_of_sin and not flag.small_print_read
+set deal_taken_blind
+endif
+set ware_sight_of_sin
+set sinner_deals += 1
+-> wares
+
+~ take_tincture_of_mourning
+Narrator: A paper tag reads 3 CP. A black tincture drunk by the grieving. It dulls sorrow and fear for a day and calls up the dead's last words.
+Narrator: The small print: the tag says only what the bottle does; the rest is between you and the bottle.
+mister_crossroads [smile]: Wrapped, and on the house, practically.
+give tincture_of_mourning
+if not flag.ware_tincture_of_mourning and not flag.small_print_read
+set deal_taken_blind
+endif
+set ware_tincture_of_mourning
+set sinner_deals += 1
+-> wares
+
+~ take_wytchwood_sap
+Narrator: A paper tag reads 3 CP. Resin from a wytch-tree, sticky and warm. Smeared on a blade it bites deep into the fey and the undead for a time.
+Narrator: The small print: the tag says only what the bottle does; the rest is between you and the bottle.
+mister_crossroads [smile]: Wrapped, and on the house, practically.
+give wytchwood_sap
+if not flag.ware_wytchwood_sap and not flag.small_print_read
+set deal_taken_blind
+endif
+set ware_wytchwood_sap
+set sinner_deals += 1
+-> wares
+
+~ take_nectar_of_the_green_man
+Narrator: A paper tag reads 3 CP. Gold-green nectar from the oldest oak in the Hollow. For a day the drinker's skin takes on bark and their wounds close like cut wood.
+Narrator: The small print: the tag says only what the bottle does; the rest is between you and the bottle.
+mister_crossroads [smile]: Wrapped, and on the house, practically.
+give nectar_of_the_green_man
+if not flag.ware_nectar_of_the_green_man and not flag.small_print_read
+set deal_taken_blind
+endif
+set ware_nectar_of_the_green_man
+set sinner_deals += 1
+-> wares
+
+~ take_draught_of_the_red_hunger
+Narrator: A paper tag reads 3 CP. A red draught that thirsts back. For a day the drinker's blows heal them and their hunger cannot be fed.
+Narrator: The small print: the tag says only what the bottle does; the rest is between you and the bottle.
+mister_crossroads [smile]: Wrapped, and on the house, practically.
+give draught_of_the_red_hunger
+if not flag.ware_draught_of_the_red_hunger and not flag.small_print_read
+set deal_taken_blind
+endif
+set ware_draught_of_the_red_hunger
+set sinner_deals += 1
+-> wares
+
+~ take_haint_hooch
+Narrator: A paper tag reads 3 CP. A foul blue-green jug marked XxX: drink it to become insubstantial for a minute, passing through creatures and objects.
+Narrator: The small print: the tag says only what the bottle does; the rest is between you and the bottle.
+mister_crossroads [smile]: Wrapped, and on the house, practically.
+give haint_hooch
+if not flag.ware_haint_hooch and not flag.small_print_read
+set deal_taken_blind
+endif
+set ware_haint_hooch
+set sinner_deals += 1
+-> wares
+
+~ take_the_bag
+Narrator: A paper tag reads 3 CP. A satchel that holds 500 lb and weighs 5, with a Lurker in the Dark inside. It is cursed.
+Narrator: The curse: Something lives in the bag. Each Long Rest, a 1 on a d6 means it slipped out in the night and caused mayhem close by. (Reference only; the game does not roll it yet.) It dies for good only to someone holding a child's toy, and then the bag is merely a bag.
+mister_crossroads [smile]: Wrapped, and on the house, practically.
+give the_bag
+if not flag.ware_the_bag and not flag.small_print_read
+set deal_taken_blind
+endif
+set ware_the_bag
+set sinner_deals += 1
+-> wares
+
+~ take_green_ribbon
+Narrator: A paper tag reads 3 CP. Worn at the neck, it adds 5 to your death saving throws. It is cursed.
+Narrator: The curse: Anyone within 60 feet who is dying finds the dark pulling harder: they take a -1 penalty on death saves, and a worse one each time the ribbon is used. (Reference only; the penalty is not applied by the game yet.)
+mister_crossroads [smile]: Wrapped, and on the house, practically.
+give green_ribbon
+if not flag.ware_green_ribbon and not flag.small_print_read
+set deal_taken_blind
+endif
+set ware_green_ribbon
+set sinner_deals += 1
+-> wares
+
+~ take_amber_birdcage
+Narrator: A paper tag reads 3 CP. Raum's chest cage; replaces your torso while attuned (cursed; its powers wait on the engine's curio rules).
+Narrator: The curse: the tag says only what the bottle does; the rest is between you and the bottle.
+mister_crossroads [smile]: Wrapped, and on the house, practically.
+give amber_birdcage
+if not flag.ware_amber_birdcage and not flag.small_print_read
+set deal_taken_blind
+endif
+set ware_amber_birdcage
+set sinner_deals += 1
+-> wares
+
+~ curios
+mister_crossroads [sly]: Curios, idols, a bag. Some of them are old friends of mine.
+* [if not flag.ware_the_bag] The Bag -> take_the_bag
+* [if not flag.ware_green_ribbon] Green ribbon -> take_green_ribbon
+* [if not flag.ware_amber_birdcage] The Amber Birdcage -> take_amber_birdcage
+* Look at something else -> wares
+

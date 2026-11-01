@@ -1,0 +1,73 @@
+# Drafted by Gemini (R15 lagoon), edited.
+
+~ view
+set lagoon_seen
+if flag.crossroads_passage
+cutscene dc_lagoon
+Narrator: Out in the black mangrove lake sits a grand riverboat glowing with neon light, its tall iron funnels coughing plumes of magenta smoke into the night.
+cutscene dc_lagoon_3
+Narrator: A narrow coffin boat glides through the cypress roots toward the bank, poled by a silent chauffeur with green copper coins pressed over his eyes.
+else
+cutscene dc_lagoon_2
+Narrator: Out in the mangrove lake, a rotted riverboat lies split in two upon the mud, a row of faded letters peeling from its waterlogged hull.
+endif
+cutscene end
+-> END
+
+~ wreck
+Narrator: The broken stern settles deeper into the black silt with every ripple, smelling of wet char, swamp rot, and riverweed.
+* [Investigation DC 12] Read the faded letters -> wreck_read | wreck_miss
+* Leave it -> END
+
+~ wreck_read
+Narrator: Through the blistered paint and moss, you make out part of an old name: Dead M... H.... Without a token of passage, the grand boat is only a wreck.
+-> END
+
+~ wreck_miss
+Narrator: The gilt lettering has peeled away in the damp, leaving only pale scars on the sodden timber that could spell almost anything.
+-> END
+
+~ wreck_ferryman
+Narrator: The chauffeur stands motionless beside the landing with his pole planted in the mud, facing the dark water; whatever passenger he waits for, it is not you.
+-> END
+
+~ dock
+Narrator: The chauffeur poles his long coffin boat quietly against the pilings and holds out one grey hand, copper coins dull upon his eyes and brow.
+* Board the coffin boat -> board
+* [if flag.ferryman_paid] Remind him you paid -> board
+* Not yet -> END
+
+~ board
+Narrator: The narrow hull barely dips beneath your weight as the pole takes hold, pushing you out across the glassy black water toward the brass music and magenta glow.
+set dc_boarded
+quest withered_arm aboard
+move dc_boat_promenade:from_gangplank
+
+~ bellhops
+if flag.crossroads_refused
+bellhop_zombie [neutral]: Good evening, friends, and pardon the intrusion. My colleague and I have keen noses for the uninvited, and we can always smell a traveler without a token.
+else
+-> bh_ok
+endif
+* [Deception DC 16] We are expected -> bh_ok | bh_miss
+* [if flag.ferryman_paid] The Ferryman vouched for us -> bh_ok
+* [if gold >= 25] Tip them twenty-five gold -> bh_tip
+* Fight the bellhops -> bh_fight
+
+~ bh_ok
+set dc_bellhops_ok
+bellhop_zombie [smile]: Welcome aboard the Dead Man's Hand, honoured guests. Mind your step on the brass, and please enjoy one hundred gold of complimentary play at our tables tonight.
+-> END
+
+~ bh_miss
+bellhop_zombie [smile]: That is a remarkably bold story, friend, and told with admirable posture, though I am afraid the guest list remains quite unconvinced.
+-> bellhops
+
+~ bh_tip
+gold -25
+set dc_bellhops_ok
+Narrator: The heavy coins vanish into a velvet bellhop's bag no bigger than a teacup, and two vast dead men bow until their tiny hats nearly touch.
+-> END
+
+~ bh_fight
+combat dc_bellhops

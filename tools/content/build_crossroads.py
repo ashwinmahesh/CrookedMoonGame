@@ -248,6 +248,7 @@ def build_murkwater():
         prop("dc_boathouse_ledger", (13, 22), "A boathouse tally board", model="ledger", dialogue=DC + "side_ledger:tally_board", when="flag.ledger_asked"),
         prop("dc_church_door", (9, 12), "The Mud Church's plank door", kind="decor", model="door"),
         prop("dc_church_bell", (11, 13), "A cracked ship's bell", model="lantern_post", dialogue=DC + "side_wedding:bell", when="flag.wedding_asked"),
+        prop("dc_church_plate", (6, 14), "The Mud Church's collection plate", model="bench", dialogue=DC + "side_coins:thibault_coin", when="flag.coins_asked and not flag.coin_church"),
         prop("dc_ferry_boat", (51, 35), "A coffin boat, tied at the mooring", kind="decor", model="rocks"),
         prop("dc_trader_barrels", (33, 36), "Barrels of pickled things", kind="decor", model="barrel"),
         prop("dc_trader_nets", (41, 36), "Hanging nets and crab traps", kind="decor", model="rope"),
@@ -603,7 +604,6 @@ def build_quests():
         "summary": "Coin is going missing between the pits, the boathouses and the market, and Lyla wants the skimmer without telling Vander.",
         "stages": [
             stage("asked", "Someone is skimming Murkwater's coin. Lyla wants three tallies checked: the boathouses, the pits, Traders' Row.", "Check the boathouse board, ask the pit boss, and look at Traders' Row.", ["Check three tallies"]),
-            stage("accuse", "The tallies point one way. Whoever it is, Lyla wants a name.", "Tell Lyla who it is.", ["Name the skimmer"]),
             stage("done", "The skimmer is named, and the town knows it.", ends="success"),
             stage("lost", "We named the wrong person, and the pits closed over it.", ends="failure")]})
     write("data/quests/the_ferrymans_coins.json", {
@@ -626,7 +626,6 @@ def build_quests():
         "summary": "Marguerite Salt and Ignatius Fontaine are to marry at the Mud Church tonight, and nothing is ready.",
         "stages": [
             stage("asked", "The Reverend needs three things: the ring Lou pawned, music, and a supper.", "Find the ring, music and supper.", ["Ring, music, supper"]),
-            stage("ready", "Everything we could find is ready.", "Tell the Reverend.", ["Begin the wedding"]),
             stage("done", "They were married, more or less.", ends="success"),
             stage("lost", "We gave up, and the wedding was called off.", ends="failure")]})
 
