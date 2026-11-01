@@ -34,7 +34,7 @@ RE_QUEST = re.compile(rf"^quest\s+({ID})\s+({ID})$")
 RE_GIVE = re.compile(rf"^give\s+({ID})")
 RE_CHECK = re.compile(r"^check\s+(.*?)\s*->\s*([A-Za-z0-9_:/]+|END)(?:\s*\|\s*([A-Za-z0-9_:/]+|END))?$")
 # `save <Ability> DC <n> party -> ok | fail`: a roll like a check (every living hero saves; ok when all of them do).
-RE_PARTY_SAVE = re.compile(r"^save\s+([A-Za-z]+)\s+DC\s+\d+\s+party\s*->\s*([A-Za-z0-9_:/]+|END)(?:\s*\|\s*([A-Za-z0-9_:/]+|END))?$")
+RE_PARTY_SAVE = re.compile(r"^save\s+([A-Za-z]+)\s+DC\s+\d+\s+party(?:\s+unless\s+resists\s+[a-z]+)?\s*->\s*([A-Za-z0-9_:/]+|END)(?:\s*\|\s*([A-Za-z0-9_:/]+|END))?$")
 RE_COMBAT = re.compile(rf"^combat\s+({ID})$")
 RE_MOVE = re.compile(rf"^move\s+({ID})(?::({ID}))?$")
 RE_IF = re.compile(r"^(if|elif)\s+(.+)$")
