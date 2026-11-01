@@ -284,3 +284,98 @@ func test_every_approval_talk_plays_through_each_of_its_options() -> void:
 				assert_true(lines.size() >= 3, "%s %s option %d speaks" % [id, talk, pick + 1])
 				if talk == "talk_devoted":
 					assert_true(st.party[0].heroic_inspiration, "%s: Devoted ends in Heroic Inspiration (option %d)" % [id, pick + 1])
+
+
+# --- Party banter (narrative/banter/party_act1..3.dialogue) --------------------------------------------------------------------
+
+func test_the_banter_files_read_with_nine_exchanges_each_gated_by_their_act_and_their_speakers() -> void:
+	for act: String in BANTER_ACTS:
+		var path := "res://narrative/banter/party_%s.dialogue" % act
+		var df := DialogueFile.load_key("banter/party_" + act)
+		assert_true(df != null, act)
+		assert_true(df.errors.is_empty(), "%s: %s" % [act, str(df.errors)])
+		var nodes := _raw_nodes(path)
+		assert_eq(nodes.size(), 9, "%s: nine exchanges" % act)
+		for node: String in nodes:
+			var lines := nodes[node] as Array
+			assert_true(str(lines[0]).begins_with("if "), "%s:%s opens with an if" % [act, node])
+			var cond := str(lines[0]).substr(3)
+			assert_true(cond.ends_with(BANTER_ACTS[act]), "%s:%s carries its act's gate: %s" % [act, node, cond])
+			var spoken := {}
+			var said := 0
+			for l: Variant in lines:
+				var m := RegEx.create_from_string("^interject name:([a-z0-9_]+): ").search(str(l))
+				if m != null:
+					spoken[m.get_string(1)] = true
+					said += 1
+			assert_true(spoken.size() >= 2 and spoken.size() <= 3, "%s:%s has two or three speakers" % [act, node])
+			assert_true(said >= 4 and said <= 9, "%s:%s says 4 to 9 lines (%d)" % [act, node, said])
+			for who: String in spoken:
+				assert_true(cond.contains("name:" + who), "%s:%s opens by naming %s" % [act, node, who])
+			assert_true(str(lines[lines.size() - 2]) == "endif" and str(lines[lines.size() - 1]) == "-> END", "%s:%s ends" % [act, node])
+
+
+func test_all_fifteen_pairs_talk_somewhere_across_the_three_files() -> void:
+	var pairs := {}
+	for act: String in BANTER_ACTS:
+		var nodes := _raw_nodes("res://narrative/banter/party_%s.dialogue" % act)
+		for node: String in nodes:
+			var who: Array[String] = []
+			for l: Variant in nodes[node]:
+				var m := RegEx.create_from_string("^interject name:([a-z0-9_]+): ").search(str(l))
+				if m != null and not m.get_string(1) in who:
+					who.append(m.get_string(1))
+			for i in who.size():
+				for j in range(i + 1, who.size()):
+					var pair := [who[i], who[j]]
+					pair.sort()
+					pairs["%s+%s" % pair] = true
+	assert_eq(pairs.size(), 15, "every pair: %s" % str(pairs.keys()))
+
+
+func test_banter_plays_only_in_its_act_and_only_what_the_party_can_say() -> void:
+	var st := StoryState.new()
+	for id in IDS:
+		st.party.append(TestChars.pregen(id, 5))
+	var b := Banter.new(3)
+	assert_true(b.next(st, "party").is_empty(), "no act yet: nothing plays")
+	st.set_flag("gl_crashed", true)
+	var played := 0
+	for _i in 30:
+		var lines := b.next(st)
+		if lines.is_empty():
+			break
+		played += 1
+		for line in lines:
+			assert_true(str(line["speaker_id"]) in IDS or bool(line["narrator"]), str(line))
+	assert_eq(played, 9, "all nine of act one play for a party of all six, and no other act")
+	st.set_flag("vessla_slain", true)
+	st.set_flag("act2_done", 2)
+	played = 0
+	for _i in 30:
+		if b.next(st).is_empty():
+			break
+		played += 1
+	assert_eq(played, 9, "act two's nine")
+	st.set_flag("act2_done", 5)
+	played = 0
+	for _i in 30:
+		if b.next(st).is_empty():
+			break
+		played += 1
+	assert_eq(played, 9, "act three's nine")
+	# A party of two hears only what the two can say.
+	var two := StoryState.new()
+	two.party.append(TestChars.pregen("rook_coldwake", 5))
+	two.party.append(TestChars.pregen("silas_vane", 5))
+	two.set_flag("gl_crashed", true)
+	var b2 := Banter.new(5)
+	var n := 0
+	for _i in 30:
+		var lines := b2.next(two)
+		if lines.is_empty():
+			break
+		n += 1
+		for line in lines:
+			assert_true(str(line["speaker_id"]) in ["rook_coldwake", "silas_vane"], str(line))
+	assert_eq(n, 1, "Rook and Silas have one act-one exchange to themselves")

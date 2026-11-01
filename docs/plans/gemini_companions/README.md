@@ -268,3 +268,26 @@ by the cloud thread in 9cd7911, so they are no longer exactly what the converter
 **secrets_tobin_hayward** (2 edits)
 - "NARRATOR: The Vagrant watches the embers settle while Tobin turns a dry twig over in his fingers." -> "NARRATOR: The embers settle while Tobin turns a dry twig over in his fingers.": The Narrator never appears in his own tale.
 - "NARRATOR: Tobin dustin' his palms together makes a soft papery whisper in the quiet." -> "NARRATOR: Tobin dusts his palms together with a soft papery whisper in the quiet.": Grammar.
+
+**banter_act1** (6 edits)
+- "SAY silas_vane: Look at the coat on him, friend, that hound would bolt at a clap of thunder if the house didn't hold his leash." -> "SAY silas_vane: Look at the coat on that hound, friend, he has the nerve of a high-roller and the manners of a bouncer.": Silas cannot know the hound fears thunder yet (act one: strangers).
+- "SAY silas_vane: Watch the queen of bones, darling," -> "SAY silas_vane: Watch the queen of bones, friend,": 'Darling' is Delphine's word; Silas says 'friend'.
+- "SAY silas_vane: Nobody reads the fine print in time, darling, we just keep shuffling" -> "SAY silas_vane: Nobody reads the fine print in time, we just keep shuffling": Same, and one pet word an exchange.
+- "Your floating friend over there is rattling" -> "Your floating pal over there is rattling": Pet words: one an exchange ('friend' is a vocative for Silas).
+- "And it is "fewer manners", if you please." -> "And it is "fewer manners".": Pet phrases never in two consecutive lines.
+- "you will keep your needles away from Dreadfang, if you please." -> "you will keep your needles away from Dreadfang.": Same.
+
+**banter_act2** (3 edits)
+- "SAY rook_coldwake: Culvert's blocked three yards back, big surprise. Mind the turf by the ditch, the verge has no proper retaining wall." -> "SAY rook_coldwake: Culvert's blocked three yards back, big surprise. Watch the ditch, the verge has no proper retaining wall.": Pet phrases never in two consecutive lines.
+- "Posture reveals the whole temperament of the quarry, if you please. Wait," -> "Posture reveals the whole temperament of the quarry. Wait,": Same.
+- "SAY rook_coldwake: Chalk on bone isn't municipal record, Silas, it smudges in the damp and fails audit. Settle down now." -> "SAY rook_coldwake: Chalk on bone isn't municipal record, Silas, it smudges in the damp and fails audit.": Same.
+
+**banter_act3** (8 edits)
+- "before we reach the Crooked House." -> "before we reach the end of this road.": The Crooked House is behind them by act three.
+- "when you can see the roof of the Crooked House over the ridge, you either" -> "when you can see the end of the road over the ridge, you either": Same.
+- "SAY delphine_ravelle: Eight sleeves cut on the bias, darling, and not a single pucker at the shoulder seam, whoever fitted that charcoal silk deserves top billing." -> "SAY delphine_ravelle: Eight sleeves cut on the bias, darling, and not a single pucker at the shoulder seam. I would pay good money to see that pattern.": The top-billing joke was act one's (the same pair).
+- "SAY tobin_hayward: You just planted a coffin-lid shield between my boots and a drift of hot cinders, Rook, and you didn't even break step to do it." -> "SAY tobin_hayward: You have planted that coffin-lid between my boots and a drift of hot cinders again, Rook, and you didn't even break step to do it.": A callback to act one's ember, not a repeat.
+- "care to put a silver piece on the table?" -> "I'll keep asking until you crack.": A callback to act one's wager, not a repeat.
+- "A gentleman does not wager on the quarry, Silas, though" -> "A gentleman still does not wager on the quarry, Silas, though": Same.
+- "and my fingers are going soft as river mud in the damp." -> "and my knuckles are taking the damp poorly.": Rook's own line from his voice sheet, not to be repeated.
+- "SAY delphine_ravelle: Mind the seams, darling, we are walking out of that Crooked House together even if Cordelia has to stitch us back up by hand." -> "SAY delphine_ravelle: We are walking out of this valley together, even if Cordelia has to stitch us back up by hand.": The Crooked House is behind them; pet phrases never in two consecutive lines.
