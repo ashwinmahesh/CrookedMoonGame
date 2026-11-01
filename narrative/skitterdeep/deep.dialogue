@@ -1,0 +1,91 @@
+# Drafted by Gemini (R16 deep), edited.
+
+~ arrive
+Narrator: A thick yellow-green haze pools at the bottom of the shaft, reeking of wet rot. The tunnel walls are soft and slick, squirming whenever your lantern light touches them.
+set sk_deep_seen
+quest skitter_plague the_hags_lair
+-> END
+
+~ miasma_a
+Narrator: The yellow-green haze thickens around your boots, heavy and sour on the tongue.
+check Constitution DC 16 -> a_ok | a_fail
+
+~ a_ok
+Narrator: You hold your breath and press a sleeve hard across your mouth until the worst of the drift passes.
+set sk_miasma_a
+-> END
+
+~ a_fail
+Narrator: The foul vapour slips past your teeth and coats your throat like warm tallow, setting your chest aching.
+damage 1d6 poison party
+set sk_miasma_a
+-> END
+
+~ miasma_b
+Narrator: Nearer the great bronze door, the bilious fog hangs thicker still, stinging your eyes and skin.
+check Constitution DC 16 -> b_ok | b_fail
+
+~ b_ok
+Narrator: You keep your head low and your lungs shut tight against the creeping reek.
+set sk_miasma_b
+-> END
+
+~ b_fail
+Narrator: You draw a shallow breath of the rot-sweet gas, and black bile rises hot in your throat.
+damage 1d6 poison party
+set sk_miasma_b
+-> END
+
+~ sigils
+if flag.skitter_sigils_broken
+Narrator: The knotted ring of entrails lies cold and slack upon the stone, its foul breath spent.
+-> END
+endif
+Narrator: Coils of wet sinew and knotted entrails writhe in a wide ring across the chamber floor. With every slow pulse, the glistening meat sweats out a fresh cloud of yellow-green miasma.
+-> sigils_menu
+
+~ sigils_menu
+* [Athletics DC 17] Hack the ring to pieces -> smash_ok | smash_fail
+* [Arcana DC 20] Unpick the working -> unpick_ok | unpick_fail
+* [knows:dispel_magic] Cast Dispel Magic at it -> dispel
+* [if item:alchemists_fire] Throw Alchemist's Fire -> burn
+* Leave it -> END
+
+~ smash_ok
+Narrator: Steel bites clean through the knotted gristle, parting the pulsing cords in a spray of dark ichor.
+-> sigils_done
+
+~ smash_fail
+Narrator: Your blows bounce off the tough, slick sinew without leaving so much as a nick.
+-> sigils_menu
+
+~ unpick_ok
+Narrator: You trace the crooked binding to its anchor knot and draw the foul thread loose.
+-> sigils_done
+
+~ unpick_fail
+Narrator: The wet cords twist under your fingers, and the knot only tightens with a wet hiss.
+-> sigils_menu
+
+~ dispel
+Narrator: Your word of unmaking snaps the unseen tether holding the meat to its rhythm.
+-> sigils_done
+
+~ burn
+take alchemists_fire
+Narrator: The flask shatters and pale green flame crawls greedily over the ring, crisping the wet sinew.
+-> sigils_done
+
+~ sigils_done
+Narrator: The ring slackens and dies upon the stone, and the hissing gas ceases at once. Far off in the dark of the mine, something lets out a long, wet shriek, as though a blade had found its ribs.
+set skitter_sigils_broken
+set skitterdeep_alert = now
+if flag.stonoga_slain
+quest skitter_plague exterminated
+set plague_lifted
+cutscene sk_plague_lifts
+cutscene sk_plague_lifts_2
+cutscene end
+Narrator: Within the hour, the fever breaks across Wickermoor, and the last of the centipedes scatter into the cold hills.
+endif
+-> END

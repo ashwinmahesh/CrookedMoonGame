@@ -1,0 +1,60 @@
+# Drafted by Gemini (R16 farewell), edited.
+
+~ morgan_thanks
+morgan [weary]: You did it. The fever broke just before the bell, and the colour is coming back into their cheeks.
+morgan [smile]: Half the cots are already sitting up and asking after broth. I set these vials aside for the four of you, mixed for strong hearts and bad air.
+give potion_of_healing_greater 2
+give potion_of_resistance_poison 1
+quest skitter_plague back_in_wickermoor
+quest skitter_plague done
+set skitter_farewell
+set act2_done += 1
+xp milestone
+Narrator: The bitter stink of black bile has gone from the room, replaced by bruised mint, clean linen, and the quiet clink of warm glass.
+-> menu
+
+~ menu
+* Ask how the sick are -> sick
+* Ask what Morgan remembers -> remembers
+* Take our leave -> bye
+
+~ sick
+morgan [smile]: Old Haldor called for salted turnips the moment his eyes opened, and Ottilie's little one slept through the hour without a whimper. Even Pim Fenwick stopped groaning long enough to ask for his mirror.
+-> bye
+
+~ remembers
+morgan [weary]: I reached back for it while the kettle boiled, some face or song from before the mist took me. There was only quiet water, and for once I did not mind.
+-> bye
+
+~ bye
+morgan [smile]: Go easy on the road, friends. The kettle is on whenever you pass the door.
+-> END
+
+~ reopening
+appear phillip_druskenvald
+appear wendel_somerton
+cutscene sk_reopening
+cutscene sk_reopening_2
+wendel_somerton [smile]: Behold, my dear friends, the charter of reclamation, the timber tallies, and the preliminary pit-head requisitions! Glitterdeep Mine shall live again, properly stamped and witnessed!
+phillip_druskenvald [smile]: Say, the old house is footing the whole bill, top to bottom. Once these good folks have their sea legs back, every able hand in Wickermoor has a wage waiting up the hill.
+wendel_somerton [smile]: Most remarkable of all, Miss Mayville delivered a sealed notice of congratulation from the post office before I had even dipped my pen.
+cutscene end
+* Ask Phillip about the funding -> funding
+* Ask Wendel about the forms -> forms
+* Wish them luck -> luck
+
+~ funding
+phillip_druskenvald [weary]: A gentleman squares his ledger, old sport, even when the ink is seventy years dry. My family has owed this valley a clean pit and an honest living for a very long time.
+-> end_node
+
+~ forms
+wendel_somerton [smile]: Everything is drawn up in triplicate for the new signboard, though I remain agonizingly torn between restoring Glitterdeep and inaugurating the New Somerton Delve.
+-> end_node
+
+~ luck
+wendel_somerton [smile]: May the Green Queen bless the beams and keep the dark beneath the stone.
+-> end_node
+
+~ end_node
+set glitterdeep_reopening
+-> END

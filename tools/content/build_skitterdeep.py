@@ -108,6 +108,14 @@ MID = "level >= 5"
 
 
 # ---- the maps drawn by hand --------------------------------------------------------------------------------------------------------
+def put_floor(g, cells, ch="="):
+    """Marks only squares that are open floor, never turns a wall into cover."""
+    for (x, y) in cells:
+        if g.c[y][x] == ".":
+            g.c[y][x] = ch
+    return g
+
+
 def carve(g, rects):
     for (x0, y0, x1, y1) in rects:
         g.fill(x0, y0, x1, y1, ".")
@@ -144,9 +152,9 @@ def rooms_upper():
     ]
     carve(g, rects)
     g.fill(30, 14, 32, 16, " ")            # the main shaft: 15 ft square, a drop with no bottom
-    g.put([(6, 12), (6, 13), (15, 27), (15, 28), (24, 12), (24, 13)], "=")   # minecarts in the side cuts
-    g.put([(14, 17), (13, 20), (17, 21), (20, 20)], "=")     # overturned carts and timbers
-    g.put([(54, 10), (55, 10), (58, 9), (61, 12), (62, 12), (60, 20), (61, 20), (56, 20), (54, 18)], "=")   # the heaps of the hoard
+    put_floor(g, [(6, 12), (6, 13), (15, 27), (15, 28), (24, 12), (24, 13)])   # minecarts in the side cuts
+    put_floor(g, [(12, 19), (17, 22), (20, 20), (4, 17), (8, 18)])     # overturned carts and timbers
+    put_floor(g, [(54, 10), (55, 10), (58, 9), (61, 12), (62, 12), (60, 20), (61, 20), (56, 20), (54, 18)])   # the heaps of the hoard
     return g.rows()
 
 
@@ -298,7 +306,7 @@ def build_machine_shop():
         prop("sk_lye_barrel_note", (3, 9), "A barrel of grey lye", model="barrel"),
         prop("sk_shop_crawlers", (12, 7), "Tiny centipedes in the straw", kind="decor", model="soot_patch"),
     ]
-    m["containers"] = [container("sk_lye_barrel", (4, 9), "A lye barrel and a stack of cakes", items=[("lye_soap_flask", 2), ("oil", 1)])]
+    m["containers"] = [container("sk_lye_barrel", (4, 9), "A lye barrel and a stack of cakes", items=[("lye_soap_flask", 2), ("oil", 1), ("alchemists_fire", 1)])]
     m["npcs"] = [npc("parcel_rider", (14, 8), "trail:rider_bed", when="not flag.skitter_letter_hook and not flag.parcel_rider_met", steps_aside=True, lying=True)]
     m["encounters"] = tiers("sk_lair_fleshdobbins", [
         (FULL, [mon("fleshdobbin", (11, 3), "A fleshdobbin in a wine-red surcoat", facing="south"), mon("fleshdobbin", (15, 3), "A fleshdobbin in a wine-red surcoat", facing="south")],
@@ -541,9 +549,10 @@ def build_schedule():
         ev.append(e)
     ev.append({"id": "sk_midnight_swarm", "summary": "A dead villager bursts into a skitterswarm at the Midnight Hour.", "hour": 23, "location": "wickermoor_village", "here_only": True,
                "when": "flag.plague_day >= 2 and not flag.stonoga_slain and not flag.sk_midnight_done", "dialogue": "skitterdeep/clock:midnight_swarm"})
-    ev.append({"id": "sk_letter_pigeon", "summary": "Theodora's pigeon finds the party while it is away from the village.", "hour": 8, "once": True,
-               "when": "flag.plague_started and not flag.skitter_asked and not flag.skitter_letter_hook and days_since.plague_started >= 1 and not region:wickermoor",
-               "dialogue": "skitterdeep/letter:arrives"})
+    for where in ("foxwillow", "druskenvald_estate", "sk_hills_trail"):    # wherever the party is away (a place per chapter; the others' places join as they land)
+        ev.append({"id": "sk_letter_pigeon_" + where, "summary": "Theodora's pigeon finds the party while it is away from the village.", "hour": 8, "once": True, "location": where,
+                   "when": "flag.plague_started and not flag.skitter_asked and not flag.skitter_letter_hook and days_since.plague_started >= 1",
+                   "dialogue": "skitterdeep/letter:arrives"})
     write("data/schedule/skitterdeep.json", {"id": "skitterdeep", "region": REGION, "summary": "The Skitter Plague's clock: nights in the village, and a pigeon with a letter.", "events": ev})
 
 
@@ -688,6 +697,46 @@ def build_village():
     write("data/locations/wickermoor_post_office.json", po)
 
 
+# ---- the flag registry -------------------------------------------------------------------------------------------------------------
+INT_FLAGS = {"plague_started", "plague_day", "plague_toll", "skitterdeep_alert"}
+STR_FLAGS = {"queue_outcome", "thirteen_outcome"}
+
+
+def build_flags():
+    """Registers every flag this chapter's dialogue, places, schedule and quests name that no other region's registry holds (the flags are read_later: other
+    lanes read them as they build their own sides)."""
+    import re
+    names = set()
+    sources = list((ROOT / "narrative/skitterdeep").glob("*.dialogue")) + [ROOT / f"data/locations/{k}.json" for k in
+              ("sk_hills_trail", "sk_camp", "sk_warehouse", "sk_machine_shop", "sk_upper", "sk_deep", "wickermoor_apothecary", "wickermoor_post_office", "wickermoor_village")] + [ROOT / "data/schedule/skitterdeep.json"]
+    for src in sources:
+        text = src.read_text()
+        if src.name.startswith("wickermoor_"):     # only the entries this chapter put there
+            d = json.loads(text)
+            mine = [x for k in ("props", "npcs", "encounters", "exits") for x in d.get(k, []) if "skitterdeep/" in json.dumps(x) or str(x.get("id", "")).startswith("sk_") or str(x.get("id", "")) == "hills_road"]
+            text = json.dumps(mine)
+        names |= set(re.findall(r"flag\.([a-z][a-z0-9_]*)", text))
+        names |= set(re.findall(r"(?:minutes_since|days_since)\.([a-z][a-z0-9_]*)", text))
+        names |= set(re.findall(r'"flag": "([a-z][a-z0-9_]*)"', text))
+        names |= set(re.findall(r"^\s*set ([a-z][a-z0-9_]*)", text, flags=re.M))
+        names |= set(re.findall(r'"set": \{([^}]*)\}', text) and [k for blob in re.findall(r'"set": \{([^}]*)\}', text) for k in re.findall(r'"([a-z][a-z0-9_]*)":', blob)])
+    names |= INT_FLAGS | STR_FLAGS | {"sk_wh_done", "sk_lair_done", "sk_diggers_done", "sk_spy_done", "sk_landing_done", "sk_door_done", "sk_round_done", "sk_midnight_done",
+                                      "parcel_rider_slain", "thirteen_slain", "oswald_slain", "stonoga_slain"}
+    have = set()
+    for f in (ROOT / "data/flags").glob("*.json"):
+        if f.name != "skitterdeep.json":
+            have |= {x["id"] for x in json.loads(f.read_text())["flags"]}
+    have |= {"act2_done"}
+    out = []
+    for n in sorted(names - have):
+        if n in ("now", "true", "false"):
+            continue
+        t = "int" if n in INT_FLAGS else ("string" if n in STR_FLAGS else "bool")
+        out.append({"id": n, "type": t, "summary": "Skitterdeep Mine (R16, build_skitterdeep.py).", "read_later": True})
+    write("data/flags/skitterdeep.json", {"flags": out})
+    print(len(out), "flags registered")
+
+
 def check_cells():
     """Every placed thing stands on a square the map leaves walkable."""
     bad = []
@@ -733,5 +782,7 @@ if __name__ == "__main__":
     build_travel()
     build_bosses()
     build_village()
+    if (ROOT / "narrative/skitterdeep").exists():
+        build_flags()
     print("cells ok" if check_cells() else "cells BAD")
     print("ok")

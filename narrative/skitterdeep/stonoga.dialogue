@@ -1,0 +1,73 @@
+# Drafted by Gemini (R16 stonoga), edited.
+
+~ enter
+Narrator: Behind the bronze door lies a cramped chamber of flasks, stained parchments, and filthy blades lit by bruise-coloured flames and sour miasma. Over a table bearing a malformed corpse half-fused with a rat-folk traveler, a tall, stringy figure straightens, her neck stretching several feet.
+stonoga_blackstinger [smile]: Ooooh, company at the supper hour, tk-tk, step right in! Look at these tender, lively cuts of meat walking right up to my carving board.
+-> menu
+
+~ menu
+* Talk to her -> chat
+* [if flag.skitter_letter_hook or flag.theodora_tell_seen] Mention her eldest sister -> taunt
+* Draw steel -> fight
+* Back away -> END
+
+~ chat
+stonoga_blackstinger [sly]: Silly little Vessla is dead and gone, tk-tk, and after all these long years of waiting, my broth is finally boiling over. Four fresh cuts like you will pack so neatly into my pickling jars.
+stonoga_blackstinger [smile]: Seventy years ago these miners drank my soup and begged for more, tk-tk, and I have been shaping their sweet marrow ever since.
+-> menu
+
+~ taunt
+Narrator: You tell her that the postmaster in Wickermoor wants her dead as an offering to the Crooked Queen. Her wet smile vanishes, one dark eye twitches, and her jaw gives a single dry click.
+stonoga_blackstinger [angry]: Old Golub always did fancy the biggest portion at the table, tk-tk. I will keep that little thought in mind while I peel the skin from your bones.
+set stonoga_taunted
+-> fight
+
+~ fight
+stonoga_blackstinger [angry]: Hold still now, my sweet, juicy morsels, tk-tk, the first slice is always the wettest!
+set stonoga_talked
+combat sk_stonoga
+
+~ table
+Narrator: On the stained slab lies a malformed corpse half-fused at the ribs with a rat-folk traveler. Folded papers in a torn waistcoat pocket name him Walder Pye, a plagueborn pilgrim from Bubonia who came all this way only to end on a butcher's bench.
+set walder_corpse_seen
+-> END
+
+~ after
+Narrator: Stonoga's black eyes burst like boiled plums and her long neck curls tight as a dying centipede. Her stringy frame melts into grey, stinking sludge while poor Slippery Oswald curls dead in the mire beside her.
+cutscene sk_stonoga_end
+cutscene sk_stonoga_end_2
+cutscene end
+set oswald_slain
+set stonoga_after_seen
+if flag.skitter_sigils_broken
+quest skitter_plague exterminated
+set plague_lifted
+cutscene sk_plague_lifts
+cutscene sk_plague_lifts_2
+cutscene end
+Narrator: With both the hag and her foul work undone, the heavy miasma thins to nothing. Within the hour, the fever and the crawling plague will lift from Wickermoor Village.
+else
+Narrator: Though the hag is gone, the knotted sigils in the western chamber still sweat their sour gas. The plague in the village will only end when those last foul marks are broken.
+endif
+-> END
+
+~ notes
+Narrator: {name} lifts a sheaf of damp parchment from the bench, inked in a cramped, wet hand.
+stonoga_blackstinger [smile]: Little Vessla is dead, tk-tk, leaving more meat for my pact with dear sister Golub. She sits tucked among the villagers where her beady eyes can watch every soul in town.
+give stonoga_notes
+set stonoga_notes_read
+set golub_clue
+Narrator: In the margins, she has scribbled careful studies of Hartsblight forest. When you leave the mine, a tree freed from the plague will grant a waking vision of those fungus-choked woods.
+set fate_rejuvenation_found
+cutscene sk_rejuvenation
+cutscene sk_rejuvenation_2
+cutscene end
+-> END
+
+~ cage
+Narrator: Stacked inside an iron cage are the neatly sorted belongings of someone dear and missing. A grease-stained ledger beside them names the owner an ideal vessel, ready for crookedness, and notes final preparations for "the final nightmare."
+cutscene sk_kindred
+cutscene sk_kindred_2
+cutscene end
+set fate_kindred_found
+-> END

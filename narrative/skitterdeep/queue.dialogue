@@ -1,0 +1,134 @@
+# Drafted by Gemini (R16 queue), edited.
+
+~ morgan_start
+morgan [weary]: My kettles only hold so much bitter-root, and three folk wait on the cobbles outside. Could you look them over and tell me who needs the draught first?
+Narrator: Steam curls from a cracked earthen pot, thick with the sharpness of boiled yarrow and vinegar.
+* We will see to it. -> accept
+* Not now. -> END
+
+~ accept
+morgan [smile]: Bless your boots. Take a slow look before you choose, if you would.
+set queue_asked
+quest quarantine_queue asked
+-> END
+
+~ haldor
+haldor_vane [weary]: Good evening to you, strangers. Do not mind my shivering, I have stood in worse damp than this, and I will wait my proper turn without a fuss.
+Narrator: The old cooper grips his ash stave with both hands to stop their trembling, though his knuckles knock against the wood.
+* [Medicine DC 12] Look at his symptoms -> haldor_med | haldor_nomed
+* Take our leave -> haldor_end
+
+~ haldor_med
+Narrator: His skin burns like a kiln brick through his wool coat, and beneath his left ribs a swollen knot shifts with a slow, squirming pulse.
+set queue_medic_read
+-> haldor_end
+
+~ haldor_nomed
+Narrator: He is an old man sweating through a heavy fever, though you cannot tell how deep the rot goes.
+-> haldor_end
+
+~ haldor_end
+set haldor_talked
+if flag.haldor_talked and flag.ottilie_talked and flag.pim_talked
+set queue_talked
+endif
+-> END
+
+~ ottilie
+ottilie_reed [angry]: You there, tell the apothecary I am next in through that door! Somebody has to shout on this step, or a mother and her babe will freeze in the fog!
+Narrator: She bounces a swaddled infant on one hip, her voice hoarse and raw against the damp night.
+* [Medicine DC 12] Look at the baby and her bites -> ottilie_med | ottilie_nomed
+* Take our leave -> ottilie_end
+
+~ ottilie_med
+Narrator: Two mauve welts fester along her forearm, hot and ugly, but her breathing is steady and the sleeping babe's skin is wholly unmarked.
+-> ottilie_end
+
+~ ottilie_nomed
+Narrator: She is a loud, tired young woman with dark rings under her eyes and a fretful bundle in her arms.
+-> ottilie_end
+
+~ ottilie_end
+set ottilie_talked
+if flag.haldor_talked and flag.ottilie_talked and flag.pim_talked
+set queue_talked
+endif
+-> END
+
+~ pim
+pim_fenwick [smile]: Ah, splendid, the stewards have arrived. I am Pim Fenwick, Mayor Somerton's own cousin on the mother's side, so you may show me straight to the front.
+Narrator: He adjusts an immaculate silk cravat with two gloved fingers, smelling strongly of lavender water.
+* Ask why he thinks so -> pim_why
+* [Medicine DC 12] Look at his symptoms -> pim_med | pim_nomed
+* Take our leave -> pim_end
+
+~ pim_why
+pim_fenwick [sly]: Why, for the sake of civic order, my dear friend. If the cousin of the gavel falls to the sniffles, who will witness the parish ledgers?
+-> pim
+
+~ pim_med
+Narrator: Aside from a tiny red spot on his wrist and a theatrical sniffle, he is in rude health and has clearly dressed for the occasion.
+-> pim_end
+
+~ pim_nomed
+Narrator: He looks well-dressed and slightly flushed from the night air, nothing more you can say.
+-> pim_end
+
+~ pim_end
+set pim_talked
+if flag.haldor_talked and flag.ottilie_talked and flag.pim_talked
+set queue_talked
+endif
+-> END
+
+~ morgan_order
+morgan [neutral]: The draught is strained and cooling in the cup. How shall I call them in from the step?
+-> order_menu
+
+~ order_menu
+* Ask Morgan for the list -> list
+* Haldor, then Ottilie, then Pim -> fair
+* Ottilie first, she is loudest -> loud
+* Pim first, the mayor's cousin -> rank
+* [ends:quarantine_queue] Let them sort it out themselves -> walk_away
+
+~ list
+morgan [weary]: If my own eyes serve, old Haldor is burning through his wick, Ottilie has the spots on her arm, and Master Pim mostly has a fright. Haldor, then Ottilie, then Pim.
+-> order_menu
+
+~ fair
+morgan [smile]: That sits right with me. Come in out of the cold, Master Vane, and lean on my shoulder.
+Narrator: Old Haldor drinks the steaming cup first, and before the hour is out his ragged breathing settles into a deep, quiet sleep.
+set queue_outcome = "fair"
+set queue_done
+quest quarantine_queue done
+gold +30
+-> END
+
+~ loud
+morgan [sad]: If that is the peace we must keep, then send her in. I only hope the old cooper's heart holds while the second kettle boils.
+Narrator: Ottilie sweeps inside first, while out in the fog Haldor leans harder on his stave, his fever climbing in silence.
+set queue_outcome = "loud"
+set queue_haldor_worse
+set queue_done
+quest quarantine_queue done
+-> END
+
+~ rank
+morgan [weary]: Custom is custom in Wickermoor, I suppose. Send Master Fenwick to the chair, and tell the others to wrap their cloaks tight.
+Narrator: Pim strolls inside to warm his boots and Mayor Somerton will hear of your courtesy, though on the cobbles old Haldor's fever climbs without a word of complaint.
+set queue_outcome = "rank"
+set queue_haldor_worse
+standing old_ways +1
+set queue_done
+quest quarantine_queue done
+-> END
+
+~ walk_away
+morgan [sad]: Ah. I do not have the voice for shouting over them, truth be told.
+Narrator: Morgan lets out a small sigh as the step outside breaks into bitter shouting, and by the next dawn black mourning ribbons hang from a door in the Round.
+set queue_outcome = "lost"
+set queue_lost
+set queue_done
+quest quarantine_queue lost
+-> END
