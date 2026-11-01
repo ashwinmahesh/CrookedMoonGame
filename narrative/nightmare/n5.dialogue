@@ -26,7 +26,11 @@ Narrator: The heavy glass stopper presses down over Walter's head while the dark
 * [Deception DC 20] Distract Wisp with a grand lie -> rally_ok | rally_fail
 * [if not flag.nm_wisp_done] Fight Wisp -> fight_wisp
 * [if not flag.golub_struck] Strike Golub -> golub_hit
+* [if not flag.n5_plain_told] Say it plainly: Dani is waiting for him -> plain
+* [if item:dani_lantern and not flag.n5_lantern_shown] Hold Dani's lantern up to the glass -> lantern_show
+* Hold fast and wait a round -> wait
 * Hear Golub out -> golub_talk
+* Step back for a moment -> END
 
 ~ rally_ok
 Narrator: Your call cuts cleanly through the thick crystal. Walter scrawls a quick note, presses the paper flat against the wet glass: I hear you, I am holding fast: and squares his shoulders.
@@ -35,6 +39,22 @@ set walter_loyalty += 1
 
 ~ rally_fail
 Narrator: Your words seem to skate off the curved glass without reaching him, drowned out by the purring dark. Walter bows his head a fraction lower.
+-> tick
+
+~ plain
+Narrator: You press your hands to the cold glass and say it with no tricks in it: Dani is on the porch, and she is waiting. Walter reads your lips, and something in his shoulders settles.
+set n5_plain_told
+set walter_loyalty += 1
+-> tick
+
+~ lantern_show
+Narrator: The blue mist behind Dani's lantern glass leans toward the decanter like a cat toward a hand. Walter sees it, and knows whose it is.
+set n5_lantern_shown
+set walter_loyalty += 1
+-> tick
+
+~ wait
+Narrator: There is nothing to do but hold fast and watch the liquor climb another notch, and hope someone in the glass is counting.
 -> tick
 
 ~ fight_wisp
