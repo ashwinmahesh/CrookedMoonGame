@@ -46,3 +46,38 @@ Game-ready copies (Vorbis q5, 44.1 kHz) beside original/:
 - train_whistle_1.ogg: Prussian P-8 locomotive's real whistle (1918 engine). 6.8 s; -14.0 LUFS, peak -1.9 dB.
 
 Godot skips original/ (.gdignore). Credit lines are in art/credits.json.
+
+## Batch 2 (2026-11-01): Act 1 additions, Wickermoor, the Crooked House, Foxwillow
+
+### WWS GampFCopetowerclock.ogg
+- Page: https://commons.wikimedia.org/wiki/File%3AWWS_GampFCopetowerclock.ogg
+- Author: Work With Sounds / Museum of Municipal Engineering
+- Licence: Creative Commons Attribution 4.0 (CC BY 4.0), https://creativecommons.org/licenses/by/4.0/
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch 2 brief; vault Build/Audio Plan.md)
+- About: The sound of tower clock manufactured by G & F Cope. The recording was realized in the Tower Clock Museum, branch of Gdańsk History Museum (
+
+### WWS 102Ntramfrontofthecar.ogg
+- Page: https://commons.wikimedia.org/wiki/File%3AWWS_102Ntramfrontofthecar.ogg
+- Author: Work With Sounds / Museum of Municipal Engineering
+- Licence: Creative Commons Attribution 4.0 (CC BY 4.0), https://creativecommons.org/licenses/by/4.0/
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch 2 brief; vault Build/Audio Plan.md)
+- About: Sounds accompanying the ride of a passenger sitting in the front of the 102N car. The recording was realized during the ride from Nowa Huta
+
+### WWS 102Ntrammotormanscabin.ogg
+- Page: https://commons.wikimedia.org/wiki/File%3AWWS_102Ntrammotormanscabin.ogg
+- Author: Work With Sounds / Museum of Municipal Engineering
+- Licence: Creative Commons Attribution 4.0 (CC BY 4.0), https://creativecommons.org/licenses/by/4.0/
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch 2 brief; vault Build/Audio Plan.md)
+- About: Sounds accompanying motorman’s work during 102N tram ride from Nowa Huta tram depot to the Museum of Municipal Engineering in Cracow. The tr
+
+### WWS Blacksmith8217sanvil.ogg
+- Page: https://commons.wikimedia.org/wiki/File%3AWWS_Blacksmith8217sanvil.ogg
+- Author: Work With Sounds / La Fonderie
+- Licence: Creative Commons Attribution 4.0 (CC BY 4.0), https://creativecommons.org/licenses/by/4.0/
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch 2 brief; vault Build/Audio Plan.md)
+- About: The metal piece is now red and can be hammered, but no more than two minutes, otherwise it cools. The blacksmith usually works in the dim li
+
+Game-ready copies from these (Vorbis q5, 44.1 kHz):
+
+- anvil_far.ogg: A blacksmith hammering at the anvil (La Fonderie, WWS, CC BY 4.0), heard down the street. 5.2 s; -14.1 LUFS, true peak -1.8 dB.
+- bed_clock_chamber.ogg: A G & F Cope tower clock's works ticking (WWS, CC BY 4.0), its ticks compressed so the room's hum carries between them. Seam crossfaded 1.5 s. 57.5 s; -18.1 LUFS, true peak -3.9 dB.

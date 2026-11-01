@@ -58,3 +58,90 @@ Game-ready copies (Vorbis q5, 44.1 kHz) beside original/:
 - eck_robertson_sallie_johnson.ogg: the whole 1922 recording, levelled to -16 LUFS, for the hill's music rotation.
 
 Godot skips original/ (.gdignore). Credit lines are in art/credits.json.
+
+## Batch 2 (2026-11-01): Act 1 additions, Wickermoor, the Crooked House, Foxwillow
+
+### Lionroar.wav
+- Page: https://commons.wikimedia.org/wiki/File%3ALionroar.wav
+- Author: Jonathan Growcott, Alex Lobora, Andrew Markham, Charlotte E. Searle, Johan Wahlström, Matthew Wijers, Benno I. Simmons (from their paper, https://onlinelibrary.wiley.com/doi/10.1002/ece3.72474)
+- Licence: Creative Commons Attribution 4.0 (CC BY 4.0), https://creativecommons.org/licenses/by/4.0/
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch 2 brief; vault Build/Audio Plan.md)
+- About: An example of a lion's roaring bout
+
+### Lion raring-sound1TamilNadu178.ogg
+- Page: https://commons.wikimedia.org/wiki/File%3ALion_raring-sound1TamilNadu178.ogg
+- Author: த*உழவன்
+- Licence: Public domain (the recording itself), https://commons.wikimedia.org/wiki/Commons:Licensing
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch 2 brief; vault Build/Audio Plan.md)
+- About: the roaring of a lion in captivityதமிழ்: விலங்கியல் பூங்காவிலுள்ள, ஆண் சிங்கத்தின் குரல்.ஒலி சீரமைப்புச் செய்யப்பட்டது.
+
+### Westminster-and-one-o-clock.ogg
+- Page: https://commons.wikimedia.org/wiki/File%3AWestminster-and-one-o-clock.ogg
+- Author: Wikipit (self recorded)
+- Licence: Public domain (the recording itself), https://commons.wikimedia.org/wiki/Commons:Licensing
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch 2 brief; vault Build/Audio Plan.md)
+- About: author: Wikipit source: self recorded description: This is the "Westminster" and the one o´clock sound of a rod gong from clockwo
+
+### Windchime.ogg
+- Page: https://commons.wikimedia.org/wiki/File%3AWindchime.ogg
+- Author: stephan
+- Licence: Public domain (the recording itself), https://commons.wikimedia.org/wiki/Commons:Licensing
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch 2 brief; vault Build/Audio Plan.md)
+- About: Title Windchime Artist stephan Original mp3 data Length:1:07 minutes (1.29 MB) Format:MP3 Stereo 44kHz 160Kbps (CBR) User tags Aluminium, Be
+
+### Restaurant ambience.ogg
+- Page: https://commons.wikimedia.org/wiki/File%3ARestaurant_ambience.ogg
+- Author: stephan
+- Licence: Public domain (the recording itself), https://commons.wikimedia.org/wiki/Commons:Licensing
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch 2 brief; vault Build/Audio Plan.md)
+- About: Title Restaurant Ambience Artist stephan Original mp3 data Length:1:16 minutes (1.17 MB) Format:MP3 Stereo 44kHz 128Kbps (CBR) User tags Amb
+
+### Christian mass organ play consecration.ogg
+- Page: https://commons.wikimedia.org/wiki/File%3AChristian_mass_organ_play_consecration.ogg
+- Author: stephan
+- Licence: Public domain (the recording itself), https://commons.wikimedia.org/wiki/Commons:Licensing
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch 2 brief; vault Build/Audio Plan.md)
+- About: Title Christian Mass, Organ play, Consecration Artist stephan Original mp3 data Length:5:02 minutes (4.61 MB) Format:MP3 Stereo 44kHz 128Kbp
+
+### Pressurized fire.ogg
+- Page: https://commons.wikimedia.org/wiki/File%3APressurized_fire.ogg
+- Author: gregoryweir
+- Licence: Public domain (the recording itself), https://commons.wikimedia.org/wiki/Commons:Licensing
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch 2 brief; vault Build/Audio Plan.md)
+- About: Title Pressurized Fire Artist gregoryweir Original mp3 data Length:0:02 minutes (33.51 KB) Format:MP3 Mono 44kHz 128Kbps (CBR) User tags *fo
+
+### Dragon wheeze.ogg
+- Page: https://commons.wikimedia.org/wiki/File%3ADragon_wheeze.ogg
+- Author: gregoryweir
+- Licence: Public domain (the recording itself), https://commons.wikimedia.org/wiki/Commons:Licensing
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch 2 brief; vault Build/Audio Plan.md)
+- About: Title Dragon Wheeze Artist gregoryweir Original mp3 data Length:0:01 minutes (15.96 KB) Format:MP3 Mono 44kHz 128Kbps (CBR) User tags *haah*
+
+### Thorsten-tts-emotional-whisper.wav
+- Page: https://commons.wikimedia.org/wiki/File%3AThorsten-tts-emotional-whisper.wav
+- Author: Thorsten Müller (Thorsten emotional voice dataset, a whispered phrase)
+- Licence: Creative Commons Zero (CC0 1.0), public domain dedication, https://creativecommons.org/publicdomain/zero/1.0/
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch 2 brief; vault Build/Audio Plan.md)
+- About: Thorsten (TTS-Stimme) Emotionales Dataset (Flüstern).
+
+### Door handle creaking.ogg
+- Page: https://commons.wikimedia.org/wiki/File%3ADoor_handle_creaking.ogg
+- Author: stephan
+- Licence: Public domain (the recording itself), https://commons.wikimedia.org/wiki/Commons:Licensing
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch 2 brief; vault Build/Audio Plan.md)
+- About: Title door handle creaking Artist stephan Original mp3 data Length:0:05 minutes (104.13 KB) Format:MP3 Stereo 44kHz 160Kbps (CBR) User tags
+
+### Cathedralofthedowns.ogg
+- Page: https://commons.wikimedia.org/wiki/File%3ACathedralofthedowns.ogg
+- Author: acclivity
+- Licence: Public domain (the recording itself), https://commons.wikimedia.org/wiki/Commons:Licensing
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch 2 brief; vault Build/Audio Plan.md)
+- About: Title Bells of Alfriston Parish Church - Cathedral of the Downs Artist acclivity Original mp3 data Length:0:25 minutes (787.8 KB) Format:MP3
+
+Game-ready copies from these (Vorbis q5, 44.1 kHz):
+
+- church_bell.ogg: The bells of Alfriston parish church, the first strokes (acclivity, public domain). 8.8 s; -14.0 LUFS, true peak -2.7 dB.
+- church_mass_organ.ogg: Organ played through the consecration of a Mass, a live recording (stephan, public domain). Church ambience kept. 301.8 s; -16.0 LUFS, true peak -1.8 dB.
+- clock_chime.ogg: Westminster quarters and one stroke of the hour from a clock (public domain). 19.6 s; -14.0 LUFS, true peak -2.4 dB.
+- wildpyre_wake_1.ogg: A wild lion's roaring bout (Growcott, Lobora et al., CC BY 4.0), the building middle of it. 8.1 s; -14.1 LUFS, true peak -2.0 dB.
+- wind_chime.ogg: A wind chime stirring (stephan, public domain). 6.0 s; -14.0 LUFS, true peak -1.6 dB.
