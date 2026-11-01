@@ -53,7 +53,7 @@ func test_two_touches_no_longer_kill_a_level_1_hero_and_the_drain_ends_with_the_
 		TestCombat.next_d20(e, 19)
 		e.monster_attack(s, h, "life_drain")
 	assert_false(h.creature.dead, "the drain alone can't kill")
-	assert_true(h.creature.max_hp() >= 1, "the maximum stops at 1")
+	assert_true(h.creature.max_hp() >= ceili(top * 0.5), "the maximum stops at half")
 	EncounterSetup.clear_fight_effects(h.creature)
 	assert_eq(h.creature.max_hp(), top, "the maximum comes back when the fight is over")
 

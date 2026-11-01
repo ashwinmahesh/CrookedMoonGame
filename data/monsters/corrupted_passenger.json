@@ -4,7 +4,7 @@
   "source": {
     "book": "MM2025",
     "edition": "2024",
-    "note": "The Specter's block, worn by the Ghostlight Express's corrupted passengers in Act 1. Its Life Drain can't take a maximum below 1 and lasts only the fight (docs/rules/deviations.md). The words are ours."
+    "note": "The Specter's block, worn by the Ghostlight Express's corrupted passengers in Act 1. Its Life Drain can't take a maximum below half and lasts only the fight (docs/rules/deviations.md). The words are ours."
   },
   "size": "medium",
   "type": "undead",
@@ -111,13 +111,14 @@
           "type": "necrotic"
         }
       ],
-      "summary": "Necrotic touch that also lowers the target's Hit Point maximum by the damage taken, never below 1, until the fight ends.",
-      "text": "Hit: 7 (2d6) Necrotic damage. If the target is a creature, its Hit Point maximum drops by the damage it took, though never below 1, and comes back when the fight is over.",
+      "summary": "Necrotic touch that also lowers the target's Hit Point maximum by the damage taken, never below half, until the fight ends.",
+      "text": "Hit: 7 (2d6) Necrotic damage. If the target is a creature, its Hit Point maximum drops by the damage it took, though never below half of what it was, and comes back when the fight is over.",
       "on_hit": [
         {
           "do": "drain_max_hp",
           "type": "necrotic",
           "floor": 1,
+          "keep": 0.5,
           "until": "fight"
         }
       ]
