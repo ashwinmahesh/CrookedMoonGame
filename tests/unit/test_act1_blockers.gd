@@ -165,3 +165,19 @@ func test_off_the_train_the_fallen_stay_fallen() -> void:
 	assert_true(FightRetry.raise_fallen(st, FightRetry.rule_for({"id": "ch_clock"}, "crooked_house_second")).is_empty())
 	assert_true(FightRetry.raise_fallen(st, {}).is_empty())
 	assert_true(st.party[0].dead)
+
+
+func test_the_baggage_cars_wildpyre_wakes_smouldering_with_one_rend_a_turn() -> void:
+	for en: Variant in Compendium.shared().get_entry("locations", "ghostlight_g6_baggage").get("encounters", []):
+		var spec := en as Dictionary
+		if str(spec["id"]) != "gl_wildpyre":
+			continue
+		for m: Variant in spec["monsters"]:
+			assert_true("smouldering" in ((m as Dictionary).get("states", []) as Array), "both of its entries")
+	var data := LocationFights.with_states(Compendium.shared().monster_data("wildpyre"), ["smouldering"])
+	for a: Variant in data["actions"]:
+		if str((a as Dictionary).get("kind", "")) == "multiattack":
+			var count := 0
+			for step: Variant in (a as Dictionary)["multiattack"]:
+				count += int((step as Dictionary).get("count", 1))
+			assert_eq(count, 1, "one Blazing Rend")
