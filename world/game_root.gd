@@ -183,6 +183,7 @@ func enter_location(location_id: String, spawn: String, sneaking: bool = false) 
 			_show_banter(lines))
 	var leaving := view
 	view.exit_requested.connect(func(to: String, sp: String) -> void:
+		PlaceBeds.exit_sound(location_id, to)   # the sliding door between two cars (art/audio.json "exit_sfx")
 		_covered.call_deferred(to, enter_location.bind(to, sp, leaving.sneaking)))
 	view.travel_requested.connect(func(to: String) -> void: _road_out.call_deferred(to))
 	view.dialogue_requested.connect(start_dialogue)
@@ -709,6 +710,7 @@ func start_dialogue(ref: String, _npc_id: String) -> void:
 	Cursors.show("pointer")
 	glow.clear()
 	_dialogue_ref = ref
+	PlaceBeds.dialogue_sound(ref)   # the grille's crackle before the Vagrant speaks over it (art/audio.json "dialogue_sfx")
 	_talk_mood = ""
 	_scene_mood = ""
 	hud.visible = false
@@ -1357,10 +1359,13 @@ func _close_quests() -> void:
 		hud.toast(said)
 
 
-## A quest ended: a failure gets a short low bell under its notice (the existing "toll", quieter than a fight's).
-func _on_quest_finished(_quest_id: String, ending: String) -> void:
+## A quest ended: a failure gets a short low bell under its notice (the existing "toll", quieter than a fight's), any
+## other ending its own effect if it has one.
+func _on_quest_finished(quest_id: String, ending: String) -> void:
 	if ending == "failure":
 		Audio.sfx("toll", 0.0, -4.0)
+	else:
+		PlaceBeds.quest_sound(quest_id, ending)   # a haint laid to rest chimes (art/audio.json "quest_sfx")
 
 
 # --- Screens --------------------------------------------------------------------------------------

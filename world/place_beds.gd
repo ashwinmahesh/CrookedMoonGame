@@ -67,6 +67,36 @@ static func scene_sounds(cutscene_id: String) -> Array[String]:
 	return played
 
 
+## The effect of walking from one place into another of the same region (art/audio.json "exit_sfx": region -> effect):
+## the sliding door between two cars of the train. "" when it has none; the id otherwise, played.
+static func exit_sound(from_id: String, to_id: String) -> String:
+	var lib := Compendium.shared()
+	var region := str(lib.get_entry("locations", from_id).get("region", ""))
+	if region == "" or str(lib.get_entry("locations", to_id).get("region", "")) != region:
+		return ""
+	var id := str((Audio._data.get("exit_sfx", {}) as Dictionary).get(region, ""))
+	Audio.sfx(id)
+	return id
+
+
+## The effect a conversation opens with (art/audio.json "dialogue_sfx": a dialogue file, the part of `ref` before its
+## node, -> effect): the crackle of the brass grille before the Vagrant speaks over it. "" with none.
+static func dialogue_sound(ref: String) -> String:
+	var id := str((Audio._data.get("dialogue_sfx", {}) as Dictionary).get(ref.get_slice(":", 0), ""))
+	Audio.sfx(id, 0.0)
+	return id
+
+
+## The effect a quest ending other than a failure plays (art/audio.json "quest_sfx": quest -> effect): a soft chime as a
+## haint is laid to rest. "" with none.
+static func quest_sound(quest_id: String, ending: String) -> String:
+	if ending == "failure":
+		return ""
+	var id := str((Audio._data.get("quest_sfx", {}) as Dictionary).get(quest_id, ""))
+	Audio.sfx(id, 0.0)
+	return id
+
+
 ## Fades the bed out (a fight's music over a quiet car keeps it; the title screen does not).
 func stop() -> void:
 	bed_id = ""

@@ -1,0 +1,310 @@
+{
+ "_note": "The Crooked Moon's music, ambience and its own effects (vault Build/Audio Plan.md), merged over the engine's art/audio.json key by key (ArtPaths.json). Recordings are free-licensed files kept in art/sourced/<pack>/ (SOURCE.md and LICENSE.md in each, credited in art/credits.json); art/sourced/audio_act1_picks.json says why each was picked. Act 1 (the Ghostlight Express) first.",
+ "music": {
+  "title": [
+   "res://art/sourced/incompetech_macleod/danse_macabre.ogg"
+  ],
+  "hill": [
+   "res://art/sourced/incompetech_macleod/southern_gothic.ogg",
+   "res://art/sourced/incompetech_macleod/folk_round.ogg",
+   "res://art/sourced/wikimedia_commons/eck_robertson_sallie_johnson.ogg"
+  ],
+  "train": [
+   "res://art/sourced/incompetech_macleod/comfortable_mystery.ogg",
+   "res://art/sourced/incompetech_macleod/gone_beyond.ogg"
+  ],
+  "train_lounge": [
+   "res://art/sourced/incompetech_macleod/the_entertainer_gramophone.ogg",
+   "res://art/sourced/incompetech_macleod/maple_leaf_rag_gramophone.ogg"
+  ],
+  "circus": [
+   "res://art/sourced/incompetech_macleod/carnivale_intrigue.ogg",
+   "res://art/sourced/incompetech_macleod/waltz_of_the_carnies.ogg"
+  ],
+  "wreck": [
+   "res://art/sourced/incompetech_macleod/oppressive_gloom.ogg",
+   "res://art/sourced/incompetech_macleod/ossuary_6_air.ogg"
+  ],
+  "combat": [
+   "res://art/sourced/incompetech_macleod/achaidh_cheide.ogg",
+   "res://art/sourced/incompetech_macleod/celtic_impulse.ogg",
+   "res://art/sourced/incompetech_macleod/darkling.ogg"
+  ],
+  "boss": [
+   "res://art/sourced/incompetech_macleod/crusade_heavy_industry.ogg"
+  ],
+  "dread": [
+   "res://art/sourced/incompetech_macleod/unseen_horrors.ogg",
+   "res://art/sourced/incompetech_macleod/this_house.ogg"
+  ],
+  "sorrow": [
+   "res://art/sourced/incompetech_macleod/sad_trio.ogg",
+   "res://art/sourced/incompetech_macleod/decline.ogg"
+  ],
+  "last_stop": [
+   "res://art/sourced/incompetech_macleod/teller_of_the_tales.ogg"
+  ]
+ },
+ "regions": {
+  "ghostlight_express": "train"
+ },
+ "places": {
+  "ghostlight_boarding": "hill",
+  "ghostlight_g3_lounge": "train_lounge",
+  "ghostlight_g4_dining": "train_lounge",
+  "ghostlight_g7_circus": "circus",
+  "ghostlight_limbo": "dread",
+  "ghostlight_wreckage": "wreck"
+ },
+ "place_turns": {
+  "ghostlight_wreckage": [
+   {
+    "when": "flag.gl_locomotive_done",
+    "mood": "last_stop"
+   }
+  ]
+ },
+ "talk_moods": {
+  "train": {
+   "mood": "dread",
+   "npcs": [
+    "phantom_trainhopper"
+   ]
+  },
+  "train_lounge": {
+   "mood": "dread",
+   "npcs": [
+    "phantom_trainhopper"
+   ]
+  }
+ },
+ "scenes": {
+  "gl_into_shroud": "dread",
+  "gl_phantom_strikes": "dread",
+  "gl_curse_reaches_fuel": "dread",
+  "gl_songstress_last_song": "sorrow",
+  "gl_crash_and_moon": "dread",
+  "gl_locomotive_wakes": "boss",
+  "gl_last_stop": "last_stop"
+ },
+ "boss_music": {
+  "ghostlight_locomotive": "boss"
+ },
+ "loops": {
+  "train_interior": [
+   "res://art/sourced/wikimedia_commons/bed_train_interior.ogg"
+  ],
+  "boiler": [
+   "res://art/sourced/oga_steam_boiler_sound_loop/bed_boiler.ogg",
+   "res://art/sourced/wikimedia_wws/bed_boiler_steam.ogg"
+  ],
+  "hill_night": [
+   "res://art/sourced/crooked_moon_mixes/bed_hill_night.ogg"
+  ],
+  "wreck_wind": [
+   "res://art/sourced/oga_wind1/bed_wreck_wind.ogg"
+  ],
+  "limbo_drone": [
+   "res://art/sourced/oga_loopable_dungeon_ambience/bed_limbo_drone.ogg",
+   "res://art/sourced/oga_dreamscape_drone/bed_limbo_drone_2.ogg"
+  ],
+  "fire": [
+   "res://art/sourced/wikimedia_commons/bed_fire.ogg",
+   "res://art/sourced/oga_fire_crackling/bed_fire_small.ogg"
+  ],
+  "water": [
+   "res://art/sourced/oga_stream_sounds/bed_water.ogg"
+  ]
+ },
+ "place_beds": {
+  "ghostlight_express": "train_interior",
+  "ghostlight_boarding": "hill_night",
+  "ghostlight_g8_tender": "boiler",
+  "ghostlight_limbo": "limbo_drone",
+  "ghostlight_wreckage": "wreck_wind"
+ },
+ "sfx": {
+  "car_door": [
+   "res://art/sourced/wikimedia_wws/car_door_1.ogg",
+   "res://art/sourced/wikimedia_wws/car_door_2.ogg"
+  ],
+  "coupler_clank": [
+   "res://art/sourced/crooked_moon_mixes/coupler_clank_1.ogg",
+   "res://art/sourced/oga_metal_impact_sounds/coupler_clank_2.ogg"
+  ],
+  "fiddle": [
+   "res://art/sourced/wikimedia_commons/fiddle_1.ogg",
+   "res://art/sourced/wikimedia_commons/fiddle_2.ogg",
+   "res://art/sourced/wikimedia_commons/fiddle_3.ogg"
+  ],
+  "haint_bottle": [
+   "res://art/sourced/crooked_moon_mixes/haint_bottle_2.ogg",
+   "res://art/sourced/oga_cork/haint_bottle_1.ogg"
+  ],
+  "haint_rest": [
+   "res://art/sourced/oga_bell_dings/haint_rest_1.ogg",
+   "res://art/sourced/oga_bell_dings/haint_rest_2.ogg"
+  ],
+  "intercom": [
+   "res://art/sourced/oga_frequency_static_sound_effects/intercom_1.ogg",
+   "res://art/sourced/oga_frequency_static_sound_effects/intercom_2.ogg"
+  ],
+  "locomotive_roar": [
+   "res://art/sourced/crooked_moon_mixes/locomotive_roar.ogg"
+  ],
+  "owl": [
+   "res://art/sourced/wikimedia_commons/owl_1.ogg",
+   "res://art/sourced/wikimedia_commons/owl_2.ogg"
+  ],
+  "phantom_strike": [
+   "res://art/sourced/oga_wind_hit_time_morph/phantom_strike_1.ogg",
+   "res://art/sourced/oga_wind_hit_time_morph/phantom_strike_2.ogg"
+  ],
+  "soul_can_break": [
+   "res://art/sourced/crooked_moon_mixes/soul_can_break_1.ogg",
+   "res://art/sourced/crooked_moon_mixes/soul_can_break_2.ogg"
+  ],
+  "soul_can_eaten": [
+   "res://art/sourced/crooked_moon_mixes/soul_can_eaten.ogg"
+  ],
+  "steam_hiss": [
+   "res://art/sourced/oga_steam_release_sounds/steam_hiss_1.ogg",
+   "res://art/sourced/oga_steam_release_sounds/steam_hiss_2.ogg",
+   "res://art/sourced/wikimedia_wws/steam_hiss_3.ogg"
+  ],
+  "ticket_punch": [
+   "res://art/sourced/wikimedia_wws/ticket_punch_1.ogg",
+   "res://art/sourced/wikimedia_wws/ticket_punch_2.ogg"
+  ],
+  "train_arrive": [
+   "res://art/sourced/crooked_moon_mixes/train_arrive.ogg"
+  ],
+  "train_crash": [
+   "res://art/sourced/crooked_moon_mixes/train_crash.ogg"
+  ],
+  "train_whistle": [
+   "res://art/sourced/oga_steam_whistle/train_whistle_2.ogg",
+   "res://art/sourced/wikimedia_wws/train_whistle_1.ogg"
+  ],
+  "wildpyre_snarl": [
+   "res://art/sourced/wikimedia_commons/wildpyre_snarl_1.ogg",
+   "res://art/sourced/wikimedia_commons/wildpyre_snarl_2.ogg",
+   "res://art/sourced/wikimedia_commons/wildpyre_snarl_3.ogg"
+  ]
+ },
+ "ambient": {
+  "hill": [
+   "owl",
+   "train_whistle",
+   "fiddle"
+  ],
+  "train": [
+   "train_whistle",
+   "coupler_clank",
+   "steam_hiss"
+  ],
+  "train_lounge": [
+   "coupler_clank",
+   "feast_clink"
+  ],
+  "circus": [
+   "coupler_clank",
+   "train_whistle"
+  ],
+  "wreck": [
+   "steam_hiss",
+   "crow",
+   "owl"
+  ],
+  "last_stop": [
+   "fiddle",
+   "owl"
+  ]
+ },
+ "scene_sfx": {
+  "gl_arrives": [
+   "train_arrive",
+   "train_whistle"
+  ],
+  "gl_ticket_2": [
+   "ticket_punch"
+  ],
+  "gl_into_shroud": [
+   "train_whistle"
+  ],
+  "gl_phantom_strikes": [
+   "phantom_strike"
+  ],
+  "gl_phantom_strikes_2": [
+   "phantom_strike"
+  ],
+  "gl_curse_reaches_fuel": [
+   "steam_hiss"
+  ],
+  "gl_songstress_last_song_2": [
+   "haint_rest"
+  ],
+  "gl_crash_and_moon": [
+   "train_crash"
+  ],
+  "gl_locomotive_wakes": [
+   "locomotive_roar"
+  ],
+  "gl_locomotive_wakes_3": [
+   "locomotive_roar"
+  ],
+  "gl_last_stop": [
+   "train_whistle"
+  ]
+ },
+ "exit_sfx": {
+  "ghostlight_express": "car_door"
+ },
+ "dialogue_sfx": {
+  "ghostlight_express/vagrant_intercom": "intercom"
+ },
+ "quest_sfx": {
+  "haint_daydreamer": "haint_rest",
+  "haint_harlequin": "haint_rest",
+  "haint_jailbird": "haint_rest",
+  "haint_mariner": "haint_rest",
+  "haint_songstress": "haint_rest",
+  "haint_sweetheart": "haint_rest"
+ },
+ "objects": {
+  "soul_can": {
+   "broken": "soul_can_break",
+   "eaten": "soul_can_eaten"
+  }
+ },
+ "combat": {
+  "keys": {
+   "haunting_whistle": {
+    "cast": [
+     "train_whistle"
+    ]
+   },
+   "spirit_exhaust": {
+    "cast": [
+     "steam_hiss"
+    ]
+   },
+   "flame_bind": {
+    "cast": [
+     "wildpyre_snarl"
+    ]
+   },
+   "blazing_rend": {
+    "cast": [
+     "wildpyre_snarl"
+    ]
+   }
+  }
+ },
+ "steps": {
+  "places": {
+   "ghostlight_boarding": "grass",
+   "ghostlight_wreckage": "grass"
+  }
+ }
+}
