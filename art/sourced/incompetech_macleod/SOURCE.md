@@ -174,3 +174,23 @@ The Crooked Nightmare, the Crooked Man and the Festival of Fools; no MP3 origina
 | tenebrous_brothers_carnival_intermission.ogg | Tenebrous Brothers Carnival - Intermission | USUAN1100640 | 02:56 | fools_day_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Tenebrous%20Brothers%20Carnival%20-%20Intermission.mp3 |
 
 Credit (required): "The House of Leaves", "Shadowlands 3 - Machine", "Unlight", "Cognitive Dissonance", "Final Battle of the Dark Wizards", "Ignosi", "Tenebrous Brothers Carnival - Act One", "Merry Go - Distressed", "Sergio's Magic Dustbin", "Tenebrous Brothers Carnival - Intermission" Kevin MacLeod (incompetech.com) Licensed under Creative Commons: By Attribution 4.0 http://creativecommons.org/licenses/by/4.0/
+
+## Batch 8 (2026-11-01)
+
+Five villains' own boss music, and a hymn motif; no MP3 originals kept (as batch 2).
+
+| Game copy | Track | ISRC | Length | Mood | MP3 |
+| --- | --- | --- | --- | --- | --- |
+| clash_defiant.ogg | Clash Defiant | USUAN1600003 | 06:16 | horned_king | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Clash%20Defiant.mp3 |
+| final_count.ogg | Final Count | USUAN1100657 | 03:23 | horned_king | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Final%20Count.mp3 |
+| drums_of_the_deep.ogg | Drums of the Deep | USUAN1400021 | 02:54 | wicker_man | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Drums%20of%20the%20Deep.mp3 |
+| interloper.ogg | Interloper | USUAN1100401 | 04:23 | wicker_man | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Interloper.mp3 |
+| grand_dark_waltz_allegro.ogg | Grand Dark Waltz Allegro | USUAN2100020 | 06:25 | tall_man | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Grand%20Dark%20Waltz%20Allegro.mp3 |
+| the_path_of_the_goblin_king_v2.ogg | The Path of the Goblin King v2 | USUAN1100874 | 02:58 | tall_man | https://incompetech.com/music/royalty-free/mp3-royaltyfree/The%20Path%20of%20the%20Goblin%20King%20v2.mp3 |
+| darkest_child_var_a.ogg | Darkest Child var A | USUAN1100784 | 03:17 | dusk_mother | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Darkest%20Child%20var%20A.mp3 |
+| death_of_kings.ogg | Death of Kings | USUAN1100876 | 02:24 | barrow_king | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Death%20of%20Kings.mp3 |
+| devastation_and_revenge.ogg | Devastation and Revenge | USUAN1100694 | 03:05 | barrow_king | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Devastation%20and%20Revenge.mp3 |
+| dreamlike.ogg | Dreamlike | USUAN1100410 | 01:39 | dusk_mother | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Dreamlike.mp3 |
+| motif_hymn_bells.ogg | Adeste Fideles (Shorter), its first 10 s | USUAN2100022 | 01:25 | sfx motif_hymn_bells | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Adeste%20Fideles%20Shorter.mp3 |
+
+Credit (required): "Clash Defiant", "Final Count", "Drums of the Deep", "Interloper", "Grand Dark Waltz Allegro", "The Path of the Goblin King v2", "Darkest Child var A", "Death of Kings", "Devastation and Revenge", "Dreamlike", "Adeste Fideles (Shorter)" Kevin MacLeod (incompetech.com) Licensed under Creative Commons: By Attribution 4.0 http://creativecommons.org/licenses/by/4.0/

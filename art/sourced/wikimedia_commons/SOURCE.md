@@ -165,3 +165,14 @@ Game-ready copy: southern_blues_ferera.ogg: Frank Ferera and John K. Paaluhi, "S
 - Licence: Public domain (the recording itself), https://commons.wikimedia.org/wiki/Commons:Licensing
 - Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch briefs; vault Build/Audio Plan.md)
 - About: a dove cooing. Used in crooked_moon_mixes/bed_dovecote.ogg.
+
+## Batch 8 (2026-11-01)
+
+### Tom Turpin - Vess L. Ossman - The Buffalo Rag.ogg
+- Page: https://commons.wikimedia.org/wiki/File%3ATom_Turpin_-_Vess_L._Ossman_-_The_Buffalo_Rag.ogg
+- Author: Vess L. Ossman (banjo), composed by Tom Turpin (1904)
+- Licence: Public domain (a 1906 US recording, Victor 16779, of a 1904 composition), https://commons.wikimedia.org/wiki/Commons:Licensing
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch briefs; vault Build/Audio Plan.md)
+- About: Vess L. Ossman's banjo record of "The Buffalo Rag", recorded 26 January 1906 (Victor 16779).
+
+Game-ready copy: motif_banjo.ogg: A banjo phrase for a song played in the world: the opening of Vess L. Ossman's 1906 record of Tom Turpin's "The Buffalo Rag" (public domain), old-record hiss kept, faded. 11.4 s; -14.1 LUFS, true peak -1.8 dB.
