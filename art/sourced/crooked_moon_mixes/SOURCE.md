@@ -77,3 +77,10 @@ Blows' own sounds (the engine's "hit" keys, engine branch melee-keys), layered f
 - bed_shore.ogg: The Moonsong Shore and the Isle of Mourn: qubodup's water waves (CC0) lapping every few seconds under a low wind (Luke.RUSTLTD, CC0). 45 s loop; -18.2 LUFS, true peak -1.9 dB.
 - wrong_bird_1.ogg: A wrong bird for the rotting wood: isaiah658's birdsong (CC0) run backwards and slowed. Listen first. 4.5 s; -14.2 LUFS, true peak -2.3 dB.
 - wrong_bird_2.ogg: A wrong bird for the rotting wood: isaiah658's birdsong (CC0) run backwards and slowed. Listen first. 4.7 s; -14.3 LUFS, true peak -1.5 dB.
+
+## Batch 7 (2026-11-01)
+
+- bed_dovecote.ogg: The Roving Rookery's dovecote: mary905's dove cooing (public domain) round the loft, qubodup's dry rustles (CC0) as wings, wind and a low drone (Luke.RUSTLTD, JaggedStone, CC0). 40 s loop; -18.1 LUFS, true peak -1.8 dB.
+- bed_festival.ogg: The Festival of Fools: a crowd's talk and clatter (stephan, public domain) out in the open air, fiddles across the green (Eck Robertson 1922, public domain; peakfiddler CC BY 3.0), wind and a chime. 60 s loop; -18.1 LUFS, true peak -1.5 dB.
+- bed_nightmare_in.ogg: The Crooked Nightmare's rooms: JaggedStone's drone (CC0), AntumDeluge's creaks (CC0) slowed into groaning timbers, a whisper run backwards, a door handle (stephan, public domain). 45 s loop; -18.8 LUFS, true peak -2.0 dB.
+- bed_nightmare_out.ogg: The Crooked Nightmare outdoors: Luke.RUSTLTD's wind (CC0) slowed, IgnasD's crows (CC0) run backwards, JaggedStone's drone (CC0) and a haint's whisper. 50 s loop; -18.1 LUFS, true peak -2.1 dB.

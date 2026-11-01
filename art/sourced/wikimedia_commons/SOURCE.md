@@ -156,3 +156,12 @@ Game-ready copies from these (Vorbis q5, 44.1 kHz):
 - About: "Southern Blues", Hawaiian steel guitar played slide over a second guitar.
 
 Game-ready copy: southern_blues_ferera.ogg: Frank Ferera and John K. Paaluhi, "Southern Blues" (ca. 1924; public-domain US record, the composition too): Hawaiian steel guitar played slide over a second guitar, a lazy blues for the bayou. Old-record hiss kept; needle drop and run-out cut. 194.6 s; -16.0 LUFS, true peak -2.3 dB. Mood: drowned_crossroads.
+
+## Batch 7 (2026-11-01)
+
+### Dove cooing.ogg
+- Page: https://commons.wikimedia.org/wiki/File%3ADove_cooing.ogg
+- Author: mary905 (PDSounds)
+- Licence: Public domain (the recording itself), https://commons.wikimedia.org/wiki/Commons:Licensing
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch briefs; vault Build/Audio Plan.md)
+- About: a dove cooing. Used in crooked_moon_mixes/bed_dovecote.ogg.

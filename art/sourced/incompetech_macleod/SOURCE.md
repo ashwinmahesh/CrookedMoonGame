@@ -155,3 +155,22 @@ The seven regions past Foxwillow, the Crimson Abbot and the harder fight track; 
 | death_and_axes.ogg | Death and Axes | USUAN1700049 | 02:48 | combat_hard | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Death%20and%20Axes.mp3 |
 
 Credit (required): "Gregorian Chant", "Night Vigil", "Hitman", "Killers", "Unholy Knight", "Halls of the Undead", "Frost Waltz", "Angevin", "Crusade", "Five Armies", "OctoBlues", "Night of Chaos", "Raw", "Malicious", "Chee Zee Caves V2", "Ossuary 5 - Rest", "Obliteration", "Grim Idol", "Dreams Become Real", "Send for the Horses", "Shadowlands 7 - Codex", "Hush", "Baba Yaga", "Dragon and Toast", "Wretched Destroyer", "Burnt Spirit", "Spellbound", "Intrepid", "All This", "Full On", "Black Vortex", "Death and Axes" Kevin MacLeod (incompetech.com) Licensed under Creative Commons: By Attribution 4.0 http://creativecommons.org/licenses/by/4.0/
+
+## Batch 7 (2026-11-01)
+
+The Crooked Nightmare, the Crooked Man and the Festival of Fools; no MP3 originals kept (as batch 2).
+
+| Game copy | Track | ISRC | Length | Mood | MP3 |
+| --- | --- | --- | --- | --- | --- |
+| the_house_of_leaves.ogg | The House of Leaves | USUAN1100710 | 03:26 | crooked_nightmare | https://incompetech.com/music/royalty-free/mp3-royaltyfree/The%20House%20of%20Leaves.mp3 |
+| shadowlands_3_machine.ogg | Shadowlands 3 - Machine | USUAN1700036 | 03:50 | crooked_nightmare | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Shadowlands%203%20-%20Machine.mp3 |
+| unlight.ogg | Unlight | USUAN1100878 | 03:09 | crooked_nightmare_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Unlight.mp3 |
+| cognitive_dissonance.ogg | Cognitive Dissonance | USUAN1100289 | 04:48 | crooked_nightmare_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Cognitive%20Dissonance.mp3 |
+| final_battle_of_the_dark_wizards.ogg | Final Battle of the Dark Wizards | USUAN1500085 | 04:32 | crooked_man | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Final%20Battle%20of%20the%20Dark%20Wizards.mp3 |
+| ignosi.ogg | Ignosi | USUAN1100450 | 03:04 | crooked_man | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Ignosi.mp3 |
+| tenebrous_brothers_carnival_act_one.ogg | Tenebrous Brothers Carnival - Act One | USUAN1100643 | 03:57 | fools_day | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Tenebrous%20Brothers%20Carnival%20-%20Act%20One.mp3 |
+| merry_go_distressed.ogg | Merry Go - Distressed | USUAN1100734 | 02:00 | fools_day | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Merry%20Go%20-%20Distressed.mp3 |
+| sergio_s_magic_dustbin.ogg | Sergio's Magic Dustbin | USUAN2300012 | 02:31 | fools_day_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Sergio%27s%20Magic%20Dustbin.mp3 |
+| tenebrous_brothers_carnival_intermission.ogg | Tenebrous Brothers Carnival - Intermission | USUAN1100640 | 02:56 | fools_day_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Tenebrous%20Brothers%20Carnival%20-%20Intermission.mp3 |
+
+Credit (required): "The House of Leaves", "Shadowlands 3 - Machine", "Unlight", "Cognitive Dissonance", "Final Battle of the Dark Wizards", "Ignosi", "Tenebrous Brothers Carnival - Act One", "Merry Go - Distressed", "Sergio's Magic Dustbin", "Tenebrous Brothers Carnival - Intermission" Kevin MacLeod (incompetech.com) Licensed under Creative Commons: By Attribution 4.0 http://creativecommons.org/licenses/by/4.0/
