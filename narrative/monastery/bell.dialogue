@@ -1,0 +1,63 @@
+# Drafted by Gemini (R14 bell), edited.
+
+~ orrin_start
+orrin_tolle [weary]: Mind your ears if the hour's near. I ring the Twilight and the Evening both, and my wrist don't care who's standing close.
+* Ask about the great silver bell -> orrin_bell
+* [if flag.bell_inscription_read] Tell him what we read on the bell -> orrin_report
+* Ask about his hand-bell -> orrin_hand
+* Leave him to his rounds -> END
+
+~ orrin_bell
+orrin_tolle [angry]: Miners poured that bell right here in Dawn's Gate and hauled her up the ridge by rope. Had our own name on her rim before that fat friar chiseled his over top of it.
+quest silver_bells_name asked
+set silver_bell_asked
+-> orrin_start
+
+~ orrin_hand
+orrin_tolle [smile]: This little bronze one's called Small Mercy. Take a stiff thumb to damp the clapper on the backswing, and nobody left in town rings her right but me.
+-> orrin_start
+
+~ orrin_report
+orrin_tolle [afraid]: Dawn's Tithe. That's the mark my granddad struck into the mold with his own cold chisel. I thought the chisel-men up there had planed it clean away.
+* Tell the village the true name. -> orrin_restore
+* [ends:silver_bells_name] Let it lie. -> orrin_leave
+
+~ orrin_restore
+set bell_outcome = "restored"
+quest silver_bells_name restored
+Narrator: The old man's thumb slips off the bronze lip, and Small Mercy rings out twice in the cold street, clear and stubborn as a pick against stone.
+orrin_tolle [smile]: One for the men who poured her, and one for the mountain that gave the ore. Let the folk hear what hangs over their roofs.
+-> END
+
+~ orrin_leave
+set bell_outcome = "left"
+quest silver_bells_name left
+Narrator: Orrin wraps his knuckle over the bronze clapper until the hum dies in his palm.
+orrin_tolle [sad]: Aye, maybe you're wise. Some names are heavier than bells, and this town's bent low enough already.
+-> END
+
+~ inscription
+Narrator: The great bell hangs cold and tarnished in the drafty belfry, smelling of wet guano and old tallow. Across its lip run the freshly cut, flourished letters of OLAF OF THE SILVER BELLS.
+* [Investigation DC 12] Look at the metal under the lettering -> inscription_ok | inscription_miss
+* [History DC 12] Think of miners' bell customs -> inscription_ok | inscription_miss
+* Scrape the new lettering with a knife -> inscription_ok
+* Step away from the bell -> END
+
+~ inscription_ok
+Narrator: Beneath the shallow curls of the friar's vanity, the silver has been filed thin, but a deeper, squarer stamp still bites into the rim. In cramped miners' block letters, the older name reads DAWN'S TITHE.
+set bell_inscription_read
+-> END
+
+~ inscription_miss
+Narrator: Your fingers come away gray with cold grease and dried bat droppings, finding nothing in the silver but the friar's scrolling name.
+-> END
+
+~ olaf_drawing
+Narrator: Charcoal sketches of the great bell litter the desk, each one drawn with a trembling hand that snapped the chalk. On every sheet, the old miner's lettering along the rim has been furiously blacked out until the paper tore.
+set olaf_fear_known
+-> END
+
+~ vista
+Narrator: Beyond the fouled stone louvers, the mountain drops away into a sea of pale mist over Moonsong Lake. Far to the east, the tiny amber lanterns of Wickermoor flicker like embers in the endless night.
+set belfry_vista_seen
+-> END

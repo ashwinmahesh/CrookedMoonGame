@@ -1,0 +1,64 @@
+{
+  "id": "sword_of_the_crimson_abbot",
+  "name": "Sword of the Crimson Abbot",
+  "source": {
+    "book": "CrookedMoon",
+    "note": "Fabled Heirloom from the Fields of the Crow; the book's numbers, our words."
+  },
+  "category": "weapon",
+  "weight_lb": 3,
+  "cost_gp": 0,
+  "magic": {
+    "rarity": "rare",
+    "attunement": true
+  },
+  "theme": "armaments",
+  "icon": "longsword",
+  "modifiers": [
+    {
+      "stat": "attack",
+      "value": "tier",
+      "when": {
+        "item": "@self"
+      }
+    },
+    {
+      "stat": "damage",
+      "value": "tier",
+      "when": {
+        "item": "@self"
+      }
+    }
+  ],
+  "weapon_rules": {
+    "extra": [
+      {
+        "dice": "1d6",
+        "type": "necrotic"
+      }
+    ]
+  },
+  "powers": [
+    {
+      "id": "charm",
+      "name": "Vampiric Charm",
+      "spell": "charm_person",
+      "min_level": 7,
+      "uses": {
+        "count": 1,
+        "per": "dusk"
+      }
+    }
+  ],
+  "summary": "A Fabled Heirloom longsword that grows with its bearer (+1, +2 at level 7, +3 at 13): 1d6 extra Necrotic. From level 7, Vampiric Charm once a dusk. It was Duchess, and it has no mind of its own.",
+  "weapon": {
+    "kind": "martial_melee",
+    "damage": "1d8",
+    "damage_type": "slashing",
+    "properties": [
+      "versatile"
+    ],
+    "versatile": "1d10",
+    "mastery": "sap"
+  }
+}

@@ -1,0 +1,917 @@
+{
+  "areas": [
+    {
+      "id": "dg_square",
+      "name": "The square",
+      "cells": [
+        [
+          28,
+          20
+        ],
+        [
+          46,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "dg_briar_front",
+      "name": "Before the Briar",
+      "cells": [
+        [
+          31,
+          36
+        ],
+        [
+          40,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "dg_mine",
+      "name": "The mine hill",
+      "cells": [
+        [
+          1,
+          19
+        ],
+        [
+          16,
+          36
+        ]
+      ]
+    },
+    {
+      "id": "dg_smelter",
+      "name": "The smelter",
+      "cells": [
+        [
+          6,
+          22
+        ],
+        [
+          15,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "dg_hill",
+      "name": "The hill path",
+      "cells": [
+        [
+          14,
+          0
+        ],
+        [
+          24,
+          13
+        ]
+      ]
+    },
+    {
+      "id": "dg_lodge",
+      "name": "The Hunt's lodge",
+      "cells": [
+        [
+          34,
+          13
+        ],
+        [
+          43,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "dg_east",
+      "name": "The river road",
+      "cells": [
+        [
+          47,
+          26
+        ],
+        [
+          59,
+          31
+        ]
+      ]
+    },
+    {
+      "id": "dg_stream",
+      "name": "The mill stream",
+      "cells": [
+        [
+          44,
+          8
+        ],
+        [
+          56,
+          49
+        ]
+      ]
+    }
+  ],
+  "encounters": [
+    {
+      "id": "dg_hunt",
+      "trigger": "dialogue",
+      "flag": "sanguine_hunt_ambushed",
+      "when": "level <= 5 and not flag.maric_loosened",
+      "quest": {
+        "id": "sanguine_hunt",
+        "stage": "ambushed"
+      },
+      "monsters": [
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            38,
+            24
+          ],
+          "name": "The Hunt's captain",
+          "facing": "west"
+        },
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            36,
+            26
+          ],
+          "name": "A Hunt knight",
+          "facing": "west"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            37,
+            22
+          ],
+          "name": "A leashed bat hound",
+          "facing": "west"
+        }
+      ]
+    },
+    {
+      "id": "dg_hunt",
+      "trigger": "dialogue",
+      "flag": "sanguine_hunt_ambushed",
+      "when": "level <= 5 and flag.maric_loosened",
+      "quest": {
+        "id": "sanguine_hunt",
+        "stage": "ambushed"
+      },
+      "monsters": [
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            38,
+            24
+          ],
+          "name": "The Hunt's captain",
+          "facing": "west"
+        },
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            36,
+            26
+          ],
+          "name": "A Hunt knight",
+          "facing": "west"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            37,
+            22
+          ],
+          "name": "A leashed bat hound",
+          "facing": "west"
+        }
+      ]
+    },
+    {
+      "id": "dg_hunt",
+      "trigger": "dialogue",
+      "flag": "sanguine_hunt_ambushed",
+      "when": "level >= 6 and not flag.maric_loosened",
+      "quest": {
+        "id": "sanguine_hunt",
+        "stage": "ambushed"
+      },
+      "monsters": [
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            38,
+            24
+          ],
+          "name": "The Hunt's captain",
+          "facing": "west"
+        },
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            36,
+            26
+          ],
+          "name": "A Hunt knight",
+          "facing": "west"
+        },
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            40,
+            26
+          ],
+          "name": "A Hunt knight",
+          "facing": "west"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            37,
+            22
+          ],
+          "name": "A leashed bat hound",
+          "facing": "west"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            41,
+            22
+          ],
+          "name": "A leashed bat hound",
+          "facing": "west"
+        }
+      ]
+    },
+    {
+      "id": "dg_hunt",
+      "trigger": "dialogue",
+      "flag": "sanguine_hunt_ambushed",
+      "when": "level >= 6 and flag.maric_loosened",
+      "quest": {
+        "id": "sanguine_hunt",
+        "stage": "ambushed"
+      },
+      "monsters": [
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            38,
+            24
+          ],
+          "name": "The Hunt's captain",
+          "facing": "west"
+        },
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            36,
+            26
+          ],
+          "name": "A Hunt knight",
+          "facing": "west"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            37,
+            22
+          ],
+          "name": "A leashed bat hound",
+          "facing": "west"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            41,
+            22
+          ],
+          "name": "A leashed bat hound",
+          "facing": "west"
+        }
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "id": "briar",
+      "cell": [
+        35,
+        36
+      ],
+      "to": "dg_briar",
+      "spawn": "from_town",
+      "label": "Enter the Briar Public House"
+    },
+    {
+      "id": "road_east",
+      "cell": [
+        59,
+        28
+      ],
+      "to": "travel",
+      "spawn": "default",
+      "label": "The river road back to Wickermoor"
+    },
+    {
+      "id": "hill_path",
+      "cell": [
+        20,
+        0
+      ],
+      "to": "mon_pass",
+      "spawn": "from_gate",
+      "label": "Up the hill path to the monastery"
+    }
+  ],
+  "id": "dawns_gate",
+  "map": {
+    "elevation": [
+      "888888888888888888776665555555555555555555555555555555555555",
+      "888888888888888888777666555555555555555555555555555555555555",
+      "888888888888888888887776655555555555555555555555555555555555",
+      "888888888888888888888777665555555555555555555555555555555555",
+      "888888888888888888888877665555555555555555555555555555555555",
+      "888888888888888888888877655555555555555555555555555555555555",
+      "888888888888888888888876655555555555555555555555555555555555",
+      "888888888888888888888776555555555555555555555555555555555555",
+      "888888888888888888888776555555555555555555555555555555555555",
+      "888888888888888888888776555444444444444444444444444444444444",
+      "888888888888888888888776554444444444444444444444444444444444",
+      "777888888888888888887765544444444444444444444444444444444444",
+      "666777788888888888777665544444444444444444444444444444444444",
+      "555666677777777777666555444444444444444444444444444444444444",
+      "445555566666666666555544444444444444444444444444444444444444",
+      "444444555555555555544444444444444444444444444444444444444444",
+      "444444444444444444444444444444444444444444444444444444444444",
+      "444444444444444444444444444444444444444444444444444444444444",
+      "444444444444444444444444444444444444444444444444444444444444",
+      "555555544444444444444444444444444444444444444444444444444444",
+      "555555554444444444444444444444444444444444444433444444444444",
+      "555555555444333333333333333333333333333333333333333333333333",
+      "555555555444333333333333333333333333333333333333333333333333",
+      "555555555443333333333333333333333333333333333333333333333333",
+      "555555554443333333333333333333333333333333333333333333333333",
+      "555555554433333333333333333333333333333333333333333333333333",
+      "555555544333333333333333333333333333333333333333333333333333",
+      "555555544333333333333333333333333333333333333333333333333333",
+      "445555443333333333333333333333333333333333333333333333333333",
+      "444444433333333333333333333333333333333333333333333333333333",
+      "334444333333333333333333333333333333333333333333333333333333",
+      "333333333333333333333333333333333333333333333333333333333333",
+      "333333333333333333333333333333333333333333333333333333333333",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222222222222222222222",
+      "222222222222222222222222222222222222222222112222222222222222",
+      "111111111111111111111111111111111111111111111111111111111111",
+      "111111111111111111111111111111111111111111111111111111111111",
+      "111111111111111111111111111111111111111111111111111111111111",
+      "111111111111111111111111111111111111111111111111111111111111",
+      "111111111111111111111111111111111111111111111111111111111111"
+    ],
+    "light": "dim",
+    "outdoors": true,
+    "rows": [
+      "...###############....#################################.....",
+      "..#################....###################################..",
+      "...#############..##...#####################################",
+      "............####........#############.......################",
+      "..............#..........#####..............################",
+      "..........................####..............################",
+      "............................#...........#...###############.",
+      "......................................####.....#############",
+      ".......................................##......####ww#######",
+      ".......................................#.........#ww###.####",
+      "..................................................ww....####",
+      ".................................................ww....#####",
+      "...##.......................######............###ww#...#####",
+      "..####......................######............##ww##...#####",
+      "..####......................######..######....##ww##...#####",
+      "....#.#.....................######..######....#ww###...#####",
+      "....####....................######..######....#ww###...#####",
+      "....####....................######..######....ww####....####",
+      "....................................######....ww........####",
+      "...####.............................######....ww........####",
+      "...####.......................................ww........###.",
+      "...####..........................~~...........ww.........#..",
+      "...####.######......#####........~~............ww...........",
+      "........######......#####......................ww...........",
+      "........######......#####......................#ww..........",
+      "........######......#####......................#ww..........",
+      "........######......#####......................#.ww.........",
+      "........######....................................ww........",
+      "..##..====.=====............................................",
+      ".###..=........=.....................................~~.....",
+      "######==========...............##########..........ww~~.....",
+      "########..............#####....##########...######.ww.......",
+      "########..............#####....##########...######.ww.......",
+      "########......#####...#####....##########...######.ww.......",
+      "########......#####...#####....##########...######ww........",
+      "########......#####...#####....##########...######ww........",
+      "######........#####............##########...######ww........",
+      "######........#####..............................ww.........",
+      "######........#####.............................w##.........",
+      "######.....~~~..................................###.........",
+      "######.....~~...........#######.......#######..ww###....##..",
+      "######..................#######.......#######.ww.##....#####",
+      "#####...................#######.......#######ww........#####",
+      "######...##.............#######.......#####ww........#######",
+      "######..####............#######.......####ww#........#######",
+      "#####...###...............................ww........########",
+      "#####....##..............................ww.........########",
+      "####............########################ww..........########",
+      "##.#......##############################ww######.....#######",
+      "#..#...#################################ww#######....#######"
+    ],
+    "theme": "village"
+  },
+  "name": "Dawn's Gate",
+  "npcs": [
+    {
+      "npc": "dg_toma_flint",
+      "cell": [
+        14,
+        25
+      ],
+      "dialogue": "monastery/villagers:toma"
+    },
+    {
+      "npc": "dg_halka_wren",
+      "cell": [
+        27,
+        24
+      ],
+      "dialogue": "monastery/villagers:halka"
+    },
+    {
+      "npc": "dagny_voll",
+      "cell": [
+        40,
+        22
+      ],
+      "dialogue": "monastery/hounds:dagny_start"
+    },
+    {
+      "npc": "ser_maric_dunmore",
+      "cell": [
+        42,
+        25
+      ],
+      "dialogue": "monastery/maric:start"
+    },
+    {
+      "npc": "pilgrim_quill",
+      "cell": [
+        36,
+        27
+      ],
+      "dialogue": "monastery/poet:quill_start"
+    },
+    {
+      "npc": "brother_quiet",
+      "cell": [
+        22,
+        30
+      ],
+      "dialogue": "monastery/quiet:quiet_start"
+    },
+    {
+      "npc": "orrin_tolle",
+      "cell": [
+        33,
+        26
+      ],
+      "dialogue": "monastery/bell:orrin_start"
+    },
+    {
+      "npc": "dg_wren_child",
+      "cell": [
+        31,
+        27
+      ],
+      "dialogue": "monastery/villagers:wren"
+    }
+  ],
+  "props": [
+    {
+      "id": "dg_arrival",
+      "cell": [
+        55,
+        28
+      ],
+      "kind": "decor",
+      "label": "The river road, and the village ahead",
+      "call": "monastery/arrival:dg_arrive",
+      "approach": 10,
+      "call_when": "not flag.dg_arrived"
+    },
+    {
+      "id": "dg_bell_post",
+      "cell": [
+        34,
+        25
+      ],
+      "kind": "examine",
+      "label": "The village bell post",
+      "model": "lantern_post",
+      "dialogue": "monastery/arrival:bells"
+    },
+    {
+      "id": "dg_hill_sign",
+      "cell": [
+        21,
+        8
+      ],
+      "kind": "examine",
+      "label": "The hill path sign",
+      "model": "signpost",
+      "dialogue": "monastery/arrival:hill_sign"
+    },
+    {
+      "id": "dg_notice",
+      "cell": [
+        41,
+        30
+      ],
+      "kind": "examine",
+      "label": "The Hunt's notice",
+      "model": "notice_board",
+      "dialogue": "monastery/villagers:notice"
+    },
+    {
+      "id": "dg_well",
+      "cell": [
+        37,
+        27
+      ],
+      "kind": "decor",
+      "label": "The village well",
+      "model": "well_stone"
+    },
+    {
+      "id": "dg_adit",
+      "cell": [
+        8,
+        21
+      ],
+      "kind": "decor",
+      "label": "A mine adit, timbered and shut",
+      "model": "gate_iron"
+    },
+    {
+      "id": "dg_smelter_stack",
+      "cell": [
+        7,
+        22
+      ],
+      "kind": "decor",
+      "label": "The smelter, smoking",
+      "model": "oven_brick"
+    },
+    {
+      "id": "dg_slag",
+      "cell": [
+        12,
+        31
+      ],
+      "kind": "decor",
+      "label": "A heap of slag",
+      "model": "rubble"
+    },
+    {
+      "id": "dg_ore_cart",
+      "cell": [
+        5,
+        28
+      ],
+      "kind": "decor",
+      "label": "An ore cart",
+      "model": "handcart"
+    },
+    {
+      "id": "dg_banner_a",
+      "cell": [
+        29,
+        28
+      ],
+      "kind": "decor",
+      "label": "A red banner with a golden rose",
+      "model": "festival_cloth"
+    },
+    {
+      "id": "dg_banner_b",
+      "cell": [
+        46,
+        22
+      ],
+      "kind": "decor",
+      "label": "A red banner with a golden rose",
+      "model": "festival_cloth"
+    },
+    {
+      "id": "dg_banner_c",
+      "cell": [
+        24,
+        29
+      ],
+      "kind": "decor",
+      "label": "A red banner with a golden rose",
+      "model": "festival_cloth"
+    },
+    {
+      "id": "dg_stakes",
+      "cell": [
+        38,
+        22
+      ],
+      "kind": "decor",
+      "label": "A bundle of stakes the Hunt left",
+      "model": "stake_bundle"
+    },
+    {
+      "id": "dg_horse_trough",
+      "cell": [
+        43,
+        27
+      ],
+      "kind": "decor",
+      "label": "The Hunt's horse trough",
+      "model": "trough"
+    },
+    {
+      "id": "dg_lodge_horses",
+      "cell": [
+        38,
+        20
+      ],
+      "kind": "decor",
+      "label": "Tethered warhorses",
+      "model": "stall_horse"
+    },
+    {
+      "id": "dg_woodpile",
+      "cell": [
+        21,
+        27
+      ],
+      "kind": "decor",
+      "label": "A woodpile",
+      "model": "woodpile"
+    },
+    {
+      "id": "dg_slate_stack",
+      "cell": [
+        26,
+        38
+      ],
+      "kind": "decor",
+      "label": "A stack of roofing slate",
+      "model": "slate_stack"
+    },
+    {
+      "id": "dg_pass_view",
+      "cell": [
+        20,
+        3
+      ],
+      "kind": "decor",
+      "label": "The monastery on its peak",
+      "call": "monastery/arrival:pass_view",
+      "approach": 6,
+      "call_when": "not flag.mon_skyline_seen"
+    },
+    {
+      "id": "dg_farewell_prop",
+      "cell": [
+        36,
+        26
+      ],
+      "kind": "decor",
+      "label": "The square, quiet at last",
+      "call": "monastery/aftermath:farewell",
+      "approach": 8,
+      "call_when": "flag.crimson_aftermath and not flag.crimson_farewell"
+    },
+    {
+      "id": "dg_hunt_gather",
+      "cell": [
+        37,
+        24
+      ],
+      "kind": "decor",
+      "label": "The Hunt, saddling in the square",
+      "call": "monastery/villagers:hunt_ambush",
+      "approach": 7,
+      "call_when": "flag.hunt_known and not flag.sanguine_hunt_ambushed and not flag.hunt_gone"
+    },
+    {
+      "id": "dg_lamp_1",
+      "cell": [
+        30,
+        21
+      ],
+      "kind": "decor",
+      "label": "A copper lamp",
+      "model": "lantern_post"
+    },
+    {
+      "id": "dg_lamp_2",
+      "cell": [
+        33,
+        29
+      ],
+      "kind": "decor",
+      "label": "A copper lamp",
+      "model": "lantern_post"
+    },
+    {
+      "id": "dg_lamp_3",
+      "cell": [
+        42,
+        30
+      ],
+      "kind": "decor",
+      "label": "A copper lamp",
+      "model": "lantern_post"
+    },
+    {
+      "id": "dg_lamp_4",
+      "cell": [
+        26,
+        22
+      ],
+      "kind": "decor",
+      "label": "A copper lamp",
+      "model": "lantern_post"
+    },
+    {
+      "id": "dg_lamp_5",
+      "cell": [
+        45,
+        24
+      ],
+      "kind": "decor",
+      "label": "A copper lamp",
+      "model": "lantern_post"
+    },
+    {
+      "id": "dg_lamp_6",
+      "cell": [
+        27,
+        31
+      ],
+      "kind": "decor",
+      "label": "A copper lamp",
+      "model": "lantern_post"
+    },
+    {
+      "id": "dg_lamp_7",
+      "cell": [
+        41,
+        21
+      ],
+      "kind": "decor",
+      "label": "A copper lamp",
+      "model": "lantern_post"
+    },
+    {
+      "id": "dg_lamp_8",
+      "cell": [
+        19,
+        30
+      ],
+      "kind": "decor",
+      "label": "A copper lamp",
+      "model": "lantern_post"
+    },
+    {
+      "id": "dg_lamp_9",
+      "cell": [
+        30,
+        36
+      ],
+      "kind": "decor",
+      "label": "A copper lamp",
+      "model": "lantern_post"
+    },
+    {
+      "id": "dg_tree_1",
+      "cell": [
+        13,
+        10
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dg_tree_2",
+      "cell": [
+        18,
+        14
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "dg_tree_3",
+      "cell": [
+        10,
+        15
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dg_tree_4",
+      "cell": [
+        26,
+        6
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "dg_tree_5",
+      "cell": [
+        6,
+        38
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dg_tree_6",
+      "cell": [
+        12,
+        43
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "dg_tree_7",
+      "cell": [
+        40,
+        46
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dg_tree_8",
+      "cell": [
+        50,
+        20
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_a"
+    }
+  ],
+  "region": "dawns_gate",
+  "spawns": {
+    "default": [
+      57,
+      28
+    ],
+    "from_road": [
+      57,
+      28
+    ],
+    "from_pass": [
+      20,
+      2
+    ],
+    "from_briar": [
+      35,
+      37
+    ]
+  },
+  "summary": "A dour mining village in the Howlers' foothills, below a monastery whose red windows are never dark.",
+  "text": "Slate roofs, soot, and a copper glow of lamps. Red banners with a golden rose are nailed on every door, and above the village, on its peak, a bell tower stands black against the stars.",
+  "rest": "risky",
+  "rest_text": "The bell calls the hours, and the village kneels to every one.",
+  "recheck_minutes": 30
+}

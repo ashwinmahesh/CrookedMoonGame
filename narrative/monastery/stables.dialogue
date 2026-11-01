@@ -1,0 +1,62 @@
+# Drafted by Gemini (R14 stables), edited.
+
+~ landers
+Narrator: The stables smell of damp straw, lathered flanks, and cheap red wine. Three knights in their padded doublets pass a dented tin jug between the stalls.
+landers_knight [smile]: Come in out of the frost, friends! A clean run down the valley and three strays brought to the Rose's fold. Pour yourselves a cup!
+* Raise a cup to the Hunt's catch. -> landers_toast
+* Did you bring in a tall Brightsinger pilgrim? -> landers_pilgrim
+* Draw steel on them. -> stable_fight
+* Leave them to their drink. -> END
+
+~ landers_toast
+Narrator: You tip the sour vintage back, and Landers slaps the stall door hard enough to make the iron rings rattle.
+landers_knight [smile]: That is the spirit! A warm fire in the courtyard and a full cup in the straw, nothing finer on the mountain.
+set crimson_devotions += 1
+-> landers
+
+~ landers_pilgrim
+landers_knight [neutral]: Grey eyes, short beard? Aye, we roped him near the timber line. Stubborn fellow, sang his little bird-hymns all the way up the switchbacks.
+-> landers
+
+~ marla
+marla_knight [smile]: Do you fancy horses, stranger? You should have seen Ser Maric try to mount the big black mare at dusk. Threw himself into a snowdrift and called it a flanking maneuver!
+-> END
+
+~ fremont
+Narrator: Fremont leans against a tack post, paring his thumbnail with a skinning knife. His eyes flick once toward the iron key-ring high on the beam, then back to you.
+fremont_knight [neutral]: Drink if you are drinking, pilgrim. A wise guest keeps his eyes on his cup and off the wall hooks.
+-> END
+
+~ stable_fight
+landers_knight [angry]: Well now, look who brought bare iron to a friendly toast. Up, lads!
+combat mon_stable_knights
+
+~ hand
+Narrator: A lanky boy in a mire-stained smock sweeps the same dry patch of cobbles over and over, his knuckles white on the broom handle.
+stable_hand_cm [afraid]: Keep your voice down, please. The knights have sharp ears when the wine is in them, and I already said too much to that jailed singer.
+* What did you whisper to the pilgrim? -> hand_secret
+* How does one reach the sanctum below? -> hand_sanctum
+* Step away from him. -> END
+
+~ hand_secret
+stable_hand_cm [afraid]: I swept the Abbot's study while he was at bells and saw his open ledger. The Crimson Rose is no goddess at all, she is a pit devil drinking our pain.
+-> hand
+
+~ hand_sanctum
+stable_hand_cm [weary]: The stair goes down right under the high altar, if you have the stomach for it. They keep the silver chalice that works the lock behind the red dossal curtain.
+set src_axel
+set way_down_known
+quest crimson_monastery the_way_down
+-> hand
+
+~ armory
+Narrator: Racks of boar-spears and crimson shields line the dry stone wall. In a place of honour at the far end hangs a battered heater shield, its old gold leaf showing through the red paint.
+give shield_of_marius_renathyr
+set armory_shield
+-> END
+
+~ treats
+Narrator: A slatted crate by the feed bins holds joints of raw, dripping knuckle-meat meant for the bat-hounds. Taking clergy stores will not be forgiven if anyone sees your hand in the straw.
+give bloody_treats
+set treats_taken
+-> END

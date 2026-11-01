@@ -1,0 +1,132 @@
+{
+  "id": "swarm_of_bats",
+  "name": "Swarm of Bats",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 533,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "medium",
+  "swarm_of": "tiny",
+  "type": "beast",
+  "tags": [
+    "swarm"
+  ],
+  "alignment": "neutral",
+  "ac": 12,
+  "initiative": 2,
+  "hp": {
+    "average": 11,
+    "dice": "5d8"
+  },
+  "speed": {
+    "walk": 30,
+    "fly": 60
+  },
+  "abilities": {
+    "str": 12,
+    "dex": 14,
+    "con": 14,
+    "int": 5,
+    "wis": 13,
+    "cha": 8
+  },
+  "skills": {
+    "perception": 5,
+    "survival": 5
+  },
+  "resistances": [
+    "bludgeoning",
+    "piercing",
+    "slashing"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "frightened",
+    "grappled",
+    "paralyzed",
+    "petrified",
+    "prone",
+    "restrained",
+    "stunned"
+  ],
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 15,
+  "languages": [
+    "Understands Common and Sylvan, but can't speak"
+  ],
+  "cr": 0.5,
+  "xp": 100,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "compelled_delivery",
+      "name": "Compelled Delivery",
+      "action": "passive",
+      "summary": "Influence action: hand it a letter or parcel for a recipient you know and it is Charmed until it delivers the item (or takes damage).",
+      "text": "As an Influence action a creature can order the swarm to carry a letter or parcel (which the creature supplies) to a recipient the creature knows. The swarm is Charmed until it delivers the item or takes damage, and while so Charmed it must deliver the item if it knows where the recipient is.",
+      "implemented": "text"
+    },
+    {
+      "id": "swarm",
+      "name": "Swarm",
+      "action": "passive",
+      "summary": "Shares spaces with other creatures, fits through any gap a pigeon fits; can't heal or gain Temporary Hit Points.",
+      "text": "The swarm can move into and stay in another creature's space, and other creatures can enter its space. It can pass through any opening wide enough for one Tiny pigeon. The swarm can't regain Hit Points and can't gain Temporary Hit Points.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "swarm"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "unerring_delivery",
+      "name": "Unerring Delivery",
+      "action": "passive",
+      "summary": "Knows the distance and direction to the recipient of an item it was told to deliver, while both are on the same plane.",
+      "text": "When the swarm has been tasked to deliver something to a creature, it always knows how far away and in what direction that creature is, as long as they share a plane.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "bite",
+      "name": "Bite",
+      "kind": "melee",
+      "attack": {
+        "bonus": 4,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 5,
+          "dice": "2d4",
+          "type": "piercing"
+        }
+      ],
+      "summary": "+4, 2d4 Piercing."
+    }
+  ],
+  "reactions": [
+    {
+      "id": "many_eyes_one_voice",
+      "name": "Many Eyes, One Voice",
+      "kind": "special",
+      "do": "scrying_sensor",
+      "uses": {
+        "count": 1,
+        "per": "day"
+      },
+      "trigger": "The creature that tasked the swarm with a delivery, on the same plane, takes an action to see through it.",
+      "summary": "1/Day Reaction: the swarm becomes a Scrying sensor for the creature who tasked it, who can also speak through the swarm."
+    }
+  ],
+  "ai_profile": "swarm",
+  "summary": "A swarm of bats dropped from the belfry rafters.",
+  "art": "swarm_of_bats"
+}

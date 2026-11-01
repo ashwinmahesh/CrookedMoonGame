@@ -1,0 +1,162 @@
+{
+  "id": "blood_effigy",
+  "name": "Blood Effigy",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 494,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "medium",
+  "type": "undead",
+  "tags": [
+    "medium_or_small",
+    "cleric",
+    "vampire"
+  ],
+  "alignment": "lawful evil",
+  "ac": 13,
+  "initiative": 2,
+  "hp": {
+    "average": 10,
+    "dice": "3d6"
+  },
+  "speed": {
+    "walk": 30,
+    "climb": 30
+  },
+  "abilities": {
+    "str": 16,
+    "dex": 15,
+    "con": 15,
+    "int": 10,
+    "wis": 16,
+    "cha": 14
+  },
+  "saves": {
+    "wis": 5
+  },
+  "skills": {
+    "deception": 4
+  },
+  "senses": {
+    "darkvision": 60
+  },
+  "passive_perception": 13,
+  "languages": [
+    "Common",
+    "one other language"
+  ],
+  "cr": 0.5,
+  "xp": 100,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "spider_climb",
+      "name": "Spider Climb",
+      "action": "passive",
+      "summary": "Climbs walls and ceilings with no ability check.",
+      "text": "The clergy can climb difficult surfaces, ceilings included, without an ability check.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "spider_climb"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "self_loathing",
+      "name": "Self-Loathing",
+      "action": "passive",
+      "summary": "Disadvantage on D20 Tests while it can see its own reflection.",
+      "text": "A vampire-weakness of the clergy: it makes every D20 Test with Disadvantage while it can see its reflection.",
+      "implemented": "text"
+    },
+    {
+      "id": "sunlight_hypersensitivity",
+      "name": "Sunlight Hypersensitivity",
+      "action": "passive",
+      "summary": "Takes 20 Radiant if it starts its turn in sunlight; in sunlight, Disadvantage on attack rolls and ability checks.",
+      "text": "The clergy takes 20 Radiant damage if it starts its turn in sunlight, and while in sunlight it has Disadvantage on attack rolls and ability checks. (Druskenvald has no sun: this fires only against Daylight, Sunbeam and the like.)",
+      "sunlight": "hypersensitivity",
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "consume",
+      "name": "Consume",
+      "kind": "melee_or_ranged",
+      "attack": {
+        "bonus": 5,
+        "reach": 5,
+        "range": [
+          60
+        ]
+      },
+      "damage": [
+        {
+          "average": 10,
+          "dice": "2d6+3",
+          "type": "necrotic"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "drain_max_hp",
+          "type": "necrotic"
+        },
+        {
+          "do": "heal_self",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "+5, reach 5 ft or range 60 ft, 2d6+3 Necrotic; the target's Hit Point maximum drops by the damage and the clergy heals that much."
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "kind": "spellcasting",
+      "summary": "Wis, DC 13: Disguise Self and Thaumaturgy at will.",
+      "text": "Casts with Wisdom (spell save DC 13), needing no Material components. At will: Disguise Self, Thaumaturgy."
+    }
+  ],
+  "bonus_actions": [
+    {
+      "id": "crimson_blessing",
+      "name": "Crimson Blessing",
+      "kind": "spellcasting",
+      "do": "cast",
+      "cast": [
+        "bless"
+      ],
+      "uses": {
+        "count": 1,
+        "per": "day"
+      },
+      "summary": "Once a day: casts Bless as a Bonus Action."
+    }
+  ],
+  "spellcasting": {
+    "ability": "wis",
+    "dc": 13,
+    "at_will": [
+      "disguise_self",
+      "thaumaturgy"
+    ],
+    "per_day": {
+      "1": [
+        "bless"
+      ]
+    }
+  },
+  "ai_profile": "support",
+  "summary": "A clergy shape of blood, rising beside the Abbot under the red moon. Ten Hit Points.",
+  "art": "priest",
+  "minion_of": "crimson_abbot_boss",
+  "minions": {
+    "when_it_falls": "vanish",
+    "narration": "The effigy slumps into a puddle."
+  }
+}

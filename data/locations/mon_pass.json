@@ -1,0 +1,548 @@
+{
+  "areas": [
+    {
+      "id": "pass_foot",
+      "name": "The foot of the climb",
+      "cells": [
+        [
+          10,
+          48
+        ],
+        [
+          22,
+          59
+        ]
+      ]
+    },
+    {
+      "id": "pass_camp",
+      "name": "The camp ground",
+      "cells": [
+        [
+          3,
+          23
+        ],
+        [
+          13,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "pass_apron",
+      "name": "Before the gate",
+      "cells": [
+        [
+          7,
+          0
+        ],
+        [
+          26,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "pass_bend",
+      "name": "The long bends",
+      "cells": [
+        [
+          8,
+          30
+        ],
+        [
+          22,
+          47
+        ]
+      ]
+    }
+  ],
+  "encounters": [
+    {
+      "id": "mon_alpengrendel",
+      "trigger": "enter_area:pass_camp",
+      "when": "level <= 6 and not flag.mon_alpengrendel_done",
+      "waiting": true,
+      "flag": "mon_alpengrendel_done",
+      "monsters": [
+        {
+          "monster": "alpengrendel",
+          "cell": [
+            6,
+            25
+          ],
+          "name": "A pale shape at the camp ground",
+          "facing": "east"
+        }
+      ]
+    },
+    {
+      "id": "mon_alpengrendel",
+      "trigger": "enter_area:pass_camp",
+      "when": "level >= 7 and not flag.mon_alpengrendel_done",
+      "waiting": true,
+      "flag": "mon_alpengrendel_done",
+      "monsters": [
+        {
+          "monster": "alpengrendel",
+          "cell": [
+            6,
+            25
+          ],
+          "name": "A pale shape at the camp ground",
+          "facing": "east"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            9,
+            27
+          ],
+          "name": "A bat hound that follows it",
+          "facing": "east"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            8,
+            23
+          ],
+          "name": "A bat hound that follows it",
+          "facing": "east"
+        }
+      ]
+    },
+    {
+      "id": "mon_gate_fight",
+      "trigger": "dialogue",
+      "flag": "mon_gate_fight_done",
+      "monsters": [
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            19,
+            3
+          ],
+          "name": "A gate veteran",
+          "facing": "south"
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            22,
+            3
+          ],
+          "name": "A gate veteran",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            17,
+            5
+          ],
+          "name": "A cultist fanatic",
+          "facing": "east"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            23,
+            5
+          ],
+          "name": "A cultist fanatic",
+          "facing": "west"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            20,
+            5
+          ],
+          "name": "A cultist fanatic",
+          "facing": "south"
+        }
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "id": "down_to_village",
+      "cell": [
+        15,
+        59
+      ],
+      "to": "dawns_gate",
+      "spawn": "from_pass",
+      "label": "Down to Dawn's Gate"
+    },
+    {
+      "id": "up_to_gate",
+      "cell": [
+        20,
+        0
+      ],
+      "to": "mon_ground",
+      "spawn": "from_pass",
+      "label": "Through the monastery gate",
+      "when": "flag.crimson_gate_open"
+    }
+  ],
+  "id": "mon_pass",
+  "map": {
+    "elevation": [
+      "gggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggg",
+      "gggggggggggggggggggggggggggggg",
+      "ffffffffffffffffffffffffffffff",
+      "ffffffffffffffffffffffffffffff",
+      "ffffffffffffffffffffffffffffff",
+      "ffffffffffffffffffffffffffffff",
+      "eeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "eeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "eeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "eeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "eeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "dddddddddddddddddddddddddddddd",
+      "dddddddddddddddddddddddddddddd",
+      "dddddddddddddddddddddddddddddd",
+      "dddddddddddddddddddddddddddddd",
+      "cccccccccccccccccccccccccccccc",
+      "cccccccccccccccccccccccccccccc",
+      "cccccccccccccccccccccccccccccc",
+      "cccccccccccccccccccccccccccccc",
+      "cccccccccccccccccccccccccccccc",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "999999999999999999999999999999",
+      "999999999999999999999999999999",
+      "999999999999999999999999999999",
+      "999999999999999999999999999999",
+      "888888888888888888888888888888",
+      "888888888888888888888888888888",
+      "888888888888888888888888888888",
+      "888888888888888888888888888888",
+      "777777777777777777777777777777",
+      "777777777777777777777777777777",
+      "777777777777777777777777777777",
+      "777777777777777777777777777777",
+      "777777777777777777777777777777",
+      "666666666666666666666666666666",
+      "666666666666666666666666666666",
+      "666666666666666666666666666666",
+      "666666666666666666666666666666",
+      "555555555555555555555555555555",
+      "555555555555555555555555555555",
+      "555555555555555555555555555555",
+      "555555555555555555555555555555",
+      "555555555555555555555555555555",
+      "444444444444444444444444444444",
+      "444444444444444444444444444444",
+      "444444444444444444444444444444",
+      "444444444444444444444444444444",
+      "333333333333333333333333333333",
+      "333333333333333333333333333333"
+    ],
+    "light": "dim",
+    "outdoors": true,
+    "rows": [
+      "#################.......######",
+      "#########...............######",
+      "########.................#####",
+      "#######..................#####",
+      "#######...................####",
+      "########..................####",
+      "###########...............####",
+      "##################.......#####",
+      "##################.......#####",
+      "##################......######",
+      "#################......#######",
+      "#################......#######",
+      "################......########",
+      "###############......#########",
+      "##############......##########",
+      "#############......###########",
+      "############......############",
+      "###########......#############",
+      "##########......##############",
+      "#########......###############",
+      "########.......###############",
+      "#######.......################",
+      "######.......#################",
+      "#####........#################",
+      "#####.......##################",
+      "####........##################",
+      "####.........#################",
+      "####.........#################",
+      "###...........################",
+      "###.#.........################",
+      "#########......###############",
+      "#########......###############",
+      "#########....#################",
+      "#########....#################",
+      "#########.....################",
+      "#########......###############",
+      "##########......##############",
+      "###########......#############",
+      "############......############",
+      "############.......###########",
+      "#############........#########",
+      "##############........########",
+      "###############........#######",
+      "################.......#######",
+      "################......########",
+      "#################....#########",
+      "##################....########",
+      "##################....########",
+      "###################.....######",
+      "###################......#####",
+      "###################......#####",
+      "###################.....######",
+      "###################.....######",
+      "##################......######",
+      "#################......#######",
+      "#################......#######",
+      "################......########",
+      "###############......#########",
+      "#############........#########",
+      "############........##########"
+    ],
+    "theme": "forest"
+  },
+  "name": "The Howlers Pass",
+  "npcs": [],
+  "props": [
+    {
+      "id": "mon_pass_gate",
+      "cell": [
+        20,
+        3
+      ],
+      "kind": "decor",
+      "label": "The monastery gate, and its watch",
+      "call": "monastery/arrival:gate_watch",
+      "approach": 5,
+      "call_when": "not flag.crimson_gate_open"
+    },
+    {
+      "id": "mon_pass_view",
+      "cell": [
+        17,
+        54
+      ],
+      "kind": "decor",
+      "label": "The monastery on its peak",
+      "call": "monastery/arrival:pass_view",
+      "approach": 5,
+      "call_when": "not flag.mon_skyline_seen"
+    },
+    {
+      "id": "mon_pass_bats",
+      "cell": [
+        12,
+        20
+      ],
+      "kind": "decor",
+      "label": "Bats streaming from the belfry",
+      "model": "bat_perch"
+    },
+    {
+      "id": "mon_pass_cairn",
+      "cell": [
+        12,
+        39
+      ],
+      "kind": "decor",
+      "label": "A pilgrims' cairn",
+      "model": "cairn"
+    },
+    {
+      "id": "mon_pass_camp",
+      "cell": [
+        8,
+        26
+      ],
+      "kind": "decor",
+      "label": "A cold fire ring",
+      "model": "campfire"
+    },
+    {
+      "id": "mon_pass_sign",
+      "cell": [
+        15,
+        57
+      ],
+      "kind": "decor",
+      "label": "A signpost: THE CRIMSON ROSE RECEIVES ALL",
+      "model": "signpost"
+    },
+    {
+      "id": "mon_pass_tree_1",
+      "cell": [
+        7,
+        24
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mon_pass_tree_2",
+      "cell": [
+        11,
+        28
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "mon_pass_tree_3",
+      "cell": [
+        15,
+        36
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mon_pass_tree_4",
+      "cell": [
+        18,
+        44
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "mon_pass_tree_5",
+      "cell": [
+        12,
+        33
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mon_pass_tree_6",
+      "cell": [
+        21,
+        8
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "mon_pass_tree_7",
+      "cell": [
+        11,
+        5
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mon_pass_tree_8",
+      "cell": [
+        19,
+        50
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "mon_pass_tree_9",
+      "cell": [
+        13,
+        15
+      ],
+      "kind": "decor",
+      "label": "A dead tree",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mon_pass_rocks_1",
+      "cell": [
+        14,
+        30
+      ],
+      "kind": "decor",
+      "label": "Loose slate",
+      "model": "boulder_b"
+    },
+    {
+      "id": "mon_pass_rocks_2",
+      "cell": [
+        11,
+        37
+      ],
+      "kind": "decor",
+      "label": "Loose slate",
+      "model": "boulder_a"
+    },
+    {
+      "id": "mon_pass_rocks_3",
+      "cell": [
+        17,
+        41
+      ],
+      "kind": "decor",
+      "label": "Loose slate",
+      "model": "boulder_b"
+    },
+    {
+      "id": "mon_pass_rocks_4",
+      "cell": [
+        12,
+        16
+      ],
+      "kind": "decor",
+      "label": "Loose slate",
+      "model": "boulder_a"
+    },
+    {
+      "id": "mon_pass_rocks_5",
+      "cell": [
+        17,
+        16
+      ],
+      "kind": "decor",
+      "label": "Loose slate",
+      "model": "boulder_b"
+    }
+  ],
+  "region": "dawns_gate",
+  "spawns": {
+    "default": [
+      15,
+      57
+    ],
+    "from_gate": [
+      15,
+      57
+    ],
+    "from_monastery": [
+      20,
+      2
+    ]
+  },
+  "summary": "A winding climb through slate-grey mountains and a copse of dead trees, with the monastery's red windows lighting the way.",
+  "text": "The path climbs in long bends of loose slate. Dead trees lean over it. Above, bats stream out of a black tower and the red windows throw a lit road to the gates.",
+  "rest": "risky",
+  "rest_text": "Cold wind, loose slate, and bats overhead."
+}

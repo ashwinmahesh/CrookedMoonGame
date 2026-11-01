@@ -1,0 +1,98 @@
+# Drafted by Gemini (R14 sanctum), edited.
+
+~ prefight
+Narrator: Dark channels cut into the stone floor brim with warm blood, smelling of copper and crushed roses.
+father_renathyr [weary]: You have walked a long, red road to my altar, travelers. Hush now, Duchess, let us hear them before the tithe is paid.
+* [if flag.lethica_painting] Show him Lethica's painting. -> pre_lethica
+* [if flag.renathyr_journal] Show him the journal. -> pre_journal
+* [Persuasion DC 18] Ask him to stop. -> pre_stop | pre_nope
+* We have come to end this. -> pre_fight
+
+~ pre_lethica
+father_renathyr [afraid]: Put that away! Those eyes belong to a dead morning, Duchess, do not look at her, we are sworn to the Rose now.
+Narrator: His gauntleted hand trembles on the pommel, the old vows cracking like thin ice under his boots.
+set honor_lost_known
+-> prefight
+
+~ pre_journal
+father_renathyr [sad]: My own hand wrote those words when the bells still rang silver. That knight died on the mountain, and only the hunger remained.
+Narrator: He stands cold and still as a tomb effigy, haunted by the man he used to be.
+set honor_lost_known
+-> prefight
+
+~ pre_stop
+father_renathyr [sad]: Lay down the blade, you say, and let the mountain sleep? Ah, hear how Duchess weeps in her scabbard: she will not allow it.
+-> prefight
+
+~ pre_nope
+father_renathyr [weary]: You speak of mercy to a man who traded his soul for a sharper edge. Come, Duchess, they have nothing left to teach us.
+-> prefight
+
+~ pre_fight
+father_renathyr [angry]: Then kneel at the moat and offer your throats to the Crimson Rose! Sing for them, Duchess!
+set renathyr_fight_started
+quest crimson_monastery bloody_tears
+cutscene mon_phase1
+cutscene mon_phase1_2
+combat mon_abbot
+
+~ geyser
+Narrator: With the abbot's last rattle, the blood in the stone channels boils and roars upward in a scalding red geyser.
+Narrator: The torrent catches you like dry leaves, hurling you up through the shattered floor into the cathedral above.
+set renathyr_slain
+move mon_cathedral_moon:from_sanctum
+
+~ hellfire
+cutscene mon_hellfire
+cutscene mon_hellfire_2
+cutscene mon_hellfire_3
+set hellfire_seen
+Narrator: The great blade buries itself in the altar as the tallow candles roar into green hellfire, and the red glass twists into a grinning face.
+viraxys [smile]: Well struck, my little butcher. My golden knight grew so tiresomely sad, take up his blade, drink my grace, and rule this peak.
+* [Insight DC 13] She is a fiend. -> hf_fiend | hf_blind
+* [Religion DC 13] Read the blade's echo. -> hf_fiend | hf_blind
+* [Cleric] Use Divine Sense on the sword. -> hf_fiend
+* Refuse her. -> refuse
+* Accept her gift. -> accept1
+
+~ hf_fiend
+Narrator: Under the perfume of crushed petals hangs the unmistakable stench of brimstone and the pit. No goddess waits in that glass, only a devil.
+-> hellfire
+
+~ hf_blind
+Narrator: The velvet voice hums in your teeth and warms your blood, leaving only the promise of strength in the dark.
+-> hellfire
+
+~ accept1
+viraxys [sly]: Such a hungry hand reaching for the hilt. Are you certain you wish to trade your warm breath for my eternal night?
+* Yes. -> accept2
+* No. -> hellfire
+
+~ accept2
+Narrator: To draw that sword is to leave your companions behind forever, rising hereafter only as a creature of the dark.
+* Yes, I accept. -> accept
+* No. -> hellfire
+
+~ accept
+viraxys [smile]: Then drink deep, my new prior, and let the mountain know its master.
+set viraxys_offer = "accepted"
+cutscene mon_acceptance
+cutscene mon_acceptance_2
+sacrifice
+set hellfire_done
+-> END
+
+~ refuse
+set viraxys_offer = "refused"
+cutscene mon_refusal
+cutscene mon_refusal_2
+viraxys [angry]: Small souls with smaller stomach, choking on the feast you earned. Keep your cold ashes, then.
+Narrator: The hellfire gutters out and the red windows shatter inward like falling sleet, leaving only the mountain wind.
+set hellfire_done
+-> END
+
+~ sword_altar
+Narrator: Freed from the devil's whisper, the heavy blade sits cold in the split stone of the altar, waiting for a hand to claim it.
+give sword_of_the_crimson_abbot
+set sword_taken
+-> END

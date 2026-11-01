@@ -1,0 +1,107 @@
+# Drafted by Gemini (R14 faithful), edited.
+
+~ novice
+faithful_novice [smile]: Blessed be the petal, blessed be the thorn, blessed be the hand that prunes the vine! Welcome, pilgrims, mind the wax on the flagstones.
+* Tell us about the Crimson Rose's teachings. -> nov_teach
+* The bonfires keep this mountain pure. -> nov_praise
+* Burning folk alive is monstrous. -> nov_disagree
+* [if standing.crimson_faith <= 2 and flag.crimson_devotions >= 3] Make amends -> regain
+* What is that great chalice on the altar? -> nov_chalice
+* Leave her to her duties. -> END
+
+~ nov_teach
+faithful_novice [smile]: The Rose forgives all who bend to the shears, and only the stubborn deadwood goes into the brazier. Father Renathyr says obedience is the sweetest sap.
+-> novice
+
+~ nov_praise
+faithful_novice [smile]: Oh, you feel the warmth of it too! Father says the smoke rises straight to her garden.
+set crimson_devotions += 1
+-> novice
+
+~ nov_disagree
+set crimson_infractions += 1
+standing crimson_faith -1
+faithful_novice [afraid]: You mustn't say such things under the red glass. The priors have ears in every arch.
+-> novice
+
+~ nov_chalice
+faithful_novice [neutral]: I only dust the base with a lambskin cloth before vespers. None of us novices may look inside the bowl.
+-> novice
+
+~ regain
+faithful_novice [weary]: You have spoken well of the fires lately, though the priors still watch you hard. Will you kneel and mean it?
+* [Deception DC 13] Speak with conviction. -> regain_ok | regain_miss
+* Step back for now. -> END
+
+~ regain_ok
+standing crimson_faith +3
+set crimson_devotions = 0
+Narrator: Shoulders unknot along the cloister wall, and the whispered tallying of your sins stops for the hour.
+faithful_novice [smile]: I knew the thorn would catch in your heart before long. Walk freely, friends.
+-> END
+
+~ regain_miss
+Narrator: Your words ring like a cracked penny on stone, and the watching faces stay cold.
+faithful_novice [neutral]: Keep praying by the pyres, pilgrim. Perhaps the smoke will soften your tongue yet.
+-> END
+
+~ cook
+Narrator: A heavy smell of tallow and boiled marrow hangs round the copper vat. Sister Edda skims the grey fat without once glancing toward the bolted larder door.
+faithful_cook [weary]: Tallow for the tapers, grease for the bell-ropes. Don't stand where the kettle spits.
+* What do you keep behind that larder door? -> cook_larder
+* [Insight DC 12] She is afraid. -> cook_tell | cook_blind
+* Leave the kitchen. -> END
+
+~ cook_larder
+faithful_cook [neutral]: Bones for the broth, bone meal for the abbot's rosebeds. Nothing stays wasted up here on the rock.
+-> cook
+
+~ cook_tell
+Narrator: Her ladle clicks against the copper rim whenever a boot-heel scrapes behind that thick oak door.
+faithful_cook [afraid]: The priors' guests take their meals raw in the dark. I only slide the trencher through the slot and run.
+-> cook
+
+~ cook_blind
+Narrator: She wipes her brow with a greasy apron and gives nothing away but the heat of the stove.
+-> cook
+
+~ scribe
+faithful_scribe [weary]: By the root we are bound, by the root we are fed, by the root we are bound. If you seek the older ledger on the Holy Vein, check the high scriptorium shelves, my fingers are too cramped to fetch it.
+set scribe_slip
+-> END
+
+~ cells
+Narrator: A row of narrow stone cells smells of wet straw and old iron. Scratchings on the limewash count the three-night intervals between the bells.
+-> END
+
+~ parishioners
+if standing.crimson_faith >= 3
+faithful_novice [smile]: The red glass shines kindly on you tonight, friends. Even Friar Olaf remarked on your reverence.
+else
+faithful_novice [angry]: You walk these halls with muddy boots and doubtful eyes. State your business in the abbey.
+endif
+* Exchange a few pleasantries. -> parish_chat
+* We are only studying the monastery's ways. -> parish_answer
+* [if standing.crimson_faith <= -3] Fight them -> parish_hostile
+
+~ parish_chat
+faithful_novice [smile]: May the Night of Flames warm your marrow. Keep to the lighted galleries.
+set halls_met
+-> END
+
+~ parish_answer
+faithful_novice [neutral]: See that you study on your knees when the silver bells ring.
+set halls_met
+-> END
+
+~ parish_hostile
+combat mon_halls_clergy
+
+~ spiked_doors
+Narrator: Iron spikes Stud the timber on the hall side, and forcing the latch drives a rusted point straight into {name}'s palm.
+damage 1d4 piercing
+-> END
+
+~ upper_view
+Narrator: From the upper balustrade, the courtyard below looks like a stone well, its charred pyre-post waiting black and crooked in the red lantern light.
+-> END

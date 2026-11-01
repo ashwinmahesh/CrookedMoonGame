@@ -1,0 +1,58 @@
+# Drafted by Gemini (R14 aftermath), edited.
+
+~ courtyard
+Narrator: Cold wind sweeps the flagstones, carrying the sour ash of old pyres. The Crimson Faithful gather in their red wool, silent and staring at the cathedral doors.
+faithful_novice [afraid]: The bells have stopped. Where is the Abbot? Who tends the garden now?
+* [if flag.renathyr_journal] Hold up the journal as proof. -> reveal
+* Tell them what the Rose really is. -> reveal_plain
+* Say nothing. -> hush
+
+~ reveal
+cutscene mon_reveal
+cutscene mon_reveal_2
+Narrator: You read Father Marius's own hand to the crowd, every dry word of his bargain and his shame. One by one, red hoods are pulled down into the snow.
+faithful_scribe [sad]: It was his own hand. I know his ink. We burned our neighbors for a fiend's supper.
+set crimson_rose_revealed
+set crimson_faith_disbanded
+-> successor
+
+~ reveal_plain
+Narrator: Your voice rings off the red glass, naming the devil beneath the altar. Half the courtyard shrinks back in horror; the rest only clutch their thorns tighter.
+faithful_novice [angry]: You lie! The Rose bled for us, and you murdered her shepherd in the dark!
+faithful_cook [weary]: Hush, boy. Smell the cellar air coming up those stairs. That was never a goddess.
+set crimson_rose_revealed
+-> successor
+
+~ hush
+Narrator: You offer them neither sermon nor excuse. The red-robed folk stand in the drifting snow like sheep whose penned gate has blown open in the night.
+faithful_novice [weary]: No word at all? Not even a prayer for the ash?
+-> successor
+
+~ successor
+set crimson_successor = "none"
+if not flag.mon_jaeger_done
+set crimson_successor = "jaeger"
+endif
+if not flag.mon_cromwell_done
+set crimson_successor = "cromwell"
+endif
+if not flag.mon_olaf_done
+set crimson_successor = "olaf"
+endif
+Narrator: An empty chair in a high house never stays cold for long; whatever remains of the abbey's masters will soon enough decide what becomes of the flock.
+quest the_priors settled
+set crimson_aftermath
+quest crimson_monastery aftermath
+-> END
+
+~ farewell
+cutscene mon_moon_white
+cutscene mon_moon_white_2
+quest crimson_monastery return
+set crimson_farewell
+set act2_done += 1
+xp milestone
+Narrator: Down in Dawn's Gate, the red stain washes from the clouds, leaving the old crone's moon bone-white above the pines. The smell of wet silver and woodsmoke returns to the lane.
+kristoff_gruber [neutral]: Ale's on the board, and the shutters are unbarred. You best get down the river road before I start charging you rent.
+dg_halka_wren [weary]: The bells are quiet up the hill. That will do for tonight. Safe road to you, strangers.
+-> END

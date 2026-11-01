@@ -1,0 +1,82 @@
+# Drafted by Gemini (R14 flames), edited.
+
+~ pyre_start
+set night_of_flames_active
+quest crimson_monastery night_of_flames
+cutscene mon_flames
+Narrator: Sixty faithful in red robes ring the cold stones round six captives tied to pitch-soaked stakes. Friar Olaf paces below with a guttering torch while Father Renathyr watches from the high stair.
+* Watch in silence. -> pyre_watch
+* Call out to Gareth to recant. -> urge_start
+* Cry out against the burning and push forward. -> force_stop
+
+~ pyre_watch
+friar_olaf [smile]: Hear me, children, for my voice is the last mercy you shall know tonight. Name the Crimson Rose your lady, and these kind hands shall untie your cords.
+Narrator: Five captives weep the words and stumble free as the ropes fall away. Only Gareth remains, shaking his head while Olaf lowers the torch.
+gareth_creed [afraid]: The morning song is mine to keep. I will not give you my voice.
+friar_olaf [angry]: Ask again, stubborn lamb, while you still have a tongue to spend.
+gareth_creed [angry]: Never.
+cutscene mon_flames_2
+cutscene mon_flames_3
+set gareth_fate = "burned"
+Narrator: Black silhouettes twist behind a wall of roaring gold, and then nothing remains on the night wind but bitter sulfur and a heavy, ringing silence.
+-> pyre_end
+
+~ urge_start
+Narrator: Father Renathyr lifts one gloved hand on the stair, and sixty hooded heads turn toward you in the hush.
+father_renathyr [neutral]: Peace, friends. The fire asks its own question, and no man may answer for another.
+* [Persuasion DC 20] Plead that we are new converts who only wish to help a brother. -> urge_ok | urge_miss
+* [Deception DC 20] Say we are Gareth's cousins and know his heart. -> urge_ok | urge_miss
+* Stand beside Olaf and recite the creed. -> urge_creed
+* Step back. -> pyre_watch
+
+~ urge_miss
+father_renathyr [weary]: Your zeal outruns your wisdom, pilgrims. Keep your place, or find a truer way to prove your devotion.
+-> urge_start
+
+~ urge_creed
+Narrator: You step into the torchlight beside Friar Olaf and speak the Crimson words, and a low murmur of approval ripples through the red robes. On the stair, Father Renathyr inclines his head.
+set crimson_devotions += 1
+-> urge_ok
+
+~ urge_ok
+father_renathyr [smile]: Go on, then. If your words can save a stubborn branch from the winter fire, the Rose will gladly take the bloom.
+* [Persuasion DC 20] Urge Gareth to say the words. -> recant | gareth_hold
+* [if flag.melina_met] [Persuasion DC 10] Say Melina's name. -> recant | gareth_hold
+* [if item:melinas_songbird] Show him Melina's wooden songbird. -> recant
+* Step back. -> pyre_watch
+
+~ gareth_hold
+Narrator: Gareth sets his jaw and shakes his head against the post, though the torch has not yet touched the brushwood.
+gareth_creed [afraid]: Better the ash than a hollow song. Leave me be.
+-> urge_ok
+
+~ recant
+Narrator: A tremor takes Gareth from boot to shoulder as the five beside him stumble free.
+gareth_creed [sad]: The Crimson Rose is my lady. May the birds forgive me.
+Narrator: The novices cut his cords, and as he rubs his raw wrists he catches your eye, whispering that he will slip back to Wickermoor once the roads are quiet.
+set gareth_fate = "rescued"
+set crimson_devotions += 1
+-> pyre_end
+
+~ force_stop
+gate_veteran_cm [angry]: Hold them down! Do not let them near the stakes!
+Narrator: Iron hands catch your cloaks, and then the whole red-robed crowd presses in until stone and boot-heels blur into the dark. The captives are hauled back to the wood, and when your head clears, you lie on the frost-rimed flagstones of the Dead Larder.
+set gareth_fate = "burned"
+set crimson_captured
+set night_of_flames_done
+set night_of_flames_active
+jail mon_ground:larder keep_gear until flag.larder_out
+-> END
+
+~ pyre_end
+father_renathyr [smile]: Come inside from the mountain chill, my new friends, for there is no blame left in the embers. Easy now, Duchess, they are guests. Pray join me in the cathedral after the Twilight bell.
+set night_of_flames_done
+set crimson_in
+set renathyr_invited_cathedral
+standing crimson_faith +5
+quest crimson_monastery inside
+-> END
+
+~ pyre_cold
+Narrator: The pyre has burned down to cold grey ash, leaving only blackened stakes and a lingering smell of sulfur.
+-> END

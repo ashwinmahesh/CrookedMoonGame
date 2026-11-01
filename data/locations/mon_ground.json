@@ -1,0 +1,1468 @@
+{
+  "id": "mon_ground",
+  "name": "The Crimson Monastery",
+  "region": "crimson_monastery",
+  "summary": "A walled octagon on the peak: grounds, the Courtyard of the Rose, cloister halls, cells, a kitchen, a freezing larder and a domed cathedral.",
+  "text": "Spiked black walls, red glass in every window and a smell of iron and sulfur. Statues weep blood in the courtyard and the whole place is lit the colour of a wound.",
+  "map": {
+    "rows": [
+      "################################################################",
+      "#................###############################################",
+      "#................######......_______......######..............##",
+      "#..============..######......_______......######.====.........##",
+      "#.....................#...................##..##..............##",
+      "#.....................#.=====.......=====.##............====..##",
+      "#..============.......#...................##..##..............##",
+      "#................######.=====.......=====.##..##............=.##",
+      "#................######...................##..##............=.##",
+      "#................######...................##..##..............##",
+      "################################.###########..#########.########",
+      "##################............................##..............##",
+      "#....#...#...#...#............................##..=..=....=..=##",
+      "#.=..#=..#=..#=..#..####=#=#=###..##=#=#=###..##..............##",
+      "#....#...#...#...#..#......................#..##..............##",
+      "#....#...#...#...#..=..=................=..=..##..............##",
+      "###.###.###.###.##..#......................#..##..=.......=...##",
+      "#...................=......................=..##..............##",
+      "#...................#......................#..##..............##",
+      "###.###.###.###.##............................##################",
+      "#....#...#...#...#.........=........=.........#................#",
+      "#....#...#...#...#..#......................#...................#",
+      "#...=#..=#..=#..=#..=......................=..####.#######.#####",
+      "#....#...#...#...#..#......................#..##......##......##",
+      "##################..=......................=..##......##......##",
+      "##################..#..=................=..#..##......##......##",
+      "##################..#......................#..##......##......##",
+      "##################..####=#=#=###..##=#=#=###..##......##......##",
+      "##################............................##......##......##",
+      "##################............................##......##......##",
+      "###############################...##############################",
+      "#.......=......................................................#",
+      "#.###########..................................................#",
+      "#.#.........#.......==......................==.................#",
+      "#.#.===.....#.......................................===........#",
+      "#.#.........#..................................................#",
+      "#.#.............................................................",
+      "#.#.......=.#..................................................#",
+      "#.#......==.#..................................................#",
+      "#.#.........#..................................................#",
+      "#.###########..................................................#",
+      "################################.###############################"
+    ],
+    "theme": "manor",
+    "light": "bright",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "grounds",
+      "name": "The monastery grounds",
+      "cells": [
+        [
+          1,
+          31
+        ],
+        [
+          62,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "cabin",
+      "name": "Jaeger's cabin",
+      "cells": [
+        [
+          3,
+          33
+        ],
+        [
+          11,
+          39
+        ]
+      ],
+      "private": "sigmund_jaeger",
+      "open": "flag.crimson_in and standing.crimson_faith >= 5"
+    },
+    {
+      "id": "courtyard",
+      "name": "The Courtyard of the Rose",
+      "cells": [
+        [
+          21,
+          14
+        ],
+        [
+          42,
+          26
+        ]
+      ]
+    },
+    {
+      "id": "halls",
+      "name": "The monastery halls",
+      "cells": [
+        [
+          18,
+          11
+        ],
+        [
+          45,
+          29
+        ]
+      ]
+    },
+    {
+      "id": "cathedral",
+      "name": "The Sanguine Cathedral",
+      "cells": [
+        [
+          23,
+          2
+        ],
+        [
+          41,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "refectory",
+      "name": "The refectory",
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          15,
+          9
+        ]
+      ]
+    },
+    {
+      "id": "cells",
+      "name": "The monastic cells",
+      "cells": [
+        [
+          2,
+          12
+        ],
+        [
+          16,
+          23
+        ]
+      ]
+    },
+    {
+      "id": "kitchen",
+      "name": "The kitchen",
+      "cells": [
+        [
+          48,
+          2
+        ],
+        [
+          61,
+          9
+        ]
+      ],
+      "private": "sigmund_jaeger",
+      "open": "flag.crimson_in and standing.crimson_faith >= 5"
+    },
+    {
+      "id": "larder",
+      "name": "The Dead Larder",
+      "cells": [
+        [
+          48,
+          11
+        ],
+        [
+          61,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "nooks",
+      "name": "The prayer nooks",
+      "cells": [
+        [
+          48,
+          23
+        ],
+        [
+          61,
+          29
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      32,
+      39
+    ],
+    "from_pass": [
+      32,
+      39
+    ],
+    "from_stables": [
+      62,
+      36
+    ],
+    "from_upstairs_a": [
+      19,
+      12
+    ],
+    "from_upstairs_b": [
+      44,
+      28
+    ],
+    "from_tower": [
+      41,
+      5
+    ],
+    "from_sanctum": [
+      32,
+      4
+    ],
+    "larder": [
+      54,
+      15
+    ],
+    "from_vein": [
+      32,
+      4
+    ]
+  },
+  "exits": [
+    {
+      "id": "gate",
+      "cell": [
+        32,
+        41
+      ],
+      "to": "mon_pass",
+      "spawn": "from_monastery",
+      "label": "Out of the monastery gate",
+      "when": "not jailed"
+    },
+    {
+      "id": "stables_gate",
+      "cell": [
+        63,
+        36
+      ],
+      "to": "mon_stables",
+      "spawn": "from_grounds",
+      "label": "The east gate to the stables",
+      "when": "not jailed"
+    },
+    {
+      "id": "stairs_up_a",
+      "cell": [
+        19,
+        12
+      ],
+      "to": "mon_upper",
+      "spawn": "from_down_a",
+      "label": "Up the spiral stair",
+      "when": "not jailed"
+    },
+    {
+      "id": "stairs_up_b",
+      "cell": [
+        44,
+        28
+      ],
+      "to": "mon_upper",
+      "spawn": "from_down_b",
+      "label": "Up the spiral stair",
+      "when": "not jailed"
+    },
+    {
+      "id": "bell_tower_gate",
+      "cell": [
+        42,
+        5
+      ],
+      "to": "mon_bell_tower",
+      "spawn": "from_cathedral",
+      "label": "Through the Bell Tower Gate",
+      "when": "flag.bell_gate_open and not jailed"
+    },
+    {
+      "id": "altar_shaft",
+      "cell": [
+        32,
+        3
+      ],
+      "to": "mon_holy_vein",
+      "spawn": "from_altar",
+      "label": "Down the shaft beneath the altar",
+      "when": "flag.altar_open and not jailed"
+    }
+  ],
+  "props": [
+    {
+      "id": "mon_pyre",
+      "cell": [
+        31,
+        20
+      ],
+      "kind": "examine",
+      "label": "The pyre of six stakes",
+      "model": "stake_bundle",
+      "call": "monastery/flames:pyre_start",
+      "approach": 9,
+      "call_when": "flag.dg_arrived and not flag.night_of_flames_done"
+    },
+    {
+      "id": "mon_pyre_after",
+      "cell": [
+        31,
+        20
+      ],
+      "kind": "decor",
+      "label": "The pyre, burnt down",
+      "model": "ash_heap",
+      "dialogue": "monastery/flames:pyre_cold",
+      "when": "flag.night_of_flames_done"
+    },
+    {
+      "id": "mon_aftermath",
+      "cell": [
+        32,
+        8
+      ],
+      "kind": "decor",
+      "label": "The faithful, gathering",
+      "call": "monastery/aftermath:courtyard",
+      "approach": 6,
+      "call_when": "flag.hellfire_done and not flag.crimson_aftermath"
+    },
+    {
+      "id": "mon_larder_wake",
+      "cell": [
+        54,
+        14
+      ],
+      "kind": "decor",
+      "label": "The Dead Larder",
+      "call": "monastery/captives:larder_wake",
+      "approach": 4,
+      "call_when": "jailed and not flag.larder_woke"
+    },
+    {
+      "id": "mon_shackles",
+      "cell": [
+        53,
+        15
+      ],
+      "kind": "examine",
+      "label": "Shackles on the larder wall",
+      "model": "wall_chains",
+      "dialogue": "monastery/captives:shackles",
+      "when": "flag.larder_woke and not flag.larder_out"
+    },
+    {
+      "id": "mon_larder_axel_group",
+      "cell": [
+        57,
+        15
+      ],
+      "kind": "examine",
+      "label": "Four shackled captives",
+      "model": "skeleton_shackles",
+      "dialogue": "monastery/captives:group",
+      "when": "flag.crimson_in and not flag.crimson_captives_freed"
+    },
+    {
+      "id": "mon_altar",
+      "cell": [
+        32,
+        4
+      ],
+      "kind": "examine",
+      "label": "The altar, heaped with roses",
+      "model": "altar_church",
+      "dialogue": "monastery/clues:altar"
+    },
+    {
+      "id": "mon_pulpit",
+      "cell": [
+        35,
+        5
+      ],
+      "kind": "decor",
+      "label": "The stone pulpit",
+      "model": "lectern",
+      "dialogue": "monastery/clues:pulpit"
+    },
+    {
+      "id": "mon_bell_gate",
+      "cell": [
+        41,
+        5
+      ],
+      "kind": "examine",
+      "label": "The Bell Tower Gate",
+      "model": "door_barred",
+      "dialogue": "monastery/clues:bell_gate",
+      "when": "not flag.bell_gate_open"
+    },
+    {
+      "id": "mon_cabin_bench",
+      "cell": [
+        5,
+        34
+      ],
+      "kind": "examine",
+      "label": "A butcher's worktable",
+      "model": "workbench",
+      "dialogue": "monastery/clues:workbook"
+    },
+    {
+      "id": "mon_cell_row",
+      "cell": [
+        9,
+        17
+      ],
+      "kind": "decor",
+      "label": "A row of bare cells",
+      "model": "straw_pallet",
+      "dialogue": "monastery/faithful:cells"
+    },
+    {
+      "id": "mon_prayer_nook_a",
+      "cell": [
+        50,
+        25
+      ],
+      "kind": "examine",
+      "label": "A prayer nook over the valley",
+      "model": "window_tall",
+      "dialogue": "monastery/arrival:nook_view"
+    },
+    {
+      "id": "mon_halls_parishioners",
+      "cell": [
+        30,
+        12
+      ],
+      "kind": "decor",
+      "label": "Murmuring prayers in the hall",
+      "call": "monastery/faithful:parishioners",
+      "approach": 5,
+      "call_when": "flag.crimson_in and not flag.halls_met"
+    },
+    {
+      "id": "mon_halls_noise",
+      "cell": [
+        18,
+        22
+      ],
+      "kind": "decor",
+      "label": "Hall doors with spikes on this side",
+      "model": "door_carved",
+      "dialogue": "monastery/faithful:spiked_doors"
+    },
+    {
+      "id": "mon_banner_a",
+      "cell": [
+        23,
+        12
+      ],
+      "kind": "decor",
+      "label": "A red-and-gold banner",
+      "model": "festival_cloth"
+    },
+    {
+      "id": "mon_banner_b",
+      "cell": [
+        40,
+        12
+      ],
+      "kind": "decor",
+      "label": "A red-and-gold banner",
+      "model": "festival_cloth"
+    },
+    {
+      "id": "mon_banner_c",
+      "cell": [
+        23,
+        28
+      ],
+      "kind": "decor",
+      "label": "A red-and-gold banner",
+      "model": "festival_cloth"
+    },
+    {
+      "id": "mon_banner_d",
+      "cell": [
+        40,
+        28
+      ],
+      "kind": "decor",
+      "label": "A red-and-gold banner",
+      "model": "festival_cloth"
+    },
+    {
+      "id": "mon_candles_altar",
+      "cell": [
+        30,
+        3
+      ],
+      "kind": "decor",
+      "label": "Candles heaped about the altar",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "mon_candles_altar_b",
+      "cell": [
+        34,
+        3
+      ],
+      "kind": "decor",
+      "label": "Candles heaped about the altar",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "mon_corpse_platform",
+      "cell": [
+        32,
+        2
+      ],
+      "kind": "decor",
+      "label": "A corpse on a platform, bleeding into a golden bowl",
+      "model": "bier"
+    },
+    {
+      "id": "mon_font",
+      "cell": [
+        25,
+        8
+      ],
+      "kind": "decor",
+      "label": "A font of blood",
+      "model": "stone_font"
+    },
+    {
+      "id": "mon_kitchen_stove",
+      "cell": [
+        50,
+        4
+      ],
+      "kind": "decor",
+      "label": "A stove with a vat of rendering fat",
+      "model": "stove"
+    },
+    {
+      "id": "mon_kitchen_pots",
+      "cell": [
+        57,
+        4
+      ],
+      "kind": "decor",
+      "label": "Hounds' meat in tubs",
+      "model": "tub_wooden"
+    },
+    {
+      "id": "mon_larder_hook",
+      "cell": [
+        52,
+        13
+      ],
+      "kind": "decor",
+      "label": "A corpse on a hook, in an inch of blood",
+      "model": "carcass"
+    },
+    {
+      "id": "mon_larder_hook_b",
+      "cell": [
+        59,
+        14
+      ],
+      "kind": "decor",
+      "label": "An alpengrendel's carcass on a hook",
+      "model": "carcass"
+    },
+    {
+      "id": "mon_refectory_lectern",
+      "cell": [
+        8,
+        8
+      ],
+      "kind": "decor",
+      "label": "A reader's lectern",
+      "model": "lectern"
+    },
+    {
+      "id": "mon_cabin_hides",
+      "cell": [
+        10,
+        35
+      ],
+      "kind": "decor",
+      "label": "Hides and cleavers",
+      "model": "tool_rack"
+    },
+    {
+      "id": "mon_gate_brazier_a",
+      "cell": [
+        30,
+        38
+      ],
+      "kind": "decor",
+      "label": "A brazier by the gate",
+      "model": "brazier"
+    },
+    {
+      "id": "mon_gate_brazier_b",
+      "cell": [
+        34,
+        38
+      ],
+      "kind": "decor",
+      "label": "A brazier by the gate",
+      "model": "brazier"
+    },
+    {
+      "id": "mon_yard_cart",
+      "cell": [
+        50,
+        36
+      ],
+      "kind": "decor",
+      "label": "A cart of firewood",
+      "model": "cart_broken"
+    },
+    {
+      "id": "mon_yard_wellhead",
+      "cell": [
+        22,
+        36
+      ],
+      "kind": "decor",
+      "label": "A wellhead",
+      "model": "well_stone"
+    },
+    {
+      "id": "mon_statue_1",
+      "cell": [
+        23,
+        4
+      ],
+      "kind": "decor",
+      "label": "A weeping statue",
+      "model": "statue_saint"
+    },
+    {
+      "id": "mon_statue_2",
+      "cell": [
+        23,
+        8
+      ],
+      "kind": "decor",
+      "label": "A weeping statue",
+      "model": "statue_mother_night"
+    },
+    {
+      "id": "mon_statue_3",
+      "cell": [
+        41,
+        8
+      ],
+      "kind": "decor",
+      "label": "A weeping statue",
+      "model": "statue_knight"
+    },
+    {
+      "id": "mon_statue_4",
+      "cell": [
+        27,
+        15
+      ],
+      "kind": "decor",
+      "label": "A weeping statue",
+      "model": "statue_saint"
+    },
+    {
+      "id": "mon_statue_5",
+      "cell": [
+        36,
+        15
+      ],
+      "kind": "decor",
+      "label": "A weeping statue",
+      "model": "statue_mother_night"
+    },
+    {
+      "id": "mon_statue_6",
+      "cell": [
+        27,
+        25
+      ],
+      "kind": "decor",
+      "label": "A weeping statue",
+      "model": "statue_knight"
+    },
+    {
+      "id": "mon_statue_7",
+      "cell": [
+        36,
+        25
+      ],
+      "kind": "decor",
+      "label": "A weeping statue",
+      "model": "statue_saint"
+    },
+    {
+      "id": "mon_statue_8",
+      "cell": [
+        22,
+        20
+      ],
+      "kind": "decor",
+      "label": "A weeping statue",
+      "model": "statue_mother_night"
+    },
+    {
+      "id": "mon_statue_9",
+      "cell": [
+        42,
+        20
+      ],
+      "kind": "decor",
+      "label": "A weeping statue",
+      "model": "statue_knight"
+    },
+    {
+      "id": "mon_stake_1",
+      "cell": [
+        29,
+        18
+      ],
+      "kind": "decor",
+      "label": "A stake",
+      "model": "stake_bundle",
+      "when": "not flag.night_of_flames_done"
+    },
+    {
+      "id": "mon_stake_2",
+      "cell": [
+        29,
+        22
+      ],
+      "kind": "decor",
+      "label": "A stake",
+      "model": "stake_bundle",
+      "when": "not flag.night_of_flames_done"
+    },
+    {
+      "id": "mon_stake_3",
+      "cell": [
+        31,
+        17
+      ],
+      "kind": "decor",
+      "label": "A stake",
+      "model": "stake_bundle",
+      "when": "not flag.night_of_flames_done"
+    },
+    {
+      "id": "mon_stake_4",
+      "cell": [
+        31,
+        23
+      ],
+      "kind": "decor",
+      "label": "A stake",
+      "model": "stake_bundle",
+      "when": "not flag.night_of_flames_done"
+    },
+    {
+      "id": "mon_stake_5",
+      "cell": [
+        33,
+        18
+      ],
+      "kind": "decor",
+      "label": "A stake",
+      "model": "stake_bundle",
+      "when": "not flag.night_of_flames_done"
+    },
+    {
+      "id": "mon_stake_6",
+      "cell": [
+        33,
+        22
+      ],
+      "kind": "decor",
+      "label": "A stake",
+      "model": "stake_bundle",
+      "when": "not flag.night_of_flames_done"
+    },
+    {
+      "id": "mon_hall_lamp_1",
+      "cell": [
+        24,
+        28
+      ],
+      "kind": "decor",
+      "label": "A red-glass lantern",
+      "model": "lantern_bracket"
+    },
+    {
+      "id": "mon_hall_lamp_2",
+      "cell": [
+        26,
+        28
+      ],
+      "kind": "decor",
+      "label": "A red-glass lantern",
+      "model": "lantern_bracket"
+    },
+    {
+      "id": "mon_hall_lamp_3",
+      "cell": [
+        36,
+        29
+      ],
+      "kind": "decor",
+      "label": "A red-glass lantern",
+      "model": "lantern_bracket"
+    },
+    {
+      "id": "mon_hall_lamp_4",
+      "cell": [
+        38,
+        29
+      ],
+      "kind": "decor",
+      "label": "A red-glass lantern",
+      "model": "lantern_bracket"
+    },
+    {
+      "id": "mon_cell_1",
+      "cell": [
+        3,
+        21
+      ],
+      "kind": "decor",
+      "label": "A cell: a bed, a table, a rose carved in the floor",
+      "model": "bed_small"
+    },
+    {
+      "id": "mon_cell_2",
+      "cell": [
+        7,
+        21
+      ],
+      "kind": "decor",
+      "label": "A cell: a bed, a table, a rose carved in the floor",
+      "model": "bed_small"
+    },
+    {
+      "id": "mon_cell_3",
+      "cell": [
+        11,
+        21
+      ],
+      "kind": "decor",
+      "label": "A cell: a bed, a table, a rose carved in the floor",
+      "model": "bed_small"
+    },
+    {
+      "id": "mon_cell_4",
+      "cell": [
+        15,
+        21
+      ],
+      "kind": "decor",
+      "label": "A cell: a bed, a table, a rose carved in the floor",
+      "model": "bed_small"
+    },
+    {
+      "id": "mon_cell_5",
+      "cell": [
+        3,
+        13
+      ],
+      "kind": "decor",
+      "label": "A cell: a bed, a table, a rose carved in the floor",
+      "model": "bed_small"
+    },
+    {
+      "id": "mon_cell_6",
+      "cell": [
+        7,
+        13
+      ],
+      "kind": "decor",
+      "label": "A cell: a bed, a table, a rose carved in the floor",
+      "model": "bed_small"
+    },
+    {
+      "id": "mon_cell_7",
+      "cell": [
+        11,
+        13
+      ],
+      "kind": "decor",
+      "label": "A cell: a bed, a table, a rose carved in the floor",
+      "model": "bed_small"
+    },
+    {
+      "id": "mon_cell_8",
+      "cell": [
+        15,
+        13
+      ],
+      "kind": "decor",
+      "label": "A cell: a bed, a table, a rose carved in the floor",
+      "model": "bed_small"
+    },
+    {
+      "id": "mon_pew_n_1",
+      "cell": [
+        25,
+        6
+      ],
+      "kind": "decor",
+      "label": "A pew",
+      "model": "pew"
+    },
+    {
+      "id": "mon_pew_n_2",
+      "cell": [
+        27,
+        6
+      ],
+      "kind": "decor",
+      "label": "A pew",
+      "model": "pew"
+    },
+    {
+      "id": "mon_pew_n_3",
+      "cell": [
+        37,
+        6
+      ],
+      "kind": "decor",
+      "label": "A pew",
+      "model": "pew"
+    },
+    {
+      "id": "mon_pew_n_4",
+      "cell": [
+        39,
+        6
+      ],
+      "kind": "decor",
+      "label": "A pew",
+      "model": "pew"
+    },
+    {
+      "id": "mon_refectory_table_1",
+      "cell": [
+        5,
+        4
+      ],
+      "kind": "decor",
+      "label": "A refectory table",
+      "model": "table_set"
+    },
+    {
+      "id": "mon_refectory_table_2",
+      "cell": [
+        9,
+        4
+      ],
+      "kind": "decor",
+      "label": "A refectory table",
+      "model": "table_set"
+    },
+    {
+      "id": "mon_refectory_table_3",
+      "cell": [
+        12,
+        4
+      ],
+      "kind": "decor",
+      "label": "A refectory table",
+      "model": "table_set"
+    },
+    {
+      "id": "mon_refectory_table_4",
+      "cell": [
+        5,
+        7
+      ],
+      "kind": "decor",
+      "label": "A refectory table",
+      "model": "table_set"
+    },
+    {
+      "id": "mon_refectory_table_5",
+      "cell": [
+        9,
+        7
+      ],
+      "kind": "decor",
+      "label": "A refectory table",
+      "model": "table_set"
+    },
+    {
+      "id": "mon_refectory_table_6",
+      "cell": [
+        12,
+        7
+      ],
+      "kind": "decor",
+      "label": "A refectory table",
+      "model": "table_set"
+    },
+    {
+      "id": "mon_yard_barrel_1",
+      "cell": [
+        4,
+        31
+      ],
+      "kind": "decor",
+      "label": "A barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "mon_yard_barrel_2",
+      "cell": [
+        15,
+        31
+      ],
+      "kind": "decor",
+      "label": "A barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "mon_yard_barrel_3",
+      "cell": [
+        58,
+        31
+      ],
+      "kind": "decor",
+      "label": "A barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "mon_yard_barrel_4",
+      "cell": [
+        58,
+        38
+      ],
+      "kind": "decor",
+      "label": "A barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "mon_yard_barrel_5",
+      "cell": [
+        45,
+        38
+      ],
+      "kind": "decor",
+      "label": "A barrel",
+      "model": "barrel"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "gate_veteran_cm",
+      "cell": [
+        31,
+        37
+      ],
+      "dialogue": "monastery/arrival:gate_guards",
+      "facing": "south"
+    },
+    {
+      "npc": "faithful_novice",
+      "cell": [
+        26,
+        22
+      ],
+      "dialogue": "monastery/faithful:novice",
+      "when": "flag.crimson_in",
+      "facing": "east"
+    },
+    {
+      "npc": "faithful_cook",
+      "cell": [
+        52,
+        6
+      ],
+      "dialogue": "monastery/faithful:cook",
+      "when": "flag.crimson_in"
+    },
+    {
+      "npc": "friar_olaf",
+      "cell": [
+        31,
+        6
+      ],
+      "dialogue": "monastery/priors:olaf_start",
+      "when": "flag.night_of_flames_done and not flag.mon_olaf_done and not flag.olaf_in_room"
+    },
+    {
+      "npc": "sigmund_jaeger",
+      "cell": [
+        8,
+        36
+      ],
+      "dialogue": "monastery/priors:jaeger_start",
+      "when": "flag.night_of_flames_done and not flag.mon_jaeger_done"
+    },
+    {
+      "npc": "leona_cromwell",
+      "cell": [
+        33,
+        29
+      ],
+      "dialogue": "monastery/priors:cromwell_start",
+      "when": "flag.night_of_flames_done and not flag.mon_cromwell_done and not flag.cromwell_in_room"
+    },
+    {
+      "npc": "father_renathyr",
+      "cell": [
+        32,
+        4
+      ],
+      "dialogue": "monastery/renathyr:cathedral",
+      "when": "flag.crimson_in and flag.renathyr_invited_cathedral and not flag.cathedral_audience_done"
+    },
+    {
+      "npc": "axel_farley",
+      "cell": [
+        57,
+        16
+      ],
+      "dialogue": "monastery/captives:axel_start",
+      "when": "flag.crimson_in and not flag.crimson_captives_freed and not flag.axel_freed"
+    },
+    {
+      "npc": "gareth_creed",
+      "cell": [
+        33,
+        18
+      ],
+      "dialogue": "monastery/flames:urge_start",
+      "when": "flag.night_of_flames_active and not flag.night_of_flames_done"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "mon_pyre_fight",
+      "trigger": "dialogue",
+      "flag": "mon_pyre_fight_done",
+      "monsters": [
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            28,
+            20
+          ],
+          "name": "A veteran of the pyre",
+          "facing": "east"
+        },
+        {
+          "monster": "warrior_veteran",
+          "cell": [
+            38,
+            22
+          ],
+          "name": "A veteran of the pyre",
+          "facing": "west"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            31,
+            16
+          ],
+          "name": "A cultist fanatic",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            34,
+            24
+          ],
+          "name": "A cultist fanatic",
+          "facing": "north"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            26,
+            20
+          ],
+          "name": "A cultist fanatic",
+          "facing": "east"
+        }
+      ]
+    },
+    {
+      "id": "mon_jaeger",
+      "trigger": "dialogue",
+      "flag": "mon_jaeger_done",
+      "monsters": [
+        {
+          "monster": "prior_jaeger",
+          "cell": [
+            8,
+            36
+          ],
+          "name": "Houndmaster Jaeger",
+          "facing": "east"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            6,
+            35
+          ],
+          "name": "A kennel hound",
+          "facing": "east"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            9,
+            36
+          ],
+          "name": "A kennel hound",
+          "facing": "west"
+        }
+      ]
+    },
+    {
+      "id": "mon_halls_clergy",
+      "trigger": "dialogue",
+      "flag": "mon_halls_clergy_done",
+      "monsters": [
+        {
+          "monster": "crimson_clergy",
+          "cell": [
+            30,
+            12
+          ],
+          "name": "Crimson clergy",
+          "facing": "south"
+        },
+        {
+          "monster": "crimson_clergy",
+          "cell": [
+            34,
+            12
+          ],
+          "name": "Crimson clergy",
+          "facing": "south"
+        },
+        {
+          "monster": "crimson_clergy",
+          "cell": [
+            32,
+            11
+          ],
+          "name": "Crimson clergy",
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "mon_halls_hunt",
+      "trigger": "dialogue",
+      "flag": "mon_halls_hunt_done",
+      "monsters": [
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            30,
+            28
+          ],
+          "name": "A Hunt knight",
+          "facing": "north"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            28,
+            28
+          ],
+          "name": "A bat hound",
+          "facing": "north"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            35,
+            28
+          ],
+          "name": "A bat hound",
+          "facing": "north"
+        }
+      ]
+    },
+    {
+      "id": "mon_halls_priests",
+      "trigger": "dialogue",
+      "flag": "mon_olaf_done",
+      "monsters": [
+        {
+          "monster": "prior_olaf",
+          "cell": [
+            31,
+            12
+          ],
+          "name": "Friar Olaf",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            28,
+            12
+          ],
+          "name": "A cultist fanatic",
+          "facing": "south"
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            35,
+            12
+          ],
+          "name": "A cultist fanatic",
+          "facing": "south"
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "rest_text": "No one rests under the Rose's eye.",
+  "doors": [
+    {
+      "id": "larder_door",
+      "cell": [
+        55,
+        10
+      ],
+      "locked": true,
+      "lock_dc": 15,
+      "key": "skeleton_key",
+      "locked_text": "The larder door is barred from outside."
+    },
+    {
+      "id": "cabin_door",
+      "cell": [
+        12,
+        36
+      ],
+      "locked": false
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        30,
+        3
+      ],
+      "kind": "torch",
+      "bright_ft": 25,
+      "dim_ft": 50,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        34,
+        3
+      ],
+      "kind": "torch",
+      "bright_ft": 25,
+      "dim_ft": 50,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        25,
+        20
+      ],
+      "kind": "torch",
+      "bright_ft": 25,
+      "dim_ft": 50,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        38,
+        20
+      ],
+      "kind": "torch",
+      "bright_ft": 25,
+      "dim_ft": 50,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        32,
+        36
+      ],
+      "kind": "torch",
+      "bright_ft": 25,
+      "dim_ft": 50,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        20,
+        12
+      ],
+      "kind": "torch",
+      "bright_ft": 25,
+      "dim_ft": 50,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        44,
+        12
+      ],
+      "kind": "torch",
+      "bright_ft": 25,
+      "dim_ft": 50,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        54,
+        15
+      ],
+      "kind": "torch",
+      "bright_ft": 25,
+      "dim_ft": 50,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        8,
+        36
+      ],
+      "kind": "torch",
+      "bright_ft": 25,
+      "dim_ft": 50,
+      "color": "ember"
+    }
+  ]
+}

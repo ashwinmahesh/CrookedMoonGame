@@ -988,6 +988,24 @@
         7,
         30
       ],
+      "dialogue": "monastery/hook:weston_return",
+      "when": "flag.crimson_farewell and not flag.mon_returned"
+    },
+    {
+      "npc": "weston_murdoch",
+      "cell": [
+        7,
+        30
+      ],
+      "dialogue": "monastery/hook:weston_pilgrim",
+      "when": "flag.vessla_slain and not flag.gareth_asked"
+    },
+    {
+      "npc": "weston_murdoch",
+      "cell": [
+        7,
+        30
+      ],
       "dialogue": "wickermoor/weston_murdoch:start"
     },
     {
@@ -1119,6 +1137,33 @@
       ],
       "dialogue": "wickermoor/quack:pitch",
       "when": "flag.act2_done >= 1"
+    },
+    {
+      "npc": "melina",
+      "cell": [
+        4,
+        32
+      ],
+      "dialogue": "monastery/hook:melina_reunion",
+      "when": "flag.crimson_farewell and not flag.mon_returned"
+    },
+    {
+      "npc": "melina",
+      "cell": [
+        4,
+        32
+      ],
+      "dialogue": "monastery/quiet:melina_message",
+      "when": "flag.quiet_asked and not flag.quiet_done and flag.gareth_asked"
+    },
+    {
+      "npc": "melina",
+      "cell": [
+        4,
+        32
+      ],
+      "dialogue": "monastery/hook:melina_wait",
+      "when": "flag.gareth_asked and not flag.crimson_farewell"
     }
   ],
   "props": [
