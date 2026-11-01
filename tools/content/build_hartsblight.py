@@ -126,6 +126,16 @@ class Place:
         write(f"data/locations/{self.id}.json", self.loc)
 
 
+def _stand(a, b, c):
+    """All three places of a stand seen, or (the dryad's shortcut) any two of them."""
+    va, vb, vc = (f"visited:{x}" for x in (a, b, c))
+    return f"({va} and {vb} and {vc}) or (flag.hb_dryad_shortcut and (({va} and {vb}) or ({va} and {vc}) or ({vb} and {vc})))"
+
+
+STAND1 = _stand("hb_pine_barrens", "hb_infested_outcrop", "hb_noxious_hollow")
+STAND2 = _stand("hb_oozing_ravine", "hb_stinking_quagmire", "hb_fungal_grove")
+
+
 def night_fights(p, camp):
     """The Dead of Night's three fights, at a camp spot (the `combat` line plays the current place's encounter)."""
     x, y = camp
@@ -257,7 +267,7 @@ def build_altar():
     p = Place("hb_altar_of_rot")
     p.loc.update({"name": NAMES[p.id][0], "summary": NAMES[p.id][1]})
     p.area("altar_glade", "The altar glade", (2, 2), (27, 27))
-    p.standard_exits(to_druids="visited:hb_pine_barrens and visited:hb_infested_outcrop and visited:hb_noxious_hollow")
+    p.standard_exits(to_druids=STAND1)
     trek("hb_altar_leg", "hb_leg_altar", "leg_altar", p, (15, 25))
     p.prop("hb_effigy", (15, 9), "The effigy, a woman's face under fungus", model="scarecrow", scale=4.0, dialogue=HB + "forest1:effigy")
     p.prop("hb_altar", (15, 14), "A stack of stones and a stag carcass", model="altar", dialogue=HB + "forest1:altar_look")
@@ -352,7 +362,7 @@ def build_druids():
     p.loc.update({"name": NAMES[p.id][0], "summary": NAMES[p.id][1]})
     p.area("f5_common", "The common", (8, 8), (31, 31), light="dim")
     p.area("dwellings", "The burrowed dwellings", (3, 6), (36, 33))
-    p.standard_exits(to_ravine="visited:hb_druid_commune", to_wellspring="visited:hb_oozing_ravine and visited:hb_stinking_quagmire and visited:hb_fungal_grove")
+    p.standard_exits(to_ravine="visited:hb_druid_commune", to_wellspring=STAND2)
     trek("hb_druids_leg", "hb_leg_druids", "leg_druids", p, (4, 35))
     p.prop("hb_f5_common", (20, 26), "The open common, the drum circle at its heart", kind="decor", model="offering_circle", call=HB + "forest2:common", approach=8, call_when="not flag.hb_f5_seen")
     p.prop("hb_dwelling_a", (6, 12), "A dwelling burrowed into a rotting trunk", model="cobwebs", dialogue=HB + "forest2:dwelling")
@@ -426,6 +436,8 @@ def build_grove():
     p.prop("hb_grove_parley", (13, 20), "The gloomwood's trunk", kind="decor", model="tree_marked", call=HB + "gorthos:parley3", approach=4,
            call_when="(flag.hb_gloomwood_done or flag.hb_grove_done) and not flag.hb_parley3")
     forest_dressing(p, 6, 4, 8, (3, 3, 32, 32))
+    p.npc("hb_dryad", (24, 10), "dryad:dryad_review_start", facing="west", when="flag.hb_night_dryad or flag.hb_dryad_friendly")
+    p.npc("hb_dryad", (24, 10), "dryad:dryad_arrive", facing="west", when="not flag.hb_dryad_hostile")
     p.fight("hb_gloomwood", [p.mon("gloomwood", (14, 20), "The gloomwood", facing="east")], flag="hb_gloomwood_done")
     p.loc["lights"] = [light((14, 18), 40, 80, "bile"), light((22, 22), 30, 60, "bile")]
     p.save(NAMES[p.id][1] + " The whole grove glows a soft, patient green.", light="bright")

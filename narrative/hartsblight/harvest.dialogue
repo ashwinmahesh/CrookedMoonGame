@@ -106,10 +106,17 @@ Narrator: At the quagmire's edge, a mat of white-green mould smothers a bed of l
 * [if item:torch] Burn the mould with a torch. -> fire_ok
 * [Arcana DC 14] Burn it with a spell. -> fire_ok | fire_fail
 * [if item:tinderbox] Light a hunting-trap's tinder with a spark. -> fire_ok
+* Gather dry kindling and burn the mould off slowly, smoke and all. -> fire_smoke
 * Leave. -> END
 
 ~ fire_ok
 Narrator: The mould catches like tallow, crisping away in a foul yellow smoke until the fresh reed-heads beneath pop open and spill their clean seeds into your jar.
+set hb_seed_fire
+-> END
+
+~ fire_smoke
+Narrator: It takes an hour, and the smoke is thick and green and gets into every collar. When the mould is ash, a pale reed shoot is standing in the black.
+damage 1d6 necrotic party
 set hb_seed_fire
 -> END
 

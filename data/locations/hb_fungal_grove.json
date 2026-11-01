@@ -384,7 +384,28 @@
       "model": "leaves"
     }
   ],
-  "npcs": [],
+  "npcs": [
+    {
+      "npc": "hb_dryad",
+      "cell": [
+        24,
+        10
+      ],
+      "dialogue": "hartsblight/dryad:dryad_review_start",
+      "facing": "west",
+      "when": "flag.hb_night_dryad or flag.hb_dryad_friendly"
+    },
+    {
+      "npc": "hb_dryad",
+      "cell": [
+        23,
+        9
+      ],
+      "dialogue": "hartsblight/dryad:dryad_arrive",
+      "facing": "west",
+      "when": "not flag.hb_dryad_hostile"
+    }
+  ],
   "exits": [
     {
       "id": "to_druids",
