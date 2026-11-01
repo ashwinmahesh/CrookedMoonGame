@@ -236,7 +236,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         },
         {
           "monster": "reveler_of_stories_great_beast",
@@ -246,7 +248,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         },
         {
           "monster": "reveler_of_stories_great_beast",
@@ -256,7 +260,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         },
         {
           "monster": "reveler_of_stories_great_beast",
@@ -266,7 +272,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         },
         {
           "monster": "reveler_of_stories_great_beast",
@@ -276,7 +284,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         },
         {
           "monster": "reveler_of_stories_great_beast",
@@ -286,7 +296,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         },
         {
           "monster": "reveler_of_stories_great_beast",
@@ -296,7 +308,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         },
         {
           "monster": "reveler_of_stories_great_beast",
@@ -306,7 +320,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         }
       ],
       "round_events": [
@@ -338,20 +354,24 @@
                   20
                 ]
               ],
-              "say": "fd_join_dance"
+              "say": "fd_join_dance",
+              "unless_count": {
+                "who": [
+                  "dancing_herald"
+                ],
+                "at_least": 3
+              }
             },
             {
               "id": "ribbon_bind",
               "name": "Ribbon bind",
-              "summary": "Ribbons snap round the party's feet.",
+              "summary": "Ribbons snap round the party's feet: a DC 15 Strength save or Speed 0, the save again at the end of each turn.",
               "kind": "save",
               "affects": "party",
               "save": {
                 "ability": "str",
                 "dc": 15
               },
-              "condition": "restrained",
-              "until": "target_turn_end",
               "area": {
                 "rect": [
                   1,
@@ -360,32 +380,34 @@
                   34
                 ]
               },
-              "say": "fd_ribbon_bind"
+              "say": "fd_ribbon_bind",
+              "modifiers": [
+                {
+                  "stat": "speed_set",
+                  "value": 0
+                }
+              ],
+              "repeat_save": true
             },
             {
               "id": "snack_pelting",
               "name": "Snack pelting",
-              "summary": "Hand pies and sticky buns rain on the heroes.",
-              "kind": "save",
+              "summary": "Hand pies and sticky buns rain on one hero: -2 to attack rolls and Concentration saves until the crowd's next turn.",
+              "kind": "effect",
               "affects": "party",
-              "save": {
-                "ability": "dex",
-                "dc": 13
-              },
-              "damage": {
-                "dice": "1d4",
-                "type": "bludgeoning"
-              },
-              "half": true,
-              "area": {
-                "rect": [
-                  1,
-                  1,
-                  28,
-                  34
-                ]
-              },
-              "say": "fd_snack_pelting"
+              "say": "fd_snack_pelting",
+              "one": true,
+              "until": "round",
+              "modifiers": [
+                {
+                  "stat": "attack",
+                  "value": -2
+                },
+                {
+                  "stat": "concentration_save_bonus",
+                  "value": -2
+                }
+              ]
             }
           ]
         }
@@ -446,7 +468,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         },
         {
           "monster": "reveler_of_stories_great_beast",
@@ -456,7 +480,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         },
         {
           "monster": "reveler_of_stories_great_beast",
@@ -466,7 +492,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         },
         {
           "monster": "reveler_of_stories_great_beast",
@@ -476,7 +504,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         },
         {
           "monster": "reveler_of_stories_great_beast",
@@ -486,7 +516,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         },
         {
           "monster": "reveler_of_stories_great_beast",
@@ -496,7 +528,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         }
       ],
       "round_events": [
@@ -528,20 +562,24 @@
                   20
                 ]
               ],
-              "say": "fd_join_dance"
+              "say": "fd_join_dance",
+              "unless_count": {
+                "who": [
+                  "dancing_herald"
+                ],
+                "at_least": 3
+              }
             },
             {
               "id": "ribbon_bind",
               "name": "Ribbon bind",
-              "summary": "Ribbons snap round the party's feet.",
+              "summary": "Ribbons snap round the party's feet: a DC 15 Strength save or Speed 0, the save again at the end of each turn.",
               "kind": "save",
               "affects": "party",
               "save": {
                 "ability": "str",
                 "dc": 15
               },
-              "condition": "restrained",
-              "until": "target_turn_end",
               "area": {
                 "rect": [
                   1,
@@ -550,32 +588,34 @@
                   34
                 ]
               },
-              "say": "fd_ribbon_bind"
+              "say": "fd_ribbon_bind",
+              "modifiers": [
+                {
+                  "stat": "speed_set",
+                  "value": 0
+                }
+              ],
+              "repeat_save": true
             },
             {
               "id": "snack_pelting",
               "name": "Snack pelting",
-              "summary": "Hand pies and sticky buns rain on the heroes.",
-              "kind": "save",
+              "summary": "Hand pies and sticky buns rain on one hero: -2 to attack rolls and Concentration saves until the crowd's next turn.",
+              "kind": "effect",
               "affects": "party",
-              "save": {
-                "ability": "dex",
-                "dc": 13
-              },
-              "damage": {
-                "dice": "1d4",
-                "type": "bludgeoning"
-              },
-              "half": true,
-              "area": {
-                "rect": [
-                  1,
-                  1,
-                  28,
-                  34
-                ]
-              },
-              "say": "fd_snack_pelting"
+              "say": "fd_snack_pelting",
+              "one": true,
+              "until": "round",
+              "modifiers": [
+                {
+                  "stat": "attack",
+                  "value": -2
+                },
+                {
+                  "stat": "concentration_save_bonus",
+                  "value": -2
+                }
+              ]
             }
           ]
         }
@@ -636,7 +676,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         },
         {
           "monster": "reveler_of_stories_great_beast",
@@ -646,7 +688,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         },
         {
           "monster": "reveler_of_stories_great_beast",
@@ -656,7 +700,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         },
         {
           "monster": "reveler_of_stories_great_beast",
@@ -666,7 +712,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         }
       ],
       "round_events": [
@@ -698,20 +746,24 @@
                   20
                 ]
               ],
-              "say": "fd_join_dance"
+              "say": "fd_join_dance",
+              "unless_count": {
+                "who": [
+                  "dancing_herald"
+                ],
+                "at_least": 3
+              }
             },
             {
               "id": "ribbon_bind",
               "name": "Ribbon bind",
-              "summary": "Ribbons snap round the party's feet.",
+              "summary": "Ribbons snap round the party's feet: a DC 15 Strength save or Speed 0, the save again at the end of each turn.",
               "kind": "save",
               "affects": "party",
               "save": {
                 "ability": "str",
                 "dc": 15
               },
-              "condition": "restrained",
-              "until": "target_turn_end",
               "area": {
                 "rect": [
                   1,
@@ -720,32 +772,34 @@
                   34
                 ]
               },
-              "say": "fd_ribbon_bind"
+              "say": "fd_ribbon_bind",
+              "modifiers": [
+                {
+                  "stat": "speed_set",
+                  "value": 0
+                }
+              ],
+              "repeat_save": true
             },
             {
               "id": "snack_pelting",
               "name": "Snack pelting",
-              "summary": "Hand pies and sticky buns rain on the heroes.",
-              "kind": "save",
+              "summary": "Hand pies and sticky buns rain on one hero: -2 to attack rolls and Concentration saves until the crowd's next turn.",
+              "kind": "effect",
               "affects": "party",
-              "save": {
-                "ability": "dex",
-                "dc": 13
-              },
-              "damage": {
-                "dice": "1d4",
-                "type": "bludgeoning"
-              },
-              "half": true,
-              "area": {
-                "rect": [
-                  1,
-                  1,
-                  28,
-                  34
-                ]
-              },
-              "say": "fd_snack_pelting"
+              "say": "fd_snack_pelting",
+              "one": true,
+              "until": "round",
+              "modifiers": [
+                {
+                  "stat": "attack",
+                  "value": -2
+                },
+                {
+                  "stat": "concentration_save_bonus",
+                  "value": -2
+                }
+              ]
             }
           ]
         }
@@ -806,7 +860,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         },
         {
           "monster": "reveler_of_stories_great_beast",
@@ -816,7 +872,9 @@
           ],
           "name": "A forced reveler, screaming for help",
           "side": "neutral",
-          "facing": "north"
+          "facing": "north",
+          "nonlethal": true,
+          "hostile_if_harmed": true
         }
       ],
       "round_events": [
@@ -848,20 +906,24 @@
                   20
                 ]
               ],
-              "say": "fd_join_dance"
+              "say": "fd_join_dance",
+              "unless_count": {
+                "who": [
+                  "dancing_herald"
+                ],
+                "at_least": 3
+              }
             },
             {
               "id": "ribbon_bind",
               "name": "Ribbon bind",
-              "summary": "Ribbons snap round the party's feet.",
+              "summary": "Ribbons snap round the party's feet: a DC 15 Strength save or Speed 0, the save again at the end of each turn.",
               "kind": "save",
               "affects": "party",
               "save": {
                 "ability": "str",
                 "dc": 15
               },
-              "condition": "restrained",
-              "until": "target_turn_end",
               "area": {
                 "rect": [
                   1,
@@ -870,32 +932,34 @@
                   34
                 ]
               },
-              "say": "fd_ribbon_bind"
+              "say": "fd_ribbon_bind",
+              "modifiers": [
+                {
+                  "stat": "speed_set",
+                  "value": 0
+                }
+              ],
+              "repeat_save": true
             },
             {
               "id": "snack_pelting",
               "name": "Snack pelting",
-              "summary": "Hand pies and sticky buns rain on the heroes.",
-              "kind": "save",
+              "summary": "Hand pies and sticky buns rain on one hero: -2 to attack rolls and Concentration saves until the crowd's next turn.",
+              "kind": "effect",
               "affects": "party",
-              "save": {
-                "ability": "dex",
-                "dc": 13
-              },
-              "damage": {
-                "dice": "1d4",
-                "type": "bludgeoning"
-              },
-              "half": true,
-              "area": {
-                "rect": [
-                  1,
-                  1,
-                  28,
-                  34
-                ]
-              },
-              "say": "fd_snack_pelting"
+              "say": "fd_snack_pelting",
+              "one": true,
+              "until": "round",
+              "modifiers": [
+                {
+                  "stat": "attack",
+                  "value": -2
+                },
+                {
+                  "stat": "concentration_save_bonus",
+                  "value": -2
+                }
+              ]
             }
           ]
         }
@@ -978,20 +1042,24 @@
                   20
                 ]
               ],
-              "say": "fd_join_dance"
+              "say": "fd_join_dance",
+              "unless_count": {
+                "who": [
+                  "dancing_herald"
+                ],
+                "at_least": 3
+              }
             },
             {
               "id": "ribbon_bind",
               "name": "Ribbon bind",
-              "summary": "Ribbons snap round the party's feet.",
+              "summary": "Ribbons snap round the party's feet: a DC 15 Strength save or Speed 0, the save again at the end of each turn.",
               "kind": "save",
               "affects": "party",
               "save": {
                 "ability": "str",
                 "dc": 15
               },
-              "condition": "restrained",
-              "until": "target_turn_end",
               "area": {
                 "rect": [
                   1,
@@ -1000,32 +1068,34 @@
                   34
                 ]
               },
-              "say": "fd_ribbon_bind"
+              "say": "fd_ribbon_bind",
+              "modifiers": [
+                {
+                  "stat": "speed_set",
+                  "value": 0
+                }
+              ],
+              "repeat_save": true
             },
             {
               "id": "snack_pelting",
               "name": "Snack pelting",
-              "summary": "Hand pies and sticky buns rain on the heroes.",
-              "kind": "save",
+              "summary": "Hand pies and sticky buns rain on one hero: -2 to attack rolls and Concentration saves until the crowd's next turn.",
+              "kind": "effect",
               "affects": "party",
-              "save": {
-                "ability": "dex",
-                "dc": 13
-              },
-              "damage": {
-                "dice": "1d4",
-                "type": "bludgeoning"
-              },
-              "half": true,
-              "area": {
-                "rect": [
-                  1,
-                  1,
-                  28,
-                  34
-                ]
-              },
-              "say": "fd_snack_pelting"
+              "say": "fd_snack_pelting",
+              "one": true,
+              "until": "round",
+              "modifiers": [
+                {
+                  "stat": "attack",
+                  "value": -2
+                },
+                {
+                  "stat": "concentration_save_bonus",
+                  "value": -2
+                }
+              ]
             }
           ]
         }

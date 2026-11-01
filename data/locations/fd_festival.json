@@ -75,7 +75,18 @@
     {
       "id": "fd_streets",
       "name": "The Absurd Streets",
-      "crowd": {"count": 16, "name": "Costumed reveller", "sprites": ["villager"], "push_to": [40, 30], "push_every": 6},
+      "crowd": {
+        "count": 16,
+        "name": "Costumed reveller",
+        "sprites": [
+          "villager"
+        ],
+        "push_to": [
+          40,
+          30
+        ],
+        "push_every": 6
+      },
       "cells": [
         [
           2,
@@ -1168,7 +1179,8 @@
           "name": "Solomon Roderick, in costume",
           "facing": "north"
         }
-      ]
+      ],
+      "nonlethal": true
     },
     {
       "id": "reveler_hilda_brom",
@@ -1184,7 +1196,8 @@
           "name": "Hilda Brom, in costume",
           "facing": "north"
         }
-      ]
+      ],
+      "nonlethal": true
     },
     {
       "id": "reveler_wendel_somerton",
@@ -1200,7 +1213,8 @@
           "name": "Wendel Somerton, in costume",
           "facing": "north"
         }
-      ]
+      ],
+      "nonlethal": true
     },
     {
       "id": "reveler_alda_farnum",
@@ -1216,7 +1230,8 @@
           "name": "Alda Farnum, in costume",
           "facing": "north"
         }
-      ]
+      ],
+      "nonlethal": true
     },
     {
       "id": "reveler_jean_myriel",
@@ -1232,7 +1247,8 @@
           "name": "Jean Myriel, in costume",
           "facing": "north"
         }
-      ]
+      ],
+      "nonlethal": true
     },
     {
       "id": "reveler_finneas_trout",
@@ -1248,7 +1264,8 @@
           "name": "Finneas Trout, in costume",
           "facing": "north"
         }
-      ]
+      ],
+      "nonlethal": true
     },
     {
       "id": "reveler_eleanor_heyling",
@@ -1264,7 +1281,8 @@
           "name": "Eleanor Heyling, in costume",
           "facing": "north"
         }
-      ]
+      ],
+      "nonlethal": true
     },
     {
       "id": "reveler_doris_squire",
@@ -1280,7 +1298,8 @@
           "name": "Doris Squire, in costume",
           "facing": "north"
         }
-      ]
+      ],
+      "nonlethal": true
     },
     {
       "id": "reveler_weston_murdoch",
@@ -1296,7 +1315,8 @@
           "name": "Weston Murdoch, in costume",
           "facing": "north"
         }
-      ]
+      ],
+      "nonlethal": true
     },
     {
       "id": "reveler_holly_aster",
@@ -1312,7 +1332,8 @@
           "name": "Holly Aster, in costume",
           "facing": "north"
         }
-      ]
+      ],
+      "nonlethal": true
     },
     {
       "id": "reveler_thomasin_ardor",
@@ -1328,7 +1349,8 @@
           "name": "Thomasin Ardor, in costume",
           "facing": "north"
         }
-      ]
+      ],
+      "nonlethal": true
     },
     {
       "id": "reveler_morgan",
@@ -1344,7 +1366,8 @@
           "name": "Morgan, in costume",
           "facing": "north"
         }
-      ]
+      ],
+      "nonlethal": true
     },
     {
       "id": "reveler_baltus_tolliver",
@@ -1360,7 +1383,8 @@
           "name": "Baltus Tolliver, in costume",
           "facing": "north"
         }
-      ]
+      ],
+      "nonlethal": true
     },
     {
       "id": "reveler_old_rusty",
@@ -1376,7 +1400,8 @@
           "name": "Old Rusty, in costume",
           "facing": "north"
         }
-      ]
+      ],
+      "nonlethal": true
     },
     {
       "id": "reveler_sister_rain",
@@ -1392,7 +1417,8 @@
           "name": "Sister Rain, in costume",
           "facing": "north"
         }
-      ]
+      ],
+      "nonlethal": true
     },
     {
       "id": "follow_follow_brawl",
@@ -1411,156 +1437,61 @@
       ],
       "round_events": [
         {
-          "id": "brawl_0",
-          "name": "Another dancer joins",
-          "summary": "The crowd sends another costume to herd you.",
+          "id": "brawl_arrivals",
+          "name": "Another reveller joins",
+          "summary": "One more reveller pushes into the brawl each round.",
           "kind": "summon",
-          "affects": "enemies",
-          "monster": "reveler_of_song_drone",
-          "count": 1,
-          "side": "enemies",
-          "cells": [
-            [
-              12,
-              28
-            ],
-            [
-              12,
-              32
-            ]
-          ],
           "at": 20,
           "every": 1,
           "from_round": 2,
-          "times": 1,
-          "say": "fd_brawl_join"
-        },
-        {
-          "id": "brawl_1",
-          "name": "Another dancer joins",
-          "summary": "The crowd sends another costume to herd you.",
-          "kind": "summon",
-          "affects": "enemies",
-          "monster": "reveler_of_stories_hero",
-          "count": 1,
-          "side": "enemies",
-          "cells": [
-            [
-              12,
-              28
-            ],
-            [
-              12,
-              32
-            ]
-          ],
-          "at": 20,
-          "every": 1,
-          "from_round": 3,
-          "times": 1,
-          "say": "fd_brawl_join"
-        },
-        {
-          "id": "brawl_2",
-          "name": "Another dancer joins",
-          "summary": "The crowd sends another costume to herd you.",
-          "kind": "summon",
-          "affects": "enemies",
-          "monster": "reveler_of_song_drum",
-          "count": 1,
-          "side": "enemies",
-          "cells": [
-            [
-              12,
-              28
-            ],
-            [
-              12,
-              32
-            ]
-          ],
-          "at": 20,
-          "every": 1,
-          "from_round": 4,
-          "times": 1,
-          "say": "fd_brawl_join"
-        },
-        {
-          "id": "brawl_3",
-          "name": "Another dancer joins",
-          "summary": "The crowd sends another costume to herd you.",
-          "kind": "summon",
-          "affects": "enemies",
-          "monster": "reveler_of_stories_witch",
-          "count": 1,
-          "side": "enemies",
-          "cells": [
-            [
-              12,
-              28
-            ],
-            [
-              12,
-              32
-            ]
-          ],
-          "at": 20,
-          "every": 1,
-          "from_round": 5,
-          "times": 1,
-          "say": "fd_brawl_join"
-        },
-        {
-          "id": "brawl_4",
-          "name": "Another dancer joins",
-          "summary": "The crowd sends another costume to herd you.",
-          "kind": "summon",
-          "affects": "enemies",
-          "monster": "reveler_of_song_bell",
-          "count": 1,
-          "side": "enemies",
-          "cells": [
-            [
-              12,
-              28
-            ],
-            [
-              12,
-              32
-            ]
-          ],
-          "at": 20,
-          "every": 1,
-          "from_round": 6,
-          "times": 1,
-          "say": "fd_brawl_join"
-        },
-        {
-          "id": "brawl_5",
-          "name": "Another dancer joins",
-          "summary": "The crowd sends another costume to herd you.",
-          "kind": "summon",
-          "affects": "enemies",
-          "monster": "herald_of_fools",
-          "count": 1,
-          "side": "enemies",
-          "cells": [
-            [
-              12,
-              28
-            ],
-            [
-              12,
-              32
-            ]
-          ],
-          "at": 20,
-          "every": 1,
-          "from_round": 7,
-          "times": 1,
-          "say": "fd_brawl_join"
+          "pick": "sequence",
+          "table": [
+            {
+              "id": "arrival_0",
+              "kind": "summon",
+              "monster": "reveler_of_song_drone",
+              "count": 1,
+              "side": "enemies"
+            },
+            {
+              "id": "arrival_1",
+              "kind": "summon",
+              "monster": "reveler_of_stories_hero",
+              "count": 1,
+              "side": "enemies"
+            },
+            {
+              "id": "arrival_2",
+              "kind": "summon",
+              "monster": "reveler_of_song_drum",
+              "count": 1,
+              "side": "enemies"
+            },
+            {
+              "id": "arrival_3",
+              "kind": "summon",
+              "monster": "reveler_of_stories_witch",
+              "count": 1,
+              "side": "enemies"
+            },
+            {
+              "id": "arrival_4",
+              "kind": "summon",
+              "monster": "reveler_of_song_bell",
+              "count": 1,
+              "side": "enemies"
+            },
+            {
+              "id": "arrival_5",
+              "kind": "summon",
+              "monster": "herald_of_fools",
+              "count": 1,
+              "side": "enemies"
+            }
+          ]
         }
-      ]
+      ],
+      "nonlethal": true
     },
     {
       "id": "parade_heralds",
