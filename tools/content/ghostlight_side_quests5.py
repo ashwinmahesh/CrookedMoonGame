@@ -70,16 +70,12 @@ def main():
             ("ghostlight_g2_sleeper", "g2_punched_stub", (14, 4), "A punched ticket stub", "papers", "punch:stub", "flag.punch_asked and not flag.punch_found and not flag.stub_sleeper"),
             ("ghostlight_g5_mail", "g5_punched_stub", (2, 4), "A punched ticket stub", "papers", "punch:stub_mail", "flag.punch_asked and not flag.punch_found and not flag.stub_mail"),
             ("ghostlight_g7_circus", "g7_punch_chest", (13, 5), "The marionette chest's lid", "case", "punch:chest", "flag.punch_asked and not flag.punch_found"),
-            ("ghostlight_g3_lounge", "g3_banquette", (6, 4), "The lounge banquette", "chairs", "seating:seat", "flag.seating_asked and not flag.seating_outcome")):
+            ("ghostlight_g3_lounge", "g3_banquette", (6, 4), "The lounge banquette", "chairs", "seating:start", "flag.gl_lounge_met and not flag.seating_asked and not flag.gl_crashed"),
+            ("ghostlight_g3_lounge", "g3_banquette_seat", (5, 4), "The banquette, three seats", "chairs", "seating:seat", "flag.seating_asked and not flag.seating_outcome")):
         loc = room(key)
         if not any(p["id"] == pid for p in loc["props"]):
             loc["props"].append(prop(pid, cell, label, model, GL + dlg, when))
         write(f"data/locations/{key}.json", loc)
-    g3 = room("ghostlight_g3_lounge")
-    if not any(n.get("dialogue") == GL + "seating:start" for n in g3["npcs"]):
-        i = next(j for j, n in enumerate(g3["npcs"]) if n["npc"] == "phillip_druskenvald")
-        g3["npcs"].insert(i, entry("phillip_druskenvald", (10, 3), GL + "seating:start", "flag.gl_lounge_met and not flag.seating_asked and not flag.gl_crashed"))
-    write("data/locations/ghostlight_g3_lounge.json", g3)
     g4 = room("ghostlight_g4_dining")
     if not any(n["npc"] == "mrs_calloway" for n in g4["npcs"]):
         g4["npcs"].append(entry("mrs_calloway", (15, 4), GL + "folk_train:calloway_start", "not flag.gl_crashed"))
