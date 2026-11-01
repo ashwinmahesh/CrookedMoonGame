@@ -14,6 +14,7 @@ As a module: submit(...) / wait(...) / fetch(...) for scripts that crop or compo
 
 The GPU lock (~/.crooked-moon/gpu.lock) is for switching generators: this tool never switches one, it only queues.
 """
+from __future__ import annotations
 import json, os, shutil, sys, time, urllib.error, urllib.request
 from pathlib import Path
 
