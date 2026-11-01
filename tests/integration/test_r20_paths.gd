@@ -58,7 +58,11 @@ func _play(ref: String, gotos: Array[String] = []) -> Dictionary:
 				var opts := b["options"] as Array
 				var pick := -1
 				var want := str(left[0]) if not left.is_empty() else "END"
+				var no_roll := want.ends_with("!")   # "node!" is the way there that asks for no roll
+				want = want.trim_suffix("!")
 				for j in opts.size():
+					if no_roll and not (r._options[j]["check"] as Dictionary).is_empty():
+						continue
 					var target := str(r._options[j]["ok"]).get_slice(":", 1) if ":" in str(r._options[j]["ok"]) else str(r._options[j]["ok"])
 					var fail := str(r._options[j]["fail"])
 					if bool((opts[j] as Dictionary)["enabled"]) and (target == want or fail == want):
@@ -134,7 +138,7 @@ func after_each() -> void:
 
 
 func _hook_open() -> void:
-	for f in HOOK_FLAGS:
+	for f: String in HOOK_FLAGS:
 		st.set_flag(f)
 
 
@@ -161,6 +165,12 @@ func _start_hysteria() -> void:
 	st.set_flag("rk_posse_out")
 
 
+## The charm on and the posse dealt with: the mobs walk.
+func _mobs_walk() -> void:
+	_start_hysteria()
+	st.set_flag("rk_posse_done")
+
+
 # ---- the hook and the master stroke --------------------------------------------------------------------------------------------------
 
 func test_route_a_the_plea_takes_the_party_to_the_post_office() -> void:
@@ -173,7 +183,7 @@ func test_route_a_the_plea_takes_the_party_to_the_post_office() -> void:
 
 
 func test_the_plea_waits_for_the_last_of_the_fallen() -> void:
-	for f in HOOK_FLAGS.slice(0, 4):
+	for f: String in HOOK_FLAGS.slice(0, 4):
 		st.set_flag(f)
 	assert_true(_stands("geneva_fairchild").is_empty() or str(_stands("geneva_fairchild")["dialogue"]) != "rookery/hook:plea")
 	st.set_flag(HOOK_FLAGS[4])
@@ -349,7 +359,7 @@ func test_jail_way_6_the_march_slips_the_rope_and_the_party_is_never_executed() 
 	_play("rookery/jail:march")
 	_out("march")
 	assert_eq(st.location, VILLAGE)
-	for c in st.party:
+	for c: Character in st.party:
 		assert_false(c.dead)
 
 
@@ -375,14 +385,14 @@ func test_shops_and_houses_lock_while_the_charm_holds_and_open_when_golub_dies()
 
 func test_the_estate_road_the_moor_road_and_the_stable_stay_open_under_the_charm() -> void:
 	_start_hysteria()
-	for id in ["moor_road", "south_bridge", "stable"]:
+	for id: String in ["moor_road", "south_bridge", "stable"]:
 		var e := _entry("exits", "id", id)
 		assert_true(str(e.get("when", "")) == "" or _holds(e["when"]), "%s stays open" % id)
 
 
 func test_mobs_patrol_while_the_charm_holds_and_stand_down_after_a_fight() -> void:
 	assert_true(_stands("rk_mob_a").is_empty())
-	_start_hysteria()
+	_mobs_walk()
 	assert_eq(str(_stands("rk_mob_a")["dialogue"]), "rookery/folk:mob_a")
 	assert_true(not (_stands("rk_mob_a").get("path", []) as Array).is_empty())
 	_play("rookery/folk:mob_a", ["mob_fight"])
@@ -393,14 +403,14 @@ func test_mobs_patrol_while_the_charm_holds_and_stand_down_after_a_fight() -> vo
 
 
 func test_a_mob_can_be_slipped_with_no_fight() -> void:
-	_start_hysteria()
+	_mobs_walk()
 	_play("rookery/folk:mob_b", ["mob_slip"])
 	assert_true(fights.is_empty())
 	assert_true(_stands("rk_mob_b").is_empty())
 
 
 func test_a_failed_slip_leads_to_a_non_lethal_fight_not_a_dead_end() -> void:
-	_start_hysteria()
+	_mobs_walk()
 	dice = LowDice.new()
 	_play("rookery/folk:mob_c", ["mob_slip"])
 	assert_eq(fights, ["rk_mob_fight"] as Array[String])
@@ -450,6 +460,7 @@ func test_albert_can_be_fought_and_dies_with_the_fight() -> void:
 
 func test_the_comic_people_have_their_bits() -> void:
 	_start_hysteria()
+	st.gold = 10
 	_play("rookery/folk:pip", ["pip_pay"])
 	assert_true(st.party_has_item("rk_button_ledger"))
 	_play("rookery/folk:gaunt", ["gaunt_scared"])
@@ -595,7 +606,7 @@ func test_home_to_roost_ends_the_chapter_without_counting_an_act_two_chapter() -
 
 
 func test_the_charm_lifts_and_the_village_wakes() -> void:
-	_start_hysteria()
+	_mobs_walk()
 	st.set_flag("rk_posse_done")
 	st.set_flag("golub_dead")
 	assert_true(_stands("rk_mob_a").is_empty())
@@ -614,7 +625,7 @@ func test_the_new_postmaster_after_route_a_and_geneva_after_route_b() -> void:
 
 
 func test_every_new_place_is_reachable_by_its_exits() -> void:
-	for id in ["rk_dovecote_r1", "rk_dovecote_r2", "rk_roost_prairie", "rk_roost_swamp", "rk_roost_foothills", "rk_roost_lakeshore"]:
+	for id: String in ["rk_dovecote_r1", "rk_dovecote_r2", "rk_roost_prairie", "rk_roost_swamp", "rk_roost_foothills", "rk_roost_lakeshore"]:
 		_arrive(id)
 		var spawn := ((_loc()["spawns"] as Dictionary)["default"]) as Array
 		assert_true(spawn.size() == 2)
@@ -642,7 +653,7 @@ func test_quiet_door_has_a_way_with_no_roll() -> void:
 	st.set_quest_stage("quiet_door", "asked")
 	dice = LowDice.new()
 	_arrive("wickermoor_stable")
-	_play("rookery/quiet_door:oakum", ["leg1", "leg2_long", "leg2", "leg3_wait", "leg3", "arrive"])
+	_play("rookery/quiet_door:oakum", ["leg1", "leg2_long", "leg3_wait", "arrive!"])
 	assert_eq(st.quest_stage("quiet_door"), "delivered")
 
 
@@ -696,7 +707,7 @@ func test_poetry_can_be_burned_and_that_is_a_visible_ending() -> void:
 # ---- A Jury of Pigeons --------------------------------------------------------------------------------------------------------------
 
 func test_the_jury_sits_and_the_mob_adjourns() -> void:
-	_start_hysteria()
+	_mobs_walk()
 	_play("rookery/jury:start", ["accept"])
 	assert_eq(st.quest_stage("jury_of_pigeons"), "asked")
 	_play("rookery/jury:progress", ["docket", "docket_ok", "quorum", "quorum_ok", "oath", "oath_ok", "hearing"])
@@ -729,7 +740,7 @@ func test_forms_three_stamps_buy_a_writ_of_passage() -> void:
 	st.gold = 100
 	_play("rookery/forms:start", ["accept"])
 	assert_eq(st.quest_stage("forms_for_the_end"), "asked")
-	_play("rookery/forms:progress", ["stamp_a", "stamp_a_ok", "stamp_b", "stamp_b_ok", "stamp_c", "forge_ok", "stamp_c_ok", "deliver"])
+	_play("rookery/forms:progress", ["stamp_a", "stamp_a_ok", "stamp_b", "stamp_b_ok", "stamp_c", "forge_ok", "deliver"])
 	assert_eq(st.quest_stage("forms_for_the_end"), "done")
 	assert_true(st.party_has_item("rk_writ_of_passage"))
 
@@ -740,7 +751,7 @@ func test_forms_a_bad_forgery_ends_in_the_cells_only_by_choice() -> void:
 	st.set_flag("rk_forms_asked")
 	st.set_quest_stage("forms_for_the_end", "asked")
 	dice = LowDice.new()
-	_play("rookery/forms:progress", ["stamp_c", "forge_poor", "fee", "stamp_c_ok"])
+	_play("rookery/forms:progress", ["stamp_c", "forge_poor", "fee"])
 	assert_true(_flag("rk_stamp_c"))
 	assert_eq(st.quest_stage("forms_for_the_end"), "asked")
 	_play("rookery/forms:stamp_c", ["forge_poor", "forged"])

@@ -403,10 +403,10 @@ def build_village():
                 npc("rk_posse_a", (28, 8), "posse:grunt", steps_aside=True, when=pw), npc("rk_posse_b", (40, 8), "posse:grunt", steps_aside=True, when=pw)]
     # the mobs walk their routes; each stands down for a while after it is beaten, calmed, or bought off
     for (nid, route, tag) in mobs:
-        w = (f"{HYST} and not flag.rk_posse_out and (not flag.rk_mob_down or minutes_since.rk_mob_down >= 240)"
+        w = (f"{HYST} and (not flag.rk_posse_out or flag.rk_posse_done) and (not flag.rk_mob_down or minutes_since.rk_mob_down >= 240)"
              f" and (not flag.rk_mob_calm or minutes_since.rk_mob_calm >= 600)")
         entries.append(npc(nid, route[0], f"folk:mob_{tag}", approach=4, path=[list(c) for c in route], pause=2, steps_aside=True, when=w))
-    entries.append(npc("rk_mob_round", (31, 25), "folk:mob_round", approach=3, steps_aside=True, when=f"{HYST} and not flag.rk_posse_out and (not flag.rk_mob_calm or minutes_since.rk_mob_calm >= 600)"))
+    entries.append(npc("rk_mob_round", (31, 25), "folk:mob_round", approach=3, steps_aside=True, when=f"{HYST} and (not flag.rk_posse_out or flag.rk_posse_done) and (not flag.rk_mob_calm or minutes_since.rk_mob_calm >= 600)"))
     # named villagers with a part to play while the charm holds
     entries += [
         npc("peeping_albert", (36, 9), "folk:albert_town", approach=6, when=f"{HYST} and not flag.albert_dead and not flag.rk_albert_fled"),
