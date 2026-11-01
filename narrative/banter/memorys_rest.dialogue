@@ -1,0 +1,70 @@
+# Banter in Memory's Rest (story/banter.gd plays this file only where a place's region is memorys_rest): one exchange between two or three companions about what is in
+# front of them in one place, gated on that place (`at:`) and on the story's state so a remark never runs ahead of the chapter. Played now and then on entering
+# an area, once each; an exchange nobody present can speak comes out empty and is skipped.
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+
+~ mr_shore_01_delphine_rook
+if name:delphine_ravelle and name:rook_coldwake and at:mr_shore and not flag.lethica_slain
+interject name:delphine_ravelle: An hour of sucking mud and not a footlight in sight, Rook. Look at those briars, they have chewed my hem right off the bias.
+interject name:rook_coldwake: Shingle drains better than the marsh, Delphine, I'll grant it that. The parish forgot to clear the reeds round the landing stake, though.
+interject name:delphine_ravelle: And look at that driftwood carving with the jawbone. Your Foolishness is positively jealous of the dental work, darling.
+interject name:rook_coldwake: Unlicensed effigy on a public mooring, plus a rowboat left without a proper chain. Still, beats standing in the bog while my knuckles go soft.
+interject name:delphine_ravelle: Just row steady toward those violet windows, before the damp gets into my sawdust.
+endif
+-> END
+
+~ mr_isle_02_silas_tobin
+if name:silas_vane and name:tobin_hayward and at:mr_isle and not flag.lethica_slain
+interject name:silas_vane: Look at the lettering over the iron doors, Tobin, real fancy serif work. Tell's in the twitch, friend, and a house that polite is hiding a rigged shoe.
+interject name:tobin_hayward: Never mind the doors, Silas, look at the shallows by the dock. Black irises growing fat in cold rot, and an overgrown willow choking its own taproot.
+interject name:silas_vane: Four rowboats knocking at the pilings and nobody coming out to take our coats. Even the barn owl in that dry fountain looks like he lost his shirt.
+interject name:tobin_hayward: The mortar on the forecourt smells of wet lime and old fever. Keep your bone cards in your pocket, we are walking into a blighted orchard.
+endif
+-> END
+
+~ mr_ground_03_lucan_cordelia
+if name:lucan_houndstooth and name:cordelia_skein and at:mr_ground and not flag.lethica_slain
+interject name:lucan_houndstooth: Good heavens, Cordelia, the scent of cheap chamomile is practically aggressive. Barnaby has flattened his ears at those violet tubes, and I cannot fault his posture.
+interject name:cordelia_skein: The hum is seventy cycles off true calibration, darling, quite ruinous for the nerves. Do look at the porcelain masks on the orderlies, though, such tidy symmetry.
+interject name:lucan_houndstooth: A gentleman prefers to see the jaws of the quarry he is addressing. Even the veiled portrait by the desk refuses to look us in the eye.
+interject name:cordelia_skein: It is a parlour trick to keep the pulse slow before the assay begins. Stay off the floral chairs, Lucan, I do not trust the upholstery.
+endif
+-> END
+
+~ mr_upper_04_rook_lucan
+if name:rook_coldwake and name:lucan_houndstooth and at:mr_upper and not flag.lethica_slain
+interject name:rook_coldwake: Not a single chair on the landing, Lucan, and heavy locks on every door. You don't bolt a hospital from the outside unless the zoning has gone sideways.
+interject name:lucan_houndstooth: Look at the straps torn from that bolted chair, if you please. Whatever specimen sat there last had terrible manners and a remarkable reach.
+interject name:rook_coldwake: Twelve morgue lockers along the wall, and not a proper ledger on the slab. My shield-knocker just gave a clack, and I didn't touch it.
+interject name:lucan_houndstooth: Hush now, the dark has teeth behind that observation glass. Someone kept a little shrine of mementos by the cots, as if they hoped to be forgiven.
+endif
+-> END
+
+~ mr_grotto_05_cordelia_tobin
+if name:cordelia_skein and name:tobin_hayward and at:mr_grotto and not flag.lethica_slain
+interject name:cordelia_skein: Fascinating pathology, Tobin, the entire cavern is folded like a cortical hemisphere. And look at the specimen in the chains, the sheer volume of ichor is breathtaking.
+interject name:tobin_hayward: That is not a specimen, Cordelia, that is a fifty-year canker chained over a drain. The air down here tastes of sour copper and boiled marrow.
+interject name:cordelia_skein: My six eyes can barely settle, the distilled serum in those mutation tanks has a lovely teal luminescence. Hold still, darling, your primrose cuff is wilting in the steam.
+interject name:tobin_hayward: Leave the cuff be and step away from the glyph ring. Something is floating inside that glass tank, and no clean seed ever grew in the dark.
+endif
+-> END
+
+~ mr_ground_06_delphine_tobin
+if name:delphine_ravelle and name:tobin_hayward and at:mr_ground and flag.lethica_slain
+interject name:delphine_ravelle: The violet tubes have stopped humming, Tobin, and the house lights are practically dead. Without Lethica pulling the strings, this whole lobby is just cheap velvet and cold tea.
+interject name:tobin_hayward: Good riddance to bad stitchwork, Delphine, the air in the courtyard finally smells like plain rain. Even the fern in that porcelain pot has stopped shivering.
+interject name:delphine_ravelle: Look at those porcelain masks on the floor, not a headliner left in the building. Your Foolishness is trying to make a pun about the call bell, and he hasn't the heart for it.
+interject name:tobin_hayward: Leave the picture books on the table and let the wind chimes be. You cannot mend a house that was built on rot from the first row.
+endif
+-> END
+
+~ mr_isle_07_lucan_tobin
+if name:lucan_houndstooth and name:tobin_hayward and at:mr_isle and flag.lethica_slain
+interject name:lucan_houndstooth: The violet glare has gone out of the brick front, Tobin, if you please. Barnaby just sat down by the rotted bench without a single yip.
+interject name:tobin_hayward: The sour hexing has gone out of the mud, Lucan, now that Lethica is under the sod. Still, those black irises by the dock will take three winters to die back.
+interject name:lucan_houndstooth: Look up at the dry fountain, friend, the barn owl is preening its wing as if it owns the estate. I would award the bird an eight out of ten for composure.
+interject name:tobin_hayward: At least the rowboats are still tied where we left them. Let us get off this island before the damp gets into my burlap.
+interject name:lucan_houndstooth: Agreed, though I shall leave a very stern note in my journal regarding their garden maintenance.
+endif
+-> END

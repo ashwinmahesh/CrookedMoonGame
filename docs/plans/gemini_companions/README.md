@@ -95,7 +95,7 @@ act 3 `flag.act2_done >= 5`.
 ## Drafting record
 
 How it was sent. Project `ai-bridge`, model `gemini-4-argon-medium` (Gemini 4 Argon, medium; the bridge reports no model id, so `reported_model` is empty
-and the effort is left unset), one send per brief, none failed, none resent: 6 thread briefs, 6 approval-and-acts briefs, 6 secrets briefs and 3 banter briefs.
+and the effort is left unset), one send per brief, none failed, none resent: 6 thread briefs, 6 approval-and-acts briefs, 6 secrets briefs, 3 party banter briefs and (phase 1b) 12 region banter briefs.
 `send_brief.py` is the client (the same as `~/.crooked-moon/bridge.py`, plus context files). The bridge takes at most 16000 characters in a message body, so each
 companion's voice sheet and character file travel as two attached documents (the bridge's context files, 32000 characters each; copies here as
 `context_<id>-voice-and-beats.txt` and `context_<id>-camp-talks.txt`; banter's two cast sheets are `context_banter-cast-1.txt` and `-2.txt`). The voice sheet
@@ -108,6 +108,7 @@ secret-free fact lists instead of whole notes, because the notes state the dark 
 | `acts_<id>` | strained, doubt, act 1, act 2, act 3 | same |
 | `secrets_<id>` | warm, close, devoted | same |
 | `banter_act1` .. `act3` | nine exchanges each, five of the act's own pairs and four extras (all fifteen pairs covered) | same |
+| `region_<region>` | phase 1b: six to eight exchanges about one region's places (below) | same |
 
 What the briefs fixed (ours) and Gemini wrote (the words): each talk's opening count, its three options' roles, and the facts allowed; Gemini wrote the Narrator and
 companion rows, the party's option text and the REASON rows. The Discovery and the Confrontation tell only what the quest's journal line says
@@ -130,6 +131,26 @@ companion rows, the party's option text and the REASON rows. The Discovery and t
 
 For the voice lane: `python3 tools/content/act1_voice_keys.py --region camp --list` and `--region banter --list` (the script reads both regions now and lists every line
 with no job when the jobs file isn't there).
+
+## Phase 1b: region banter (`narrative/banter/<region>.dialogue`)
+
+`Banter.next` plays a file only where its name starts with the place's region id, so each of the twelve regions whose map data sets `region` has its own file
+(ghostlight_express, wickermoor, crooked_house, foxwillow, crimson_monastery, drowned_crossroads, skitterdeep_mine, memorys_rest, dawns_gate, hartsblight_forest,
+maidenmist_cemetery, crooked_nightmare): 92 exchanges, six to eight a region, each about what is in front of the party in one place at one moment of the story.
+
+- **The plan is ours** (`tools/content/companion_regions.py`): each slot names its place (`at:`), its story gate (a condition over flags that exist in `data/flags`), that
+  state in plain words, and sometimes a companion the place suits. `assign()` fixes who speaks where: every companion speaks in every region, the fifteen pairs are used
+  six or seven times each, about one slot in four is a trio. Wickermoor changes with `vessla_slain`, `act2_done`, the Rookery (`rk_started` and not `golub_dead`) and Fool's
+  Day (`festival_active` and not `chuckles_dead`); a remark about a boss follows its flag (`raum_slain`, `renathyr_slain`, `grinning_sinner_slain`, `stonoga_slain`,
+  `lethica_slain`, `gorthos_slain`, `vessla_slain`). Each node opens `name:<every speaker> and at:<place> and <gate>`.
+- **The words are Gemini's**, from the slot's own facts: the place's name, summary, text, areas, props, and the people there, from `data/locations` and `data/npcs`, keeping only
+  what a prop's or person's `when`/`call_when` allows in that state (foes dropped, so no fight is named early; Memory's Rest also hides the names that belong to Cordelia's own
+  scene). Every brief carries the same two cast documents as the party banter, a per-region AVOID list (the companions' own scenes and set pieces it must not stage, and
+  what it must not describe), and a per-slot "Story now" line that is all the party knows. Lucan's hound is Dreadfang until the Crooked House is cleansed and Barnaby after.
+- **Shape:** a speaker's turn stays one line unless it runs past 40 words (so each exchange is four or five lines, unlike the party banter, whose long turns were split at 28).
+- **Tests** (`tests/unit/test_companion_talks.gd`): each region file reads clean with six to eight exchanges; every node names all its speakers and a place that is in the file's
+  own region; every companion speaks in every region; each exchange holds in a state built from its own gate, only in its place, only with its speakers, and stops the moment a
+  `not flag` of its gate is set; and `Banter.next` plays each region's file in that region's state and not in another's.
 
 ## Edits to the drafts
 
@@ -291,3 +312,65 @@ by the cloud thread in 9cd7911, so they are no longer exactly what the converter
 - "A gentleman does not wager on the quarry, Silas, though" -> "A gentleman still does not wager on the quarry, Silas, though": Same.
 - "and my fingers are going soft as river mud in the damp." -> "and my knuckles are taking the damp poorly.": Rook's own line from his voice sheet, not to be repeated.
 - "SAY delphine_ravelle: Mind the seams, darling, we are walking out of that Crooked House together even if Cordelia has to stitch us back up by hand." -> "SAY delphine_ravelle: We are walking out of this valley together, even if Cordelia has to stitch us back up by hand.": The Crooked House is behind them; pet phrases never in two consecutive lines.
+
+**region_crimson_monastery** (2 edits)
+- "Please restrain yourself, if you please, the warhorses" -> "Please restrain yourself, the warhorses": A doubled pet phrase.
+- "Fascinating pathology in this dome, Lucan, how the blood moon" -> "A fascinating sight in this dome, Lucan, how the blood moon": Pet phrases never in two consecutive lines.
+
+**region_crooked_house** (7 edits)
+- "Good soil, bad seed, Lucan, and my field mice just bolted" -> "Lucan, my field mice just bolted": Pet phrases never in two consecutive lines.
+- "Some thoughtful soul has hung a fresh portrait of our party, and the oil is still wonderfully tacky." -> "Every portrait in it is hung with such care, and every face seems to be looking at us.": No portrait of the party in the canon.
+- "Oh, the brushwork on my button eye is pure slander, and Your Foolishness" -> "Oh, the brushwork on that one's button eyes is pure slander, and Your Foolishness": Follows the edit above.
+- "Do hold still, this will only tingle. Your pulse would be racing" -> "Your pulse would be racing": Pet phrases never in two consecutive lines.
+- "Put a chalk mark inside my ribs for the ugly bastard, Cordelia" -> "Put a chalk mark inside my ribs for the ugly brute, Cordelia": Silas does not swear (the vault's earlier edit).
+- "Good heavens, Cordelia, observe the taxidermy in this trophy room. That large brown bear has turned its head toward the door, and its posture is appalling." -> "Good heavens, Cordelia, observe these sagging shelves. Every spine has lost its posture, and the dust lies a full grade deep.": The Trophy Room's stuffed animals are Lucan's own Incitement scene.
+- "Never mind the bear, Lucan, inspect the mahogany crib" -> "Never mind the shelves, Lucan, inspect the mahogany crib": Same.
+
+**region_crooked_nightmare** (3 edits)
+- "Barnaby is tucking his tail behind my boots, if you please, and there is not" -> "Barnaby is tucking his tail behind my boots, and there is not": Pet phrases never in two consecutive lines.
+- "Good soil, bad seed, I used to say, yet this seven-foot stone" -> "I used to say the soil never lies, yet this seven-foot stone": Pet phrases never in two consecutive lines.
+- "Leave the trinkets in the dirt and pocket your needle, doll. When" -> "Leave the trinkets in the dirt and pocket your needle, friend. When": Silas calls Delphine 'doll' nowhere else; 'friend' is his word.
+
+**region_dawns_gate** (1 edits)
+- "Do hold still while we pry it open, my pulse charts love a surprise." -> "Stand back while we pry it open, my pulse charts love a surprise.": Pet phrases never in two consecutive lines.
+
+**region_drowned_crossroads** (3 edits)
+- "goes down deep.Remind me" -> "goes down deep. Remind me": Typo.
+- "Leave the Mud alone, Silas" -> "Leave the mud alone, Silas": Typo.
+- "and don't call the tune, darling. We take one look" -> "and don't call the tune. We take one look": 'Darling' is Delphine's word; Silas says 'friend'.
+
+**region_foxwillow** (4 edits)
+- "though I am far happier seeing Martha Langtree and Jonah Sawyer breathing clean air by the north lanes." -> "though I am far happier seeing the townsfolk breathing clean air by the north lanes.": Not every named villager is alive at this point (Jonah may not be).
+- "Rosemary Langtree is still staring toward the east fields" -> "Some of the townsfolk are still staring toward the east fields": Same.
+- "the smoke drifting over Foxwillow Creek smells" -> "the smoke drifting over the rooftops smells": No creek in the canon.
+- "The storm over the mill bluff has cashed in its chips." -> "The fire on the mill bluff has cashed in its chips.": No storm here.
+
+**region_ghostlight_express** (3 edits)
+- "flatter theDruskenvalds' complexion" -> "flatter the Druskenvalds' complexion": Typo.
+- "And do check your left cuff, darling, your little primrose survived the impact." -> "And do check your cuffs, darling, your stitching survived the impact.": Tobin's primrose sprouts after he meets Sister Rain, which is after the wreck.
+- "So it did, and not a petal torn, while" -> "So it did, and not a stitch torn, while": Same.
+
+**region_hartsblight_forest** (5 edits)
+- "Look at the trapper's stamp on the jaw, if you please. Poor craftsmanship" -> "Look at the trapper's stamp on the jaw. Poor craftsmanship": Pet phrases never in two consecutive lines.
+- "Settle down now, the docket here is plain enough." -> "The docket here is plain enough.": Pet phrases never in two consecutive lines.
+- "Hold still, you're fraying at the wrist just looking at those little stick dolls." -> "You're fraying at the wrist just looking at those little stick dolls.": Pet phrases never in two consecutive lines.
+- "Good soil, bad seed, and whatever is stewing in that wellspring" -> "And whatever is stewing in that wellspring": Pet phrases never in two consecutive lines.
+- "Aye, the drumming is done" -> "Right, the drumming is done": Tobin's drawl is West Country, not Northern.
+
+**region_maidenmist_cemetery** (5 edits)
+- "Oh, do look, someone has started carving my name into this slab." -> "Oh, do look, a stone with its inscription left half finished.": Nobody's name is on a stone in the canon.
+- "Good heavens, that is a dreadful breach of etiquette, and the lettering" -> "Good heavens, what a breach of etiquette to leave a stone unfinished, and the lettering": Follows the edit above.
+- "My pulse hasn't even risen, though I appreciate the mason getting the sibilants in my surname right. It takes a very steady hand to leave a stone half-empty." -> "My pulse hasn't even risen, though I do admire a mason with the nerve to leave a stone half-empty.": Same.
+- "Takes me right back to the Kalero river landings, darling, except" -> "Takes me right back to the Kalero river landings, except": 'Darling' is Delphine's word; Silas says 'friend'.
+- "Mind the seams, darling, there is broken iron everywhere and none of these fighters" -> "There is broken iron everywhere and none of these fighters": Pet phrases never in two consecutive lines.
+
+**region_memorys_rest** (1 edits)
+- "It is a parlor trick to keep" -> "It is a parlour trick to keep": Cordelia's English is British.
+
+**region_skitterdeep_mine** (2 edits)
+- "Hush now, the dark has teeth under these beeches, and a gentleman's hound does not rummage through unclaimed luggage." -> "A gentleman's hound does not rummage through unclaimed luggage, Silas, however dark these beeches grow.": Pet phrases never in two consecutive lines.
+- "Mind the seams, darling, and do not touch a single jewel" -> "Do not touch a single jewel": Pet phrases never in two consecutive lines.
+
+**region_wickermoor** (2 edits)
+- "The storm drives the damp right down from that crooked estate, if you please, and Dreadfang" -> "The storm drives the damp right down from that crooked estate, and Dreadfang": Pet phrases never in two consecutive lines.
+- "the yeast and lavender beats cellar mould" -> "the yeast and warm flour beat cellar mould": 'Lavender' is a baker's daughter's name here.

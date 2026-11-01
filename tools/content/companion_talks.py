@@ -10,7 +10,7 @@ a talk, which flags and quests it moves, how big each approval is. A reply is pl
     REPLY 1 .. REPLY 3            what happens after each option: NARRATOR / SAY rows, REASON: (approval memory), INSPIRE:
     EXCHANGE <n>                  one banter exchange: SAY <companion id>: line
 
-    python3 tools/content/companion_talks.py thread|acts|banter [<companion id>|<act>]   writes narrative/camp/ and narrative/banter/
+    python3 tools/content/companion_talks.py thread|acts|banter|region [<companion id>|<act>|<region>]   writes narrative/camp/ and narrative/banter/
     python3 tools/content/companion_talks.py check                                       parses every reply and reports row problems
 
 Edits to a draft live beside its reply as edits_<brief>.json ([{"find", "replace", "why"}], applied to the reply's text before parsing).
@@ -424,17 +424,17 @@ def trim_exchange(ex: list[tuple[str, str]]) -> tuple[list[tuple[str, str]], lis
         for i, text in zip(idx, new):
             lines[i][1] = text
     for i in range(1, len(lines)):
-        if _pet_hit(*lines[i - 1]) and _pet_hit(*lines[i]):
-            cid, text = lines[i]
-            dropped = None
-            for pat in PET_WORDS.get(cid, []):
-                dropped = _drop_one_vocative(text, pat)
+        for j in (i, i - 1):                     # the later line's vocative goes first, then the earlier one's
+            if not (_pet_hit(*lines[i - 1]) and _pet_hit(*lines[i])):
+                break
+            cid_j, text_j = lines[j]
+            for pat in PET_WORDS.get(cid_j, []):
+                dropped = _drop_one_vocative(text_j, pat)
                 if dropped is not None:
+                    lines[j][1] = dropped
                     break
-            if dropped is not None:
-                lines[i][1] = dropped
-            else:
-                probs.append(f"pet words in consecutive lines: {lines[i - 1][1][:40]} / {text[:40]}")
+        if _pet_hit(*lines[i - 1]) and _pet_hit(*lines[i]):
+            probs.append(f"pet words in consecutive lines: {lines[i - 1][1][:40]} / {lines[i][1][:40]}")
     return [(c, t) for c, t in lines], probs
 
 
@@ -468,6 +468,52 @@ def banter_file(act: str) -> tuple[str, list[str]]:
     return "\n".join(out).rstrip() + "\n", probs
 
 
+## A region exchange keeps each speaker's turn as one line unless it runs past this many words (the exchanges stay four to six lines).
+REGION_LIMIT = 40
+
+
+def region_file(region: str) -> tuple[str, list[str]]:
+    """narrative/banter/<region>.dialogue from the region's reply and tools/content/companion_regions.py (who speaks where, the place, the story gate)."""
+    import companion_regions as cr
+    plan = cr.REGIONS[region]
+    planned = cr.assign()[region]
+    exchanges = parse_exchanges(reply_text(f"region_{region}"))
+    probs: list[str] = []
+    if len(exchanges) != len(plan["slots"]):
+        probs.append(f"{region}: {len(exchanges)} exchanges for {len(plan['slots'])} slots")
+    out = [f"""# Banter in {plan['title']} (story/banter.gd plays this file only where a place's region is {region}): one exchange between two or three companions about what is in
+# front of them in one place, gated on that place (`at:`) and on the story's state so a remark never runs ahead of the chapter. Played now and then on entering
+# an area, once each; an exchange nobody present can speak comes out empty and is skipped.
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+""", ""]
+    for n, (slot, ex) in enumerate(zip(plan["slots"], exchanges), 1):
+        ex, pet_probs = trim_exchange(ex)
+        probs += [f"{region} exchange {n}: {p}" for p in pet_probs]
+        who: list[str] = []
+        for cid, _ in ex:
+            if cid not in COMPANIONS:
+                probs.append(f"{region} exchange {n}: unknown speaker {cid}")
+            elif cid not in who:
+                who.append(cid)
+        if set(who) != set(planned[n - 1]):
+            probs.append(f"{region} exchange {n}: speaks {sorted(who)}, the plan said {sorted(planned[n - 1])}")
+        at = slot["at"]
+        where = f"at:{at}" if isinstance(at, str) else "(" + " or ".join(f"at:{a}" for a in at) + ")"
+        cond = " and ".join([f"name:{c}" for c in who] + [where] + ([slot["gate"]] if slot["gate"] else []))
+        loc = at if isinstance(at, str) else at[0]
+        node = f"{loc}_{n:02d}_" + "_".join(COMPANIONS[c]["first"].lower() for c in who if c in COMPANIONS)
+        out += [f"~ {node}", f"if {cond}"]
+        for cid, whole in ex:
+            for text in split_long(whole, REGION_LIMIT):
+                out.append(f"interject name:{cid}: {text}")
+                for p in problems(cid, text, REGION_LIMIT):
+                    probs.append(f"{region} exchange {n}: {p}: {text[:60]}")
+        if not 4 <= len(ex) <= 6:
+            probs.append(f"{region} exchange {n}: {len(ex)} lines")
+        out += ["endif", "-> END", ""]
+    return "\n".join(out).rstrip() + "\n", probs
+
+
 def main() -> int:
     args = sys.argv[1:]
     if not args:
@@ -485,6 +531,18 @@ def main() -> int:
             CAMP.mkdir(parents=True, exist_ok=True)
             (CAMP / name).write_text(body, encoding="utf-8")
             print(f"{name}: {body.count(chr(10))} lines")
+            for p in probs:
+                print("  PROBLEM", p)
+                rc = 1
+    elif cmd == "region":
+        import companion_regions as cr
+        for region in cr.REGIONS:
+            if only and only != region:
+                continue
+            body, probs = region_file(region)
+            BANTER.mkdir(parents=True, exist_ok=True)
+            (BANTER / f"{region}.dialogue").write_text(body, encoding="utf-8")
+            print(f"{region}.dialogue: {body.count(chr(10))} lines")
             for p in probs:
                 print("  PROBLEM", p)
                 rc = 1
