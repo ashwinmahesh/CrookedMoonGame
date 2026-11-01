@@ -1,0 +1,58 @@
+# Drafted by Gemini (R26 verse), edited. The Last Verse: Ambrose Quill's finest line.
+
+~ start
+ambrose_quill [neutral]: I am composing the finest verse of my career for the end of the world, yet the final line completely eludes me. Three stanzas stand in formation, waiting for a closing chord.
+set mf_verse_asked
+quest mf_last_verse asked
+-> menu
+
+~ menu
+* Offer a stirring line -> line_stirring
+* Offer a wry line -> line_wry
+* Offer an honest line -> line_honest
+* [if item:jericho_banjo] Play a chord on Jericho's banjo -> banjo
+* [ends:mf_last_verse] Tell him to stop -> silence
+* Leave him to it -> END
+
+~ line_stirring
+ambrose_quill [smile]: There, it is set in ink! You have turned my pastoral elegy into a proper battle hymn, which, I must confess, has been my secret weakness as a poet all along.
+set mf_verse_style = "stirring"
+-> deliver
+
+~ line_wry
+ambrose_quill [sly]: Down it goes onto the parchment. That is a wicked, salt-cured line, my friend, and just the sort of thing a village says when it has no more dignity left to lose.
+set mf_verse_style = "wry"
+-> deliver
+
+~ line_honest
+ambrose_quill [sad]: I have written it down, every word. Forgive my silence, it is only that you have spoken the plain truth of our small lives, and that is precisely why it hurts.
+set mf_verse_style = "honest"
+-> deliver
+
+~ banjo
+Narrator: You pluck a single ringing chord upon the borrowed banjo, the gut strings warm against your thumb. Around the trodden square, the shuffling boots and low murmurs still at once to listen.
+ambrose_quill [smile]: Hark at that ring of gut and hickory! That is the missing measure I was listening for, so let the ink dry quickly, for this verse shall be sung and not merely spoken.
+set mf_verse_banjo
+-> menu
+
+~ deliver
+Narrator: Quill climbs onto the cold stone dais of the Round and clears his throat into the lantern smoke. Below him, the folk of Wickermoor gather shoulder to shoulder in the chill dark.
+ambrose_quill [neutral]: Through six dark hours we kept the hearthfire bright, against the falling moon and ancient fright, and with the closing line you gave to me, we stand together at the edge of night.
+if flag.mf_verse_banjo
+Narrator: Behind him, the old banjo carries the tune across the timber eaves and the carved oak. For the length of a song, the quiet square forgets the leering white face overhead.
+endif
+quest mf_last_verse delivered
+-> END
+
+~ silence
+ambrose_quill [sad]: I shall fold the page and put it away in my coat. Perhaps this poor village has heard quite enough verse for one lifetime, and the night needs no more words.
+quest mf_last_verse silenced
+-> END
+
+~ progress
+ambrose_quill [neutral]: My pen is still poised above the parchment, and the ink is drying on the nib. Tell me, traveler, have you found that missing final line for our verse yet?
+-> menu
+
+~ after
+ambrose_quill [smile]: Good evening to you across the Round, my friends, I am still keeping the meter warm beneath my breath. Go on your way, while I murmur these verses to the dark.
+-> END

@@ -1,0 +1,69 @@
+{
+  "id": "moonfall",
+  "name": "Moonfall",
+  "kind": "main",
+  "region": "moonfall",
+  "giver": "the_vagrant",
+  "summary": "The Crooked Moon will fall in thirteen nights. Eight ancient powers pull it down; each kill buys a day. At the end, Kehlenn makes her last offer.",
+  "closes": [
+    {
+      "stage": "lost",
+      "when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled",
+      "from": [
+        "shriek",
+        "hunt",
+        "one_last_choice"
+      ],
+      "warn": "The moon is almost on top of us.",
+      "warn_when": "flag.moonfall_nights_left <= 3"
+    }
+  ],
+  "stages": [
+    {
+      "id": "shriek",
+      "journal": "The moon shrieked in Kehlenn's voice: it will fall in thirteen nights. The Vagrant waits at the Round with his train.",
+      "objectives": [
+        "Old Fears slain: {flag.old_fears_slain} of 8",
+        "Nights left: {flag.moonfall_nights_left}"
+      ],
+      "hint": "Speak to the Vagrant in Wickermoor."
+    },
+    {
+      "id": "hunt",
+      "journal": "We took up the hunt. Eight Old Fears pull the moon down, and each one we kill buys a day.",
+      "objectives": [
+        "Old Fears slain: {flag.old_fears_slain} of 8",
+        "Nights left: {flag.moonfall_nights_left}"
+      ],
+      "hint": "Find the next Old Fear: the Round's map and the roads show where."
+    },
+    {
+      "id": "one_last_choice",
+      "journal": "All eight are dead. The moon hangs a few hundred feet over the hill, and Kehlenn has one last offer.",
+      "objectives": [
+        "Old Fears slain: {flag.old_fears_slain} of 8"
+      ],
+      "hint": "Climb the hill and answer Kehlenn."
+    },
+    {
+      "id": "refused",
+      "journal": "We refused Kehlenn's offer. The moon rose back into the sky, and its face faded.",
+      "ends": "success"
+    },
+    {
+      "id": "accepted",
+      "journal": "We accepted Kehlenn's offer. The moon fell on everyone else, and we floated in a green sea to remake the realm.",
+      "ends": "success"
+    },
+    {
+      "id": "fled",
+      "journal": "We took the Vagrant's train out on the last night, and left the Hollow to the moon.",
+      "ends": "failure"
+    },
+    {
+      "id": "lost",
+      "journal": "The nights ran out. The moon fell on the Hollow, and there was no one left to see it.",
+      "ends": "failure"
+    }
+  ]
+}

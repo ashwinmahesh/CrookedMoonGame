@@ -1,0 +1,698 @@
+{
+  "id": "mf_jinxed_bayou",
+  "name": "The Jinxed Bayou",
+  "region": "moonfall",
+  "summary": "A stilt village at Murkwater Bend, a boardwalk over black water and the cursed pool where the Leviathan sleeps.",
+  "text": "Murkwater Bend sinks into the bayou, shacks on stilts, boats half-sunk. A green boardwalk runs out toward a black pool with an island of mud and bones in it.",
+  "map": {
+    "rows": [
+      "##############################################",
+      "#............................................#",
+      "#.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.#",
+      "#..............~~~~~#~#~~~~~ww~~~~~~~~~~~~~~.#",
+      "#..............~~~~~~~~~~~~~~w~#~~~~~~~~~~~~.#",
+      "#..............#ww~~~~~#~~~~~~~~~~~~~~~~~~#~.#",
+      "#....==........~~~~~~~.~~~~~~~~#~~~~w~~~~~~~.#",
+      "#....==........~~~~~~~w~~~~~~~~~~wwwwwww~~~#.#",
+      "#..............~~~~~~~~~~~~~~~~~wwwwwwwww~~~.#",
+      "#..............~~~~~w~~~~~w~~~~wwwww_wwwww~~.#",
+      "#..............~~#~~~~~~~~~~~#wwww_____wwww~.#",
+      "#..............#~w~~~~~~~w~~~~www_______www~.#",
+      "#..............~~~~w~~~~#~~~~~www_______www~.#",
+      "#.............._______________www_______www~.#",
+      "#..............__________________________www.#",
+      "#.............._________________________www~.#",
+      "#.............._______________www_______www~.#",
+      "#..............~w~#~~~~~~~~~~~www_______www~.#",
+      "#..............~~~~~~~#~~~~~~~wwww_____wwww~.#",
+      "#..............~~w~~~~~~~~~~~#~wwwww_wwwww~~.#",
+      "#.........==...~w~~~~~~~~w~~~~~~wwwwwwwww~~~.#",
+      "#.........==...~~~~~~w~~~~~~w~~~~wwwwwww~~~~.#",
+      "#..............~#~~~~~~~~~~~~~#~~~~~w~~~~~~~.#",
+      "#..............~~~~~~~~~w#~~#~#~~~~~~~~~~~~~.#",
+      "#..............~~~~~~~~~~w~~~~~~~~~~~~~~~~~~.#",
+      "#..............~~~~~~w~~~~~~~~~~~~~~~~~~~~~#.#",
+      "#..............~~~~~~~~~~~#~~~~~~#~~~~~~~~~~.#",
+      "#.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.#",
+      "#............................................#",
+      "##############################################"
+    ],
+    "theme": "riverside",
+    "light": "dark",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "village",
+      "name": "The stilt village",
+      "cells": [
+        [
+          2,
+          3
+        ],
+        [
+          14,
+          26
+        ]
+      ]
+    },
+    {
+      "id": "boardwalk",
+      "name": "The boardwalk",
+      "cells": [
+        [
+          15,
+          13
+        ],
+        [
+          34,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "pool",
+      "name": "The cursed pool",
+      "cells": [
+        [
+          29,
+          6
+        ],
+        [
+          43,
+          22
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      4,
+      14
+    ],
+    "from_travel": [
+      4,
+      14
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_road",
+      "cell": [
+        2,
+        14
+      ],
+      "to": "travel",
+      "spawn": "default",
+      "label": "Back to the road"
+    }
+  ],
+  "props": [
+    {
+      "id": "leviathan_arrive",
+      "cell": [
+        4,
+        14
+      ],
+      "kind": "decor",
+      "label": "The land, on arrival",
+      "call": "moonfall/leviathan:arrive",
+      "approach": 12,
+      "call_when": "not flag.mf_leviathan_arrived"
+    },
+    {
+      "id": "leviathan_region",
+      "cell": [
+        7,
+        12
+      ],
+      "kind": "examine",
+      "label": "The swamplights and the sinking boards",
+      "model": "puddle",
+      "dialogue": "moonfall/leviathan:region",
+      "when": "not flag.mf_leviathan_resisted"
+    },
+    {
+      "id": "leviathan_board",
+      "cell": [
+        9,
+        12
+      ],
+      "kind": "examine",
+      "label": "Notice board",
+      "model": "notice_board",
+      "text": "A board of wagers and debts, every one marked lost."
+    },
+    {
+      "id": "mf_impact_3x13",
+      "cell": [
+        3,
+        13
+      ],
+      "kind": "decor",
+      "label": "The moon, filling the sky",
+      "call": "moonfall/moon:impact",
+      "approach": 12,
+      "call_when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled"
+    },
+    {
+      "id": "leviathan_o_0",
+      "cell": [
+        12,
+        22
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "leviathan_o_1",
+      "cell": [
+        3,
+        24
+      ],
+      "kind": "decor",
+      "label": "Barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "leviathan_o_2",
+      "cell": [
+        11,
+        6
+      ],
+      "kind": "decor",
+      "label": "Barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "leviathan_o_3",
+      "cell": [
+        7,
+        22
+      ],
+      "kind": "decor",
+      "label": "Puddle",
+      "model": "puddle"
+    },
+    {
+      "id": "leviathan_o_4",
+      "cell": [
+        10,
+        19
+      ],
+      "kind": "decor",
+      "label": "Barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "leviathan_o_5",
+      "cell": [
+        7,
+        14
+      ],
+      "kind": "decor",
+      "label": "Crate",
+      "model": "crate"
+    },
+    {
+      "id": "leviathan_o_6",
+      "cell": [
+        14,
+        13
+      ],
+      "kind": "decor",
+      "label": "Puddle",
+      "model": "puddle"
+    },
+    {
+      "id": "leviathan_o_7",
+      "cell": [
+        7,
+        15
+      ],
+      "kind": "decor",
+      "label": "Lantern post",
+      "model": "lantern_post"
+    },
+    {
+      "id": "leviathan_o_8",
+      "cell": [
+        14,
+        7
+      ],
+      "kind": "decor",
+      "label": "Lantern post",
+      "model": "lantern_post"
+    },
+    {
+      "id": "leviathan_o_9",
+      "cell": [
+        9,
+        16
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "leviathan_o_10",
+      "cell": [
+        8,
+        20
+      ],
+      "kind": "decor",
+      "label": "Barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "leviathan_o_11",
+      "cell": [
+        12,
+        10
+      ],
+      "kind": "decor",
+      "label": "Crate",
+      "model": "crate"
+    },
+    {
+      "id": "leviathan_o_12",
+      "cell": [
+        13,
+        14
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "leviathan_o_13",
+      "cell": [
+        14,
+        22
+      ],
+      "kind": "decor",
+      "label": "Crate",
+      "model": "crate"
+    },
+    {
+      "id": "leviathan_o_14",
+      "cell": [
+        11,
+        12
+      ],
+      "kind": "decor",
+      "label": "Rowboat",
+      "model": "rowboat"
+    },
+    {
+      "id": "leviathan_o_15",
+      "cell": [
+        6,
+        25
+      ],
+      "kind": "decor",
+      "label": "Rowboat",
+      "model": "rowboat"
+    },
+    {
+      "id": "leviathan_o_16",
+      "cell": [
+        10,
+        9
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "leviathan_o_17",
+      "cell": [
+        12,
+        24
+      ],
+      "kind": "decor",
+      "label": "Rope coils",
+      "model": "rope_coils"
+    },
+    {
+      "id": "leviathan_o_18",
+      "cell": [
+        7,
+        9
+      ],
+      "kind": "decor",
+      "label": "Puddle",
+      "model": "puddle"
+    },
+    {
+      "id": "leviathan_o_19",
+      "cell": [
+        7,
+        16
+      ],
+      "kind": "decor",
+      "label": "Rope coils",
+      "model": "rope_coils"
+    },
+    {
+      "id": "leviathan_o_20",
+      "cell": [
+        14,
+        12
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "leviathan_o_21",
+      "cell": [
+        3,
+        4
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "leviathan_o_22",
+      "cell": [
+        13,
+        6
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "leviathan_o_23",
+      "cell": [
+        8,
+        19
+      ],
+      "kind": "decor",
+      "label": "Crate",
+      "model": "crate"
+    },
+    {
+      "id": "leviathan_o_24",
+      "cell": [
+        13,
+        11
+      ],
+      "kind": "decor",
+      "label": "Barrel",
+      "model": "barrel"
+    },
+    {
+      "id": "leviathan_o_25",
+      "cell": [
+        4,
+        21
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "leviathan_lair",
+      "cell": [
+        36,
+        14
+      ],
+      "kind": "examine",
+      "label": "The cursed pool's island of bones",
+      "model": "standing_stones",
+      "dialogue": "moonfall/leviathan:lair",
+      "when": "flag.mf_leviathan_found and not flag.old_fear_leviathan"
+    },
+    {
+      "id": "leviathan_after",
+      "cell": [
+        34,
+        13
+      ],
+      "kind": "decor",
+      "label": "Where it fell",
+      "call": "moonfall/leviathan:aftermath",
+      "approach": 12,
+      "call_when": "flag.old_fear_leviathan and not flag.mf_leviathan_aftermath"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "mf_nadine_bayou",
+      "cell": [
+        6,
+        14
+      ],
+      "dialogue": "moonfall/leviathan:hook",
+      "when": "flag.moonfall_started and flag.old_fear_barrow and not flag.old_fear_leviathan and not flag.mf_leviathan_asked",
+      "approach": 8,
+      "facing": "east"
+    },
+    {
+      "npc": "mf_nadine_bayou",
+      "cell": [
+        6,
+        14
+      ],
+      "dialogue": "moonfall/leviathan:hook_again",
+      "when": "flag.moonfall_started and flag.old_fear_barrow and not flag.old_fear_leviathan and flag.mf_leviathan_asked",
+      "facing": "east"
+    },
+    {
+      "npc": "mf_jack_follower",
+      "cell": [
+        11,
+        9
+      ],
+      "dialogue": "moonfall/leviathan:clue",
+      "when": "flag.moonfall_started and flag.old_fear_barrow and not flag.old_fear_leviathan and not flag.mf_leviathan_clue_met",
+      "facing": "east"
+    },
+    {
+      "npc": "mf_jack_follower",
+      "cell": [
+        11,
+        9
+      ],
+      "dialogue": "moonfall/leviathan:clue_again",
+      "when": "flag.moonfall_started and flag.old_fear_barrow and not flag.old_fear_leviathan and flag.mf_leviathan_clue_met",
+      "facing": "east"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "mf_leviathan_patrol",
+      "trigger": "enter_area:boardwalk",
+      "when": "not flag.mf_leviathan_patrol_done and flag.mf_leviathan_arrived",
+      "flag": "mf_leviathan_patrol_done",
+      "monsters": [
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            21,
+            13
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            15,
+            14
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            34,
+            16
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "giant_crocodile",
+          "cell": [
+            32,
+            15
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "Bayou beasts come out of the dark."
+    },
+    {
+      "id": "mf_leviathan_full",
+      "trigger": "dialogue",
+      "flag": "old_fear_leviathan",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "jinxed_leviathan",
+          "cell": [
+            36,
+            14
+          ],
+          "name": "The Jinxed Leviathan",
+          "boss": true,
+          "facing": "west"
+        },
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            32,
+            15
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            38,
+            10
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            40,
+            14
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "giant_crocodile",
+          "cell": [
+            37,
+            18
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "giant_crocodile",
+          "cell": [
+            35,
+            18
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hydra",
+          "cell": [
+            35,
+            10
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The Jinxed Leviathan comes for you with its own court around it."
+    },
+    {
+      "id": "mf_leviathan_light",
+      "trigger": "dialogue",
+      "flag": "old_fear_leviathan",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "jinxed_leviathan",
+          "cell": [
+            36,
+            14
+          ],
+          "name": "The Jinxed Leviathan",
+          "boss": true,
+          "facing": "west",
+          "hp": 371
+        },
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            38,
+            10
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            34,
+            10
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "giant_crocodile",
+          "cell": [
+            32,
+            15
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The Jinxed Leviathan comes for you, thinner of company than it would like."
+    },
+    {
+      "id": "mf_leviathan_weak",
+      "trigger": "dialogue",
+      "flag": "old_fear_leviathan",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "jinxed_leviathan",
+          "cell": [
+            36,
+            14
+          ],
+          "name": "The Jinxed Leviathan",
+          "boss": true,
+          "facing": "west",
+          "hp": 284
+        },
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            32,
+            15
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            38,
+            10
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "giant_crocodile",
+          "cell": [
+            40,
+            14
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The Jinxed Leviathan comes for you, already hurt by what you carry."
+    }
+  ],
+  "rest": "risky",
+  "rest_text": "The moon is too large to sleep under. A short breath, then, and on.",
+  "lights": [
+    {
+      "cell": [
+        36,
+        14
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    }
+  ]
+}

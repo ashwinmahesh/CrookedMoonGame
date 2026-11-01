@@ -1,0 +1,56 @@
+{
+  "id": "mf_headsman",
+  "name": "The Galloping Headsman",
+  "kind": "main",
+  "region": "moonfall",
+  "giver": "mf_osric_farmer",
+  "summary": "Osric Plow's neighbours have taken to beheading each other. The Galloping Headsman, a headless centaur wrongly beheaded by Foxwillow's founders, is the cause.",
+  "closes": [
+    {
+      "stage": "lost",
+      "when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled",
+      "from": [
+        "asked",
+        "trail",
+        "ready"
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "id": "asked",
+      "journal": "A farmer says neighbours behead neighbours since the moon shrieked, and the field behind his barn swallows people. The trouble comes from the old covered bridge east of Foxwillow.",
+      "objectives": [
+        "Find where it lairs"
+      ],
+      "hint": "Ask around the region for how to find it: its hook-giver, and the one who knows its secret."
+    },
+    {
+      "id": "trail",
+      "journal": "We found where The Galloping Headsman lairs. There may be a way to hurt it more than the usual.",
+      "objectives": [
+        "Face The Galloping Headsman",
+        "Optional: learn its weakness"
+      ],
+      "hint": "Learn its weakness from the one who knows it, or go straight to its lair."
+    },
+    {
+      "id": "ready",
+      "journal": "We carry what hurts The Galloping Headsman. Time to go to its lair.",
+      "objectives": [
+        "Face The Galloping Headsman"
+      ],
+      "hint": "Go to its lair."
+    },
+    {
+      "id": "slain",
+      "journal": "The Galloping Headsman is dead. The moon's gaze moves to Moonsong Lake.",
+      "ends": "success"
+    },
+    {
+      "id": "lost",
+      "journal": "The nights ran out before it fell.",
+      "ends": "failure"
+    }
+  ]
+}

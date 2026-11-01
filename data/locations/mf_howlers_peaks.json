@@ -1,0 +1,668 @@
+{
+  "id": "mf_howlers_peaks",
+  "name": "The Howlers",
+  "region": "moonfall",
+  "summary": "A mining hamlet, the rune-stone slopes and the summit plateau of the Howlers, where the Wild Titan roars.",
+  "text": "The Howlers rise white under the moon, and the miners' huts cling to their lowest ridge. Above, a path of cut stone climbs between standing runes.",
+  "map": {
+    "rows": [
+      "##############################################",
+      "#............................................#",
+      "#.........##.#111#1111#111111##1111111111111.#",
+      "#...........#.1##1#111#1111111111111#1111111.#",
+      "#.##.....#....#111111#11222#22#2#22#22222222.#",
+      "#........#....#11#111111#2222222222#222222#2.#",
+      "#.............111#1#111#222#222222222222222#.#",
+      "#..........#..#11#11#111#2222222233333333333.#",
+      "#..........##.1111#1111122222222233333333333.#",
+      "#....#.....#..1111111111222#222#233333333333.#",
+      "#.............1111#11111#2##2222233333333333.#",
+      "#.............#11#11111#222222#2233333333333.#",
+      "#...#.........11#1111#11222#2222233333333333.#",
+      "#.#...........1#11111111222222#2233333333333.#",
+      "#.............111111111122222222233333333333.#",
+      "#.......#.##..111111111122222222233333333333.#",
+      "#.............111111111122222222233333333333.#",
+      "#.............111111111122222222233333333333.#",
+      "#...........#.#11#11111#2#222222233333333333.#",
+      "#...#.........1#1111#1112#222222233333333333.#",
+      "#.........#...111#1#111#222222#2233333333333.#",
+      "#.............11#1#111##2222222#233333333333.#",
+      "#..........#..##111111112222#222233333333333.#",
+      "#.#..........#1111#11111222222#2#33333333333.#",
+      "#.............111#1111#1222#2222233333333333.#",
+      "#.............11#111111#2#2222#222##22222222.#",
+      "#.#...........111111111122222222222222222222.#",
+      "#..#..........#111#111112#22##222#222222#222.#",
+      "#...#.#.##....1111111111111#111111#111111111.#",
+      "#.............11##11111#11111#11111111111111.#",
+      "#............................................#",
+      "##############################################"
+    ],
+    "theme": "wilderness",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "hamlet",
+      "name": "The mining hamlet",
+      "cells": [
+        [
+          2,
+          12
+        ],
+        [
+          13,
+          19
+        ]
+      ]
+    },
+    {
+      "id": "slopes",
+      "name": "The rune-stone slopes",
+      "cells": [
+        [
+          14,
+          3
+        ],
+        [
+          32,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "summit",
+      "name": "The summit",
+      "cells": [
+        [
+          33,
+          7
+        ],
+        [
+          43,
+          24
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      4,
+      15
+    ],
+    "from_travel": [
+      4,
+      15
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_road",
+      "cell": [
+        2,
+        15
+      ],
+      "to": "travel",
+      "spawn": "default",
+      "label": "Back to the road"
+    }
+  ],
+  "props": [
+    {
+      "id": "titan_arrive",
+      "cell": [
+        4,
+        15
+      ],
+      "kind": "decor",
+      "label": "The land, on arrival",
+      "call": "moonfall/titan:arrive",
+      "approach": 12,
+      "call_when": "not flag.mf_titan_arrived"
+    },
+    {
+      "id": "titan_region",
+      "cell": [
+        6,
+        17
+      ],
+      "kind": "examine",
+      "label": "The slope of falling rock",
+      "model": "rocks",
+      "dialogue": "moonfall/titan:region",
+      "when": "not flag.mf_titan_resisted"
+    },
+    {
+      "id": "titan_board",
+      "cell": [
+        8,
+        17
+      ],
+      "kind": "examine",
+      "label": "Notice board",
+      "model": "notice_board",
+      "text": "A board of missing miners and the shafts they went down, chalked and rechalked."
+    },
+    {
+      "id": "mf_impact_3x14",
+      "cell": [
+        3,
+        14
+      ],
+      "kind": "decor",
+      "label": "The moon, filling the sky",
+      "call": "moonfall/moon:impact",
+      "approach": 12,
+      "call_when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled"
+    },
+    {
+      "id": "titan_o_0",
+      "cell": [
+        12,
+        28
+      ],
+      "kind": "decor",
+      "label": "Boulder a",
+      "model": "boulder_a"
+    },
+    {
+      "id": "titan_o_1",
+      "cell": [
+        8,
+        5
+      ],
+      "kind": "decor",
+      "label": "Boulder b",
+      "model": "boulder_b"
+    },
+    {
+      "id": "titan_o_2",
+      "cell": [
+        5,
+        16
+      ],
+      "kind": "decor",
+      "label": "Stake bundle",
+      "model": "stake_bundle"
+    },
+    {
+      "id": "titan_o_3",
+      "cell": [
+        8,
+        24
+      ],
+      "kind": "decor",
+      "label": "Boulder b",
+      "model": "boulder_b"
+    },
+    {
+      "id": "titan_o_4",
+      "cell": [
+        4,
+        20
+      ],
+      "kind": "decor",
+      "label": "Boulder a",
+      "model": "boulder_a"
+    },
+    {
+      "id": "titan_o_5",
+      "cell": [
+        7,
+        17
+      ],
+      "kind": "decor",
+      "label": "Boulder b",
+      "model": "boulder_b"
+    },
+    {
+      "id": "titan_o_6",
+      "cell": [
+        13,
+        12
+      ],
+      "kind": "decor",
+      "label": "Boulder b",
+      "model": "boulder_b"
+    },
+    {
+      "id": "titan_o_7",
+      "cell": [
+        8,
+        7
+      ],
+      "kind": "decor",
+      "label": "Boulder",
+      "model": "boulder"
+    },
+    {
+      "id": "titan_o_8",
+      "cell": [
+        12,
+        23
+      ],
+      "kind": "decor",
+      "label": "Boulder b",
+      "model": "boulder_b"
+    },
+    {
+      "id": "titan_o_9",
+      "cell": [
+        3,
+        28
+      ],
+      "kind": "decor",
+      "label": "Standing stones",
+      "model": "standing_stones"
+    },
+    {
+      "id": "titan_o_10",
+      "cell": [
+        9,
+        11
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "titan_o_11",
+      "cell": [
+        3,
+        25
+      ],
+      "kind": "decor",
+      "label": "Boulder b",
+      "model": "boulder_b"
+    },
+    {
+      "id": "titan_o_12",
+      "cell": [
+        4,
+        5
+      ],
+      "kind": "decor",
+      "label": "Boulder a",
+      "model": "boulder_a"
+    },
+    {
+      "id": "titan_o_13",
+      "cell": [
+        10,
+        10
+      ],
+      "kind": "decor",
+      "label": "Boulder b",
+      "model": "boulder_b"
+    },
+    {
+      "id": "titan_o_14",
+      "cell": [
+        13,
+        7
+      ],
+      "kind": "decor",
+      "label": "Boulder",
+      "model": "boulder"
+    },
+    {
+      "id": "titan_o_15",
+      "cell": [
+        5,
+        23
+      ],
+      "kind": "decor",
+      "label": "Boulder a",
+      "model": "boulder_a"
+    },
+    {
+      "id": "titan_o_16",
+      "cell": [
+        12,
+        20
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "titan_o_17",
+      "cell": [
+        8,
+        18
+      ],
+      "kind": "decor",
+      "label": "Boulder b",
+      "model": "boulder_b"
+    },
+    {
+      "id": "titan_o_18",
+      "cell": [
+        10,
+        19
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "titan_o_19",
+      "cell": [
+        8,
+        14
+      ],
+      "kind": "decor",
+      "label": "Boulder",
+      "model": "boulder"
+    },
+    {
+      "id": "titan_o_20",
+      "cell": [
+        8,
+        12
+      ],
+      "kind": "decor",
+      "label": "Boulder a",
+      "model": "boulder_a"
+    },
+    {
+      "id": "titan_o_21",
+      "cell": [
+        10,
+        27
+      ],
+      "kind": "decor",
+      "label": "Boulder",
+      "model": "boulder"
+    },
+    {
+      "id": "titan_o_22",
+      "cell": [
+        4,
+        4
+      ],
+      "kind": "decor",
+      "label": "Cairn",
+      "model": "cairn"
+    },
+    {
+      "id": "titan_o_23",
+      "cell": [
+        13,
+        19
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "titan_o_24",
+      "cell": [
+        8,
+        25
+      ],
+      "kind": "decor",
+      "label": "Boulder",
+      "model": "boulder"
+    },
+    {
+      "id": "titan_o_25",
+      "cell": [
+        13,
+        21
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "titan_lair",
+      "cell": [
+        40,
+        15
+      ],
+      "kind": "examine",
+      "label": "The summit's broken ring of stones",
+      "model": "standing_stones",
+      "dialogue": "moonfall/titan:lair",
+      "when": "flag.mf_titan_found and not flag.old_fear_titan"
+    },
+    {
+      "id": "titan_after",
+      "cell": [
+        38,
+        14
+      ],
+      "kind": "decor",
+      "label": "Where it fell",
+      "call": "moonfall/titan:aftermath",
+      "approach": 12,
+      "call_when": "flag.old_fear_titan and not flag.mf_titan_aftermath"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "mf_jory_miner",
+      "cell": [
+        5,
+        15
+      ],
+      "dialogue": "moonfall/titan:hook",
+      "when": "flag.moonfall_started and flag.old_fear_tall_man and not flag.old_fear_titan and not flag.mf_titan_asked",
+      "approach": 8,
+      "facing": "east"
+    },
+    {
+      "npc": "mf_jory_miner",
+      "cell": [
+        5,
+        15
+      ],
+      "dialogue": "moonfall/titan:hook_again",
+      "when": "flag.moonfall_started and flag.old_fear_tall_man and not flag.old_fear_titan and flag.mf_titan_asked",
+      "facing": "east"
+    },
+    {
+      "npc": "mf_grizzle_hunter",
+      "cell": [
+        9,
+        13
+      ],
+      "dialogue": "moonfall/titan:clue",
+      "when": "flag.moonfall_started and flag.old_fear_tall_man and not flag.old_fear_titan and not flag.mf_titan_clue_met",
+      "facing": "east"
+    },
+    {
+      "npc": "mf_grizzle_hunter",
+      "cell": [
+        9,
+        13
+      ],
+      "dialogue": "moonfall/titan:clue_again",
+      "when": "flag.moonfall_started and flag.old_fear_tall_man and not flag.old_fear_titan and flag.mf_titan_clue_met",
+      "facing": "east"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "mf_titan_patrol",
+      "trigger": "enter_area:slopes",
+      "when": "not flag.mf_titan_patrol_done and flag.mf_titan_arrived",
+      "flag": "mf_titan_patrol_done",
+      "monsters": [
+        {
+          "monster": "owlbear",
+          "cell": [
+            19,
+            26
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "owlbear",
+          "cell": [
+            31,
+            18
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "owlbear",
+          "cell": [
+            22,
+            14
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "mammoth",
+          "cell": [
+            16,
+            6
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "Maddened beasts come out of the dark."
+    },
+    {
+      "id": "mf_titan_full",
+      "trigger": "dialogue",
+      "flag": "old_fear_titan",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "wild_titan",
+          "cell": [
+            40,
+            15
+          ],
+          "name": "The Wild Titan",
+          "boss": true,
+          "facing": "west"
+        },
+        {
+          "monster": "alpengrendel",
+          "cell": [
+            44,
+            17
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "alpengrendel",
+          "cell": [
+            44,
+            11
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ettin",
+          "cell": [
+            36,
+            18
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ettin",
+          "cell": [
+            42,
+            19
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The Wild Titan comes for you with its own court around it."
+    },
+    {
+      "id": "mf_titan_light",
+      "trigger": "dialogue",
+      "flag": "old_fear_titan",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "wild_titan",
+          "cell": [
+            40,
+            15
+          ],
+          "name": "The Wild Titan",
+          "boss": true,
+          "facing": "west",
+          "hp": 297
+        },
+        {
+          "monster": "alpengrendel",
+          "cell": [
+            44,
+            18
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ettin",
+          "cell": [
+            40,
+            19
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The Wild Titan comes for you, thinner of company than it would like."
+    },
+    {
+      "id": "mf_titan_weak",
+      "trigger": "dialogue",
+      "flag": "old_fear_titan",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "wild_titan",
+          "cell": [
+            40,
+            15
+          ],
+          "name": "The Wild Titan",
+          "boss": true,
+          "facing": "west",
+          "hp": 227
+        },
+        {
+          "monster": "alpengrendel",
+          "cell": [
+            44,
+            17
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ettin",
+          "cell": [
+            44,
+            11
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The Wild Titan comes for you, already hurt by what you carry."
+    }
+  ],
+  "rest": "risky",
+  "rest_text": "The moon is too large to sleep under. A short breath, then, and on.",
+  "lights": [
+    {
+      "cell": [
+        40,
+        15
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    }
+  ]
+}

@@ -1,0 +1,539 @@
+{
+  "id": "mf_webwoods",
+  "name": "The Webwoods",
+  "region": "moonfall",
+  "summary": "A farm homestead at the edge of the Webwoods, and the spiders' trail to a hut in the clearing.",
+  "text": "A farm homestead at the edge of a spider forest, every shutter hung with white thread. A trail of webs runs off through the trees toward a clearing.",
+  "map": {
+    "rows": [
+      "############################################",
+      "#..........................................#",
+      "#......###....#.......#..#.#...~......~....#",
+      "#.......#.~......~#...#...............#..#.#",
+      "#........~.......#...#~#....#............#.#",
+      "#..~..#................#...........~~~.~...#",
+      "#.......#~....~.............#......#...##..#",
+      "#.........................~.....~.....~....#",
+      "#...~~~#.#.~#...........#..~.....#...#.#~..#",
+      "#........~..#..#~.~#.....................#.#",
+      "#...#.#..#.......#...~..~..~.............#.#",
+      "#...........~........#~....................#",
+      "#...=====........#.........~#.#.....~......#",
+      "#...=====......~.....#.....#...#..~~~~~....#",
+      "#...=====.........................~~~~~....#",
+      "#................................~~~~.~~...#",
+      "#...............#~................~~~~~....#",
+      "#..............~...#......##......~~~~~....#",
+      "#...............#.......#...........~....#.#",
+      "#...~.~........~...#......#...#............#",
+      "#.##........#..#.........#.................#",
+      "#...~.#..#....~##.#.#......#..#............#",
+      "#...#.#.~~........~...#......~.~#....#...~.#",
+      "#.................#....~............#..#...#",
+      "#.....................#......~....#........#",
+      "#.........................#~..#......#...#.#",
+      "#................#...~#........~#..........#",
+      "#....~............~...#.#............~~.#..#",
+      "#..........................................#",
+      "############################################"
+    ],
+    "theme": "forest",
+    "light": "dark",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "homestead",
+      "name": "The homestead",
+      "cells": [
+        [
+          2,
+          11
+        ],
+        [
+          11,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "woods",
+      "name": "The Webwoods",
+      "cells": [
+        [
+          12,
+          2
+        ],
+        [
+          31,
+          27
+        ]
+      ]
+    },
+    {
+      "id": "clearing",
+      "name": "The clearing",
+      "cells": [
+        [
+          32,
+          9
+        ],
+        [
+          40,
+          21
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      4,
+      15
+    ],
+    "from_travel": [
+      4,
+      15
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_road",
+      "cell": [
+        2,
+        15
+      ],
+      "to": "travel",
+      "spawn": "default",
+      "label": "Back to the road"
+    },
+    {
+      "id": "to_hut",
+      "cell": [
+        37,
+        15
+      ],
+      "to": "mf_dusk_mother_hut",
+      "spawn": "from_woods",
+      "label": "Into the small door of the hut",
+      "when": "flag.mf_dusk_found",
+      "locked_text": "You do not know where the Mother is, yet. The webs go everywhere."
+    }
+  ],
+  "props": [
+    {
+      "id": "dusk_arrive",
+      "cell": [
+        4,
+        15
+      ],
+      "kind": "decor",
+      "label": "The land, on arrival",
+      "call": "moonfall/dusk:arrive",
+      "approach": 12,
+      "call_when": "not flag.mf_dusk_arrived"
+    },
+    {
+      "id": "dusk_region",
+      "cell": [
+        5,
+        17
+      ],
+      "kind": "examine",
+      "label": "The webs of the Webwoods",
+      "model": "cobwebs",
+      "dialogue": "moonfall/dusk:region",
+      "when": "not flag.mf_dusk_resisted"
+    },
+    {
+      "id": "dusk_board",
+      "cell": [
+        4,
+        17
+      ],
+      "kind": "examine",
+      "label": "Notice board",
+      "model": "notice_board",
+      "text": "A line of empty cots drawn in chalk, and a name by each."
+    },
+    {
+      "id": "mf_impact_3x14",
+      "cell": [
+        3,
+        14
+      ],
+      "kind": "decor",
+      "label": "The moon, filling the sky",
+      "call": "moonfall/moon:impact",
+      "approach": 12,
+      "call_when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled"
+    },
+    {
+      "id": "dusk_o_0",
+      "cell": [
+        36,
+        19
+      ],
+      "kind": "decor",
+      "label": "Pine b",
+      "model": "pine_b"
+    },
+    {
+      "id": "dusk_o_1",
+      "cell": [
+        37,
+        9
+      ],
+      "kind": "decor",
+      "label": "Vines",
+      "model": "vines"
+    },
+    {
+      "id": "dusk_o_2",
+      "cell": [
+        14,
+        17
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "dusk_o_3",
+      "cell": [
+        33,
+        22
+      ],
+      "kind": "decor",
+      "label": "Pine b",
+      "model": "pine_b"
+    },
+    {
+      "id": "dusk_o_4",
+      "cell": [
+        9,
+        23
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "dusk_o_5",
+      "cell": [
+        33,
+        14
+      ],
+      "kind": "decor",
+      "label": "Pine b",
+      "model": "pine_b"
+    },
+    {
+      "id": "dusk_o_6",
+      "cell": [
+        32,
+        10
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "dusk_o_7",
+      "cell": [
+        39,
+        9
+      ],
+      "kind": "decor",
+      "label": "Cobwebs",
+      "model": "cobwebs"
+    },
+    {
+      "id": "dusk_o_8",
+      "cell": [
+        22,
+        12
+      ],
+      "kind": "decor",
+      "label": "Pine b",
+      "model": "pine_b"
+    },
+    {
+      "id": "dusk_o_9",
+      "cell": [
+        35,
+        8
+      ],
+      "kind": "decor",
+      "label": "Leaves",
+      "model": "leaves"
+    },
+    {
+      "id": "dusk_o_10",
+      "cell": [
+        38,
+        12
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "dusk_o_11",
+      "cell": [
+        7,
+        6
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dusk_o_12",
+      "cell": [
+        18,
+        15
+      ],
+      "kind": "decor",
+      "label": "Doll",
+      "model": "doll"
+    },
+    {
+      "id": "dusk_o_13",
+      "cell": [
+        21,
+        5
+      ],
+      "kind": "decor",
+      "label": "Cobwebs",
+      "model": "cobwebs"
+    },
+    {
+      "id": "dusk_o_14",
+      "cell": [
+        18,
+        5
+      ],
+      "kind": "decor",
+      "label": "Cobwebs",
+      "model": "cobwebs"
+    },
+    {
+      "id": "dusk_o_15",
+      "cell": [
+        22,
+        20
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "dusk_o_16",
+      "cell": [
+        31,
+        8
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dusk_o_17",
+      "cell": [
+        20,
+        22
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "dusk_o_18",
+      "cell": [
+        24,
+        13
+      ],
+      "kind": "decor",
+      "label": "Dead tree a",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "dusk_o_19",
+      "cell": [
+        16,
+        26
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dusk_o_20",
+      "cell": [
+        17,
+        23
+      ],
+      "kind": "decor",
+      "label": "Cobwebs",
+      "model": "cobwebs"
+    },
+    {
+      "id": "dusk_o_21",
+      "cell": [
+        18,
+        17
+      ],
+      "kind": "decor",
+      "label": "Pine b",
+      "model": "pine_b"
+    },
+    {
+      "id": "dusk_o_22",
+      "cell": [
+        20,
+        3
+      ],
+      "kind": "decor",
+      "label": "Cobwebs",
+      "model": "cobwebs"
+    },
+    {
+      "id": "dusk_o_23",
+      "cell": [
+        30,
+        24
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "dusk_o_24",
+      "cell": [
+        21,
+        15
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dusk_o_25",
+      "cell": [
+        13,
+        22
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "mf_ysolde_teen",
+      "cell": [
+        6,
+        16
+      ],
+      "dialogue": "moonfall/dusk:hook",
+      "when": "flag.moonfall_started and flag.old_fear_leviathan and not flag.old_fear_dusk and not flag.mf_dusk_asked",
+      "approach": 8,
+      "facing": "east"
+    },
+    {
+      "npc": "mf_ysolde_teen",
+      "cell": [
+        6,
+        16
+      ],
+      "dialogue": "moonfall/dusk:hook_again",
+      "when": "flag.moonfall_started and flag.old_fear_leviathan and not flag.old_fear_dusk and flag.mf_dusk_asked",
+      "facing": "east"
+    },
+    {
+      "npc": "mf_pennywhistle_nurse",
+      "cell": [
+        9,
+        17
+      ],
+      "dialogue": "moonfall/dusk:clue",
+      "when": "flag.moonfall_started and flag.old_fear_leviathan and not flag.old_fear_dusk and not flag.mf_dusk_clue_met",
+      "facing": "east"
+    },
+    {
+      "npc": "mf_pennywhistle_nurse",
+      "cell": [
+        9,
+        17
+      ],
+      "dialogue": "moonfall/dusk:clue_again",
+      "when": "flag.moonfall_started and flag.old_fear_leviathan and not flag.old_fear_dusk and flag.mf_dusk_clue_met",
+      "facing": "east"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "mf_dusk_patrol",
+      "trigger": "enter_area:woods",
+      "when": "not flag.mf_dusk_patrol_done and flag.mf_dusk_arrived",
+      "flag": "mf_dusk_patrol_done",
+      "monsters": [
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            30,
+            15
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            14,
+            9
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            23,
+            11
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            13,
+            19
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "weeping_widow",
+          "cell": [
+            15,
+            6
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "Web-spinners come out of the dark."
+    }
+  ],
+  "rest": "risky",
+  "rest_text": "The moon is too large to sleep under. A short breath, then, and on.",
+  "lights": [
+    {
+      "cell": [
+        37,
+        15
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    }
+  ]
+}

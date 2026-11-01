@@ -1,0 +1,749 @@
+{
+  "id": "mf_rowans_volcano",
+  "name": "Rowan's Rise, Burning",
+  "region": "moonfall",
+  "summary": "Rowan's Rise burst open into a volcano over a moor of ash: a doomsday camp, an ash road and the crater's lip.",
+  "text": "Rowan's Rise has burst. Red light pours from a crater over a moor of ash, and burning stones fall like slow rain. A camp of the faithful waits in the lee.",
+  "map": {
+    "rows": [
+      "##############################################",
+      "#............................................#",
+      "#.~~~~~~~~~~~~~~~~~~~#~~~~~~~~~~~~~~~#~~~~~~.#",
+      "#.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.#",
+      "#.~~~~~~~~~~~~~~w~~~~~~~~~~~w~~~~#~~~~~~#~~~.#",
+      "#.~~~~~~~~~~~~wwwww~~~~~~#~www~~~~~~~~~~#~~~.#",
+      "#.~~~~~~~~~~~wwwwwww~#~~~#~www#~#~~~1~~~~~~~.#",
+      "#.~~~~~~~~~~~~wwwww~~~~~~~~www~#~1111111~~~~.#",
+      "#.~~~~~~~~~~~~~~w##~~~~~~~wwwww11111111111#~.#",
+      "#.~~~~~~~~~~~~~~~~~~~#~~~~~www~11111221111~#.#",
+      "#.~~~~~~~~~~~~~~~~~~~~~~~#~www1111222221111#.#",
+      "#.~~~~~~~~~~~~~~~~~~~~~~~~~www11122222221111.#",
+      "#............~~~~#~~~~~~~~~~w1112222w2222111.#",
+      "#............~~~~~~~~#~~#~~~~1111111www22111.#",
+      "#............................1122221www22111.#",
+      "#..............................22221wwww22111#",
+      "#............................1122221www22111.#",
+      "#............~~~~~~www~~~~~~~1111111www22111.#",
+      "#............~~~~~~www~~~~~~~1112222w2222111.#",
+      "#.~~~~~~~~~~~~#~~~~www~~~##~~111122222221111.#",
+      "#.~~~~~~~~~~~~~~~~wwwww~~~~~~~1111222221111~.#",
+      "#.~~~~~~~~~~~~~~~~~www~~~~~~~~~11111211111~~.#",
+      "#.~~~~~~~~~~~~~~~~~www~~w~#~~~~11111111111~~.#",
+      "#.~~~~~~~~~~~~~~~~~wwwwwwwww~~~~#1111111~~~~.#",
+      "#.~~~~~~~~~~~~~~~~~wwwwwwwwww~~~~~~~1~~~~~~~.#",
+      "#.~~~~~~~~~~~~~~~#~~wwwwwwww~~~~~~~~~~~~~~~~.#",
+      "#.~~~~~~~~~~~~~~~~#~~~~~w~~~~~~~~~~~##~~~~~~.#",
+      "#.~~~~~~~~~~~~~#~~~#~~~~~~~~~#~~~~~~~~~~~~~~.#",
+      "#.~~~~~~~~~~~~~~~#~~###~~~~#~~~~#~~~~~~~~~~~.#",
+      "#.~~~~~~~~~~~~~~~~~~~~~~~~~#~~~~~~~~~~~~~~~~.#",
+      "#............................................#",
+      "##############################################"
+    ],
+    "theme": "wilderness",
+    "light": "dark",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "camp",
+      "name": "The doomsday camp",
+      "cells": [
+        [
+          2,
+          12
+        ],
+        [
+          12,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "moor",
+      "name": "The ash moor",
+      "cells": [
+        [
+          13,
+          3
+        ],
+        [
+          28,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "rise",
+      "name": "Rowan's Rise",
+      "cells": [
+        [
+          29,
+          8
+        ],
+        [
+          43,
+          23
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      4,
+      15
+    ],
+    "from_travel": [
+      4,
+      15
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_road",
+      "cell": [
+        2,
+        15
+      ],
+      "to": "travel",
+      "spawn": "default",
+      "label": "Back to the road"
+    }
+  ],
+  "props": [
+    {
+      "id": "behemoth_arrive",
+      "cell": [
+        4,
+        15
+      ],
+      "kind": "decor",
+      "label": "The land, on arrival",
+      "call": "moonfall/behemoth:arrive",
+      "approach": 12,
+      "call_when": "not flag.mf_behemoth_arrived"
+    },
+    {
+      "id": "behemoth_region",
+      "cell": [
+        6,
+        13
+      ],
+      "kind": "examine",
+      "label": "The falling meteors",
+      "model": "scorch",
+      "dialogue": "moonfall/behemoth:region",
+      "when": "not flag.mf_behemoth_resisted"
+    },
+    {
+      "id": "behemoth_board",
+      "cell": [
+        5,
+        17
+      ],
+      "kind": "examine",
+      "label": "Notice board",
+      "model": "notice_board",
+      "text": "A board of red cloth, with prayers pinned to it and burnt at the corners."
+    },
+    {
+      "id": "mf_keepsake_4",
+      "cell": [
+        11,
+        17
+      ],
+      "kind": "search",
+      "label": "Something small, half buried",
+      "model": "satchel",
+      "search_dc": 12,
+      "item": "mf_keepsake_4",
+      "flag": "mf_keepsake_4_found"
+    },
+    {
+      "id": "mf_impact_3x14",
+      "cell": [
+        3,
+        14
+      ],
+      "kind": "decor",
+      "label": "The moon, filling the sky",
+      "call": "moonfall/moon:impact",
+      "approach": 12,
+      "call_when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled"
+    },
+    {
+      "id": "behemoth_o_0",
+      "cell": [
+        25,
+        16
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "behemoth_o_1",
+      "cell": [
+        3,
+        16
+      ],
+      "kind": "decor",
+      "label": "Boulder",
+      "model": "boulder"
+    },
+    {
+      "id": "behemoth_o_2",
+      "cell": [
+        9,
+        17
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "behemoth_o_3",
+      "cell": [
+        22,
+        16
+      ],
+      "kind": "decor",
+      "label": "Ash heap",
+      "model": "ash_heap"
+    },
+    {
+      "id": "behemoth_o_4",
+      "cell": [
+        21,
+        15
+      ],
+      "kind": "decor",
+      "label": "Boulder",
+      "model": "boulder"
+    },
+    {
+      "id": "behemoth_o_5",
+      "cell": [
+        7,
+        12
+      ],
+      "kind": "decor",
+      "label": "Brazier",
+      "model": "brazier"
+    },
+    {
+      "id": "behemoth_o_6",
+      "cell": [
+        8,
+        13
+      ],
+      "kind": "decor",
+      "label": "Brazier",
+      "model": "brazier"
+    },
+    {
+      "id": "behemoth_o_7",
+      "cell": [
+        22,
+        15
+      ],
+      "kind": "decor",
+      "label": "Rocks",
+      "model": "rocks"
+    },
+    {
+      "id": "behemoth_o_8",
+      "cell": [
+        3,
+        12
+      ],
+      "kind": "decor",
+      "label": "Scorch",
+      "model": "scorch"
+    },
+    {
+      "id": "behemoth_o_9",
+      "cell": [
+        21,
+        16
+      ],
+      "kind": "decor",
+      "label": "Soot patch",
+      "model": "soot_patch"
+    },
+    {
+      "id": "behemoth_o_10",
+      "cell": [
+        11,
+        12
+      ],
+      "kind": "decor",
+      "label": "Brazier",
+      "model": "brazier"
+    },
+    {
+      "id": "behemoth_o_11",
+      "cell": [
+        3,
+        15
+      ],
+      "kind": "decor",
+      "label": "Brazier",
+      "model": "brazier"
+    },
+    {
+      "id": "behemoth_o_12",
+      "cell": [
+        7,
+        16
+      ],
+      "kind": "decor",
+      "label": "Boulder",
+      "model": "boulder"
+    },
+    {
+      "id": "behemoth_o_13",
+      "cell": [
+        16,
+        16
+      ],
+      "kind": "decor",
+      "label": "Bone scatter",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "behemoth_o_14",
+      "cell": [
+        10,
+        16
+      ],
+      "kind": "decor",
+      "label": "Brazier",
+      "model": "brazier"
+    },
+    {
+      "id": "behemoth_o_15",
+      "cell": [
+        14,
+        16
+      ],
+      "kind": "decor",
+      "label": "Soot patch",
+      "model": "soot_patch"
+    },
+    {
+      "id": "behemoth_o_16",
+      "cell": [
+        19,
+        16
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "behemoth_o_17",
+      "cell": [
+        5,
+        16
+      ],
+      "kind": "decor",
+      "label": "Boulder",
+      "model": "boulder"
+    },
+    {
+      "id": "behemoth_o_18",
+      "cell": [
+        8,
+        15
+      ],
+      "kind": "decor",
+      "label": "Brazier",
+      "model": "brazier"
+    },
+    {
+      "id": "behemoth_o_19",
+      "cell": [
+        9,
+        12
+      ],
+      "kind": "decor",
+      "label": "Soot patch",
+      "model": "soot_patch"
+    },
+    {
+      "id": "behemoth_o_20",
+      "cell": [
+        27,
+        14
+      ],
+      "kind": "decor",
+      "label": "Bone scatter",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "behemoth_o_21",
+      "cell": [
+        4,
+        12
+      ],
+      "kind": "decor",
+      "label": "Ash heap",
+      "model": "ash_heap"
+    },
+    {
+      "id": "behemoth_o_22",
+      "cell": [
+        4,
+        18
+      ],
+      "kind": "decor",
+      "label": "Soot patch",
+      "model": "soot_patch"
+    },
+    {
+      "id": "behemoth_o_23",
+      "cell": [
+        23,
+        14
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "behemoth_o_24",
+      "cell": [
+        11,
+        16
+      ],
+      "kind": "decor",
+      "label": "Dead tree b",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "behemoth_o_25",
+      "cell": [
+        8,
+        18
+      ],
+      "kind": "decor",
+      "label": "Ash heap",
+      "model": "ash_heap"
+    },
+    {
+      "id": "behemoth_lair",
+      "cell": [
+        34,
+        15
+      ],
+      "kind": "examine",
+      "label": "The crater's lip",
+      "model": "altar",
+      "dialogue": "moonfall/behemoth:lair",
+      "when": "flag.mf_behemoth_found and not flag.old_fear_behemoth"
+    },
+    {
+      "id": "behemoth_after",
+      "cell": [
+        32,
+        14
+      ],
+      "kind": "decor",
+      "label": "Where it fell",
+      "call": "moonfall/behemoth:aftermath",
+      "approach": 12,
+      "call_when": "flag.old_fear_behemoth and not flag.mf_behemoth_aftermath"
+    },
+    {
+      "id": "behemoth_edge",
+      "cell": [
+        35,
+        13
+      ],
+      "kind": "decor",
+      "label": "The crater's edge",
+      "model": "boulder"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "mf_ash_cultist",
+      "cell": [
+        9,
+        13
+      ],
+      "dialogue": "moonfall/behemoth:hook",
+      "when": "flag.moonfall_started and flag.old_fear_dusk and not flag.old_fear_behemoth and not flag.mf_behemoth_asked",
+      "approach": 8,
+      "facing": "east"
+    },
+    {
+      "npc": "mf_ash_cultist",
+      "cell": [
+        9,
+        13
+      ],
+      "dialogue": "moonfall/behemoth:hook_again",
+      "when": "flag.moonfall_started and flag.old_fear_dusk and not flag.old_fear_behemoth and flag.mf_behemoth_asked",
+      "facing": "east"
+    },
+    {
+      "npc": "mf_rowan_spirit",
+      "cell": [
+        30,
+        15
+      ],
+      "dialogue": "moonfall/behemoth:clue",
+      "when": "flag.moonfall_started and flag.old_fear_dusk and not flag.old_fear_behemoth and not flag.mf_behemoth_clue_met",
+      "facing": "east"
+    },
+    {
+      "npc": "mf_rowan_spirit",
+      "cell": [
+        30,
+        15
+      ],
+      "dialogue": "moonfall/behemoth:clue_again",
+      "when": "flag.moonfall_started and flag.old_fear_dusk and not flag.old_fear_behemoth and flag.mf_behemoth_clue_met",
+      "facing": "east"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        8,
+        17
+      ],
+      "dialogue": "moonfall/behemoth:descendant",
+      "when": "flag.moonfall_started and flag.old_fear_dusk and not flag.old_fear_behemoth and flag.mf_behemoth_asked and not flag.mf_behemoth_descendant",
+      "facing": "east"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "mf_behemoth_patrol",
+      "trigger": "enter_area:moor",
+      "when": "not flag.mf_behemoth_patrol_done and flag.mf_behemoth_arrived",
+      "flag": "mf_behemoth_patrol_done",
+      "monsters": [
+        {
+          "monster": "hell_hound",
+          "cell": [
+            24,
+            10
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hell_hound",
+          "cell": [
+            14,
+            18
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hell_hound",
+          "cell": [
+            16,
+            22
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "wyvern",
+          "cell": [
+            14,
+            16
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "Hellhounds come out of the dark."
+    },
+    {
+      "id": "mf_behemoth_full",
+      "trigger": "dialogue",
+      "flag": "old_fear_behemoth",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "brimstone_behemoth",
+          "cell": [
+            34,
+            15
+          ],
+          "name": "The Brimstone Behemoth",
+          "boss": true,
+          "facing": "west"
+        },
+        {
+          "monster": "hell_hound",
+          "cell": [
+            34,
+            19
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hell_hound",
+          "cell": [
+            35,
+            11
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hell_hound",
+          "cell": [
+            33,
+            11
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hell_hound",
+          "cell": [
+            30,
+            19
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "incubus",
+          "cell": [
+            30,
+            13
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "wyvern",
+          "cell": [
+            30,
+            15
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The Brimstone Behemoth comes for you with its own court around it."
+    },
+    {
+      "id": "mf_behemoth_light",
+      "trigger": "dialogue",
+      "flag": "old_fear_behemoth",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "brimstone_behemoth",
+          "cell": [
+            34,
+            15
+          ],
+          "name": "The Brimstone Behemoth",
+          "boss": true,
+          "facing": "west",
+          "hp": 397
+        },
+        {
+          "monster": "hell_hound",
+          "cell": [
+            30,
+            15
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hell_hound",
+          "cell": [
+            31,
+            19
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hell_hound",
+          "cell": [
+            30,
+            13
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "wyvern",
+          "cell": [
+            33,
+            11
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The Brimstone Behemoth comes for you, thinner of company than it would like."
+    },
+    {
+      "id": "mf_behemoth_weak",
+      "trigger": "dialogue",
+      "flag": "old_fear_behemoth",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "brimstone_behemoth",
+          "cell": [
+            34,
+            15
+          ],
+          "name": "The Brimstone Behemoth",
+          "boss": true,
+          "facing": "west",
+          "hp": 304
+        },
+        {
+          "monster": "hell_hound",
+          "cell": [
+            34,
+            19
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hell_hound",
+          "cell": [
+            35,
+            11
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hell_hound",
+          "cell": [
+            33,
+            11
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "wyvern",
+          "cell": [
+            30,
+            19
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The Brimstone Behemoth comes for you, already hurt by what you carry."
+    }
+  ],
+  "rest": "risky",
+  "rest_text": "The moon is too large to sleep under. A short breath, then, and on.",
+  "lights": [
+    {
+      "cell": [
+        34,
+        15
+      ],
+      "kind": "fire",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "fire"
+    }
+  ]
+}

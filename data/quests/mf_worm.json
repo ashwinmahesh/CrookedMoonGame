@@ -1,0 +1,56 @@
+{
+  "id": "mf_worm",
+  "name": "The White Worm",
+  "kind": "main",
+  "region": "moonfall",
+  "giver": "mf_pell_fisher",
+  "summary": "Pell Netwright's village forgets itself in the lake mist. The White Worm sleeps in a rift on the lake bed.",
+  "closes": [
+    {
+      "stage": "lost",
+      "when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled",
+      "from": [
+        "asked",
+        "trail",
+        "ready"
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "id": "asked",
+      "journal": "Moonsong Lake takes memories; its fishers are losing their names. Something pulled through from another place sleeps beneath it.",
+      "objectives": [
+        "Find where it lairs"
+      ],
+      "hint": "Ask around the region for how to find it: its hook-giver, and the one who knows its secret."
+    },
+    {
+      "id": "trail",
+      "journal": "We found where The White Worm lairs. There may be a way to hurt it more than the usual.",
+      "objectives": [
+        "Face The White Worm",
+        "Optional: learn its weakness"
+      ],
+      "hint": "Learn its weakness from the one who knows it, or go straight to its lair."
+    },
+    {
+      "id": "ready",
+      "journal": "We carry what hurts The White Worm. Time to go to its lair.",
+      "objectives": [
+        "Face The White Worm"
+      ],
+      "hint": "Go to its lair."
+    },
+    {
+      "id": "slain",
+      "journal": "The White Worm is dead. The moon's gaze moves to Hartsblight Forest.",
+      "ends": "success"
+    },
+    {
+      "id": "lost",
+      "journal": "The nights ran out before it fell.",
+      "ends": "failure"
+    }
+  ]
+}

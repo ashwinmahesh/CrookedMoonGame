@@ -1,0 +1,759 @@
+{
+  "id": "mf_barrow_catacombs",
+  "name": "The Opened Barrow",
+  "region": "moonfall",
+  "summary": "Maidenmist's opened graves, a stair of black stone, and the royal catacombs below with a throne of skulls.",
+  "text": "The graves of Maidenmist stand open to the sky, earth heaped beside each. A stair of black stone drops into the hill, worn smooth by an army's tread.",
+  "map": {
+    "rows": [
+      "##############################################",
+      "#............................................#",
+      "#............................................#",
+      "#............................................#",
+      "#.............................~~~~~~~........#",
+      "#.......................=..=..~.~~~~~........#",
+      "#..=.=..........==............~.~~~~~........#",
+      "#.............................~~~~~~~.....=..#",
+      "#............=................~~~~.~~........#",
+      "#...............=.............~~~~~~~=.=.....#",
+      "#................=..=..=....==....=..........#",
+      "#................................=.=...=.....#",
+      "#..................................==........#",
+      "#...................=........................#",
+      "#............=..=............................#",
+      "#.....=.....=....=...............=...........#",
+      "#............................................#",
+      "#.####################...###################.#",
+      "#.####################...###################.#",
+      "#.####################...###################.#",
+      "#.####################...###################.#",
+      "#.####################...###################.#",
+      "#.##########=...#.....#.....#.....#.....=###.#",
+      "#.##########=...#.....#.....#._________.=###.#",
+      "#.##########=...#.....#.....#._________.=###.#",
+      "#.##########=...#.....#.....#.____.____.=###.#",
+      "#.##########=................._________.=###.#",
+      "#.##########=................._________.=###.#",
+      "#.##########=...........................=###.#",
+      "#.###########.........######################.#",
+      "#.##########################################.#",
+      "#.##########################################.#",
+      "#............................................#",
+      "##############################################"
+    ],
+    "theme": "dungeon",
+    "light": "dark",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "graves",
+      "name": "The opened graves",
+      "cells": [
+        [
+          2,
+          3
+        ],
+        [
+          43,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "stair",
+      "name": "The stair down",
+      "cells": [
+        [
+          22,
+          14
+        ],
+        [
+          24,
+          19
+        ]
+      ]
+    },
+    {
+      "id": "catacombs",
+      "name": "The royal catacombs",
+      "cells": [
+        [
+          12,
+          22
+        ],
+        [
+          40,
+          29
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      4,
+      10
+    ],
+    "from_travel": [
+      4,
+      10
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_road",
+      "cell": [
+        2,
+        10
+      ],
+      "to": "travel",
+      "spawn": "default",
+      "label": "Back to the road"
+    }
+  ],
+  "props": [
+    {
+      "id": "barrow_arrive",
+      "cell": [
+        4,
+        10
+      ],
+      "kind": "decor",
+      "label": "The land, on arrival",
+      "call": "moonfall/barrow:arrive",
+      "approach": 12,
+      "call_when": "not flag.mf_barrow_arrived"
+    },
+    {
+      "id": "barrow_region",
+      "cell": [
+        6,
+        10
+      ],
+      "kind": "examine",
+      "label": "The open graves and their creeping chill",
+      "model": "grave_open",
+      "dialogue": "moonfall/barrow:region",
+      "when": "not flag.mf_barrow_resisted"
+    },
+    {
+      "id": "barrow_board",
+      "cell": [
+        8,
+        10
+      ],
+      "kind": "examine",
+      "label": "Notice board",
+      "model": "notice_board",
+      "text": "A board of burials, each name struck through and rewritten."
+    },
+    {
+      "id": "mf_keepsake_3",
+      "cell": [
+        14,
+        26
+      ],
+      "kind": "search",
+      "label": "Something small, half buried",
+      "model": "satchel",
+      "search_dc": 12,
+      "item": "mf_keepsake_3",
+      "flag": "mf_keepsake_3_found"
+    },
+    {
+      "id": "barrow_grave_a",
+      "cell": [
+        31,
+        6
+      ],
+      "kind": "decor",
+      "label": "A freshly opened grave",
+      "model": "grave_open"
+    },
+    {
+      "id": "barrow_grave_b",
+      "cell": [
+        34,
+        8
+      ],
+      "kind": "decor",
+      "label": "A second opened grave",
+      "model": "grave_open"
+    },
+    {
+      "id": "mf_impact_3x9",
+      "cell": [
+        3,
+        9
+      ],
+      "kind": "decor",
+      "label": "The moon, filling the sky",
+      "call": "moonfall/moon:impact",
+      "approach": 12,
+      "call_when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled"
+    },
+    {
+      "id": "barrow_o_0",
+      "cell": [
+        17,
+        13
+      ],
+      "kind": "decor",
+      "label": "Bone scatter",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "barrow_o_1",
+      "cell": [
+        40,
+        15
+      ],
+      "kind": "decor",
+      "label": "Grave open",
+      "model": "grave_open"
+    },
+    {
+      "id": "barrow_o_2",
+      "cell": [
+        25,
+        4
+      ],
+      "kind": "decor",
+      "label": "Gravestone",
+      "model": "gravestone"
+    },
+    {
+      "id": "barrow_o_3",
+      "cell": [
+        41,
+        13
+      ],
+      "kind": "decor",
+      "label": "Cobwebs",
+      "model": "cobwebs"
+    },
+    {
+      "id": "barrow_o_4",
+      "cell": [
+        21,
+        9
+      ],
+      "kind": "decor",
+      "label": "Bone scatter",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "barrow_o_5",
+      "cell": [
+        22,
+        6
+      ],
+      "kind": "decor",
+      "label": "Grave open",
+      "model": "grave_open"
+    },
+    {
+      "id": "barrow_o_6",
+      "cell": [
+        40,
+        5
+      ],
+      "kind": "decor",
+      "label": "Grave mound",
+      "model": "grave_mound"
+    },
+    {
+      "id": "barrow_o_7",
+      "cell": [
+        25,
+        7
+      ],
+      "kind": "decor",
+      "label": "Coffin",
+      "model": "coffin"
+    },
+    {
+      "id": "barrow_o_8",
+      "cell": [
+        6,
+        14
+      ],
+      "kind": "decor",
+      "label": "Grave open",
+      "model": "grave_open"
+    },
+    {
+      "id": "barrow_o_9",
+      "cell": [
+        21,
+        3
+      ],
+      "kind": "decor",
+      "label": "Grave mound",
+      "model": "grave_mound"
+    },
+    {
+      "id": "barrow_o_10",
+      "cell": [
+        5,
+        5
+      ],
+      "kind": "decor",
+      "label": "Bones",
+      "model": "bones"
+    },
+    {
+      "id": "barrow_o_11",
+      "cell": [
+        17,
+        14
+      ],
+      "kind": "decor",
+      "label": "Coffin",
+      "model": "coffin"
+    },
+    {
+      "id": "barrow_o_12",
+      "cell": [
+        9,
+        14
+      ],
+      "kind": "decor",
+      "label": "Coffin",
+      "model": "coffin"
+    },
+    {
+      "id": "barrow_o_13",
+      "cell": [
+        5,
+        8
+      ],
+      "kind": "decor",
+      "label": "Grave open",
+      "model": "grave_open"
+    },
+    {
+      "id": "barrow_o_14",
+      "cell": [
+        29,
+        5
+      ],
+      "kind": "decor",
+      "label": "Gravestone",
+      "model": "gravestone"
+    },
+    {
+      "id": "barrow_o_15",
+      "cell": [
+        28,
+        13
+      ],
+      "kind": "decor",
+      "label": "Dead tree a",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "barrow_o_16",
+      "cell": [
+        16,
+        3
+      ],
+      "kind": "decor",
+      "label": "Cobwebs",
+      "model": "cobwebs"
+    },
+    {
+      "id": "barrow_o_17",
+      "cell": [
+        16,
+        8
+      ],
+      "kind": "decor",
+      "label": "Cobwebs",
+      "model": "cobwebs"
+    },
+    {
+      "id": "barrow_o_18",
+      "cell": [
+        3,
+        4
+      ],
+      "kind": "decor",
+      "label": "Cobwebs",
+      "model": "cobwebs"
+    },
+    {
+      "id": "barrow_o_19",
+      "cell": [
+        41,
+        7
+      ],
+      "kind": "decor",
+      "label": "Bone scatter",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "barrow_o_20",
+      "cell": [
+        40,
+        13
+      ],
+      "kind": "decor",
+      "label": "Coffin",
+      "model": "coffin"
+    },
+    {
+      "id": "barrow_o_21",
+      "cell": [
+        19,
+        15
+      ],
+      "kind": "decor",
+      "label": "Coffin",
+      "model": "coffin"
+    },
+    {
+      "id": "barrow_o_22",
+      "cell": [
+        42,
+        13
+      ],
+      "kind": "decor",
+      "label": "Grave mound",
+      "model": "grave_mound"
+    },
+    {
+      "id": "barrow_o_23",
+      "cell": [
+        24,
+        9
+      ],
+      "kind": "decor",
+      "label": "Cobwebs",
+      "model": "cobwebs"
+    },
+    {
+      "id": "barrow_o_24",
+      "cell": [
+        32,
+        11
+      ],
+      "kind": "decor",
+      "label": "Grave open",
+      "model": "grave_open"
+    },
+    {
+      "id": "barrow_o_25",
+      "cell": [
+        33,
+        12
+      ],
+      "kind": "decor",
+      "label": "Bone scatter",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "barrow_lair",
+      "cell": [
+        34,
+        25
+      ],
+      "kind": "examine",
+      "label": "A throne of skulls",
+      "model": "altar",
+      "dialogue": "moonfall/barrow:lair",
+      "when": "flag.mf_barrow_found and not flag.old_fear_barrow"
+    },
+    {
+      "id": "barrow_after",
+      "cell": [
+        32,
+        24
+      ],
+      "kind": "decor",
+      "label": "Where it fell",
+      "call": "moonfall/barrow:aftermath",
+      "approach": 12,
+      "call_when": "flag.old_fear_barrow and not flag.mf_barrow_aftermath"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "solomon_roderick",
+      "cell": [
+        10,
+        8
+      ],
+      "dialogue": "moonfall/barrow:hook",
+      "when": "flag.moonfall_started and flag.old_fear_titan and not flag.old_fear_barrow and not flag.mf_barrow_asked",
+      "approach": 8,
+      "facing": "east"
+    },
+    {
+      "npc": "solomon_roderick",
+      "cell": [
+        10,
+        8
+      ],
+      "dialogue": "moonfall/barrow:hook_again",
+      "when": "flag.moonfall_started and flag.old_fear_titan and not flag.old_fear_barrow and flag.mf_barrow_asked",
+      "facing": "east"
+    },
+    {
+      "npc": "mf_aldous_ghost",
+      "cell": [
+        14,
+        24
+      ],
+      "dialogue": "moonfall/barrow:clue",
+      "when": "flag.moonfall_started and flag.old_fear_titan and not flag.old_fear_barrow and not flag.mf_barrow_clue_met",
+      "facing": "east"
+    },
+    {
+      "npc": "mf_aldous_ghost",
+      "cell": [
+        14,
+        24
+      ],
+      "dialogue": "moonfall/barrow:clue_again",
+      "when": "flag.moonfall_started and flag.old_fear_titan and not flag.old_fear_barrow and flag.mf_barrow_clue_met",
+      "facing": "east"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "mf_barrow_patrol",
+      "trigger": "enter_area:graves",
+      "when": "not flag.mf_barrow_patrol_done and flag.mf_barrow_arrived",
+      "flag": "mf_barrow_patrol_done",
+      "monsters": [
+        {
+          "monster": "ogre_zombie",
+          "cell": [
+            22,
+            11
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ogre_zombie",
+          "cell": [
+            12,
+            8
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ogre_zombie",
+          "cell": [
+            17,
+            13
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            8,
+            14
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "Risen dead come out of the dark."
+    },
+    {
+      "id": "mf_barrow_full",
+      "trigger": "dialogue",
+      "flag": "old_fear_barrow",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "barrow_king",
+          "cell": [
+            34,
+            25
+          ],
+          "name": "The Barrow King",
+          "boss": true,
+          "facing": "west"
+        },
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            30,
+            26
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            38,
+            27
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            30,
+            23
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            38,
+            22
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "minotaur_skeleton",
+          "cell": [
+            39,
+            25
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "minotaur_skeleton",
+          "cell": [
+            30,
+            28
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "boneflayer",
+          "cell": [
+            28,
+            26
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The Barrow King comes for you with its own court around it."
+    },
+    {
+      "id": "mf_barrow_light",
+      "trigger": "dialogue",
+      "flag": "old_fear_barrow",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "barrow_king",
+          "cell": [
+            34,
+            25
+          ],
+          "name": "The Barrow King",
+          "boss": true,
+          "facing": "west",
+          "hp": 351
+        },
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            30,
+            22
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            30,
+            28
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            38,
+            26
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "minotaur_skeleton",
+          "cell": [
+            38,
+            28
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The Barrow King comes for you, thinner of company than it would like."
+    },
+    {
+      "id": "mf_barrow_weak",
+      "trigger": "dialogue",
+      "flag": "old_fear_barrow",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "barrow_king",
+          "cell": [
+            34,
+            25
+          ],
+          "name": "The Barrow King",
+          "boss": true,
+          "facing": "west",
+          "hp": 269
+        },
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            30,
+            26
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            38,
+            27
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "hunt_knight",
+          "cell": [
+            30,
+            23
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "minotaur_skeleton",
+          "cell": [
+            38,
+            22
+          ],
+          "facing": "west"
+        }
+      ],
+      "text": "The Barrow King comes for you, already hurt by what you carry."
+    }
+  ],
+  "rest": "risky",
+  "rest_text": "The moon is too large to sleep under. A short breath, then, and on.",
+  "lights": [
+    {
+      "cell": [
+        34,
+        25
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    }
+  ]
+}

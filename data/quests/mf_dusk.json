@@ -1,0 +1,56 @@
+{
+  "id": "mf_dusk",
+  "name": "The Dusk Mother",
+  "kind": "main",
+  "region": "moonfall",
+  "giver": "mf_ysolde_teen",
+  "summary": "Ysolde Thrush's brothers and sisters were taken from their beds. The Dusk Mother weeps in a hut in the clearing.",
+  "closes": [
+    {
+      "stage": "lost",
+      "when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled",
+      "from": [
+        "asked",
+        "trail",
+        "ready"
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "id": "asked",
+      "journal": "Children are vanishing from their beds on the homesteads by the Webwoods, and the grown folk walk like sacks. A weeping shade in white takes them.",
+      "objectives": [
+        "Find where it lairs"
+      ],
+      "hint": "Ask around the region for how to find it: its hook-giver, and the one who knows its secret."
+    },
+    {
+      "id": "trail",
+      "journal": "We found where The Dusk Mother lairs. There may be a way to hurt it more than the usual.",
+      "objectives": [
+        "Face The Dusk Mother",
+        "Optional: learn its weakness"
+      ],
+      "hint": "Learn its weakness from the one who knows it, or go straight to its lair."
+    },
+    {
+      "id": "ready",
+      "journal": "We carry what hurts The Dusk Mother. Time to go to its lair.",
+      "objectives": [
+        "Face The Dusk Mother"
+      ],
+      "hint": "Go to its lair."
+    },
+    {
+      "id": "slain",
+      "journal": "The Dusk Mother is dead. The moon's gaze moves to Rowan's Rise.",
+      "ends": "success"
+    },
+    {
+      "id": "lost",
+      "journal": "The nights ran out before it fell.",
+      "ends": "failure"
+    }
+  ]
+}

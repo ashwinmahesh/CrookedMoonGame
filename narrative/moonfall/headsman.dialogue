@@ -1,0 +1,166 @@
+# Drafted by Gemini (R26 Galloping Headsman), edited. The Galloping Headsman: hook, clues, weakness, the lair fight and the aftermath.
+
+~ arrive
+set mf_headsman_arrived
+Narrator: The farm sits at the edge of the rustling corn, its gates hanging off their hinges while the damp earth near the fence lies pocked with raw holes the size of wagons.
+check Athletics DC 17 -> arrive_ok | arrive_hit
+
+~ arrive_ok
+Narrator: You feel the turf sag beneath your boot just in time to leap across, and the hungry pit seals itself behind you with a wet, disappointed sigh.
+set mf_headsman_resisted
+-> END
+
+~ arrive_hit
+Narrator: The black soil drops out from under your feet and the earth clamps shut around your shins like a vise before reluctantly spitting you back out, bruised and muddied.
+damage 2d8 bludgeoning party
+-> END
+
+~ region
+Narrator: You pick your way across a treacherous field where sinkholes yawn open without warning and dry cornstalks lean over the furrow to catch at your ankles.
+time +60
+check Athletics DC 17 -> arrive_ok | arrive_hit
+
+~ hook
+mf_osric_farmer [afraid]: Ever since that moon shrieked overhead, my neighbours have taken to lopping each other's heads off over a cross word, and the pasture behind my barn swallows folk whole.
+set mf_headsman_asked
+quest mf_headsman asked
+-> menu
+
+~ hook_again
+mf_osric_farmer [weary]: The corn at the field's edge is twisting itself into ropes and strangling anyone who strays too near, so tell me plainly if you have found a way to stop it.
+-> menu
+
+~ menu
+* Ask what has been happening -> trouble
+* Ask where it comes from -> where
+* [if not flag.mf_headsman_found] Ask how to find it -> route_a
+* Say we will deal with it -> END
+
+~ trouble
+mf_osric_farmer [afraid]: The dirt opens up under any soul the crowd points a finger at, and the stalks wind tight round their boots while lifelong neighbours look at one another like mortal enemies.
+-> menu
+
+~ where
+mf_osric_farmer [sad]: All this bad blood spills out from the old covered bridge east of town, where the first settlers took an axe to a horseman they judged guilty by mistake.
+-> menu
+
+~ route_a
+mf_osric_farmer [neutral]: The parish ledgers or the oldest granfers in the lane might still tell you how that horseman met his end, if someone with steady eyes cares to read them properly.
+* [History DC 17] Read the town's old records -> a_ok | a_slow
+* [Investigation DC 17] Question the oldest farmers about the founding -> a_ok | a_slow
+* Walk the farms asking, however long it takes -> a_slow
+* Another time -> menu
+
+~ a_ok
+mf_osric_farmer [smile]: There it sits in the parish ink, plain as day: they took the horseman's head right before the covered bridge, and the mob has gathered in my corn ever since.
+time +60
+set mf_headsman_found
+set mf_headsman_clue_a
+quest mf_headsman trail
+-> menu
+
+~ a_slow
+Narrator: You spend the best part of a chill night knocking on shuttered doors until a crone by a dying hearth tells you the horseman lost his head before the covered bridge.
+time +300
+set mf_headsman_found
+quest mf_headsman trail
+-> menu
+
+~ clue
+mf_mob_captain [weary]: I could not tell you why I carry the torch for them, save that a red fury settles on my shoulders at nightfall and I cannot set the thing down.
+set mf_headsman_clue_met
+-> clue_menu
+
+~ clue_again
+mf_mob_captain [neutral]: My head is clear enough for the moment, strangers, so speak your piece while the temper leaves me be.
+-> clue_menu
+
+~ clue_menu
+* Ask about it -> clue_talk
+* [if not flag.mf_headsman_found] Ask how to find it -> route_b
+* [if flag.mf_headsman_found and not flag.mf_headsman_weak] Ask what could hurt it -> weak
+* Take our leave -> END
+
+~ clue_talk
+mf_mob_captain [sad]: We gather among the stalks when the light fails, and whatever we swear to by morning, there is always a headless rider trotting just behind our backs.
+-> clue_menu
+
+~ route_b
+mf_mob_captain [sly]: Our lot never asks a man's name if his teeth are bared and his eyes look mean enough, so scowl hard and I might let you march with us tonight.
+* [Stealth DC 17] Slip in among the mob unseen -> b_ok | b_slow
+* [Deception DC 17] Pass as one of the angry mob -> b_ok | b_slow
+* Wait out the night at the edge and follow the mob in -> b_slow
+* Another time -> clue_menu
+
+~ b_ok
+mf_mob_captain [sly]: Keep your jaws set like that and the crowd takes you for our own, walking you straight down the lane toward the bridge without a single question asked.
+time +60
+set mf_headsman_found
+set mf_headsman_clue_b
+quest mf_headsman trail
+-> clue_menu
+
+~ b_slow
+Narrator: It costs you hours of bone-deep cold at the edge of the rustling field, but at last the torches move and you trail the muttering crowd toward the bridge.
+time +300
+set mf_headsman_found
+quest mf_headsman trail
+-> clue_menu
+
+~ weak
+mf_mob_captain [sly]: Listen close: the skull of the headsman's very first victim lies buried under the trampled mud where we meet, and the rider fears whatever hand holds that bone.
+* [Investigation DC 17] Search the riverbank mud for the skull -> weak_ok | weak_slow
+* [Athletics DC 17] Haul stones off the old sinkhole to reach it -> weak_ok | weak_slow
+* Dig by hand through the long night -> weak_slow
+* Another time -> clue_menu
+
+~ weak_ok
+mf_mob_captain [smile]: You have dragged it up from the mire at last, a small yellow skull wrapped in rotten sacking that the mud seemed mighty reluctant to give back.
+time +60
+give mf_headsman_skull
+set mf_headsman_weak
+quest mf_headsman ready
+-> clue_menu
+
+~ weak_slow
+Narrator: You dig through the long night with raw fingers and a borrowed spade until the old skull finally comes up grinning in the grey light of dawn.
+time +300
+give mf_headsman_skull
+set mf_headsman_weak
+quest mf_headsman ready
+-> clue_menu
+
+~ lair
+Narrator: The covered bridge looms ahead with its timber mouth wide and dark, and the heavy clatter of iron shoes echoes across the planks where no horse stands.
+* Go in and face it -> fight
+* Not yet -> END
+
+~ fight
+cutscene mf_headsman_reveals
+Narrator: The Headsman charges out from the gloom of the rafters, a headless centaur upon skeletal hooves with a blazing executioner's axe hoisted high.
+cutscene mf_headsman_reveals_2
+Narrator: He hurls his own burning skull ahead of him down the span, its jaws howling as the whole timber bridge catches in the glare.
+cutscene end
+if flag.mf_headsman_weak
+combat mf_headsman_weak
+elif level >= 13
+combat mf_headsman_full
+else
+combat mf_headsman_light
+endif
+
+~ aftermath
+cutscene mf_headsman_falls
+Narrator: The rider's green flame gutters out as his heavy axe clatters to the boards, and across the fields the dry corn uncoils its grip from the soil.
+cutscene mf_headsman_falls_2
+Narrator: High overhead, the leering crone in the moon turns her pale gaze slowly westward toward the black waters of a distant lake.
+cutscene end
+set mf_headsman_aftermath
+set old_fears_slain += 1
+set moonfall_credit += 1
+set moonfall_nights_left += 1
+give axe_of_the_galloping_headsman
+quest mf_headsman slain
+xp milestone
+Narrator: Far away, the dark surface of Moonsong Lake is already churning in the wind, caught fast beneath the moon's widening grin.
+-> END

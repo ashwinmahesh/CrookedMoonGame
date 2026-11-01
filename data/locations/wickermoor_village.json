@@ -2400,6 +2400,17 @@
       ],
       "dialogue": "skitterdeep/guide:offer",
       "when": "flag.bitten_seen and not flag.oakum_guiding and not flag.oakum_declined and not flag.stonoga_slain"
+    },
+    {
+      "npc": "the_vagrant",
+      "cell": [
+        30,
+        24
+      ],
+      "dialogue": "moonfall/vagrant:offer",
+      "when": "flag.kehlenn_bound and not flag.moonfall_started",
+      "approach": 8,
+      "facing": "west"
     }
   ],
   "props": [
@@ -3217,6 +3228,18 @@
       "label": "Pigeons, in rows",
       "model": "crow",
       "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "mf_impact_33x25",
+      "cell": [
+        33,
+        25
+      ],
+      "kind": "decor",
+      "label": "The moon, filling the sky",
+      "call": "moonfall/moon:impact",
+      "approach": 12,
+      "call_when": "flag.moonfall_started and flag.moonfall_nights_left <= 0 and not flag.moonfall_fled"
     }
   ],
   "region": "wickermoor",

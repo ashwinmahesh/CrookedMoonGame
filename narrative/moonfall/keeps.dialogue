@@ -1,0 +1,66 @@
+# Drafted by Gemini (R26 keeps), edited. What the Moon Keeps: four keepsakes, one for each Act.
+
+~ start
+the_vagrant [sly]: The moon keeps what the dead lose, you know, and four small things of yours are tucked right inside its pockets, one from each leg of your journey.
+set mf_keeps_asked
+quest mf_what_moon_keeps asked
+-> menu
+
+~ menu
+* Ask where they might be -> where
+* [if item:mf_keepsake_1 or item:mf_keepsake_2 or item:mf_keepsake_3 or item:mf_keepsake_4] Show him what we have found -> hand_over
+* [ends:mf_what_moon_keeps] Tell him to leave them to the moon -> left
+* Take our leave -> END
+
+~ where
+the_vagrant [neutral]: The first fell right here on my platform, the second out in the farmland, the third down in the Maidenmist dark, and the fourth upon that burning hill.
+-> menu
+
+~ hand_over
+if item:mf_keepsake_1
+take mf_keepsake_1
+set mf_keepsakes += 1
+endif
+if item:mf_keepsake_2
+take mf_keepsake_2
+set mf_keepsakes += 1
+endif
+if item:mf_keepsake_3
+take mf_keepsake_3
+set mf_keepsakes += 1
+endif
+if item:mf_keepsake_4
+take mf_keepsake_4
+set mf_keepsakes += 1
+endif
+if flag.mf_keepsakes >= 4
+-> all_found
+else
+-> some_found
+endif
+
+~ some_found
+the_vagrant [neutral]: That is some of it, at least, though I reckon the rest of your missing pieces are still waiting out there in the dark somewhere.
+-> menu
+
+~ all_found
+the_vagrant [smile]: There now, that is everything laid out neat and proper, so tell me what you would like an old conductor to do with them.
+* Let him carry them on the train -> returned
+* Keep them close ourselves -> kept
+
+~ returned
+the_vagrant [smile]: I will lock them up tight in the baggage car for you, and you can claim them with your ticket once all this business is over.
+quest mf_what_moon_keeps returned
+bless party 2h
+-> END
+
+~ kept
+the_vagrant [smile]: That is fair enough, I suppose, since small things always want to be near their people, and I have plenty of empty cloth to fold away.
+quest mf_what_moon_keeps kept
+inspiration party
+-> END
+
+~ left
+the_vagrant [weary]: The moon can keep them for good, then, and truth be told, she will probably look after them better than most folk down here ever could.
+quest mf_what_moon_keeps left
+-> END
