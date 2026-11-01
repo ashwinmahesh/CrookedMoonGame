@@ -33,6 +33,8 @@ RE_SET = re.compile(rf"^set\s+({ID})(?:\s*(=|\+=|-=)\s*(.+))?$")
 RE_QUEST = re.compile(rf"^quest\s+({ID})\s+({ID})$")
 RE_GIVE = re.compile(rf"^give\s+({ID})")
 RE_CHECK = re.compile(r"^check\s+(.*?)\s*->\s*([A-Za-z0-9_:/]+|END)(?:\s*\|\s*([A-Za-z0-9_:/]+|END))?$")
+# `save <Ability> DC <n> party -> ok | fail`: a roll like a check (every living hero saves; ok when all of them do).
+RE_PARTY_SAVE = re.compile(r"^save\s+([A-Za-z]+)\s+DC\s+\d+\s+party\s*->\s*([A-Za-z0-9_:/]+|END)(?:\s*\|\s*([A-Za-z0-9_:/]+|END))?$")
 RE_COMBAT = re.compile(rf"^combat\s+({ID})$")
 RE_MOVE = re.compile(rf"^move\s+({ID})(?::({ID}))?$")
 RE_IF = re.compile(r"^(if|elif)\s+(.+)$")
@@ -113,6 +115,8 @@ def parse_dialogue(path):
                       ends=ends)
         elif (m := RE_JUMP.match(line)):
             st.update(t="jump", to=[m.group(1)])
+        elif (m := RE_PARTY_SAVE.match(line)):
+            st.update(t="jump", to=[x for x in (m.group(2), m.group(3)) if x], is_check=True, skill=m.group(1).lower() + "_save")
         elif (m := RE_CHECK.match(line)):
             # is_check: a roll (to[0] on success, the last target on failure), for tools/data/fail_routes.py; skill: its name
             st.update(t="jump", to=[x for x in (m.group(2), m.group(3)) if x], is_check=True,

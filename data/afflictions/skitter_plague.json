@@ -1,0 +1,42 @@
+{
+  "id": "skitter_plague",
+  "name": "Skitter Plague",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 308,
+    "note": "The Crooked Moon (Legends of Avantris), chapter 16. Numbers are the book's; the words are ours."
+  },
+  "summary": "A hag's contagion carried by her centipedes: a fever that won't break and blisters that eat at the body a little more with every night's sleep, until three good mornings throw it off. Those it kills don't stay dead.",
+  "max_level": 1,
+  "modifiers": [],
+  "onset_hours": "1d4",
+  "onset_exhaustion": 1,
+  "exhaustion_lock": true,
+  "long_rest": {
+    "max_hp_loss": "1d4"
+  },
+  "daily": {
+    "hour": 7,
+    "save": {
+      "ability": "con",
+      "dc": 15
+    },
+    "failure": 0,
+    "successes_to_end": 3
+  },
+  "suppressed_by": {
+    "spells": [
+      "lesser_restoration"
+    ],
+    "hours": 24
+  },
+  "on_death": {
+    "hour": 23,
+    "becomes": "skitterswarm",
+    "flag": "skitter_plague_risen",
+    "only_types": [
+      "humanoid"
+    ]
+  }
+}
