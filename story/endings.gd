@@ -10,11 +10,16 @@ extends RefCounted
 const ROOT := "res://data/endings/"
 ## The flag that records the ending reached (data/flags/endings.json).
 const FLAG := "campaign_ending"
-## A dark gift whose bearer inherits the villain's place in an epilogue. None yet: the endings lane names it (plan G1).
+## A dark gift whose bearer inherits the villain's place in an epilogue. None in this campaign: {name} is the leader.
 const HEIR_GIFT := ""
-## The flag a parley's answer is kept in, and the answers that end the game instead of starting the battle. None yet.
+## The flag a parley's answer is kept in, and the answers that end the game instead of starting the battle: in the barrow,
+## the party sides with Kehlenn (kneel_queen: Kneel to the Crooked Queen), or, every hero having taken the Horned King's
+## offer, kneels to the goat (kneel_goat: Live Deliciously). The barrow's conversation (R24) sets it.
 const PARLEY_FLAG := "parley_answer"
-const PARLEY_ENDS: Array[String] = []
+const PARLEY_ENDS: Array[String] = ["kneel_queen", "kneel_goat"]
+## The flag set as the Crooked Tree's final battle begins (CrookedMoonCampaign.final_battle_begun): a wipe after it is All
+## Will Be Crooked.
+const FINAL_BATTLE_FLAG := "born_king_fight_begun"
 ## The flag that says the villain's last fight was won; set by the story, read by after_fight.
 const VILLAIN_DESTROYED := "villain_destroyed"
 

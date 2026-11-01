@@ -1,0 +1,41 @@
+{
+  "id": "all_will_be_crooked",
+  "title": "All Will Be Crooked",
+  "summary": "The ritual failed at the Crooked Tree, and the Crooked Queen goes free.",
+  "priority": 50,
+  "when": "flag.ritual_failed or (flag.born_king_fight_begun and not flag.ritual_done)",
+  "narration": "endings/all_will_be_crooked:start",
+  "tone": "blood",
+  "epilogue": [
+    {
+      "topic": "kehlenn",
+      "title": "The Crooked Queen",
+      "when": "",
+      "text": "The door in the Crooked Tree swings open, and what comes out of it doesn't need a name anymore."
+    },
+    {
+      "topic": "sacrifice",
+      "title": "The Goat Skull",
+      "when": "flag.ritual_failed",
+      "text": "The goat skull lies in the ash with the offerings it wouldn't take, and the wind carries them away one by one."
+    },
+    {
+      "topic": "the_moon",
+      "title": "The Crooked Moon",
+      "when": "",
+      "text": "The moon grins ear to ear over Wickermoor Hollow, and it never stops."
+    },
+    {
+      "topic": "village",
+      "title": "Wickermoor Village",
+      "when": "",
+      "text": "Wickermoor's shutters never open again, and the turnip lanterns burn on in empty windows."
+    },
+    {
+      "topic": "druskenvalds",
+      "title": "Phillip and Adela",
+      "when": "",
+      "text": "Nobody is left to remember Phillip and Adela, and the painting over the inn's hearth curls up in the damp."
+    }
+  ]
+}

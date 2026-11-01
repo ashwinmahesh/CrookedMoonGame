@@ -3,8 +3,8 @@ extends CampaignModule
 ## The Crooked Moon's answers to the story engine (CampaignModule, named in data/campaign.json). The base class answers for a game with
 ## no reading, no watching villain, ordinary spells and no ending of its own; plan G1 fills this in as the chapters need each part.
 ## So far: the Fated Tarot, Adela's reading of the party's cards (R10), and the ritual track with the Crooked Moon's gaze
-## (story/ritual_track.gd: the seals broken are the engine's `attention`, its stages the presence tiers). The endings, the
-## parley before the Born King and achievements come with the packages that use them.
+## (story/ritual_track.gd: the seals broken are the engine's `attention`, its stages the presence tiers), Sin
+## (story/sin.gd), the endings (story/endings.gd, data/endings/) and the parley before the Born King.
 
 const OUTCOMES := "res://data/tarot/outcomes.json"
 
@@ -60,6 +60,12 @@ func field(st: StoryState, path: String) -> String:
 	# Sin (`tarokka.sin.tier == wicked`, `tarokka.sin.at_least.stained`): Sin.field.
 	if path.begins_with("sin."):
 		return Sin.field(st, path.trim_prefix("sin."))
+	# The parley's answer (`tarokka.parley.kneel_queen`) and Moonfall's outcome (`tarokka.moonfall.unbent`, set by R26 in
+	# the flag moonfall_outcome): "yes" when the story's flag holds that answer. The endings read them.
+	if path.begins_with("parley."):
+		return "yes" if str(st.get_flag(Endings.PARLEY_FLAG, "")) == path.trim_prefix("parley.") else ""
+	if path.begins_with("moonfall."):
+		return "yes" if str(st.get_flag(MOONFALL_FLAG, "")) == path.trim_prefix("moonfall.") else ""
 	var parts := path.split(".")
 	# The last of the six middle cars, whichever the playthrough's seed makes it (`tarokka.last_car.<place id>` in a door's `when`): its
 	# front door is the Tender's, so that door is the one that waits for the haints.
@@ -83,6 +89,49 @@ func field(st: StoryState, path: String) -> String:
 			"place":
 				return str(_outcome(card_id).get("place", ""))
 	return ""
+
+
+# --- How the game ends (plan 5.7; story/endings.gd, data/endings/) ---------------------------------------------------
+
+## Moonfall's outcome (R26: unbent, green_sea, last_train, fallen), set by its chapter.
+const MOONFALL_FLAG := "moonfall_outcome"
+## Kehlenn's talk in the barrow before the Born King (R24 writes it; until then the engine finds no node and fights).
+const PARLEY_REF := "crooked_tree/kehlenn_parley:start"
+
+
+func request_ending(st: StoryState) -> void:
+	Endings.request(st)
+
+
+func endings() -> Array[Dictionary]:
+	return Endings.all()
+
+
+func ending(id: String) -> Dictionary:
+	return Endings.get_ending(id)
+
+
+func parley_ref() -> String:
+	return PARLEY_REF
+
+
+func parley_speaker() -> String:
+	return "kehlenn"
+
+
+func parley_answer(st: StoryState) -> String:
+	var v: Variant = st.get_flag(Endings.PARLEY_FLAG, "")
+	return str(v) if v is String else ""
+
+
+## Siding with Kehlenn or kneeling to the goat ends the game in the barrow; any other answer fights.
+func parley_allows_fight(st: StoryState) -> bool:
+	return not Endings.parley_ends(st)
+
+
+## The Crooked Tree's final battle begins: from now on a wipe is All Will Be Crooked.
+func final_battle_begun(st: StoryState) -> void:
+	st.set_flag(Endings.FINAL_BATTLE_FLAG)
 
 
 # --- The Crooked Moon's gaze (plan 5.5): the ritual track is the engine's villain's attention ------------------------

@@ -1,6 +1,7 @@
 extends TestCase
 ## The campaign plug (the engine handbook, new_game.md section 2): data/campaign.json names this game's module and look, and
-## the engine asks them. Both are empty subclasses for now (plan G1 and G8 fill them in), so every answer is the base class's.
+## the engine asks them. The look is still empty (plan G8 fills it in); the module answers for the Fated Tarot, the ritual track,
+## Sin and the endings (plan G1), and the base class's answers everywhere else.
 
 
 func after_each() -> void:
@@ -18,14 +19,14 @@ func test_the_configured_look_is_the_crooked_moons() -> void:
 	assert_true(CampaignLook.current() is CrookedMoonLook, "data/campaign.json names world/look/crooked_moon_look.gd")
 
 
-func test_the_empty_module_answers_as_a_game_with_no_campaign_facts() -> void:
+func test_the_module_answers_as_a_game_with_no_campaign_facts_where_it_has_none() -> void:
 	var m := Campaign.module()
 	assert_eq(m.fill("{x}", GameState.story), "{x}")
 	assert_eq(m.final_room(GameState.story), "")
 	assert_true(m.reading("any", GameState.story).is_empty())
 	assert_eq(m.presence_attention(GameState.story), 0)
 	assert_false(m.handles_spell("detect_magic"))
-	assert_true(m.endings().is_empty())
+	assert_eq(m.endings().size(), 10, "six story endings and four for Moonfall (data/endings)")
 	assert_eq(m.guard_monster(), "guard")
 
 
