@@ -1187,6 +1187,25 @@
       "spawn": "default",
       "label": "The hill road, north-west to Glitterdeep",
       "when": "flag.skitter_trail_known or visited:sk_hills_trail"
+    },
+    {
+      "id": "old_station",
+      "cell": [
+        34,
+        44
+      ],
+      "to": "ep_fog",
+      "spawn": "from_village",
+      "label": "Walk down to the old station",
+      "when": "flag.kehlenn_bound and flag.ep_started",
+      "locked_text": "The fog sits thick down the south lane, and nothing in it is waiting yet.",
+      "sets_quest": {
+        "id": "ep_the_last_ride",
+        "stage": "the_last_ride",
+        "from": [
+          "loose_ends"
+        ]
+      }
     }
   ],
   "id": "wickermoor_village",
@@ -2400,6 +2419,231 @@
       ],
       "dialogue": "skitterdeep/guide:offer",
       "when": "flag.bitten_seen and not flag.oakum_guiding and not flag.oakum_declined and not flag.stonoga_slain"
+    },
+    {
+      "npc": "old_rusty",
+      "cell": [
+        23,
+        18
+      ],
+      "dialogue": "epilogue/hook:start",
+      "when": "flag.kehlenn_bound and not flag.ep_started"
+    },
+    {
+      "npc": "ambrose_quill",
+      "cell": [
+        26,
+        18
+      ],
+      "dialogue": "epilogue/fair:quill_start",
+      "when": "flag.kehlenn_bound and flag.ep_started"
+    },
+    {
+      "npc": "tamsin_ledger",
+      "cell": [
+        28,
+        18
+      ],
+      "dialogue": "epilogue/fair:audit_start",
+      "when": "flag.kehlenn_bound and flag.ep_fair_open and not flag.ep_fair_outcome"
+    },
+    {
+      "npc": "sgt_gaunt",
+      "cell": [
+        30,
+        18
+      ],
+      "dialogue": "epilogue/fair:gaunt_start",
+      "when": "flag.kehlenn_bound and flag.ep_started"
+    },
+    {
+      "npc": "pip_oakum",
+      "cell": [
+        32,
+        18
+      ],
+      "dialogue": "epilogue/fair:pip_start",
+      "when": "flag.kehlenn_bound and flag.ep_started"
+    },
+    {
+      "npc": "barnaby_pennywhistle",
+      "cell": [
+        34,
+        18
+      ],
+      "dialogue": "epilogue/fair:barnaby_start",
+      "when": "flag.kehlenn_bound and flag.ep_started"
+    },
+    {
+      "npc": "commune_goat",
+      "cell": [
+        36,
+        18
+      ],
+      "dialogue": "epilogue/fair:notice_start",
+      "when": "flag.kehlenn_bound and flag.ep_fair_open and not flag.ep_fair_permit_safe and not flag.ep_fair_permit_eaten"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        38,
+        18
+      ],
+      "dialogue": "epilogue/closing:marianna_grey",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_marianna_grey"
+    },
+    {
+      "npc": "siv_harga",
+      "cell": [
+        24,
+        19
+      ],
+      "dialogue": "epilogue/closing:siv_harga",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_siv_harga"
+    },
+    {
+      "npc": "doris_squire",
+      "cell": [
+        27,
+        19
+      ],
+      "dialogue": "epilogue/closing:doris_squire",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_doris_squire"
+    },
+    {
+      "npc": "wendel_somerton",
+      "cell": [
+        29,
+        19
+      ],
+      "dialogue": "epilogue/closing:wendel_somerton",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_wendel_somerton"
+    },
+    {
+      "npc": "jean_myriel",
+      "cell": [
+        32,
+        19
+      ],
+      "dialogue": "epilogue/closing:jean_myriel",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_jean_myriel"
+    },
+    {
+      "npc": "eleanor_heyling",
+      "cell": [
+        34,
+        19
+      ],
+      "dialogue": "epilogue/closing:eleanor_heyling",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_eleanor_heyling"
+    },
+    {
+      "npc": "finneas_trout",
+      "cell": [
+        37,
+        19
+      ],
+      "dialogue": "epilogue/closing:finneas_trout",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_finneas_trout"
+    },
+    {
+      "npc": "sister_rain",
+      "cell": [
+        23,
+        20
+      ],
+      "dialogue": "epilogue/closing:sister_rain",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_sister_rain"
+    },
+    {
+      "npc": "weston_murdoch",
+      "cell": [
+        27,
+        20
+      ],
+      "dialogue": "epilogue/closing:weston_murdoch",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_weston_murdoch"
+    },
+    {
+      "npc": "solomon_roderick",
+      "cell": [
+        29,
+        20
+      ],
+      "dialogue": "epilogue/closing:solomon_roderick",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_solomon_roderick"
+    },
+    {
+      "npc": "mori_shade",
+      "cell": [
+        31,
+        20
+      ],
+      "dialogue": "epilogue/closing:mori_shade",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_mori_shade"
+    },
+    {
+      "npc": "morgan",
+      "cell": [
+        33,
+        20
+      ],
+      "dialogue": "epilogue/closing:morgan",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_morgan"
+    },
+    {
+      "npc": "geneva_fairchild",
+      "cell": [
+        35,
+        20
+      ],
+      "dialogue": "epilogue/closing:geneva_fairchild",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_geneva_fairchild"
+    },
+    {
+      "npc": "jeremiah_stover",
+      "cell": [
+        37,
+        20
+      ],
+      "dialogue": "epilogue/closing:jeremiah_stover",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_jeremiah_stover"
+    },
+    {
+      "npc": "hilda_brom",
+      "cell": [
+        24,
+        21
+      ],
+      "dialogue": "epilogue/closing:hilda_brom",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_hilda_brom"
+    },
+    {
+      "npc": "thomasin_ardor",
+      "cell": [
+        27,
+        21
+      ],
+      "dialogue": "epilogue/closing:thomasin_ardor",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_thomasin_ardor"
+    },
+    {
+      "npc": "beatrice_wells",
+      "cell": [
+        29,
+        21
+      ],
+      "dialogue": "epilogue/closing:beatrice_wells",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_beatrice_wells"
+    },
+    {
+      "npc": "mrs_oakum",
+      "cell": [
+        31,
+        21
+      ],
+      "dialogue": "epilogue/closing:mrs_oakum",
+      "when": "flag.kehlenn_bound and flag.ep_started and not flag.ep_closing_mrs_oakum"
     }
   ],
   "props": [
@@ -3217,6 +3461,107 @@
       "label": "Pigeons, in rows",
       "model": "crow",
       "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "ep_notice_board",
+      "cell": [
+        33,
+        21
+      ],
+      "kind": "examine",
+      "label": "The fair's notice board",
+      "model": "notice_board",
+      "dialogue": "epilogue/fair:notice_start",
+      "when": "flag.kehlenn_bound and flag.ep_fair_open and not flag.ep_fair_permit_safe and not flag.ep_fair_permit_eaten"
+    },
+    {
+      "id": "ep_fair_stall_0",
+      "cell": [
+        35,
+        21
+      ],
+      "kind": "decor",
+      "label": "A fair stall",
+      "model": "table_round",
+      "when": "flag.kehlenn_bound"
+    },
+    {
+      "id": "ep_fair_stall_1",
+      "cell": [
+        38,
+        21
+      ],
+      "kind": "decor",
+      "label": "A fair stall",
+      "model": "table_round",
+      "when": "flag.kehlenn_bound"
+    },
+    {
+      "id": "ep_fair_stall_2",
+      "cell": [
+        24,
+        22
+      ],
+      "kind": "decor",
+      "label": "A fair stall",
+      "model": "table_round",
+      "when": "flag.kehlenn_bound"
+    },
+    {
+      "id": "ep_fair_stall_3",
+      "cell": [
+        26,
+        22
+      ],
+      "kind": "decor",
+      "label": "A fair stall",
+      "model": "table_round",
+      "when": "flag.kehlenn_bound"
+    },
+    {
+      "id": "ep_fair_bunting_0",
+      "cell": [
+        29,
+        22
+      ],
+      "kind": "decor",
+      "label": "Bunting",
+      "model": "bunting",
+      "when": "flag.kehlenn_bound"
+    },
+    {
+      "id": "ep_fair_bunting_1",
+      "cell": [
+        34,
+        22
+      ],
+      "kind": "decor",
+      "label": "Bunting",
+      "model": "bunting",
+      "when": "flag.kehlenn_bound"
+    },
+    {
+      "id": "ep_fair_bunting_2",
+      "cell": [
+        36,
+        22
+      ],
+      "kind": "decor",
+      "label": "Bunting",
+      "model": "bunting",
+      "when": "flag.kehlenn_bound"
+    },
+    {
+      "id": "ep_graves",
+      "cell": [
+        41,
+        23
+      ],
+      "kind": "examine",
+      "label": "The new graves",
+      "model": "grave",
+      "dialogue": "epilogue/graves:start",
+      "when": "flag.kehlenn_bound"
     }
   ],
   "region": "wickermoor",
@@ -3358,6 +3703,10 @@
     "from_post_office_back": [
       38,
       8
+    ],
+    "from_fog": [
+      34,
+      43
     ]
   },
   "summary": "The hub: a village round a trodden square, an oak of carved faces, a clocktower, the Silverbell along the south and the crooked estate on its hill.",

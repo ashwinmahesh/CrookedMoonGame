@@ -43,6 +43,12 @@ func quest_finished(st: StoryState, quest_id: String, _ending: String, dice: Dic
 	return GhostlightBoons.haint_freed(st, quest_id, dice)
 
 
+## The dialogue's `end_game`: the ending whose condition holds is recorded (data/endings/*.json, story/endings.gd). The good endings are asked
+## for at the Last Ride (R25), the bad ones at once by the ritual, a barrow answer, or a wipe in a `final_battle` encounter.
+func request_ending(st: StoryState) -> void:
+	Endings.request(st)
+
+
 ## The journal's one line for a hero's card, for `{tarokka.hero_1.hint}` in quest text.
 func field(st: StoryState, path: String) -> String:
 	var parts := path.split(".")

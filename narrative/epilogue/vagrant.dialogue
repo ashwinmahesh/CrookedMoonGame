@@ -1,0 +1,48 @@
+# Drafted by Gemini (R25 vagrant), edited.
+
+~ arrive
+set ep_vagrant_met
+cutscene ep_old_train
+Narrator: The white fog lies thick as carded wool along the old siding, until a lone blue-green headlamp blooms through the gloom.
+cutscene ep_old_train_2
+Narrator: Iron wheels scream against rails spun from mist, and the great black locomotive shudders to a halt in a hiss of cold steam.
+cutscene ep_old_train_3
+Narrator: The carriage door groans open on rusted hinges, and a frog-faced fellow in a patched conductor's coat hops down to the gravel.
+cutscene end
+the_vagrant [weary]: Begging your pardon for the wait, folks. Turns out a busted boiler takes a fair bit of tinkering when your wrench keeps slipping through the floorboards.
+Narrator: He pulls his battered cap from his head and holds it over his chest, bowing his chin in a long, quiet moment for the two lords who are not with you.
+the_vagrant [sad]: Well now. I reckon even the deathless find their way to the end of the line, sooner or later.
+the_vagrant [neutral]: Word down the tracks is the Crescent Court is already squabbling over the scraps, and some Coven of the Midnight Moon is stirring up the dark. Still, your tickets say Destination: Unknown, and this old rattletrap will take you wherever you care to go.
+* Board the train -> board
+* Not yet, there is more to do here -> wait
+* Ask about the rumours -> rumours
+
+~ rumours
+the_vagrant [sly]: Oh, the high-and-mighty in the Crescent Court never let an empty chair stay cold for long. Everyone fancies themselves the new master of the night now that the old bough is burned.
+the_vagrant [weary]: And out in the deep bog, the witches calling themselves the Coven of the Midnight Moon are whispering to the stars. There is always another storm brewing down the line, friends.
+-> arrive_menu
+
+~ arrive_menu
+the_vagrant [neutral]: The steam is up and the lantern is lit, folks. What will it be?
+* Board the train -> board
+* Not yet, there is more to do here -> wait
+* Ask about the rumours -> rumours
+
+~ wait
+the_vagrant [smile]: Take all the time you need, friends. This train will keep right on waiting so long as that old moon stays crooked, and the path back to the village is still clear.
+-> END
+
+~ again
+Narrator: The Vagrant sits perched on the iron buffer with his knees drawn up, bowing a slow, sweet tune on his fiddle as the wheat-sprig bobs at his lip.
+the_vagrant [smile]: Back again, are we? The Ghostlight Express is ready when you are.
+* Board the train -> board
+* Not yet -> wait
+
+~ board
+the_vagrant [smile]: All aboard, then. Mind the step, and hold fast to your tickets.
+if not flag.ep_boarded
+give ghostlight_ticket_unknown
+endif
+set ep_boarded
+quest ep_the_last_ride the_last_ride
+move ep_car:default

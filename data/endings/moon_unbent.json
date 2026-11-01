@@ -1,0 +1,25 @@
+{
+  "id": "moon_unbent",
+  "title": "The Moon Unbent",
+  "summary": "The Old Fears are slain, the offer refused, and the moon climbs back into the sky.",
+  "priority": 60,
+  "when": "flag.moonfall_started and flag.old_fears_slain == 8 and flag.moonfall_offer == \"refused\"",
+  "narration": "endings/moon_unbent:start",
+  "tone": "dawn",
+  "music": "ending",
+  "epilogue_from": "under_the_crooked_moon",
+  "epilogue": [
+    {
+      "topic": "moon_returned",
+      "title": "The Moon Returned",
+      "when": "",
+      "text": "The moon is back in the sky, plain and pale, and without a face. Fishermen who never saw it before say it is the loveliest thing in the dark."
+    },
+    {
+      "topic": "moon_old_fears",
+      "title": "The Old Fears",
+      "when": "flag.old_fears_slain == 8",
+      "text": "All eight of the Old Fears are gone from their regions. Each place they held has begun, shyly, to be a place again."
+    }
+  ]
+}

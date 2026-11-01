@@ -1,0 +1,29 @@
+# Drafted by Gemini (R25 vagrant), edited.
+
+~ start
+Narrator: A quiet stillness settles over the cobbles of the Round, with the smell of woodsmoke hanging where the dry leaves have been swept neat over fresh graves.
+old_rusty [weary]: Ash on the wind and soot on the stone, the iron horse comes when the fog is full grown.
+old_rusty [neutral]: It waits on the siding while crooked moon shines, so mend what needs mending and tie up your lines.
+set ep_started
+quest ep_the_last_ride loose_ends
+if not flag.ep_fair_open
+set ep_fair_open
+quest ep_fair_on_the_round open
+endif
+* Ask about the graves -> graves
+* Ask about the station -> station
+* That is all -> END
+
+~ graves
+old_rusty [sad]: Lord and lady, leaf and bough, all laid under the cold turf now. Names in the granite, quiet and deep, paying the price for the peace that we keep.
+-> start_menu
+
+~ station
+old_rusty [neutral]: Past the south bridge where the river-mist clings, where the rusted rail ends and the night-fiddle sings. Follow the fog where it settles Down-low, that is the way that the travellers go.
+-> start_menu
+
+~ start_menu
+old_rusty [weary]: Broom in the hand and dust on the shoe. Speak if you will, while the night is still through.
+* Ask about the graves -> graves
+* Ask about the station -> station
+* That is all -> END

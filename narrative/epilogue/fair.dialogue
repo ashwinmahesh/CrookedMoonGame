@@ -1,0 +1,109 @@
+# Drafted by Gemini (R25 fair), edited.
+
+~ quill_start
+if not flag.ep_fair_open
+set ep_fair_open
+quest ep_fair_on_the_round open
+endif
+Narrator: A hay bale serves for a stage, smelling of dry clover and spilled cider. Ambrose clears his throat as if summoning a parliament of rooks.
+ambrose_quill [smile]: Good folk of Wickermoor, gather close by the Round! After such dreadful trials, only verse can mend the bruised spirit of our parish.
+* Hear the verse -> quill_verse
+* Heckle him gently -> quill_heckle
+* Not now -> END
+
+~ quill_verse
+ambrose_quill [neutral]: Beneath the ancient oak where shadows crept and grew, we quenched the wicked fire with morning's heavy... shoe.
+ambrose_quill [weary]: The crooked moon above us wears a sour frown, yet we who died already have laid our burdens down.
+Narrator: The square falls still enough to hear the bunting flap in the breeze, and then a warm, scattered applause rises from the stalls.
+set ep_fair_verse
+-> END
+
+~ quill_heckle
+ambrose_quill [smile]: A lively gallery! How it stirs the blood of a working bard to hear the parish clamouring for louder measure!
+-> quill_verse
+
+~ notice_start
+Narrator: The fair's official permit hangs from a brass tack on the notice board, freshly stamped in purple ink. Biscuit the goat stands before it, eyeing the ribbon with solemn appetite.
+* Shoo the goat away -> notice_shoo
+* [Animal Handling DC 12] Lead the goat off with a handful of oats -> notice_oats | notice_shoo
+* Take the permit down and hide it -> notice_hide
+* Let the goat have it -> notice_eaten
+
+~ notice_shoo
+Narrator: Biscuit fixes you with a flat, amber stare of pure disdain before trotting off toward the cabbage crates, leaving the parchment untouched.
+set ep_fair_permit_safe
+-> END
+
+~ notice_oats
+Narrator: Biscuit sniffs your palm, accepts the oats as his rightful tithe, and paces after you with the unhurried gravity of a cathedral bishop.
+set ep_fair_permit_safe
+-> END
+
+~ notice_hide
+Narrator: You pluck the brass tack free and slip the crisp parchment into your coat before the goat's teeth can close upon the seal.
+set ep_fair_permit_safe
+-> END
+
+~ notice_eaten
+Narrator: Biscuit unhooks the parchment with a practised lip and chews the county seal into pulp with tremendous dignity.
+set ep_fair_permit_eaten
+-> END
+
+~ audit_start
+Narrator: Pencil poised above a damp clipboard, Tamsin inspects a string of paper lanterns as though counting contraband.
+tamsin_ledger [neutral]: Unscheduled merrymaking on municipal cobbles requires a countersigned license. Produce the fair permit for inspection, if you please, before I log an infraction.
+* [if flag.ep_fair_permit_safe] Show the permit -> audit_pass
+* [if flag.ep_fair_permit_eaten] Admit the goat ate the permit -> audit_fine
+* [Deception DC 12] Claim it is in the post -> audit_bluff | audit_fine
+* Offer her a slice of pie instead -> audit_pie
+* Come back later -> END
+
+~ audit_pass
+tamsin_ledger [weary]: Signed, dated, and stamped in the proper margin. How thoroughly unremarkable. Here is your compliance rebate from the parish chest.
+Narrator: Her iron stamp comes down with a reluctant thud that smells faintly of vinegar and disappointment.
+set ep_fair_outcome = "passed"
+quest ep_fair_on_the_round done
+gold +10
+-> END
+
+~ audit_bluff
+tamsin_ledger [neutral]: Delayed in the coach bag, I suppose. Very well, I shall note the document as "in the post" and review the ledger next quarter.
+set ep_fair_outcome = "bluffed"
+quest ep_fair_on_the_round done
+-> END
+
+~ audit_fine
+tamsin_ledger [neutral]: Consumed by livestock is not a recognized exemption. That will be ten gold toward the Cobble and Round Repair Fund, with my warmest receipt.
+gold -10
+set ep_fair_outcome = "fined"
+quest ep_fair_on_the_round done
+-> END
+
+~ audit_pie
+Narrator: Flaky crust and spiced damson jam vanish in three neat bites. Tamsin stares at the empty plate, looking faintly ill with unfamiliar joy.
+tamsin_ledger [smile]: My pencil appears to have written "no irregularities" across the entire page. Good evening to you all.
+set ep_fair_outcome = "bribed"
+quest ep_fair_on_the_round done
+-> END
+
+~ gaunt_start
+sgt_gaunt [angry]: Stand firm, citizens, while I execute a swift tactical retreat directly toward the enemy vanguard! No man shall outflank the pastry table while I draw breath!
+Narrator: There is no enemy in sight, only a platter of mutton pies steaming peacefully beside the cider barrel.
+-> END
+
+~ pip_start
+pip_oakum [smile]: Evening, travellers! I've got brass buttons and horn buttons today: one for courage, one for a dark secret, and a pearl one for the moon.
+* Trade a button for courage -> pip_courage
+* Leave -> END
+
+~ pip_courage
+pip_oakum [smile]: That one came off a coat that never ran away from nothing. Keep it in your pocket and your knees won't knock.
+Narrator: The small brass button rests against your palm, bafflingly warm, as though it has been sitting by a hearth.
+-> END
+
+~ barnaby_start
+barnaby_pennywhistle [sly]: Step right up for Pennywhistle's Patented Wicker Man Repellent! Guaranteed to ward off kindling, sparks, and basketry! A bespoke warranty for every valiant soul in your party!
+if flag.chuckles_dead
+barnaby_pennywhistle [sad]: I even sold a bottle to a painted clown last week, though I fear the poor fellow still ended up with a rather warm nose.
+endif
+-> END
