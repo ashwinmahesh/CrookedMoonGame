@@ -67,7 +67,33 @@
       "action": "special",
       "summary": "Can't refuse a musical contest: a Performance check with an instrument (Influence) sets the save DC; failing costs 20 Psychic and a Stun.",
       "text": "The reveler can't turn down a contest of skill with Musical Instruments. As an Influence action, a creature can make a Charisma (Performance) check with a Musical Instrument; the reveler must succeed on a Charisma save with a DC equal to the check's total, or take 20 Psychic damage and be Stunned until the end of that creature's next turn.",
-      "implemented": "text"
+      "implemented": "data",
+      "offers": {
+        "key": "reveler_contest",
+        "influence": true,
+        "cost": "action",
+        "range": 60,
+        "needs": "musical_instrument",
+        "check": {
+          "skill": "performance"
+        },
+        "contest": {
+          "save": "cha"
+        },
+        "damage": [
+          {
+            "amount": 20,
+            "type": "psychic"
+          }
+        ],
+        "on_success": [
+          {
+            "do": "condition",
+            "condition": "stunned",
+            "until": "source_turn_end"
+          }
+        ]
+      }
     },
     {
       "id": "dancing_step",
