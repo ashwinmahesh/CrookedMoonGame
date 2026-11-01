@@ -1,0 +1,629 @@
+{
+  "id": "mm_burial_mounds",
+  "name": "The Burial Mounds",
+  "region": "maidenmist_cemetery",
+  "summary": "Tall round mounds packed close, a grove of twisted trees with faces in their trunks, a brazier of green coals on a mound.",
+  "text": "Barrows rise on every side, grassed over and silent. The trees between them have faces, and bright apples hang from branches shaped like hands.",
+  "map": {
+    "rows": [
+      "##############################",
+      "#............................#",
+      "#.............#.........#..#.#",
+      "#........=...................#",
+      "#.......................=....#",
+      "#......#....#.........#..#...#",
+      "#................#...........#",
+      "#............................#",
+      "#...#........................#",
+      "#.=.............#............#",
+      "#............................#",
+      "#.................=..........#",
+      "#.#..........#..........#....#",
+      "#........................=...#",
+      "#~...........................#",
+      "#...#.....~..............#....",
+      "#...................#........#",
+      "#......................~....##",
+      "#...#...........=#...........#",
+      "#.........#.............#....#",
+      "#.....=.............#~......~#",
+      "#...................~~~~....##",
+      "#...................~~~#.....#",
+      "#.........#.........~~~~.....#",
+      "#...................~........#",
+      "#.................=.......#..#",
+      ".........=.....#..#..........#",
+      "#...#..................#.....#",
+      "#...=........................#",
+      "##############################"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true,
+    "elevation": [
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222223332222222222222222222222",
+      "222333333322222222222222222222",
+      "223334443332222222222223332222",
+      "233444444433222222222333333322",
+      "233445554433222222223334443332",
+      "334455555443322222233444444433",
+      "334455655443322222233445554433",
+      "334455555443322222334455555443",
+      "233445554433233333334455655443",
+      "233444444433334443434455555443",
+      "223334443333344444343445554433",
+      "222333333333455555444444444433",
+      "222223332234456665444334443332",
+      "222222222234456765443333333322",
+      "222222222234456665443223332222",
+      "222222222233455555433222222222",
+      "222223333334344444332222222222",
+      "222233333333434443322222222222",
+      "222333344433343333222222222222",
+      "222333444443332222222222222222",
+      "222334445444332222222222222222",
+      "222334455544332222222222222222",
+      "222334445444332222222222222222",
+      "222333444443332222222222222222",
+      "222333344433332222222222222222",
+      "222233333333322222222222222222",
+      "222223333333222222222222222222",
+      "222222222222222222222222222222"
+    ]
+  },
+  "areas": [
+    {
+      "id": "brazier_mound",
+      "name": "The brazier mound",
+      "cells": [
+        [
+          11,
+          11
+        ],
+        [
+          19,
+          19
+        ]
+      ]
+    },
+    {
+      "id": "mounds",
+      "name": "The mounds",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          28,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "grove",
+      "name": "The face-tree grove",
+      "cells": [
+        [
+          1,
+          20
+        ],
+        [
+          28,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "toadstools",
+      "name": "The toadstool ring",
+      "cells": [
+        [
+          19,
+          20
+        ],
+        [
+          24,
+          25
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      2,
+      26
+    ],
+    "from_hub": [
+      2,
+      26
+    ],
+    "from_b": [
+      28,
+      15
+    ]
+  },
+  "exits": [
+    {
+      "id": "hub_path",
+      "cell": [
+        0,
+        26
+      ],
+      "to": "mm_sepulcher",
+      "spawn": "from_mounds",
+      "label": "The paved path back to the sepulcher"
+    },
+    {
+      "id": "short_b",
+      "cell": [
+        29,
+        15
+      ],
+      "to": "mm_gravestones_b",
+      "spawn": "from_mounds",
+      "label": "Across the Endless Gravestones to the Potter's Field"
+    }
+  ],
+  "props": [
+    {
+      "id": "mm_fog_green",
+      "cell": [
+        4,
+        25
+      ],
+      "kind": "decor",
+      "label": "Mist hiding the way through the mounds",
+      "call": "maidenmist/sites:emerald_find",
+      "approach": 4,
+      "call_when": "not flag.mm_emerald_found"
+    },
+    {
+      "id": "mm_brazier_emerald",
+      "cell": [
+        15,
+        15
+      ],
+      "kind": "decor",
+      "label": "A brazier of green coals atop a mound",
+      "model": "brazier_cold",
+      "call": "maidenmist/rites:emerald_start",
+      "approach": 3,
+      "call_when": "flag.mm_emerald_found and not flag.beacon_emerald"
+    },
+    {
+      "id": "mm_brazier_emerald_lit",
+      "cell": [
+        15,
+        15
+      ],
+      "kind": "decor",
+      "label": "The Emerald Beacon, burning",
+      "model": "brazier_green",
+      "flame": "bile",
+      "when": "flag.beacon_emerald"
+    },
+    {
+      "id": "mm_apple_tree",
+      "cell": [
+        21,
+        20
+      ],
+      "kind": "examine",
+      "label": "A face-tree with bright apples on hand-shaped branches",
+      "model": "tree_marked",
+      "call": "maidenmist/sites:apple_tree",
+      "approach": 2
+    },
+    {
+      "id": "mm_toad_ring",
+      "cell": [
+        21,
+        23
+      ],
+      "kind": "decor",
+      "label": "A ring of colourful toadstools",
+      "model": "vines",
+      "call": "maidenmist/sites:toadstool_ring",
+      "approach": 2,
+      "call_when": "flag.mm_emerald_ring_ready and not flag.mm_ring_done"
+    },
+    {
+      "id": "mm_mound_study",
+      "cell": [
+        4,
+        6
+      ],
+      "kind": "examine",
+      "label": "The tree with the Green Queen's face",
+      "model": "tree_marked",
+      "call": "maidenmist/sites:mound_study",
+      "approach": 3
+    },
+    {
+      "id": "mm_mound_a",
+      "cell": [
+        6,
+        8
+      ],
+      "kind": "examine",
+      "label": "A barrow mouth packed with earth",
+      "model": "barrow",
+      "call": "maidenmist/sites:mound_wrong_a"
+    },
+    {
+      "id": "mm_mound_b",
+      "cell": [
+        24,
+        10
+      ],
+      "kind": "examine",
+      "label": "A barrow mouth packed with earth",
+      "model": "barrow",
+      "call": "maidenmist/sites:mound_right"
+    },
+    {
+      "id": "mm_mound_c",
+      "cell": [
+        8,
+        23
+      ],
+      "kind": "examine",
+      "label": "A barrow mouth packed with earth",
+      "model": "barrow",
+      "call": "maidenmist/sites:mound_wrong_c"
+    },
+    {
+      "id": "mm_nightshade",
+      "cell": [
+        27,
+        25
+      ],
+      "kind": "examine",
+      "label": "Nightshade, in flower",
+      "model": "garden_bed",
+      "call": "maidenmist/sites:nightshade",
+      "approach": 2,
+      "call_when": "not flag.mm_nightshade_taken"
+    },
+    {
+      "id": "mm_carve_tree",
+      "cell": [
+        13,
+        21
+      ],
+      "kind": "decor",
+      "label": "A tree grown thick round a name",
+      "model": "tree_marked",
+      "call": "maidenmist/sites:carve_tree",
+      "approach": 2,
+      "call_when": "flag.mem_farryn_greenwood and not flag.mm_greenwood_carved"
+    },
+    {
+      "id": "mm_yorgrim_site_mounds",
+      "cell": [
+        3,
+        24
+      ],
+      "kind": "decor",
+      "label": "The lantern's edge",
+      "call": "maidenmist/yorgrim:site_mounds",
+      "approach": 4,
+      "call_when": "flag.yorgrim_with_party and not flag.mm_site_mounds_told"
+    },
+    {
+      "id": "mm_mounds_dress_0",
+      "cell": [
+        10,
+        15
+      ],
+      "kind": "decor",
+      "label": "Brambles",
+      "model": "bramble_a"
+    },
+    {
+      "id": "mm_mounds_dress_1",
+      "cell": [
+        6,
+        20
+      ],
+      "kind": "decor",
+      "label": "A moss-covered stone",
+      "model": "boulder_a"
+    },
+    {
+      "id": "mm_mounds_dress_2",
+      "cell": [
+        9,
+        26
+      ],
+      "kind": "decor",
+      "label": "A moss-covered stone",
+      "model": "boulder_a"
+    },
+    {
+      "id": "mm_mounds_dress_3",
+      "cell": [
+        28,
+        20
+      ],
+      "kind": "decor",
+      "label": "Brambles",
+      "model": "bramble_a"
+    },
+    {
+      "id": "mm_mounds_dress_4",
+      "cell": [
+        24,
+        4
+      ],
+      "kind": "decor",
+      "label": "A moss-covered stone",
+      "model": "boulder_a"
+    },
+    {
+      "id": "mm_mounds_dress_5",
+      "cell": [
+        18,
+        25
+      ],
+      "kind": "decor",
+      "label": "A grassed-over mound",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_mounds_dress_6",
+      "cell": [
+        23,
+        17
+      ],
+      "kind": "decor",
+      "label": "Brambles",
+      "model": "bramble_a"
+    },
+    {
+      "id": "mm_mounds_dress_7",
+      "cell": [
+        4,
+        28
+      ],
+      "kind": "decor",
+      "label": "A moss-covered stone",
+      "model": "boulder_a"
+    },
+    {
+      "id": "mm_mounds_dress_8",
+      "cell": [
+        16,
+        18
+      ],
+      "kind": "decor",
+      "label": "A grassed-over mound",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_mounds_dress_9",
+      "cell": [
+        25,
+        13
+      ],
+      "kind": "decor",
+      "label": "A grassed-over mound",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_mounds_dress_10",
+      "cell": [
+        9,
+        3
+      ],
+      "kind": "decor",
+      "label": "A grassed-over mound",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_mounds_dress_11",
+      "cell": [
+        1,
+        14
+      ],
+      "kind": "decor",
+      "label": "Brambles",
+      "model": "bramble_a"
+    },
+    {
+      "id": "mm_mounds_dress_12",
+      "cell": [
+        2,
+        9
+      ],
+      "kind": "decor",
+      "label": "A grassed-over mound",
+      "model": "grave_mound"
+    },
+    {
+      "id": "mm_mounds_dress_13",
+      "cell": [
+        18,
+        11
+      ],
+      "kind": "decor",
+      "label": "A moss-covered stone",
+      "model": "boulder_a"
+    },
+    {
+      "id": "mm_walk_emerald_prop",
+      "cell": [
+        14,
+        15
+      ],
+      "kind": "decor",
+      "label": "Something under the tree roots",
+      "call": "maidenmist/epilogue:walk_emerald",
+      "approach": 2,
+      "call_when": "flag.mm_isolde_walk_started and not flag.mm_walk_emerald"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "mm_emerald_rite",
+      "trigger": "dialogue",
+      "when": "not flag.mm_emerald_fails",
+      "flag": "mm_emerald_guardians_dead",
+      "monsters": [
+        {
+          "monster": "gloomwood",
+          "cell": [
+            15,
+            12
+          ],
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "corpse_roots",
+          "name": "Corpse Roots",
+          "summary": "Roots rise from the burial mounds and tie up whoever stands near.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "str",
+            "dc": 15
+          },
+          "condition": "restrained",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1,
+          "say": "Roots with bone in them break the earth and reach."
+        }
+      ]
+    },
+    {
+      "id": "mm_emerald_rite",
+      "trigger": "dialogue",
+      "when": "flag.mm_emerald_fails == 1",
+      "flag": "mm_emerald_guardians_dead",
+      "monsters": [
+        {
+          "monster": "gloomwood",
+          "cell": [
+            15,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "violet_fungus",
+          "cell": [
+            12,
+            15
+          ],
+          "name": "A violet fungus roused by the failed search",
+          "facing": "south"
+        },
+        {
+          "monster": "violet_fungus",
+          "cell": [
+            18,
+            15
+          ],
+          "name": "A violet fungus roused by the failed search",
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "corpse_roots",
+          "name": "Corpse Roots",
+          "summary": "Roots rise from the burial mounds and tie up whoever stands near.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "str",
+            "dc": 15
+          },
+          "condition": "restrained",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1,
+          "say": "Roots with bone in them break the earth and reach."
+        }
+      ]
+    },
+    {
+      "id": "mm_emerald_rite",
+      "trigger": "dialogue",
+      "when": "flag.mm_emerald_fails >= 2",
+      "flag": "mm_emerald_guardians_dead",
+      "monsters": [
+        {
+          "monster": "gloomwood",
+          "cell": [
+            15,
+            12
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "violet_fungus",
+          "cell": [
+            12,
+            15
+          ],
+          "name": "A violet fungus roused by the failed search",
+          "facing": "south"
+        },
+        {
+          "monster": "violet_fungus",
+          "cell": [
+            18,
+            15
+          ],
+          "name": "A violet fungus roused by the failed search",
+          "facing": "south"
+        },
+        {
+          "monster": "violet_fungus",
+          "cell": [
+            15,
+            18
+          ],
+          "name": "A violet fungus roused by the failed search",
+          "facing": "south"
+        },
+        {
+          "monster": "violet_fungus",
+          "cell": [
+            17,
+            12
+          ],
+          "name": "A violet fungus roused by the failed search",
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "corpse_roots",
+          "name": "Corpse Roots",
+          "summary": "Roots rise from the burial mounds and tie up whoever stands near.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "str",
+            "dc": 15
+          },
+          "condition": "restrained",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1,
+          "say": "Roots with bone in them break the earth and reach."
+        }
+      ]
+    }
+  ],
+  "rest": "risky"
+}

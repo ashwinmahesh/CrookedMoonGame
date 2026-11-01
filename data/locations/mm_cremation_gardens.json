@@ -1,0 +1,637 @@
+{
+  "id": "mm_cremation_gardens",
+  "name": "The Cremation Gardens",
+  "region": "maidenmist_cemetery",
+  "summary": "Brick-paved memorial walks lined with clay urns, a fountain at every circle, purple and white flowers in the rain.",
+  "text": "Rain falls steadily on the urns and a bell tolls somewhere beyond the hedges. Fountains burble at the walk's circles, and a brazier of purple coals waits beside the middle one.",
+  "map": {
+    "rows": [
+      "########################",
+      "#......................#",
+      "#.................=....#",
+      "#.............=........#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#..............=.......#",
+      "#............=.........#",
+      "#......................#",
+      "#.......=..............#",
+      "#....=.................#",
+      "#......................#",
+      "#....=................=#",
+      "#...............==.....#",
+      "#...=..................#",
+      "#.......=..............#",
+      "#....................=.#",
+      "#=......=..............#",
+      "#....................=.#",
+      "#.==...................#",
+      "#......................#",
+      "#...........=..........#",
+      "#=.......=...........=.#",
+      "#.........=.........=..#",
+      "#..............=.......#",
+      "#=.....................#",
+      "############.###########"
+    ],
+    "theme": "wilderness",
+    "light": "dim",
+    "outdoors": true,
+    "elevation": [
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222333333322222222",
+      "222222223333333332222222",
+      "222222233333333333222222",
+      "222222233333333333222222",
+      "222222233333333333222222",
+      "222222233333333333222222",
+      "222222233333333333222222",
+      "222222233333333333222222",
+      "222222233333333333222222",
+      "222222223333333332222222",
+      "222222222333333322222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222"
+    ]
+  },
+  "areas": [
+    {
+      "id": "brazier_circle",
+      "name": "The brazier circle",
+      "cells": [
+        [
+          9,
+          11
+        ],
+        [
+          15,
+          17
+        ]
+      ]
+    },
+    {
+      "id": "urn_walks",
+      "name": "The urn walks",
+      "cells": [
+        [
+          1,
+          2
+        ],
+        [
+          22,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "path",
+      "name": "The path in",
+      "cells": [
+        [
+          8,
+          18
+        ],
+        [
+          16,
+          26
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      12,
+      25
+    ],
+    "from_hub": [
+      12,
+      25
+    ],
+    "from_a": [
+      1,
+      14
+    ]
+  },
+  "exits": [
+    {
+      "id": "hub_path",
+      "cell": [
+        12,
+        27
+      ],
+      "to": "mm_sepulcher",
+      "spawn": "from_gardens",
+      "label": "The paved path back to the sepulcher"
+    },
+    {
+      "id": "short_a",
+      "cell": [
+        0,
+        14
+      ],
+      "to": "mm_gravestones_a",
+      "spawn": "from_gardens",
+      "label": "Across the Endless Gravestones to the Highborn Crypts"
+    }
+  ],
+  "props": [
+    {
+      "id": "mm_brazier_violet",
+      "cell": [
+        12,
+        14
+      ],
+      "kind": "decor",
+      "label": "A brazier of purple coals by the fountain",
+      "model": "brazier_cold",
+      "call": "maidenmist/rites:violet_start",
+      "approach": 3,
+      "call_when": "not flag.beacon_violet"
+    },
+    {
+      "id": "mm_brazier_violet_lit",
+      "cell": [
+        12,
+        14
+      ],
+      "kind": "decor",
+      "label": "The Violet Beacon, burning",
+      "model": "brazier",
+      "flame": "violet",
+      "when": "flag.beacon_violet"
+    },
+    {
+      "id": "mm_fountain_a",
+      "cell": [
+        6,
+        7
+      ],
+      "kind": "examine",
+      "label": "A wishing fountain",
+      "model": "stone_font",
+      "call": "maidenmist/sites:fountain",
+      "approach": 2
+    },
+    {
+      "id": "mm_fountain_b",
+      "cell": [
+        18,
+        7
+      ],
+      "kind": "examine",
+      "label": "A wishing fountain",
+      "model": "stone_font",
+      "call": "maidenmist/sites:fountain",
+      "approach": 2
+    },
+    {
+      "id": "mm_urn_study",
+      "cell": [
+        12,
+        6
+      ],
+      "kind": "examine",
+      "label": "A row of mourning urns",
+      "model": "relics",
+      "call": "maidenmist/sites:urn_study",
+      "approach": 3
+    },
+    {
+      "id": "mm_urn_a",
+      "cell": [
+        6,
+        21
+      ],
+      "kind": "examine",
+      "label": "A tall clay urn, humming",
+      "model": "relics",
+      "call": "maidenmist/sites:urn_wrong_a"
+    },
+    {
+      "id": "mm_urn_b",
+      "cell": [
+        18,
+        21
+      ],
+      "kind": "examine",
+      "label": "A tall clay urn, silent",
+      "model": "relics",
+      "call": "maidenmist/sites:urn_right"
+    },
+    {
+      "id": "mm_urn_c",
+      "cell": [
+        18,
+        7
+      ],
+      "kind": "decor",
+      "label": "A tall clay urn, humming",
+      "model": "relics"
+    },
+    {
+      "id": "mm_urn_d",
+      "cell": [
+        6,
+        24
+      ],
+      "kind": "examine",
+      "label": "A tall clay urn, humming",
+      "model": "relics",
+      "call": "maidenmist/sites:urn_wrong_c"
+    },
+    {
+      "id": "mm_lavender_bed",
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "examine",
+      "label": "A bed of lavender",
+      "model": "garden_bed",
+      "call": "maidenmist/sites:lavender",
+      "approach": 2
+    },
+    {
+      "id": "mm_lilies_bed",
+      "cell": [
+        20,
+        3
+      ],
+      "kind": "examine",
+      "label": "A bed of white lilies",
+      "model": "garden_bed",
+      "call": "maidenmist/sites:lilies",
+      "approach": 2
+    },
+    {
+      "id": "mm_yorgrim_site_gardens",
+      "cell": [
+        13,
+        22
+      ],
+      "kind": "decor",
+      "label": "The lantern's edge",
+      "call": "maidenmist/yorgrim:site_gardens",
+      "approach": 4,
+      "call_when": "flag.yorgrim_with_party and not flag.mm_site_gardens_told"
+    },
+    {
+      "id": "mm_gardens_urn_0",
+      "cell": [
+        9,
+        23
+      ],
+      "kind": "decor",
+      "label": "A memorial urn, ash-grey",
+      "model": "relics"
+    },
+    {
+      "id": "mm_gardens_urn_1",
+      "cell": [
+        22,
+        13
+      ],
+      "kind": "decor",
+      "label": "A memorial plaque in the brick",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_gardens_urn_2",
+      "cell": [
+        16,
+        14
+      ],
+      "kind": "decor",
+      "label": "A memorial plaque in the brick",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_gardens_urn_3",
+      "cell": [
+        3,
+        20
+      ],
+      "kind": "decor",
+      "label": "A memorial plaque in the brick",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_gardens_urn_4",
+      "cell": [
+        8,
+        10
+      ],
+      "kind": "decor",
+      "label": "A memorial plaque in the brick",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_gardens_urn_5",
+      "cell": [
+        1,
+        26
+      ],
+      "kind": "decor",
+      "label": "A memorial plaque in the brick",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_gardens_urn_6",
+      "cell": [
+        21,
+        17
+      ],
+      "kind": "decor",
+      "label": "A memorial urn, ash-grey",
+      "model": "relics"
+    },
+    {
+      "id": "mm_gardens_urn_7",
+      "cell": [
+        21,
+        23
+      ],
+      "kind": "decor",
+      "label": "A memorial plaque in the brick",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_gardens_urn_8",
+      "cell": [
+        8,
+        16
+      ],
+      "kind": "decor",
+      "label": "A memorial urn, ash-grey",
+      "model": "relics"
+    },
+    {
+      "id": "mm_gardens_urn_9",
+      "cell": [
+        1,
+        23
+      ],
+      "kind": "decor",
+      "label": "A memorial plaque in the brick",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_gardens_urn_10",
+      "cell": [
+        11,
+        11
+      ],
+      "kind": "decor",
+      "label": "A bed of flowers gone to seed",
+      "model": "garden_bed"
+    },
+    {
+      "id": "mm_gardens_urn_11",
+      "cell": [
+        9,
+        19
+      ],
+      "kind": "decor",
+      "label": "A bed of flowers gone to seed",
+      "model": "garden_bed"
+    },
+    {
+      "id": "mm_gardens_urn_12",
+      "cell": [
+        4,
+        15
+      ],
+      "kind": "decor",
+      "label": "A memorial plaque in the brick",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_gardens_urn_13",
+      "cell": [
+        15,
+        25
+      ],
+      "kind": "decor",
+      "label": "A memorial plaque in the brick",
+      "model": "gravestone"
+    },
+    {
+      "id": "mm_epitaph_a",
+      "cell": [
+        4,
+        12
+      ],
+      "kind": "examine",
+      "label": "A brick plaque with an epitaph the dead wrote for themselves",
+      "model": "bronze_plaque",
+      "call": "maidenmist/folk:epitaph_plaque_a",
+      "approach": 2,
+      "call_when": "quest.epitaph_competition == asked"
+    },
+    {
+      "id": "mm_epitaph_b",
+      "cell": [
+        20,
+        12
+      ],
+      "kind": "examine",
+      "label": "A brick plaque with an epitaph the dead wrote for themselves",
+      "model": "bronze_plaque",
+      "call": "maidenmist/folk:epitaph_plaque_b",
+      "approach": 2,
+      "call_when": "quest.epitaph_competition == asked"
+    },
+    {
+      "id": "mm_epitaph_c",
+      "cell": [
+        12,
+        20
+      ],
+      "kind": "examine",
+      "label": "A brick plaque with an epitaph the dead wrote for themselves",
+      "model": "bronze_plaque",
+      "call": "maidenmist/folk:epitaph_plaque_c",
+      "approach": 2,
+      "call_when": "quest.epitaph_competition == asked"
+    },
+    {
+      "id": "mm_walk_violet_prop",
+      "cell": [
+        11,
+        14
+      ],
+      "kind": "decor",
+      "label": "Something under the brazier's foot",
+      "call": "maidenmist/epilogue:walk_violet",
+      "approach": 2,
+      "call_when": "flag.mm_isolde_walk_started and not flag.mm_walk_violet"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "tobias_dibbs",
+      "cell": [
+        13,
+        15
+      ],
+      "dialogue": "maidenmist/folk:epitaph_judge",
+      "when": "quest.epitaph_competition == asked and (flag.mm_epitaph_a_read or flag.mm_epitaph_b_read or flag.mm_epitaph_c_read)"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "mm_violet_rite",
+      "trigger": "dialogue",
+      "when": "not flag.mm_violet_fails",
+      "flag": "mm_violet_guardians_dead",
+      "monsters": [
+        {
+          "monster": "phantom_hearse",
+          "cell": [
+            12,
+            11
+          ],
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "death_knell",
+          "name": "Death Knell",
+          "summary": "A bell tolls from nowhere and the living feel it in their bones.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 15
+          },
+          "half": true,
+          "damage": {
+            "dice": "2d12",
+            "type": "necrotic"
+          },
+          "at": 20,
+          "every": 1,
+          "say": "A bell tolls once, low and wet, from no tower in sight."
+        }
+      ]
+    },
+    {
+      "id": "mm_violet_rite",
+      "trigger": "dialogue",
+      "when": "flag.mm_violet_fails == 1",
+      "flag": "mm_violet_guardians_dead",
+      "monsters": [
+        {
+          "monster": "phantom_hearse",
+          "cell": [
+            12,
+            11
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            9,
+            14
+          ],
+          "name": "A specter roused by the failed search",
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "death_knell",
+          "name": "Death Knell",
+          "summary": "A bell tolls from nowhere and the living feel it in their bones.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 15
+          },
+          "half": true,
+          "damage": {
+            "dice": "2d12",
+            "type": "necrotic"
+          },
+          "at": 20,
+          "every": 1,
+          "say": "A bell tolls once, low and wet, from no tower in sight."
+        }
+      ]
+    },
+    {
+      "id": "mm_violet_rite",
+      "trigger": "dialogue",
+      "when": "flag.mm_violet_fails >= 2",
+      "flag": "mm_violet_guardians_dead",
+      "monsters": [
+        {
+          "monster": "phantom_hearse",
+          "cell": [
+            12,
+            11
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            9,
+            14
+          ],
+          "name": "A specter roused by the failed search",
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            15,
+            14
+          ],
+          "name": "A specter roused by the failed search",
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "death_knell",
+          "name": "Death Knell",
+          "summary": "A bell tolls from nowhere and the living feel it in their bones.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "wis",
+            "dc": 15
+          },
+          "half": true,
+          "damage": {
+            "dice": "2d12",
+            "type": "necrotic"
+          },
+          "at": 20,
+          "every": 1,
+          "say": "A bell tolls once, low and wet, from no tower in sight."
+        }
+      ]
+    }
+  ],
+  "rest": "risky"
+}

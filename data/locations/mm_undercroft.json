@@ -1,0 +1,555 @@
+{
+  "id": "mm_undercroft",
+  "name": "The Undercroft Catacombs",
+  "region": "maidenmist_cemetery",
+  "summary": "A maze of earthen passages lined with rows of skulls, mist pooled on the floor, and floors that tremble.",
+  "text": "Skulls look out of the walls in neat rows. The passages fork and fork again, and here and there the floor sounds hollow.",
+  "map": {
+    "rows": [
+      "#####################################..#",
+      "#..#...................................#",
+      "#..#...................................#",
+      "#..#######..##########..#############..#",
+      "#........#..#........#.....#..#.....#..#",
+      "#........#..#........#.....#..#.....#..#",
+      "#######..#..####..#..####..#..#..#..#..#",
+      "#........#.....#..#.....#..#.....#.....#",
+      "#........#.....#..#.....#..#.....#.....#",
+      "#..##########..#..#..####..#######..####",
+      "#..#........#..#..#..#.....#.....#.....#",
+      "#..#........#..#..#..#.....#.....#.....#",
+      "#..#######..#..#..#..#..####..#..####..#",
+      "#..#.....#..#.....#..#........#.....#..#",
+      "#..#.....#..#.....#..#........#.....#..#",
+      "#..#..#..#..#######..#######..####..#..#",
+      "#..#..#..#...........#.....#..#.....#..#",
+      "#..#..#..#...........#.....#..#.....#..#",
+      "#..#..#..####..#######..#..#..#..####..#",
+      "#.....#.....#.....#.....#..#..#.....#..#",
+      "#.....#.....#.....#.....#..#..#.....#..#",
+      "##########..#..####..####..#######..#..#",
+      "#.....#.....#..#.....#..#...........#..#",
+      "#.....#.....#..#.....#..#...........#..#",
+      "#..####..####..#..####..#############..#",
+      "#.....#.....#..#.....#..............#..#",
+      "#.....#.....#..#.....#..............#..#",
+      "####..####..#######..####..#..#######..#",
+      "#........#..#.....#.....#..#..#.....#..#",
+      "#........#..#.....#.....#..#..#.....#..#",
+      "#..####..#..#..#..####..#..####..#..#..#",
+      "#.....#..#.....#..#.....#........#..#..#",
+      "#.....#..#.....#..#.....#........#..#..#",
+      "#..#..##########..#..####..#######..#..#",
+      "#..#.....#.....#.....#..#........#.....#",
+      "#..#.....#.....#.....#..#........#.....#",
+      "#..####..#..#..#######..#######..#######",
+      "#.....#.....#..........................#",
+      "#.....#.....#..........................#",
+      "#.######################################"
+    ],
+    "theme": "dungeon",
+    "light": "dark",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "maze",
+      "name": "The catacomb maze",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          38,
+          37
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      1,
+      38
+    ],
+    "from_chamber": [
+      1,
+      38
+    ],
+    "from_depths": [
+      4,
+      37
+    ]
+  },
+  "exits": [
+    {
+      "id": "back_up",
+      "cell": [
+        1,
+        39
+      ],
+      "to": "mm_balefire_chamber",
+      "spawn": "from_undercroft",
+      "label": "Back up to the balefire chamber"
+    },
+    {
+      "id": "stygian_stair",
+      "cell": [
+        37,
+        0
+      ],
+      "to": "mm_tomb",
+      "spawn": "from_stair",
+      "label": "The stair down, carved with faces"
+    }
+  ],
+  "props": [
+    {
+      "id": "mm_maze_hint",
+      "cell": [
+        2,
+        38
+      ],
+      "kind": "decor",
+      "label": "A dozen passages, and a feeling about the right one",
+      "call": "maidenmist/descent:maze_hint",
+      "approach": 3,
+      "call_when": "not flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_crack_0",
+      "cell": [
+        28,
+        4
+      ],
+      "kind": "decor",
+      "label": "A cracked, trembling floor",
+      "model": "rubble",
+      "call": "maidenmist/descent:crack",
+      "approach": 1
+    },
+    {
+      "id": "mm_crack_1",
+      "cell": [
+        34,
+        25
+      ],
+      "kind": "decor",
+      "label": "A cracked, trembling floor",
+      "model": "rubble",
+      "call": "maidenmist/descent:crack",
+      "approach": 1
+    },
+    {
+      "id": "mm_crack_2",
+      "cell": [
+        4,
+        10
+      ],
+      "kind": "decor",
+      "label": "A cracked, trembling floor",
+      "model": "rubble",
+      "call": "maidenmist/descent:crack",
+      "approach": 1
+    },
+    {
+      "id": "mm_crack_3",
+      "cell": [
+        16,
+        19
+      ],
+      "kind": "decor",
+      "label": "A cracked, trembling floor",
+      "model": "rubble",
+      "call": "maidenmist/descent:crack",
+      "approach": 1
+    },
+    {
+      "id": "mm_crack_4",
+      "cell": [
+        22,
+        34
+      ],
+      "kind": "decor",
+      "label": "A cracked, trembling floor",
+      "model": "rubble",
+      "call": "maidenmist/descent:crack",
+      "approach": 1
+    },
+    {
+      "id": "mm_crack_5",
+      "cell": [
+        22,
+        22
+      ],
+      "kind": "decor",
+      "label": "A cracked, trembling floor",
+      "model": "rubble",
+      "call": "maidenmist/descent:crack",
+      "approach": 1
+    },
+    {
+      "id": "mm_trail_0",
+      "cell": [
+        2,
+        35
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_1",
+      "cell": [
+        5,
+        32
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_2",
+      "cell": [
+        8,
+        35
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_3",
+      "cell": [
+        11,
+        38
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_4",
+      "cell": [
+        14,
+        35
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_5",
+      "cell": [
+        17,
+        38
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_6",
+      "cell": [
+        23,
+        38
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_7",
+      "cell": [
+        29,
+        38
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_8",
+      "cell": [
+        32,
+        35
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_9",
+      "cell": [
+        26,
+        35
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_10",
+      "cell": [
+        29,
+        32
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_11",
+      "cell": [
+        32,
+        29
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_12",
+      "cell": [
+        35,
+        32
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_13",
+      "cell": [
+        38,
+        35
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_14",
+      "cell": [
+        38,
+        29
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_15",
+      "cell": [
+        38,
+        23
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_16",
+      "cell": [
+        38,
+        17
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_17",
+      "cell": [
+        38,
+        11
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_18",
+      "cell": [
+        35,
+        8
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_trail_19",
+      "cell": [
+        38,
+        5
+      ],
+      "kind": "decor",
+      "label": "A skull lit from within, as if pointing",
+      "model": "candle_cluster",
+      "when": "flag.mm_maze_hint_done"
+    },
+    {
+      "id": "mm_skullwall_0",
+      "cell": [
+        1,
+        37
+      ],
+      "kind": "decor",
+      "label": "A wall of grinning skulls",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "mm_skullwall_1",
+      "cell": [
+        4,
+        31
+      ],
+      "kind": "decor",
+      "label": "A wall of grinning skulls",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "mm_skullwall_2",
+      "cell": [
+        7,
+        37
+      ],
+      "kind": "decor",
+      "label": "A wall of grinning skulls",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "mm_skullwall_3",
+      "cell": [
+        13,
+        34
+      ],
+      "kind": "decor",
+      "label": "A wall of grinning skulls",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "mm_skullwall_4",
+      "cell": [
+        19,
+        37
+      ],
+      "kind": "decor",
+      "label": "A wall of grinning skulls",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "mm_skullwall_5",
+      "cell": [
+        28,
+        37
+      ],
+      "kind": "decor",
+      "label": "A wall of grinning skulls",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "mm_skullwall_6",
+      "cell": [
+        28,
+        34
+      ],
+      "kind": "decor",
+      "label": "A wall of grinning skulls",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "mm_skullwall_7",
+      "cell": [
+        28,
+        31
+      ],
+      "kind": "decor",
+      "label": "A wall of grinning skulls",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "mm_skullwall_8",
+      "cell": [
+        34,
+        28
+      ],
+      "kind": "decor",
+      "label": "A wall of grinning skulls",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "mm_skullwall_9",
+      "cell": [
+        37,
+        34
+      ],
+      "kind": "decor",
+      "label": "A wall of grinning skulls",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "mm_skullwall_10",
+      "cell": [
+        37,
+        25
+      ],
+      "kind": "decor",
+      "label": "A wall of grinning skulls",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "mm_skullwall_11",
+      "cell": [
+        37,
+        16
+      ],
+      "kind": "decor",
+      "label": "A wall of grinning skulls",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "mm_skullwall_12",
+      "cell": [
+        34,
+        10
+      ],
+      "kind": "decor",
+      "label": "A wall of grinning skulls",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "mm_skullwall_13",
+      "cell": [
+        37,
+        4
+      ],
+      "kind": "decor",
+      "label": "A wall of grinning skulls",
+      "model": "bone_scatter"
+    }
+  ],
+  "npcs": [],
+  "encounters": [],
+  "rest": "risky"
+}

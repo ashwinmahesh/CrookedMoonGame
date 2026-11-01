@@ -369,6 +369,184 @@
           "name": "Marta's hireling"
         }
       ]
+    },
+    {
+      "id": "mm_raid",
+      "trigger": "dialogue",
+      "when": "flag.mm_nights_delayed < 2",
+      "flag": "mm_raid_fought",
+      "monsters": [
+        {
+          "monster": "ghast",
+          "cell": [
+            30,
+            22
+          ],
+          "name": "Gregor Bolton, hunched and shrieking",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            26,
+            26
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            34,
+            26
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            30,
+            30
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            27,
+            23
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            33,
+            23
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            27,
+            29
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            33,
+            29
+          ],
+          "facing": "south"
+        }
+      ]
+    },
+    {
+      "id": "mm_raid",
+      "trigger": "dialogue",
+      "when": "flag.mm_nights_delayed >= 2",
+      "flag": "mm_raid_fought",
+      "monsters": [
+        {
+          "monster": "ghast",
+          "cell": [
+            30,
+            22
+          ],
+          "name": "Gregor Bolton, hunched and shrieking",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            26,
+            26
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            34,
+            26
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            30,
+            30
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            27,
+            23
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            33,
+            23
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            27,
+            29
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            33,
+            29
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            28,
+            21
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            32,
+            21
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            25,
+            24
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            35,
+            24
+          ],
+          "facing": "south"
+        }
+      ]
     }
   ],
   "exits": [
@@ -780,6 +958,61 @@
   "name": "Wickermoor Village",
   "npcs": [
     {
+      "npc": "doris_squire",
+      "cell": [
+        29,
+        27
+      ],
+      "dialogue": "maidenmist/raid:alarm",
+      "approach": 9,
+      "when": "flag.gorthos_slain and flag.raum_slain and flag.renathyr_slain and flag.lethica_slain and flag.briggsy_slain and not flag.mm_raid_started and (not flag.mm_raid_delay or minutes_since.mm_raid_delay >= 600)"
+    },
+    {
+      "npc": "doris_squire",
+      "cell": [
+        29,
+        27
+      ],
+      "dialogue": "maidenmist/raid:aftermath",
+      "when": "flag.mm_raid_started and not flag.mm_raid_done"
+    },
+    {
+      "npc": "hester_bolton",
+      "cell": [
+        32,
+        28
+      ],
+      "dialogue": "maidenmist/folk:hester",
+      "when": "flag.mm_raid_done and not flag.mm_hester_paid"
+    },
+    {
+      "npc": "adela_druskenvald",
+      "cell": [
+        31,
+        24
+      ],
+      "dialogue": "maidenmist/epilogue:adela",
+      "when": "flag.shroud_tear_sealed and not flag.mm_epilogue_adela"
+    },
+    {
+      "npc": "weston_murdoch",
+      "cell": [
+        27,
+        25
+      ],
+      "dialogue": "maidenmist/epilogue:weston",
+      "when": "flag.shroud_tear_sealed and not flag.mm_epilogue_weston"
+    },
+    {
+      "npc": "doris_squire",
+      "cell": [
+        29,
+        27
+      ],
+      "dialogue": "maidenmist/epilogue:doris_after",
+      "when": "flag.shroud_tear_sealed and not flag.mm_epilogue_doris"
+    },
+    {
       "npc": "lottery_stranger",
       "cell": [
         26,
@@ -859,6 +1092,15 @@
       ],
       "dialogue": "wickermoor/connections_custom:weston_start",
       "when": "background:druskenvald_dweller and flag.vessla_slain and not flag.connection_rapture"
+    },
+    {
+      "npc": "old_rusty",
+      "cell": [
+        28,
+        24
+      ],
+      "dialogue": "maidenmist/folk:names_tell_rusty",
+      "when": "quest.names_on_stones == asked and flag.mm_names_b and not flag.mm_names_told_b"
     },
     {
       "npc": "old_rusty",
@@ -1444,6 +1686,18 @@
       "model": "hearth",
       "dialogue": "wickermoor/soup:stove",
       "when": "flag.soup_asked and not flag.soup_stove"
+    },
+    {
+      "id": "mm_postoffice_pigeons",
+      "cell": [
+        34,
+        9
+      ],
+      "kind": "decor",
+      "label": "A hundred pigeons on the post office roof",
+      "call": "maidenmist/epilogue:golub_tease",
+      "approach": 6,
+      "call_when": "flag.shroud_tear_sealed and not flag.mm_epilogue_golub"
     }
   ],
   "region": "wickermoor",

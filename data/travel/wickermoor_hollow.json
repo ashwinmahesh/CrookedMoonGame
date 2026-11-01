@@ -53,6 +53,19 @@
       "region": "crooked_house",
       "when": "flag.wm_welcomed or visited:druskenvald_estate",
       "summary": "The Lockwood manor on the hill above Wickermoor, a pretty house at the end of a hill road."
+    },
+    {
+      "id": "maidenmist_gate",
+      "name": "Maidenmist Cemetery",
+      "location": "mm_gate",
+      "spawn": "from_road",
+      "pos": [
+        0.66,
+        0.72
+      ],
+      "region": "maidenmist_cemetery",
+      "when": "flag.mm_asked or visited:mm_gate",
+      "summary": "A fogbound cemetery behind a bent iron gate, south-east of Wickermoor."
     }
   ],
   "roads": [
@@ -79,6 +92,14 @@
       "hours": 1,
       "name": "The hill road",
       "when": "flag.wm_welcomed"
+    },
+    {
+      "id": "wickermoor_to_maidenmist",
+      "from": "wickermoor_village",
+      "to": "maidenmist_gate",
+      "hours": 5,
+      "name": "The cemetery road",
+      "when": "flag.mm_asked or visited:mm_gate"
     }
   ]
 }
