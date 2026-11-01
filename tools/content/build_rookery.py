@@ -18,7 +18,7 @@ REGION = "wickermoor"
 # ---- the conditions the whole chapter shares --------------------------------------------------------------------------------------
 HYST = "flag.hysteria_began and not flag.golub_dead"          # the charm is on: the village is hostile until Golub dies
 NOHYST = "(not flag.hysteria_began or flag.golub_dead)"
-HOOK = "flag.gorthos_slain and flag.raum_slain and flag.renathyr_slain and flag.lethica_slain and flag.briggsy_slain"
+HOOK = "flag.gorthos_slain and flag.raum_slain and flag.renathyr_slain and flag.lethica_slain and flag.grinning_sinner_slain"
 KEG1 = "flag.hysteria_began and days_since.hysteria_began >= 7"
 KEG2 = "flag.hysteria_began and days_since.hysteria_began >= 14"
 
@@ -548,11 +548,11 @@ SUMMARY = {
     "dovecote_roost": "Which roost the dovecote is at: 0 prairie, 1 swamp, 2 foothills, 3 lakeshore.", "dovecote_moves": "How many times Albert has made the dovecote move.",
     "albert_dead": "Peeping Albert is dead.", "golub_secrets_read": "The party read Golub's stashed secrets: every villager's faction is plain.",
     "villagers_slain": "Charmed villagers killed in the mob fights.", "gorthos_slain": "Gorthos is dead (set by the Maidenmist chapter).",
-    "renathyr_slain": "The Crimson Abbot is dead.", "lethica_slain": "Matron Lethica is dead.", "briggsy_slain": "Briggsy is dead.",
+    "renathyr_slain": "The Crimson Abbot is dead.", "lethica_slain": "Matron Lethica is dead.", "grinning_sinner_slain": "Briggsy is dead.",
 }
 
 
-HOOK_FLAGS_MISSING = {"gorthos_slain", "renathyr_slain", "lethica_slain", "briggsy_slain"}
+HOOK_FLAGS_MISSING = {"gorthos_slain", "renathyr_slain", "lethica_slain", "grinning_sinner_slain"}
 
 
 def build_flags():

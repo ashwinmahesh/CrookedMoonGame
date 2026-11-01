@@ -6,7 +6,7 @@ extends TestCase
 
 const GAME := preload("res://world/game_root.gd")
 const VILLAGE := "wickermoor_village"
-const HOOK_FLAGS := ["gorthos_slain", "raum_slain", "renathyr_slain", "lethica_slain", "briggsy_slain"]
+const HOOK_FLAGS := ["gorthos_slain", "raum_slain", "renathyr_slain", "lethica_slain", "grinning_sinner_slain"]
 
 
 ## Dice that always roll the highest face: every check in a conversation lands.
