@@ -11,5 +11,22 @@
     "rarity": "uncommon",
     "attunement": false
   },
-  "summary": "Dark rum with a salty finish: the drinker is lucky for an hour and unlucky for the hour after."
+  "summary": "Dark rum with a salty finish. For an hour every D20 Test the drinker makes rolls a d4 too: on a 1 the test has Disadvantage, otherwise the d4 is added.",
+  "duration": {
+    "kind": "hours",
+    "amount": 1
+  },
+  "effects": [
+    {
+      "effect": "modifiers",
+      "params": {
+        "modifiers": [
+          {
+            "stat": "fickle_die",
+            "dice": "1d4"
+          }
+        ]
+      }
+    }
+  ]
 }

@@ -11,5 +11,22 @@
     "rarity": "rare",
     "attunement": false
   },
-  "summary": "A thick, sweet brew of grain and honey that feeds a person for a day and heals them a little at every meal after."
+  "summary": "A thick, sweet brew of grain and honey. It feeds the drinker for a day, and for an hour any healing they receive is increased by their Proficiency Bonus.",
+  "duration": {
+    "kind": "hours",
+    "amount": 1
+  },
+  "effects": [
+    {
+      "effect": "modifiers",
+      "params": {
+        "modifiers": [
+          {
+            "stat": "healing_received",
+            "value": "pb"
+          }
+        ]
+      }
+    }
+  ]
 }

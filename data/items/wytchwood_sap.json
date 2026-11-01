@@ -11,5 +11,39 @@
     "rarity": "rare",
     "attunement": false
   },
-  "summary": "Resin from a wytch-tree, sticky and warm. Smeared on a blade it bites deep into the fey and the undead for a time."
+  "summary": "Resin from a wytch-tree, sticky and warm. As a Bonus Action, coat a weapon: its next hit within a minute deals 3d8 more damage of a type chosen as it's applied (acid, cold, fire, lightning, poison or thunder).",
+  "applied": true,
+  "powers": [
+    {
+      "id": "apply",
+      "name": "Coat a weapon",
+      "cost": "bonus",
+      "consume": true,
+      "field": true,
+      "custom": "weapon_coating",
+      "choice": {
+        "label": "Damage type",
+        "from": [
+          "acid",
+          "cold",
+          "fire",
+          "lightning",
+          "poison",
+          "thunder"
+        ]
+      },
+      "params": {
+        "dice": "3d8",
+        "types": [
+          "acid",
+          "cold",
+          "fire",
+          "lightning",
+          "poison",
+          "thunder"
+        ],
+        "minutes": 1
+      }
+    }
+  ]
 }

@@ -11,7 +11,7 @@
     "rarity": "rare",
     "attunement": false
   },
-  "summary": "A bitter violet eyewash. For 10 minutes the drinker senses magic as Detect Magic does, with no Concentration.",
+  "summary": "A bitter violet eyewash. For 10 minutes the drinker senses magic as Detect Magic does, with no Concentration, and has Advantage on Insight checks.",
   "duration": {
     "kind": "minutes",
     "amount": 10
@@ -26,7 +26,15 @@
       "custom": "drink_field_spell",
       "params": {
         "spell": "detect_magic",
-        "minutes": 10
+        "minutes": 10,
+        "modifiers": [
+          {
+            "stat": "advantage",
+            "on": [
+              "check:insight"
+            ]
+          }
+        ]
       }
     }
   ]
