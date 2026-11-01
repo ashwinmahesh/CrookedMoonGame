@@ -11,5 +11,27 @@
     "rarity": "legendary",
     "attunement": false
   },
-  "summary": "A red draught that thirsts back. For a day the drinker's blows heal them and their hunger cannot be fed."
+  "summary": "A red draught that thirsts back. The drinker makes a vampire's touch, as Vampiric Touch cast at 6th level with no Concentration, and for a minute can touch again as a Bonus Action.",
+  "duration": {
+    "kind": "minutes",
+    "amount": 1
+  },
+  "powers": [
+    {
+      "id": "drink",
+      "name": "Drink",
+      "cost": "bonus",
+      "consume": true,
+      "custom": "drink_cast",
+      "targeting": "creature",
+      "range": 5,
+      "params": {
+        "spell": "vampiric_touch",
+        "level": 6,
+        "minutes": 1,
+        "sustain_cost": "bonus_action"
+      },
+      "text": "Bonus Action: drink it and touch a creature within reach (Vampiric Touch at 6th level, no Concentration). For a minute you can touch again as a Bonus Action."
+    }
+  ]
 }
