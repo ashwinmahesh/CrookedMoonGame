@@ -89,3 +89,12 @@ services).
 | `data/travel/wickermoor_hollow.json` | Two places (the wreck, the village) and the wreck road, on the placeholder map `art/ui/map/wickermoor_hollow.png` | The valley's places and roads as the packages land; the painted map |
 | `data/locations/ghostlight_g*.json` exits | The eight cars chained in the book's order; plain doors | E23's seeded Switcheroo (the order per save, the mist between cars) |
 | `narrative/wickermoor/*.dialogue` | First conversations drafted by Gemini and edited; unvoiced | The voice pass (casting in `Voice/`); the Connections, subplots and later states add nodes |
+
+## Story systems (G1, G4, G5, G9; docs/adr/0001-story-systems.md)
+
+| File | Now | Replace with |
+|---|---|---|
+| `narrative/narrator/crooked_moon.dialogue`, `crooked_moon_visits.dialogue`, `narrative/endings/*.dialogue`, the epilogue slides in `data/endings/*.json`, the visions in `data/ritual/track.json` | First drafts by Claude in the Vagrant's voice | Gemini's edit with the next Narrator batch; voice once edited |
+| `data/ritual/sacrifice.json`, `data/ritual/sin.json` (numbers) | Ours, tuned by a simulation to the plan's 41% and 53% | The finale digest's numbers, if they differ |
+| `data/comfort/comfort.json` `notes` | Ours, from the chapter digests | The book's own content notes for each chapter |
+
