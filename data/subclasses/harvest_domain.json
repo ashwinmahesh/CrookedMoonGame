@@ -45,7 +45,7 @@
         "id": "harvest_domain_spells",
         "name": "Harvest Domain Spells",
         "summary": "After each Short or Long Rest choose an aspect (Sowing, Growing or Reaping); its column of spells is always prepared.",
-        "text": "Whenever you finish a Short or Long Rest, choose an aspect of the harvest cycle: Sowing, Growing or Reaping. You have the spells in that aspect's column prepared for your Cleric level and lower. Sowing: Druidcraft, Goodberry and Lesser Restoration (3); Harvest Moonglow (5); Death Ward (7); Awaken (9). Growing: Guidance, Entangle and Summer Winds (3); Plant Growth (5); Sanctum of the Shepherd (7); Mass Cure Wounds (9). Reaping: Chill Touch, Inflict Wounds and Hold Person (3); Culling Sickle (5); Consuming Pyre (7); Field of Reaping (9). Your current aspect also steers Bountiful Harvest and Blessing of the Seasons. (House rule: like all spell changes, the aspect can be changed any time outside a fight.)",
+        "text": "Whenever you finish a Short or Long Rest, choose an aspect of the harvest cycle: Sowing, Growing or Reaping. You have the spells in that aspect's column prepared for your Cleric level and lower. Sowing: Druidcraft, Goodberry and Lesser Restoration (3); Harvest Moonglow (5); Death Ward (7); Summon Plant (9). Growing: Guidance, Entangle and Summer Winds (3); Plant Growth (5); Sanctum of the Shepherd (7); Mass Cure Wounds (9). Reaping: Chill Touch, Inflict Wounds and Hold Person (3); Culling Sickle (5); Consuming Pyre (7); Field of Reaping (9). Your current aspect also steers Bountiful Harvest and Blessing of the Seasons. (House rule: like all spell changes, the aspect can be changed any time outside a fight.)",
         "action": "passive",
         "implemented": "data",
         "choice": {
@@ -57,7 +57,7 @@
             {
               "id": "sowing",
               "name": "Sowing",
-              "summary": "Druidcraft, Goodberry, Lesser Restoration; Harvest Moonglow at 5, Death Ward at 7, Awaken at 9.",
+              "summary": "Druidcraft, Goodberry, Lesser Restoration; Harvest Moonglow at 5, Death Ward at 7, Summon Plant at 9.",
               "modifiers": [
                 {
                   "stat": "spell",
@@ -88,7 +88,7 @@
                 },
                 {
                   "stat": "spell",
-                  "value": "awaken",
+                  "value": "summon_plant",
                   "always_prepared": true,
                   "at_class_level": 9
                 }
