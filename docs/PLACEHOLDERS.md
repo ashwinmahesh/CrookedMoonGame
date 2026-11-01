@@ -25,7 +25,7 @@ The engine handbook's list of the host contract is `addons/dnd_core/docs/handboo
 
 | File | Now | Replace with |
 |---|---|---|
-| `data/pregens/*.json` (ten) | The old game's ten heroes. The engine's own 150 unit tests build them by id, so they stay while those tests need them | Add the six companions (`tools/data/pregen_specs.json` and `make_pregens.gd`); the placeholder party of four is `ilse_varga`, `tamsin_tealeaf`, `hedda_ironvow`, `silvain_aster` (`world/game_root.gd` `PLACEHOLDER_PARTY`), now only for tests and captures: a quick start plays Rook, Silas, Cordelia and Delphine (`NEW_GAME_PARTY`). Their `roster: true` flags (the six on the title screen) go to the companions |
+| `data/pregens/*.json` (ten) | The old game's ten heroes. The engine's own 150 unit tests build them by id, so they stay while those tests need them | Add the six companions (`tools/data/pregen_specs.json` and `make_pregens.gd`); the placeholder party of four is `ilse_varga`, `tamsin_tealeaf`, `hedda_ironvow`, `silvain_aster` (`world/game_root.gd` `PLACEHOLDER_PARTY`), now only for tests and captures: a quick start plays Rook, Silas, Cordelia and Delphine (`NEW_GAME_PARTY`). Their `roster: true` flags (the six on the title screen) go to the companions, and Skirmish offers only the roster (`skirmish_pregens: "roster"` in data/campaign.json) |
 | `data/weather/barovia.json` | The generic climates, one region; the engine reads this fixed name | The valley's weather by hour; rename once the engine names it in `data/campaign.json` (plan E1) |
 | `data/progression/xp.json`, `chapters.json` | The 2024 level and budget tables kept; no milestone quests, no villain withdrawal pay; one chapter, `new_game` | Milestone quests per chapter; one chapter per package |
 | `data/treasure/levels.json` | The rarity tables kept; one region (`test_grounds`, level 1) | The party's level in every region |
@@ -35,7 +35,7 @@ The engine handbook's list of the host contract is `addons/dnd_core/docs/handboo
 | `data/glossary/terms.json` | The old game's rules glossary with the entries that name its campaign dropped | Add the book's own terms |
 | `data/achievements/e1.json` | The engine's generic hidden achievements | The campaign's achievements through the campaign module |
 | `narrative/combat/barks.json` | The old game's battle cries, the lines that name its campaign dropped | Barks for the Crooked Moon's foes (W9) |
-| `data/encounters/arena_wolves_and_zombies.json` | The first fight: the placeholder party against three scarecrows and a swarm of ravens in a clearing. The file keeps the engine's fixed arena id (`CombatArena.ENCOUNTER_ID`) | Keep a fight here until the engine makes the arena's id a key |
+| `data/encounters/arena_wolves_and_zombies.json` | The first fight: four of the companions (Rook, Silas, Cordelia, Delphine) against three scarecrows and a swarm of ravens in a clearing. The file keeps the engine's fixed arena id (`CombatArena.ENCOUNTER_ID`) | Keep a fight here until the engine makes the arena's id a key |
 | `data/locations/test_hillside.json`, `data/flags/test_grounds.json`, `data/schedule/test_grounds.json` (the engine reads `data/schedule/`, so a file must be there), `narrative/narrator/test_hillside.dialogue` | The foundation's natural test place | Delete once the Ghostlight Express (R10) is the first place; keep as a capture fixture if useful |
 
 ## Code (W0, W2)
