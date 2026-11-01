@@ -10,7 +10,8 @@
   "cost_gp": 0,
   "magic": {
     "rarity": "rare",
-    "attunement": true
+    "attunement": true,
+    "curse": "The suit wants to dance. As each fight begins, make a Wisdom save (DC 0, 2 higher each time you use its magic, at most once a Long Rest) or spend your first turn dancing: Incapacitated, Speed 0."
   },
   "theme": "implements",
   "icon": "cloak",
@@ -20,6 +21,39 @@
       "value": 2
     }
   ],
-  "summary": "A suit of motley hide in the troupe's colours: +2 to Armor Class. Dancing Dodge (once a dusk, a failed Dex save becomes a success), Wild Steps (move as a bonus action without opportunity attacks) and the Dancing Curse (a Wisdom save at the start of a fight or lose the first turn to a folk dance) wait on the engine's heirloom hooks.",
-  "worn": "robe"
+  "summary": "A suit of motley hide in the troupe's colours: +2 to Armor Class. Dancing Dodge (once a dusk, a failed Dexterity save succeeds while you can move) and Wild Steps (a Bonus Action to dance your Speed without Opportunity Attacks). Cursed: each fight may open with a dance you can't stop, and the suit's magic makes it harder to resist.",
+  "worn": "robe",
+  "powers": [
+    {
+      "id": "steps",
+      "name": "Wild Steps",
+      "custom": "cm_revelry_steps",
+      "cost": "bonus",
+      "text": "Dance up to your Speed without provoking Opportunity Attacks."
+    },
+    {
+      "id": "dodge",
+      "name": "Dancing Dodge",
+      "custom": "cm_revelry_dodge",
+      "cost": "free",
+      "hidden": true,
+      "uses": {
+        "count": 1,
+        "per": "dusk"
+      },
+      "text": "A failed Dexterity save succeeds while your Speed isn't 0."
+    },
+    {
+      "id": "curse",
+      "name": "The suit's tune",
+      "custom": "cm_revelry_dodge",
+      "cost": "free",
+      "hidden": true,
+      "uses": {
+        "count": 1,
+        "per": "long"
+      },
+      "text": "Counts the curse's growth (once a Long Rest)."
+    }
+  ]
 }

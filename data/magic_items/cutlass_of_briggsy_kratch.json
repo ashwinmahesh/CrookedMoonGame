@@ -30,7 +30,7 @@
       }
     }
   ],
-  "summary": "A pirate captain's scimitar, +1 (+2 at level 7, +3 at 13). Its Raise the Stakes and Sea Legs powers wait on the engine's heirloom rules.",
+  "summary": "A pirate captain's scimitar, +1 (+2 at level 7, +3 at 13). Raise the Stakes once a dusk (a hit-for-hit wager settled in Psychic damage); Sea Legs (a Disengage ignores Difficult Terrain). From level 7, Double Down (one more attack on the creature you wagered against) and Jinxcraft Panache (a Reaction adds twice the bonus to AC against a creature that already hurt you this turn).",
   "weapon": {
     "kind": "martial_melee",
     "damage": "1d6",
@@ -40,5 +40,20 @@
       "light"
     ],
     "mastery": "nick"
-  }
+  },
+  "powers": [
+    {
+      "id": "stakes",
+      "name": "Raise the Stakes",
+      "custom": "cm_cutlass_stakes",
+      "cost": "bonus",
+      "targeting": "creature",
+      "range": 5,
+      "uses": {
+        "count": 1,
+        "per": "dusk"
+      },
+      "text": "Mark a creature within 5 ft until your next turn. Whoever lands more hits on the other by then makes the other take 2d10 Psychic; a tie hurts you both."
+    }
+  ]
 }

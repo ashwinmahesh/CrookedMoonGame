@@ -23,12 +23,35 @@
       }
     }
   ],
-  "summary": "A Fabled Heirloom shield of a golden knight (+1, +2 at level 7, +3 at 13 to Armor Class). Valorous Guard: its bearer's Reaction adds to an adjacent ally's AC against a hit (the power waits on the engine's heirloom rules).",
+  "summary": "A golden knight's shield that grows with its bearer (+1 AC, +2 at level 7, +3 at 13, on top of the shield's own). Valorous Guard: the bearer's Reaction adds 2 + that bonus to the AC of an ally within 5 ft against a hit, or to its failed Dexterity save. From level 7, Honor of the Vanguard (a step to an ally's side as the fight begins, with Temporary Hit Points) and Righteous Wrath (the next hit on an attacker the shield turned aside deals 1d8 Radiant more); from 13, Flame Strike once a dusk.",
   "armor": {
     "kind": "shield",
     "base_ac": 2,
     "stealth_disadvantage": false,
     "don_minutes": 0,
     "doff_minutes": 0
-  }
+  },
+  "powers": [
+    {
+      "id": "vanguard",
+      "name": "Honor of the Vanguard",
+      "custom": "cm_shield_vanguard",
+      "cost": "free",
+      "targeting": "ally",
+      "range": 60,
+      "min_level": 7,
+      "text": "As the fight begins, step through golden light to the side of an ally you can see within 60 ft and gain 5 Temporary Hit Points per tier."
+    },
+    {
+      "id": "dawn",
+      "name": "As Terrible as the Dawn",
+      "spell": "flame_strike",
+      "dc": 19,
+      "min_level": 13,
+      "uses": {
+        "count": 1,
+        "per": "dusk"
+      }
+    }
+  ]
 }

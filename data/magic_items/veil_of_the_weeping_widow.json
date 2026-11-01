@@ -17,10 +17,30 @@
   "worn": "neck",
   "modifiers": [
     {
+      "stat": "check",
+      "ability": "wis",
+      "value": "tier"
+    },
+    {
       "stat": "save",
       "ability": "wis",
-      "value": 1
+      "value": "tier"
+    },
+    {
+      "stat": "resistance",
+      "value": "psychic"
     }
   ],
-  "summary": "A Fabled Heirloom, Temperance: the veil lifted from her dead face. Bonus to Wisdom saves (its psychic powers wait on the engine's heirloom rules)."
+  "summary": "A Fabled Heirloom, Temperance: the veil lifted from her dead face. +1 to Wisdom checks and saves (+2 at level 7, +3 at 13), Resistance to Psychic damage, and Sense Grief (Detect Thoughts) once a dusk. From level 7, Psychic Shock: made to save against a charm or a fear, the wearer's Reaction deals 2d8 Psychic to whoever forced it.",
+  "powers": [
+    {
+      "id": "grief",
+      "name": "Sense Grief",
+      "spell": "detect_thoughts",
+      "uses": {
+        "count": 1,
+        "per": "dusk"
+      }
+    }
+  ]
 }
