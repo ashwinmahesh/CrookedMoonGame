@@ -11,5 +11,23 @@
     "rarity": "uncommon",
     "attunement": false
   },
-  "summary": "A bottle of pond-water that cannot be heard to slosh. Drunk, it silences every footstep and word for ten minutes."
+  "summary": "A bottle of pond-water that cannot be heard to slosh. For 10 minutes a 20-foot Silence goes wherever the drinker goes, with no Concentration.",
+  "duration": {
+    "kind": "minutes",
+    "amount": 10
+  },
+  "powers": [
+    {
+      "id": "drink",
+      "name": "Drink",
+      "cost": "bonus",
+      "consume": true,
+      "custom": "drink_zone",
+      "params": {
+        "spell": "silence",
+        "minutes": 10
+      },
+      "text": "Bonus Action: drink it. For 10 minutes a 20-foot Silence moves with you."
+    }
+  ]
 }
