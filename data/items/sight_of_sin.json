@@ -11,5 +11,23 @@
     "rarity": "rare",
     "attunement": false
   },
-  "summary": "A bitter violet eyewash. For a minute the drinker sees what each person nearby is most ashamed of."
+  "summary": "A bitter violet eyewash. For 10 minutes the drinker senses magic as Detect Magic does, with no Concentration.",
+  "duration": {
+    "kind": "minutes",
+    "amount": 10
+  },
+  "powers": [
+    {
+      "id": "drink",
+      "name": "Drink",
+      "cost": "bonus",
+      "consume": true,
+      "field": true,
+      "custom": "drink_field_spell",
+      "params": {
+        "spell": "detect_magic",
+        "minutes": 10
+      }
+    }
+  ]
 }
