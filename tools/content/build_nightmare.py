@@ -540,11 +540,12 @@ def build_village_hooks():
     town = json.loads(path.read_text())
     town["npcs"] = [n for n in town["npcs"] if str(n.get("dialogue", "")) not in (NM + "hook:rusty_start", NM + "hook:rusty_again")]
     rusty = next(n for n in town["npcs"] if n["npc"] == "old_rusty")
+    walk = next(n for n in town["npcs"] if n["npc"] == "old_rusty" and n.get("path"))
     i = town["npcs"].index(rusty)
     town["npcs"][i:i] = [
-        {"npc": "old_rusty", "cell": rusty["cell"], "dialogue": NM + "hook:rusty_start", "when": "flag.chuckles_dead and not flag.nm_hook_given and not flag.crooked_house_destroyed",
-         "path": rusty["path"], "pause": 4, "approach": 8},
-        {"npc": "old_rusty", "cell": rusty["cell"], "dialogue": NM + "hook:rusty_again", "when": "flag.nm_hook_given and not flag.crooked_house_destroyed", "path": rusty["path"], "pause": 4}]
+        {"npc": "old_rusty", "cell": walk["cell"], "dialogue": NM + "hook:rusty_start", "when": "flag.chuckles_dead and not flag.nm_hook_given and not flag.crooked_house_destroyed",
+         "path": walk["path"], "pause": 4, "approach": 8},
+        {"npc": "old_rusty", "cell": walk["cell"], "dialogue": NM + "hook:rusty_again", "when": "flag.nm_hook_given and not flag.crooked_house_destroyed", "path": walk["path"], "pause": 4}]
     path.write_text(json.dumps(town, indent=2, ensure_ascii=False) + "\n")
 
 
