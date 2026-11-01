@@ -93,6 +93,31 @@
       "text": "The night creature takes 20 Radiant damage if it starts its turn in sunlight, and while in sunlight it has Disadvantage on attack rolls and ability checks. (Druskenvald has no sun: this fires only against Daylight, Sunbeam and the like.)",
       "sunlight": "hypersensitivity",
       "implemented": "engine"
+    },
+    {
+      "id": "running_water",
+      "name": "Running Water",
+      "action": "passive",
+      "summary": "Won't step or fly into running water; starting a turn in it, takes 10 Acid and is Frightened until its next turn.",
+      "shuns_running_water": {
+        "damage": 10,
+        "type": "acid",
+        "condition": "frightened"
+      },
+      "implemented": "data"
+    },
+    {
+      "id": "hateful_reflection",
+      "name": "Hateful Reflection",
+      "action": "passive",
+      "summary": "While it can see its reflection in a mirror a foe within 30 ft holds, it has Disadvantage on D20 Tests.",
+      "shuns_item": {
+        "items": [
+          "mirror"
+        ],
+        "range": 30
+      },
+      "implemented": "data"
     }
   ],
   "actions": [
