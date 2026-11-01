@@ -1,0 +1,74 @@
+# Drafted by Gemini (R17 ending), edited.
+
+~ farewell
+if not flag.mr_farewell_done
+set mr_farewell_done
+set act2_done += 1
+xp milestone
+cutscene mr_home
+cutscene mr_home_2
+cutscene end
+endif
+Narrator: Rain patters on four warped skiffs moored beside your boat, enough timber to carry thirty souls across the dark water. Without her serum, Nurse Godlee slips away with her masked orderlies, already whispering of some new ward.
+* [if flag.lethic_antidote_doses >= 1] Decide who receives the antidote -> memorys_rest/workbench:triage
+* [ends:the_lethic_antidote if quest.the_lethic_antidote == learned] Row home, with Catherine and the patients -> farewell_go
+* [ends:amos_cousin] [ends:the_lethic_antidote if quest.the_lethic_antidote == learned] Row home without Catherine -> farewell_leave
+
+~ farewell_go
+Narrator: Oars bite the grey lake water, and the rescued patients sit huddled in damp wool, watching the red brick island shrink into mist.
+if not flag.godlee_fate
+set godlee_fate = "fled"
+endif
+set amos_cousin_saved
+set mr_patients_saved += 12
+if quest.the_lethic_antidote == learned
+quest the_lethic_antidote lost
+endif
+move wickermoor_village
+-> END
+
+~ farewell_leave
+Narrator: The oars bite the grey water, and one seat in the stern stays empty. Behind you the isle keeps its violet windows, and somewhere in them a woman holds her left arm.
+if not flag.godlee_fate
+set godlee_fate = "fled"
+endif
+set mr_patients_saved += 11
+quest amos_cousin left
+if quest.the_lethic_antidote == learned
+quest the_lethic_antidote lost
+endif
+move wickermoor_village
+-> END
+
+~ amos_reward
+set mr_paid
+gold +50
+if flag.amos_cousin_cured
+catherine_winthrop [weary]: I know the smell of wet hay and our old porch, though this left arm still feels borrowed from a stranger. You gave me back my name.
+amos_dority [smile]: She knows me, and she knows the farm, even if the island left its mark on her. The village families pooled fifty gold pieces for the folk you brought home.
+quest amos_cousin home_cured
+endif
+if not flag.amos_cousin_cured
+if flag.amos_cousin_saved
+catherine_winthrop [smile]: The lanterns here are very pretty, though not so quiet as the Matron's parlour. Who is this kind man holding my sleeve?
+amos_dority [sad]: She breathes at my hearth again, even if she looks right through me like a stranger on the road. Take this fifty gold from the village kin for bringing our people back.
+quest amos_cousin home_hollow
+endif
+if not flag.amos_cousin_saved
+amos_dority [sad]: Empty boat seat where Catherine ought to be, and I will have to tell her mother the lake kept her. Still, the other families raised fifty gold for the souls you did save.
+quest amos_cousin left
+endif
+endif
+quest all_is_well back_in_wickermoor
+-> END
+
+~ mayor_amulet
+wendel_somerton [smile]: Word has reached the Council that you broke that dreadful sanatorium's hold and recovered a working remedy. Sign this receipt in triplicate, and take this emerald oak leaf, our parish's heirloom Amulet of Health.
+give amulet_of_health
+set mayor_amulet_given
+-> END
+
+~ morgan_slow_cure
+morgan [smile]: With these ward diagrams and a slow copper kettle, I can distil a gentler draught, one dose every eight hours... Nobody left blank by that island will stay forgotten for long.
+set mr_morgan_cure
+-> END

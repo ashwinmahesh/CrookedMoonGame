@@ -1,0 +1,116 @@
+# Drafted by Gemini (R17 godlee), edited.
+
+~ common_room
+Narrator: Patients sit at neat tables with spoons and no knives, queuing quietly by the pharmacy window. When a man drops his tray, a bare-faced nurse with a painted porcelain eyepatch steps in.
+sarah_godlee [neutral]: Take our brother to the dispensary for a second draught, if you please. Good evening, visitors. I am Head Nurse Sarah Godlee.
+* Introduce ourselves -> common_intro
+* [Insight DC 12] Watch her closely -> common_insight_ok | common_insight_fail
+* Ask about the patients -> common_patients
+* Leave -> END
+
+~ common_intro
+sarah_godlee [neutral]: You are welcome at Memory's Rest so long as you mind the plaques on the walls. Keep your voices low, do not pester the residents about old times, and stay belowstairs.
+-> common_room
+
+~ common_insight_ok
+Narrator: Her tone never rises, yet the patient who dropped his tray is trembling at the word dispensary. Beneath the starched courtesy lies a cold and practiced hand.
+set mr_godlee_read
+-> common_room
+
+~ common_insight_fail
+Narrator: She adjusts her cuffs without a crease out of place, every inch the tireless ward sister keeping a fragile house in order.
+-> common_room
+
+~ common_patients
+sarah_godlee [smile]: They are mended, quiet, and spared the weight of whatever brought them across the water. That is the Matron's gift to them, and my charge to protect.
+-> common_room
+
+~ quarters
+Narrator: Godlee's room smells of starch and black irises arranged in a tall glass vase. Ledgers sit squared on the desk beside a narrow, spotless bed.
+sarah_godlee [weary]: Close the door behind you. You have the look of people who notice more than is good for them, and I have a concern regarding the Matron.
+* [Persuasion DC 17] Win her trust -> trust_ok | trust_fail
+* [Deception DC 17] Tell her we share her worry -> trust_ok | trust_fail
+* [if flag.mr_has_memento] Show her a memento of Marius -> trust_proof
+* [if flag.godlee_trust and quest.godlees_mementos == asked] Give her our answer about the mementos -> wish
+* Look for her diary -> diary_search
+* Leave -> END
+
+~ trust_ok
+sarah_godlee [sad]: She cures everyone in this house except herself. Upstairs in her private chambers she keeps relics of her late husband, and every glance at them bleeds her dry.
+set godlee_trust
+quest godlees_mementos asked
+-> wish
+
+~ trust_fail
+sarah_godlee [neutral]: Perhaps I misjudged your discretion. The hour is late, and you would do well to return to the guest rooms below.
+-> quarters
+
+~ trust_proof
+sarah_godlee [angry]: Where did you get that? That dead man's trinkets are a sickness in her rooms upstairs, binding her to a grief she ought to have shed years ago.
+set godlee_trust
+quest godlees_mementos asked
+-> wish
+
+~ wish
+sarah_godlee [neutral]: Go up to the Matron's quarters and destroy every keepsake of Sir Marius you find. Free her from him, and I will see that the orderlies look the other way.
+* Agree to destroy them -> destroy
+* [Deception DC 15] Agree, and keep them -> keep_lie | caught
+* [ends:godlees_mementos] Refuse -> refuse
+* We need time to think -> END
+
+~ destroy
+sarah_godlee [smile]: Good. Burn them or break them, so long as nothing remains to wound her. The ward staff will not trouble your steps tonight.
+set godlee_mementos_destroyed
+if item:mr_memento_portrait
+take mr_memento_portrait
+endif
+if item:mr_memento_tabard
+take mr_memento_tabard
+endif
+if item:mr_memento_sonnet
+take mr_memento_sonnet
+endif
+set lethica_mementos_carried = 0
+set mr_has_memento = 0
+quest godlees_mementos destroyed
+-> END
+
+~ keep_lie
+sarah_godlee [neutral]: See that it is done swiftly and without a trace. I will keep the orderlies occupied on the lower landing.
+quest godlees_mementos kept
+set godlee_lied_to
+-> END
+
+~ caught
+sarah_godlee [angry]: Do not lie to my face in my own ward. Leave this room at once before I have the orderlies escort you from the island.
+* [ends:godlees_mementos] Insist she is wrong -> caught_end
+* Confess, and agree to destroy them after all -> destroy
+
+~ caught_end
+quest godlees_mementos caught
+set mr_staff_hostile
+-> END
+
+~ refuse
+sarah_godlee [neutral]: Then we have nothing further to discuss. Mind the house rules while you remain under our roof.
+quest godlees_mementos refused
+-> END
+
+~ diary_search
+Narrator: The narrow bed is made with hospital corners, its hem hanging just above the scrubbed floorboards.
+* [Perception DC 14] Search under the bed -> diary_found | diary_miss
+* Step back from the bed -> quarters
+
+~ diary_found
+Narrator: Tucked into the slats beneath the mattress is a leather journal filled with cramped devotion to Lethica, and a note on opening the laboratory by injecting a full dose of serum into the carved owl's eye.
+give mr_godlee_diary
+set mr_lab_open_known
+set mr_truth_clues += 1
+if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+quest all_is_well the_truth
+endif
+-> quarters
+
+~ diary_miss
+Narrator: Your fingers find nothing under the frame save tucked linen and cold floorboards.
+-> quarters

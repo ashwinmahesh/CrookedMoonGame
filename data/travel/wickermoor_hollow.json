@@ -118,6 +118,19 @@
       "region": "skitterdeep_mine",
       "when": "flag.skitter_trail_known or visited:sk_camp",
       "summary": "The abandoned mine, eight hours north-west of Wickermoor, with its sign painted over to read Skitterdeep."
+    },
+    {
+      "id": "memorys_rest",
+      "name": "The Moonsong Shore",
+      "location": "mr_shore",
+      "spawn": "from_road",
+      "pos": [
+        0.14,
+        0.52
+      ],
+      "region": "memorys_rest",
+      "when": "flag.mr_hook_open or visited:mr_shore",
+      "summary": "The last of the marsh trail, and the lake that holds Memory's Rest."
     }
   ],
   "roads": [
@@ -184,6 +197,14 @@
       "hours": 2,
       "name": "The hill trail",
       "when": "flag.skitter_trail_known or visited:sk_camp"
+    },
+    {
+      "id": "wickermoor_to_memorys_rest",
+      "from": "wickermoor_village",
+      "to": "memorys_rest",
+      "hours": 72,
+      "name": "The marsh road west",
+      "when": "flag.mr_hook_open or visited:mr_shore"
     }
   ]
 }

@@ -1,0 +1,59 @@
+# Drafted by Gemini (R17 lethica), edited.
+
+~ office
+Narrator: A longcase clock ticks loud across the immaculate room while a candle burns with a steady violet flame. Matron Lethica glides in behind a mourning veil, tear tracks dried on her cheeks, and stands with her hands cupped together.
+lethica_nightborne [neutral]: Welcome to Memory's Rest, travellers. Speak softly, I pray you, and tell me what burden brings you across the water to my door.
+* We are looking for Catherine Winthrop -> ask_catherine
+* Tell us about this place -> about
+* We would like to check in -> admission
+* Could we see the building? -> tour
+* [if flag.mr_antidote_known] What is in your Tonic? -> tonic_ask
+* Do you know Father Renathyr, the Crimson Abbot? -> abbot
+* Leave -> END
+
+~ ask_catherine
+lethica_nightborne [smile]: Dear Catherine is thriving here, quite at peace and free of her old pain. She may be visited during the proper hours, though never disturbed, and you are welcome to tour the wards first.
+-> office
+
+~ about
+lethica_nightborne [neutral]: The mind clings to old wounds long after the flesh has mended, and forgetting is often the truest mercy. Our new serum treatments quiet the aching past so the spirit may rest.
+-> office
+
+~ admission
+lethica_nightborne [smile]: Every soul in our care takes the prescribed draughts and treatments without question, beginning with a full examination. Nurse Godlee will keep your belongings while you put on our hospital gowns.
+set mr_admitted
+set mr_signed_in = "patient"
+-> END
+
+~ tour
+lethica_nightborne [neutral]: Nurse Godlee will accompany you at every step, and I ask that you never stray from her side. She will show you the Behavioral Ward, the Common Room, the Convalescent Ward, and the Recovery Rooms.
+set mr_toured
+set mr_guided
+-> END
+
+~ tonic_ask
+Narrator: She lifts two small glasses from a silver tray and sips her own without taking her eyes off you.
+lethica_nightborne [smile]: Only pure spring water and a restorative tincture of my own devising to steady the nerves. Drink with me, if you wish to feel its calm for yourself.
+* Drink it -> tonic_drink
+* Decline -> office
+
+~ tonic_drink
+Narrator: The cold, sweet draught slides down {name}'s throat, leaving a warm glow of courage and a faint, leaden ringing behind the eyes.
+lethica_nightborne [sly]: There now, you carry the blessing of our house in your blood.
+set mr_tonic_taken
+disadvantage checks 1h: the tonic
+-> office
+
+~ abbot
+Narrator: She goes still as carved bone, her clasped hands tightening as she swallows down a dry, catching sob.
+lethica_nightborne [sad]: My late husband, Sir Marius, belongs to a past we do not speak of within these walls. Let us turn our thoughts back to the living, before the orderlies must show you to the boat.
+set lethica_renathyr_named
+* Press her about the Abbot -> abbot_press
+* Say nothing more -> office
+
+~ abbot_press
+Narrator: Black tears well beneath her veil and spill down her pale cheeks, though she does not move to wipe them away.
+lethica_nightborne [weary]: You have worn out your welcome in this house of peace, strangers. The orderlies will see you off the island at once.
+set mr_escorted_off
+move mr_isle:from_doors
+-> END

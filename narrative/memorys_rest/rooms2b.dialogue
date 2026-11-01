@@ -1,0 +1,114 @@
+# Drafted by Gemini (R17 rooms2b), edited.
+
+~ l19_diagrams
+Narrator: Parchment sheets cover the desk, inked with alchemical ratios and crossed out in neat, tireless revisions. The margin notes smell faintly of dried lavender and cold lake water.
+* [Arcana DC 12] Study them -> l19_study_ok | l19_study_fail
+* Leave the notes alone -> END
+
+~ l19_study_ok
+Narrator: The script yields its secret to {name}: the Lethic Serum is distilled from the White Worm's ichor, and here, tucked in the final margin, is the exact recipe for its antidote.
+set mr_antidote_known
+set mr_truth_clues += 1
+if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+quest all_is_well the_truth
+endif
+quest the_lethic_antidote learned
+-> END
+
+~ l19_study_fail
+Narrator: The cramped notations and shifting measurements blur together, keeping their quiet alchemy to themselves.
+-> END
+
+~ l19_shrine
+Narrator: A quiet alcove holds a wedding portrait, a blood-stained knight's tabard bearing a rising sun, a faded love sonnet, a betrothal ring, a phial of Unrefined Ichor, and a porcelain mask worked with violet filigree.
+* [if not flag.lethica_mementos_carried and not flag.godlee_mementos_destroyed] Take the mementos -> l19_take
+* [if not flag.mr_ring_taken] Take the ring and mask -> l19_ring
+* [if not flag.mr_phial_taken] Take the phial -> l19_phial
+* Leave them -> END
+
+~ l19_take
+Narrator: You gather the portrait, the stained tabard, and the soft paper of the old sonnet, lifting years of private grief from the shelf.
+give mr_memento_portrait
+give mr_memento_tabard
+give mr_memento_sonnet
+set lethica_mementos_carried
+set mr_has_memento
+-> l19_shrine
+
+~ l19_ring
+Narrator: The silver band and the cold porcelain mask slip into your keeping, light as a held breath.
+give ring_of_protection
+give mask_of_lethica_nightborne
+set mr_ring_taken
+-> l19_shrine
+
+~ l19_phial
+Narrator: You lift the small glass phial; the pale, thick ichor inside shifts sluggishly against the stopper.
+set mr_phial_taken
+set unrefined_ichor += 1
+-> l19_shrine
+
+~ l20_unit
+Narrator: Copper pipes and violet-glass conduits converge upon a hissing pressure cylinder beneath heavy iron levers. The whole room hums like a wasp trapped in a jar.
+* [if not flag.mr_engineering_broken and not flag.mr_lockdown] Throw the lever OFF (Lockdown) -> l20_off
+* [if flag.mr_lockdown] Throw the lever ON, ending Lockdown -> l20_on
+* Smash the unit -> l20_smash
+* Leave -> END
+
+~ l20_off
+Narrator: The iron lever clanks down, the violet glow drains from the glass tubes, and heavy locks thud shut along the corridors.
+set mr_lockdown
+-> END
+
+~ l20_on
+Narrator: The cylinder sighs as the conduits drink their fill again, and the low violet hum returns to the walls.
+set mr_lockdown_over
+set mr_lockdown = 0
+-> END
+
+~ l20_smash
+Narrator: Glass shatters and the memory of years pours out as a gibbering mouther of violet ooze, babbling a thousand bad memories at once.
+set mr_engineering_broken
+combat mr_mouthers
+
+~ l21_file
+Narrator: A thick woven mat and empty wooden bowls sit upon the floor of this quiet den, while glass vials rest on a high shelf above.
+* Take the stabilizer vials -> l21_vials
+* [Perception DC 15] Look under the mat -> l21_file_ok | l21_file_miss
+* Leave -> END
+
+~ l21_vials
+Narrator: You reach up to the high shelf and pocket the heavy glass vials of stabilizer.
+give mr_stabilizer_stone
+give mr_stabilizer_acid
+give mr_stabilizer_stim
+-> l21_file
+
+~ l21_file_ok
+Narrator: Beneath the woven rushes, {name} uncovers a leather folder charting Hugo's surgeries, his old curse, and how the treatments keep him dependent.
+give mr_hugo_file
+set mr_hugo_file_read
+-> l21_file
+
+~ l21_file_miss
+Narrator: Nothing catches {name}'s eye beneath the coarse weave of the mat.
+-> l21_file
+
+~ l22_chamber
+Narrator: A broad glass chamber fogged with warm breath holds a pacing, fleshy abomination, while shelves of pickled brains float in pale jars along the wall.
+* Collect noetic extract from the jars -> l22_extract
+* Open the chamber's door -> l22_release
+* Leave -> END
+
+~ l22_extract
+Narrator: You draw off the cold, pearlescent fluid from the specimen jars before stoppering them tight.
+if not flag.mr_extract_taken
+set mr_extract_taken
+set noetic_extract += 4
+endif
+-> l22_chamber
+
+~ l22_release
+Narrator: The heavy latch gives way with a wet hiss, and the hungry thing inside lunges into the room.
+set mr_otyugh_freed
+combat mr_otyugh

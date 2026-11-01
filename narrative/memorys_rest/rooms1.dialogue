@@ -1,0 +1,149 @@
+# Drafted by Gemini (R17 rooms1), edited.
+
+~ l5_station
+Narrator: This compact office smells of starch and chamomile. Folded white uniforms and blank porcelain masks sit beside a neat note from the Matron calling the masks a mercy.
+* Take orderly garb -> l5_garb
+* Open the desk cabinet -> l5_cabinet
+* Pull the hidden Lockdown switch -> lockdown_start
+* Leave -> END
+
+~ l5_garb
+Narrator: Four sets of crisp linen coats and cold porcelain masks wait on the shelf, just about the right size for your company.
+* [Deception DC 10] Put them on and walk like staff -> l5_garb_ok | l5_garb_fail
+* Leave the uniforms -> END
+
+~ l5_garb_ok
+Narrator: You slip the cool porcelain over your faces and fall into the soft, unhurried glide of the ward orderlies.
+give mr_orderly_garb 4
+set mr_disguised
+-> END
+
+~ l5_garb_fail
+Narrator: The coats fit well enough, though {name} clomps like a bootmaker on cobbles. You bundle the spare sets along all the same.
+give mr_orderly_garb 4
+-> END
+
+~ l5_cabinet
+Narrator: A heavy brass lock guards the lower cabinet of the nurse's desk, its keyhole scratched by hurried hands.
+* [Sleight of Hand DC 15] Pick the lock -> l5_cabinet_ok | l5_cabinet_fail
+* Leave the cabinet -> END
+
+~ l5_cabinet_ok
+Narrator: The tumblers click over sweetly. Inside rest red vials, clean bandages, and a paper slip marked with the numbers one, seven, five, six.
+give potion_of_healing 2
+give healers_kit 2
+give mr_code_slip
+set mr_code_behavioral
+-> END
+
+~ l5_cabinet_fail
+Narrator: The stiff brass pins refuse to budge, and the lock holds fast against your picks.
+-> END
+
+~ lockdown_start
+Narrator: The violet tubes overhead gutter out as a shrill siren wails across the wet slate roofs. Heavy locks thud home through the drifting purple mist, and Hugo's slow footsteps shake the hall.
+cutscene mr_lockdown
+cutscene mr_lockdown_2
+cutscene end
+set mr_lockdown
+set mr_staff_hostile
+-> END
+
+~ l6_elevator_a
+Narrator: Heavy brass doors stand shut before the Behavioral lift, flanked by a ten-key pad worn shiny at the edges.
+* [if flag.mr_code_behavioral] Enter 1756 -> elevator_up
+* [if flag.mr_lockdown] The doors will not open -> END
+* Leave -> END
+
+~ l6_elevator_b
+Narrator: The Convalescent lift smells faintly of lavender polish and grease, its brass keypad waiting for a four-digit sequence.
+* [if flag.mr_code_convalescent] Enter 9536 -> elevator_up
+* Leave -> END
+
+~ elevator_up
+Narrator: Chains clank behind the wall as the cage rises for a long, humming minute toward the cold grey wards above.
+move mr_upper:from_elevator
+-> END
+
+~ l8_pharmacy
+Narrator: Rows of unlabeled glass bottles clink softly in the violet hum beside a rack of long needles and a chalked treatment board.
+* Take a tranquilizer needle -> l8_needle
+* Take the greater healing potions -> l8_potions
+* Leave -> END
+
+~ l8_needle
+Narrator: You tuck one of the heavy glass syringes into your pack, its pale draught sloshing sluggishly.
+give mr_tranquilizer
+-> l8_pharmacy
+
+~ l8_potions
+Narrator: You sweep the stoppered red flasks and a pair of clean distilling kits from the counter.
+give potion_of_healing_greater 6
+give alchemists_supplies 2
+-> l8_pharmacy
+
+~ l9_chanter
+Narrator: A hollow-eyed patient sits by the cold hearth, staring at his slippers until you draw near.
+mr_rocking_patient [neutral]: Nine. Go. Five. Go. Three. Go. Six.
+set mr_code_convalescent
+-> END
+
+~ l11_logs
+Narrator: A wire bin by the door holds thick leather ledgers filled with neat notes on Poultices, rest, and mended bones.
+* [Investigation DC 12] Read the logs -> l11_logs_ok | l11_logs_fail
+* Leave the logs -> END
+
+~ l11_logs_ok
+Narrator: Every chart records honest care for ordinary ills, yet each ends with the same inked note: patient ready for further treatment upstairs.
+set mr_truth_clues += 1
+if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+quest all_is_well the_truth
+endif
+-> END
+
+~ l11_logs_fail
+Narrator: The cramped physician's hand blurs together in the violet gloom, offering little more than dosages of chamomile and broth.
+-> END
+
+~ l11d_bed
+Narrator: A chill draft creeps through this quiet recovery room, smelling of lake damp and old stone beneath the iron bedstead.
+* [Perception DC 18] Search under the bed -> l11d_found | l11d_miss
+* [if flag.mr_hatch_found] Look under the bed where Hugo carried the patient -> l11d_found
+* Leave -> END
+
+~ l11d_found
+Narrator: Beneath a loose wooden panel lies a damp stone slab carved with the twisting, eel-like glyphs of an older age.
+set mr_hatch_found
+-> l11d_words
+
+~ l11d_miss
+Narrator: You find nothing under the iron frame save cold floorboards and a scatter of grey lint.
+-> END
+
+~ l11d_words
+Narrator: The wet carvings coil across the stone slab, waiting for a voice that knows their sunken tongue.
+* [if flag.mr_hatch_words] Speak the words in Deep Speech -> l11d_open
+* [Arcana DC 17] Read the glyphs -> l11d_open | l11d_miss
+* Leave -> END
+
+~ l11d_open
+Narrator: The carvings flare with sickly violet light, and the slab grinds downward to reveal rough, wet steps descending into the grotto.
+set mr_hatch_open
+if not flag.mr_grotto_seen
+quest all_is_well the_way_down
+endif
+move mr_grotto:from_hatch
+-> END
+
+~ l13_theatre
+Narrator: Raked wooden benches overlook a bright pit where three robed surgeons lean over a sleeping patient, their hoods twitching.
+mr_surgeon [smile]: Step closer, friends. Witness how the Matron's mercy Pareth away the heavy past.
+* Stay and watch -> l13_stay
+* Leave -> END
+
+~ l13_stay
+Narrator: The scalpel lifts a pulsing violet knot from the flesh. At once the patient arches, twisting into something monstrous as the surgeons fall back with theatrical cries for help.
+cutscene mr_theater
+cutscene mr_theater_2
+cutscene end
+combat mr_theatre

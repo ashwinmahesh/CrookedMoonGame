@@ -1,0 +1,22 @@
+# Drafted by Gemini (R17 extras), edited.
+
+~ l7_storage
+Narrator: Crisp linen smocks and blank porcelain masks sit in neat rows along the cedar shelves, smelling faintly of starch and camphor. Four full sets lie within easy reach, enough for your whole company to pass for ward staff if you keep together.
+* Take garb for the whole party -> l7_garb
+* Leave it -> END
+
+~ l7_garb
+give mr_orderly_garb 4
+Narrator: You gather up four folded smocks and the cold, smooth masks that go with them.
+-> END
+
+~ l15_log
+set mr_truth_clues += 1
+if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+quest all_is_well the_truth
+endif
+set mr_log_read
+set mr_antidote_hint
+Narrator: Pinned to a brass clipboard is Nurse Godlee's tight, slanted hand, noting a steadier new compound and warning that fierce emotion can undo its hold, so the subject must be left strictly alone.
+Narrator: A cramped note in the margin adds that the ash in the cremator has begun to act peculiarly and ought to be gathered for study.
+-> END
