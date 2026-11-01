@@ -113,9 +113,20 @@ func skip() -> void:
 func go_on() -> void:
 	if not Endings.go_on(st):
 		return
+	if save_on_finish:
+		fork_honour()
 	VoiceOver.stop()
 	continued.emit()
 	queue_free()
+
+
+## Going on in an Honour run: the ending sealed the run's one save (SaveSystem.save_finished), and it stays sealed. The
+## run plays on in a fresh slot of its own, which becomes its one save from now on. Returns that slot ("" outside Honour).
+static func fork_honour() -> String:
+	if not SaveSystem.honour():
+		return ""
+	SaveSystem.current_slot = SaveSystem.new_slot_name()
+	return SaveSystem.current_slot
 
 
 ## Back to the title screen (or just closed, for captures and tests).
