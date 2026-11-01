@@ -1,102 +1,102 @@
 # R23 A Place to Sleep (side quest, escort): the sick, the children and the old folk to the Silent Church. By hand, polished by Gemini, unvoiced.
 
 ~ morgan
-morgan [neutral]: The song cannot reach the Silent Church, they say. If they sleep under that roof, they will wake. I do not remember much, but I remember the sick are the first thing a fire takes. Help me move them.
+morgan [weary]: No song reaches the Silent Church, they say. Sleep under those eaves, and you wake as yourself. My memory is mostly mist now, yet I know fire takes the bedridden first. Help me move them.
 set wv_sleep_asked
 quest a_place_to_sleep asked
 -> morgan_menu
 
 ~ morgan_back
-morgan [neutral]: Where do we stand? The wagon, the children and the old folk. I will not rest until they are under that roof.
+morgan [neutral]: How does it stand? The fever wagon, the little ones, the elders. I cannot set my bottles down until they are behind that stone.
 -> morgan_menu
 
 ~ morgan_menu
-* [if flag.sleep_count >= 3] Tell Morgan they are all inside -> morgan_done
-* Ask what Morgan needs -> morgan_need
-* [ends:a_place_to_sleep if flag.sleep_count < 3] Tell Morgan it cannot be done -> morgan_fail
-* Leave -> END
+* [if flag.sleep_count >= 3] Everyone is inside the church. -> morgan_done
+* Who still needs moving? -> morgan_need
+* [ends:a_place_to_sleep if flag.sleep_count < 3] We cannot move them in time. -> morgan_fail
+* Step away -> END
 
 ~ morgan_need
-morgan [neutral]: The wagon of the sick, the children under the awning, and the old folk on their chairs. They each have their own reasons not to go. I can help with the sick. The rest, I cannot say.
+morgan [weary]: Eight sick folk in the cart, the children huddled under the inn awning, and the elders planted on their kitchen chairs. Each has a stubborn reason to stay. I know fever, not stubbornness.
 -> morgan_menu
 
 ~ morgan_done
-morgan [smile]: I have never been so relieved, and I do not know why I am surprised. Thank you. They will sleep.
+morgan [smile]: My chest feels lighter, though I could not tell you whose habit it is to hope. Thank you. They will have a quiet night.
 quest a_place_to_sleep sheltered
 set sleep_resolved
 heal 3d8 party
 -> END
 
 ~ morgan_fail
-morgan [sad]: Then I will do what I can with what is left. Go, go. The fire is not waiting.
+morgan [sad]: Then I will stay by the cart with whatever draughts I have left. Go on. The smoke on the hill will not wait for us.
 quest a_place_to_sleep scattered
 set sleep_resolved
 -> END
 
 ~ sick
-Narrator: A wagon with eight beds' worth of the sick in it, under blankets, with a dog for company. Every bump in the cobbles draws a sound out of someone.
-* [Athletics DC 13] Pull the wagon over the cobbles to the church -> sick_ok | sick_slow
-* [Medicine DC 12] Settle them for the move and go gently -> sick_ok | sick_slow
-* Fetch stretchers and carry them one by one -> sick_carry
+Narrator: Eight fevered villagers lie packed in straw and wool blankets, an old hound curled across their boots. Every rut in the cobbles draws a thin moan from under the canvas.
+* [Athletics DC 13] Haul the wagon smoothly over the ruts -> sick_ok | sick_slow
+* [Medicine DC 12] Brace their limbs and ease them along -> sick_ok | sick_slow
+* Carry them across by stretcher, one by one -> sick_carry
 
 ~ sick_ok
-Narrator: You get the wagon to the church door in one trip, and the sick are carried in with a hand each.
+Narrator: You lean into the shafts and roll the cart straight to the porch in one smooth pull, lifting each patient over the threshold.
 set sleep_sick
 set sleep_count += 1
 -> END
 
 ~ sick_slow
-Narrator: The wagon jolts, and someone cries out. You stop, steady it, and start again more slowly.
+Narrator: An iron rim drops into a gutter and someone gasps under the blankets. You chock the wheel, let them catch their breath, and look for a gentler line.
 -> sick
 
 ~ sick_carry
-Narrator: It takes an hour. Nobody complains. When it is over you are filthy and quiet and the sick are under the church's roof.
+Narrator: You spend a damp hour shuttling canvas litters through the dark. No one makes a sound, and at the end of it your coats smell of camphor and everyone is under stone.
 time +60
 set sleep_sick
 set sleep_count += 1
 -> END
 
 ~ children
-Narrator: A heap of children under the inn's awning, wide-eyed, whispering, in their coats. A small boy has already been told it is all a game, and is not buying it.
-* [Performance DC 12] Tell them a story all the way to the church -> children_ok | children_slow
-* [Persuasion DC 12] Tell them the church has a stone knight, and ask if they want to meet him -> children_ok | children_slow
-* Carry them across in twos and threes -> children_carry
+Narrator: A tangle of children huddles beneath the dripping inn awning, coats buttoned to their chins. The eldest boy has been told this is a game of hide-and-seek, and his glare says he knows better.
+* [Performance DC 12] Spin a story all the way to the church -> children_ok | children_slow
+* [Persuasion DC 12] Promise they can meet the church's stone knight -> children_ok | children_slow
+* Carry them over in pairs and bundles -> children_carry
 
 ~ children_ok
-Narrator: They follow you like ducklings, whispering the next part. At the church door you stop, and one of them says "and then what?" in a very small voice.
+Narrator: They trail after your hem like goslings in the dark, trading whispers about the next verse. On the church steps the littlest tugs your cuff and asks, "What happens next?"
 set sleep_children
 set sleep_count += 1
 -> END
 
 ~ children_slow
-Narrator: A bottom lip goes, and then another. Someone starts to cry. You kneel and start again, more slowly.
+Narrator: One chin wobbles, then a second, and a thin wail starts up under the eaves. You drop to one knee on the wet stones to try another tack.
 -> children
 
 ~ children_carry
-Narrator: It takes four trips. Nobody complains, though one of them bites you.
+Narrator: It takes four journeys with small boots kicking your ribs. Nobody cries, though the smallest one leaves her teeth marks in your leather bracer.
 time +20
 set sleep_children
 set sleep_count += 1
 -> END
 
 ~ old
-Narrator: A row of old folk on kitchen chairs in the lee of the inn, blankets round their knees, refusing to move. One of them has a thermos. One of them has a shotgun.
-* [Persuasion DC 14] Tell them the church needs their chairs more than the Round does -> old_ok | old_stuck
-* [Insight DC 13] Find what each of them actually needs and offer it -> old_ok | old_stuck
-* Carry the chairs and the old folk together, one chair at a time -> old_carry
+Narrator: A line of elders sits planted on kitchen chairs against the inn wall, shawls tucked tight around their knees. One cradles a tin thermos of broth; her neighbour holds a fowling piece across his lap.
+* [Persuasion DC 14] Insist the church needs good chairs more than the Round -> old_ok | old_stuck
+* [Insight DC 13] Spot each small comfort they refuse to leave behind -> old_ok | old_stuck
+* Lift them chair and all, one at a time -> old_carry
 
 ~ old_ok
-Narrator: They come, grumbling, with their chairs, in a slow procession like a funeral for a very small king. The one with the shotgun carries it unloaded.
+Narrator: Up they get, muttering at their knees, and shuffle off with their chairs like mourners at a parish vestry meeting. The man with the fowling piece leaves his shells in his pocket.
 set sleep_old
 set sleep_count += 1
 -> END
 
 ~ old_stuck
-Narrator: They fold their arms. The one with the thermos pours herself a cup. It will take another approach.
+Narrator: Thin arms cross over wool shawls. The woman with the tin thermos unscrews the cap and pours herself a steaming tot. You will need a sharper angle.
 -> old
 
 ~ old_carry
-Narrator: Carried, chairs and all. They complain the whole way. At the church door, one of them says the stone knight looks like her late husband, which no one thinks is a compliment.
+Narrator: You hoist them up, oak legs and wool blankets together, while they critique your footing the entire way. At the porch, a widow squints at the stone knight and remarks that he has her late husband's jaw, which does not sound forgiving.
 time +20
 set sleep_old
 set sleep_count += 1

@@ -1,106 +1,106 @@
 # R23 The Last Dinner (side quest): Marianna Grey lays the Green Queen's last supper. By hand, polished by Gemini, unvoiced.
 
 ~ host
-marianna_grey [neutral]: The inn's cellar is open and the ovens are lit. Alda has gone, and I have the keys. I am putting on a supper for whoever will come. They each want something. A last something. Will you sit and help me?
+marianna_grey [neutral]: The inn's cellar stands open and the ovens are hot. Alda is gone, leaving me the keys, so I have laid a supper for whoever still hungers. Each soul at the board has a parting request. Will you sit and help me see them answered?
 set wv_dinner_asked
 quest the_last_dinner asked
 -> host_menu
 
 ~ host_menu
-* Sit at the long table -> table
-* Ask what a last request means -> what
-* [if item:wv_last_letters and not flag.letter_marianna] Give her the letter from Walder Pye -> vigil/letters:to_marianna
-* [ends:the_last_dinner] Say there is no time for supper -> cold
-* Leave her to it -> END
+* Take a bench at the long table -> table
+* Ask what she means by a parting request -> what
+* [if item:wv_last_letters and not flag.letter_marianna] Hand her Walder Pye's letter -> vigil/letters:to_marianna
+* [ends:the_last_dinner] Tell her there is no time to eat -> cold
+* Leave her to the ovens -> END
 
 ~ what
-marianna_grey [sad]: When I was a girl my grandmother said you feed the dying first and ask second. Tonight everyone is dying a little. So I am asking first.
+marianna_grey [sad]: My grandmother always said you feed the dying first and ask them questions second. Tonight the whole village is dying a little, so I reckon it is safer to ask first.
 -> host_menu
 
 ~ table
-Narrator: A long table under paper lanterns, set for a feast that does not match the hour. Round it sit the village's oddest guests, each looking at the food rather than each other.
+Narrator: Paper lanterns sway above a trestle groan-heavy with roast and loaf, a harvest spread laid at the wrong end of the night. Around it sit the square's strangest stragglers, studying their plates so they need not study one another.
 -> table_menu
 
 ~ table_menu
-* [if flag.dinner_fed >= 3] Raise a cup and make it a supper -> toast
-* [if not flag.dinner_quill] Sit by Ambrose Quill -> quill
-* [if not flag.dinner_pip] Sit by Pip Oakum -> pip
-* [if not flag.dinner_gaunt] Sit by Sergeant Gaunt -> gaunt
-* [if not flag.dinner_tamsin] Sit by Tamsin Ledger -> tamsin
-* [ends:the_last_dinner] Get up and leave the table to go cold -> cold
-* Stand up for now -> END
+* [if flag.dinner_fed >= 3] Lift a cup and call it a proper supper -> toast
+* [if not flag.dinner_quill] Take the seat beside Ambrose Quill -> quill
+* [if not flag.dinner_pip] Take the seat beside Pip Oakum -> pip
+* [if not flag.dinner_gaunt] Take the seat beside Sergeant Gaunt -> gaunt
+* [if not flag.dinner_tamsin] Take the seat beside Tamsin Ledger -> tamsin
+* [ends:the_last_dinner] Leave the supper to go cold -> cold
+* Step away from the board for now -> END
 
 ~ quill
-ambrose_quill [sad]: My request is small. Listen to the whole elegy, to the last stanza, and do not look at the door. Nobody has, yet.
-* [Insight DC 12] Guess what the last stanza says -> quill_guess | quill_ask
-* Ask him to read it -> quill_ask
+ambrose_quill [sad]: My petition is modest. Hear the whole of my elegy through to the closing stanza, and do not glance toward the door while I read. No one has managed both yet.
+* [Insight DC 12] Guess how the final stanza turns -> quill_guess | quill_ask
+* Invite him to read from the top -> quill_ask
 
 ~ quill_guess
-Narrator: It ends on a rhyme for "doom" that is not "room". You nod. He weeps quietly into his pudding.
+Narrator: You sense he found a rhyme for "doom" that is neither "room" nor "tomb", and you give him a solemn nod. He weeps gratefully into his suet pudding.
 set dinner_quill
 set dinner_fed += 1
 -> table_menu
 
 ~ quill_ask
-Narrator: He reads. It is a fine elegy, by the third stanza a very good marching song, and by the sixth the whole table is tapping the beat.
+Narrator: He declaims to the rafters. It starts as a passable dirge, turns into a thumping march by the third stanza, and by the sixth has every boot under the table keeping time.
 set dinner_quill
 set dinner_fed += 1
 -> table_menu
 
 ~ pip
-pip_oakum [smile]: I want a seat at the grown-ups' end, where the bread is. And I want you to tell me the thing you are most afraid of, so I can put it in my collection.
-* [Insight DC 12] Guess what he means -> pip_guess | pip_ask
-* Tell him -> pip_ask
+pip_oakum [smile]: I want a proper chair up by the grown-ups where the brown loaf sits. And I want you to tell me the one thing that scares you worst, for my collection.
+* [Insight DC 12] See what the boy is truly asking -> pip_guess | pip_ask
+* Name your sharpest fear for him -> pip_ask
 
 ~ pip_guess
-Narrator: He means the old fear, the one that you do not say. You tell him something smaller, and he accepts it, grave as a magistrate.
+Narrator: He is fishing for the nameless dread in the dark, to know he is not the only one carrying it. You offer him a smaller, honest terror instead, and he takes it with a magistrate's gravity.
 set dinner_pip
 set dinner_fed += 1
 -> table_menu
 
 ~ pip_ask
-Narrator: You tell him the thing you are most afraid of. He writes it on a card, very seriously, and pockets the card.
+Narrator: You speak the fear plain across the breadboard. He prints it in careful block letters upon a scrap of pasteboard, blows the ink dry, and tucks it into his waistcoat.
 set dinner_pip
 set dinner_fed += 1
 -> table_menu
 
 ~ gaunt
-sgt_gaunt [weary]: My request is simple. Seat me at the end farthest from the door, in a chair with a high back, and tell nobody that I asked.
-* [Insight DC 12] Guess why the high back -> gaunt_guess | gaunt_ask
-* Seat him there -> gaunt_ask
+sgt_gaunt [weary]: A minor tactical adjustment, if you please. Put me at the far head farthest from the door, in the tall-backed oak chair, and breathe not a word that I requested it.
+* [Insight DC 12] Read the purpose of the tall chair -> gaunt_guess | gaunt_ask
+* Show him to the far chair -> gaunt_ask
 
 ~ gaunt_guess
-Narrator: It is so he can see the whole room and be out of sight of the window. You seat him there and say nothing. He nods at you, a soldier's nod.
+Narrator: The high wainscot keeps his neck out of the window draft while giving him a clear line on every bolt-hole. You pull the chair out without a word, and he grants you a brisk barracks nod.
 set dinner_gaunt
 set dinner_fed += 1
 -> table_menu
 
 ~ gaunt_ask
-Narrator: You seat him at the far end of the table in the high-backed chair. He sits like a man in a theatre, watching the exits.
+Narrator: You settle him at the head of the board in the high-backed oak chair. He arranges his elbows like a gentleman in a theatre box who has already Memorized the exits.
 set dinner_gaunt
 set dinner_fed += 1
 -> table_menu
 
 ~ tamsin
-tamsin_ledger [neutral]: I would like the minutes of this supper read aloud, in full, at its end. There should be a record that we ate.
-* [Insight DC 12] Guess what she really means -> tamsin_guess | tamsin_ask
-* Promise to read them -> tamsin_ask
+tamsin_ledger [neutral]: I require the minutes of this supper to be read aloud, unedited, before the dishes are cleared. There ought to be an attested record that we sat and ate.
+* [Insight DC 12] Hear the wish beneath the clerk's rule -> tamsin_guess | tamsin_ask
+* Promise to read the minutes aloud -> tamsin_ask
 
 ~ tamsin_guess
-Narrator: She wants someone to remember. You promise it, and she writes the promise down, which is the same thing.
+Narrator: A ledger is simply how she prays that someone will remember we were here. You give your word, and her nib scratches the promise into the margin, which makes it law.
 set dinner_tamsin
 set dinner_fed += 1
 -> table_menu
 
 ~ tamsin_ask
-Narrator: You promise to read the minutes. She inks the date and the time, and then, after a moment, a smaller note: present, and fed.
+Narrator: You give your word to read the roll. She enters the hour in neat black ink, pauses with the nib hovered, and adds a footnote: quorum present, and fed.
 set dinner_tamsin
 set dinner_fed += 1
 -> table_menu
 
 ~ toast
-marianna_grey [smile]: To the Green Queen, and everyone at her table. May the next supper be at a better hour.
-Narrator: The cups go round. For a minute nobody looks north.
+marianna_grey [smile]: To the Green Queen, and to every soul who kept her company tonight. May our next supper fall at a kinder hour.
+Narrator: Pewter and earthenware clink down the row. For the space of a long breath, nobody looks toward the northern hill.
 quest the_last_dinner served
 set dinner_resolved
 heal 3d8 party
@@ -109,16 +109,16 @@ give wv_feast_bread
 -> END
 
 ~ cold
-marianna_grey [sad]: Then I will keep it warm in the oven. Someone will want it.
-Narrator: The long table sits empty under its lanterns, the food growing cold on every plate.
+marianna_grey [sad]: Then I shall banking-sheet the pans and keep them in the oven. Someone will want a warm bite before the end.
+Narrator: The long board waits empty beneath the paper lanterns while the grease turns white on every trencher.
 quest the_last_dinner cold
 set dinner_resolved
 -> END
 
 ~ after
 if quest.the_last_dinner == served
-marianna_grey [smile]: It was a good supper. The best the Queen ever gave. Go carefully.
+marianna_grey [smile]: That was a good supper, the finest the Green Queen ever laid. Mind your step out there.
 else
-marianna_grey [sad]: The oven is still warm. If you come back, I will have something in it.
+marianna_grey [sad]: The bricks in the oven hold their heat well enough. If you come back this way, there will be a plate waiting.
 endif
 -> END

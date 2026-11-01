@@ -1,63 +1,63 @@
 # R23 the summit of Rowan's Rise: the Wicker Man, the Crooked Man's end, Phillip in the ash, the road home. By hand, polished by Gemini, unvoiced.
 
 ~ arrive
-Narrator: A spiral of small stones is laid on the crown of the hill, with stone-lined rays running out of it and ten bonfires round the edge on scorched rust-red earth.
-Narrator: At its heart stands the Wicker Man, sixty feet of woven willow bound with wire and iron, and in the cages of its chest and limbs, people are praying.
+Narrator: A spiral of small stones crowns the hill, its stone-lined rays running out toward ten bonfires around the rim of scorched, rust-red earth.
+Narrator: At its centre stands the Wicker Man, sixty feet of woven willow bound in wire and iron. Inside the cages of its chest and limbs, people are praying.
 set wv_summit_seen
 quest wickers_vigil shadow_of_the_wicker_man
 -> END
 
 ~ effigy
-Narrator: Through the weave of the chest cage you can see a woman's calm face among villagers, goats and sheep. A single tear has run down her cheek, and she is looking at nothing.
-crooked_man [sly]: Look at her, my darlings. Ladies and gentlemen, the last piece! She is not even afraid. Do you not love that in a person?
+Narrator: Through the willow ribs of the chest cage, you see a woman's calm face pressed in among villagers, goats, and sheep. One tear tracks down her cheek as she stares at nothing at all.
+crooked_man [sly]: Look at her, my darlings! Ladies and gentlemen, the crowning piece! Not a tremble in her. Don't you just adore a bit of breeding?
 -> effigy_menu
 
 ~ effigy_menu
-* Call to Adela -> adela
-* Ask the Crooked Man why -> why
+* Call out to Adela -> adela
+* Ask the Crooked Man why he does this -> why
 * [if item:wv_barnaby_repellent and not flag.wv_repellent_used] Spray Barnaby's Wicker Man Repellent -> repellent
-* Tell him to let them go -> demand
-* Light the fire and begin -> begin
+* Demand that he let them go -> demand
+* Light the fire and end this -> begin
 * Not yet -> END
 
 ~ adela
-Narrator: Adela's eyes meet yours through the weave. She does not speak. Nothing you can cast, throw or shout reaches her. She shakes her head, once, gently, like someone declining an offer.
+Narrator: Adela's eyes find yours through the woven bars. No spell, blade, or cry can reach her. She gives one small, polite shake of her head, like a lady declining a dance.
 -> effigy_menu
 
 ~ why
-crooked_man [sly]: Why? Because she is the sacrifice, and I am the host. Because the Queen asked me to, and I am very good at being asked. Because it is going to be a splendid fire.
+crooked_man [sly]: Why? Because she is the offering, and I am the master of ceremonies! Because the Queen asked nicely, and I do love being asked. And because it will make a glorious fire.
 -> effigy_menu
 
 ~ repellent
-Narrator: You spray Barnaby's repellent across the weave. A small cloud of vinegar rises, and the wicker, which is made of willow, does not seem to care. A very long silence follows.
+Narrator: You mist Barnaby's tonic across the lower weave. A sharp cloud of vinegar goes up, and the sixty feet of dry willow pay it no mind at all. A very long silence settles over the hill.
 crooked_man [sly]: Oh, I like that one.
 set wv_repellent_used
 take wv_barnaby_repellent
 -> effigy_menu
 
 ~ demand
-crooked_man [angry]: Let them go? The one thing I have never done in my life.
+crooked_man [angry]: Let them go? My dear, holding on is the one thing I have ever done well.
 -> effigy_menu
 
 ~ begin
 cutscene wv_final_sacrifice
-Narrator: Flames climb the effigy while masked dancers caper in the firelight, and the ground trembles with their hymn.
+Narrator: Fire takes the dry willow in a rush while masked dancers caper in the glare, the earth trembling under the stamp of their hymn.
 cutscene wv_final_sacrifice_2
-Narrator: Behind the weave, Adela's eye, and a single tear. The flames come up past it. The cut is clean.
+Narrator: Behind the blackening weave, you catch Adela's eye and a single tear before the sheet of flame takes her clean.
 cutscene wv_final_sacrifice_3
-Narrator: The titan lurches one step forward, and its eyes catch fire.
+Narrator: The burning giant lurches one heavy step forward, and both its hollow eyes catch fire.
 cutscene end
 set wv_wicker_lit
 combat wv_wicker_man
 
 ~ crooked_end
 cutscene wv_crooked_mans_end
-Narrator: The Wicker Man comes apart in a column of sparks that goes up past the moon, and the whole hill is lit orange for a breath.
+Narrator: The Wicker Man comes apart in a pillar of sparks that climbs past the moon, washing the whole hill in orange light for a breath.
 cutscene wv_crooked_mans_end_2
-Narrator: In the ash, something small and shrivelled and crooked claws its way out of a heap of embers. It is blackened to the bone and still wearing its grin.
-crooked_man [angry]: My queen. My Queen! You said I would be at your right hand. I did every single thing you asked. I did it all so well. Why have you...
+Narrator: Out of the drift of embers, something small, shrivelled, and crooked claws its way free, charred to the bone and still wearing its grin.
+crooked_man [angry]: My Queen. My Queen! You promised me your right hand! I built your house, I kept your flock, I did every single thing you asked. Why have you...
 cutscene wv_crooked_mans_end_3
-Narrator: He falls still. Rain begins on the smoking ash.
+Narrator: He falls still. Cold rain begins to hiss on the smoking ash.
 cutscene end
 set wv_crooked_end_seen
 set crooked_man_destroyed
@@ -66,47 +66,47 @@ quest wickers_vigil the_ash
 
 ~ phillip_ash
 cutscene wv_phillip_in_ash
-Narrator: A man in a ruined coat comes up the hill at a stumble, burned and out of breath, with a name in his mouth that he keeps shouting. He gets to the ash, and stops.
+Narrator: A man in a ruined evening coat stumbles up the rise, singed and out of breath, shouting the same name until he reaches the ash and stops dead.
 phillip_druskenvald [sad]: Adela.
 cutscene wv_phillip_in_ash_2
-Narrator: He kneels in the ash. He puts his hands into it. When he lifts them out there is a blackened necklace in one, with a planchette on it.
-phillip_druskenvald [sad]: She was waiting for me. She was waiting for me the whole time, and I was in the wrong place.
+Narrator: He drops to his knees and puts both bare hands into the warm ash. When he lifts them out, a blackened necklace hangs from his fingers, its little planchette still whole.
+phillip_druskenvald [sad]: She was waiting for me. She was waiting here the whole time, and I was in the wrong place.
 cutscene end
 -> phillip_menu
 
 ~ phillip_menu
-* Ask if he is hurt -> phillip_hurt
+* Ask if he is badly hurt -> phillip_hurt
 * Tell him she could not be saved -> phillip_saved
 * Offer to help him bury her -> phillip_bury
-* Let him be -> phillip_go
+* Leave him to his grief -> phillip_go
 
 ~ phillip_hurt
-phillip_druskenvald [weary]: Does it matter? The wisps took me up the wrong hill. I fell in a stream. I do not know what I did. I only know where I was not.
+phillip_druskenvald [weary]: What difference does it make? The wisps led me up the wrong hill. I pitched into a stream. I don't know what I did, only where I wasn't.
 -> phillip_menu
 
 ~ phillip_saved
-phillip_druskenvald [sad]: I knew. I think I always did. It does not make it any easier to carry.
+phillip_druskenvald [sad]: I knew. I suppose I always did. Knowing doesn't make it any lighter to carry.
 -> phillip_menu
 
 ~ phillip_bury
-phillip_druskenvald [neutral]: No. Thank you, but no. I will do it myself. I should have done everything myself.
+phillip_druskenvald [neutral]: No. Thank you, truly, but no. I'll see to her myself. I ought to have seen to everything myself.
 -> phillip_menu
 
 ~ phillip_go
-Narrator: He wraps the bones in his coat, and he goes down the hill without another word. He does not seem to see the village, the fire or you.
+Narrator: He folds the bones into the lining of his coat and walks back down the hill without another word, blind to the village, the dying fire, and you.
 set wv_phillip_seen
 -> END
 
 ~ rowan
-Narrator: A flat stone at the spiral's centre, carved with a woman's name and an antlered hare. The legend says Rowan climbed to sit on the moon. The stones say otherwise. They say she was the first one burned here.
+Narrator: A flat stone at the spiral's centre bears a woman's name and an antlered hare. Village tales say Rowan climbed up to sit on the moon, though the scorched rock tells it plain: she was the first they burned here.
 -> END
 
 ~ fall_back
-Narrator: The way back down is open. The village is far behind you, and what is chained in the cages above you cannot wait.
+Narrator: The track back down lies open. The village is far behind you, and those chained in the willow cages above have very little time left.
 -> vigil/square:retreat_confirm
 
 ~ home
-Narrator: You take the road down from the hill, through a night that smells of wet ash. Behind you the bonfires burn low one by one. The moon is still too big, and still grinning.
+Narrator: You take the road down from the rise through a night that smells of wet ash. Behind you, the ten bonfires gutter out one by one under a moon that is still too big, and still grinning.
 set wicker_man_burned
 quest wickers_vigil ashes_to_ashes
 xp milestone

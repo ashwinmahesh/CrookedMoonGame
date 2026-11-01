@@ -1,70 +1,70 @@
 # R23 Wickermoor on the eve: the Round, the barricade, the bonfire, Dani, the retreat. By hand, polished by Gemini (R23 square), unvoiced.
 
 ~ arrive
-Narrator: The Founder's Round has become a fortification run by people with no practice at it. Carts stand across the moor road, planks stand against the carts, and a long table is laid under lanterns in the inn yard. The goat is on the notice board.
+Narrator: The Founder's Round is barricaded by folk with no practice at war: carts across the moor road, planks propped against wheels, a long supper table laid under the inn's lanterns. The village goat has taken the notice board.
 set wv_square_seen
 -> END
 
 ~ bonfire
-Narrator: Above the houses to the north the bonfire on the hill burns without moving. Smoke goes up off the moor in a single, patient column. Everyone in the Round has looked at it so often they have stopped seeing it.
+Narrator: North of the rooftops, the fire on Rowan's Rise burns steady and high, sending a single grease-black pillar into the night. Folk in the Round have stared at it so long their eyes slide right past it.
 set wv_bonfire_watched
 -> END
 
 ~ barricade
-Narrator: A line of carts, planks and a fence dragged across the moor road mouth. It would stop a calf.
-* [Athletics DC 14] Haul the carts into a proper line -> barr_ok | barr_fail
-* [Investigation DC 14] Find the weak joints and brace them -> barr_ok | barr_fail
-* Ask the militia to do it properly -> barr_ask
-* Leave it -> END
+Narrator: Hay-carts, loose boards, and a lifted garden fence choke the mouth of the north road. It might turn a curious calf.
+* [Athletics DC 14] Put your shoulders to the carts and lock the axles -> barr_ok | barr_fail
+* [Investigation DC 14] Spot the slack joints and wedge them tight -> barr_ok | barr_fail
+* Set the militia to bracing it properly -> barr_ask
+* Leave it as it stands -> END
 
 ~ barr_ok
-Narrator: The barricade stands taller, and a gap is left where a person can walk through and a cart cannot.
+Narrator: You heave the heavy timber into a true wall, leaving a narrow sally gap wide enough for a runner and shut to everything else.
 set wv_barricade_built
 temp_hp 2d8 party
 -> END
 
 ~ barr_fail
-Narrator: A cart rolls back on its wheel and takes you with it. You are sore, and it is still a cart.
+Narrator: An iron-rimmed wheel slips its chock and kicks back against your shins. You have a fresh bruise, and the cart is where it started.
 damage 1d6 bludgeoning
--> END
+-> barricade
 
 ~ barr_ask
-Narrator: The volunteers form a bucket line, and then, by degrees, a barricade. It is not elegant. It is up.
+Narrator: The volunteers form a timber line and wedge the axles with cobblestones. It will win no prizes for joinery, but it holds.
 set wv_barricade_built
 -> END
 
 ~ dani
-dani_jenkin [neutral]: The village is more afraid of the fire than of the wicker. The wicker will walk. I have seen it. Stay as long as you want. It will not be long.
+dani_jenkin [neutral]: They are all watching the fire, as if the fire had legs. It is the willow that walks. I saw its long strides in the well-water. Rest your boots while you may, we have not got an hour.
 -> END
 
 ~ retreat_confirm
-Narrator: To go back is to leave the moor to the fire. The cult will burn everyone who is chained there, and the Wicker Man will walk down at full power to the village.
-* Fall back to the village and make a stand there -> retreat_go
-* Stay and fight on -> END
+Narrator: Turning back leaves Rowan's Rise to the fire. The cult will burn every prisoner in the wicker cage, and the effigy will march down upon the village whole.
+* Fall back to the Founder's Round and make our stand -> retreat_go
+* Hold the hill and fight on -> END
 
 ~ retreat_go
-Narrator: You turn your back on the hill, and the hymn on it swells as if it were glad of you.
+Narrator: You turn your backs on the rise, and the ragged hymn behind you swells with a sudden, greedy joy.
 set vigil_fled
 set vigil_deaths += 6
 quest wickers_vigil fallen_back
 move wv_square:from_moors
 
 ~ fall_back_gate
-Narrator: The barricade holds, for now, and the whole Round has gone quiet. Every eye is on the north road, and the road is empty. Then the ground begins to shake, and the lanterns on their poles begin to sway.
-Narrator: A shape of willow, taller than the church, comes out of the dark in the red of its own fire.
-crooked_man [sly]: Nobody home on the hill? Fine. I shall call on you!
+Narrator: The carts hold, and a dry hush settles over the Round. Every face is turned toward the empty north road until the cobblestones begin to chatter in the dirt and the pole-lanterns swing.
+Narrator: A giant of woven willow, taller than the church steeple, strides out of the moorland dark lit red by its own roaring ribs.
+crooked_man [sly]: Nobody home upon the hill? How rude! Never mind, neighbour, I can step down to the parlour!
 -> fall_back_menu
 
 ~ fall_back_menu
-* Hold the Round against it -> square_fight
-* Run, and leave the village to the fire -> abandon
+* Hold the Round against the effigy -> square_fight
+* Flee down the south road and leave the village -> abandon
 
 ~ square_fight
-Narrator: The first slam brings down a house.
+Narrator: Its first sweeping fist takes the thatch and rafters off the nearest cottage.
 combat wv_wicker_square
 
 ~ abandon
-Narrator: You take the south road. Behind you the lanterns go out, one at a time, and then the houses.
+Narrator: You take the south road at a run. Behind you, the lanterns go dark one by one, and then the roofs begin to roar.
 set wicker_man_triumphant
 quest wickers_vigil ash_over_the_hollow
 end_game

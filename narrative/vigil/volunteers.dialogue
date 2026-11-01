@@ -1,53 +1,53 @@
 # R23 Volunteers (side quest): Tamsin Ledger's militia roll. By hand, polished by Gemini, unvoiced.
 
 ~ start
-tamsin_ledger [neutral]: The militia must be enrolled in triplicate, or it is a mob. I need three named volunteers' signatures on this roll. Sergeant Gaunt, Mr Quill and Mr Pennywhistle have each said they would sign, and each has an objection.
+tamsin_ledger [neutral]: Unless this militia is enrolled in triplicate, it is merely a riot with pitchforks. I require three signatures on the muster roll. Sergeant Gaunt, Mr Quill, and Mr Pennywhistle promised to sign, though each has lodged a formal grievance.
 give wv_signed_roll
 set wv_vol_asked
 quest vigil_volunteers asked
 -> menu
 
 ~ menu
-* Ask what the objections are -> objections
-* Ask what a lawful militia can do that a mob cannot -> lawful
-* Take the roll and go -> END
+* Ask what their grievances are -> objections
+* Ask what separates a lawful militia from a mob -> lawful
+* Take the muster roll and go -> END
 
 ~ objections
-tamsin_ledger [weary]: The Sergeant wants the rear. Mr Quill wants his elegy entered as a regimental hymn. Mr Pennywhistle wants it noted that he is not a volunteer, he is a vendor. I have noted all three.
+tamsin_ledger [weary]: Sergeant Gaunt demands the rear guard. Mr Quill insists his elegy be adopted as our regimental hymn. Mr Pennywhistle wants it recorded that he is an independent contractor, not a volunteer. I have initialled all three.
 -> menu
 
 ~ lawful
-tamsin_ledger [neutral]: A lawful militia can be ordered to hold a line. A mob can only be asked. I find it is the same people either way, and the paperwork is the difference.
+tamsin_ledger [neutral]: A lawful militia may be commanded to hold a line. A mob may only be implored. In practice it is the exact same neighbours, only with better bookkeeping.
 -> menu
 
 ~ progress
-tamsin_ledger [neutral]: The roll needs three signatures. I count them in the margin.
+tamsin_ledger [neutral]: Three signatures are required for the quorum. I am keeping tally in the margin.
 -> progress_menu
 
 ~ progress_menu
-* [if flag.vol_signed >= 3] Hand in the signed roll -> file
-* Ask which signatures are missing -> missing
-* [if item:wv_last_letters and not flag.letter_tamsin] Hand Tamsin the letter from the county seat -> vigil/letters:to_tamsin
-* [ends:vigil_volunteers] Tell her the roll cannot be filled -> refuse
-* Leave -> END
+* [if flag.vol_signed >= 3] Present the completed muster roll -> file
+* Ask whose signatures are still missing -> missing
+* [if item:wv_last_letters and not flag.letter_tamsin] Deliver the letter from the county seat -> vigil/letters:to_tamsin
+* [ends:vigil_volunteers] Tell her the roll will go unsigned -> refuse
+* Leave her to her ledgers -> END
 
 ~ missing
 if not flag.vol_gaunt
-tamsin_ledger [neutral]: The Sergeant has not signed. He is by the barricade, volunteering for the rear.
+tamsin_ledger [neutral]: Sergeant Gaunt has yet to sign. He is down by the barricade, inspecting the rear.
 endif
 if not flag.vol_quill
-tamsin_ledger [neutral]: Mr Quill has not signed. He is in the inn yard, composing.
+tamsin_ledger [neutral]: Mr Quill is still missing. He is in the inn yard, wrestling with a stanza.
 endif
 if not flag.vol_barnaby
-tamsin_ledger [neutral]: Mr Pennywhistle has not signed. He is selling something near the notice board.
+tamsin_ledger [neutral]: Mr Pennywhistle has not signed. He has set up shop beside the notice board.
 endif
 if flag.vol_signed >= 3
-tamsin_ledger [smile]: All three have signed. Bring me the roll.
+tamsin_ledger [smile]: That is all three names accounted for. Hand me the roll.
 endif
 -> progress_menu
 
 ~ file
-tamsin_ledger [smile]: In triplicate. Stamped, and filed. The village has a lawful militia, and I must say it is a little startling how much better it feels.
+tamsin_ledger [smile]: In triplicate, witnessed, stamped, and entered into the parish archive. Wickermoor now possesses a properly constituted militia. It is remarkable how much steadier one's hands feel once the ink is dry.
 take wv_signed_roll
 quest vigil_volunteers filed
 set vol_resolved
@@ -56,7 +56,7 @@ temp_hp 2d8 party
 -> END
 
 ~ refuse
-tamsin_ledger [sad]: Then it is a mob. I will leave the roll blank. The barricade will be held by whoever is standing at it.
+tamsin_ledger [sad]: A mob it shall be, then. I will rule a diagonal line through the page. The barricade will simply have to be held by whoever happens to be standing behind it.
 take wv_signed_roll
 quest vigil_volunteers refused
 set vol_resolved
@@ -64,38 +64,38 @@ set vol_resolved
 
 ~ after
 if flag.wv_militia_lawful
-tamsin_ledger [smile]: The militia is lawful. If the Wicker Man comes, it will have to file a complaint.
+tamsin_ledger [smile]: Our company is duly registered. Should the Wicker Man breach the square, it will be trespassing against an incorporated body.
 else
-tamsin_ledger [weary]: The barricade will be held by whoever is standing at it. I have entered that as a finding.
+tamsin_ledger [weary]: Whoever stands at the planks tonight does so in an unofficial capacity. I have logged the irregularity.
 endif
 -> END
 
 ~ desk
-Narrator: A trestle desk, a queue of volunteers, a quill that has been chewed on. The queue goes round the well and back to the desk, because Tamsin has asked everyone to enrol twice.
+Narrator: A trestle table smells of iron gall ink and damp wool. The queue of villagers loops round the well and back again, because Tamsin requires every soul to sign two separate ledgers.
 -> END
 
 ~ gaunt
-sgt_gaunt [smile]: Sign the Ledger woman's roll? Gladly. I volunteer for the rear. Somebody has to watch it. I have never lost a battle I was present for the end of, and I mean to keep that record.
+sgt_gaunt [smile]: Sign the clerk's parchment? With pleasure, once my post is settled. I am volunteering for the rear. Vital ground, the rear. I have never lost an engagement I survived the end of, and I see no reason to break the streak.
 -> gaunt_menu
 
 ~ gaunt_menu
-* [Persuasion DC 13] Tell him the rear is where the roll needs his name -> gaunt_sign | gaunt_stall
-* [Intimidation DC 13] Tell him that the rear is also facing the Wicker Man -> gaunt_sign | gaunt_stall
-* Offer him a posting: commander of the rear guard, in writing -> gaunt_rear
+* [Persuasion DC 13] Assure him the rear guard needs his signature first -> gaunt_sign | gaunt_stall
+* [Intimidation DC 13] Remind him the Wicker Man can step over the front -> gaunt_sign | gaunt_stall
+* Offer to write him in as Commander of the Rear -> gaunt_rear
 * Leave him to his post -> END
 
 ~ gaunt_sign
-Narrator: He signs with a flourish, the way a man signs for something he plans never to deliver.
+Narrator: He signs with a sweeping loop of the quill, the florid mark of a man endorsing a promissory note he never intends to honour.
 set vol_gaunt
 set vol_signed += 1
 -> END
 
 ~ gaunt_stall
-sgt_gaunt [sad]: I would sign, I would, but my quill has gone dry. Perhaps later. When it is quieter.
+sgt_gaunt [sad]: I would put my name down this instant, truly, but the nib has split. Best wait until the wind drops.
 -> gaunt_menu
 
 ~ gaunt_rear
-Narrator: His chest rises. He writes REAR GUARD in letters twice the size of his name and signs under it.
+Narrator: He puffs out his breastplate, prints REAR GUARD across the vellum in block capitals twice the height of his name, and signs beneath it.
 set vol_gaunt
 set vol_signed += 1
 -> END

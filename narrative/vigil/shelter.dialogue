@@ -1,33 +1,33 @@
 # R23 the Silent Church as a shelter. By hand, polished by Gemini, unvoiced.
 
 ~ arrive
-Narrator: The vigil's song stops at the door as if cut with a knife. Pews have been dragged into rows for the sick, the children are asleep on the altar steps in a heap of coats, and a knight in marble twice a man's height stands in the nave, listening for the fire.
+Narrator: The chanting from the ridge dies cleanly at the threshold, leaving only the smell of damp wool and cold lime. Pews have been dragged together for the sick, children sleep heaped in coats along the altar steps, and the marble knight stands two men tall in the nave, listening toward the fire.
 set wv_shelter_seen
 -> END
 
 ~ marble
-Narrator: The knight's voice arrives in your mind without passing through your ears.
-man_in_marble [neutral]: Bring them under my roof and I will keep the song from them. I cannot leave. I can stand, and I can listen. That is all I have ever been good for.
+Narrator: His voice settles behind your eyes like cold stone, never touching the air.
+man_in_marble [neutral]: Bring the frail beneath this roof and the hill's singing will not reach them. My feet are rooted to this floor. I can stand, and I can listen. It is the only work I was carved for.
 -> marble_menu
 
 ~ marble_menu
-* [if flag.sleep_count >= 1] Tell him who is sheltered -> marble_count
-* Ask what the song does -> marble_song
-* Ask if the church will hold -> marble_hold
+* [if flag.sleep_count >= 1] Give him the count of those inside -> marble_count
+* Ask what the chanting does to a mind -> marble_song
+* Ask if the church walls will hold -> marble_hold
 * Leave him to his watch -> END
 
 ~ marble_count
-man_in_marble [neutral]: I have counted them. Those who are inside I will keep. Those who are outside, I cannot.
+man_in_marble [neutral]: I know the weight of every soul across that threshold. Those under my roof, I will keep. Those still beyond the doors are past my reach.
 -> marble_menu
 
 ~ marble_song
-man_in_marble [sad]: It finds the weak place in the mind and makes it sing. Under this roof the weak place is just a place.
+man_in_marble [sad]: It seeks out the cracked timber in a mortal mind and sets it humming until it splinters. Under this roof, a flaw is only a flaw.
 -> marble_menu
 
 ~ marble_hold
-man_in_marble [neutral]: It will hold against the song. Against the fire it is only wood and stone. Keep the fire away from it.
+man_in_marble [neutral]: Against the song, this silence is a fortress. Against a torch, it is only dry timber and dressed stone. Keep the fire on the hill.
 -> marble_menu
 
 ~ weston
-weston_murdoch [smile]: The Brightsingers' hymns cannot carry here either. I sing them anyway, softly, so the children have something. Go and win. If you cannot win, then go and be seen trying.
+weston_murdoch [smile]: Even a Brightsinger hymn drops dead a foot from my lips in here. I hum them anyway, down low, so the little ones hear a friendly throat. Go win the night. Or if you can't, make sure they see you swinging.
 -> END
