@@ -9,6 +9,10 @@ extends CampaignLook
 
 ## Coming out of the mist between the Ghostlight Express's cars into the next one (E23): the Narrator says the car has changed before the
 ## car's own words. The place the party left is still the story's `location` here (LocationView sets the new one just after).
+## The places whose houses warp (the catalog's building_kit.bend.morph names them too).
+const MORPHING: Array[String] = ["druskenvald_estate"]
+
+
 func dress_place(view: LocationView) -> void:
 	if CrookedMoonCampaign.is_car(view.loc_id):
 		ExpressWindows.hang(view.board, view.board)   # the Shroud streams past the cars' windows
@@ -37,3 +41,12 @@ func place_special(_art: String, board: ArenaBoard, root: Node3D, cell: Vector2i
 		"wicker_man":
 			root.add_child(SetPieceLight.make("WickerLantern", at + Vector3(0.0, 5.2, 0.5), Look.color("flame"), 0.9, 9.0, root))
 	return {}
+
+
+## The Crooked House turning (plan G8; the house's gate talk ends with `set crooked_house_turned`): the estate's houses are built with
+## a tidy shape too (the catalog's building_kit.bend.morph), tidy until the house has turned and again once the manor is restored; the
+## change plays as a warp that overshoots and settles (BuildingMorph). Asked every quarter second.
+func refresh(view: LocationView) -> void:
+	if view.board != null and view.loc_id in MORPHING:
+		var ruined := StoryConditions.check("flag.crooked_house_turned and not flag.druskenvald_manor_restored", view.st)
+		BuildingMorph.follow(view.board, 0.0 if ruined else 1.0, 2.8)
