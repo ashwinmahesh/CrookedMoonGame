@@ -25,7 +25,7 @@ FRESH   := if [ ! -f $(STAMP) ] || [ -n "$$(find . \( -path ./.godot -o -path ./
 ## terminal, so it must not queue behind lane imports and tests (tools/godot_slot.sh).
 PLAYFRESH := export GODOT_SLOTS=off; $(FRESH)
 
-.PHONY: run run-main arena smoke import test lint validate ci check lfs-quiet palette capture sketch hooks golden-saves tools-test
+.PHONY: run run-main arena smoke import test lint validate ci check lfs-quiet palette capture sketch hooks golden-saves tools-test voice-wire
 
 ## make run plays the edge build (tools/edge/edge.py): main plus every lane branch that has been handed off but not merged
 ## yet, assembled in a throwaway worktree (CrookedMoonGame-edge, in the SSD lanes' image), so lane work can be tried as soon
@@ -65,6 +65,12 @@ edge-test:
 ## The slot folder is shared with Curse of Strahd, so the two games never oversubscribe the Mac.
 slots-test:
 	python3 -m unittest discover -s tests/tools -p 'test_godot_slots.py' -v
+
+## Recorded voice takes into the game: copies each finished take whose line is still spoken from the asset root's voice batches to
+## audio/voice/<speaker>/<key>.mp3 (Git LFS) and prints how many spoken lines have a clip (tools/content/wire_voice.py).
+## DRY=1 copies nothing; PRUNE=1 deletes clips no line speaks any more; LIST=1 names the lines with no clip yet.
+voice-wire:
+	python3 tools/content/wire_voice.py $(if $(DRY),--dry-run) $(if $(PRUNE),--prune) $(if $(LIST),--list)
 
 ## Every Python tool test (the edge build, the Godot slots, the quick check's engine tests); no Godot.
 tools-test:
