@@ -1,7 +1,8 @@
 extends TestCase
 ## Wickermoor's night sound comes in as the hour strikes (vault Build/Audio Plan.md, batch 3): standing in a shop at ten to
 ## three, the clock passing 15:00 turns the music to the village's night and the bed to the night heard through the walls,
-## and 07:00 turns them back, with no change of place. A conversation keeps its own music until it ends.
+## and 07:00 turns them back, with no change of place. A conversation keeps its own music until it ends. A camp made there
+## brings its fire and quiet music, and striking it brings the place's back.
 
 const GAME := preload("res://world/game_root.gd")
 const LOC := "wickermoor_shop_bakery"
@@ -71,3 +72,17 @@ func test_a_conversation_keeps_its_music_until_it_ends() -> void:
 	root.set("dialogue", null)
 	await _frames(3)
 	assert_eq(Audio.mood, "wickermoor_night", "the night comes in once the talk is over")
+
+
+func test_a_camp_brings_its_fire_and_quiet_music() -> void:
+	await _arrive()
+	var view := root.get("view") as LocationView
+	var camp := LocationCamp.pitch(view, root, "risky")
+	assert_true(camp != null, "a camp is made in the bakery")
+	await _frames(3)
+	assert_eq(Audio.mood, "camp", "the camp's quiet music")
+	assert_eq(_bed(), "camp", "and its fire")
+	camp.strike()
+	await _frames(3)
+	assert_eq(Audio.mood, "wickermoor", "struck: the place's music again")
+	assert_eq(_bed(), "village_indoor", "and its bed")

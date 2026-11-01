@@ -31,6 +31,7 @@ var _scene_mood := ""
 ## The music a place cutscene's picture brought (_cutscene_music); the place's own comes back when it closes.
 var _cutscene_mood := ""
 var _sound_hour := -1   ## the hour the place's music and bed were last chosen for (_turn_sound_with_the_hour)
+var _sound_camped := false   ## whether a camp stood when they were
 ## Banter that came while the Narrator was speaking; it plays a moment after the box clears (_process).
 var _banter_waiting: Array = []
 var _banter_quiet_since := -1   ## msec ticks since the box cleared, while banter waits
@@ -1313,17 +1314,26 @@ func _covered(to: String, change: Callable) -> void:
 
 
 ## A fade to black and back when time passes (rests, journeys, waiting for noon), with how long it was.
-## The place's music and bed again once the hour has changed (the walking clock's ticks, a rest, a wait), so Wickermoor's
+## The place's music and bed again once the hour has changed (the walking clock's ticks, a rest, a wait) or a camp has
+## been made or struck (the camp's "camp" music and fire bed), so Wickermoor's
 ## night (art/audio.json "region_turns", "bed_turns": the Nightfall Hour to the Witching Hour's end) comes in as the
 ## hour strikes and not only at the next door. Only while exploring (_process): a fight, a conversation or a cutscene
 ## keeps its own music and gives the place's back itself. The same mood and the same bed keep playing where they are.
 func _turn_sound_with_the_hour() -> void:
 	var hour := st.minute_of_day / 60
-	if hour == _sound_hour or view == null:
+	var camped := _camped()
+	if (hour == _sound_hour and camped == _sound_camped) or view == null:
 		return
 	_sound_hour = hour
+	_sound_camped = camped
 	Audio.play_music(_place_mood())
-	place_beds.enter(st.location, st)
+	place_beds.enter(st.location, st, camped)
+
+
+## Whether the party has made camp here (LocationCamp, pitched by the rest screen): its fire and quiet music hold until
+## the camp is struck.
+func _camped() -> bool:
+	return view != null and LocationCamp.of(view) != null
 
 
 func _on_time_passed(minutes: int) -> void:
@@ -1394,6 +1404,8 @@ func _on_quest_finished(quest_id: String, ending: String) -> void:
 ## The music for where the party is (art/audio.json: the place's own mood, else its region's as the story stands, else
 ## its map's theme).
 func _place_mood() -> String:
+	if _camped() and not Audio.entries("music", "camp").is_empty():
+		return "camp"   # a camp's fire has its own quiet music (art/audio.json "camp") until the camp is struck
 	var loc := Compendium.shared().get_entry("locations", st.location)
 	return Audio.mood_for(st.location, ArenaBoard.theme_for(loc.get("map", {}) as Dictionary), st)
 

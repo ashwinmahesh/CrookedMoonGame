@@ -50,9 +50,10 @@ static func bed_for(location_id: String, st: StoryState = null) -> String:
 	return str(beds.get(region, "")) if region != "" else ""
 
 
-## Crossfades to the bed of `location_id`; the same bed keeps playing where it is.
-func enter(location_id: String, st: StoryState = null) -> void:
-	var next := bed_for(location_id, st)
+## Crossfades to the bed of `location_id`, or with `camped` to a camp's (art/audio.json loops "camp": its fire and the night
+## round it); the same bed keeps playing where it is.
+func enter(location_id: String, st: StoryState = null, camped: bool = false) -> void:
+	var next := "camp" if camped and not Audio.files("loops", "camp").is_empty() else bed_for(location_id, st)
 	if next == bed_id:
 		return
 	bed_id = next
