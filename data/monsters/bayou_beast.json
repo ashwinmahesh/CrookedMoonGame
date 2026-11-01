@@ -63,7 +63,35 @@
       "action": "passive",
       "summary": "Each bottle of alcohol splashed on it deals 9 (2d8) Force and sets its Speed to 0 until the end of its next turn.",
       "text": "Alcohol washes the jinx seals away. For every bottle splashed over the elemental it takes 9 (2d8) Force damage and its Speed drops to 0 until the end of its next turn.",
-      "implemented": "text"
+      "implemented": "data",
+      "offers": {
+        "label": "Splash spirits",
+        "range": 20,
+        "needs_item": [
+          "bottle_of_spirits",
+          "jinxed_rum"
+        ],
+        "consumes": true,
+        "auto": true,
+        "damage": [
+          {
+            "dice": "2d8",
+            "type": "force"
+          }
+        ],
+        "on_success": [
+          {
+            "do": "condition",
+            "until": "target_turn_end",
+            "modifiers": [
+              {
+                "stat": "speed_set",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "actions": [

@@ -72,7 +72,37 @@
       "action": "special",
       "summary": "A Bonus Action memento or reminder of his past plus a DC 15 Charisma (Persuasion) check gives him Disadvantage on his next D20 Test before that creature's next turn starts.",
       "text": "A creature that spends a Bonus Action presenting a memento or reciting a reminder of who the abbot used to be, and succeeds on a DC 15 Charisma (Persuasion) check, gives the abbot Disadvantage on the next D20 Test he makes before the start of that creature's next turn.",
-      "implemented": "text"
+      "implemented": "data",
+      "offers": {
+        "label": "Honor Lost",
+        "cost": "bonus",
+        "range": 30,
+        "needs_item": [
+          "lethica_painting",
+          "renathyr_journal",
+          "shield_of_marius_renathyr"
+        ],
+        "check": {
+          "skill": "persuasion",
+          "dc": 15
+        },
+        "on_success": [
+          {
+            "do": "condition",
+            "until": "source_turn_start",
+            "modifiers": [
+              {
+                "stat": "disadvantage",
+                "on": [
+                  "attack",
+                  "save:all",
+                  "check:all"
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "legendary_resistance",

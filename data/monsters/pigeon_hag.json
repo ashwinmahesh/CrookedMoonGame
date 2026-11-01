@@ -69,7 +69,23 @@
       "action": "special",
       "summary": "Flattering her (Influence action) forces a DC 17 Cha save, or she is Incapacitated until the end of her next turn.",
       "text": "As an Influence action, a creature that flatters the hag forces her to succeed on a DC 17 Charisma saving throw or be Incapacitated until the end of her next turn.",
-      "implemented": "text"
+      "implemented": "data",
+      "offers": {
+        "label": "Flatter her",
+        "influence": true,
+        "range": 60,
+        "save": {
+          "ability": "cha",
+          "dc": 17
+        },
+        "on_success": [
+          {
+            "do": "condition",
+            "condition": "incapacitated",
+            "until": "target_turn_end"
+          }
+        ]
+      }
     },
     {
       "id": "window_toss",
