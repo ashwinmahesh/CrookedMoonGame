@@ -30,6 +30,7 @@ var _talk_mood := ""
 var _scene_mood := ""
 ## The music a place cutscene's picture brought (_cutscene_music); the place's own comes back when it closes.
 var _cutscene_mood := ""
+var _sound_hour := -1   ## the hour the place's music and bed were last chosen for (_turn_sound_with_the_hour)
 ## Banter that came while the Narrator was speaking; it plays a moment after the box clears (_process).
 var _banter_waiting: Array = []
 var _banter_quiet_since := -1   ## msec ticks since the box cleared, while banter waits
@@ -421,6 +422,7 @@ func _process(delta: float) -> void:
 		glow.clear()
 	if not exploring:
 		return
+	_turn_sound_with_the_hour()
 	if not _banter_waiting.is_empty():
 		if hud.narration_showing():
 			_banter_quiet_since = -1
@@ -1311,6 +1313,19 @@ func _covered(to: String, change: Callable) -> void:
 
 
 ## A fade to black and back when time passes (rests, journeys, waiting for noon), with how long it was.
+## The place's music and bed again once the hour has changed (the walking clock's ticks, a rest, a wait), so Wickermoor's
+## night (art/audio.json "region_turns", "bed_turns": the Nightfall Hour to the Witching Hour's end) comes in as the
+## hour strikes and not only at the next door. Only while exploring (_process): a fight, a conversation or a cutscene
+## keeps its own music and gives the place's back itself. The same mood and the same bed keep playing where they are.
+func _turn_sound_with_the_hour() -> void:
+	var hour := st.minute_of_day / 60
+	if hour == _sound_hour or view == null:
+		return
+	_sound_hour = hour
+	Audio.play_music(_place_mood())
+	place_beds.enter(st.location, st)
+
+
 func _on_time_passed(minutes: int) -> void:
 	if not is_inside_tree():
 		return
