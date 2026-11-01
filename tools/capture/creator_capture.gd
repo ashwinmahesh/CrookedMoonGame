@@ -3,7 +3,7 @@ extends Node
 ## hero, the look step showing the hero as a 3D figure on its turntable, as a woman and as a man, standing, walking,
 ## running and swinging.
 ##   make capture SCENE=res://tools/capture/creator_capture.tscn NAME=creator/x FRAMES=10 ARGS='--species=curseborn --class=fighter'
-## --species and --class: what the hero is (the height follows the species). Shots: <out>_woman.png, <out>_woman_turned.png,
+## --species and --class: what the hero is (the height follows the species); --build: a build pick (slender, broad). Shots: <out>_woman.png, <out>_woman_turned.png,
 ## <out>_man.png, <out>_walk.png, <out>_run.png, <out>_swing.png.
 
 
@@ -23,9 +23,13 @@ func capture_shots(tool: Node, out: String) -> void:
 	b.set_species(_arg("species", "curseborn"))
 	screen.step = CharacterBuilder.Step.APPEARANCE
 	screen._draw()
-	await tool.call("wait_frames", 60)
-	tool.call("_shot", "%s_woman.png" % out)
+	await tool.call("wait_frames", 10)
 	var panel := screen.find_children("*", "AppearancePanel", true, false)[0] as AppearancePanel
+	if _arg("build", "") != "":
+		panel._pick("build", _arg("build", ""))
+		panel = screen.find_children("*", "AppearancePanel", true, false)[0] as AppearancePanel
+	await tool.call("wait_frames", 50)
+	tool.call("_shot", "%s_woman.png" % out)
 	panel._preview.turn(3)
 	await tool.call("wait_frames", 20)
 	tool.call("_shot", "%s_woman_turned.png" % out)

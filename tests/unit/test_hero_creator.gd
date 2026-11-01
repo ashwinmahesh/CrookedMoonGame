@@ -73,3 +73,21 @@ func test_the_stand_in_bodies_open_with_their_clips_in_clay() -> void:
 		for role: String in ["idle", "walk", "run", "attack", "hurt", "die"]:
 			assert_true(fig.has_role(role), "%s: %s" % [id, role])
 		fig.free()
+
+
+func test_a_build_draws_the_body_broader_or_slighter_at_the_same_height() -> void:
+	var app := _app("female")
+	assert_eq(HeroLook.offered_ids(app, "builds", "curseborn"), ["slender", "average", "broad"] as Array[String],
+		"every build offered on the 3D body")
+	var widths := {}
+	for build: String in ["slender", "average", "broad"]:
+		app["build"] = build
+		FigureModels.register("test_build", HeroLook.figure_entry(app, "curseborn"))
+		var fig := DirectionalSprite.create(FigureModels.frames("test_build"), 1.2) as ModelFigure
+		add_child(fig)
+		widths[build] = fig.model.scale.x / fig.model.scale.y
+		assert_between(ModelFigure.rest_box(fig.model).size.y * fig.model.scale.y, 1.19, 1.21, "%s: the same height" % build)
+		fig.free()
+	FigureModels.unregister("test_build")
+	assert_between(float(widths["average"]), 0.999, 1.001, "average as the body was made")
+	assert_true(float(widths["slender"]) < 1.0 and float(widths["broad"]) > 1.0, "slender narrower, broad wider: %s" % [widths])
