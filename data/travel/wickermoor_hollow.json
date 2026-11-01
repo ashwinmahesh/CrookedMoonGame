@@ -53,6 +53,19 @@
       "region": "crooked_house",
       "when": "flag.wm_welcomed or visited:druskenvald_estate",
       "summary": "The Lockwood manor on the hill above Wickermoor, a pretty house at the end of a hill road."
+    },
+    {
+      "id": "memorys_rest",
+      "name": "The Moonsong Shore",
+      "location": "mr_shore",
+      "spawn": "from_road",
+      "pos": [
+        0.14,
+        0.52
+      ],
+      "region": "memorys_rest",
+      "when": "flag.mr_hook_open or visited:mr_shore",
+      "summary": "The last of the marsh trail, and the lake that holds Memory's Rest."
     }
   ],
   "roads": [
@@ -79,6 +92,14 @@
       "hours": 1,
       "name": "The hill road",
       "when": "flag.wm_welcomed"
+    },
+    {
+      "id": "wickermoor_to_memorys_rest",
+      "from": "wickermoor_village",
+      "to": "memorys_rest",
+      "hours": 72,
+      "name": "The marsh road west",
+      "when": "flag.mr_hook_open or visited:mr_shore"
     }
   ]
 }

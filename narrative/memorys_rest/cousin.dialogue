@@ -1,0 +1,77 @@
+# Drafted by Gemini (R17 cousin), edited.
+
+~ visit
+Narrator: Two masked orderlies wheel Catherine between the floral chairs, set down a tray of steaming chamomile, and turn the heavy iron lock behind them.
+catherine_winthrop [smile]: Everything is so wonderfully quiet here, truly it is. The Matron sees to our peace, and you really ought to stay a night and watch the water from the moon porches.
+Narrator: Her right hand rests tight around her left forearm, fingers pressing the sleeve as though she half expects the limb beneath to vanish.
+* How are you feeling, Catherine? -> visit_how
+* Amos Dority sent us to find you. -> visit_amos
+* [Insight DC 12] Study the way she grips her arm. -> visit_insight_ok | visit_insight_fail
+* Do you remember the farm back in Wickermoor? -> visit_farm
+* We should let you rest now. -> visit_end
+
+~ visit_how
+catherine_winthrop [smile]: Oh, they look after me better than any queen, and nothing hurts at all anymore. We keep very still and quiet, just as the plaques ask of us.
+-> visit
+
+~ visit_amos
+set mr_catherine_flinched
+Narrator: Her eyelids flutter at the name, and her knuckles whiten against the cloth of her sleeve before the blank calm settles back over her face.
+catherine_winthrop [afraid]: You must not bring loud names in from the rain, please. If we fret or make a fuss, it spoils the peace for everyone.
+-> visit
+
+~ visit_insight_ok
+set mr_catherine_truth
+set mr_truth_clues += 1
+if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+quest all_is_well the_truth
+endif
+Narrator: Beneath the sleepy smile, her breath comes shallow and quick; she has no memory of her own face, only a cold dread of being noticed.
+catherine_winthrop [afraid]: Keep your voice down, I beg you, because I do not know who I was before the cup. Look inside the picture books on the Moon Porch.
+-> visit
+
+~ visit_insight_fail
+Narrator: A porcelain pot clinks softly against the rim of a floral teacup as chamomile steam rises between you.
+catherine_winthrop [smile]: Drink while it is warm, my dears, there is nothing better for a troubled head than warm herbs and rain on the glass.
+-> visit
+
+~ visit_farm
+Narrator: She stares past the barred window into the grey drizzle, her thumb rubbing a worn seam along her cuff.
+catherine_winthrop [weary]: Iron teeth turning in the chaff, a terrible clatter in the yard... no, that is no sort of talk for a quiet room. Have you seen the lake?
+-> visit
+
+~ visit_end
+set amos_cousin_met
+quest amos_cousin found
+if not flag.reg_catherine
+if not flag.reg_catherine
+if not flag.reg_catherine
+if not flag.reg_catherine
+set reg_catherine
+set mr_register_named += 1
+endif
+endif
+endif
+endif
+Narrator: The lock clicks open at once, and the two white masks step in to wheel her chair back toward the violet-lit corridor.
+mr_orderly_a [neutral]: Visiting hours require tranquility for all our guests, so we must ask you to step back into the hall now.
+-> END
+
+~ porch_note
+give mr_porch_note
+set mr_antidote_known
+set mr_truth_clues += 1
+if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+quest all_is_well the_truth
+endif
+quest the_lethic_antidote learned
+Narrator: Rain drums against the tall lakeward glass while you leaf through a painted picture book left beside a neatly folded cot blanket.
+Narrator: Scrawled across the margins in a cramped, shaking hand is a single name repeated dozens of times, begging the writer to refuse the cup, dread the stairs, and find the antidote.
+-> END
+
+~ porch_rocking
+set mr_apocalypse_heard
+Narrator: The wooden rockers creak a slow rhythm against the floorboards while the patient stares through the wet glass with wide, unblinking eyes.
+mr_rocking_patient [afraid]: I know your name, {name}, though the brass calliope is already wheezing in the dark. The moon hides behind her own face, and the last mistake is waking up.
+Narrator: You speak to him again, but his dry lips only shape the same words without a sound as his chair keeps its steady sway.
+-> END

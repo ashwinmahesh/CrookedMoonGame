@@ -1,0 +1,62 @@
+# Drafted by Gemini (R17 workbench), edited.
+
+~ bench
+if not flag.mr_antidote_known
+Narrator: Glass retorts and brass burners sit cold in the violet hum. Without a proper formula in hand, all these vials are only guesswork.
+-> END
+endif
+Narrator: You lay your gathered vials beside the copper still: pale mnemonic residue, bitter noetic extract, and jars of cold unrefined ichor measured out for the work.
+* [if flag.mnemonic_residue >= 1 and flag.noetic_extract >= 1 and flag.unrefined_ichor >= 1] Brew one dose (ten minutes) -> brew
+* Leave -> END
+
+~ brew
+Narrator: The spirit lamp catches with a low blue hiss, warming the heavy glass coil.
+* [Arcana DC 18] Brew with arcane knowledge -> brew_ok | brew_fail
+* [Intelligence DC 13] Brew with Alchemist's Supplies -> brew_ok | brew_fail
+* Step back from the burner -> bench
+
+~ brew_ok
+Narrator: The cloudy ichor turns clear as rain and settles into a single warm, amber draught that smells faintly of bruised sage.
+set mnemonic_residue -= 1
+set noetic_extract -= 1
+set unrefined_ichor -= 1
+set lethic_antidote_doses += 1
+set mr_cure_found
+quest the_lethic_antidote brewed
+-> bench
+
+~ brew_fail
+Narrator: The mixture curdles into grey foam and scorches the flask, spoiling the measure of raw ichor before you can cool the glass.
+set unrefined_ichor -= 1
+-> bench
+
+~ triage
+Narrator: The quiet wards smell of rain and old linen now. You hold fewer stoppered doses in your palm than there are blank eyes waiting in the halls.
+* [if flag.lethic_antidote_doses >= 1 and not flag.amos_cousin_cured] Give a dose to Catherine -> triage_catherine
+* [if flag.lethic_antidote_doses >= 1] Give a dose to the patients first -> triage_patients
+* [if flag.lethic_antidote_doses >= 1] Give a dose to a mutant orderly -> triage_orderly
+* Morgan's slow cure will reach the rest -> triage_done
+
+~ triage_catherine
+Narrator: Catherine drinks the warm draught, shivers once, and looks down at her mended left arm as her true name comes rushing back.
+catherine_winthrop [weary]: Tell Amos I am sorry for that foolish letter. Tell him I am coming home.
+set lethic_antidote_doses -= 1
+set amos_cousin_cured
+set mr_patients_cured += 1
+-> triage
+
+~ triage_patients
+Narrator: You tip a vial between a patient's parted lips; colour creeps back into grey cheeks, and a whispered name breaks the long silence of the ward.
+set lethic_antidote_doses -= 1
+set mr_patients_cured += 1
+-> triage
+
+~ triage_orderly
+Narrator: The trembling orderly unfastens the porcelain mask and drinks; the twisted stiffness in the jaw loosens, and a pair of tired human eyes blinks up at you.
+set lethic_antidote_doses -= 1
+set mr_orderly_cured += 1
+-> triage
+
+~ triage_done
+Narrator: You cork the empty case and leave the rest to time, warm broth, and the slower remedies coming from Wickermoor.
+-> END

@@ -1,0 +1,65 @@
+# Drafted by Gemini (R17 hook), edited.
+
+~ amos_start
+Narrator: A mud-booted farmer worries a folded sheet of cream paper between his thumbs, smelling of wet wool and turnip earth.
+amos_dority [weary]: Beg pardon, strangers. My cousin Catherine went west to that hospital on the lake for her bad arm, and now this letter comes back in a hand that ain't hers.
+* Read the letter. -> amos_letter
+* Who is Catherine? -> amos_who
+* We will find her. -> amos_accept
+* Not now. -> amos_later
+
+~ amos_letter
+Narrator: The ink is violet and clerk-neat, without a single blot. It promises that the Matron has healed her, given her purpose, and that she will never come home because all is well.
+amos_dority [angry]: Catherine writes like a hen scratching in gravel, and she never used a word like purpose in her life. Somebody else wrote that for her.
+-> amos_start
+
+~ amos_who
+amos_dority [sad]: Hardest worker on the south acres, till the threshing drum caught her left arm six harvests back. Bone never set right, and she wasn't shy about cursing the ache.
+-> amos_start
+
+~ amos_accept
+set amos_asked
+give mr_letter
+quest amos_cousin asked
+if not flag.mr_hook_open
+set mr_hook_open
+give mr_pamphlet
+quest all_is_well the_letter
+cutscene mr_all_is_well
+cutscene mr_all_is_well_2
+cutscene end
+quest all_is_well to_moonsong
+endif
+amos_dority [neutral]: Take this handbill she left behind, and the letter too. It's three nights west down a boggy road to Moonsong Lake, and the paper shows the isle.
+-> END
+
+~ amos_later
+amos_dority [weary]: Don't leave it too long, I beg you. Blood's blood, and I know when my kin's in trouble.
+-> END
+
+~ morgan_pamphlet
+Narrator: Between bundles of dried chamomile in the apothecary drawer lies a stiff violet handbill, creased as if opened a hundred times.
+morgan [weary]: Oh, that old thing for Memory's Rest. I kept meaning to take the boat out there when my head felt so hollow, only I... well, I never went, and I can't quite recall why.
+* Ask what the place is. -> morgan_what
+* [if item:renathyr_journal] I read the Crimson Abbot's journal: his wife fled to the Isle of Mourn. -> morgan_renathyr
+* Take the pamphlet. -> morgan_take
+* Leave it. -> END
+
+~ morgan_what
+morgan [neutral]: A sanatorium out on the lake, run by a very gentle matron, or so the print says. They promise quiet rooms, no more bodily pain, and a clean slate where the bad thoughts were.
+-> morgan_pamphlet
+
+~ morgan_renathyr
+morgan [afraid]: Let me see the back leaf... yes, founded by a lady widowed of a blessed knight, out on the Isle of Mourn. If the Abbot's wife sought dark waters, that island is the very place.
+-> morgan_pamphlet
+
+~ morgan_take
+set mr_hook_open
+give mr_pamphlet
+quest all_is_well the_letter
+quest all_is_well to_moonsong
+cutscene mr_all_is_well
+cutscene mr_all_is_well_2
+cutscene end
+morgan [sad]: Keep it, please, before I talk myself into packing a bag. If you do cross the water, and anyone in those halls seems to know my name... tell me when you come back.
+-> END

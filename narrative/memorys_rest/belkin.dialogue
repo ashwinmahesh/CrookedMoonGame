@@ -1,0 +1,80 @@
+# Drafted by Gemini (R17 belkin), edited.
+
+~ exam
+Narrator: A single lamp hums above a cold tin table, smelling of vinegar and old iron. The gaunt physician bows over his stained smock with courtly grace.
+doctor_belkin [smile]: Do step into the light, my friends, and spare yourselves the trouble of speaking. Your waking thoughts already tell me every ache and anxious question you carry.
+doctor_belkin [neutral]: Six little queries of the mind, and six simple remedies to match. Shall we review your symptoms, or do you require an immediate restorative?
+* Answer his questions -> exam_answer
+* Ask about the injection -> exam_restorative
+* [Insight DC 14] Watch his cap -> exam_insight_ok | exam_insight_fail
+* Leave -> END
+
+~ exam_answer
+doctor_belkin [neutral]: Sleepless dread, phantom grief, a sour stomach, a racing pulse, a doubting tongue, and a heavy heart. Have this script filled at the Pharmacy, and take a draught before bed.
+give mr_unlabeled_medicine
+-> exam
+
+~ exam_restorative
+doctor_belkin [smile]: A gentle distillation of our island waters, administered just beneath the skin. It knits torn flesh in moments, though it leaves the head pleasantly light.
+* Accept it -> exam_take
+* Decline -> exam
+
+~ exam_take
+Narrator: The needle pricks like a winter thorn, and a cool, violet numbness washes through {name}'s veins.
+doctor_belkin [smile]: There now, breathe slowly and let the draught settle. You will find your wounds quite mended.
+heal 2d4+2
+disadvantage checks 1h: light-headed
+give mr_restorative
+-> exam
+
+~ exam_insight_ok
+Narrator: As the doctor tilts his head under the lamp, the starched linen of his cap shifts upward on its own. Something pale and soft coils beneath the cloth.
+doctor_belkin [sly]: You have a keen eye, my friend, though staring too closely at a physician's crown is poor manners.
+set mr_belkin_read
+set mr_truth_clues += 1
+if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+quest all_is_well the_truth
+endif
+-> exam
+
+~ exam_insight_fail
+doctor_belkin [smile]: Pay no mind to an old surgeon's posture, my friends. The damp air off the lake stiffens the neck.
+-> exam
+
+~ lab_offer
+Narrator: Pale tissue drifts inside a glowing glass jar, casting a cold violet sheen across the doctor's spectacles.
+doctor_belkin [neutral]: You stand at the threshold of a rare privilege, travellers. Give me one quiet hour at the table, and I can show you the truth beyond Druskenvald and the perfection of form.
+* Ask what the offer costs -> lab_cost
+* Refuse politely -> lab_refuse
+* Attack him -> lab_refuse
+* Insult the worm -> lab_refuse
+
+~ lab_cost
+doctor_belkin [smile]: Only a small guest beneath the bone, my friends. You gain a surgeon's steady calm, a mind wiped clean of sorrow, and a final end to loneliness.
+-> lab_offer
+
+~ lab_refuse
+doctor_belkin [weary]: A pity, truly, how fiercely the sick cling to their ailments. If you will not be patients, you will serve as a demonstration.
+Narrator: He flips a brass switch on the wall, and the heavy sheet slides from the operating table as stitched flesh heaves upright.
+cutscene mr_creation
+cutscene mr_creation_2
+cutscene end
+set belkin_offer = "refused"
+combat mr_amalgam
+
+~ after_belkin
+doctor_belkin [sad]: Strike me down if you must, or leave me to the dark, for I will not leave the deep cradle while our host still breathes.
+* Let him go -> belkin_go
+* Take him to the village for judgement -> belkin_judged
+
+~ belkin_go
+doctor_belkin [weary]: Then I bid you goodnight, travellers. My work lies below in the quiet stone.
+Narrator: He gathers his stained hem and slips down the damp stone stairs into the caverns.
+set belkin_fate = "fled"
+-> END
+
+~ belkin_judged
+doctor_belkin [sly]: Your village magistrates know nothing of medicine or mercy, and I shall not stand in their dock.
+Narrator: He steps back into the cistern shadow and vanishes down the wet stone passage before anyone can catch his sleeve.
+set belkin_fate = "fled"
+-> END

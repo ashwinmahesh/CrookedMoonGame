@@ -1,0 +1,254 @@
+# Drafted by Gemini (R17 patients), edited.
+
+~ samuel
+if not flag.mr_register_begun
+set mr_register_begun
+quest patients_register started
+endif
+if not flag.reg_samuel
+set reg_samuel
+set mr_register_named += 1
+endif
+Narrator: A pale man presses his forehead to the silvered glass, fogging it with slow, even breaths.
+samuel_blake [weary]: Pardon me, have you seen the other fellow in the glass? He wears my chin, and my coat, only I think he used to stand beside me...
+samuel_blake [smile]: The Matron says the mirror is quite empty, and her kindness is never wrong. My name on the card is Samuel Blake, if that helps you find...
+if flag.mr_register_named >= 12
+quest patients_register done
+endif
+* Ask about their old life -> memorys_rest/reception:strike
+* Leave him to his reflection -> END
+
+~ thomas_a
+if not flag.mr_register_begun
+set mr_register_begun
+quest patients_register started
+endif
+if not flag.reg_thomas_a
+set reg_thomas_a
+set mr_register_named += 1
+endif
+Narrator: He tilts a polished tin cup toward the violet lamp, watching his own eyes swim in the metal.
+thomas_adams [weary]: Good evening, friends, my card says Thomas Adams, from the foster house on the hill. I keep looking in the window for a boy with another surname, though he had my exact face...
+thomas_adams [smile]: The Matron tells me one face is plenty for a quiet life. Still, when I look at my hands, it feels as though there ought to be four of...
+if flag.mr_register_named >= 12
+quest patients_register done
+endif
+* Ask about their old life -> memorys_rest/reception:strike
+* Leave him in peace -> END
+
+~ victor
+if not flag.mr_register_begun
+set mr_register_begun
+quest patients_register started
+endif
+if not flag.reg_victor
+set reg_victor
+set mr_register_named += 1
+endif
+if not flag.mr_clue_victor
+set mr_clue_victor
+set mr_truth_clues += 1
+if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+quest all_is_well the_truth
+endif
+endif
+Narrator: He strokes his own forearm with two gentle fingers, following the blue tracks of his veins.
+victor_lane [afraid]: Do pardon my sleeves, the chart at my bed calls me Victor Lane. Something soft is uncurling under the skin, like pale rootlets drinking up the rain...
+victor_lane [smile]: The Matron promises the tickling is only the cure settling into the bone. Soon I shall be quite light, and hollow, and nothing will ache at...
+if flag.mr_register_named >= 12
+quest patients_register done
+endif
+* Ask about their old life -> memorys_rest/reception:strike
+* Step quietly away -> END
+
+~ emily_h
+if not flag.mr_register_begun
+set mr_register_begun
+quest patients_register started
+endif
+if not flag.reg_emily_h
+set reg_emily_h
+set mr_register_named += 1
+endif
+Narrator: Her thumbnail has worn a neat, endless coil into the varnish of her chair arm.
+emily_hale [smile]: Mind the carpet, please, I have nearly turned it to the middle. The nurse told me I am Emily Hale, and she gives me buttered toast when I sit still...
+emily_hale [weary]: Everything goes round and down toward the centre, you see, like water in a basin. Once you reach the very middle, the Matron says you never have to climb back...
+if flag.mr_register_named >= 12
+quest patients_register done
+endif
+* Ask about their old life -> memorys_rest/reception:strike
+* Let her keep drawing -> END
+
+~ wendy
+if not flag.mr_register_begun
+set mr_register_begun
+quest patients_register started
+endif
+if not flag.reg_wendy
+set reg_wendy
+set mr_register_named += 1
+endif
+Narrator: She bows her head to an empty floral armchair, her hands folded neat as linen in her lap.
+wendy_holden [sad]: I am so dreadfully sorry about the gate, my dear, I truly thought I latched it. Oh, pardon me, visitors, my ribbon says Wendy Holden...
+wendy_holden [smile]: There is no one in that chair, is there, and the Matron says nobody is angry with me now. It is such a mercy, not knowing who I failed to...
+if flag.mr_register_named >= 12
+quest patients_register done
+endif
+* Ask about their old life -> memorys_rest/reception:strike
+* Nod kindly and move on -> END
+
+~ agnes
+if not flag.mr_register_begun
+set mr_register_begun
+quest patients_register started
+endif
+if not flag.reg_agnes
+set reg_agnes
+set mr_register_named += 1
+endif
+if not flag.mr_clue_agnes
+set mr_clue_agnes
+set mr_truth_clues += 1
+if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+quest all_is_well the_truth
+endif
+endif
+Narrator: Her eyelids flutter beneath the violet hum, her fingers clutching the shawl at her collarbone.
+agnes_thorpe [weary]: Every night I sleep so well, just as the Matron promised Agnes Thorpe would do. Only I dream I am hanging upside down in a great bright cave, heavy and white...
+agnes_thorpe [smile]: Cold water laps below me, and hundreds of sweet little voices rise through the stone like warm milk. Then the bell rings for tea, and I cannot quite recall...
+if flag.mr_register_named >= 12
+quest patients_register done
+endif
+* Ask about their old life -> memorys_rest/reception:strike
+* Wish her quiet dreams -> END
+
+~ james
+if not flag.mr_register_begun
+set mr_register_begun
+quest patients_register started
+endif
+if not flag.reg_james
+set reg_james
+set mr_register_named += 1
+endif
+Narrator: White chalk dust coats his knuckles, and seven letters repeat across the wainscot in a tidy, level hand.
+james_pelham [neutral]: K, E, H, L, E, N, N, if you will excuse the dust on my cuffs. The orderly says my name is James Pelham, not this word on the bricks...
+james_pelham [weary]: The Matron gives me a clean cloth to wipe it away before supper. Yet my hand starts up again while we listen to the chimes, as if someone in the woods is calling...
+if flag.mr_register_named >= 12
+quest patients_register done
+endif
+* Ask about their old life -> memorys_rest/reception:strike
+* Leave him to his chalk -> END
+
+~ geoffrey
+if not flag.mr_register_begun
+set mr_register_begun
+quest patients_register started
+endif
+if not flag.reg_geoffrey
+set reg_geoffrey
+set mr_register_named += 1
+endif
+Narrator: He lifts a teacup halfway to his mouth and stops cold, unblinking as a painted statue, before his wrist smoothly finishes the rise.
+geoffrey_barnes [smile]: ...and that is why the chamomile is never too hot here. Oh, good evening, my slippers are marked Geoffrey Barnes...
+geoffrey_barnes [weary]: Did the clock just chime, or was it chiming a moment ago when I lifted my spoon? The Matron says time is only a fretful habit we are learning to put...
+if flag.mr_register_named >= 12
+quest patients_register done
+endif
+* Ask about their old life -> memorys_rest/reception:strike
+* Leave him to his tea -> END
+
+~ thomas_r
+if not flag.mr_register_begun
+set mr_register_begun
+quest patients_register started
+endif
+if not flag.reg_thomas_r
+set reg_thomas_r
+set mr_register_named += 1
+endif
+Narrator: He sits bolt upright with his eyes shut tight, snoring softly between every measured word.
+thomas_redding [neutral]: I am wide awake, thank you kindly, and my ledger says Thomas Redding. A man does not need to lift his eyelids to know the Matron is watching over the ward...
+thomas_redding [smile]: If I were asleep, I might dream of the place before the boat, and that would never do. So I keep watch right here on the pillow until...
+if flag.mr_register_named >= 12
+quest patients_register done
+endif
+* Ask about their old life -> memorys_rest/reception:strike
+* Tip-toe past his chair -> END
+
+~ emily_v
+if not flag.mr_register_begun
+set mr_register_begun
+quest patients_register started
+endif
+if not flag.reg_emily_v
+set reg_emily_v
+set mr_register_named += 1
+endif
+Narrator: She wags a finger at the dark silhouette cast across the floorboards by the violet tubes.
+emily_voss [angry]: Do stop pulling faces at the company, it is monstrously ill-bred. Forgive her, friends, my card says Emily Voss, and this dark thing at my heels has no manners at...
+emily_voss [smile]: The Matron says a good patient is mild and grateful, and I am, truly I am. It is only my shadow that keeps pointing back toward the lake and muttering...
+if flag.mr_register_named >= 12
+quest patients_register done
+endif
+* Ask about their old life -> memorys_rest/reception:strike
+* Step around her shadow -> END
+
+~ harold
+if not flag.mr_register_begun
+set mr_register_begun
+quest patients_register started
+endif
+if not flag.reg_harold
+set reg_harold
+set mr_register_named += 1
+endif
+if not flag.mr_clue_harold
+set mr_clue_harold
+set mr_truth_clues += 1
+if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+quest all_is_well the_truth
+endif
+endif
+Narrator: He stands with one ear cocked to the glass tubing along the wall, smiling as the violet glow hums against his cheek.
+harold_stiles [smile]: Hush now, listen to the pipes singing in the glass. They call me Harold Stiles on the register, and the Matron lets me stand by the warm wall...
+harold_stiles [weary]: All the old days are bottled up in the violet light, buzzing down from the engine room where the big vats turn. Sometimes I hear a woman laughing in that tube, and I almost...
+if flag.mr_register_named >= 12
+quest patients_register done
+endif
+* Ask about their old life -> memorys_rest/reception:strike
+* Leave him by the wall -> END
+
+~ escapee
+Narrator: Behind the wet boxwood hedge, a shivering patient wipes chalky white dust from their palms onto a hospital smock.
+mr_escapee [afraid]: Hush, do not call the masks, I crushed the little white pills in my pocket for three days running. My head is coming clear, and there is a cellar smell of wet worms on the draught, I have to get over this hedge...
+* Stand aside -> escapee_aside
+* Help them over the hedge -> escapee_help
+* Stop them -> escapee_stop
+
+~ escapee_aside
+set mr_escapee_seen
+set mr_hatch_found
+set mr_hatch_hint
+Narrator: Glass shatters overhead as a towering bulk drops from an upper casement into the rain-soaked grass, folding the trembling runner into arms like oak boughs.
+hugo [sad]: Oh, little bird, Hugo hears you crying from the window. Come inside out of the wet, Hugo will help, Hugo will carry you down by the quiet room with the floor hatch.
+-> END
+
+~ escapee_help
+set mr_escapee_helped
+set mr_escapee_seen
+set mr_escapee_seen
+set mr_escapee_seen
+set mr_escapee_seen
+set mr_conduct_strikes += 1
+Narrator: You boost the patient over the dripping briars into the mist, just as two white porcelain masks turn toward you from the terrace steps.
+mr_escapee [afraid]: Bless you, strangers, do not drink the sweet water if you want to keep your names.
+-> END
+
+~ escapee_stop
+set mr_escapee_seen
+set mr_powdered
+damage 1d4 poison
+Narrator: As {name} catches the patient's sleeve, they fling their hands up and a cloud of bitter white pill-dust catches in {name}'s throat.
+mr_escapee [sad]: No, no, you have made me spill it, and the orderlies are already coming with the cup...
+-> END
