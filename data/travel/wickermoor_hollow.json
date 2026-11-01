@@ -53,6 +53,32 @@
       "region": "crooked_house",
       "when": "flag.wm_welcomed or visited:druskenvald_estate",
       "summary": "The Lockwood manor on the hill above Wickermoor, a pretty house at the end of a hill road."
+    },
+    {
+      "id": "dc_trail1",
+      "name": "The Marshwinder Trail",
+      "location": "dc_trail1",
+      "spawn": "from_west",
+      "pos": [
+        0.5,
+        0.88
+      ],
+      "region": "drowned_crossroads",
+      "when": "flag.crossroads_asked or visited:dc_trail1",
+      "summary": "The start of three nights' trek south, down to the valley's lowest point."
+    },
+    {
+      "id": "dc_murkwater",
+      "name": "Murkwater Bend",
+      "location": "dc_murkwater",
+      "spawn": "from_trail",
+      "pos": [
+        0.56,
+        0.96
+      ],
+      "region": "drowned_crossroads",
+      "when": "visited:dc_murkwater",
+      "summary": "A stilt town in the bayou, under the Bayou King's flag."
     }
   ],
   "roads": [
@@ -79,6 +105,22 @@
       "hours": 1,
       "name": "The hill road",
       "when": "flag.wm_welcomed"
+    },
+    {
+      "id": "wickermoor_to_crossroads",
+      "from": "wickermoor_village",
+      "to": "dc_trail1",
+      "hours": 24,
+      "name": "The road to the Drowned Crossroads",
+      "when": "flag.crossroads_asked or visited:dc_trail1"
+    },
+    {
+      "id": "crossroads_to_murkwater",
+      "from": "dc_trail1",
+      "to": "dc_murkwater",
+      "hours": 36,
+      "name": "Through the swamp",
+      "when": "visited:dc_murkwater"
     }
   ]
 }

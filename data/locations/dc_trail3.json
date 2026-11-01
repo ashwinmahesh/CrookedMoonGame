@@ -1,0 +1,465 @@
+{
+  "id": "dc_trail3",
+  "name": "The Old Battlefield",
+  "region": "drowned_crossroads",
+  "summary": "A green fog lies on the hummock where armed men and the dead met. Nothing here moves except what the fog moves.",
+  "text": "A green fog lies on the hummock where armed men and the dead met. Nothing here moves except what the fog moves.",
+  "map": {
+    "rows": [
+      "########################################",
+      "#~~~~~~~~~~~~~~~#~~#~~~~~~~~~~~~~~~#~~~#",
+      "#~~~~~~~~~~~~~~~~~~~wwwwww~~~~~~~~~~~~~#",
+      "#~~~~~~ww~~~~#~~~~~wwwwwwww~~~~~~~~~~#~#",
+      "##~~~wwwww~~~~~~~.~..w.ww~~~~~~~~~~~~~~#",
+      "#~~~~wwwwww.~~..~.......~.~#..~~~~~~~~~#",
+      "#~~~~wwwww.....................~#~~~~~~#",
+      "#~~~~~www~.....................~~~~~~~~#",
+      "#~~#~~~~.~....=..................~..~~~#",
+      "##~.....~............=.........~......~#",
+      "#~.........................=..........~#",
+      "#.......................................",
+      "..................=.....................",
+      "#...........=..........................#",
+      "#~......................=..............#",
+      "#~..............=.............=.~~...~~#",
+      "#~~~~#~~~#~......................~~~~~~#",
+      "#~~~~~~~~~.....................~#~~~~~~#",
+      "#~~~~~~~~~.....................~~~#~~~~#",
+      "#~~~~~~~~~#~..................wwwwww~~~#",
+      "#~##~~~~~~~~~.~~~..~.~..~~~~.wwwwwwww#~#",
+      "#~~~~#~~~~~~##~~~~~~~~~~~~~~~~wwwwwww~~#",
+      "#~~~~~~~~~~~#~~~~~~~~~~~~~~~~~~~w~w~~~~#",
+      "########################################"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "trail",
+      "name": "The Old Battlefield",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          38,
+          22
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      3,
+      12
+    ],
+    "from_west": [
+      3,
+      12
+    ],
+    "from_east": [
+      36,
+      12
+    ]
+  },
+  "exits": [
+    {
+      "id": "west",
+      "cell": [
+        0,
+        12
+      ],
+      "to": "dc_trail2",
+      "spawn": "from_east",
+      "label": "The way back"
+    },
+    {
+      "id": "east",
+      "cell": [
+        39,
+        12
+      ],
+      "to": "dc_murkwater",
+      "spawn": "from_trail",
+      "label": "Toward Murkwater Bend"
+    }
+  ],
+  "props": [
+    {
+      "id": "dc_t3_cypress0",
+      "cell": [
+        8,
+        8
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dc_t3_cypress1",
+      "cell": [
+        11,
+        15
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "dc_t3_cypress2",
+      "cell": [
+        30,
+        6
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dc_t3_cypress3",
+      "cell": [
+        33,
+        17
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "dc_t3_cypress4",
+      "cell": [
+        14,
+        4
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "dc_t3_cypress5",
+      "cell": [
+        26,
+        19
+      ],
+      "kind": "decor",
+      "label": "A bald cypress",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "dc_t3_reeds0",
+      "cell": [
+        9,
+        11
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "dc_t3_reeds1",
+      "cell": [
+        24,
+        13
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "dc_t3_reeds2",
+      "cell": [
+        31,
+        14
+      ],
+      "kind": "decor",
+      "label": "Reeds",
+      "model": "reeds"
+    },
+    {
+      "id": "dc_t3_bones",
+      "cell": [
+        17,
+        10
+      ],
+      "kind": "decor",
+      "label": "Bones and torn purple cloth",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "dc_t3_cart",
+      "cell": [
+        22,
+        15
+      ],
+      "kind": "decor",
+      "label": "A smashed strongbox cart",
+      "model": "cart"
+    },
+    {
+      "id": "dc_t3_banners",
+      "cell": [
+        25,
+        12
+      ],
+      "kind": "examine",
+      "label": "A purple-and-black banner in the mud",
+      "dialogue": "drowned_crossroads/trek:battlefield_clue",
+      "when": "not flag.dc_clue_banner"
+    },
+    {
+      "id": "dc_t3_fog",
+      "cell": [
+        12,
+        12
+      ],
+      "kind": "decor",
+      "label": "The green fog",
+      "call": "drowned_crossroads/trek:battlefield",
+      "approach": 4,
+      "call_when": "not flag.dc_ghoul_started"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "dc_ghoul_ambush",
+      "trigger": "dialogue",
+      "flag": "dc_ghoul_done",
+      "monsters": [
+        {
+          "monster": "ghoul",
+          "cell": [
+            14,
+            6
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            23,
+            14
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            15,
+            16
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            23,
+            11
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            30,
+            6
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            22,
+            9
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ferryman",
+          "cell": [
+            26,
+            12
+          ],
+          "name": "The Ferryman",
+          "facing": "west"
+        }
+      ],
+      "when": "level <= 5"
+    },
+    {
+      "id": "dc_ghoul_ambush",
+      "trigger": "dialogue",
+      "flag": "dc_ghoul_done",
+      "monsters": [
+        {
+          "monster": "ghoul",
+          "cell": [
+            15,
+            18
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            17,
+            16
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            14,
+            6
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            23,
+            14
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            15,
+            16
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            23,
+            11
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            30,
+            6
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            22,
+            9
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ferryman",
+          "cell": [
+            26,
+            12
+          ],
+          "name": "The Ferryman",
+          "facing": "west"
+        }
+      ],
+      "when": "level == 6"
+    },
+    {
+      "id": "dc_ghoul_ambush",
+      "trigger": "dialogue",
+      "flag": "dc_ghoul_done",
+      "monsters": [
+        {
+          "monster": "ghoul",
+          "cell": [
+            15,
+            18
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            17,
+            16
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            14,
+            6
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            23,
+            14
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            15,
+            16
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            23,
+            11
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            30,
+            6
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            22,
+            9
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "ferryman",
+          "cell": [
+            26,
+            12
+          ],
+          "name": "The Ferryman",
+          "facing": "west"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            15,
+            18
+          ],
+          "facing": "west"
+        }
+      ],
+      "when": "level >= 7"
+    }
+  ],
+  "rest": "risky",
+  "rest_text": "Something in the water is awake all night."
+}

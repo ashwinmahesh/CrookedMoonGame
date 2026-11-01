@@ -1,0 +1,333 @@
+{
+  "id": "dc_shack_approach",
+  "name": "The Marshwinder Approach",
+  "region": "drowned_crossroads",
+  "summary": "Paired glowing bottles float as buoys along a path of plank boards to a lit shack on stilts.",
+  "text": "Mournful strings drift across the water. Pairs of glowing bottles bob on black water, marking a path of boards to a lit shack on stilts. Off the path, the water is four feet of cold mud.",
+  "map": {
+    "rows": [
+      "##############.###############",
+      "#wwwwwwwwww_______wwwwwwwwwww#",
+      "#wwwwwwwwww_______wwwwwwwwwww#",
+      "#wwwwwwwwww_______wwwwwwwwwww#",
+      "#~wwwwwwwwwwww__wwwwwwwwwwww~#",
+      "#~wwwwwwwwwwww__wwwwwwwwwwww~#",
+      "#~wwwwwwwwwwww__wwwwwwwwwwww~#",
+      "#~wwwwwwwwwwww__wwwwwwwwwwww~#",
+      "#~~~~~~~~~wwww__wwwwwwwwwwww~#",
+      "#~~~~~~~~~wwww__wwwwwwwwwwww~#",
+      "#~~~~~~~~~wwww____wwwwwwwwww~#",
+      "#~~~~~~~~~wwww____wwwwwwwwww~#",
+      "#~~~~~~~~~wwwwww__wwwwwwwwww~#",
+      "#~~~~~~~~~wwwwww__wwwwwwwwww~#",
+      "#~~~~~~~~~~~______wwwwwwwwww~#",
+      "#~~~~~~~~~~~_____wwwwwwwwwww~#",
+      "#~~~~~~~~~ww__wwwwwwwwwwwwww~#",
+      "#~~~~~~~~~ww__wwwwwwwwwwwwww~#",
+      "#~~~~~~~~~ww__wwwwwwwwwwwwww~#",
+      "#~~~~~~~~~ww_______wwwwwwwww~#",
+      "#~~~~~~~~~ww_______wwwwwwwww~#",
+      "#~wwwwwwwwwwwwwww__wwwwwwwww~#",
+      "#~wwwwwwwwwwwwwww__wwwwwwwww~#",
+      "#~wwwwwwwwwwww_____wwwwwwwww~#",
+      "#~wwwwwwwwwwww____wwwwwwwwww~#",
+      "#~wwwwwwwwwwww__wwwwwwwwwwww~#",
+      "#~~~~~~~~~~~~~_~~~~~~~~~~~~~~#",
+      "#~~~~~~~~~~~~~_~~~~~~~~~~~~~~#",
+      "#~~~~~~~~~~~~~_~~~~~~~~~~~~~~#",
+      "##############.###############"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "dc_causeway",
+      "name": "The bottle path",
+      "cells": [
+        [
+          10,
+          4
+        ],
+        [
+          19,
+          28
+        ]
+      ]
+    },
+    {
+      "id": "dc_beast_bay",
+      "name": "The shallows to the west",
+      "cells": [
+        [
+          2,
+          8
+        ],
+        [
+          9,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "dc_porch",
+      "name": "The shack's porch",
+      "cells": [
+        [
+          11,
+          1
+        ],
+        [
+          17,
+          3
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      14,
+      28
+    ],
+    "from_town": [
+      14,
+      28
+    ],
+    "from_shack": [
+      14,
+      3
+    ],
+    "from_lagoon": [
+      14,
+      2
+    ]
+  },
+  "exits": [
+    {
+      "id": "south",
+      "cell": [
+        14,
+        29
+      ],
+      "to": "dc_murkwater",
+      "spawn": "from_north",
+      "label": "Back toward Murkwater Bend"
+    },
+    {
+      "id": "ladder",
+      "cell": [
+        14,
+        2
+      ],
+      "to": "dc_shack",
+      "spawn": "from_ladder",
+      "label": "Up the ladder to the shack"
+    },
+    {
+      "id": "north",
+      "cell": [
+        14,
+        0
+      ],
+      "to": "dc_lagoon",
+      "spawn": "from_shack",
+      "label": "The Marshwinder Road, north",
+      "when": "flag.crossroads_passage or flag.crossroads_refused"
+    }
+  ],
+  "props": [
+    {
+      "id": "dc_rocker",
+      "cell": [
+        13,
+        3
+      ],
+      "kind": "examine",
+      "label": "A rocking chair, and a steel guitar rocking on its seat",
+      "model": "rocking_chair",
+      "dialogue": "drowned_crossroads/shack:guitar"
+    },
+    {
+      "id": "dc_buoy_call",
+      "cell": [
+        14,
+        22
+      ],
+      "kind": "decor",
+      "label": "Bottles glowing in pairs",
+      "call": "drowned_crossroads/shack:arrive",
+      "approach": 6,
+      "call_when": "not flag.shack_met"
+    },
+    {
+      "id": "dc_bay_bottle",
+      "cell": [
+        6,
+        14
+      ],
+      "kind": "examine",
+      "label": "A single bottle, glowing alone",
+      "model": "jars",
+      "dialogue": "drowned_crossroads/shack:bay_bottle",
+      "when": "not flag.dc_bay_done"
+    },
+    {
+      "id": "dc_buoy0",
+      "cell": [
+        14,
+        26
+      ],
+      "kind": "decor",
+      "label": "A pair of glowing bottles",
+      "model": "jars"
+    },
+    {
+      "id": "dc_buoy1",
+      "cell": [
+        15,
+        24
+      ],
+      "kind": "decor",
+      "label": "A pair of glowing bottles",
+      "model": "jars"
+    },
+    {
+      "id": "dc_buoy2",
+      "cell": [
+        17,
+        21
+      ],
+      "kind": "decor",
+      "label": "A pair of glowing bottles",
+      "model": "jars"
+    },
+    {
+      "id": "dc_buoy3",
+      "cell": [
+        13,
+        19
+      ],
+      "kind": "decor",
+      "label": "A pair of glowing bottles",
+      "model": "jars"
+    },
+    {
+      "id": "dc_buoy4",
+      "cell": [
+        12,
+        16
+      ],
+      "kind": "decor",
+      "label": "A pair of glowing bottles",
+      "model": "jars"
+    },
+    {
+      "id": "dc_buoy5",
+      "cell": [
+        14,
+        14
+      ],
+      "kind": "decor",
+      "label": "A pair of glowing bottles",
+      "model": "jars"
+    },
+    {
+      "id": "dc_buoy6",
+      "cell": [
+        16,
+        11
+      ],
+      "kind": "decor",
+      "label": "A pair of glowing bottles",
+      "model": "jars"
+    },
+    {
+      "id": "dc_buoy7",
+      "cell": [
+        14,
+        8
+      ],
+      "kind": "decor",
+      "label": "A pair of glowing bottles",
+      "model": "jars"
+    },
+    {
+      "id": "dc_buoy8",
+      "cell": [
+        15,
+        6
+      ],
+      "kind": "decor",
+      "label": "A pair of glowing bottles",
+      "model": "jars"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "dc_beast_bay",
+      "trigger": "enter_area:dc_beast_bay",
+      "flag": "dc_bay_done",
+      "monsters": [
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            4,
+            12
+          ],
+          "name": "The Bayou Beast",
+          "facing": "east"
+        }
+      ],
+      "when": "level <= 5"
+    },
+    {
+      "id": "dc_beast_bay",
+      "trigger": "enter_area:dc_beast_bay",
+      "flag": "dc_bay_done",
+      "monsters": [
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            4,
+            12
+          ],
+          "name": "The Bayou Beast",
+          "facing": "east"
+        }
+      ],
+      "when": "level == 6"
+    },
+    {
+      "id": "dc_beast_bay",
+      "trigger": "enter_area:dc_beast_bay",
+      "flag": "dc_bay_done",
+      "monsters": [
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            4,
+            12
+          ],
+          "name": "The Bayou Beast",
+          "facing": "east"
+        }
+      ],
+      "when": "level >= 7"
+    }
+  ],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        14,
+        6
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "bile"
+    }
+  ]
+}
