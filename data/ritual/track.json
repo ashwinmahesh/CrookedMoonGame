@@ -1,0 +1,38 @@
+{
+  "id": "track",
+  "summary": "The ritual track (plan 5.5, G1): the Crooked Queen's prophecy wants twelve deaths, and each one the party causes or sees breaks a seal. The seals broken set the moon's grin, Adela's visions, how close the Crooked Man comes and how bad the night roads are. story/ritual_track.gd reads this file; the look lane reads RitualTrack.grin() for the moon in the sky. Each seal's `when` is a story condition on the flag its chapter sets; adela_burned (R23) and phillip_dead (R24) are the names the finale chapters are asked to set.",
+  "seals": [
+    {"id": "raum", "name": "Raum, the scarecrow of Foxwillow", "when": "flag.raum_slain"},
+    {"id": "vessla", "name": "Vessla Browntooth, the weasel hag", "when": "flag.vessla_slain"},
+    {"id": "renathyr", "name": "Father Renathyr of the monastery", "when": "flag.renathyr_slain"},
+    {"id": "crossroads", "name": "Mister Crossroads, the grinning sinner", "when": "flag.grinning_sinner_slain"},
+    {"id": "lethica", "name": "Matron Lethica of Memory's Rest", "when": "flag.lethica_slain"},
+    {"id": "stonoga", "name": "Stonoga Blackstinger, the centipede hag", "when": "flag.stonoga_slain"},
+    {"id": "gorthos", "name": "Gorthos of Hartsblight", "when": "flag.gorthos_slain"},
+    {"id": "yorgrim", "name": "Yorgrim the gravedigger", "when": "flag.fallen_yorgrim_dead"},
+    {"id": "golub", "name": "Golub Graygullet, the pigeon hag", "when": "flag.golub_dead"},
+    {"id": "chuckles", "name": "Chuckles, the Lord of Fools", "when": "flag.chuckles_dead"},
+    {"id": "adela", "name": "Adela Druskenvald", "when": "flag.adela_burned"},
+    {"id": "phillip", "name": "Phillip Druskenvald", "when": "flag.phillip_dead"}
+  ],
+  "after": {"id": "scowl", "when": "flag.kehlenn_bound", "name": "the scowl", "grin": -1.0, "light": "moonlight",
+    "road_day": 0.0, "road_night": 0.0, "crooked_man": 0.0,
+    "vision": "The moon has turned its mouth down, and for once it looks like something that lost."},
+  "stages": [
+    {"id": "sliver", "min": 0, "name": "a sliver of a smile", "grin": 0.1, "light": "moon_blue",
+      "road_day": 0.0, "road_night": 0.0, "crooked_man": 0.0,
+      "vision": "I see a moon with the thinnest little smile on it, darling, like it's heard a joke it isn't ready to tell."},
+    {"id": "grinning", "min": 2, "name": "grinning", "grin": 0.35, "light": "moonlight",
+      "road_day": 0.02, "road_night": 0.05, "crooked_man": 0.1,
+      "vision": "The moon's grinning now. There's a man under it in a bent hat, and he's counting on his fingers."},
+    {"id": "wide", "min": 5, "name": "a wide grin", "grin": 0.6, "light": "moon_green",
+      "road_day": 0.04, "road_night": 0.1, "crooked_man": 0.2,
+      "vision": "The grin's gone wide and the light's gone green round the edges, and every road I look down has him standing at the end of it."},
+    {"id": "leering", "min": 8, "name": "a leer", "grin": 0.85, "light": "moon_green",
+      "road_day": 0.06, "road_night": 0.15, "crooked_man": 0.35,
+      "vision": "It's leering, sweetie. There's a tree with a door in it, and the door's coming open, and somebody's breathing behind it."},
+    {"id": "full", "min": 11, "name": "the full grin", "grin": 1.0, "light": "blood",
+      "road_day": 0.08, "road_night": 0.2, "crooked_man": 0.5,
+      "vision": "I don't see anything now but teeth. Ear to ear, all the way round, and fire under it."}
+  ]
+}

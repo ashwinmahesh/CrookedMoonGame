@@ -2,8 +2,9 @@ class_name CrookedMoonCampaign
 extends CampaignModule
 ## The Crooked Moon's answers to the story engine (CampaignModule, named in data/campaign.json). The base class answers for a game with
 ## no reading, no watching villain, ordinary spells and no ending of its own; plan G1 fills this in as the chapters need each part.
-## So far: the Fated Tarot, Adela's reading of the party's cards (R10). The ritual track, the Crooked Moon's gaze, the endings, the
-## parley before the Born King, fight barks and achievements come with the packages that use them.
+## So far: the Fated Tarot, Adela's reading of the party's cards (R10), and the ritual track with the Crooked Moon's gaze
+## (story/ritual_track.gd: the seals broken are the engine's `attention`, its stages the presence tiers). The endings, the
+## parley before the Born King and achievements come with the packages that use them.
 
 const OUTCOMES := "res://data/tarot/outcomes.json"
 
@@ -53,6 +54,9 @@ func quest_finished(st: StoryState, quest_id: String, _ending: String, dice: Dic
 
 ## The journal's one line for a hero's card, for `{tarokka.hero_1.hint}` in quest text.
 func field(st: StoryState, path: String) -> String:
+	# The ritual track (`tarokka.ritual.stage == wide`, `{tarokka.ritual.vision}` in Adela's lines): RitualTrack.field.
+	if path.begins_with("ritual."):
+		return RitualTrack.field(st, path.trim_prefix("ritual."))
 	var parts := path.split(".")
 	# The last of the six middle cars, whichever the playthrough's seed makes it (`tarokka.last_car.<place id>` in a door's `when`): its
 	# front door is the Tender's, so that door is the one that waits for the haints.
@@ -76,6 +80,48 @@ func field(st: StoryState, path: String) -> String:
 			"place":
 				return str(_outcome(card_id).get("place", ""))
 	return ""
+
+
+# --- The Crooked Moon's gaze (plan 5.5): the ritual track is the engine's villain's attention ------------------------
+
+## The stage the ritual track is at, as the engine's presence tier: its `road_day` and `road_night` add to the chance of
+## a meeting on the roads (Travel.roll), so the night roads get worse as the moon's grin widens.
+func presence_tier(st: StoryState) -> Dictionary:
+	return RitualTrack.stage(st)
+
+
+## The seals a stage of the track starts at (`attention >= wide`), or -1 for a name that is no stage.
+func presence_tier_min(tier_name: String) -> int:
+	return RitualTrack.stage_min(tier_name)
+
+
+## The seals broken (0 to 12).
+func presence_attention(st: StoryState) -> int:
+	return RitualTrack.count(st)
+
+
+## Whether a stretch of time (game minutes since the start) runs through the night. Druskenvald's night never lifts, so any
+## stretch of time does (the calendar's eternal night); a campaign day with a sun would ask each half hour.
+func night_between(start: int, end: int) -> bool:
+	if end <= start:
+		return false
+	var m := start
+	while m < end:
+		if Calendar.is_night(posmod(m, StoryState.DAY_MINUTES)):
+			return true
+		m += 30
+	return false
+
+
+## The Narrator's word as a fight starts: `combat:moon` (narrative/narrator/crooked_moon.dialogue), whose lines are kept by
+## the track's stage (`attention >= wide`), besides the usual ones.
+func fight_start_keys() -> Array[String]:
+	return ["combat:moon"]
+
+
+## What the Vagrant says when the party falls (desktop and mobile).
+func defeat_text() -> String:
+	return "That ain't how this one ends, friend. Pick up a save and let's tell it again."
 
 
 ## Where a card's treasure or boon lies (a place id, or boon:<foe> for a gift when that foe falls): the party's cards that name `place`.
