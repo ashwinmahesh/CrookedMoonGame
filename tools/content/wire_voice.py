@@ -3,7 +3,9 @@
 the clip at <root>/voice/<batch>/<speaker>/<key>.mp3) is copied to audio/voice/<speaker>/<key>.mp3, the path VoiceOver plays,
 committed through Git LFS. A take is copied only while its line is still spoken somewhere under narrative/: the key is the first 16 hex
 digits of the SHA-1 of the stripped line (act1_voice_keys.py), so an edited line's old take would never play. Prints what it copied and
-skipped, and how many of the game's spoken lines have a clip, per narrative folder. Lines with {name} are never voiced.
+skipped, and how many of the game's spoken lines have a clip, per narrative folder. A line with {name} can't be read for every name, so
+it is wired once per roster hero (data/pregens, roster: true) as the Narrator says it with that hero's first name, and a custom hero's
+`Player:` line once per creator voice (hero_female, hero_male); these variants are counted apart from the lines.
     python3 tools/content/wire_voice.py [--dry-run] [--prune] [--list]
 --prune deletes clips under audio/voice that no line speaks any more; --list names the spoken lines that have no clip yet.
 Exit 1 when audio/voice holds a clip that no line speaks (wire again with --prune)."""
@@ -33,9 +35,36 @@ def game_lines(repo: Path) -> dict:
     return out
 
 
+HERO_VOICES = ("hero_female", "hero_male")   # VoiceOver.HERO_VOICES: the creator's voices for a custom hero
+
+
+def variants(repo: Path) -> dict:
+    """speaker/key -> (text, file) for the takes a line has instead of one: a {name} line with each roster hero's first name in it
+    (Narrator.pick and DialogueRunner fill the first word of the name), a custom hero's `Player:` line in each creator voice."""
+    names = []
+    for f in sorted(glob.glob(str(repo / "data/pregens/*.json"))):
+        d = json.loads(Path(f).read_text())
+        if d.get("roster"):
+            names.append(str(d["name"]).split(" ")[0])
+    out = {}
+    files = sorted(glob.glob(str(repo / "narrative/**/*.dialogue"), recursive=True))
+    for sp, text, f, _n in lines_in(files):
+        if "{name}" in text:
+            for nm in names:
+                out.setdefault(f"{sp}/{key(text.replace('{name}', nm))}", (text.replace("{name}", nm), str(Path(f).relative_to(repo))))
+    for f in files:
+        for line in Path(f).read_text(encoding="utf-8").splitlines():
+            if line.startswith("Player:") and "{name}" not in line:
+                text = line[len("Player:"):].strip()
+                for v in HERO_VOICES:
+                    out.setdefault(f"{v}/{key(text)}", (text, str(Path(f).relative_to(repo))))
+    return out
+
+
 def wire(repo: Path, root: Path, dry_run: bool = False, prune: bool = False) -> dict:
     """Copies every finished, still-spoken take into repo/audio/voice; returns the counts (and the orphans and gaps by name)."""
     lines = game_lines(repo)
+    extra = variants(repo)
     audio = repo / "audio/voice"
     n = collections.Counter()
     seen = set()
@@ -49,7 +78,7 @@ def wire(repo: Path, root: Path, dry_run: bool = False, prune: bool = False) -> 
             if not src.exists():
                 n["finished takes with no clip file"] += 1
                 continue
-            if k not in lines:
+            if k not in lines and k not in extra:
                 n["takes whose line was edited or removed"] += 1
                 continue
             if k in seen:
@@ -59,12 +88,12 @@ def wire(repo: Path, root: Path, dry_run: bool = False, prune: bool = False) -> 
             if dst.exists() and filecmp.cmp(src, dst, shallow=False):
                 n["already wired"] += 1
                 continue
-            n["wired now"] += 1
+            n["wired now" if k in lines else "name and Player variants wired now"] += 1
             if not dry_run:
                 dst.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(src, dst)
     orphans = sorted(str(p.relative_to(audio))[:-4] for p in audio.glob("*/*.mp3") if not p.name.startswith("._")
-                     and str(p.relative_to(audio))[:-4] not in lines) if audio.exists() else []
+                     and str(p.relative_to(audio))[:-4] not in lines and str(p.relative_to(audio))[:-4] not in extra) if audio.exists() else []
     if prune and not dry_run:
         for o in orphans:
             (audio / f"{o}.mp3").unlink()
