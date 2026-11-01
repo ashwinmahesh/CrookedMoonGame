@@ -1,0 +1,133 @@
+{
+  "id": "fw_library",
+  "name": "The Library",
+  "region": "foxwillow",
+  "summary": "The Library, in Foxwillow.",
+  "text": "The inside of The Library.",
+  "map": {
+    "rows": [
+      "##################",
+      "#................#",
+      "#.==============.#",
+      "#................#",
+      "#................#",
+      "#.=====....=====.#",
+      "#................#",
+      "#................#",
+      "#.=====....=====.#",
+      "#................#",
+      "#................#",
+      "#................#",
+      "#................#",
+      "##################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Library",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          16,
+          12
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      9,
+      12
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        9,
+        13
+      ],
+      "to": "foxwillow",
+      "spawn": "from_fw_library",
+      "label": "Out to the town"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_library_stacks",
+      "cell": [
+        4,
+        2
+      ],
+      "kind": "examine",
+      "label": "Tall stacks of books",
+      "model": "bookcase"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "librarian_agnes_fennel",
+      "cell": [
+        9,
+        10
+      ],
+      "dialogue": "foxwillow/choir:start",
+      "when": "flag.raum_slain and not flag.choir_asked"
+    },
+    {
+      "npc": "librarian_agnes_fennel",
+      "cell": [
+        9,
+        10
+      ],
+      "dialogue": "foxwillow/townsfolk:librarian"
+    }
+  ],
+  "rest": "risky",
+  "encounters": [
+    {
+      "id": "fw_librarian",
+      "trigger": "dialogue",
+      "flag": "fw_librarian_done",
+      "monsters": [
+        {
+          "monster": "pumpkin_head",
+          "cell": [
+            9,
+            9
+          ],
+          "name": "Agnes Fennel, in the straw",
+          "facing": "south",
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning"
+            ],
+            "count": "fw_bodies_ruined",
+            "warn": "A villager is inside. Fire or crushing blows would kill them for good.",
+            "flag": "fw_body_fw_librarian"
+          }
+        }
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

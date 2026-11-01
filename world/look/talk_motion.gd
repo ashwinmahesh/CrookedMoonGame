@@ -8,6 +8,8 @@ extends Node
 ## The head follows the voice's loudness on its bus while a recorded clip plays; a line nobody has voiced yet is given a
 ## speaking time from its length and a made-up rhythm of syllables and pauses between words. GameRoot calls spoke() as
 ## each line shows and stop() as the conversation ends. A sprite, or a figure without a Head bone, only gestures.
+## A head made apart from its body with a jaw (blender/head_jaw.py: the head's own skeleton has a Jaw bone) also opens
+## its mouth with the same loudness (JawOpen).
 
 ## Seconds a line without a clip is spoken for: its letters at this rate, within the bounds.
 const LETTERS_PER_SECOND := 15.0
@@ -50,6 +52,10 @@ func spoke(view: LocationView, speaker_id: String, text: String) -> void:
 	if nod != null:
 		nod.talking = true
 		nod.loudness = 0.0
+	var jaw := jaw_of(tok)
+	if jaw != null:
+		jaw.talking = true
+		jaw.loudness = 0.0
 
 
 ## The conversation ended: whoever was talking stops.
@@ -78,6 +84,9 @@ func _quiet() -> void:
 		var nod := nod_of(_speaker, false)
 		if nod != null:
 			nod.talking = false
+		var jaw := jaw_of(_speaker, false)
+		if jaw != null:
+			jaw.talking = false
 	_speaker = null
 
 
@@ -87,9 +96,13 @@ func _process(delta: float) -> void:
 	if not is_instance_valid(_speaker) or not _saying():
 		_quiet()
 		return
+	var loud := _voice_loudness() if _with_clip else _made_up_loudness()
 	var nod := nod_of(_speaker, false)
 	if nod != null:
-		nod.loudness = _voice_loudness() if _with_clip else _made_up_loudness()
+		nod.loudness = loud
+	var jaw := jaw_of(_speaker, false)
+	if jaw != null:
+		jaw.loudness = loud
 	# The next gesture once the last has ended and the hands have rested (gesture() is false while a clip plays).
 	_rest -= delta
 	if _rest <= 0.0:
@@ -136,6 +149,58 @@ static func nod_of(tok: CombatToken, make: bool = true) -> HeadNod:
 	nod.neck = HeadNod.bone_named(skel, "Neck")
 	skel.add_child(nod)
 	return nod
+
+
+## The jaw on `tok`'s figure's head, added the first time when `make` (null when its head has no Jaw bone).
+static func jaw_of(tok: CombatToken, make: bool = true) -> JawOpen:
+	if tok == null or not (tok.sprite is ModelFigure):
+		return null
+	return jaw_on(tok.sprite, make)
+
+
+## The jaw on a figure's head (a ModelFigure, or anything holding one), added the first time when `make`.
+static func jaw_on(fig: Node, make: bool = true) -> JawOpen:
+	for n in fig.find_children("*", "Skeleton3D", true, false):
+		var skel := n as Skeleton3D
+		var bone := skel.find_bone("Jaw")
+		if bone < 0:
+			continue
+		for c in skel.get_children():
+			if c is JawOpen:
+				return c as JawOpen
+		if not make:
+			return null
+		var jaw := JawOpen.new()
+		jaw.jaw = bone
+		skel.add_child(jaw)
+		return jaw
+	return null
+
+
+## Opens the jaw with the voice: wide on a loud syllable, closing between words, shut when the line ends.
+class JawOpen extends SkeletonModifier3D:
+	## Degrees the jaw drops at full voice, and how fast it follows the voice open and shut (per second).
+	const OPEN := 14.0
+	const ATTACK := 28.0
+	const RELEASE := 16.0
+
+	var jaw := -1
+	var talking := false
+	## How loud the voice is now (0 to 1), set each frame while talking.
+	var loudness := 0.0
+	var _env := 0.0
+
+	## How open the mouth is now, 0 to 1 (tests).
+	func openness() -> float:
+		return _env
+
+	func _process_modification_with_delta(delta: float) -> void:
+		var want := loudness if talking else 0.0
+		_env = lerpf(_env, want, 1.0 - exp(-(ATTACK if want > _env else RELEASE) * delta))
+		var skel := get_skeleton()
+		if skel == null or jaw < 0 or _env < 0.002:
+			return
+		skel.set_bone_pose_rotation(jaw, skel.get_bone_pose_rotation(jaw) * Quaternion(Vector3.RIGHT, deg_to_rad(OPEN) * _env))
 
 
 ## Turns the head (and a little of the neck) on top of whatever clip the figure plays: small nods on each syllable's

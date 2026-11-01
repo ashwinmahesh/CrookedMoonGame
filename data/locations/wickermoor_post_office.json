@@ -68,17 +68,56 @@
       ],
       "kind": "examine",
       "label": "Pigeonholes and parcels",
-      "model": "shelves"
+      "model": "shelves",
+      "text": "Pigeonholes crammed with parcels and letters, some of which have been opened and sealed again.",
+      "checks": [
+        {
+          "id": "theodora_seals",
+          "skill": "investigation",
+          "dc": 14,
+          "label": "Compare a letter with its seal",
+          "success": {
+            "flag": "cult_proof_theodora",
+            "text": "The wax is a different colour from the letter's own, and the hand inside is not the sender's."
+          },
+          "failure": {}
+        }
+      ]
     },
     {
       "id": "post_office_rafters",
       "cell": [
-        13,
-        2
+        12,
+        1
       ],
       "kind": "examine",
       "label": "The rafters",
-      "model": "crow"
+      "model": "crow",
+      "text": "Up among the rafters a pigeon watches you with an eye that is a little too thoughtful."
+    },
+    {
+      "id": "post_office_counter",
+      "cell": [
+        8,
+        3
+      ],
+      "kind": "examine",
+      "label": "The post counter",
+      "model": "table_round",
+      "dialogue": "wickermoor/quarantine:post_seal",
+      "when": "flag.quarantine_asked and not flag.seal_post"
+    },
+    {
+      "id": "post_office_outbox",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "examine",
+      "label": "The outgoing tray",
+      "model": "papers",
+      "dialogue": "wickermoor/letter:counter",
+      "when": "flag.letter_asked and not flag.letter_outcome"
     }
   ],
   "npcs": [
@@ -89,6 +128,24 @@
         3
       ],
       "dialogue": "wickermoor/theodora_mayville:start"
+    },
+    {
+      "npc": "geneva_fairchild",
+      "cell": [
+        4,
+        9
+      ],
+      "dialogue": "wickermoor/misdelivered:deliver",
+      "when": "flag.letter_doris and flag.letter_mori and flag.letter_goat and not flag.misdelivered_outcome"
+    },
+    {
+      "npc": "geneva_fairchild",
+      "cell": [
+        4,
+        9
+      ],
+      "dialogue": "wickermoor/misdelivered:start",
+      "when": "flag.wm_welcomed and not flag.misdelivered_asked"
     },
     {
       "npc": "geneva_fairchild",

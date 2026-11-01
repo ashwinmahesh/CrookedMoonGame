@@ -34,7 +34,6 @@ func before_each() -> void:
 	fights.clear()
 	limbo_hops = 0
 	st.playthrough_seed = _seed_for_book_order()
-	GhostlightBoons.watch(st, Dice.roller)   # as the game connects it: a freed haint heals the party
 
 
 func after_each() -> void:

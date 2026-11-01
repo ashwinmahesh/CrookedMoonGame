@@ -57,7 +57,41 @@
       "label": "Out to the village"
     }
   ],
-  "props": [],
+  "props": [
+    {
+      "id": "shop_bakery_oven",
+      "cell": [
+        3,
+        2
+      ],
+      "kind": "examine",
+      "label": "The bread oven",
+      "model": "hearth",
+      "text": "The oven's mouth glows orange and the room smells of caraway and burnt sugar."
+    },
+    {
+      "id": "shop_bakery_racks",
+      "cell": [
+        9,
+        2
+      ],
+      "kind": "examine",
+      "label": "Cooling racks",
+      "model": "shelves",
+      "text": "Cooling racks lined with loaves, each scored with a little hare."
+    },
+    {
+      "id": "shop_bakery_flour",
+      "cell": [
+        4,
+        9
+      ],
+      "kind": "examine",
+      "label": "Sacks of flour",
+      "model": "rags",
+      "text": "Sacks of flour with a fine white drift on the floor around them, and one set of small footprints in it."
+    }
+  ],
   "npcs": [
     {
       "npc": "holly_aster",
@@ -65,7 +99,47 @@
         6,
         5
       ],
-      "dialogue": "wickermoor/holly_aster:start"
+      "dialogue": "wickermoor/soup:serve",
+      "when": "flag.soup_siv and flag.soup_stove and not flag.soup_done"
+    },
+    {
+      "npc": "holly_aster",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/soup:holly_start",
+      "when": "flag.act2_done >= 1 and not flag.soup_asked"
+    },
+    {
+      "npc": "holly_aster",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/feast:holly_start",
+      "when": "flag.wm_welcomed and not flag.feast_asked"
+    },
+    {
+      "npc": "holly_aster",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/connections:holly_silas_start",
+      "when": "name:silas_vane and flag.incitement_liberation and flag.vessla_slain and not flag.connection_liberation"
+    },
+    {
+      "npc": "holly_aster",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/holly_aster:start",
+      "hours": [
+        7,
+        15
+      ]
     },
     {
       "npc": "violet_aster",
@@ -73,7 +147,11 @@
         9,
         8
       ],
-      "dialogue": "wickermoor/children:violet"
+      "dialogue": "wickermoor/children:violet",
+      "hours": [
+        7,
+        15
+      ]
     },
     {
       "npc": "lavender_aster",
@@ -81,7 +159,11 @@
         10,
         8
       ],
-      "dialogue": "wickermoor/children:lavender"
+      "dialogue": "wickermoor/children:lavender",
+      "hours": [
+        7,
+        15
+      ]
     }
   ],
   "rest": "risky",

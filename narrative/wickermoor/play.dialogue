@@ -1,0 +1,94 @@
+# Drafted by Gemini (R11c play), edited.
+
+~ hickock_pitch
+george_hickock [smile]: Good folk, take a bench before the greasepaint dries! Tonight Hickock and Company present The Prince in Gold, a tragedy of crowns and treachery, right here on the inn stage.
+quest the_play arrival
+-> END
+
+~ body
+Narrator: Behind the painted canvas, Barnaby Quill slumps cold in his chair, a tin goblet rolled beside his boot and a bitter almond scent rising from his velvet collar.
+alda_farnum [afraid]: Saints preserve us, he was supposed to go on at the bell, not lie there stiff in my back room!
+quest the_play body
+-> suspects
+
+~ suspects
+george_hickock [afraid]: Dead, our finest villain dead before the curtain rises! Some fiend has poisoned poor Barnaby, and the whole taproom is waiting for their tragedy!
+* Question Lilian Vale -> lilian
+* Question Olwen Pike -> olwen
+* Examine the fallen cup -> cup
+* Check Barnaby's pockets -> note
+* [if flag.play_clue_cup and flag.play_clue_note] Say we have what we need -> accuse_menu
+
+~ lilian
+lilian_vale [angry]: Why are you staring at me as if I brewed the stuff? Yes, the scoundrel fleeced me of six silver crowns at cards an hour ago, and now I will never see a penny of it!
+-> suspects
+
+~ olwen
+olwen_pike [neutral]: Mind where you tread, the hem of this royal cloak is fray enough without heavy boots on it. Barnaby liked his drink, and nobody kept count of what he poured.
+* [Insight DC 14] Watch her hands -> olwen_tell | olwen_calm
+* Leave her to her sewing -> suspects
+
+~ olwen_tell
+Narrator: At the mention of the cup, her thumb slips against the needle and she draws the thread tight with rapid, jerky stitches.
+olwen_pike [weary]: A prop is just a prop until an actor makes a mess of it.
+-> suspects
+
+~ olwen_calm
+Narrator: Her needle dips and rises through the gold braid in a steady, unbroken rhythm, never missing a stitch.
+-> suspects
+
+~ cup
+Narrator: The battered tin goblet bears a dab of yellow paint on its base to mark it for the prop table, and its rim is still tacky with sweet, dark dregs.
+set play_clue_cup
+quest the_play suspects
+-> suspects
+
+~ note
+Narrator: Tucked inside his waistcoat is a torn scrap of paper, demanding payment of an old debt to a woman named Mara before the company leaves the moor.
+set play_clue_note
+-> suspects
+
+~ accuse_menu
+george_hickock [weary]: Speak plainly, friends, if you know whose hand brought ruin to our stage.
+* Accuse Olwen -> accuse_olwen
+* Accuse Lilian -> accuse_lilian
+* Not yet -> suspects
+
+~ accuse_lilian
+george_hickock [afraid]: Lilian, my star, tell me you did not trade our leading villain for a handful of card money!
+lilian_vale [angry]: Oh, spare me your grand speeches, George, you cannot pin a murder on me without a shred of proof!
+-> suspects
+
+~ accuse_olwen
+Narrator: Olwen sets her needle neatly into the pincushion and folds the heavy cloak across her lap.
+olwen_pike [sad]: Mara was the sweetest voice we ever had, until Barnaby took her savings and left her to rot in a debtor's ditch. I set the banquet cup by his elbow, and he drank it greedy as ever.
+set play_accused_olwen
+quest the_play accused
+-> finale_offer
+
+~ finale_offer
+george_hickock [weary]: A dark deed, yet the lanterns are lit and the benches are full! Take up Barnaby's cloak and read his lines, I beg you, or Hickock and Company is finished!
+* Take Barnaby's part -> finale_play
+* [Performance DC 13] Take Barnaby's part with flourish -> finale_great | finale_play
+* Decline -> finale_cancel
+
+~ finale_play
+Narrator: You stumble over a verse or two with the script hidden in your sleeve, though the tavern crowd claps heartily enough when the cardboard crown hits the boards.
+gold +25
+set play_done
+quest the_play solved
+-> END
+
+~ finale_great
+Narrator: You snarl the villain's curses to the rafters, and the whole taproom rises in a roar of boots and tankards as the curtain falls.
+george_hickock [smile]: Bravo, my newfound players, a triumph worthy of the grandest halls!
+gold +50
+set play_done
+quest the_play solved
+-> END
+
+~ finale_cancel
+Narrator: The candles along the stage are pinched out one by one, leaving the smell of tallow and cold dust while the actors pack their trunks in silence.
+set play_done
+quest the_play solved
+-> END

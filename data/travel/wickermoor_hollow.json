@@ -2,12 +2,83 @@
   "id": "wickermoor_hollow",
   "name": "Wickermoor Hollow",
   "places": [
-    {"id": "ghostlight_wreckage", "name": "The Ghostlight Wreckage", "location": "ghostlight_wreckage", "spawn": "default", "pos": [0.36, 0.34], "region": "ghostlight_express",
-     "when": "visited:ghostlight_wreckage", "summary": "Where the Ghostlight Express came down in an oak wood under the Crooked Moon."},
-    {"id": "wickermoor_village", "name": "Wickermoor Village", "location": "wickermoor_village", "spawn": "from_wreck", "pos": [0.5, 0.5], "region": "wickermoor",
-     "when": "visited:wickermoor_village or flag.gl_last_stop", "summary": "A timber-framed village round a trodden square, an oak of carved faces and a clocktower."}
+    {
+      "id": "ghostlight_wreckage",
+      "name": "The Ghostlight Wreckage",
+      "location": "ghostlight_wreckage",
+      "spawn": "default",
+      "pos": [
+        0.36,
+        0.34
+      ],
+      "region": "ghostlight_express",
+      "when": "visited:ghostlight_wreckage",
+      "summary": "Where the Ghostlight Express came down in an oak wood under the Crooked Moon."
+    },
+    {
+      "id": "wickermoor_village",
+      "name": "Wickermoor Village",
+      "location": "wickermoor_village",
+      "spawn": "from_wreck",
+      "pos": [
+        0.5,
+        0.5
+      ],
+      "region": "wickermoor",
+      "when": "visited:wickermoor_village or flag.gl_last_stop",
+      "summary": "A timber-framed village round a trodden square, an oak of carved faces and a clocktower."
+    },
+    {
+      "id": "foxwillow",
+      "name": "Foxwillow",
+      "location": "foxwillow",
+      "spawn": "from_road",
+      "pos": [
+        0.86,
+        0.5
+      ],
+      "region": "foxwillow",
+      "when": "flag.foxwillow_asked or visited:foxwillow",
+      "summary": "A farming town in flames, east of Wickermoor."
+    },
+    {
+      "id": "druskenvald_estate",
+      "name": "Druskenvald Estate",
+      "location": "druskenvald_estate",
+      "spawn": "from_village",
+      "pos": [
+        0.56,
+        0.42
+      ],
+      "region": "crooked_house",
+      "when": "flag.wm_welcomed or visited:druskenvald_estate",
+      "summary": "The Lockwood manor on the hill above Wickermoor, a pretty house at the end of a hill road."
+    }
   ],
   "roads": [
-    {"id": "wreck_to_wickermoor", "from": "ghostlight_wreckage", "to": "wickermoor_village", "hours": 4, "name": "The wreck road", "when": ""}
+    {
+      "id": "wreck_to_wickermoor",
+      "from": "ghostlight_wreckage",
+      "to": "wickermoor_village",
+      "hours": 4,
+      "name": "The wreck road",
+      "when": ""
+    },
+    {
+      "id": "wickermoor_to_foxwillow",
+      "from": "wickermoor_village",
+      "to": "foxwillow",
+      "hours": 18,
+      "name": "The Foxwillow road",
+      "when": "flag.foxwillow_asked or visited:foxwillow"
+    },
+    {
+      "id": "wickermoor_to_estate",
+      "from": "wickermoor_village",
+      "to": "druskenvald_estate",
+      "hours": 1,
+      "name": "The hill road",
+      "when": "flag.wm_welcomed"
+    }
   ]
 }

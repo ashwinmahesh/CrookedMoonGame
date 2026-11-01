@@ -33,6 +33,32 @@ func test_the_head_nods_while_talking_and_settles_after() -> void:
 	fig.free()
 
 
+func test_a_head_with_a_jaw_opens_its_mouth_with_the_voice() -> void:
+	for id: String in ["rook_coldwake", "delphine_ravelle", "the_vagrant", "tobin_hayward"]:
+		var ch := Character.new()
+		ch.name = id
+		var tok := CombatToken.create(Combatant.new(ch, &"party", Vector2i.ZERO), id)
+		add_child(tok)
+		var jaw := TalkMotion.jaw_of(tok)
+		assert_true(jaw != null, "%s: the head's own skeleton has a Jaw" % id)
+		var skel := jaw.get_skeleton()
+		var rest := skel.get_bone_pose_rotation(jaw.jaw)
+		jaw.talking = true
+		jaw.loudness = 1.0
+		for i in 10:
+			skel.set_bone_pose_rotation(jaw.jaw, rest)
+			jaw._process_modification_with_delta(0.05)
+		assert_true(jaw.openness() > 0.9, "%s: open on a loud syllable" % id)
+		assert_between(skel.get_bone_pose_rotation(jaw.jaw).angle_to(rest), deg_to_rad(12.0), deg_to_rad(15.0), "%s: the jaw dropped" % id)
+		jaw.talking = false
+		for i in 20:
+			skel.set_bone_pose_rotation(jaw.jaw, rest)
+			jaw._process_modification_with_delta(0.05)
+		assert_true(jaw.openness() < 0.01, "%s: shut once the line ends" % id)
+		tok.free()
+	assert_eq(TalkMotion.jaw_of(null), null, "nobody, no jaw")
+
+
 func test_a_sprite_has_no_nod() -> void:
 	assert_eq(TalkMotion.nod_of(null), null, "nobody, no nod")
 

@@ -241,6 +241,24 @@
       "when": "not flag.gl_phantom_done and flag.gl_aboard_welcomed",
       "approach": 6,
       "facing": "east"
+    },
+    {
+      "npc": "conductor_understudy",
+      "cell": [
+        14,
+        5
+      ],
+      "dialogue": "ghostlight_express/punch:return",
+      "when": "flag.punch_found and not flag.punch_outcome"
+    },
+    {
+      "npc": "conductor_understudy",
+      "cell": [
+        14,
+        5
+      ],
+      "dialogue": "ghostlight_express/punch:start",
+      "when": "flag.gl_aboard_welcomed and not flag.punch_asked and not flag.gl_crashed"
     }
   ],
   "rest": "no",

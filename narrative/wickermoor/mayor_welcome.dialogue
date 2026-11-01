@@ -1,4 +1,4 @@
-# R11: Mayor Somerton comes out to greet Lord Phillip once the Round is quiet. Started by wm_mayor_scene (a call prop) after wm_first_sacrifice_done.
+# R11: Mayor Somerton comes out to greet Lord Phillip once the Round is quiet. Started by the call on the notice board (wm_notice_board) after wm_first_sacrifice_done.
 # He asks pardon for the interruption, praises or forgives the party by what happened to the goat, offers the village, and then Phillip takes his leave.
 
 ~ start
@@ -9,7 +9,7 @@ phillip_druskenvald: Mayor. Mr. Somerton, is it? We were told your village was q
 wendel_somerton: Quiet, my lord, quite, but for tonight. The oak drinks from the herds, once a year, so the hunting stays good and the barns stay full. A sacred tradition, nothing more.
 if flag.goat_fate == "eaten"
 Narrator: He mops his bald head with a handkerchief and looks, for the first time, at the strangers who stood by and let the thing happen.
-wendel_somerton [smile]: And you, good travelers, were kind enough to let the rite alone. The Green Queen takes note of respect. She will grant you vigor tonight, and I do hope you feel it.
+wendel_somerton [smile]: And you, good travelers, were kind enough to let the rite alone. The Green Queen takes note of respect, and I shall see that the village does too.
 -> welcome_after
 endif
 if flag.goat_fate == "caught"
@@ -72,7 +72,7 @@ set phillip_uneasy_noticed
 -> accept
 
 ~ accept
-phillip_druskenvald [smile]: Splendid. Ten gold a head for the inn, on me. The estate, tomorrow evening, and we shall have a grand old time.
+phillip_druskenvald [smile]: Splendid. Forty gold between you for the inn, on me. The estate, tomorrow evening, and we shall have a grand old time.
 gold +40
 quest wickermoor_arrival parting
 Narrator: You watch two small figures, one twirling a cane, walk up the winding path toward the crooked manor on its hill, the windows lit and every line askew.
@@ -80,5 +80,4 @@ leave phillip_druskenvald
 leave adela_druskenvald
 vanish wendel_somerton
 set wm_welcomed
-quest wickermoor_arrival free_roam
 Narrator: In the round below, the oak's carved faces lie in the moonlight, and one of them, you would swear, turns to watch them go.

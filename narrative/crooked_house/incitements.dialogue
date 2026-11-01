@@ -1,0 +1,336 @@
+# R12: the Fateweaving Incitements that land in the Crooked House (each Thread's first beat; reward Heroic Inspiration; flags Lane F's quests read).
+# Three belong to companions, from Lane F's files in Companions/: Pilgrimage (Rook Coldwake, the Parlour H3: the crystal ball), Rejuvenation (Tobin
+# Hayward, the Conservatory H8: the bergamot tree), Slaughter (Lucan Houndstooth, the Trophy Room H15: the stuffed Pomeranian and the crow).
+# Each plays on the FIRST ENTRY to its room with that companion in the party (an invisible prop with `call` + `approach` + `call_when: not
+# flag.incitement_<thread>`, the pattern of narrative/ghostlight_express/incitements.dialogue). Without the companion the same entry sets
+# `pending_<thread>_incitement` and plays nothing (Lane F's camp echo plays it); the room stays armed, so the home scene still plays in full if the
+# companion is in the party on a later entry (until the house falls in R22).
+# The other five are STUBS for the custom hero's Threads (Phase 5): Duality (H5 mirror), Immortality (H17), Kindred (H12), Malediction (H14),
+# Rapture (H4 bust). They are the custom hero's own `Player:` lines (first person; no Narrator lines, so nothing needs {name}), played from the
+# prop's `call` when the hero has the matching background and the flag is not set; any other visitor gets the prop's plain Narrator `examine:` line.
+# The Narrator and companion lines are FINAL-WORDED (voiced; do not edit after the voice lane starts). The stubs are not voiced yet.
+# Drafted by Gemini (docs/plans/gemini_r12_incitements/), edited; see README.md there.
+# HOOK(F): when Lane F's G2 adds the `thread <thread> <beat>` statement (overview rule 11) it replaces the `set incitement_*` and `inspire` lines below.
+
+# --- Pilgrimage: Rook Coldwake, the Parlour crystal ball (prop h3_crystal_ball, call incitements:pilgrimage_enter) ---
+
+~ pilgrimage_enter
+if flag.incitement_pilgrimage
+-> END
+endif
+if name:rook_coldwake
+-> pilgrimage_start
+endif
+if not flag.pending_pilgrimage_incitement
+set pending_pilgrimage_incitement
+endif
+-> END
+
+~ pilgrimage_start
+Narrator: Rain rattles the shutters while pale frost churns inside the crystal ball on the shelf. Tiny faces press hard against the cold glass, mouthin' silent words.
+interject name:rook_coldwake: Gross neglect of parish bounds, that is, and three districts without proper stone or seal. Settle down now, we've a docket to clear.
+Narrator: The brass knocker on Rook's coffin-lid shield clacks once by itself. He thumbs his scraped badge and flips his damp ledger past grey rubbings to three blank sheets.
+interject name:rook_coldwake: Three whole pages left open at the back, and not a decent seal in the valley. No wonder the ground won't hold its quiet.
+* What are the spirits telling you, Rook? -> pilgrimage_asked
+* Hand on the glass. We've got your back. -> pilgrimage_steadied
+* Leave it. We need a way out. -> pilgrimage_moved_on
+
+~ pilgrimage_asked
+set incitement_pilgrimage
+set rook_inc_choice = "asked"
+Narrator: Rook presses a stub of white chalk to the first blank sheet, his cold knuckles steady against the damp leather binding.
+interject name:rook_coldwake: Subsidence and unlawful trespass across the parish clay. I've logged the complaint, and we'll see the ground properly cleared before shift's end.
+inspire name:rook_coldwake: logged the spirits' plea
+-> END
+
+~ pilgrimage_steadied
+set incitement_pilgrimage
+set rook_inc_choice = "steadied"
+Narrator: Rook settles a broad palm over the brass knocker on his shield, stoppin' its rattle, and squares his frost-rimmed shoulders beside you.
+interject name:rook_coldwake: Good to have proper cover on a night watch. Keep close order and mind the footing, this valley's zoning is a thorough mess.
+inspire name:rook_coldwake: stood watch beside the frosted glass
+-> END
+
+~ pilgrimage_moved_on
+set incitement_pilgrimage
+set rook_inc_choice = "moved_on"
+Narrator: Rook slips the chalk into his belt pouch, shuts the soggy ledger with a dull thud, and steps back from the shelf.
+interject name:rook_coldwake: Best we keep moving through the damp, then. The masonry in this parlour is draughty enough without us standing idle in the cold.
+inspire name:rook_coldwake: shut the ledger on the frost
+-> END
+
+# --- Rejuvenation: Tobin Hayward, the Conservatory bergamot (prop h8_bergamot, call incitements:rejuvenation_enter) ---
+
+~ rejuvenation_enter
+if flag.incitement_rejuvenation
+-> END
+endif
+if name:tobin_hayward
+-> rejuvenation_start
+endif
+if not flag.pending_rejuvenation_incitement
+set pending_rejuvenation_incitement
+endif
+-> END
+
+~ rejuvenation_start
+Narrator: Rain drums hard on the glass roof while Tobin steps past the dead vines and presses a burlap thumb to the weeping bark of the bergamot. He jerks it back as if the sap had scalded him.
+interject name:tobin_hayward: Bark's cold, nothing burning here, only a deep sour canker running down the taproot toward that centipede hill.
+Narrator: A smell of scorchin' apple-wood fills the damp air, and the mice in his lapels squeak and dive for his pockets. He pulls three straws from his ribs, twists a splint round a cracked twig, and clears his throat hard.
+interject name:tobin_hayward: Cracked clean through the heartwood, and weeping. The rot in this is old, and it runs a long way from here.
+* What did that tree just show you? -> rejuvenation_asked
+* Your hand shook. Did the sap burn you? -> rejuvenation_admitted
+* Leave the tree. We have a manor to clear. -> rejuvenation_moved_on
+
+~ rejuvenation_asked
+set incitement_rejuvenation
+set tobin_inc_choice = "asked"
+Narrator: Tobin draws his stiff pruning knife and tests the flat of the blade against his burlap thumb, steadying his grip.
+interject name:tobin_hayward: Blight doesn't stop at the fence line when the rootstock is sour. We track that seam down the valley and tie off the rot.
+inspire name:tobin_hayward: vowed to trace the valley's blight
+-> END
+
+~ rejuvenation_admitted
+set incitement_rejuvenation
+set tobin_inc_choice = "admitted"
+Narrator: He tucks the loose straw back between his ribs and strokes a trembling mouse through the cloth of his pocket.
+interject name:tobin_hayward: Sap's cold as well-water. Just a whiff of old orchard smoke in the grain. I've known a bad fire in my time, and it doesn't bear dwelling on.
+inspire name:tobin_hayward: named the smell of old smoke
+-> END
+
+~ rejuvenation_moved_on
+set incitement_rejuvenation
+set tobin_inc_choice = "moved_on"
+Narrator: Tobin folds his pruning knife shut with a dry click, slides it into his coat, and dusts the damp bark from his knuckles.
+interject name:tobin_hayward: Right, the splint will hold the bough till morning. Keep your boots off the surface roots as we go.
+inspire name:tobin_hayward: splinted the bough and moved on
+-> END
+
+# --- Slaughter: Lucan Houndstooth, the Trophy Room (prop h15_trophy_crow, call incitements:slaughter_enter) ---
+
+~ slaughter_enter
+if flag.incitement_slaughter
+-> END
+endif
+if name:lucan_houndstooth
+-> slaughter_start
+endif
+if not flag.pending_slaughter_incitement
+set pending_slaughter_incitement
+endif
+-> END
+
+~ slaughter_start
+Narrator: Cedar and arsenic hang in the cold hearth air where glass-eyed beasts stand stiff around a brown bear on a plinth. Lucan opens his journal, then freezes as a boot-sized stuffed Pomeranian turns its head.
+interject name:lucan_houndstooth: Pay no mind to the cheddar, friends. Dreadfang has scented a prime specimen in that crow, and I give the taxidermist four out of ten for the beak.
+Narrator: The small ghost dog pads out from behind Lucan's boots and slips into the mount like a hand into a glove. It points its nose at a stuffed black crow high on a shelf, whose feathers smell of burnt straw, then yips at a crumb of cheddar on the bear's plinth.
+interject name:lucan_houndstooth: H-hush now, Barnaby, a hound of the elder woods does not solicit dairy while on duty, even if the provisioning in this manor is under three out of ten.
+* What's your hound pointing at, Lucan? -> slaughter_shared
+* Did your omen of death just beg for cheese? -> slaughter_bristled
+* Leave the mounts. We've a house to clear. -> slaughter_alone
+
+~ slaughter_shared
+set incitement_slaughter
+set lucan_inc_choice = "shared"
+Narrator: Lucan steadies his pencil against his leather cuff and taps the tip toward the high shelf, where the black feathers smell of scorched straw.
+interject name:lucan_houndstooth: Observe the singed primaries on that corvid, if you please, for no respectable bird carries burnt straw into a parlour without foul husbandry afoot.
+inspire name:lucan_houndstooth: shared a hunter's reading of the crow
+-> END
+
+~ slaughter_bristled
+set incitement_slaughter
+set lucan_inc_choice = "bristled"
+Narrator: Lucan tugs his long collar up over his ears and scratches the small stuffed dog behind one stiff ear with a gloved thumb.
+interject name:lucan_houndstooth: W-well, a phantom mastiff requires substantial tallow to maintain his bulk in this damp climate, and I find your tone toward my tracker frankly dreadful.
+inspire name:lucan_houndstooth: defended a little ghost hound's dignity
+-> END
+
+~ slaughter_alone
+set incitement_slaughter
+set lucan_inc_choice = "alone"
+Narrator: Lucan sketches the black crow in his field journal with a quick lead stroke, snappin' the cover shut before the little dog can yip again.
+interject name:lucan_houndstooth: Quite right, let us press onward in good order, though I have entered that bird at two out of ten for parlour hygiene.
+inspire name:lucan_houndstooth: logged the burnt-straw crow in silence
+-> END
+
+# --- Stubs for the custom hero (Phase 5). Each is the hero's own first-person lines; the prop's plain look is its Narrator `examine:` key. ---
+
+# Duality (Reflected Wanderer): the cracked mirror in the Music Room (prop h5_mirror, call incitements:duality_enter).
+~ duality_enter
+if flag.incitement_duality or not background:reflected_wanderer
+narrate examine:h5_mirror
+-> END
+endif
+-> duality_start
+
+~ duality_start
+Player: The cracked oval glass smells of mildew and old iron, and the face inside is grinning while my own mouth stays shut. It lifts a bloody axe over a field of dead and whispers that every sin in this valley feeds it.
+Player: I have not cast a shadow since the day that thing tore itself loose from me. Even here, it wears my face better than I do.
+* Ask the reflection what it wants from me. -> duality_spoke
+* Smash the cracked glass with my fist. -> duality_smashed
+* Turn my back on the mirror and walk away. -> duality_turned
+
+~ duality_spoke
+set incitement_duality
+Player: I press my fingers to the cold glass and tell my double to name its price. Its lips move against mine without a sound, promising that every wicked deed in the Hollow only makes it stronger.
+Player: It lowers the axe and points past my shoulder toward the dark hall. Whatever it butchered out there, it wants me to follow the trail.
+inspire background:reflected_wanderer: spoke to the grinning double
+-> END
+
+~ duality_smashed
+set incitement_duality
+Player: I drive my fist into the grinning mouth until the rotten frame shudders on the wall. Shards rain down into the mildew, each piece still holding a sliver of that bloody field.
+Player: A dozen little mouths laugh up at me from the floorboards. Breaking the glass did not dull its axe, and it did not give me back my shadow.
+inspire background:reflected_wanderer: shattered the mirror and its double
+-> END
+
+~ duality_turned
+set incitement_duality
+Player: I turn my back on the oval frame before the thing in the glass can show me another corpse. The storm rattles the shutters, but the room behind me goes dead still.
+Player: I can still feel its eyes on my neck as I step toward the door. Let it starve on someone else's sins tonight.
+inspire background:reflected_wanderer: turned away from the grinning reflection
+-> END
+
+# Immortality (Crimson Aspirant): the cauldron room (prop h17_cauldron, call incitements:immortality_enter).
+~ immortality_enter
+if flag.incitement_immortality or not background:crimson_aspirant
+narrate examine:h17_cauldron
+-> END
+endif
+-> immortality_start
+
+~ immortality_start
+Player: Loose teeth click underfoot as I cross toward the cauldron and its red glow. Inside my coat, the being in my flask goes dead still, then presses eagerly against the glass.
+Player: It knows the pale soul-glyphs carved into this floor better than I know my own pulse. It traces the shapes against my palm and whispers that after the carving comes the blood.
+* Etch the pale soul-glyphs into my flask. -> immortality_etched
+* Ask the being in the flask what it knows. -> immortality_asked
+* Cork the vessel tight and move on. -> immortality_corked
+
+~ immortality_etched
+set incitement_immortality
+Player: I kneel by the glowing cauldron and scratch the floor-marks into the side of my vessel. The glass grows warm as fresh blood, drinking the red light through the round window.
+Player: The thing inside swirls faster, promising the cure I was owed and the endless years after. Now the vessel is ready, and it is waiting to be fed.
+inspire background:crimson_aspirant: etched the soul-glyphs onto the flask
+-> END
+
+~ immortality_asked
+set incitement_immortality
+Player: I hold the flask up to the red steam and ask how its kind came to know this house. It answers in a voice like dry teeth, saying the work here was almost finished once.
+Player: The glyphs on the floor were meant to trap a soul and boil it down to forever. My little prisoner says we only need blood to finish what the cauldron started.
+inspire background:crimson_aspirant: questioned the captive being
+-> END
+
+~ immortality_corked
+set incitement_immortality
+Player: I jam the stopper down tight and shove the warm flask back into my coat. The thing inside beats against the glass, hungry for the red light and the marks on the floor.
+Player: I did not come this far for a cure to bleed myself dry in a stranger's attic. The glyphs can wait until I know what they cost.
+inspire background:crimson_aspirant: corked the eager flask and stepped back
+-> END
+
+# Kindred (Druskenvald Dweller): the scratchings behind the master bed (prop h12_scratchings, call incitements:kindred_enter).
+~ kindred_enter
+if flag.incitement_kindred or not background:druskenvald_dweller
+narrate examine:h12_scratchings
+-> END
+endif
+-> kindred_start
+
+~ kindred_start
+Player: Behind the bedstead, the wallpaper is peeled back to the bare plaster, scored with cramped scratches in a hand I almost know. Every line is a nightmare about a tall hanged man in a bent hat with a yellow grin.
+Player: My own kin vanished with that same crooked face burning behind their eyes. Down near the skirting board, the last scratch warns of centipedes waiting in the deep.
+* Read the scratched nightmares aloud. -> kindred_read
+* Trace the last line about the deep. -> kindred_traced
+* Leave the plaster wall as it is. -> kindred_left
+
+~ kindred_read
+set incitement_kindred
+Player: I read the cramped lines aloud into the damp air, giving a voice to every bad dream left in this wall. The weasels in the wainscot go quiet as the Crooked Man's yellow grin fills my head.
+Player: By the time I reach the last word, my throat tastes of plaster dust and cellar dirt. Whoever slept here walked out of this room and straight down into the dark.
+inspire background:druskenvald_dweller: read the scratched nightmares aloud
+-> END
+
+~ kindred_traced
+set incitement_kindred
+Player: I press my thumb into the lowest scratch, where a shaking nail dug deep to write of centipedes. Dried white dust clings to my skin, cold as the night outside the shutters.
+Player: The hand that carved this did not stop because it woke up. It stopped because something from the deep finally answered.
+inspire background:druskenvald_dweller: traced the last scratched warning
+-> END
+
+~ kindred_left
+set incitement_kindred
+Player: I pull the tattered paper back over the plaster to hide that scratched hand. The storm groans against the roof, and the room smells of damp wool and rot.
+Player: Naming those dreams aloud will not bring my blood back from the dark. I know what to look for below, and that is enough.
+inspire background:druskenvald_dweller: covered the scratched nightmares
+-> END
+
+# Malediction (Scholar of the Forbidden): the old tome in the Library (prop h14_tome, call incitements:malediction_enter).
+~ malediction_enter
+if flag.incitement_malediction or not background:scholar_of_the_forbidden
+narrate examine:h14_tome
+-> END
+endif
+-> malediction_start
+
+~ malediction_start
+Player: The heavy tome on the stand is half blank parchment, and the ragged edge of one leaf matches the stolen page in my pocket. Even the mildew stain along the paper runs cleanly from my fragment into the book.
+Player: In the cramped margins, a steady hand has written of demons that gather secrets, eyes, and wings. The rot in my bloodline stirs just looking at the ink.
+* Lay my stolen page against the torn tome. -> malediction_laid
+* Study the margin notes on the demons. -> malediction_studied
+* Shut the heavy tome and leave. -> malediction_shut
+
+~ malediction_laid
+set incitement_malediction
+Player: I lay my stolen leaf against the torn stub, and the fibres catch like dry burrs. Faint letters bleed across the blank paper beside it, smelling of scorched feathers and old tallow.
+Player: The curse in my veins pulls toward the page as if it recognises its own maker. Half the spell is still missing, and something with too many eyes holds the rest.
+inspire background:scholar_of_the_forbidden: fitted the stolen page to the tome
+-> END
+
+~ malediction_studied
+set incitement_malediction
+Player: I lean over the stand and trace the margin notes by the dim light of the storm. These demons do not break bloodline curses for coin, only for secrets, eyes, and wings.
+Player: Whoever tore my page from this binding was trying to starve a bargain before it finished. If I want my blood clean, I now know what kind of creature keeps the ledger.
+inspire background:scholar_of_the_forbidden: studied the demon notes in the margins
+-> END
+
+~ malediction_shut
+set incitement_malediction
+Player: I keep my stolen page folded tight in my pocket and pull the heavy cover shut. Dust puffs from the sepia pages and settles over the stand.
+Player: The curse in my blood has waited generations, and it can wait one more hour. I will not read a demon's price while this house is listening.
+inspire background:scholar_of_the_forbidden: closed the half-written tome
+-> END
+
+# Rapture (Cultist): the bust in the Gallery (prop h4_bust, call incitements:rapture_enter).
+~ rapture_enter
+if flag.incitement_rapture or not background:cultist
+narrate examine:h4_bust
+-> END
+endif
+-> rapture_start
+
+~ rapture_start
+Player: Under the dour marble bust, a tarnished plaque names a missionary who came to gather followers in this godless valley. When my fingers brush the stone, a familiar cold answers from deep inside the marble.
+Player: My order sent me to claim a foothold for our distant god, yet someone else tried the work before me. Behind the wall, the house settles like a congregation taking its seats.
+* Read the missionary's plaque aloud. -> rapture_read
+* Bow my head and pray before the bust. -> rapture_prayed
+* Walk on through the gallery in silence. -> rapture_walked
+
+~ rapture_read
+set incitement_rapture
+Player: I speak the missionary's name and title to the empty gallery, letting the words echo past the crooked portraits. The cold marble hums against my knuckles like a struck bell.
+Player: My god heard that name once, before the Hollow swallowed the flock whole. Now the stone knows a prophet has come to finish the sermon.
+inspire background:cultist: read the missionary's plaque aloud
+-> END
+
+~ rapture_prayed
+set incitement_rapture
+Player: I bow my head before the dour stone face and whisper the secret prayer of my society. Frost beads on the marble brow, and a weight presses down behind my eyes.
+Player: In a valley without gods, even a broken altar still holds a spark of rapture. Something beyond the Crooked Moon just looked back through the stone.
+inspire background:cultist: prayed before the cold marble bust
+-> END
+
+~ rapture_walked
+set incitement_rapture
+Player: I draw my hand back from the cold stone and let the silence return to the gallery. The dour marble face stares out over the rotten floorboards toward the rain.
+Player: One prophet already came to this hollow before me. I will keep my faith quiet until I see what became of the first flock.
+inspire background:cultist: left the cold marble bust in silence
+-> END

@@ -1,0 +1,80 @@
+# Drafted by Gemini (side quests batch 5: punch), edited.
+
+~ start
+Narrator: A squat frog in a hat two sizes too small blocks the aisle, brass pliers gleaming in his webbed fist.
+conductor_understudy [sly]: Tickets, please, for the one and only genuine conductor. There, two clips for luck, though my proper star-punch has gone missing in the cars.
+* We will look for the punch -> accept
+* Ask who he really is -> who
+* Not now -> END
+
+~ who
+conductor_understudy [angry]: I am the conductor's official understudy, which makes me the conductor in all but title and hat size. When the big fellow naps, this whole iron horse is mine.
+-> start
+
+~ accept
+conductor_understudy [smile]: Splendid, check the sleeper, the mail sacks, and that dreadful circus car. Bring the brass straight to me and keep mum.
+quest conductors_punch asked
+set punch_asked
+-> END
+
+~ stub
+Narrator: Pinched between the sleeper berth curtains lies a curled pasteboard stub, pierced clean through with a five-pointed star. A trail of confetti crumbs leads toward the rear vestry.
+set punch_clue += 1
+set stub_sleeper
+-> END
+
+~ stub_mail
+Narrator: Half-buried in a canvas sack of dead letters sits a fresh ticket stub, stamped with the same neat star. Someone was practicing their clip on the way to the circus car.
+set punch_clue += 1
+set stub_mail
+-> END
+
+~ chest
+Narrator: The circus car's marionette chest smells of cedar shavings and old varnish. Tangled strings hang from the latch like cobwebs.
+* [Perception DC 12] Search the chest -> chest_ok | chest_fail
+* [if flag.punch_clue >= 1] Open it with the stubs' pattern in mind -> chest_ok
+
+~ chest_ok
+Narrator: Beneath a heap of painted wooden limbs rests a heavy brass punch, swaddled neatly in a spotted handkerchief. Its jaws are cut in the shape of a five-pointed star.
+set punch_found
+give conductors_punch
+quest conductors_punch found
+-> END
+
+~ chest_fail
+Narrator: The warped lid sticks fast, and the wooden puppets inside clatter their jaws in a dry, mocking chorus. Perhaps a clue from another car would show how it was shut.
+-> END
+
+~ return
+Narrator: The little frog shifts from foot to webbed foot in the passenger aisle, his eyes fixed hungrily on the brass in your hand.
+conductor_understudy [weary]: You found it, then. Hand it over quick, before the tall fellow notices his coat pocket was picked.
+* Give it to the understudy -> give_understudy
+* Give it to the real conductor's chair -> give_chair
+* [Sleight of Hand DC 12] Keep it -> keep_ok | keep_fail
+
+~ give_understudy
+conductor_understudy [smile]: Oh, bless your hearts, the weight of true authority at last. Take this fare money, and may your tickets always show a lucky star.
+set punch_outcome = "understudy"
+quest conductors_punch done
+gold +15
+-> END
+
+~ give_chair
+Narrator: You set the brass punch upon the empty cushion of the real conductor's stool.
+conductor_understudy [sad]: Spoilsports, the lot of you, though I suppose it is the proper railway procedure. Here is a small finder's fee from the company tin.
+set punch_outcome = "chair"
+quest conductors_punch done
+gold +10
+-> END
+
+~ keep_ok
+Narrator: You palm the heavy brass and offer him an empty fold of cloth while the train lurches.
+conductor_understudy [weary]: Gone to the floorboards, has it? Well, a true conductor needs only his voice and a very stern glare.
+set punch_outcome = "kept"
+quest conductors_punch done
+-> END
+
+~ keep_fail
+Narrator: A sticky tongue lashes out and snatches the brass punch back from your sleeve with a wet snap.
+conductor_understudy [angry]: Cheeky baggage, trying to rob railway personnel in broad moonlight. Now let us try this handover again, properly.
+-> return

@@ -1,0 +1,84 @@
+# Drafted by Gemini (R13 townsfolk), edited.
+
+~ william_secret
+Narrator: William turns his cap in his rough hands, eyes fixed on the cinders drifting across the square.
+william_lodge [sad]: Seven winters back, when the frost took our seed, I slipped a silver crown out of the poor-box at the chapel. Never put it back, neither.
+william_lodge [weary]: If that black thing in the stalks wants a man's shame for passage, you take mine and spend it.
+set secret_william
+-> END
+
+~ school_chalk
+Narrator: Twenty small scarecrows sit upright at their benches, stitched faces turned toward the slate. In neat white chalk, the first verse of "Virgil's Birdcage" names the toll to pass the corn wall: one true secret, spoken aloud.
+set song_seen
+-> END
+
+~ lantern_cache
+Narrator: The taproom of the Hooded Lantern smells of sour ale and old soot. Behind the counter, one floorboard sits a fraction proud of the joists.
+* [Investigation DC 13] Find Isaac's cache under the counter board -> cache_found | cache_missed
+* Leave the counter alone -> cache_missed
+
+~ cache_found
+Narrator: Beneath the pried plank lies a greased leather pouch heavy with coin and a folded slip in Isaac Langtree's cramped hand: a confession that he stole and hid the parish bell money.
+set isaac_found
+gold +40
+set secret_isaac
+-> END
+
+~ cache_missed
+Narrator: The floorboards creak under your boot, stubbornly tight, offering nothing but dust and dry rot.
+-> END
+
+~ store_banjo
+Narrator: Smoke rolls thick beneath the store's sagging rafters. Half-buried under a fallen beam gleams the worn maple neck of a five-string banjo.
+* [Athletics DC 12] Dig it out -> banjo_got | banjo_stuck
+* Pull back from the smoke -> END
+
+~ banjo_got
+Narrator: You heave the charring timber aside and draw the banjo free, its head scorched with soot but every string still whole.
+give jericho_banjo_gift
+set tender_banjo
+-> END
+
+~ banjo_stuck
+Narrator: A wash of blistering heat drives you back toward the door before you can shift the beam, though the prize remains if you dare try again.
+-> END
+
+~ butcher_circle
+Narrator: Scrawled across the slaughterhouse flagstones in tallow and blood-red chalk is a crooked hex circle. Beside it lies old Malachai's ledger, boasting how he cursed Foxwillow's fields and cattle out of pure spite years before the crows ever came.
+set butchers_hex_known
+-> END
+
+~ hall_notice
+Narrator: Pinned to the town hall corkboard beside an overdue tax roll is a parchment certificate of citizenship made out to Ol' Jericho Sticks, signed by the elders and never claimed.
+give jericho_certificate
+set tender_certificate
+-> END
+
+~ librarian
+Narrator: Dry straw rustles inside Agnes Fennel's neat wool cardigan as she straightens a row of singed ledgers with burlap fingers.
+librarian_agnes_fennel [neutral]: Silence in the stacks, if you please. I still keep the sheet for "Virgil's Birdcage" behind the desk, for those with manners enough to ask properly.
+* Ask for the song -> lib_song
+* Threaten her -> lib_threat
+* Leave -> lib_leave
+
+~ lib_song
+librarian_agnes_fennel [smile]: Mind the corners, and do not fold the stave. Ol' Jericho wrote that air for kinder nights than this.
+give virgils_birdcage_sheet
+set tender_song
+set song_known
+-> END
+
+~ lib_threat
+librarian_agnes_fennel [angry]: Ruffians and vandals in my reading room! You shall have no music from me!
+Narrator: Her stitched jaw splits in a dry, rattling wail, and the air between the shelves turns bitter cold.
+combat fw_librarian
+
+~ lib_leave
+librarian_agnes_fennel [weary]: Step lightly on your way out, and mind you latch the door against the cinders.
+-> END
+
+~ martha_after
+Narrator: Martha Langtree stands in the square with her arms folded, watching the mill burn.
+martha_langtree [neutral]: You did what you could for my boy. Now find what is eating my town.
+set fw_investigated
+-> END

@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[2]
 D = ROOT / "narrative/wickermoor"
 SHOP = {"baltus_tolliver", "morgan", "jean_myriel", "oswick_frey", "siv_harga", "holly_aster", "thomasin_ardor", "eleanor_heyling", "hilda_brom", "beatrice_wells"}
 SERVICES = {"alda_farnum", "randall_graham", "weston_murdoch"}
-SKIP = {"arrival", "mayor_welcome", "children", "rumours"}
+SKIP = {"arrival", "mayor_welcome", "children", "rumours", "connections", "connections_custom", "lottery", "oak", "gus", "play", "bad_seed"}
 
 
 def fix(path):
@@ -39,10 +39,10 @@ def fix(path):
         lines += block + [""]
         changed = True
     text2 = "\n".join(lines)
-    if "shop_open" in nodes:
+    if "shop_open" in nodes or "service_open" in nodes:
         verb = "shop" if npc in SHOP else "services" if npc in SERVICES else None
         if verb and f"\n{verb}\n" not in text2:
-            text2 = re.sub(r"(~ shop_open\n(?:[^\n~]*\n)*?)(-> menu)", lambda m: m.group(1) + verb + "\n" + m.group(2), text2, count=1)
+            text2 = re.sub(r"(~ (?:shop|service)_open\n(?:[^\n~]*\n)*?)(-> menu)", lambda m: m.group(1) + verb + "\n" + m.group(2), text2, count=1)
             changed = True
         if not verb:
             # no shop here: the option is a plain remark

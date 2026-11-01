@@ -1,0 +1,109 @@
+{
+  "id": "fw_schoolhouse",
+  "name": "The Schoolhouse",
+  "region": "foxwillow",
+  "summary": "The Schoolhouse, in Foxwillow.",
+  "text": "The inside of The Schoolhouse.",
+  "map": {
+    "rows": [
+      "################",
+      "#..............#",
+      "#.============.#",
+      "#..............#",
+      "#..............#",
+      "#..==.==.==.==.#",
+      "#..............#",
+      "#..............#",
+      "#..==.==.==.==.#",
+      "#..............#",
+      "#..............#",
+      "################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Schoolhouse",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          14,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      8,
+      10
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        8,
+        11
+      ],
+      "to": "foxwillow",
+      "spawn": "from_fw_schoolhouse",
+      "label": "Out to the town"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_schoolhouse_chalk",
+      "cell": [
+        8,
+        1
+      ],
+      "kind": "examine",
+      "label": "The chalkboard",
+      "model": "papers",
+      "dialogue": "foxwillow/townsfolk:school_chalk"
+    },
+    {
+      "id": "fw_schoolhouse_desk_row",
+      "cell": [
+        5,
+        5
+      ],
+      "kind": "examine",
+      "label": "Twenty small desks, twenty small scarecrows",
+      "model": "table_round"
+    },
+    {
+      "id": "fw_schoolhouse_choir",
+      "cell": [
+        8,
+        5
+      ],
+      "kind": "examine",
+      "label": "The humming children",
+      "model": "scarecrow",
+      "dialogue": "foxwillow/choir:teach",
+      "when": "flag.choir_asked and not flag.choir_woken"
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

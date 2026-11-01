@@ -43,6 +43,10 @@
     "default": [
       6,
       9
+    ],
+    "from_cellar": [
+      12,
+      5
     ]
   },
   "exits": [
@@ -55,6 +59,18 @@
       "to": "wickermoor_village",
       "spawn": "from_barber_shop",
       "label": "Out to the village"
+    },
+    {
+      "id": "cellar_door",
+      "cell": [
+        12,
+        6
+      ],
+      "to": "wickermoor_barber_cellar",
+      "spawn": "from_stair",
+      "label": "The hidden stair",
+      "when": "flag.barber_cellar_found",
+      "locked_text": "There is only a wall there."
     }
   ],
   "props": [
@@ -66,7 +82,8 @@
       ],
       "kind": "examine",
       "label": "The first barber's chair",
-      "model": "chair"
+      "model": "chair",
+      "text": "A leather chair, cracked at the arms and warm as if someone had only just stood up."
     },
     {
       "id": "barber_shop_chair_two",
@@ -76,7 +93,21 @@
       ],
       "kind": "examine",
       "label": "The second barber's chair",
-      "model": "chair"
+      "model": "chair",
+      "text": "A second leather chair, and on its wooden arm a tiny antlered hare, knifed neatly into the grain.",
+      "checks": [
+        {
+          "id": "randall_chair",
+          "skill": "perception",
+          "dc": 12,
+          "label": "Look at the arm of the second chair",
+          "success": {
+            "flag": "cult_proof_randall",
+            "text": "The hare on the chair's arm has antlers, and someone has oiled it as if it were a holy thing."
+          },
+          "failure": {}
+        }
+      ]
     },
     {
       "id": "barber_shop_still",
@@ -86,7 +117,8 @@
       ],
       "kind": "examine",
       "label": "A still, gurgling",
-      "model": "case"
+      "model": "case",
+      "text": "A copper still gurgles in the corner; the air round it smells sharp and sweet, like an apple that has been struck."
     },
     {
       "id": "barber_shop_broom",
@@ -96,7 +128,21 @@
       ],
       "kind": "examine",
       "label": "A broom, carefully leaned",
-      "model": "rope"
+      "model": "rope",
+      "text": "A broom leaned against the wall with great care, its bristles clipped short and clean, while the floor is swept to the last hair.",
+      "checks": [
+        {
+          "id": "barber_floor",
+          "skill": "investigation",
+          "dc": 12,
+          "label": "Study the swept floor",
+          "success": {
+            "flag": "barber_cellar_found",
+            "text": "The sweeping stops at a seam in the boards by the east wall, and a bit of wall is cleaner than the rest."
+          },
+          "failure": {}
+        }
+      ]
     }
   ],
   "npcs": [
@@ -106,7 +152,29 @@
         6,
         5
       ],
-      "dialogue": "wickermoor/randall_graham:start"
+      "dialogue": "wickermoor/hair:confront",
+      "when": "flag.hair_clue_a and flag.hair_clue_b and not flag.hair_outcome"
+    },
+    {
+      "npc": "randall_graham",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/hair:start",
+      "when": "flag.wm_welcomed and not flag.hair_asked"
+    },
+    {
+      "npc": "randall_graham",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/randall_graham:start",
+      "hours": [
+        7,
+        19
+      ]
     }
   ],
   "rest": "risky",

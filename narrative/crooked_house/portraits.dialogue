@@ -1,0 +1,95 @@
+# R12: the three portraits in the foyer (H2). Region crooked_house. Narrator and class interjects only. FINAL-WORDED: these lines are to be
+# voiced and must not change.
+# Started by: the props h2_portrait_lockwood (`lockwood`), h2_portrait_druskenvald (`druskenvald`), h2_portrait_party (`party`).
+# The first look at each shows its picture (ch_portraits, _2, _3) and rolls the painted gaze once (Charisma DC 10, best in the party); a
+# failure sets portrait_cursed += 1 (the curse: a boogleswarm on a natural 1, see the contract). Later looks are a plain line.
+# The gaze's 1d6 psychic is `damage 1d6 psychic` on the failed branch, to the hero in the conversation. The book's DC 10 Charisma save is still the best-in-party
+# Charisma check (`check`): the dialogue grammar has no per-hero save, so that part stays a stand-in.
+# Flags: portrait_seen_lockwood|druskenvald|party (first look), portrait_cursed (int). Drafted by Gemini (gemini_r12_portraits), edited.
+
+~ lockwood
+if flag.portrait_seen_lockwood
+-> lockwood_again
+endif
+set portrait_seen_lockwood
+cutscene ch_portraits
+Narrator: A father, a mother, a boy, a small girl and a baby sit in oils, with two servants a pace behind them, and the whole canvas smells of old dust.
+Narrator: That tall, lanky father wears the same huge yellow grin you met out on the porch, and every pair of painted eyes is followin' you.
+interject class:fighter: That grinning fellow from the porch is starting to wear out his welcome.
+cutscene end
+check Charisma DC 10 -> lockwood_held | lockwood_cursed
+
+~ lockwood_held
+Narrator: You hold the painted stare for a long spell while the rain drums on the high walls, and the oil paint stays flat and still.
+-> lockwood_menu
+
+~ lockwood_cursed
+set portrait_cursed += 1
+Narrator: You blink first, and something cold as well water slides in behind your eyes and settles there, listenin'.
+damage 1d6 psychic
+-> lockwood_menu
+
+~ lockwood_again
+Narrator: The Lockwood family hangs quiet in the draft, its painted eyes still followin' you across the inlaid floor.
+-> lockwood_menu
+
+~ lockwood_menu
+* Read the brass plaque. -> lockwood_plaque
+* Step away. -> END
+
+~ lockwood_plaque
+Narrator: You run a finger along the cold brass plaque beneath the frame: Eustace Lockwood and Petunia Lockwood, and their children Sally and Arthur.
+Narrator: Below them, in smaller letters, stand Joseph Patrini and Gail Patrini, in service to the family, and the brass is worn smooth beside those last two names.
+-> lockwood_menu
+
+~ druskenvald
+if flag.portrait_seen_druskenvald
+-> druskenvald_again
+endif
+set portrait_seen_druskenvald
+cutscene ch_portraits_2
+Narrator: The tang of fresh varnish hangs sharp around Lady Adela Druskenvald, painted stern in a choker of woven wicker and red-orange flowers.
+Narrator: Beside her, Lord Phillip weeps beneath a black, six-pointed crown pinned with a crescent moon, and his wet eyes follow you off the canvas.
+interject class:wizard: None of the texts I have studied ever mentioned a six-pointed crown like that.
+cutscene end
+check Charisma DC 10 -> druskenvald_held | druskenvald_cursed
+
+~ druskenvald_held
+Narrator: You hold the painted gaze of the weeping lord and his stern lady until the sharp smell of turpentine is all that stands between you.
+-> END
+
+~ druskenvald_cursed
+set portrait_cursed += 1
+Narrator: Your gaze wavers before those wet, painted eyes, and a splinter of winter ice slips quiet and deep behind your brow.
+damage 1d6 psychic
+-> END
+
+~ druskenvald_again
+Narrator: The fresh varnish on the Druskenvald portrait gleams under the tilted chandelier, and the crowned man goes on weepin' where he sits.
+-> END
+
+~ party
+if flag.portrait_seen_party
+-> party_again
+endif
+set portrait_seen_party
+cutscene ch_portraits_3
+Narrator: Four figures stand painted in your own traveling clothes and gear, and the canvas smells of wet wool and oil paint.
+Narrator: Where the faces ought to be, each one is a blank smear with a toothless black grin painted rough across it.
+interject class:rogue: The artist got my good side, such as it is. I do not care for the smile.
+cutscene end
+check Charisma DC 10 -> party_held | party_cursed
+
+~ party_held
+Narrator: You stare straight back into the four blank smears until thunder rolls off down the hill and the canvas is nothing but wet pigment.
+-> END
+
+~ party_cursed
+set portrait_cursed += 1
+Narrator: You flinch from those toothless black grins, and a damp chill crawls in behind your eyes and settles for a spell.
+damage 1d6 psychic
+-> END
+
+~ party_again
+Narrator: Four figures in travelin' clothes hang silent on the warped wall, their smeared faces offering nothing new.
+-> END

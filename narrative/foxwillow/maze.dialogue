@@ -1,0 +1,63 @@
+# Drafted by Gemini (R13 maze), edited.
+
+~ adelaide
+Narrator: Adelaide Langtree stands rooted in the furrow, her knuckles white around a rusted sickle and her eyes glassy with a borrowed hunger.
+adelaide_langtree [neutral]: Step into the rows and lay your burdens down. The crow knows the measure of every heart, and the harvest is long overdue.
+* Try to talk her down -> adelaide_talk
+* [Persuasion DC 14] Remind her of Martha -> adelaide_free | adelaide_hard
+* Draw weapons and fight -> adelaide_fight
+
+~ adelaide_talk
+adelaide_langtree [weary]: Quiet now, you are tangling the tune in my head. I know your voices don't belong here, yet the feathers keep calling me back to the dark.
+-> adelaide
+
+~ adelaide_free
+Narrator: A shudder runs through Adelaide's thin shoulders as the cold glaze breaks from her sight, leaving only a tired woman in the mud.
+adelaide_langtree [sad]: Mother is still by the porch, isn't she, waiting with the kettle on? Get me out of these rows before I remember what I promised the dark in the cellar.
+set adelaide_freed
+set secret_adelaide
+-> END
+
+~ adelaide_hard
+Narrator: Her jaw clicks shut like a sprung trap, and a dry caw rattles up from the back of her throat.
+adelaide_langtree [angry]: No names, no mothers, only the gleaning and the beak! Hold still for the harvest!
+-> adelaide_fight
+
+~ adelaide_fight
+combat fw_maze_adelaide
+
+~ lost_soul
+Narrator: A hollow-cheeked man cowers among the roots, plucking at his cuffs and whispering the word "husk" until his lips bleed. At your gentle touch upon his shoulder, his breathing slows and he stumbles back toward the lantern-light.
+set lost_souls_saved += 1
+set fw_lost_soul_saved
+-> END
+
+~ junction1
+Narrator: The dry corn parts before you with a papery whisper, drinking in the pale light of the harvest moon. Three dark mouths open in the wall of husks, each smelling of cold dirt and old feathers.
+set fw_j1_seen
+-> END
+
+~ dead_end1
+Narrator: A solid wall of black stalks rises ahead, woven tight as a wicker basket and humming with unseen wings. The only way on is the way back behind you.
+set fw_dead1_seen
+-> END
+
+~ junction2
+Narrator: The dry corn parts before you with a papery whisper, drinking in the pale light of the harvest moon. Three dark mouths open in the wall of husks, each smelling of cold dirt and old feathers.
+set fw_j2_seen
+-> END
+
+~ dead_end2
+Narrator: A solid wall of black stalks rises ahead, woven tight as a wicker basket and humming with unseen wings. The only way on is the way back behind you.
+set fw_dead2_seen
+-> END
+
+~ junction3
+Narrator: The dry corn parts before you with a papery whisper, drinking in the pale light of the harvest moon. Three dark mouths open in the wall of husks, each smelling of cold dirt and old feathers.
+set fw_j3_seen
+-> END
+
+~ dead_end3
+Narrator: A solid wall of black stalks rises ahead, woven tight as a wicker basket and humming with unseen wings. The only way on is the way back behind you.
+set fw_dead3_seen
+-> END

@@ -1,0 +1,218 @@
+# R11: the six companion Connections, converted from the drafts in the vault's Companions/ files (Lane F), plus the seven that custom heroes meet.
+# Each scene is started by a second entry of the villager in the location (a `when` on the companion in the party, their Incitement done and the Crooked House's
+# witch dead: vessla_slain); it sets connection_<thread> and makes the villager Friendly. Bless and Heroic Inspiration wait for the Fateweaving statements.
+
+~ thomasin_cordelia_start
+thomasin_ardor [neutral]: Hold the lower left arm an inch higher so the brass tape clears the glass.
+thomasin_ardor [neutral]: I know the pull of a tight seam along the ribs, and the thread has to give when you breathe.
+thomasin_ardor [smile]: Try this charcoal silk on, I lined the ruby-glass buttonholes to cushion your vials.
+interject name:cordelia_skein: You measured all eight shoulders without pausing once to ask what the surgeon left underneath.
+interject name:cordelia_skein: My apologies, the collar sits to the millimetre, and I appear to have misplaced my phrasing.
+* You two know what it takes to mend what others broke. -> thomasin_kin
+* Ask her what holds up against alchemical heat. -> thomasin_fabric
+* Thank the tailor and step out. -> thomasin_go
+
+~ thomasin_kin
+thomasin_ardor [neutral]: Glass leaves a jagged line when it goes in, and the needle leaves a straight one coming out.
+thomasin_ardor [smile]: What matters is that the cloth lies flat over both.
+interject name:cordelia_skein: A remarkably sound pathology, Miss Ardor, and I shall endeavour not to tear the gussets.
+-> thomasin_close
+
+~ thomasin_fabric
+thomasin_ardor [neutral]: Double-weight charcoal silk under the arms, stitched with silver thread that will not char.
+thomasin_ardor [neutral]: If a vial boils over, the lining takes the burn before your skin does.
+interject name:cordelia_skein: Silver thread for thermal dissipation, darling, you put the academy quartermasters to shame.
+-> thomasin_close
+
+~ thomasin_go
+thomasin_ardor [neutral]: The lamplight is always on if a button loosens in the wet.
+interject name:cordelia_skein: Thank you, Miss Ardor, for the bias cut and the quiet.
+-> thomasin_close
+
+~ thomasin_close
+thomasin_ardor [smile]: Wear it in good health, and let the lower cuffs hang loose when you climb.
+thomasin_ardor [neutral]: Come back after the first rain so I can check how the silk settles.
+set connection_evolution
+quest connection_evolution met
+attitude thomasin_ardor friendly
+set cordelia_waistcoat
+-> END
+
+~ alda_delphine_start
+alda_farnum [smile]: Welcome to the Green Queen, my dears, though I see your table will require an extra place setting.
+alda_farnum [sly]: Forgive the liberty, my dear, but a gentleman's invisible lapel should lie flat when he visits my house.
+alda_farnum [smile]: Such lively company rarely lingers without a heavy ledger, so let me offer a house blessing for the story of how you met.
+interject name:delphine_ravelle: Keep your fingers off the billing, madam, Your Foolishness is very particular about his tailoring.
+interject name:delphine_ravelle: Though if your house blessing is half as warm as that spiced wine, we might discuss a matinee.
+* Let her read the ledger. A free blessing's good business. -> alda_ledger
+* Careful, she's pricing your stitches like cloth. -> alda_careful
+* We want a room, not a reading. -> alda_room
+
+~ alda_ledger
+alda_farnum [smile]: Sensible friends are worth their weight in silver, and a good story pours better than vintage wine.
+alda_farnum [sly]: We can tally the finer details by the hearth once your glasses are empty.
+interject name:delphine_ravelle: He says you are lying, and he doesn't even have eyes, so do keep your thumb off the scale.
+-> alda_close
+
+~ alda_careful
+alda_farnum [smile]: I admire fine needlework wherever it walks in, and Picco felt is so rarely seen this far out.
+alda_farnum [sly]: Every sturdy seam has its provenance, and I always pay fair market value for a rarity.
+interject name:delphine_ravelle: Touch a single thread on my cuff, darling, and we will see how neatly your own sleeves come unpicked.
+-> alda_close
+
+~ alda_room
+alda_farnum [smile]: Of course, a clean key and a quiet door are the simplest transaction in the book.
+interject name:delphine_ravelle: Mind the stairs on the way up, darlings, our hostess counts the creaks on the floorboards.
+-> alda_close
+
+~ alda_close
+alda_farnum [smile]: May the Green Queen keep your threads dry and your patron polite while you rest under my roof.
+alda_farnum [sly]: When you are ready to settle the rest of the account, you know right where the counter is.
+set connection_ascendancy
+quest connection_ascendancy met
+attitude alda_farnum friendly
+set delphine_tether_noted
+-> END
+
+~ hilda_lucan_start
+hilda_brom [neutral]: Big wolf. Bigger dog. Both of you jumping at dry sky-rumble.
+hilda_brom [smile]: Ha, look at you holding his ears like a mother hen in the pines.
+hilda_brom [neutral]: Catch this pine-sprig. Smear the crow-grease on your cuffs. Look south-east to Foxwillow corn, where something worse than a fugitive stalks the rows.
+interject name:lucan_houndstooth: Good heavens, madam, I am merely shielding my hound's delicate auditory passages from an unscheduled meteorological report.
+interject name:lucan_houndstooth: Though by the resin and carrion fat on these needles, your tracking preparation is a solid nine out of ten.
+* You two hunt the same way. Hear her out. -> hilda_kin
+* Careful, her spirit bear looks hungry. -> hilda_stare
+* We have our trail. Thanks, Hilda. -> hilda_go
+
+~ hilda_kin
+hilda_brom [smile]: He talks like a book, your tall wolf. Nose works, though.
+hilda_brom [neutral]: Keep the wind in your teeth when you hit the corn, Houndstooth.
+interject name:lucan_houndstooth: I shall endeavour to honour the Old Ways with proper posture, Madam Brom, if you please.
+-> hilda_close
+
+~ hilda_stare
+hilda_brom [sly]: Bear only bites what runs. You do not look like a runner.
+hilda_brom [neutral]: Keep your little ghost dog behind your boots in Foxwillow.
+interject name:lucan_houndstooth: Dreadfang and I shall maintain a respectful distance from your magnificent ursine specimen, madam.
+-> hilda_close
+
+~ hilda_go
+hilda_brom [neutral]: Good. Talk less, walk faster, corn is already moving.
+interject name:lucan_houndstooth: Quite right, friends, let us take the south-east spoor before the scent thins.
+-> hilda_close
+
+~ hilda_close
+hilda_brom [neutral]: May the Green Queen keep your throat whole and your claws sharp, book-wolf.
+hilda_brom [smile]: Ha. Put a hat on that dog if it thunders again.
+set connection_slaughter
+quest connection_slaughter met
+attitude hilda_brom friendly
+set lucan_hilda_kin
+-> END
+
+~ mori_rook_start
+mori_shade [neutral]: Warden, by the cut of the leather and the chalk under your nails. I have set out grey grave-wax and a stick of mason's chalk on the trestle.
+mori_shade [neutral]: Your ledger is kept to a clean standard, Warden, dry edges and honest dates, the way Yorgrim kept Maidenmist Cemetery before he went quiet.
+mori_shade [neutral]: I have marked one cross at the soured fields of Foxwillow, where the drainage fails and the dead lie uneasy. The other sites will show themselves to a working eye.
+interject name:rook_coldwake: Proper tools, ma'am, and a clear map. Rare enough to find a parish office with the tallow dry and the records in order.
+interject name:rook_coldwake: Hold on a second while I take a breath for the shift log. Keeps the ribs from sticking while we go over the zoning.
+* You two talk like the same union. -> mori_union
+* She's seen that badge, Rook. -> mori_badge
+* Take the map and the chalk. Let's go. -> mori_go
+
+~ mori_union
+mori_shade [neutral]: There is only one trade when the candles burn down, stranger. We keep the boundary between those who walk and those who rest.
+mori_shade [neutral]: A yard without a watchman is only a pantry for the dark.
+interject name:rook_coldwake: Couldn't have phrased the bylaw cleaner myself, ma'am.
+-> mori_close
+
+~ mori_badge
+mori_shade [neutral]: I do not look at brass, nor ask what snow it came through. Brass is only brass.
+mori_shade [neutral]: What counts in this valley is the hand that holds the shovel, and what the pin is fastened to.
+interject name:rook_coldwake: Noted and appreciated, ma'am.
+-> mori_close
+
+~ mori_go
+mori_shade [neutral]: Walk with a measured step on the Foxwillow clay, for the turf is thin over the old pits.
+interject name:rook_coldwake: Chalk's pocketed, wax is stowed, docket's open.
+-> mori_close
+
+~ mori_close
+mori_shade [neutral]: May the earth lie level under your boots, Warden, and may your own bones keep the cold that steadies them.
+mori_shade [neutral]: Come back to this room when you have a fresh page filled.
+set connection_pilgrimage
+quest connection_pilgrimage met
+attitude mori_shade friendly
+set rook_mori_met
+-> END
+
+~ holly_silas_start
+holly_aster [smile]: Take this loaf while the crust is still singing, before Violet and Lavender turn my cooling racks into a fort.
+holly_aster [smile]: Don't mind your little shadow tapping at my wrist, it's only a grey spade-mark I've carried since the cradle.
+holly_aster [smile]: An unseen creditor holds the deed to my thirty-fifth birthday, and the only ledger office floats on that neon riverboat at the Drowned Crossroads.
+interject name:silas_vane: One taste on the draught says toasted caraway, woodsmoke, and a very familiar landlord writing in the margins, friend.
+interject name:silas_vane: My shadow only taps a mark when it recognizes the house ink on the skin.
+* We'll tear your page out too. -> holly_oath
+* What did the creditor take for it? -> holly_price
+* Take the loaf. Leave her in peace. -> holly_loaf
+
+~ holly_oath
+holly_aster [afraid]: Keep your voice down over the oven's roar, or my girls will think we're telling ghost stories before supper.
+holly_aster [afraid]: If you're truly boarding that riverboat, don't let him deal you from the bottom of the shoe.
+interject name:silas_vane: House always wins, unless you burn the house, and I brought plenty of dry kindling, friend.
+-> holly_close
+
+~ holly_price
+holly_aster [sad]: Every woman in my line gets thirty-five bright years to bake the bread and raise the girls, and then the tab comes due.
+holly_aster [sad]: My mother paid it, her mother paid it, and my birthday falls in just a few weeks.
+interject name:silas_vane: Sounds like a rigged game passed down the table, and I never could stand a crooked shoe.
+-> holly_close
+
+~ holly_loaf
+holly_aster [smile]: That's sensible talk, because a warm rye loaf is a much safer thing to carry than a baker's bad luck.
+interject name:silas_vane: Never walked away from a marked table yet, friend, even when I'm just buying the bread.
+-> holly_close
+
+~ holly_close
+holly_aster [smile]: Hold out your palm and take this pinch of blessed hearth-salt, the Old Ways say it keeps a creditor's ink from drying.
+holly_aster [smile]: Now eat that crust before it cools, or I'll charge you double just for standing in my flour.
+set connection_liberation
+quest connection_liberation met
+attitude holly_aster friendly
+set liberation_holly_page_seen
+-> END
+
+~ rain_tobin_start
+sister_rain [smile]: That is a surgeon's knot on a pumpkin stem, friend, and the sap is already settling.
+sister_rain [sad]: Oh, your poor collarbone is as dry and aching as the soil under this green.
+sister_rain [neutral]: The Patient Lady says we tend what grows and bind what splits, and we never answer blight with a torch.
+interject name:tobin_hayward: Careful on the collarbone, miss, it's old wood and dry.
+interject name:tobin_hayward: A clean splice stops the bleeding, that is just sound husbandry, no sermon required.
+* Her way makes sense. You can't heal soil by scorching it. -> rain_gentle
+* Patience is fine for daisies, not for a plague. -> rain_blunt
+* Take her blessing. We should keep moving. -> rain_go
+
+~ rain_gentle
+sister_rain [smile]: You hear that, mister scarecrow, your friends have the right of it.
+sister_rain [neutral]: Ash never grew an apple yet, no matter how deep the rot went.
+interject name:tobin_hayward: Good soil, bad seed, and a great deal of weeding left to do before anyone talks of apples.
+-> rain_close
+
+~ rain_blunt
+sister_rain [angry]: Bite your tongue, the land is bleeding enough without you calling down iron and fire on it!
+sister_rain [smile]: Listen to me roaring like a March gale when your friend here just saved my best pumpkin.
+interject name:tobin_hayward: You have a brisk way with a congregation, I will give you that much.
+-> rain_close
+
+~ rain_go
+sister_rain [smile]: Always rushing off, you travellers, though at least this one stops to mend a vine.
+interject name:tobin_hayward: A split stem is a split stem, and it takes ten seconds to tie it right.
+-> rain_close
+
+~ rain_close
+sister_rain [smile]: Walk in the Lady's patience, stitched man, and don't pluck what grows from your cuff.
+sister_rain [sad]: When you have the stomach for worse than a bruised vine, the sick places round the village are crying out for a steady hand.
+set connection_rejuvenation
+quest connection_rejuvenation met
+attitude sister_rain friendly
+-> END

@@ -140,6 +140,11 @@ def parse_dialogue(path):
     return nodes
 
 
+## Conversation nodes a fight's round events play from their own text (the engine's location schema has no key for it): counted as reached when
+## the fight can start. The Crooked House's peacock fight speaks Keziah's shade each round.
+FIGHT_PLAYED_NODES = {"ch_peacock": ["crooked_house/keziah:peacock_round", "crooked_house/keziah:peacock_pull", "crooked_house/keziah:peacock_return"]}
+
+
 class Story:
     def __init__(self, root=ROOT, chance_maps=True):
         self.root = Path(root)
@@ -359,7 +364,13 @@ class Story:
                     sq = ex.get("sets_quest")
                     if sq and (not sq.get("from") or set(sq["from"]) & set(self.stages.get(sq["id"], []))):   # the exit moves a quest on (location.schema exits)
                         self.changed |= self.add(("quest", sq["id"], sq["stage"]), f"{w} exit {ex['id']}")
-                    if ex["to"].startswith("module_"):   # the module picks the place: any car of data/switcheroo.json may be next
+                    if ex["to"].startswith("module_maze_"):   # Raum's maze: any of its places may be next (data/maze.json)
+                        mz = json.loads((self.root / "data" / "maze.json").read_text())
+                        for car in [*mz["junctions"], *mz["dead"], mz["circle"]]:
+                            self.changed |= self.add(("loc", car), f"{w} exit {ex['id']} (maze)")
+                            for sp in self.locs.get(car, {}).get("spawns", {}):
+                                self.changed |= self.add(("spawn", car, sp), w)
+                    elif ex["to"].startswith("module_"):   # the module picks the place: any car of data/switcheroo.json may be next
                         sw = json.loads((self.root / "data" / "switcheroo.json").read_text())
                         for car in [sw["rear"], *sw["middle"], sw["last"], *([sw["limbo"]] if sw.get("limbo") else [])]:   # the mist between cars too
                             self.changed |= self.add(("loc", car), f"{w} exit {ex['id']} (module)")
@@ -409,6 +420,10 @@ class Story:
             for en in loc.get("encounters", []):
                 if self._encounter_on(lid, en):
                     self._won(lid, en, f"{w} encounter {en['id']}")
+                    # Conversation nodes whose text a fight plays itself, from its round events (no conversation runs mid-fight).
+                    for ref in FIGHT_PLAYED_NODES.get(en["id"], []):
+                        fkey, _, node = ref.rpartition(":")
+                        self.walk(fkey, node, f"{w} encounter {en['id']} (plays it from a round event)")
             if self.watch_regions & {loc.get("region")} or loc.get("watch"):
                 region = loc["region"]
                 self.changed |= self.add(("flag", f"crime_{region}", "+"), "story/crime.gd")
@@ -444,6 +459,15 @@ class Story:
             return ("door", lid, arg) in self.facts or ("container", lid, arg) in self.facts
         if kind == "examine":
             return ("prop", lid, arg) in self.facts
+        if kind == "check":
+            # A fight a skill check sets off (check:<check id>:success|failure): on once the thing that carries the check is reached.
+            cid = arg.rpartition(":")[0]
+            for key, fact in (("props", "prop"), ("doors", "door"), ("containers", "container")):
+                for t in self.locs.get(lid, {}).get(key, []):
+                    if (fact, lid, t["id"]) in self.facts and any(c.get("id") == cid and self.possible(c.get("when", ""))
+                                                                  for c in t.get("checks", [])):
+                        return True
+            return False
         return trig == "enter" or ("combat", en["id"]) in self.facts
 
     def _won(self, lid, en, w):

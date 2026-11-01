@@ -1,0 +1,55 @@
+# R12: Patrini's last request, the village side. Speaker old_rusty (Francis Patrini, who does not know it). Region crooked_house; the talk is
+# held in the village square, called from Old Rusty once the seance has asked the party to find Joseph Patrini's son (patrini_asked_find_son).
+# The quest find_my_son closes when the party says the name to him (`told_rusty`). He never learns who he is here: a door half opens. A later
+# chapter gives him a blessing (the flag rusty_told_patrini is read there). FINAL-WORDED: these lines are to be voiced and must not change.
+# Flag: rusty_told_patrini. Drafted by Gemini (gemini_r12_find_my_son), edited; see README.md.
+
+~ start
+if flag.rusty_told_patrini
+-> again
+endif
+Narrator: Birch twigs scrape slow across the cold cobbles, stirrin' up the smell of wet leaves and hearth smoke.
+Narrator: The old man keeps his head down, eyes fixed on the stones until you are standing right over his boots.
+old_rusty [weary]: Cold in the hollow, dirt in the seam, don't wake the stones from their autumn dream.
+old_rusty [afraid]: Mind the cracks where the moss grows thick. Let the dark out and it climbs up my stick.
+-> menu
+
+~ menu
+* [if flag.patrini_asked_find_son] Say the name aloud, slowly: Patrini. -> told_rusty
+* Ask where he was before the Round. -> before
+* [Insight DC 13] Study the old scar. -> scar_ok | scar_missed
+* Leave him to his sweeping. -> END
+
+~ before
+old_rusty [sly]: Where was the wind before it blew through the gate? Where was the birch before it bound to the state?
+old_rusty [weary]: First there was the stairs, then there was the broom, sweeping out the dust from an empty room.
+old_rusty [angry]: Ask the dead leaves where they hung in the spring. Rusty has cobbles to clear, and no time to sing.
+-> menu
+
+~ scar_ok
+Narrator: Parting that wild red-grey thatch with your eyes, you reckon the pale old seam was stitched by a steady hand that cared enough to see it heal right.
+-> menu
+
+~ scar_missed
+Narrator: There ain't much to make of it under all that tangled hair, just a jagged white seam gone cold as frost.
+-> menu
+
+~ told_rusty
+Narrator: The birch broom stops dead in the middle of a stroke, scraping once against the granite before going still.
+Narrator: For the first time since you walked into the Founder's Round, his dartin' eyes lock onto yours and stay put.
+old_rusty [afraid]: Patrini, Patrini, three steps to the floor. Patrini, Patrini, one step to the door.
+old_rusty [sad]: Someone is playing, someone always played. Up the long stairs where the shadows were laid, a little tune climbing the dark.
+old_rusty [weary]: Warm fingers smoothing the hair from my brow. Why does the broom remember that now?
+old_rusty [sad]: Come in from the rain, a woman's voice calls, come in before the cold evening falls.
+old_rusty [neutral]: Rain on my cheeks, though the sky is all dry. Drip on the cobbles, and I don't know why.
+Narrator: He goes back to his work after a spell, though he stands a fair piece straighter with the handle in his grip.
+Narrator: Under the dry whisper of the twigs, you hear him hummin' a crooked little air that is almost a tune.
+set rusty_told_patrini
+attitude old_rusty friendly
+quest find_my_son told
+-> END
+
+~ again
+old_rusty [smile]: Step by step and stone by stone, the tune goes up the stairs alone.
+old_rusty [neutral]: A name is a good broom, strangers. It sweeps the heavy dust right out of the corners.
+-> menu

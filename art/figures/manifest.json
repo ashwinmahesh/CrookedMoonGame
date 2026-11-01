@@ -6,16 +6,29 @@
       "die": {"clip": "fall", "from": 0.6, "speed": 1.2}
     }
   },
+  "parts": {
+    "lantern": {"file": "art/sourced/kaylousberg_halloween_bits/Lantern.glb", "bone": "RightHand", "upright": true, "size": 0.2, "grip": [0, 0.88, 0], "offset": [0, -0.02, 0.01]},
+    "rook_head": {"file": "art/figures/heads/rook_head.glb", "close_up": {"albedo": "art/figures/close_up/rook_head_4k.jpg"}, "source": "tripo/jaw/rook_head_tpose_jaw.glb", "jaw_from": {"head": "tripo/models/rook_head_tpose_multiview_10k_4k.glb", "mouth_z": 0.3265, "left_x": -0.0675, "right_x": 0.0804, "chin_z": 0.1967}, "bone": "Head", "follow": "turn", "fit": "head"},
+    "vagrant_head": {"file": "art/figures/heads/vagrant_head.glb", "close_up": {"albedo": "art/figures/close_up/vagrant_head_4k.jpg"}, "source": "tripo/jaw/vagrant_head_tpose_jaw.glb", "jaw_from": {"head": "tripo/models/vagrant_head_tpose_multiview_10k_4k.glb", "mouth_z": 0.297, "left_x": -0.205, "right_x": 0.232, "chin_z": 0.054}, "bone": "Head", "follow": "turn", "fit": "head", "size": 1.4},
+    "tobin_head": {"file": "art/figures/heads/tobin_head.glb", "close_up": {"albedo": "art/figures/close_up/tobin_head_4k.jpg"}, "source": "tripo/jaw/tobin_head_tpose_jaw.glb", "jaw_from": {"head": "tripo/models/tobin_head_tpose_multiview_10k_4k.glb", "mouth_z": 0.241, "left_x": -0.134, "right_x": 0.15, "chin_z": 0.107}, "bone": "Head", "follow": "turn", "fit": "head", "size": 1.5},
+    "delphine_head": {"file": "art/figures/heads/delphine_head.glb", "close_up": {"albedo": "art/figures/close_up/delphine_head_4k.jpg"}, "source": "tripo/jaw/delphine_head_jaw.glb", "jaw_from": {"head": "tripo/models/delphine_head_multiview_10k_4k.glb", "mouth_z": 0.2825, "left_x": -0.048, "right_x": 0.05, "chin_z": 0.176}, "bone": "Head", "follow": "turn", "fit": "head", "size": 1.7},
+    "torch": {"file": "art/models/torch.glb", "bone": "RightHand", "upright": true, "size": 0.34, "grip": [0, 0.3, 0], "offset": [0, 0, 0.05], "turn": [20, 0, 0]},
+    "delphine_ghost": {"file": "art/figures/delphine_ghost.glb", "source": "tripo/models/delphine_ghost_multiview_8k_4k.glb", "bone": "LeftShoulder", "hover": [0.025, 2.6], "size": 0.3, "offset": [0.1, 0.24, -0.08], "ghost": {"see_through": 0.45, "wash": 0.35, "colour": "moon_green", "glow": 0.45, "rim": 0.6, "pulse": 0.2}}
+  },
+  "gear": {"hooded_lantern": "lantern", "bullseye_lantern": "lantern", "torch": "torch"},
+  "bodies": {"*": {"female": "hero_body_female", "male": "hero_body_male"}},
   "figures": {
-    "rook_coldwake": {"file": "art/figures/rook_coldwake.glb", "source": "tripo/models/rook_final_multiview_10k_4k_10clips_combat.glb"},
-    "silas_vane": {"file": "art/figures/silas_vane.glb", "source": "tripo/models/silas_v2_multiview_10k_4k_10clips_combat.glb"},
-    "cordelia_skein": {"file": "art/figures/cordelia_skein.glb", "source": "tripo/models/cordelia_final_multiview_15k_4k_10clips_combat.glb"},
-    "delphine_ravelle": {"file": "art/figures/delphine_ravelle.glb", "source": "tripo/models/delphine_multiview_10k_4k_10clips_combat.glb"},
-    "tobin_hayward": {"file": "art/figures/tobin_hayward.glb", "source": "tripo/models/tobin_multiview_13k_4k_10clips_combat.glb"},
-    "lucan_houndstooth": {"file": "art/figures/lucan_houndstooth.glb", "source": "tripo/models/lucan_10k_4k_10clips_combat.glb"},
-    "the_vagrant": {"file": "art/figures/the_vagrant.glb", "source": "tripo/models/vagrant_multiview_10k_4k_10clips_combat.glb"},
-    "phillip_druskenvald": {"file": "art/figures/phillip_druskenvald.glb", "source": "tripo/models/phillip_10k_4k_10clips_combat.glb"},
-    "adela_druskenvald": {"file": "art/figures/adela_druskenvald.glb", "source": "tripo/models/adela_final_8k_10clips_combat.glb"},
+    "rook_coldwake": {"file": "art/figures/rook_coldwake.glb", "close_up": {"albedo": "art/figures/close_up/rook_coldwake_4k.jpg"}, "source": "tripo/models/rook_body_tpose_multiview_10k_4k_10clips_combat.glb", "layers": ["rook_head"], "bones": {"Head": 0.01}, "clips": {"greet": "agree"}},
+    "silas_vane": {"file": "art/figures/silas_vane.glb", "source": "tripo/models/silas_v2_multiview_10k_4k_10clips_combat.glb", "clips": {"greet": "agree"}, "gear": ["main_hand", "off_hand"]},
+    "cordelia_skein": {"file": "art/figures/cordelia_skein.glb", "source": "tripo/models/cordelia_final_multiview_15k_4k_10clips_combat.glb", "clips": {"greet": "agree"}, "gear": ["off_hand"]},
+    "delphine_ravelle": {"file": "art/figures/delphine_ravelle.glb", "close_up": {"albedo": "art/figures/close_up/delphine_ravelle_4k.jpg"}, "source": "tripo/models/delphine_body_multiview_10k_4k_10clips_combat.glb", "layers": ["delphine_head", "delphine_ghost"], "bones": {"Head": 0.01}, "gear": ["main_hand", "off_hand"]},
+    "tobin_hayward": {"file": "art/figures/tobin_hayward.glb", "close_up": {"albedo": "art/figures/close_up/tobin_hayward_4k.jpg"}, "source": "tripo/models/tobin_body_tpose_multiview_10k_4k_10clips_combat.glb", "layers": ["tobin_head"], "bones": {"Head": 0.01}, "clips": {"greet": "agree"}, "gear": ["main_hand", "off_hand"]},
+    "lucan_houndstooth": {"file": "art/figures/lucan_houndstooth.glb", "source": "tripo/models/lucan_10k_4k_10clips_combat.glb", "clips": {"greet": "agree"}},
+    "the_vagrant": {"file": "art/figures/the_vagrant.glb", "close_up": {"albedo": "art/figures/close_up/the_vagrant_4k.jpg"}, "source": "tripo/models/vagrant_body_tpose_multiview_10k_4k_10clips_combat.glb", "layers": ["vagrant_head"], "bones": {"Head": 0.01}, "clips": {"greet": "agree"}, "gear": ["main_hand", "off_hand"]},
+    "phillip_druskenvald": {"file": "art/figures/phillip_druskenvald.glb", "source": "tripo/models/phillip_10k_4k_10clips_combat.glb", "clips": {"greet": "agree"}, "gear": ["main_hand", "off_hand"]},
+    "adela_druskenvald": {"file": "art/figures/adela_druskenvald.glb", "source": "tripo/models/adela_final_8k_10clips_combat.glb", "gear": ["main_hand", "off_hand"]},
+    "hero_body_female": {"base": "adela_druskenvald", "albedo": "art/figures/clay.png", "stand_in_body": true},
+    "hero_body_male": {"base": "phillip_druskenvald", "albedo": "art/figures/clay.png", "stand_in_body": true},
     "barnaby": {"file": "art/figures/barnaby.glb", "source": "tripo/models/barnaby_multiview_smartuv_4k_quadruped_walk.glb"},
     "haint": {"file": "art/figures/haint.glb", "source": "tripo/models/haint_wayward_multiview_10k_4k_10clips_combat.glb", "sprite": "villager", "ghost": {"wash": 0.35, "colour": "moon_green", "glow": 0.25, "see_through": 0.2, "rim": 0.5, "pulse": 0.2}},
     "haint_sweetheart": {"file": "art/figures/haint_sweetheart.glb", "source": "tripo/models/haint_sweetheart_multiview_10k_4k_10clips_combat.glb", "sprite": "villager", "ghost": {"wash": 0.35, "colour": "moon_green", "glow": 0.25, "see_through": 0.2, "rim": 0.5, "pulse": 0.2}},
@@ -27,6 +40,7 @@
     "phantom_trainhopper": {"file": "art/figures/phantom_trainhopper.glb", "source": "tripo/models/phantom_trainhopper_multiview_14k_4k_10clips_combat.glb", "sprite": "shadow", "ghost": {"wash": 0.3, "colour": "moon_green", "glow": 0.3, "see_through": 0.35, "rim": 0.9, "pulse": 0.4}},
     "soulfire_stoker": {"file": "art/figures/soulfire_stoker.glb", "source": "tripo/models/soulfire_stoker_multiview_10k_4k_10clips_combat.glb", "sprite": "fire_elemental", "ghost": {"wash": 0.0, "colour": "flame", "glow": 0.8, "see_through": 0.0, "rim": 0.7, "pulse": 0.6}},
     "corrupted_passenger": {"file": "art/figures/corrupted_passenger.glb", "source": "tripo/models/corrupted_passenger_multiview_10k_4k_10clips_combat.glb", "sprite": "specter", "ghost": {"wash": 0.4, "colour": "sickly", "glow": 0.3, "see_through": 0.3, "rim": 0.6, "pulse": 0.3}},
-    "ghost_crawler": {"file": "art/figures/ghost_crawler.glb", "source": "tripo/models/ghost_crawler_multiview_10k_4k_other_walk.glb", "sprite": "giant_spider", "ghost": {"wash": 0.5, "colour": "moon_green", "glow": 0.3, "see_through": 0.45, "rim": 0.6, "pulse": 0.15}}
+    "ghost_crawler": {"file": "art/figures/ghost_crawler.glb", "source": "tripo/models/ghost_crawler_multiview_10k_4k_other_walk.glb", "sprite": "giant_spider", "ghost": {"wash": 0.5, "colour": "moon_green", "glow": 0.3, "see_through": 0.45, "rim": 0.6, "pulse": 0.15}},
+    "ghostlight_locomotive": {"file": "art/figures/ghostlight_locomotive.glb", "source": "tripo/models/ghostlight_locomotive_ortho_3view_25k_4k.glb", "sprite": "iron_golem", "static": true, "lie": "side"}
   }
 }

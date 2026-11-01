@@ -6,9 +6,16 @@ originals are kept under the asset root (cm.assetRoot or ~/Documents/ASH-SSD/Cro
 import json, subprocess, sys, urllib.request
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
-QUEUE = sys.argv[sys.argv.index("--queue") + 1] if "--queue" in sys.argv else "http://localhost:55302"
-SRC = Path.home() / "Documents/ASH-SSD/CrookedMoon/assets/cutscenes/r10"
-pics = json.loads((ROOT / "tools/content/ghostlight_cutscenes.json").read_text())["pictures"]
+def _opt(name, default):
+    return sys.argv[sys.argv.index(name) + 1] if name in sys.argv else default
+
+
+QUEUE = _opt("--queue", "http://localhost:55302")
+TAG = _opt("--tag", "r10-cutscene")             # the jobs' tag (r13-cutscene for Foxwillow)
+PICS = _opt("--pics", "ghostlight_cutscenes.json")   # tools/content/<file> holding the prompts
+SRC_NAME = _opt("--src", "r10")
+SRC = Path.home() / "Documents/ASH-SSD/CrookedMoon/assets/cutscenes" / SRC_NAME
+pics = json.loads((ROOT / "tools/content" / PICS).read_text())["pictures"]
 SRC.mkdir(parents=True, exist_ok=True)
 jobs, off = [], 0
 while True:
@@ -20,8 +27,8 @@ while True:
 done = {}
 for j in jobs:
     tags = j.get("request", {}).get("tags", [])
-    if "r10-cutscene" in tags and j.get("status") == "succeeded":
-        done[[t for t in tags if t not in ("crooked-moon", "r10-cutscene")][0]] = j["result"]["file_path"]
+    if TAG in tags and j.get("status") == "succeeded":
+        done[[t for t in tags if t not in ("crooked-moon", TAG)][0]] = j["result"]["file_path"]
 n = 0
 for cid in pics:
     if cid in done:
