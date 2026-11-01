@@ -234,7 +234,7 @@ func enter_location(location_id: String, spawn: String, sneaking: bool = false) 
 	_refresh()
 	if spawn != "":
 		_autosave.call_deferred()   # arriving somewhere new (before any visit that greets the party)
-		_visit.call_deferred("arrive")   # the villain's presence: a visit on arriving somewhere (none yet)
+		_visit.call_deferred("arrive")   # the Crooked Moon's visits: one may come on arriving somewhere
 
 
 func _refresh() -> void:
@@ -1157,26 +1157,41 @@ func _boss_music(cv: CombatView) -> void:
 			return
 
 
-# --- The villain's presence (a marked stub: plan G1 builds it) ------------------------------------
+# --- The villain's presence: the Crooked Moon's visits (plan 5.5, G1; story/crooked_moon_visits.gd) -------------------
 
-## A visit from the villain at `on` (arrive, rest) if one is due here and now. None are written yet, so none is ever due; what
-## a visit that broke a Long Rest leaves behind (LongRest.waits_on_visit) still lets the party
-## sleep on. The campaign lane replaces this with the Crooked Moon's gaze and the Crooked Man's visits.
+## A visit under the Crooked Moon at `on` (arrive, rest) if one comes here and now: the Crooked Man, Gorthos or the Horned
+## King, more often as the ritual track's grin widens. A road visit held from the journey is told first, on arriving.
+## A visit with a conversation plays it (true: it holds the party); any other is the Narrator's line over the place.
+## None comes to blows, so what a visit that broke a Long Rest leaves behind (LongRest.waits_on_visit) lets the party
+## sleep on.
 func _visit(on: String, _ctx: Dictionary = {}) -> bool:
 	if view == null or view.in_combat or (dialogue != null and on != "rest"):
 		return false
 	if on == "rest" and LongRest.waits_on_visit(st):
 		_sleep_again()   # the visit that broke the rest isn't due after all: the party sleeps on
+	var v := CrookedMoonVisits.take_pending(st) if on == "arrive" else {}
+	if v.is_empty():
+		v = CrookedMoonVisits.due(st, on, Dice.roller)
+	if v.is_empty():
+		return false
+	if str(v.get("dialogue", "")) != "" and dialogue == null:
+		start_dialogue(str(v["dialogue"]), "")
+		return true
+	narrate_key(CrookedMoonVisits.narrator_key(v))
 	return false
 
 
-## A leg of a journey is over: a visit on the road would stop it on the road's map. None yet.
+## A leg of a journey is over: the Crooked Man may stand by the road. He never stops a journey: the visit is held and
+## told when the party arrives (_visit "arrive").
 func _visit_on_road(_leg: Dictionary, _to: String) -> bool:
+	var v := CrookedMoonVisits.due(st, "road", Dice.roller)
+	if not v.is_empty():
+		CrookedMoonVisits.hold_for_arrival(st, str(v["id"]))
 	return false
 
 
 ## A Long Rest is over (the rest screen, a camp's night, a magic item's rest; `minutes` since it began): a visit may have
-## come in the night. None yet, so only the hook remains.
+## come in the night: a dream of the Crooked Man's, or Gorthos or the Horned King at the edge of the camp.
 func visit_after_rest(minutes: int) -> void:
 	var night := Campaign.module().night_between(st.total_minutes() - minutes, st.total_minutes())
 	_visit("rest", {"night": night})

@@ -1,0 +1,20 @@
+{
+  "id": "visits",
+  "summary": "The Crooked Moon's visits (plan 5.5, G1; story/crooked_moon_visits.gd): the Crooked Man shows himself on the roads, at the village's edge and in dreams at rest, more often as the ritual track's grin widens (its stage's `crooked_man` chance); Gorthos and the Horned King use the same visits as second and third voices, each with its own `chance`. A visit is the Narrator's node `visit:<id>` (narrative/narrator/crooked_moon_visits.dialogue), or a conversation when it names a `dialogue`. `on`: road (a leg of a journey; told on arriving), arrive (on reaching a place) or rest (a night's rest). Each visit is `once`, or comes again after `cooldown_hours`, up to `max` times. `gap_hours` keeps any two visits apart. Visits come in file order: the first that may come is the one rolled for.",
+  "gap_hours": 10,
+  "visits": [
+    {"id": "cm_road_milestone", "who": "crooked_man", "on": "road", "when": "attention >= grinning", "once": true},
+    {"id": "cm_road_scarecrow", "who": "crooked_man", "on": "road", "when": "attention >= wide", "once": true},
+    {"id": "cm_road_lamp", "who": "crooked_man", "on": "road", "when": "attention >= leering", "once": true},
+    {"id": "cm_road_glimpse", "who": "crooked_man", "on": "road", "when": "attention >= grinning", "cooldown_hours": 48},
+    {"id": "cm_edge_well", "who": "crooked_man", "on": "arrive", "when": "attention >= grinning and region:wickermoor and not indoors", "once": true},
+    {"id": "cm_edge_window", "who": "crooked_man", "on": "arrive", "when": "attention >= wide and region:wickermoor and not indoors", "once": true},
+    {"id": "cm_edge_glimpse", "who": "crooked_man", "on": "arrive", "when": "attention >= grinning and region:wickermoor and not indoors", "cooldown_hours": 72},
+    {"id": "cm_dream_counting", "who": "crooked_man", "on": "rest", "when": "attention >= grinning", "once": true},
+    {"id": "cm_dream_tree", "who": "crooked_man", "on": "rest", "when": "attention >= wide", "once": true},
+    {"id": "cm_dream_fire", "who": "crooked_man", "on": "rest", "when": "attention >= leering", "once": true},
+    {"id": "cm_dream_again", "who": "crooked_man", "on": "rest", "when": "attention >= grinning", "cooldown_hours": 72},
+    {"id": "gorthos_camp", "who": "gorthos", "on": "rest", "when": "attention >= grinning and not flag.gorthos_slain and not indoors", "chance": 0.2, "cooldown_hours": 96, "max": 3},
+    {"id": "horned_king_whisper", "who": "horned_king", "on": "rest", "when": "attention >= full and not flag.kehlenn_bound", "chance": 0.35, "cooldown_hours": 48, "max": 4}
+  ]
+}
