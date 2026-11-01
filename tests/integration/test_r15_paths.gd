@@ -240,7 +240,7 @@ func test_the_fog_ghouls_and_the_banner_clue() -> void:
 func test_lyla_meets_the_party_and_takes_them_to_the_king() -> void:
 	_play(DC + "town:reveal")
 	assert_true(_flag("dc_town_seen"))
-	_play(DC + "town:lyla_gate", ["Mister Crossroads", "Take us to the King"])
+	_play(DC + "town:lyla_gate", ["Mister Crossroads", "Say nothing", "Take us to the King"])
 	assert_true(_flag("lyla_met"))
 	assert_eq(st.quest_stage("withered_arm"), "murkwater")
 	assert_eq(st.location, "dc_fort")
@@ -257,18 +257,16 @@ func test_lyla_admits_her_patron_to_a_reader_of_charms_and_not_otherwise() -> vo
 	assert_true(not _flag("lyla_jack_known"))
 
 
-func _dice_rounds(start_ref: String, opening: Array[String], trick: String) -> void:
+func _dice_rounds(start_ref: String, opening: Array[String], tricks: Array[String]) -> void:
 	var picks := opening.duplicate()
-	for i in 3:
-		picks.append(trick)
+	picks.append_array(tricks)
 	_play(start_ref, picks)
 
 
 func test_dice_with_the_king_won_by_the_truth_and_the_secrecy_money() -> void:
 	_arrive("dc_fort")
 	_sink("adela_secret_kept", true)
-	_dice_rounds(DC + "vander:dice_start", ["Play properly"] as Array[String], "Hard read")
-	_sink("probe", true)
+	_dice_rounds(DC + "vander:dice_start", ["Play properly"] as Array[String], ["Hard read", "Watch the charm", "Measure the pause"] as Array[String])
 	assert_eq(str(st.get_flag("vander_dice")), "won")
 	# the stakes come after the win: rerun the stakes node itself
 	_play(DC + "vander:dice_win", ["Tell him the truth"])
@@ -285,7 +283,7 @@ func test_dice_with_the_king_won_by_a_good_lie() -> void:
 func test_dice_with_the_king_lost_is_a_way_on_and_costs_only_pay() -> void:
 	_arrive("dc_fort")
 	dice = LowDice.new()
-	_dice_rounds(DC + "vander:dice_start", ["Play properly"] as Array[String], "Bid cautiously")
+	_dice_rounds(DC + "vander:dice_start", ["Play properly"] as Array[String], ["Bid cautiously", "Keep your bid low", "Play the safe"] as Array[String])
 	assert_eq(str(st.get_flag("vander_dice")), "lost")
 	assert_eq(int(st.get_flag("vander_pay", 0)), 0)
 
@@ -414,7 +412,7 @@ func test_the_ferryman_vouches_once_paid() -> void:
 func test_elias_leads_with_the_hand_and_without_it() -> void:
 	_arrive("dc_boat_promenade")
 	_sink("withered_hand_taken", true)
-	_play(DC + "boat:elias_mute", ["Show him the Withered Hand"])
+	_play(DC + "boat:elias_mute", ["Show him the withered hand"])
 	assert_true(_flag("elias_met"))
 	assert_true(_flag("dc_boiler_lead"))
 	assert_eq(st.quest_stage("withered_arm"), "elias")
@@ -422,13 +420,13 @@ func test_elias_leads_with_the_hand_and_without_it() -> void:
 	GameState.reset()
 	before_each()
 	_arrive("dc_boat_promenade")
-	_play(DC + "boat:elias_mute", ["Follow him below"])
+	_play(DC + "boat:elias_mute", ["Follow him down"])
 	assert_true(_flag("dc_boiler_lead"), "Elias leads even when the hand was left behind")
 
 
 func test_the_boiler_room_fight_and_the_freeing_of_elias() -> void:
 	_arrive("dc_boat_lower")
-	_play(DC + "boat:engineer", ["Fight"])
+	_play(DC + "boat:engineer", ["Draw weapons"])
 	assert_eq(fights, ["dc_boiler_fight"] as Array[String])
 	assert_true(_flag("dc_boiler_done"))
 	_play(DC + "boat:boiler_open", ["Let him rest"])
@@ -449,10 +447,10 @@ func test_the_coin_keeper_gives_a_key_or_a_fight() -> void:
 	_play(DC + "boat:keeper", ["Tell him to open it"])
 	var key_there := false
 	for ch in st.party:
-		for it: Variant in (ch as Character).inventory():
+		for it: Variant in (ch as Character).inventory:
 			if str((it as Dictionary).get("id", "")) == "coin_keepers_key":
 				key_there = true
-	assert_true(key_there or true)
+	assert_true(key_there, "the Coin Keeper hands the key over")
 	GameState.reset()
 	before_each()
 	_arrive("dc_boat_lower")
@@ -526,7 +524,7 @@ func test_the_boss_has_three_level_variants_that_partition_the_levels() -> void:
 		if str((e as Dictionary)["id"]) == "dc_sinner":
 			whens.append(str((e as Dictionary)["when"]))
 	assert_eq(whens.size(), 3)
-	for lvl in [3, 5, 6, 7, 8]:
+	for lvl: int in [3, 5, 6, 7, 8]:
 		var holds := 0
 		for e: Variant in _loc().get("encounters", []):
 			if str((e as Dictionary)["id"]) == "dc_sinner":
@@ -538,8 +536,9 @@ func test_the_boss_has_three_level_variants_that_partition_the_levels() -> void:
 
 func test_the_boss_falls_the_farewell_pays_the_chapter_and_adela_is_healed() -> void:
 	_arrive("dc_casino")
-	_sink("elias_freed", true)
 	_sink("adela_secret_kept", true)
+	_play(DC + "boat:boiler_open", ["Let him rest"])
+	assert_true(_flag("elias_freed"))
 	_win("dc_sinner")
 	assert_true(_flag("dc_sinner_done"))
 	_play(DC + "sinner:after")
@@ -558,6 +557,7 @@ func test_the_boss_falls_the_farewell_pays_the_chapter_and_adela_is_healed() -> 
 func test_the_ring_can_be_kept_and_is_worth_a_thousand() -> void:
 	st.location = "wickermoor_village"
 	_sink("grinning_sinner_slain", true)
+	_play(DC + "boat:boiler_open", ["Let him rest"])
 	_play(DC + "village_after:adela_cure", ["Take our leave"])
 	_play(DC + "village_after:adela_ring_menu", ["Keep her ring", "Take our leave"])
 	assert_eq(str(st.get_flag("adela_ring")), "kept")
