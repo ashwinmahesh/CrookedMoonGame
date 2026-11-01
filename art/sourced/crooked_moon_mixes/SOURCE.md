@@ -49,3 +49,31 @@ packs: crow caw, fireball, fire spells, Kenney glasses); every source's licence 
 - wheel_squeal_1.ogg: Rails and brakes, a long squeal as the brakes bite: a historic tram's wheels and its brake air (WWS, CC BY 4.0) under qubodup's tyre squeal (CC BY 3.0) band-passed to a steel screech. Listen first. 6.0 s; -14.2 LUFS, true peak -1.6 dB.
 - wheel_squeal_2.ogg: Rails and brakes, a higher, shorter screech: a historic tram's wheels and its brake air (WWS, CC BY 4.0) under qubodup's tyre squeal (CC BY 3.0) band-passed to a steel screech. Listen first. 5.9 s; -14.0 LUFS, true peak -1.8 dB.
 - wildpyre_wake_2.ogg: A captive lion's two roars (public domain) with a fire's rush under them (JC Sounds CC BY 4.0, rubberduck CC0). Listen first. 6.9 s; -14.0 LUFS, true peak -8.5 dB.
+
+## Batch 3 (2026-11-01)
+
+Blows' own sounds (the engine's "hit" keys, engine branch melee-keys), layered from clips already in this repo and the engine's packs.
+
+- stoker_sear_1.ogg: The Soulfire Stoker's Sear, a burning grip: a blow to flesh (qubodup, CC0) under a fireball's impact (JC Sounds, CC BY 4.0) and gregoryweir's pressurised fire (public domain). Listen first. 2.1 s; -14.0 LUFS, true peak -1.7 dB.
+- stoker_sear_2.ogg: The Soulfire Stoker's Sear, a lower, longer burn: a blow to flesh (qubodup, CC0) under a fireball's impact (JC Sounds, CC BY 4.0) and gregoryweir's pressurised fire (public domain). Listen first. 2.4 s; -14.2 LUFS, true peak -1.8 dB.
+- wildpyre_rake_1.ogg: The wildpyre's Blazing Rend, three claws raking with a snarl: rubberduck's blade strikes (CC0), pitched down, in quick succession, schots' tiger (CC0) and a fire's rush (JC Sounds, CC BY 4.0). Listen first. 1.8 s; -14.6 LUFS, true peak -1.3 dB.
+- wildpyre_rake_2.ogg: The wildpyre's Blazing Rend, a heavier rake, the snarl after it: rubberduck's blade strikes (CC0), pitched down, in quick succession, schots' tiger (CC0) and a fire's rush (JC Sounds, CC BY 4.0). Listen first. 2.0 s; -14.3 LUFS, true peak -1.4 dB.
+
+## Batch 4 (2026-11-01)
+
+- bed_camp.ogg: A camp at night: Glaneur de sons' campfire (CC BY 3.0) close, Wolfgang_'s crickets (CC0) and Luke.RUSTLTD's wind (CC0) low behind it. 41.0 s loop; -18.1 LUFS, true peak -2.0 dB.
+
+## Batch 5 (2026-11-01)
+
+- bed_asylum.ogg: Memory's Rest: a low drone (JaggedStone, CC0), wind at the windows (Luke.RUSTLTD, CC0), a door handle (stephan, public domain), a haint's whisper and a creak. 50 s loop; -18.4 LUFS, true peak -1.9 dB.
+- bed_bayou.ogg: The Drowned Crossroads: LokiF's swamp (CC0), syncopika's cicadas (CC0) high and faint, EZduzziteh's frogs (CC0) croaking round it. 60 s loop; -18.1 LUFS, true peak -1.8 dB.
+- bed_bayou_indoor.ogg: Inside a bayou shack or the riverboat's cabins: the swamp muffled through the walls (the bayou bed, low-passed). 60 s loop; -18.0 LUFS, true peak -1.7 dB.
+- bed_cave_drips.ogg: A cave or crypt: qubodup's dripping water (CC0, its drips compressed so the space carries between them) over JaggedStone's low drone (CC0). 40 s loop; -19.3 LUFS, true peak -1.8 dB.
+- bed_graveyard_mist.ogg: Maidenmist: a low wind through the mist (Luke.RUSTLTD, CC0), crows far off (IgnasD, CC0), a lone bell (acclivity, public domain), an owl (the British Library, CC BY 4.0). 55 s loop; -18.1 LUFS, true peak -2.5 dB.
+- bed_mine.ogg: Skitterdeep: dripping water (qubodup, CC0), a low drone (JaggedStone, CC0), picks far down the tunnels (spookymodem, CC BY 3.0) and timbers creaking (AntumDeluge CC0, stephan public domain). 48 s loop; -19.2 LUFS, true peak -1.8 dB.
+- bed_mountain_wind.ogg: The Howlers: Luke.RUSTLTD's wind (CC0) over the pass, the monastery's bell far off now and then (acclivity, public domain). 55 s loop; -18.1 LUFS, true peak -3.0 dB.
+- bed_rot_forest.ogg: Hartsblight: Luke.RUSTLTD's wind (CC0) in dead trees, AntumDeluge's creaks (CC0), isaiah658's birds (CC0) run backwards and slowed so they sound wrong, a swell of syncopika's cicadas (CC0). 50 s loop; -18.1 LUFS, true peak -3.0 dB.
+- bed_rot_forest_indoor.ogg: Inside the commune's longhouse or a hollow: the rotting wood heard through the walls (low-passed). 50 s loop; -18.1 LUFS, true peak -5.8 dB.
+- bed_shore.ogg: The Moonsong Shore and the Isle of Mourn: qubodup's water waves (CC0) lapping every few seconds under a low wind (Luke.RUSTLTD, CC0). 45 s loop; -18.2 LUFS, true peak -1.9 dB.
+- wrong_bird_1.ogg: A wrong bird for the rotting wood: isaiah658's birdsong (CC0) run backwards and slowed. Listen first. 4.5 s; -14.2 LUFS, true peak -2.3 dB.
+- wrong_bird_2.ogg: A wrong bird for the rotting wood: isaiah658's birdsong (CC0) run backwards and slowed. Listen first. 4.7 s; -14.3 LUFS, true peak -1.5 dB.
