@@ -150,6 +150,7 @@ func test_scene_entries_name_real_cutscenes() -> void:
 func test_fights_play_their_regions_music() -> void:
 	assert_eq(PlaceBeds.fight_music("crooked_house_first"), "crooked_house_combat", "a fight in the Crooked House plays its own")
 	assert_eq(PlaceBeds.fight_music("fw_maze_j1"), "foxwillow_combat", "and in Foxwillow")
+	assert_eq(PlaceBeds.fight_music("wickermoor_village"), "wickermoor_combat", "and in Wickermoor, though its foes are common ones")
 	assert_eq(PlaceBeds.fight_music("ghostlight_g1_passenger"), "combat", "a region with none plays the plain fight music")
 	assert_false((Audio._data.get("boss_music", {}) as Dictionary).has("weasel"), "a common weasel brings no region's music elsewhere")
 	assert_eq(str((Audio._data.get("region_fights", {}) as Dictionary).get("wickermoor", "")), "wickermoor_combat", "Wickermoor names its own")
