@@ -99,8 +99,9 @@ def conditions_flags(expr):
 # What a condition's terms may be (story/story_conditions.gd): a bare word, a `kind.name` or a `kind:name`. Anything else is
 # a warning and false at run time, so a condition in new data (a quest's `closes`) is checked against them.
 CONDITION_WORDS = {"true", "false", "night", "day", "indoors", "hour", "attention", "weather", "gold", "level", "check.last",
-                   "graphic", "jailed"}
-CONDITION_DOTTED = {"flag", "quest", "quest_days", "days_since", "attitude", "approval", "tarokka", "standing"}
+                   "graphic", "jailed", "party_alive", "party_size"}
+# `flag?.<id>` reads a flag another chapter sets: RE_FLAG_REF doesn't match it, so it needs no registration here.
+CONDITION_DOTTED = {"flag", "flag?", "quest", "quest_days", "days_since", "attitude", "approval", "tarokka", "standing"}
 CONDITION_COLONED = {"final_room", "guest", "treasure_at", "gift", "gifted", "fallen", "spell", "at", "region", "option", "visited", "leader", "item",
                      "class", "species", "background", "tag", "name", "knows"}
 RE_CONDITION_TOKEN = re.compile(r'\(|\)|==|!=|>=|<=|=|>|<|"[^"]*"|[^\s()=!<>]+')
@@ -139,7 +140,7 @@ def condition_problems(expr):
                 problems.append(f"'{word}' compared with nothing")
             else:
                 take()
-        head = re.match(r"^([a-z_]+)([.:])", word)
+        head = re.match(r"^([a-z_]+\??)([.:])", word)
         known = word in CONDITION_WORDS or (head is not None and head.group(1) in (CONDITION_DOTTED if head.group(2) == "." else CONDITION_COLONED))
         if not known:
             problems.append(f"unknown term '{word}'")
