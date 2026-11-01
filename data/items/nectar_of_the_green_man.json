@@ -11,5 +11,34 @@
     "rarity": "very_rare",
     "attunement": false
   },
-  "summary": "Gold-green nectar from the oldest oak in the Hollow. For a day the drinker's skin takes on bark and their wounds close like cut wood."
+  "summary": "Gold-green nectar from the oldest oak in the Hollow. The drinker communes with the land around them, as Commune with Nature; afterwards a DC 15 Wisdom save, or for 8 hours the forest's voice crowds their mind: Disadvantage on attack rolls and ability checks.",
+  "powers": [
+    {
+      "id": "drink",
+      "name": "Drink",
+      "cost": "bonus",
+      "consume": true,
+      "field": true,
+      "custom": "drink_field_spell",
+      "params": {
+        "spell": "commune_with_nature",
+        "minutes": 1,
+        "after_save": {
+          "ability": "wis",
+          "dc": 15,
+          "minutes": 480,
+          "modifiers": [
+            {
+              "stat": "disadvantage",
+              "on": [
+                "attack",
+                "check:all"
+              ]
+            }
+          ]
+        }
+      },
+      "text": "Bonus Action: drink it to commune with the land (Commune with Nature). Then a DC 15 Wisdom save, or Disadvantage on attack rolls and ability checks for 8 hours."
+    }
+  ]
 }
