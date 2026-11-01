@@ -1,0 +1,66 @@
+# Drafted by Gemini (R21 ring), edited.
+
+~ taunt
+Narrator: The painted crowd forms a tight circle around the cobbles, and the maypole's ribbons trail across the dirt in six pale white lines.
+chuckles [sly]: Looky-look at your dear friends dancing their shoes to shreds for our grand finale! Oh, what sour, mean-mean faces you brought to my festy-val!
+-> ring_menu
+
+~ ring_menu
+* [Investigation DC 15] Study the little jester -> study_ok | study_fail
+* [if not flag.refused_to_hate] We pity you. -> pity_late
+* I hate you. -> hate_late
+* Draw weapons. -> go
+
+~ study_ok
+Narrator: The capering jester casts no true shadow in the bonfire light, while the swollen balloon atop the pole watches you with far more patience than any painted rubber should.
+-> ring_menu
+
+~ study_fail
+Narrator: The little jester hops and jingles in a blur of bright bells, leaving you none the wiser to his tricks.
+-> ring_menu
+
+~ pity_late
+chuckles [angry]: Pity-pity? I am the Lord of Fools, hip-hip-heroes, not some sad-sad beggar in the rain!
+Narrator: High above the torches, the balloon's painted mouth looks a little crooked.
+set refused_to_hate
+inspiration
+-> ring_menu
+
+~ hate_late
+chuckles [smile]: Ha-ha, yes-yes, let that sweet hate burn hot and split me open!
+Narrator: Under the shrill squeak of the wooden boy, a deep and hungry growl rumbles through the floorboards.
+-> go
+
+~ go
+Narrator: The six white ribbons lift from the dust like waking serpents as the music rises to a shriek.
+set ring_started
+combat ring_of_fools
+
+~ shows_over
+cutscene fd_shows_over
+Narrator: The little jester's carved head pops clean off its neck, and the hollow wooden body clatters to the stones with a painted scepter still clutched in its fingers.
+set marotte_found
+give marotte_of_the_lord_of_fools
+cutscene fd_shows_over_2
+Narrator: High on the pole, the great balloon shrivels into the dark and bursts into a cascade of red sparks, leaving a grinning face of smoke that lingers and fades.
+set chuckles_dead
+if flag.connection_ascendancy
+Narrator: Your own spectral fool drifts forward to gather the splintered wood, knitting itself a new shape in the image of the power you crave before bowing low with a gibbering warning of heralds, monarchs, and goats.
+set ascendancy_fool_reborn
+endif
+cutscene fd_shows_over_3
+Narrator: The lanes of Wickermoor have shrunk back to their proper measure under the quiet night, with only damp confetti rotting in the gutters where the booths stood. Those you pulled from the dance gather in the square, rubbing their bruised heels and trying to piece the hours together.
+if flag.reveler_doris_squire_freed
+doris_squire [weary]: My boots are ruined and my head rings like a cracked bell. Tell me truthfully, did a whole cursed circus come through this square?
+endif
+if flag.reveler_old_rusty_freed
+old_rusty [afraid]: The ribbons rot, the bells are still, but something crooked wakes beneath the hill.
+endif
+Narrator: Only you and the souls you spared carry the weight of what truly happened here. To everyone else, a merry troupe simply passed through town on a pleasant night, leaving the whole village bone tired.
+if quest.the_storks_letter == asked
+quest the_storks_letter unsent
+endif
+xp milestone
+quest fools_day shows_over
+set shows_over
+move wickermoor_village:default

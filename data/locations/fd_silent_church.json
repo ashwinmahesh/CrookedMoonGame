@@ -1,0 +1,278 @@
+{
+  "id": "fd_silent_church",
+  "name": "The Silent Church",
+  "region": "wickermoor",
+  "summary": "The half-rebuilt Brightsinger chapel, the one place the festival cannot reach.",
+  "text": "The carnival music stops at the door as if cut with a knife. Tarps hang where the windows will go, new timber smells of resin, and a knight in marble twice a man's height stands before the altar with a sneer on his stone face.",
+  "map": {
+    "rows": [
+      "##############",
+      "#...______...#",
+      "#...______...#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "#..==....==..#",
+      "#............#",
+      "#............#",
+      "#..==....==..#",
+      "#............#",
+      "#............#",
+      "#..==....==..#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "#............#",
+      "#######.######"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "church",
+      "name": "The Silent Church",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          12,
+          18
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      7,
+      17
+    ],
+    "from_festival": [
+      7,
+      17
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        7,
+        19
+      ],
+      "to": "fd_festival",
+      "spawn": "from_church",
+      "label": "Out into the festival"
+    }
+  ],
+  "props": [
+    {
+      "id": "fd_altar",
+      "cell": [
+        6,
+        1
+      ],
+      "kind": "decor",
+      "label": "The altar, half rebuilt",
+      "model": "dais"
+    },
+    {
+      "id": "fd_marble_arrival",
+      "cell": [
+        7,
+        13
+      ],
+      "kind": "decor",
+      "label": "The stone knight watches the door",
+      "call": "fools_day/church:arrive",
+      "approach": 12,
+      "call_when": "not flag.man_in_marble_met"
+    },
+    {
+      "id": "fd_church_tarps",
+      "cell": [
+        2,
+        4
+      ],
+      "kind": "examine",
+      "label": "Tarps where the windows will go",
+      "model": "rags"
+    },
+    {
+      "id": "fd_church_timber",
+      "cell": [
+        11,
+        4
+      ],
+      "kind": "examine",
+      "label": "New timber, still sweet with resin",
+      "model": "crate_stack"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "man_in_marble",
+      "cell": [
+        7,
+        3
+      ],
+      "dialogue": "fools_day/church:talk",
+      "when": "flag.man_in_marble_met",
+      "steps_aside": true
+    },
+    {
+      "npc": "solomon_roderick",
+      "cell": [
+        2,
+        8
+      ],
+      "dialogue": "fools_day/reveler_bear:solomon_roderick_sheltered",
+      "when": "flag.reveler_solomon_roderick_freed and not flag.shows_over"
+    },
+    {
+      "npc": "hilda_brom",
+      "cell": [
+        11,
+        8
+      ],
+      "dialogue": "fools_day/reveler_bear:hilda_brom_sheltered",
+      "when": "flag.reveler_hilda_brom_freed and not flag.shows_over"
+    },
+    {
+      "npc": "wendel_somerton",
+      "cell": [
+        2,
+        11
+      ],
+      "dialogue": "fools_day/reveler_flag:wendel_somerton_sheltered",
+      "when": "not flag.connection_ascendancy and not flag.connection_immortality and flag.reveler_wendel_somerton_freed and not flag.shows_over"
+    },
+    {
+      "npc": "alda_farnum",
+      "cell": [
+        11,
+        11
+      ],
+      "dialogue": "fools_day/reveler_flag:alda_farnum_sheltered",
+      "when": "flag.connection_ascendancy and flag.reveler_alda_farnum_freed and not flag.shows_over"
+    },
+    {
+      "npc": "jean_myriel",
+      "cell": [
+        2,
+        14
+      ],
+      "dialogue": "fools_day/reveler_flag:jean_myriel_sheltered",
+      "when": "flag.connection_immortality and not flag.connection_ascendancy and flag.reveler_jean_myriel_freed and not flag.shows_over"
+    },
+    {
+      "npc": "finneas_trout",
+      "cell": [
+        11,
+        14
+      ],
+      "dialogue": "fools_day/reveler_knight:finneas_trout_sheltered",
+      "when": "flag.reveler_finneas_trout_freed and not flag.shows_over"
+    },
+    {
+      "npc": "eleanor_heyling",
+      "cell": [
+        5,
+        8
+      ],
+      "dialogue": "fools_day/reveler_knight:eleanor_heyling_sheltered",
+      "when": "flag.reveler_eleanor_heyling_freed and not flag.shows_over"
+    },
+    {
+      "npc": "doris_squire",
+      "cell": [
+        8,
+        8
+      ],
+      "dialogue": "fools_day/reveler_bell:doris_squire_sheltered",
+      "when": "flag.reveler_doris_squire_freed and not flag.shows_over"
+    },
+    {
+      "npc": "weston_murdoch",
+      "cell": [
+        5,
+        11
+      ],
+      "dialogue": "fools_day/reveler_bell:weston_murdoch_sheltered",
+      "when": "flag.reveler_weston_murdoch_freed and not flag.shows_over"
+    },
+    {
+      "npc": "holly_aster",
+      "cell": [
+        8,
+        11
+      ],
+      "dialogue": "fools_day/reveler_hut:holly_aster_sheltered",
+      "when": "not (flag.connection_evolution and not flag.connection_liberation) and flag.reveler_holly_aster_freed and not flag.shows_over"
+    },
+    {
+      "npc": "thomasin_ardor",
+      "cell": [
+        5,
+        14
+      ],
+      "dialogue": "fools_day/reveler_hut:thomasin_ardor_sheltered",
+      "when": "flag.connection_evolution and not flag.connection_liberation and flag.reveler_thomasin_ardor_freed and not flag.shows_over"
+    },
+    {
+      "npc": "morgan",
+      "cell": [
+        8,
+        14
+      ],
+      "dialogue": "fools_day/reveler_hive:morgan_sheltered",
+      "when": "flag.reveler_morgan_freed and not flag.shows_over"
+    },
+    {
+      "npc": "baltus_tolliver",
+      "cell": [
+        5,
+        16
+      ],
+      "dialogue": "fools_day/reveler_hive:baltus_tolliver_sheltered",
+      "when": "flag.reveler_baltus_tolliver_freed and not flag.shows_over"
+    },
+    {
+      "npc": "old_rusty",
+      "cell": [
+        8,
+        16
+      ],
+      "dialogue": "fools_day/reveler_stork:old_rusty_sheltered",
+      "when": "flag.reveler_old_rusty_freed and not flag.shows_over"
+    },
+    {
+      "npc": "sister_rain",
+      "cell": [
+        3,
+        16
+      ],
+      "dialogue": "fools_day/reveler_stork:sister_rain_sheltered",
+      "when": "flag.reveler_sister_rain_freed and not flag.shows_over"
+    }
+  ],
+  "encounters": [],
+  "lights": [
+    {
+      "cell": [
+        7,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "candle"
+    }
+  ],
+  "rest": "safe",
+  "rest_text": "The festival's sound stops at the door, and nothing outside moves while you sleep."
+}

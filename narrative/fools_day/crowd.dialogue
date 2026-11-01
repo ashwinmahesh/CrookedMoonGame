@@ -1,0 +1,95 @@
+# Drafted by Gemini (R21 crowd), edited.
+
+~ search
+Narrator: Paper ribbons snap overhead and hot mutton grease thickens the air while the townsfolk whirl in an endless, blister-footed reel. Painted grins flash past you in the bonfire glare, too wide and too bright to ever rest.
+* Spend an hour searching the crowd for friends in costume -> hour
+* Ask a dancer who will talk -> ask_dancer
+* Leave -> END
+
+~ ask_dancer
+Narrator: You catch a spinning villager by her ribboned sleeve, though her heels never stop their frantic drumming on the cobbles.
+Narrator: Keep step, darlings, before the music catches you standing still! Every one of Chuckles's costumed troupe lurks right beside the game booth that matches its dress, so play a round and you'll spot its twin!
+-> search
+
+~ hour
+time +60
+set fd_searched += 1
+Narrator: For a whole hour you shoulder through sticky elbows, spilled cider, and a hundred painted faces that all laugh on the same shrill beat.
+-> tiers
+
+~ tiers
+* [if not flag.found_flag] [Investigation DC 5] Look for the flag-carriers -> t_flag | miss
+* [if not flag.found_bear] [Investigation DC 10] Look for a horned bear -> t_bear | miss
+* [if not flag.found_hive] [Investigation DC 14] Look for a queen bee's hive -> t_hive | miss
+* [if not flag.found_hut] [Investigation DC 16] Look for a house on chicken legs -> t_hut | miss
+* [if not flag.found_bell] [Investigation DC 18] Look for a chiming bell -> t_bell | miss
+* [if not flag.found_knight] [Investigation DC 20] Look for a knight with a book -> t_knight | miss
+* [if not flag.found_stork] [Investigation DC 22] Look for a stilted stork -> t_stork | miss
+* Stop searching -> END
+
+~ t_flag
+set found_flag
+Narrator: Through a gap in the bonfire smoke, you spot twin standards snapping near the red-ribboned puppet theater.
+-> tiers
+
+~ t_bear
+set found_bear
+Narrator: Over the heads of the reel, a hulking horned bear costume sways beside the arm-wrestling table in the east.
+-> tiers
+
+~ t_hive
+set found_hive
+Narrator: A faint droning carries over the fiddles from the north-west, where a towering wicker hive bobs near the dart cabinets.
+-> tiers
+
+~ t_hut
+set found_hut
+Narrator: Down in the south-west lane, a crooked little manor on scaly chicken legs struts and hops beside the drinking stall.
+-> tiers
+
+~ t_bell
+set found_bell
+Narrator: A brassy chime rings out from the north, where a walking bell costume gleams beside the shell game.
+-> tiers
+
+~ t_knight
+set found_knight
+Narrator: Near the riddle stall in the north-east, a tin-plated knight clutches a singing tome to his chest.
+-> tiers
+
+~ t_stork
+set found_stork
+Narrator: High above the lanterns in the west, a long-beaked stork teeters on tall stilts beside the thunder of the drummers.
+-> tiers
+
+~ miss
+Narrator: Too many faces press around you, all of them grinning the same wet, breathless grin until your eyes ache.
+-> tiers
+
+~ shove
+Narrator: A surging ring of revellers catches you by the shoulders and shoves you along in a stink of sour ale and scorched sugar.
+Narrator: Dance till your soles peel right off the bone, sweethearts, for the clock is broke and morning's never coming home!
+ambrose_quill [smile]: Stuff another hot pie down your gullet before your ribs split! Our Lord on the maypole loves a merry, bursting belly!
+old_rusty [smile]: Round and round the cobbles go, drop your bones and point your toe, stop for breath and down you go!
+-> END
+
+~ calliope
+Narrator: Half-hidden behind a tent flap sits a brass calliope wagon with a loose panel concealing a moon-shaped button. Scratched into the paint beside it, in your own unmistakable handwriting, are the words: 'the goat lies'.
+* Press the button -> press
+* Leave it alone -> END
+
+~ press
+Narrator: The steam pipes wheeze out a warped, weeping mockery of your own cradle song as smoke boils across your sight. Through the haze rises a colossal goat skull crowned in mire, and a chorus of throats screaming to butcher it upon the stone.
+set apocalypse_calliope
+-> END
+
+~ joker
+Narrator: Pinned to a splintered stall post with a rusty nail is a gleaming joker card, its price tag marked with a sideways figure eight for infinity tickets. At your feet, your own shadow stretches across the dirt, its dark fingers twitching toward the card.
+* Let the shadow take it -> take
+* Leave it -> END
+
+~ take
+Narrator: Your shadow plucks the card free, and a dry paper chuckle whispers against your palm, boasting of impossible luck if only you wager a whole realm of the dead.
+give wild_joker_card
+set liberation_wild_joker
+-> END

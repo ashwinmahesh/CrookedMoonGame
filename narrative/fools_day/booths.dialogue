@@ -1,0 +1,375 @@
+# Drafted by Gemini (R21 booths1), edited.
+
+~ a_start
+fd_host_apiary [smile]: Step right up to the Apiary Aim, sweet friends. Three stingers for your hand, and the painted hive waits to be fed.
+if not ((flag.revelers_freed == 0 and flag.booth_a_plays <= 0) or (flag.revelers_freed == 1 and flag.booth_a_plays <= 1) or (flag.revelers_freed == 2 and flag.booth_a_plays <= 2) or (flag.revelers_freed == 3 and flag.booth_a_plays <= 3) or (flag.revelers_freed == 4 and flag.booth_a_plays <= 4) or (flag.revelers_freed == 5 and flag.booth_a_plays <= 5) or (flag.revelers_freed == 6 and flag.booth_a_plays <= 6) or (flag.revelers_freed == 7 and flag.booth_a_plays <= 7) or (flag.revelers_freed == 8 and flag.booth_a_plays <= 8) or (flag.revelers_freed == 9 and flag.booth_a_plays <= 9) or (flag.revelers_freed == 10 and flag.booth_a_plays <= 10) or (flag.revelers_freed == 11 and flag.booth_a_plays <= 11) or (flag.revelers_freed == 12 and flag.booth_a_plays <= 12))
+fd_host_apiary [sly]: You have had your turn at the comb already, my dears. Come back when the festival air has shifted a little.
+endif
+* [if ((flag.revelers_freed == 0 and flag.booth_a_plays <= 0) or (flag.revelers_freed == 1 and flag.booth_a_plays <= 1) or (flag.revelers_freed == 2 and flag.booth_a_plays <= 2) or (flag.revelers_freed == 3 and flag.booth_a_plays <= 3) or (flag.revelers_freed == 4 and flag.booth_a_plays <= 4) or (flag.revelers_freed == 5 and flag.booth_a_plays <= 5) or (flag.revelers_freed == 6 and flag.booth_a_plays <= 6) or (flag.revelers_freed == 7 and flag.booth_a_plays <= 7) or (flag.revelers_freed == 8 and flag.booth_a_plays <= 8) or (flag.revelers_freed == 9 and flag.booth_a_plays <= 9) or (flag.revelers_freed == 10 and flag.booth_a_plays <= 10) or (flag.revelers_freed == 11 and flag.booth_a_plays <= 11) or (flag.revelers_freed == 12 and flag.booth_a_plays <= 12))] Play a round -> a_play
+* Ask how the game works -> a_rules
+* Look around the booth -> a_notice
+* Challenge the worker -> a_fight
+* Walk on -> END
+
+~ a_rules
+fd_host_apiary [neutral]: Three feathered darts and three throws at the queen's golden ring. The truer your sting, the more tickets spill from the comb.
+-> a_start
+
+~ a_notice
+Narrator: Behind the sticky canvas, a figure stuffed into a wicker beehive costume sways in time to the calliope, humming a wet, cheerful tune.
+set found_hive
+-> a_start
+
+~ a_fight
+fd_host_apiary [smile]: Oh, sting the keeper if you must, my honeys. The swarm always has another mask waiting in the straw.
+Narrator: Even as the keeper raises their hands, you know another smiling worker will step into the spilled honey before the dust settles.
+combat booth_a
+
+~ a_play
+if flag.revelers_freed == 0
+set booth_a_plays = 1
+elif flag.revelers_freed == 1
+set booth_a_plays = 2
+elif flag.revelers_freed == 2
+set booth_a_plays = 3
+elif flag.revelers_freed == 3
+set booth_a_plays = 4
+elif flag.revelers_freed == 4
+set booth_a_plays = 5
+elif flag.revelers_freed == 5
+set booth_a_plays = 6
+elif flag.revelers_freed == 6
+set booth_a_plays = 7
+elif flag.revelers_freed == 7
+set booth_a_plays = 8
+elif flag.revelers_freed == 8
+set booth_a_plays = 9
+elif flag.revelers_freed == 9
+set booth_a_plays = 10
+elif flag.revelers_freed == 10
+set booth_a_plays = 11
+elif flag.revelers_freed == 11
+set booth_a_plays = 12
+elif flag.revelers_freed == 12
+set booth_a_plays = 13
+endif
+set found_hive
+Narrator: The keeper presses three heavy brass darts tipped with real hornet stingers into your palm. Wax and warm mead smell thick around the target board.
+set fd_darts_hits = 0
+-> a_t1
+
+~ a_t1
+Narrator: {name} lines up the first dart against the painted wooden comb as the lanterns sway.
+check Dexterity DC 15 -> a_h1 | a_m1
+
+~ a_h1
+set fd_darts_hits += 1
+fd_host_apiary [smile]: Right into the wax! That is one sweet sting for the queen.
+-> a_t2
+
+~ a_m1
+fd_host_apiary [sly]: Wide into the straw, my dear. The drones are laughing at you.
+-> a_t2
+
+~ a_t2
+Narrator: The painted bees on the board seem to crawl across the grain as {name} steadies the second throw.
+check Dexterity DC 15 -> a_h2 | a_m2
+
+~ a_h2
+set fd_darts_hits += 1
+fd_host_apiary [smile]: A second strike! Hear how the little hive hums for you.
+-> a_t3
+
+~ a_m2
+fd_host_apiary [weary]: Clack against the rim and down into the mud. Mind the sticky feathers.
+-> a_t3
+
+~ a_t3
+Narrator: One stinger remains, slick with warm honey between {name}'s fingers.
+check Dexterity DC 15 -> a_h3 | a_m3
+
+~ a_h3
+set fd_darts_hits += 1
+fd_host_apiary [smile]: Dead center! The comb is weeping gold tonight.
+-> a_score
+
+~ a_m3
+fd_host_apiary [sly]: Off into the ribbons. Never mind, the hive forgives a clumsy wing.
+-> a_score
+
+~ a_score
+if flag.fd_darts_hits == 3
+set fool_tickets += 4
+fd_host_apiary [smile]: Three for three, sharp as a royal hornet! Take four tickets, my darlings, before the bees ask for them back.
+elif flag.fd_darts_hits == 2
+set fool_tickets += 3
+fd_host_apiary [smile]: Two stingers home in the wax. Three sticky tickets for a very steady hand.
+elif flag.fd_darts_hits == 1
+set fool_tickets += 2
+fd_host_apiary [neutral]: One lone bee in the comb. That still buys two tickets at the Lord's counter.
+else
+set fool_tickets += 1
+fd_host_apiary [smile]: Not a single sting in the board, poor lambs. Take one ticket for your trouble and wipe the honey off your sleeves.
+endif
+-> a_start
+
+~ b_start
+fd_host_bell [smile]: Ring-a-ding and step close, sharp eyes. Three brass bells upon the velvet, and one little silver pea hiding underneath.
+if not ((flag.revelers_freed == 0 and flag.booth_b_plays <= 0) or (flag.revelers_freed == 1 and flag.booth_b_plays <= 1) or (flag.revelers_freed == 2 and flag.booth_b_plays <= 2) or (flag.revelers_freed == 3 and flag.booth_b_plays <= 3) or (flag.revelers_freed == 4 and flag.booth_b_plays <= 4) or (flag.revelers_freed == 5 and flag.booth_b_plays <= 5) or (flag.revelers_freed == 6 and flag.booth_b_plays <= 6) or (flag.revelers_freed == 7 and flag.booth_b_plays <= 7) or (flag.revelers_freed == 8 and flag.booth_b_plays <= 8) or (flag.revelers_freed == 9 and flag.booth_b_plays <= 9) or (flag.revelers_freed == 10 and flag.booth_b_plays <= 10) or (flag.revelers_freed == 11 and flag.booth_b_plays <= 11) or (flag.revelers_freed == 12 and flag.booth_b_plays <= 12))
+fd_host_bell [sly]: No more chimes for you just yet. Come back when the music in the square has changed its tune.
+endif
+* [if ((flag.revelers_freed == 0 and flag.booth_b_plays <= 0) or (flag.revelers_freed == 1 and flag.booth_b_plays <= 1) or (flag.revelers_freed == 2 and flag.booth_b_plays <= 2) or (flag.revelers_freed == 3 and flag.booth_b_plays <= 3) or (flag.revelers_freed == 4 and flag.booth_b_plays <= 4) or (flag.revelers_freed == 5 and flag.booth_b_plays <= 5) or (flag.revelers_freed == 6 and flag.booth_b_plays <= 6) or (flag.revelers_freed == 7 and flag.booth_b_plays <= 7) or (flag.revelers_freed == 8 and flag.booth_b_plays <= 8) or (flag.revelers_freed == 9 and flag.booth_b_plays <= 9) or (flag.revelers_freed == 10 and flag.booth_b_plays <= 10) or (flag.revelers_freed == 11 and flag.booth_b_plays <= 11) or (flag.revelers_freed == 12 and flag.booth_b_plays <= 12))] Play a round -> b_play
+* Ask how the game works -> b_rules
+* Look around the booth -> b_notice
+* Challenge the worker -> b_fight
+* Walk on -> END
+
+~ b_rules
+fd_host_bell [neutral]: I slide the bells, they chime and dance, and you point to the one covering the silver ball. Spot it cleanly and win two tickets.
+-> b_start
+
+~ b_notice
+Narrator: Beside the velvet table, a villager encased in a tarnished copper bell rocks from heel to toe, clanging softly with every breath.
+set found_bell
+-> b_start
+
+~ b_fight
+fd_host_bell [smile]: Strike the bell and hear it ring! There are plenty more suits stitched and waiting in the dark.
+Narrator: The host's painted grin never wavers, certain that another jingling fool will take this stool the moment they fall.
+combat booth_b
+
+~ b_play
+if flag.revelers_freed == 0
+set booth_b_plays = 1
+elif flag.revelers_freed == 1
+set booth_b_plays = 2
+elif flag.revelers_freed == 2
+set booth_b_plays = 3
+elif flag.revelers_freed == 3
+set booth_b_plays = 4
+elif flag.revelers_freed == 4
+set booth_b_plays = 5
+elif flag.revelers_freed == 5
+set booth_b_plays = 6
+elif flag.revelers_freed == 6
+set booth_b_plays = 7
+elif flag.revelers_freed == 7
+set booth_b_plays = 8
+elif flag.revelers_freed == 8
+set booth_b_plays = 9
+elif flag.revelers_freed == 9
+set booth_b_plays = 10
+elif flag.revelers_freed == 10
+set booth_b_plays = 11
+elif flag.revelers_freed == 11
+set booth_b_plays = 12
+elif flag.revelers_freed == 12
+set booth_b_plays = 13
+endif
+set found_bell
+Narrator: The host's gloved fingers blur across the velvet table, setting three heavy brass bells swirling in a dizzying chorus of tinny chimes.
+* [Insight DC 15] Read the host's hands -> b_win | b_lose
+* [Perception DC 15] Follow the ball's faint sound -> b_win | b_lose
+* [Sleight of Hand DC 15] Lift a bell when no one looks -> b_win | b_caught
+* Walk away -> END
+
+~ b_win
+set fool_tickets += 2
+fd_host_bell [smile]: Ding-dong, there she shines! Every tin bell on my coat is cheering for you, clever thing.
+-> b_start
+
+~ b_lose
+fd_host_bell [sly]: Empty velvet, sad and bare! The little silver pea was sleeping next door all along.
+-> b_start
+
+~ b_caught
+Narrator: Every tiny bell sewn to the host's velvet suit stops ringing at once, leaving a dead, tinny silence across the table.
+fd_host_bell [neutral]: Greedy fingers under the brass. Our Lord up on the pole likes a cheat, though he gives no tickets for it.
+set fd_chuckles_amused
+-> b_start
+
+~ c_start
+fd_host_riddles [smile]: Halt, bold travelers, before the Lists of Wit. My blinkered steed and I guard the rhymes of the carnival.
+if not ((flag.revelers_freed == 0 and flag.booth_c_plays <= 0) or (flag.revelers_freed == 1 and flag.booth_c_plays <= 1) or (flag.revelers_freed == 2 and flag.booth_c_plays <= 2) or (flag.revelers_freed == 3 and flag.booth_c_plays <= 3) or (flag.revelers_freed == 4 and flag.booth_c_plays <= 4) or (flag.revelers_freed == 5 and flag.booth_c_plays <= 5) or (flag.revelers_freed == 6 and flag.booth_c_plays <= 6) or (flag.revelers_freed == 7 and flag.booth_c_plays <= 7) or (flag.revelers_freed == 8 and flag.booth_c_plays <= 8) or (flag.revelers_freed == 9 and flag.booth_c_plays <= 9) or (flag.revelers_freed == 10 and flag.booth_c_plays <= 10) or (flag.revelers_freed == 11 and flag.booth_c_plays <= 11) or (flag.revelers_freed == 12 and flag.booth_c_plays <= 12))
+fd_host_riddles [weary]: The tome is shut to you for now, good sirs. Return when another soul has changed their station.
+endif
+* [if ((flag.revelers_freed == 0 and flag.booth_c_plays <= 0) or (flag.revelers_freed == 1 and flag.booth_c_plays <= 1) or (flag.revelers_freed == 2 and flag.booth_c_plays <= 2) or (flag.revelers_freed == 3 and flag.booth_c_plays <= 3) or (flag.revelers_freed == 4 and flag.booth_c_plays <= 4) or (flag.revelers_freed == 5 and flag.booth_c_plays <= 5) or (flag.revelers_freed == 6 and flag.booth_c_plays <= 6) or (flag.revelers_freed == 7 and flag.booth_c_plays <= 7) or (flag.revelers_freed == 8 and flag.booth_c_plays <= 8) or (flag.revelers_freed == 9 and flag.booth_c_plays <= 9) or (flag.revelers_freed == 10 and flag.booth_c_plays <= 10) or (flag.revelers_freed == 11 and flag.booth_c_plays <= 11) or (flag.revelers_freed == 12 and flag.booth_c_plays <= 12))] Play a round -> c_play
+* Ask how the game works -> c_rules
+* Look around the booth -> c_notice
+* Challenge the worker -> c_fight
+* Walk on -> END
+
+~ c_rules
+fd_host_riddles [neutral]: Choose a riddle from my saddle-scroll and speak the true answer. A wrong guess costs nothing, and a sharp tongue wins tickets.
+-> c_start
+
+~ c_notice
+Narrator: Loitering near the horse's flank is a figure buckled into cardboard armor, clutching a hymnbook that sings in a strained, papery falsetto.
+set found_knight
+-> c_start
+
+~ c_fight
+fd_host_riddles [smile]: Unsheathe your iron then! The festival has no shortage of fools to wear this tin.
+Narrator: The rider keeps that stiff, painted smile, knowing another worker will mount the post before the crowd even turns its head.
+combat booth_c
+
+~ c_play
+if flag.revelers_freed == 0
+set booth_c_plays = 1
+elif flag.revelers_freed == 1
+set booth_c_plays = 2
+elif flag.revelers_freed == 2
+set booth_c_plays = 3
+elif flag.revelers_freed == 3
+set booth_c_plays = 4
+elif flag.revelers_freed == 4
+set booth_c_plays = 5
+elif flag.revelers_freed == 5
+set booth_c_plays = 6
+elif flag.revelers_freed == 6
+set booth_c_plays = 7
+elif flag.revelers_freed == 7
+set booth_c_plays = 8
+elif flag.revelers_freed == 8
+set booth_c_plays = 9
+elif flag.revelers_freed == 9
+set booth_c_plays = 10
+elif flag.revelers_freed == 10
+set booth_c_plays = 11
+elif flag.revelers_freed == 11
+set booth_c_plays = 12
+elif flag.revelers_freed == 12
+set booth_c_plays = 13
+endif
+set found_knight
+fd_host_riddles [neutral]: The scroll lies open across my pommel. Which verse will you test against your wits?
+* First riddle -> c_r1
+* Second riddle -> c_r2
+* Back -> c_start
+
+~ c_r1
+fd_host_riddles [smile]: "I have a face and two hands, but no arms and I cannot clap. What am I?"
+* A clock -> c_r1_ok
+* A scarecrow -> c_r1_no
+* A mirror -> c_r1_no
+* [History DC 15] Recall where the riddle comes from -> c_r1_ok | c_r1_no
+
+~ c_r1_ok
+set fool_tickets += 2
+fd_host_riddles [smile]: The clock upon the tower, counting out the endless night! Take two tickets from my lance.
+-> c_play
+
+~ c_r1_no
+fd_host_riddles [sly]: Alas, your lance strikes wide of the mark. No tickets for that verse.
+-> c_play
+
+~ c_r2
+fd_host_riddles [smile]: "The more of me you take, the more of me you leave behind. What am I?"
+* Footsteps -> c_r2_ok
+* Gold -> c_r2_no
+* Breath -> c_r2_no
+* [History DC 18] Recall the answer -> c_r2_ok | c_r2_no
+
+~ c_r2_ok
+set fool_tickets += 5
+fd_host_riddles [smile]: Footsteps in the mire, marching round and round the square! Five whole tickets for a scholar of the road.
+-> c_play
+
+~ c_r2_no
+fd_host_riddles [weary]: A gallant guess, yet false as tin. Try another verse if your wits allow.
+-> c_play
+
+~ d_start
+fd_host_rhythm [smile]: Look up, little ground-walkers! The tall drums are talking tonight, and they want to hear your feet answer back.
+if not ((flag.revelers_freed == 0 and flag.booth_d_plays <= 0) or (flag.revelers_freed == 1 and flag.booth_d_plays <= 1) or (flag.revelers_freed == 2 and flag.booth_d_plays <= 2) or (flag.revelers_freed == 3 and flag.booth_d_plays <= 3) or (flag.revelers_freed == 4 and flag.booth_d_plays <= 4) or (flag.revelers_freed == 5 and flag.booth_d_plays <= 5) or (flag.revelers_freed == 6 and flag.booth_d_plays <= 6) or (flag.revelers_freed == 7 and flag.booth_d_plays <= 7) or (flag.revelers_freed == 8 and flag.booth_d_plays <= 8) or (flag.revelers_freed == 9 and flag.booth_d_plays <= 9) or (flag.revelers_freed == 10 and flag.booth_d_plays <= 10) or (flag.revelers_freed == 11 and flag.booth_d_plays <= 11) or (flag.revelers_freed == 12 and flag.booth_d_plays <= 12))
+fd_host_rhythm [sly]: The skins are resting from your hands, ground-walkers. March back when the parade has shifted.
+endif
+* [if ((flag.revelers_freed == 0 and flag.booth_d_plays <= 0) or (flag.revelers_freed == 1 and flag.booth_d_plays <= 1) or (flag.revelers_freed == 2 and flag.booth_d_plays <= 2) or (flag.revelers_freed == 3 and flag.booth_d_plays <= 3) or (flag.revelers_freed == 4 and flag.booth_d_plays <= 4) or (flag.revelers_freed == 5 and flag.booth_d_plays <= 5) or (flag.revelers_freed == 6 and flag.booth_d_plays <= 6) or (flag.revelers_freed == 7 and flag.booth_d_plays <= 7) or (flag.revelers_freed == 8 and flag.booth_d_plays <= 8) or (flag.revelers_freed == 9 and flag.booth_d_plays <= 9) or (flag.revelers_freed == 10 and flag.booth_d_plays <= 10) or (flag.revelers_freed == 11 and flag.booth_d_plays <= 11) or (flag.revelers_freed == 12 and flag.booth_d_plays <= 12))] Play a round -> d_play
+* Ask how the game works -> d_rules
+* Look around the booth -> d_notice
+* Challenge the worker -> d_fight
+* Walk on -> END
+
+~ d_rules
+fd_host_rhythm [neutral]: I beat a measure on the high skins, and you match it three times before you stumble three times. Or simply clap along for a pauper's prize.
+-> d_start
+
+~ d_notice
+Narrator: Teetering beside the ribbons on long wooden stilts is a villager draped in bedsheet feathers, clacking a painted stork beak in time with the drums.
+set found_stork
+-> d_start
+
+~ d_fight
+fd_host_rhythm [smile]: Chop the stilts from under me if you like! Another drummer will be strapped into the wood before I hit the cobbles.
+Narrator: The drummer keeps grinning down from the rafters, quite sure the carnival will fill the empty stilts before the drum stops rolling.
+combat booth_d
+
+~ d_play
+if flag.revelers_freed == 0
+set booth_d_plays = 1
+elif flag.revelers_freed == 1
+set booth_d_plays = 2
+elif flag.revelers_freed == 2
+set booth_d_plays = 3
+elif flag.revelers_freed == 3
+set booth_d_plays = 4
+elif flag.revelers_freed == 4
+set booth_d_plays = 5
+elif flag.revelers_freed == 5
+set booth_d_plays = 6
+elif flag.revelers_freed == 6
+set booth_d_plays = 7
+elif flag.revelers_freed == 7
+set booth_d_plays = 8
+elif flag.revelers_freed == 8
+set booth_d_plays = 9
+elif flag.revelers_freed == 9
+set booth_d_plays = 10
+elif flag.revelers_freed == 10
+set booth_d_plays = 11
+elif flag.revelers_freed == 11
+set booth_d_plays = 12
+elif flag.revelers_freed == 12
+set booth_d_plays = 13
+endif
+set found_stork
+set fd_beats_ok = 0
+set fd_beats_bad = 0
+Narrator: Tight goat-skin drums rattle overhead, smelling of tallow and woodsmoke as the stilted host raises two polished bone mallets.
+-> d_beat
+
+~ d_beat
+fd_host_rhythm [smile]: Hear the bone on hide, clack-thump-clack! Now give the measure back to me!
+* [Performance DC 15] Drum the answer -> d_hit | d_miss
+* [Acrobatics DC 15] Dance the answer -> d_hit | d_miss
+* Clap along safely -> d_clap
+
+~ d_hit
+set fd_beats_ok += 1
+fd_host_rhythm [smile]: Crisp and true! The stilts are rattling with you now!
+if flag.fd_beats_ok >= 3
+-> d_win
+endif
+-> d_beat
+
+~ d_miss
+set fd_beats_bad += 1
+fd_host_rhythm [sly]: Out of step, clumsy boots! You bruised the measure!
+if flag.fd_beats_bad >= 3
+-> d_lose
+endif
+-> d_beat
+
+~ d_win
+set fool_tickets += 5
+fd_host_rhythm [smile]: Three measures clean and loud enough to wake the churchyard! Catch your five tickets before the wind takes them!
+-> d_start
+
+~ d_lose
+fd_host_rhythm [weary]: The rhythm breaks and tumbles in the dirt. Shake out your ankles and try the skins another time.
+-> d_start
+
+~ d_clap
+set fool_tickets += 1
+fd_host_rhythm [sly]: Polite little patty-cake from the cheap seats. Take one ticket for keeping your palms warm.
+-> d_start

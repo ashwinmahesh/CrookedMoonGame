@@ -1,0 +1,59 @@
+# Drafted by Gemini (R21 understudy), edited.
+
+~ start
+Narrator: Tarnished bells jingle on the frayed points of this jester's cap, and greasepaint sits thick in the creases of a face that has forgotten how to rest.
+fd_understudy [angry]: Look at that painted bladder on the maypole, stealing my billing and my bows! I am Barnaby Tuppence, the one true Lord of Fools.
+fd_understudy [sly]: That squeaking balloon is merely my understudy, grown swollen on cheap applause. Stand witness to my routine, travellers, and judge which of us wears the motley best!
+* Be his judge -> accept
+* Leave -> END
+
+~ accept
+fd_understudy [smile]: Splendid, a discerning house at last! Why did the grave-digger wed the baker's daughter? Because they both knew how to make a tidy crust rise!
+quest chuckles_understudy asked
+-> menu
+
+~ menu
+* Humour him. -> humour
+* [Performance DC 15] Tell a better joke than his -> joke_ok | joke_fail
+* [Insight DC 14] See what he really is -> insight_ok | insight_fail
+* [ends:chuckles_understudy] Tell him the truth: he is a man in a hat -> truth
+* Leave -> END
+
+~ humour
+Narrator: At your applause, the glassy-eyed revellers nearby chime in right on the beat, giving the old trouper the clean, honest laugh he has chased for ages.
+fd_understudy [smile]: You hear that timing, you overgrown turnip on a string? That is how a master holds the square! Take this purse, friends, with the Lord's compliments.
+set understudy_outcome = "humoured"
+quest chuckles_understudy done
+gold +40
+-> END
+
+~ joke_ok
+Narrator: His painted jaw drops, and then a rusty, startled bark of laughter shakes the little bells on his collar.
+fd_understudy [smile]: Oh, that is dreadful, that is marvellous! I have not laughed since the bills went up in... well, never mind when. Take the prize, you earned the top spot!
+set understudy_outcome = "outjoked"
+quest chuckles_understudy done
+gold +40
+-> END
+
+~ joke_fail
+fd_understudy [sly]: All delivery and no punch, my dear amateurs! Leave the rib-tickling to the reigning monarch of mirth, and let us try from the top.
+-> menu
+
+~ insight_ok
+Narrator: Beneath the cracked white paint is no fiend at all, only a bone-weary pantomime player whose boots are worn through from years of forced revelry. A gentle word about his craft makes his shoulders drop.
+fd_understudy [weary]: A hall with footlights and a curtain that actually comes down... Lord above, I had nearly forgotten. Thank you for remembering a working player, friends, take this.
+set understudy_outcome = "known"
+quest chuckles_understudy done
+gold +40
+-> END
+
+~ insight_fail
+fd_understudy [smile]: Drink it in, good folk, the profile of a master! Notice how the bells catch the bonfire light when I take my bow.
+-> menu
+
+~ truth
+Narrator: His smile goes brittle under the tallow paint, and he tugs his crooked points straight with stiff, trembling fingers.
+fd_understudy [angry]: Philistines and hecklers, bought off by a bladder of hot wind! I shall take my act to the parade and show them what real stagecraft looks like!
+set understudy_outcome = "slighted"
+quest chuckles_understudy slighted
+-> END

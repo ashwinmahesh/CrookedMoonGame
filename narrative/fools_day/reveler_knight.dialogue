@@ -1,0 +1,122 @@
+# R21 reveler conversations for the knight costume: logic from tools/content/build_fools_day_dialogue.py, lines drafted by Gemini (R21 revelers), edited.
+
+~ finneas_trout_start
+finneas_trout [smile]: Come join the syllabus of glee, my friends, for this great tome sings every line in perfect time! Step into the measure, forget your dreary treatises, and dance until our spectacles steam!
+-> finneas_trout_menu
+
+~ finneas_trout_menu
+* [if flag.release_slips >= 1] Show them a release slip -> finneas_trout_slip
+* [Persuasion DC 15] Invite them to a better party, at a quiet church -> finneas_trout_church | finneas_trout_church_fail
+* [Deception DC 15] Say Chuckles wants them at the church for the next number -> finneas_trout_church | finneas_trout_church_fail
+* [knows:calm_emotions] Cast Calm Emotions on them -> finneas_trout_calm
+* [knows:greater_restoration] Cast Greater Restoration on them -> finneas_trout_calm
+* Knock them out of the costume, bruised but not hurt for good -> finneas_trout_fight
+* Leave them dancing for now -> END
+
+~ finneas_trout_slip
+finneas_trout [neutral]: Good heavens, my calves are cramping and I appear to be wearing tin plate. Did I truly spend the last hour lecturing the cobblestones in rhyming couplets?
+set release_slips -= 1
+set reveler_finneas_trout = "tickets"
+set reveler_finneas_trout_freed
+set revelers_freed += 1
+-> END
+
+~ finneas_trout_church
+finneas_trout [smile]: A symposium of merriment in the old chapel, you say? By all means, lead the procession, and I shall recite the opening thesis on the march!
+lead finneas_trout to fd_silent_church
+if check.last
+set reveler_finneas_trout = "church"
+set reveler_finneas_trout_freed
+set revelers_freed += 1
+set church_guests += 1
+endif
+-> END
+
+~ finneas_trout_church_fail
+finneas_trout [smile]: A quiet chapel has no footnoted fanfare, no lanterns, and no brass! Come back when you are ready to study the joyous choreography of the square!
+set fd_chuckles_amused
+-> finneas_trout_menu
+
+~ finneas_trout_calm
+finneas_trout [weary]: My word, it feels as though a fever broke behind my eyes. That tune was an appalling assault on empirical reason, yet my boots would not stop tapping.
+set reveler_finneas_trout = "uncharmed"
+set reveler_finneas_trout_freed
+set revelers_freed += 1
+-> END
+
+~ finneas_trout_fight
+finneas_trout [angry]: Do not disrupt the curriculum of mirth, scholars, or this heavy volume shall grade your skulls! The syllabus demands a smile from every face in the square!
+Narrator: The dancers nearby keep on dancing. Nobody here is going to remember a punch.
+combat reveler_finneas_trout
+
+~ finneas_trout_beaten
+finneas_trout [weary]: Ow, my jaw, though I suppose a sound knock was the only logical refutation left. Do help me out of this cardboard breastplate before Oswick sees me.
+set reveler_finneas_trout = "beaten"
+set reveler_finneas_trout_freed
+set revelers_freed += 1
+-> END
+
+~ finneas_trout_sheltered
+finneas_trout [weary]: It is blissfully quiet under this stone roof, even if my knees still twitch for a jig. I shall need a dozen candles from Oswick's shop before I dare write my notes.
+-> END
+
+~ eleanor_heyling_start
+eleanor_heyling [smile]: See how the pages flutter and sing, Chapter Four, Verse Nine of the Great Merriment! Take a ribbon and turn the leaf with me, for sleep is an obsolete footnote tonight!
+-> eleanor_heyling_menu
+
+~ eleanor_heyling_menu
+* [if flag.release_slips >= 1] Show them a release slip -> eleanor_heyling_slip
+* [Persuasion DC 15] Invite them to a better party, at a quiet church -> eleanor_heyling_church | eleanor_heyling_church_fail
+* [Deception DC 15] Say Chuckles wants them at the church for the next number -> eleanor_heyling_church | eleanor_heyling_church_fail
+* [knows:calm_emotions] Cast Calm Emotions on them -> eleanor_heyling_calm
+* [knows:greater_restoration] Cast Greater Restoration on them -> eleanor_heyling_calm
+* Knock them out of the costume, bruised but not hurt for good -> eleanor_heyling_fight
+* Leave them dancing for now -> END
+
+~ eleanor_heyling_slip
+eleanor_heyling [neutral]: Where are my spectacles, and why is this papier-mache book glued to my sleeves? Margery will scold me half to death if I have missed the children's supper again.
+set release_slips -= 1
+set reveler_eleanor_heyling = "tickets"
+set reveler_eleanor_heyling_freed
+set revelers_freed += 1
+-> END
+
+~ eleanor_heyling_church
+eleanor_heyling [smile]: An uncatalogued festivity in the chapel library, you say? Let us go at once and cross-reference their hymns with ours!
+lead eleanor_heyling to fd_silent_church
+if check.last
+set reveler_eleanor_heyling = "church"
+set reveler_eleanor_heyling_freed
+set revelers_freed += 1
+set church_guests += 1
+endif
+-> END
+
+~ eleanor_heyling_church_fail
+eleanor_heyling [smile]: No, no, the citation clearly places the grand reel right here by the bonfires! Run along, or stay and let the Singing Tome read your palms in rhyme!
+set fd_chuckles_amused
+-> eleanor_heyling_menu
+
+~ eleanor_heyling_calm
+eleanor_heyling [weary]: My head is ringing like a dropped inkwell, and my heels are blistered raw. Whatever enchantment bound that script to my tongue had no proper bibliography at all.
+set reveler_eleanor_heyling = "uncharmed"
+set reveler_eleanor_heyling_freed
+set revelers_freed += 1
+-> END
+
+~ eleanor_heyling_fight
+eleanor_heyling [angry]: We tolerate no dog-eared sourpusses in our festive edition, my friends! Step into the margins or we shall bind you in red ribbon from cover to cover!
+Narrator: The dancers nearby keep on dancing. Nobody here is going to remember a punch.
+combat reveler_eleanor_heyling
+
+~ eleanor_heyling_beaten
+eleanor_heyling [weary]: A harsh critique, though I cannot fault your methodology given the state I was in. Help me up, please, before Algernon and Sheridan find their aunt sprawled in the confetti.
+set reveler_eleanor_heyling = "beaten"
+set reveler_eleanor_heyling_freed
+set revelers_freed += 1
+-> END
+
+~ eleanor_heyling_sheltered
+eleanor_heyling [weary]: I have read seven treatises on compulsive curses, yet none mentioned the smell of hot mutton pies. Still, this silence is better than any tonic Margery brews for me.
+-> END
+
