@@ -64,6 +64,22 @@ COMPANIONS: dict[str, dict] = {
 }
 ORDER = list(COMPANIONS)
 
+## The pet words a companion uses to address people, and their pet phrases. The cloud thread's review of the Thread files (2026-11-01): a pet word or phrase
+## at most once a talk, and in banter never in two consecutive lines of an exchange. `limit_pets` trims the vocatives (the acts' talks and the banter); the
+## phrases are only counted (`pet_phrase_problems`) and fixed by hand through the edits.
+PET_WORDS = {
+    "rook_coldwake": [], "tobin_hayward": [], "silas_vane": ["friends?"], "delphine_ravelle": ["darlings?", "sweethearts?"],
+    "lucan_houndstooth": ["friends?"], "cordelia_skein": ["darlings?"],
+}
+PET_PHRASES = {
+    "rook_coldwake": ["mind the turf", "settle down now", "past regulation"],
+    "tobin_hayward": ["good soil, bad seed", "hold still, you're fraying"],
+    "silas_vane": ["house always wins", "tell's in the twitch"],
+    "delphine_ravelle": ["mind the seams", "he says you're lying"],
+    "lucan_houndstooth": ["hush now", "prime specimen", "if you please"],
+    "cordelia_skein": ["fascinating pathology", "do hold still"],
+}
+
 ## The three banter files' act gates (the README).
 ACTS = {
     "act1": "flag.gl_crashed and not flag.act2_done",
@@ -206,6 +222,47 @@ def split_long(text: str, limit: int) -> list[str]:
     return out
 
 
+# --- Pet words ---------------------------------------------------------------------------------------------------------------------
+
+def _drop_one_vocative(text: str, pat: str) -> str | None:
+    """`text` without its first vocative `pat` (', friend,' -> ',' / ', friend.' -> '.' / a leading 'Friend, '), or None if it is worded some other way."""
+    for rx, rep in ((rf",\s*(?:{pat}),", ","), (rf",\s*(?:{pat})([.!?])", r"\1"), (rf"(?:{pat})\s*,\s*(?=[\w'\"])", "")):
+        m = re.search(rx, text, re.I)
+        if m:
+            out = text[:m.start()] + (m.expand(rep) if rep else "") + text[m.end():]
+            out = out.strip()
+            return out[:1].upper() + out[1:] if m.start() == 0 else out
+    return None
+
+
+def limit_pets(cid: str, texts: list[str], seen: int = 0) -> tuple[list[str], list[str], int]:
+    """The companion's lines with every vocative pet word after the first dropped (the list is what one play of a talk says, or one banter exchange;
+    `seen` is how many the lines before already used). Returns (lines, problems, seen)."""
+    pats = PET_WORDS.get(cid, [])
+    out: list[str] = []
+    probs: list[str] = []
+    for text in texts:
+        for pat in pats:
+            while True:
+                n = len(re.findall(rf"\b(?:{pat})\b", text, re.I))
+                if n == 0 or (n == 1 and seen == 0):
+                    seen += n
+                    break
+                new = _drop_one_vocative(text, pat)
+                if new is None:
+                    probs.append(f"{cid}: a pet word I can't drop: {text[:70]}")
+                    seen += n
+                    break
+                text = new
+        out.append(text)
+    return out, probs, seen
+
+
+def pet_phrase_problems(cid: str, label: str, texts: list[str]) -> list[str]:
+    whole = " ".join(texts).lower()
+    return [f"{label}: pet phrase '{p}' {whole.count(p)} times" for p in PET_PHRASES.get(cid, []) if whole.count(p) > 1]
+
+
 # --- Writing the dialogue --------------------------------------------------------------------------------------------------------
 
 def line_for(cid: str, kind: str, text: str) -> str:
@@ -225,11 +282,28 @@ class Writer:
         self.problems: list[str] = []
 
     def talk(self, key: str, kind: str, cond: str, talk: dict, tail: list[str] | None = None, tail_for: callable = None,
-             approve_kinds: str | None = None) -> None:
-        """A talk: the opener node `talk_<key>` (never played itself), the scene node, and one node per option."""
+             approve_kinds: str | None = None, pets: bool = False) -> None:
+        """A talk: the opener node `talk_<key>` (never played itself), the scene node, and one node per option.
+        With `pets`, the companion's vocative pet words are cut to one in anything a single play says (the opening and one reply)."""
         cid = self.cid
         sizes = APPROVE[approve_kinds or kind]
         opts, replies = talk["options"], talk["replies"]
+        if pets:
+            talk = {**talk, "body": list(talk["body"]), "replies": [dict(r, rows=list(r["rows"])) for r in replies]}
+            body_say = [i for i, (k, _) in enumerate(talk["body"]) if k == "SAY"]
+            lines, probs, used = limit_pets(cid, [talk["body"][i][1] for i in body_say])
+            self.problems += probs
+            for i, text in zip(body_say, lines):
+                talk["body"][i] = ("SAY", text)
+            for n, r in enumerate(talk["replies"]):
+                rs = [i for i, (k, _) in enumerate(r["rows"]) if k == "SAY"]
+                lines, probs, _ = limit_pets(cid, [r["rows"][i][1] for i in rs], used)
+                self.problems += probs
+                for i, text in zip(rs, lines):
+                    r["rows"][i] = ("SAY", text)
+                said = [x[1] for x in talk["body"] + r["rows"] if x[0] == "SAY"]
+                self.problems += pet_phrase_problems(cid, f"{cid}/{key} option {n + 1}", said)
+            replies = talk["replies"]
         if len(replies) != len(opts):
             self.problems.append(f"{cid}/{key}: {len(opts)} options but {len(replies)} replies")
         if len(opts) != len(sizes):
@@ -327,10 +401,41 @@ def acts_file(cid: str) -> tuple[str, list[str]]:
     ]
     for key, kind, cond, tail in spec:
         if key in talks:
-            w.talk(key, kind, cond, talks[key], tail=tail)
+            w.talk(key, kind, cond, talks[key], tail=tail, pets=True)
         else:
             w.problems.append(f"{cid}: no TALK {key}")
     return w.text(), w.problems
+
+
+def _pet_hit(cid: str, text: str) -> bool:
+    low = text.lower()
+    return any(re.search(rf"\b(?:{p})\b", low) for p in PET_WORDS.get(cid, [])) or any(p in low for p in PET_PHRASES.get(cid, []))
+
+
+def trim_exchange(ex: list[tuple[str, str]]) -> tuple[list[tuple[str, str]], list[str]]:
+    """One banter exchange with each speaker's vocative pet words cut to one, and no two consecutive lines both carrying a pet word or phrase
+    (the later one's vocative goes; a pet phrase is only reported). Returns (lines, problems)."""
+    lines = [list(x) for x in ex]
+    probs: list[str] = []
+    for cid in {c for c, _ in lines}:
+        idx = [i for i, (c, _) in enumerate(lines) if c == cid]
+        new, ps, _ = limit_pets(cid, [lines[i][1] for i in idx])
+        probs += ps
+        for i, text in zip(idx, new):
+            lines[i][1] = text
+    for i in range(1, len(lines)):
+        if _pet_hit(*lines[i - 1]) and _pet_hit(*lines[i]):
+            cid, text = lines[i]
+            dropped = None
+            for pat in PET_WORDS.get(cid, []):
+                dropped = _drop_one_vocative(text, pat)
+                if dropped is not None:
+                    break
+            if dropped is not None:
+                lines[i][1] = dropped
+            else:
+                probs.append(f"pet words in consecutive lines: {lines[i - 1][1][:40]} / {text[:40]}")
+    return [(c, t) for c, t in lines], probs
 
 
 def banter_file(act: str) -> tuple[str, list[str]]:
@@ -342,6 +447,8 @@ def banter_file(act: str) -> tuple[str, list[str]]:
 """, ""]
     probs: list[str] = []
     for n, ex in enumerate(exchanges, 1):
+        ex, pet_probs = trim_exchange(ex)
+        probs += [f"{act} exchange {n}: {p}" for p in pet_probs]
         who: list[str] = []
         for cid, _ in ex:
             if cid not in COMPANIONS:

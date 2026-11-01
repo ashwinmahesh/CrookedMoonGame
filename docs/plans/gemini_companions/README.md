@@ -136,7 +136,10 @@ with no job when the jobs file isn't there).
 Every row below is a find-and-replace applied to Gemini's raw reply (`edits_<brief>.json`, applied by `tools/content/companion_talks.py` before the
 reply is read), so `reply_*.json` stays exactly what the bridge returned. Besides these, the converter changes only mechanics: straight quotes,
 a speaker's row becomes `interject name:<id>:` or `Narrator:`, a line over about 28 words (34 for the Narrator) is split at a sentence end, a REASON or
-INSPIRE loses its closing full stop, and the logic (conditions, flags, quests, approval sizes) is ours.
+INSPIRE loses its closing full stop, a companion's vocative pet words (friend, darling) are cut to the first in anything a single play of a talk says
+(and in banter to one an exchange for each speaker, none in two consecutive lines: the cloud thread's note on group 1, 2026-11-01; pet phrases that came twice
+were fixed by hand below), and the logic (conditions, flags, quests, approval sizes) is ours. The Thread files were then trimmed the same way
+by the cloud thread in 9cd7911, so they are no longer exactly what the converter makes from these replies.
 
 **thread_cordelia_skein** (2 edits)
 - "her lower hands spreads-out, dryin'" -> "her lower hands spread out, dryin'": Typo.
@@ -181,3 +184,87 @@ INSPIRE loses its closing full stop, and the logic (conditions, flags, quests, a
 - "NARRATOR: The Vagrant sets his tin cup down without a sound while Tobin steadies his breathing and lets his hand drop from his chest." -> "NARRATOR: Tobin steadies his breathing and lets his hand drop from his chest.": The Narrator never appears in his own tale.
 - "SAY: Aye, a surgeon does not un-scar the bark" -> "SAY: Right, a surgeon does not un-scar the bark": As above.
 - "OPTION 2: If the root can be cut, we bring a sharp blade and clear the row." -> "OPTION 2: If the root can be cut, we'll bring a blade.": Option text kept under 12 words.
+
+**acts_cordelia_skein** (4 edits)
+- "SAY: When presented with rare anomalies, you reach for a heavy blunt instrument or offer me that dreadful, moist-eyed pity." -> "SAY: When presented with rare anomalies, I fear we reach too quickly for a blunt instrument, or for pity, before we have understood.": The talk may not claim deeds the party did.
+- "SAY: We are wasting priceless specimens on superstition and panic, and I did not leave the dark of Nerukhet to watch ignorance triumph." -> "SAY: A good deal of priceless data is being lost to superstition and panic, and I did not leave the dark of Nerukhet to watch ignorance triumph.": Same.
+- "with a clean, sharp click of her claw." -> "with a clean, sharp click of her fingernail.": No claws in the canon.
+- "having three stubborn anomalies at my shoulder" -> "having stubborn anomalies at my shoulder": The party's size is not hers to count.
+
+**acts_delphine_ravelle** (2 edits)
+- "SAY: You lecture the broken, you flinch when the spotlight gets hot, and you walk past every decent riddle with your boots loud on the boards." -> "SAY: Somewhere along the road this company stopped listening for the cues that matter to me, and took to walking the boards with its boots loud.": The talk may not claim deeds the party did.
+- "though I did lose two perfectly good brass pins in the ditch." -> "though I did lose two perfectly good brass pins in the wreck.": How the Express crashed is not told (no ditch).
+
+**acts_lucan_houndstooth** (8 edits)
+- "SAY: We trample the brush with clattering haste, we bully tethered beasts that cannot flee, and we yield the field when a true predator shows its teeth." -> "SAY: I fear we trample the brush with clattering haste and have forgotten what the hunt is for.": The talk may not claim deeds the party did.
+- "and the next the engine is ploughing the turf of Wickermoor Hollow like a startled boar." -> "and the next the whole train is lying in the turf of Wickermoor Hollow like a startled boar.": How the Express crashed is not told.
+- "REASON: You told me to put the ledger away and rest." -> "REASON: You told me to put the journal away and rest.": His book is the field journal.
+- "When the Ghostlight Express first spilled us into the ditch," -> "When the Ghostlight Express first spilled us into the Hollow,": No ditch.
+- "than our usual approach, if you please." -> "than our usual approach.": Pet phrase 'if you please': once a talk.
+- "you shall have my rifle and my manners" -> "you shall have my bow and my manners": Lucan carries a bow, not a rifle (the cloud thread's review of group 1).
+- "against his rifle sling." -> "against the stave of his bow.": Lucan carries a bow, not a rifle (the cloud thread's review of group 1).
+- "Lucan rests his rifle across his knees with his tricorn off" -> "Lucan rests his bow across his knees with his tricorn off": Lucan carries a bow, not a rifle (the cloud thread's review of group 1).
+
+**acts_rook_coldwake** (9 edits)
+- "Rook sits out past the wagon wheel where the frost creeps in" -> "Rook sits out past the edge of the firelight where the frost creeps in": No wagon in the canon.
+- "When a watchman sees shrines cracked and graves treated like open pantries, he starts wondering what sort of parish he signed on to guard." -> "When a watchman starts to wonder whether the dead are owed less than they were, he wonders what sort of parish he signed on to guard.": The talk may not claim a deed the party did not necessarily do.
+- "SAY: Keep your hands out of the barrows, hold the line when the night presses in, and leave the headstones plumb." -> "SAY: Keep your hands off what is buried, hold the line when the night presses in, and leave the headstones plumb.": Same: no barrows (no deed claimed).
+- "Sloppy work is how trenches cave in, friend, whether you are digging in northern ice or valley mud." -> "Sloppy work is how trenches cave in, whether you are digging in northern ice or valley mud.": 'Friend' is Silas's word.
+- "That locomotive came down off the viaduct with no regard for grade, ballast, or municipal right-of-way." -> "That locomotive came down with no regard for grade, ballast, or municipal right-of-way.": No viaduct in the canon (how the Express crashed is not told).
+- "SAY: Don't need the sleep myself, friend, but I will rest the joints and keep an ear on the perimeter." -> "SAY: Don't need the sleep myself, but I will rest the joints and keep an ear on the perimeter.": 'Friend' is Silas's word.
+- "They will hold a halberd shaft through this deployment, though." -> "They will hold a shield strap through this deployment, though.": No halberd in the canon.
+- "SAY: No falsified tallies, no leaving a mate behind in the ditch while you run for the warm dugout." -> "SAY: No fudged tallies, and nobody left to stand a watch alone.": That line told the dark secret (a mate left in the ditch, a false report): Raum's gate tells it.
+- "SAY: Put that down in block capitals, friend, because I intend to hold you to the contract." -> "SAY: Put that down in block capitals, because I intend to hold you to the contract.": 'Friend' is Silas's word.
+
+**acts_silas_vane** (5 edits)
+- "SAY: Lately the way things have gone, we're bowing to tall hats, buying every crooked contract at face value, and turning poor sods over to the bailiffs." -> "SAY: Lately the way things have gone, I can't tell who's dealing and who's being dealt, and I don't like the feeling that we're working for the house.": The talk may not claim deeds the party did ('tall hats' is nothing in the canon).
+- "SAY: Start by reading the fine print before you shake a hand, and stop doing the watchman's dirty work for free." -> "SAY: Start by reading the fine print before you shake a hand, and stop working for the house for free.": Same.
+- "Catching forty winks under that moon is a tall order, friend, but I'll rest my eyes and keep one ear on the brush." -> "Dozing off under that moon is a tall order for a fellow who doesn't sleep, friend, but I'll rest my bones and keep one ear on the brush.": Relicborn do not sleep.
+- "Turns out having three solid backs around the fire beats" -> "Turns out having solid backs around the fire beats": The party's size is not his to count.
+- "so I'll banking the grate and let the bones warm through." -> "so I'll be banking the grate and letting the bones warm through.": Grammar.
+
+**acts_tobin_hayward** (9 edits)
+- "SAY: Throwing live sparks near dry brush, writing off sick ground that could still be mended, leaving hurt creatures to rot in the ditch." -> "SAY: Sparks carried carelessly, sick ground written off when it could still be mended, hurt things left behind. That is the ledger I fear we are keeping.": The talk may not claim deeds the party did.
+- "SAY: Aye, well, keep your boots out of the embers before you turn in." -> "SAY: Right, well, keep your boots out of the embers before you turn in.": Tobin's drawl is West Country: 'Aye' became 'Right' (as in the R12 Incitement).
+- "my eyes are still rattling from the rails." -> "my eyes are still rattling from the crash.": How the Express crashed is not told.
+- "and the next the whole carriage pitches into the ditch like an overturned hay-wain." -> "and the next the whole carriage goes over like an overturned hay-wain.": No ditch: how the Express crashed is not told.
+- "since the boiler burst," -> "since the crash,": Same.
+- "after flying through a baggage door." -> "after flying through a carriage door.": Same.
+- "SAY: Aye, well, when you are dropped in a strange orchard" -> "SAY: Right, well, when you are dropped in a strange orchard": As above.
+- "SAY: Aye, even a field surgeon knows when to shut the ledger and save his breath." -> "SAY: Right, even a field surgeon knows when to shut the ledger and save his breath.": As above.
+- "Goodnight, friend, I will see you when the lanterns go up." -> "Goodnight, then, I will see you when the lanterns go up.": 'Friend' is Silas's word.
+
+**secrets_delphine_ravelle** (2 edits)
+- "maybe the tailor in Funtopia did not know everything after all." -> "maybe the toymaker in Funtopia did not know everything after all.": Master Orsino is a toymaker, not a tailor.
+- "With you darlings reading over my shoulder," -> "With you reading over my shoulder,": Pet words: one a talk.
+
+**secrets_lucan_houndstooth** (8 edits)
+- "Let meknow if your own cloaks" -> "Let me know if your own cloaks": Typo.
+- "Traveling in your company" -> "Travelling in your company": Lucan's English is British.
+- "and good friends at my shoulder," -> "and good company at my shoulder,": Pet words: one a talk.
+- "Lucan rests his rifle across his knees, his yellow eyes" -> "Lucan rests his bow across his knees, his yellow eyes": Lucan carries a bow, not a rifle (the cloud thread's review of group 1).
+- "why I hold the rifle," -> "why I hold the bow,": Lucan carries a bow, not a rifle (the cloud thread's review of group 1).
+- "against the polished wood of the stock." -> "against the polished wood of his bow.": Lucan carries a bow, not a rifle (the cloud thread's review of group 1).
+- "and my rifle is yours until the last lantern goes out." -> "and my bow is yours until the last lantern goes out.": Lucan carries a bow, not a rifle (the cloud thread's review of group 1).
+- "INSPIRE: Pledged his rifle to the company." -> "INSPIRE: Pledged his bow to the company.": Lucan carries a bow, not a rifle (the cloud thread's review of group 1).
+
+**secrets_rook_coldwake** (11 edits)
+- "Brushin' ash from the binding." -> "brushing ash from the binding.": Typo (a capital B mid-sentence).
+- "Rook sets his soggy calfskin ledger and the small oilskin seed packet side by side on his knee," -> "Rook sets his soggy calfskin ledger on his knee,": The cornflower seeds were never for his own plot: they are the Catharsis's, so no talk uses them.
+- "The ledger with the rubbings, the packet of blue cornflower seeds, and the hope of a quiet plot when the work's done." -> "The ledger with the rubbings, the chalk, and the hope of a quiet plot when the work's done.": Same: no seeds.
+- "the ledger can burn and the seeds can scatter in the ditch." -> "the ledger can burn and the plot can wait.": Same: no seeds.
+- "I left a post once when the roof came down, and I won't leave another. Settle down now, the watch is set." -> "I know what a watch is worth when it holds, and I won't fail this one. Settle down now, the watch is set.": 'Left a post once' hinted the dark secret too plainly.
+- "He tucks the oilskin packet back inside his lining and pats his chest twice," -> "He tucks the ledger back inside his lining and pats his chest twice,": No seeds.
+- "INSPIRE: Swore to hold the line for us." -> "INSPIRE: Swore to hold the line for the party.": Reason text: no 'us'.
+- "INSPIRE: Put our lives ahead of his rest." -> "INSPIRE: Put the party ahead of his own rest.": Same.
+- "He reaches into his coat, pats the oilskin packet of blue cornflower seeds through the wool, and rests his hand there." -> "He reaches into his coat, pats the damp calfskin of his ledger through the wool, and rests his hand there.": No seeds.
+- "And a handful of blue cornflower seeds pressed in come the spring, so the bees know the lease is paid." -> "And the grass left to come up wild in the spring, so the bees know the lease is paid.": No seeds.
+- "OPTION 2: Keep your seeds and your ledger safe." -> "OPTION 2: Keep your ledger safe, Rook.": No seeds.
+
+**secrets_silas_vane** (2 edits)
+- "You try sleeping in an empty loft when the fog rolls off the river" -> "You try sitting up in an empty loft when the fog rolls off the river": Relicborn do not sleep.
+- "INSPIRE: offered the bone deck for us" -> "INSPIRE: offered the bone deck for the party": Reason text: no 'us'.
+
+**secrets_tobin_hayward** (2 edits)
+- "NARRATOR: The Vagrant watches the embers settle while Tobin turns a dry twig over in his fingers." -> "NARRATOR: The embers settle while Tobin turns a dry twig over in his fingers.": The Narrator never appears in his own tale.
+- "NARRATOR: Tobin dustin' his palms together makes a soft papery whisper in the quiet." -> "NARRATOR: Tobin dusts his palms together with a soft papery whisper in the quiet.": Grammar.

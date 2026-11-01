@@ -1,0 +1,312 @@
+# Rook's camp talks (story/camp_talk.gd): offered after a Long Rest or at camp once the opening `if` holds, each once a playthrough, the first that
+# holds in this order: when Rook is Strained or Doubtful (story/approval.gd), the acts' words, then Warm, Close and Devoted.
+# Rook's Thread of Fate beats are in rook_coldwake_thread.dialogue. Dark secrets are the world lane's (Raum's gate): nothing here states one.
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+~ talk_strained
+if name:rook_coldwake and approval.rook_coldwake <= strained
+-> strained
+endif
+-> END
+
+~ strained
+Narrator: Rook sits out past the edge of the firelight where the frost creeps in, scraping dried mud off the rim of his shield with a flat thumbnail.
+interject name:rook_coldwake: I have kept the shift log clean since we started down this road, but the entries are getting hard to square with proper ordinance.
+interject name:rook_coldwake: The dead are owed quiet ground, sealed stone, and a civil tongue from those walking above them, not boots kicking through their leases.
+interject name:rook_coldwake: When a watchman starts to wonder whether the dead are owed less than they were, he wonders what sort of parish he signed on to guard.
+interject name:rook_coldwake: I did not carry this ledger out of the north just to watch the bylaws broken by my own platoon.
+* You are right. Tell us how to put the record straight. -> strained_1
+* The living come first out here. Dead stone can wait. -> strained_2
+* Say nothing and stay by the fire. -> strained_3
+
+~ strained_1
+interject name:rook_coldwake: Keep your hands off what is buried, hold the line when the night presses in, and leave the headstones plumb.
+interject name:rook_coldwake: Do that much, and I can mark the recent infractions down to bad drainage and poor visibility.
+approve rook_coldwake +8: You heard my grievance out and asked how to mend the record
+-> END
+
+~ strained_2
+interject name:rook_coldwake: Logged and noted, then, though we will see how well that policy holds when the earth gives way under your boots.
+approve rook_coldwake -3: You brushed off the parish code and told me the dead could wait
+-> END
+
+~ strained_3
+Narrator: Rook closes his ledger with a dry snap, sets his shield across his knees, and watches the dark beyond the firelight.
+interject name:rook_coldwake: Quiet is something, at least.
+-> END
+
+~ talk_doubt
+if name:rook_coldwake and approval.rook_coldwake == doubtful
+-> doubt
+endif
+-> END
+
+~ doubt
+Narrator: Rook kneels near the edge of the firelight, thumbing a stick of grey chalk and staring into the red coals.
+interject name:rook_coldwake: I cannot quite get the measure of our marching orders lately, though I have gone over the docket twice since supper.
+interject name:rook_coldwake: Some hours we stand firm as a churchyard wall, and the next we cut corners that ought to be left square and undisturbed.
+interject name:rook_coldwake: A watchman likes to know whether his company respects the boundary stones or only minds them when the weather is fair.
+* Fair question. How would you have us walk this beat? -> doubt_1
+* We are surviving a haunted valley, not passing a masonry inspection. -> doubt_2
+* Say nothing and stay by the fire. -> doubt_3
+
+~ doubt_1
+Narrator: He rolls the chalk neatly into its cloth wrap and gives a slow, level nod.
+interject name:rook_coldwake: Treat a sworn word like carved granite, and leave what is buried to its rest. That is all the regulation I ask.
+approve rook_coldwake +5: You took my doubts in earnest and asked how to walk the beat
+-> END
+
+~ doubt_2
+interject name:rook_coldwake: Sloppy work is how trenches cave in, whether you are digging in northern ice or valley mud.
+interject name:rook_coldwake: Still, the kettle is hot, so we will let the matter rest till morning.
+approve rook_coldwake -2: You laughed off my concern as a petty inspection
+-> END
+
+~ doubt_3
+Narrator: Rook lets out a measured breath he had forgotten to take and tucks the chalk back into his coat.
+interject name:rook_coldwake: We will see what the next mile shows on the page.
+-> END
+
+~ talk_act1
+if name:rook_coldwake and flag.gl_crashed and not flag.vessla_slain
+-> act1
+endif
+-> END
+
+~ act1
+Narrator: Rook sits on an upturned crate with his shield propped beside his boot, pickin' glass splinters from the seams of his heavy coat.
+interject name:rook_coldwake: That locomotive came down with no regard for grade, ballast, or municipal right-of-way.
+interject name:rook_coldwake: In Syndramas, if a driver parked a carriage through three boundary fences and a stone culvert, the clerk would fine him down to his brass buttons.
+interject name:rook_coldwake: Still, the chassis held together better than it had any right to, and nobody on our roster needed a shovel and six feet of gravel.
+Narrator: He glances up through the bare branches at the huge, crooked face scowling down from the moon.
+interject name:rook_coldwake: Cannot say I care for the lighting ordinance in this valley, though. Endless night plays havoc with a watchman's shift rotation.
+interject name:rook_coldwake: Back home you knew when your relief was due because the frost turned pale blue along the eastern ditch.
+interject name:rook_coldwake: Here the sky just glares at you like an alderman checking the ledger for a missing farthing, and the damp gets straight into the joints.
+interject name:rook_coldwake: Best check I remembered to breathe before we turn in. There, one good draw of cold air, duly witnessed.
+* How are you holding up after that wreck? -> act1_1
+* None of us expected to wake up in a place like this. -> act1_2
+* Put the ledger away and get some rest. -> act1_3
+
+~ act1_1
+interject name:rook_coldwake: Ribs are stiff and my fingers feel a touch soft from the valley mud, which is never a welcome sign for the cold-blooded.
+interject name:rook_coldwake: Give me a dry kerbstone to sit on and a docket to clear, though, and I will manage my watch.
+approve rook_coldwake +2: You asked how I was holding up after the train went down
+-> END
+
+~ act1_2
+Narrator: He taps the flat of his knuckles against the calfskin cover of his ledger.
+interject name:rook_coldwake: Unscheduled stops are the worst sort, especially when the stationmaster has neglected the drainage for a century or two.
+interject name:rook_coldwake: Stick close to the shield if the locals get unruly, and we will find the proper exit lane.
+approve rook_coldwake +3: You shared the shock of our stranding by the first fire
+-> END
+
+~ act1_3
+interject name:rook_coldwake: Don't need the sleep myself, but I will rest the joints and keep an ear on the perimeter.
+interject name:rook_coldwake: Mind the turf by your bedroll, the ground dips sharp toward the ditch.
+approve rook_coldwake -1: You told me to stow the ledger and rest after the crash
+-> END
+
+~ talk_act2
+if name:rook_coldwake and flag.act2_done >= 2
+-> act2
+endif
+-> END
+
+~ act2
+Narrator: Rook warms a tin of grey wax near the embers, workin' a smear of it into the stiff leather straps of his gauntlet.
+interject name:rook_coldwake: I have served on barrow details where half the platoon bolted at the first groan from under the flagstones.
+interject name:rook_coldwake: You lot walked into that Crooked House on the hill with the rafters screaming and the floorboards foul with old grief, and you stood your ground.
+interject name:rook_coldwake: It is rare enough to find travellers who can stomach bad masonry and worse ghosts without losing their formation.
+interject name:rook_coldwake: We have taken our knocks since the train came down, no question, and a few fights went closer to the bone than regulation allows.
+interject name:rook_coldwake: Yet every time the dark crowds in, somebody steps up to hold the gap beside my shield.
+interject name:rook_coldwake: Makes a man check his own kit twice, just to be sure he is keeping pace with the company.
+interject name:rook_coldwake: I used to think a proper watch only worked when everyone wore the same brass and answered the same corporal.
+interject name:rook_coldwake: Turns out a Mixed Parish Detail can clear a docket well enough when the nerve holds.
+* How are your hands holding up against the damp lately? -> act2_1
+* It is easier holding the line with that shield beside us. -> act2_2
+* Save your strength for tomorrow's march. -> act2_3
+
+~ act2_1
+Narrator: He flexes his grey fingers over the low flame, watching the wax dull on his knuckles.
+interject name:rook_coldwake: Still taking the chill poorly, if I am honest with the log, and the softness creeps up the wrist when the mist rolls in.
+interject name:rook_coldwake: They will hold a shield strap through this deployment, though. I have no intention of filing an early retirement.
+approve rook_coldwake +2: You checked on my hands after long nights in the valley
+-> END
+
+~ act2_2
+interject name:rook_coldwake: It is good heavy timber, even if the brass knocker has a habit of speaking out of turn.
+interject name:rook_coldwake: Obliged for the vote of confidence. I will keep the front square as long as you keep the flank.
+approve rook_coldwake +3: You said my shield made it easier to hold the line
+-> END
+
+~ act2_3
+interject name:rook_coldwake: Sound procedure, that. A watchman who wastes his wind by the brazier has none left for the patrol.
+interject name:rook_coldwake: Settle down now, and I will keep the embers banked till first march.
+approve rook_coldwake -1: You told me to save my strength for the road ahead
+-> END
+
+~ talk_act3
+if name:rook_coldwake and flag.act2_done >= 5
+-> act3
+endif
+-> END
+
+~ act3
+Narrator: Rook sits close to the fire with his ledger open to the back pages, his thumb resting still on the corner of the paper.
+interject name:rook_coldwake: You can feel the grade steepening under our boots now, like the last hundred yards before the cemetery gates.
+interject name:rook_coldwake: Whatever has been souring the drainage in this valley knows we are coming with the lime and the iron wire.
+interject name:rook_coldwake: If you had asked me on the night of the wreck, I would have bet my badge none of us would see the end of the docket.
+interject name:rook_coldwake: My own breath was borrowed long before I boarded that train, and a loan like that does not usually draw good interest.
+interject name:rook_coldwake: Walking with this company, though, has been the cleanest shift I ever signed my name to.
+interject name:rook_coldwake: No fudged tallies, and nobody left to stand a watch alone.
+interject name:rook_coldwake: When the big storm breaks over the Hollow, we will plant our heels in the gravel and take the weight together.
+interject name:rook_coldwake: After that, if the parish finally goes quiet, I might even remember to sigh on schedule.
+* How are you feeling with the end of it so close? -> act3_1
+* Whatever comes next, we finish this shift together. -> act3_2
+* Get some quiet while we still have the fire. -> act3_3
+
+~ act3_1
+Narrator: He looks down at his shield, where the firelight catches the scarred brass of his badge.
+interject name:rook_coldwake: Lighter in the chest than I have any right to be, and steadier on my feet than I was up north.
+interject name:rook_coldwake: Let the last inspection come when it likes. The ledger is nearly square.
+approve rook_coldwake +2: You asked how I felt with the end of the road near
+-> END
+
+~ act3_2
+interject name:rook_coldwake: Put that down in block capitals, because I intend to hold you to the contract.
+interject name:rook_coldwake: Side by side till the last stone is level, and nobody left under the drift.
+approve rook_coldwake +3: You promised we would finish the last shift together
+-> END
+
+~ act3_3
+Narrator: Rook ties the twine around his ledger, lets out one slow, deliberate breath, and leans his shoulder against the pack.
+interject name:rook_coldwake: A little quiet before the whistle blows suits me fine. Mind the turf till morning.
+approve rook_coldwake -1: You told me to take some quiet before the final stretch
+-> END
+
+~ talk_warm
+if name:rook_coldwake and approval.rook_coldwake >= warm and level >= 3
+-> warm
+endif
+-> END
+
+~ warm
+Narrator: Rook sits square on a dry log, scraping a flake of mud off his heel with a thumb that does not quite feel the cold.
+interject name:rook_coldwake: Good discipline around this camp, I will give you all that. Nobody leaves kit scattered across the walk, and the watch roster runs to the minute.
+interject name:rook_coldwake: Makes a change from marching alone, where the only conversation is the shield-pin rattling against my elbow. A watchman gets peculiar habits when he walks solo too long.
+interject name:rook_coldwake: Don't put this on the docket, mind, because it isn't strictly regulation.
+interject name:rook_coldwake: Every town or ruin we pass through, I grade the stonework out of ten as we go.
+interject name:rook_coldwake: If a kerbstone or a low wall is still sitting plumb after fifty winters, I tap my heel twice against the base course as we pass.
+interject name:rook_coldwake: Old quarry superstition from up in Syndramas, though I wouldn't admit it to a corporal. Lets the mason's shade know a working man noticed a square job.
+interject name:rook_coldwake: Gave that culvert back down the lane a solid eight, even with the weeds in the mortar. Daft business for a grown watchman, I suppose.
+interject name:rook_coldwake: Wait a tick, there goes my chest forgetting its work again. One proper breath for the log, and we are square.
+* Tell us what else gets a ten. -> warm_1
+* Your secret is safe with us. -> warm_2
+* So that is why you keep kicking the walls. -> warm_3
+
+~ warm_1
+Narrator: Rook lets out a small, chalky puff of air that might be a laugh, thumbing the edge of his soggy ledger.
+interject name:rook_coldwake: You want a ten, you look for dry-stone field walls where a sheep can't pry a hoof in. No lime, just gravity and a stubborn eye.
+interject name:rook_coldwake: Haven't seen a ten in this valley yet, though the funeral home down in Wickermoor comes close. Proper drainage under those slabs.
+approve rook_coldwake +2: You asked me how I grade the stonework
+-> END
+
+~ warm_2
+Narrator: He gives a neat, square nod and settles his heavy shoulders back against his shield.
+interject name:rook_coldwake: Much obliged. If word got round that the night watch was grading the parish kerbs for sport, folk would start asking for free inspections.
+interject name:rook_coldwake: Good to travel with a crew that knows what belongs in the shift log and what stays by the fire.
+approve rook_coldwake +3: You promised to keep my habit off the docket
+-> END
+
+~ warm_3
+Narrator: Rook looks down at the toe of his boot, where the leather is scuffed grey from a hundred quiet taps.
+interject name:rook_coldwake: Purely a structural tap, friend, never a kick. A kick shifts the pointing, and then I'd have to cite myself for municipal damage.
+interject name:rook_coldwake: Still, if you hear two clinks in the dark behind you, don't draw steel. It's only me paying compliments to a decent plinth.
+approve rook_coldwake -1: You teased me kindly about tapping the kerbstones
+-> END
+
+~ talk_close
+if name:rook_coldwake and approval.rook_coldwake >= close and level >= 5
+-> close
+endif
+-> END
+
+~ close
+Narrator: The firelight catches the grey chalk dust ground into Rook's knuckles as he holds his palms out toward the embers.
+interject name:rook_coldwake: When you walk the frost-line long enough, your ambitions shrink down to fit inside a shift log. Keep the perimeter tight, keep the ledger dry, move along.
+interject name:rook_coldwake: Before we all tumbled off the Ghostlight Express, I reckoned that was the whole docket for me. Just walking parish to parish until the joints finally seized.
+interject name:rook_coldwake: Had a small notion tucked away at the back of the book, though. A headstone raised for every poor soul left in untended ground.
+interject name:rook_coldwake: And when the last page had its rubbing, a six-foot plot of my own at the end of the road. Clean gravel, good drainage, and no brass badge.
+interject name:rook_coldwake: Used to think of that plot like a forfeited lease, something a bloke like me had no legal claim to ask for.
+interject name:rook_coldwake: Walking with this company has shifted the boundary pegs a touch. You lot treat a cold watchman like he's still on the living roll.
+interject name:rook_coldwake: Makes a man hope that when the docket is finally cleared, there might be a square yard of quiet with his own name on it.
+* We will see those stones raised together. -> close_1
+* What does a proper plot need? -> close_2
+* Is a quiet grave really all you want? -> close_3
+
+~ close_1
+Narrator: Rook touches two fingers to the rim of his shield, his voice dropping low and level over the crackle of the wood.
+interject name:rook_coldwake: That goes down in the ledger in firm ink, friend. A shift goes twice as fast when the whole squad carries a share of the stone.
+interject name:rook_coldwake: Mind the turf until we get there, and I will keep the line straight in front of you.
+approve rook_coldwake +3: You promised to help me raise the stones
+-> END
+
+~ close_2
+Narrator: He reaches into his coat, pats the damp calfskin of his ledger through the wool, and rests his hand there.
+interject name:rook_coldwake: Doesn't want much, just dry loam on a gentle rise where the sour water won't pool. A plain slab of grey slate at the head.
+interject name:rook_coldwake: And the grass left to come up wild in the spring, so the bees know the lease is paid.
+approve rook_coldwake +2: You asked what my own plot would need
+-> END
+
+~ close_3
+Narrator: Rook watches a spark drift up toward the crone's face in the moon, his hands resting flat and still on his knees.
+interject name:rook_coldwake: When you have spent enough winters listening to the earth shift after hours, quiet is the grandest luxury on the books.
+interject name:rook_coldwake: Though I won't deny, sitting round a warm kettle with decent company runs it a very close second.
+approve rook_coldwake -1: You wondered if a quiet grave was enough for me
+-> END
+
+~ talk_devoted
+if name:rook_coldwake and approval.rook_coldwake >= devoted and level >= 8
+-> devoted
+endif
+-> END
+
+~ devoted
+Narrator: Rook sets his soggy calfskin ledger on his knee, brushing ash from the binding.
+interject name:rook_coldwake: Been looking at the road ahead of us, up toward the Wytchwood and that great crooked timber at the heart of it.
+interject name:rook_coldwake: By rights, any sensible municipal clerk would condemn the whole valley for subsidence and post a quarantine notice at the pass.
+interject name:rook_coldwake: You aren't turning back, though, and neither am I. If the docket takes us straight up the Crooked Tree and back down the roots, I'm on the roster.
+interject name:rook_coldwake: You know what I carry in this coat. The ledger with the rubbings, the chalk, and the hope of a quiet plot when the work's done.
+interject name:rook_coldwake: They are the only things keeping my boots pointed toward morning. Everything else went cold in Syndramas a long while back.
+interject name:rook_coldwake: If it comes to a hard corner between this company and my own rest, the ledger can burn and the plot can wait.
+interject name:rook_coldwake: I know what a watch is worth when it holds, and I won't fail this one. Settle down now, the watch is set.
+* We would do the same for you. -> devoted_1
+* Keep your ledger safe, Rook. -> devoted_2
+* Thank you for holding the line with us. -> devoted_3
+
+~ devoted_1
+Narrator: Rook straps the belt twine round his ledger with a firm, practised tug and looks up at you across the flame.
+interject name:rook_coldwake: I know it, and that is why the shield stays up. Never marched with a platoon that kept better order in the dark.
+interject name:rook_coldwake: Now get your head down while the fire holds. I have the first watch, and the perimeter is quiet.
+approve rook_coldwake +3: You said you would stand by me the same way
+inspire name:rook_coldwake: swore to hold the line for the party
+inspiration
+-> END
+
+~ devoted_2
+Narrator: He tucks the ledger back inside his lining and pats his chest twice, remembering to draw a slow, steady breath.
+interject name:rook_coldwake: Oh, I intend to bring the paperwork home clean if the ground allows it. A watchman doesn't lose his kit unless the ditch caves in.
+interject name:rook_coldwake: Just wanted the priority logged in advance, so there is no confusion when the masonry starts falling.
+approve rook_coldwake +3: You told me not to give up what I carry
+inspire name:rook_coldwake: put the party ahead of his own rest
+inspiration
+-> END
+
+~ devoted_3
+Narrator: The brass knocker on Rook's shield gives one small, settled clink as he shifts his weight to stand guard.
+interject name:rook_coldwake: No need for thanks when a man is only doing the job he signed on for. You lot gave a cold guard a proper post again.
+interject name:rook_coldwake: Get some sleep while the coals are red. Nothing unruly gets past this shield tonight.
+approve rook_coldwake +2: You thanked me for standing watch over the party
+inspire name:rook_coldwake: pledged his shield and his last rest
+inspiration
+-> END
