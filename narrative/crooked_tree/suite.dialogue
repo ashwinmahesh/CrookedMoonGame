@@ -62,20 +62,27 @@ Narrator: A calligrapher's tray of brass nibs and dried ink sits beside a leathe
 * Leave -> END
 
 ~ desk_tools
+if not flag.ct_tools_taken
 give calligraphers_set
+set ct_tools_taken
+endif
 Narrator: You pack the nibs, brushes, and stoppered inkhorn into your satchel.
 -> desk
 
 ~ desk_ledger
 Narrator: Alda's neat, upright hand records every coin owed by travellers and villagers alike, alongside quiet notes on those who kept the antlered hare.
+if not flag.ct_ledger_taken
 give ledger_of_debts
 set ct_ledger_taken
+endif
 -> desk
 
 ~ jewels
+if not flag.ct_jewels_taken
 give hare_earrings
 give copper_rings
 set ct_jewels_taken
+endif
 Narrator: Inside the velvet-lined box lie a pair of silver earrings shaped like leaping hares and three plain copper bands.
 -> END
 
@@ -121,18 +128,22 @@ Narrator: The cramped runes seem to crawl across the vellum in the candlelight, 
 
 ~ grimoire_take
 Narrator: You close the heavy leather boards and stow the grimoire away.
+if not flag.ct_grimoire_read
 give grimoire_old_ways
 set ct_grimoire_read
+endif
 -> END
 
 ~ parchment
 Narrator: A tear-stained sheet of parchment bears a charcoal sketch of a crooked tree atop a barrow mound, and words scratched hard enough to tear the page.
+if not flag.ct_parchment_read
 give crooked_tree_parchment
 set ct_parchment_read
 set wytchwood_open
 cutscene ct_failed_rite_2
 phillip_druskenvald [afraid]: The Crooked Queen holds Adela's soul beneath the Crooked Tree, deep in the Wytchwood.
 cutscene end
+endif
 quest the_crooked_tree into_the_wytchwood
 Narrator: The trail leads two nights north over the dark moors, straight into the pines of the Wytchwood.
 -> END
