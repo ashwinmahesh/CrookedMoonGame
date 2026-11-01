@@ -7,5 +7,25 @@
   "category": "quest",
   "weight_lb": 1,
   "cost_gp": 0,
-  "summary": "A sack of bloody scraps that makes bat hounds fight over it. Throw it up to 30 feet."
+  "summary": "A sack of bloody scraps. Thrown up to 30 feet, it draws every bat hound within 60 feet of where it lands to fight over it for 1d3 rounds, or until one is hurt.",
+  "powers": [
+    {
+      "id": "throw",
+      "name": "Throw the treats",
+      "cost": "action",
+      "consume": true,
+      "targeting": "point",
+      "range": 30,
+      "custom": "throw_lure",
+      "params": {
+        "range": 30,
+        "radius": 60,
+        "lures": [
+          "bat_hound"
+        ],
+        "rounds": "1d3"
+      },
+      "text": "Action: throw it up to 30 ft. Bat hounds within 60 ft of it fight over it for 1d3 rounds."
+    }
+  ]
 }
