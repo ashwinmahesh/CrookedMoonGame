@@ -66,15 +66,27 @@ func test_the_express_windows_hang_on_the_far_wall_where_it_meets_open_floor() -
 	var rows := ["####################", "#..................#", "#..................#", "#..................#", "####################"]
 	var elev := ["11111111111111111111", "11111111111111111111", "11111111111111111111", "11111111111111111111", "11111111111111111111"]
 	var b := ArenaBoard.build(CombatGrid.from_rows(rows, elev), "manor", "window_test")
+	b.set_meta("window_view", {"colours": ["bog_deep", "shroud_teal", "moon_green"], "streams": [-1, 0], "speed": 1.5})
 	add_child(b)
 	var made := ExpressWindows.hang(b, b)
 	if ResourceLoader.exists(ExpressWindows.PICTURE):
 		assert_true(made != null, "windows hang")
-		var windows := made.find_children("*", "Decal", true, false)
-		assert_eq(windows.size(), 5, "every third square from the 4th: 3, 6, 9, 12, 15")
-		for w in windows:
-			assert_between((w as Decal).position.z, 0.99, 1.01, "on the wall's inner face")
+		var windows := made.find_children("Window", "Sprite3D", true, false)
+		assert_eq(made.get_child_count(), 5, "every third square from the 4th: 3, 6, 9, 12, 15")
+		for w in made.get_children():
+			assert_between((w as Sprite3D).position.z, 1.0, 1.02, "on the wall's inner face")
+			if ResourceLoader.exists(ExpressWindows.GLASS):
+				assert_eq((w as Node).find_children("WindowView", "MeshInstance3D", true, false).size(), 1, "the moving view over the glass")
+		assert_true(windows.size() >= 1)
 	else:
 		assert_true(made == null, "no picture yet, no windows")
 	assert_true(b.grid.has_flag(Vector2i(3, 0), CombatGrid.WALL) and not b.grid.has_flag(Vector2i(3, 1), CombatGrid.WALL), "the rules' walls stay as they were")
 	b.free()
+
+
+func test_every_ghostlight_car_map_has_a_window_view() -> void:
+	for car: String in ["g1_passenger", "g2_sleeper", "g3_lounge", "g4_dining", "g5_mail", "g6_baggage", "g7_circus", "g8_tender"]:
+		var loc := JSON.parse_string(FileAccess.get_file_as_string("res://data/locations/ghostlight_%s.json" % car)) as Dictionary
+		var view := (loc["map"] as Dictionary).get("window_view", {}) as Dictionary
+		assert_false(view.is_empty(), "%s has a view out" % car)
+		assert_eq((view["colours"] as Array).size(), 3, "deep, mid and light")
