@@ -109,6 +109,25 @@ def cmd_story(a: argparse.Namespace) -> int:
     return rc
 
 
+def act1_levels(r: dict, out: str) -> None:
+    """The party a player run met each fight with, for the fight series: levels.json gains "loc:id" -> the highest
+    level of a living hero at that fight's first try, and "_party" -> the heroes picked on the roster page."""
+    path = os.path.join(out, "levels.json")
+    levels = json.load(open(path)) if os.path.exists(path) else {}
+    ids = {i.split("_")[0].capitalize(): i for i in r.get("roster", [])}
+    for f in r.get("fights", []):
+        heroes = [h.strip() for h in str(f.get("party_before", "")).split(",") if h.strip()]
+        alive = [int(h.split()[1][1:]) for h in heroes if not h.endswith("dead") and len(h.split()) > 1]
+        key = f"{f['place']}:{f['id']}"
+        if alive and key not in levels:
+            levels[key] = max(alive)
+        party = [ids[h.split()[0]] for h in heroes if h.split()[0] in ids]
+        if party and "_party" not in levels:
+            levels["_party"] = party
+    with open(path, "w") as fh:
+        json.dump(levels, fh, indent=1, sort_keys=True)
+
+
 def cmd_act1(a: argparse.Namespace) -> int:
     os.makedirs(a.out, exist_ok=True)
     rc = 0
@@ -129,6 +148,7 @@ def cmd_act1(a: argparse.Namespace) -> int:
                   f"{len(r['blockers'])} blockers, {len(r['fights'])} fights")
             for b in r["blockers"]:
                 print(f"  BLOCKER {b['what']} at {b['location']} ({b['stage']}): {b['detail']}")
+            act1_levels(r, a.out)
         for e in errs[:15]:
             print("  " + e)
     return rc

@@ -119,6 +119,8 @@ func _level_for(f: Dictionary) -> int:
 		return asked
 	if levels.has(key):
 		return int(levels[key])
+	if levels.has("%s:%s" % [f["loc"], str(f["id"]).trim_suffix("_edge")]):
+		return int(levels["%s:%s" % [f["loc"], str(f["id"]).trim_suffix("_edge")]])
 	return int(REGION_LEVEL.get(str(f["region"]), 3))
 
 
@@ -167,8 +169,10 @@ func _play_one(f: Dictionary, mode: String, seed_value: int) -> Dictionary:
 	var t0 := Time.get_ticks_msec()
 	GameState.reset()
 	var st := GameState.story
-	for pid: String in GAME.NEW_GAME_PARTY:
-		var ch := Pregens.build(pid, level)
+	# The heroes a player run picked on the roster page (levels.json "_party", written by qa.py act1), else the quick start's.
+	var party: Array = levels.get("_party", GAME.NEW_GAME_PARTY) as Array
+	for pid: Variant in party:
+		var ch := Pregens.build(str(pid), level)
 		ch.finish_long_rest()
 		st.party.append(ch)
 	st.location = str(f["loc"])
