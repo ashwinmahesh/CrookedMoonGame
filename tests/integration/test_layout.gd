@@ -158,6 +158,21 @@ func test_the_party_screens() -> void:
 			return root.get("screen"), func() -> void: root.call("close_screen"))
 
 
+## The party screens and the exploration cards with heroes deep in an affliction (Afflictions: "Hartsblight 7" pills on the
+## cards and the party screen, its row and rules card on the sheet).
+func test_the_party_screens_with_afflictions() -> void:
+	await _game()
+	for ch in GameState.story.party:
+		Afflictions.set_level(ch, "hartsblight", 7)
+	await _check("the exploration screen with afflictions", func() -> Variant:
+		return root, func() -> void: pass)
+	for screen: String in ["sheet", "party"]:
+		await _check("the %s screen with afflictions" % screen, func() -> Variant:
+			root.call("open_screen", screen, 0)
+			await _frames(2)
+			return root.get("screen"), func() -> void: root.call("close_screen"))
+
+
 ## The journal's Bestiary with a few creatures met: its entry leads with the large portrait (their silhouettes until the art lane's
 ## pictures exist) and the words beside it still fit.
 func test_the_bestiary_with_portraits() -> void:
