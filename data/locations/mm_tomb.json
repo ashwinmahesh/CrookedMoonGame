@@ -451,6 +451,571 @@
       "id": "mm_harrowing",
       "trigger": "dialogue",
       "flag": "chained_reaper_destroyed",
+      "objects": [
+        {
+          "id": "mm_effigy_of_0",
+          "kind": "vessel",
+          "cell": [
+            6,
+            8
+          ],
+          "name": "Sir Marius's effigy",
+          "carry": {
+            "tag": "fallen_effigy"
+          },
+          "study": {
+            "skills": [
+              "arcana",
+              "investigation"
+            ],
+            "dc": 13,
+            "say": "The effigies are kindling: each one would feed a brazier and turn its flame.",
+            "flag": "mm_effigies_known"
+          }
+        },
+        {
+          "id": "mm_effigy_of_1",
+          "kind": "vessel",
+          "cell": [
+            11,
+            8
+          ],
+          "name": "Lethica's effigy",
+          "carry": {
+            "tag": "fallen_effigy"
+          },
+          "study": {
+            "skills": [
+              "arcana",
+              "investigation"
+            ],
+            "dc": 13,
+            "say": "The effigies are kindling: each one would feed a brazier and turn its flame.",
+            "flag": "mm_effigies_known"
+          }
+        },
+        {
+          "id": "mm_effigy_of_2",
+          "kind": "vessel",
+          "cell": [
+            15,
+            8
+          ],
+          "name": "Ol' Jericho's effigy",
+          "carry": {
+            "tag": "fallen_effigy"
+          },
+          "study": {
+            "skills": [
+              "arcana",
+              "investigation"
+            ],
+            "dc": 13,
+            "say": "The effigies are kindling: each one would feed a brazier and turn its flame.",
+            "flag": "mm_effigies_known"
+          }
+        },
+        {
+          "id": "mm_effigy_of_3",
+          "kind": "vessel",
+          "cell": [
+            6,
+            2
+          ],
+          "name": "Captain Kratch's effigy",
+          "carry": {
+            "tag": "fallen_effigy"
+          },
+          "study": {
+            "skills": [
+              "arcana",
+              "investigation"
+            ],
+            "dc": 13,
+            "say": "The effigies are kindling: each one would feed a brazier and turn its flame.",
+            "flag": "mm_effigies_known"
+          }
+        },
+        {
+          "id": "mm_effigy_of_4",
+          "kind": "vessel",
+          "cell": [
+            11,
+            2
+          ],
+          "name": "Farryn's effigy",
+          "carry": {
+            "tag": "fallen_effigy"
+          },
+          "study": {
+            "skills": [
+              "arcana",
+              "investigation"
+            ],
+            "dc": 13,
+            "say": "The effigies are kindling: each one would feed a brazier and turn its flame.",
+            "flag": "mm_effigies_known"
+          }
+        }
+      ],
+      "object_rules": [
+        {
+          "prop": "mm_balefire_0",
+          "takes": {
+            "tag": "fallen_effigy",
+            "label": "Feed",
+            "flag": "mm_brazier_cleansed",
+            "say": "The balefire takes the effigy and burns clean; a kind voice calls his name.",
+            "damage": {
+              "who": [
+                "chained_reaper_harrowing"
+              ],
+              "amount": 10,
+              "type": "psychic"
+            },
+            "light": {
+              "radius": 20,
+              "disadvantage": [
+                "chained_reaper_harrowing",
+                "shrouded_devourer",
+                "shrouded_reaper",
+                "shrouded_whisperer"
+              ]
+            }
+          },
+          "hazard": [
+            {
+              "on": "enter",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 13
+              },
+              "exhaustion": 1,
+              "unless_flag": "mm_reaper_phase2"
+            },
+            {
+              "on": "enter",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "exhaustion": 1,
+              "if_flag": "mm_reaper_phase2"
+            },
+            {
+              "on": "end",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "exhaustion": 1,
+              "if_flag": "mm_reaper_phase2"
+            }
+          ]
+        },
+        {
+          "prop": "mm_balefire_1",
+          "takes": {
+            "tag": "fallen_effigy",
+            "label": "Feed",
+            "flag": "mm_brazier_cleansed",
+            "say": "The balefire takes the effigy and burns clean; a kind voice calls his name.",
+            "damage": {
+              "who": [
+                "chained_reaper_harrowing"
+              ],
+              "amount": 10,
+              "type": "psychic"
+            },
+            "light": {
+              "radius": 20,
+              "disadvantage": [
+                "chained_reaper_harrowing",
+                "shrouded_devourer",
+                "shrouded_reaper",
+                "shrouded_whisperer"
+              ]
+            }
+          },
+          "hazard": [
+            {
+              "on": "enter",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 13
+              },
+              "exhaustion": 1,
+              "unless_flag": "mm_reaper_phase2"
+            },
+            {
+              "on": "enter",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "exhaustion": 1,
+              "if_flag": "mm_reaper_phase2"
+            },
+            {
+              "on": "end",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "exhaustion": 1,
+              "if_flag": "mm_reaper_phase2"
+            }
+          ]
+        },
+        {
+          "prop": "mm_balefire_2",
+          "takes": {
+            "tag": "fallen_effigy",
+            "label": "Feed",
+            "flag": "mm_brazier_cleansed",
+            "say": "The balefire takes the effigy and burns clean; a kind voice calls his name.",
+            "damage": {
+              "who": [
+                "chained_reaper_harrowing"
+              ],
+              "amount": 10,
+              "type": "psychic"
+            },
+            "light": {
+              "radius": 20,
+              "disadvantage": [
+                "chained_reaper_harrowing",
+                "shrouded_devourer",
+                "shrouded_reaper",
+                "shrouded_whisperer"
+              ]
+            }
+          },
+          "hazard": [
+            {
+              "on": "enter",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 13
+              },
+              "exhaustion": 1,
+              "unless_flag": "mm_reaper_phase2"
+            },
+            {
+              "on": "enter",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "exhaustion": 1,
+              "if_flag": "mm_reaper_phase2"
+            },
+            {
+              "on": "end",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "exhaustion": 1,
+              "if_flag": "mm_reaper_phase2"
+            }
+          ]
+        },
+        {
+          "prop": "mm_balefire_3",
+          "takes": {
+            "tag": "fallen_effigy",
+            "label": "Feed",
+            "flag": "mm_brazier_cleansed",
+            "say": "The balefire takes the effigy and burns clean; a kind voice calls his name.",
+            "damage": {
+              "who": [
+                "chained_reaper_harrowing"
+              ],
+              "amount": 10,
+              "type": "psychic"
+            },
+            "light": {
+              "radius": 20,
+              "disadvantage": [
+                "chained_reaper_harrowing",
+                "shrouded_devourer",
+                "shrouded_reaper",
+                "shrouded_whisperer"
+              ]
+            }
+          },
+          "hazard": [
+            {
+              "on": "enter",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 13
+              },
+              "exhaustion": 1,
+              "unless_flag": "mm_reaper_phase2"
+            },
+            {
+              "on": "enter",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "exhaustion": 1,
+              "if_flag": "mm_reaper_phase2"
+            },
+            {
+              "on": "end",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "exhaustion": 1,
+              "if_flag": "mm_reaper_phase2"
+            }
+          ]
+        },
+        {
+          "prop": "mm_balefire_4",
+          "takes": {
+            "tag": "fallen_effigy",
+            "label": "Feed",
+            "flag": "mm_brazier_cleansed",
+            "say": "The balefire takes the effigy and burns clean; a kind voice calls his name.",
+            "damage": {
+              "who": [
+                "chained_reaper_harrowing"
+              ],
+              "amount": 10,
+              "type": "psychic"
+            },
+            "light": {
+              "radius": 20,
+              "disadvantage": [
+                "chained_reaper_harrowing",
+                "shrouded_devourer",
+                "shrouded_reaper",
+                "shrouded_whisperer"
+              ]
+            }
+          },
+          "hazard": [
+            {
+              "on": "enter",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 13
+              },
+              "exhaustion": 1,
+              "unless_flag": "mm_reaper_phase2"
+            },
+            {
+              "on": "enter",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "exhaustion": 1,
+              "if_flag": "mm_reaper_phase2"
+            },
+            {
+              "on": "end",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "exhaustion": 1,
+              "if_flag": "mm_reaper_phase2"
+            }
+          ]
+        },
+        {
+          "prop": "mm_balefire_5",
+          "takes": {
+            "tag": "fallen_effigy",
+            "label": "Feed",
+            "flag": "mm_brazier_cleansed",
+            "say": "The balefire takes the effigy and burns clean; a kind voice calls his name.",
+            "damage": {
+              "who": [
+                "chained_reaper_harrowing"
+              ],
+              "amount": 10,
+              "type": "psychic"
+            },
+            "light": {
+              "radius": 20,
+              "disadvantage": [
+                "chained_reaper_harrowing",
+                "shrouded_devourer",
+                "shrouded_reaper",
+                "shrouded_whisperer"
+              ]
+            }
+          },
+          "hazard": [
+            {
+              "on": "enter",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 13
+              },
+              "exhaustion": 1,
+              "unless_flag": "mm_reaper_phase2"
+            },
+            {
+              "on": "enter",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "exhaustion": 1,
+              "if_flag": "mm_reaper_phase2"
+            },
+            {
+              "on": "end",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "exhaustion": 1,
+              "if_flag": "mm_reaper_phase2"
+            }
+          ]
+        },
+        {
+          "prop": "mm_balefire_6",
+          "takes": {
+            "tag": "fallen_effigy",
+            "label": "Feed",
+            "flag": "mm_brazier_cleansed",
+            "say": "The balefire takes the effigy and burns clean; a kind voice calls his name.",
+            "damage": {
+              "who": [
+                "chained_reaper_harrowing"
+              ],
+              "amount": 10,
+              "type": "psychic"
+            },
+            "light": {
+              "radius": 20,
+              "disadvantage": [
+                "chained_reaper_harrowing",
+                "shrouded_devourer",
+                "shrouded_reaper",
+                "shrouded_whisperer"
+              ]
+            }
+          },
+          "hazard": [
+            {
+              "on": "enter",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 13
+              },
+              "exhaustion": 1,
+              "unless_flag": "mm_reaper_phase2"
+            },
+            {
+              "on": "enter",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "exhaustion": 1,
+              "if_flag": "mm_reaper_phase2"
+            },
+            {
+              "on": "end",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "exhaustion": 1,
+              "if_flag": "mm_reaper_phase2"
+            }
+          ]
+        },
+        {
+          "prop": "mm_balefire_7",
+          "takes": {
+            "tag": "fallen_effigy",
+            "label": "Feed",
+            "flag": "mm_brazier_cleansed",
+            "say": "The balefire takes the effigy and burns clean; a kind voice calls his name.",
+            "damage": {
+              "who": [
+                "chained_reaper_harrowing"
+              ],
+              "amount": 10,
+              "type": "psychic"
+            },
+            "light": {
+              "radius": 20,
+              "disadvantage": [
+                "chained_reaper_harrowing",
+                "shrouded_devourer",
+                "shrouded_reaper",
+                "shrouded_whisperer"
+              ]
+            }
+          },
+          "hazard": [
+            {
+              "on": "enter",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 13
+              },
+              "exhaustion": 1,
+              "unless_flag": "mm_reaper_phase2"
+            },
+            {
+              "on": "enter",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "exhaustion": 1,
+              "if_flag": "mm_reaper_phase2"
+            },
+            {
+              "on": "end",
+              "near_ft": 5,
+              "save": {
+                "ability": "cha",
+                "dc": 15
+              },
+              "exhaustion": 1,
+              "if_flag": "mm_reaper_phase2"
+            }
+          ]
+        }
+      ],
       "lair": true,
       "quest": {
         "id": "maidenmist_dead_rise",
