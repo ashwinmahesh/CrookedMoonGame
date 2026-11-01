@@ -1239,6 +1239,11 @@ def story_checks(data, errors, need):
         if re.search(r"\battention\b", m["when"]):
             errors.append(f"strahd/attention.json {m['id']}: a mark can't read attention itself")
     tier_ids = [t["id"] for t in attention.get("tiers", [])]
+    # The Crooked Moon's tiers are the ritual track's stages (story/ritual_track.gd: the module's presence tiers).
+    track = ROOT / "data" / "ritual" / "track.json"
+    if track.exists():
+        td = json.loads(track.read_text())
+        tier_ids += [t["id"] for t in td.get("stages", [])] + ([td["after"]["id"]] if td.get("after") else [])
     for wid, w in data.get("weather", {}).items():
         where = f"weather/{wid}.json"
         for cid, weights in w["climates"].items():
