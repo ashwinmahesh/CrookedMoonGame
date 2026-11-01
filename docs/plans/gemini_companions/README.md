@@ -91,3 +91,93 @@ act 3 `flag.act2_done >= 5`.
   offered `talk_strained` first).
 - `python3 tools/content/act1_voice_keys.py --region camp --list` and `--region banter --list` list the new lines for the voice
   lane (add those two regions to the script if it can't read them yet).
+
+## Drafting record
+
+How it was sent. Project `ai-bridge`, model `gemini-4-argon-medium` (Gemini 4 Argon, medium; the bridge reports no model id, so `reported_model` is empty
+and the effort is left unset), one send per brief, none failed, none resent: 6 thread briefs, 6 approval-and-acts briefs, 6 secrets briefs and 3 banter briefs.
+`send_brief.py` is the client (the same as `~/.crooked-moon/bridge.py`, plus context files). The bridge takes at most 16000 characters in a message body, so each
+companion's voice sheet and character file travel as two attached documents (the bridge's context files, 32000 characters each; copies here as
+`context_<id>-voice-and-beats.txt` and `context_<id>-camp-talks.txt`; banter's two cast sheets are `context_banter-cast-1.txt` and `-2.txt`). The voice sheet
+is the companion's vault note (`Companions/<Name>.md`) with the voice block from the earlier briefs (Silas's updated to Relicborn), never the book. Banter gets
+secret-free fact lists instead of whole notes, because the notes state the dark secrets and banter must not.
+
+| Brief | What it asked | Files |
+|---|---|---|
+| `thread_<id>` | the Incitement echo, the Discovery, the held-back and the played Confrontation | `brief_`, `sent_`, `reply_*.json`, `send_*.log`, `edits_` |
+| `acts_<id>` | strained, doubt, act 1, act 2, act 3 | same |
+| `secrets_<id>` | warm, close, devoted | same |
+| `banter_act1` .. `act3` | nine exchanges each, five of the act's own pairs and four extras (all fifteen pairs covered) | same |
+
+What the briefs fixed (ours) and Gemini wrote (the words): each talk's opening count, its three options' roles, and the facts allowed; Gemini wrote the Narrator and
+companion rows, the party's option text and the REASON rows. The Discovery and the Confrontation tell only what the quest's journal line says
+(`data/quests/discovery_*.json`, `confrontation_*.json`); the briefs said the vault note describes an older plan for the same beats and the journal line wins.
+
+## What the converter adds (`tools/content/companion_talks.py`)
+
+- `<id>_thread.dialogue`: `talk_incitement` (opening `pending_<thread>_incitement` and not `incitement_<thread>`; sets what the scene sets, `incitement_<thread>`,
+  the quest `connection_<thread> waiting` for the three train Incitements, `<name>_inc_choice`, and the same `inspire` as the scene), `talk_discovery`
+  (`connection_<thread>` and the chapter flag; `set discovery_<thread>`, `quest discovery_<thread> done`, `quest confrontation_<thread> waiting`),
+  `talk_confrontation_wait` (Strained, once: sets `<id>_confrontation_waited`, registered in `data/flags/companions.json`) before `talk_confrontation`
+  (which also opens once the word has been had; `set confrontation_<thread>`, `quest confrontation_<thread> done`). Approval sizes: Discovery +2 / +3 / -1,
+  Confrontation +4 / +6 / -2, the mending word +6 / -2 / none.
+- `<id>.dialogue`: `talk_strained`, `talk_doubt`, `talk_act1`, `talk_act2`, `talk_act3`, `talk_warm`, `talk_close`, `talk_devoted` with the conditions the brief above fixes.
+  Sizes: strained +8 / -3 / none, doubt +5 / -2 / none, the acts and Warm +2 / +3 / -1, Close +3 / +2 / -1, Devoted +3 / +3 / +2 with `inspire` and `inspiration`.
+- `party_act1.dialogue` .. `party_act3.dialogue`: one node per exchange, opened by the act's gate and every speaker's `name:` so an exchange nobody present can speak comes out empty.
+- The `approve` lines do nothing yet: the engine's `Approval.COMPANIONS` is still Curse of Strahd's six, so `Approval.witnesses` finds none of ours until hook H1 reads
+  `data/campaign.json`'s `approval`. The tests set `StoryState.approval` directly. The vault notes' three older camp talks per companion (the ledger, the knocker, the
+  Deep Thaw and their kin, in the notes' "Camp talks" sections) are not in these files: the README's list did not ask for them.
+
+For the voice lane: `python3 tools/content/act1_voice_keys.py --region camp --list` and `--region banter --list` (the script reads both regions now and lists every line
+with no job when the jobs file isn't there).
+
+## Edits to the drafts
+
+Every row below is a find-and-replace applied to Gemini's raw reply (`edits_<brief>.json`, applied by `tools/content/companion_talks.py` before the
+reply is read), so `reply_*.json` stays exactly what the bridge returned. Besides these, the converter changes only mechanics: straight quotes,
+a speaker's row becomes `interject name:<id>:` or `Narrator:`, a line over about 28 words (34 for the Narrator) is split at a sentence end, a REASON or
+INSPIRE loses its closing full stop, and the logic (conditions, flags, quests, approval sizes) is ours.
+
+**thread_cordelia_skein** (2 edits)
+- "her lower hands spreads-out, dryin'" -> "her lower hands spread out, dryin'": Typo.
+- "before thehumours cool." -> "before the humours cool.": Typo.
+
+**thread_delphine_ravelle** (1 edits)
+- "the ink is stayin' locked in my lining tonight." -> "the ink is staying locked in my lining tonight.": Dropped g's belong to the Narrator only.
+
+**thread_lucan_houndstooth** (2 edits)
+- "and the hound begged for a crumb of cheddar on the bear's plinth before I called him off." -> "and the hound begged for a crumb of cheddar before I called him off.": No bear mount in the canon (the Trophy Room scene has a Pomeranian and a crow).
+- "It is not the first time I have stood over a kill that was not mine and let the dark dress me larger than I am." -> "It is not the first time I have stood over a kill and felt the dark offer to dress me larger than I am.": The dark secret (claiming a kill) is Raum's gate's to tell: a hint only.
+
+**thread_rook_coldwake** (15 edits)
+- "Mori Shade knew my name before I gave it at her parlour door, and she knew what an honest ledger requires." -> "Mori Shade knew my name before I gave it at her door, and she knew what an honest ledger requires.": Her shop is a funeral home, not a parlour.
+- "Rook turns back toward the dark beyond the wagons, standing quiet at parade rest." -> "Rook turns back toward the dark beyond the firelight, standing quiet at parade rest.": No wagons in the canon.
+- "OPTION 3: Say nothing and give him room by the fire." -> "OPTION 3: Say nothing. Stay by the fire.": Option text is the party's words or action, not a stage direction about him.
+- "I'll keep my post and my halberd in line, never fret." -> "I'll keep my post and my shield in line, never fret.": No halberd in the canon (a joke in the note only).
+- "his hands settlin' square on the rim of his shield" -> "his hands settling square on the rim of his shield": Fewer dropped g's (one Narrator row in four).
+- "sets it neatly beside his halberd." -> "sets it neatly beside his shield.": No halberd in the canon.
+- "the noise sounded dead ringer for a glacial trench caving in." -> "it sounded for all the world like a trench caving in.": Plainer.
+- "Thought for a long count it was the man I left under the ice up in Syndramas, come to audit the badge on my coat." -> "Thought for a long count it was something I left behind a long way north, come to audit the badge on my coat.": The dark secret (the man left under the ice) is Raum's gate's to tell: a hint only.
+- "Wasn't his voice at all, when I stood my ground and listened past the draught in the flues." -> "Wasn't anybody else's at all, when I stood my ground and listened past the draught in the flues.": Follows the previous edit.
+- "It was my own voice from the ditch, calling for a shovel I never went back to fetch while another man held the timber." -> "It was my own voice from a ditch up north, calling for a shovel.": Cut the deed (the dark secret).
+- "OPTION 1: Tell me about the man who held the timber." -> "OPTION 1: Tell me what you heard in there.": The option presupposed the dark secret.
+- "He was a stonemason's lad with a clean chisel hand, and he kept his post to the end. There are two pages left to fill before his whole file is squared." -> "A voice from a ditch a long way north, and a debt I won't name tonight. Two pages left to fill before the file is squared.": The man behind the dark secret is not named or described.
+- "REASON: You asked to hear about the man I left under the ice." -> "REASON: You asked what I heard in there.": Follows the option edit.
+- "the brass knocker on his shield restin' quiet against his knee." -> "the brass knocker on his shield resting quiet against his knee.": Fewer dropped g's.
+- "where a red ink blot shows through the lining." -> "where the calfskin has gone soft with damp.": The red-ink chit in the lining is the dark secret's proof, which Raum's gate shows.
+
+**thread_silas_vane** (3 edits)
+- "friend, when I let the mark fall where it did not belong." -> "friend.": The dark secret (the marked card and his brother) is Raum's gate's to tell.
+- "same way I did the night my tab began." -> "same as I always have.": Same: no hint of the night the tab began.
+- "bad bargains and tall hats" -> "bad bargains": 'Tall hats' is nothing in the canon.
+
+**thread_tobin_hayward** (9 edits)
+- "SAY: Aye, the binding is tight enough to see the bough through till morning." -> "SAY: Right, the binding is tight enough to see the bough through till morning.": Tobin's drawl is West Country, not Northern: 'Aye' became 'Right' (as in the R12 Incitement).
+- "A season where the blight moved faster than the pruning hook, and a man made a foul ledger of his neighbours' trees." -> "A season where the blight moved faster than the pruning hook, and a man made choices he doesn't care to count.": The neighbours are the dark secret's: Raum's gate tells it.
+- "Tobin stands by the baggage cart with his arms crossed" -> "Tobin stands at the edge of the firelight with his arms crossed": No cart in the canon.
+- "In my mortal seasons, when a black canker took the rows, I chose the torch over the pruning knife, and I woke in this valley made of dry straw." -> "In my mortal seasons, when a black canker took the rows, something burned that I'll not describe, and I woke in this valley made of dry straw.": The dark secret (the fire he set) stays unsaid; the journal's 'fire he never talks about' is the most the talk says.
+- "terrified my own hands would turn a curable blight into an ash-heap twice." -> "terrified a curable blight would turn into an ash-heap twice.": Same: no hint of whose hand.
+- "Do you reckon one clean row pays a speck toward an acre a man ruined with his own hand?" -> "Do you reckon one clean row pays a speck toward an acre lost?": Same.
+- "NARRATOR: The Vagrant sets his tin cup down without a sound while Tobin steadies his breathing and lets his hand drop from his chest." -> "NARRATOR: Tobin steadies his breathing and lets his hand drop from his chest.": The Narrator never appears in his own tale.
+- "SAY: Aye, a surgeon does not un-scar the bark" -> "SAY: Right, a surgeon does not un-scar the bark": As above.
+- "OPTION 2: If the root can be cut, we bring a sharp blade and clear the row." -> "OPTION 2: If the root can be cut, we'll bring a blade.": Option text kept under 12 words.
