@@ -11,5 +11,34 @@
     "rarity": "rare",
     "attunement": false
   },
-  "summary": "A black tincture drunk by the grieving. It dulls sorrow and fear for a day and calls up the dead's last words."
+  "summary": "A black tincture drunk by the grieving. For an hour the drinker can't be Charmed (a charm on them already is set aside), but sorrow keeps them from going quietly: Disadvantage on Stealth checks.",
+  "duration": {
+    "kind": "hours",
+    "amount": 1
+  },
+  "effects": [
+    {
+      "effect": "end_condition",
+      "params": {
+        "conditions": [
+          "charmed"
+        ]
+      }
+    },
+    {
+      "effect": "modifiers",
+      "params": {
+        "modifiers": [
+          {
+            "stat": "condition_immunity",
+            "value": "charmed"
+          },
+          {
+            "stat": "disadvantage",
+            "on": "check:stealth"
+          }
+        ]
+      }
+    }
+  ]
 }
