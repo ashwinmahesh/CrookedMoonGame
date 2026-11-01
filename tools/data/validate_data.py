@@ -1201,7 +1201,7 @@ def story_checks(data, errors, need):
                 errors.append(f"narrative/{where}: afflict {aid}: no data/afflictions/{aid}.json")
         for mid, where in p.get("becomes", []):
             if mid not in data["monsters"]:
-                errors.append(f"narrative/{where}: leave_party ... becomes '{mid}': no such monster")
+                errors.append(f"narrative/{where}: '{mid}' (leave_party ... becomes, or companion bond): no such monster")
         for lead_npc, target, where in p.get("leads", []):
             place, _, spawn = target.partition(":")
             if re.fullmatch(r"\d+,\d+", target) or (place in lead_things and not spawn):
