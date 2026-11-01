@@ -1,6 +1,6 @@
 {
   "id": "track",
-  "summary": "The ritual track (plan 5.5, G1): the Crooked Queen's prophecy wants twelve deaths, and each one the party causes or sees breaks a seal. The seals broken set the moon's grin, Adela's visions, how close the Crooked Man comes and how bad the night roads are. story/ritual_track.gd reads this file; the look lane reads RitualTrack.grin() for the moon in the sky. Each seal's `when` is a story condition on the flag its chapter sets; adela_burned (R23) and phillip_dead (R24) are the names the finale chapters are asked to set.",
+  "summary": "The ritual track (plan 5.5, G1): the Crooked Queen's prophecy wants twelve deaths, and each one the party causes or sees breaks a seal. The seals broken set the moon's grin, Adela's visions, how close the Crooked Man comes and how bad the night roads are. story/ritual_track.gd reads this file; the look lane reads RitualTrack.grin() for the moon in the sky. Each seal's `when` is a story condition on the flags its chapter sets: Adela burns in the Wicker Man whatever comes of the Vigil (R23: wicker_man_burned or wicker_man_triumphant), and Phillip's end in the barrow comes before the Born King's fight or the kneeling there (R24).",
   "seals": [
     {"id": "raum", "name": "Raum, the scarecrow of Foxwillow", "when": "flag.raum_slain"},
     {"id": "vessla", "name": "Vessla Browntooth, the weasel hag", "when": "flag.vessla_slain"},
@@ -12,8 +12,8 @@
     {"id": "yorgrim", "name": "Yorgrim the gravedigger", "when": "flag.fallen_yorgrim_dead"},
     {"id": "golub", "name": "Golub Graygullet, the pigeon hag", "when": "flag.golub_dead"},
     {"id": "chuckles", "name": "Chuckles, the Lord of Fools", "when": "flag.chuckles_dead"},
-    {"id": "adela", "name": "Adela Druskenvald", "when": "flag.adela_burned"},
-    {"id": "phillip", "name": "Phillip Druskenvald", "when": "flag.phillip_dead"}
+    {"id": "adela", "name": "Adela Druskenvald", "when": "flag.wicker_man_burned or flag.wicker_man_triumphant"},
+    {"id": "phillip", "name": "Phillip Druskenvald", "when": "flag.born_king_fight_begun or flag.horned_king_destroyed or flag.kehlenn_sided or flag.ct_kneeled"}
   ],
   "after": {"id": "scowl", "when": "flag.kehlenn_bound", "name": "the scowl", "grin": -1.0, "light": "moonlight",
     "road_day": 0.0, "road_night": 0.0, "crooked_man": 0.0,

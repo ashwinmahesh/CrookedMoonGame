@@ -2,19 +2,73 @@
   "id": "sin",
   "summary": "Sin (plan 5.5 and 13.10, G4; ours, built from the book's pieces; story/sin.gd): a hidden tally of the party's wickedness. Each source counts `per` points: the Crooked Bargains (dark gifts) the party carries, and int flags the story adds to with `set <flag> += 1`. The tally's tier sets how hard the Horned King's temptations press (`press`), how many Ritual Points Kehlenn has against the final sacrifice (`ritual_points`, added to the sacrifice's base), and which epilogue lines play (`tarokka.sin.tier == wicked`, `tarokka.sin.at_least.stained`). The numbers are ours; check them against the finale digest when the sacrifice is balanced.",
   "sources": [
-    {"id": "dark_gifts", "count": "dark_gifts", "per": 1, "summary": "Each Crooked Bargain (a dark gift) a hero carries, in the party or out of it."},
-    {"id": "sinner_deals", "flag": "sinner_deals", "per": 1, "summary": "Each deal or ware taken from Mister Crossroads's shack."},
-    {"id": "horned_offers_taken", "flag": "horned_offers_taken", "per": 2, "summary": "Each of the Horned King's offers a hero took in the Wytchwood."},
-    {"id": "death_bargains", "flag": "death_bargains", "per": 2, "summary": "Each time a dying hero took the Horned King's bargain and rose."},
-    {"id": "innocents_slain", "flag": "innocents_slain", "per": 1, "summary": "Each innocent the party killed or let die by its own hand."},
-    {"id": "connections_betrayed", "flag": "connections_betrayed", "per": 2, "summary": "Each of the village's Connections the party betrayed."},
-    {"id": "sin_other", "flag": "sin_other", "per": 1, "summary": "Any other wickedness a scene marks."}
+    {
+      "id": "dark_gifts",
+      "count": "dark_gifts",
+      "per": 1,
+      "summary": "Each Crooked Bargain (a dark gift) a hero carries, in the party or out of it."
+    },
+    {
+      "id": "sinner_deals",
+      "flag": "sinner_deals",
+      "per": 1,
+      "summary": "Each deal or ware taken from Mister Crossroads's shack."
+    },
+    {
+      "id": "horned_bargains",
+      "flag": "horned_bargains",
+      "per": 2,
+      "summary": "Each of the Horned King's bargains a hero took (R24's offers in the Wytchwood and at death's door)."
+    },
+    {
+      "id": "innocents_slain",
+      "flag": "innocents_slain",
+      "per": 1,
+      "summary": "Each innocent the party killed or let die by its own hand."
+    },
+    {
+      "id": "connections_betrayed",
+      "flag": "connections_betrayed",
+      "per": 2,
+      "summary": "Each of the village's Connections the party betrayed."
+    },
+    {
+      "id": "sin_other",
+      "flag": "sin_other",
+      "per": 1,
+      "summary": "Any other wickedness a scene marks."
+    }
   ],
   "tiers": [
-    {"id": "clean", "min": 0, "press": 0, "ritual_points": 0},
-    {"id": "tempted", "min": 1, "press": 1, "ritual_points": 1},
-    {"id": "stained", "min": 4, "press": 2, "ritual_points": 2},
-    {"id": "wicked", "min": 8, "press": 3, "ritual_points": 4},
-    {"id": "damned", "min": 12, "press": 4, "ritual_points": 6}
+    {
+      "id": "clean",
+      "min": 0,
+      "press": 0,
+      "ritual_points": 0
+    },
+    {
+      "id": "tempted",
+      "min": 1,
+      "press": 1,
+      "ritual_points": 1
+    },
+    {
+      "id": "stained",
+      "min": 4,
+      "press": 2,
+      "ritual_points": 2
+    },
+    {
+      "id": "wicked",
+      "min": 8,
+      "press": 3,
+      "ritual_points": 4
+    },
+    {
+      "id": "damned",
+      "min": 12,
+      "press": 4,
+      "ritual_points": 6
+    }
   ]
 }

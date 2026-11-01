@@ -49,7 +49,7 @@ func test_each_death_widens_the_grin() -> void:
 func test_every_seal_broken_is_the_full_grin_and_binding_kehlenn_turns_it_to_a_scowl() -> void:
 	var flags: Array[String] = []
 	for s: Dictionary in RitualTrack.seals():
-		flags.append(str(s["when"]).trim_prefix("flag."))
+		flags.append(str(s["when"]).get_slice(" ", 0).trim_prefix("flag."))   # the first of a seal's flags breaks it
 	var st := _st(flags)
 	assert_eq(RitualTrack.count(st), 12)
 	assert_eq(str(RitualTrack.stage(st)["id"]), "full")

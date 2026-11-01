@@ -12,11 +12,12 @@ const ROOT := "res://data/endings/"
 const FLAG := "campaign_ending"
 ## A dark gift whose bearer inherits the villain's place in an epilogue. None in this campaign: {name} is the leader.
 const HEIR_GIFT := ""
-## The flag a parley's answer is kept in, and the answers that end the game instead of starting the battle: in the barrow,
-## the party sides with Kehlenn (kneel_queen: Kneel to the Crooked Queen), or, every hero having taken the Horned King's
-## offer, kneels to the goat (kneel_goat: Live Deliciously). The barrow's conversation (R24) sets it.
+## The flag a parley's answer is kept in (the engine's name; R24 keeps its answers in the flags below), and the flags that
+## end the game instead of starting the battle: in the barrow the party sides with Kehlenn (kehlenn_sided: Kneel to the
+## Crooked Queen), or kneels at the goat skull (ct_kneeled: Live Deliciously).
 const PARLEY_FLAG := "parley_answer"
-const PARLEY_ENDS: Array[String] = ["kneel_queen", "kneel_goat"]
+const PARLEY_ENDS: Array[String] = []
+const PARLEY_END_FLAGS: Array[String] = ["kehlenn_sided", "ct_kneeled"]
 ## The flag set as the Crooked Tree's final battle begins (CrookedMoonCampaign.final_battle_begun): a wipe after it is All
 ## Will Be Crooked.
 const FINAL_BATTLE_FLAG := "born_king_fight_begun"
@@ -119,6 +120,9 @@ static func auto_due(st: StoryState) -> String:
 
 ## Whether the parley ended the game (a price paid or the party yielding: no battle).
 static func parley_ends(st: StoryState) -> bool:
+	for f: String in PARLEY_END_FLAGS:
+		if bool(st.get_flag(f, false)):
+			return true
 	return str(st.get_flag(PARLEY_FLAG, "")) in PARLEY_ENDS
 
 

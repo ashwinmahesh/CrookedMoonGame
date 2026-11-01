@@ -30,10 +30,10 @@ func test_each_source_counts_its_points() -> void:
 	st.bench.append(_hero(["hand_of_death", "might_of_the_old"]))
 	assert_eq(Sin.total(st), 3, "every bargain carried, benched heroes too")
 	st.set_flag("sinner_deals", 2)
-	st.set_flag("horned_offers_taken", 1)
+	st.set_flag("horned_bargains", 1)
 	st.set_flag("connections_betrayed", 1)
 	assert_eq(Sin.total(st), 3 + 2 + 2 + 2)
-	assert_eq(int(Sin.by_source(st)["horned_offers_taken"]), 2, "the goat's offers weigh double")
+	assert_eq(int(Sin.by_source(st)["horned_bargains"]), 2, "the goat's offers weigh double")
 
 
 func test_the_tier_rises_with_the_tally_and_so_do_its_effects() -> void:

@@ -21,8 +21,8 @@ func _bound(lives: int, heroes: int = 4) -> StoryState:
 	var st := StoryState.new()
 	st.set_flag("ritual_done")
 	st.set_flag("kehlenn_bound")
-	st.set_flag("ritual_heroes", heroes)
-	st.set_flag("ritual_lives_given", lives)
+	st.set_flag("party_size", heroes)
+	st.set_flag("last_act_count", lives)
 	st.set_flag("ritual_all_gave", lives >= heroes)
 	return st
 
@@ -76,7 +76,7 @@ func test_every_life_given_is_an_empty_car_at_once() -> void:
 func test_a_failed_ritual_is_all_will_be_crooked_at_once() -> void:
 	var st := StoryState.new()
 	st.set_flag("ritual_done")
-	st.set_flag("ritual_failed")
+	st.set_flag("crooked_cause", "ritual_failed")
 	assert_eq(Endings.request(st), "all_will_be_crooked")
 
 
@@ -99,12 +99,12 @@ func test_the_parley_s_two_kneelings_end_the_game_without_a_fight() -> void:
 	var m := Campaign.module()
 	var st := StoryState.new()
 	assert_true(m.parley_allows_fight(st))
-	st.set_flag("parley_answer", "kneel_queen")
+	st.set_flag("kehlenn_sided")
 	assert_false(m.parley_allows_fight(st))
 	assert_true(Endings.parley_ends(st))
 	assert_eq(Endings.request(st), "kneel_to_the_crooked_queen")
 	var goat := StoryState.new()
-	goat.set_flag("parley_answer", "kneel_goat")
+	goat.set_flag("ct_kneeled")
 	assert_eq(Endings.request(goat), "live_deliciously")
 	var fight := StoryState.new()
 	fight.set_flag("parley_answer", "fight")
@@ -112,15 +112,23 @@ func test_the_parley_s_two_kneelings_end_the_game_without_a_fight() -> void:
 
 
 func test_moonfall_s_outcomes_pick_its_four_endings() -> void:
-	Campaign.use(null)
-	var want := {"unbent": "the_moon_unbent", "green_sea": "a_green_sea", "last_train": "the_last_train_out"}
-	for outcome: String in want:
-		var st := StoryState.new()
-		st.set_flag("moonfall_outcome", outcome)
-		assert_eq(str(Endings.pick(st).get("id", "")), str(want[outcome]))
+	var unbent := StoryState.new()
+	unbent.set_flag("moonfall_offer", "refused")
+	assert_eq(str(Endings.pick(unbent).get("id", "")), "the_moon_unbent")
+	var sea := StoryState.new()
+	sea.set_flag("moonfall_offer", "accepted")
+	assert_eq(str(Endings.pick(sea).get("id", "")), "a_green_sea")
+	var fled := StoryState.new()
+	fled.set_flag("moonfall_fled")
+	assert_eq(str(Endings.pick(fled).get("id", "")), "the_last_train_out")
 	var fallen := StoryState.new()
-	fallen.set_flag("moonfall_outcome", "fallen")
+	fallen.set_flag("moonfall_begun")
+	fallen.set_flag("moonfall_nights_left", 0)
 	assert_eq(Endings.auto_due(fallen), "moonfall", "the countdown running out ends it at once")
+	var going := StoryState.new()
+	going.set_flag("moonfall_begun")
+	going.set_flag("moonfall_nights_left", 5)
+	assert_eq(Endings.auto_due(going), "", "nights left: it goes on")
 
 
 func test_the_epilogue_reads_the_world() -> void:

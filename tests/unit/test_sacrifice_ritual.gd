@@ -124,7 +124,8 @@ func test_six_refusals_fail_the_ritual() -> void:
 		SacrificeRitual.offer(st, ch, "ability", ab, dice)
 	assert_true(SacrificeRitual.over(st))
 	assert_eq(SacrificeRitual.finish(st), "failed")
-	assert_true(bool(st.get_flag("ritual_failed", false)))
+	assert_eq(str(st.get_flag("crooked_cause", "")), "ritual_failed")
+	assert_eq(int(st.get_flag("ritual_fails", 0)), 6)
 	assert_false(bool(st.get_flag("kehlenn_bound", false)))
 
 
@@ -139,8 +140,8 @@ func test_every_offering_accepted_binds_kehlenn_and_the_last_act_costs_a_life() 
 	assert_true(bool(res["accepted"]), "a life needs no roll")
 	assert_eq(SacrificeRitual.finish(st), "bound")
 	assert_true(bool(st.get_flag("kehlenn_bound", false)))
-	assert_eq(int(st.get_flag("ritual_lives_given", 0)), 1)
-	assert_eq(int(st.get_flag("ritual_heroes", 0)), 4)
+	assert_eq(int(st.get_flag("last_act_count", 0)), 1)
+	assert_eq(int(st.get_flag("party_size", 0)), 4)
 	assert_false(bool(st.get_flag("ritual_all_gave", false)))
 	assert_false(st.party.has(gave), "lost for good")
 	assert_eq(str(st.fallen[0].get("id", "")), gave.id)
@@ -160,8 +161,7 @@ func test_a_hero_who_won_t_offer_fails_it_at_once() -> void:
 	SacrificeRitual.begin(st)
 	SacrificeRitual.refuse(st, st.party[2])
 	assert_eq(SacrificeRitual.finish(st), "unwilling")
-	assert_true(bool(st.get_flag("ritual_unwilling", false)))
-	assert_true(bool(st.get_flag("ritual_failed", false)))
+	assert_eq(str(st.get_flag("crooked_cause", "")), "refused")
 
 
 func test_the_ritual_s_gift_once_kehlenn_is_bound() -> void:

@@ -3,7 +3,7 @@
   "title": "All Will Be Crooked",
   "summary": "The ritual failed at the Crooked Tree, and the Crooked Queen goes free.",
   "priority": 50,
-  "when": "flag.ritual_failed or (flag.born_king_fight_begun and not flag.ritual_done)",
+  "when": "flag.crooked_cause == \"wipe\" or flag.crooked_cause == \"ritual_failed\" or flag.crooked_cause == \"refused\" or (flag.born_king_fight_begun and not flag.ritual_done and not flag.kehlenn_bound)",
   "narration": "endings/all_will_be_crooked:start",
   "tone": "blood",
   "epilogue": [
@@ -16,7 +16,7 @@
     {
       "topic": "sacrifice",
       "title": "The Goat Skull",
-      "when": "flag.ritual_failed",
+      "when": "flag.crooked_cause == \"ritual_failed\"",
       "text": "The goat skull lies in the ash with the offerings it wouldn't take, and the wind carries them away one by one."
     },
     {

@@ -12,7 +12,8 @@ extends RefCounted
 ##
 ## Pure logic over the story: the ritual's scene (its conversation or screen) asks offerings(), then offer() or reroll()
 ## for each hero, and finish() at the end. What it keeps is the flag `_sacrifice`; what it ends with are the flags the
-## endings read (kehlenn_bound, ritual_failed, ritual_unwilling, ritual_lives_given, ritual_heroes, ritual_all_gave).
+## endings read, under the finale chapters' names (kehlenn_bound, crooked_cause, last_act_count, party_size, ritual_fails,
+## ritual_points) and its own (ritual_done, ritual_all_gave).
 
 const DATA := "res://data/ritual/sacrifice.json"
 const MEMORY := "_sacrifice"
@@ -279,17 +280,18 @@ static func finish(st: StoryState) -> String:
 			lives += 1
 			st.lose_member(ch, "gave their life at the Crooked Tree")
 	st.set_flag("ritual_done")
-	st.set_flag("ritual_heroes", heroes.size())
-	st.set_flag("ritual_lives_given", lives)
+	st.set_flag("party_size", heroes.size())
+	st.set_flag("last_act_count", lives)
 	st.set_flag("ritual_all_gave", lives > 0 and lives >= heroes.size())
+	st.set_flag("ritual_fails", int(s.get("refusals", 0)))
+	st.set_flag("ritual_points", int(s.get("points", 0)))
 	match outcome(st):
 		"bound":
 			st.set_flag("kehlenn_bound")
 		"failed":
-			st.set_flag("ritual_failed")
+			st.set_flag("crooked_cause", "ritual_failed")
 		"unwilling":
-			st.set_flag("ritual_unwilling")
-			st.set_flag("ritual_failed")
+			st.set_flag("crooked_cause", "refused")
 	return outcome(st)
 
 

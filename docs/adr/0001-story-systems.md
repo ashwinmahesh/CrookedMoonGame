@@ -24,8 +24,12 @@ visits, Sin, the sacrifice ritual, ten endings and comfort settings. None were b
 - **Comfort** (`story/comfort.gd`, `data/comfort/comfort.json`): five topics, softened unless the playthrough option
   `show_<topic>` is on; scenes test `option:show_<topic>`; each region's content note.
 
-**Names the finale chapters set** (R23 to R26, on act4-finale-merge): `adela_burned`, `phillip_dead`, `parley_answer`,
-`moonfall_outcome`, and the Sin flags `horned_offers_taken`, `death_bargains`, `innocents_slain`, `connections_betrayed`.
+**The finale chapters' flags** (R23 to R26, act4-finale-merge) are read under their own names: Adela's seal is
+`wicker_man_burned` or `wicker_man_triumphant`; Phillip's is the Born King's fight or the barrow's kneeling (`kehlenn_sided`,
+`ct_kneeled`, `horned_king_destroyed`); Sin counts `horned_bargains`; the ritual sets `kehlenn_bound`, `crooked_cause`,
+`last_act_count`, `party_size`, `ritual_fails` and `ritual_points`; Moonfall's endings read `moonfall_offer`, `moonfall_fled`,
+`moonfall_begun`, `moonfall_nights_left` and `old_fears_slain`. Until that branch lands, `data/flags/act4_bridge.json`
+registers them; delete it when it does. Sin's `innocents_slain`, `connections_betrayed` and `sin_other` are ours.
 
 **Engine hooks asked for** (through the hooks lane): the pause menu's Content rows from `CampaignModule.comfort_options()`,
 the loading card's note from `content_note(region, st)`, a dialogue statement that calls the module (for the ritual's

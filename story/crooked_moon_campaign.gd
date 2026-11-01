@@ -60,12 +60,6 @@ func field(st: StoryState, path: String) -> String:
 	# Sin (`tarokka.sin.tier == wicked`, `tarokka.sin.at_least.stained`): Sin.field.
 	if path.begins_with("sin."):
 		return Sin.field(st, path.trim_prefix("sin."))
-	# The parley's answer (`tarokka.parley.kneel_queen`) and Moonfall's outcome (`tarokka.moonfall.unbent`, set by R26 in
-	# the flag moonfall_outcome): "yes" when the story's flag holds that answer. The endings read them.
-	if path.begins_with("parley."):
-		return "yes" if str(st.get_flag(Endings.PARLEY_FLAG, "")) == path.trim_prefix("parley.") else ""
-	if path.begins_with("moonfall."):
-		return "yes" if str(st.get_flag(MOONFALL_FLAG, "")) == path.trim_prefix("moonfall.") else ""
 	var parts := path.split(".")
 	# The last of the six middle cars, whichever the playthrough's seed makes it (`tarokka.last_car.<place id>` in a door's `when`): its
 	# front door is the Tender's, so that door is the one that waits for the haints.
@@ -106,8 +100,6 @@ func comfort_options() -> Array[Dictionary]:
 
 # --- How the game ends (plan 5.7; story/endings.gd, data/endings/) ---------------------------------------------------
 
-## Moonfall's outcome (R26: unbent, green_sea, last_train, fallen), set by its chapter.
-const MOONFALL_FLAG := "moonfall_outcome"
 ## Kehlenn's talk in the barrow before the Born King (R24 writes it; until then the engine finds no node and fights).
 const PARLEY_REF := "crooked_tree/kehlenn_parley:start"
 
@@ -132,7 +124,11 @@ func parley_speaker() -> String:
 	return "kehlenn"
 
 
+## The barrow's answer: the first of R24's kneeling flags that is set, else the engine's own parley flag.
 func parley_answer(st: StoryState) -> String:
+	for f: String in Endings.PARLEY_END_FLAGS:
+		if bool(st.get_flag(f, false)):
+			return f
 	var v: Variant = st.get_flag(Endings.PARLEY_FLAG, "")
 	return str(v) if v is String else ""
 
