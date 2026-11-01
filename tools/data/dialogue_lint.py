@@ -52,6 +52,8 @@ RE_DAMAGE = re.compile(rf"^damage\s+{RE_DICE}\s+[a-z]+(?:\s+(?:party|failed))?$"
 # `exhaust <+n|-n> [party|failed]`; `save <Ability> DC <n> party [unless resists <type>] -> ok | fail` (every living hero rolls, one resisting
 # <type> passes; `failed` are those who missed).
 RE_EXHAUST = re.compile(r"^exhaust\s+[+-][1-6](?:\s+(?:party|failed))?$")
+# `condition <Condition> <minutes> [party|failed]`: a condition for a while on the exploration clock.
+RE_TIMED_CONDITION = re.compile(r"^condition\s+(Blinded|Charmed|Deafened|Frightened|Incapacitated|Invisible|Paralyzed|Petrified|Poisoned|Prone|Restrained|Stunned|Unconscious)\s+[1-9]\d*(?:\s+(?:party|failed))?$", re.I)
 RE_PARTY_SAVE = re.compile(r"^save\s+(Strength|Dexterity|Constitution|Intelligence|Wisdom|Charisma)\s+DC\s+(\d+)\s+party(?:\s+unless\s+resists\s+(?:acid|bludgeoning|cold|fire|force|lightning|necrotic|piercing|poison|psychic|radiant|slashing|thunder))?\s*->\s*([A-Za-z0-9_:/]+|END)(?:\s*\|\s*([A-Za-z0-9_:/]+|END))?$", re.I)
 RE_HIT_DICE = re.compile(r"^hit_dice\s+(?:restore\s+(?:[1-9]\d*|all)|grant\s+[1-9]\d*)(?:\s+party)?$")
 RE_EDGE = re.compile(r"^(?:advantage|disadvantage)\s+([a-z_]+)(?:\s+(?:next|[1-9]\d*[mh]))?(?:\s*:\s*\S.*)?$")
@@ -374,7 +376,7 @@ def parse_file(path):
         if m:
             out["speakers"].append((m.group(1), where))
             continue
-        if RE_EXHAUST.match(line):
+        if RE_EXHAUST.match(line) or RE_TIMED_CONDITION.match(line):
             continue
         m = RE_AFFLICT.match(line)
         if m:
