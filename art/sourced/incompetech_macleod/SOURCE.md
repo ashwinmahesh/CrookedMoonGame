@@ -91,3 +91,26 @@ Wickermoor's fight music; no MP3 originals kept (as batch 2).
 | master_disorder.ogg | Master Disorder | USUAN1600034 | 03:57 | wickermoor_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Master%20Disorder.mp3 |
 
 Credit (required): "Witch Hunt", "Master Disorder" Kevin MacLeod (incompetech.com) Licensed under Creative Commons: By Attribution 4.0 http://creativecommons.org/licenses/by/4.0/
+
+## Batch 4 (2026-11-01)
+
+The moods every unmapped place, the road, camp and the ending fall back on; no MP3 originals kept (as batch 2).
+
+| Game copy | Track | ISRC | Length | Mood | MP3 |
+| --- | --- | --- | --- | --- | --- |
+| magic_forest.ogg | Magic Forest | USUAN1600044 | 04:20 | wilds | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Magic%20Forest.mp3 |
+| myst_on_the_moor.ogg | Myst on the Moor | USUAN1600007 | 03:49 | wilds | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Myst%20on%20the%20Moor.mp3 |
+| penumbra.ogg | Penumbra | USUAN1200105 | 04:56 | indoors | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Penumbra.mp3 |
+| lightless_dawn.ogg | Lightless Dawn | USUAN1100655 | 06:20 | indoors | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Lightless%20Dawn.mp3 |
+| village_consort.ogg | Village Consort | USUAN1700007 | 03:35 | village | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Village%20Consort.mp3 |
+| mischief_maker.ogg | Mischief Maker | USUAN1700009 | 03:22 | village | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Mischief%20Maker.mp3 |
+| long_road_ahead.ogg | Long Road Ahead | USUAN1100588 | 02:26 | road | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Long%20Road%20Ahead.mp3 |
+| serpentine_trek.ogg | Serpentine Trek | USUAN1100428 | 01:47 | road | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Serpentine%20Trek.mp3 |
+| ossuary_1_a_beginning.ogg | Ossuary 1 - A Beginning | USUAN1500043 | 03:08 | dungeon | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Ossuary%201%20-%20A%20Beginning.mp3 |
+| ossuary_2_turn.ogg | Ossuary 2 - Turn | USUAN1500044 | 04:48 | dungeon | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Ossuary%202%20-%20Turn.mp3 |
+| suonatore_di_liuto.ogg | Suonatore di Liuto | USUAN1400023 | 02:24 | camp | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Suonatore%20di%20Liuto.mp3 |
+| anguish.ogg | Anguish | USUAN1400047 | 03:59 | camp | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Anguish.mp3 |
+| enchanted_journey.ogg | Enchanted Journey | USUAN1100799 | 04:30 | ending | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Enchanted%20Journey.mp3 |
+| promises_to_keep.ogg | Promises to Keep | USUAN1200004 | 05:04 | ending | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Promises%20to%20Keep.mp3 |
+
+Credit (required): "Magic Forest", "Myst on the Moor", "Penumbra", "Lightless Dawn", "Village Consort", "Mischief Maker", "Long Road Ahead", "Serpentine Trek", "Ossuary 1 - A Beginning", "Ossuary 2 - Turn", "Suonatore di Liuto", "Anguish", "Enchanted Journey", "Promises to Keep" Kevin MacLeod (incompetech.com) Licensed under Creative Commons: By Attribution 4.0 http://creativecommons.org/licenses/by/4.0/

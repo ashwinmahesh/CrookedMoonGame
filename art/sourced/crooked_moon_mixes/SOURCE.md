@@ -58,3 +58,7 @@ Blows' own sounds (the engine's "hit" keys, engine branch melee-keys), layered f
 - stoker_sear_2.ogg: The Soulfire Stoker's Sear, a lower, longer burn: a blow to flesh (qubodup, CC0) under a fireball's impact (JC Sounds, CC BY 4.0) and gregoryweir's pressurised fire (public domain). Listen first. 2.4 s; -14.2 LUFS, true peak -1.8 dB.
 - wildpyre_rake_1.ogg: The wildpyre's Blazing Rend, three claws raking with a snarl: rubberduck's blade strikes (CC0), pitched down, in quick succession, schots' tiger (CC0) and a fire's rush (JC Sounds, CC BY 4.0). Listen first. 1.8 s; -14.6 LUFS, true peak -1.3 dB.
 - wildpyre_rake_2.ogg: The wildpyre's Blazing Rend, a heavier rake, the snarl after it: rubberduck's blade strikes (CC0), pitched down, in quick succession, schots' tiger (CC0) and a fire's rush (JC Sounds, CC BY 4.0). Listen first. 2.0 s; -14.3 LUFS, true peak -1.4 dB.
+
+## Batch 4 (2026-11-01)
+
+- bed_camp.ogg: A camp at night: Glaneur de sons' campfire (CC BY 3.0) close, Wolfgang_'s crickets (CC0) and Luke.RUSTLTD's wind (CC0) low behind it. 41.0 s loop; -18.1 LUFS, true peak -2.0 dB.
