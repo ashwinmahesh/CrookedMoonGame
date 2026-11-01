@@ -410,10 +410,10 @@ def n8():
 
 # ---- people -----------------------------------------------------------------------------------------------------------------------
 PEOPLE = [   # id, name, title, summary, attitude, tags
-    ("nm_stonoga", "Stonoga Blackstinger", "A vision of the centipede hag", "A dream-sister in a mock chef's outfit who boasts of readying a body for the oven. Vanishes when struck.", "hostile", ["voice_druskenvald"]),
-    ("nm_golub", "Golub Graygullet", "A vision of the pigeon hag", "A dream-sister dressed as a schoolteacher who mocks readying a mind. Vanishes when struck.", "hostile", ["voice_druskenvald"]),
-    ("nm_vessla", "Vessla Browntooth", "A vision of the weasel hag", "A dream-sister dressed as a mock angel with a flaming sword, hissing of readying a soul. Vanishes when struck.", "hostile", ["voice_druskenvald"]),
-    ("nm_wisp", "Wisp", "A cat of many stolen voices", "The cat Wisp as the nightmare makes her: colossal, grinning, speaking in voices she has stolen.", "hostile", ["voice_druskenvald"]),
+    ("nm_stonoga", "Stonoga, in the dream", "A vision of the centipede hag", "A dream-sister in a mock chef's outfit who boasts of readying a body for the oven. Vanishes when struck.", "hostile", ["voice_druskenvald"]),
+    ("nm_golub", "Golub, in the dream", "A vision of the pigeon hag", "A dream-sister dressed as a schoolteacher who mocks readying a mind. Vanishes when struck.", "hostile", ["voice_druskenvald"]),
+    ("nm_vessla", "Vessla, in the dream", "A vision of the weasel hag", "A dream-sister dressed as a mock angel with a flaming sword, hissing of readying a soul. Vanishes when struck.", "hostile", ["voice_druskenvald"]),
+    ("nm_wisp", "Wisp, in the dream", "A cat of many stolen voices", "The cat Wisp as the nightmare makes her: colossal, grinning, speaking in voices she has stolen.", "hostile", ["voice_druskenvald"]),
     ("nm_adela_child", "Little Adela", "A child in a white dress", "Adela as a small girl in a dark wood, holding a one-eyed doll called Frederick. A mole on her right cheek.", "friendly", ["child", "voice_druskenvald"]),
     ("nm_adela_teen", "Teenage Adela", "A girl at a crater", "Adela at fifteen, rapt and charmed, walking down toward a pulsing stone. A mole on her right cheek.", "indifferent", ["voice_druskenvald"]),
     ("nm_adela_bride", "Bride Adela", "A bride in a crown of roses", "Adela as a bride at a moonless wedding, giddy and manic. A mole on her right cheek.", "friendly", ["voice_druskenvald"]),
