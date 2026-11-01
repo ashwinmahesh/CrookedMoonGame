@@ -10,6 +10,14 @@ const OUTCOMES := "res://data/tarot/outcomes.json"
 static var _outcomes: Dictionary = {}
 
 
+## The party screen's words about the land (the engine's PartyCoverage gaps), in the Vagrant's voice: Druskenvald's night never
+## lifts. The engine's own words name Barovia, so this module gives its own (CampaignModule.coverage_words; an older engine
+## never asks).
+func coverage_words() -> Dictionary:
+	return {"dark": "out here in Druskenvald the night don't ever lift, so y'all carry a light.",
+		"radiant": "No Radiant damage, and there's a mess of restless dead out here that can't abide it."}
+
+
 ## The reading: one card for every hero at the table, in party order (slots hero_1 to hero_N), drawn once from the playthrough's seed so
 ## a reload never changes it. Each slot's card id is also a string flag, tarot_hero_N, which conversations and places read.
 func ensure_drawn(st: StoryState) -> void:
