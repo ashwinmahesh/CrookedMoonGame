@@ -1,0 +1,495 @@
+# Drafted by Gemini (R19 sites), edited. Hazards and kindling searches of the five beacon sites.
+
+~ crypt_study
+Narrator: Across the damp limestone wall, a mason has carved a family crest of rising suns intertwined with briar roses.
+* [History DC 15] Study the carvings -> crypt_study_ok | crypt_study_plain
+* [Religion DC 15] Read the god of the morning in the stone -> crypt_study_ok | crypt_study_plain
+* Leave it -> END
+
+~ crypt_study_ok
+set mm_crypt_hint
+Narrator: Those carved suns and briar roses belong to the house of Sir Marius Renathyr. Their stems point toward the weathered crypt on the eastern edge of the courtyard.
+-> END
+
+~ crypt_study_plain
+Narrator: The chiselled suns and roses are fine old masonry, though their meaning beneath the lichen remains uncertain to you.
+-> END
+
+~ crypt_wrong_a
+Narrator: A dry stone basin sits at the foot of the sealed crypt door, stained brown where a tithe of warm blood will unbar the lock.
+* Pay the tithe, a little blood -> crypt_open_wrong_a
+* Leave it -> END
+
+~ crypt_open_wrong_a
+damage 1d12 necrotic
+check Dexterity DC 17 -> crypt_bats_ok | crypt_bats_fail
+
+~ crypt_wrong_c
+Narrator: Another sealed stone door waits behind a dry offering basin at its threshold, hungry for a fresh drop of blood to release the bolt.
+* Pay the tithe, a little blood -> crypt_open_wrong_c
+* Leave it -> END
+
+~ crypt_open_wrong_c
+damage 1d12 necrotic
+check Dexterity DC 17 -> crypt_bats_ok | crypt_bats_fail
+
+~ crypt_bats_ok
+Narrator: Leathery wings erupt from the open doorway, and you duck low as the cold draft washes over your necks. Beyond the threshold lies only a hollow, dust-choked vault that feels entirely wrong.
+-> crypt_empty
+
+~ crypt_bats_fail
+damage 4d4 piercing
+Narrator: A screaming cloud of bats pours from the dark doorway, tearing at your faces with needle teeth and hooked claws.
+-> crypt_empty
+
+~ crypt_empty
+if flag.mm_crimson_fails < 2
+set mm_crimson_fails += 1
+endif
+yorgrim [neutral]: This vault holds only dust, not the knight we seek. Keep your blades drawn, for the racket has woken something out in the fog.
+-> END
+
+~ crypt_right
+Narrator: A dry blood basin rests at the foot of this sealed door, crowned by the very same suns and briar roses carved upon the courtyard wall.
+if flag.mm_crypt_hint
+Narrator: Here stands the eastern crypt that the carved roses promised.
+endif
+* Pay the tithe, a little blood -> crypt_open_right
+* Leave it -> END
+
+~ crypt_open_right
+damage 1d12 necrotic
+check Dexterity DC 17 -> crypt_right_ok | crypt_right_fail
+
+~ crypt_right_ok
+Narrator: Bats burst from the unsealed arch as you duck beneath their frantic wings, leaving the stone stair into the dark wide open.
+move mm_crypt_below:from_stair
+
+~ crypt_right_fail
+damage 4d4 piercing
+Narrator: A shrieking swarm of bats explodes from the unsealed arch, biting at your bare skin as the stone stair yawns open below.
+move mm_crypt_below:from_stair
+
+~ rose_take
+give mm_dried_rose
+set mm_rose_taken
+Narrator: Upon the cold sarcophagus lid rests a dried red rose as weightless as ash paper, and you slip its brittle stem into your pack.
+-> END
+
+~ fountain
+Narrator: Cold rain patters into a mossy wishing fountain where tarnished silver and copper coins gleam beneath the bubbling dark water.
+* Toss in a gold piece for luck -> fountain_toss
+* Take the coins -> fountain_take
+* [Arcana DC 18] Work out what the fountain does -> fountain_study | fountain_plain
+* Leave it -> END
+
+~ fountain_study
+Narrator: Old churchyard custom clings to the cold basin: a coin dropped in grants a modest blessing, while a coin fished out invites a spiteful curse. Either mark will fade before a few hours pass.
+set mm_fountain_known
+-> fountain
+
+~ fountain_plain
+Narrator: The dark water burbles over the old coins and keeps its secret.
+-> fountain
+
+~ fountain_toss
+gold -1
+bless party 2h
+Narrator: The coin sinks through the black water with a soft plink, and a quiet warmth like hearth-smoke settles on your shoulders.
+-> END
+
+~ fountain_take
+check Wisdom DC 18 -> fountain_take_ok | fountain_take_cursed
+
+~ fountain_take_ok
+gold +300
+Narrator: You scoop a handful of wet copper into your pocket, and the still dark water does not stir.
+-> END
+
+~ fountain_take_cursed
+gold +300
+disadvantage checks 2h: the fountain's curse
+Narrator: The wet coins sit like river-ice in your palm, and a sour, sinking cold knots in the pit of your stomach.
+-> END
+
+~ urn_study
+Narrator: Rows of damp clay urns line the mossy walk, and several of them hum a thin, reed-like note that sets your teeth on edge.
+* [Nature DC 15] Listen to which hum and which do not -> urn_study_ok | urn_study_plain
+* [Religion DC 15] Judge them by their carving -> urn_study_ok | urn_study_plain
+* Leave it -> END
+
+~ urn_study_ok
+set mm_urn_hint
+Narrator: These humming vessels are mourning urns, bound to wail if their seals are broken. Only one pot sits quiet at the end of the row, painted with pale barn owls.
+-> END
+
+~ urn_study_plain
+Narrator: The thin, droning hum vibrates through the soles of your boots, though you cannot tell what stirs inside the clay.
+-> END
+
+~ urn_wrong_a
+Narrator: The clay urn vibrates under your fingertips, its mournful hum rising to a sharp pitch as your hand nears the waxed lid.
+if flag.mm_urn_hint
+Narrator: That is a mourning urn, and breaking its seal will loose a bitter wail.
+endif
+* Open it anyway -> urn_wail
+* Leave it -> END
+
+~ urn_wrong_c
+Narrator: The low drone inside the vessel climbs to a shrill whine as your fingers brush the cold clay rim.
+* Open it anyway -> urn_wail
+* Leave it -> END
+
+~ urn_wail
+check Wisdom DC 13 -> urn_wail_ok | urn_wail_fail
+
+~ urn_wail_ok
+Narrator: A reed-thin shriek pours from the open mouth of the urn, washing past your ears like a cold wave before fading into the fog.
+-> urn_empty
+
+~ urn_wail_fail
+damage 4d6 psychic party
+Narrator: The keening wail passes right through your ribs like an icy hand through water, leaving the whole party staggering on the wet stones.
+-> urn_empty
+
+~ urn_empty
+if flag.mm_violet_fails < 2
+set mm_violet_fails += 1
+endif
+yorgrim [neutral]: Leave that clay alone, travelers. The loud ones hold only grey ash and old grief.
+-> END
+
+~ urn_right
+Narrator: The urn painted with pale barn owls sits cool and silent beneath your hand.
+* Open it -> urn_right_open
+* Leave it -> END
+
+~ urn_right_open
+give mm_owl_feather
+set mm_owl_taken
+Narrator: Nestled in the dry dust at the bottom of the pot lies a single barn owl feather, white as a new moon.
+-> END
+
+~ lavender
+give mm_lavender
+Narrator: A tangled bed of wild lavender grows against the iron fence, and you snap off a fistful of the sharp, sweet-smelling stems.
+-> END
+
+~ lilies
+give mm_lilies
+Narrator: Rain-heavy white lilies nod in the ditch, and you gather a few cold, waxy blooms by their wet stems.
+-> END
+
+~ amber_find
+Narrator: Pale amber lights bob through the wet heather like stray sparks, leading your eyes in circles while the iron brazier hides somewhere in the mist.
+* [Perception DC 18] Read where the lights gather -> amber_found | amber_lost
+* [Survival DC 18] Read the ground between the posts -> amber_found | amber_lost
+* Ask Yorgrim to find it -> amber_yorgrim
+* Leave it -> END
+
+~ amber_found
+set mm_amber_found
+Narrator: The drifting amber lights wheel around a muddy hollow, where a dark iron brazier sits heaped with cold orange coals.
+-> END
+
+~ amber_lost
+time +60
+check Dexterity DC 17 -> amber_pit_ok | amber_pit_fail
+
+~ amber_pit_ok
+set mm_amber_found
+Narrator: You tramp for a bleak hour through the mire,skirts brushing the crumbled lip of an open mass grave without slipping in. At last, the pale beam of the hound's lantern cuts the fog and catches the iron ribs of the brazier.
+-> END
+
+~ amber_pit_fail
+set mm_amber_found
+damage 2d6 necrotic party
+Narrator: The rotten sod gives way beneath your boots and drops you into a pit where dry, skeletal fingers claw at your cloaks until you haul yourselves out of the mud. Ahead in the mist, the pale lantern finally gleams against the dark iron of the brazier.
+-> END
+
+~ amber_yorgrim
+set mm_amber_found
+Narrator: The old orc lifts the hooded lantern high, and the false amber lights scatter like moths to leave the iron brazier plain in the gloom.
+-> END
+
+~ mass_grave
+Narrator: The sodden earth drops away into a yawning trench, where pale bone fingers twitch and scrape in the black mud at the bottom.
+-> END
+
+~ grave_study
+Narrator: A murder of wet-feathered crows huddles shoulder to shoulder atop a single crooked fencepost.
+* [Animal Handling DC 17] Watch where the crows gather -> grave_study_ok | grave_study_plain
+* [Perception DC 17] Look for the post they will not leave -> grave_study_ok | grave_study_plain
+* Leave it -> END
+
+~ grave_study_ok
+set mm_grave_hint
+Narrator: Every black beak points east toward one sunken mound in the nettles. If any grave holds dry straw, it is that one.
+-> END
+
+~ grave_study_plain
+Narrator: The wet crows only cock their heads and rasp at you from the rotting post, offering no sign at all.
+-> END
+
+~ grave_wrong_a
+Narrator: No sooner does your spade bite into the wet turf than the mound bursts open in a shrieking cloud of black carrion birds.
+check Constitution DC 15 -> grave_birds_ok | grave_birds_fail
+
+~ grave_wrong_c
+Narrator: Your shovel strikes the shallow earth, and a tangle of greasy black wings erupts from the soil into your faces.
+check Constitution DC 15 -> grave_birds_ok | grave_birds_fail
+
+~ grave_birds_ok
+Narrator: You duck as the frantic wings beat past your ears, leaving naught in the shallow pit but a few cracked ribs of bone.
+-> grave_empty
+
+~ grave_birds_fail
+damage 1d8 poison party
+Narrator: The beating wings choke the air with sour grave-dust, leaving you bent double and coughing grit from your lungs.
+-> grave_empty
+
+~ grave_empty
+if flag.mm_amber_fails < 2
+set mm_amber_fails += 1
+endif
+yorgrim [neutral]: There is no straw under that sod, only cold mud. Keep your blades ready, for something pale is stirring in the mist.
+-> END
+
+~ grave_right
+Narrator: The black crows crowd thickest around the head of this sunken mound.
+* Dig -> grave_right_dig
+* Leave it -> END
+
+~ grave_right_dig
+give mm_straw_bundle
+set mm_straw_taken
+Narrator: Just beneath the wet roots lies a dry bundle of golden straw, neatly bound with a faded scrap of blue yarn.
+-> END
+
+~ muck
+set mm_magenta_muck_done
+Narrator: Black, sour muck oozes up between the cracked flagstones of the lane, stinging your nostrils with the reek of old rot.
+check Strength DC 17 -> muck_ok | muck_fail
+
+~ muck_ok
+Narrator: You step from one high stone to the next, keeping your boot-heels clear of the slick black ooze.
+-> END
+
+~ muck_fail
+damage 1d10 acid
+Narrator: A boot punches through the rotten tile into sour, bubbling mud, and the caustic slime scalds flesh until you haul the leg free.
+-> END
+
+~ vault_study
+Narrator: The iron vault doors bear weathered carvings of tall ships and coiling spirals, with pale hex glyphs etched into their damp stone corners.
+* [Arcana DC 17] Read the glyphs -> vault_study_ok | vault_study_plain
+* [History DC 17] Read the ships -> vault_study_ok | vault_study_plain
+* Leave it -> END
+
+~ vault_study_ok
+set mm_vault_hint
+Narrator: Down in the south-east lane, one door marries a three-masted ship with a sorcerer's spiral. That will be Captain Briggsy's berth.
+-> END
+
+~ vault_study_plain
+Narrator: The salt-worn carvings blur together and tell you nothing useful.
+-> END
+
+~ vault_wrong_a
+Narrator: A heavy vault door blocks the niche, a crooked hex glyph smoldering faintly at its top corner.
+* [Athletics DC 20] Force it -> vault_open_wrong | vault_hexed
+* Open it anyway and take the hex -> vault_hexed
+* Leave it -> END
+
+~ vault_wrong_c
+Narrator: Another iron vault door stands shut before you, its corner marked with a dimly glowing hex glyph.
+* [Athletics DC 20] Force it -> vault_open_wrong | vault_hexed
+* Open it anyway and take the hex -> vault_hexed
+* Leave it -> END
+
+~ vault_hexed
+damage 2d10 force
+disadvantage checks 1h: the vault's hex
+-> vault_open_wrong
+
+~ vault_open_wrong
+Narrator: The rusted door swings wide on a shelf of yellowed ribs and cracked skulls that never belonged to Captain Briggsy.
+if flag.mm_magenta_fails < 2
+set mm_magenta_fails += 1
+endif
+yorgrim [neutral]: Not that berth, friends, those bones are quiet. Something heavy is dragging its chains above the lanes.
+-> END
+
+~ vault_right
+Narrator: Side by side in the damp stone, a carved brigantine and a tight spiral mark this hexed vault door.
+* [Athletics DC 20] Force it -> vault_right_open | vault_right_hex
+* Open it anyway and take the hex -> vault_right_hex
+* Leave it -> END
+
+~ vault_right_hex
+damage 2d10 force
+disadvantage checks 1h: the vault's hex
+-> vault_right_open
+
+~ vault_right_open
+give mm_rum_bottle
+set mm_rum_taken
+Narrator: Inside on a bone-dry stone ledge sits a dark bottle of spiced rum, its wax-sealed cork still whole.
+-> END
+
+~ moth_vault
+give mm_moth_wing
+set mm_moth_taken
+Narrator: Behind the grate rests a tarnished glass case holding a dried moth wing wide as a calloused palm, its dusty eyespots promising deep and dreamless sleep.
+-> END
+
+~ emerald_find
+Narrator: The mossy barrows seem to trade places in the fog while every muddy track loops back on itself, hiding the green brazier somewhere in the tangle.
+* [Survival DC 18] Find the way through the mounds -> emerald_found | emerald_lost
+* [Nature DC 18] Read where the trees lean -> emerald_found | emerald_lost
+* Ask Yorgrim to find it -> emerald_yorgrim
+* Leave it -> END
+
+~ emerald_found
+set mm_emerald_found
+Narrator: Every crooked bough in the thicket leans toward a single humped mound, where emerald coals smolder in an iron basket.
+-> END
+
+~ emerald_lost
+time +60
+set mm_emerald_ring_ready
+Narrator: An hour slips away in the shifting brambles before your boots come to a halt inside a pale ring of spotted toadstools.
+-> toadstool_ring
+
+~ toadstool_ring
+set mm_ring_done
+check Constitution DC 17 -> ring_ok | ring_fail
+
+~ ring_ok
+set mm_emerald_found
+Narrator: Yellow spores sting your eyes like woodsmoke, though a sweep of the hound's hooded lantern soon cuts the fog to reveal the green brazier.
+-> END
+
+~ ring_fail
+set mm_emerald_found
+damage 2d8 poison party
+Narrator: Clouds of bitter toadstool dust sear your lungs and leave you coughing until the hound's lantern light catches the iron brazier ahead.
+-> END
+
+~ emerald_yorgrim
+set mm_emerald_found
+Narrator: The old orc lifts the hooded lantern high, and the grave-mist curls back like wet wool from the cold green coals of the brazier.
+-> END
+
+~ apple_tree
+Narrator: Wax-red apples dangle from gnarled boughs that curl like grasping fingers.
+* [Nature DC 15] Study the apples -> apple_study_ok | apple_study_plain
+* Pick one -> apple_pick
+* Eat one -> apple_eat
+* Leave it -> END
+
+~ apple_study_ok
+Narrator: Those cellar-sweet apples carry old wood-magic for weal or woe, and one in twenty will rot the gut where you stand. Worse, the crooked boughs strike like a club at any hand that steals from them.
+-> apple_tree
+
+~ apple_study_plain
+Narrator: The red skins gleam with cold dew and keep their secrets to themselves.
+-> apple_tree
+
+~ apple_pick
+check Dexterity DC 15 -> apple_pick_ok | apple_pick_lash
+
+~ apple_pick_ok
+give forbidden_apple
+Narrator: A knotted limb snaps down like a switch, though you twist a waxy apple from the twig and duck beneath the blow.
+-> END
+
+~ apple_pick_lash
+damage 1d12 bludgeoning
+give forbidden_apple
+Narrator: The moment fingers close around the stem, a heavy branch whips sideways with a crack of bark and knocks the picker flat into the mud.
+-> END
+
+~ apple_eat
+check Constitution DC 10 -> apple_good | apple_bad
+
+~ apple_good
+heal 4d4+4 party
+Narrator: The crisp flesh tastes of cider and late sun, sending a steady hearth-warmth right down to your numb toes.
+-> END
+
+~ apple_bad
+damage 4d6 poison
+Narrator: The pulp turns to foul ashes on the tongue, and a cold cramp twists your stomach inside out.
+-> END
+
+~ mound_study
+Narrator: A split yew tree leans over the path, a weeping woman's face and wide stag antlers worn deep into its gray bark.
+* [Perception DC 17] Follow the tree's gaze -> mound_study_ok | mound_study_plain
+* [Survival DC 17] Follow the roots -> mound_study_ok | mound_study_plain
+* Leave it -> END
+
+~ mound_study_ok
+set mm_mound_hint
+Narrator: Her wooden eyes stare straight east toward the low barrow where a crooked oak bough hangs over the entrance.
+-> END
+
+~ mound_study_plain
+Narrator: The mossy face in the bark stares out blindly and gives away no secrets.
+-> END
+
+~ mound_wrong_a
+Narrator: You spade through the wet clay packing the barrow mouth for a long minute, uncovering nothing more than a circle of river stones.
+-> mound_empty
+
+~ mound_wrong_c
+Narrator: Your blades and boots scrape away the heavy turf at the entrance, revealing only a cold ring of fieldstones in the dirt.
+-> mound_empty
+
+~ mound_empty
+if flag.mm_emerald_fails < 2
+set mm_emerald_fails += 1
+endif
+yorgrim [neutral]: Leave that dirt be, Farryn does not rest under those stones. The old roots are waking beneath your boots.
+-> END
+
+~ mound_right
+Narrator: A single crooked oak branch reaches out to shelter the dark mouth of this earthen barrow.
+* Dig -> mound_right_dig
+* Leave it -> END
+
+~ mound_right_dig
+give mm_oak_branch
+set mm_oak_taken
+Narrator: Beneath a foot of packed grave-loam lies a brittle oak branch with dried leaves still clinging to the twig, laid flat like a mourner's gift.
+-> END
+
+~ nightshade
+give mm_nightshade
+set mm_nightshade_taken
+Narrator: Clusters of glossy purple nightshade berries nod in the ditch, and you pinch a toxic sprig free without bruising the stems.
+-> END
+
+~ carve_tree
+set mm_greenwood_carved
+Narrator: Your blade scores the letters of Greenwood deep into the wet bark, and a long shudder runs up the trunk into the leafless crown.
+-> END
+
+~ clan_study
+Narrator: The weathered markers are chiselled with jagged runes that tug at the edge of your memory, almost familiar under your tracing fingers.
+* [History DC 13] Make out the names -> clan_study_ok | clan_study_plain
+* [Investigation DC 13] Compare the stone to the one on Yorgrim's back -> clan_study_ok | clan_study_plain
+* Leave it -> END
+
+~ clan_study_ok
+set mm_clan_names_learned
+Narrator: They are orc names, all of the Shadestone bloodline. Every last one matches a name carved into the heavy slab chained to Yorgrim's back.
+-> END
+
+~ clan_study_plain
+Narrator: The mossy grooves blur beneath your thumb, refusing to yield their meaning.
+-> END
+
+~ lantern_statue
+Narrator: A cowled figure of grey stone holds an iron lantern out over the flagstones. Down at its plinth, fresh letters are slowly scratching themselves into the rock.
+-> END

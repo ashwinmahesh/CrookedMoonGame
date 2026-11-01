@@ -51,7 +51,9 @@ def collect():
                 seen.add(key)
                 head = line.split("<<")[0].strip()
                 head = head[:-1] if head.endswith(":") else head
-                if head.startswith("interject "):
+                if head == "|":
+                    sp, mood = "Narrator", ""
+                elif head.startswith("interject "):
                     sp, mood = head.split(" ", 1)[1], ""
                 else:
                     mm = re.match(r"^([a-z_A-Z]+)(?:\s*\[([a-z]+)\])?$", head)
@@ -124,7 +126,9 @@ def main():
         OUT.mkdir(parents=True, exist_ok=True)
         for fname, text in D.FILES.items():
             out = D.PLACEHOLDER.sub(lambda m: clean(got[m.group(1)]), text)
-            (OUT / f"{fname}.dialogue").write_text(out.strip() + "\n")
+            dest = (ROOT / "narrative" / f"{fname}.dialogue") if fname.startswith("narrator/") else (OUT / f"{fname}.dialogue")
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            dest.write_text(out.strip() + "\n")
             print("wrote", fname)
     else:
         print(len(items), "keys")

@@ -194,6 +194,13 @@ SITES = {   # exit label, hub exit cell, the site's own id, its spawn name in th
 }
 SCONCES = [("crimson", (19, 25)), ("violet", (21, 25)), ("amber", (23, 25)), ("magenta", (27, 25)), ("emerald", (29, 25)), ("azure", (31, 25))]
 FLAMES = {"crimson": "", "violet": "violet", "amber": "", "magenta": "violet", "emerald": "bile", "azure": "frost"}
+TINTS = {"crimson": "#d04040", "violet": "#9a5fd0", "amber": "#e0a030", "magenta": "#d050a0"}
+
+
+def fire(color):
+    """The fire props of a beacon's colour: the engine's flames are bile and frost; the others are the brazier's model tinted."""
+    f = FLAMES.get(color, "")
+    return {"flame": f} if f in ("bile", "frost") else ({"tint": TINTS[color]} if color in TINTS else {})
 
 
 def sepulcher():
@@ -240,7 +247,7 @@ def sepulcher():
             loc["props"].append(prop("mm_sconce_azure", cell, "An azure sconce, burning", kind="decor", model="brazier", flame="frost"))
         else:
             loc["props"].append(prop(f"mm_sconce_{color}_dark", cell, f"A dark sconce ({color.capitalize()})", kind="decor", model="brazier_cold", when=f"not flag.beacon_{color}"))
-            loc["props"].append(prop(f"mm_sconce_{color}_lit", cell, f"A {color} sconce, burning", kind="decor", model="brazier", flame=FLAMES[color], when=f"flag.beacon_{color}"))
+            loc["props"].append(prop(f"mm_sconce_{color}_lit", cell, f"A {color} sconce, burning", kind="decor", model="brazier", when=f"flag.beacon_{color}", **fire(color)))
     for i, (x, y) in enumerate([(14, 20), (14, 28), (36, 20), (36, 28), (20, 9), (30, 9)]):
         loc["props"].append(prop(f"mm_hub_statue_{i}", (x, y), "A weeping stone figure", kind="decor", model="statue_saint"))
     dress(L, loc, (2, 2, 47, 47), HEADSTONES, 38, "mm_hub_stone")
@@ -252,7 +259,7 @@ def sepulcher():
     ]
     loc["encounters"] = [{"id": "mm_lurkers", "trigger": "flag:mm_isolde_lurkers", "flag": "mm_lurkers_done", "when": "flag.isolde_faded and not flag.sepulcher_open",
                           "monsters": [monster(m, c, "A shrouded that slipped the door", facing="south") for m, c in zip(
-                              ["shrouded_devourer", "shrouded_reaper", "shrouded_whisperer"], [(22, 31), (25, 33), (28, 31)])]}]
+                              ["shrouded_devourer", "shrouded_reaper", "shrouded_whisperer"], [(21, 31), (28, 31), (25, 31)])]}]
     for pt in [(25, 23), (25, 27), (3, 34), (10, 1), (38, 1), (48, 22), (48, 38), (25, 48), (10, 48), (1, 18)]:
         L.clear(pt)
     loc["map"]["rows"] = L.rows()
@@ -346,9 +353,10 @@ def highborn_crypts():
     loc["spawns"] = {"default": [12, 25]}
     rite_exits(loc, "crypts", ((12, 27), (12, 25)), ("a", (23, 13), "Across the Endless Gravestones to the Cremation Gardens"))
     loc["spawns"]["from_a"] = [21, 13]
+    loc["spawns"]["from_crypt"] = [18, 10]
     loc["props"] = [
         prop("mm_brazier_crimson", (12, 14), "The brazier of dull red coals", kind="decor", model="brazier_cold", call=MM + "rites:crimson_start", approach=3, call_when="not flag.beacon_crimson"),
-        prop("mm_brazier_crimson_lit", (12, 14), "The Crimson Beacon, burning", kind="decor", model="brazier", when="flag.beacon_crimson"),
+        prop("mm_brazier_crimson_lit", (12, 14), "The Crimson Beacon, burning", kind="decor", model="brazier", when="flag.beacon_crimson", **fire("crimson")),
         prop("mm_crimson_stone", (12, 10), "A crypt wall with suns and roses worked into it", model="relief", call=MM + "sites:crypt_study", approach=3),
         prop("mm_crypt_a", (5, 9), "A crypt door, a basin at its foot", model="door_double", call=MM + "sites:crypt_wrong_a"),
         prop("mm_crypt_b", (18, 9), "A crypt door, a basin at its foot", model="door_double", call=MM + "sites:crypt_right"),
@@ -426,7 +434,7 @@ def cremation_gardens():
     loc["spawns"]["from_a"] = [1, 14]
     loc["props"] = [
         prop("mm_brazier_violet", (12, 14), "A brazier of purple coals by the fountain", kind="decor", model="brazier_cold", call=MM + "rites:violet_start", approach=3, call_when="not flag.beacon_violet"),
-        prop("mm_brazier_violet_lit", (12, 14), "The Violet Beacon, burning", kind="decor", model="brazier", flame="violet", when="flag.beacon_violet"),
+        prop("mm_brazier_violet_lit", (12, 14), "The Violet Beacon, burning", kind="decor", model="brazier", when="flag.beacon_violet", **fire("violet")),
         prop("mm_fountain_a", (6, 7), "A wishing fountain", model="stone_font", call=MM + "sites:fountain", approach=2),
         prop("mm_fountain_b", (18, 7), "A wishing fountain", model="stone_font", call=MM + "sites:fountain", approach=2),
         prop("mm_urn_study", (12, 6), "A row of mourning urns", model="relics", call=MM + "sites:urn_study", approach=3),
@@ -465,7 +473,7 @@ def potters_field():
     loc["props"] = [
         prop("mm_fog_amber", (4, 17), "Amber lights, drifting in the fog", kind="decor", call=MM + "sites:amber_find", approach=4, call_when="not flag.mm_amber_found"),
         prop("mm_brazier_amber", (15, 17), "A brazier of orange coals among the graves", kind="decor", model="brazier_cold", call=MM + "rites:amber_start", approach=3, call_when="flag.mm_amber_found and not flag.beacon_amber"),
-        prop("mm_brazier_amber_lit", (15, 17), "The Amber Beacon, burning", kind="decor", model="brazier", when="flag.beacon_amber"),
+        prop("mm_brazier_amber_lit", (15, 17), "The Amber Beacon, burning", kind="decor", model="brazier", when="flag.beacon_amber", **fire("amber")),
         prop("mm_pit_edge", (22, 6), "The edge of a mass grave", kind="decor", model="grave_open", call=MM + "sites:mass_grave", approach=2),
         prop("mm_grave_study", (8, 8), "A post the crows will not leave alone", model="crow", call=MM + "sites:grave_study", approach=3),
         prop("mm_grave_a", (6, 6), "A shallow grave under a plain post", model="grave_mound", call=MM + "sites:grave_wrong_a"),
@@ -506,7 +514,7 @@ def mausoleum_lanes():
     L.rect(11, 22, 13, 31, ".")
     loc["props"] = [
         prop("mm_brazier_magenta", (12, 17), "A brazier of pink coals beside a mossy tree", kind="decor", model="brazier_cold", call=MM + "rites:magenta_start", approach=3, call_when="not flag.beacon_magenta"),
-        prop("mm_brazier_magenta_lit", (12, 17), "The Magenta Beacon, burning", kind="decor", model="brazier", flame="violet", when="flag.beacon_magenta"),
+        prop("mm_brazier_magenta_lit", (12, 17), "The Magenta Beacon, burning", kind="decor", model="brazier", when="flag.beacon_magenta", **fire("magenta")),
         prop("mm_muck_edge", (12, 15), "Acrid muck on the tiles", kind="decor", call=MM + "sites:muck", approach=2, call_when="not flag.mm_magenta_muck_done"),
         prop("mm_vault_study", (8, 13), "Vault doors carved with ships and spirals", model="relief", call=MM + "sites:vault_study", approach=3),
         prop("mm_vault_a", (3, 13), "A vault door with a hex glyph", model="door_double", call=MM + "sites:vault_wrong_a"),
@@ -684,7 +692,7 @@ def balefire_chamber():
     for side, x in (("w", 2), ("e", 17)):
         for j, y in enumerate((7, 11, 15, 19)):
             c = colors[(j + (0 if side == "w" else 2)) % 6]
-            loc["props"].append(prop(f"mm_chamber_sconce_{side}{j}", (x, y), f"A sconce of {c} fire", kind="decor", model="brazier", flame=FLAMES.get(c, "")))
+            loc["props"].append(prop(f"mm_chamber_sconce_{side}{j}", (x, y), f"A sconce of {c} fire", kind="decor", model="brazier", **fire(c)))
     for i, (x, y) in enumerate([(5, 10), (14, 10), (5, 16), (14, 16)]):
         loc["props"].append(prop(f"mm_chamber_col_{i}", (x, y), "A cracked pillar", kind="decor", model="gate_pillar"))
         L.put(x, y, "=")
@@ -757,7 +765,7 @@ def undercroft():
                    "A maze of earthen passages lined with rows of skulls, mist pooled on the floor, and floors that tremble.",
                    "Skulls look out of the walls in neat rows. The passages fork and fork again, and here and there the floor sounds hollow.")
     loc["areas"] = [area("maze", "The catacomb maze", (1, 1), (w - 2, h - 3))]
-    loc["spawns"] = {"default": [ent[0], ent[1] + 1], "from_chamber": [ent[0], ent[1] + 1], "from_depths": [ent[0] + 3, ent[1]]}
+    loc["spawns"] = {"default": [ent[0], ent[1] + 1], "from_chamber": [ent[0], ent[1] + 1], "from_depths": [ent[0] + 3, ent[1]], "from_tomb": [ext[0], 1]}
     loc["exits"] = [exit_("back_up", (ent[0], ent[1] + 2), "mm_balefire_chamber", "from_undercroft", "Back up to the balefire chamber"),
                     exit_("stygian_stair", (ext[0], 0), "mm_tomb", "from_stair", "The stair down, carved with faces")]
     loc["exits"][0]["spawn"] = "from_undercroft"

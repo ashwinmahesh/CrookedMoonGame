@@ -262,7 +262,7 @@ def build_quests():
             stage("asked", "Mori Shade has three unmarked graves in the Potter's Field and a ledger of grieving villagers. She wants each grave given a name.", "Study the three tokens at the posts in the Potter's Field, then tell the right villager. Mori can place them from her ledger if you cannot.", ["Study the three graves", "Tell the villagers", "Tell Mori"]),
             stage("done", "All three graves have names, and three villagers know where their dead are.", ends="success"),
             stage("lost", "The three posts stay blank. The field goes on forgetting.", ends="failure"),
-        ]})
+        ], "closes": [{"stage": "lost", "from": ["asked"], "when": "flag.shroud_tear_sealed", "warn": "Mori's ledger will close with the tear.", "warn_when": "flag.chained_reaper_destroyed"}]})
     write("data/quests/isolde_walk.json", {
         "id": "isolde_walk", "name": "Isolde's Walk", "kind": "side", "region": "maidenmist_cemetery", "giver": "isolde",
         "summary": "With the tear sealed, the grim Isolde wants to walk the beacon sites at dusk and show what her master hid.",
@@ -286,7 +286,7 @@ def build_quests():
             stage("asked", "Doris has four posts (bell tower, south bridge, forge, funeral lane) and four volunteers: Howie Butterman, Hilda Brom, Jean Myriel and Siv Harga.", "Assign each volunteer to the post that suits them, then see the raid through.", ["Hold the bell tower", "Hold the south bridge", "Hold the forge", "Hold the funeral lane"]),
             stage("done", "The posts are manned, and Doris has said her piece.", ends="success"),
             stage("lost", "We left it to Doris, and the village noticed.", ends="failure"),
-        ]})
+        ], "closes": [{"stage": "lost", "from": ["asked"], "when": "flag.mm_raid_started"}]})
 
 
 # ---- items --------------------------------------------------------------------------------------------------------------------------
@@ -326,7 +326,7 @@ def build_items():
     write("data/magic_items/lantern_of_the_chained_reaper.json", {
         "id": "lantern_of_the_chained_reaper", "name": "Lantern of the Chained Reaper", "source": {"book": "CrookedMoon", "note": "Fabled Heirloom from Maidenmist Cemetery; the book's numbers, our words."},
         "category": "wondrous", "weight_lb": 2, "cost_gp": 0, "magic": {"rarity": "rare", "attunement": True}, "theme": "implements", "icon": "lantern",
-        "modifiers": [{"stat": "skill", "skill": "investigation", "value": "tier"}, {"stat": "skill", "skill": "perception", "value": "tier"}],
+        "modifiers": [{"stat": "check", "skill": "investigation", "value": "tier"}, {"stat": "check", "skill": "perception", "value": "tier"}],
         "powers": [{"id": "detect", "name": "Detect Magic", "spell": "detect_magic", "min_level": 7, "uses": {"count": 1, "per": "dusk"}},
                    {"id": "ray", "name": "Scorching Ray", "spell": "scorching_ray", "min_level": 10, "uses": {"count": 3, "per": "dusk"}},
                    {"id": "circle", "name": "Magic Circle", "spell": "magic_circle", "min_level": 10, "uses": {"count": 1, "per": "dusk"}}],
@@ -426,6 +426,10 @@ FLAG_NOTES = {
 }
 
 
+FOREIGN = {"gorthos_slain", "renathyr_slain", "lethica_slain", "briggsy_slain"} | {m for t in ("marius_feats", "marius_oath", "marius_love", "lethica_healing", "lethica_love", "lethica_hymns", "jericho_songs", "jericho_tales",
+           "jericho_craft", "briggsy_exploits", "briggsy_ruses", "briggsy_luck", "farryn_circle", "farryn_forest_love", "farryn_gwenna", "farryn_greenwood") for m in ("mem_" + t,)}
+
+
 def build_flags():
     registered = set()
     for f in (ROOT / "data/flags").glob("*.json"):
@@ -449,7 +453,11 @@ def build_flags():
         note = FLAG_NOTES.get(n)
         if note is None:
             note = "Maidenmist Cemetery (R19) story state."
-        out.append({"id": n, "type": "int" if (n in ints or n.startswith("beacon_")) else "bool", "summary": note, "read_later": True})
+        e = {"id": n, "type": "int" if (n in ints or n.startswith("beacon_")) else "bool", "summary": note, "read_later": True}
+        if n in FOREIGN:
+            e["set_by"] = "engine"
+            e["summary"] = note + " (Registered here as set_by engine so R19 can read it before the owning chapter exists: that chapter's lane registers and sets it for real and removes this entry.)"
+        out.append(e)
     write("data/flags/maidenmist.json", {"flags": out})
     print("flags:", len(out))
 

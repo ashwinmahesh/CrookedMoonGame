@@ -983,10 +983,6 @@ endif
 Narrator: <<chamber_spill|Shrouded spill up out of the mist at the far end and the coloured flames burn some of them to nothing as they come. Two sentences.>>
 combat mm_chamber
 
-~ chamber_after
-set mm_chamber_done
--> END
-
 ~ rubble
 Narrator: <<rubble|The collapsed passage is a wall of rubble and mist; clearing it will take time and hard work. One sentence.>>
 * [Athletics DC 15] Clear it together -> rubble_ok | rubble_slow
@@ -1048,6 +1044,10 @@ Narrator: <<wall|A cracked wall leaks grey mist; the party spots it and breaks t
 ~ slime
 give necrolisk_slime
 set mm_slime_taken
+set mm_slimes += 1
+if flag.mm_slimes >= 4
+set mm_slime_all
+endif
 Narrator: <<slime|A minute's careful work harvests a blob of necrolisk slime into a jar; it clings and eats at the glass. One or two sentences.>>
 -> END
 
@@ -1159,9 +1159,11 @@ FILES["descent"] += azure_file()
 FILES["raid"] = """# Drafted by Gemini (R19 raid), edited. Dusk of the Dead, Doris Squire's militia, and Mori Shade's request.
 
 ~ alarm
+if not flag.mm_raid_seen
 set mm_raid_seen
 cutscene mm_dusk_of_the_dead
 Narrator: <<raid_open|The clock-tower bells ring late in the Dusk Hour; ghasts shriek down Wickermoor's streets, eating whom they catch. Two sentences.>>
+endif
 doris_squire [angry]: <<raid_doris|Doris Squire, a flat northern burr, fewest words possible: the dead are walking, her militia is stretched, will the strangers help. Two short sentences.>>
 -> alarm_menu
 
@@ -1325,9 +1327,9 @@ mori_shade [neutral]: <<mori_accept|Mori gives the party grave salt for their bl
 ~ hub
 mori_shade [neutral]: <<mori_hub|Mori looks up from her ledger and asks how the cemetery goes. One short sentence.>>
 * [if not flag.mm_salt_extra] Could we have more grave salt? -> salt
-* [if not flag.mm_names_asked] Is there anything else you need done? -> names_start
-* [if quest.names_on_stones == asked] About the three unmarked graves -> names_done
-* [ends:names_on_stones] [if quest.names_on_stones == asked] Leave the graves unnamed -> names_drop
+* [if not flag.mm_names_asked] Is there anything else you need done? -> maidenmist/folk:names_start
+* [if quest.names_on_stones == asked] About the three unmarked graves -> maidenmist/folk:names_done
+* [ends:names_on_stones] [if quest.names_on_stones == asked] Leave the graves unnamed -> maidenmist/folk:names_drop
 * That is all -> END
 
 ~ salt
@@ -1388,7 +1390,7 @@ Narrator: <<epitaph_judge|Tobias waits by the fountain with a ribbon and a penci
 * The blunt one -> epitaph_win_a
 * The honest confession -> epitaph_win_c
 * [if flag.mm_epitaph_a_read or flag.mm_epitaph_b_read or flag.mm_epitaph_c_read] A tie, honestly -> epitaph_tie
-* They are all too honest. Call it off -> epitaph_off
+* [ends:epitaph_competition] They are all too honest. Call it off -> epitaph_off
 
 ~ epitaph_win_a
 quest epitaph_competition done
@@ -1459,6 +1461,7 @@ Narrator: <<grammar_correct|The headstone sighs through its entire carved face a
 -> END
 
 ~ names_start
+set mm_names_asked
 quest names_on_stones asked
 mori_shade [neutral]: <<names_start|Mori has three unmarked graves in the Potter's Field and a ledger of villagers who lost someone; match the names, give each grave its stone. Three short sentences.>>
 -> END
@@ -1611,5 +1614,27 @@ set mm_epilogue_doris
 doris_squire [neutral]: <<doris_after|Doris, in as few words as possible, says the village is quiet and she is grateful. Two short sentences.>>
 -> END
 """
+
+ENTER = {
+    "mm_gate": "the Maidenmist gate: a fifteen-foot iron fence running into fog both ways, a bent gate between two hooded reapers",
+    "mm_corpse_road": "the Corpse Road: a wide cobbled hearse road between grave markers, mist at its densest",
+    "mm_sepulcher": "the sepulcher's hill: a cracked moss-grown tomb with huge doors and six iron sconces, seven paved paths, blue-green wisps in grey fog",
+    "mm_highborn_crypts": "the Highborn Crypts: polished dark stone crypts, leering gargoyles, bats wheeling, a brazier of dull red coals",
+    "mm_crypt_below": "a crypt below: stone sarcophagi, roosting bats, cold air",
+    "mm_cremation_gardens": "the Cremation Gardens: brick memorial walks in heavy rain, clay urns, fountains, a bell tolling slow",
+    "mm_potters_field": "the Potter's Field: plain wooden posts over nameless graves, carrion birds, amber lanterns drifting in fog",
+    "mm_mausoleum_lanes": "the Mausoleum Lanes: a boggy city of ivy-grown vaults, murky water in the cracks, acrid muck",
+    "mm_burial_mounds": "the Burial Mounds: tall round mounds, twisted trees with faces in their trunks, bright apples on hand-shaped branches",
+    "mm_shadestone_sanctuary": "the Shadestone Sanctuary: standing stones cut with Orc names, an azure beacon on a small ziggurat, a stillness the rest of the cemetery has lost",
+    "mm_kings_rest": "King's Rest: a palatial barrow, a giant armoured king raising a sword through fog, a war in the mist at its doors",
+    "mm_balefire_chamber": "the Balefire Chamber: a sixty-foot hall of coloured fire sconces, a collapsed passage at the far end leaking grey mist",
+    "mm_undercroft": "the Undercroft Catacombs: earthen walls lined with rows of skulls, mist pooled on the floor, trembling floors",
+    "mm_necropolis_depths": "the Necropolis Depths: a huge cavern widened by claws, slimed corpses in burrows, glowing ooze",
+    "mm_tomb": "the Tomb of the Shrouded: a cavern of blue-green balefire, chained three-pronged platforms, a tear in the air above them",
+    "mm_gravestones_a": "the Endless Gravestones: rolling hills of grave markers a few feet apart, something always walking between them",
+    "mm_gravestones_b": "the Endless Gravestones: rolling hills of grave markers a few feet apart, something always walking between them",
+}
+FILES["narrator/maidenmist"] = "# Drafted by Gemini (R19 narrator), edited. Arrival lines for Maidenmist's places.\n\n" + "\n".join(
+    f"~ enter:{k}\n| <<enter_{k}|The party arrives at {v}. The Narrator's first impression in one or two sentences, concrete senses.>>\ncooldown 0\n" for k, v in ENTER.items())
 
 PLACEHOLDER = re.compile(r"<<([a-z0-9_]+)\|([^>]*)>>")

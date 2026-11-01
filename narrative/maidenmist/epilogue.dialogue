@@ -1,0 +1,69 @@
+# Drafted by Gemini (R19 epilogue), edited. After the Chained Reaper: Isolde's Walk, Adela, Golub's move, Doris.
+
+~ walk_ask
+quest isolde_walk asked
+Narrator: Isolde pauses in the stone doorway of the sepulcher and gently tugs the hem of your coat with her teeth. She turns her white eyes toward the dark paths among the graves, then looks back to you.
+* Walk with her -> walk_yes
+* Not now, old girl -> walk_no
+
+~ walk_yes
+set mm_isolde_walk_started
+Narrator: Isolde trots out along the nearest gravel path with her hooded lantern swinging low, glancing back every few paces to make sure you follow.
+-> END
+
+~ walk_no
+Narrator: Isolde lowers her heavy black chest onto the cold stone step and watches the fogbound path with her ears laid flat.
+* Change your mind -> walk_yes
+* [ends:isolde_walk] Leave her -> walk_leave
+
+~ walk_leave
+set mm_isolde_walk_gone
+quest isolde_walk gone_quiet
+Narrator: Isolde does not follow you past the iron gate, and by the time morning thins the mist her hooded lantern sits dark beside the sepulcher door.
+-> END
+
+~ walk_crimson
+set mm_walk_crimson
+set mm_isolde_walk_sites += 1
+Narrator: Setting her lantern down, Isolde noses through the cold grey ash of the crimson brazier and nudges out a small wooden horse carved by Yorgrim's patient hand.
+-> END
+
+~ walk_violet
+set mm_walk_violet
+set mm_isolde_walk_sites += 1
+Narrator: At the mossy foot of the violet fountain, Isolde sniffs the damp flagstones and paws loose a pale mask of polished bone that Yorgrim tucked away.
+-> END
+
+~ walk_emerald
+set mm_walk_emerald
+set mm_isolde_walk_sites += 1
+Narrator: Isolde burrows her black snout beneath the knotted emerald roots and draws out a fragrant sprig of dried greenery bound with coarse thread.
+-> END
+
+~ walk_end
+set mm_isolde_walk_done
+quest isolde_walk done
+give yorgrims_letter
+Narrator: Beneath the leaning Shadestone markers, Isolde noses a flat packet wrapped in tied oilcloth out of the peat: Yorgrim's final letter to Mori Shade.
+-> END
+
+~ adela
+set mm_epilogue_adela
+adela_druskenvald [smile]: You have my deepest thanks for settling that dreadful business behind the cemetery iron, darlings. Honestly, I rather thought our little graveyard unpleasantness had been put to bed for good.
+adela_druskenvald [sly]: Though I did spot the queerest flock of gray pigeons roosting inside the tower clockwork this evening.
+-> END
+
+~ golub_tease
+set mm_epilogue_golub
+Narrator: High on the slate roof of the post office, a hundred gray pigeons shift their feet as one. Below the eaves, Theodora Mayville watches you pass down the lane with gleaming violet eyes.
+-> END
+
+~ weston
+set mm_epilogue_weston
+weston_murdoch [smile]: The Brightsingers heard the chapel bells ring clear across the valley mist tonight, my friends. We shall gather every lantern on the steps and sing the weary dead home until dawn.
+-> END
+
+~ doris_after
+set mm_epilogue_doris
+doris_squire [neutral]: The lane is quiet from the iron gates to the square tonight. You have my thanks for keeping the mist off our cobbles.
+-> END

@@ -1,0 +1,31 @@
+# Drafted by Gemini (R19 isolde), edited. Isolde the grim speaks in Narrator lines only.
+
+~ door
+set isolde_met
+set isolde_alive
+Narrator: A spectral black hound stands braced against the seam of the great iron doors, hackles raised and bright white eyes unblinking. Between her jaws she grips the brass ring of a hooded lantern.
+* Offer her a hand -> door_hand
+* [Animal Handling DC 12] Calm her -> door_calm | door_hand
+* Leave her to her work -> END
+
+~ door_hand
+Narrator: The hound sniffs your outstretched knuckles and gives your skin one cool, rough lick before turning back to watch the iron seam.
+-> END
+
+~ door_calm
+Narrator: The bristle along the hound's dark spine smooths flat, and she watches you with the quiet steadiness of a sentry who knows a friend.
+-> END
+
+~ fades
+set isolde_faded
+set isolde_alive = 0
+cutscene mm_isolde_fades
+Narrator: Left too long at her post, Isolde thins like smoke until her hooded lantern gutters out and vanishes. Grave mist immediately hisses through the unguarded iron seam.
+set mm_isolde_lurkers
+-> END
+
+~ farewell
+set mm_isolde_farewelled
+cutscene mm_isolde_farewell
+Narrator: Under the steady glow of the six burning sconces, Isolde rises from the threshold and shakes the damp from her coat. She turns toward the carved stones of the Shadestone Clan and looks back once, waiting for you to follow.
+-> END

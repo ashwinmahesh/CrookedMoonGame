@@ -1,0 +1,52 @@
+# Drafted by Gemini (R19 mori), edited. Mori Shade asks the party to go to Maidenmist.
+
+~ request
+set mm_mori_met_again
+Narrator: Mori Shade stands in the cedar-scented parlour in her mourning black, her white hair loose above an open leather ledger.
+mori_shade [sad]: The freshest ghast at the barricade was Gregor Bolton, still in his burial linen. I carted his pine coffin to Maidenmist just before you arrived. Neither Yorgrim nor his hound Isolde met me at the gate.
+mori_shade [weary]: Seven nights ago I found the iron gates chained shut, the fog thick as tallow, and every beacon cold. Walk the hill for me and see why the dead are rising.
+* We will go -> accept
+* [if gold >= 0] What is at Maidenmist? -> about
+* Who is Yorgrim? -> about_yorgrim
+* Not yet -> END
+
+~ about
+mori_shade [neutral]: Maidenmist is no mere boneyard, but an iron prison built over a weeping tear in the Shroud. Old Yorgrim keeps the keys and watches the graves so the rest of us may sleep.
+-> request
+
+~ about_yorgrim
+mori_shade [smile]: Yorgrim is an old orc spirit who taught me the quiet prayers of the Strangers. He drags a granite headstone chained to his shoulders and never complains of the weight.
+-> request
+
+~ accept
+set mm_asked
+set mm_pyre_lit
+quest maidenmist_dead_rise corpse_road
+give grave_salt
+mori_shade [neutral]: Rub this coarse grave salt along your blades before you cross the stile. Keep cold iron between your ribs and the creeping mist. I will stack the fallen out past the ditch and burn them clean.
+-> END
+
+~ hub
+mori_shade [neutral]: Tell me then, with the ink still wet upon my ledger, how fares the cold iron watch out in Maidenmist Cemetery tonight?
+* [if not flag.mm_salt_extra] Could we have more grave salt? -> salt
+* [if not flag.mm_names_asked] Is there anything else you need done? -> maidenmist/folk:names_start
+* [if quest.names_on_stones == asked] About the three unmarked graves -> maidenmist/folk:names_done
+* [ends:names_on_stones] [if quest.names_on_stones == asked] Leave the graves unnamed -> maidenmist/folk:names_drop
+* That is all -> END
+
+~ salt
+if not flag.mm_salt_extra
+set mm_salt_extra
+give grave_salt
+endif
+mori_shade [neutral]: Take this last linen pouch of consecrated salt from the cellar jar. It is all I can spare before the ash barrels run dry.
+-> END
+
+~ return
+set mm_mori_return_told
+mori_shade [sad]: So the heavy chains are finally off his grey shoulders. Maidenmist still needs a quiet hand to trim the wicks and turn the earth. Perhaps it is time I hung my ledger on the iron gate.
+if flag.isolde_alive and not flag.isolde_faded
+mori_shade [smile]: Isolde has carried her dark lantern to my back door many a frostbitten night. She will curl by the lichgate until the next sexton takes up the spade.
+endif
+set mm_mori_caretaker
+-> END

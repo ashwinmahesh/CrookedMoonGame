@@ -1,0 +1,279 @@
+# Drafted by Gemini (R19 descent), edited. The sepulcher below: the balefire chamber, the undercroft, the depths, the Stygian Descent, the Harrowing and the Azure Rites.
+
+~ chamber
+set mm_chamber_started
+set mm_chamber_n = 10
+if flag.beacon_crimson == 3
+set mm_chamber_n -= 2
+elif flag.beacon_crimson == 2
+set mm_chamber_n -= 1
+endif
+if flag.beacon_violet == 3
+set mm_chamber_n -= 2
+elif flag.beacon_violet == 2
+set mm_chamber_n -= 1
+endif
+if flag.beacon_amber == 3
+set mm_chamber_n -= 2
+elif flag.beacon_amber == 2
+set mm_chamber_n -= 1
+endif
+if flag.beacon_magenta == 3
+set mm_chamber_n -= 2
+elif flag.beacon_magenta == 2
+set mm_chamber_n -= 1
+endif
+if flag.beacon_emerald == 3
+set mm_chamber_n -= 2
+elif flag.beacon_emerald == 2
+set mm_chamber_n -= 1
+endif
+cutscene mm_six_beacons
+Narrator: Inside the sepulcher, wall sconces burn in five strange hues down a long, vaulted nave. The far end has caved in, and cold grey mist wells up through the fallen masonry.
+if flag.mm_chamber_n == 0
+set mm_chamber_done
+Narrator: The newly kindled flames lick across the flagstones, searing every rising wisp of mist to ash before it can take shape. The long hall stands clean and dead silent.
+yorgrim [smile]: Their fires hold the dark back, just as they promised they would.
+-> END
+endif
+Narrator: Gaunt, hollow-eyed spirits spill out of the seething rubble at the far end of the hall. The five coloured fires catch the foremost wraiths and burn them away like dry tallow.
+combat mm_chamber
+
+~ rubble
+Narrator: Choking grey vapour curls through a solid wall of fallen lintels and wet earth that will take strong backs and bruised knuckles to clear.
+* [Athletics DC 15] Clear it together -> rubble_ok | rubble_slow
+* Take the hour and do it by hand -> rubble_slow
+
+~ rubble_ok
+set mm_rubble_cleared
+quest maidenmist_dead_rise undercroft
+time +10
+Narrator: Ten minutes of heaving cold, slick stone opens a narrow gap onto a flight of steps descending into the dark.
+-> END
+
+~ rubble_slow
+set mm_rubble_cleared
+quest maidenmist_dead_rise undercroft
+time +60
+Narrator: It takes an hour of aching backs and scraped palms, but the last boulder rolls aside to reveal a downward stair.
+-> END
+
+~ maze_hint
+set mm_maze_hint_done
+Narrator: Narrow tunnels branch off in every direction, their damp walls mortared with rows of grinning, yellow skulls. Now and then the flagstones shudder beneath your boots.
+* [Investigation DC 15] Read the way from the skulls and the draughts -> maze_hint_ok | maze_hint_plain
+* [Intelligence DC 15] Work it out like a map -> maze_hint_ok | maze_hint_plain
+* Wander and hope -> END
+
+~ maze_hint_ok
+Narrator: A pinprick of warm tallow light winks deep in the eye sockets of certain skulls, leading off down a single winding gallery.
+-> END
+
+~ maze_hint_plain
+Narrator: The rows of dry bone only grin back at you, hollow and unhelpful.
+-> END
+
+~ crack
+Narrator: Spiderweb fissures split the flagstones, and the floor shivers under your weight.
+check Dexterity DC 13 -> crack_ok | crack_fall
+
+~ crack_ok
+Narrator: The stone splits wide beside your boots as you leap to solid ground, while something massive shifts in the black pit far below.
+-> END
+
+~ crack_fall
+damage 3d6 bludgeoning party
+Narrator: The rotten flagstones give way with a crack like thunder, dropping you sixty feet through the whistling dark.
+move mm_necropolis_depths:from_fall
+
+~ depths_arrive
+set mm_depths_seen
+Narrator: You stand in a vast cavern gouged wide by great claws, its earthen burrows choked with slime-coated bones. Somewhere high in the dark roof, something draws a wet, rattling breath.
+* [if item:mm_lavender and item:mm_lilies and item:mm_nightshade] Mix the herbs into a tincture to throw -> herb_mix
+* Hold still and listen -> necrolisk_start
+
+~ wall
+set mm_wall_broken
+Narrator: A hairline crack in the mortared stone weeps a thin ribbon of grave-mist. You put your shoulders to the rotten masonry until it gives way onto the lower landing of the stair.
+-> END
+
+~ slime
+give necrolisk_slime
+set mm_slime_taken
+set mm_slimes += 1
+if flag.mm_slimes >= 4
+set mm_slime_all
+endif
+Narrator: A minute of careful scraping coaxes a rope of pale, stinking necrolisk bile into a glass vial. It coils against the stopper, already etching frost into the jar.
+-> END
+
+~ herb_mix
+take mm_lavender
+take mm_lilies
+take mm_nightshade
+set mm_herb_ready
+Narrator: You crush the dried lavender, graveyard lilies, and bruising nightshade into a thick, oily draught whose stench makes your eyes water.
+-> necrolisk_start
+
+~ necrolisk_start
+set mm_necrolisk_started
+Narrator: Pebbles rattle down from a high burrow in the cavern roof. With a wet, rattling hiss, a scaled bulk drops out of the dark.
+if flag.mm_herb_ready
+Narrator: You hurl the reeking herbal brew into the beast's maw, and with a wet, sour wrench it heaves half its last meal onto the stones.
+combat mm_necrolisk_sick
+endif
+combat mm_necrolisk
+
+~ stygian
+set mm_stygian_seen
+cutscene mm_stygian_descent
+Narrator: A spiral stair drops into the earth, its walls carved with thousands of open-mouthed faces that seem to breathe a low, endless moan. Iron cressets burn with the sickly blue-green tallow of the Shroud.
+if flag.yorgrim_with_party
+yorgrim [afraid]: My lantern gutters in this air, friends. The dead know my voice, and they curse me in two tongues.
+endif
+check Wisdom DC 15 -> stygian_ok | stygian_fail
+
+~ stygian_ok
+Narrator: You press your palms over your ears and keep your eyes on the steps, letting the cold wailing wash past like rain.
+-> END
+
+~ stygian_fail
+disadvantage checks 2h: the voices on the stair
+Narrator: The grieving chorus worms behind your eyes and sets your teeth chattering with a chill that will not leave for hours.
+-> END
+
+~ tomb_door
+Narrator: Twin doors of tarnished bronze bear the relief of a cowled woman lifting a lantern, sealed against every hand save Yorgrim's.
+yorgrim [weary]: Stay close by me now, if you have the stomach for what waits inside.
+* We are ready -> tomb_open
+* Give us a moment -> END
+
+~ tomb_open
+set mm_tomb_door_open
+quest maidenmist_dead_rise harrowing
+Narrator: The heavy bronze leaves swing inward with a groan, and the biting frost of the Shroud rolls out across your boots.
+-> END
+
+~ harrowing
+set mm_harrowing_begun
+cutscene mm_harrowing
+Narrator: Above the iron-chained platform, the jagged tear in the world churns like a bruised storm cloud. Yorgrim, thin as smoke, lifts his iron lantern toward its roaring throat.
+yorgrim [afraid]: That is my clan crying out from the mist, and every mouth has my name in it.
+Narrator: The lantern gutters out as a shrieking rope of blue-green fog lashes around his throat. Where the old sexton stood rises a towering hooded reaper, a scythe of cold bale-fire in its fists and the chained headstone grinding against its spine.
+set yorgrim_fallen
+leave yorgrim
+set yorgrim_with_party = 0
+combat mm_harrowing
+
+~ harrow_hold
+Narrator: Yorgrim stands ankle-deep in the drifting frost beneath the tear, holding his dim lantern high.
+-> END
+
+~ azure_rites
+if not flag.mm_azure_began
+set mm_azure_began
+set mm_azure_succ = 0
+set mm_azure_miss = 0
+Narrator: Where the giant reaper came apart, only a heavy, soot-blackened lantern rests upon the cold stone. From inside its dark glass comes Yorgrim's faint, tired breath, begging you to read his last rites and let him rest.
+yorgrim [weary]: Speak the last rites over this cold iron lantern, strangers. Lay my spirit down so the ragged tear above us can finally close.
+endif
+-> azure_rite
+
+~ azure_rite
+if flag.mm_azure_succ >= 6
+-> sealed
+endif
+Narrator: Overhead the ragged tear shudders in the stone, while the pale flame inside the hooded lantern waits for your words.
+* Speak of his care for the dead -> azure_a
+* Speak the names on his stone -> azure_b
+* Speak of his friends and his hound -> azure_c
+* [Arcana DC 13] Work out who is left to honour -> azure_hint | azure_hint_plain
+
+~ azure_hint
+Narrator: Five beacons burn above the grave dirt now, leaving only the old sexton himself to honour.
+-> azure_rite
+
+~ azure_hint_plain
+Narrator: The right words sit cold on the tip of your tongue, just out of reach in the damp air.
+-> azure_rite
+
+~ sealed
+set shroud_tear_sealed
+set fallen_yorgrim_dead
+quest maidenmist_dead_rise done
+cutscene mm_tear_sealed
+Narrator: The hooded lantern blazes white-blue until the whole stone vault washes out in blinding light. When your sight clears, the cracked ceiling is whole, the tomb rests in calm azure glow, and every shrieking shrouded is gone.
+yorgrim [smile]: Thank you, strangers, for lifting the heavy stone from my back before the quiet takes me.
+xp milestone
+-> END
+
+~ azure_a
+Narrator: You turn the final rite toward the old sexton's tireless care for the dead and the quiet customs he kept.
+* [Arcana DC 15] Speak of his care for the dead -> azure_a_ok | azure_a_miss
+* [History DC 15] Speak of his care for the dead, from what you learned of him -> azure_a_ok | azure_a_miss
+* [Charisma DC 18] Offer a memory of your own -> azure_a_ok | azure_a_miss
+* Choose another theme -> azure_rite
+
+~ azure_a_ok
+set mm_azure_succ += 1
+Narrator: The hooded lantern flares bright against the damp stone as your words land true. Even the cold grave dirt seems to remember the graves he tended and the rites he kept.
+-> azure_rite
+
+~ azure_a_miss
+set mm_azure_miss += 1
+damage 1d6 psychic party
+Narrator: Your words fall short in the damp vault, and the grey Shroud whispers back a hollow mockery of his graveside rites. Overhead, the ragged tear shudders wide and spills a fresh breath of grave chill.
+if flag.mm_azure_miss >= 3
+if not flag.mm_wave_done
+combat mm_tear_wave
+endif
+endif
+-> azure_rite
+
+
+~ azure_b
+Narrator: You turn the final rite toward his heavy duty to the Shadestone Clan and the carved names he dragged behind him.
+* [History DC 15] Speak the names on his stone -> azure_b_ok | azure_b_miss
+* [Religion DC 15] Speak the names on his stone, from what you learned of him -> azure_b_ok | azure_b_miss
+* [Charisma DC 18] Offer a memory of your own -> azure_b_ok | azure_b_miss
+* Choose another theme -> azure_rite
+
+~ azure_b_ok
+set mm_azure_succ += 1
+Narrator: The hooded lantern flares with a steady blue heat as your words land true. The iron chains on the cracked headstone ring once, honouring his long duty to the Shadestone Clan.
+-> azure_rite
+
+~ azure_b_miss
+set mm_azure_miss += 1
+damage 1d6 psychic party
+Narrator: Your words fall short against the stone, and the grey Shroud hisses a mocking echo of the Shadestone Clan's lost names. Overhead, the ragged tear shudders and widens in the vault roof.
+if flag.mm_azure_miss >= 3
+if not flag.mm_wave_done
+combat mm_tear_wave
+endif
+endif
+-> azure_rite
+
+
+~ azure_c
+Narrator: You turn the final rite toward the five friends who answered his call and the loyal black hound at his heel.
+* [Nature DC 15] Speak of his friends and his hound -> azure_c_ok | azure_c_miss
+* [Investigation DC 15] Speak of his friends and his hound, from what you learned of him -> azure_c_ok | azure_c_miss
+* [Charisma DC 18] Offer a memory of your own -> azure_c_ok | azure_c_miss
+* Choose another theme -> azure_rite
+
+~ azure_c_ok
+set mm_azure_succ += 1
+Narrator: The hooded lantern flares warm in Isolde's jaws as your words land true. The pale flame steadies, honouring the five friends he trusted and the spectral hound who never left his side.
+-> azure_rite
+
+~ azure_c_miss
+set mm_azure_miss += 1
+damage 1d6 psychic party
+Narrator: Your words fall short in the cold dark, and the Shroud whispers a cruel echo of his fallen friends and his white-eyed hound. Overhead, the ragged tear shudders and leaks black mist.
+if flag.mm_azure_miss >= 3
+if not flag.mm_wave_done
+combat mm_tear_wave
+endif
+endif
+-> azure_rite
