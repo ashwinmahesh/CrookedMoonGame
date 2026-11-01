@@ -145,3 +145,14 @@ Game-ready copies from these (Vorbis q5, 44.1 kHz):
 - clock_chime.ogg: Westminster quarters and one stroke of the hour from a clock (public domain). 19.6 s; -14.0 LUFS, true peak -2.4 dB.
 - wildpyre_wake_1.ogg: A wild lion's roaring bout (Growcott, Lobora et al., CC BY 4.0), the building middle of it. 8.1 s; -14.1 LUFS, true peak -2.0 dB.
 - wind_chime.ogg: A wind chime stirring (stephan, public domain). 6.0 s; -14.0 LUFS, true peak -1.6 dB.
+
+## Batch 6 (2026-11-01)
+
+### SouthernBlues.ogg
+- Page: https://commons.wikimedia.org/wiki/File:SouthernBlues.ogg (from https://archive.org/details/southern1924)
+- Author: Frank Ferera and John K. Paaluhi (performers and composers)
+- Licence: Public domain: {{PD-US-record}}, a US sound recording made about 1924 (US recordings published before 1925 entered the public domain by 2025); the 1924 composition is out of copyright too
+- Downloaded: 2026-11-01 (UTC), with Ashwin's typed yes of 2026-11-01 (the batch briefs; vault Build/Audio Plan.md)
+- About: "Southern Blues", Hawaiian steel guitar played slide over a second guitar.
+
+Game-ready copy: southern_blues_ferera.ogg: Frank Ferera and John K. Paaluhi, "Southern Blues" (ca. 1924; public-domain US record, the composition too): Hawaiian steel guitar played slide over a second guitar, a lazy blues for the bayou. Old-record hiss kept; needle drop and run-out cut. 194.6 s; -16.0 LUFS, true peak -2.3 dB. Mood: drowned_crossroads.
