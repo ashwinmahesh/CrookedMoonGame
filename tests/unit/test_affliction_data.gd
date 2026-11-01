@@ -17,3 +17,12 @@ func test_the_hartsblight_by_level() -> void:
 	assert_eq([str(rest["success"]), str(rest["failure"]), int(rest["min"])], ["mod:con", "half_mod:con", 1], "the Long Rest save")
 	assert_eq(int((rest["save"] as Dictionary)["dc"]), 10)
 	assert_false(d.has("blocked_by"), "poison immunity doesn't keep it out")
+
+
+func test_the_rotten_hearts_symptoms() -> void:
+	var sy := Compendium.shared().get_entry("afflictions", "hartsblight")["symptoms"] as Dictionary
+	assert_eq((sy["table"] as Array).size(), 6, "six, as the book's d6")
+	assert_eq(int((sy["save"] as Dictionary)["dc"]), 10)
+	assert_true(str(sy["when"]).contains("at:hb_wellspring") and str(sy["when"]).contains("at:hb_den"), "only in the Rotten Heart")
+	for loc: String in ["hb_wellspring", "hb_den"]:
+		assert_false(Compendium.shared().get_entry("locations", loc).is_empty(), loc)

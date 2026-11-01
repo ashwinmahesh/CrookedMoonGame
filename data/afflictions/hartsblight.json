@@ -9,16 +9,165 @@
   },
   "summary": "A fungal rot that grows in the body level by level: each level takes 1 off Constitution saves, attack rolls and every healing received, and at level 6 or more the Hit Points are halved.",
   "modifiers": [
-    {"stat": "save", "ability": "con", "per_level": -1},
-    {"stat": "attack", "per_level": -1},
-    {"stat": "healing_received", "per_level": -1}
+    {
+      "stat": "save",
+      "ability": "con",
+      "per_level": -1
+    },
+    {
+      "stat": "attack",
+      "per_level": -1
+    },
+    {
+      "stat": "healing_received",
+      "per_level": -1
+    }
   ],
   "thresholds": [
-    {"at": 6, "halve_hp": true, "modifiers": [{"stat": "hp_max_percent", "value": 50}]}
+    {
+      "at": 6,
+      "halve_hp": true,
+      "modifiers": [
+        {
+          "stat": "hp_max_percent",
+          "value": 50
+        }
+      ]
+    }
   ],
-  "long_rest": {"save": {"ability": "con", "dc": 10}, "success": "mod:con", "failure": "half_mod:con", "min": 1},
+  "long_rest": {
+    "save": {
+      "ability": "con",
+      "dc": 10
+    },
+    "success": "mod:con",
+    "failure": "half_mod:con",
+    "min": 1
+  },
   "cures": [
-    {"ends": "poisoned", "remove": 1},
-    {"spells": ["greater_restoration", "heal", "power_word_heal", "wish"], "remove": "all"}
-  ]
+    {
+      "ends": "poisoned",
+      "remove": 1
+    },
+    {
+      "spells": [
+        "greater_restoration",
+        "heal",
+        "power_word_heal",
+        "wish"
+      ],
+      "remove": "all"
+    }
+  ],
+  "symptoms": {
+    "when": "at:hb_wellspring or at:hb_den",
+    "save": {
+      "ability": "con",
+      "dc": 10
+    },
+    "_note": "The Rotten Heart's symptoms (book p. 360), in our words. Left out until the engine has them: no. 4's Confusion when Initiative is rolled, and no. 6's extra damage each time the creature is hurt.",
+    "table": [
+      {
+        "id": "milky_eyes",
+        "name": "Milky Eyes",
+        "summary": "pain and eyes gone milky white: Blinded, and worse at Wisdom checks and saves",
+        "conditions": [
+          "blinded"
+        ],
+        "modifiers": [
+          {
+            "stat": "disadvantage",
+            "on": "check:wis"
+          },
+          {
+            "stat": "disadvantage",
+            "on": "save:wis"
+          }
+        ]
+      },
+      {
+        "id": "fever",
+        "name": "Raging Fever",
+        "summary": "a fever burns through: worse at Strength checks and saves",
+        "modifiers": [
+          {
+            "stat": "disadvantage",
+            "on": "check:str"
+          },
+          {
+            "stat": "disadvantage",
+            "on": "save:str"
+          }
+        ]
+      },
+      {
+        "id": "rotting_flesh",
+        "name": "Rotting Flesh",
+        "summary": "the flesh sloughs: worse at Charisma checks, and blows bite deeper",
+        "modifiers": [
+          {
+            "stat": "disadvantage",
+            "on": "check:cha"
+          },
+          {
+            "stat": "vulnerability",
+            "value": "bludgeoning"
+          },
+          {
+            "stat": "vulnerability",
+            "value": "piercing"
+          },
+          {
+            "stat": "vulnerability",
+            "value": "slashing"
+          }
+        ]
+      },
+      {
+        "id": "addled",
+        "name": "Addled Thoughts",
+        "summary": "thoughts go muddy: worse at Intelligence checks and saves",
+        "modifiers": [
+          {
+            "stat": "disadvantage",
+            "on": "check:int"
+          },
+          {
+            "stat": "disadvantage",
+            "on": "save:int"
+          }
+        ]
+      },
+      {
+        "id": "shakes",
+        "name": "The Shakes",
+        "summary": "a shaking that won't stop: worse at Dexterity checks and saves",
+        "modifiers": [
+          {
+            "stat": "disadvantage",
+            "on": "check:dex"
+          },
+          {
+            "stat": "disadvantage",
+            "on": "save:dex"
+          }
+        ]
+      },
+      {
+        "id": "bleeding",
+        "name": "Weeping Wounds",
+        "summary": "blood that won't clot: worse at Constitution checks and saves",
+        "modifiers": [
+          {
+            "stat": "disadvantage",
+            "on": "check:con"
+          },
+          {
+            "stat": "disadvantage",
+            "on": "save:con"
+          }
+        ]
+      }
+    ]
+  }
 }
