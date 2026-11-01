@@ -90,3 +90,30 @@ func test_every_ghostlight_car_map_has_a_window_view() -> void:
 		var view := (loc["map"] as Dictionary).get("window_view", {}) as Dictionary
 		assert_false(view.is_empty(), "%s has a view out" % car)
 		assert_eq((view["colours"] as Array).size(), 3, "deep, mid and light")
+
+
+func test_the_set_pieces_the_later_maps_ask_for_are_keyed_through_the_catalog() -> void:
+	var ids := _catalog()["ids"] as Dictionary
+	for id: String in ["ct_tree", "ct_barrow_mouth", "wv_su_effigy", "wv_st_effigy"]:
+		var e := ids[id] as Dictionary
+		assert_true(str(e["set_piece"]) != "", "%s names its set piece" % id)
+		assert_true(SetDressing.has_art(str(e["art"])), "%s keeps a picture that always exists" % id)
+
+
+func test_the_crooked_tree_stands_and_the_barrow_and_the_wicker_man_only_light() -> void:
+	var b := _board()
+	var root := Node3D.new()
+	b.add_child(root)
+	var l := CrookedMoonLook.new()
+	var tree := l.place_special("dead_tree", b, root, Vector2i(4, 3), {"id": "ct_tree", "cell": [4, 3]}, {"art": "dead_tree", "set_piece": "crooked_tree"})
+	assert_true(bool(tree.get("handled", false)), "the tree is built")
+	var t := root.get_node_or_null("CrookedTree") as Node3D
+	assert_true(t != null and t.get_node_or_null("Trunk") is MeshInstance3D, "a trunk")
+	assert_true(t.get_node_or_null("CrookedGlow") is OmniLight3D, "its ember light")
+	var barrow := l.place_special("barrow", b, root, Vector2i(2, 2), {"id": "ct_barrow_mouth", "cell": [2, 2]}, {"art": "barrow", "set_piece": "barrow_glow"})
+	assert_true(barrow.is_empty(), "the barrow's own picture still draws")
+	assert_true(root.get_node_or_null("BarrowGlow") is OmniLight3D, "with a glow")
+	var giant := l.place_special("wicker_man", b, root, Vector2i(6, 5), {"id": "wv_su_effigy", "cell": [6, 5]}, {"art": "wicker_man", "set_piece": "wicker_man"})
+	assert_true(giant.is_empty(), "the Wicker Man's own picture still draws")
+	assert_true(root.get_node_or_null("WickerLantern") is OmniLight3D, "with the lantern in its chest")
+	b.free()
