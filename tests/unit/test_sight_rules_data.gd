@@ -1,5 +1,5 @@
 extends TestCase
-## The mine's Oppressive Gloom (data/locations/sk_upper.json, sk_deep.json; the engine's sight rules): every light at
+## Places whose sight is ruled (the engine's sight rules). The mine's Oppressive Gloom (data/locations/sk_upper.json, sk_deep.json; the engine's sight rules): every light at
 ## half its reach, Darkvision to 15 ft, and the hag and her marked denizens seeing as ever.
 
 
@@ -21,3 +21,10 @@ func test_the_cemetery_mist_lifts_with_the_beacons() -> void:
 		var s := (Compendium.shared().get_entry("locations", loc)["map"] as Dictionary)["sight"] as Dictionary
 		assert_eq(int(s["sight_ft"]), 60, loc)
 		assert_eq(str(s["when"]), sites[loc], loc)
+
+
+## Hartsblight's spore clouds: nothing seen past 60 ft in the fungal woods, 30 ft at the wellspring.
+func test_the_spore_clouds() -> void:
+	for pair: Array in [["hb_druid_commune", 60], ["hb_oozing_ravine", 60], ["hb_stinking_quagmire", 60], ["hb_wellspring", 30]]:
+		var s := (Compendium.shared().get_entry("locations", str(pair[0]))["map"] as Dictionary)["sight"] as Dictionary
+		assert_eq(int(s["sight_ft"]), int(pair[1]), str(pair[0]))
