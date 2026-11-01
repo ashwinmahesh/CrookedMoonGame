@@ -11,11 +11,14 @@ func capture_shots(tool: Node, out: String) -> void:
 	var places: PackedStringArray = []
 	var sky := false
 	var travel := false
+	var later := false
 	var focus := Vector2(-1, -1)
 	var focus_distance := 8.0
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--places="):
 			places = a.get_slice("=", 1).split(",")
+		if a == "--later":
+			later = true
 		if a == "--travel":
 			travel = true   # one more shot per place of the travel map, every place known
 		if a.begins_with("--focus="):
@@ -85,5 +88,8 @@ func capture_shots(tool: Node, out: String) -> void:
 		rig.snap_to_target()
 		await tool.call("wait_frames", 30)
 		tool.call("_shot", "%s_%s_whole.png" % [out, place])
+		if later:
+			await tool.call("wait_frames", 50)
+			tool.call("_shot", "%s_%s_whole_later.png" % [out, place])   # the same view a moment on, to see what moves
 		game.queue_free()
 		await tool.call("wait_frames", 5)

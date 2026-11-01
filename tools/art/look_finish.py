@@ -87,6 +87,14 @@ def main(a: list[str]) -> None:
                 if ca > 128 and sat > 70 and max(cr, cg, cb) > 110 and not (cr > cb + 40 and cg > cb and sat < 140 and cr < 190):
                     gp[x, y] = (cr, cg, cb)
         glow.save(ROOT / "art/props/express/train_window_glow.png")
+        # The glass mask (the engine's WindowView lays its moving view over the white parts): the three panes, the sash bars left out.
+        mask = Image.new("RGBA", rgb.size, (0, 0, 0, 0))
+        md = ImageDraw.Draw(mask)
+        white = (255, 255, 255, 255)
+        md.polygon([(222, 268), (222, 235), (240, 200), (280, 170), (330, 153), (385, 148), (440, 153), (490, 170), (530, 200), (548, 235), (548, 268)], fill=white)
+        md.rectangle([222, 298, 548, 498], fill=white)
+        md.rectangle([222, 524, 548, 768], fill=white)
+        mask.save(ROOT / "art/props/express/train_window_glass.png")
     elif cmd == "moon":
         out = Path(a[2])
         moon(src, out)

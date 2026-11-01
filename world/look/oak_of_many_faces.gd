@@ -35,11 +35,11 @@ static func build(parent: Node3D, centre: Vector3, seed_: int) -> Node3D:
 		if face == null or mesh == null:
 			continue
 		var y := BANDS[i]
-		var round_ := _round(mesh, y)
+		var round_ := trunk_at(mesh, y)
 		var angle := float(i) * 2.399963 + float(seed_ % 7)   # the golden angle: no two faces side by side
 		var out := Vector3(cos(angle), 0.0, sin(angle))
 		var at := Vector3(round_.centre.x * GROW.x, y * GROW.y, round_.centre.y * GROW.z) + out * round_.radius * GROW.x
-		holder.add_child(_decal(face, at, out, 0.75 + 0.1 * float(i % 3)))
+		holder.add_child(decal(face, at, out, 0.75 + 0.1 * float(i % 3)))
 	holder.add_child(_light(holder))
 	return holder
 
@@ -50,15 +50,15 @@ static func _face(i: int) -> Texture2D:
 	return load(path) as Texture2D if ResourceLoader.exists(path) else null
 
 
-## A face lying on the bark at `at`, looking out along `out`: a decal whose box straddles the surface, so it paints the trunk
-## wherever the trunk is within a third of a unit either way, and glows a little of its own.
-static func _decal(face: Texture2D, at: Vector3, out: Vector3, size: float) -> Decal:
+## A picture lying on the bark at `at`, looking out along `out`: a decal whose box straddles the surface, so it paints the trunk
+## wherever the trunk is within half a unit either way, and glows a little of its own.
+static func decal(face: Texture2D, at: Vector3, out: Vector3, size: float, colour: Color = Color(0.8, 0.88, 1.0), glow: float = 0.55) -> Decal:
 	var d := Decal.new()
 	d.name = "Face"
 	d.texture_albedo = face
 	d.texture_emission = face
-	d.emission_energy = 0.55
-	d.modulate = Color(0.8, 0.88, 1.0)
+	d.emission_energy = glow
+	d.modulate = colour
 	var x := Vector3.UP.cross(out).normalized()
 	d.transform = Transform3D(Basis(x, out, x.cross(out)), at)
 	d.size = Vector3(size, 1.2, size)
@@ -91,8 +91,8 @@ static func _light(holder: Node3D) -> OmniLight3D:
 
 ## Where the trunk is at height `y` in the plant's own units: the middle of its vertices in a thin slab there (x and z) and
 ## how far the farthest reach, so a face lies on the bark whatever the model.
-static func _round(mesh: Mesh, y: float) -> _Round:
-	var r := _Round.new()
+static func trunk_at(mesh: Mesh, y: float) -> Round:
+	var r := Round.new()
 	var pts: Array[Vector2] = []
 	for s in mesh.get_surface_count():
 		var arrays := mesh.surface_get_arrays(s)
@@ -116,6 +116,6 @@ static func _round(mesh: Mesh, y: float) -> _Round:
 	return r
 
 
-class _Round:
+class Round:
 	var centre := Vector2.ZERO
 	var radius := 0.35
