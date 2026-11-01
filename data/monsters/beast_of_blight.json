@@ -129,6 +129,19 @@
       "text": "Storm of Spores: a 10-ft emanation round her, 1d10 necrotic and a DC 15 Con save or rot for anyone not hers who starts a turn there. Harvested Decay: the first time she drops to 0 Hit Points, a 120-ft surge (DC 15 Con or rot), every rotweaver dies, and she regains 1d12 Hit Points per rotweaver killed this way.",
       "say": "hb_gorthos_phase2",
       "flag": "hb_gorthos_phase2"
+    },
+    {
+      "id": "harvested_decay",
+      "name": "Harvested Decay",
+      "when": {
+        "at_zero": true
+      },
+      "summary": "The first time she falls, the rot surges: every rotweaver still standing is consumed, and she rises again with 1d12 Hit Points for each of them.",
+      "text": "The first time the beast drops to 0 Hit Points she stays up: the rotweavers still alive crumble into her, and she regains 1d12 Hit Points for each one.",
+      "heal": "(alive:rotweaver)d12",
+      "destroys": [
+        "rotweaver"
+      ]
     }
   ],
   "actions": [
@@ -337,5 +350,6 @@
   "ai_profile": "brute",
   "art": "tree_blight",
   "art_height": 5.0,
-  "summary": "A towering rotting stag-beast of fey blight: grappling claws, a cone of poisonous spores, steps through fungus and a projected twin, and once Bloodied she heals unless fire stops her."
+  "summary": "A towering rotting stag-beast of fey blight: grappling claws, a cone of poisonous spores, steps through fungus and a projected twin, and once Bloodied she heals unless fire stops her.",
+  "damage_threshold": "5 * alive:rotweaver"
 }
