@@ -80,3 +80,14 @@ Credit (required, the form incompetech gives):
 Kevin MacLeod (incompetech.com)
 Licensed under Creative Commons: By Attribution 4.0
 http://creativecommons.org/licenses/by/4.0/
+
+## Batch 3 (2026-11-01)
+
+Wickermoor's fight music; no MP3 originals kept (as batch 2).
+
+| Game copy | Track | ISRC | Length | Mood | MP3 |
+| --- | --- | --- | --- | --- | --- |
+| witch_hunt.ogg | Witch Hunt | USUAN1100444 | 03:31 | wickermoor_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Witch%20Hunt.mp3 |
+| master_disorder.ogg | Master Disorder | USUAN1600034 | 03:57 | wickermoor_combat | https://incompetech.com/music/royalty-free/mp3-royaltyfree/Master%20Disorder.mp3 |
+
+Credit (required): "Witch Hunt", "Master Disorder" Kevin MacLeod (incompetech.com) Licensed under Creative Commons: By Attribution 4.0 http://creativecommons.org/licenses/by/4.0/
