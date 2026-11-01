@@ -86,7 +86,43 @@
       "action": "bonus_action",
       "summary": "As a Bonus Action, any creature can dance a step from his old court and make a DC 20 Cha (Performance) check: on a success he takes 20 Force and has Disadvantage on D20 Tests until the start of that creature's next turn.",
       "text": "A creature other than the Tall Man can use a Bonus Action to perform steps from the dance of his lost court and make a DC 20 Charisma (Performance) check. On a success he takes 20 Force damage and has Disadvantage on his D20 Tests until the start of that creature's next turn.",
-      "implemented": "text"
+      "implemented": "data",
+      "offers": {
+        "key": "memorys_dance",
+        "cost": "bonus",
+        "range": 60,
+        "check": {
+          "skill": "performance",
+          "dc": 20
+        },
+        "damage": [
+          {
+            "amount": 20,
+            "type": "force"
+          }
+        ],
+        "on_success": [
+          {
+            "do": "condition",
+            "condition": "",
+            "until": "source_turn_start",
+            "modifiers": [
+              {
+                "stat": "disadvantage",
+                "on": "attack"
+              },
+              {
+                "stat": "disadvantage",
+                "on": "save:all"
+              },
+              {
+                "stat": "disadvantage",
+                "on": "check:all"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "regional_lair",

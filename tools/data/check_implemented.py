@@ -38,7 +38,7 @@ def read_by_code(f, owner=""):
     for m in f.get("modifiers", []):
         if m.get("stat") == "flag":
             ids.add(str(m.get("value", "")))
-    for k in ("aura", "absorb", "sunlight"):
+    for k in ("aura", "absorb", "sunlight", "offers"):
         if k in f:
             return True
     return any(i and (i in literals or any(l.startswith(i + ":") for l in literals)) for i in ids)
