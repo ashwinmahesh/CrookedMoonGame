@@ -1,0 +1,24 @@
+{
+  "id": "sk_plague",
+  "title": "Plague",
+  "icon": "wait",
+  "order": 3,
+  "when": "flag.plague_started and not flag.plague_lifted",
+  "summary": "The Skitterdeep plague's clock (R16): the day and the toll, while it lasts.",
+  "groups": [
+    {
+      "title": "Wickermoor's plague",
+      "entries": [
+        {
+          "when": "flag.plague_day > 0",
+          "title": "Day {flag.plague_day}",
+          "text": "{flag.plague_toll} dead in Wickermoor so far. Every Midnight Hour takes more. The cure is in Skitterdeep Mine."
+        },
+        {
+          "when": "flag.plague_day == 0",
+          "text": "The sickness has begun in Wickermoor. It will get worse at every Midnight Hour."
+        }
+      ]
+    }
+  ]
+}

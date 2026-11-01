@@ -170,6 +170,29 @@ func test_a_long_counter_beside_the_gold() -> void:
 	Campaign.use_config(null)
 
 
+## The journal with every campaign page open (journal-pages: Secrets, Townsfolk, Plague) and each filled, on the desktop
+## and on a phone: six tabs in the strip, and the longest page.
+func test_the_journal_with_campaign_pages() -> void:
+	for size: Vector2 in [Vector2.ZERO, Vector2(844, 390)]:
+		MobileDevice.test_size = size
+		for page: String in ["Secrets", "Townsfolk", "Plague"]:
+			await _check("the journal's %s page%s" % [page, " on a phone" if size != Vector2.ZERO else ""], func() -> Variant:
+				await _game()
+				for f: String in ["fw_arrived", "secret_william", "secret_martha", "secret_jonah", "secret_isaac", "secret_adelaide",
+						"tender_banjo", "tender_song", "tender_certificate", "paid_own_secret", "isaac_found"]:
+					GameState.story.flags[f] = true
+				GameState.story.flags["secrets_paid"] = 3
+				GameState.story.flags["plague_started"] = 1
+				GameState.story.flags["plague_day"] = 4
+				GameState.story.flags["plague_toll"] = 16
+				root.call("open_screen", "journal", 0)
+				await _frames(2)
+				(root.get("screen") as Node).call("_turn_to", page)
+				await _frames(2)
+				return root.get("screen"), func() -> void: root.call("close_screen"))
+	MobileDevice.test_size = Vector2.ZERO
+
+
 func test_the_party_screens() -> void:
 	await _game()
 	for screen: String in ["sheet", "inventory", "journal", "party"]:

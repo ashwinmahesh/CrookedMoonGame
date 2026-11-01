@@ -28,7 +28,7 @@ FOLDERS = {
     "items": "item", "magic_items": "item", "monsters": "monster", "conditions": "condition", "pregens": "pregen",
     "encounters": "encounter", "locations": "location", "npcs": "npc", "quests": "quest",
     "travel": "travel",
-    "random_encounters": "random_table", "dark_gifts": "dark_gift",
+    "random_encounters": "random_table", "dark_gifts": "dark_gift", "journal": "journal_page",
     "endings": "ending",
     "cutscenes": "cutscene",
     "visits": "ally_visits",
