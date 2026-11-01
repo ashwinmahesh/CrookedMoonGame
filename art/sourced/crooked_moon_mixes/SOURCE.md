@@ -49,3 +49,12 @@ packs: crow caw, fireball, fire spells, Kenney glasses); every source's licence 
 - wheel_squeal_1.ogg: Rails and brakes, a long squeal as the brakes bite: a historic tram's wheels and its brake air (WWS, CC BY 4.0) under qubodup's tyre squeal (CC BY 3.0) band-passed to a steel screech. Listen first. 6.0 s; -14.2 LUFS, true peak -1.6 dB.
 - wheel_squeal_2.ogg: Rails and brakes, a higher, shorter screech: a historic tram's wheels and its brake air (WWS, CC BY 4.0) under qubodup's tyre squeal (CC BY 3.0) band-passed to a steel screech. Listen first. 5.9 s; -14.0 LUFS, true peak -1.8 dB.
 - wildpyre_wake_2.ogg: A captive lion's two roars (public domain) with a fire's rush under them (JC Sounds CC BY 4.0, rubberduck CC0). Listen first. 6.9 s; -14.0 LUFS, true peak -8.5 dB.
+
+## Batch 3 (2026-11-01)
+
+Blows' own sounds (the engine's "hit" keys, engine branch melee-keys), layered from clips already in this repo and the engine's packs.
+
+- stoker_sear_1.ogg: The Soulfire Stoker's Sear, a burning grip: a blow to flesh (qubodup, CC0) under a fireball's impact (JC Sounds, CC BY 4.0) and gregoryweir's pressurised fire (public domain). Listen first. 2.1 s; -14.0 LUFS, true peak -1.7 dB.
+- stoker_sear_2.ogg: The Soulfire Stoker's Sear, a lower, longer burn: a blow to flesh (qubodup, CC0) under a fireball's impact (JC Sounds, CC BY 4.0) and gregoryweir's pressurised fire (public domain). Listen first. 2.4 s; -14.2 LUFS, true peak -1.8 dB.
+- wildpyre_rake_1.ogg: The wildpyre's Blazing Rend, three claws raking with a snarl: rubberduck's blade strikes (CC0), pitched down, in quick succession, schots' tiger (CC0) and a fire's rush (JC Sounds, CC BY 4.0). Listen first. 1.8 s; -14.6 LUFS, true peak -1.3 dB.
+- wildpyre_rake_2.ogg: The wildpyre's Blazing Rend, a heavier rake, the snarl after it: rubberduck's blade strikes (CC0), pitched down, in quick succession, schots' tiger (CC0) and a fire's rush (JC Sounds, CC BY 4.0). Listen first. 2.0 s; -14.3 LUFS, true peak -1.4 dB.
