@@ -45,6 +45,10 @@
     "default": [
       7,
       11
+    ],
+    "from_back": [
+      14,
+      10
     ]
   },
   "exits": [
@@ -57,6 +61,16 @@
       "to": "wickermoor_village",
       "spawn": "from_post_office",
       "label": "Out to the village"
+    },
+    {
+      "id": "rk_back_door",
+      "cell": [
+        15,
+        10
+      ],
+      "to": "wickermoor_village",
+      "label": "Out the back door",
+      "spawn": "from_post_office_back"
     }
   ],
   "props": [
@@ -118,9 +132,91 @@
       "model": "papers",
       "dialogue": "wickermoor/letter:counter",
       "when": "flag.letter_asked and not flag.letter_outcome"
+    },
+    {
+      "id": "rk_post_accuse",
+      "cell": [
+        8,
+        5
+      ],
+      "kind": "examine",
+      "label": "The postmaster's counter",
+      "model": "table_round",
+      "dialogue": "rookery/hook:accuse_theodora",
+      "when": "flag.cult_proof_theodora and not flag.rk_started and not flag.golub_exposed"
+    },
+    {
+      "id": "rk_post_letters",
+      "cell": [
+        11,
+        3
+      ],
+      "kind": "examine",
+      "label": "A tray of blank envelopes",
+      "model": "papers",
+      "dialogue": "rookery/post:letters",
+      "when": "not flag.golub_dead"
+    },
+    {
+      "id": "rk_post_window",
+      "cell": [
+        12,
+        1
+      ],
+      "kind": "decor",
+      "label": "The north window, with the dovecote's plot beyond",
+      "model": "window"
     }
   ],
   "npcs": [
+    {
+      "npc": "theodora_mayville",
+      "cell": [
+        7,
+        3
+      ],
+      "dialogue": "rookery/post:skin_theodora",
+      "lying": true,
+      "when": "flag.rk_started or flag.golub_exposed"
+    },
+    {
+      "npc": "geneva_fairchild",
+      "cell": [
+        6,
+        10
+      ],
+      "dialogue": "rookery/post:false_geneva",
+      "approach": 7,
+      "when": "flag.rk_started and not flag.golub_exposed"
+    },
+    {
+      "npc": "geneva_fairchild",
+      "cell": [
+        6,
+        10
+      ],
+      "dialogue": "rookery/post:skin_geneva",
+      "lying": true,
+      "when": "flag.golub_exposed and not flag.geneva_alive"
+    },
+    {
+      "npc": "geneva_fairchild",
+      "cell": [
+        7,
+        5
+      ],
+      "dialogue": "rookery/after:geneva_postmaster",
+      "when": "flag.golub_dead and flag.geneva_alive"
+    },
+    {
+      "npc": "wynn_carter",
+      "cell": [
+        7,
+        5
+      ],
+      "dialogue": "rookery/after:wynn",
+      "when": "flag.golub_dead and not flag.geneva_alive"
+    },
     {
       "npc": "theodora_mayville",
       "cell": [
@@ -195,5 +291,7 @@
       "dim_ft": 30,
       "color": "candle"
     }
-  ]
+  ],
+  "encounters": [],
+  "recheck_minutes": 30
 }

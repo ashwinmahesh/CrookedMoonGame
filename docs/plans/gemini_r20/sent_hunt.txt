@@ -1,0 +1,203 @@
+You are drafting DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue, skill checks, a storyteller Narrator). It is folk horror set in Druskenvald, an afterlife realm of endless night under a gargantuan crescent moon with a leering crone's face; drawn like a 1960s monster cartoon stuck in Halloween, but the stakes are real. Humour is deadpan and sits beside the dread.
+
+THIS SCENE: Chapter 20, "The Roving Rookery". The village of Wickermoor has been swept into a mass hysteria by Golub Graygullet, a pigeon hag who has lived seventy years among the villagers wearing other women's skins, lately as the postmaster Theodora Mayville. She staged a murder, pinned it on the party (four level 10 heroes) with a forged letter, and charmed the whole village: every neighbour is hostile, doors are barred, shops shut, mobs with torches walk the lanes, and grey pigeons line every roof. A tell of the charm is a lilac glint in the eyes. Her flying, walking dovecote stands up on pigeon legs and roams between four roosts. Peeping Albert is her spy: a pudgy pigeon with a wrinkled bald human head, human ears, and hands for talons; he is terrified of dogs. Cast: Constable Doris Squire (tall, stocky, laconic, writes poetry in secret), Deputy Howie Butterman (friendly, false, a hidden cultist), Mayor Wendel Somerton (officious, loves forms, bowler hat, waxed moustache), Tamsin Ledger (deadpan auditor, treats strangeness as a clerical error), Ambrose Quill (grand hopeless poet), Sergeant Gaunt (overconfident coward), Pip Oakum (a small boy who trades buttons), Mrs. Oakum (hill-country twang, a werewolf who only wants to hurt no one), Marianna Grey (shy stablemistress), Weston Murdoch (warm Brightsinger preacher), Hilda Brom (terse huntress), Geneva Fairchild (earnest assistant, lilac eyes), Phillip and Adela Druskenvald (dapper theatrical lord; bright slangy lady), Dani Jenkin (child with a hound called Shuck), Jeremiah Stover (stubborn tuber farmer).
+
+RULES FOR THE TEXT
+- Spoken lines: 1 to 3 short sentences, about 12 to 30 words, never over 45. Contractions are normal. People talk in their own voice and do not explain the plot to the audience. Accent is word choice and rhythm, never phonetic spelling.
+- Option lines (what the player's party says or does): under 12 words, plain, in the party's voice ("We..." or an imperative).
+- Narrator lines ("The Vagrant", a frog-faced ferryman telling the tale afterwards: warm, folksy, wry, never gloating): second person, present tense, one or two sentences, only what a hero could perceive, concrete senses (smell, sound, texture), no game words (HP, roll, level, check, DC, save), no modern slang, never the word "suddenly". Never mention the Vagrant by name inside the line.
+- No stage directions, asterisks, italics, brackets, placeholders, emoji or em dashes (use commas, periods, colons). Straight quotes only. Do not use the arrow characters -> or => inside the text.
+- Content is dark but restrained: no gore, no graphic detail.
+- Each brief inside <<...>> says what the line must do; keep its facts, write it as the speaker would say it. Where it says "The Vagrant:" it is a Narrator line.
+
+## The conversation file `hunt` (structure is fixed; only the [[n]] markers are yours)
+
+```
+# R20: the hunt. Finding the dovecote's roost (five ways, one needing no roll), reaching it unseen, and the empty roosts.
+
+~ sky
+set rk_hunt
+quest roving_rookery hunt
+Narrator: [[1]]
+-> sky_menu
+
+~ sky_menu
+* [Survival DC 15] [[2]] -> sky_found | sky_missed
+* [Investigation DC 15] [[3]] -> sky_found | sky_missed
+* [if item:rk_letter_theodora] [Animal Handling DC 12] [[4]] -> sky_found | sky_squabs
+* [if item:rk_letter_theodora and flag.rk_squabs_down] [[5]] -> sky_found
+* [if flag.rk_roost_known] [[6]] -> sky_found
+* [if attitude.hilda_brom == friendly] [[7]] -> sky_found
+* [[8]] -> sky_circuit
+* [[9]] -> END
+
+~ sky_missed
+Narrator: [[10]]
+-> sky_menu
+
+~ sky_squabs
+Narrator: [[11]]
+combat rk_squabs
+
+~ sky_found
+set rk_roost_known
+if flag.dovecote_roost == 0
+Narrator: [[12]]
+elif flag.dovecote_roost == 1
+Narrator: [[13]]
+elif flag.dovecote_roost == 2
+Narrator: [[14]]
+else
+Narrator: [[15]]
+endif
+if flag.dovecote_moves >= 2
+Narrator: [[16]]
+endif
+-> END
+
+~ sky_circuit
+Narrator: [[17]]
+-> END
+
+~ hilda
+Narrator: [[18]]
+hilda_brom [neutral]: [[19]]
+* [if attitude.hilda_brom == friendly] [[20]] -> hilda_tell
+* [Persuasion DC 14] [[21]] -> hilda_tell | hilda_no
+* [if gold >= 50] [[22]] -> hilda_paid
+* [[23]] -> END
+~ hilda_tell
+set rk_roost_known
+hilda_brom [smile]: [[24]]
+-> END
+~ hilda_no
+hilda_brom [neutral]: [[25]]
+-> END
+~ hilda_paid
+gold -50
+set rk_roost_known
+hilda_brom [neutral]: [[26]]
+-> END
+
+~ arrive
+quest roving_rookery hunt
+Narrator: [[27]]
+if at:rk_roost_prairie
+set rk_seen_prairie
+endif
+if at:rk_roost_swamp
+set rk_seen_swamp
+endif
+if at:rk_roost_foothills
+set rk_seen_foothills
+endif
+if at:rk_roost_lakeshore
+set rk_seen_lakeshore
+endif
+if flag.albert_dead or flag.dovecote_moves >= 2
+Narrator: [[28]]
+-> END
+endif
+* [Stealth DC 13] [[29]] -> arrive_ok | arrive_seen
+* [Perception DC 15] [[30]] -> arrive_ok | arrive_seen
+* [[31]] -> arrive_seen
+
+~ arrive_ok
+Narrator: [[32]]
+-> END
+
+~ arrive_seen
+cutscene rk_rookery_horizon
+Narrator: [[33]]
+cutscene rk_rookery_horizon_2
+Narrator: [[34]]
+cutscene end
+set dovecote_moves += 1
+if flag.dovecote_roost == 3
+set dovecote_roost = 0
+else
+set dovecote_roost += 1
+endif
+-> END
+
+~ dovecote_here
+Narrator: [[35]]
+* [Survival DC 15] [[36]] -> timer_known | timer_missed
+* [[37]] -> enter
+* [[38]] -> END
+~ timer_known
+Narrator: [[39]]
+-> dovecote_here
+~ timer_missed
+Narrator: [[40]]
+-> dovecote_here
+~ enter
+quest roving_rookery dovecote
+move rk_dovecote_r1
+
+~ tracks
+Narrator: [[41]]
+if flag.dovecote_roost == 0
+Narrator: [[42]]
+elif flag.dovecote_roost == 1
+Narrator: [[43]]
+elif flag.dovecote_roost == 2
+Narrator: [[44]]
+else
+Narrator: [[45]]
+endif
+-> END
+```
+
+## Briefs
+
+1. node `sky`, narrator: The Vagrant: from the estate road you can see every roof in the village grey with pigeons, and above the moor a handful of them flying one way, away from town
+2. node `sky_menu`, option: Watch the sky for a pigeon flying to the dovecote and read its route.
+3. node `sky_menu`, option: Study where the pigeons gather and where they leave.
+4. node `sky_menu`, option: Calm a pigeon and hand it the letter for Theodora.
+5. node `sky_menu`, option: Give the letter to the swarm we calmed.
+6. node `sky_menu`, option: Remember what Albert blurted.
+7. node `sky_menu`, option: Ask Hilda Brom to read the huge footprints.
+8. node `sky_menu`, option: Walk the circuit of the four roosts.
+9. node `sky_menu`, option: Look away from the sky.
+10. node `sky_missed`, narrator: The Vagrant: the birds scatter like flung seed, and you cannot tell one line from another
+11. node `sky_squabs`, narrator: The Vagrant: the pigeon on your hand bursts into a grey wave of wings and the roof empties onto you
+12. node `sky_found`, narrator: The Vagrant: the birds' line runs out over the rolling prairie, past Foxwillow, where the grass is gold and grey
+13. node `sky_found`, narrator: The Vagrant: the birds' line runs south, toward the murky swamp and the Drowned Crossroads
+14. node `sky_found`, narrator: The Vagrant: the birds' line runs north, to the barren foothills under the Howlers
+15. node `sky_found`, narrator: The Vagrant: the birds' line runs west, to the rainy shore of Moonsong Lake
+16. node `sky_found`, narrator: The Vagrant: it has been in the same place a long time; Golub has grown cocky, and the place is easy to find
+17. node `sky_circuit`, narrator: The Vagrant: four roosts, three nights apart; wherever it is not, the tracks lead on
+18. node `hilda`, narrator: The Vagrant: Hilda Brom crouches at the edge of the village, reading the mud like a letter
+19. node `hilda`, spoken by hilda_brom: Hilda, terse, says the thing that walked off left prints the size of carts, and she can follow them; she is not going to be asked twice
+20. node `hilda`, option: Ask her to lead us to the roost.
+21. node `hilda`, option: Ask her to help.
+22. node `hilda`, option: Offer fifty gold for her tracking.
+23. node `hilda`, option: Leave her to it.
+24. node `hilda_tell`, spoken by hilda_brom: Hilda stands, tells you where the dovecote squats, and says she will follow in a day
+25. node `hilda_no`, spoken by hilda_brom: Hilda says she does not work for charm victims or for strangers, and goes back to her prints
+26. node `hilda_paid`, spoken by hilda_brom: Hilda pockets the coin, points the way, and does not say another word
+27. node `arrive`, narrator: The Vagrant: the roost lies ahead, the dovecote squatting on its legs with the wind whistling through its thatch, and a wrinkled little shape on the ridgepole
+28. node `arrive`, narrator: The Vagrant: nothing watches from the thatch; the dovecote sits as if it has stopped caring
+29. node `arrive`, option: Creep in low through the grass, out of Albert's sight.
+30. node `arrive`, option: Watch the thatch for the pigeon with the man's face.
+31. node `arrive`, option: Charge the dovecote openly.
+32. node `arrive_ok`, narrator: The Vagrant: Albert shuffles on the ridgepole and falls asleep; you get under the legs unseen
+33. node `arrive_seen`, narrator: The Vagrant: a shriek from the ridgepole, a clap of wings, and the dovecote pulls up its legs
+34. node `arrive_seen`, narrator: The Vagrant: it strides off over the moor, leaving a muddy three-toed footprint the size of a cart behind
+35. node `dovecote_here`, narrator: The Vagrant: the dovecote stands on legs of scaly grey, thatch dripping, with the soft insistent cooing of a thousand birds coming through the shutters
+36. node `dovecote_here`, option: Read how long it has been settled.
+37. node `dovecote_here`, option: Go in.
+38. node `dovecote_here`, option: Not yet.
+39. node `timer_known`, narrator: The Vagrant: the grass under the legs is only just flattened; it has not been here long, and it will not stay
+40. node `timer_missed`, narrator: The Vagrant: you cannot tell how long it has sat here
+41. node `tracks`, narrator: The Vagrant: three-toed prints the size of carts, filling slowly with water, leading away
+42. node `tracks`, narrator: The Vagrant: the prints turn toward the rolling prairie
+43. node `tracks`, narrator: The Vagrant: the prints turn toward the murky swamp
+44. node `tracks`, narrator: The Vagrant: the prints turn toward the barren foothills
+45. node `tracks`, narrator: The Vagrant: the prints turn toward the stormy lakeshore
+
+## Reply format
+One line per marker, in order, exactly `n => text` (no quotes around the text, no extra lines, no commentary). 45 lines.

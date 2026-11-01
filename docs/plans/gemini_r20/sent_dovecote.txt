@@ -1,0 +1,96 @@
+You are drafting DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue, skill checks, a storyteller Narrator). It is folk horror set in Druskenvald, an afterlife realm of endless night under a gargantuan crescent moon with a leering crone's face; drawn like a 1960s monster cartoon stuck in Halloween, but the stakes are real. Humour is deadpan and sits beside the dread.
+
+THIS SCENE: Chapter 20, "The Roving Rookery". The village of Wickermoor has been swept into a mass hysteria by Golub Graygullet, a pigeon hag who has lived seventy years among the villagers wearing other women's skins, lately as the postmaster Theodora Mayville. She staged a murder, pinned it on the party (four level 10 heroes) with a forged letter, and charmed the whole village: every neighbour is hostile, doors are barred, shops shut, mobs with torches walk the lanes, and grey pigeons line every roof. A tell of the charm is a lilac glint in the eyes. Her flying, walking dovecote stands up on pigeon legs and roams between four roosts. Peeping Albert is her spy: a pudgy pigeon with a wrinkled bald human head, human ears, and hands for talons; he is terrified of dogs. Cast: Constable Doris Squire (tall, stocky, laconic, writes poetry in secret), Deputy Howie Butterman (friendly, false, a hidden cultist), Mayor Wendel Somerton (officious, loves forms, bowler hat, waxed moustache), Tamsin Ledger (deadpan auditor, treats strangeness as a clerical error), Ambrose Quill (grand hopeless poet), Sergeant Gaunt (overconfident coward), Pip Oakum (a small boy who trades buttons), Mrs. Oakum (hill-country twang, a werewolf who only wants to hurt no one), Marianna Grey (shy stablemistress), Weston Murdoch (warm Brightsinger preacher), Hilda Brom (terse huntress), Geneva Fairchild (earnest assistant, lilac eyes), Phillip and Adela Druskenvald (dapper theatrical lord; bright slangy lady), Dani Jenkin (child with a hound called Shuck), Jeremiah Stover (stubborn tuber farmer).
+
+RULES FOR THE TEXT
+- Spoken lines: 1 to 3 short sentences, about 12 to 30 words, never over 45. Contractions are normal. People talk in their own voice and do not explain the plot to the audience. Accent is word choice and rhythm, never phonetic spelling.
+- Option lines (what the player's party says or does): under 12 words, plain, in the party's voice ("We..." or an imperative).
+- Narrator lines ("The Vagrant", a frog-faced ferryman telling the tale afterwards: warm, folksy, wry, never gloating): second person, present tense, one or two sentences, only what a hero could perceive, concrete senses (smell, sound, texture), no game words (HP, roll, level, check, DC, save), no modern slang, never the word "suddenly". Never mention the Vagrant by name inside the line.
+- No stage directions, asterisks, italics, brackets, placeholders, emoji or em dashes (use commas, periods, colons). Straight quotes only. Do not use the arrow characters -> or => inside the text.
+- Content is dark but restrained: no gore, no graphic detail.
+- Each brief inside <<...>> says what the line must do; keep its facts, write it as the speaker would say it. Where it says "The Vagrant:" it is a Narrator line.
+
+## The conversation file `dovecote` (structure is fixed; only the [[n]] markers are yours)
+
+```
+# R20: inside the dovecote: Golub before the fight, her stashed secrets, and home to roost.
+
+~ golub
+Narrator: [[1]]
+golub_graygullet [sly]: [[2]]
+-> menu
+
+~ menu
+* [Insight DC 15] [[3]] -> vain | vain_missed
+* [[4]] -> attack
+* [[5]] -> attack
+* [[6]] -> END
+
+~ vain
+set rk_golub_vain
+Narrator: [[7]]
+-> menu
+~ vain_missed
+Narrator: [[8]]
+-> menu
+
+~ attack
+set rk_golub_started
+golub_graygullet [angry]: [[9]]
+Narrator: [[10]]
+combat rk_golub
+
+~ cubbies
+Narrator: [[11]]
+* [[12]] -> read
+* [[13]] -> END
+~ read
+set golub_secrets_read
+set cult_proof_randall
+set cult_proof_alda
+set cult_proof_baltus
+set cult_proof_gaston
+set cult_proof_howie
+Narrator: [[14]]
+-> END
+
+~ home_to_roost
+cutscene rk_home_to_roost
+Narrator: [[15]]
+cutscene rk_home_to_roost_2
+Narrator: [[16]]
+cutscene rk_home_to_roost_3
+Narrator: [[17]]
+cutscene end
+set golub_dead
+quest roving_rookery done
+xp milestone
+Narrator: [[18]]
+-> END
+```
+
+## Briefs
+
+1. node `golub`, narrator: The Vagrant: at the north end of the roost a platform of straw and cloth, four windows behind it, and on the platform a pigeon hag admiring her own feathers
+2. node `golub`, spoken by golub_graygullet: Golub, haughty and cooing at once, says the party took such trouble to find her and she hopes it was worth the mud; she sneers that they were useful pawns
+3. node `menu`, option: Look at how she preens.
+4. node `menu`, option: Say we will end her here.
+5. node `menu`, option: Say nothing and ready our weapons.
+6. node `menu`, option: Back away down the ladder.
+7. node `vain`, narrator: The Vagrant: she cannot keep her wings still; every sentence she says angles for admiration, and a kind word lands on her like a blow
+8. node `vain_missed`, narrator: The Vagrant: she is overwhelming and you cannot say why
+9. node `attack`, spoken by golub_graygullet: Golub shrieks that nobody comes into her roost and leaves it, and the dovecote lurches
+10. node `attack`, narrator: The Vagrant: the whole building heaves up on its legs, the floor tilts, and pigeons burst from every cubby
+11. node `cubbies`, narrator: The Vagrant: cubby after cubby stuffed with letters, diaries and notes, each tagged in a hag's neat hand with a name and what they would pay to hide
+12. node `cubbies`, option: Read them all.
+13. node `cubbies`, option: Leave them.
+14. node `read`, narrator: The Vagrant: it takes an hour; by the end you know who in Wickermoor serves which faith and which of your neighbours kneels to the antlered hare
+15. node `home_to_roost`, narrator: The Vagrant: the dovecote's legs fold under it and the wings pull back into the thatch as it thumps down for good
+16. node `home_to_roost`, narrator: The Vagrant: in the straw lies a small dead pigeon-man, one human ear turned up toward the rafters
+17. node `home_to_roost`, narrator: The Vagrant: that morning in the village the townsfolk stand blinking in the street, and someone hangs the first strand of festival bunting
+18. node `home_to_roost`, narrator: The Vagrant: the charm lifts like a held breath; the pigeons go back to being only pigeons, and a very long night is almost over
+
+## Reply format
+One line per marker, in order, exactly `n => text` (no quotes around the text, no extra lines, no commentary). 18 lines.

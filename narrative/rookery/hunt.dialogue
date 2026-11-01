@@ -1,0 +1,134 @@
+# Drafted by Gemini (R20), edited. R20: the hunt. Finding the dovecote's roost (five ways, one needing no roll), reaching it unseen, and the empty roosts.
+
+~ sky
+set rk_hunt
+quest roving_rookery hunt
+Narrator: From the estate road you see every village roof crowded grey with pigeons, and high above the moor a handful of them beat one way into the dark.
+-> sky_menu
+
+~ sky_menu
+* [Survival DC 15] Watch the sky and trace a pigeon flying to the roost. -> sky_found | sky_missed
+* [Investigation DC 15] Study where the pigeons gather and where they leave. -> sky_found | sky_missed
+* [if item:rk_letter_theodora] [Animal Handling DC 12] Calm a pigeon and hand it the letter for Theodora. -> sky_found | sky_squabs
+* [if item:rk_letter_theodora and flag.rk_squabs_down] Give the letter to the swarm we calmed. -> sky_found
+* [if flag.rk_roost_known] Recall the roost Albert blurted out. -> sky_found
+* [if attitude.hilda_brom == friendly] Ask Hilda Brom to read the huge footprints. -> sky_found
+* Walk the circuit of the four roosts. -> sky_circuit
+* Look away from the sky. -> END
+
+~ sky_missed
+Narrator: The birds scatter like flung seed across the clouds, and you cannot tell one flight line from another.
+-> sky_menu
+
+~ sky_squabs
+Narrator: The pigeon on your glove bursts into a grey wave of wings, and the whole roof empties onto your heads.
+combat rk_squabs
+
+~ sky_found
+set rk_roost_known
+if flag.dovecote_roost == 0
+Narrator: The line of birds runs out over the rolling prairie past Foxwillow, where the tall grass bends gold and grey in the wind.
+elif flag.dovecote_roost == 1
+Narrator: The line of birds runs south toward the sour smell of the murky swamp and the Drowned Crossroads.
+elif flag.dovecote_roost == 2
+Narrator: The line of birds runs north toward the cold stone of the barren foothills under the Howlers.
+else
+Narrator: The line of birds runs west toward the rainy, wind-whipped shore of Moonsong Lake.
+endif
+if flag.dovecote_moves >= 2
+Narrator: Those birds fly lazy and low along a well-worn track. Their mistress has kept her house in one spot too long, and the trail is plain.
+endif
+-> END
+
+~ sky_circuit
+Narrator: Four old roosts lie three nights apart around the moor, and wherever the house is not, its deep tracks lead on.
+-> END
+
+~ hilda
+Narrator: Hilda Brom crouches in the wet weeds at the village edge, reading the churned mud like an open letter.
+hilda_brom [neutral]: Whatever walked out of here left three-toed ruts as wide as hay carts. I can follow them easy enough, if you have the stomach for what waits at the end.
+* [if attitude.hilda_brom == friendly] Lead us to the roost. -> hilda_tell
+* [Persuasion DC 14] Help us track the thing. -> hilda_tell | hilda_no
+* [if gold >= 50] Take fifty gold and show us the trail. -> hilda_paid
+* Leave her to her tracking. -> END
+~ hilda_tell
+set rk_roost_known
+hilda_brom [smile]: Take the old ridge path and keep the wind in your face, you will see it squatting there soon enough. I will clean my traps and follow in a day.
+-> END
+~ hilda_no
+hilda_brom [neutral]: I do not hunt alongside glassy-eyed town folk, and I do not bleed for strangers. Leave me to my mud.
+-> END
+~ hilda_paid
+gold -50
+set rk_roost_known
+hilda_brom [neutral]: Gold spends the same no matter who hands it over. Follow the ridge where the brush is snapped flat, and keep your voices down.
+-> END
+
+~ arrive
+quest roving_rookery hunt
+Narrator: The roost lies ahead, the tall dovecote squatting on scaly legs with the wind whistling through wet thatch and a wrinkled little shape perched on the ridgepole.
+if at:rk_roost_prairie
+set rk_seen_prairie
+endif
+if at:rk_roost_swamp
+set rk_seen_swamp
+endif
+if at:rk_roost_foothills
+set rk_seen_foothills
+endif
+if at:rk_roost_lakeshore
+set rk_seen_lakeshore
+endif
+if flag.albert_dead or flag.dovecote_moves >= 2
+Narrator: Nothing watches from the soggy thatch above. The great house sits heavy and blind in the weeds, as if it has stopped caring who comes.
+-> END
+endif
+* [Stealth DC 13] Creep in low through the wet grass, out of Albert's sight. -> arrive_ok | arrive_seen
+* [Perception DC 15] Watch the thatch for the pigeon with the man's face. -> arrive_ok | arrive_seen
+* Charge the dovecote openly. -> arrive_seen
+
+~ arrive_ok
+Narrator: Up on the ridgepole, Albert shuffles his feet, tucks his bald chin into his feathers, and snores. You slip beneath the scaly legs unseen.
+-> END
+
+~ arrive_seen
+cutscene rk_rookery_horizon
+Narrator: A thin shriek splits the wind from the ridgepole, a thousand wings clap inside the walls, and the dovecote wrenches its great legs from the mire.
+cutscene rk_rookery_horizon_2
+Narrator: It strides off across the moor with planks groaning, leaving muddy three-toed footprints the size of carts behind it.
+cutscene end
+set dovecote_moves += 1
+if flag.dovecote_roost == 3
+set dovecote_roost = 0
+else
+set dovecote_roost += 1
+endif
+-> END
+
+~ dovecote_here
+Narrator: The dovecote stands on legs of scaly grey with cold rain dripping from its thatch, while the soft, endless cooing of a thousand birds hums through the shutters.
+* [Survival DC 15] Check the ground to see how long it has stood here. -> timer_known | timer_missed
+* Climb up and go inside. -> enter
+* Step back for now. -> END
+~ timer_known
+Narrator: The bruised grass under the giant toes is still springing back. It has not squatted here long, and it will not stay.
+-> dovecote_here
+~ timer_missed
+Narrator: The mud is trampled into a cold soup of feathers and mire, telling you nothing of when the house sat down.
+-> dovecote_here
+~ enter
+quest roving_rookery dovecote
+move rk_dovecote_r1
+
+~ tracks
+Narrator: Three-toed prints the size of hay carts cut across the earth, filling slowly with dark peat water as they lead away.
+if flag.dovecote_roost == 0
+Narrator: The deep ruts turn out toward the open wind of the rolling prairie.
+elif flag.dovecote_roost == 1
+Narrator: The deep ruts turn down toward the rot and reed-beds of the murky swamp.
+elif flag.dovecote_roost == 2
+Narrator: The deep ruts turn up toward the stony rise of the barren foothills.
+else
+Narrator: The deep ruts turn out toward the cold spray of the stormy lakeshore.
+endif
+-> END

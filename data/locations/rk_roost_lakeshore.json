@@ -1,0 +1,180 @@
+{
+  "id": "rk_roost_lakeshore",
+  "name": "Stormy Lakeshore",
+  "region": "wickermoor",
+  "summary": "A rainy shingle beach on Moonsong Lake's north shore, and the dovecote on the stones.",
+  "text": "A rainy shingle beach on Moonsong Lake's north shore, and the dovecote on the stones.",
+  "map": {
+    "rows": [
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+      "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+      "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+      "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+      "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+      "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+      "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "roost",
+      "name": "Stormy Lakeshore",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          32,
+          22
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      2,
+      12
+    ],
+    "from_dovecote": [
+      17,
+      11
+    ]
+  },
+  "exits": [
+    {
+      "id": "road_back",
+      "cell": [
+        0,
+        12
+      ],
+      "to": "travel",
+      "label": "The road back to Wickermoor"
+    },
+    {
+      "id": "dovecote_door",
+      "cell": [
+        17,
+        10
+      ],
+      "to": "rk_dovecote_r1",
+      "label": "Into the dovecote",
+      "spawn": "default",
+      "when": "flag.dovecote_roost == 3"
+    }
+  ],
+  "props": [
+    {
+      "id": "rk_dovecote_ext_lakeshore",
+      "cell": [
+        15,
+        5
+      ],
+      "kind": "examine",
+      "label": "The dovecote, squatting on its pigeon legs",
+      "model": "cottage",
+      "span": [
+        4,
+        4
+      ],
+      "when": "flag.dovecote_roost == 3",
+      "dialogue": "rookery/hunt:dovecote_here"
+    },
+    {
+      "id": "rk_footprints_lakeshore",
+      "cell": [
+        17,
+        8
+      ],
+      "kind": "examine",
+      "label": "Footprints the size of carts",
+      "model": "rocks",
+      "when": "flag.dovecote_roost != 3 and flag.hysteria_began",
+      "dialogue": "rookery/hunt:tracks"
+    },
+    {
+      "id": "rk_ring_lakeshore",
+      "cell": [
+        17,
+        8
+      ],
+      "kind": "decor",
+      "label": "A ring of flattened ground",
+      "model": "rocks",
+      "when": "flag.dovecote_roost != 3 and not flag.hysteria_began"
+    },
+    {
+      "id": "rk_arrive_lakeshore",
+      "cell": [
+        6,
+        12
+      ],
+      "kind": "decor",
+      "label": "The roost, and the sky above it",
+      "call": "rookery/hunt:arrive",
+      "approach": 10,
+      "call_when": "flag.dovecote_roost == 3 and flag.hysteria_began and not flag.golub_dead and not flag.rk_seen_lakeshore"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "rk_minions_lakeshore",
+      "trigger": "enter_area:roost",
+      "when": "flag.dovecote_roost == 3 and not flag.golub_dead and not flag.rk_minions_lakeshore_done",
+      "flag": "rk_minions_lakeshore_done",
+      "text": "Golub's charmed minions rise to meet you, a lilac glint in every eye.",
+      "monsters": [
+        {
+          "monster": "oni",
+          "cell": [
+            26,
+            6
+          ],
+          "name": "A charmed oni",
+          "facing": "west"
+        },
+        {
+          "monster": "oni",
+          "cell": [
+            8,
+            8
+          ],
+          "name": "A charmed oni",
+          "facing": "east"
+        },
+        {
+          "monster": "chuul",
+          "cell": [
+            20,
+            14
+          ],
+          "name": "A charmed chuul",
+          "facing": "north"
+        }
+      ]
+    }
+  ],
+  "rest": "risky",
+  "rest_text": "The grass hisses and a pigeon watches from a stone."
+}

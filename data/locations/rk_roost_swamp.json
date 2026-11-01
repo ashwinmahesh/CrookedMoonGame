@@ -1,0 +1,180 @@
+{
+  "id": "rk_roost_swamp",
+  "name": "Murky Swamp",
+  "region": "wickermoor",
+  "summary": "Green-black water, dead trees and reeds, and a dovecote standing in the shallows.",
+  "text": "Green-black water, dead trees and reeds, and a dovecote standing in the shallows.",
+  "map": {
+    "rows": [
+      "..................................",
+      "..................................",
+      "..................................",
+      "..wwwwwww.........................",
+      "..wwwwwww.........................",
+      "..wwwwwww.........................",
+      "..wwwwwww.........................",
+      "..wwwwwww.........................",
+      "..wwwwwww.........................",
+      "..................................",
+      "..................................",
+      "..................................",
+      "............~~~~~~~~~~~...........",
+      "............~~~~~~~~~~~...........",
+      "............~~~~~~~~~~~.wwwwwwww..",
+      "....wwwwwww.............wwwwwwww..",
+      "....wwwwwww.............wwwwwwww..",
+      "....wwwwwww.............wwwwwwww..",
+      "....wwwwwww.............wwwwwwww..",
+      "....wwwwwww.............wwwwwwww..",
+      "....wwwwwww.............wwwwwwww..",
+      "..................................",
+      "..................................",
+      ".................................."
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "roost",
+      "name": "Murky Swamp",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          32,
+          22
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      2,
+      12
+    ],
+    "from_dovecote": [
+      17,
+      11
+    ]
+  },
+  "exits": [
+    {
+      "id": "road_back",
+      "cell": [
+        0,
+        12
+      ],
+      "to": "travel",
+      "label": "The road back to Wickermoor"
+    },
+    {
+      "id": "dovecote_door",
+      "cell": [
+        17,
+        10
+      ],
+      "to": "rk_dovecote_r1",
+      "label": "Into the dovecote",
+      "spawn": "default",
+      "when": "flag.dovecote_roost == 1"
+    }
+  ],
+  "props": [
+    {
+      "id": "rk_dovecote_ext_swamp",
+      "cell": [
+        15,
+        5
+      ],
+      "kind": "examine",
+      "label": "The dovecote, squatting on its pigeon legs",
+      "model": "cottage",
+      "span": [
+        4,
+        4
+      ],
+      "when": "flag.dovecote_roost == 1",
+      "dialogue": "rookery/hunt:dovecote_here"
+    },
+    {
+      "id": "rk_footprints_swamp",
+      "cell": [
+        17,
+        8
+      ],
+      "kind": "examine",
+      "label": "Footprints the size of carts",
+      "model": "rocks",
+      "when": "flag.dovecote_roost != 1 and flag.hysteria_began",
+      "dialogue": "rookery/hunt:tracks"
+    },
+    {
+      "id": "rk_ring_swamp",
+      "cell": [
+        17,
+        8
+      ],
+      "kind": "decor",
+      "label": "A ring of flattened ground",
+      "model": "rocks",
+      "when": "flag.dovecote_roost != 1 and not flag.hysteria_began"
+    },
+    {
+      "id": "rk_arrive_swamp",
+      "cell": [
+        6,
+        12
+      ],
+      "kind": "decor",
+      "label": "The roost, and the sky above it",
+      "call": "rookery/hunt:arrive",
+      "approach": 10,
+      "call_when": "flag.dovecote_roost == 1 and flag.hysteria_began and not flag.golub_dead and not flag.rk_seen_swamp"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "rk_minions_swamp",
+      "trigger": "enter_area:roost",
+      "when": "flag.dovecote_roost == 1 and not flag.golub_dead and not flag.rk_minions_swamp_done",
+      "flag": "rk_minions_swamp_done",
+      "text": "Golub's charmed minions rise to meet you, a lilac glint in every eye.",
+      "monsters": [
+        {
+          "monster": "troll",
+          "cell": [
+            24,
+            8
+          ],
+          "name": "A charmed troll",
+          "facing": "west"
+        },
+        {
+          "monster": "troll",
+          "cell": [
+            11,
+            20
+          ],
+          "name": "A charmed troll",
+          "facing": "north"
+        },
+        {
+          "monster": "giant_crocodile",
+          "cell": [
+            28,
+            12
+          ],
+          "name": "A charmed crocodile",
+          "facing": "west"
+        }
+      ]
+    }
+  ],
+  "rest": "risky",
+  "rest_text": "The grass hisses and a pigeon watches from a stone."
+}

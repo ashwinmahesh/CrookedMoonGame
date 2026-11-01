@@ -1,0 +1,44 @@
+# Drafted by Gemini (R20), edited. R20: the village after Golub: the new postmaster, the constable, the Druskenvalds' repairs.
+
+~ geneva_postmaster
+Narrator: Geneva Fairchild stands behind the scrubbed oak counter, a little thinner in the face, her lilac eyes shadowed with fatigue but clear at last.
+geneva_fairchild [sad]: I remember shouting at you in the street, though I cannot for the life of me say why. The keys are mine now, and I mean to run this office strictly by the book.
+* Tell her the madness was none of her doing. -> geneva_forgive
+* Ask what she remembers of Theodora Mayville. -> geneva_remember
+* Wish her well with the new post. -> END
+~ geneva_forgive
+set rk_geneva_back
+geneva_fairchild [smile]: Thank you for saying so. I swear I will read every letter once, and never twice.
+-> END
+~ geneva_remember
+geneva_fairchild [afraid]: Miss Theodora told me once that lilac eyes were a mark of luck, not a curse. Even knowing what she was, that remains the nicest thing anyone ever said to me.
+-> geneva_postmaster
+
+~ wynn
+Narrator: A broad-shouldered young inn hand stands behind the counter, sorting bundles of post with enormous, slow care as if the paper might bite.
+wynn_carter [smile]: Somebody had to take the keys after the trouble, and nobody else wanted the work. I have read the postal rules twice already, and I mean to read them again before supper.
+* Ask how he came to take the job. -> wynn_how
+* Wish him luck with the letters. -> END
+~ wynn_how
+wynn_carter [weary]: Mistress Alda Farnum put my name forward because I know my letters and I know how to keep quiet. I did not realize at the time she meant that as a warning.
+-> wynn
+
+~ doris_after
+set rk_doris_after
+Narrator: Constable Doris Squire stands amid the splintered wood and cold ash of the Round, her cap set straight, looking from the wreckage down to her own broad hands.
+doris_squire [weary]: I remember all of it, and I would sooner I did not. I am sorry for my part in it, and I do not say that twice.
+if flag.jail_key_left
+doris_squire [sad]: Somebody read a few lines of my verse while I was out of my head, and was kind about it. I have not decided how I feel about that yet.
+endif
+-> END
+
+~ phillip_repairs
+Narrator: Phillip Druskenvald stands in a dapper coat free of soot, pressing heavy leather purses into the hands of a line of villagers who cannot quite meet his eye.
+phillip_druskenvald [smile]: Take heart, good friends, for the Druskenvalds shall rebuild all that this madness broke, down to the very last shutter. It is the least a proper landowner can do.
+set rk_repairs_paid
+-> END
+
+~ adela_worry
+Narrator: Adela Druskenvald stands in the chill lane with her hands tucked deep into her sleeves, watching a steep roof where a few grey pigeons have settled.
+adela_druskenvald [afraid]: Maybe the bird trouble is over, darling, but I had the foulest dream last night about a great laughing sun. I can tell you right now, I did not like the look of it at all.
+-> END
