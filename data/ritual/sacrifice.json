@@ -1,0 +1,16 @@
+{
+  "id": "sacrifice",
+  "summary": "The sacrifice ritual at the Crooked Tree (plan 5.7 and 13.11, G5; story/sacrifice_ritual.gd). Each hero offers something of value at the goat skull and rolls a d20 in the open, adding the offering's `bonus`; Kehlenn spends Ritual Points to pull a roll under the `dc`, at most `caps[difficulty]` on one roll. Her points are `base_points` plus what the party's Sin gives her (data/ritual/sin.json). A refused offering stays with its hero, who must offer again; `max_refusals` refusals and the ritual fails. Heroic Inspiration rerolls a refused d20 once. A hero who gives their life (the Last Act) is accepted without a roll. A hero who fell in the fight still offers as a lingering spirit, but can't give a life already gone. The numbers are ours: with these, a simulation of four heroes offering the cheapest first (inspiration half the time) keeps everyone alive about 42% of the time uncapped, 52% at Balanced's cap of 5 and 72% at Story's 3, near the plan's 41% and 53%; check them against the finale digest.",
+  "dc": 11,
+  "base_points": 13,
+  "max_refusals": 6,
+  "caps": {"story": 3, "balanced": 5, "tactician": 99, "honour": 99},
+  "offerings": [
+    {"id": "heirloom", "name": "An heirloom", "bonus": 2, "summary": "A magic item the hero is attuned to, given up for good."},
+    {"id": "ability", "name": "Two points of an ability", "bonus": 3, "summary": "One of the hero's ability scores falls by 2, for good."},
+    {"id": "feature", "name": "A class feature", "bonus": 4, "summary": "A feature of the hero's class, given up for good."},
+    {"id": "thread", "name": "Their Thread", "bonus": 5, "summary": "The hero's Thread, their story's last beat, given up: it never comes to its end."},
+    {"id": "life", "name": "Their life", "bonus": 0, "summary": "The Last Act: the hero gives their life, and the offering is accepted without a roll."}
+  ],
+  "boon": {"amount": 2, "source": "The Crooked Tree's ritual", "summary": "When the ritual binds Kehlenn, every hero who lives raises one ability by 2 (plan 13.3, in place of level 14)."}
+}
