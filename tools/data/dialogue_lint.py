@@ -49,9 +49,10 @@ RE_INSPIRATION = re.compile(r"^inspiration(?:\s+party)?$")
 # `damage <dice> <type> [party]` (never below 1 Hit Point), `hit_dice restore <n|all> [party]` / `hit_dice grant <n> [party]`, and the story's edge on
 # checks: `advantage|disadvantage <skill|checks> [next|<n>m|<n>h][: why]` (docs/reference/contracts/dialogue.md).
 RE_DAMAGE = re.compile(rf"^damage\s+{RE_DICE}\s+[a-z]+(?:\s+(?:party|failed))?$")
-# `exhaust <+n|-n> [party|failed]`; `save <Ability> DC <n> party -> ok | fail` (every living hero rolls; `failed` are those who missed).
+# `exhaust <+n|-n> [party|failed]`; `save <Ability> DC <n> party [unless resists <type>] -> ok | fail` (every living hero rolls, one resisting
+# <type> passes; `failed` are those who missed).
 RE_EXHAUST = re.compile(r"^exhaust\s+[+-][1-6](?:\s+(?:party|failed))?$")
-RE_PARTY_SAVE = re.compile(r"^save\s+(Strength|Dexterity|Constitution|Intelligence|Wisdom|Charisma)\s+DC\s+(\d+)\s+party\s*->\s*([A-Za-z0-9_:/]+|END)(?:\s*\|\s*([A-Za-z0-9_:/]+|END))?$", re.I)
+RE_PARTY_SAVE = re.compile(r"^save\s+(Strength|Dexterity|Constitution|Intelligence|Wisdom|Charisma)\s+DC\s+(\d+)\s+party(?:\s+unless\s+resists\s+(?:acid|bludgeoning|cold|fire|force|lightning|necrotic|piercing|poison|psychic|radiant|slashing|thunder))?\s*->\s*([A-Za-z0-9_:/]+|END)(?:\s*\|\s*([A-Za-z0-9_:/]+|END))?$", re.I)
 RE_HIT_DICE = re.compile(r"^hit_dice\s+(?:restore\s+(?:[1-9]\d*|all)|grant\s+[1-9]\d*)(?:\s+party)?$")
 RE_EDGE = re.compile(r"^(?:advantage|disadvantage)\s+([a-z_]+)(?:\s+(?:next|[1-9]\d*[mh]))?(?:\s*:\s*\S.*)?$")
 RE_ATT = re.compile(rf"^attitude\s+({ID})\s+(hostile|indifferent|friendly)$")
