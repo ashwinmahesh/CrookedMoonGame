@@ -11,5 +11,53 @@
     "rarity": "rare",
     "attunement": false
   },
-  "summary": "A silver-grey liquid. Drunk, you step through fog and mist as through an open door, and are hard to find in it for an hour."
+  "summary": "A silver-grey liquid. For 10 minutes the drinker sees through fog and smoke, can raise a Fog Cloud three times with no Concentration, and can Misty Step three times into or out of fog.",
+  "duration": {
+    "kind": "minutes",
+    "amount": 10
+  },
+  "powers": [
+    {
+      "id": "drink",
+      "name": "Drink",
+      "cost": "bonus",
+      "consume": true,
+      "field": true,
+      "custom": "drink_grant",
+      "text": "Bonus Action: drink it. For 10 minutes you see through fog and smoke, and have three Fog Clouds and three fog-bound Misty Steps.",
+      "grants": {
+        "minutes": 10,
+        "modifiers": [
+          {
+            "stat": "flag",
+            "value": "sees_through_fog"
+          }
+        ],
+        "powers": [
+          {
+            "id": "fog",
+            "name": "Fog Cloud",
+            "spell": "fog_cloud",
+            "cost": "magic",
+            "no_concentration": true,
+            "uses": {
+              "count": 3,
+              "per": "never"
+            }
+          },
+          {
+            "id": "step",
+            "name": "Fog Step",
+            "spell": "misty_step",
+            "cost": "bonus",
+            "in_zone": "fog_cloud",
+            "uses": {
+              "count": 3,
+              "per": "never"
+            }
+          }
+        ]
+      }
+    }
+  ]
 }
