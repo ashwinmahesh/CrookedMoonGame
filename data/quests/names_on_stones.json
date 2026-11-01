@@ -1,0 +1,41 @@
+{
+  "id": "names_on_stones",
+  "name": "Names on Stones",
+  "kind": "side",
+  "region": "maidenmist_cemetery",
+  "giver": "mori_shade",
+  "summary": "Three unmarked graves lie in the Potter's Field. Mori Shade wants each one matched to the villager who lost them.",
+  "stages": [
+    {
+      "id": "asked",
+      "journal": "Mori Shade has three unmarked graves in the Potter's Field and a ledger of grieving villagers. She wants each grave given a name.",
+      "objectives": [
+        "Study the three graves",
+        "Tell the villagers",
+        "Tell Mori"
+      ],
+      "hint": "Study the three tokens at the posts in the Potter's Field, then tell the right villager. Mori can place them from her ledger if you cannot."
+    },
+    {
+      "id": "done",
+      "journal": "All three graves have names, and three villagers know where their dead are.",
+      "ends": "success"
+    },
+    {
+      "id": "lost",
+      "journal": "The three posts stay blank. The field goes on forgetting.",
+      "ends": "failure"
+    }
+  ],
+  "closes": [
+    {
+      "stage": "lost",
+      "from": [
+        "asked"
+      ],
+      "when": "flag.shroud_tear_sealed",
+      "warn": "Mori's ledger will close with the tear.",
+      "warn_when": "flag.chained_reaper_destroyed"
+    }
+  ]
+}

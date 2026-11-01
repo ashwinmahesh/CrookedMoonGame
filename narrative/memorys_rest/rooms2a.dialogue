@@ -1,0 +1,111 @@
+# Drafted by Gemini (R17 rooms2a), edited.
+
+~ l14_apartments
+Narrator: Narrow cots and tall mirrors line these barren quarters, reflecting only the violet hum of the glass tubes. In each room, a masked nurse stands motionless, staring into the silvered glass without a blink.
+* [Stealth DC 17] Slip past -> l14_quiet | l14_alert
+* [if flag.mr_disguised] Walk through in uniform -> l14_quiet
+* Leave -> END
+
+~ l14_quiet
+Narrator: You move like shadows between the mirrors, your boots making no more sound than dust settling on the floorboards.
+-> END
+
+~ l14_alert
+Narrator: A floorboard groans under your heel, and the porcelain masks snap toward you in a single, terrible motion.
+combat mr_patrol_up
+
+~ l15_patient
+if not flag.mr_l15_start
+set mr_l15_start = now
+endif
+if minutes_since.mr_l15_start >= 120 and not flag.l15_patient_fate
+set l15_patient_fate = "mutated"
+Narrator: The veins have gone black. The straps hang empty, and something with a nurse's walk is already leaving down the hall.
+-> END
+endif
+Narrator: A bolted iron chair holds a trembling soul amidst half-torn leather straps, violet light pulsing dimly beneath their skin. On a side table, Nurse Godlee's logbook notes that the cremator ash has begun to glint and shift on its own.
+mr_restrained_patient [afraid]: Please, do not let it take my name. I can feel the cold creeping behind my eyes.
+* [Medicine DC 13] Judge how long is left -> l15_time_ok | l15_time_fail
+* [if flag.lethic_antidote_doses >= 1 and not flag.l15_patient_fate] Give a dose of the antidote -> l15_cure
+* [if not flag.l15_patient_fate] End their suffering (a mercy) -> l15_mercy
+* Calm them and leave -> l15_leave
+
+~ l15_time_ok
+Narrator: The pulse at their throat is slow and thick as winter molasses. They have two hours at best before the second dose finishes its work.
+-> l15_patient
+
+~ l15_time_fail
+Narrator: As you lean in, the violet veins along their wrists flare brighter against the pale skin, offering no clear measure of time.
+-> l15_patient
+
+~ l15_cure
+set lethic_antidote_doses -= 1
+set l15_patient_fate = "cured"
+set mr_patients_cured += 1
+set mr_patients_saved += 1
+Narrator: As the bitter draught takes hold, the violet glow recedes from their veins and the wildness leaves their eyes.
+mr_restrained_patient [weary]: The fog is lifting. Thank you, stranger, I remember the way home now.
+-> END
+
+~ l15_mercy
+set l15_patient_fate = "dead"
+Narrator: It is a quiet, heavy thing you do in that grey room, sparing them the hollow fate waiting in the dark.
+-> END
+
+~ l15_leave
+set mr_l15_left
+Narrator: You speak a few soft words to steady their breathing, though the violet light beneath their skin continues to climb.
+-> END
+
+~ l16_hall
+Narrator: Twelve curtained beds stand in a row beneath the humming tubes, three of them occupied by motionless figures. They breathe in slow, contented unison, lost in the first wash of the serum.
+* [Medicine DC 12] See who can be woken -> l16_wake | l16_wake_fail
+* Leave -> END
+
+~ l16_wake
+set mr_truth_clues += 1
+if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+quest all_is_well the_truth
+endif
+Narrator: One sleeper stirs at your touch, eyelids fluttering open to reveal pupils wide and dark as lake water.
+mr_rocking_patient [weary]: The white worm drinks from the pool below... and the Matron pours it into our cups...
+-> END
+
+~ l16_wake_fail
+Narrator: They only smile faintly and turn their faces to the pillows, too deep in the cold dream to hear your voice.
+-> END
+
+~ l17_register
+if not flag.mr_register_read
+set mr_truth_clues += 1
+if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+quest all_is_well the_truth
+endif
+set mr_register_read
+endif
+Narrator: Nurse Godlee's heavy ledger lies open on the desk, listing twelve patients alongside neat, pitiless notes on how each dose strips another memory away.
+-> END
+
+~ l18_ash
+Narrator: Two blackened brick furnaces dominate the room beside twelve cold iron lockers. In the grates, the fine ash glints a faint, uncanny purple, smelling of burnt lavender and old copper.
+* [Perception DC 14] Look for a ward key on the corpses -> l18_key | l18_nokey
+* Scoop the ash -> l18_scoop
+* Leave -> END
+
+~ l18_key
+give mr_ward_key
+set mr_ward_key
+Narrator: Tucked into the stiffened waistcoat of an orderly in the third locker, your fingers close around a cold brass ward key.
+-> l18_ash
+
+~ l18_nokey
+Narrator: You search the cold drawers and folded linens, but find nothing left behind in the Pockets of the dead.
+-> l18_ash
+
+~ l18_scoop
+if not flag.mr_residue_taken
+set mr_residue_taken
+set mnemonic_residue += 3
+endif
+Narrator: Using a careful tool, you gather the violet-glinting ash from the brickwork before the draft can scatter it.
+-> l18_ash

@@ -1,0 +1,172 @@
+{
+  "id": "mon_cathedral_moon",
+  "name": "The Cathedral Under a Blood Moon",
+  "region": "crimson_monastery",
+  "summary": "The cathedral on its side, altar east, blood on the floor and a red moon in the dome.",
+  "text": "Stained glass in red and violet, statues weeping, and through the dome a moon the colour of a wound.",
+  "map": {
+    "rows": [
+      "####################",
+      "#~~~~~~~~~~~~~~~~~~#",
+      "#~~~~~~~~~~~~~~~~~~#",
+      "#~...=...~~~~~~~~~~#",
+      "#~.......~~~~~~~~~~#",
+      "#~.......~~=~~~~~~~#",
+      "#~.......~~~~~~~~~~#",
+      "#~...=...~~~~~~~~~~#",
+      "#~.......~~~~~~~~~~#",
+      "#~.......~~~~~~____#",
+      "#~.......~~~~~~____#",
+      "#~...=...~~~~~~____#",
+      ".~.......~~~~~~____#",
+      "#~.......~~~~~~____#",
+      "#~.......~~~~~~____#",
+      "#~...=...~~~~~~~~~~#",
+      "#~.......~~~~~~~~~~#",
+      "#~.......~~=~~~~~~~#",
+      "#~.......~~~~~~~~~~#",
+      "#~...=...~~~~~~~~~~#",
+      "#~.......~~~~~~~~~~#",
+      "#~~~~~~~~~~~~~~~~~~#",
+      "#~~~~~~~~~~~~~~~~~~#",
+      "####################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "nave",
+      "name": "The cathedral",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          18,
+          22
+        ]
+      ]
+    },
+    {
+      "id": "altar_east",
+      "name": "The altar",
+      "cells": [
+        [
+          15,
+          9
+        ],
+        [
+          18,
+          14
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      3,
+      12
+    ],
+    "from_sanctum": [
+      3,
+      12
+    ]
+  },
+  "exits": [
+    {
+      "id": "down_the_shaft",
+      "cell": [
+        0,
+        12
+      ],
+      "to": "mon_ground",
+      "spawn": "from_sanctum",
+      "label": "Down the nave to the cathedral",
+      "when": "flag.hellfire_done"
+    }
+  ],
+  "props": [
+    {
+      "id": "mon_hellfire",
+      "cell": [
+        14,
+        11
+      ],
+      "kind": "decor",
+      "label": "The sword in the altar, and the windows",
+      "call": "monastery/sanctum:hellfire",
+      "approach": 12,
+      "call_when": "flag.renathyr_slain and not flag.hellfire_done"
+    },
+    {
+      "id": "mon_altar_sword",
+      "cell": [
+        16,
+        11
+      ],
+      "kind": "examine",
+      "label": "A sword buried in the altar",
+      "model": "sword_leaning",
+      "dialogue": "monastery/sanctum:sword_altar",
+      "when": "flag.hellfire_done and flag.viraxys_offer == \"refused\" and not flag.sword_taken"
+    },
+    {
+      "id": "mon_moon_windows",
+      "cell": [
+        10,
+        2
+      ],
+      "kind": "decor",
+      "label": "Red and violet windows",
+      "model": "window_stained"
+    },
+    {
+      "id": "mon_moon_statue_a",
+      "cell": [
+        6,
+        6
+      ],
+      "kind": "decor",
+      "label": "A weeping statue",
+      "model": "statue_saint"
+    },
+    {
+      "id": "mon_moon_statue_b",
+      "cell": [
+        6,
+        16
+      ],
+      "kind": "decor",
+      "label": "A weeping statue",
+      "model": "statue_saint"
+    }
+  ],
+  "npcs": [],
+  "encounters": [],
+  "rest": "no",
+  "lights": [
+    {
+      "cell": [
+        16,
+        10
+      ],
+      "kind": "candle",
+      "bright_ft": 25,
+      "dim_ft": 50,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        16,
+        13
+      ],
+      "kind": "candle",
+      "bright_ft": 25,
+      "dim_ft": 50,
+      "color": "ember"
+    }
+  ]
+}

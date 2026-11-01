@@ -1,0 +1,99 @@
+# Drafted by Gemini (R14 villagers), edited.
+
+~ toma
+Narrator: Silver dust sits gray in the creases of his knuckles. He holds a chunk of raw stone to his ear like a seashell.
+dg_toma_flint [weary]: Hush now, little vein, I hear you. Keep your boots quiet, strangers, the rock's jumpy tonight. We dig the silver for their bell metal, and my brother walked up that hill and never walked back.
+* How is the mine holding up? -> toma_mine
+* What happens up at the monastery? -> toma_hill
+* [if flag.axel_debts_asked and not flag.toma_paid and item:toma_hat] Give him his hat back -> toma_hat
+* Leave him to his stone. -> END
+
+~ toma_mine
+dg_toma_flint [afraid]: The lode's running thin as a winter soup. Worse than that, the ore sounds frightened when you strike it, humming like a trapped bee.
+dg_toma_flint [weary]: Stone shouldn't shiver like flesh does, friend. It knows where we're sending it.
+-> toma
+
+~ toma_hill
+dg_toma_flint [neutral]: You see those red windows shining on the snow? Nobody who goes in that gate with a question ever comes out with the answer.
+dg_toma_flint [weary]: They come out smiling, or they come out as smoke.
+-> toma
+
+~ toma_hat
+take toma_hat
+set toma_paid
+gold +10
+dg_toma_flint [smile]: Hmph. Still got my tallow stain on the brim. Take these coins for your trouble.
+dg_toma_flint [sad]: I knew Axel before they put him in chains, you know. Good lad with a pickaxe, back when a man could still pay his own debts.
+if flag.toma_paid and flag.dagny_paid and flag.halka_paid
+quest axels_debts done
+endif
+-> toma
+
+~ halka
+Narrator: She stands by the cold hearth with her shawl pulled tight, watching the mountain road through a cracked pane.
+dg_halka_wren [sad]: Mind your voices on the street, travelers. My boy rode out with the Sanguine Hunt last winter, and when he came back, his eyes belonged to someone else.
+* Tell us about the Sanguine Hunt. -> halka_hunt
+* Have you seen a Brightsinger pilgrim pass through? -> halka_pilgrim
+* [if flag.axel_debts_asked and not flag.halka_paid and item:halka_letter] Give her the letter -> halka_letter
+* We'll leave you in peace. -> END
+
+~ halka_hunt
+dg_halka_wren [afraid]: They ride down to the square at the Twilight bell, always the night after a Night of Flames, looking to drag in the impure.
+dg_halka_wren [neutral]: If you mean to stop them, every shuttered house in this village is on your side.
+set hunt_known
+quest sanguine_hunt known
+-> halka
+
+~ halka_pilgrim
+dg_halka_wren [neutral]: A tall dark lad with a short beard? Aye, I saw him go up the hill road two nights ago, singing a songbird hymn under his breath.
+dg_halka_wren [weary]: The young stable hand from the monastery was whispering to him by the well before he climbed.
+set stable_hand_clue
+-> halka
+
+~ halka_letter
+take halka_letter
+set halka_paid
+Narrator: A small, dry cry catches in her throat as her thumb traces the crooked ink.
+dg_halka_wren [sad]: That's his hand, alright, before the red glass took his mind. Thank you for bringing me the boy he used to be.
+if flag.toma_paid and flag.dagny_paid and flag.halka_paid
+quest axels_debts done
+endif
+-> halka
+
+~ wren
+Narrator: A small girl sits on afrosty crate, ticking off her fingers one by one whenever the wind brings a chime from the peak.
+dg_wren_child [neutral]: Four for the matins, six for the smoke. My granddad helped cast the big bell up there, before the bats moved in.
+* Which bell is that? -> wren_bell
+* Stay warm, little one. -> END
+
+~ wren_bell
+dg_wren_child [neutral]: The big silver one in the high tower. Granddad says it had another name once, a proper miners' name stamped right on the lip.
+dg_wren_child [sly]: Now they tell us it says Olaf's name instead, as if a friar ever swung a hammer.
+set bell_rumour
+-> wren
+
+~ notice
+Narrator: A parchment notice is nailed to the post with an iron spike, smelling faintly of tallow and old blood. It lists the signs of an impure heart alongside the promise of a heavy silver purse for any neighbor who names one.
+-> END
+
+~ hunt_ambush
+quest sanguine_hunt known
+Narrator: The Twilight bell fades into the snow as three armored riders tighten their girths in the square, a leashed bat-hound whining at their heels while pale faces watch from behind latched doors.
+* Ambush them. -> ambush
+* [ends:sanguine_hunt] Let them ride out. -> ride
+* [if flag.maric_loosened] Watch the knight with the loose saddle. -> watch
+
+~ ambush
+combat dg_hunt
+
+~ watch
+Narrator: As the third knight vaults into his stirrup, the loosened leather gives way and dumps him flat into the icy mud.
+ser_maric_dunmore [afraid]: Back, beast! The girth was sabotaged, I tell you, watch its hooves!
+landers_knight [angry]: Shut your mouth and draw steel, Maric, we have company!
+-> ambush
+
+~ ride
+quest sanguine_hunt rode_out
+set hunt_gone
+Narrator: Iron hooves thunder up the lane, a cottage door splinters in the dark, and the riders drag a weeping miner out by his collar. When the hoofbeats fade toward the mountain, the village is quieter than a grave.
+-> END

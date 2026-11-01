@@ -1,0 +1,82 @@
+# Drafted by Gemini (R14 kristoff), edited.
+
+~ start
+Narrator: The taproom smells of boiled onions and wet wool. Behind the scarred oak counter, a broad-shouldered man wipes a pewter mug with a rag.
+kristoff_gruber [neutral]: Shut the door behind you. Wind comes right off the Howlers. What do you want?
+* A room for the night -> rooms
+* Something to eat -> food
+* Ask about Dawn's Gate -> village
+* [if flag.gareth_asked] Ask about a missing pilgrim -> gareth
+* [Insight DC 12] He keeps glancing at the cellar stair. -> cellar_notice | cellar_miss
+* [if flag.night_of_flames_done] Ask about the Night of Flames -> flames
+* Buy a flask of holy water -> holy_water
+* [if flag.crimson_farewell] Say our farewells -> farewell
+* Take our leave -> END
+
+~ rooms
+kristoff_gruber [neutral]: Clean straw upstairs, dry sheets, two silver a night. I drop the iron bar across the door at the Evening bell. Be inside before it rings.
+-> start
+
+~ food
+kristoff_gruber [neutral]: Black beer, onion stew, rye bread. Take a seat or don't.
+Narrator: He sets the trenchers down without another word, though you notice he has ladled your party the deeper bowls from the bottom of the pot.
+-> start
+
+~ village
+kristoff_gruber [weary]: Silver miners, hill hunters, a few cabbage farmers. Folk kneel when the monastery bells ring, and clear the square when the Hunt rides through. I pour beer and ask nothing.
+-> start
+
+~ gareth
+kristoff_gruber [neutral]: Tall lad, grey eyes, singing bird on his coat. The Hunt marched him up the mountain road two nights back, and took the young stable hand who spoke with him too.
+set stable_hand_clue
+-> start
+
+~ cellar_notice
+Narrator: Every time boots clatter on the cobbles outside, his thumb hooks toward the cellar latch. That is not a man guarding sour ale; that is a man keeping breathing folk alive below.
+kristoff_gruber [weary]: You have quiet eyes. Too quiet for this town.
+-> cellar_admit
+
+~ cellar_miss
+kristoff_gruber [neutral]: Hm.
+Narrator: He spits on a spot of dried tallow and scrubs it off the wood. Whatever rests on his mind stays behind his teeth.
+-> start
+
+~ cellar_admit
+kristoff_gruber [afraid]: Keep your voice down. I have two souls behind a brick wall in my cellar that the Hunt wants for the pyre. Tell me plain if I can trust you with their necks.
+* We can be trusted. Show us. -> cellar_yes
+* We want no part of it. -> cellar_no
+
+~ cellar_yes
+quest kristoffs_cellar asked
+set cellar_asked
+kristoff_gruber [neutral]: Third cask rack on the left. Press the mortar beside the iron hoop. Do not take a bright lantern down there.
+-> start
+
+~ cellar_no
+kristoff_gruber [angry]: Then drink your beer and forget you have ears.
+Narrator: He turns his broad back to you, bung-mallet in hand, though he does not point you toward the door.
+-> start
+
+~ flames
+kristoff_gruber [weary]: When the smoke blows down from the peak, folk in here talk a little freer, though never above a whisper. Watch the roads tomorrow: the Hunt always rides out at the Twilight bell the night after a burning.
+set hunt_known
+-> start
+
+~ holy_water
+kristoff_gruber [sly]: Old stock from before the bells turned red. Ten gold for a flask, and keep it under your cloak.
+* [if gold >= 10] Pay ten gold -> holy_water_buy
+* Not now -> start
+
+~ holy_water_buy
+gold -10
+give holy_water
+kristoff_gruber [neutral]: You never bought that here. I only sell beer.
+-> start
+
+~ board
+Narrator: Near the door hangs a pine board nailed over with parchment decrees in red wax. Each notice promises a heavy silver purse to anyone who names an impure soul, a runaway, or a doubter to the Sanguine Hunt.
+-> END
+
+~ farewell
+kristoff_gruber [smile]: Mountain looks strange without that red glare on the snow. Sit down. The black beer is on the house tonight, and the door stays unbarred.
+-> END

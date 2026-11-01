@@ -1,0 +1,11 @@
+make sketch HEIGHT=docs/plans/hartsblight/hb_patient_commune/height.png LAYOUT=docs/plans/hartsblight/hb_patient_commune/layout.png SIZE=44x56 TOP=20 LOC=data/locations/hb_patient_commune.json
+make sketch HEIGHT=docs/plans/hartsblight/hb_altar_of_rot/height.png LAYOUT=docs/plans/hartsblight/hb_altar_of_rot/layout.png SIZE=30x30 TOP=20 LOC=data/locations/hb_altar_of_rot.json
+make sketch HEIGHT=docs/plans/hartsblight/hb_pine_barrens/height.png LAYOUT=docs/plans/hartsblight/hb_pine_barrens/layout.png SIZE=36x30 TOP=20 LOC=data/locations/hb_pine_barrens.json
+make sketch HEIGHT=docs/plans/hartsblight/hb_infested_outcrop/height.png LAYOUT=docs/plans/hartsblight/hb_infested_outcrop/layout.png SIZE=40x40 TOP=40 LOC=data/locations/hb_infested_outcrop.json
+make sketch HEIGHT=docs/plans/hartsblight/hb_noxious_hollow/height.png LAYOUT=docs/plans/hartsblight/hb_noxious_hollow/layout.png SIZE=30x30 TOP=20 LOC=data/locations/hb_noxious_hollow.json
+make sketch HEIGHT=docs/plans/hartsblight/hb_druid_commune/height.png LAYOUT=docs/plans/hartsblight/hb_druid_commune/layout.png SIZE=40x40 TOP=20 LOC=data/locations/hb_druid_commune.json
+make sketch HEIGHT=docs/plans/hartsblight/hb_oozing_ravine/height.png LAYOUT=docs/plans/hartsblight/hb_oozing_ravine/layout.png SIZE=16x34 TOP=30 LOC=data/locations/hb_oozing_ravine.json
+make sketch HEIGHT=docs/plans/hartsblight/hb_stinking_quagmire/height.png LAYOUT=docs/plans/hartsblight/hb_stinking_quagmire/layout.png SIZE=40x36 TOP=10 LOC=data/locations/hb_stinking_quagmire.json
+make sketch HEIGHT=docs/plans/hartsblight/hb_fungal_grove/height.png LAYOUT=docs/plans/hartsblight/hb_fungal_grove/layout.png SIZE=36x36 TOP=10 LOC=data/locations/hb_fungal_grove.json
+make sketch HEIGHT=docs/plans/hartsblight/hb_wellspring/height.png LAYOUT=docs/plans/hartsblight/hb_wellspring/layout.png SIZE=30x40 TOP=20 LOC=data/locations/hb_wellspring.json
+make sketch HEIGHT=docs/plans/hartsblight/hb_den/height.png LAYOUT=docs/plans/hartsblight/hb_den/layout.png SIZE=30x40 TOP=10 LOC=data/locations/hb_den.json

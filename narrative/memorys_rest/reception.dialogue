@@ -1,0 +1,70 @@
+# Drafted by Gemini (R17 reception), edited.
+
+~ desk
+Narrator: A tall portrait of a veiled elf watches over the polished desk and its little brass call bell. Two orderlies in smooth porcelain masks incline their heads together, their voices soft as sifted flour.
+mr_orderly_a [neutral]: Welcome to Memory's Rest, travellers, where heavy minds are set down at the door. Before you step further into our quiet, please observe the Code of Conduct upon the wall.
+* We are visiting a patient -> visitor
+* We wish to check in -> checkin
+* [Deception DC 15] We are here to see the Matron -> matron_ok | matron_fail
+* [Persuasion DC 15] We are here on the Matron's invitation -> matron_ok | matron_fail
+* Read the Code of Conduct first -> code
+* Just looking -> END
+
+~ code
+mr_orderly_a [neutral]: Keep the halls tranquil without bright light or loud noise, and never speak to a patient of their past. Obey the staff in all things, stay out of restricted wards, and bring nothing subversive within these walls.
+set mr_code_read
+-> desk
+
+~ visitor
+mr_orderly_a [neutral]: Visiting hours run from Twilight Hour to Nightfall Hour. Whom have you come across the water to see?
+* Catherine Winthrop -> visitor_catherine
+* Another name -> visitor_other
+
+~ visitor_catherine
+set mr_signed_in = "visitor"
+quest all_is_well find_the_cousin
+mr_orderly_a [neutral]: Ah, Miss Winthrop is doing wonderfully well with us. Step along with my brother to the Visitation Room, and we shall have her brought down with a fresh pot of chamomile.
+-> END
+
+~ visitor_other
+mr_orderly_a [neutral]: We have no soul registered by that name upon our ledgers. Perhaps the rain on the lake has muddled your recollection.
+-> visitor
+
+~ checkin
+set mr_signed_in = "patient"
+set mr_admitted
+quest all_is_well find_the_cousin
+mr_orderly_a [neutral]: How glad we are that you have chosen rest over burden. Leave your heavy gear with us to be kept safe in your rooms, and Nurse Godlee will see to your examination shortly.
+-> END
+
+~ matron_ok
+set mr_signed_in = "matron"
+quest all_is_well find_the_cousin
+Narrator: The two blank masks turn toward one another for a beat, silent as pair of owls on a rafter.
+mr_orderly_a [neutral]: Of course, the Matron is ever generous with her hours for those of note. Follow close behind, and mind the quiet on the stairs.
+-> END
+
+~ matron_fail
+mr_orderly_a [neutral]: Forgive us, friends, but Matron Lethica receives no one unannounced while her wards require her care. You are welcome to call upon a patient instead, or to surrender your own burdens to our beds.
+* We are visiting then -> visitor
+* We wish to check in -> checkin
+* Leave -> END
+
+~ strike
+if flag.mr_conduct_strikes == 0
+mr_orderly_a [angry]: Peace and obedience are the very medicine of this house, and you have disturbed both. Consider this your sole warning before we are forced to correct you.
+set mr_conduct_strikes += 1
+-> END
+else
+Narrator: The soft courtesy drops from the masked figures all at once, replaced by the cold hurry of keepers closing a trap.
+mr_orderly_a [angry]: You have broken the peace of Memory's Rest a second time, and cannot be suffered to wander loose. Brothers, restrain them for treatment.
+set mr_staff_hostile
+set mr_lockdown
+combat mr_patrol_ground
+endif
+
+~ plaque
+Narrator: The brass plaque smells faintly of lemon oil, its five rules stamped in neat black letters under the hum of the violet glass. Keep tranquil: no bright light or loud noise.
+Narrator: Do not bring up a patient's past. Follow staff orders, keep out of restricted areas, and do nothing subversive.
+set mr_code_read
+-> END

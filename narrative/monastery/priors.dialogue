@@ -1,0 +1,147 @@
+# Drafted by Gemini (R14 priors), edited.
+
+~ jaeger_start
+Narrator: Iron cleavers and stiff wolf hides hang from the rafters, smelling of wet dog and old copper.
+sigmund_jaeger [smile]: Step in out of the snow, friends. A man knows true seekers by their tread, and the Crimson Rose always welcomes fresh blood.
+* Tell us about your hounds. -> jaeger_hounds
+* What drew you to the Crimson Rose? -> jaeger_faith
+* [Insight DC 13] He is not what he appears. -> jaeger_tell | jaeger_blind
+* We want no part of your faith. -> jaeger_turn
+* Take our leave. -> END
+
+~ jaeger_hounds
+sigmund_jaeger [smile]: Better company than most folk, my darlings. They never lie, and a fistful of bloody offal keeps them sweet as pie.
+sigmund_jaeger [neutral]: Mind you, they balk at running water. Can't abide a lively stream, the silly beasts, though they'll tear a stag to ribbons.
+-> jaeger_start
+
+~ jaeger_faith
+sigmund_jaeger [smile]: I had a wife and two boys down in the valley once. Small talk and smaller fires, before the Rose opened my eyes.
+sigmund_jaeger [neutral]: You leave the weak timber behind when you climb the mountain. Out here, we belong to something that never dies.
+set crimson_devotions += 1
+-> jaeger_start
+
+~ jaeger_tell
+Narrator: When he reaches for a cleaver, the cuffs of his coat ride up. Beneath the scrubbed skin of his wrists, black veins pulse over hooked, beastly tendons.
+sigmund_jaeger [smile]: Something on your mind, friend? You're staring at my hands like you've never seen an honest butcher's calluses.
+-> jaeger_start
+
+~ jaeger_blind
+Narrator: His boots are crusted with kennel mud and dried tallow. For all his talk of the Rose, he looks like any other hill huntsman.
+sigmund_jaeger [smile]: Go on, ask what you like. An open heart keeps no secrets.
+-> jaeger_start
+
+~ jaeger_turn
+sigmund_jaeger [angry]: Is that how it is? A shame. The hounds have been whining for marrow all evening, and I hate to disappoint them.
+combat mon_jaeger
+
+~ olaf_start
+Narrator: Red light from the high windows pools over Friar Olaf's robes as he practices his gestures before an empty pew.
+friar_olaf [smile]: Ah, pilgrims drawn by my humble voice! They say when I preach of the Rose, even the mountain wolves sit down to weep.
+* Tell us about the great silver bell. -> olaf_bell
+* Your sermon moved us deeply, Friar. -> olaf_praise
+* [Insight DC 14] He feeds on doubters nobody will miss. -> olaf_tell | olaf_blind
+* Your faith is nothing but dressed-up butchery. -> olaf_mock
+* We must be going. -> END
+
+~ olaf_bell
+if flag.olaf_fear_known
+friar_olaf [afraid]: The bell? Why ask me of the bell? It hangs high and silent, as it ought to, and we have better things to discuss.
+else
+friar_olaf [smile]: Cast in the old days, yet the Abbot himself named it in my honour. Olaf of the Silver Bells, they call me across the peaks!
+endif
+-> olaf_start
+
+~ olaf_praise
+friar_olaf [smile]: Bless you, my children, bless your keen ears! It is a heavy burden, carrying such a golden tongue in so wicked a world.
+set crimson_devotions += 1
+-> olaf_start
+
+~ olaf_tell
+Narrator: His eyes drift toward a shivering solitary pilgrim by the font. Under the buttery warmth of his smile, his tongue touches a sharp canine tooth.
+friar_olaf [sly]: So many lonely souls wander up our road without kith or kin. I make sure none of them go to waste.
+-> olaf_start
+
+~ olaf_blind
+Narrator: He smooths his velvet stole and admires his own rings in the candlelight, wholly absorbed in the sound of his own voice.
+friar_olaf [smile]: Do stay for the evening homily. I intend to weep during the third verse.
+-> olaf_start
+
+~ olaf_mock
+friar_olaf [angry]: Guard your tongue, wretch! The courtyard pyres are built of greener wood than you, and I remember every face that sneers.
+set crimson_infractions += 1
+standing crimson_faith -1
+-> olaf_start
+
+~ olaf_room
+Narrator: The chamber smells of cloves and stale wine. The door latches behind you, and Friar Olaf blocks the threshold, his genial mask gone.
+friar_olaf [angry]: Thieving in a prior's private quarters? Give me one reason not to call the hounds and have you bled on the flagstones.
+* [Deception DC 14] Say the Abbot sent us. -> olaf_bluff | olaf_fight
+* Attack. -> olaf_fight
+* Leave. -> END
+
+~ olaf_bluff
+friar_olaf [weary]: Father Renathyr sent you rummaging through my chests? Fine, take yourselves off, though I will have a word with him after vespers.
+-> END
+
+~ olaf_fight
+friar_olaf [angry]: Liars and prowlers! Let us see how much blood you hold!
+set crimson_infractions += 1
+standing crimson_faith -3
+combat mon_olaf_room
+
+~ cromwell_start
+Narrator: Inquisitor Cromwell stands with her gauntleted hands clasped behind her back, watching the courtyard like a hawk over a sheepfold.
+leona_cromwell [neutral]: State your business and keep it brief. Prospective converts belong on their knees in the nave, not loitering under my nose.
+* Tell us about the Sanguine Hunt. -> cromwell_hunt
+* Have you seen a pilgrim named Gareth Creed? -> cromwell_gareth
+* [Insight DC 14] She was once Leona the Relentless, a bandit queen. -> cromwell_past | cromwell_blind
+* You look like a woman playing at holiness. -> cromwell_goad
+* Leave her to her watch. -> END
+
+~ cromwell_hunt
+leona_cromwell [sly]: When the impure creep through the valley, our riders take the road. No horse outruns us, and no bolted door holds.
+set hunt_known
+-> cromwell_start
+
+~ cromwell_gareth
+leona_cromwell [neutral]: That Brightsinger fool with the stubborn jaw? A few more nights in the dark and he will sing whatever tune I ask.
+-> cromwell_start
+
+~ cromwell_past
+set src_cromwell_leverage
+Narrator: A faded rope-burn circles her throat beneath her high collar, and she thumbs her hilt with the practiced twitch of a highway cutthroat.
+leona_cromwell [angry]: Eyes front, stranger. Whatever you think you recognize died on a gallows long before I climbed this hill.
+-> cromwell_start
+
+~ cromwell_blind
+Narrator: Her posture is iron-straight and her gaze gives nothing away, cold as the mountain slate.
+leona_cromwell [neutral]: If you have no confession to make, move along.
+-> cromwell_start
+
+~ cromwell_goad
+Narrator: Steel whispers from her scabbard, the point stopping an inch from {name}'s throat.
+leona_cromwell [angry]: One more word like that and I will open your windpipe right here. Try my patience again, convert.
+standing crimson_faith -2
+set crimson_infractions += 1
+-> cromwell_start
+
+~ cromwell_room
+Narrator: Cold air drafts through the sparse stone cell. Inquisitor Cromwell steps from behind the tapestry, her blade already bare.
+leona_cromwell [angry]: So the little mice have crept into the trap. On your knees, before I take your legs off at the joint.
+* [Intimidation DC 18] Make her tell you three things about the cult. -> cromwell_talks | cromwell_fight
+* [if flag.src_cromwell_leverage] Speak of Leona the Relentless. -> cromwell_talks
+* Attack. -> cromwell_fight
+
+~ cromwell_talks
+leona_cromwell [afraid]: Keep your voices down! The Abbot keeps the Witching Hour up in the belfry, and the cathedral altar opens only for a chalice of blood.
+leona_cromwell [weary]: Below that lies the sanctum, where we priors are anointed and remade. Now get out before she hears my heart beating.
+set src_cromwell
+set way_down_known
+quest crimson_monastery the_way_down
+-> END
+
+~ cromwell_fight
+leona_cromwell [angry]: You will bleed for your insolence! Guard, to me!
+set crimson_infractions += 1
+standing crimson_faith -3
+combat mon_cromwell_room

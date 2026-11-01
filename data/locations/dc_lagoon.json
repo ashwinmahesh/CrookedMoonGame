@@ -1,0 +1,183 @@
+{
+  "id": "dc_lagoon",
+  "name": "Dead Man's Lagoon",
+  "region": "drowned_crossroads",
+  "summary": "A mangrove-ringed lake with a neon riverboat at its heart.",
+  "text": "A mangrove-ringed lake. At its centre a riverboat is moored, funnels coughing magenta, a gangplank down to a mud island. Heroes without a token see only a wreck, split in two, with part of an old name in faded paint.",
+  "map": {
+    "rows": [
+      "####################################",
+      "####################################",
+      "####################################",
+      "####################################",
+      "##w##wwwwwwwwwwwwwwwwww#wwww#wwwwww#",
+      "#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#ww#",
+      "#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#",
+      "#ww#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#",
+      "#w#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#",
+      "#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#",
+      "#wwwwww#wwwwwwwwwwwwwwwwwwwwwwwwwww#",
+      "##wwww#wwwwwwwwwwwwwwwwww..wwwwwwww#",
+      "#wwwwwwwwwwwwwwwwwwwwwww....wwwwwww#",
+      "#...##wwwwwwwwwwwwwwww.......wwwwww#",
+      "....~~~~~~~~~~~~~~~~~~~_____..wwwww#",
+      "#...~~~~~~~~~~~~~~~~~~~_____..www#w#",
+      "#...~~~wwwwwwwwwwwwwww______.wwwwww#",
+      "#...wwwwwwwwwwwwwwwwww.......wwwwww#",
+      "#wwwwwwwwwwwwwwwwwwwwww.....wwww#ww#",
+      "#wwwww#wwwwwwwwwwwwwwwwwww.wwwwwww##",
+      "#wwwwwwwwwwwwwwwwwwwwwwwwwwwww#wwww#",
+      "#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#",
+      "#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#",
+      "#wwwww#wwwwwwwwwwwwwwwwwwwwwwwwwwww#",
+      "#ww#wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww#",
+      "#wwww#wwwwwwwwwwwwwwwwwwwwwwwwwwwww#",
+      "#wwwwwwwwwwwwwwwwwwwww#ww#wwwwwwwww#",
+      "#wwwwwwwwwwwwwwwwwwww#wwwwwwwwwwwww#",
+      "#wwwww#wwwwww#wwwwwwwwww#wwwwwwwwww#",
+      "####################################"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "dc_landing",
+      "name": "The landing",
+      "cells": [
+        [
+          1,
+          13
+        ],
+        [
+          6,
+          17
+        ]
+      ]
+    },
+    {
+      "id": "dc_island",
+      "name": "The mud island",
+      "cells": [
+        [
+          22,
+          11
+        ],
+        [
+          29,
+          19
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      2,
+      15
+    ],
+    "from_shack": [
+      2,
+      15
+    ],
+    "from_boat": [
+      26,
+      16
+    ]
+  },
+  "exits": [
+    {
+      "id": "road_south",
+      "cell": [
+        0,
+        14
+      ],
+      "to": "dc_shack_approach",
+      "spawn": "from_lagoon",
+      "label": "The Marshwinder Road, south"
+    },
+    {
+      "id": "gangplank",
+      "cell": [
+        26,
+        15
+      ],
+      "to": "dc_boat_promenade",
+      "spawn": "from_gangplank",
+      "label": "Up the gangplank",
+      "when": "flag.dc_boarded"
+    }
+  ],
+  "props": [
+    {
+      "id": "dc_lagoon_view",
+      "cell": [
+        4,
+        14
+      ],
+      "kind": "decor",
+      "label": "The lagoon, and what is moored in it",
+      "call": "drowned_crossroads/lagoon:view",
+      "approach": 8,
+      "call_when": "not flag.lagoon_seen"
+    },
+    {
+      "id": "dc_wreck",
+      "cell": [
+        24,
+        13
+      ],
+      "kind": "examine",
+      "label": "A wreck, split in two, with faded letters",
+      "model": "broken_boards",
+      "when": "not flag.crossroads_passage",
+      "dialogue": "drowned_crossroads/lagoon:wreck"
+    },
+    {
+      "id": "dc_riverboat",
+      "cell": [
+        24,
+        13
+      ],
+      "kind": "decor",
+      "label": "The riverboat Dead Man's Hand, funnels coughing magenta",
+      "model": "lantern_bracket",
+      "when": "flag.crossroads_passage"
+    },
+    {
+      "id": "dc_cutlass",
+      "cell": [
+        9,
+        15
+      ],
+      "kind": "search",
+      "label": "Something steel glowing under the water",
+      "search_dc": 13,
+      "item": "cutlass_of_briggsy_kratch",
+      "when": "treasure_at:murkwater_swamp_water"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "ferryman_chauffeur",
+      "cell": [
+        5,
+        15
+      ],
+      "dialogue": "drowned_crossroads/lagoon:dock",
+      "when": "flag.crossroads_passage and not flag.dc_boarded"
+    },
+    {
+      "npc": "ferryman_chauffeur",
+      "cell": [
+        5,
+        15
+      ],
+      "dialogue": "drowned_crossroads/lagoon:wreck_ferryman",
+      "when": "not flag.crossroads_passage and flag.lagoon_seen"
+    }
+  ],
+  "encounters": [],
+  "rest": "risky",
+  "rest_text": "The reeds hiss all night."
+}

@@ -1,0 +1,379 @@
+{
+  "id": "mon_stables",
+  "name": "The Hunt's Stables and Kennels",
+  "region": "crimson_monastery",
+  "summary": "Outside the east wall: the Hunt's warhorses, an armory shed, and bat hounds in boxes built into dead trees.",
+  "text": "Warm stink of horse and iron, and in the dead trees beyond, eyes that open when you pass.",
+  "map": {
+    "rows": [
+      "##################################",
+      "###############...################",
+      "##............#...#.............##",
+      "##.=..=..=....#...#.===.....===.##",
+      "##.=..=..=....#...#.............##",
+      "##............#...#.............##",
+      "##.=..=..=....#...#.............##",
+      "##.=..=..=....#...#.............##",
+      "##............#...######.#########",
+      "########.######..................#",
+      "#................................#",
+      "#................................#",
+      "#.............................==.#",
+      "#................................#",
+      "#.....==............==...........#",
+      ".................................#",
+      "#...........==...................#",
+      "#.........................==.....#",
+      "#................................#",
+      "#................................#",
+      "#.........==..........==.........#",
+      "#................................#",
+      "#................................#",
+      "##################################"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "stable_block",
+      "name": "The stables",
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          13,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "armory",
+      "name": "The armory",
+      "cells": [
+        [
+          19,
+          2
+        ],
+        [
+          31,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "kennels",
+      "name": "The kennels",
+      "cells": [
+        [
+          4,
+          11
+        ],
+        [
+          31,
+          22
+        ]
+      ]
+    },
+    {
+      "id": "yard",
+      "name": "The yard",
+      "cells": [
+        [
+          1,
+          10
+        ],
+        [
+          32,
+          22
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      1,
+      15
+    ],
+    "from_grounds": [
+      2,
+      15
+    ]
+  },
+  "exits": [
+    {
+      "id": "to_grounds",
+      "cell": [
+        0,
+        15
+      ],
+      "to": "mon_ground",
+      "spawn": "from_stables",
+      "label": "Back inside the walls"
+    }
+  ],
+  "props": [
+    {
+      "id": "mon_st_hay",
+      "cell": [
+        4,
+        5
+      ],
+      "kind": "decor",
+      "label": "Hay",
+      "model": "hay_bale"
+    },
+    {
+      "id": "mon_st_tack",
+      "cell": [
+        11,
+        3
+      ],
+      "kind": "decor",
+      "label": "Saddles on a rack",
+      "model": "tack"
+    },
+    {
+      "id": "mon_st_trough",
+      "cell": [
+        14,
+        12
+      ],
+      "kind": "decor",
+      "label": "A water trough",
+      "model": "trough"
+    },
+    {
+      "id": "mon_st_armory",
+      "cell": [
+        22,
+        5
+      ],
+      "kind": "examine",
+      "label": "The Hunt's armory",
+      "model": "weapon_rack",
+      "dialogue": "monastery/stables:armory"
+    },
+    {
+      "id": "mon_st_kennel_treats",
+      "cell": [
+        26,
+        16
+      ],
+      "kind": "examine",
+      "label": "A crate of bloody treats",
+      "model": "crate",
+      "dialogue": "monastery/stables:treats"
+    },
+    {
+      "id": "mon_st_shield",
+      "cell": [
+        30,
+        4
+      ],
+      "kind": "decor",
+      "label": "A shield hung in a place of honour",
+      "model": "shrine_small",
+      "when": "flag.armory_shield"
+    },
+    {
+      "id": "mon_st_horse_a",
+      "cell": [
+        4,
+        4
+      ],
+      "kind": "decor",
+      "label": "A warhorse of the Hunt",
+      "model": "stall_horse"
+    },
+    {
+      "id": "mon_st_horse_b",
+      "cell": [
+        7,
+        6
+      ],
+      "kind": "decor",
+      "label": "A warhorse of the Hunt",
+      "model": "stall_horse"
+    },
+    {
+      "id": "mon_st_horse_c",
+      "cell": [
+        10,
+        4
+      ],
+      "kind": "decor",
+      "label": "A riding horse",
+      "model": "horse"
+    },
+    {
+      "id": "mon_st_wagon",
+      "cell": [
+        16,
+        18
+      ],
+      "kind": "decor",
+      "label": "A prisoners' wagon",
+      "model": "wagon"
+    },
+    {
+      "id": "mon_st_woodpile",
+      "cell": [
+        28,
+        10
+      ],
+      "kind": "decor",
+      "label": "A woodpile",
+      "model": "woodpile"
+    },
+    {
+      "id": "mon_st_bones",
+      "cell": [
+        18,
+        21
+      ],
+      "kind": "decor",
+      "label": "Gnawed bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "mon_st_tree_a",
+      "cell": [
+        8,
+        12
+      ],
+      "kind": "decor",
+      "label": "A dead tree, boxed",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mon_st_tree_b",
+      "cell": [
+        24,
+        13
+      ],
+      "kind": "decor",
+      "label": "A dead tree, boxed",
+      "model": "dead_tree_b"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "landers_knight",
+      "cell": [
+        12,
+        14
+      ],
+      "dialogue": "monastery/stables:landers"
+    },
+    {
+      "npc": "marla_knight",
+      "cell": [
+        14,
+        15
+      ],
+      "dialogue": "monastery/stables:marla"
+    },
+    {
+      "npc": "fremont_knight",
+      "cell": [
+        12,
+        17
+      ],
+      "dialogue": "monastery/stables:fremont"
+    },
+    {
+      "npc": "stable_hand_cm",
+      "cell": [
+        8,
+        10
+      ],
+      "dialogue": "monastery/stables:hand"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "mon_stable_knights",
+      "trigger": "dialogue",
+      "flag": "mon_stable_knights_done",
+      "monsters": [
+        {
+          "monster": "hunt_knight_bare",
+          "cell": [
+            12,
+            14
+          ],
+          "name": "Landers",
+          "facing": "west"
+        },
+        {
+          "monster": "hunt_knight_bare",
+          "cell": [
+            14,
+            15
+          ],
+          "name": "Marla",
+          "facing": "west"
+        },
+        {
+          "monster": "hunt_knight_bare",
+          "cell": [
+            12,
+            17
+          ],
+          "name": "Fremont",
+          "facing": "west"
+        }
+      ]
+    },
+    {
+      "id": "mon_kennels",
+      "trigger": "enter_area:kennels",
+      "when": "not flag.mon_kennels_done and not flag.dagny_hounds_calmed",
+      "waiting": true,
+      "flag": "mon_kennels_done",
+      "monsters": [
+        {
+          "monster": "bat_hound",
+          "cell": [
+            5,
+            14
+          ],
+          "name": "A bat hound in its box",
+          "facing": "south"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            13,
+            17
+          ],
+          "name": "A bat hound in its box",
+          "facing": "south"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            21,
+            15
+          ],
+          "name": "A bat hound in its box",
+          "facing": "west"
+        },
+        {
+          "monster": "bat_hound",
+          "cell": [
+            27,
+            18
+          ],
+          "name": "A bat hound in its box",
+          "facing": "west"
+        }
+      ]
+    }
+  ],
+  "rest": "risky"
+}

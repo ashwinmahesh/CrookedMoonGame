@@ -1,0 +1,84 @@
+# Drafted by Gemini (R14 hook), edited.
+
+~ weston_pilgrim
+weston_murdoch [weary]: Friends, two of our flock, Melina and Gareth Creed, walked west to hear the great bell at Silverbell Monastery. They found Dawn's Gate changed and dark.
+weston_murdoch [sad]: A stable hand pulled Gareth aside to whisper some secret, and neither boy nor hand came back. Only Melina made it home.
+* What does Gareth look like? -> weston_gareth
+* Where can we find Melina? -> weston_melina
+* Tell us about the road west. -> weston_road
+* We will find him. -> weston_go
+* Not yet. -> weston_later
+
+~ weston_gareth
+weston_murdoch [smile]: Tall, dark hair, a neat short beard, and grey eyes that do not blink at trouble. Good heart, though he is stubborn as an oak fencepost.
+-> weston_pilgrim
+
+~ weston_melina
+weston_murdoch [neutral]: She sits near the church steps, jumped at every shadow since she stumbled back. Speak gently with her before you set out.
+-> weston_pilgrim
+
+~ weston_road
+weston_murdoch [weary]: Cross the Silverbell by bridge or ferry, then follow the south bank three nights, about fourteen hours' march. Folks say the village at the end is dead afraid.
+-> weston_pilgrim
+
+~ weston_go
+set gareth_asked
+quest crimson_monastery heard
+weston_murdoch [smile]: May the songbird's wing keep you in the dark, friends. Bring our loud brother back to the choir if the road allows.
+Narrator: The preacher's hand is warm with candle-tallow and honest worry, and the western wind smells faintly of river mud and distant snow.
+-> END
+
+~ weston_later
+weston_murdoch [neutral]: Keep our lost bird in your prayers until your boots are ready, friends.
+-> END
+
+~ melina_wait
+set melina_met
+melina [afraid]: Have you word from the river road? No, pardon me, you have not even left yet, my wits are all scattered.
+* Tell us about Gareth. -> melina_gareth
+* What did you see in Dawn's Gate? -> melina_saw
+* [if not flag.melina_token] Ask for something Gareth would know -> melina_token
+* Leave her for now. -> END
+
+~ melina_gareth
+melina [sad]: He is mule-headed when he thinks a soul needs help, and he sings louder than anyone in the choir, never once on the right note.
+melina [afraid]: Tell him Melina sent you, and he will stop arguing long enough to listen.
+-> melina_wait
+
+~ melina_saw
+melina [afraid]: When the mountain bells rang, the whole town dropped to their knees in the dirt. A boy by the stables whispered something that turned Gareth pale.
+melina [sad]: Above us, those great monastery windows burned red as open sores against the snow. Gareth told me to run, and Heaven forgive me, I ran.
+-> melina_wait
+
+~ melina_token
+melina [sad]: Here, take this little lark I whittled from ash wood. He carries its twin in his coat pocket, so he will know you come from me.
+give melinas_songbird
+set melina_token
+-> melina_wait
+
+~ weston_return
+set mon_returned
+quest crimson_monastery done
+set phillip_dinner_invited
+gold +100
+if flag.gareth_fate == "rescued"
+weston_murdoch [smile]: You brought him back whole! Melina has not stopped weeping for joy, and Gareth is already singing off-key at the top of his lungs.
+Narrator: Through the church doors drifts a bright, ragged chorus, one booming baritone cheerfully dragging half a beat behind the rest.
+else
+weston_murdoch [sad]: We held Gareth's service by the old stones tonight. He stayed behind for a stranger's sake, and I mean to put his name forward for sainthood.
+Narrator: Candle smoke hangs blue and sweet beneath the rafters, where the choir hums a low hymn without its loudest voice.
+endif
+if flag.crimson_faith_disbanded
+weston_murdoch [weary]: Stragglers from that mountain cult are already wandering into Wickermoor, blinking like moles, and our three faiths are squabbling over who gets to save them first.
+endif
+weston_murdoch [neutral]: Before I forget, a footman left a heavy cream card for you. Lord Phillip Druskenvald invites you all to supper at the Druskenvald Estate.
+-> END
+
+~ melina_reunion
+if flag.gareth_fate == "rescued"
+melina [smile]: Look here, both little wooden birds back in one nest. Thank you for bringing my stubborn fool home to me.
+else
+melina [sad]: You walked into that red dark for him, and you brought me the truth of his end. I am grateful you tried, truly I am.
+endif
+melina [weary]: Go on in out of the wind when you can, friends.
+-> END

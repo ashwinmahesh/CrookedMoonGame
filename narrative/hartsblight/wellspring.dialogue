@@ -1,0 +1,73 @@
+# Drafted by Gemini (R18 wellspring), edited.
+
+~ river
+Narrator: Sixty feet of sluggish black water crawls between stony banks and rattling dead reeds. The smell of sour mud and old iron hangs cold over the ford.
+* [Arcana DC 15] Study the toll -> toll_ok | toll_plain
+* Wade across and pay in blood -> pay_hp
+* Drink and take the rot -> pay_blight
+* Leave -> END
+
+~ toll_ok
+Narrator: An old ferryman knows a greedy crossing when he sees one: this water bites healthy flesh, though it lets the blighted pass like kin. Drink its rot or bleed for the privilege.
+-> river
+
+~ toll_plain
+Narrator: The dark current slides past the dead reeds, keeping its terms to itself.
+-> river
+
+~ pay_hp
+Narrator: You step into the waist-deep chill, and the black water latches onto your shins like a hundred freezing leeches. By the far bank your boots are full of blood.
+damage 3d8 necrotic party
+set hb_river_paid
+-> END
+
+~ pay_blight
+Narrator: You cup the bitter, mossy water to your lips and swallow the river's sickness down. When you wade across, the current parts around your knees like an old friend.
+set hb_blight += 1
+set hb_river_paid
+-> END
+
+~ stones
+Narrator: Leaning standing stones, furred in shelf-fungus, ring a sixty-foot clearing and a churning green-yellow pool. Bright clouds of glowing spores drift off the water like swamp lanterns.
+* [Arcana DC 15] Study the stones -> stones_ok | stones_plain
+* [Religion DC 15] Study the stones -> stones_ok | stones_plain
+* [Perception DC 15] Look into the pool -> pool_mass | pool_nothing
+* Approach the pool -> rises
+* Leave -> END
+
+~ stones_ok
+Narrator: These monoliths were raised long before the rot, drinking deep from the earth to feed whatever sleeps in the basin. Toppling them now would only spill the soup, not cool the pot.
+-> stones
+
+~ stones_plain
+Narrator: The wet stone is warm under the fungus, humming faintly against your knuckles.
+-> stones
+
+~ pool_mass
+Narrator: Down beneath the churning yellow scum, a vast, tangled mound shifts against the silt like a waterlogged hill.
+-> stones
+
+~ pool_nothing
+Narrator: The glowing spores sting your eyes, leaving only your own pale reflections staring back from the grease.
+-> stones
+
+~ rises
+cutscene hb_gwenna_rises
+Narrator: Five paces from the rim, the yellow water boils over the stones and a mountain of weeping moss and bone heaves itself upright.
+cutscene hb_gwenna_rises_2
+cutscene end
+set hb_festerhulk_started
+combat hb_festerhulk
+
+~ pool_memory
+Narrator: The felled bulk bursts into a roaring cloud of spores that surges north through the trees, trailing pale slime across the roots. As the spores fill your lungs, another memory takes your sight.
+cutscene hb_pool_memory
+Narrator: Clear spring water shines inside a ring of clean grey stone, and antlered arms cradle a dead woman's weight.
+cutscene hb_pool_memory_2
+Narrator: Gently as a prayer, the corpse is lowered into the wellspring, and the clear water curdles into erupting yellow rot.
+cutscene end
+Narrator: When your own eyes clear, you know that dead woman's face: you saw it woven in dry branches at the forest's edge, Gwenna herself.
+set hb_pool_memory_seen
+set mem_farryn_gwenna
+set hb_blight += 2
+-> END

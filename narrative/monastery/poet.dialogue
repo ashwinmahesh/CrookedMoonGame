@@ -1,0 +1,52 @@
+# Drafted by Gemini (R14 poet), edited.
+
+~ quill_start
+Narrator: An ink-stained pilgrim taps a silver nib against his chin, utterly deaf to the howling wind and the smell of cold ash.
+pilgrim_quill [smile]: Hush now, don't trample the meter. I am composing a masterwork for Father Renathyr, to be declaimed at the next Night of Flames.
+* Let us hear this ode of yours. -> quill_ode
+* [if flag.quill_asked] Help with the ode -> quill_help
+* Are you related to Ambrose Quill in Wickermoor? -> quill_cousin
+* Leave him to his verses. -> END
+
+~ quill_ode
+pilgrim_quill [smile]: "O Crimson Father, high in your grand monastery, burn all the wicked in your holy fire-blastery!" Notice how "blastery" captures the sheer percussive theology of the pyre.
+Narrator: He beams at you, waiting for the applause that surely follows a freshly minted noun.
+quest pilgrims_bad_poetry asked
+set quill_asked
+-> quill_start
+
+~ quill_cousin
+pilgrim_quill [angry]: My cousin Ambrose is a provincial hack who counts syllables on his knuckles. I have never read a single line of his, and I know for a fact they are dreadful.
+-> quill_start
+
+~ quill_help
+pilgrim_quill [neutral]: You wish to offer notes on my stanza? Speak quickly, then, before the muse hardens like tallow.
+* [Performance DC 12] Recite a better rhyme for him -> quill_fixed | quill_flat
+* [Persuasion DC 12] Tell him not to recite it -> quill_withheld | quill_flat
+* Offer a plain rhyme: "dread" with "bed" -> quill_fixed
+* [ends:pilgrims_bad_poetry] Let him recite it as it is. -> quill_recites
+
+~ quill_flat
+pilgrim_quill [sly]: He sniffs, tilting his chin toward the red glass above. No, no, your cadence is all muddled; explain yourself properly if you mean to meddle.
+-> quill_help
+
+~ quill_fixed
+pilgrim_quill [weary]: A pedestrian couplet, I suppose, though it spares the priors a coined word. Take this fair copy for your trouble, and I shall use the tamer verse.
+Narrator: The poem is only slightly less lethal to the ear, though it may now spare the poet's neck.
+set quill_outcome = "fixed"
+quest pilgrims_bad_poetry done
+give quill_ode
+-> quill_start
+
+~ quill_withheld
+pilgrim_quill [sad]: Pearls before hounds, you say? Perhaps you are right; these mountain priors have the ear of a quarryman, so I shall keep the parchment in my coat.
+set quill_outcome = "withheld"
+quest pilgrims_bad_poetry done
+-> quill_start
+
+~ quill_recites
+pilgrim_quill [smile]: Wise of you not to tamper with perfection. When the torches touch the kindling, my voice shall ring from the bell tower to the valley floor!
+Narrator: When the verse is later read aloud, the courtyard answers without a single clap, and by morning the poet wears a purpled eye and a strangely lighter heart.
+set quill_outcome = "recited"
+quest pilgrims_bad_poetry burned
+-> END

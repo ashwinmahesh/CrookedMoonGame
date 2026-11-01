@@ -1,0 +1,801 @@
+{
+  "areas": [
+    {
+      "id": "outcrop_top",
+      "name": "The camp on the rock",
+      "cells": [
+        [
+          13,
+          13
+        ],
+        [
+          27,
+          23
+        ]
+      ],
+      "light": "bright"
+    },
+    {
+      "id": "outcrop_edge",
+      "name": "The way out",
+      "cells": [
+        [
+          8,
+          32
+        ],
+        [
+          31,
+          38
+        ]
+      ]
+    }
+  ],
+  "encounters": [
+    {
+      "id": "hb_beetles",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "ankheg",
+          "cell": [
+            19,
+            29
+          ],
+          "name": "A carrion beetle",
+          "facing": "north"
+        },
+        {
+          "monster": "ankheg",
+          "cell": [
+            20,
+            30
+          ],
+          "name": "A carrion beetle",
+          "facing": "north"
+        },
+        {
+          "monster": "ankheg",
+          "cell": [
+            19,
+            30
+          ],
+          "name": "A carrion beetle",
+          "facing": "north"
+        },
+        {
+          "monster": "ankheg",
+          "cell": [
+            18,
+            29
+          ],
+          "name": "A carrion beetle",
+          "facing": "north"
+        },
+        {
+          "monster": "ankheg",
+          "cell": [
+            20,
+            27
+          ],
+          "name": "A carrion beetle",
+          "facing": "north"
+        },
+        {
+          "monster": "ankheg",
+          "cell": [
+            20,
+            31
+          ],
+          "name": "A carrion beetle",
+          "facing": "north"
+        },
+        {
+          "monster": "ankheg",
+          "cell": [
+            18,
+            30
+          ],
+          "name": "A carrion beetle",
+          "facing": "north"
+        },
+        {
+          "monster": "ankheg",
+          "cell": [
+            19,
+            27
+          ],
+          "name": "A carrion beetle",
+          "facing": "north"
+        }
+      ],
+      "flag": "hb_beetles_done"
+    },
+    {
+      "id": "hb_beetles_leave",
+      "trigger": "enter_area:outcrop_edge",
+      "flag": "hb_beetles_done",
+      "monsters": [
+        {
+          "monster": "ankheg",
+          "cell": [
+            19,
+            29
+          ],
+          "name": "A carrion beetle",
+          "facing": "north"
+        },
+        {
+          "monster": "ankheg",
+          "cell": [
+            20,
+            30
+          ],
+          "name": "A carrion beetle",
+          "facing": "north"
+        },
+        {
+          "monster": "ankheg",
+          "cell": [
+            19,
+            30
+          ],
+          "name": "A carrion beetle",
+          "facing": "north"
+        },
+        {
+          "monster": "ankheg",
+          "cell": [
+            18,
+            29
+          ],
+          "name": "A carrion beetle",
+          "facing": "north"
+        },
+        {
+          "monster": "ankheg",
+          "cell": [
+            20,
+            27
+          ],
+          "name": "A carrion beetle",
+          "facing": "north"
+        },
+        {
+          "monster": "ankheg",
+          "cell": [
+            20,
+            31
+          ],
+          "name": "A carrion beetle",
+          "facing": "north"
+        },
+        {
+          "monster": "ankheg",
+          "cell": [
+            18,
+            30
+          ],
+          "name": "A carrion beetle",
+          "facing": "north"
+        },
+        {
+          "monster": "ankheg",
+          "cell": [
+            19,
+            27
+          ],
+          "name": "A carrion beetle",
+          "facing": "north"
+        }
+      ],
+      "when": "flag.hb_camp_seen and not flag.hb_beetles_done"
+    }
+  ],
+  "exits": [
+    {
+      "id": "to_altar",
+      "cell": [
+        20,
+        39
+      ],
+      "to": "hb_altar_of_rot",
+      "spawn": "from_outcrop",
+      "label": "Back to the altar of rot"
+    }
+  ],
+  "id": "hb_infested_outcrop",
+  "lights": [
+    {
+      "cell": [
+        20,
+        18
+      ],
+      "kind": "candle",
+      "bright_ft": 40,
+      "dim_ft": 80,
+      "color": "candle"
+    }
+  ],
+  "map": {
+    "elevation": [
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111122223221111111111111111",
+      "1111111111111122233455432111111111111111",
+      "1111111111112234556677643211111111111111",
+      "1111111111122456677777765322111111111111",
+      "1111111111124677777777776543211111111111",
+      "1111111111124677777777777764211111111111",
+      "1111111111124677777777777775311111111111",
+      "1111111111135777777777777775321111111111",
+      "1111111111235777777777777775311111111111",
+      "1111111111246777777777777775311111111111",
+      "1111111111246777777777777775321111111111",
+      "1111111111246777777777777765311111111111",
+      "1111111111234677777777777754211111111111",
+      "1111111111123456777777776542111111111111",
+      "1111111111112234567777764321111111111111",
+      "1111111111111122345566542211111111111111",
+      "1111111111111111222333322111111111111111",
+      "1111111111111111111222211111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111",
+      "1111111111111111111111111111111111111111"
+    ],
+    "light": "dim",
+    "outdoors": true,
+    "rows": [
+      "########################################",
+      "########################################",
+      "##....................................##",
+      "##....................................##",
+      "##....................................##",
+      "##....................................##",
+      "##................~......~~...........##",
+      "##...............~~~...~~~~~..........##",
+      "##...............~~~~~~~~~~~~.........##",
+      "#####...........~~~~~~~~~~~~~.........##",
+      "######.....~~~~~~~~~##~~~~~~~.........##",
+      "######....~~~~~~########~~~~~.........##",
+      "##.##....~~~~~###########~~~~~........##",
+      "##.#.....~~~#####......####~~~........##",
+      "##......~~~~####........####~~~.......##",
+      "##.#....~~~~~##..........###~~~.......##",
+      "##.##...~~~~##............##~~~~......##",
+      "##.##....~~~##............##~~~~......##",
+      "##.......~~~##............##~~~~......##",
+      "##......~~~###............##~~~~......##",
+      "##......~~~###...........###~~~.......##",
+      "##.....~~~~~###.........###~~~~.......##",
+      "##.....~~~~~~~###.....####~~~~...##...##",
+      "##......~~~~~~~####...###~~~~....##...##",
+      "##......~~~~~~~~~~#...#~~~.......##...##",
+      "##.......~~~~~~~~~~...~~~~............##",
+      "##........~~~~~~~~~...~~~~............##",
+      "##.........~~~~~~~~...~~~~............##",
+      "##............~~~.~~~~~~~~............##",
+      "##..................~~~~~.............##",
+      "##...................~~~..............##",
+      "##....................................##",
+      "##.........................##.........##",
+      "##........................####........##",
+      "##.....####................##.........##",
+      "##....#####...........................##",
+      "##.....###............................##",
+      "##.....#..............................##",
+      "##################.....#################",
+      "##################.....#################"
+    ],
+    "theme": "forest"
+  },
+  "name": "The Infested Outcrop",
+  "npcs": [],
+  "props": [
+    {
+      "id": "hb_outcrop_leg",
+      "cell": [
+        20,
+        35
+      ],
+      "kind": "decor",
+      "label": "The way in, and the smell of it",
+      "call": "hartsblight/trek:leg_outcrop",
+      "approach": 8,
+      "call_when": "not flag.hb_leg_outcrop"
+    },
+    {
+      "id": "hb_camp",
+      "cell": [
+        20,
+        18
+      ],
+      "kind": "examine",
+      "label": "The botanists' camp, safe in the smoke",
+      "model": "cookpot",
+      "dialogue": "hartsblight/forest1:camp"
+    },
+    {
+      "id": "hb_tent_0",
+      "cell": [
+        16,
+        15
+      ],
+      "kind": "decor",
+      "label": "A tent, sagging",
+      "model": "sheeted_furniture"
+    },
+    {
+      "id": "hb_tent_1",
+      "cell": [
+        24,
+        15
+      ],
+      "kind": "decor",
+      "label": "A tent, sagging",
+      "model": "sheeted_furniture"
+    },
+    {
+      "id": "hb_tent_2",
+      "cell": [
+        16,
+        21
+      ],
+      "kind": "decor",
+      "label": "A tent, sagging",
+      "model": "sheeted_furniture"
+    },
+    {
+      "id": "hb_tent_3",
+      "cell": [
+        23,
+        20
+      ],
+      "kind": "decor",
+      "label": "A tent, sagging",
+      "model": "sheeted_furniture"
+    },
+    {
+      "id": "hb_botanist_0",
+      "cell": [
+        18,
+        15
+      ],
+      "kind": "decor",
+      "label": "A bloated body on a log",
+      "model": "bloodstain"
+    },
+    {
+      "id": "hb_botanist_1",
+      "cell": [
+        22,
+        15
+      ],
+      "kind": "decor",
+      "label": "A bloated body on a log",
+      "model": "bloodstain"
+    },
+    {
+      "id": "hb_botanist_2",
+      "cell": [
+        18,
+        22
+      ],
+      "kind": "decor",
+      "label": "A bloated body on a log",
+      "model": "bloodstain"
+    },
+    {
+      "id": "hb_botanist_3",
+      "cell": [
+        21,
+        21
+      ],
+      "kind": "decor",
+      "label": "A bloated body on a log",
+      "model": "bloodstain"
+    },
+    {
+      "id": "hb_smoke_bottle",
+      "cell": [
+        20,
+        20
+      ],
+      "kind": "decor",
+      "label": "The Eversmoking Bottle, still hissing",
+      "model": "jars"
+    },
+    {
+      "id": "hb_cold_fire",
+      "cell": [
+        19,
+        17
+      ],
+      "kind": "decor",
+      "label": "A cold fire pit",
+      "model": "soot_patch"
+    },
+    {
+      "id": "hb_burrow_a",
+      "cell": [
+        10,
+        30
+      ],
+      "kind": "decor",
+      "label": "A burrow hole at the smoke's edge",
+      "model": "rocks"
+    },
+    {
+      "id": "hb_burrow_b",
+      "cell": [
+        30,
+        28
+      ],
+      "kind": "decor",
+      "label": "An acid-scored trench",
+      "model": "scorch"
+    },
+    {
+      "id": "hb_burrow_c",
+      "cell": [
+        7,
+        23
+      ],
+      "kind": "decor",
+      "label": "An upturned mound of soil",
+      "model": "rocks"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_0",
+      "cell": [
+        21,
+        31
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_1",
+      "cell": [
+        22,
+        6
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_2",
+      "cell": [
+        29,
+        23
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_3",
+      "cell": [
+        30,
+        22
+      ],
+      "kind": "decor",
+      "label": "A dead tree, furred with fungus",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_4",
+      "cell": [
+        36,
+        5
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_5",
+      "cell": [
+        5,
+        26
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_6",
+      "cell": [
+        28,
+        7
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_7",
+      "cell": [
+        19,
+        31
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_8",
+      "cell": [
+        3,
+        6
+      ],
+      "kind": "decor",
+      "label": "A split trunk bursting with shelf fungus",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_9",
+      "cell": [
+        33,
+        29
+      ],
+      "kind": "decor",
+      "label": "A split trunk bursting with shelf fungus",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_10",
+      "cell": [
+        10,
+        9
+      ],
+      "kind": "decor",
+      "label": "A dead tree, furred with fungus",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_11",
+      "cell": [
+        27,
+        31
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_12",
+      "cell": [
+        5,
+        23
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_13",
+      "cell": [
+        19,
+        3
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_14",
+      "cell": [
+        11,
+        4
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_15",
+      "cell": [
+        30,
+        23
+      ],
+      "kind": "decor",
+      "label": "A dead tree, furred with fungus",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_16",
+      "cell": [
+        31,
+        20
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_infested_outcrop_tree_17",
+      "cell": [
+        8,
+        13
+      ],
+      "kind": "decor",
+      "label": "A dead tree, furred with fungus",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "hb_infested_outcrop_bones_0",
+      "cell": [
+        9,
+        29
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_infested_outcrop_bones_1",
+      "cell": [
+        28,
+        31
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_infested_outcrop_bones_2",
+      "cell": [
+        8,
+        17
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_infested_outcrop_bones_3",
+      "cell": [
+        30,
+        13
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_infested_outcrop_bones_4",
+      "cell": [
+        7,
+        13
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_infested_outcrop_bones_5",
+      "cell": [
+        11,
+        7
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_infested_outcrop_misc_0",
+      "cell": [
+        11,
+        28
+      ],
+      "kind": "decor",
+      "label": "Cobwebs hung with spores",
+      "model": "cobwebs"
+    },
+    {
+      "id": "hb_infested_outcrop_misc_1",
+      "cell": [
+        13,
+        6
+      ],
+      "kind": "decor",
+      "label": "Drifts of grey leaves",
+      "model": "leaves"
+    },
+    {
+      "id": "hb_infested_outcrop_misc_2",
+      "cell": [
+        10,
+        27
+      ],
+      "kind": "decor",
+      "label": "Cobwebs hung with spores",
+      "model": "cobwebs"
+    },
+    {
+      "id": "hb_infested_outcrop_misc_3",
+      "cell": [
+        26,
+        24
+      ],
+      "kind": "decor",
+      "label": "Pale vines",
+      "model": "vines"
+    },
+    {
+      "id": "hb_infested_outcrop_misc_4",
+      "cell": [
+        23,
+        35
+      ],
+      "kind": "decor",
+      "label": "Mossy stones",
+      "model": "rocks"
+    },
+    {
+      "id": "hb_infested_outcrop_misc_5",
+      "cell": [
+        32,
+        34
+      ],
+      "kind": "decor",
+      "label": "Drifts of grey leaves",
+      "model": "leaves"
+    },
+    {
+      "id": "hb_infested_outcrop_misc_6",
+      "cell": [
+        29,
+        27
+      ],
+      "kind": "decor",
+      "label": "Cobwebs hung with spores",
+      "model": "cobwebs"
+    },
+    {
+      "id": "hb_infested_outcrop_misc_7",
+      "cell": [
+        31,
+        34
+      ],
+      "kind": "decor",
+      "label": "Pale vines",
+      "model": "vines"
+    }
+  ],
+  "region": "hartsblight_forest",
+  "rest": "risky",
+  "rest_text": "The spores drift down on your bedrolls like a slow, soft snow, and the trees are listening.",
+  "spawns": {
+    "default": [
+      20,
+      37
+    ],
+    "from_altar": [
+      20,
+      37
+    ]
+  },
+  "summary": "A rock outcrop in a ring of soft, upturned soil, with a dead botanists' camp on top.",
+  "text": "A rock outcrop in a ring of soft, upturned soil, with a dead botanists' camp on top. Flies and beetles buzz everywhere except inside the smoke.",
+  "traps": []
+}

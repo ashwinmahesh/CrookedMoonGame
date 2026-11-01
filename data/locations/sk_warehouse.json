@@ -1,0 +1,295 @@
+{
+  "id": "sk_warehouse",
+  "name": "The Warehouse",
+  "region": "skitterdeep_mine",
+  "summary": "The mine's old store, smashed and sleeping.",
+  "text": "Broken shelves, rubble to the ankle, a thin green haze and the sound of heavy breathing.",
+  "map": {
+    "rows": [
+      "#################",
+      "#~~==~~~~==~~~~~#",
+      "#~~~~~~~~~~~~~~~#",
+      "#~~~~~~~~~~~~~~~#",
+      "#~~~~~~~~~~~==~~#",
+      "#~~~~~~~~~~~~~~~#",
+      "#~=~~~==~~~~~~~~#",
+      "#~~~~~~~~~~~~~~~#",
+      "#################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "spawns": {
+    "default": [
+      8,
+      7
+    ],
+    "from_camp": [
+      8,
+      7
+    ]
+  },
+  "areas": [
+    {
+      "id": "wh_floor",
+      "name": "The warehouse floor",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          15,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "wh_sleepers",
+      "name": "The sleepers",
+      "cells": [
+        [
+          2,
+          2
+        ],
+        [
+          14,
+          6
+        ]
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        8,
+        8
+      ],
+      "to": "sk_camp",
+      "spawn": "from_warehouse",
+      "label": "Out to the camp"
+    }
+  ],
+  "props": [
+    {
+      "id": "sk_wh_sheet_a",
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "examine",
+      "label": "A pallet of rusted sheet metal",
+      "model": "broken_boards"
+    },
+    {
+      "id": "sk_wh_sheet_b",
+      "cell": [
+        6,
+        5
+      ],
+      "kind": "examine",
+      "label": "A pallet of rusted sheet metal",
+      "model": "broken_boards"
+    },
+    {
+      "id": "sk_wh_sheet_c",
+      "cell": [
+        11,
+        2
+      ],
+      "kind": "examine",
+      "label": "A pallet of rusted sheet metal",
+      "model": "broken_boards"
+    },
+    {
+      "id": "sk_wh_sheet_d",
+      "cell": [
+        13,
+        5
+      ],
+      "kind": "examine",
+      "label": "A pallet of rusted sheet metal",
+      "model": "broken_boards"
+    },
+    {
+      "id": "sk_wh_trinkets_a",
+      "cell": [
+        2,
+        2
+      ],
+      "kind": "search",
+      "label": "A heap of miners' leavings",
+      "search_dc": 8,
+      "item": "incense",
+      "skill": "investigation"
+    },
+    {
+      "id": "sk_wh_trinkets_b",
+      "cell": [
+        14,
+        1
+      ],
+      "kind": "search",
+      "label": "A rotted lunch pail",
+      "search_dc": 10,
+      "item": "sk_miners_lunch",
+      "skill": "investigation"
+    },
+    {
+      "id": "sk_wh_note",
+      "cell": [
+        8,
+        1
+      ],
+      "kind": "examine",
+      "label": "A foreman's board, half legible",
+      "model": "notice_board",
+      "dialogue": "skitterdeep/camp:foreman_board"
+    },
+    {
+      "id": "sk_wh_rubble",
+      "cell": [
+        5,
+        4
+      ],
+      "kind": "examine",
+      "label": "Rubble and old crates",
+      "model": "rubble"
+    },
+    {
+      "id": "sk_wh_barrels",
+      "cell": [
+        1,
+        6
+      ],
+      "kind": "examine",
+      "label": "A barrel of rotted flour",
+      "model": "barrel"
+    },
+    {
+      "id": "sk_wh_crawlers",
+      "cell": [
+        9,
+        4
+      ],
+      "kind": "decor",
+      "label": "Tiny centipedes in the flour",
+      "model": "soot_patch"
+    },
+    {
+      "id": "sk_wh_cobwebs",
+      "cell": [
+        15,
+        1
+      ],
+      "kind": "decor",
+      "label": "Cobwebs",
+      "model": "cobwebs"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "sk_wh_sleepers",
+      "trigger": "enter_area:wh_sleepers",
+      "monsters": [
+        {
+          "monster": "deepdreck",
+          "cell": [
+            3,
+            3
+          ],
+          "name": "A sleeping miner",
+          "facing": "south",
+          "lying": true
+        },
+        {
+          "monster": "deepdreck",
+          "cell": [
+            6,
+            5
+          ],
+          "name": "A sleeping miner",
+          "facing": "south",
+          "lying": true
+        },
+        {
+          "monster": "deepdreck",
+          "cell": [
+            11,
+            2
+          ],
+          "name": "A sleeping miner",
+          "facing": "south",
+          "lying": true
+        },
+        {
+          "monster": "deepdreck",
+          "cell": [
+            13,
+            5
+          ],
+          "name": "A sleeping miner",
+          "facing": "south",
+          "lying": true
+        }
+      ],
+      "waiting": true,
+      "flag": "sk_wh_done",
+      "when": "level >= 7"
+    },
+    {
+      "id": "sk_wh_sleepers",
+      "trigger": "enter_area:wh_sleepers",
+      "monsters": [
+        {
+          "monster": "deepdreck",
+          "cell": [
+            3,
+            3
+          ],
+          "name": "A sleeping miner",
+          "facing": "south",
+          "lying": true
+        },
+        {
+          "monster": "deepdreck",
+          "cell": [
+            6,
+            5
+          ],
+          "name": "A sleeping miner",
+          "facing": "south",
+          "lying": true
+        }
+      ],
+      "waiting": true,
+      "flag": "sk_wh_done"
+    }
+  ],
+  "rest": "risky",
+  "containers": [
+    {
+      "id": "sk_lockbox",
+      "cell": [
+        14,
+        2
+      ],
+      "label": "A rusted lockbox",
+      "items": [
+        {
+          "id": "citrine",
+          "qty": 3
+        },
+        {
+          "id": "potion_of_healing_greater",
+          "qty": 1
+        }
+      ],
+      "gold": 0,
+      "lock_dc": 14
+    }
+  ]
+}

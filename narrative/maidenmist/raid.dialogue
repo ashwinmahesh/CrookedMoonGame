@@ -1,0 +1,138 @@
+# Drafted by Gemini (R19 raid), edited. Dusk of the Dead, Doris Squire's militia, and Mori Shade's request.
+
+~ alarm
+if not flag.mm_raid_seen
+set mm_raid_seen
+cutscene mm_dusk_of_the_dead
+Narrator: The iron clock-tower bells clang late into the Dusk Hour across the slick cobbles. Pale ghasts shriek down Wickermoor's narrow streets, tearing into anyone slow enough to be caught in the fog.
+endif
+doris_squire [angry]: Grave dirt is open and the dead are walking the cobbles. My militia is stretched thin across the lanes, so grab a weapon if you mean to help.
+-> alarm_menu
+
+~ alarm_menu
+* Fight beside the militia -> go_fight
+* [if not flag.mm_militia_done] Organise the militia first -> militia_start
+* [if flag.mm_nights_delayed < 4] Let the militia hold the lanes tonight -> delay
+* [if not flag.mm_inspected] [Medicine DC 10] Look at what the ghasts were -> inspect | inspect_fail
+* Not yet -> END
+
+~ inspect
+set mm_inspected
+doris_squire [neutral]: Some of these corpses have lain under the sod for centuries, and others scarce a fortnight. The freshest rot here is Gregor Bolton, who tumbled off the Mayor's slate roof last month.
+-> alarm_menu
+
+~ inspect_fail
+set mm_inspected
+Narrator: The torn corpses are too far gone to read by lantern light, and the sour stench of grave rot is not helping.
+-> alarm_menu
+
+~ delay
+set mm_nights_delayed += 1
+set mm_raid_delay = now
+set mm_volunteers_lost += 2
+doris_squire [weary]: My people will hold the barricades with pitchforks and cold iron, though we will bleed for every yard. I have a long memory for strangers who stand dry under the eaves while neighbours die.
+time +600
+-> END
+
+~ go_fight
+set mm_raid_started
+quest maidenmist_dead_rise dusk_of_the_dead
+doris_squire [angry]: Clear the barricade, lads, and give these armed strangers room to work toward the market square.
+combat mm_raid
+
+~ aftermath
+set mm_raid_done
+if flag.mm_nights_delayed >= 1
+doris_squire [sad]: Four of my night watch went down in the mud while we waited on the road. Their lanterns are cold on the cobbles now, and I have widows to wake before dawn.
+else
+doris_squire [smile]: Not one villager was dragged into the fog tonight, and every threshold still has its lock. You have my thanks, strangers, and you will not hear me say it twice.
+endif
+doris_squire [neutral]: That fresh corpse by the pump was Gregor Bolton, the roofer who broke his neck off the Mayor's gables. Mori Shade will want word of this before the undertaker's cart makes its rounds.
+-> END
+
+~ militia_start
+quest doris_militia asked
+doris_squire [neutral]: Four posts need holding before the fog thickens, and I have only four volunteers left. We must cover the bell tower, the south bridge, the forge, and the funeral lane. Point them where they belong, quick.
+-> post_bell
+
+~ post_bell
+Narrator: The high bell tower needs a sharp lookout who can ring clear signals across the steep slate rooftops.
+* Howie Butterman, the quick deputy -> post_bell_right
+* Hilda Brom, the huntress -> post_bell_wrong
+* Jean Myriel, the smith -> post_bell_wrong
+* Siv Harga, the butcher -> post_bell_wrong
+* [ends:doris_militia] Leave it to Doris -> militia_quit
+
+~ post_bell_right
+set mm_posts_held += 1
+Narrator: Howie works the heavy hemp ropes like a choir conductor, and every dark street hears the iron warning in time.
+-> post_bridge
+
+~ post_bell_wrong
+Narrator: The bronze bell clangs out of rhythm in the fog, and the stumbled warning reaches the lower lanes too late.
+-> post_bridge
+
+~ post_bridge
+Narrator: The narrow south bridge needs an archer with a steady eye and a heavy longbow to hold the planks.
+* Howie Butterman, the quick deputy -> post_bridge_wrong
+* Hilda Brom, the huntress -> post_bridge_right
+* Jean Myriel, the smith -> post_bridge_wrong
+* Siv Harga, the butcher -> post_bridge_wrong
+
+~ post_bridge_right
+set mm_posts_held += 1
+Narrator: Hilda looses grey-goose shafts into the mist one by one, dropping every shambling shape before a claw touches the bridge planks.
+-> post_forge
+
+~ post_bridge_wrong
+Narrator: The slick timber bridge holds against the clawing press, barely, and the splintering rail will not last long.
+-> post_forge
+
+~ post_forge
+Narrator: The roadside forge needs a steady hand at the bellows who can coat iron blades in molten silver fast.
+* Howie Butterman, the quick deputy -> post_forge_wrong
+* Hilda Brom, the huntress -> post_forge_wrong
+* Jean Myriel, the smith -> post_forge_right
+* Siv Harga, the butcher -> post_forge_wrong
+
+~ post_forge_right
+set mm_posts_held += 1
+Narrator: Jean silvers a full rack of billhooks and knives before the first shriek dies away, giving the militia real teeth.
+-> post_lane
+
+~ post_forge_wrong
+Narrator: The coal fire burns sluggish and smoky, and the freshly silvered blades reach the barricades far too late.
+-> post_lane
+
+~ post_lane
+Narrator: The muddy funeral lane reeks of grave-rot and needs a steady soul who does not flinch when corpses start to twitch.
+* Howie Butterman, the quick deputy -> post_lane_wrong
+* Hilda Brom, the huntress -> post_lane_wrong
+* Jean Myriel, the smith -> post_lane_wrong
+* Siv Harga, the butcher -> post_lane_right
+
+~ post_lane_right
+set mm_posts_held += 1
+Narrator: You step over the cold, twitching bodies as if they were Tuesday, and the lantern-lit funeral lane holds fast.
+-> militia_done
+
+~ post_lane_wrong
+Narrator: The wooden barricades splinter under dead hands, and the pale militia scrambles back toward the cobbles of the square.
+-> militia_done
+
+~ militia_done
+set mm_militia_done
+doris_squire [neutral]: Four posts stood, four posts held. That will do until the kettle boils.
+if flag.mm_posts_held >= 3
+quest doris_militia done
+standing old_ways +1
+else
+quest doris_militia done
+endif
+-> END
+
+~ militia_quit
+set mm_militia_done
+quest doris_militia lost
+doris_squire [weary]: Fine, I will haul the pikes and bar the gates myself. Folk round here have long memories for idle hands.
+-> END

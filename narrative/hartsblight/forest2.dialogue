@@ -1,0 +1,167 @@
+# Drafted by Gemini (R18 forest2), edited.
+
+~ common
+set hb_f5_seen
+Narrator: Hollowed tree roots yawn around a muddy green where twelve satyrs drum in the drifting spores. A keeper chants low in the old tongue at their middle.
+* Search a dwelling -> dwelling
+* Watch the circle -> common_watch
+* Leave -> END
+
+~ common_watch
+Narrator: The drummers sway with shut eyes, deaf to everything save their wet, steady beat. The only path deeper into the wood leads right past their heels.
+-> common
+
+~ dwelling
+Narrator: Inside the rotten trunk lie mouldy straw, antler idols, gourd rattles, and cracked prayer rings. A suit of bark and hide hangs beside the door.
+* [Investigation DC 12] Search the dwelling -> dwelling_ok | dwelling_fail
+* Try on the druid clothes -> garb
+* Leave -> common
+
+~ dwelling_ok
+Narrator: Tucked beneath a pile of damp pelts, your fingers close around a stoppered clay jar smelling cleanly of clover and beeswax.
+give restorative_ointment
+-> common
+
+~ dwelling_fail
+Narrator: You turn over wet bedding and split gourds for a solid ten minutes, finding nothing but a lungful of warm grey dust.
+time +10
+set hb_blight += 1
+-> common
+
+~ garb
+Narrator: The bark and cured hide are clammy against the skin and reek of sour sap, though in this dim light one of you might pass for a local.
+give druid_rot_garb
+set hb_garb_taken
+-> common
+
+~ ravine
+Narrator: A narrow cleft winds ahead, floored in slick jelly and roofed with webbing where swollen sap-bulbs hang like yellow lanterns.
+* [Nature DC 15] Ask what the bulbs are -> ravine_ok | ravine_plain
+* Cross single file without touching the walls -> cross
+* Run across -> cross_dash
+* Cut a bulb down from afar -> ravine_cut
+* Leave -> END
+
+~ ravine_ok
+Narrator: Those bladders are taut as boils and tethered to every root along the walls. Brush a single strand and the whole ceiling will spill what it is nursing.
+-> ravine
+
+~ ravine_plain
+Narrator: They look heavy, wet, and none too friendly, though what they hold is anyone's guess.
+-> ravine
+
+~ cross
+check Acrobatics DC 17 -> cross_ok | cross_bad
+
+~ cross_ok
+Narrator: You place each boot with dry-mouthed care across the slime. Overhead, the fat yellow bladders never so much as tremble.
+set hb_ravine_done
+-> END
+
+~ cross_bad
+Narrator: A heel slips in the grease, a root-line twangs, and the heavy sacs overhead split with a wet sigh.
+set hb_ravine_done
+combat hb_jellies
+
+~ cross_dash
+Narrator: Heavy boots set the root-walls shuddering, and overhead the swollen sacs split open with a wet sigh.
+set hb_ravine_done
+combat hb_jellies
+
+~ ravine_cut
+Narrator: The severed bladder bursts across the web, and its neighbours split in answer, slopping thick yellow mire into the gorge.
+set hb_ravine_done
+combat hb_jellies
+
+~ pool
+Narrator: Amidst the stinking mud pits and green scum lies one basin of water as clear as well-glass. Something pale and round glints on the bottom.
+* [Arcana DC 14] Study the clear pool -> pool_ok | pool_plain
+* Immerse in the clear pool -> dip
+* Leave -> END
+
+~ pool_ok
+Narrator: Old spring-grace still lingers in the basin, hungry to drink the rot from living flesh. Each washing will cloud the water darker, and greed will sour it for good.
+-> pool
+
+~ pool_plain
+Narrator: The water smells sweet and cold against the surrounding mire, though why the rot spares it is hard to say.
+-> pool
+
+~ dip
+set hb_pool_uses += 1
+if flag.hb_pool_uses <= 1
+-> dip_clean
+elif flag.hb_pool_uses == 2
+check Nature DC 10 -> dip_clean | dip_foul
+elif flag.hb_pool_uses == 3
+check Nature DC 13 -> dip_clean | dip_foul
+else
+check Nature DC 16 -> dip_clean | dip_foul
+endif
+
+~ dip_clean
+if flag.hb_blight > 0
+set hb_blight -= 1
+endif
+Narrator: Cold water bites through the fever in your veins, drawing a grey film from your skin that leaves the basin a shade darker.
+-> pool
+
+~ dip_foul
+Narrator: The water turns pitch-black with a belch of marsh gas, and three dripping heaps of root and carrion heave themselves out of the mud.
+set hb_pool_fouled
+combat hb_mounds
+
+~ pool_drained
+Narrator: With the muck-beasts felled, the basin sucks dry into the mud, leaving a pale bone ring carved with woodland script upon the stones.
+-> END
+
+~ gloom_start
+Narrator: Pale-green fungal stalks tower round a massive gnarled tree-man draped in red corpse-blooms, its hollow trunk groaning like split timber.
+gloomwood [angry]: Turn back, warm meat. Only what is promised to the mould may walk the inner stand.
+* [Persuasion DC 17] Talk it down -> gloom_try2 | gloom_fail
+* [Intimidation DC 17] Face it down -> gloom_try2 | gloom_fail
+* [Performance DC 17] Sing it a calm -> gloom_try2 | gloom_fail
+* [if flag.hb_knows_greenwood] Carve the name of the Greenwood into its trunk -> gloom_carve
+* Fight it -> gloom_fight
+* Leave -> END
+
+~ gloom_try2
+Narrator: The great boughs creak to a halt, and a shower of damp petals drifts from its shoulders.
+gloomwood [weary]: Strange voices under the cap-light. Speak plain before my roots remember their anger.
+* [Persuasion DC 17] Ask it to let you pass -> gloom_blessing | gloom_fail2
+* Fight it -> gloom_fight
+
+~ gloom_fail
+gloomwood [angry]: Noise and dry breath. The soil wants your marrow, not your words.
+-> gloom_start
+
+~ gloom_fail2
+gloomwood [angry]: Enough chatter. Lie down in the mulch and be still.
+-> gloom_start
+
+~ gloom_blessing
+gloomwood [neutral]: Breathe deep of the bloom, then. Carry our gift in your lungs, and the grove will part for you.
+set hb_gloomwood_talked_down
+set hb_blight += 4
+set hb_grove_done
+Narrator: A hot, sweet cloud puffs from the red flowers into your throats, and the pale stalks draw aside to open a path.
+-> hartsblight/gorthos:parley3
+
+~ gloom_carve
+Narrator: Your blade scores the old woodland name into the punky bark, and a long shudder takes the giant, dulling the swing of its heavy limbs.
+set hb_gloom_carved
+combat hb_gloomwood
+
+~ gloom_fight
+combat hb_gloomwood
+
+~ flower
+Narrator: Inside a wilted corpse-flower rests a leathery seed-pod the size of a fist, warm and faintly twitching to the touch.
+* Take the pod -> flower_take
+* Leave -> END
+
+~ flower_take
+Narrator: You tuck the warm pod into your pack, where it gives a muffled thump like a sleeping heart that will wake by tomorrow.
+give devils_glove_pod
+set hb_pod_taken
+-> END

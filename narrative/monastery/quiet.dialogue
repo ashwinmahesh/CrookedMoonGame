@@ -1,0 +1,49 @@
+# Drafted by Gemini (R14 quiet), edited.
+
+~ quiet_start
+Narrator: A pale friar in a woollen habit steps out from the shadow of the cloister pillars, smelling of tallow and chalk dust. He holds up a small grey slate in both trembling hands.
+Narrator: The slate reads: "I MUST TELL SOMEONE."
+* Who is the message for? -> quiet_who
+* What is it you need to tell them? -> quiet_what
+* [if flag.quiet_asked and not flag.quiet_carrying] Offer to carry a message -> quiet_carry
+* [if flag.quiet_asked] [ends:friar_quiet] Tell him we cannot carry it. -> quiet_give_up
+* Leave him to his silence. -> END
+
+~ quiet_who
+Narrator: He wipes the stone with the cuff of his sleeve, his knuckles white around the stub of chalk, and taps his collarbone where a pendant would hang.
+Narrator: The slate reads: "BROWN HAIR. SAD. A SONGBIRD. WOODEN BIRD ON A CORD. DO NOT KNOW HER NAME."
+set quiet_asked
+quest friar_quiet asked
+-> quiet_start
+
+~ quiet_what
+Narrator: The chalk squeaks fast against the dark stone, and he glances toward the red glass of the chapel windows before turning the board to you.
+Narrator: The slate reads: "THE TALL ONE SANG AS THEY TOOK HIM. I MUST SAY IT. I TOOK A VOW."
+-> quiet_start
+
+~ quiet_carry
+give quiet_slate
+set quiet_carrying
+Narrator: He scrubs the slate clean, writes one last time with careful, upright letters, and presses the cold stone into your palm before bowing his head.
+Narrator: The slate reads: "THANK YOU. TELL HER I HEARD IT, THE TUNE."
+-> END
+
+~ quiet_give_up
+quest friar_quiet lost
+Narrator: The slate reads: "AH."
+Narrator: He rubs the grey stone bare with his thumb, slips the bit of chalk back into his wide sleeve, and turns his face to the wall.
+-> END
+
+~ melina_message
+Narrator: Melina takes the chalk-smudged stone from your hand, her thumb tracing the stiff block letters and the few halting notes scratched along the bottom edge.
+melina [sad]: That is the little round I carved into his wooden bird before we left the mire. Gareth sang it while they dragged him off, and a silent man in that awful place listened.
+if flag.gareth_fate == "rescued"
+melina [smile]: Look at me crying when he is safe and breathing, the stubborn fool. God bless that quiet friar for keeping the tune alive for me.
+endif
+if flag.gareth_fate != "rescued"
+melina [sad]: My voice would have failed me on those stones, truly it would, yet he kept our song in his mouth to the last. Bless that poor friar for hearing him.
+endif
+take quiet_slate
+set quiet_done
+quest friar_quiet done
+-> END

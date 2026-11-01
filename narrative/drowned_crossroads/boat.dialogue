@@ -1,0 +1,277 @@
+# Drafted by Gemini (R15 boat), edited.
+
+~ elias_mute
+Narrator: A gaunt waiter stands in a damp, ill-fitting suit, his left sleeve pinned flat and empty. His hollow eye pits fix on you beneath peeling grey skin, though his stitched throat makes no sound.
+set elias_met
+quest withered_arm elias
+-> elias_menu
+
+~ elias_again
+Narrator: Elias stands where you left him in the neon glow and tips a silent chin toward the stairs leading below deck.
+-> elias_menu
+
+~ elias_menu
+* [if flag.withered_hand_taken] Show him the withered hand. -> hand_to_elias
+* [Medicine DC 13] Examine the empty sleeve and the stump beneath. -> elias_stump | elias_stump_miss
+* [if flag.high_roller_cursed >= 1] Ask him to break the casino's hold on us. -> curse_lift
+* Follow him down the stairs. -> elias_lead
+* Not yet. -> END
+
+~ hand_to_elias
+Narrator: He rolls back his frayed cuff to bare the grey wrist the hand once belonged to, a plain warning to anyone carrying such a thing, then points down through the floorboards.
+-> elias_lead
+
+~ elias_stump
+Narrator: The cut across the wrist bone is old and clean as a butcher's saw. Whatever took that hand away took the warm half of his soul along with it.
+-> elias_menu
+
+~ elias_stump_miss
+Narrator: It is an old, scarred stump under a threadbare cuff, and the waiter has long since stopped bothering to hide it from the table.
+-> elias_menu
+
+~ elias_lead
+set dc_boiler_lead
+Narrator: He turns and shambles ahead of you down the narrow companionway, past a steaming galley thick with the smell of fried eel, wet rot, and burnt sugar.
+move dc_boat_lower:from_hall
+
+~ ferryworks
+Narrator: Brass letters bolted across the boiler's soot-blackened plate read Stranger Ferryworks, the very foundry name the Wickermoor merchant Baltus Tolliver knew so well.
+-> END
+
+~ engineer
+soulfire_engineer [weary]: Mind the iron grating, strangers, before the flues vent and blister your skin. This furnace burns a live soul to keep the paddles turning, and it grows mean when the pressure drops.
+* Ask what soul burns inside the boiler. -> eng_soul
+* [Persuasion DC 15] Ask her to stand down and unlatch the grate. -> eng_down | eng_no
+* Leave the boiler room. -> END
+* Draw weapons and take the boiler by force. -> eng_fight
+
+~ eng_soul
+soulfire_engineer [sad]: His name was Elias Greaves, a card sharp who rode a cold iron train into the dark once. The firebox drinks whatever that train left inside his bones.
+-> engineer
+
+~ eng_down
+set dc_boiler_done
+xp fight dc_boiler_fight
+quest withered_arm elias
+soulfire_engineer [weary]: Eight hundred watches I have fed this grate, and my arms are tired of the shovel. Take what is left of him before the pressure builds again.
+Narrator: She lowers her iron rake and drifts back into the coal shadow, and her heavy stoker follows her out without a sound.
+-> END
+
+~ eng_no
+soulfire_engineer [weary]: Not on my watch, friends. If the fire dies, the captain upstairs hears the paddles slow, and my shift goes hard enough as it is.
+-> engineer
+
+~ eng_fight
+combat dc_boiler_fight
+
+~ boiler_open
+Narrator: The heavy iron door swings wide on a single green mote shivering in the ash, waiting for the dry fingers of its old hand or a brave reach into the soot.
+cutscene dc_elias_soul
+Narrator: The withered hand twitches free and leaps straight into the dark furnace to close around the green spark.
+cutscene dc_elias_soul_2
+Narrator: A sudden wash of magenta and green neon catches in the waiter's sunken eyes as his chest draws a long, rattling breath.
+cutscene dc_elias_soul_3
+Narrator: The gaunt frame loosens at last, and he sinks onto the iron step like a man setting down a trunk of lead.
+cutscene end
+set elias_freed
+set dc_ring_taken
+give adelas_wedding_ring
+heal 2d10 party temp
+-> elias_speaks
+
+~ elias_speaks
+elias_greaves [weary]: Much obliged for the light, friends, it has been a long, dry deal in the dark. Take two gambler's wards for your trouble, and Lady Adela's ring that my stray hand lifted off the Sinner.
+* Hear how Briggsy and Jack came to this. -> elias_story
+* Ask how to beat the Sinner. -> elias_hint
+* Ask about the wedding ring. -> elias_ring
+* Let him rest. -> elias_rest
+
+~ elias_story
+cutscene dc_briggsy
+Narrator: The embers show a younger captain rowing out at midnight, dropping a sigil-etched cutlass into the black water where two drowned roads cross.
+cutscene dc_briggsy_2
+Narrator: A tall figure of shadow and pale bone rises over the skiff, six long arms spreading wide beneath the crooked moon.
+cutscene dc_briggsy_3
+Narrator: Bone dice clatter across a hexed coffin lid just as grey dawn touches the moss, and the heavy lid slams shut.
+cutscene end
+-> elias_speaks
+
+~ elias_hint
+elias_greaves [sly]: Scratch that fine coat and he is still Captain Briggsy, the sorest loser on seven waters. Mock his seamanship and his forgotten name, or rattle that coffin, for he is mortal terrified of Snake Eye Jack.
+-> elias_speaks
+
+~ elias_ring
+elias_greaves [weary]: That gold band belongs to Lady Adela Druskenvald, though any low fence in the bend would pay a thousand for the stone. Give it back or sell it off, it makes no difference to me now.
+-> elias_speaks
+
+~ elias_rest
+set dc_hall_help
+Narrator: Elias tips two fingers to his brow in a tired gambler's salute, settles back against the cold iron of the boiler step, and closes his eyes.
+-> END
+
+~ keeper
+Narrator: Bilge water laps at the ankles of a chalk-pale bookkeeper in neat sleeve-garters, his ledger balanced on a damp knee.
+coin_keeper [weary]: The lower hold is for house accounts and bonded collateral, friends, not for evening strollers. State your business or step back up to the music.
+* Ask about the vault -> keeper_vault
+* [Intimidation DC 15] Tell him to open it -> keeper_open | keeper_hostile
+* Fight -> keeper_fight
+* Leave -> END
+
+~ keeper_vault
+coin_keeper [neutral]: Silver plate, forfeited deeds, and three crates of bottled warmth that no patron may carry off the gangplank. Every ounce is tallied in my ink.
+-> keeper
+
+~ keeper_open
+coin_keeper [angry]: Take the iron and choke on the rust, then, if you are so keen to audit a dead man's cellar. I am not paid enough to die twice.
+give coin_keepers_key
+-> END
+
+~ keeper_hostile
+Narrator: A frost of river-grave cold gathers on his brass cufflinks as he shuts the ledger and rises.
+coin_keeper [angry]: You will find my columns balance to the drop, friend, and your blood will do nicely for the red ink.
+-> keeper_fight
+
+~ keeper_fight
+coin_keeper [angry]: Guards, clear the ledger of these thieves!
+combat dc_vault_fight
+
+~ galley
+Narrator: Dead chefs in tall linen hats baste spiced crawfish and roast duck in a haze of butter and rum. Every platter smells like a feast worth drowning for.
+* Eat and drink (the house pays for a hundred gold of it) -> galley_drink
+* [if gold >= 5] Another round, five gold -> galley_more
+* Leave -> END
+
+~ galley_drink
+Narrator: The crust breaks hot and crisp between your teeth, and the dark rum warms you right down to your boot-soles.
+temp_hp 2d4 party
+-> galley
+
+~ galley_more
+Narrator: Five coins vanish into a sauce-stained apron, and fresh glasses come back brimming with amber fire.
+gold -5
+temp_hp 2d4 party
+-> galley
+
+~ wager
+Narrator: Green neon hums over the baize where a pale dealer deals with fingers that never quite touch the felt.
+boat_dealer [smile]: The river runs all night and the house never sleeps, ladies and gentlemen. Lay your gold upon the cloth and see if the moon likes your face.
+* [if gold >= 5] Ante five gold -> wager5
+* [if gold >= 10] Ante ten gold -> wager10
+* [if gold >= 20] Ante twenty gold -> wager20
+* Walk away -> END
+
+~ wager5
+boat_dealer [neutral]: Five gold on the green, modest and polite. Watch the spots on the pasteboards, friend, before they crawl away.
+* [Wisdom DC 20] Play the hand -> w5_win | w5_lose
+
+~ w5_win
+Narrator: It is a thin win, scraped off the felt while the painted kings leer up at your sleeves.
+gold +5
+-> curse_save
+
+~ w5_lose
+Narrator: The dealer's cold fingertips rake your five coins into the brass tray without a sound.
+gold -5
+-> curse_save
+
+~ wager10
+boat_dealer [sly]: Ten gold wakes the table up a little. Keep your eyes steady while I turn the river card.
+* [Wisdom DC 20] Play the hand -> w10_win | w10_lose
+
+~ w10_win
+Narrator: A narrow victory, though the coins you pocket smell faintly of swamp mud and tallow.
+gold +10
+-> curse_save
+
+~ w10_lose
+Narrator: Your hand sours on the turn, and ten bright pieces slide into the house's dark drawer.
+gold -10
+-> curse_save
+
+~ wager20
+boat_dealer [smile]: Twenty in the pot, and the horns in the band play a little sweeter for a bold spender.
+* [Wisdom DC 20] Play the hand -> w20_win | w20_lose
+
+~ w20_win
+Narrator: You take the pot by a whisker, your knuckles tight around gold that feels warmer than it ought to.
+gold +20
+-> curse_save
+
+~ w20_lose
+Narrator: The pips shift like beetles in the lamplight, and your twenty gold pieces belong to the boat.
+gold -20
+-> curse_save
+
+~ curse_save
+Narrator: Up on the bandstand, the brass horn hangs on its last bright note until your teeth ache with the sweetness of it.
+check Wisdom DC 8 -> curse_ok | curse_caught
+
+~ curse_ok
+Narrator: The jazz curls around your ears and tries to make you want to stay, then slips off like warm rainwater.
+-> END
+
+~ curse_caught
+Narrator: You would like another hand, and another drink, and to stay a good long while; somewhere a waiter in an ill-fitting suit is already looking for you.
+set high_roller_cursed = 1
+set dc_hall_help
+-> END
+
+~ curse_lift
+Narrator: Elias sets a cold, steady hand on your shoulder, and the feverish want drains out of you like bilge through a grate.
+elias_greaves [weary]: Step back from the baize while you still remember your own name, friend. That music only knows one tune, and it ends in the hold.
+set high_roller_cursed = 0
+-> END
+
+~ window
+Narrator: The tall mirrored windows show your own double lounging among piled gold and silk, boasting that it is nearly a god of sin before it grins with sharp teeth and vanishes.
+set dc_window_seen
+-> END
+
+~ hexed_deck
+boat_dealer [sly]: This tarot was inked for playing against things from beyond the water, friend, and the best lucky charm in the pack is a Wild Joker.
+* [Sleight of Hand DC 16] Let your shadow cheat -> deck_win | deck_lose
+* Play it straight -> deck_lose
+* Leave -> END
+
+~ deck_win
+Narrator: Your shadow's long fingers slip a painted fool from the bottom of the pack, and the dealer's lacquered smile cracks from ear to ear.
+gold +50
+-> END
+
+~ deck_lose
+Narrator: The painted deck is not kind to anyone who plays it straight, and the cards bite your thumb as they fold.
+-> END
+
+~ dealer
+Narrator: Tarnished copper coins sit flat upon the dealer's closed eyelids as the cards purr between his pale hands.
+boat_dealer [smile]: I do hope the guests are enjoying themselves tonight. The paddlewheel turns slow, and there is no shore worth hurrying to.
+-> END
+
+~ barman
+Narrator: A silent barman with green copper pennies weighting his eyes slides a frosted glass across the mahogany, tapping a sign that promises the first hundred gold are on the house.
+-> END
+
+~ gambler
+Narrator: Sweat shines on the gambler's grey temples, though his grin is wide and glassy beneath the magenta lights.
+boat_gambler [smile]: Sit down, sit down, my luck is just turning round the bend! We came aboard after supper, or maybe it was Tuesday, and I am nearly even.
+* [Insight DC 14] Ask how long they have been here -> gambler_tell | gambler_nothing
+* Overturn the table -> gambler_scene
+* Leave -> END
+
+~ gambler_tell
+Narrator: Dust lies thick on the shoulders of his velvet coat, and his fingernails have grown long and curled around the chips.
+boat_gambler [afraid]: The candles never burn down in these sconces, do they? I think my wife was wearing her summer shawl when we walked up the plank.
+-> END
+
+~ gambler_nothing
+Narrator: His smile goes on a little too long, fixed and bright as a painted tin toy.
+boat_gambler [smile]: Only an hour or two, friend, just long enough to warm the chair and break the bank.
+-> END
+
+~ gambler_scene
+Narrator: The table goes over with a crash of chips and glassware, the music stops dead, and every ghoul waiter in the hall turns his head at once.
+combat dc_hall_brawl
+
+~ reveler
+boat_reveler [weary]: I am having a wonderful time, truly I am, though I cannot quite say why my feet keep dancing. Do you happen to know where they hid the exit?
+-> END

@@ -1,0 +1,56 @@
+# Drafted by Gemini (R17 hugo), edited.
+
+~ bark
+set mr_hugo_barked
+hugo [angry]: No loud feet on the stairs! Hugo keeps the quiet for the Matron!
+Narrator: The ceiling timbers groan under a massive weight, and fine plaster dust sifts down into the violet light.
+-> END
+
+~ peace
+Narrator: The giant kneels in the dark water beside the Matron's still form, his sewn eyelids trembling as his great fists strike the stone.
+hugo [angry]: You broke the quiet. You hurt the little lady who took Hugo's bad dreams away. Hugo will crush your bones to meal!
+* [Persuasion DC 20] Tell him she would not want this -> peace_one_ok | peace_fail
+* [knows:remove_curse] Lift his curse with Remove Curse -> peace_curse
+* Defend yourselves -> peace_fight
+
+~ peace_one_ok
+Narrator: His huge knuckles pop as his hands slowly unclench, the cold cavern water lapping against his wrists.
+hugo [sad]: She hated loud noises. She told Hugo to be a gentle wall, never a storm.
+-> peace_two
+
+~ peace_two
+hugo [weary]: Hugo carried the heavy pails. Hugo held the bad ones still so she could make them well. Did Hugo not do good?
+* [Persuasion DC 17] Speak of what he did for her -> peace_three | peace_fail
+* Defend yourselves -> peace_fight
+
+~ peace_three
+hugo [sad]: Hugo kept every promise. Even when the dark under the floor made Hugo's head ache, Hugo stayed by her door.
+* [Persuasion DC 14] Tell him he can rest now -> peace_done | peace_fail
+* Defend yourselves -> peace_fight
+
+~ peace_curse
+set hugo_curse_lifted
+Narrator: A warm breath of clean wind unwinds the foul enchantment round his brow, and the grey fog of the cavern seems to part.
+hugo [afraid]: The buzzing in Hugo's head is gone. Why is it so cold down here? Little lady?
+-> peace_done
+
+~ peace_done
+set hugo_fate = "gone"
+set hugo_calmed
+cutscene mr_hugo_grief
+hugo [sad]: The bells are done ringing. Nobody needs a big door-stone anymore.
+cutscene mr_hugo_grief_2
+Narrator: He weeps like a lost child, his broad shoulders heaving until the dark water ripples from wall to wall, and then he rises.
+hugo [weary]: Hugo will walk to the far edge of the hollow, where the reeds grow tall and no one asks for help. Hugo just wants the quiet.
+cutscene end
+-> END
+
+~ peace_fail
+hugo [angry]: Lies! Bad, loud lies! Hugo will make the silence come back!
+Narrator: His roar shakes loose wet stones from the grotto roof, though his feet stay rooted beside her cold hand.
+-> peace
+
+~ peace_fight
+set hugo_fate = "dead"
+hugo [angry]: Sleep now, little lady! Hugo will clear the room!
+combat mr_hugo_after

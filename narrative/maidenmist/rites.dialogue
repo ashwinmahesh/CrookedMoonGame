@@ -1,0 +1,816 @@
+# Drafted by Gemini (R19 rites), edited. The five Final Rites of Maidenmist; logic by hand.
+
+
+~ crimson_start
+if flag.mm_crimson_guardians_dead
+-> crimson_honor
+endif
+Narrator: Cold soot clings to the iron brazier among the marble tombs of the Highborn Crypts. Only the pale ring of the hound's lantern keeps the clammy grave fog from swallowing your boots.
+yorgrim [weary]: Sir Marius Renathyr served a god of the morning and loved his sworn liege, King Viktor Denathria, like a brother. He rode a white charger named Dawn to hunt down every wicked thing on the road. Only the priestess Lethica could ever cool the terrible heat of his wrath.
+* [if item:mm_dried_rose] Place the kindling in the brazier -> crimson_kindle
+* I have no kindling yet -> crimson_nokindle
+* Tell us again what you know of Marius -> crimson_start
+* We will be back -> END
+
+~ crimson_nokindle
+yorgrim [neutral]: The kindling lies hidden near the tombs, though the fog has eaten the place from my mind. Search the stones again, for nothing is lost yet.
+-> END
+
+~ crimson_kindle
+take mm_dried_rose
+set mm_crimson_kindled
+Narrator: Dry tinder catches with a sharp hiss, and a hungry crimson flame climbs the rusted bowl. The grave mist curdles thick around the pillars as ancient crypt guardians claw free of the marble to feed the fire.
+yorgrim [angry]: Hold your ground inside the lantern light and strike down every waking bone. Their husks must fall where the fire can see them die.
+combat mm_crimson_rite
+
+~ crimson_honor
+if not flag.mm_crimson_began
+set mm_crimson_began
+set mm_crimson_round = 0
+set mm_crimson_succ = 0
+set mm_crimson_bright = 0
+endif
+-> crimson_rite
+
+~ crimson_rite
+if flag.mm_crimson_succ >= 6
+-> crimson_done
+endif
+if flag.mm_yorgrim_spent and flag.mm_crimson_succ >= 4
+-> crimson_done
+endif
+if flag.mm_crimson_round >= 10
+-> crimson_dies
+endif
+Narrator: The crimson fire wavers in the cold draft, waiting for you to feed it true words of the knight's road, his royal oath, or the woman who gentled his heart.
+* Tell of the rides and the fights -> crimson_a
+* Speak the oath he kept -> crimson_b
+* Speak of the one who calmed him -> crimson_c
+* Step back from the flame for now -> END
+
+
+~ crimson_a
+if flag.mem_marius_feats
+advantage checks next: you remember Marius
+endif
+Narrator: You turn your voices toward the long roads Marius rode and the monsters he broke beneath Dawn's hooves. Each of you searches for the right words to honor his tireless blade.
+* [Athletics DC 15] Tell of the rides and the fights, the way you have heard it -> crimson_a_ok | crimson_a_miss
+* [Acrobatics DC 15] Tell of the rides and the fights, another way -> crimson_a_ok | crimson_a_miss
+* [Charisma DC 18] Offer a memory of your own -> crimson_a_ok | crimson_a_miss
+* Choose another theme -> crimson_rite
+
+~ crimson_a_ok
+set mm_crimson_succ += 1
+set mm_crimson_round += 1
+if flag.mem_marius_feats
+set mm_crimson_bright += 1
+endif
+Narrator: The crimson fire leaps high with a sound like ringing steel and galloping hooves. Your words strike true, warming the cold marble with the memory of his valor on the road.
+-> crimson_rite
+
+~ crimson_a_miss
+set mm_crimson_round += 1
+damage 1d6 psychic party
+Narrator: Your words ring hollow against the crypt stones, and the flame twists into a cruel puppet of a butcher trampling the weak under iron hooves. Every soul within the lantern circle flinches at the bitter laughter hissing from the mist.
+-> crimson_rite
+
+
+~ crimson_b
+if flag.mem_marius_oath
+advantage checks next: you remember Marius
+endif
+Narrator: You speak now of his morning god and the brotherhood he swore to King Viktor Denathria. Each hero reaches for words worthy of an unbreakable oath.
+* [History DC 15] Speak the oath he kept, the way you have heard it -> crimson_b_ok | crimson_b_miss
+* [Religion DC 15] Speak the oath he kept, another way -> crimson_b_ok | crimson_b_miss
+* [Charisma DC 18] Offer a memory of your own -> crimson_b_ok | crimson_b_miss
+* Choose another theme -> crimson_rite
+
+~ crimson_b_ok
+set mm_crimson_succ += 1
+set mm_crimson_round += 1
+if flag.mem_marius_oath
+set mm_crimson_bright += 1
+endif
+Narrator: A clean golden heat swells inside the crimson flame as your tribute lands true. The fire remembers the morning light and the king he loved as blood.
+-> crimson_rite
+
+~ crimson_b_miss
+set mm_crimson_round += 1
+damage 1d6 psychic party
+Narrator: The tribute falters, and the spiteful dead twist the fire into the shape of a kneeling dog choking on a broken crown. A cold shudder runs through the party as the fog jeers at his ruined vow.
+-> crimson_rite
+
+
+~ crimson_c
+if flag.mem_marius_love
+advantage checks next: you remember Marius
+endif
+Narrator: You turn the rite toward the quiet priestess who alone could still the storm in his blood. Each of you reaches for a gentle truth to lay upon the coals.
+* [Investigation DC 15] Speak of the one who calmed him, the way you have heard it -> crimson_c_ok | crimson_c_miss
+* [Perception DC 15] Speak of the one who calmed him, another way -> crimson_c_ok | crimson_c_miss
+* [Charisma DC 18] Offer a memory of your own -> crimson_c_ok | crimson_c_miss
+* Choose another theme -> crimson_rite
+
+~ crimson_c_ok
+set mm_crimson_succ += 1
+set mm_crimson_round += 1
+if flag.mem_marius_love
+set mm_crimson_bright += 1
+endif
+Narrator: The jagged crimson tongues soften and rise steady and bright at the sound of your words. Even the bitter ash smells briefly of night-blooming herbs and quiet peace.
+-> crimson_rite
+
+~ crimson_c_miss
+set mm_crimson_round += 1
+damage 1d6 psychic party
+Narrator: The words stumble, and the shrouded spirits contort the flame into a weeping figure turning her back on a raving brute. Everyone who hears the wet, mocking sob from the brazier flinches back.
+-> crimson_rite
+
+
+~ crimson_dies
+Narrator: The last grain of time runs out and the crimson fire gutters into cold black smoke. Yorgrim presses his spectral hand to the iron bowl, tearing a pale silver splinter from his own spirit to keep a single ember alive.
+set mm_soul_fragments += 1
+set mm_rite_fails += 1
+disadvantage checks 1h: a piece of your soul is in the fire
+set mm_crimson_round = 0
+set mm_crimson_succ = 0
+set mm_crimson_bright = 0
+if flag.mm_rite_fails >= 2
+set mm_yorgrim_spent
+yorgrim [weary]: I will feed more of my own marrow into the ash so fewer words are needed next time. My chains feel heavier now, and the stones are growing dim.
+else
+yorgrim [neutral]: Gather your breath and try the rite once more, for no blame rests on your tongues.
+endif
+-> END
+
+~ crimson_done
+set beacon_crimson = 1
+if flag.mm_crimson_bright >= 3
+set beacon_crimson = 2
+endif
+if flag.mm_crimson_bright >= 6
+set beacon_crimson = 3
+endif
+set mm_beacons_lit += 1
+set mm_crimson_done
+cutscene mm_beacon_lit
+Narrator: The crimson beacon roars skyward in a pillar of hot blood-red light, driving the clammy shroud back from the Highborn Crypts. Far across the cemetery grounds, a single iron sconce catches fire high above the sepulcher doors.
+yorgrim [smile]: You have given Marius back his morning light and his clean blade. Rest well, old friend, until the dawn returns.
+if flag.mm_beacons_lit >= 5
+set sepulcher_open
+quest maidenmist_dead_rise sepulcher
+yorgrim [weary]: Five fires burn alongside my cold azure flame, and the heavy locks on the sepulcher doors have finally given way. Come back to the center, for our work lies below.
+endif
+-> END
+
+
+~ violet_start
+if flag.mm_violet_guardians_dead
+-> violet_honor
+endif
+Narrator: Wet bone-ash crunches underfoot around the cold iron brazier of the Cremation Gardens. Only the steady glow of the hound's lantern holds the pressing wall of mist at bay.
+yorgrim [weary]: Lethica Nightborne wore the barn owl symbol of the Nightmother, goddess of night, healing, and motherhood. Sick pilgrims walked miles for her cures, though she hid her face behind a quiet mask until love found her. She alone could quiet Marius's fierce anger, and she gave him her whole heart in return.
+* [if item:mm_owl_feather] Place the kindling in the brazier -> violet_kindle
+* I have no kindling yet -> violet_nokindle
+* Tell us again what you know of Lethica -> violet_start
+* We will be back -> END
+
+~ violet_nokindle
+yorgrim [neutral]: The kindling is tucked somewhere among the urns, though my worn memory cannot hold the spot. Look again through the ash, for nothing is lost.
+-> END
+
+~ violet_kindle
+take mm_owl_feather
+set mm_violet_kindled
+Narrator: A spark takes hold in the damp tinder, sending a tall violet flame curling up from the iron bowl. The surrounding fog thickens like curdled milk as ash-caked guardians drag themselves up to be offered to the blaze.
+yorgrim [angry]: Stay close within the lantern's ring and cut down whatever crawls from the ash. Spill their dust where the violet fire can watch them fall.
+combat mm_violet_rite
+
+~ violet_honor
+if not flag.mm_violet_began
+set mm_violet_began
+set mm_violet_round = 0
+set mm_violet_succ = 0
+set mm_violet_bright = 0
+endif
+-> violet_rite
+
+~ violet_rite
+if flag.mm_violet_succ >= 6
+-> violet_done
+endif
+if flag.mm_yorgrim_spent and flag.mm_violet_succ >= 4
+-> violet_done
+endif
+if flag.mm_violet_round >= 10
+-> violet_dies
+endif
+Narrator: The violet blaze leans toward your voices, hungry for true remembrance of her healing hands, her devotion to Marius, or the hymns of her owl-winged goddess.
+* Speak of the cures she made -> violet_a
+* Write the letter she never sent -> violet_b
+* Sing the Nightmother's hymn -> violet_c
+* Step back from the flame for now -> END
+
+
+~ violet_a
+if flag.mem_lethica_healing
+advantage checks next: you remember Lethica
+endif
+Narrator: You turn the rite toward the fevers she cooled and the pilgrims who knelt at her door. Each of you searches for the clearest memory of her mercy.
+* [Medicine DC 15] Speak of the cures she made, the way you have heard it -> violet_a_ok | violet_a_miss
+* [Nature DC 15] Speak of the cures she made, another way -> violet_a_ok | violet_a_miss
+* [Charisma DC 18] Offer a memory of your own -> violet_a_ok | violet_a_miss
+* Choose another theme -> violet_rite
+
+~ violet_a_ok
+set mm_violet_succ += 1
+set mm_violet_round += 1
+if flag.mem_lethica_healing
+set mm_violet_bright += 1
+endif
+Narrator: The violet flame surges upward, shedding a warm scent of crushed lavender and clean linen across the damp stones. Your words land true, honoring the gentle hands that mended so many broken strangers.
+-> violet_rite
+
+~ violet_a_miss
+set mm_violet_round += 1
+damage 1d6 psychic party
+Narrator: Your words fall flat, and the shrouded dead twist the violet fire into a masked leech poisoning a begging child. Every person in the circle flinches from the shrill, cackling chorus that echoes through the gardens.
+-> violet_rite
+
+
+~ violet_b
+if flag.mem_lethica_love
+advantage checks next: you remember Lethica
+endif
+Narrator: You turn your voices toward the masked woman who laid her armor down for a wrathful knight. Each hero reaches for words that honor the love she bore for Marius.
+* [Investigation DC 15] Write the letter she never sent, the way you have heard it -> violet_b_ok | violet_b_miss
+* [History DC 15] Write the letter she never sent, another way -> violet_b_ok | violet_b_miss
+* [Charisma DC 18] Offer a memory of your own -> violet_b_ok | violet_b_miss
+* Choose another theme -> violet_rite
+
+~ violet_b_ok
+set mm_violet_succ += 1
+set mm_violet_round += 1
+if flag.mem_lethica_love
+set mm_violet_bright += 1
+endif
+Narrator: The violet fire leaps high and steady, braided with a warm thread of crimson light. Your words ring true, calling back the quiet touch that tamed a warrior's rage.
+-> violet_rite
+
+~ violet_b_miss
+set mm_violet_round += 1
+damage 1d6 psychic party
+Narrator: The tribute misses its mark, and spiteful spirits bend the flame into two lovers tearing at each other's throats behind iron masks. A sharp chill bites your skin as the watching mist hisses with delight.
+-> violet_rite
+
+
+~ violet_c
+if flag.mem_lethica_hymns
+advantage checks next: you remember Lethica
+endif
+Narrator: You guide the rite toward the soft nocturnal prayers of the Nightmother and the white owl that watched over her shrine. Each of you reaches for the cadence of her old hymns.
+* [Religion DC 15] Sing the Nightmother's hymn, the way you have heard it -> violet_c_ok | violet_c_miss
+* [Arcana DC 15] Sing the Nightmother's hymn, another way -> violet_c_ok | violet_c_miss
+* [Charisma DC 18] Offer a memory of your own -> violet_c_ok | violet_c_miss
+* Choose another theme -> violet_rite
+
+~ violet_c_ok
+set mm_violet_succ += 1
+set mm_violet_round += 1
+if flag.mem_lethica_hymns
+set mm_violet_bright += 1
+endif
+Narrator: The violet flame leaps high as your spoken melody rings true, carrying the old vespers of the Nightmother across the cold ash. Soft owl-feather shadows rise in the heat, warming the stone beneath your boots.
+-> violet_rite
+
+~ violet_c_miss
+set mm_violet_round += 1
+damage 1d6 psychic party
+Narrator: Your words stumble, and the shrouded dead twist the Nightmother's hymn into a screeching choir of strangled birds inside the fire. Everyone in the lantern ring flinches back from that sour, ringing discord.
+-> violet_rite
+
+
+~ violet_dies
+Narrator: The last grain of time runs out, and the violet flame gutters down into cold black grease. Yorgrim reaches a grey hand into his own chest, tearing loose a pale blue spark to keep the ember alive.
+set mm_soul_fragments += 1
+set mm_rite_fails += 1
+disadvantage checks 1h: a piece of your soul is in the fire
+set mm_violet_round = 0
+set mm_violet_succ = 0
+set mm_violet_bright = 0
+if flag.mm_rite_fails >= 2
+set mm_yorgrim_spent
+yorgrim [weary]: I will feed more of my own marrow into the ash so the fire asks fewer words of you next time. My hands look thinner in the lantern light now, but the work remains.
+else
+yorgrim [neutral]: The ember still holds its heat, so draw your breath and try the words again without blame.
+endif
+-> END
+
+~ violet_done
+set beacon_violet = 1
+if flag.mm_violet_bright >= 3
+set beacon_violet = 2
+endif
+if flag.mm_violet_bright >= 6
+set beacon_violet = 3
+endif
+set mm_beacons_lit += 1
+set mm_violet_done
+cutscene mm_beacon_lit
+Narrator: The violet beacon roars up like a furnace, driving the clammy shroud back from the bone-white urns of the Cremation Gardens. Far across the cemetery, a solitary sconce catches fire above the great sepulcher doors.
+yorgrim [smile]: Lethica walks under quiet feathers once more, gentle as the dusk she kept. You gave her back her true name before the dark took her.
+if flag.mm_beacons_lit >= 5
+set sepulcher_open
+quest maidenmist_dead_rise sepulcher
+yorgrim [weary]: Five fires burn against the gray, and my own blue lantern grows light in the chain. The heavy sepulcher doors will unbar for us now, so come back to the center.
+endif
+-> END
+
+
+~ amber_start
+if flag.mm_amber_guardians_dead
+-> amber_honor
+endif
+Narrator: You stand before a rusted iron brazier in the sunken mud of the Potter's Field, where crooked wooden markers rot in the wet clay. Isolde holds her hooded lantern steady in her jaws, pressing the grave-mist back a few paces.
+yorgrim [weary]: Jericho was a scarecrow man with a battered banjo, walking the muddy roads to trade songs for supper. Children followed his dry straw coat through every village, and he listened to their small troubles as hard as he played. He mended broken plows, split kindling, and left every leaning fence straighter than he found it.
+* [if item:mm_straw_bundle] Place the kindling in the brazier -> amber_kindle
+* I have no kindling yet -> amber_nokindle
+* Tell us again what you know of Jericho -> amber_start
+* We will be back -> END
+
+~ amber_nokindle
+yorgrim [neutral]: The dry straw for his fire is tucked under some stone nearby, though the fog has eaten where I laid it. Look again among the markers, nothing is lost yet.
+-> END
+
+~ amber_kindle
+take mm_straw_bundle
+set mm_amber_kindled
+Narrator: The dry straw catches in the iron bowl, and a warm amber fire climbs with the smell of autumn harvest. Beyond the light, the wet clay churns as restless dead claw free to throw themselves at the blaze.
+yorgrim [angry]: Keep your boots inside the lantern ring and cut down whatever crawls from the mud. Their husks must fall where the amber fire can see them die.
+combat mm_amber_rite
+
+~ amber_honor
+if not flag.mm_amber_began
+set mm_amber_began
+set mm_amber_round = 0
+set mm_amber_succ = 0
+set mm_amber_bright = 0
+endif
+-> amber_rite
+
+~ amber_rite
+if flag.mm_amber_succ >= 6
+-> amber_done
+endif
+if flag.mm_yorgrim_spent and flag.mm_amber_succ >= 4
+-> amber_done
+endif
+if flag.mm_amber_round >= 10
+-> amber_dies
+endif
+Narrator: The amber flame leans toward your breath, hungry for the honest measure of Ol' Jericho Sticks in the songs he strummed, the tall tales he spun, and the humble work of his straw-stuffed hands.
+* Play one of his songs -> amber_a
+* Tell one of his tall tales -> amber_b
+* Speak of the work of his hands -> amber_c
+* Step back from the flame for now -> END
+
+
+~ amber_a
+if flag.mem_jericho_songs
+advantage checks next: you remember Jericho
+endif
+Narrator: You turn the rite toward the porch-step tunes Jericho plucked on his old gut-string banjo. Each of you searches your memory for a chorus warm enough to beat back the damp.
+* [Sleight of Hand DC 15] Play one of his songs, the way you have heard it -> amber_a_ok | amber_a_miss
+* [History DC 15] Play one of his songs, another way -> amber_a_ok | amber_a_miss
+* [Charisma DC 18] Offer a memory of your own -> amber_a_ok | amber_a_miss
+* Choose another theme -> amber_rite
+
+~ amber_a_ok
+set mm_amber_succ += 1
+set mm_amber_round += 1
+if flag.mem_jericho_songs
+set mm_amber_bright += 1
+endif
+Narrator: The amber fire surges up with a crackle like dry pine, humming with the steady rhythm of a country reel. For a breath, the sour mud smells of cider and rosin.
+-> amber_rite
+
+~ amber_a_miss
+set mm_amber_round += 1
+damage 1d6 psychic party
+Narrator: The cadence breaks on your tongue, and the shrouded spirits in the smoke rasp back a broken, snapping-string mockery of Jericho's tune. You wince as the sour noise scrapes across your teeth.
+-> amber_rite
+
+
+~ amber_b
+if flag.mem_jericho_tales
+advantage checks next: you remember Jericho
+endif
+Narrator: You steer the words toward the cheerful whoppers Jericho told around village hearths to make frightened folk laugh. Each of you reaches for the wildest yarn that still rings true.
+* [Investigation DC 15] Tell one of his tall tales, the way you have heard it -> amber_b_ok | amber_b_miss
+* [History DC 15] Tell one of his tall tales, another way -> amber_b_ok | amber_b_miss
+* [Charisma DC 18] Offer a memory of your own -> amber_b_ok | amber_b_miss
+* Choose another theme -> amber_rite
+
+~ amber_b_ok
+set mm_amber_succ += 1
+set mm_amber_round += 1
+if flag.mem_jericho_tales
+set mm_amber_bright += 1
+endif
+Narrator: The flame jumps bright and golden, dancing like grease in a hot skillet as the tall tale lands right. A dry, rustling chuckle seems to pass through the dead weeds at your ankles.
+-> amber_rite
+
+~ amber_b_miss
+set mm_amber_round += 1
+damage 1d6 psychic party
+Narrator: The story sours in the telling, and the hungry shapes in the fire twist the yarn into a spiteful lie about rotting harvests and starved children. The cruel hiss of it makes every shoulder round against the cold.
+-> amber_rite
+
+
+~ amber_c
+if flag.mem_jericho_craft
+advantage checks next: you remember Jericho
+endif
+Narrator: You bring the rite home to the calloused work of his hands, mending tools and turning stubborn soil for strangers. Each of you names a quiet kindness left behind in barn or field.
+* [Survival DC 15] Speak of the work of his hands, the way you have heard it -> amber_c_ok | amber_c_miss
+* [Nature DC 15] Speak of the work of his hands, another way -> amber_c_ok | amber_c_miss
+* [Charisma DC 18] Offer a memory of your own -> amber_c_ok | amber_c_miss
+* Choose another theme -> amber_rite
+
+~ amber_c_ok
+set mm_amber_succ += 1
+set mm_amber_round += 1
+if flag.mem_jericho_craft
+set mm_amber_bright += 1
+endif
+Narrator: The amber blaze swells thick and steady, throwing out the honest heat of a blacksmith's forge and freshly turned earth. The frost on the iron brazier melts away in a hiss of steam.
+-> amber_rite
+
+~ amber_c_miss
+set mm_amber_round += 1
+damage 1d6 psychic party
+Narrator: Your words miss the mark, and the shrouded dead curl the smoke into the shape of a broken pitchfork and a burning barn. The bitter stink of charred burlap makes you turn your faces aside.
+-> amber_rite
+
+
+~ amber_dies
+Narrator: The minute bleeds away, and the golden flame sinks down into a sullen smudge of black soot. Yorgrim bows his chained shoulders and breaks off another pale splinter of his own spirit to shelter the spark.
+set mm_soul_fragments += 1
+set mm_rite_fails += 1
+disadvantage checks 1h: a piece of your soul is in the fire
+set mm_amber_round = 0
+set mm_amber_succ = 0
+set mm_amber_bright = 0
+if flag.mm_rite_fails >= 2
+set mm_yorgrim_spent
+yorgrim [weary]: Take another piece of my breath to grease the wood, and the fire will not ask so much of your voices. The names carved on my back feel heavier when I fade like this.
+else
+yorgrim [neutral]: No fault lies on your tongues, and the spark still waits in the straw whenever you are ready to speak.
+endif
+-> END
+
+~ amber_done
+set beacon_amber = 1
+if flag.mm_amber_bright >= 3
+set beacon_amber = 2
+endif
+if flag.mm_amber_bright >= 6
+set beacon_amber = 3
+endif
+set mm_beacons_lit += 1
+set mm_amber_done
+cutscene mm_beacon_lit
+Narrator: The amber beacon roars high, rolling the cold fog back from the sunken trenches of the Potter's Field like dry chaff before a broom. Far away through the iron palings, another sconce flares to life above the sepulcher doors.
+yorgrim [smile]: Old straw and sweet music, that was the whole of him before the rot set in. He rests easy in the dark now because you remembered.
+if flag.mm_beacons_lit >= 5
+set sepulcher_open
+quest maidenmist_dead_rise sepulcher
+yorgrim [weary]: All five beacons answer my blue lantern now, and the weight on my chains is nearly done. The sepulcher doors are unsealed, so walk with me back to the middle.
+endif
+-> END
+
+
+~ magenta_start
+if flag.mm_magenta_guardians_dead
+-> magenta_honor
+endif
+Narrator: You stand between the towering marble vaults of the Mausoleum Lanes, where cold rainwater drips from carved gargoyles into a dark bronze brazier. Isolde's lantern casts long, sharp shadows across the wet flagstones, holding the gray shroud at bay.
+yorgrim [weary]: Briggsy Kratch was a cutthroat pirate with a soft heart, who never once left a loyal sailor behind on the gallows. He fought with a fast blade and a faster tongue, smiling through every trap he laid. Luck loved him at cards and dice until he grew greedy and bound fate itself with crooked sorcery.
+* [if item:mm_rum_bottle] Place the kindling in the brazier -> magenta_kindle
+* I have no kindling yet -> magenta_nokindle
+* Tell us again what you know of Briggsy -> magenta_start
+* We will be back -> END
+
+~ magenta_nokindle
+yorgrim [neutral]: The salt-tarred wood for his brazier is stashed in one of these stone niches, though my head is too thick with mist to name which. Search the crypts again, the dead have nothing better to do than wait.
+-> END
+
+~ magenta_kindle
+take mm_rum_bottle
+set mm_magenta_kindled
+Narrator: The tarred kindling catches with a hiss of salt spray, sending a fierce magenta flame twisting toward the marble roofs. Out in the lanes, rusted crypt gates shriek open as armored bones march forth to feed the fire.
+yorgrim [angry]: Stand fast within the lantern's circle and break the bones that cross the flagstones. Spill them where the magenta fire can drink their shadow.
+combat mm_magenta_rite
+
+~ magenta_honor
+if not flag.mm_magenta_began
+set mm_magenta_began
+set mm_magenta_round = 0
+set mm_magenta_succ = 0
+set mm_magenta_bright = 0
+endif
+-> magenta_rite
+
+~ magenta_rite
+if flag.mm_magenta_succ >= 6
+-> magenta_done
+endif
+if flag.mm_yorgrim_spent and flag.mm_magenta_succ >= 4
+-> magenta_done
+endif
+if flag.mm_magenta_round >= 10
+-> magenta_dies
+endif
+Narrator: The hungry magenta ember waits on your breath, asking whether you will recall the Captain's salt-stained voyages, his nimble blade and cunning tricks, or the charmed dice that carried him through the storm.
+* Tell of his voyages -> magenta_a
+* Speak of his ruses and his swordwork -> magenta_b
+* Speak of his luck at the tables -> magenta_c
+* Step back from the flame for now -> END
+
+
+~ magenta_a
+if flag.mem_briggsy_exploits
+advantage checks next: you remember Briggsy
+endif
+Narrator: You turn your thoughts toward the open sea and the creak of wet rigging. Each of you searches for the true measure of the sailor behind the tall tales.
+* [History DC 15] Tell of his voyages, the way you have heard it -> magenta_a_ok | magenta_a_miss
+* [Survival DC 15] Tell of his voyages, another way -> magenta_a_ok | magenta_a_miss
+* [Charisma DC 18] Offer a memory of your own -> magenta_a_ok | magenta_a_miss
+* Choose another theme -> magenta_rite
+
+~ magenta_a_ok
+set mm_magenta_succ += 1
+set mm_magenta_round += 1
+if flag.mem_briggsy_exploits
+set mm_magenta_bright += 1
+endif
+Narrator: The magenta fire leaps high with the sudden smell of brine and tar, warming to the truth of a captain who steered through black squalls for his crew.
+-> magenta_rite
+
+~ magenta_a_miss
+set mm_magenta_round += 1
+damage 1d6 psychic party
+Narrator: Your words ring hollow against the cold iron, and the shrouded twist the smoke into a drowning hull choked with bilge and broken oars. A wet, mocking rattle rises from the brazier, and every soul around the fire flinches from the sound.
+-> magenta_rite
+
+
+~ magenta_b
+if flag.mem_briggsy_ruses
+advantage checks next: you remember Briggsy
+endif
+Narrator: You speak next of his quick heels on a slick deck and the sly grins that preceded his boldest schemes. Each of you reaches for the cleverness that kept his blade dry and his pockets full.
+* [Acrobatics DC 15] Speak of his ruses and his swordwork, the way you have heard it -> magenta_b_ok | magenta_b_miss
+* [Sleight of Hand DC 15] Speak of his ruses and his swordwork, another way -> magenta_b_ok | magenta_b_miss
+* [Charisma DC 18] Offer a memory of your own -> magenta_b_ok | magenta_b_miss
+* Choose another theme -> magenta_rite
+
+~ magenta_b_ok
+set mm_magenta_succ += 1
+set mm_magenta_round += 1
+if flag.mem_briggsy_ruses
+set mm_magenta_bright += 1
+endif
+Narrator: The flame dances like a rapier point in tavern light, crackling brightly at the memory of a rogue who could talk a hangman out of his own rope.
+-> magenta_rite
+
+~ magenta_b_miss
+set mm_magenta_round += 1
+damage 1d6 psychic party
+Narrator: The praise falters on your tongues, and the mist curdles the fire into the shape of a clumsy cutthroat tripping into a noose. A spiteful hiss echoes off the mausoleum stones, making every one of you wince.
+-> magenta_rite
+
+
+~ magenta_c
+if flag.mem_briggsy_luck
+advantage checks next: you remember Briggsy
+endif
+Narrator: You bring the rite to the edge of his famous luck and the strange bargains that tilted the coin in his favour. Each of you weighs the golden charm against the dark debt it bought.
+* [Arcana DC 15] Speak of his luck at the tables, the way you have heard it -> magenta_c_ok | magenta_c_miss
+* [Investigation DC 15] Speak of his luck at the tables, another way -> magenta_c_ok | magenta_c_miss
+* [Charisma DC 18] Offer a memory of your own -> magenta_c_ok | magenta_c_miss
+* Choose another theme -> magenta_rite
+
+~ magenta_c_ok
+set mm_magenta_succ += 1
+set mm_magenta_round += 1
+if flag.mem_briggsy_luck
+set mm_magenta_bright += 1
+endif
+Narrator: Sparks of violet and gold snap upward in the bowl as the fire drinks in the truth of his charmed dice and whispered hexes.
+-> magenta_rite
+
+~ magenta_c_miss
+set mm_magenta_round += 1
+damage 1d6 psychic party
+Narrator: The words miss their mark, and the hungry dead bend the flame into a leering skull juggling loaded bones that crumble into ash. The bitter shriek that follows drives a cold nail behind your eyes, and you all flinch back.
+-> magenta_rite
+
+
+~ magenta_dies
+Narrator: The last grain of your minute slips away, and the magenta fire gutters down into cold, greasy soot. Yorgrim reaches a grey hand into his own ribs and drops a pale shard of himself onto the dying ash.
+set mm_soul_fragments += 1
+set mm_rite_fails += 1
+disadvantage checks 1h: a piece of your soul is in the fire
+set mm_magenta_round = 0
+set mm_magenta_succ = 0
+set mm_magenta_bright = 0
+if flag.mm_rite_fails >= 2
+set mm_yorgrim_spent
+yorgrim [weary]: I will feed more of my own marrow to the iron so the fire asks less of your voices next time. My edges grow thin in this mist, and the stone on my back feels heavier by the hour.
+else
+yorgrim [neutral]: The ember still holds a spark under the soot, so draw your breath and try the words again without blame.
+endif
+-> END
+
+~ magenta_done
+set beacon_magenta = 1
+if flag.mm_magenta_bright >= 3
+set beacon_magenta = 2
+endif
+if flag.mm_magenta_bright >= 6
+set beacon_magenta = 3
+endif
+set mm_beacons_lit += 1
+set mm_magenta_done
+cutscene mm_beacon_lit
+Narrator: A pillar of magenta flame roars toward the leering moon, burning the shroud back from the wet flagstones of the Mausoleum Lanes. Far across the cemetery, a solitary sconce catches with bright purple fire above the great sepulcher doors.
+yorgrim [smile]: Briggsy always swore he could cheat the devil with a wink and a turned card. You gave him back his good name, and the old pirate would have tipped his hat to you.
+if flag.mm_beacons_lit >= 5
+set sepulcher_open
+quest maidenmist_dead_rise sepulcher
+yorgrim [weary]: All five beacons burn beside my azure flame, and the iron locks on the sepulcher doors have finally given way. Come back to the centre with me now, for it is time to finish what remains.
+endif
+-> END
+
+
+~ emerald_start
+if flag.mm_emerald_guardians_dead
+-> emerald_honor
+endif
+Narrator: You stand before the frost-rimmed iron brazier among the mossy humps of the Burial Mounds, breathing the rot of wet leaves and turned earth. Only the pale beam of the lantern in Isolde's jaws keeps the pressing shroud from your throats.
+yorgrim [weary]: Farryn wore the antlered crown of the old circle and kept the Green Queen's laws in the deep timber. No wolf nor wren feared her step, and even the tricksy Fey spoke softly when she passed. Yet she loved Gwenna, a mortal woman of the Patient Lady, more than all the wild boughs of the wood.
+* [if item:mm_oak_branch] Place the kindling in the brazier -> emerald_kindle
+* I have no kindling yet -> emerald_nokindle
+* Tell us again what you know of Farryn -> emerald_start
+* We will be back -> END
+
+~ emerald_nokindle
+yorgrim [neutral]: The dry boughs for this bowl are tucked somewhere among these mounds, though my hollow head forgets which stone hides them. Look again through the brambles, for nothing is lost while the lantern burns.
+-> END
+
+~ emerald_kindle
+take mm_oak_branch
+set mm_emerald_kindled
+Narrator: The dry twigs catch with a scent of crushed pine, and a sharp emerald flame climbs from the iron bowl. At once the cold fog thickens like curdled milk, and root-bound corpses drag themselves from the turf to be fed to the fire.
+yorgrim [angry]: Stay within the ring of the hound's lantern and cut these husks down where they stand. Their dry bones must break inside the emerald light, or the brazier will go cold.
+combat mm_emerald_rite
+
+~ emerald_honor
+if not flag.mm_emerald_began
+set mm_emerald_began
+set mm_emerald_round = 0
+set mm_emerald_succ = 0
+set mm_emerald_bright = 0
+endif
+-> emerald_rite
+
+~ emerald_rite
+if flag.mm_emerald_succ >= 6
+-> emerald_done
+endif
+if flag.mm_yorgrim_spent and flag.mm_emerald_succ >= 4
+-> emerald_done
+endif
+if flag.mm_emerald_round >= 10
+-> emerald_dies
+endif
+Narrator: The green fire sways in the damp draft, waiting to hear whether you will honour Farryn's oath to the Old Ways, her gentle hand with beast and bough, or the mortal heart she loved above the forest.
+* Speak of her circle and the Green Queen -> emerald_a
+* Speak of the creatures she tended -> emerald_b
+* Carve something for Gwenna -> emerald_c
+* Step back from the flame for now -> END
+
+
+~ emerald_a
+if flag.mem_farryn_circle
+advantage checks next: you remember Farryn
+endif
+Narrator: You turn the rite toward the ancient stones and the antlered circle that kept the Green Queen's peace. Each of you searches for the solemn weight of the old forest laws.
+* [Nature DC 15] Speak of her circle and the Green Queen, the way you have heard it -> emerald_a_ok | emerald_a_miss
+* [Religion DC 15] Speak of her circle and the Green Queen, another way -> emerald_a_ok | emerald_a_miss
+* [Charisma DC 18] Offer a memory of your own -> emerald_a_ok | emerald_a_miss
+* Choose another theme -> emerald_rite
+
+~ emerald_a_ok
+set mm_emerald_succ += 1
+set mm_emerald_round += 1
+if flag.mem_farryn_circle
+set mm_emerald_bright += 1
+endif
+Narrator: The emerald flame surges upward with the clean smell of rain on summer bark, answering the truth of a druid who kept the sacred groves whole.
+-> emerald_rite
+
+~ emerald_a_miss
+set mm_emerald_round += 1
+damage 1d6 psychic party
+Narrator: Your words stumble in the damp air, and the shrouded twist the green smoke into a crown of rotting thorns choking a blighted oak. A dry, splintering laugh cracks from the brazier, and every one of you flinches at the malice in it.
+-> emerald_rite
+
+
+~ emerald_b
+if flag.mem_farryn_forest_love
+advantage checks next: you remember Farryn
+endif
+Narrator: You speak now of the quiet hoofstep and the open palm that brought shy creatures from the brush. Each of you reaches for the kindness she showed to every furred and feathered thing.
+* [Animal Handling DC 15] Speak of the creatures she tended, the way you have heard it -> emerald_b_ok | emerald_b_miss
+* [Medicine DC 15] Speak of the creatures she tended, another way -> emerald_b_ok | emerald_b_miss
+* [Charisma DC 18] Offer a memory of your own -> emerald_b_ok | emerald_b_miss
+* Choose another theme -> emerald_rite
+
+~ emerald_b_ok
+set mm_emerald_succ += 1
+set mm_emerald_round += 1
+if flag.mem_farryn_forest_love
+set mm_emerald_bright += 1
+endif
+Narrator: The fire settles into a warm, mossy glow that smells of clover and warm fur, leaping brightly as your words honour her gentle hand.
+-> emerald_rite
+
+~ emerald_b_miss
+set mm_emerald_round += 1
+damage 1d6 psychic party
+Narrator: The tribute falls short, and the spirits in the fog warp the flame into the shape of a snared doe thrashing in iron teeth. A shrill, starving whine cuts through the mounds, making every hero by the brazier wince.
+-> emerald_rite
+
+
+~ emerald_c
+if flag.mem_farryn_gwenna
+advantage checks next: you remember Farryn
+endif
+Narrator: You bring your voices to the quiet hearth she shared with Gwenna beneath the eaves of the wood. Each of you reaches for the tender bond that tied a wild satyr to a hopeful mortal soul.
+* [Survival DC 15] Carve something for Gwenna, the way you have heard it -> emerald_c_ok | emerald_c_miss
+* [Investigation DC 15] Carve something for Gwenna, another way -> emerald_c_ok | emerald_c_miss
+* [Charisma DC 18] Offer a memory of your own -> emerald_c_ok | emerald_c_miss
+* Choose another theme -> emerald_rite
+
+~ emerald_c_ok
+set mm_emerald_succ += 1
+set mm_emerald_round += 1
+if flag.mem_farryn_gwenna
+set mm_emerald_bright += 1
+endif
+Narrator: Golden sparks thread through the emerald blaze like fireflies at dusk, and the air warms with the scent of bruised thyme and hearth-smoke.
+-> emerald_rite
+
+~ emerald_c_miss
+set mm_emerald_round += 1
+damage 1d6 psychic party
+Narrator: The words ring false, and the spiteful dead bend the fire into two hollow figures turning their backs in a freezing rain. The bitter sigh that breathes from the iron bowl chills your marrow, and you all flinch away.
+-> emerald_rite
+
+
+~ emerald_dies
+Narrator: The minute runs dry and the emerald blaze sinks into a smudge of damp, smoking moss. Yorgrim tears another pale ribbon from his own dimming chest and presses it into the cold grate.
+set mm_soul_fragments += 1
+set mm_rite_fails += 1
+disadvantage checks 1h: a piece of your soul is in the fire
+set mm_emerald_round = 0
+set mm_emerald_succ = 0
+set mm_emerald_bright = 0
+if flag.mm_rite_fails >= 2
+set mm_yorgrim_spent
+yorgrim [weary]: I will bind another piece of my own ghost to the iron so the flame takes fewer words to wake. My voice sounds far away to my own ears now, and the names on my stone are hard to read.
+else
+yorgrim [neutral]: The green spark still sleeps beneath the ash, so gather your breath and speak the rite again without heavy hearts.
+endif
+-> END
+
+~ emerald_done
+set beacon_emerald = 1
+if flag.mm_emerald_bright >= 3
+set beacon_emerald = 2
+endif
+if flag.mm_emerald_bright >= 6
+set beacon_emerald = 3
+endif
+set mm_beacons_lit += 1
+set mm_emerald_done
+cutscene mm_beacon_lit
+Narrator: Green fire roars up from the brazier, driving the pale mist back from the turf of the burial mounds. Far off through the dark, a fifth sconce catches with emerald flame high above the sepulcher doors.
+yorgrim [smile]: Farryn loved the green wood and his Gwenna more than his own breath. The moss and the roots remember his gentle hand now.
+if flag.mm_beacons_lit >= 5
+set sepulcher_open
+quest maidenmist_dead_rise sepulcher
+yorgrim [weary]: Five flames burn beside my cold blue light once more. The heavy stone doors will yield to us now, so let us walk back.
+endif
+-> END

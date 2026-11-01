@@ -1,0 +1,52 @@
+# Drafted by Gemini (R16 trail), edited.
+
+~ rider
+Narrator: Something tall blocks the hill road, a stitched wedding of horseflesh and rider buttoned tight into a damp courier's coat. A heavy leather mail sack sways across its ribs, and where a right hand ought to be, a rusted halberd grows straight out of the wrist bone.
+* [if item:sk_bridle] Slip the old bridle over its head. -> bridle
+* [Animal Handling DC 15] Whistle low and hold out a steady hand to calm it. -> calm_ok | calm_fail
+* Draw steel and put the creature down. -> fight
+* Back away slowly down the trail. -> flee
+
+~ bridle
+Narrator: The leather straps settle behind its ears, and a long, wet shudder runs through the stitched hide as the halberd softens and falls away. Where the monster stood, an old brown mare blinks in a coat far too small for her, breathing warm mist into the dark.
+take sk_bridle
+give theodora_letter
+set parcel_rider_met
+set parcel_rider_freed
+Narrator: The canvas sack slips from her shoulder to the mud, spilling a single wax-sealed letter that never made its post.
+-> END
+
+~ calm_ok
+Narrator: At {name}'s quiet voice, the trembling in its flanks eases and the rusted blade dips toward the weeds. A buckle gives way, and the heavy mail sack slides off its back into the road.
+give theodora_letter
+set parcel_rider_met
+Narrator: It lets out a low, rattling sigh, then turns and clops away into the hill mist, still wearing the postmaster's brass buttons.
+-> END
+
+~ calm_fail
+Narrator: The creature's ears pin flat, and a wet, whistling scream tears from both its throats as the halberd swings up.
+set parcel_rider_met
+combat sk_rider_fight
+
+~ fight
+Narrator: Hooves churn the cold mud as the thing rears back, iron blade glinting under the crooked moon.
+set parcel_rider_met
+combat sk_rider_fight
+
+~ flee
+Narrator: You step back into the pines, boots quiet on the needles. The stitched courier does not follow, only watches from the road with four wet, dark eyes until the fog takes it.
+-> END
+
+~ rider_bed
+Narrator: In the third straw berth lies a creature still buttoned into a village courier's coat, its horse-ribs rising and falling in a troubled sleep. Its rusted halberd-arm twitches against the planks, and a leather mail sack is tucked neatly beneath its cheek like a pillow.
+* [if item:sk_bridle] Slip the old bridle over its head. -> bed_bridle
+* Leave it sleeping in the straw. -> END
+
+~ bed_bridle
+Narrator: The bit slides between its teeth without waking it, and the stitched seams melt away like frost in a kettle. A tired brown horse lies curled in the straw, wrapped in a torn post-coat.
+take sk_bridle
+give theodora_letter
+set parcel_rider_met
+set parcel_rider_freed
+Narrator: From the mail sack beneath her chin, you draw out a single sealed letter that never reached its door.
+-> END

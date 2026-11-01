@@ -1,0 +1,603 @@
+{
+  "id": "mm_mausoleum_lanes",
+  "name": "The Mausoleum Lanes",
+  "region": "maidenmist_cemetery",
+  "summary": "A boggy city of small ivy-grown vaults, murky water in the tile cracks, a brazier of pink coals at the end of a sunken lane.",
+  "text": "A fen has crept into the dead city. Water seeps between the tiles, moss hangs from gnarled trees, and every vault door is carved with a ship, a sea or a spiral.",
+  "map": {
+    "rows": [
+      "########################",
+      "#......................#",
+      "#=###..###....###..###.#",
+      "#.###..###....###.~###.#",
+      "#.###..###....###.~###.#",
+      "#.###..###....###=~###.#",
+      "#.###..###....###..###.#",
+      "#.###..###....###..###.#",
+      "#.###..###....###..###.#",
+      "#.###..###....###..###.#",
+      "#.###..###....###..###.#",
+      "#.###..###....###..###.#",
+      "#.###..###....###=.###.#",
+      "#......................#",
+      "#.#.......#..~.~......##",
+      "#.......~.~~~~~~.......#",
+      "#.......~~~~~~~~~~.....#",
+      "#.....~.~~~~.~~~~.......",
+      "#......~~~~~~~~~~......#",
+      "#.......~~~...~~.......#",
+      "#.#.......~...~.......##",
+      "#......................#",
+      "#.###..###....###..###.#",
+      "#.###..###....###..###.#",
+      "#.###..###.=..###..###.#",
+      "#.###..###....###..###.#",
+      "#.###~.###....###..###.#",
+      "#.###~~###....###.=###.#",
+      "#.###~.###....###..###.#",
+      "#.###..###....###..###.#",
+      "#.###..####...###..###.#",
+      "#.###..###....###..###.#",
+      "#......................#",
+      "############.###########"
+    ],
+    "theme": "riverside",
+    "light": "dim",
+    "outdoors": true,
+    "elevation": [
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222333333322222222",
+      "222222223333333332222222",
+      "222222233333333333222222",
+      "222222333333333333322222",
+      "222222333333333333322222",
+      "222222333333333333322222",
+      "222222333333333333322222",
+      "222222333333333333322222",
+      "222222333333333333322222",
+      "222222333333333333322222",
+      "222222233333333333222222",
+      "222222223333333332222222",
+      "222222222333333322222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222",
+      "222222222222222222222222"
+    ]
+  },
+  "areas": [
+    {
+      "id": "sunken_lane",
+      "name": "The sunken lane",
+      "cells": [
+        [
+          8,
+          14
+        ],
+        [
+          16,
+          21
+        ]
+      ]
+    },
+    {
+      "id": "vault_rows",
+      "name": "The vault rows",
+      "cells": [
+        [
+          1,
+          2
+        ],
+        [
+          22,
+          12
+        ]
+      ]
+    },
+    {
+      "id": "south_rows",
+      "name": "The southern vaults",
+      "cells": [
+        [
+          1,
+          22
+        ],
+        [
+          22,
+          31
+        ]
+      ]
+    },
+    {
+      "id": "muck",
+      "name": "The acrid muck",
+      "cells": [
+        [
+          9,
+          14
+        ],
+        [
+          15,
+          20
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      22,
+      17
+    ],
+    "from_hub": [
+      22,
+      17
+    ]
+  },
+  "exits": [
+    {
+      "id": "hub_path",
+      "cell": [
+        23,
+        17
+      ],
+      "to": "mm_sepulcher",
+      "spawn": "from_lanes",
+      "label": "The paved path back to the sepulcher"
+    }
+  ],
+  "props": [
+    {
+      "id": "mm_brazier_magenta",
+      "cell": [
+        12,
+        17
+      ],
+      "kind": "decor",
+      "label": "A brazier of pink coals beside a mossy tree",
+      "model": "brazier_cold",
+      "call": "maidenmist/rites:magenta_start",
+      "approach": 3,
+      "call_when": "not flag.beacon_magenta"
+    },
+    {
+      "id": "mm_brazier_magenta_lit",
+      "cell": [
+        12,
+        17
+      ],
+      "kind": "decor",
+      "label": "The Magenta Beacon, burning",
+      "model": "brazier",
+      "when": "flag.beacon_magenta",
+      "tint": "#d050a0"
+    },
+    {
+      "id": "mm_muck_edge",
+      "cell": [
+        12,
+        15
+      ],
+      "kind": "decor",
+      "label": "Acrid muck on the tiles",
+      "call": "maidenmist/sites:muck",
+      "approach": 2,
+      "call_when": "not flag.mm_magenta_muck_done"
+    },
+    {
+      "id": "mm_vault_study",
+      "cell": [
+        8,
+        13
+      ],
+      "kind": "examine",
+      "label": "Vault doors carved with ships and spirals",
+      "model": "relief",
+      "call": "maidenmist/sites:vault_study",
+      "approach": 3
+    },
+    {
+      "id": "mm_vault_a",
+      "cell": [
+        3,
+        13
+      ],
+      "kind": "examine",
+      "label": "A vault door with a hex glyph",
+      "model": "door_double",
+      "call": "maidenmist/sites:vault_wrong_a"
+    },
+    {
+      "id": "mm_vault_b",
+      "cell": [
+        15,
+        21
+      ],
+      "kind": "examine",
+      "label": "A vault door with a hex glyph",
+      "model": "door_double",
+      "call": "maidenmist/sites:vault_right"
+    },
+    {
+      "id": "mm_vault_c",
+      "cell": [
+        20,
+        13
+      ],
+      "kind": "examine",
+      "label": "A vault door with a hex glyph",
+      "model": "door_double",
+      "call": "maidenmist/sites:vault_wrong_c"
+    },
+    {
+      "id": "mm_moth_vault",
+      "cell": [
+        8,
+        21
+      ],
+      "kind": "examine",
+      "label": "A small vault, its door ajar",
+      "model": "door_double",
+      "call": "maidenmist/sites:moth_vault",
+      "approach": 2,
+      "call_when": "not flag.mm_moth_taken"
+    },
+    {
+      "id": "mm_yorgrim_site_lanes",
+      "cell": [
+        12,
+        28
+      ],
+      "kind": "decor",
+      "label": "The lantern's edge",
+      "call": "maidenmist/yorgrim:site_lanes",
+      "approach": 4,
+      "call_when": "flag.yorgrim_with_party and not flag.mm_site_lanes_told"
+    },
+    {
+      "id": "mm_lane_tree_0",
+      "cell": [
+        2,
+        14
+      ],
+      "kind": "decor",
+      "label": "A gnarled tree hung with moss",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_lane_tree_1",
+      "cell": [
+        10,
+        14
+      ],
+      "kind": "decor",
+      "label": "A gnarled tree hung with moss",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_lane_tree_2",
+      "cell": [
+        22,
+        14
+      ],
+      "kind": "decor",
+      "label": "A gnarled tree hung with moss",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_lane_tree_3",
+      "cell": [
+        2,
+        20
+      ],
+      "kind": "decor",
+      "label": "A gnarled tree hung with moss",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_lane_tree_4",
+      "cell": [
+        22,
+        20
+      ],
+      "kind": "decor",
+      "label": "A gnarled tree hung with moss",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_lane_tree_5",
+      "cell": [
+        10,
+        30
+      ],
+      "kind": "decor",
+      "label": "A gnarled tree hung with moss",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_lane_tree_6",
+      "cell": [
+        14,
+        30
+      ],
+      "kind": "decor",
+      "label": "A gnarled tree hung with moss",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "mm_lanes_dress_0",
+      "cell": [
+        18,
+        27
+      ],
+      "kind": "decor",
+      "label": "A sunken vault slab",
+      "model": "barrel"
+    },
+    {
+      "id": "mm_lanes_dress_1",
+      "cell": [
+        10,
+        5
+      ],
+      "kind": "decor",
+      "label": "Ivy over a vault door",
+      "model": "vines"
+    },
+    {
+      "id": "mm_lanes_dress_2",
+      "cell": [
+        17,
+        5
+      ],
+      "kind": "decor",
+      "label": "A sunken vault slab",
+      "model": "barrel"
+    },
+    {
+      "id": "mm_lanes_dress_3",
+      "cell": [
+        19,
+        18
+      ],
+      "kind": "decor",
+      "label": "Ivy over a vault door",
+      "model": "vines"
+    },
+    {
+      "id": "mm_lanes_dress_4",
+      "cell": [
+        17,
+        12
+      ],
+      "kind": "decor",
+      "label": "A sunken vault slab",
+      "model": "barrel"
+    },
+    {
+      "id": "mm_lanes_dress_5",
+      "cell": [
+        11,
+        24
+      ],
+      "kind": "decor",
+      "label": "A sunken vault slab",
+      "model": "barrel"
+    },
+    {
+      "id": "mm_lanes_dress_6",
+      "cell": [
+        1,
+        2
+      ],
+      "kind": "decor",
+      "label": "A sunken vault slab",
+      "model": "barrel"
+    },
+    {
+      "id": "mm_lanes_dress_7",
+      "cell": [
+        18,
+        23
+      ],
+      "kind": "decor",
+      "label": "A scatter of old bones",
+      "model": "bones"
+    },
+    {
+      "id": "mm_lanes_dress_8",
+      "cell": [
+        22,
+        5
+      ],
+      "kind": "decor",
+      "label": "A scatter of old bones",
+      "model": "bones"
+    },
+    {
+      "id": "mm_lanes_dress_9",
+      "cell": [
+        6,
+        10
+      ],
+      "kind": "decor",
+      "label": "A scatter of old bones",
+      "model": "bones"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "mm_magenta_rite",
+      "trigger": "dialogue",
+      "when": "not flag.mm_magenta_fails",
+      "flag": "mm_magenta_guardians_dead",
+      "monsters": [
+        {
+          "monster": "dream_eater",
+          "cell": [
+            12,
+            14
+          ],
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "jinxed_flame",
+          "name": "Jinxed Flame",
+          "summary": "The pink flame throws a jinx on whoever stands in its light.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "cha",
+            "dc": 15
+          },
+          "condition": "frightened",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1,
+          "say": "The pink flame spits, and somebody's luck runs out."
+        }
+      ]
+    },
+    {
+      "id": "mm_magenta_rite",
+      "trigger": "dialogue",
+      "when": "flag.mm_magenta_fails == 1",
+      "flag": "mm_magenta_guardians_dead",
+      "monsters": [
+        {
+          "monster": "dream_eater",
+          "cell": [
+            12,
+            14
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "mud_mephit",
+          "cell": [
+            9,
+            17
+          ],
+          "name": "A mud mephit roused by the failed search",
+          "facing": "south"
+        },
+        {
+          "monster": "mud_mephit",
+          "cell": [
+            15,
+            17
+          ],
+          "name": "A mud mephit roused by the failed search",
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "jinxed_flame",
+          "name": "Jinxed Flame",
+          "summary": "The pink flame throws a jinx on whoever stands in its light.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "cha",
+            "dc": 15
+          },
+          "condition": "frightened",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1,
+          "say": "The pink flame spits, and somebody's luck runs out."
+        }
+      ]
+    },
+    {
+      "id": "mm_magenta_rite",
+      "trigger": "dialogue",
+      "when": "flag.mm_magenta_fails >= 2",
+      "flag": "mm_magenta_guardians_dead",
+      "monsters": [
+        {
+          "monster": "dream_eater",
+          "cell": [
+            12,
+            14
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "mud_mephit",
+          "cell": [
+            9,
+            17
+          ],
+          "name": "A mud mephit roused by the failed search",
+          "facing": "south"
+        },
+        {
+          "monster": "mud_mephit",
+          "cell": [
+            15,
+            17
+          ],
+          "name": "A mud mephit roused by the failed search",
+          "facing": "south"
+        },
+        {
+          "monster": "mud_mephit",
+          "cell": [
+            12,
+            20
+          ],
+          "name": "A mud mephit roused by the failed search",
+          "facing": "south"
+        },
+        {
+          "monster": "mud_mephit",
+          "cell": [
+            14,
+            14
+          ],
+          "name": "A mud mephit roused by the failed search",
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "jinxed_flame",
+          "name": "Jinxed Flame",
+          "summary": "The pink flame throws a jinx on whoever stands in its light.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "cha",
+            "dc": 15
+          },
+          "condition": "frightened",
+          "until": "target_turn_end",
+          "at": 20,
+          "every": 1,
+          "say": "The pink flame spits, and somebody's luck runs out."
+        }
+      ]
+    }
+  ],
+  "rest": "risky"
+}

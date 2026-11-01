@@ -1,0 +1,60 @@
+# Drafted by Gemini (R18 commune), edited.
+
+~ arrival
+Narrator: A pale frost of spores blankets the clay huts, the collapsed livestock pen, and the eighteen bodies in the yard. Beyond them, the woven door of the longhouse hangs ajar.
+quest q_hartsblight commune
+set hb_commune_seen
+* Examine the bodies -> bodies
+* Look to the tree line -> circle_glimpse
+* Move on -> END
+
+~ bodies
+Narrator: Eighteen villagers lie where their chores left them, already sunken into the garden loam under a velvet crust of green mold.
+* [Nature DC 13] Study how they rotted -> bodies_ok | bodies_fail
+* [Medicine DC 13] Study the bodies -> bodies_ok | bodies_fail
+* Leave them be -> arrival
+
+~ bodies_ok
+Narrator: No beetle or crow has touched them. The spores took living flesh and turned it to soft mulch in an hour rather than a season.
+set hb_bodies_studied
+-> arrival
+
+~ bodies_fail
+Narrator: You lean in close over a fallen gardener, and a puff of sweet green dust rises to catch in your throat.
+set hb_blight += 1
+-> arrival
+
+~ circle_glimpse
+Narrator: Six antlered figures and two taller ones with withered staves stand along the northern trees, beating skin drums and blowing low horns. Across the yard, the corpses twitch and burst into rising whirlwinds of spores.
+* Break up the ritual now -> circle_fight
+* [Nature DC 15] Study the rot before it spreads -> study_ok | study_fail
+* Slip past them into the forest -> circle_walk
+* Not yet -> END
+
+~ study_ok
+Narrator: Ten minutes with a blighted root and a fallen hand tells you the way of the sickness. Each exposure deepens the rot, a cure for poison or a night's rest eases it, and only the source's death ends it.
+set hb_studied
+time +10
+-> circle_glimpse
+
+~ study_fail
+Narrator: You turn the spongy leaves and learn nothing while the green haze thickens in your lungs.
+time +10
+set hb_blight += 1
+-> circle_glimpse
+
+~ circle_fight
+cutscene hb_circle
+Narrator: The drumming halts as one of the tall keepers lowers a withered staff and turns hollow, spore-rimmed eyes your way.
+cutscene hb_circle_2
+cutscene end
+keeper_of_the_blight [neutral]: You only delay the mulch. The forest takes all things back in the end, and a few minutes change nothing.
+set mem_farryn_circle
+combat hb_circle
+
+~ circle_walk
+Narrator: You leave the chanters to their work and slip under the boughs. Behind you, the drums swell and a thick green cloud rolls south on the wind toward the village.
+set hb_circle_fled
+set hb_cloud_reached_village
+quest q_hartsblight circle
+-> END

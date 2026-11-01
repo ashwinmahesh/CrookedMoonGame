@@ -1,0 +1,81 @@
+# Drafted by Gemini (R15 town), edited.
+
+~ reveal
+set dc_town_seen
+cutscene dc_murkwater
+Narrator: The heavy curtains of Spanish moss part on a stilt town of lamplit shacks and rope bridges slung high over black water.
+cutscene dc_murkwater_2
+Narrator: Above the crooked roofs, a purple-and-black flag snaps lazily over a stockade fort.
+cutscene end
+-> END
+
+~ lyla_gate
+Narrator: A brisk young woman in a purple coat hung with tin and bone charms waits on the dry planks by the south gate.
+lyla_webb [neutral]: Keep your boots on the timber, strangers, the mud takes what it likes down here. I am Lyla Webb, and I have been watching the reed beds for new faces.
+set lyla_met
+quest withered_arm murkwater
+-> lyla_menu
+
+~ lyla_menu
+* Ask about the town -> lyla_town
+* Ask about Mister Crossroads -> lyla_sinner
+* Take us to the King -> lyla_escort
+
+~ lyla_town
+lyla_webb [weary]: Murkwater Bend boomed on easy luck, and now the bill is coming due. Boiler fires, swamp fever, bad dice, and the drowned dead walking right up out of the black water.
+-> lyla_menu
+
+~ lyla_sinner
+lyla_webb [neutral]: The deal-maker keeps a shack up the Marshwinder Road where the lanterns burn green. Just a humble sinner doing small favours, as he will gladly tell you himself.
+* [Insight DC 14] Watch her face as she says it -> lyla_sinner_tell | lyla_sinner_flat
+* Say nothing -> lyla_menu
+
+~ lyla_sinner_tell
+Narrator: Her fingers brush a pair of carved bone dice at her collar, and what crosses her face is not fear at all, but an older reverence.
+-> lyla_menu
+
+~ lyla_sinner_flat
+Narrator: Her expression stays as neat and unreadable as a closed ledger.
+-> lyla_menu
+
+~ lyla_escort
+lyla_webb [sly]: Come along then, and mind the wet boards. His Majesty Vander Boone calls himself King of the Bayou, and a king dislikes being kept waiting.
+Narrator: The rope walkways sway beneath your boots, smelling of river mud, lantern oil, and old fry-grease as she leads you toward the stockade.
+move dc_fort:from_gate
+
+~ lyla_fort
+lyla_webb [neutral]: You have the King's ear so long as you talk sense and keep your hands off your steel. Mind your manners in the hall.
+-> END
+
+~ lyla_talk
+lyla_webb [neutral]: Mind the trays on my table, those charms are sorted by weight and prayer. What do you need on Traders' Row?
+* Ask about the Sinner's wares -> lyla_wares
+* Ask about Vander -> lyla_vander
+* [Religion DC 14] Study the charms on her stall -> lyla_jack | lyla_jack_miss
+* [if flag.vander_met and not flag.ledger_asked] Ask about the town's coin -> drowned_crossroads/side_ledger:lyla_start
+* [if flag.ledger_asked and not flag.ledger_outcome] Report on the ledger -> drowned_crossroads/side_ledger:report
+* Take our leave -> END
+
+~ lyla_wares
+lyla_webb [weary]: Everything on the Sinner's shelf is tagged at three copper, from a lucky button to a wedding band. Every single tag is a lie, and you pay the real price later.
+-> lyla_talk
+
+~ lyla_vander
+lyla_webb [smile]: Vander wears a purple hat and calls himself a king, which is harmless enough while he keeps the levee patched. If he ever turned cruel on these people, I would tip him into the bayou myself.
+-> lyla_talk
+
+~ lyla_jack
+lyla_webb [sly]: You know the old signs, do you? I keep faith with Snake Eye Jack, the true spirit of these waters, whom that grinning lizard bound in a coffin to fuel his stove. Put the Sinner in the mud and set Jack free.
+set lyla_jack_known
+-> lyla_talk
+
+~ lyla_jack_miss
+Narrator: You see tin stars, alligator teeth, and river-smoothed glass threaded on waxed twine, the ordinary trade of a swamp stall.
+lyla_webb [neutral]: Tin for luck and bone for wardings, two copper a string if you are buying.
+-> lyla_talk
+
+~ lyla_after
+lyla_webb [smile]: The river air smells clean for the first morning in a year, and the graves have stayed shut since dawn. Make sure Vander pays you every coin he promised.
+* [if flag.vander_met and not flag.ledger_asked] Ask about the town's coin. -> drowned_crossroads/side_ledger:lyla_start
+* [if flag.ledger_asked and not flag.ledger_outcome] Report on the ledger. -> drowned_crossroads/side_ledger:report
+* Take our leave. -> END

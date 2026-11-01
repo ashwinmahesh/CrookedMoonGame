@@ -1,0 +1,276 @@
+{
+  "id": "dc_boat_promenade",
+  "name": "The Dead Man's Hand: Promenade",
+  "region": "drowned_crossroads",
+  "summary": "The top decks of a ghostly riverboat casino, crowded with glassy-eyed revellers.",
+  "text": "Neon soulfire, green and magenta. The deck circles the ship, crowded with well-dressed revellers whose eyes will not quite meet yours, and holds the balcony over the hall. Catchy jazz comes from everywhere.",
+  "map": {
+    "rows": [
+      "##############################################",
+      "#............................................#",
+      "#.............==......===.......==......==...#",
+      "#............................................#",
+      "#............................................#",
+      "########.....#################.......#########",
+      "#............................................#",
+      "#._____......................................#",
+      ".._____......................................#",
+      "#._____......................................#",
+      "#._____......................................#",
+      "#._____.......==..........==........==.......#",
+      "#._____......................................#",
+      "#............................................#",
+      "#............................................#",
+      "##############################################"
+    ],
+    "theme": "tavern",
+    "light": "bright",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "dc_gangplank",
+      "name": "Dead Man's Gangplank",
+      "cells": [
+        [
+          1,
+          7
+        ],
+        [
+          6,
+          12
+        ]
+      ]
+    },
+    {
+      "id": "dc_top_deck",
+      "name": "The top deck",
+      "cells": [
+        [
+          2,
+          1
+        ],
+        [
+          44,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "dc_balcony",
+      "name": "The balcony",
+      "cells": [
+        [
+          7,
+          6
+        ],
+        [
+          44,
+          14
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      3,
+      9
+    ],
+    "from_gangplank": [
+      3,
+      9
+    ],
+    "from_hall_up": [
+      22,
+      12
+    ],
+    "from_captain": [
+      42,
+      3
+    ]
+  },
+  "exits": [
+    {
+      "id": "gangplank",
+      "cell": [
+        0,
+        8
+      ],
+      "to": "dc_lagoon",
+      "spawn": "from_boat",
+      "label": "Down the gangplank"
+    },
+    {
+      "id": "to_hall",
+      "cell": [
+        22,
+        13
+      ],
+      "to": "dc_boat_hall",
+      "spawn": "from_balcony",
+      "label": "Stairs down to the Gambling Hall"
+    },
+    {
+      "id": "to_captain",
+      "cell": [
+        43,
+        2
+      ],
+      "to": "dc_boat_captain",
+      "spawn": "from_stairs",
+      "label": "Stairs up to the Captain's Quarters"
+    }
+  ],
+  "props": [
+    {
+      "id": "dc_flag_skull",
+      "cell": [
+        6,
+        3
+      ],
+      "kind": "decor",
+      "label": "A black flag with a crocodile skull",
+      "model": "lantern_bracket"
+    },
+    {
+      "id": "dc_paddle",
+      "cell": [
+        44,
+        8
+      ],
+      "kind": "decor",
+      "label": "A paddle wheel that never turns",
+      "model": "gate"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "bellhop_zombie",
+      "cell": [
+        8,
+        8
+      ],
+      "dialogue": "drowned_crossroads/lagoon:bellhops",
+      "when": "not flag.dc_bellhops_ok and not flag.dc_bellhops_done"
+    },
+    {
+      "npc": "elias_greaves",
+      "cell": [
+        30,
+        9
+      ],
+      "dialogue": "drowned_crossroads/boat:elias_mute",
+      "when": "flag.dc_boarded and not flag.elias_freed and not flag.elias_met"
+    },
+    {
+      "npc": "elias_greaves",
+      "cell": [
+        30,
+        9
+      ],
+      "dialogue": "drowned_crossroads/boat:elias_again",
+      "when": "flag.elias_met and not flag.elias_freed"
+    },
+    {
+      "npc": "boat_reveler",
+      "cell": [
+        14,
+        3
+      ],
+      "dialogue": "drowned_crossroads/boat:reveler"
+    },
+    {
+      "npc": "boat_reveler",
+      "cell": [
+        35,
+        11
+      ],
+      "dialogue": "drowned_crossroads/boat:reveler"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "dc_bellhops",
+      "trigger": "dialogue",
+      "flag": "dc_bellhops_done",
+      "monsters": [
+        {
+          "monster": "ogre_zombie",
+          "cell": [
+            10,
+            8
+          ],
+          "name": "A bellhop",
+          "facing": "west"
+        }
+      ],
+      "when": "level <= 5"
+    },
+    {
+      "id": "dc_bellhops",
+      "trigger": "dialogue",
+      "flag": "dc_bellhops_done",
+      "monsters": [
+        {
+          "monster": "ogre_zombie",
+          "cell": [
+            10,
+            8
+          ],
+          "name": "A bellhop",
+          "facing": "west"
+        },
+        {
+          "monster": "ogre_zombie",
+          "cell": [
+            10,
+            10
+          ],
+          "name": "A bellhop",
+          "facing": "west"
+        }
+      ],
+      "when": "level == 6"
+    },
+    {
+      "id": "dc_bellhops",
+      "trigger": "dialogue",
+      "flag": "dc_bellhops_done",
+      "monsters": [
+        {
+          "monster": "ogre_zombie",
+          "cell": [
+            10,
+            8
+          ],
+          "name": "A bellhop",
+          "facing": "west"
+        },
+        {
+          "monster": "ogre_zombie",
+          "cell": [
+            10,
+            10
+          ],
+          "name": "A bellhop",
+          "facing": "west"
+        }
+      ],
+      "when": "level >= 7"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "The jazz does not let anyone rest.",
+  "lights": [
+    {
+      "cell": [
+        22,
+        8
+      ],
+      "kind": "lamp",
+      "bright_ft": 30,
+      "dim_ft": 60,
+      "color": "bile"
+    }
+  ]
+}

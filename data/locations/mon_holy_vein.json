@@ -1,0 +1,190 @@
+{
+  "id": "mon_holy_vein",
+  "name": "The Holy Vein",
+  "region": "crimson_monastery",
+  "summary": "A rough tunnel, six feet high and three feet deep in blood, ending at a stone door.",
+  "text": "The ceiling presses on your head and the blood is warm. Somewhere ahead, something wet moves.",
+  "map": {
+    "rows": [
+      "######################################",
+      "######################################",
+      "######################################",
+      "######################################",
+      "#.####################################",
+      "#.~~~~~~~~~~~~#~~~~~~~~~~~~~~~~~~~~..#",
+      "#.~~~~~~~~~~~~~~~~~~~~~~~~~#~~~~~~~..#",
+      "#.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~..#",
+      "#.~~~~~~~~~~~~~~~~~~~~#~~~~~~~~~~~~..#",
+      "######################################",
+      "######################################",
+      "######################################",
+      "######################################",
+      "######################################"
+    ],
+    "theme": "cave",
+    "light": "dark",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "shaft_foot",
+      "name": "The foot of the shaft",
+      "cells": [
+        [
+          1,
+          5
+        ],
+        [
+          3,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "vein",
+      "name": "The Holy Vein",
+      "cells": [
+        [
+          4,
+          5
+        ],
+        [
+          34,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "sealed_door",
+      "name": "The sealed door",
+      "cells": [
+        [
+          33,
+          5
+        ],
+        [
+          36,
+          8
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      2,
+      6
+    ],
+    "from_altar": [
+      2,
+      6
+    ],
+    "from_sanctum": [
+      34,
+      6
+    ]
+  },
+  "exits": [
+    {
+      "id": "shaft_up",
+      "cell": [
+        1,
+        4
+      ],
+      "to": "mon_ground",
+      "spawn": "from_vein",
+      "label": "Back up the shaft"
+    },
+    {
+      "id": "to_sanctum",
+      "cell": [
+        37,
+        6
+      ],
+      "to": "mon_sanctum",
+      "spawn": "from_vein",
+      "label": "Through the stone door",
+      "when": "flag.sanctum_door_open"
+    }
+  ],
+  "props": [
+    {
+      "id": "mon_vein_door",
+      "cell": [
+        36,
+        6
+      ],
+      "kind": "examine",
+      "label": "A stone door under Arcane Lock",
+      "model": "portcullis",
+      "dialogue": "monastery/clues:sanctum_door",
+      "when": "not flag.sanctum_door_open"
+    },
+    {
+      "id": "mon_vein_warning",
+      "cell": [
+        4,
+        6
+      ],
+      "kind": "decor",
+      "label": "Blood, three feet deep",
+      "model": "puddle",
+      "call": "monastery/clues:vein_warning",
+      "approach": 4,
+      "call_when": "not flag.vein_warned"
+    },
+    {
+      "id": "mon_vein_bones",
+      "cell": [
+        18,
+        7
+      ],
+      "kind": "decor",
+      "label": "Bones in the blood",
+      "model": "bones"
+    },
+    {
+      "id": "mon_vein_roots",
+      "cell": [
+        26,
+        5
+      ],
+      "kind": "decor",
+      "label": "Roots like veins in the ceiling",
+      "model": "vines"
+    }
+  ],
+  "npcs": [],
+  "encounters": [
+    {
+      "id": "mon_blood_elemental",
+      "trigger": "enter_area:sealed_door",
+      "when": "not flag.mon_elemental_done",
+      "waiting": true,
+      "flag": "mon_elemental_done",
+      "monsters": [
+        {
+          "monster": "blood_elemental",
+          "cell": [
+            33,
+            6
+          ],
+          "name": "A blood elemental",
+          "facing": "west"
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "lights": [
+    {
+      "cell": [
+        2,
+        6
+      ],
+      "kind": "torch",
+      "bright_ft": 10,
+      "dim_ft": 20,
+      "color": "ember"
+    }
+  ]
+}

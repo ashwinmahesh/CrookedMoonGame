@@ -1,0 +1,65 @@
+# Drafted by Gemini (R16 thirteen), edited.
+
+~ kennel
+Narrator: A heavy brass collar stamped with the numeral XIII hangs from a weathered post beside a tin bowl chewed by far too many mouthparts.
+Narrator: Above the empty straw, a faded board painted in a miner's blocky hand reads, "THIRTEEN, GOOD BOY." Whatever slept here took up most of the yard.
+set thirteen_asked
+quest thirteenth_centipede asked
+-> END
+
+~ meet
+Narrator: Coiled beside the timber post is a centipede the height of a pit pony and the width of a hearth rug, smelling faintly of damp coal and old leather.
+Narrator: It waves two long feelers, lets out a dry, hopeful click, and peers up at you as if you have come to call the morning shift.
+-> meet_menu
+
+~ meet_menu
+* [if item:sk_miners_lunch] Feed it the old lunch pail. -> fed
+* [Animal Handling DC 12] Settle it with a steady hand. -> settle_ok | settle_fail
+* [ends:thirteenth_centipede] Put the creature down. -> kill
+* Leave it be. -> END
+
+~ fed
+Narrator: The great creature takes the dented tin pail from your fingers with surprising delicacy, prying the lid open to rumble happily over seventy-year-old lard and crust.
+take sk_miners_lunch
+set thirteen_fed
+-> decide
+
+~ settle_ok
+Narrator: You lay a flat palm against its cool, plated brow. Forty pairs of legs fold neatly beneath its belly as it leans its heavy head into {name}'s hand.
+-> decide
+
+~ settle_fail
+Narrator: Startled by your reach, the beast rears its front segments and nips your wrist with a sharp, burning pinch before curling back in alarm.
+damage 1d6 poison
+-> meet_menu
+
+~ decide
+Narrator: With a contented click of its mandibles, old Thirteen waits patiently at your boots, ready to be told where its shift lies today.
+* Buckle the collar back on and leave it at its kennel. -> kennel_end
+* Lead it to the diggers in the old drift. -> to_diggers
+* Lead it away into the woods. -> to_woods
+
+~ kennel_end
+Narrator: The brass collar clicks shut around its plated neck like an old promise kept. Thirteen curls round its chewed bowl and settles down to sleep.
+set thirteen_outcome = "kennel"
+quest thirteenth_centipede done
+-> END
+
+~ to_diggers
+Narrator: Thirteen trundles eagerly into the dark of the old drift toward the rhythmic grinding of picks. Down in the gloom, the digging falters, and a hoarse voice seems to murmur its name.
+set thirteen_returned
+set thirteen_outcome = "diggers"
+quest thirteenth_centipede done
+-> END
+
+~ to_woods
+Narrator: At the edge of the pines, the old beast pauses to tap your boot once with a feeler, then slips quietly beneath the ferns and rotting logs.
+set thirteen_outcome = "woods"
+quest thirteenth_centipede done
+-> END
+
+~ kill
+Narrator: It looks up at your drawn steel with puzzled feelers, waiting for a crust of bread that never comes.
+set thirteen_outcome = "slain"
+quest thirteenth_centipede lost
+combat sk_thirteen_fight

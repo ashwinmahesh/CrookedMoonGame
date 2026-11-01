@@ -1,0 +1,177 @@
+# Drafted by Gemini (R16 camp), edited.
+
+~ arrival
+cutscene sk_glitterdeep
+Narrator: You come over the rise to the old camp, where a black timber headframe straddles a square pit breathing up green gas.
+cutscene sk_glitterdeep_2
+Narrator: The painted board over the yard hangs crooked in the damp wind, welcoming nobody at all.
+cutscene end
+set sk_arrived
+quest skitter_plague skitterdeep
+-> END
+
+~ sign
+Narrator: The board over the warehouse reads Skitterdeep. Someone painted over the first two letters, and that fresh daub of tar is nowhere near seventy years old.
+set sk_sign_read
+-> END
+
+~ foreman_board
+Narrator: The rotted board still holds a peeling shift rota and a hurried note in a woman's hand: burn incense or scented lamps in the lower drifts to keep the thin things off.
+-> END
+
+~ handprints
+Narrator: The grey dust on the floorboards is dimpled with small, five-fingered tracks.
+* [Survival DC 14] Read the handprints in the dust -> hp_ok | hp_fail
+* Move on -> END
+
+~ hp_ok
+Narrator: A hundred little palms patter back and forth from the middle room, left by something long that walks upon its hands.
+-> END
+
+~ hp_fail
+Narrator: It is only old mine dust, scuffed and settled thick as flour.
+-> END
+
+~ surcoats
+Narrator: Folded in the damp corner lie wine-red surcoats stitched with a white tower, stacked beside stiff horse blankets that still smell faintly of oats and old blood.
+set surcoats_seen
+-> END
+
+~ winch
+Narrator: A great iron drum sits cold in its frame, heavy chain threaded through the floor port beside a rusted lever.
+-> winch_menu
+
+~ winch_menu
+* [Investigation DC 14] Study the winch -> study_ok | study_fail
+* [if item:oil] Oil the gears first -> oiled
+* Throw the lever as it is -> loud
+* [Sleight of Hand DC 15] Jam the drum with thieves' tools -> jam_ok | jam_fail
+* Leave it -> END
+
+~ study_ok
+Narrator: The teeth are dry and crusted with red rust; work that lever raw and the whole mountain will hear it shriek, though a flask of oil would hush the iron.
+set winch_studied
+-> winch_menu
+
+~ study_fail
+Narrator: It is a lump of old iron and grease, stubborn as a mule and twice as heavy.
+-> winch_menu
+
+~ oiled
+Narrator: You soak the dry teeth in lamp oil and pull the lever; the chain pays out with nothing louder than a greasy sigh.
+take oil
+set sk_lift_ready
+-> END
+
+~ loud
+Narrator: The dry drum shrieks down the shaft like a pig at a wedding, and far below in the wet dark, something stops to listen.
+set sk_lift_ready
+set skitterdeep_alert = now
+-> END
+
+~ jam_ok
+Narrator: You wedge an iron spike deep into the teeth until the drum is locked fast; no one is riding this cage tonight.
+-> END
+
+~ jam_fail
+Narrator: Your pick slips from the greasy cog and the drum lets out an almighty iron howl.
+-> loud
+
+~ lift
+Narrator: Thirty feet down the black shaft, rough planks sit bolted across three iron beams, swinging gently over the drop.
+* [if flag.sk_hoard_taken and flag.sk_lift_ready] Haul the ore boxes up on the lift -> overload
+* [if flag.sk_hoard_taken] Haul the ore up by the chain instead -> chain_haul
+* Test the planks -> test
+* Step back -> END
+
+~ test
+Narrator: The damp timber groans under a boot heel, sound enough for a few strong souls, and not an ounce more.
+-> END
+
+~ chain_haul
+Narrator: You haul the heavy boxes up link by greasy link, which takes three long trips and a great deal of quiet swearing.
+-> END
+
+~ overload
+Narrator: The winch drum groans under the dead weight of the ore boxes and the cage shudders on its chain.
+cutscene sk_lift_falls
+cutscene sk_lift_falls_2
+Narrator: With a crack like a musket shot the rusted links part, and the whole platform drops into the dark with you aboard.
+cutscene end
+set skitterdeep_lift_fell
+set skitterdeep_alert = now
+damage 4d6 bludgeoning party
+move sk_deep:from_shaft
+
+~ eyeball
+Narrator: Something small and wet shifts among the timber braces overhead.
+-> eye_menu
+
+~ eye_menu
+* [Perception DC 15] Look closer at the ceiling -> eye_found | eye_missed
+* [Arcana DC 15] Unpick the working on it -> eye_dealt | eye_resists
+* Cut it down -> eye_cut
+* Leave it -> END
+
+~ eye_found
+Narrator: A single pale eyeball dangles from the beam by its own slick nerve, turning slowly to keep you in its sight.
+set sk_eyeball_found
+-> eye_menu
+
+~ eye_missed
+Narrator: There is nothing overhead but weeping stone and old cobwebs.
+-> eye_menu
+
+~ eye_dealt
+Narrator: You pluck the foul thread of magic loose, and the dangling eye clouds over like a boiled fish's.
+set sk_eyeball_dealt
+-> END
+
+~ eye_resists
+Narrator: The greasy little knot of witchcraft slips through your fingers and pulls tight again.
+-> eye_menu
+
+~ eye_cut
+Narrator: A quick flat blade parts the nerve, and the thing drops into the dirt with a wet pop.
+set sk_eyeball_dealt
+-> END
+
+~ hoard
+if flag.oswald_slain
+Narrator: With the glamour broken, the heap is nothing now but cold offal and knucklebones going sour in the dark.
+-> END
+endif
+Narrator: In the last chamber lies a regular dragon's bed of ruby goblets, bright coin, and folded silks gleaming in the dark.
+-> hoard_menu
+
+~ hoard_menu
+* [Investigation DC 15] Look closely at the heap -> hoard_seen | hoard_blind
+* [if flag.sk_hoard_seen and not flag.sk_hoard_taken] Take the real box of nuggets -> real
+* Scoop a handful of coins -> grab
+* Leave it -> END
+
+~ hoard_seen
+Narrator: The cheap shine slides right off the pile, leaving wet eyeballs, blackened tongues, knucklebones, and one honest wooden box tucked under the guts.
+set sk_hoard_seen
+-> hoard_menu
+
+~ hoard_blind
+Narrator: Gold is gold to a tired eye, and the rubies wink back at you bright as hearth coals.
+-> hoard_menu
+
+~ real
+if flag.sk_eyeball_dealt
+Narrator: You drag the heavy box of raw nuggets free of the offal, and the dead eye at the doorway makes no sound at all.
+else
+Narrator: As the box comes free, the eye over the doorway bursts into a silent mental shriek that fills the air with a dizzy, dazzling shimmer.
+set skitterdeep_alert = now
+disadvantage checks 10m: the hypnotic shimmer
+endif
+gold +450
+set sk_hoard_taken
+Narrator: Behind you, the butcher's heap heaves up with a wet, giggling whisper.
+combat sk_oswald
+
+~ grab
+Narrator: Your fingers close on cold, wet eyeballs as the whole butcher's heap erupts into a giggling centipede with a tiny human hand on every leg.
+combat sk_oswald

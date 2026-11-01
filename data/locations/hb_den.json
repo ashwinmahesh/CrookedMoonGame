@@ -1,0 +1,421 @@
+{
+  "map": {
+    "elevation": [
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111",
+      "111111111111111111111111111111"
+    ],
+    "rows": [
+      "##############################",
+      "##############################",
+      "##############################",
+      "####...........~~~........####",
+      "####...........~~~........####",
+      "####...........~~~........####",
+      "####...........~~~........####",
+      "####...##.................####",
+      "####...##............##...####",
+      "####.................##...####",
+      "####......................####",
+      "####......................####",
+      "####......................####",
+      "####......................####",
+      "####......................####",
+      "####......................####",
+      "####...~~.................####",
+      "####...~~~~~~.............####",
+      "####....~~~~~~............####",
+      "####..#~~~~~~~............####",
+      "####..##~~~~~.........##..####",
+      "####....~~............##..####",
+      "####...~~~~~..............####",
+      "####...~~~~...............####",
+      "####..~~~~..........~~~...####",
+      "####...~~~..........~~~...####",
+      "####.................~....####",
+      "####......................####",
+      "###########........###########",
+      "###########........###########",
+      "###########........###########",
+      "###########........###########",
+      "###########........###########",
+      "###########........###########",
+      "###########........###########",
+      "###########........###########",
+      "###########........###########",
+      "###########........###########",
+      "###########........###########",
+      "###########........###########"
+    ],
+    "theme": "caves",
+    "light": "dim",
+    "outdoors": false
+  },
+  "id": "hb_den",
+  "region": "hartsblight_forest",
+  "props": [
+    {
+      "id": "hb_den_leg",
+      "cell": [
+        15,
+        35
+      ],
+      "kind": "decor",
+      "label": "The way in, and the smell of it",
+      "call": "hartsblight/trek:leg_den",
+      "approach": 8,
+      "call_when": "not flag.hb_leg_den"
+    },
+    {
+      "id": "hb_den_torso",
+      "cell": [
+        14,
+        5
+      ],
+      "kind": "examine",
+      "label": "The gaunt top half of a satyr, hanging from the wall",
+      "model": "stag_head",
+      "scale": 2.0,
+      "dialogue": "hartsblight/gorthos:den_arrive",
+      "when": "not flag.hb_gorthos_started"
+    },
+    {
+      "id": "hb_den_arrive",
+      "cell": [
+        15,
+        30
+      ],
+      "kind": "decor",
+      "label": "The tunnel mouth",
+      "call": "hartsblight/gorthos:den_arrive",
+      "approach": 4,
+      "call_when": "not flag.hb_gorthos_started"
+    },
+    {
+      "id": "hb_den_farewell",
+      "cell": [
+        15,
+        12
+      ],
+      "kind": "decor",
+      "label": "The dissolving colossus",
+      "call": "hartsblight/gorthos:den_farewell",
+      "approach": 12,
+      "call_when": "flag.hb_gorthos_done and not flag.gorthos_slain"
+    },
+    {
+      "id": "hb_idol",
+      "cell": [
+        14,
+        4
+      ],
+      "kind": "search",
+      "label": "A carved idol hanging in the den",
+      "model": "stag_head",
+      "search_dc": 8,
+      "item": "idol_of_the_beast_of_blight",
+      "when": "flag.gorthos_slain and treasure_at:gorthos_den"
+    },
+    {
+      "id": "hb_charms",
+      "cell": [
+        7,
+        12
+      ],
+      "kind": "decor",
+      "label": "Charms of bone, flesh and fur",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_charms_b",
+      "cell": [
+        23,
+        12
+      ],
+      "kind": "decor",
+      "label": "Idols hung with hair",
+      "model": "stag_head"
+    },
+    {
+      "id": "hb_root_veins",
+      "cell": [
+        6,
+        22
+      ],
+      "kind": "decor",
+      "label": "Blighted root veins",
+      "model": "vines"
+    },
+    {
+      "id": "hb_fungal_nest_a",
+      "cell": [
+        10,
+        21
+      ],
+      "kind": "decor",
+      "label": "A pus-oozing fungal nest",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "hb_fungal_nest_b",
+      "cell": [
+        20,
+        18
+      ],
+      "kind": "decor",
+      "label": "A pus-oozing fungal nest",
+      "model": "candle_cluster"
+    },
+    {
+      "id": "hb_fungal_nest_c",
+      "cell": [
+        14,
+        24
+      ],
+      "kind": "decor",
+      "label": "Swollen rotten moss",
+      "model": "leaves"
+    },
+    {
+      "id": "hb_den_bones",
+      "cell": [
+        17,
+        14
+      ],
+      "kind": "decor",
+      "label": "Bones of a very large animal",
+      "model": "bone_scatter"
+    }
+  ],
+  "npcs": [],
+  "exits": [
+    {
+      "id": "to_wellspring",
+      "cell": [
+        15,
+        39
+      ],
+      "to": "hb_wellspring",
+      "spawn": "from_den",
+      "label": "Back out of the den",
+      "when": "not flag.hb_gorthos_started or flag.hb_gorthos_done"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "hb_gorthos",
+      "trigger": "dialogue",
+      "flag": "hb_gorthos_done",
+      "lair": true,
+      "monsters": [
+        {
+          "monster": "beast_of_blight",
+          "cell": [
+            14,
+            6
+          ],
+          "name": "Gorthos, the Beast of Blight",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            15,
+            22
+          ],
+          "name": "Rotweaver",
+          "facing": "north"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            14,
+            22
+          ],
+          "name": "Rotweaver",
+          "facing": "north"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            15,
+            21
+          ],
+          "name": "Rotweaver",
+          "facing": "north"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "hartsblight_influence",
+          "name": "Hartsblight Influence",
+          "summary": "On count 20 the den's rot takes a different shape each round.",
+          "kind": "save",
+          "affects": "party",
+          "at": 20,
+          "every": 1,
+          "pick": "random",
+          "table": [
+            {
+              "id": "blighted_spores",
+              "name": "Blighted Spores",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "con",
+                "dc": 15
+              },
+              "damage": {
+                "dice": "1d6",
+                "type": "necrotic"
+              },
+              "half": true,
+              "condition": "poisoned",
+              "until": "target_turn_end",
+              "say": "hb_influence_spores"
+            },
+            {
+              "id": "sticky_tendrils",
+              "name": "Sticky Tendrils",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "str",
+                "dc": 15
+              },
+              "condition": "restrained",
+              "until": "target_turn_end",
+              "say": "hb_influence_tendrils"
+            },
+            {
+              "id": "weaving_rot",
+              "name": "Weaving Rot",
+              "kind": "summon",
+              "affects": "enemies",
+              "monster": "rotweaver",
+              "count": 1,
+              "side": "enemies",
+              "cells": [
+                [
+                  10,
+                  24
+                ],
+                [
+                  20,
+                  24
+                ]
+              ],
+              "say": "hb_influence_weaving"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "areas": [
+    {
+      "id": "tunnel",
+      "name": "The tunnel",
+      "cells": [
+        [
+          11,
+          28
+        ],
+        [
+          18,
+          38
+        ]
+      ]
+    },
+    {
+      "id": "lair",
+      "name": "The den",
+      "cells": [
+        [
+          4,
+          3
+        ],
+        [
+          25,
+          27
+        ]
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        15,
+        10
+      ],
+      "kind": "candle",
+      "bright_ft": 40,
+      "dim_ft": 80,
+      "color": "bile"
+    },
+    {
+      "cell": [
+        8,
+        20
+      ],
+      "kind": "candle",
+      "bright_ft": 25,
+      "dim_ft": 50,
+      "color": "bile"
+    }
+  ],
+  "traps": [],
+  "spawns": {
+    "default": [
+      15,
+      37
+    ],
+    "from_wellspring": [
+      15,
+      37
+    ]
+  },
+  "name": "The Den of the Blighted One",
+  "summary": "A slick, throat-like tunnel opening on a cavern of bone, root and bile-yellow fungal nests.",
+  "text": "A slick, throat-like tunnel opening on a cavern of bone, root and bile-yellow fungal nests. Everything is wet, and everything glows a little.",
+  "rest": "no",
+  "rest_text": "The spores drift down on your bedrolls like a slow, soft snow, and the trees are listening."
+}

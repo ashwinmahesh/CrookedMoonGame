@@ -1,0 +1,400 @@
+{
+  "id": "mm_shadestone_sanctuary",
+  "name": "The Shadestone Sanctuary",
+  "region": "maidenmist_cemetery",
+  "summary": "Tall carved standing stones covered in Orc names before a small stepped ziggurat, an azure beacon on its crown.",
+  "text": "The air here is still and clean. Names are cut into the standing stones from root to crown, and an azure fire burns on top of the little ziggurat as if it had never gone out.",
+  "map": {
+    "rows": [
+      "##############################",
+      "#.......=.................=..#",
+      "#............................#",
+      "#............................#",
+      "#....#....#.........#...=#...#",
+      "#..........................=.#",
+      "#............................#",
+      "#..................=.........#",
+      "#.=..........................#",
+      "#..........11111111..........#",
+      "#..........12222221..........#",
+      "#..........12333321..........#",
+      "#..........12333321..........#",
+      "#..........12333321..........#",
+      "#..........12333321..........#",
+      "...........12222221..........#",
+      "#..........11111111..........#",
+      "#............................#",
+      "#............................#",
+      "#=........=..................#",
+      "#............................#",
+      "#=...........................#",
+      "#.........................=..#",
+      "#......................=.....#",
+      "#....#....#.=.......#....#...#",
+      "#............................#",
+      "#............................#",
+      "#.......=....................#",
+      "#...................=........#",
+      "##############################"
+    ],
+    "theme": "wilderness",
+    "light": "dim",
+    "outdoors": true,
+    "elevation": [
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222333333322222222222",
+      "222222222233333333333222222222",
+      "222222222333333333333322222222",
+      "222222223333333333333332222222",
+      "222222233333333333333333222222",
+      "222222333333333333333333322222",
+      "222222333333333333333333322222",
+      "222223333333334443333333332222",
+      "222223333333344444333333332222",
+      "222223333333444444433333332222",
+      "222223333333444444433333332222",
+      "222223333333444444433333332222",
+      "222223333333344444333333332222",
+      "222223333333334443333333332222",
+      "222222333333333333333333322222",
+      "222222333333333333333333322222",
+      "222222233333333333333333222222",
+      "222222223333333333333332222222",
+      "222222222333333333333322222222",
+      "222222222233333333333222222222",
+      "222222222222333333322222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222"
+    ]
+  },
+  "areas": [
+    {
+      "id": "stones",
+      "name": "The standing stones",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          28,
+          8
+        ]
+      ]
+    },
+    {
+      "id": "ziggurat",
+      "name": "The ziggurat",
+      "cells": [
+        [
+          11,
+          9
+        ],
+        [
+          18,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "chamber_of_rest",
+      "name": "The chamber of rest",
+      "cells": [
+        [
+          13,
+          11
+        ],
+        [
+          16,
+          14
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      3,
+      15
+    ],
+    "from_hub": [
+      2,
+      15
+    ]
+  },
+  "exits": [
+    {
+      "id": "hub_path",
+      "cell": [
+        0,
+        15
+      ],
+      "to": "mm_sepulcher",
+      "spawn": "from_stones",
+      "label": "The paved path back to the sepulcher"
+    }
+  ],
+  "props": [
+    {
+      "id": "mm_beacon_azure",
+      "cell": [
+        15,
+        12
+      ],
+      "kind": "decor",
+      "label": "The azure beacon",
+      "model": "brazier",
+      "flame": "frost"
+    },
+    {
+      "id": "mm_clan_stones",
+      "cell": [
+        14,
+        20
+      ],
+      "kind": "examine",
+      "label": "The standing stones, cut with Orc names",
+      "model": "standing_stones",
+      "call": "maidenmist/yorgrim:clan_stones",
+      "approach": 4,
+      "call_when": "not flag.yorgrim_told_story"
+    },
+    {
+      "id": "mm_clan_study",
+      "cell": [
+        6,
+        12
+      ],
+      "kind": "examine",
+      "label": "A stone with names in a script you almost know",
+      "model": "names_wall",
+      "call": "maidenmist/sites:clan_study",
+      "approach": 2
+    },
+    {
+      "id": "mm_shovel_slab",
+      "cell": [
+        14,
+        13
+      ],
+      "kind": "search",
+      "label": "A slab with a shovel laid across it",
+      "search_dc": 5,
+      "item": "shovel_of_yorgrim",
+      "when": "treasure_at:shadestone_chamber_of_rest"
+    },
+    {
+      "id": "mm_statue_lantern",
+      "cell": [
+        21,
+        21
+      ],
+      "kind": "examine",
+      "label": "A statue of a hooded figure holding a lantern",
+      "model": "statue_mother_night",
+      "call": "maidenmist/sites:lantern_statue",
+      "approach": 2
+    },
+    {
+      "id": "mm_slab_0",
+      "cell": [
+        12,
+        3
+      ],
+      "kind": "decor",
+      "label": "A stone slab",
+      "model": "bier"
+    },
+    {
+      "id": "mm_slab_1",
+      "cell": [
+        13,
+        4
+      ],
+      "kind": "decor",
+      "label": "A stone slab",
+      "model": "bier"
+    },
+    {
+      "id": "mm_slab_2",
+      "cell": [
+        14,
+        5
+      ],
+      "kind": "decor",
+      "label": "A stone slab",
+      "model": "bier"
+    },
+    {
+      "id": "mm_slab_3",
+      "cell": [
+        15,
+        6
+      ],
+      "kind": "decor",
+      "label": "A stone slab",
+      "model": "bier"
+    },
+    {
+      "id": "mm_slab_4",
+      "cell": [
+        16,
+        7
+      ],
+      "kind": "decor",
+      "label": "A stone slab",
+      "model": "bier"
+    },
+    {
+      "id": "mm_slab_5",
+      "cell": [
+        17,
+        8
+      ],
+      "kind": "decor",
+      "label": "A stone slab",
+      "model": "bier"
+    },
+    {
+      "id": "mm_slab_6",
+      "cell": [
+        25,
+        9
+      ],
+      "kind": "decor",
+      "label": "A stone slab",
+      "model": "bier"
+    },
+    {
+      "id": "mm_slab_7",
+      "cell": [
+        25,
+        10
+      ],
+      "kind": "decor",
+      "label": "A stone slab",
+      "model": "bier"
+    },
+    {
+      "id": "mm_slab_8",
+      "cell": [
+        25,
+        11
+      ],
+      "kind": "decor",
+      "label": "A stone slab",
+      "model": "bier"
+    },
+    {
+      "id": "mm_slab_9",
+      "cell": [
+        25,
+        12
+      ],
+      "kind": "decor",
+      "label": "A stone slab",
+      "model": "bier"
+    },
+    {
+      "id": "mm_names_stone_0",
+      "cell": [
+        5,
+        4
+      ],
+      "kind": "decor",
+      "label": "A standing stone cut with names",
+      "model": "standing_stones"
+    },
+    {
+      "id": "mm_names_stone_1",
+      "cell": [
+        10,
+        4
+      ],
+      "kind": "decor",
+      "label": "A standing stone cut with names",
+      "model": "standing_stones"
+    },
+    {
+      "id": "mm_names_stone_2",
+      "cell": [
+        20,
+        4
+      ],
+      "kind": "decor",
+      "label": "A standing stone cut with names",
+      "model": "standing_stones"
+    },
+    {
+      "id": "mm_names_stone_3",
+      "cell": [
+        25,
+        4
+      ],
+      "kind": "decor",
+      "label": "A standing stone cut with names",
+      "model": "standing_stones"
+    },
+    {
+      "id": "mm_names_stone_4",
+      "cell": [
+        5,
+        24
+      ],
+      "kind": "decor",
+      "label": "A standing stone cut with names",
+      "model": "standing_stones"
+    },
+    {
+      "id": "mm_names_stone_5",
+      "cell": [
+        10,
+        24
+      ],
+      "kind": "decor",
+      "label": "A standing stone cut with names",
+      "model": "standing_stones"
+    },
+    {
+      "id": "mm_names_stone_6",
+      "cell": [
+        20,
+        24
+      ],
+      "kind": "decor",
+      "label": "A standing stone cut with names",
+      "model": "standing_stones"
+    },
+    {
+      "id": "mm_names_stone_7",
+      "cell": [
+        25,
+        24
+      ],
+      "kind": "decor",
+      "label": "A standing stone cut with names",
+      "model": "standing_stones"
+    },
+    {
+      "id": "mm_isolde_rest",
+      "cell": [
+        12,
+        18
+      ],
+      "kind": "decor",
+      "label": "A place by the stones where the hound lies",
+      "call": "maidenmist/epilogue:walk_end",
+      "approach": 3,
+      "call_when": "flag.mm_isolde_walk_sites >= 3 and not flag.mm_isolde_walk_done"
+    }
+  ],
+  "npcs": [],
+  "encounters": [],
+  "rest": "safe",
+  "rest_text": "Azure light and a stillness the rest of the cemetery has lost."
+}

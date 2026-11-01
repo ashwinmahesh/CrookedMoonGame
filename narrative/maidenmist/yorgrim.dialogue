@@ -1,0 +1,134 @@
+# Drafted by Gemini (R19 yorgrim), edited. Yorgrim the Gravedigger, ally and then the sixth Fallen.
+
+~ arrive
+quest maidenmist_dead_rise gravedigger
+cutscene mm_gravedigger_door
+Narrator: Before the great sepulcher doors, the pale ghost of an orc hunches beneath a gravestone chained across his back, a spectral black hound at his boot. Both hold hooded lanterns close to the stone seam.
+-> meet
+
+~ meet
+set yorgrim_met
+yorgrim [weary]: Few living boots walk this wet gravel anymore, and the dead beneath the sod have grown restless. Tell me who you are, strangers, and why you come.
+-> meet_menu
+
+~ meet_menu
+* Who are you? -> q_who
+* What is this place? -> q_place
+* Are you dead? -> q_dead
+* The hound? -> q_dog
+* What is the Shroud? -> q_shroud
+* What are those things in the mist? -> q_shrouded
+* The monsters we killed. Your friends? -> q_friends
+* You honour villains? -> q_honour
+* What do we do about it? -> briefing
+
+~ q_who
+yorgrim [neutral]: My name is Yorgrim, and I keep the iron keys to Maidenmist. I watch over the quiet dead who rest beneath this fog.
+-> meet_menu
+
+~ q_place
+yorgrim [neutral]: The dead of the hollow have lain under these mossy stones for centuries. They were buried here long before my time, and more will follow after.
+-> meet_menu
+
+~ q_dead
+yorgrim [weary]: My breath ended long ago, but the chain on my back remains. My watch does not end until every name carved in this stone is answered for.
+-> meet_menu
+
+~ q_dog
+Narrator: The great black hound with milk-white eyes presses her shoulder against Yorgrim's spectral knee, holding a hooded iron lantern in her jaws where a tiny spark still glows.
+yorgrim [smile]: Her name is Isolde, a faithful churchyard grim, and the only soul who still walks beside me in the dark.
+-> meet_menu
+
+~ q_shroud
+yorgrim [afraid]: The Shroud is raw, unmaking death itself, creeping in like grey rot from the edge of the world. Such cold hunger does not belong here, not even in a realm of the dead.
+-> meet_menu
+
+~ q_shrouded
+yorgrim [angry]: The shrouded are poor spirits chewed hollow by that grey mist until only spite remains in their husks. They are abominations now, so do not let their cold fingers touch your skin.
+-> meet_menu
+
+~ q_friends
+yorgrim [sad]: Those five you cut down in the dark were my friends once, and they carried warm, honest hearts. Their burdens grew too heavy in the end, as any soul's burden might.
+-> meet_menu
+
+~ q_honour
+yorgrim [neutral]: No one in this valley will shed a tear for the Crimson Abbot or the Grinning Sinner. I remember the clear light they held before the rot took them, because there is no other way.
+-> meet_menu
+
+~ briefing
+Narrator: Yorgrim raises his iron lantern high, forcing the grey fog back a pace as foul mist leaks from the seam of the sepulcher doors and hisses in his azure light.
+yorgrim [weary]: The tear in the stone below us widens every hour. Five balefires went dark in the mist, one by one. Only my azure flame still burns above the door, bound to my own tattered soul.
+yorgrim [neutral]: The final rites of my fallen friends can wake the five cold braziers. Twisted beasts prowl around the stones to guard them. I will walk with you and hold the fog back with my light.
+yorgrim [neutral]: Isolde will stay by the threshold with her spark, though her strength will last only sixteen hours. When all six beacons burn against the sky, these stone doors will open.
+* We will relight them -> accept
+* [if background:acolyte] We know a little of death rites -> accept_acolyte
+* Let us think -> END
+
+~ accept_acolyte
+yorgrim [smile]: An extra pair of steady hands with a lantern will serve us well in the deep fog.
+-> accept
+
+~ accept
+set yorgrim_with_party
+set isolde_alone_since = now
+quest maidenmist_dead_rise beacons
+join yorgrim
+yorgrim [neutral]: Stay inside the pale ring of my lantern and the mist will keep its distance. Any of the seven iron paths leads to a dark beacon.
+-> END
+
+~ at_the_doors
+yorgrim [neutral]: The mist presses hard against the iron seam tonight. Tell me when you are ready to walk the paths and wake the beacons.
+* Come with us -> rejoin
+* Not yet -> END
+
+~ rejoin
+set yorgrim_with_party
+join yorgrim
+-> END
+
+~ site_crypts
+set mm_site_crypts_told
+yorgrim [weary]: Marius kept his beacon burning above these old stones. He was a morning knight who rode a white horse named Dawn.
+-> END
+
+~ site_gardens
+set mm_site_gardens_told
+yorgrim [sad]: Lethica tended her pale fire among these wet yews. She wore a cold owl mask to hide a gentle face.
+-> END
+
+~ site_potters
+set mm_site_potters_told
+yorgrim [neutral]: Jericho lit his fire here among the nameless clay mounds. It suited a straw man who only wished to make the village children laugh.
+-> END
+
+~ site_lanes
+set mm_site_lanes_told
+yorgrim [neutral]: Briggsy kept his watch along this crooked lane, a loud pirate with a heart of gold. I will not say how many rum bottles he buried under the sod.
+-> END
+
+~ site_mounds
+set mm_site_mounds_told
+yorgrim [sad]: Farryn raised her fire upon this green mound, a satyr who gave her heart to a mortal woman. The twisted roots beneath our boots still remember her song.
+-> END
+
+~ clan_stones
+cutscene mm_penitent_pilgrim
+Narrator: Tall standing stones rise from the wet heather, their grey faces chiselled from root to crown with hundreds of orcish names.
+yorgrim [weary]: These are the names of the Shadestone Clan, my blood and my charge. Our chieftain gave me a ritual, and I led them all to the knife. The dark took their souls and left not even ash.
+yorgrim [sad]: The granite slab chained across my shoulders bears every one of those same names. I drag their weight through the fog so the dead know I have not forgotten.
+set yorgrim_told_story
+set mm_clan_names_learned
+-> END
+
+~ doors_open
+yorgrim [weary]: Six pale fires burn again and the great iron doors unlatch. My lantern grows dim and my voice is nearly spent. I will not turn back from the stair below.
+if flag.isolde_alive and not flag.isolde_faded
+Narrator: Yorgrim lays two heavy fingers on Isolde's brow and bids her guard the threshold. The black hound sinks onto the cold flagstones with a low whine, her white eyes fixed on his fading back.
+endif
+* Go in -> doors_go
+* Wait a moment -> END
+
+~ doors_go
+set yorgrim_descends
+quest maidenmist_dead_rise sepulcher
+-> END

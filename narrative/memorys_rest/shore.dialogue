@@ -1,0 +1,76 @@
+# Drafted by Gemini (R17 shore), edited.
+
+~ arrive
+cutscene mr_moonsong
+Narrator: The marsh trail gives out onto wet slate and black reeds, where a lone rowboat knocks against its stake in the rising mist.
+cutscene mr_moonsong_2
+Narrator: Across the flat grey lake stands the red brick bulk of the sanatorium, its high windows humming with a cold violet glow.
+cutscene end
+set mr_arrived_shore
+quest all_is_well the_crossing
+-> END
+
+~ boat
+Narrator: The weathered skiff has six damp seats and two heavy ash oars resting in the locks, smelling of tar and lake weed.
+* Row to the isle -> row
+* [if flag.mr_dredger_carving] Hang the fisher's carving on the prow -> row_carving
+* Look around the shore first -> END
+
+~ row
+Narrator: Three miles of dead water lie ahead, thick with pale pondweed that trails like wet wool beneath the surface.
+* [Survival DC 13] Keep to the clear water -> row_clear | row_dredger
+* Row hard and hope -> row_dredger
+
+~ row_clear
+Narrator: You read the dark channels between the weed beds and ease the oars through without raising so much as a ripple.
+set mr_crossed
+move mr_isle:from_boat
+-> END
+
+~ row_dredger
+cutscene mr_dredger
+Narrator: Something vast and pallid turns beneath the keel, and a rotting ribcage of a jaw breaches the water right beside your oars.
+cutscene mr_dredger_2
+Narrator: Cold lake brine washes over the gunwale before the great shape sinks back into the dark, leaving only greasy bubbles behind.
+cutscene end
+set mr_dredger_roused
+set mr_crossed
+move mr_isle:from_boat
+-> END
+
+~ row_carving
+cutscene mr_dredger
+Narrator: A pale bulk rises from the weeds, its crooked maw parting just beneath the driftwood figure lashed to the bow.
+cutscene mr_dredger_2
+Narrator: Taking one look at its own ugly likeness in the wood, the creature flinches away and slides back into the deep.
+cutscene end
+set mr_crossed
+move mr_isle:from_boat
+-> END
+
+~ hut
+Narrator: On a workbench inside the leaning shack sits a driftwood carving of a long-jawed, rotting fish-thing, smelling faintly of old tallow.
+Narrator: Scratched into the plank beneath it is a warning that the lake beast cannot bear the sight of its own face.
+set mr_dredger_carving
+-> END
+
+~ isle_arrive
+cutscene mr_isle
+Narrator: Four other rowboats bump softly against the pilings of the wet dock, while fine rain patters on the gravel path above.
+cutscene mr_isle_2
+Narrator: Before the heavy iron double doors stands a dry stone fountain, crowned with a barn owl that stares down through the mist.
+cutscene end
+set mr_arrived_isle
+quest all_is_well sign_in
+-> END
+
+~ fountain
+Narrator: The dry basin collects only rainwater and dead leaves, though a single tarnished silver coin glints beneath the stone owl's talons.
+* Take the coin -> fountain_coin
+* Leave it -> END
+
+~ fountain_coin
+gold +1
+set mr_fountain_coin
+Narrator: The coin is cold and slick in your palm, and the carved barn owl above seems to tilt its worn face to watch you pocket it.
+-> END

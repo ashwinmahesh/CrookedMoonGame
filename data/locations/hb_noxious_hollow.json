@@ -1,0 +1,648 @@
+{
+  "map": {
+    "elevation": [
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222211222111112222222222",
+      "222222222211111110111122222222",
+      "222222222211111000001122222222",
+      "222222222110000000000112222222",
+      "222222222110000000000011222222",
+      "222222221100000000000011222222",
+      "222222211000000000000001222222",
+      "222222111000000000000001222222",
+      "222222110000000000000011222222",
+      "222221100000000000000011222222",
+      "222221100000000000000011222222",
+      "222221100000000000000011122222",
+      "222221100000000000000001122222",
+      "222221100000000000000000112222",
+      "222222111000000000000001122222",
+      "222222111111100000111111122222",
+      "222222222211111001111112222222",
+      "222222222222211111122222222222",
+      "222222222222221111222222222222",
+      "222222222222222112222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222",
+      "222222222222222222222222222222"
+    ],
+    "rows": [
+      "##############################",
+      "########~#####################",
+      "##~....~~~..................##",
+      "#~~~#...~...................##",
+      "##~~##....~~..........#.....##",
+      "##.###...~~~........###.....##",
+      "##.###..............###.....##",
+      "##..........##......###.....##",
+      "##..........##..............##",
+      "##...................##.....##",
+      "##.##....#.......~..........##",
+      "#####...##.......~~......##.##",
+      "#####...##....##.~~.....#~~###",
+      "........##...##~~~~.....#~~###",
+      "........#....##~~........#..##",
+      "..............#.~...........##",
+      "............................##",
+      "............................##",
+      "##.####..........~..........##",
+      "##.####.........~~~.........##",
+      "##.####.......~~~~~.........##",
+      "##..###......~~~~~..........##",
+      "##...........##.........#...##",
+      "##....###..............####.##",
+      "##....###.##...........####.##",
+      "##......####.##.............##",
+      "##......##...###............##",
+      "##......#....###............##",
+      "##############################",
+      "##############################"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "id": "hb_noxious_hollow",
+  "region": "hartsblight_forest",
+  "props": [
+    {
+      "id": "hb_hollow_leg",
+      "cell": [
+        4,
+        15
+      ],
+      "kind": "decor",
+      "label": "The way in, and the smell of it",
+      "call": "hartsblight/trek:leg_hollow",
+      "approach": 8,
+      "call_when": "not flag.hb_leg_hollow"
+    },
+    {
+      "id": "hb_halden",
+      "cell": [
+        15,
+        17
+      ],
+      "kind": "examine",
+      "label": "A half-eaten corpse against the beech",
+      "model": "bone_scatter",
+      "dialogue": "hartsblight/forest1:corpse",
+      "when": "not flag.hb_halden_torso_seen"
+    },
+    {
+      "id": "hb_beech_carving",
+      "cell": [
+        13,
+        16
+      ],
+      "kind": "examine",
+      "label": "A skeletal stag carved into the bark",
+      "model": "tree_marked",
+      "dialogue": "hartsblight/forest1:shrine"
+    },
+    {
+      "id": "hb_owlbear_den",
+      "cell": [
+        24,
+        5
+      ],
+      "kind": "examine",
+      "label": "A den under dead trees, scratched and wet",
+      "model": "claw_marks",
+      "dialogue": "hartsblight/halden:den_prop",
+      "when": "flag.hb_owlbears_traced and not flag.hb_owlbears_understood"
+    },
+    {
+      "id": "hb_halden_cairn",
+      "cell": [
+        16,
+        18
+      ],
+      "kind": "examine",
+      "label": "Halden's cairn",
+      "model": "grave",
+      "dialogue": "hartsblight/halden:buried",
+      "when": "flag.hb_halden_torso_seen and not flag.hb_halden_buried"
+    },
+    {
+      "id": "hb_halden_torso",
+      "cell": [
+        15,
+        11
+      ],
+      "kind": "examine",
+      "label": "Halden's torso, high in the beech",
+      "model": "bone_scatter",
+      "dialogue": "hartsblight/gorthos:parley2",
+      "when": "flag.hb_halden_torso_seen"
+    },
+    {
+      "id": "hb_halden_pack",
+      "cell": [
+        14,
+        18
+      ],
+      "kind": "decor",
+      "label": "A trapper's pack, torn open",
+      "model": "satchel"
+    },
+    {
+      "id": "hb_halden_journal_prop",
+      "cell": [
+        16,
+        17
+      ],
+      "kind": "examine",
+      "label": "The trapper's journal",
+      "model": "book",
+      "dialogue": "hartsblight/halden:journal_find",
+      "when": "not flag.hb_halden_journal"
+    },
+    {
+      "id": "hb_journal_read",
+      "cell": [
+        13,
+        19
+      ],
+      "kind": "examine",
+      "label": "The journal, open",
+      "model": "book",
+      "dialogue": "hartsblight/halden:journal_read",
+      "when": "flag.hb_halden_journal"
+    },
+    {
+      "id": "hb_camp_spot_h",
+      "cell": [
+        8,
+        8
+      ],
+      "kind": "examine",
+      "label": "A hollow in the moss fit for a camp",
+      "model": "rune_circle",
+      "dialogue": "hartsblight/night:camp"
+    },
+    {
+      "id": "hb_noxious_hollow_tree_0",
+      "cell": [
+        7,
+        19
+      ],
+      "kind": "decor",
+      "label": "A split trunk bursting with shelf fungus",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "hb_noxious_hollow_tree_1",
+      "cell": [
+        18,
+        16
+      ],
+      "kind": "decor",
+      "label": "A split trunk bursting with shelf fungus",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "hb_noxious_hollow_tree_2",
+      "cell": [
+        13,
+        10
+      ],
+      "kind": "decor",
+      "label": "A dead tree, furred with fungus",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "hb_noxious_hollow_tree_3",
+      "cell": [
+        24,
+        4
+      ],
+      "kind": "decor",
+      "label": "A dead tree, furred with fungus",
+      "model": "dead_tree_a"
+    },
+    {
+      "id": "hb_noxious_hollow_tree_4",
+      "cell": [
+        26,
+        25
+      ],
+      "kind": "decor",
+      "label": "A split trunk bursting with shelf fungus",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "hb_noxious_hollow_tree_5",
+      "cell": [
+        24,
+        19
+      ],
+      "kind": "decor",
+      "label": "A split trunk bursting with shelf fungus",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "hb_noxious_hollow_tree_6",
+      "cell": [
+        24,
+        9
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_noxious_hollow_tree_7",
+      "cell": [
+        6,
+        7
+      ],
+      "kind": "decor",
+      "label": "A black-streaked pine",
+      "model": "pine_b"
+    },
+    {
+      "id": "hb_noxious_hollow_tree_8",
+      "cell": [
+        10,
+        14
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_noxious_hollow_tree_9",
+      "cell": [
+        26,
+        9
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_noxious_hollow_tree_10",
+      "cell": [
+        25,
+        22
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_noxious_hollow_tree_11",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_noxious_hollow_tree_12",
+      "cell": [
+        15,
+        16
+      ],
+      "kind": "decor",
+      "label": "A split trunk bursting with shelf fungus",
+      "model": "dead_tree_b"
+    },
+    {
+      "id": "hb_noxious_hollow_tree_13",
+      "cell": [
+        10,
+        17
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_noxious_hollow_tree_14",
+      "cell": [
+        26,
+        22
+      ],
+      "kind": "decor",
+      "label": "A peeling pine",
+      "model": "pine_a"
+    },
+    {
+      "id": "hb_noxious_hollow_tree_15",
+      "cell": [
+        23,
+        17
+      ],
+      "kind": "decor",
+      "label": "A thin pine",
+      "model": "pine_c"
+    },
+    {
+      "id": "hb_noxious_hollow_bones_0",
+      "cell": [
+        12,
+        13
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_noxious_hollow_bones_1",
+      "cell": [
+        14,
+        7
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_noxious_hollow_bones_2",
+      "cell": [
+        25,
+        17
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_noxious_hollow_bones_3",
+      "cell": [
+        12,
+        25
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_noxious_hollow_bones_4",
+      "cell": [
+        22,
+        14
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_noxious_hollow_bones_5",
+      "cell": [
+        17,
+        15
+      ],
+      "kind": "decor",
+      "label": "Green-stained bones",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "hb_noxious_hollow_misc_0",
+      "cell": [
+        13,
+        6
+      ],
+      "kind": "decor",
+      "label": "Drifts of grey leaves",
+      "model": "leaves"
+    },
+    {
+      "id": "hb_noxious_hollow_misc_1",
+      "cell": [
+        5,
+        11
+      ],
+      "kind": "decor",
+      "label": "Cobwebs hung with spores",
+      "model": "cobwebs"
+    },
+    {
+      "id": "hb_noxious_hollow_misc_2",
+      "cell": [
+        19,
+        12
+      ],
+      "kind": "decor",
+      "label": "Cobwebs hung with spores",
+      "model": "cobwebs"
+    },
+    {
+      "id": "hb_noxious_hollow_misc_3",
+      "cell": [
+        19,
+        13
+      ],
+      "kind": "decor",
+      "label": "A puddle that is not water",
+      "model": "puddle"
+    },
+    {
+      "id": "hb_noxious_hollow_misc_4",
+      "cell": [
+        2,
+        9
+      ],
+      "kind": "decor",
+      "label": "Drifts of grey leaves",
+      "model": "leaves"
+    },
+    {
+      "id": "hb_noxious_hollow_misc_5",
+      "cell": [
+        23,
+        11
+      ],
+      "kind": "decor",
+      "label": "Drifts of grey leaves",
+      "model": "leaves"
+    },
+    {
+      "id": "hb_noxious_hollow_misc_6",
+      "cell": [
+        26,
+        7
+      ],
+      "kind": "decor",
+      "label": "Cobwebs hung with spores",
+      "model": "cobwebs"
+    },
+    {
+      "id": "hb_noxious_hollow_misc_7",
+      "cell": [
+        12,
+        11
+      ],
+      "kind": "decor",
+      "label": "A puddle that is not water",
+      "model": "puddle"
+    }
+  ],
+  "npcs": [],
+  "exits": [
+    {
+      "id": "to_altar",
+      "cell": [
+        0,
+        15
+      ],
+      "to": "hb_altar_of_rot",
+      "spawn": "from_hollow",
+      "label": "Back to the altar of rot"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "hb_owlbears",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "owlbear",
+          "cell": [
+            23,
+            6
+          ],
+          "name": "A rotting owlbear",
+          "facing": "west"
+        },
+        {
+          "monster": "owlbear",
+          "cell": [
+            23,
+            5
+          ],
+          "name": "A rotting owlbear",
+          "facing": "west"
+        }
+      ],
+      "flag": "hb_owlbears_done"
+    },
+    {
+      "id": "hb_drums",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "rotweaver",
+          "cell": [
+            14,
+            8
+          ],
+          "name": "Rotweaver",
+          "facing": "west"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            14,
+            9
+          ],
+          "name": "Rotweaver",
+          "facing": "west"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            15,
+            8
+          ],
+          "name": "Rotweaver",
+          "facing": "west"
+        },
+        {
+          "monster": "rotweaver",
+          "cell": [
+            13,
+            9
+          ],
+          "name": "Rotweaver",
+          "facing": "west"
+        }
+      ],
+      "flag": "hb_drums_done"
+    },
+    {
+      "id": "hb_mammoth",
+      "trigger": "dialogue",
+      "monsters": [
+        {
+          "monster": "mammoth",
+          "cell": [
+            15,
+            10
+          ],
+          "name": "A blighted mammoth",
+          "facing": "west"
+        }
+      ],
+      "flag": "hb_mammoth_done"
+    }
+  ],
+  "areas": [
+    {
+      "id": "hollow_floor",
+      "name": "The hollow",
+      "cells": [
+        [
+          4,
+          4
+        ],
+        [
+          26,
+          26
+        ]
+      ]
+    },
+    {
+      "id": "owlbear_ridge",
+      "name": "The ridge of dead trees",
+      "cells": [
+        [
+          20,
+          2
+        ],
+        [
+          27,
+          8
+        ]
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        15,
+        15
+      ],
+      "kind": "candle",
+      "bright_ft": 25,
+      "dim_ft": 50,
+      "color": "bile"
+    }
+  ],
+  "traps": [],
+  "spawns": {
+    "default": [
+      2,
+      15
+    ],
+    "from_altar": [
+      2,
+      15
+    ]
+  },
+  "name": "The Noxious Hollow",
+  "summary": "A mossy hollow round one broad beech, white-green with mould, and a dead trapper at its foot.",
+  "text": "A mossy hollow round one broad beech, white-green with mould, and a dead trapper at its foot. The beech's white-green branches hold the dark close.",
+  "rest": "risky",
+  "rest_text": "The spores drift down on your bedrolls like a slow, soft snow, and the trees are listening."
+}

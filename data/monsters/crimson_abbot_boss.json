@@ -1,0 +1,361 @@
+{
+  "id": "crimson_abbot_boss",
+  "name": "The Crimson Abbot",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 550,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours. Block on the facing page (PDF 553). Spell save DC 15 is the book's; +7 to hit with spells is computed (Charisma +4, proficiency +3). Crimson Clergy is another stat block of the same appendix."
+  },
+  "size": "large",
+  "type": "undead",
+  "tags": [
+    "paladin",
+    "vampire"
+  ],
+  "alignment": "lawful evil",
+  "ac": 17,
+  "initiative": 8,
+  "hp": {
+    "average": 85,
+    "dice": "9d10+36"
+  },
+  "speed": {
+    "walk": 40,
+    "climb": 40,
+    "fly": 80
+  },
+  "abilities": {
+    "str": 22,
+    "dex": 15,
+    "con": 18,
+    "int": 11,
+    "wis": 12,
+    "cha": 18
+  },
+  "saves": {
+    "str": 9,
+    "wis": 4
+  },
+  "skills": {
+    "athletics": 9,
+    "insight": 7,
+    "intimidation": 7,
+    "perception": 7
+  },
+  "immunities": [
+    "necrotic"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened"
+  ],
+  "gear": [
+    "half_plate_armor"
+  ],
+  "senses": {
+    "darkvision": 120
+  },
+  "passive_perception": 17,
+  "languages": [
+    "Common",
+    "Elvish"
+  ],
+  "cr": 8,
+  "xp": 3900,
+  "proficiency_bonus": 3,
+  "traits": [
+    {
+      "id": "honor_lost",
+      "name": "Honor Lost",
+      "action": "special",
+      "summary": "A Bonus Action memento or reminder of his past plus a DC 15 Charisma (Persuasion) check gives him Disadvantage on his next D20 Test before that creature's next turn starts.",
+      "text": "A creature that spends a Bonus Action presenting a memento or reciting a reminder of who the abbot used to be, and succeeds on a DC 15 Charisma (Persuasion) check, gives the abbot Disadvantage on the next D20 Test he makes before the start of that creature's next turn.",
+      "implemented": "text"
+    },
+    {
+      "id": "legendary_resistance",
+      "name": "Legendary Resistance (3/Day)",
+      "action": "special",
+      "summary": "Three times a day, a failed saving throw becomes a success.",
+      "text": "When the abbot fails a saving throw, it can choose to succeed instead, 3 times a day.",
+      "implemented": "engine"
+    },
+    {
+      "id": "spider_climb",
+      "name": "Spider Climb",
+      "action": "passive",
+      "summary": "Climbs walls and ceilings with no ability check.",
+      "text": "The abbot can climb difficult surfaces, ceilings included, without an ability check.",
+      "modifiers": [
+        {
+          "stat": "flag",
+          "value": "spider_climb"
+        }
+      ],
+      "implemented": "engine"
+    },
+    {
+      "id": "sunlight_hypersensitivity",
+      "name": "Sunlight Hypersensitivity",
+      "action": "passive",
+      "summary": "Takes 20 Radiant damage starting a turn in sunlight; Disadvantage on attack rolls and ability checks while in it.",
+      "text": "The abbot takes 20 Radiant damage if he starts his turn in sunlight, and has Disadvantage on attack rolls and ability checks while in sunlight.",
+      "sunlight": "hypersensitivity",
+      "implemented": "engine"
+    },
+    {
+      "id": "regional_lair",
+      "name": "Regional Effects (Lair)",
+      "action": "special",
+      "summary": "Within a mile of his lair: spilled blood stays fresh for a day, and an enemy of the abbot who takes Fire damage starts burning until the end of its next turn.",
+      "text": "Regional effects, within 1 mile of the blood-soaked monastery while the abbot lives and keeps his lair there. Fresh Blood: spilled blood doesn't dry or clot and stays fresh for 24 hours. Incinerate Heresy: when an enemy of the abbot takes Fire damage it starts burning until the end of its next turn. Both end the moment he dies or moves his lair.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "sanguine_blade",
+          "count": 1
+        },
+        {
+          "action": "sanguine_blade",
+          "count": 1,
+          "or": [
+            "blood_call"
+          ]
+        }
+      ],
+      "summary": "Two Sanguine Blades; one can be a Blood Call."
+    },
+    {
+      "id": "sanguine_blade",
+      "name": "Sanguine Blade",
+      "kind": "melee",
+      "attack": {
+        "bonus": 9,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 11,
+          "dice": "1d10+6",
+          "type": "slashing"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "necrotic"
+        }
+      ],
+      "summary": "+9, reach 5 ft, 1d10+6 Slashing plus 2d6 Necrotic."
+    },
+    {
+      "id": "blood_call",
+      "name": "Blood Call",
+      "kind": "save",
+      "save": {
+        "ability": "con",
+        "dc": 15,
+        "success": "half"
+      },
+      "targets": {
+        "range": 30,
+        "count": 1,
+        "not_types": [
+          "construct",
+          "undead"
+        ]
+      },
+      "damage": [
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "necrotic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "drain_max_hp",
+          "type": "necrotic"
+        },
+        {
+          "do": "heal_self",
+          "type": "necrotic"
+        },
+        {
+          "do": "rise_as_thrall",
+          "params": {
+            "monster": "crimson_clergy",
+            "when": "a Humanoid reduced to 0 HP by this damage, once buried, at the next sunset"
+          }
+        }
+      ],
+      "summary": "One creature within 30 ft (not a Construct or Undead): DC 15 Con save or 2d6 Necrotic, its Hit Point maximum drops by that much and he heals the same; half damage on a success (he heals on a success too).",
+      "text": "He calls the blood out of someone within 30 feet who is neither a Construct nor Undead. DC 15 Constitution save: on a failure 7 (2d6) Necrotic damage and the target's Hit Point maximum falls by the damage; on a success half damage and no maximum loss. Either way the abbot regains Hit Points equal to the damage dealt. A Humanoid brought to 0 Hit Points by it and then buried rises at the next sunset as a Crimson Clergy under his control."
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "kind": "spellcasting",
+      "summary": "Charisma, DC 15: Command, Disguise Self and Thaumaturgy at will; Word of Recall (to his lair only) once a day.",
+      "text": "The abbot casts one of these, needing no Material components (Charisma, spell save DC 15). At will: Command, Disguise Self (a Medium Humanoid, lasting 24 hours), Thaumaturgy. 1/day: Word of Recall, to his lair only."
+    },
+    {
+      "id": "castigate",
+      "name": "Castigate",
+      "kind": "save",
+      "save": {
+        "ability": "wis",
+        "dc": 15,
+        "success": "none"
+      },
+      "targets": {
+        "range": 60,
+        "count": 1
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "frightened",
+          "until": "minute",
+          "repeat_save": {
+            "ability": "wis",
+            "dc": 15,
+            "when": "end"
+          }
+        }
+      ],
+      "summary": "Legendary only. One creature within 60 ft: DC 15 Wis save or Frightened (save again each turn; a minute at most).",
+      "text": "He lashes a creature within 60 feet with its own guilt: DC 15 Wisdom save or it is Frightened, repeating the save at the end of each of its turns and freed automatically after a minute."
+    }
+  ],
+  "reactions": [
+    {
+      "id": "parry",
+      "name": "Parry",
+      "kind": "special",
+      "ac_bonus": 3,
+      "trigger": "He is hit by an attack roll while holding a weapon.",
+      "summary": "Reaction: +3 AC against that one attack, which can turn the hit into a miss."
+    }
+  ],
+  "legendary_actions": {
+    "per_round": 3,
+    "options": [
+      {
+        "id": "bloody_strike",
+        "name": "Bloody Strike",
+        "cost": 1,
+        "move": true,
+        "half": true,
+        "action": "sanguine_blade",
+        "summary": "Moves up to half his Speed and makes one Sanguine Blade attack."
+      },
+      {
+        "id": "castigate",
+        "name": "Castigate",
+        "cost": 1,
+        "action": "castigate",
+        "summary": "One creature within 60 ft: DC 15 Wis save or Frightened."
+      },
+      {
+        "id": "overwhelm",
+        "name": "Overwhelm",
+        "cost": 1,
+        "spell": "command",
+        "once": true,
+        "summary": "Casts Command; not again until the start of his next turn."
+      }
+    ]
+  },
+  "legendary_resistance": 3,
+  "spellcasting": {
+    "ability": "cha",
+    "dc": 15,
+    "attack": 7,
+    "at_will": [
+      "command",
+      "disguise_self",
+      "thaumaturgy"
+    ],
+    "per_day": {
+      "1": [
+        "word_of_recall"
+      ]
+    }
+  },
+  "ai_profile": "brute",
+  "art": "vampire",
+  "art_height": 1.6,
+  "summary": "A fallen crusader turned vampire, in two phases: half-transformed at the altar, then a bat-like horror under the blood moon with effigies of blood beside him.",
+  "phases": [
+    {
+      "id": "beneath_a_blood_moon",
+      "name": "Beneath a Blood Moon",
+      "when": {
+        "bloodied": true
+      },
+      "legendary_refill": true,
+      "end_conditions": true,
+      "lair": true,
+      "summary": "Viraxys laughs and a blood geyser throws everyone up into the cathedral: Renathyr's true form, three blood effigies, and Viraxys's lair actions.",
+      "summon": {
+        "monster": "blood_effigy",
+        "count": 3
+      },
+      "cutscene": "mon_moon",
+      "flag": "renathyr_phase2",
+      "art": "vampire"
+    }
+  ],
+  "lair_actions": [
+    {
+      "id": "blood_torrent",
+      "name": "Blood Torrent",
+      "kind": "save",
+      "save": {
+        "ability": "dex",
+        "dc": 15,
+        "success": "none"
+      },
+      "targets": {
+        "range": 30,
+        "count": 3
+      },
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "prone"
+        }
+      ],
+      "summary": "Up to three creatures within 30 ft: a DC 15 Dex save or knocked prone by a torrent of blood.",
+      "text": "On Viraxys's count the blood in the room surges: up to three creatures within 30 feet of the pool make a DC 15 Dexterity saving throw or are thrown down."
+    },
+    {
+      "id": "endless_minions",
+      "name": "Endless Minions",
+      "kind": "summon",
+      "summon": {
+        "monster": "blood_effigy",
+        "count": 1,
+        "max": 3
+      },
+      "summary": "If fewer than three effigies stand, another rises.",
+      "text": "Viraxys wills another effigy up out of the blood, so long as fewer than three stand."
+    },
+    {
+      "id": "viraxys_laughs",
+      "name": "Viraxys Laughs",
+      "kind": "text",
+      "summary": "A sultry, amused voice from the windows mocks the party.",
+      "text": "She never raises her voice."
+    }
+  ]
+}

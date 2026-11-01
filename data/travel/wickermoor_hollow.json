@@ -53,6 +53,110 @@
       "region": "crooked_house",
       "when": "flag.wm_welcomed or visited:druskenvald_estate",
       "summary": "The Lockwood manor on the hill above Wickermoor, a pretty house at the end of a hill road."
+    },
+    {
+      "id": "dawns_gate",
+      "name": "Dawn's Gate",
+      "location": "dawns_gate",
+      "spawn": "from_road",
+      "pos": [
+        0.12,
+        0.56
+      ],
+      "region": "dawns_gate",
+      "when": "flag.vessla_slain or visited:dawns_gate",
+      "summary": "A dour mining village in the Howlers' foothills, below the Crimson Monastery."
+    },
+    {
+      "id": "dc_trail1",
+      "name": "The Marshwinder Trail",
+      "location": "dc_trail1",
+      "spawn": "from_west",
+      "pos": [
+        0.5,
+        0.88
+      ],
+      "region": "drowned_crossroads",
+      "when": "flag.crossroads_asked or visited:dc_trail1",
+      "summary": "The start of three nights' trek south, down to the valley's lowest point."
+    },
+    {
+      "id": "dc_murkwater",
+      "name": "Murkwater Bend",
+      "location": "dc_murkwater",
+      "spawn": "from_trail",
+      "pos": [
+        0.56,
+        0.96
+      ],
+      "region": "drowned_crossroads",
+      "when": "visited:dc_murkwater",
+      "summary": "A stilt town in the bayou, under the Bayou King's flag."
+    },
+    {
+      "id": "sk_hills_trail",
+      "name": "The Hill Trail",
+      "location": "sk_hills_trail",
+      "spawn": "default",
+      "pos": [
+        0.31,
+        0.41
+      ],
+      "region": "skitterdeep_mine",
+      "when": "flag.skitter_trail_known or visited:sk_hills_trail",
+      "summary": "A rutted trail through wooded hills north-west of Wickermoor."
+    },
+    {
+      "id": "sk_camp",
+      "name": "Glitterdeep Mine",
+      "location": "sk_camp",
+      "spawn": "from_road",
+      "pos": [
+        0.17,
+        0.3
+      ],
+      "region": "skitterdeep_mine",
+      "when": "flag.skitter_trail_known or visited:sk_camp",
+      "summary": "The abandoned mine, eight hours north-west of Wickermoor, with its sign painted over to read Skitterdeep."
+    },
+    {
+      "id": "memorys_rest",
+      "name": "The Moonsong Shore",
+      "location": "mr_shore",
+      "spawn": "from_road",
+      "pos": [
+        0.14,
+        0.52
+      ],
+      "region": "memorys_rest",
+      "when": "flag.mr_hook_open or visited:mr_shore",
+      "summary": "The last of the marsh trail, and the lake that holds Memory's Rest."
+    },
+    {
+      "id": "hartsblight_forest",
+      "name": "The Hartsblight",
+      "location": "hb_patient_commune",
+      "spawn": "from_road",
+      "pos": [
+        0.2,
+        0.2
+      ],
+      "region": "hartsblight_forest",
+      "when": "flag.hb_asked or visited:hb_patient_commune",
+      "summary": "A dead commune at the edge of a rotting forest, north-west of Moonsong Lake."
+    },
+    {
+      "id": "maidenmist_gate",
+      "name": "Maidenmist Cemetery",
+      "location": "mm_gate",
+      "spawn": "from_road",
+      "pos": [
+        0.66,
+        0.72
+      ],
+      "region": "maidenmist_cemetery",
+      "when": "flag.mm_asked or visited:mm_gate",
+      "summary": "A fogbound cemetery behind a bent iron gate, south-east of Wickermoor."
     }
   ],
   "roads": [
@@ -79,6 +183,70 @@
       "hours": 1,
       "name": "The hill road",
       "when": "flag.wm_welcomed"
+    },
+    {
+      "id": "wickermoor_to_dawns_gate",
+      "from": "wickermoor_village",
+      "to": "dawns_gate",
+      "hours": 14,
+      "name": "The Silverbell river road",
+      "when": "flag.vessla_slain or visited:dawns_gate"
+    },
+    {
+      "id": "wickermoor_to_crossroads",
+      "from": "wickermoor_village",
+      "to": "dc_trail1",
+      "hours": 24,
+      "name": "The road to the Drowned Crossroads",
+      "when": "flag.crossroads_asked or visited:dc_trail1"
+    },
+    {
+      "id": "crossroads_to_murkwater",
+      "from": "dc_trail1",
+      "to": "dc_murkwater",
+      "hours": 36,
+      "name": "Through the swamp",
+      "when": "visited:dc_murkwater"
+    },
+    {
+      "id": "wickermoor_to_sk_trail",
+      "from": "wickermoor_village",
+      "to": "sk_hills_trail",
+      "hours": 6,
+      "name": "The hill road",
+      "when": "flag.skitter_trail_known or visited:sk_hills_trail"
+    },
+    {
+      "id": "sk_trail_to_camp",
+      "from": "sk_hills_trail",
+      "to": "sk_camp",
+      "hours": 2,
+      "name": "The hill trail",
+      "when": "flag.skitter_trail_known or visited:sk_camp"
+    },
+    {
+      "id": "wickermoor_to_memorys_rest",
+      "from": "wickermoor_village",
+      "to": "memorys_rest",
+      "hours": 72,
+      "name": "The marsh road west",
+      "when": "flag.mr_hook_open or visited:mr_shore"
+    },
+    {
+      "id": "wickermoor_to_hartsblight",
+      "from": "wickermoor_village",
+      "to": "hartsblight_forest",
+      "hours": 32,
+      "name": "The spore trail",
+      "when": "flag.hb_asked or visited:hb_patient_commune"
+    },
+    {
+      "id": "wickermoor_to_maidenmist",
+      "from": "wickermoor_village",
+      "to": "maidenmist_gate",
+      "hours": 5,
+      "name": "The cemetery road",
+      "when": "flag.mm_asked or visited:mm_gate"
     }
   ]
 }

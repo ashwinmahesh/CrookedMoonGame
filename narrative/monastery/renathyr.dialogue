@@ -1,0 +1,77 @@
+# Drafted by Gemini (R14 renathyr), edited.
+
+~ cathedral
+quest the_priors known
+Narrator: Red light from the tall glass spills across the altar stone, and the smell of old incense hangs heavy over cold iron.
+father_renathyr [smile]: The Twilight bell has rung, travelers, and the sanctuary is quiet. Easy, Duchess, they are guests. Come forward and warm yourselves by our grace.
+* Your fires keep the valley pure, Father. -> cath_praise
+* Tell us of the Crimson Rose. -> cath_goddess
+* What became of Gareth Creed? -> cath_gareth
+* You carry yourself like a knight. What were you before? -> cath_past
+* We will leave you to your prayers. -> cath_end
+
+~ cath_praise
+father_renathyr [smile]: A clear eye sees the mercy in the ash. Only what is pruned may grow straight, my friends.
+set crimson_devotions += 1
+-> cathedral
+
+~ cath_goddess
+father_renathyr [neutral]: The Crimson Rose is a mother to those left out in the frost. She asks only that we bleed away our pride and keep her garden clean.
+-> cathedral
+
+~ cath_gareth
+if flag.gareth_fate == "rescued"
+father_renathyr [weary]: A brother has been spared the pyre, and I call that a mercy. Be still, Duchess, the debt is paid.
+else
+father_renathyr [sad]: Master Creed was offered the open hand of the faithful, and he chose the ash instead. I wept for him when the smoke rose.
+endif
+-> cathedral
+
+~ cath_past
+father_renathyr [neutral]: Old iron rusts when you leave it in the rain, and old titles with it. Speak to my three priors if you wish to learn the order of our house.
+-> cathedral
+
+~ cath_end
+father_renathyr [smile]: Rest beneath our roof tonight, and let the bells keep watch for you. Peace be upon your steps.
+set cathedral_audience_done
+set audience_stamp = now
+-> END
+
+~ belfry_talk
+Narrator: Frost rims the belfry rail high above the valley, while the bats stir and click among the great silver bells.
+father_renathyr [weary]: The Witching Hour is the honest hour, when even the choir sleeps. Quiet, Duchess, there is no foe on the stair.
+* What are you watching down in the mist? -> belfry_mist
+* Did you know a woman named Lethica? -> belfry_lethica
+* [Insight DC 13] He knows the goddess is a devil. -> belfry_tell | belfry_blind
+* Your reign of blood ends tonight, Marius. -> belfry_fight
+* We will leave you to the night air. -> belfry_end
+
+~ belfry_mist
+father_renathyr [sad]: Far across Moonsong Lake, you can almost catch the lanterns of Wickermoor. I kept a lamp in a high window once, waiting on the dawn.
+-> belfry_talk
+
+~ belfry_lethica
+Narrator: His gauntleted fingers tighten on the pommel of his blade until the leather groans.
+father_renathyr [weary]: Lethica. Keep that name out of the cold air, travelers, for the mountain has no room for ghosts.
+set renathyr_past_hint
+-> belfry_talk
+
+~ belfry_tell
+Narrator: His eyes catch the red glass below, hollow and clear, like a man looking through his own bars.
+father_renathyr [weary]: A drowning man does not ask what reaches down into the black water, friend. Once you have drunk the thorny cup to the dregs, there is no riding home.
+-> belfry_talk
+
+~ belfry_blind
+Narrator: His face stays as still as carved altar stone, giving nothing back to the wind.
+father_renathyr [neutral]: A shepherd keeps his vigil because the wolves do not sleep, nothing more.
+-> belfry_talk
+
+~ belfry_fight
+Narrator: He strikes the rim of the nearest bell with his hilt, and the bronze note shivers down through the stone.
+father_renathyr [angry]: Wake, Duchess, and remember our oath! If you come with steel in my own tower, the Rose will have your blood upon the roof!
+combat mon_belfry_fight
+
+~ belfry_end
+father_renathyr [weary]: Go down to the warm halls, travelers. The high wind is no place for the living.
+set belfry_talk_done
+-> END

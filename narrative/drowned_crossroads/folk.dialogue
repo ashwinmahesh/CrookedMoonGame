@@ -1,0 +1,64 @@
+# Drafted by Gemini (R15 folk), edited.
+
+~ mama
+Narrator: Dark steam rises from an iron kettle the size of a rowboat, smelling of toasted flour, cayenne, and wet cedar.
+mama_pelletier [smile]: Pull up a crate and rest your boots, darlings. This pot has been simmering since the moon was high on Tuesday, and it waits for nobody.
+* Ask for a bowl of gumbo -> mama_gumbo
+* Ask what is in it -> mama_what
+* [if flag.wedding_asked and not flag.wedding_supper] Ask her to cater a wedding -> drowned_crossroads/side_wedding:supper
+* [if flag.print_asked and not flag.print_mama] Ask for a cautionary tale -> drowned_crossroads/side_print:mama_tale
+* Take our leave -> END
+
+~ mama_gumbo
+mama_pelletier [smile]: Hold your tin steady with both hands now, because the roux clings fierce when it is hot. Eat every drop before the bayou damp gets in it.
+Narrator: The broth coats your tongue with smoky warmth, rich and velvety, tasting entirely unlike the last ladle she poured and better than anything you have eaten all week.
+set gumbo_tasted
+temp_hp 1d6 party
+-> mama
+
+~ mama_what
+mama_pelletier [neutral]: Whatever the tide brings to the landing and does not argue back when I show it the cleaver. Today it is mudbug tails, wild okra, and three fat bullfrogs.
+mama_pelletier [sly]: Last month a dead deacon climbed out of the reeds and dropped his hymnbook right in the broth. Gave the whole batch a lovely, solemn sort of pepper.
+-> mama
+
+~ tibby
+Narrator: Bare feet slap against the damp cypress planks as a child in an oversized oilskin coat skids to a halt by your elbow.
+tibby_marsh [smile]: One copper gets a word carried dry to the other side of the Bend, and two gets it there before the planks rot. Who are you looking to bother?
+* Pay a penny for a message sent to Lyla -> tibby_send
+* [if flag.wedding_asked and not flag.wedding_music] Ask who plays an instrument -> drowned_crossroads/side_wedding:music
+* [if flag.king_asked and not flag.king_proof] Ask who sees under tables -> drowned_crossroads/side_king:tibby_tells
+* Take our leave -> END
+
+~ tibby_send
+tibby_marsh [smile]: Miss Lyla at the fort, easy enough, I know which window she leaves unlatched for the breeze. Keep your thumb on your purse until I get back.
+Narrator: Your copper coin has barely touched the weathered boards before the hem of a yellow coat vanishes around the corner rope.
+set tibby_hired
+-> tibby
+
+~ bo
+Narrator: Rows of split eels hang over a smudge of green alder wood, glistening like dark varnish while their keeper clicks copper bits between his knuckles.
+bo_gaspard [weary]: Look with your eyes and not your fingers, friends, because the salt is dear and the smoke stings my eyes. State your business before the flies settle.
+* Ask for smoked eel -> bo_eel
+* [if flag.ledger_asked and not flag.ledger_traders] Ask to see the market tally -> drowned_crossroads/side_ledger:bo_tally
+* [if flag.coins_asked and not flag.coin_traders] Ask for a copper -> drowned_crossroads/side_coins:bo_coin
+* Take our leave -> END
+
+~ bo_eel
+bo_gaspard [neutral]: Four coppers for a tail today, plus two more because my left knee says rain is coming and the damper on my smokehouse jammed twice.
+bo_gaspard [sly]: Come back when the wind shifts north and I might forgive the knee, though I will probably charge you extra for making me count twice.
+-> bo
+
+~ refugee
+Narrator: Huddled against the palisade posts, a woman keeps her arms wrapped tight around an oilcloth bundle that smells of river mud.
+fort_refugee [afraid]: My brother came knocking on the shutter last night with river weeds tangled in his ribs, asking where we hid the supper plates.
+fort_refugee [weary]: If you have iron or prayers on you, take them out to the black water and make the dead stay down where we buried them.
+-> END
+
+~ enforcer
+fort_enforcer [neutral]: Watch where your scabbards swing near the velvet chairs, friend, because King Vander docks a man's pay if a single brass tack gets scratched.
+fort_enforcer [angry]: It took three weeks to get this purple wool dried out after the Tuesday squall, and I am not ruining the cuffs hauling you out by the boots.
+-> END
+
+~ pit_board
+Narrator: The damp slate is smeared with tallow chalk listing evening odds, two fighters' names struck through in red, and a faded notice declaring a one-eyed blue heron the undefeated champion.
+-> END

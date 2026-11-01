@@ -1,0 +1,40 @@
+# Drafted by Gemini (R14 maric), edited.
+
+~ start
+Narrator: A knight in a crisp crimson tabard stands pressed against the far wall, three yards clear of the watering trough and the black mare drinking from it.
+ser_maric_dunmore [sly]: Hold there, pilgrims, and mind my sightlines. I am Ser Maric Dunmore, and I have taken this post by the wall for purely tactical reasons.
+ser_maric_dunmore [neutral]: A true commander never crowds his mount before the horn sounds. Distance breeds discipline.
+* Tell us about the Sanguine Hunt. -> maric_hunt
+* You seem wary of the horses. -> maric_horses
+* [Persuasion DC 12] Offer to help him with the horse -> maric_help | maric_nope
+* [if flag.maric_helped] Ask him to loosen his saddle for us -> maric_deal
+* Leave him to his post. -> END
+
+~ maric_hunt
+ser_maric_dunmore [smile]: We ride at the Twilight bell, the night after the courtyard pyres go cold. No sinner on the moor outruns the Crimson Rose.
+ser_maric_dunmore [neutral]: Naturally, I command the rear guard. From the very back, a seasoned officer has full visibility of the field.
+set hunt_known
+-> start
+
+~ maric_horses
+Narrator: The mare lifts her dripping muzzle from the trough and fixes him with one wet, dark eye. His gauntlet tightens on his belt.
+ser_maric_dunmore [afraid]: Horses are an unreliable tactical asset. Too many teeth at one end, iron shoes at the other, and no respect for rank.
+ser_maric_dunmore [angry]: Look at her. She is calculating the angle right now.
+-> start
+
+~ maric_help
+Narrator: You take the mare's bridle and stroke her cold nose while Ser Maric climbs into the stirrup with both eyes pinched shut.
+ser_maric_dunmore [weary]: There. Seated in the saddle, master of the beast. You have a passable grasp of stable drill, pilgrim.
+ser_maric_dunmore [neutral]: Let us speak no more of the mounting maneuver.
+set maric_helped
+-> start
+
+~ maric_nope
+ser_maric_dunmore [angry]: Help? I need no help with a mere pack beast. I simply noticed a draft by the trough and relocated to the woodpile for better cover.
+-> start
+
+~ maric_deal
+ser_maric_dunmore [sly]: Slip the buckle two notches before the charge? A clean tumble into the snowbank at the first gallop, and no dishonor on my name.
+ser_maric_dunmore [afraid]: Done. My girth was faulty, the leather gave way, and you never breathed a word of it.
+set maric_loosened
+-> start
