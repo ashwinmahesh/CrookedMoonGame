@@ -1,0 +1,246 @@
+{
+  "id": "nm_crater",
+  "name": "The Smoking Crater",
+  "region": "crooked_nightmare",
+  "summary": "A crater under a clean half-moon, a prismatic meteorite in it, a city's lights across the bay.",
+  "text": "A cool summer night and a clean half-moon. Across a little bay stand the lights of a great modern city. In front of you the earth is scorched in rays round a smoking crater, and in it a seven-foot stone pulses in every colour there is, and some there are not.",
+  "map": {
+    "rows": [
+      "##############################",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#...........~~~~~~...........#",
+      "#..........~~~~~~~~..........#",
+      "#.........~~~~~~~~~~.........#",
+      "#........~~~~~~~~~~~~........#",
+      "#........~~~~~~~~~~~~........#",
+      "#........~~~~~~~~~~~~........#",
+      "#........~~~~~~~~~~~~........#",
+      "#........~~~~~~~~~~~~........#",
+      "#.........~~~~~~~~~~.........#",
+      "#..........~~~~~~~~..........#",
+      "#...........~~~~~~...........#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "##############################"
+    ],
+    "theme": "village",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "rim",
+      "name": "The crater's rim",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          28,
+          24
+        ]
+      ]
+    },
+    {
+      "id": "crater",
+      "name": "The crater",
+      "cells": [
+        [
+          8,
+          7
+        ],
+        [
+          21,
+          19
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      14,
+      22
+    ]
+  },
+  "exits": [],
+  "props": [
+    {
+      "id": "nm_crater_arrive",
+      "cell": [
+        14,
+        22
+      ],
+      "kind": "decor",
+      "label": "The crater's rim",
+      "call": "nightmare/n4:crater_start",
+      "approach": 12,
+      "call_when": "not flag.n4_started"
+    },
+    {
+      "id": "nm_crater_meteor",
+      "cell": [
+        14,
+        13
+      ],
+      "kind": "examine",
+      "label": "The meteorite, pulsing",
+      "model": "boulder",
+      "scale": 2.4,
+      "tint": "#b36bff",
+      "dialogue": "nightmare/n4:hub",
+      "when": "not flag.nm_invader_done"
+    },
+    {
+      "id": "nm_crater_dead",
+      "cell": [
+        14,
+        13
+      ],
+      "kind": "examine",
+      "label": "The meteorite, dark and split",
+      "model": "boulder",
+      "scale": 2.4,
+      "tint": "#4a3a66",
+      "dialogue": "nightmare/n4:hub",
+      "when": "flag.nm_invader_done"
+    },
+    {
+      "id": "nm_crater_after",
+      "cell": [
+        14,
+        15
+      ],
+      "kind": "decor",
+      "label": "The crater, after",
+      "call": "nightmare/n4:after_fight",
+      "approach": 12,
+      "call_when": "flag.nm_invader_done and not flag.nm_crater_done"
+    },
+    {
+      "id": "nm_crater_door",
+      "cell": [
+        14,
+        11
+      ],
+      "kind": "examine",
+      "label": "A crooked door in the dead star",
+      "model": "door",
+      "dialogue": "nightmare/n4:door",
+      "when": "flag.nm_invader_done"
+    },
+    {
+      "id": "nm_crater_city",
+      "cell": [
+        14,
+        2
+      ],
+      "kind": "decor",
+      "label": "The lights of a great city, across the bay",
+      "model": "lantern_bracket"
+    },
+    {
+      "id": "nm_crater_scorch_a",
+      "cell": [
+        6,
+        9
+      ],
+      "kind": "decor",
+      "label": "Scorched earth",
+      "model": "scorch"
+    },
+    {
+      "id": "nm_crater_scorch_b",
+      "cell": [
+        23,
+        17
+      ],
+      "kind": "decor",
+      "label": "Scorched earth",
+      "model": "scorch"
+    },
+    {
+      "id": "nm_crater_rock_a",
+      "cell": [
+        4,
+        18
+      ],
+      "kind": "decor",
+      "label": "A stone",
+      "model": "rocks"
+    },
+    {
+      "id": "nm_crater_rock_b",
+      "cell": [
+        25,
+        6
+      ],
+      "kind": "decor",
+      "label": "A stone",
+      "model": "rocks"
+    },
+    {
+      "id": "nm_crater_bench",
+      "cell": [
+        22,
+        22
+      ],
+      "kind": "decor",
+      "label": "A bench from another world",
+      "model": "bench"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "nm_adela_teen",
+      "cell": [
+        13,
+        10
+      ],
+      "dialogue": "nightmare/n4:hub",
+      "when": "not flag.nm_crater_done",
+      "facing": "east"
+    },
+    {
+      "npc": "nm_sleeper_crater",
+      "cell": [
+        5,
+        21
+      ],
+      "dialogue": "nightmare/dani_lantern:crater",
+      "when": "flag.danis_lantern_asked and not flag.lantern_crater_done",
+      "facing": "east"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "nm_invader",
+      "trigger": "dialogue",
+      "flag": "nm_invader_done",
+      "monsters": [
+        {
+          "monster": "invader_out_of_space",
+          "cell": [
+            14,
+            12
+          ],
+          "name": "The thing in the star",
+          "boss": false,
+          "facing": "south"
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "rest_text": "You cannot sleep inside a dream, and the dream will not let you stop. A short breath, then."
+}

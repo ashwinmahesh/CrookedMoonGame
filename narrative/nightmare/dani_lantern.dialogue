@@ -1,0 +1,83 @@
+# Drafted by Gemini (R22 lantern), edited.
+
+~ offer
+Narrator: Dani holds out a tin lantern by its bail. A pale blue mist curls behind the glass, cool as spring water against your knuckles.
+dani_jenkin [neutral]: Other little ones wandered into the house when the dream went sour. This keeps the lost company until they find the porch.
+dani_jenkin [neutral]: Carry it through the doors for me, and bring it back still burning.
+set danis_lantern_asked
+give dani_lantern
+quest danis_lantern asked
+quest danis_lantern carrying
+-> END
+
+~ wood
+Narrator: A small boy sits between two crooked roots with his knees drawn up under his smock, blinking sleepily at the fallen leaves.
+nm_sleeper_wood [weary]: Pardon me, have you seen the path to the dairy? I only shut my eyes a minute, and the trees grew over the stile.
+* Light the way with the lantern -> wood_lit
+* Tell him to wait here -> wood_wait
+* Leave -> END
+
+~ wood_lit
+Narrator: Blue mist slips from the lantern latch, cool and smelling of clean linen, and curls around the boy's cold fingers.
+nm_sleeper_wood [smile]: Oh, there is the gate, right where it belongs. Thank you kindly for the light.
+set lantern_tends += 1
+set lantern_wood_done
+-> END
+
+~ wood_wait
+nm_sleeper_wood [neutral]: Yes, alright. The moss is dry enough here, and I am too tired to walk far anyway.
+-> END
+
+~ crater
+Narrator: At the smoking lip of the pit, a girl in a flannel nightgown sits with her bare feet dangling over the ash.
+nm_sleeper_crater [neutral]: That star fell down all by itself, and nobody came to tuck it in. It hums like a kettle when you listen close.
+* Light the way with the lantern -> crater_lit
+* Tell her to wait here -> crater_wait
+* Leave -> END
+
+~ crater_lit
+Narrator: The blue mist unspools from the glass and lays a pale ribbon across the cinders toward a threshold only she can see.
+nm_sleeper_crater [smile]: That is the porch bell ringing. Goodnight, little star, I have to go inside now.
+set lantern_tends += 1
+set lantern_crater_done
+-> END
+
+~ crater_wait
+nm_sleeper_crater [neutral]: I do not mind waiting. The cinders keep my toes warm while the sky goes round.
+-> END
+
+~ feast
+Narrator: Beneath a trestle table, a very small person in a wilted dandelion crown peeks out at the dancing boots.
+nm_sleeper_feast [afraid]: Everyone put on animal faces and forgot their own names. They keep clinking their cups, and nobody will tell me when supper is over.
+* Light the way with the lantern -> feast_lit
+* Tell them to wait -> feast_wait
+* Leave -> END
+
+~ feast_lit
+Narrator: A ribbon of blue vapour drifts under the tablecloth and takes the small dreamer gently by the wrist.
+nm_sleeper_feast [smile]: Oh, she sent the blue lamp for me. Mind the soup tureen on your way out.
+set lantern_tends += 1
+set lantern_feast_done
+-> END
+
+~ feast_wait
+nm_sleeper_feast [sad]: I will stay under the cloth then. Nobody looks down here unless they drop a spoon.
+-> END
+
+~ return
+if flag.lantern_tends >= 2
+Narrator: The blue flame inside the glass burns steady and clear, and for the first time a small, genuine smile touches the corner of Dani's mouth.
+dani_jenkin [smile]: They made it back to the steps. You kept the wick high for them, thank you.
+take dani_lantern
+quest danis_lantern done
+set danis_lantern_done
+bless party 2h
+-> END
+else
+Narrator: Only a thin grey smudge remains behind the lantern glass, cold to the touch.
+dani_jenkin [weary]: The mist went out before it reached them. It is all right, the house is too wide to hold every hand at once.
+take dani_lantern
+quest danis_lantern dimmed
+set danis_lantern_dimmed
+-> END
+endif

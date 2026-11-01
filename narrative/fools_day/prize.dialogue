@@ -1,0 +1,306 @@
+# Drafted by Gemini (R21 prize), edited.
+
+~ counter
+Narrator: Painted shelves groan under mounds of dusty trinkets and tinny toys, while a smell of burnt sugar hangs thick round the stall.
+chuckles [smile]: Step right up to the tip-top Prize Counter, hip-hip-heroes! Spend your shiny tickets on trinkets or your silly-billy friends!
+* Buy a release slip for a friend -> slip
+* Look at the prizes -> prizes
+* Ask him what he wants -> ask
+* Ask where to win tickets -> hint
+* Leave -> END
+
+~ ask
+chuckles [sly]: Want? I want pies in every belly, bells on every toe, and fun-fun till your heels bleed!
+Narrator: For the span of a breath, the painted jaw goes slack, and a voice like grinding millstones rumbles down from the maypole overhead.
+chuckles [angry]: I want you to despise me with every drop of marrow in your bones, and you will never know why.
+-> counter
+
+~ hint
+chuckles [smile]: Seven merry-merry booths wait round the green, hip-hip-heroes! Smash the hives, ring the bell, answer the horsey knight, or tap the stork's drum!
+chuckles [sly]: Wrestle my big bear, drink with the chicken-house lady, or dance with the red-ribbon puppets! Win-win and bring your tickets back to me!
+-> counter
+
+~ prizes
+chuckles [smile]: Feast your peepers on the shelfy-shelves! Everything has a price-price, and no backsies!
+* [if flag.fool_tickets >= 1 and not flag.prize_crow_taken] A plush angry crow, 1 ticket -> p_crow
+* [if flag.fool_tickets >= 1 and not flag.prize_sword_taken] A bloody-painted wooden sword, 1 ticket -> p_sword
+* [if flag.fool_tickets >= 1 and not flag.prize_shoes_taken] Crocodile-skin shoes, 1 ticket -> p_shoes
+* [if flag.fool_tickets >= 1 and not flag.prize_doll_taken] A porcelain doll in black lace, 1 ticket -> p_doll
+* [if flag.fool_tickets >= 1 and not flag.prize_glue_taken] A jar of glue, 1 ticket -> p_glue
+* [if flag.fool_tickets >= 1 and not flag.prize_shovel_taken] A child's shovel and pail, 1 ticket -> p_shovel
+* [if flag.fool_tickets >= 2 and not flag.prize_card_taken] A card from a Deck of Illusions, 2 tickets -> p_card
+* [if flag.fool_tickets >= 2 and not flag.prize_potion_taken] A greater Potion of Healing, 2 tickets -> p_potion
+* [if flag.fool_tickets >= 2 and not flag.prize_bag_taken] A rust-coloured Bag of Tricks, 2 tickets -> p_bag
+* [if flag.fool_tickets >= 3 and not flag.prize_suit_taken] The Revelry Suit, 3 tickets -> p_suit
+* [if flag.fool_tickets >= 3 and not flag.prize_paranormal_taken] A paranormal potion, 3 tickets -> p_paranormal
+* [if flag.fool_tickets >= 5 and not flag.prize_curio_taken] A cursed curio, 5 tickets -> p_curio
+* [if flag.fool_tickets >= 6 and not flag.prize_scroll_taken] A Spell Scroll of Resurrection, 6 tickets -> p_scroll
+* Back -> counter
+
+~ p_crow
+chuckles [smile]: One stuffed scowler with button eyes, stitched up tight with grumpy-grump spite!
+set fool_tickets -= 1
+set prize_crow_taken
+give plush_angry_crow
+-> prizes
+
+~ p_sword
+chuckles [sly]: Red paint on pinewood, good for whacking play-pretend knights till the splinters fly!
+set fool_tickets -= 1
+set prize_sword_taken
+give bloody_toy_sword
+-> prizes
+
+~ p_shoes
+chuckles [smile]: Snappy-snap scales for your dainty toes, fresh off a swamp lizard that bit the cobbler!
+set fool_tickets -= 1
+set prize_shoes_taken
+give crocodile_shoes
+-> prizes
+
+~ p_doll
+chuckles [sly]: Pretty-pretty china in widow's weeds, and don't mind if her eyes follow you to bed!
+set fool_tickets -= 1
+set prize_doll_taken
+give lace_porcelain_doll
+-> prizes
+
+~ p_glue
+chuckles [smile]: Sticky-wicky clown paste that dries hard as coffin nails in ten short minutes!
+set fool_tickets -= 1
+set prize_glue_taken
+give jar_of_clown_glue
+-> prizes
+
+~ p_shovel
+chuckles [sly]: Diggy-dig in the dirt with a tin pail, just too small for burying anything that matters!
+set fool_tickets -= 1
+set prize_shovel_taken
+give child_shovel_pail
+-> prizes
+
+~ p_card
+chuckles [smile]: One lonely pasteboard from a trickster's deck, ready to spit out a paper phantom!
+set fool_tickets -= 2
+set prize_card_taken
+give deck_of_illusions_card
+-> prizes
+
+~ p_potion
+chuckles [sly]: Gulp-gulp the ruby syrup to patch your meat back together so the festy-val lasts longer!
+set fool_tickets -= 2
+set prize_potion_taken
+give potion_of_healing_greater
+-> prizes
+
+~ p_bag
+chuckles [smile]: Reach inside the fuzzy-wuzzy sack, though it only ever pulls out mean old billy goats!
+set fool_tickets -= 2
+set prize_bag_taken
+give rust_bag_of_tricks
+-> prizes
+
+~ p_suit
+chuckles [sly]: Motley hide stitched so fine it makes the wearer jig-jig-jig whether their bones want to or not!
+set fool_tickets -= 3
+set prize_suit_taken
+give revelry_suit
+-> prizes
+
+~ p_paranormal
+chuckles [smile]: A cold little bottle of bottled grief that tastes like grave-dirt and wet handkerchiefs!
+set fool_tickets -= 3
+set prize_paranormal_taken
+give tincture_of_mourning
+-> prizes
+
+~ p_curio
+chuckles [sly]: Oh, that nasty-wasty thing is properly cursed, and I will never-ever tell you what it does!
+set fool_tickets -= 5
+set prize_curio_taken
+give cursed_curio_prize
+-> prizes
+
+~ p_scroll
+chuckles [smile]: Six shiny tickets to drag a dead pal back for another round on the merry-go-round!
+set fool_tickets -= 6
+set prize_scroll_taken
+give scroll_of_resurrection
+-> prizes
+
+# --- release slips (tools/content/build_fools_day_dialogue.py) ---
+~ slip
+chuckles [sly]: A release slip, for one friend, hee-hee. The price goes up every time. That is the whole joke.
+if flag.revelers_bought == 0
+-> slip_1
+elif flag.revelers_bought == 1
+-> slip_2
+elif flag.revelers_bought == 2
+-> slip_3
+elif flag.revelers_bought == 3
+-> slip_4
+elif flag.revelers_bought == 4
+-> slip_5
+elif flag.revelers_bought == 5
+-> slip_6
+elif flag.revelers_bought == 6
+-> slip_7
+elif flag.revelers_bought == 7
+-> slip_8
+elif flag.revelers_bought == 8
+-> slip_9
+elif flag.revelers_bought == 9
+-> slip_10
+elif flag.revelers_bought == 10
+-> slip_11
+elif flag.revelers_bought == 11
+-> slip_12
+else
+chuckles [weary]: Nothing left to sell, silly. You have all the friends there are.
+-> counter
+endif
+
+~ slip_1
+chuckles [sly]: Hee-hee, the very first one is only one ticket!
+* [if flag.fool_tickets >= 1] Pay 1 ticket for a slip -> buy_1
+* Not now -> counter
+
+~ buy_1
+set fool_tickets -= 1
+set revelers_bought += 1
+set release_slips += 1
+chuckles [smile]: Hip-hip! Take it to your friend and wave it under their nose. They love that.
+-> counter
+
+~ slip_2
+chuckles [sly]: Two tickets for the second, hip-hip, such a bargain!
+* [if flag.fool_tickets >= 2] Pay 2 tickets for a slip -> buy_2
+* Not now -> counter
+
+~ buy_2
+set fool_tickets -= 2
+set revelers_bought += 1
+set release_slips += 1
+chuckles [smile]: Hip-hip! Take it to your friend and wave it under their nose. They love that.
+-> counter
+
+~ slip_3
+chuckles [sly]: Three! The third is three. I did not make that up.
+* [if flag.fool_tickets >= 3] Pay 3 tickets for a slip -> buy_3
+* Not now -> counter
+
+~ buy_3
+set fool_tickets -= 3
+set revelers_bought += 1
+set release_slips += 1
+chuckles [smile]: Hip-hip! Take it to your friend and wave it under their nose. They love that.
+-> counter
+
+~ slip_4
+chuckles [sly]: Four, four, four, a friend for four.
+* [if flag.fool_tickets >= 4] Pay 4 tickets for a slip -> buy_4
+* Not now -> counter
+
+~ buy_4
+set fool_tickets -= 4
+set revelers_bought += 1
+set release_slips += 1
+chuckles [smile]: Hip-hip! Take it to your friend and wave it under their nose. They love that.
+-> counter
+
+~ slip_5
+chuckles [sly]: Five tickets, and what a lovely friend.
+* [if flag.fool_tickets >= 5] Pay 5 tickets for a slip -> buy_5
+* Not now -> counter
+
+~ buy_5
+set fool_tickets -= 5
+set revelers_bought += 1
+set release_slips += 1
+chuckles [smile]: Hip-hip! Take it to your friend and wave it under their nose. They love that.
+-> counter
+
+~ slip_6
+chuckles [sly]: Six! Look how much you love them.
+* [if flag.fool_tickets >= 6] Pay 6 tickets for a slip -> buy_6
+* Not now -> counter
+
+~ buy_6
+set fool_tickets -= 6
+set revelers_bought += 1
+set release_slips += 1
+chuckles [smile]: Hip-hip! Take it to your friend and wave it under their nose. They love that.
+-> counter
+
+~ slip_7
+chuckles [sly]: Seven, seven, shiny seven.
+* [if flag.fool_tickets >= 7] Pay 7 tickets for a slip -> buy_7
+* Not now -> counter
+
+~ buy_7
+set fool_tickets -= 7
+set revelers_bought += 1
+set release_slips += 1
+chuckles [smile]: Hip-hip! Take it to your friend and wave it under their nose. They love that.
+-> counter
+
+~ slip_8
+chuckles [sly]: Eight tickets and you are still not cross with me? Rude.
+* [if flag.fool_tickets >= 8] Pay 8 tickets for a slip -> buy_8
+* Not now -> counter
+
+~ buy_8
+set fool_tickets -= 8
+set revelers_bought += 1
+set release_slips += 1
+chuckles [smile]: Hip-hip! Take it to your friend and wave it under their nose. They love that.
+-> counter
+
+~ slip_9
+chuckles [sly]: Nine, and I am starting to enjoy this.
+* [if flag.fool_tickets >= 9] Pay 9 tickets for a slip -> buy_9
+* Not now -> counter
+
+~ buy_9
+set fool_tickets -= 9
+set revelers_bought += 1
+set release_slips += 1
+chuckles [smile]: Hip-hip! Take it to your friend and wave it under their nose. They love that.
+-> counter
+
+~ slip_10
+chuckles [sly]: Ten! Ten! Do you hate me yet?
+* [if flag.fool_tickets >= 10] Pay 10 tickets for a slip -> buy_10
+* Not now -> counter
+
+~ buy_10
+set fool_tickets -= 10
+set revelers_bought += 1
+set release_slips += 1
+chuckles [smile]: Hip-hip! Take it to your friend and wave it under their nose. They love that.
+-> counter
+
+~ slip_11
+chuckles [sly]: Eleven, my favourite number after twelve.
+* [if flag.fool_tickets >= 11] Pay 11 tickets for a slip -> buy_11
+* Not now -> counter
+
+~ buy_11
+set fool_tickets -= 11
+set revelers_bought += 1
+set release_slips += 1
+chuckles [smile]: Hip-hip! Take it to your friend and wave it under their nose. They love that.
+-> counter
+
+~ slip_12
+chuckles [sly]: Twelve. The last one. Look how much it costs.
+* [if flag.fool_tickets >= 12] Pay 12 tickets for a slip -> buy_12
+* Not now -> counter
+
+~ buy_12
+set fool_tickets -= 12
+set revelers_bought += 1
+set release_slips += 1
+chuckles [smile]: Hip-hip! Take it to your friend and wave it under their nose. They love that.
+-> counter
+

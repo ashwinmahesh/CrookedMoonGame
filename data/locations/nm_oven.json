@@ -1,0 +1,197 @@
+{
+  "id": "nm_oven",
+  "name": "The Oven",
+  "region": "crooked_nightmare",
+  "summary": "A room-sized brick oven, blazing: a roast on one spit, a captive on the other.",
+  "text": "The kitchen oven of the Crooked House, grown to the size of a room: firebrick, iron spits, and a heat that presses on the eyes. A turkey-reptile roasts on one spit, and a woman hangs chained on the other.",
+  "map": {
+    "rows": [
+      "####################",
+      "#..................#",
+      "#.================.#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#..==..........==..#",
+      "#..................#",
+      "#..................#",
+      "####################"
+    ],
+    "theme": "manor",
+    "light": "bright",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "oven",
+      "name": "The oven",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          18,
+          13
+        ]
+      ],
+      "light": "bright"
+    }
+  ],
+  "spawns": {
+    "default": [
+      9,
+      12
+    ]
+  },
+  "exits": [],
+  "props": [
+    {
+      "id": "nm_oven_arrive",
+      "cell": [
+        9,
+        12
+      ],
+      "kind": "decor",
+      "label": "The heat of the oven",
+      "call": "nightmare/n3:oven_start",
+      "approach": 12,
+      "call_when": "not flag.n3_started"
+    },
+    {
+      "id": "nm_oven_fire",
+      "cell": [
+        9,
+        2
+      ],
+      "kind": "decor",
+      "label": "The fire, behind the bricks",
+      "model": "fireplace"
+    },
+    {
+      "id": "nm_oven_spit",
+      "cell": [
+        6,
+        5
+      ],
+      "kind": "decor",
+      "label": "An iron spit as long as a barn",
+      "model": "rope"
+    },
+    {
+      "id": "nm_oven_roast",
+      "cell": [
+        13,
+        5
+      ],
+      "kind": "examine",
+      "label": "A turkey-reptile on a spit, roasting",
+      "model": "stewpot",
+      "dialogue": "nightmare/n3:rescue",
+      "scale": 2.0
+    },
+    {
+      "id": "nm_oven_chain_a",
+      "cell": [
+        5,
+        7
+      ],
+      "kind": "decor",
+      "label": "A locked chain",
+      "model": "wall_chains"
+    },
+    {
+      "id": "nm_oven_chain_b",
+      "cell": [
+        4,
+        6
+      ],
+      "kind": "decor",
+      "label": "A locked chain",
+      "model": "wall_chains"
+    },
+    {
+      "id": "nm_oven_chain_c",
+      "cell": [
+        6,
+        6
+      ],
+      "kind": "decor",
+      "label": "A locked chain",
+      "model": "wall_chains"
+    },
+    {
+      "id": "nm_oven_crank",
+      "cell": [
+        9,
+        4
+      ],
+      "kind": "decor",
+      "label": "A crank the size of a wheel",
+      "model": "rope_coils"
+    },
+    {
+      "id": "nm_oven_pots",
+      "cell": [
+        16,
+        9
+      ],
+      "kind": "decor",
+      "label": "A rack of pots",
+      "model": "pot_rack"
+    },
+    {
+      "id": "nm_oven_door",
+      "cell": [
+        17,
+        7
+      ],
+      "kind": "examine",
+      "label": "A crooked door, in the flames",
+      "model": "door",
+      "dialogue": "nightmare/n3:door"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "gilly_jenkin",
+      "cell": [
+        5,
+        6
+      ],
+      "dialogue": "nightmare/n3:rescue",
+      "when": "not flag.nm_oven_done",
+      "facing": "east"
+    },
+    {
+      "npc": "nm_stonoga",
+      "cell": [
+        10,
+        4
+      ],
+      "dialogue": "nightmare/n3:rescue",
+      "when": "not flag.stonoga_struck",
+      "facing": "south"
+    }
+  ],
+  "encounters": [],
+  "rest": "no",
+  "rest_text": "You cannot sleep inside a dream, and the dream will not let you stop. A short breath, then.",
+  "lights": [
+    {
+      "cell": [
+        9,
+        3
+      ],
+      "kind": "fire",
+      "bright_ft": 30,
+      "dim_ft": 60,
+      "color": "fire"
+    }
+  ]
+}

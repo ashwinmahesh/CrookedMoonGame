@@ -1,0 +1,122 @@
+# R21 reveler conversations for the bear costume: logic from tools/content/build_fools_day_dialogue.py, lines drafted by Gemini (R21 revelers), edited.
+
+~ solomon_roderick_start
+solomon_roderick [smile]: Step into the ring, strangers, and see how light a heavy stone can dance! Even old granite cracks a smile when the horns and ribbons go round and round!
+-> solomon_roderick_menu
+
+~ solomon_roderick_menu
+* [if flag.release_slips >= 1] Show them a release slip -> solomon_roderick_slip
+* [Persuasion DC 15] Invite them to a better party, at a quiet church -> solomon_roderick_church | solomon_roderick_church_fail
+* [Deception DC 15] Say Chuckles wants them at the church for the next number -> solomon_roderick_church | solomon_roderick_church_fail
+* [knows:calm_emotions] Cast Calm Emotions on them -> solomon_roderick_calm
+* [knows:greater_restoration] Cast Greater Restoration on them -> solomon_roderick_calm
+* Knock them out of the costume, bruised but not hurt for good -> solomon_roderick_fight
+* Leave them dancing for now -> END
+
+~ solomon_roderick_slip
+solomon_roderick [neutral]: My knees feel like cracked slate. Get this foul bear hide off me, I need to find Sofia and make sure she is safe from this racket.
+set release_slips -= 1
+set reveler_solomon_roderick = "tickets"
+set reveler_solomon_roderick_freed
+set revelers_freed += 1
+-> END
+
+~ solomon_roderick_church
+solomon_roderick [smile]: A grander feast up at the stone chapel, you say? Well, a mason knows good dressed stone, so lead the way and keep the music playing!
+lead solomon_roderick to fd_silent_church
+if check.last
+set reveler_solomon_roderick = "church"
+set reveler_solomon_roderick_freed
+set revelers_freed += 1
+set church_guests += 1
+endif
+-> END
+
+~ solomon_roderick_church_fail
+solomon_roderick [smile]: Quiet stone is for tombs and working days, friends! Today we stomp the cobbles flat until the moon comes down to join the reel!
+set fd_chuckles_amused
+-> solomon_roderick_menu
+
+~ solomon_roderick_calm
+solomon_roderick [weary]: That shrill piping was splitting my skull like a quarry wedge. Keep clear of that painted fool, and tell me if you have seen my little girl.
+set reveler_solomon_roderick = "uncharmed"
+set reveler_solomon_roderick_freed
+set revelers_freed += 1
+-> END
+
+~ solomon_roderick_fight
+solomon_roderick [angry]: Do not go spoiling the measure, friends, or these heavy paws will dress your bones like rough quarry stone! Everyone dances today, whether their feet are willing or not!
+Narrator: The dancers nearby keep on dancing. Nobody here is going to remember a punch.
+combat reveler_solomon_roderick
+
+~ solomon_roderick_beaten
+solomon_roderick [weary]: You hit harder than a falling lintel, I will give you that. Better a bruised jaw than dancing in a moth-eaten bear pelt until my heart gives out.
+set reveler_solomon_roderick = "beaten"
+set reveler_solomon_roderick_freed
+set revelers_freed += 1
+-> END
+
+~ solomon_roderick_sheltered
+solomon_roderick [weary]: Good, thick walls here, laid plumb and true to keep the noise outside. My hands are still shaking, and I never shook with a chisel in my life.
+-> END
+
+~ hilda_brom_start
+hilda_brom [smile]: Ha, look what wandered into the clearing! Come stomp your boots with a real horned bear, friends, the trail is hot and the honey pies are stacked high!
+-> hilda_brom_menu
+
+~ hilda_brom_menu
+* [if flag.release_slips >= 1] Show them a release slip -> hilda_brom_slip
+* [Persuasion DC 15] Invite them to a better party, at a quiet church -> hilda_brom_church | hilda_brom_church_fail
+* [Deception DC 15] Say Chuckles wants them at the church for the next number -> hilda_brom_church | hilda_brom_church_fail
+* [knows:calm_emotions] Cast Calm Emotions on them -> hilda_brom_calm
+* [knows:greater_restoration] Cast Greater Restoration on them -> hilda_brom_calm
+* Knock them out of the costume, bruised but not hurt for good -> hilda_brom_fight
+* Leave them dancing for now -> END
+
+~ hilda_brom_slip
+hilda_brom [neutral]: Spit and ashes, my mouth tastes like tallow and cheap sugar. Wearing a stuffed bear hide on a leash is no way for a hunter to walk the moor.
+set release_slips -= 1
+set reveler_hilda_brom = "tickets"
+set reveler_hilda_brom_freed
+set revelers_freed += 1
+-> END
+
+~ hilda_brom_church
+hilda_brom [smile]: A secret trail to a better revel up by the chapel stones? Say no more, I can track a good party through thickest brush, lead on!
+lead hilda_brom to fd_silent_church
+if check.last
+set reveler_hilda_brom = "church"
+set reveler_hilda_brom_freed
+set revelers_freed += 1
+set church_guests += 1
+endif
+-> END
+
+~ hilda_brom_church_fail
+hilda_brom [smile]: No sense creeping off to cold stone when the bonfire is roaring right here! Stay in the thicket and dance until your boots wear clean through!
+set fd_chuckles_amused
+-> hilda_brom_menu
+
+~ hilda_brom_calm
+hilda_brom [weary]: That music had me snared tighter than a wire loop on a hare's leg. Give me a breath to clear my head and find my rifle.
+set reveler_hilda_brom = "uncharmed"
+set reveler_hilda_brom_freed
+set revelers_freed += 1
+-> END
+
+~ hilda_brom_fight
+hilda_brom [angry]: Keep your hands off the ribbons, or you will find out how sharp a dancing bear's claws can be! Nobody breaks the trail until the Lord of Fools says so!
+Narrator: The dancers nearby keep on dancing. Nobody here is going to remember a punch.
+combat reveler_hilda_brom
+
+~ hilda_brom_beaten
+hilda_brom [weary]: That was a clean clubbing, right between the ears. Next time I put on a bear's skin, it will not be stitched out of carnival felt and bells.
+set reveler_hilda_brom = "beaten"
+set reveler_hilda_brom_freed
+set revelers_freed += 1
+-> END
+
+~ hilda_brom_sheltered
+hilda_brom [weary]: Never thought I would hide indoors behind stone walls like a cornered badger. Out there in that fur, I could not even smell the wind, only greasepaint and pie.
+-> END
+

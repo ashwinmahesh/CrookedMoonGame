@@ -1,0 +1,103 @@
+# Drafted by Gemini (R20), edited. R20 side quest: Forms for the End of the World. Mayor Somerton will not let the hysteria proceed without three stamps; the last may be forged, at a price.
+
+~ start
+Narrator: Mayor Somerton sits behind a trestle table in the Founder's Round, bowler hat squared and cane laid across a stack of forms to hold down the end of the world.
+wendel_somerton [neutral]: Matters of public hysteria cannot proceed without Form 14-B, Form 22, and a Writ of Passage, all stamped in triplicate. The stamps are missing. Find them, and you'll have a Writ.
+* We'll find your stamps. -> accept
+* What is a Writ of Passage for? -> writ_for
+* We have other business. -> END
+
+~ writ_for
+wendel_somerton [smile]: It entitles the bearer to walk the village unmolested, provided the molesters can be shown the proper documentation.
+-> start
+
+~ accept
+set rk_forms_asked
+quest forms_for_the_end asked
+wendel_somerton [smile]: You'll need the clock-chamber stamp, the schoolhouse seal, and the constable's stamp. I trust I need not remind you that forgery is a criminal offence.
+-> END
+
+~ progress
+wendel_somerton [neutral]: Clock-chamber stamp, schoolhouse seal, constable's stamp. Tap, tap. What have you brought me?
+-> menu
+
+~ menu
+* [if not flag.rk_stamp_a] Ask Tamsin Ledger for the clock-chamber stamp. -> stamp_a
+* [if not flag.rk_stamp_b] Ask Pip Oakum for the schoolhouse seal. -> stamp_b
+* [if not flag.rk_stamp_c] Track down the constable's stamp. -> stamp_c
+* [if flag.rk_stamp_a and flag.rk_stamp_b and flag.rk_stamp_c] Hand over the three stamped forms. -> deliver
+* We'll come back later. -> END
+
+~ stamp_a
+Narrator: Tamsin Ledger cradles the heavy brass clock-chamber stamp in her arms like an infant, her ink-stained thumb poised over a blank receipt book.
+* [Persuasion DC 13] Lend us the stamp for a single signature. -> stamp_a_ok | stamp_a_poor
+* Sign her receipt in triplicate and suffer the paperwork. -> stamp_a_receipt
+~ stamp_a_poor
+Narrator: She looks over her spectacles, dry as dust. Stamps are not lent in this parish; they are requisitioned.
+-> menu
+~ stamp_a_receipt
+time +60
+-> stamp_a_ok
+~ stamp_a_ok
+set rk_stamp_a
+give rk_stamp_clock
+Narrator: With one signature the brass is yours, and the words TIME OF THE ESSENCE bite into your forms in crisp violet ink.
+-> menu
+
+~ stamp_b
+Narrator: Pip Oakum rattles open his tin of stolen buttons, where the brass owl of the schoolhouse seal glares up at you from a nest of horn and pewter.
+* [if gold >= 2] Pay Pip two gold for the seal. -> stamp_b_paid
+* [Persuasion DC 12] Tell him the village needs the seal for a good cause. -> stamp_b_ok | stamp_b_poor
+~ stamp_b_poor
+Narrator: Pip snaps the tin shut with a sour sniff. The village still owes him for the last good cause, and he isn't holding his breath.
+-> menu
+~ stamp_b_paid
+gold -2
+-> stamp_b_ok
+~ stamp_b_ok
+set rk_stamp_b
+give rk_stamp_school
+Narrator: The brass is still warm from his pocket as you press the scowling owl hard into the paper.
+-> menu
+
+~ stamp_c
+Narrator: The constable's stamp sits behind the bolted door of the station house, locked tight in Doris Squire's desk.
+* [Sleight of Hand DC 15] Carve a forgery from a raw potato with a penknife. -> forge_ok | forge_poor
+* [if gold >= 20] Pay Wendel a twenty-gold filing fee instead. -> fee
+* [if flag.doris_cleared] Ask Doris to stamp the forms herself. -> stamp_c_ok
+* Leave this one for later. -> menu
+~ forge_poor
+Narrator: The damp potato crumbles under the blade, violet ink smears across your knuckles, and a deputy's shadow falls cold over your shoulder.
+* Pay the twenty-gold fee and tear up the forgery. -> fee
+* [ends:forms_for_the_end] Surrender the potato and go quietly to the cells. -> forged
+~ forge_ok
+Narrator: The starchy impression is ragged around the crown, yet at a brisk glance it will pass muster with the mayor.
+-> stamp_c_ok
+~ fee
+gold -20
+Narrator: Somerton slides your twenty gold beneath his blotter with the solemn delicacy of a man who has never touched a bribe in his life.
+-> stamp_c_ok
+~ stamp_c_ok
+set rk_stamp_c
+-> menu
+
+~ forged
+set rk_forms_forged
+set jail_began = now
+quest forms_for_the_end forged
+Narrator: A deputy plucks the ink-stained potato up between two fingers while Somerton pinches the bridge of his nose, and the iron cell door clangs shut behind you.
+jail wickermoor_constable_station:cells until days_since.jailed >= 1
+
+~ deliver
+quest forms_for_the_end stamped
+wendel_somerton [smile]: Everything appears to be in order, much as it pains me to admit it. Very well. Here is your Writ, duly witnessed.
+give rk_writ_of_passage
+set rk_writ
+set rk_forms_done
+quest forms_for_the_end done
+Narrator: The parchment is heavy with ribbon and wax seals, though you suspect no torch-bearing mob in the valley has ever stopped to read one.
+-> END
+
+~ after
+wendel_somerton [weary]: Strictly speaking, the world has not yet ended. I should greatly prefer to keep the ledger that way.
+-> END

@@ -1,0 +1,201 @@
+# Drafted by Gemini (R21 quill), edited.
+
+~ festival
+Narrator: Ink spots the cuffs of Ambrose Quill's velvet coat, and a torn carnival handbill flaps in his grip while the calliope wheezes behind him.
+ambrose_quill [smile]: Behold, brave travelers, a bard marooned in a sea of pastry and tin horns! Even in this painted madness, the muse demands her due.
+* [if not flag.twelve_costumes_asked] Ask about the torn program -> program
+* [if quest.twelve_costumes == asked] Try to match the troupe -> q1
+* [if quest.twelve_costumes == matched] Show him the finished program -> report
+* Hear a verse about those we freed -> verse_menu
+* Leave him to his rhyming -> END
+
+~ program
+ambrose_quill [weary]: It lists the six players of Chuckles's old troupe upon one half, and their six strange costumes upon the other, torn straight down the middle.
+ambrose_quill [smile]: Six actors, six guises, all scrambled! Put the right soul in the right cloth and a grand stanza practically writes itself.
+* We will match them -> accept
+* Not now -> festival
+
+~ accept
+quest twelve_costumes asked
+set twelve_costumes_asked
+ambrose_quill [smile]: Splendid! Bring your wits to bear when you are ready, and we shall wed every player to their proper weeds.
+-> festival
+
+~ q1
+ambrose_quill [neutral]: First upon the torn scrap stands Bjorn the Horned Bear. Which costume belonged to that rugged player?
+* The horned bear -> q2
+* The suit of bells -> q1_wrong
+* The bird on stilts -> q1_wrong
+* Ask Quill for a clue -> q1_clue
+* Leave it for now -> END
+
+~ q1_wrong
+ambrose_quill [weary]: Brave Bjorn in feathers or in chimes, commits a hundred metric crimes! No, my friends, that rings quite false.
+-> q1
+
+~ q1_clue
+ambrose_quill [sly]: Think of fur and crooked horn, the heavy pelt by strong men worn! Even a child could find that rhyme.
+-> q1
+
+~ q2
+set quill_costume_matches += 1
+ambrose_quill [smile]: Second on the bill is Apia the Queen Bee. Which strange rig did she wear into the ring?
+* The house on chicken legs -> q2_wrong
+* The hive on legs -> q3
+* The knight with a book and a pony -> q2_wrong
+* Ask Quill for a clue -> q2_clue
+* Leave it for now -> END
+
+~ q2_wrong
+ambrose_quill [weary]: Sweet Apia clucking on a steed, is not the couplet that we need! Try again, I beg you.
+-> q2
+
+~ q2_clue
+ambrose_quill [sly]: Where golden honey drips and clings, she rules a house of humming wings! Really, it is right there in the name.
+-> q2
+
+~ q3
+set quill_costume_matches += 1
+ambrose_quill [smile]: Third we have Chateau the Dancing Manor. Which costume fitted that lofty player?
+* The suit of bells -> q3_wrong
+* The horned bear -> q3_wrong
+* The house on chicken legs -> q4
+* Ask Quill for a clue -> q3_clue
+* Leave it for now -> END
+
+~ q3_wrong
+ambrose_quill [weary]: A manor dressed in fur or brass, lets all poetic measure pass! That cannot be the match.
+-> q3
+
+~ q3_clue
+ambrose_quill [sly]: With shuttered eyes and shingled crest, on yellow claws it takes no rest! Picture a cottage taking a stroll.
+-> q3
+
+~ q4
+set quill_costume_matches += 1
+ambrose_quill [smile]: Fourth is Libro the Singing Tome. Which guise belonged to that learned trouper?
+* The knight with a book and a pony -> q5
+* The bird on stilts -> q4_wrong
+* The hive on legs -> q4_wrong
+* Ask Quill for a clue -> q4_clue
+* Leave it for now -> END
+
+~ q4_wrong
+ambrose_quill [weary]: Poor Libro wading like a bird, makes every syllable absurd! Let us reconsider.
+-> q4
+
+~ q4_clue
+ambrose_quill [sly]: In armored tin upon a steed, he holds the pages all must read! A wandering scholar in dented plate.
+-> q4
+
+~ q5
+set quill_costume_matches += 1
+ambrose_quill [smile]: Fifth upon the page is Cloche the Chiming Bell. What did that player wear?
+* The horned bear -> q5_wrong
+* The suit of bells -> q6
+* The house on chicken legs -> q5_wrong
+* Ask Quill for a clue -> q5_clue
+* Leave it for now -> END
+
+~ q5_wrong
+ambrose_quill [weary]: A bell that growls or lays an egg, has not a single metric leg! My ears protest.
+-> q5
+
+~ q5_clue
+ambrose_quill [sly]: From head to heel in brass arrayed, a jingling tune at every stride is played! Listen for the clatter.
+-> q5
+
+~ q6
+set quill_costume_matches += 1
+ambrose_quill [smile]: Last of the six is Cicogna the Stilted Stork. Which costume completes the bill?
+* The hive on legs -> q6_wrong
+* The knight with a book and a pony -> q6_wrong
+* The bird on stilts -> matched
+* Ask Quill for a clue -> q6_clue
+* Leave it for now -> END
+
+~ q6_wrong
+ambrose_quill [weary]: A stork that buzzes in a hive, leaves not a single rhyme alive! One more guess, my friends.
+-> q6
+
+~ q6_clue
+ambrose_quill [sly]: On wooden legs above the crowd, the feathered beak looks down so proud! Look toward the rooftops.
+-> q6
+
+~ matched
+set quill_costume_matches += 1
+quest twelve_costumes matched
+set twelve_costumes_done
+ambrose_quill [smile]: Huzzah! Every player wedded to their proper shell, and my inkhorn trembles with inspiration! Present the bill when you are ready for the masterwork.
+-> festival
+
+~ report
+quest twelve_costumes done
+gold +60
+ambrose_quill [smile]: Bear and Beehive, House and Knight, Bell and Stork in festive plight! Six dark masks for twelve poor souls, while the crooked music rolls!
+Narrator: He presses a pouch of coin into your hand, beaming as though two lines that scan by pure luck were a triumph for the ages.
+-> festival
+
+~ verse_menu
+ambrose_quill [smile]: Whom shall we honor with a stanza snatched from the jaws of folly?
+* [if flag.reveler_solomon_roderick_freed] Solomon Roderick -> v_solomon
+* [if flag.reveler_hilda_brom_freed] Hilda Brom -> v_hilda
+* [if flag.reveler_wendel_somerton_freed] Wendel Somerton -> v_wendel
+* [if flag.reveler_finneas_trout_freed] Finneas Trout -> v_finneas
+* [if flag.reveler_eleanor_heyling_freed] Eleanor Heyling -> v_eleanor
+* [if flag.reveler_doris_squire_freed] Doris Squire -> v_doris
+* [if flag.reveler_weston_murdoch_freed] Weston Murdoch -> v_weston
+* [if flag.reveler_holly_aster_freed] Holly Aster -> v_holly
+* [if flag.reveler_morgan_freed] Morgan -> v_morgan
+* [if flag.reveler_baltus_tolliver_freed] Baltus Tolliver -> v_baltus
+* [if flag.reveler_old_rusty_freed] Old Rusty -> v_rusty
+* [if flag.reveler_sister_rain_freed] Sister Rain -> v_rain
+* Back -> festival
+
+~ v_solomon
+ambrose_quill [smile]: Grim Solomon in canvas hide, put all his solemn grief aside. Though stuffed inside a painted beast, he stands unbowed above the feast.
+-> verse_menu
+
+~ v_hilda
+ambrose_quill [smile]: Strong Hilda wore the horned bear, and swung her hammer through the fair. Pity the fool who tried to keep, our blacksmith in a waking sleep.
+-> verse_menu
+
+~ v_wendel
+ambrose_quill [smile]: Good Mayor Wendel, round and grand, danced at the wicked clown's command. Now freed of ribbon, bell, and cap, he longs for quiet and a nap.
+-> verse_menu
+
+~ v_finneas
+ambrose_quill [smile]: Poor Finneas in festive gear, smiled wider than a gutted cheer. Now back beside his chopping block, he curses every chiming clock.
+-> verse_menu
+
+~ v_eleanor
+ambrose_quill [smile]: Sweet Eleanor on weary feet, was made to prance along the street. You broke the spell and stilled the drum, and brought our kindly baker home.
+-> verse_menu
+
+~ v_doris
+ambrose_quill [smile]: Stern Doris in a jester's rig, was forced to dance a merry jig. Now free of paint and paper crown, she scowls upon the noisy town.
+-> verse_menu
+
+~ v_weston
+ambrose_quill [smile]: Proud Weston in a foolish guise, had carnival behind his eyes. Though rescued from the ribboned throng, he swears his dignity was wronged.
+-> verse_menu
+
+~ v_holly
+ambrose_quill [smile]: Brisk Holly trapped in wicker straw, obeyed the festival's cruel law. Now free to tend her herbs and roots, she shakes the sawdust from her boots.
+-> verse_menu
+
+~ v_morgan
+ambrose_quill [smile]: Bold Morgan marched with painted grin, amidst the pipes and dreadful din. You cut the strings that made them sway, and gave them back the quiet day.
+-> verse_menu
+
+~ v_baltus
+ambrose_quill [smile]: Old Baltus in a gaudy coat, had foolishness stuck in his throat. Now rescued from the shrieking play, he grumbles in his usual way.
+-> verse_menu
+
+~ v_rusty
+ambrose_quill [smile]: Old Rusty traded spade and dirt, for bells upon a motley shirt. Though freed from Chuckles and his rhyme, he still speaks riddles half the time.
+-> verse_menu
+
+~ v_rain
+ambrose_quill [smile]: Mild Sister Rain in tinsel dressed, knew neither prayer nor gentle rest. Now sheltered from the painted glare, she breathes the quiet churchyard air.
+-> verse_menu

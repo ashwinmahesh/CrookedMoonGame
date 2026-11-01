@@ -1,0 +1,135 @@
+# Drafted by Gemini (R22 n2), edited.
+
+~ wood_start
+set n2_started
+Narrator: Autumn beech and hickory crowd under a swollen full moon, their dark bark stamped with ghost-white handprints every fifteen feet.
+quest crooked_nightmare dark_wood
+* [Perception DC 15] Listen for the loudest crying -> found | notfound
+* [Survival DC 15] Read the handprint trail -> found | notfound
+* Follow the handprint trees for ten minutes -> trail
+* Look around -> END
+
+~ found
+Narrator: A thin, hiccuping sob cuts through the rustle of dry leaves, leading straight toward a moonlit hollow.
+set nm_wood_direction
+-> END
+
+~ notfound
+Narrator: The wind rattles the hickory hulls until every branch sounds like a weeping child. The chalky handprints on the trunks still point the way forward.
+-> END
+
+~ trail
+Narrator: Ten minutes of cold leaf-mold and pale little palms bring you to a clearing where the moonlight pools like milk.
+time +10
+set nm_wood_direction
+-> END
+
+~ child_start
+Narrator: A little girl in a white dress shivers in the grass, clutching a one-eyed stuffed doll stitched together like half turkey and half lizard.
+nm_adela_child [afraid]: Please do not walk so loud, the trees have ears tonight. Poor Frederick is so terribly hungry, and I have nothing left to feed him.
+set nm_child_met
+* Comfort her -> comfort
+* Ask about the doll -> doll
+* [if item:nm_wicker_star] Hold up the wicker star -> star_used
+* Ask for the doll -> frederick_wakes
+* Leave her be -> END
+
+~ comfort
+Narrator: Her small shoulders stop trembling at your gentle word, and the moonlight catches a dark mole on her right cheek.
+nm_adela_child [sad]: You sound like the warm kitchen downstairs. I thought everyone had gone and left me in the dark.
+set nm_child_comforted
+-> child_start
+
+~ doll
+nm_adela_child [afraid]: Nurse stitched him from scraps so I would not be lonely. When the dark comes close and he gets frightened, he gobbles up whatever he can reach.
+-> child_start
+
+~ frederick_wakes
+Narrator: The burlap seams split with a wet rip as the doll balloons into a feathered hulk, its button eye glaring above a beak full of jagged teeth.
+quest frederick_the_turkey found
+combat nm_frederick
+
+~ star_used
+Narrator: The doll swells with a hiss of dry stuffing, then catches sight of the woven straw star in `{name}`'s hand. With an offended squawk, the beastly thing backs off ten feet and shrinks back into a limp lump of cloth.
+quest frederick_the_turkey found
+set nm_frederick_done
+set frederick_repelled
+xp fight nm_frederick
+-> frederick_toy
+
+~ frederick_toy
+Narrator: Frederick lies among the fallen beech leaves, staring up at the moon with his single button eye.
+* Take Frederick with you -> take
+* Tuck Frederick back into Adela's arms -> bed
+* [ends:frederick_the_turkey] Leave him in the leaves -> left
+* Do nothing yet -> END
+
+~ take
+Narrator: You tuck the ragged doll into your pack, where his stitched beak gives a faint, rhythmic chew against the leather.
+give frederick_corn_dolly
+set frederick_taken
+set frederick_resolved
+quest frederick_the_turkey kept
+-> stonoga
+
+~ bed
+Narrator: Little Adela gathers the ragged creature against her chest, lets out a long sigh, and falls asleep standing up.
+set frederick_in_bed
+set frederick_resolved
+quest frederick_the_turkey bed
+-> stonoga
+
+~ left
+Narrator: You leave the stuffed creature in the damp leaves. Behind you, a tiny beak gives a single, hollow click.
+set frederick_left
+set frederick_resolved
+quest frederick_the_turkey left
+-> stonoga
+
+~ stonoga
+Narrator: Stonoga Blackstinger steps from the tree line in a tall white chef's hat, her hundred little legs pattering under a flour-dusted apron. Before you can reach the child, unseen hands yank the girl in the white dress backward into the dark trees.
+cutscene nm_three_adelas_a
+set nm_wood_done
+quest crooked_nightmare crooked_oven
+nm_stonoga [sly]: Golub prattles over the mind and Vessla fusses with the soul, as if a feast begins anywhere but the butcher's block! A tender vessel must be salted with fright and trussed up tight before the oven door ever opens.
+cutscene nm_three_adelas_a_2
+Narrator: The handprints on the trunks glow a little brighter, and the clearing is empty but for a doll in the leaves.
+cutscene end
+* Strike the vision -> stonoga_hit
+* Listen to her boast -> stonoga_boast
+* Let her go -> END
+
+~ stonoga_hit
+Narrator: Your blow passes through her apron with a soft pop, leaving only a drift of warm baker's flour on the night air.
+vanish nm_stonoga
+set stonoga_struck
+-> END
+
+~ stonoga_boast
+nm_stonoga [smile]: That is the secret my sisters never had the stomach for: fear makes the marrow sweet, and the little lady has been simmering since she was knee-high! Come along into the kitchen, darlings, the coals are red.
+Narrator: Across the clearing, the crooked door lying flat in the leaves begins to glow dull red around its edges.
+-> END
+
+~ door
+if not flag.nm_wood_done
+Narrator: The crooked door lies flat in the dead leaves, sealed fast, though the pale handprints pressed into the wood still feel warm to the touch.
+-> END
+else
+Narrator: The handprint-covered door lies open to the red dark below, asking no toll at all.
+* Step through -> pass
+* [Performance DC 12] Tell the door a joke -> joke_ok | joke_fail
+* Not yet -> END
+endif
+
+~ joke_ok
+Narrator: A wooden giggle rattles through the hinges, and all the chalky little handprints wave at you in unison.
+set dream_laughed
+-> pass
+
+~ joke_fail
+Narrator: The door listens with the polite silence of well-seasoned oak and keeps its thoughts to itself.
+-> pass
+
+~ pass
+quest crooked_nightmare crooked_oven
+move nm_oven

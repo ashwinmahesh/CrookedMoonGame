@@ -1,0 +1,182 @@
+# R21 reveler conversations for the flag costume: logic from tools/content/build_fools_day_dialogue.py, lines drafted by Gemini (R21 revelers), edited.
+
+~ wendel_somerton_start
+wendel_somerton [smile]: By official proclamation of the Mayor's office, you are hereby ordered to make merry! Wave a banner, take a pie, and observe the proper festival regulations with a smile!
+-> wendel_somerton_menu
+
+~ wendel_somerton_menu
+* [if flag.release_slips >= 1] Show them a release slip -> wendel_somerton_slip
+* [Persuasion DC 15] Invite them to a better party, at a quiet church -> wendel_somerton_church | wendel_somerton_church_fail
+* [Deception DC 15] Say Chuckles wants them at the church for the next number -> wendel_somerton_church | wendel_somerton_church_fail
+* [knows:calm_emotions] Cast Calm Emotions on them -> wendel_somerton_calm
+* [knows:greater_restoration] Cast Greater Restoration on them -> wendel_somerton_calm
+* Knock them out of the costume, bruised but not hurt for good -> wendel_somerton_fight
+* Leave them dancing for now -> END
+
+~ wendel_somerton_slip
+wendel_somerton [neutral]: Good heavens, my waistcoat is ruined and I have lost my hat! None of these booths have filed a single permit with my office, it is utter anarchy!
+set release_slips -= 1
+set reveler_wendel_somerton = "tickets"
+set reveler_wendel_somerton_freed
+set revelers_freed += 1
+-> END
+
+~ wendel_somerton_church
+wendel_somerton [smile]: A VIP reception at the church, properly sanctioned and awaiting my inspection? Well, as Mayor, it is my civic duty to lead the procession there at once!
+lead wendel_somerton to fd_silent_church
+if check.last
+set reveler_wendel_somerton = "church"
+set reveler_wendel_somerton_freed
+set revelers_freed += 1
+set church_guests += 1
+endif
+-> END
+
+~ wendel_somerton_church_fail
+wendel_somerton [smile]: Leave the Founder's Round in the middle of the grand municipal parade? Unthinkable, my dear friends, the Mayor must remain where the banners fly highest!
+set fd_chuckles_amused
+-> wendel_somerton_menu
+
+~ wendel_somerton_calm
+wendel_somerton [weary]: My word, my calves are cramping something dreadful and my cane is sticky with jam. Someone must inform Mr. Druskenvald that this carnival lacks any lawful charter!
+set reveler_wendel_somerton = "uncharmed"
+set reveler_wendel_somerton_freed
+set revelers_freed += 1
+-> END
+
+~ wendel_somerton_fight
+wendel_somerton [angry]: Any interference with the festivities is strictly prohibited by order of the Lord of Fools! Stand aside and wave your flags, or I shall enforce the merriment myself!
+Narrator: The dancers nearby keep on dancing. Nobody here is going to remember a punch.
+combat reveler_wendel_somerton
+
+~ wendel_somerton_beaten
+wendel_somerton [weary]: Assaulting the Mayor in the middle of the thoroughfare is a grave infraction! Still, seeing as you knocked that infernal jester's tune out of my ears, I shall waive the fine.
+set reveler_wendel_somerton = "beaten"
+set reveler_wendel_somerton_freed
+set revelers_freed += 1
+-> END
+
+~ wendel_somerton_sheltered
+wendel_somerton [weary]: Not a single ledger survived in my office, just rafters crammed with steaming mutton pies. How am I to govern Wickermoor when the streets themselves will not sit still?
+-> END
+
+~ alda_farnum_start
+alda_farnum [smile]: Welcome back, my darlings, the drinks are on the house and the flags are flying free! Forget the tab, step lively, and dance a measure with your favourite hostess!
+-> alda_farnum_menu
+
+~ alda_farnum_menu
+* [if flag.release_slips >= 1] Show them a release slip -> alda_farnum_slip
+* [Persuasion DC 15] Invite them to a better party, at a quiet church -> alda_farnum_church | alda_farnum_church_fail
+* [Deception DC 15] Say Chuckles wants them at the church for the next number -> alda_farnum_church | alda_farnum_church_fail
+* [knows:calm_emotions] Cast Calm Emotions on them -> alda_farnum_calm
+* [knows:greater_restoration] Cast Greater Restoration on them -> alda_farnum_calm
+* Knock them out of the costume, bruised but not hurt for good -> alda_farnum_fight
+* Leave them dancing for now -> END
+
+~ alda_farnum_slip
+alda_farnum [neutral]: Giving away free pies and dancing in the dirt without charging a copper, how utterly mortifying. Help me out of this gaudy rag before someone sees me like this.
+set release_slips -= 1
+set reveler_alda_farnum = "tickets"
+set reveler_alda_farnum_freed
+set revelers_freed += 1
+-> END
+
+~ alda_farnum_church
+alda_farnum [smile]: An exclusive gathering up at the church with a finer class of guest? Now that sounds like a profitable room to work, my dears, show me the way!
+lead alda_farnum to fd_silent_church
+if check.last
+set reveler_alda_farnum = "church"
+set reveler_alda_farnum_freed
+set revelers_freed += 1
+set church_guests += 1
+endif
+-> END
+
+~ alda_farnum_church_fail
+alda_farnum [smile]: Close up shop here when the whole square is buying what we are selling? Never in your life, sweethearts, the best crowd is right under these ribbons!
+set fd_chuckles_amused
+-> alda_farnum_menu
+
+~ alda_farnum_calm
+alda_farnum [weary]: My throat is raw from singing, and I never sing without a gold piece on the table first. Whatever that squeaking creature is, he owes me dearly for my inn.
+set reveler_alda_farnum = "uncharmed"
+set reveler_alda_farnum_freed
+set revelers_freed += 1
+-> END
+
+~ alda_farnum_fight
+alda_farnum [angry]: We do not allow rough customers to spoil the atmosphere at this party, my dears! Smile and pay your respects to the banner, or we will settle your tab right here!
+Narrator: The dancers nearby keep on dancing. Nobody here is going to remember a punch.
+combat reveler_alda_farnum
+
+~ alda_farnum_beaten
+alda_farnum [weary]: You could have mussed the costume without bruising the innkeeper, darling, though I suppose we can call our accounts even. That jester had me smiling until my cheeks bled.
+set reveler_alda_farnum = "beaten"
+set reveler_alda_farnum_freed
+set revelers_freed += 1
+-> END
+
+~ alda_farnum_sheltered
+alda_farnum [weary]: He stuffed the Green Queen Inn from cellar to chimney with pastry, right over my best linen and my private books. Someone is going to pay that bill in blood.
+-> END
+
+~ jean_myriel_start
+jean_myriel [smile]: Drop your steel and grab a ribbon, friends, the bellows are pumping a merry tune tonight! Wave the banner high and let the anvils ring for the festival!
+-> jean_myriel_menu
+
+~ jean_myriel_menu
+* [if flag.release_slips >= 1] Show them a release slip -> jean_myriel_slip
+* [Persuasion DC 15] Invite them to a better party, at a quiet church -> jean_myriel_church | jean_myriel_church_fail
+* [Deception DC 15] Say Chuckles wants them at the church for the next number -> jean_myriel_church | jean_myriel_church_fail
+* [knows:calm_emotions] Cast Calm Emotions on them -> jean_myriel_calm
+* [knows:greater_restoration] Cast Greater Restoration on them -> jean_myriel_calm
+* Knock them out of the costume, bruised but not hurt for good -> jean_myriel_fight
+* Leave them dancing for now -> END
+
+~ jean_myriel_slip
+jean_myriel [neutral]: Well, that was uglier than a cracked horseshoe. A grown smith waving a silk rag on a pole is a sight you had better forget by morning.
+set release_slips -= 1
+set reveler_jean_myriel = "tickets"
+set reveler_jean_myriel_freed
+set revelers_freed += 1
+-> END
+
+~ jean_myriel_church
+jean_myriel [smile]: You say they have finer bells and heavier ironwork ringing up at the old church? Come on then, let us march up the hill and hear how they strike!
+lead jean_myriel to fd_silent_church
+if check.last
+set reveler_jean_myriel = "church"
+set reveler_jean_myriel_freed
+set revelers_freed += 1
+set church_guests += 1
+endif
+-> END
+
+~ jean_myriel_church_fail
+jean_myriel [smile]: Leave the fire while the iron is red hot and the drums are beating? Not a chance, friends, grab a pie and swing your boots with me!
+set fd_chuckles_amused
+-> jean_myriel_menu
+
+~ jean_myriel_calm
+jean_myriel [weary]: My ears are ringing worse than a day with the heavy sledge. That little painted devil turned my whole smithy into a pie stall while I grinned like an idiot.
+set reveler_jean_myriel = "uncharmed"
+set reveler_jean_myriel_freed
+set revelers_freed += 1
+-> END
+
+~ jean_myriel_fight
+jean_myriel [angry]: Do not go throwing cold water on our forge, friends, the festival is just heating up! Dance along nicely now, or I will hammer some cheer right into your skulls!
+Narrator: The dancers nearby keep on dancing. Nobody here is going to remember a punch.
+combat reveler_jean_myriel
+
+~ jean_myriel_beaten
+jean_myriel [weary]: You swing a fair hammer, friend, right on the temper line. Hurts like the devil, mind you, but it beat capering round the square in silk breeches.
+set reveler_jean_myriel = "beaten"
+set reveler_jean_myriel_freed
+set revelers_freed += 1
+-> END
+
+~ jean_myriel_sheltered
+jean_myriel [weary]: It is good to sit on cold stone where nothing is jingling or grinning at you. When my hands stop twitching, I have a score to settle with a hammer.
+-> END
+

@@ -1,0 +1,102 @@
+# Drafted by Gemini (R22 voices), edited.
+
+~ start
+set nm_voices_listened
+Narrator: Five glass thimbles sit in a row on the dusty shelf, each one humming softly against the wood with a trapped breath. Nothing stirs to stop you; only the quiet wait of stolen words remains.
+quest voices_not_their_own listening
+-> menu
+
+~ menu
+Narrator: The little bells of glass tremble against your fingertips, waiting for an ear or a steady hand.
+* Listen to the first thimble -> v1
+* Listen to the second thimble -> v2
+* Listen to the third thimble -> v3
+* Listen to the fourth thimble -> v4
+* Listen to the fifth thimble -> v5
+* [Insight DC 15] Ask which voice hesitates -> hesitate_ok | hesitate_fail
+* [Perception DC 15] Listen for the voice that is not copying anyone -> hesitate_ok | hesitate_fail
+* Choose a thimble for Walter -> choose
+* Leave them -> END
+
+~ v1
+Narrator: Warm and rich as kettle-steam, Gilly's voice drifts from the glass, calling Dani in for supper, though the turn of every syllable is polished a touch too smooth.
+-> menu
+
+~ v2
+Narrator: Out puffs the Mayor's round, pompous baritone, declaring that he shall bring the whole affair before the parish committee by Tuesday.
+-> menu
+
+~ v3
+Narrator: Dani's flat, calm voice recites a neat little tally of things she has noticed round the yard: three black feathers, a cracked boot-scraper, and a dog that is not a dog.
+-> menu
+
+~ v4
+Narrator: A quiet man's voice stops and starts inside the glass, hunting each word as if feeling for a chair in a dark room before gently thanking someone for a cup of tea.
+-> menu
+
+~ v5
+Narrator: Nothing comes from the fifth thimble but a kitten's small, pleased mew, the very first voice Wisp traded away so her throat could hold all the rest.
+-> menu
+
+~ hesitate_ok
+Narrator: A thief wears a stolen coat smoothly, {name}, and only the fourth thimble stumbles with the honest care of a man speaking his own mind.
+set voices_found_walter
+-> menu
+
+~ hesitate_fail
+Narrator: Every murmur inside the glass sounds well-rehearsed and worn by long keeping, leaving your ear no wiser than before.
+-> menu
+
+~ choose
+Narrator: You reach toward the shelf, where a wrong touch will spill the fragile breath inside.
+* [ends:voices_not_their_own if flag.voices_wrong >= 2] The first -> wrong
+* [ends:voices_not_their_own if flag.voices_wrong >= 2] The second -> wrong
+* [ends:voices_not_their_own if flag.voices_wrong >= 2] The third -> wrong
+* The fourth -> right
+* [ends:voices_not_their_own if flag.voices_wrong >= 2] The fifth -> wrong
+* Not yet -> menu
+
+~ wrong
+Narrator: The glass clouds over at your touch, and the murmur inside thins to a cold, hollow rattle.
+set voices_wrong += 1
+if flag.voices_wrong >= 3
+-> lost
+endif
+-> menu
+
+~ lost
+Narrator: A hairline shiver runs through all five thimbles at once before they crack in your hands, scattering their whispers into the dark where Walter will never find his own again.
+quest voices_not_their_own lost
+set voices_outcome = "lost"
+-> END
+
+~ right
+Narrator: The fourth thimble grows warm as a hearth-stone against your palm, holding Walter's halting, kindly voice safe and whole for the giving.
+-> what_next
+
+~ what_next
+Narrator: Four other thimbles still hum softly on the board, harmless as paper lanterns waiting on your word.
+* Give Walter his voice and take the rest home -> freed_all
+* Give Walter his voice and keep the others for bargaining -> keep_rest
+* Give Walter his voice and smash Wisp's last voice -> smash
+
+~ freed_all
+Narrator: You tip the remaining thimbles open, and four small breaths slip out through the rafters toward Wickermoor and the Mayor's parlour, the kitten's mew trailing behind to find some small cat by a hearth.
+give walter_voice_jar
+set voices_outcome = "all"
+quest voices_not_their_own freed
+-> END
+
+~ keep_rest
+Narrator: You cork Walter's thimble safe and sweep the others into your pack, where they hum against the leather like sleepy bees in a jar.
+give walter_voice_jar
+set voices_outcome = "walter"
+quest voices_not_their_own returned
+-> END
+
+~ smash
+Narrator: The fifth thimble snaps beneath your heel and the kitten's small mew stops dead, leaving behind a cold little pinch of satisfaction and a quieter shame.
+give walter_voice_jar
+set voices_outcome = "smashed"
+quest voices_not_their_own returned
+-> END

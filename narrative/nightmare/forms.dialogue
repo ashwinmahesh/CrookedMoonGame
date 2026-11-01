@@ -1,0 +1,68 @@
+# Drafted by Gemini (R22 forms), edited.
+
+~ start
+Narrator: At the edge of the moonless wedding meadow sits a narrow walnut desk, stacked neat with buff folders that smell of dry ink and old dust.
+tamsin_ledger [weary]: Take a number or don't, it makes very little difference in a meadow. I have three forms prepared for your current predicament, assuming you wish to grieve it properly.
+quest the_nightmare_forms asked
+-> menu
+
+~ menu
+tamsin_ledger [neutral]: State the nature of the irregularity and keep your thumbs clear of the blotter.
+* File Form 7-B, Complaint of Falling -> form_a
+* File Form 12, Complaint of Roasting -> form_b
+* File Form 3, Complaint of Cat -> form_c
+* [if flag.forms_filed >= 2] Submit the forms for a stamp -> submit
+* [Deception DC 13] Embellish a form -> lie_ok | lie_fail
+* [Performance DC 12] Laugh at the forms -> laugh_ok | laugh_fail
+* Leave -> END
+
+~ form_a
+Narrator: She brings an iron stamp down with a dull thud that shakes a few dead petals from the meadow grass.
+tamsin_ledger [weary]: Unscheduled descent through a drawing room floor. The falling was not in the lease, I have noted that in the margin for the bailiff.
+set forms_filed += 1
+quest the_nightmare_forms filing
+-> menu
+
+~ form_b
+tamsin_ledger [neutral]: Attempted basting of guests without prior municipal notice or a butcher's license. I shall mark it as an unpermitted kitchen alteration.
+set forms_filed += 1
+quest the_nightmare_forms filing
+-> menu
+
+~ form_c
+tamsin_ledger [weary]: One oversized feline, nuisance of stolen voices and unauthorized grinning. That goes under livestock out of bounds, third drawer from the bottom.
+set forms_filed += 1
+quest the_nightmare_forms filing
+-> menu
+
+~ submit
+Narrator: Her brass stamp comes down hard on the stacked parchment, leaving a purple mark that smells faintly of warm almond icing and wedding cake.
+tamsin_ledger [neutral]: Filed, countersigned, and entered into the ledger of bad nights. Take your copy and your statutory compensation, and kindly step away from the desk.
+gold +40
+give nm_stamped_complaint
+quest the_nightmare_forms filed
+set forms_stamped
+-> END
+
+~ lie_ok
+tamsin_ledger [neutral]: Three hundred feet of drop and a pair of brass candlesticks, you say. Very well, I have entered the loss at your stated valuation.
+Narrator: Her nib scratches the tall tale neatly into the ledger, and the dry old record feels a little livelier for the lie.
+-> menu
+
+~ lie_fail
+tamsin_ledger [angry]: Perjury in a dream is still perjury, and I know the exact headcount of this household. Mind your hands.
+Narrator: She slides the heavy oak drawer shut on `{name}`'s fingers with a sharp crack that rings right behind your eyes.
+damage 1d6 psychic
+set forms_warned
+-> menu
+
+~ laugh_ok
+Narrator: At `{name}`'s laugh, the walnut desk sags into three tiers of white sugared sponge cake, and the air shifts as the dream loses its grip.
+tamsin_ledger [neutral]: Frosting is also a valid surface for municipal business, provided you do not smudge the carbon copy. We shall carry on.
+set dream_laughed
+-> menu
+
+~ laugh_fail
+Narrator: Your laugh dies thin in the dark meadow grass, and the brass inkwell does not so much as rattle.
+tamsin_ledger [weary]: Mirth during an active filing. I have noted it in the margin, though it rarely helps the claimant's case.
+-> menu

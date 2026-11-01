@@ -1,0 +1,159 @@
+You are drafting DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue, skill checks, a storyteller Narrator). It is folk horror set in Druskenvald, an afterlife realm of endless night under a gargantuan crescent moon with a leering crone's face; drawn like a 1960s monster cartoon stuck in Halloween, but the stakes are real. Humour is deadpan and sits beside the dread.
+
+THIS SCENE: Chapter 20, "The Roving Rookery". The village of Wickermoor has been swept into a mass hysteria by Golub Graygullet, a pigeon hag who has lived seventy years among the villagers wearing other women's skins, lately as the postmaster Theodora Mayville. She staged a murder, pinned it on the party (four level 10 heroes) with a forged letter, and charmed the whole village: every neighbour is hostile, doors are barred, shops shut, mobs with torches walk the lanes, and grey pigeons line every roof. A tell of the charm is a lilac glint in the eyes. Her flying, walking dovecote stands up on pigeon legs and roams between four roosts. Peeping Albert is her spy: a pudgy pigeon with a wrinkled bald human head, human ears, and hands for talons; he is terrified of dogs. Cast: Constable Doris Squire (tall, stocky, laconic, writes poetry in secret), Deputy Howie Butterman (friendly, false, a hidden cultist), Mayor Wendel Somerton (officious, loves forms, bowler hat, waxed moustache), Tamsin Ledger (deadpan auditor, treats strangeness as a clerical error), Ambrose Quill (grand hopeless poet), Sergeant Gaunt (overconfident coward), Pip Oakum (a small boy who trades buttons), Mrs. Oakum (hill-country twang, a werewolf who only wants to hurt no one), Marianna Grey (shy stablemistress), Weston Murdoch (warm Brightsinger preacher), Hilda Brom (terse huntress), Geneva Fairchild (earnest assistant, lilac eyes), Phillip and Adela Druskenvald (dapper theatrical lord; bright slangy lady), Dani Jenkin (child with a hound called Shuck), Jeremiah Stover (stubborn tuber farmer).
+
+RULES FOR THE TEXT
+- Spoken lines: 1 to 3 short sentences, about 12 to 30 words, never over 45. Contractions are normal. People talk in their own voice and do not explain the plot to the audience. Accent is word choice and rhythm, never phonetic spelling.
+- Option lines (what the player's party says or does): under 12 words, plain, in the party's voice ("We..." or an imperative).
+- Narrator lines ("The Vagrant", a frog-faced ferryman telling the tale afterwards: warm, folksy, wry, never gloating): second person, present tense, one or two sentences, only what a hero could perceive, concrete senses (smell, sound, texture), no game words (HP, roll, level, check, DC, save), no modern slang, never the word "suddenly". Never mention the Vagrant by name inside the line.
+- No stage directions, asterisks, italics, brackets, placeholders, emoji or em dashes (use commas, periods, colons). Straight quotes only. Do not use the arrow characters -> or => inside the text.
+- Content is dark but restrained: no gore, no graphic detail.
+- Each brief inside <<...>> says what the line must do; keep its facts, write it as the speaker would say it. Where it says "The Vagrant:" it is a Narrator line.
+
+## The conversation file `jury` (structure is fixed; only the [[n]] markers are yours)
+
+```
+# R20 side quest: A Jury of Pigeons. Tamsin Ledger will not let a mob try anyone without a docket, a quorum and sworn witnesses.
+
+~ start
+Narrator: [[1]]
+tamsin_ledger [neutral]: [[2]]
+* [[3]] -> accept
+* [[4]] -> charge
+* [[5]] -> END
+
+~ charge
+tamsin_ledger [neutral]: [[6]]
+-> start
+
+~ accept
+set rk_jury_asked
+quest jury_of_pigeons asked
+tamsin_ledger [smile]: [[7]]
+-> END
+
+~ progress
+tamsin_ledger [neutral]: [[8]]
+-> menu
+
+~ menu
+* [if not flag.rk_jury_docket] [[9]] -> docket
+* [if not flag.rk_jury_quorum] [[10]] -> quorum
+* [if not flag.rk_jury_oath] [[11]] -> oath
+* [if flag.rk_jury_docket and flag.rk_jury_quorum and flag.rk_jury_oath] [[12]] -> hearing
+* [ends:jury_of_pigeons] [[13]] -> quit
+* [[14]] -> END
+
+~ docket
+* [Persuasion DC 13] [[15]] -> docket_ok | docket_poor
+* [[16]] -> docket_copy
+~ docket_poor
+Narrator: [[17]]
+-> menu
+~ docket_copy
+time +60
+-> docket_ok
+~ docket_ok
+set rk_jury_docket
+give rk_docket
+Narrator: [[18]]
+-> menu
+
+~ quorum
+* [Intimidation DC 12] [[19]] -> quorum_ok | quorum_poor
+* [[20]] -> quorum_goat
+~ quorum_poor
+Narrator: [[21]]
+-> menu
+~ quorum_goat
+Narrator: [[22]]
+-> quorum_ok
+~ quorum_ok
+set rk_jury_quorum
+Narrator: [[23]]
+-> menu
+
+~ oath
+* [Animal Handling DC 12] [[24]] -> oath_ok | oath_poor
+* [Performance DC 12] [[25]] -> oath_ok | oath_poor
+* [[26]] -> oath_affirm
+~ oath_poor
+Narrator: [[27]]
+-> menu
+~ oath_affirm
+Narrator: [[28]]
+-> oath_ok
+~ oath_ok
+set rk_jury_oath
+Narrator: [[29]]
+-> menu
+
+~ hearing
+quest jury_of_pigeons sitting
+tamsin_ledger [neutral]: [[30]]
+Narrator: [[31]]
+tamsin_ledger [smile]: [[32]]
+set rk_mob_calm = now
+set rk_jury_done
+quest jury_of_pigeons done
+Narrator: [[33]]
+-> END
+
+~ quit
+set rk_jury_abandoned
+quest jury_of_pigeons abandoned
+tamsin_ledger [sad]: [[34]]
+-> END
+
+~ after
+if flag.rk_jury_done
+tamsin_ledger [smile]: [[35]]
+-> END
+endif
+tamsin_ledger [weary]: [[36]]
+-> END
+```
+
+## Briefs
+
+1. node `start`, narrator: The Vagrant: Tamsin Ledger on a crate at the edge of the Round, clipboard on her knee, auditing a mob as if it were a ledger
+2. node `start`, spoken by tamsin_ledger: Tamsin, deadpan, says the mob is out of order: no docket, no quorum, no sworn witnesses; she is minuting it, and she needs a jury, and the party is it
+3. node `start`, option: Agree to be her jury.
+4. node `start`, option: Ask what the charge is.
+5. node `start`, option: Say we have no time.
+6. node `charge`, spoken by tamsin_ledger: Tamsin says the charge, as far as she can tell, is being a pigeon, and she has yet to establish whether that is a crime
+7. node `accept`, spoken by tamsin_ledger: Tamsin ticks a box, says she needs three things: a docket, a quorum and an oath from the witnesses, and she would like them before the Witching Hour
+8. node `progress`, spoken by tamsin_ledger: Tamsin reads her list: docket, quorum, oath; she will tell you what remains
+9. node `menu`, option: The docket: ask Mayor Somerton for one.
+10. node `menu`, option: The quorum: seat enough people to sit.
+11. node `menu`, option: The oath: swear in the pigeons.
+12. node `menu`, option: Call the hearing to order.
+13. node `menu`, option: Abandon the hearing; it is hopeless.
+14. node `menu`, option: Come back to it later.
+15. node `docket`, option: Ask Mayor Somerton politely for a docket form.
+16. node `docket`, option: Copy a docket out by hand from his desk, an hour.
+17. node `docket_poor`, narrator: The Vagrant: the mayor says forms are issued on Thursdays only
+18. node `docket_ok`, narrator: The Vagrant: you hold the docket, ruled and blank, and Tamsin's eyes follow it like a hawk
+19. node `quorum`, option: Order the mob to sit down in rows.
+20. node `quorum`, option: Note that the village goat counts as a juror.
+21. node `quorum_poor`, narrator: The Vagrant: the mob stares through you; apparently nobody has yet been dismissed
+22. node `quorum_goat`, narrator: The Vagrant: Tamsin looks at the goat, looks at her list, and rules it admissible
+23. node `quorum_ok`, narrator: The Vagrant: somehow there are twelve of them, more or less, sitting in rows on the cobbles
+24. node `oath`, option: Coax a pigeon onto your arm and have it take the oath.
+25. node `oath`, option: Swear the pigeons in with a very solemn flourish.
+26. node `oath`, option: Request a solemn affirmation instead of an oath.
+27. node `oath_poor`, narrator: The Vagrant: the pigeon fixes you with one orange eye and leaves a deposit on the docket
+28. node `oath_affirm`, narrator: The Vagrant: Tamsin lowers her pen and says that, under section nine, an affirmation is equally binding on a bird
+29. node `oath_ok`, narrator: The Vagrant: the pigeons coo something that Tamsin minutes as agreement
+30. node `hearing`, spoken by tamsin_ledger: Tamsin calls the court to order, reads the charges against a pigeon, and asks whether the accused has anything to say
+31. node `hearing`, narrator: The Vagrant: the pigeon says something long and complicated, and the mob listens, rapt, as if it were scripture
+32. node `hearing`, spoken by tamsin_ledger: Tamsin rules that proceedings cannot continue until the minutes are read, and she begins to read them, slowly, from page one
+33. node `hearing`, narrator: The Vagrant: by the third page the torches are guttering, by the tenth the mob is asleep in rows, and the whole Round lies quiet for the first time in days
+34. node `quit`, spoken by tamsin_ledger: Tamsin says in a very small voice that she understands, and begins to pack her docket away
+35. node `after`, spoken by tamsin_ledger: Tamsin says the minutes were adopted unanimously, though no one was awake to move it
+36. node `after`, spoken by tamsin_ledger: Tamsin says she is still auditing, but nobody is listening
+
+## Reply format
+One line per marker, in order, exactly `n => text` (no quotes around the text, no extra lines, no commentary). 36 lines.

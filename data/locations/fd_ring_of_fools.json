@@ -1,0 +1,1035 @@
+{
+  "id": "fd_ring_of_fools",
+  "name": "The Ring of Fools",
+  "region": "wickermoor",
+  "summary": "The cleared square where the parade ends: a maypole at the middle, six white streamers running out from it, and a ring of people who cannot stop dancing.",
+  "text": "The crowd has drawn back into a ring. The ribbons of the maypole lie in six chalk-white trails across the packed earth, the calliope wagon waits on the north edge, and the clown balloon is straining at the top of its pole.",
+  "map": {
+    "rows": [
+      "##############################",
+      "#............................#",
+      "#.........==========.........#",
+      "#.........==========.........#",
+      "#.........==========.........#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#..==....................==..#",
+      "#..=......................=..#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#..=......................=..#",
+      "#..==....................==..#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "#.....==..............==.....#",
+      "#............................#",
+      "#............................#",
+      "#............................#",
+      "##############################"
+    ],
+    "theme": "village",
+    "light": "bright",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "ring",
+      "name": "The Ring of Fools",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          28,
+          34
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      15,
+      32
+    ],
+    "from_parade": [
+      15,
+      32
+    ]
+  },
+  "exits": [],
+  "doors": [],
+  "props": [
+    {
+      "id": "fd_ring_pole",
+      "cell": [
+        15,
+        18
+      ],
+      "kind": "decor",
+      "label": "The maypole",
+      "model": "lantern_post",
+      "scale": 3.5,
+      "tint": "#d94a3d"
+    },
+    {
+      "id": "fd_ring_balloon",
+      "cell": [
+        15,
+        16
+      ],
+      "kind": "decor",
+      "label": "A leering clown balloon",
+      "model": "statue_head",
+      "scale": 3,
+      "tint": "#e8c23a"
+    },
+    {
+      "id": "fd_ring_calliope",
+      "cell": [
+        14,
+        3
+      ],
+      "kind": "decor",
+      "label": "The calliope wagon",
+      "model": "cart"
+    },
+    {
+      "id": "fd_ring_taunt",
+      "cell": [
+        15,
+        28
+      ],
+      "kind": "decor",
+      "label": "The ring waits",
+      "call": "fools_day/ring:taunt",
+      "approach": 12,
+      "call_when": "not flag.ring_started"
+    },
+    {
+      "id": "fd_ring_after",
+      "cell": [
+        15,
+        24
+      ],
+      "kind": "decor",
+      "label": "The firework fades",
+      "call": "fools_day/ring:shows_over",
+      "approach": 12,
+      "call_when": "flag.ring_of_fools_done and not flag.shows_over"
+    }
+  ],
+  "npcs": [],
+  "lights": [
+    {
+      "cell": [
+        6,
+        6
+      ],
+      "kind": "fire",
+      "bright_ft": 30,
+      "dim_ft": 60,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        23,
+        6
+      ],
+      "kind": "fire",
+      "bright_ft": 30,
+      "dim_ft": 60,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        6,
+        28
+      ],
+      "kind": "fire",
+      "bright_ft": 30,
+      "dim_ft": 60,
+      "color": "ember"
+    },
+    {
+      "cell": [
+        23,
+        28
+      ],
+      "kind": "fire",
+      "bright_ft": 30,
+      "dim_ft": 60,
+      "color": "ember"
+    }
+  ],
+  "rest": "no",
+  "rest_text": "Nobody can sleep in the festival.",
+  "encounters": [
+    {
+      "id": "ring_of_fools",
+      "trigger": "dialogue",
+      "flag": "ring_of_fools_done",
+      "when": "flag.revelers_freed >= 0 and flag.revelers_freed <= 2",
+      "quest": {
+        "id": "fools_day",
+        "stage": "shows_over"
+      },
+      "monsters": [
+        {
+          "monster": "lord_of_fools",
+          "cell": [
+            15,
+            12
+          ],
+          "name": "Chuckles, the Lord of Fools",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "dancing_herald",
+          "cell": [
+            9,
+            16
+          ],
+          "name": "A dancing Herald",
+          "facing": "south"
+        },
+        {
+          "monster": "dancing_herald",
+          "cell": [
+            21,
+            16
+          ],
+          "name": "A dancing Herald",
+          "facing": "south"
+        },
+        {
+          "monster": "dancing_herald",
+          "cell": [
+            15,
+            22
+          ],
+          "name": "A dancing Herald",
+          "facing": "south"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            15,
+            7
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            19,
+            8
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            22,
+            11
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            24,
+            15
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            24,
+            20
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            22,
+            24
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            19,
+            27
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            11,
+            27
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "festival_influence",
+          "name": "Festival Influence",
+          "summary": "The crowd's mood turns on the party.",
+          "kind": "text",
+          "at": 20,
+          "every": 1,
+          "pick": "random",
+          "table": [
+            {
+              "id": "join_the_dance",
+              "name": "Join the dance",
+              "summary": "Another Herald dances in from the crowd if fewer than three remain.",
+              "kind": "summon",
+              "affects": "enemies",
+              "monster": "dancing_herald",
+              "count": 1,
+              "side": "enemies",
+              "cells": [
+                [
+                  9,
+                  20
+                ],
+                [
+                  21,
+                  20
+                ]
+              ],
+              "say": "fd_join_dance"
+            },
+            {
+              "id": "ribbon_bind",
+              "name": "Ribbon bind",
+              "summary": "Ribbons snap round the party's feet.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "str",
+                "dc": 15
+              },
+              "condition": "restrained",
+              "until": "target_turn_end",
+              "area": {
+                "rect": [
+                  1,
+                  1,
+                  28,
+                  34
+                ]
+              },
+              "say": "fd_ribbon_bind"
+            },
+            {
+              "id": "snack_pelting",
+              "name": "Snack pelting",
+              "summary": "Hand pies and sticky buns rain on the heroes.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "dex",
+                "dc": 13
+              },
+              "damage": {
+                "dice": "1d4",
+                "type": "bludgeoning"
+              },
+              "half": true,
+              "area": {
+                "rect": [
+                  1,
+                  1,
+                  28,
+                  34
+                ]
+              },
+              "say": "fd_snack_pelting"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ring_of_fools",
+      "trigger": "dialogue",
+      "flag": "ring_of_fools_done",
+      "when": "flag.revelers_freed >= 3 and flag.revelers_freed <= 5",
+      "quest": {
+        "id": "fools_day",
+        "stage": "shows_over"
+      },
+      "monsters": [
+        {
+          "monster": "lord_of_fools",
+          "cell": [
+            15,
+            12
+          ],
+          "name": "Chuckles, the Lord of Fools",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "dancing_herald",
+          "cell": [
+            9,
+            16
+          ],
+          "name": "A dancing Herald",
+          "facing": "south"
+        },
+        {
+          "monster": "dancing_herald",
+          "cell": [
+            21,
+            16
+          ],
+          "name": "A dancing Herald",
+          "facing": "south"
+        },
+        {
+          "monster": "dancing_herald",
+          "cell": [
+            15,
+            22
+          ],
+          "name": "A dancing Herald",
+          "facing": "south"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            15,
+            7
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            19,
+            8
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            22,
+            11
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            24,
+            15
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            24,
+            20
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            22,
+            24
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "festival_influence",
+          "name": "Festival Influence",
+          "summary": "The crowd's mood turns on the party.",
+          "kind": "text",
+          "at": 20,
+          "every": 1,
+          "pick": "random",
+          "table": [
+            {
+              "id": "join_the_dance",
+              "name": "Join the dance",
+              "summary": "Another Herald dances in from the crowd if fewer than three remain.",
+              "kind": "summon",
+              "affects": "enemies",
+              "monster": "dancing_herald",
+              "count": 1,
+              "side": "enemies",
+              "cells": [
+                [
+                  9,
+                  20
+                ],
+                [
+                  21,
+                  20
+                ]
+              ],
+              "say": "fd_join_dance"
+            },
+            {
+              "id": "ribbon_bind",
+              "name": "Ribbon bind",
+              "summary": "Ribbons snap round the party's feet.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "str",
+                "dc": 15
+              },
+              "condition": "restrained",
+              "until": "target_turn_end",
+              "area": {
+                "rect": [
+                  1,
+                  1,
+                  28,
+                  34
+                ]
+              },
+              "say": "fd_ribbon_bind"
+            },
+            {
+              "id": "snack_pelting",
+              "name": "Snack pelting",
+              "summary": "Hand pies and sticky buns rain on the heroes.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "dex",
+                "dc": 13
+              },
+              "damage": {
+                "dice": "1d4",
+                "type": "bludgeoning"
+              },
+              "half": true,
+              "area": {
+                "rect": [
+                  1,
+                  1,
+                  28,
+                  34
+                ]
+              },
+              "say": "fd_snack_pelting"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ring_of_fools",
+      "trigger": "dialogue",
+      "flag": "ring_of_fools_done",
+      "when": "flag.revelers_freed >= 6 and flag.revelers_freed <= 8",
+      "quest": {
+        "id": "fools_day",
+        "stage": "shows_over"
+      },
+      "monsters": [
+        {
+          "monster": "lord_of_fools",
+          "cell": [
+            15,
+            12
+          ],
+          "name": "Chuckles, the Lord of Fools",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "dancing_herald",
+          "cell": [
+            9,
+            16
+          ],
+          "name": "A dancing Herald",
+          "facing": "south"
+        },
+        {
+          "monster": "dancing_herald",
+          "cell": [
+            21,
+            16
+          ],
+          "name": "A dancing Herald",
+          "facing": "south"
+        },
+        {
+          "monster": "dancing_herald",
+          "cell": [
+            15,
+            22
+          ],
+          "name": "A dancing Herald",
+          "facing": "south"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            15,
+            7
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            19,
+            8
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            22,
+            11
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            24,
+            15
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "festival_influence",
+          "name": "Festival Influence",
+          "summary": "The crowd's mood turns on the party.",
+          "kind": "text",
+          "at": 20,
+          "every": 1,
+          "pick": "random",
+          "table": [
+            {
+              "id": "join_the_dance",
+              "name": "Join the dance",
+              "summary": "Another Herald dances in from the crowd if fewer than three remain.",
+              "kind": "summon",
+              "affects": "enemies",
+              "monster": "dancing_herald",
+              "count": 1,
+              "side": "enemies",
+              "cells": [
+                [
+                  9,
+                  20
+                ],
+                [
+                  21,
+                  20
+                ]
+              ],
+              "say": "fd_join_dance"
+            },
+            {
+              "id": "ribbon_bind",
+              "name": "Ribbon bind",
+              "summary": "Ribbons snap round the party's feet.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "str",
+                "dc": 15
+              },
+              "condition": "restrained",
+              "until": "target_turn_end",
+              "area": {
+                "rect": [
+                  1,
+                  1,
+                  28,
+                  34
+                ]
+              },
+              "say": "fd_ribbon_bind"
+            },
+            {
+              "id": "snack_pelting",
+              "name": "Snack pelting",
+              "summary": "Hand pies and sticky buns rain on the heroes.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "dex",
+                "dc": 13
+              },
+              "damage": {
+                "dice": "1d4",
+                "type": "bludgeoning"
+              },
+              "half": true,
+              "area": {
+                "rect": [
+                  1,
+                  1,
+                  28,
+                  34
+                ]
+              },
+              "say": "fd_snack_pelting"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ring_of_fools",
+      "trigger": "dialogue",
+      "flag": "ring_of_fools_done",
+      "when": "flag.revelers_freed >= 9 and flag.revelers_freed <= 11",
+      "quest": {
+        "id": "fools_day",
+        "stage": "shows_over"
+      },
+      "monsters": [
+        {
+          "monster": "lord_of_fools",
+          "cell": [
+            15,
+            12
+          ],
+          "name": "Chuckles, the Lord of Fools",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "dancing_herald",
+          "cell": [
+            9,
+            16
+          ],
+          "name": "A dancing Herald",
+          "facing": "south"
+        },
+        {
+          "monster": "dancing_herald",
+          "cell": [
+            21,
+            16
+          ],
+          "name": "A dancing Herald",
+          "facing": "south"
+        },
+        {
+          "monster": "dancing_herald",
+          "cell": [
+            15,
+            22
+          ],
+          "name": "A dancing Herald",
+          "facing": "south"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            15,
+            7
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        },
+        {
+          "monster": "reveler_of_stories_great_beast",
+          "cell": [
+            19,
+            8
+          ],
+          "name": "A forced reveler, screaming for help",
+          "side": "neutral",
+          "facing": "north"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "festival_influence",
+          "name": "Festival Influence",
+          "summary": "The crowd's mood turns on the party.",
+          "kind": "text",
+          "at": 20,
+          "every": 1,
+          "pick": "random",
+          "table": [
+            {
+              "id": "join_the_dance",
+              "name": "Join the dance",
+              "summary": "Another Herald dances in from the crowd if fewer than three remain.",
+              "kind": "summon",
+              "affects": "enemies",
+              "monster": "dancing_herald",
+              "count": 1,
+              "side": "enemies",
+              "cells": [
+                [
+                  9,
+                  20
+                ],
+                [
+                  21,
+                  20
+                ]
+              ],
+              "say": "fd_join_dance"
+            },
+            {
+              "id": "ribbon_bind",
+              "name": "Ribbon bind",
+              "summary": "Ribbons snap round the party's feet.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "str",
+                "dc": 15
+              },
+              "condition": "restrained",
+              "until": "target_turn_end",
+              "area": {
+                "rect": [
+                  1,
+                  1,
+                  28,
+                  34
+                ]
+              },
+              "say": "fd_ribbon_bind"
+            },
+            {
+              "id": "snack_pelting",
+              "name": "Snack pelting",
+              "summary": "Hand pies and sticky buns rain on the heroes.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "dex",
+                "dc": 13
+              },
+              "damage": {
+                "dice": "1d4",
+                "type": "bludgeoning"
+              },
+              "half": true,
+              "area": {
+                "rect": [
+                  1,
+                  1,
+                  28,
+                  34
+                ]
+              },
+              "say": "fd_snack_pelting"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ring_of_fools",
+      "trigger": "dialogue",
+      "flag": "ring_of_fools_done",
+      "when": "flag.revelers_freed >= 12 and flag.revelers_freed <= 12",
+      "quest": {
+        "id": "fools_day",
+        "stage": "shows_over"
+      },
+      "monsters": [
+        {
+          "monster": "lord_of_fools",
+          "cell": [
+            15,
+            12
+          ],
+          "name": "Chuckles, the Lord of Fools",
+          "boss": true,
+          "facing": "south"
+        },
+        {
+          "monster": "dancing_herald",
+          "cell": [
+            9,
+            16
+          ],
+          "name": "A dancing Herald",
+          "facing": "south"
+        },
+        {
+          "monster": "dancing_herald",
+          "cell": [
+            21,
+            16
+          ],
+          "name": "A dancing Herald",
+          "facing": "south"
+        },
+        {
+          "monster": "dancing_herald",
+          "cell": [
+            15,
+            22
+          ],
+          "name": "A dancing Herald",
+          "facing": "south"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "festival_influence",
+          "name": "Festival Influence",
+          "summary": "The crowd's mood turns on the party.",
+          "kind": "text",
+          "at": 20,
+          "every": 1,
+          "pick": "random",
+          "table": [
+            {
+              "id": "join_the_dance",
+              "name": "Join the dance",
+              "summary": "Another Herald dances in from the crowd if fewer than three remain.",
+              "kind": "summon",
+              "affects": "enemies",
+              "monster": "dancing_herald",
+              "count": 1,
+              "side": "enemies",
+              "cells": [
+                [
+                  9,
+                  20
+                ],
+                [
+                  21,
+                  20
+                ]
+              ],
+              "say": "fd_join_dance"
+            },
+            {
+              "id": "ribbon_bind",
+              "name": "Ribbon bind",
+              "summary": "Ribbons snap round the party's feet.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "str",
+                "dc": 15
+              },
+              "condition": "restrained",
+              "until": "target_turn_end",
+              "area": {
+                "rect": [
+                  1,
+                  1,
+                  28,
+                  34
+                ]
+              },
+              "say": "fd_ribbon_bind"
+            },
+            {
+              "id": "snack_pelting",
+              "name": "Snack pelting",
+              "summary": "Hand pies and sticky buns rain on the heroes.",
+              "kind": "save",
+              "affects": "party",
+              "save": {
+                "ability": "dex",
+                "dc": 13
+              },
+              "damage": {
+                "dice": "1d4",
+                "type": "bludgeoning"
+              },
+              "half": true,
+              "area": {
+                "rect": [
+                  1,
+                  1,
+                  28,
+                  34
+                ]
+              },
+              "say": "fd_snack_pelting"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

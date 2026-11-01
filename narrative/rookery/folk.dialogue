@@ -1,0 +1,143 @@
+# Drafted by Gemini (R20), edited. R20: the village under the charm: villagers who shun the party, the mob, Albert in town, and the comic people.
+
+~ shun
+Narrator: A neighbour catches your eye, hurries across the cobbles, and scrapes an iron bolt shut behind their door.
+* [Insight DC 18] Look closely at their eyes. -> shun_charm | shun_missed
+* Let them go. -> END
+~ shun_charm
+set rk_charm_seen
+Narrator: A faint lilac glint sits in the dark of their eye. These folks are not wicked, only walked like puppets on a string.
+-> END
+~ shun_missed
+Narrator: You see only a pinched, shuttered face, and nothing more than that.
+-> END
+
+~ mob_a
+Narrator: A knot of neighbours rounds the corner in lockstep, their pitch-torches smoking as they chant a name that is almost yours.
+-> mob
+~ mob_b
+Narrator: Neighbours with heavy cudgels fill the narrow lane from wall to wall, their boots striking the mud as one.
+-> mob
+~ mob_c
+Narrator: Farmers march toward you with iron pitchforks held low, chanting in flat voices, not one of them blinking.
+-> mob
+~ mob_round
+Narrator: The crowd gathered beneath the Oak of Many Faces turns all at once, their pale eyes fixing upon you.
+-> mob
+
+~ mob
+* [Insight DC 18] Study their faces to see if they are enchanted. -> mob_charm | mob_missed
+* [Stealth DC 15] Slip into a dark doorway and let them pass. -> mob_slip | mob_caught
+* [knows:dispel_magic] Cast Dispel Magic to free one of the villagers. -> mob_freed
+* [if item:rk_writ_of_passage] Hold up the Writ of Passage. -> mob_writ
+* [if item:rk_button_ledger] Show them Pip's button receipt. -> mob_receipt
+* Fight them off with flat blades and fists. -> mob_fight
+* Back away slowly down the lane. -> mob_back
+
+~ mob_charm
+set rk_charm_seen
+Narrator: Lilac light pools under every brow as they come on without a flicker of doubt. You can strike them down, but you will not talk them round.
+-> mob
+~ mob_missed
+Narrator: By the set of their jaws, they are in no mood to be asked the time of day.
+-> mob
+~ mob_slip
+set rk_mob_down = now
+Narrator: You press into the cold timber of a doorway while the mob tramps past an arm's length away, mouthing your names into the smoke.
+-> END
+~ mob_caught
+Narrator: A sputtering torch swings round, and a hundred lilac eyes find you in the dark.
+-> mob_fight
+~ mob_freed
+set rk_mob_down = now
+Narrator: Your spell washes like cold water over a cobbler, who blinks, drops his cudgel in the mud, and whispers that the trial will not be at the Oak.
+-> END
+~ mob_writ
+set rk_mob_down = now
+Narrator: The foremost villager squints at your parchment, spots a missing initial, and soon the whole mob is queuing up to ask Mayor Wendel about the error.
+-> END
+~ mob_receipt
+set rk_mob_down = now
+Narrator: A very small boy steps out from behind a rain barrel, gives a single nod, and the angry crowd parts like river water.
+-> END
+~ mob_fight
+set rk_mob_down = now
+Narrator: A heavy ash cudgel swings through the torchsmoke, and the whole lane erupts.
+combat rk_mob_fight
+~ mob_back
+Narrator: You retreat a slow step at a time over the slick cobbles, and the crowd shuffles a step behind, uncertain of its footing.
+-> END
+
+~ albert_town
+Narrator: Perched atop a rusted lamp-post, a fat grey pigeon with a wrinkled bald man's head and wet human ears watches you with bright interest.
+peeping_albert [sly]: Mother sees every little step you take, she does. Oh, she is ever so pleased with how nicely you are marching to the rope.
+* Strike the creature down. -> albert_fight
+* [Intimidation DC 14] Tell him what we do to spies. -> albert_talks | albert_flees
+* [Performance DC 12] Bark at him like a hunting hound. -> albert_talks | albert_flees
+* [Animal Handling DC 14] Coax him down off the post. -> albert_talks | albert_flees
+* Leave the creature be. -> albert_flees
+~ albert_fight
+Narrator: With a wet, throttled shriek, the heavy bird beats its wings and lurches into the air.
+combat rk_albert_town
+~ albert_talks
+set rk_albert_fled
+set rk_roost_known
+peeping_albert [afraid]: Don't set the dogs on me! The dovecote's three nights out in the dark, and Mother will skin me raw for telling!
+-> END
+~ albert_flees
+set rk_albert_fled
+Narrator: He scrambles for the slate roofs as a cloud of grey pigeons closes round him, carrying word of your whereabouts into the night.
+-> END
+
+~ gaunt
+Narrator: At the rear of the mob, Sergeant Gaunt crouches behind a hay cart, one gloved hand resting on a sword he has never once drawn.
+sgt_gaunt [smile]: Do not mind me, friends, I am merely commanding the vanguard from the rear. A good officer never loses a battle he is present at the end of.
+* Ask him where the mob marches next. -> gaunt_route
+* [Intimidation DC 12] Order him to call this madness off. -> gaunt_scared | gaunt_route
+* Leave him behind his cart. -> END
+~ gaunt_route
+sgt_gaunt [weary]: They walk the lanes in loops: the Round by night, and the south lane at the turn of the hour. Do not ask how I know.
+-> END
+~ gaunt_scared
+set rk_mob_calm = now
+sgt_gaunt [afraid]: Right then, citizenry, bed-time, disperse at once! To everyone's great surprise, the crowd actually listens and wanders home.
+-> END
+
+~ pip
+Narrator: Pip Oakum sits atop a salt barrel, sorting a handful of horn and pewter buttons with a deeply businesslike air.
+pip_oakum [sly]: I know every name in Wickermoor, and every last one of them owes me a button. Give me three gold and I'll write you a receipt for safe passage.
+* [if gold >= 3] Pay him three gold for the receipt. -> pip_pay
+* Ask what a button is worth tonight. -> pip_buttons
+* Tell him maybe later. -> END
+~ pip_pay
+gold -3
+give rk_button_ledger
+pip_oakum [smile]: Pleasure doing business with you. Wave that paper at anyone who tries to fit you for a hemp collar, and they'll step right aside.
+-> END
+~ pip_buttons
+pip_oakum [sly]: A button's worth strictly what the fellow who needs his breeches held up will pay. That's why Mayor Somerton owes me eleven.
+-> pip
+
+~ goat
+Narrator: In the middle of a village gone clean out of its wits, an old billy goat chews a thorny thistle and regards the torches with perfect calm.
+* Reach out and pet the goat. -> goat_pet
+* Leave it to its thistle. -> END
+~ goat_pet
+advantage stealth 1h: the goat's calm
+Narrator: The coarse coat smells of dry hay and rain, and as the beast leans into your palm, a little of its quiet composure settles into your bones.
+-> END
+
+~ jeremiah_body
+Narrator: Jeremiah Stover lies still in the mud where the mob left him for sheltering strangers, his battered felt hat resting neatly upon his chest.
+-> END
+~ jeremiah_escort
+jeremiah_stover [afraid]: They've got my name chalked on their slate for hiding outsiders. I'd make for the old estate right now if someone could clear the road.
+* Head up the hill tonight, we will cover you. -> jeremiah_go
+* Stay low, we will come back for you. -> END
+~ jeremiah_go
+set rk_jeremiah_hidden
+jeremiah_stover [weary]: Obliged to you. The blessed tubers can rot in the dirt for all I care tonight, I'm for the hill.
+-> END
+~ jeremiah_hiding
+jeremiah_stover [weary]: Just catching my wind at the foot of the road. Soon as the torches pass, I'll slip up through the gates.
+-> END

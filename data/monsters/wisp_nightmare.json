@@ -1,0 +1,198 @@
+{
+  "id": "wisp_nightmare",
+  "name": "Wisp, the dream cat",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "note": "The Crooked Moon (Legends of Avantris), chapter 22: the Sphinx of Lore's block made Chaotic Evil, Gargantuan and Fey. Numbers are the book's; the words are ours."
+  },
+  "size": "gargantuan",
+  "type": "fey",
+  "alignment": "chaotic evil",
+  "ac": 17,
+  "initiative": 10,
+  "hp": {
+    "average": 170,
+    "dice": "20d10+60"
+  },
+  "speed": {
+    "walk": 40,
+    "fly": 60
+  },
+  "abilities": {
+    "str": 18,
+    "dex": 15,
+    "con": 16,
+    "int": 18,
+    "wis": 18,
+    "cha": 18
+  },
+  "skills": {
+    "arcana": 12,
+    "history": 12,
+    "perception": 8,
+    "religion": 12
+  },
+  "resistances": [
+    "necrotic",
+    "radiant"
+  ],
+  "immunities": [
+    "psychic"
+  ],
+  "condition_immunities": [
+    "charmed",
+    "frightened"
+  ],
+  "senses": {
+    "truesight": 120
+  },
+  "passive_perception": 18,
+  "languages": [
+    "Celestial",
+    "Common"
+  ],
+  "cr": 11,
+  "xp": 7200,
+  "proficiency_bonus": 4,
+  "traits": [
+    {
+      "id": "inscrutable",
+      "name": "Inscrutable",
+      "action": "passive",
+      "summary": "No magic can see it from afar or read its thoughts without its leave; Insight checks to read it have Disadvantage.",
+      "text": "No magic can observe the sphinx remotely or detect its thoughts without its permission. Wisdom (Insight) checks made to ascertain its intentions or sincerity have Disadvantage.",
+      "implemented": "text"
+    },
+    {
+      "id": "legendary_resistance",
+      "name": "Legendary Resistance (3/Day, or 4/Day in Lair)",
+      "action": "passive",
+      "summary": "Three times a day (four in its lair), a failed saving throw becomes a success.",
+      "text": "When the sphinx fails a saving throw, it can choose to succeed instead: three times a day, or four in its lair.",
+      "implemented": "engine"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "claw",
+          "count": 3
+        }
+      ],
+      "summary": "Three Claw attacks."
+    },
+    {
+      "id": "claw",
+      "name": "Claw",
+      "kind": "melee",
+      "attack": {
+        "bonus": 8,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 14,
+          "dice": "3d6+4",
+          "type": "slashing"
+        }
+      ],
+      "summary": "A raking claw."
+    },
+    {
+      "id": "mind_rending_roar",
+      "name": "Mind-Rending Roar",
+      "kind": "save",
+      "recharge": "5-6",
+      "save": {
+        "ability": "wis",
+        "dc": 16,
+        "success": "none"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 300
+      },
+      "targets": {
+        "range": 300
+      },
+      "damage": [
+        {
+          "average": 35,
+          "dice": "10d6",
+          "type": "psychic"
+        }
+      ],
+      "on_fail": [
+        {
+          "do": "condition",
+          "condition": "incapacitated",
+          "until": "source_turn_start"
+        }
+      ],
+      "summary": "Recharge 5-6. A roar heard 300 ft around: each enemy makes a DC 16 Wis save or takes 10d6 Psychic and is Incapacitated until the sphinx's next turn."
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "kind": "spellcasting",
+      "summary": "Int, DC 16: minor utility magic at will; Dispel Magic, Legend Lore, Locate Object, Plane Shift, Remove Curse and Tongues once a day each.",
+      "text": "Intelligence is its spellcasting ability (spell save DC 16), needing no Material components. At will: Detect Magic, Identify, Mage Hand, Minor Illusion, Prestidigitation. 1/day each: Dispel Magic, Legend Lore, Locate Object, Plane Shift, Remove Curse, Tongues."
+    }
+  ],
+  "legendary_actions": {
+    "per_round": 3,
+    "in_lair": 4,
+    "options": [
+      {
+        "id": "arcane_prowl",
+        "name": "Arcane Prowl",
+        "cost": 1,
+        "move": true,
+        "teleport": true,
+        "ft": 30,
+        "action": "claw",
+        "summary": "Teleports up to 30 ft to a space it can see, then makes one Claw attack."
+      },
+      {
+        "id": "weight_of_years",
+        "name": "Weight of Years",
+        "cost": 1,
+        "once": true,
+        "do": "weight_of_years",
+        "summary": "DC 16 Con save by a creature within 120 ft or 1 Exhaustion level, and it looks 3d10 years older; not again until the sphinx's next turn.",
+        "text": "Constitution saving throw, DC 16, one creature the sphinx can see within 120 feet. Failure: the target gains 1 Exhaustion level, and while it has any Exhaustion it appears 3d10 years older. Either way, the sphinx can't take this action again until the start of its next turn."
+      }
+    ]
+  },
+  "spellcasting": {
+    "ability": "int",
+    "dc": 16,
+    "at_will": [
+      "detect_magic",
+      "identify",
+      "mage_hand",
+      "minor_illusion",
+      "prestidigitation"
+    ],
+    "per_day": {
+      "1": [
+        "dispel_magic",
+        "legend_lore",
+        "locate_object",
+        "plane_shift",
+        "remove_curse",
+        "tongues"
+      ]
+    }
+  },
+  "legendary_resistance": 3,
+  "legendary_resistance_in_lair": 4,
+  "ai_profile": "spellcaster",
+  "summary": "Wisp as the nightmare makes her: a gargantuan grinning cat whose head and paws reach in from the shelf's edge. Vanishes at 0 Hit Points.",
+  "art": "griffon"
+}

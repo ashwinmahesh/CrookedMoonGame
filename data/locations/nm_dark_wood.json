@@ -1,0 +1,324 @@
+{
+  "id": "nm_dark_wood",
+  "name": "The Dark Wood",
+  "region": "crooked_nightmare",
+  "summary": "An autumn wood under a full moon, handprints on the trees, a clearing with a small girl in it.",
+  "text": "An autumn wood of beech, ash and hickory, blue and grey in a full moon with no face on it. White handprints, small and bright, mark the trunks every few strides, and ahead the trees open on a clearing.",
+  "map": {
+    "rows": [
+      "##############################",
+      "##############################",
+      "##############################",
+      "###......#....##...........###",
+      "###.##................#..#.###",
+      "###.....................#..###",
+      "###........................###",
+      "###........................###",
+      "###........................###",
+      "###........................###",
+      "###........................###",
+      "###........................###",
+      "###.........~~.............###",
+      "###........................###",
+      "###........................###",
+      "###........................###",
+      "###......................#.###",
+      "###.##.................#...###",
+      "###.....#..................###",
+      "##############################",
+      "##############################",
+      "##############################"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "wood",
+      "name": "The wood",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          28,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "clearing",
+      "name": "The moonlit clearing",
+      "cells": [
+        [
+          16,
+          6
+        ],
+        [
+          25,
+          14
+        ]
+      ],
+      "light": "dim"
+    }
+  ],
+  "spawns": {
+    "default": [
+      4,
+      15
+    ]
+  },
+  "exits": [],
+  "props": [
+    {
+      "id": "nm_wood_arrive",
+      "cell": [
+        4,
+        15
+      ],
+      "kind": "decor",
+      "label": "The handprint trail begins",
+      "call": "nightmare/n2:wood_start",
+      "approach": 12,
+      "call_when": "not flag.n2_started"
+    },
+    {
+      "id": "nm_handprint_0",
+      "cell": [
+        5,
+        14
+      ],
+      "kind": "decor",
+      "label": "A tree with a white handprint",
+      "model": "tree_marked"
+    },
+    {
+      "id": "nm_handprint_1",
+      "cell": [
+        7,
+        12
+      ],
+      "kind": "decor",
+      "label": "A tree with a white handprint",
+      "model": "tree_marked"
+    },
+    {
+      "id": "nm_handprint_2",
+      "cell": [
+        9,
+        10
+      ],
+      "kind": "decor",
+      "label": "A tree with a white handprint",
+      "model": "tree_marked"
+    },
+    {
+      "id": "nm_handprint_3",
+      "cell": [
+        11,
+        11
+      ],
+      "kind": "decor",
+      "label": "A tree with a white handprint",
+      "model": "tree_marked"
+    },
+    {
+      "id": "nm_handprint_4",
+      "cell": [
+        13,
+        9
+      ],
+      "kind": "decor",
+      "label": "A tree with a white handprint",
+      "model": "tree_marked"
+    },
+    {
+      "id": "nm_handprint_5",
+      "cell": [
+        15,
+        8
+      ],
+      "kind": "decor",
+      "label": "A tree with a white handprint",
+      "model": "tree_marked"
+    },
+    {
+      "id": "nm_wood_pine_0",
+      "cell": [
+        6,
+        6
+      ],
+      "kind": "decor",
+      "label": "A beech in the dark",
+      "model": "pine_a"
+    },
+    {
+      "id": "nm_wood_pine_1",
+      "cell": [
+        10,
+        7
+      ],
+      "kind": "decor",
+      "label": "A beech in the dark",
+      "model": "pine_b"
+    },
+    {
+      "id": "nm_wood_pine_2",
+      "cell": [
+        3,
+        10
+      ],
+      "kind": "decor",
+      "label": "A beech in the dark",
+      "model": "pine_c"
+    },
+    {
+      "id": "nm_wood_pine_3",
+      "cell": [
+        19,
+        3
+      ],
+      "kind": "decor",
+      "label": "A beech in the dark",
+      "model": "pine_a"
+    },
+    {
+      "id": "nm_wood_pine_4",
+      "cell": [
+        24,
+        10
+      ],
+      "kind": "decor",
+      "label": "A beech in the dark",
+      "model": "pine_b"
+    },
+    {
+      "id": "nm_wood_pine_5",
+      "cell": [
+        21,
+        17
+      ],
+      "kind": "decor",
+      "label": "A beech in the dark",
+      "model": "pine_c"
+    },
+    {
+      "id": "nm_wood_pine_6",
+      "cell": [
+        14,
+        17
+      ],
+      "kind": "decor",
+      "label": "A beech in the dark",
+      "model": "pine_a"
+    },
+    {
+      "id": "nm_wood_pine_7",
+      "cell": [
+        8,
+        15
+      ],
+      "kind": "decor",
+      "label": "A beech in the dark",
+      "model": "pine_b"
+    },
+    {
+      "id": "nm_wood_leaves_a",
+      "cell": [
+        12,
+        14
+      ],
+      "kind": "decor",
+      "label": "Leaf litter",
+      "model": "leaves"
+    },
+    {
+      "id": "nm_wood_leaves_b",
+      "cell": [
+        18,
+        13
+      ],
+      "kind": "decor",
+      "label": "Leaf litter",
+      "model": "leaves"
+    },
+    {
+      "id": "nm_wood_frederick",
+      "cell": [
+        21,
+        10
+      ],
+      "kind": "examine",
+      "label": "Frederick, a one-eyed stuffed turkey-dinosaur",
+      "model": "doll",
+      "dialogue": "nightmare/n2:frederick_toy",
+      "when": "flag.nm_frederick_done and not flag.frederick_resolved"
+    },
+    {
+      "id": "nm_wood_door",
+      "cell": [
+        23,
+        14
+      ],
+      "kind": "examine",
+      "label": "A crooked door in the leaves, covered in handprints",
+      "model": "door",
+      "dialogue": "nightmare/n2:door"
+    },
+    {
+      "id": "nm_wood_stump",
+      "cell": [
+        20,
+        9
+      ],
+      "kind": "decor",
+      "label": "A stump with a bite out of it",
+      "model": "stone_bench"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "nm_adela_child",
+      "cell": [
+        20,
+        11
+      ],
+      "dialogue": "nightmare/n2:child_start",
+      "when": "not flag.nm_wood_done",
+      "facing": "west"
+    },
+    {
+      "npc": "nm_sleeper_wood",
+      "cell": [
+        8,
+        9
+      ],
+      "dialogue": "nightmare/dani_lantern:wood",
+      "when": "flag.danis_lantern_asked and not flag.lantern_wood_done",
+      "facing": "east"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "nm_frederick",
+      "trigger": "dialogue",
+      "flag": "nm_frederick_done",
+      "monsters": [
+        {
+          "monster": "gobblegeist",
+          "cell": [
+            21,
+            10
+          ],
+          "name": "Frederick, grown",
+          "boss": false,
+          "facing": "west"
+        }
+      ]
+    }
+  ],
+  "rest": "no",
+  "rest_text": "You cannot sleep inside a dream, and the dream will not let you stop. A short breath, then."
+}

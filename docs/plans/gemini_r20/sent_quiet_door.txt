@@ -1,0 +1,152 @@
+You are drafting DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue, skill checks, a storyteller Narrator). It is folk horror set in Druskenvald, an afterlife realm of endless night under a gargantuan crescent moon with a leering crone's face; drawn like a 1960s monster cartoon stuck in Halloween, but the stakes are real. Humour is deadpan and sits beside the dread.
+
+THIS SCENE: Chapter 20, "The Roving Rookery". The village of Wickermoor has been swept into a mass hysteria by Golub Graygullet, a pigeon hag who has lived seventy years among the villagers wearing other women's skins, lately as the postmaster Theodora Mayville. She staged a murder, pinned it on the party (four level 10 heroes) with a forged letter, and charmed the whole village: every neighbour is hostile, doors are barred, shops shut, mobs with torches walk the lanes, and grey pigeons line every roof. A tell of the charm is a lilac glint in the eyes. Her flying, walking dovecote stands up on pigeon legs and roams between four roosts. Peeping Albert is her spy: a pudgy pigeon with a wrinkled bald human head, human ears, and hands for talons; he is terrified of dogs. Cast: Constable Doris Squire (tall, stocky, laconic, writes poetry in secret), Deputy Howie Butterman (friendly, false, a hidden cultist), Mayor Wendel Somerton (officious, loves forms, bowler hat, waxed moustache), Tamsin Ledger (deadpan auditor, treats strangeness as a clerical error), Ambrose Quill (grand hopeless poet), Sergeant Gaunt (overconfident coward), Pip Oakum (a small boy who trades buttons), Mrs. Oakum (hill-country twang, a werewolf who only wants to hurt no one), Marianna Grey (shy stablemistress), Weston Murdoch (warm Brightsinger preacher), Hilda Brom (terse huntress), Geneva Fairchild (earnest assistant, lilac eyes), Phillip and Adela Druskenvald (dapper theatrical lord; bright slangy lady), Dani Jenkin (child with a hound called Shuck), Jeremiah Stover (stubborn tuber farmer).
+
+RULES FOR THE TEXT
+- Spoken lines: 1 to 3 short sentences, about 12 to 30 words, never over 45. Contractions are normal. People talk in their own voice and do not explain the plot to the audience. Accent is word choice and rhythm, never phonetic spelling.
+- Option lines (what the player's party says or does): under 12 words, plain, in the party's voice ("We..." or an imperative).
+- Narrator lines ("The Vagrant", a frog-faced ferryman telling the tale afterwards: warm, folksy, wry, never gloating): second person, present tense, one or two sentences, only what a hero could perceive, concrete senses (smell, sound, texture), no game words (HP, roll, level, check, DC, save), no modern slang, never the word "suddenly". Never mention the Vagrant by name inside the line.
+- No stage directions, asterisks, italics, brackets, placeholders, emoji or em dashes (use commas, periods, colons). Straight quotes only. Do not use the arrow characters -> or => inside the text.
+- Content is dark but restrained: no gore, no graphic detail.
+- Each brief inside <<...>> says what the line must do; keep its facts, write it as the speaker would say it. Where it says "The Vagrant:" it is a Narrator line.
+
+## The conversation file `quiet_door` (structure is fixed; only the [[n]] markers are yours)
+
+```
+# R20 side quest: The Quiet Door. Marianna Grey is hiding Mrs. Oakum from the mob; the party escorts her to the estate in three legs.
+
+~ start
+Narrator: [[1]]
+marianna_grey [afraid]: [[2]]
+* [[3]] -> accept
+* [[4]] -> why
+* [[5]] -> refuse
+
+~ why
+marianna_grey [sad]: [[6]]
+-> start
+~ refuse
+marianna_grey [sad]: [[7]]
+-> END
+~ accept
+set rk_quiet_asked
+quest quiet_door asked
+marianna_grey [smile]: [[8]]
+-> END
+
+~ progress
+if flag.rk_oakum_gone
+marianna_grey [weary]: [[9]]
+-> END
+endif
+Narrator: [[10]]
+marianna_grey [afraid]: [[11]]
+-> END
+
+~ oakum
+Narrator: [[12]]
+mrs_oakum [afraid]: [[13]]
+* [[14]] -> leg1
+* [[15]] -> END
+
+~ leg1
+Narrator: [[16]]
+* [Stealth DC 15] [[17]] -> leg2 | spotted
+* [Deception DC 14] [[18]] -> leg2 | spotted
+* [[19]] -> leg2_long
+
+~ leg2_long
+time +120
+Narrator: [[20]]
+-> leg2
+
+~ leg2
+Narrator: [[21]]
+* [Stealth DC 15] [[22]] -> leg3 | spotted
+* [Performance DC 14] [[23]] -> leg3 | spotted
+* [[24]] -> leg3_wait
+
+~ leg3_wait
+time +60
+Narrator: [[25]]
+-> leg3
+
+~ leg3
+Narrator: [[26]]
+* [Survival DC 12] [[27]] -> arrive | spotted
+* [[28]] -> arrive
+
+~ spotted
+Narrator: [[29]]
+mrs_oakum [afraid]: [[30]]
+* [[31]] -> fight_for_her
+* [ends:quiet_door] [[32]] -> give_up
+
+~ fight_for_her
+set rk_mob_down = now
+combat rk_mob_fight
+
+~ give_up
+set rk_oakum_gone
+set rk_oakum_taken
+quest quiet_door taken
+Narrator: [[33]]
+-> END
+
+~ arrive
+set rk_oakum_gone
+quest quiet_door delivered
+Narrator: [[34]]
+mrs_oakum [smile]: [[35]]
+move druskenvald_estate:from_village
+
+~ prisoner
+Narrator: [[36]]
+mrs_oakum [weary]: [[37]]
+-> END
+```
+
+## Briefs
+
+1. node `start`, narrator: The Vagrant: Marianna Grey at the corner of the stable yard, close to the wall, pale; she beckons without a word
+2. node `start`, spoken by marianna_grey: Marianna, shy and halting, whispers that she has Mrs. Oakum hidden in the loft above the stalls; the mob has her name; she needs her out of the village and does not know who else to ask
+3. node `start`, option: Say we will take her to the estate.
+4. node `start`, option: Ask why the mob wants Mrs. Oakum.
+5. node `start`, option: Say we cannot, not now.
+6. node `why`, spoken by marianna_grey: Marianna says Mrs. Oakum is a good woman who walks out at night, and the mob will not need more than that
+7. node `refuse`, spoken by marianna_grey: Marianna nods, very small, and says she understands
+8. node `accept`, spoken by marianna_grey: Marianna thanks you hoarsely and says she is in the loft, go in by the side door
+9. node `progress`, spoken by marianna_grey: Marianna says only that the stable is quiet now, and thank you
+10. node `progress`, narrator: The Vagrant: Marianna's eyes flick toward the stable door and back
+11. node `progress`, spoken by marianna_grey: Marianna whispers that Mrs. Oakum is still in the loft; please hurry
+12. node `oakum`, narrator: The Vagrant: Mrs. Oakum sits among the hay bales, a big woman folded small, a pitchfork across her knees that she has no intention of using
+13. node `oakum`, spoken by mrs_oakum: Mrs. Oakum, hill-country twang, says she doesn't want to hurt a soul, but if the mob finds her in the dark she might, and she'd never forgive herself
+14. node `oakum`, option: Lead her out now.
+15. node `oakum`, option: Wait here a little longer.
+16. node `leg1`, narrator: The Vagrant: the first leg is the lane behind the stalls, forty yards of shadow before the Round; torches move beyond the fence
+17. node `leg1`, option: Creep along the wall in the shadow.
+18. node `leg1`, option: Cover her with a sack and call her a pig for the butcher.
+19. node `leg1`, option: Take Marianna's mare and cart the long way round by the river, two hours.
+20. node `leg2_long`, narrator: The Vagrant: the mare is slow and calm; the river is wet; nobody looks twice at a woman and a cart of hay
+21. node `leg2`, narrator: The Vagrant: the second leg is the edge of the Founder's Round, where the mob is thickest and the Oak is lit from below
+22. node `leg2`, option: Slip along the shadow of the buildings.
+23. node `leg2`, option: Pose as drunks singing the mob's chant.
+24. node `leg2`, option: Wait for the mob to disperse, an hour.
+25. node `leg3_wait`, narrator: The Vagrant: the torches bob away down another lane, and for a moment the Round is empty
+26. node `leg3`, narrator: The Vagrant: the third leg is the moor road and the long climb to the estate, with the gates of the crooked house at the top
+27. node `leg3`, option: Take the back path through the heather.
+28. node `leg3`, option: Walk the road openly.
+29. node `spotted`, narrator: The Vagrant: a torch swings round, a hundred eyes find you, and the mob chants its name for Mrs. Oakum
+30. node `spotted`, spoken by mrs_oakum: Mrs. Oakum whispers that they should leave her; she'll hold them and you run
+31. node `spotted`, option: Fight the mob off.
+32. node `spotted`, option: Hand her over; we cannot win this.
+33. node `give_up`, narrator: The Vagrant: they take her gently, almost kindly, and she does not look back; the cell door shuts on her and the whole lane goes quiet
+34. node `arrive`, narrator: The Vagrant: the crooked gates of the estate swallow you; Mrs. Oakum lets out a breath she has held since supper
+35. node `arrive`, spoken by mrs_oakum: Mrs. Oakum says thank you, a little shyly, and that it's an odd place but a warm one
+36. node `prisoner`, narrator: The Vagrant: Mrs. Oakum sits in the end cell with her hands folded, patient as a cow
+37. node `prisoner`, spoken by mrs_oakum: Mrs. Oakum says not to worry, she's had worse nights, and the constable brought her a blanket
+
+## Reply format
+One line per marker, in order, exactly `n => text` (no quotes around the text, no extra lines, no commentary). 37 lines.

@@ -1,0 +1,63 @@
+# Drafted by Gemini (R22 n1), edited.
+
+~ fall_start
+Narrator: For a breath, the foyer shines warm under a lit chandelier, until a body drops on a hemp rope and the whole house blows outward into spinning floorboards, a clawfoot bathtub, and a bewildered moose head.
+cutscene nm_house_shatters
+set nm_pit_started
+quest crooked_nightmare crooked_pit
+crooked_man [smile]: Step right down, folks, mind the missing stairs! Old Eustace kept the parlor warm, and we are falling right on schedule!
+cutscene nm_house_shatters_2
+Narrator: The floor goes next, crumbling into a bottomless pit, and the attic boards hang far above through the wreckage.
+cutscene nm_house_shatters_3
+Narrator: Nobody says a word on the way down, which the Crooked Man takes for applause.
+cutscene end
+* Ask what he wants -> wants
+* [Insight DC 14] Read him -> read_ok | read_fail
+* [Performance DC 12] Laugh at him, loudly -> laugh_ok | laugh_fail
+* Draw steel -> fight
+
+~ wants
+crooked_man [sly]: Just a full house again, neighbours, a proper Lockwood gathering with every name inked neat in the ledger! What is a manor without guests who never quite manage to leave?
+-> fall_start_menu
+
+~ fall_start_menu
+crooked_man [smile]: Down we tumble through the lady's cellar of a mind, so tell me how you want to play it!
+* [Insight DC 14] Read him -> read_ok | read_fail
+* [Performance DC 12] Laugh at him, loudly -> laugh_ok | laugh_fail
+* Draw steel -> fight
+
+~ read_ok
+Narrator: Behind his showman's leer, his milky eye twitches whenever one of you steps between a companion and the whistling dark.
+crooked_man [angry]: Stop standing in front of each other like that, it spoils the whole joke! Every soul for himself, that is the house rule!
+set crooked_man_aversion_known
+-> fall_start_menu
+
+~ read_fail
+Narrator: You search his twisted face for a seam, but there is only bone, greasepaint, and a grin wide enough to swallow a lantern.
+crooked_man [smile]: Go on, stare your fill, I paid dearly for this posture!
+-> fall_start_menu
+
+~ laugh_ok
+Narrator: Your belly laugh rings out against the rushing wind, and the nightmare hiccups: the plunge slows to a lazy drift while a passing porcelain bathtub blushes pink and hides behind its curtain.
+crooked_man [afraid]: Hey now, none of that, this is a tragedy of the highest order! You cannot just chuckle the gravity out of a fellow's drop!
+set dream_laughed
+-> fall_start_menu
+
+~ laugh_fail
+Narrator: The forced laugh catches dry in your throat, swallowed up by the creak of hemp and the roar of falling masonry.
+crooked_man [smile]: Oh, a dry house tonight! Do not fret, the drop at the bottom always gets a roar!
+-> fall_start_menu
+
+~ fight
+crooked_man [sly]: Steel in a falling parlor, how wonderfully rude! Let us see how you dance without a floor!
+combat nm_crooked_man
+
+~ after
+cutscene nm_noose_runs_out
+set crooked_man_fell
+quest crooked_nightmare dark_wood
+crooked_man [smile]: Curtain call already, and just when we were getting acquainted! Enjoy the lady's little woods, friends, she left the moon on for you!
+cutscene nm_noose_runs_out_2
+Narrator: His noose jerks taut with a crack, snatching his crooked silhouette up into the dark until you settle, unbruised, into a deep drift of cold autumn leaves.
+cutscene end
+move nm_dark_wood

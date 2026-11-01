@@ -1,0 +1,138 @@
+# R21 reveler conversations for the stork costume: logic from tools/content/build_fools_day_dialogue.py, lines drafted by Gemini (R21 revelers), edited.
+
+~ old_rusty_start
+old_rusty [smile]: Long legs stride and red ribbons fly, step in the ring where the pie-stacks climb high! Hop with the stork beneath the laughing moon's eye!
+-> old_rusty_menu
+
+~ old_rusty_menu
+* [if flag.release_slips >= 1] Show them a release slip -> old_rusty_slip
+* [Persuasion DC 15] Invite them to a better party, at a quiet church -> old_rusty_church | old_rusty_church_fail
+* [Deception DC 15] Say Chuckles wants them at the church for the next number -> old_rusty_church | old_rusty_church_fail
+* [knows:calm_emotions] Cast Calm Emotions on them -> old_rusty_calm
+* [knows:greater_restoration] Cast Greater Restoration on them -> old_rusty_calm
+* [if item:bess_second_letter] Read him Bess's letter -> old_rusty_letter
+* Knock them out of the costume, bruised but not hurt for good -> old_rusty_fight
+* Leave them dancing for now -> END
+
+~ old_rusty_slip
+old_rusty [neutral]: Splinters on my shins and feathers in my beard, the broom was forgotten when the painted face leered. Good hands cut the string before the dawn cleared.
+set release_slips -= 1
+set reveler_old_rusty = "tickets"
+set reveler_old_rusty_freed
+set revelers_freed += 1
+-> END
+
+~ old_rusty_church
+old_rusty [smile]: Stone walls and still air where the bells do not chime? The old bird will follow your steps for a time!
+lead old_rusty to fd_silent_church
+if check.last
+set reveler_old_rusty = "church"
+set reveler_old_rusty_freed
+set revelers_freed += 1
+set church_guests += 1
+endif
+-> END
+
+~ old_rusty_church_fail
+old_rusty [smile]: No roof for the stork while the fiddles play fast, we hop on the cobbles till the crooked night's past!
+set fd_chuckles_amused
+-> old_rusty_menu
+
+~ old_rusty_calm
+old_rusty [weary]: The squeaking is gone from the hollow old bone, the stilts clatter down on the Founder's cold stone. A cruel wind it was that left Rusty alone.
+set reveler_old_rusty = "uncharmed"
+set reveler_old_rusty_freed
+set revelers_freed += 1
+-> END
+
+~ old_rusty_fight
+old_rusty [angry]: Cross not the stork when the carnival calls, or long beaks will peck till the meddler falls! Dance with us nicely inside the bright walls!
+Narrator: The dancers nearby keep on dancing. Nobody here is going to remember a punch.
+combat reveler_old_rusty
+
+~ old_rusty_beaten
+old_rusty [weary]: A knock on the noggin to rattle the rhyme, and down tumbles Rusty in ashes and grime. Better a bruise than the jester's bell-chime.
+set reveler_old_rusty = "beaten"
+set reveler_old_rusty_freed
+set revelers_freed += 1
+-> END
+
+~ old_rusty_sheltered
+old_rusty [weary]: Quiet inside where the tall knight keeps guard, while ribbons like blood-streaks blow over the yard. That house on the maypole grins crooked and hard.
+* [if item:bess_second_letter] Give him Bess's letter -> old_rusty_letter_free
+* Let him sit -> END
+
+~ old_rusty_letter
+old_rusty [smile]: Little bird Bess writes of pots in the hall, wishing her uncle would answer the call! Come sup at the tavern and dance with us all!
+take bess_second_letter
+set stork_letter_outcome = "charmed"
+quest the_storks_letter done
+-> old_rusty_menu
+
+~ old_rusty_letter_free
+old_rusty [sad]: A scrap of kind ink from a kin-hand so dear, it wets an old cheek though the why isn't clear. Tell little Bess that her uncle is here.
+take bess_second_letter
+set stork_letter_outcome = "lucid"
+quest the_storks_letter done
+-> END
+
+~ sister_rain_start
+sister_rain [smile]: Oh, look how high above the mud we are, blessed and bright as summer birds! Come lift your knees and praise the merry harvest with me!
+-> sister_rain_menu
+
+~ sister_rain_menu
+* [if flag.release_slips >= 1] Show them a release slip -> sister_rain_slip
+* [Persuasion DC 15] Invite them to a better party, at a quiet church -> sister_rain_church | sister_rain_church_fail
+* [Deception DC 15] Say Chuckles wants them at the church for the next number -> sister_rain_church | sister_rain_church_fail
+* [knows:calm_emotions] Cast Calm Emotions on them -> sister_rain_calm
+* [knows:greater_restoration] Cast Greater Restoration on them -> sister_rain_calm
+* Knock them out of the costume, bruised but not hurt for good -> sister_rain_fight
+* Leave them dancing for now -> END
+
+~ sister_rain_slip
+sister_rain [neutral]: The Patient Lady preserve us, my calves are rubbed raw by those wicked wooden poles! Even the soil under the cobbles feels sour with this false joy.
+set release_slips -= 1
+set reveler_sister_rain = "tickets"
+set reveler_sister_rain_freed
+set revelers_freed += 1
+-> END
+
+~ sister_rain_church
+sister_rain [smile]: A sanctuary where the music is gentle as soft rain on the leaves? Oh, take me there at once, my heart is overflowing!
+lead sister_rain to fd_silent_church
+if check.last
+set reveler_sister_rain = "church"
+set reveler_sister_rain_freed
+set revelers_freed += 1
+set church_guests += 1
+endif
+-> END
+
+~ sister_rain_church_fail
+sister_rain [smile]: Hush your sour mouths, the brightest sun-blessed revel is right here in the square! I will wade through the ribbons till the moon comes down!
+set fd_chuckles_amused
+-> sister_rain_menu
+
+~ sister_rain_calm
+sister_rain [weary]: That shrill laughter was choking the very roots beneath the Round, and I could only grin along. Pray we mend this bruised earth without more cruelty.
+set reveler_sister_rain = "uncharmed"
+set reveler_sister_rain_freed
+set revelers_freed += 1
+-> END
+
+~ sister_rain_fight
+sister_rain [angry]: Do not dare cast a shadow over our joyous feast, you thankless weeds! Smile and step lively, or these long wooden legs will thresh you flat!
+Narrator: The dancers nearby keep on dancing. Nobody here is going to remember a punch.
+combat reveler_sister_rain
+
+~ sister_rain_beaten
+sister_rain [weary]: You struck hard enough to see stars, though I bless your hand for breaking that wicked stupor! Better a split lip than another hour on stilts.
+set reveler_sister_rain = "beaten"
+set reveler_sister_rain_freed
+set revelers_freed += 1
+-> END
+
+~ sister_rain_sheltered
+sister_rain [weary]: Inside these walls I can finally hear my own breath instead of those shrieking pipes. Out there, the ground itself is weeping under the spilled pie.
+-> END
+

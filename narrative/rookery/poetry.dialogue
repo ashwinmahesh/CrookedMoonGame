@@ -1,0 +1,73 @@
+# Drafted by Gemini (R20), edited. R20 side quest: Doris Writes Poetry. Ambrose Quill finds a nameless poem better than his own; the party finds the rest in Doris's desk and, when the charm lifts, brings him to her.
+
+~ start
+Narrator: Ambrose Quill stands upon a creaking crate, declaiming with grand, hopeless passion to a torch-lit mob that has paused its march to listen.
+ambrose_quill [smile]: Some nameless genius pinned this verse to the notice board, and it puts all my tragedies to shame! I am furious, friends, and I must find this secret master.
+* Show us the poem. -> read
+* We will find your poet. -> accept
+* We have other troubles right now. -> END
+
+~ read
+ambrose_quill [sad]: "The rain comes down on Wickermoor, the peat is black and deep. The stones remember who we were, the heather keeps our sleep."
+Narrator: Quill lets the paper fall to his side and says nothing more. It is a good poem, plain as a hearthstone and twice as heavy.
+-> start
+
+~ accept
+set quill_asked
+quest doris_poetry asked
+ambrose_quill [smile]: A noble errand in dark times! The lettering is square and the paper bears the constable's watermark, though I accuse no one.
+-> END
+
+~ progress
+if flag.golub_dead and flag.quill_poem_found and not flag.rk_poetry_met
+ambrose_quill [smile]: Now that the town has its wits back, our hidden laureate may be approached. I have prepared a modest critique for the occasion.
+* Come with us to the constable's station. -> go_station
+* Wait here a little longer. -> END
+endif
+if flag.quill_poem_found
+ambrose_quill [weary]: Let us hold off until the neighbours put down their torches. I have little appetite for reciting verse to a baying posse.
+-> END
+endif
+ambrose_quill [sly]: Have you any word of my rival in rhyme? If I were a betting bard, I would look inside the constable's desk.
+-> END
+
+~ go_station
+Narrator: You walk together through the damp lane toward the station, while Quill murmurs his prepared remarks under his breath.
+move wickermoor_constable_station
+
+~ drawer
+Narrator: The heavy oak drawer sticks in its frame, then yields with a dry squeak. Inside lies a neat stack of square sheets tied with an old bootlace.
+* [Sleight of Hand DC 10] Ease the drawer open quietly. -> found | found
+* Pry the lock with a knife. -> found
+* Leave the desk alone. -> END
+
+~ found
+set quill_poem_found
+give rk_doris_poems
+if flag.quill_asked
+quest doris_poetry poem_found
+endif
+Narrator: Flipping through the stack, you find twenty poems of rain-soaked moors, a lost sister, and the Patient Lady, written in the exact square hand of every village warning ticket. They are remarkably good.
+* Keep the bundle to show Ambrose Quill. -> keep
+* [ends:doris_poetry] Burn them in the stove to keep her secret safe. -> burn
+
+~ keep
+Narrator: You pull the bootlace tight in a clean knot and slide the bundle beneath your coat.
+-> END
+
+~ burn
+quest doris_poetry burned
+take rk_doris_poems
+Narrator: The iron stove takes the paper with a hungry crackle. Each sheet glows bright for a heartbeat, its dark ink standing sharp against the flame before crumbling to grey ash.
+-> END
+
+~ doris_station
+appear ambrose_quill
+Narrator: Constable Doris Squire sits behind her blotter with her cap set straight. Ambrose Quill lingers in the doorway, cradling the bundle of verse like a newborn child.
+ambrose_quill [smile]: I have read all twenty, Constable, and the third is the finest verse I have heard in ten years. I would be honoured to print it under your name.
+doris_squire [afraid]: It's not very good.
+ambrose_quill [sly]: That, my dear Constable, is the very thing a true poet says when the work is splendid indeed.
+set rk_poetry_met
+quest doris_poetry met
+doris_squire [smile]: Leave the stack on the blotter, speak a word of this to no one, and come back on Thursday if you must.
+-> END

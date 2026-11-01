@@ -1,0 +1,69 @@
+# Drafted by Gemini (R21 hook), edited.
+
+~ inn_chat
+Narrator: Bess scrubs a ring of spilled cider from the oak table, her apron pockets clinking with copper tips.
+bess_crumley [smile]: Sit wherever's dry, loves, I'll have warm loaves out in a tick. Nearly saved enough tips this month for a thick woollen coat for my uncle over in the Round, seeing as the daft old soul never notices the frost.
+* Ask about the inn -> inn_about
+* Ask about her -> inn_me
+* Take our leave -> END
+
+~ inn_about
+bess_crumley [sly]: Half the parish is drinking spiced cider to keep the damp out, and the other half is arguing over whose turn it is to watch the lane. So long as nobody tracks mud past the hearth, I let them chatter.
+bess_crumley [weary]: Just don't ask for the mutton pie tonight, the crust came out hard enough to roof a barn.
+-> inn_chat
+
+~ inn_me
+bess_crumley [sad]: Only family I've got left here is Uncle Rusty tending the Founder's Round, and some nights he looks right through me like I'm a stranger asking the way. Still, blood's blood, even when his wits go wandering in the fog.
+-> inn_chat
+
+~ messenger
+cutscene fd_messenger
+Narrator: A hundred tiny brass bells shiver in the damp air as a figure stumbles up the cobbles, trailing torn paper ribbons and a stink of burnt sugar. Under the painted cap is Bess, her face chalk-white and wet with tears.
+bess_crumley [afraid]: Take it, please take it, he made me run the whole way in this dreadful coat! There is a party waiting down the lane, where nobody sleeps and nobody stops, until our shoes wear through to the bone!
+give chuckles_letter
+set fools_letter_given
+set bess_dead
+set festival_active
+quest fools_day invitation
+cutscene fd_messenger_2
+Narrator: Her knees fold beneath her on the stones, and the little brass bells along her sleeves go quiet one by one.
+-> after
+
+~ after
+* Read the letter -> read_letter
+* [if not flag.fd_bess_letter_taken] Search Bess's pockets -> pockets
+* Leave her -> END
+
+~ read_letter
+chuckles [smile]: Hip-hip-hooray for the brave-brave four, who swept six horrors out the door! Six wicked nasties laid in the dirt, now nobody else has to cry or get hurt!
+chuckles [sly]: So hurry on home to Wickermoor town, where a grand festy-val is tumbling down! We've ribbons and pies and a hullabaloo, and we put up the tents just for you-you-you!
+chuckles [smile]: Your near-dearest friends are already inside, all dressed in their Sunday-best costumes with pride! Come dance in the square till the moon tumbles down, forever and ever, yours, Chuckles the Clown!
+-> after
+
+~ pockets
+Narrator: Tucked deep inside the bell-sewn pocket is a smaller envelope, unstained by wax and addressed in a careful, round hand to Old Rusty at the Founder's Round.
+give bess_second_letter
+set fd_bess_letter_taken
+quest the_storks_letter asked
+-> after
+
+~ takeover
+cutscene fd_unfolds
+Narrator: The timber lanes of Wickermoor pull apart like warm dough, stretching three times their length while silk ribbons sprout from the eaves. A shrill calliope tune comes riding down the wind well ahead of the crowd.
+cutscene fd_unfolds_2
+Narrator: Ahead of you, the old cobbled Round has squared its shoulders into a fairground, and high above the rooftops a great painted balloon grins down from a maypole.
+if quest.fools_day == invitation
+quest fools_day absurd_streets
+endif
+Narrator: The smell of hot lard and cinnamon hangs thick enough to chew, and the road behind you has already vanished into canvas and bunting.
+move fd_festival:from_hub
+
+~ return_gate
+Narrator: Just beyond the last crooked gable, the calliope wheezes on, patient as a stray dog waiting by the stile.
+* Step back in -> reenter
+* Not yet -> END
+
+~ reenter
+Narrator: You step past the boundary stones, and the bright, noisy lanes close behind your heels like a rising tide.
+set fd_away = 0
+move fd_festival:from_hub

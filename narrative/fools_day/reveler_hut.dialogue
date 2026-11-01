@@ -1,0 +1,122 @@
+# R21 reveler conversations for the hut costume: logic from tools/content/build_fools_day_dialogue.py, lines drafted by Gemini (R21 revelers), edited.
+
+~ holly_aster_start
+holly_aster [smile]: Mind the chimney, mind the eaves, my little house dances and never grieves! Take a hot pie from the windowsill and hop with me, one-two-three, thirty-four, never thirty-five!
+-> holly_aster_menu
+
+~ holly_aster_menu
+* [if flag.release_slips >= 1] Show them a release slip -> holly_aster_slip
+* [Persuasion DC 15] Invite them to a better party, at a quiet church -> holly_aster_church | holly_aster_church_fail
+* [Deception DC 15] Say Chuckles wants them at the church for the next number -> holly_aster_church | holly_aster_church_fail
+* [knows:calm_emotions] Cast Calm Emotions on them -> holly_aster_calm
+* [knows:greater_restoration] Cast Greater Restoration on them -> holly_aster_calm
+* Knock them out of the costume, bruised but not hurt for good -> holly_aster_fight
+* Leave them dancing for now -> END
+
+~ holly_aster_slip
+holly_aster [neutral]: Oh, my poor ankles, and there is pastry grease all over my apron. Where are Violet and Lavender, did Siv get the girls away from the square?
+set release_slips -= 1
+set reveler_holly_aster = "tickets"
+set reveler_holly_aster_freed
+set revelers_freed += 1
+-> END
+
+~ holly_aster_church
+holly_aster [smile]: A grander feast laid out down at the quiet church, lovelies? Wait till I tuck my shutters in, and this old cottage will skip right behind you!
+lead holly_aster to fd_silent_church
+if check.last
+set reveler_holly_aster = "church"
+set reveler_holly_aster_freed
+set revelers_freed += 1
+set church_guests += 1
+endif
+-> END
+
+~ holly_aster_church_fail
+holly_aster [smile]: Go sit in the cold pews when the ovens are roaring and the roofs are kicking up their heels? Stay and dance while we still have nights left to count!
+set fd_chuckles_amused
+-> holly_aster_menu
+
+~ holly_aster_calm
+holly_aster [weary]: My heart is hammering like a trapped bird, and my hands will not stop shaking. I could feel the floorboards of that costume counting down every step I took.
+set reveler_holly_aster = "uncharmed"
+set reveler_holly_aster_freed
+set revelers_freed += 1
+-> END
+
+~ holly_aster_fight
+holly_aster [angry]: Do not knock upon this manor with sour faces, dears, or the rafters will come down on your heads! Eat your sweetmeats and dance, or the house will trample you flat!
+Narrator: The dancers nearby keep on dancing. Nobody here is going to remember a punch.
+combat reveler_holly_aster
+
+~ holly_aster_beaten
+holly_aster [weary]: Lord above, you have a heavy hand, though it beat spinning until my lungs burst. Help me shed these painted shingles so I can go look for Siv and my girls.
+set reveler_holly_aster = "beaten"
+set reveler_holly_aster_freed
+set revelers_freed += 1
+-> END
+
+~ holly_aster_sheltered
+holly_aster [weary]: Thirty-four candles I have burned, and for an hour out there I thought I would never bake another loaf. Keep the door shut tight, please, until my fingers stop trembling.
+-> END
+
+~ thomasin_ardor_start
+thomasin_ardor [smile]: Step right up and mind the hem, my friends, for this whole house was stitched to dance! Come spin with me before the velvet roof comes unstuck!
+-> thomasin_ardor_menu
+
+~ thomasin_ardor_menu
+* [if flag.release_slips >= 1] Show them a release slip -> thomasin_ardor_slip
+* [Persuasion DC 15] Invite them to a better party, at a quiet church -> thomasin_ardor_church | thomasin_ardor_church_fail
+* [Deception DC 15] Say Chuckles wants them at the church for the next number -> thomasin_ardor_church | thomasin_ardor_church_fail
+* [knows:calm_emotions] Cast Calm Emotions on them -> thomasin_ardor_calm
+* [knows:greater_restoration] Cast Greater Restoration on them -> thomasin_ardor_calm
+* Knock them out of the costume, bruised but not hurt for good -> thomasin_ardor_fight
+* Leave them dancing for now -> END
+
+~ thomasin_ardor_slip
+thomasin_ardor [neutral]: Oh, my knees are trembling like loose basting thread. How long had I been prancing about in this dreadful painted timber and canvas?
+set release_slips -= 1
+set reveler_thomasin_ardor = "tickets"
+set reveler_thomasin_ardor_freed
+set revelers_freed += 1
+-> END
+
+~ thomasin_ardor_church
+thomasin_ardor [smile]: A quiet gathering with fine new garments to admire sounds simply lovely! Lead the way, and mind my chicken-leg boots on the cobbles!
+lead thomasin_ardor to fd_silent_church
+if check.last
+set reveler_thomasin_ardor = "church"
+set reveler_thomasin_ardor_freed
+set revelers_freed += 1
+set church_guests += 1
+endif
+-> END
+
+~ thomasin_ardor_church_fail
+thomasin_ardor [smile]: Sit still in a dusty pew when the ribbons are flying so merrily? Never, my dears, this manor has seven more reels to dance!
+set fd_chuckles_amused
+-> thomasin_ardor_menu
+
+~ thomasin_ardor_calm
+thomasin_ardor [weary]: The music finally stopped pulling at my heels, thank goodness. Whoever stitched this coarse canvas house had no eye for proper seams at all.
+set reveler_thomasin_ardor = "uncharmed"
+set reveler_thomasin_ardor_freed
+set revelers_freed += 1
+-> END
+
+~ thomasin_ardor_fight
+thomasin_ardor [angry]: Do not tug at the tapestry, friends, or the manor will have to trample you flat! Nobody ruins the grand pattern tonight!
+Narrator: The dancers nearby keep on dancing. Nobody here is going to remember a punch.
+combat reveler_thomasin_ardor
+
+~ thomasin_ardor_beaten
+thomasin_ardor [weary]: You might have spared the pleated eaves, though I suppose I deserved a sharp tap. At least you knocked this wretched framework off my shoulders.
+set reveler_thomasin_ardor = "beaten"
+set reveler_thomasin_ardor_freed
+set revelers_freed += 1
+-> END
+
+~ thomasin_ardor_sheltered
+thomasin_ardor [weary]: It is mercifully still in here, though my ankles ache from those wooden stilts. I remember smiling while my feet bled, and I could not stop.
+-> END
+
