@@ -16,13 +16,24 @@ func dress_place(view: LocationView) -> void:
 		view._say("switcheroo:arrive")
 
 
-## The catalog's `set_piece` entries: "oak" is the Oak of Many Faces (OakOfManyFaces), planted over the middle of the squares
-## the prop spans.
+## The catalog's `set_piece` entries, planted over the middle of the squares the prop spans: "oak" is the Oak of Many Faces
+## (OakOfManyFaces) and "crooked_tree" the Wytchwood's Crooked Tree (CrookedTree), each built in code (`handled`); "barrow_glow"
+## and "wicker_man" only add their light and leave the catalog's own picture (the barrow, the painted Wicker Man) to be drawn.
 func place_special(_art: String, board: ArenaBoard, root: Node3D, cell: Vector2i, spec: Dictionary, look: Dictionary) -> Dictionary:
-	match str(look.get("set_piece", "")):
+	var piece := str(look.get("set_piece", ""))
+	if piece == "":
+		return {}
+	var centre: Variant = SetDressing.span_centre(board, spec)
+	var at: Vector3 = centre as Vector3 if centre != null else board.cell_center(cell)
+	match piece:
 		"oak":
-			var centre: Variant = SetDressing.span_centre(board, spec)
-			var at: Vector3 = centre as Vector3 if centre != null else board.cell_center(cell)
 			OakOfManyFaces.build(root, at, ModelPiece.hash_cell(cell))
 			return {"handled": true, "node": root}
+		"crooked_tree":
+			CrookedTree.build(root, at, ModelPiece.hash_cell(cell))
+			return {"handled": true, "node": root}
+		"barrow_glow":
+			root.add_child(SetPieceLight.make("BarrowGlow", at + Vector3(0.0, 0.9, 0.4), Look.color("moon_green"), 1.1, 6.5, root))
+		"wicker_man":
+			root.add_child(SetPieceLight.make("WickerLantern", at + Vector3(0.0, 5.2, 0.5), Look.color("flame"), 0.9, 9.0, root))
 	return {}
