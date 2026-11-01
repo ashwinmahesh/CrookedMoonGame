@@ -30,13 +30,12 @@
       }
     }
   ],
-  "summary": "A musket that ignores Loading and makes its own Necrotic ammunition, +1 (+2 at level 7, +3 at 13). Jinxshot and the curse rider wait on the engine's heirloom rules.",
+  "summary": "A musket that never needs loading and makes its own Necrotic shot, +1 (+2 at level 7, +3 at 13). Jinxshot trades one attack for a 30-ft Cone. From level 7, Sinner's Jinx: once a turn its damage curses a creature that fails a Charisma save, 1d4 off its D20 Tests for a minute (one creature at a time).",
   "weapon": {
     "kind": "martial_ranged",
     "damage": "2d8",
     "damage_type": "necrotic",
     "properties": [
-      "ammunition",
       "two_handed",
       "range"
     ],
@@ -45,5 +44,16 @@
       90
     ],
     "mastery": "slow"
-  }
+  },
+  "powers": [
+    {
+      "id": "jinxshot",
+      "name": "Jinxshot",
+      "custom": "cm_blunderbuss_jinxshot",
+      "cost": "attack",
+      "targeting": "direction",
+      "range": 30,
+      "text": "In place of one attack, a 30-ft Cone of grave-shot: a Dexterity save against 16 + the bonus, 2d4 Necrotic (3d6 from level 7), half on a success."
+    }
+  ]
 }

@@ -2,10 +2,50 @@
   "id": "amber_birdcage",
   "name": "The Amber Birdcage",
   "source": {
-    "book": "CrookedMoon"
+    "book": "CrookedMoon",
+    "note": "Cursed Curio from the Fields of the Crow; the book's numbers, our words."
   },
   "category": "wondrous",
   "weight_lb": 1,
   "cost_gp": 0,
-  "summary": "Raum's chest cage; replaces your torso while attuned (cursed; its powers wait on the engine's curio rules)."
+  "magic": {
+    "rarity": "very_rare",
+    "attunement": true,
+    "curse": "While attuned, the cage is your chest: -1 to Wisdom saves, and 1 more for each fiend you catch or eat."
+  },
+  "theme": "relics",
+  "icon": "lantern",
+  "modifiers": [
+    {
+      "stat": "save",
+      "ability": "wis",
+      "value": -1
+    }
+  ],
+  "powers": [
+    {
+      "id": "sense",
+      "name": "Sense Fiends",
+      "custom": "cm_birdcage_sense",
+      "cost": "bonus",
+      "text": "Learn where every Fiend within 60 ft is."
+    },
+    {
+      "id": "capture",
+      "name": "Capture Fiend",
+      "custom": "cm_birdcage_capture",
+      "cost": "action",
+      "targeting": "enemy",
+      "range": 30,
+      "text": "A Bloodied Fiend within 30 ft makes a DC 15 Charisma save or becomes an amber songbird in the cage."
+    },
+    {
+      "id": "eat",
+      "name": "Eat a songbird",
+      "custom": "cm_birdcage_eat",
+      "cost": "action",
+      "text": "The fiend dies for good; regain a spell slot of up to half its CR, or Temporary Hit Points equal to its CR."
+    }
+  ],
+  "summary": "Raum's chest cage of amber and iron; while attuned it takes the place of your ribs. Sense fiends within 60 ft, catch a Bloodied one as a songbird, or eat a songbird for a spell slot. Cursed: each catch and each meal costs you more of your will (Wisdom saves)."
 }

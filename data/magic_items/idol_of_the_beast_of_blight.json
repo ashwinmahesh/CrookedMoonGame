@@ -2,10 +2,51 @@
   "id": "idol_of_the_beast_of_blight",
   "name": "Idol of the Beast of Blight",
   "source": {
-    "book": "CrookedMoon"
+    "book": "CrookedMoon",
+    "note": "Fabled Heirloom from Hartsblight Forest; the book's numbers, our words."
   },
   "category": "wondrous",
   "weight_lb": 1,
   "cost_gp": 0,
-  "summary": "A Fabled Heirloom idol carved in a dead stag's bone: spores, a bite in your bark (its powers wait on the engine's heirloom rules)."
+  "magic": {
+    "rarity": "rare",
+    "attunement": true
+  },
+  "theme": "implements",
+  "icon": "amulet",
+  "held": true,
+  "focus": "druidic",
+  "modifiers": [
+    {
+      "stat": "spell_attack",
+      "value": "tier"
+    },
+    {
+      "stat": "spell_dc",
+      "value": "tier"
+    }
+  ],
+  "powers": [
+    {
+      "id": "oblivion",
+      "name": "Touch of Oblivion",
+      "custom": "cm_idol_oblivion",
+      "cost": "bonus",
+      "text": "Over a fresh corpse within 5 ft: your next Unarmed Strike that hits is a Critical Hit."
+    },
+    {
+      "id": "rot",
+      "name": "Rot in the Flesh",
+      "spell": "barkskin",
+      "custom": "cm_idol_rot",
+      "self_only": true,
+      "min_level": 7,
+      "uses": {
+        "count": 1,
+        "per": "dusk"
+      },
+      "text": "Barkskin on yourself; while it lasts, a creature that hits you in melee takes 1d8 Necrotic."
+    }
+  ],
+  "summary": "A Fabled Heirloom idol carved from a dead stag's bone: +1 to spell attacks and save DCs (+2 at level 7, +3 at 13). Rotting Touch: Unarmed Strikes deal 1d6 Necrotic more (1d8 from level 7, 1d10 from 13); Touch of Oblivion turns the next one into a Critical Hit. From level 7, Hallucinatory Spores after each spell cast with a slot (a foe within 10 ft: Wisdom save or 2d6 Psychic and Disadvantage on its attacks) and Rot in the Flesh once a dusk."
 }

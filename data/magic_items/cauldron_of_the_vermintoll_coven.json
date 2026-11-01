@@ -3,7 +3,7 @@
   "name": "Cauldron of the Vermintoll Coven",
   "source": {
     "book": "CrookedMoon",
-    "note": "Fabled Heirloom from the Crooked Nightmare; the book's numbers, our words. Its Tiny-to-Medium size change, Cookpot, Vermincall and Fortifying Gorge wait on the engine's heirloom rules."
+    "note": "Fabled Heirloom from the Crooked Nightmare; the book's numbers, our words. Its Tiny-to-Medium size change, Cookpot and Fortifying Gorge (camp meals) wait on the camp screen."
   },
   "category": "wondrous",
   "weight_lb": 10,
@@ -18,8 +18,21 @@
     {
       "stat": "save",
       "ability": "all",
-      "value": 1
+      "value": "tier"
     }
   ],
-  "summary": "A big iron pot the coven cooked in: a spellcasting focus that adds +1 to all saving throws (its heirloom powers wait on the engine)."
+  "summary": "A big iron pot the coven cooked in: a spellcasting focus that adds +1 to all saving throws (+2 at level 7, +3 at 13), and Vermincall (Conjure Animals as vermin) once a dusk. Its size change and its camp meals wait on the camp screen.",
+  "focus": "arcane",
+  "powers": [
+    {
+      "id": "vermincall",
+      "name": "Vermincall",
+      "spell": "conjure_animals",
+      "uses": {
+        "count": 1,
+        "per": "dusk"
+      },
+      "text": "Conjure Animals as a swarm of insects or rats."
+    }
+  ]
 }

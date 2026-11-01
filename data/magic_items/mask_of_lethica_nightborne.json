@@ -19,13 +19,38 @@
     {
       "stat": "save",
       "ability": "wis",
-      "value": 1
+      "value": "tier"
     },
     {
       "stat": "save",
       "ability": "cha",
-      "value": 1
+      "value": "tier"
+    },
+    {
+      "stat": "flag",
+      "value": "devils_sight"
     }
   ],
-  "summary": "A Fabled Heirloom, the High Priestess: a porcelain mask with violet filigree. Bonus to Wisdom and Charisma saves (its darkness powers wait on the engine's heirloom rules)."
+  "summary": "A Fabled Heirloom, the High Priestess: a porcelain mask with violet filigree. +1 to Wisdom and Charisma saves (+2 at level 7, +3 at 13); its wearer sees through magical Darkness and casts Darkness twice a dusk (four from level 7), and in that Darkness the wearer and its allies resist Psychic damage. From level 7, Balm of Midnight: at the start of the wearer's turn a Frightened ally within 60 ft gets a DC 15 Wisdom save to shake it off, and 2d10 Temporary Hit Points in the dark.",
+  "powers": [
+    {
+      "id": "whispers",
+      "name": "Whispers of Night",
+      "spell": "darkness",
+      "uses": {
+        "count": 2,
+        "per": "dusk"
+      }
+    },
+    {
+      "id": "whispers_deeper",
+      "name": "Whispers of Night (deeper)",
+      "spell": "darkness",
+      "min_level": 7,
+      "uses": {
+        "count": 2,
+        "per": "dusk"
+      }
+    }
+  ]
 }

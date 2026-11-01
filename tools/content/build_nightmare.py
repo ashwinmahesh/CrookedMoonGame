@@ -8,6 +8,7 @@ import copy, json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from wickermoor_interiors import G
+from heirlooms_kept import kept
 
 ROOT = Path(__file__).resolve().parents[2]
 REGION = "crooked_nightmare"
@@ -15,6 +16,8 @@ NM = "nightmare/"
 
 
 def write(rel, obj):
+    if kept(rel):
+        return
     p = ROOT / rel
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n")

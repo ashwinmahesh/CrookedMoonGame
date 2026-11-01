@@ -24,7 +24,30 @@
       "value": "tier"
     }
   ],
-  "summary": "A jester's rod from the dead marionette's hands, a spellcasting focus that adds its tier to spell attacks and spell save DCs. Its Coulrophobia, Fortune's Fool and Fool's Motley powers wait on the engine's heirloom hooks.",
+  "summary": "A jester's rod from the dead marionette's hands, a focus that adds +1 to spell attacks and save DCs (+2 at level 7, +3 at 13). Coulrophobia: after you save against fear, your Reaction makes its source take the same save or be Frightened. Fortune's Fool: Hideous Laughter once a dusk, back on a natural 1. From level 7, Fool's Motley (False Life once a dusk).",
   "held": true,
-  "focus": "arcane"
+  "focus": "arcane",
+  "powers": [
+    {
+      "id": "laughter",
+      "name": "Fortune's Fool",
+      "spell": "tashas_hideous_laughter",
+      "uses": {
+        "count": 1,
+        "per": "dusk"
+      },
+      "text": "Hideous Laughter once a dusk; a natural 1 on any of your D20 Tests gives it back."
+    },
+    {
+      "id": "motley",
+      "name": "Fool's Motley",
+      "spell": "false_life",
+      "min_level": 7,
+      "uses": {
+        "count": 1,
+        "per": "dusk"
+      },
+      "text": "False Life, and your clothes turn to motley."
+    }
+  ]
 }
