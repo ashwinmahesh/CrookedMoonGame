@@ -325,7 +325,7 @@ def master_suite():
 def build_village_hooks():
     path = ROOT / "data/locations/wickermoor_village.json"
     town = json.loads(path.read_text())
-    mine = (CT + "hook:", CT + "chaos:")
+    mine = (CT + "hook:", CT + "chaos:", CT + "mayor:", CT + "will:")
     town["npcs"] = [n for n in town["npcs"] if not str(n.get("dialogue", "")).startswith(mine)]
     doris = next(n for n in town["npcs"] if n["npc"] == "doris_squire")
     c = doris["cell"]
@@ -387,9 +387,9 @@ PEOPLE = [   # id, name, title, summary, attitude, sprite, tags, region
     ("ct_herald", "The Born King's herald", "A bright-eyed twig of a creature", "A herald of sticks and moss who has been sent to read the terms of the combat, and has the order of the pages wrong.", "indifferent", "villager", ["voice_hollow"], R_TREE),
     ("ct_phillip_spirit", "Phillip, in the skull", "A mild voice from a goat skull", "Phillip Druskenvald speaking through the goat skull in his own voice, mild and clear at last.", "friendly", "phillip_druskenvald", ["voice_druskenvald"], R_TREE),
     ("ct_adela_spirit", "Adela, a specter", "A woman in blue-green light with an ember in her hands", "Adela Druskenvald's specter, kind and calm, carrying a single ember.", "friendly", "adela_druskenvald", ["voice_druskenvald"], R_TREE),
-    ("ct_confessor_a", "A confessing villager", "A baker's apprentice, ashamed", "A village boy who stole bread from the dead and cannot say why. He heard something in the dark whisper that he deserved it.", "friendly", "villager", ["voice_hollow", "child"], "wickermoor"),
-    ("ct_confessor_b", "A confessing villager", "A farmhand, shaking", "A woman who struck her brother over a debt and watched him fall. She heard a low voice tell her it was only fair.", "friendly", "villager", ["voice_hollow"], "wickermoor"),
-    ("ct_confessor_c", "A confessing villager", "A widow, whispering", "A neighbour who has been selling the sick their own medicine at three times the price, and heard a three-eyed thing approve.", "friendly", "villager", ["voice_hollow"], "wickermoor"),
+    ("ct_confessor_a", "Wilf Baxter", "A baker's apprentice, ashamed, confessing", "A village boy who stole bread from the dead and cannot say why. He heard something in the dark whisper that he deserved it.", "friendly", "villager", ["voice_hollow", "child"], "wickermoor"),
+    ("ct_confessor_b", "Nell Harrow", "A farmhand, shaking, confessing", "A woman who struck her brother over a debt and watched him fall. She heard a low voice tell her it was only fair.", "friendly", "villager", ["voice_hollow"], "wickermoor"),
+    ("ct_confessor_c", "Maud Tilling", "A widow, whispering, confessing", "A neighbour who has been selling the sick their own medicine at three times the price, and heard a three-eyed thing approve.", "friendly", "villager", ["voice_hollow"], "wickermoor"),
     ("ct_mob_leader", "The mob's loudest voice", "A mill hand with a rope", "A big-voiced mill hand at the head of a crowd with a rope and a grievance, who wants someone to hang for what the cult did.", "hostile", "villager", ["voice_hollow"], "wickermoor"),
 ]
 
