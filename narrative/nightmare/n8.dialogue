@@ -1,0 +1,49 @@
+# Drafted by Gemini (R22 n8), edited.
+
+~ attic_start
+Narrator: The swollen attic reeks of hot iron and wet feathers, its walls a single seething carpet of weasels, centipedes, and cooing pigeons. Over a scrawled seven-pointed star, a clawed cauldron begins to walk on iron legs.
+nm_stonoga [smile]: Look at my fine broth, sisters, seasoned with soft flesh and tender marrow! None of Golub's chalky lectures or Vessla's clumsy little prayers could cook a dish half so sweet.
+nm_golub [sly]: Hush your clacking mandibles, you greasy pot-scrubber, before you spoil the lesson. I broke her mind to proper obedience while you two played in the cellar dirt.
+nm_vessla [angry]: Fools and gluttons, both of you, hissing over scraps while I forged her soul in holy fire! Come into the dark, sisters, and sing the rafters down.
+nm_stonoga [smile]: Many legs upon the beam, stir the marrow, thick as cream! Hundred feet and hollow bone, make the lady's flesh our own!
+nm_golub [sly]: Feathers choke the chimney flue, peck the mind andangkit-coo! Grey wings beat the attic wall, till her clever thoughts all fall!
+nm_vessla [angry]: Sharp teeth gnaw the wainscoting, red eyes in the rafters cling! Weasel bite and crooked claw, stuff her spirit down our maw!
+Narrator: The three visions curdle like sour milk and pour themselves into the bubbling iron pot. Up from the froth rises a single three-headed thing of fur, chitin, and matted plumes.
+cutscene nm_cauldron_births
+quest crooked_nightmare toil_and_trouble
+-> hub
+
+~ hub
+Narrator: The three-headed abomination scrapes its iron claws across the chalked floorboards, breathing sour steam and cemetery dust.
+* [Arcana DC 17] Study the seven-pointed sigil on the floor -> sigil_ok | sigil_fail
+* [Insight DC 15] Notice the hags bickering as they boil -> bicker_ok | bicker_fail
+* Face the cauldron -> fight
+
+~ sigil_ok
+Narrator: Beneath the grease and ash, the seven-pointed star is both a binding ward and a kitchen recipe. The three heads are starved for doubt, fear, and sickness, and will gorge on whichever they smell first.
+set nm_sigil_read
+-> hub
+
+~ sigil_fail
+Narrator: The chalk lines are too smeared with tallow and pigeon droppings to read cleanly. All you get for your trouble is a lungful of scorched hair and vinegar.
+-> hub
+
+~ bicker_ok
+Narrator: Even fused into one fouled trunk, each neck snaps and jeers at the other two for crowding the pot. Their mutual contempt is a wide crack, ready for a clever word to wedge them apart.
+set nm_hags_bicker_seen
+-> hub
+
+~ bicker_fail
+Narrator: The three throats hiss and gurgle in a single wall of wet, spiteful noise. Whatever petty quarrels they brought to the kettle are drowned in the boiling broth.
+-> hub
+
+~ fight
+Narrator: All across the rafters, the squirming vermin go dead still for a heartbeat, then let out a single deafening roar.
+set nm_toil_begun
+combat vermintoll_abomination
+
+~ after
+Narrator: The split cauldron topples, and the three-headed horror unravels into a tide of scurrying beasts that pour down the cracks in the floorboards. Beneath your boots, the rafters tremble not with malice, but with the cold, hollow shudder of a house afraid of waking.
+set abomination_dead
+quest crooked_nightmare dreaming_no_more
+-> ending:collapse

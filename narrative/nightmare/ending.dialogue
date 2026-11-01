@@ -1,0 +1,84 @@
+# Drafted by Gemini (R22 ending), edited.
+
+~ collapse
+Narrator: The house shudders to its rafters, and the floors fold down one by one in a choking cloud of plaster dust. You tumble through the splintering dark with the whole groaning wreck.
+cutscene nm_dreaming_no_more
+set crooked_house_destroyed
+move nm_estate_ruins
+-> ruins_start
+
+~ ruins_start
+Narrator: You cough the lime from your lungs on a heap of cold rubble under a clear, starry sky, while freed spirits swirl upward like pale wasps from a broken hive. Dani stands calm in the middle of the wreckage.
+quest crooked_nightmare dreaming_no_more
+if flag.walter_saved and flag.gilly_saved
+gilly_jenkin [smile]: We have got you, my darling, we have got you safe and sound. Oh, thank you, travelers, for bringing my family back to the clean night air.
+Narrator: Walter wraps his arms tight around his wife and daughter, and the warmth of their whole reunion washes over your battered bones like a night's deep sleep.
+heal 200 party
+hit_dice restore all party
+elif flag.walter_saved or flag.gilly_saved
+dani_jenkin [sad]: Half a house comes back when the roof falls in. We will hold on to what is left.
+Narrator: One parent clings fiercely to Dani's shoulders, though the empty space beside them aches in the starlight, offering your weary company only a brief respite.
+heal 2d8 party
+hit_dice restore 2 party
+else
+dani_jenkin [neutral]: The house is down, and the quiet is back. It is only me and the dog now.
+endif
+set nm_ruins_met
+-> menu
+
+~ menu
+* Ask about Phillip -> phillip
+* Ask about Adela and the Crooked Man -> adela
+* Ask about the dog -> sally
+* [if flag.walter_saved and flag.voices_outcome != ""] Ask Walter how he is -> walter
+* Ask about the spirits -> joseph
+* [if flag.frederick_taken] Ask about Frederick -> fred
+* [if quest.danis_lantern == carrying] Return Dani's lantern -> dani_lantern:return
+* Ask about the moors -> warning
+* We are done here -> farewell
+
+~ phillip
+dani_jenkin [neutral]: The moment my mist let him go, he went running down the hill after his wife. He did not even stop to brush the soot from his coat.
+-> menu
+
+~ adela
+dani_jenkin [weary]: She is out on the high moors where the heather smells of smoke. The Crooked Man carried her up to the tall wicker thing he has been building.
+-> menu
+
+~ sally
+Narrator: A pale girl's shape lifts out of the red hound's coat, her small face clear and gentle in the starlight.
+sally_lockwood [sad]: Father built this house out of crooked promises, and it swallowed my mother and me whole. Thank you for breaking the timbers so I can finally go home.
+Narrator: She fades into the rising mist, and the red dog gives a great, rattling shake of his ears, just an ordinary hound now, before licking Dani's hand.
+cutscene nm_sally_goes_free
+set sally_released
+-> menu
+
+~ walter
+if flag.voices_outcome == "all" or flag.voices_outcome == "walter" or flag.voices_outcome == "smashed"
+Narrator: Walter clears his throat experimentally, his own gentle country voice returning to him like water into a dry well, and he thanks you with a quiet, earnest bow.
+else
+Narrator: Walter presses a scrap of slate into your palm that reads, in neat chalk letters: My voice is gone, but my heart is whole, thank you for my girl.
+endif
+-> menu
+
+~ joseph
+Narrator: High in the pale swirl above thechimney stones, the ghost of an old butler straightens his cuffs, gives you a single solemn nod, and drifts upward into the stars.
+set joseph_rested
+-> menu
+
+~ fred
+Narrator: The one-eyed turkey doll snaps a passing night-moth out of the air with a dry gulp of stuffing.
+dani_jenkin [neutral]: He is welcome to stay. There are plenty of moths in the ruins.
+-> menu
+
+~ warning
+dani_jenkin [afraid]: There is a heavy heat gathering out on the moors, like a great bonfire waiting for the match. The folk who wear the antlered hare are coming for the village.
+-> menu
+
+~ farewell
+dani_jenkin [neutral]: Go carefully down the hill. The dark is clean here now, but it is thick down in the hollow.
+Narrator: You turn from the settled dust of the estate toward the moorland road, your steps steadier and your spirits tempered like good iron by what you have survived.
+set crooked_man_slain
+set nm_chapter_done
+xp milestone
+-> END
