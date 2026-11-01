@@ -11,5 +11,23 @@
     "rarity": "common",
     "attunement": false
   },
-  "summary": "A green, cloudy tonic that lets you stand on water for a minute, bobbing like a pad on a pond."
+  "summary": "A green, cloudy tonic. The drinker becomes a Frog for an hour, as Polymorph without Concentration: the frog's Hit Points as Temporary Hit Points, back to themselves when those are gone.",
+  "duration": {
+    "kind": "hours",
+    "amount": 1
+  },
+  "powers": [
+    {
+      "id": "drink",
+      "name": "Drink",
+      "cost": "bonus",
+      "consume": true,
+      "custom": "drink_shape",
+      "params": {
+        "form": "frog",
+        "minutes": 60
+      },
+      "text": "Bonus Action: drink it, or give it to a creature within 5 ft. They become a Frog for an hour."
+    }
+  ]
 }
