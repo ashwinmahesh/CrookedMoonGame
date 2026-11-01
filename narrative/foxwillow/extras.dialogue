@@ -1,0 +1,55 @@
+# Hand-written glue for R13: the three brawls, the mill's start, Isaac's chest, Martha after the mill.
+
+~ brawl_a
+Narrator: Two scarecrows in bonnets are beating each other against the pump with fence slats, and neither will stop.
+* Step in between them -> brawl_a_go
+* Leave them to it -> END
+
+~ brawl_a_go
+Narrator: A straw arm swings your way. William's voice cries out behind you not to burn them: that is a neighbour's good dress.
+combat fw_brawl_a
+-> END
+
+~ brawl_b
+Narrator: A scarecrow with a pitchfork is chasing another across the square, and the second one is laughing in a voice that is not its own.
+* Step in -> brawl_b_go
+* Leave them to it -> END
+
+~ brawl_b_go
+combat fw_brawl_b
+-> END
+
+~ brawl_c
+Narrator: A pumpkin head sits by the pump, rocking, saying a name over and over.
+* Go to it -> brawl_c_go
+* Leave it be -> END
+
+~ brawl_c_go
+Narrator: The pumpkin head looks up, and its carved grin splits wider.
+combat fw_brawl_c
+-> END
+
+~ mill_start
+Narrator: The stair groans. Up on the fourth floor Jonah clings to a beam with a scarecrow in his arms, and the whole tower is burning. You have nine rounds.
+* Climb to Jonah -> mill_go
+* [ends:the_burning_mill] The fire is too hot; turn back -> mill_abandon
+
+~ mill_go
+combat fw_mill
+-> END
+
+~ mill_abandon
+Narrator: You cannot reach him through the smoke. The great beam parts, and the loft goes up in a roar with no voice in it.
+set jonah_dead
+quest the_burning_mill lost
+-> END
+
+~ cellar_chest
+Narrator: The cellar chest is shut. You hear something moving inside, many small things.
+* Open it -> cellar_open
+* Leave it -> END
+
+~ cellar_open
+Narrator: The lid lifts and crows pour out of a carved-open ribcage, knotting together into a shape with amber eyes.
+combat fw_cellar
+-> END

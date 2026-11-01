@@ -9,6 +9,7 @@ doris_squire [neutral]: Strangers. Keep your blades sheathed in the Round and we
 * Ask about the law and the jail -> shop_open
 * Ask about the oak in the square -> rumour
 * [Perception DC 14] Glance at the small paper tucked under her blotter -> secret_ok | secret_fail
+* Report a suspicion about someone -> accuse_start
 * Take our leave -> END
 
 ~ about_work
@@ -43,4 +44,64 @@ doris_squire [neutral]: Charge sheets are for the watch, not for tourists.
 * Ask about the law and the jail -> shop_open
 * Ask about the oak in the square -> rumour
 * [Perception DC 14] Glance at the small paper tucked under her blotter -> secret_ok | secret_fail
+* Report a suspicion about someone -> accuse_start
 * Take our leave -> END
+
+~ accuse_start
+doris_squire [neutral]: Name.
+* Alda Farnum, the innkeeper -> accuse_alda
+* Randall Graham, the barber -> accuse_randall
+* Baltus Tolliver, the merchant -> accuse_baltus
+* Howie Butterman, your deputy -> accuse_howie
+* Theodora Mayville, the postmaster -> accuse_theodora
+* Gaston Doray, the painter -> accuse_gaston
+* Never mind -> menu
+
+~ accuse_alda
+if flag.cult_clue_alda_farnum and flag.cult_proof_alda
+doris_squire [neutral]: Hares. A ledger. I will watch her.
+set accused_alda
+else
+doris_squire [neutral]: Not enough. Bring more.
+endif
+-> accuse_start
+
+~ accuse_randall
+if flag.cult_clue_randall_graham and flag.cult_proof_randall
+doris_squire [neutral]: A carved hare. Swept hair. I will watch him.
+set accused_randall
+else
+doris_squire [neutral]: Not enough. Bring more.
+endif
+-> accuse_start
+
+~ accuse_baltus
+if flag.cult_clue_baltus_tolliver and flag.cult_proof_baltus
+doris_squire [neutral]: A ring. A pipe. I will watch him.
+set accused_baltus
+else
+doris_squire [neutral]: Not enough. Bring more.
+endif
+-> accuse_start
+
+~ accuse_howie
+if flag.cult_clue_howie_butterman and flag.cult_proof_howie
+doris_squire [neutral]: My own. Hmph. I will watch him.
+set accused_howie
+else
+doris_squire [neutral]: Not enough. Bring more.
+endif
+-> accuse_start
+
+~ accuse_gaston
+if flag.cult_clue_gaston_doray and flag.cult_proof_gaston
+doris_squire [neutral]: Hares in every painting. A boy with no past. I will watch him.
+set accused_gaston
+else
+doris_squire [neutral]: Not enough. Bring more.
+endif
+-> accuse_start
+
+~ accuse_theodora
+doris_squire [neutral]: The postmaster is the post. Without more than that, I do not touch her. Mind what you say of her.
+-> accuse_start

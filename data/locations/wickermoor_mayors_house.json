@@ -90,7 +90,8 @@
       ],
       "kind": "examine",
       "label": "Forms in baskets and boxes",
-      "model": "papers"
+      "model": "papers",
+      "text": "Forms in baskets, forms in boxes, forms in neat rubber-banded stacks, and not one of them blank."
     },
     {
       "id": "mayors_house_desk",
@@ -100,7 +101,8 @@
       ],
       "kind": "examine",
       "label": "The mayor's desk",
-      "model": "table_round"
+      "model": "table_round",
+      "text": "The mayor's desk holds a blotter, an oak-leaf seal and an inkwell shaped like a small acorn."
     },
     {
       "id": "mayors_house_portrait",
@@ -110,7 +112,8 @@
       ],
       "kind": "examine",
       "label": "A portrait of the founder, face turned to the wall",
-      "model": "book"
+      "model": "book",
+      "text": "A portrait of the founder hangs with its face turned to the wall, as though someone had been told off."
     }
   ],
   "npcs": [
@@ -120,7 +123,38 @@
         4,
         15
       ],
-      "dialogue": "wickermoor/wendel_somerton:start"
+      "dialogue": "wickermoor/quarantine:file",
+      "when": "flag.seal_tamsin and flag.seal_post and not flag.quarantine_done"
+    },
+    {
+      "npc": "wendel_somerton",
+      "cell": [
+        4,
+        15
+      ],
+      "dialogue": "wickermoor/quarantine:start",
+      "when": "flag.act2_done >= 1 and not flag.quarantine_asked"
+    },
+    {
+      "npc": "wendel_somerton",
+      "cell": [
+        4,
+        15
+      ],
+      "dialogue": "wickermoor/feast:mayor_judges",
+      "when": "flag.feast_asked and not flag.feast_done"
+    },
+    {
+      "npc": "wendel_somerton",
+      "cell": [
+        4,
+        15
+      ],
+      "dialogue": "wickermoor/wendel_somerton:start",
+      "hours": [
+        7,
+        19
+      ]
     },
     {
       "npc": "myrtle_somerton",
@@ -128,7 +162,11 @@
         20,
         4
       ],
-      "dialogue": "wickermoor/myrtle_somerton:start"
+      "dialogue": "wickermoor/myrtle_somerton:start",
+      "hours": [
+        7,
+        19
+      ]
     },
     {
       "npc": "rose_somerton",
@@ -136,7 +174,38 @@
         6,
         6
       ],
-      "dialogue": "wickermoor/children:rose"
+      "dialogue": "wickermoor/children:rose",
+      "hours": [
+        7,
+        19
+      ]
+    },
+    {
+      "npc": "tamsin_ledger",
+      "cell": [
+        18,
+        9
+      ],
+      "dialogue": "wickermoor/quarantine:tamsin_seal",
+      "when": "flag.quarantine_asked and not flag.seal_tamsin"
+    },
+    {
+      "npc": "tamsin_ledger",
+      "cell": [
+        18,
+        9
+      ],
+      "dialogue": "wickermoor/fair_price:tamsin_audit",
+      "when": "flag.price_asked and not flag.price_ledger_seen"
+    },
+    {
+      "npc": "tamsin_ledger",
+      "cell": [
+        18,
+        9
+      ],
+      "dialogue": "wickermoor/folk:tamsin_start",
+      "when": "flag.wm_welcomed"
     }
   ],
   "rest": "risky",

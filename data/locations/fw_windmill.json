@@ -1,0 +1,240 @@
+{
+  "id": "fw_windmill",
+  "name": "The Windmill",
+  "region": "foxwillow",
+  "summary": "The Windmill, in Foxwillow.",
+  "text": "The inside of The Windmill.",
+  "map": {
+    "rows": [
+      "##############################",
+      "#.............#..............#",
+      "#.=====.......#..............#",
+      "#.............#..............#",
+      "#.............#.....=====....#",
+      "#.............#..............#",
+      "#............................#",
+      "#............................#",
+      "#.............#..............#",
+      "#.............#..............#",
+      "#.............#..............#",
+      "#.............#..............#",
+      "#.............#..............#",
+      "########.#####################"
+    ],
+    "theme": "tavern",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Windmill",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          28,
+          12
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      8,
+      11
+    ],
+    "from_cellar_stair": [
+      4,
+      11
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        8,
+        13
+      ],
+      "to": "foxwillow",
+      "spawn": "from_fw_windmill",
+      "label": "Out to the mill yard"
+    },
+    {
+      "id": "cellar_stair",
+      "cell": [
+        3,
+        11
+      ],
+      "to": "fw_windmill_cellar",
+      "spawn": "from_stair",
+      "label": "Down to the cellar",
+      "when": "flag.fw_mill_done"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_mill_beam",
+      "cell": [
+        22,
+        4
+      ],
+      "kind": "decor",
+      "label": "The beam, and Jonah",
+      "call": "foxwillow/windmill:jonah_rescued",
+      "approach": 12,
+      "call_when": "flag.fw_mill_done and not flag.jonah_saved and not flag.jonah_dead"
+    },
+    {
+      "id": "fw_mill_cog",
+      "cell": [
+        16,
+        8
+      ],
+      "kind": "decor",
+      "label": "The great cog",
+      "model": "case"
+    },
+    {
+      "id": "fw_mill_start",
+      "cell": [
+        8,
+        8
+      ],
+      "kind": "decor",
+      "label": "The stair to the upper floor",
+      "call": "foxwillow/extras:mill_start",
+      "approach": 6,
+      "call_when": "not flag.fw_mill_done and not flag.jonah_dead"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "liza_sawyer",
+      "cell": [
+        21,
+        5
+      ],
+      "dialogue": "foxwillow/windmill:liza_plea",
+      "when": "not flag.fw_mill_done"
+    }
+  ],
+  "rest": "risky",
+  "encounters": [
+    {
+      "id": "fw_mill",
+      "trigger": "dialogue",
+      "flag": "fw_mill_done",
+      "quest": {
+        "id": "the_burning_mill",
+        "stage": "rescued"
+      },
+      "monsters": [
+        {
+          "monster": "pumpkin_head",
+          "cell": [
+            21,
+            6
+          ],
+          "name": "Liza Sawyer, in the straw",
+          "art": "scarecrow",
+          "facing": "west",
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning"
+            ],
+            "count": "fw_bodies_ruined",
+            "warn": "A villager is inside. Fire or crushing blows would kill them for good.",
+            "flag": "fw_body_fw_mill"
+          }
+        },
+        {
+          "monster": "pumpkin_head",
+          "cell": [
+            24,
+            8
+          ],
+          "name": "A burning scarecrow",
+          "facing": "west",
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning"
+            ],
+            "count": "fw_bodies_ruined",
+            "warn": "A villager is inside. Fire or crushing blows would kill them for good.",
+            "flag": "fw_body_fw_mill"
+          }
+        }
+      ],
+      "round_events": [
+        {
+          "id": "mill_fire",
+          "name": "The mill burns",
+          "summary": "Fire rolls down the stair and licks across the floorboards.",
+          "kind": "save",
+          "affects": "all",
+          "save": {
+            "ability": "dex",
+            "dc": 12
+          },
+          "half": true,
+          "damage": {
+            "dice": "1d6",
+            "type": "fire"
+          },
+          "at": 20,
+          "every": 1,
+          "area": {
+            "cells": [
+              [
+                1,
+                1
+              ],
+              [
+                28,
+                12
+              ]
+            ]
+          },
+          "say": "The mill groans, and the fire reaches for the stair.",
+          "until_flag": "fw_mill_fire_out"
+        },
+        {
+          "id": "mill_falls",
+          "name": "The mill falls",
+          "summary": "On round nine the tower folds into itself.",
+          "kind": "save",
+          "affects": "all",
+          "from_round": 9,
+          "save": {
+            "ability": "dex",
+            "dc": 16
+          },
+          "damage": {
+            "dice": "4d10",
+            "type": "bludgeoning"
+          },
+          "at": 19,
+          "every": 1,
+          "area": {
+            "cells": [
+              [
+                1,
+                1
+              ],
+              [
+                28,
+                12
+              ]
+            ]
+          },
+          "say": "The sails tear loose and the tower comes down."
+        }
+      ]
+    }
+  ]
+}

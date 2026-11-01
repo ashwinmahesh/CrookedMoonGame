@@ -57,7 +57,41 @@
       "label": "Out to the village"
     }
   ],
-  "props": [],
+  "props": [
+    {
+      "id": "shop_smithy_forge",
+      "cell": [
+        3,
+        2
+      ],
+      "kind": "examine",
+      "label": "The forge",
+      "model": "hearth",
+      "text": "The forge is banked but not cold, and the bellows breathe a little when you pass."
+    },
+    {
+      "id": "shop_smithy_anvil",
+      "cell": [
+        9,
+        2
+      ],
+      "kind": "examine",
+      "label": "The anvil",
+      "model": "case",
+      "text": "A scarred anvil with a half-shaped blade on it, its edge folded red and dark like a wound."
+    },
+    {
+      "id": "shop_smithy_trough",
+      "cell": [
+        4,
+        9
+      ],
+      "kind": "examine",
+      "label": "The quench trough",
+      "model": "barrel",
+      "text": "The quench trough is black and still and smells of iron and old blood."
+    }
+  ],
   "npcs": [
     {
       "npc": "jean_myriel",
@@ -65,7 +99,20 @@
         6,
         5
       ],
-      "dialogue": "wickermoor/jean_myriel:start"
+      "dialogue": "wickermoor/connections_custom:jean_start",
+      "when": "background:crimson_aspirant and flag.vessla_slain and not flag.connection_immortality"
+    },
+    {
+      "npc": "jean_myriel",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/jean_myriel:start",
+      "hours": [
+        7,
+        19
+      ]
     }
   ],
   "rest": "risky",

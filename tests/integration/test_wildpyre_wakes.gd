@@ -1,8 +1,8 @@
 extends TestCase
 ## The sleeping wildpyre in the Baggage Car (G6), played in the real location: it lies in plain view as a foe the party can
 ## strike or cast at (which opens its fight with the tiger surprised), a failed try at the ring still wakes it (the flag), and a
-## party that slips past leaves it asleep. What the engine would have to add (going back to sleep when the party leaves the
-## car or the hero who hurt it drops) is in the vault's Act 1 Audit, section C.
+## party that slips past leaves it asleep. Once it is awake, both of its fights end with no winner (`ends_when`: the party
+## leaves the car, or the hero who hurt it drops) and it goes back to sleep, the flag that woke it cleared so it can wake again.
 
 const LOC := "ghostlight_g6_baggage"
 const GAME := preload("res://world/game_root.gd")
@@ -121,3 +121,70 @@ func test_a_dead_wildpyre_leaves_no_sleeper() -> void:
 	st.set_flag("wildpyre_destroyed")
 	await _arrive()
 	assert_true(_tiger().is_empty(), "no foe waits once it has fallen")
+
+
+# --- It goes back to sleep (ends_when) ----------------------------------------------------------------------------
+
+func test_both_wildpyre_fights_end_when_the_party_leaves_or_the_hero_who_hurt_it_drops() -> void:
+	var seen := 0
+	for e: Variant in (Compendium.shared().get_entry("locations", LOC)["encounters"] as Array):
+		var spec := e as Dictionary
+		if str(spec["id"]) != "gl_wildpyre":
+			continue
+		seen += 1
+		var ends := spec.get("ends_when", {}) as Dictionary
+		assert_true(bool(ends.get("party_left_map", false)), "%s: the party leaving the car ends it" % spec["trigger"])
+		assert_true(bool(ends.get("trigger_hero_down", false)), "%s: so does the hero who hurt it dropping" % spec["trigger"])
+		assert_eq(ends.get("clear_flags"), ["wildpyre_woken"], "%s: the flag that woke it is cleared" % spec["trigger"])
+		assert_false(ends.has("flag"), "it sets no flag of its own: it is not dead")
+	assert_eq(seen, 2, "the sleeping fight and the woken fight")
+
+
+func test_the_fight_is_handed_the_cars_open_doors() -> void:
+	await _arrive()
+	var ends := LocationFights.ends_when_for(view, LocationFights.spec_for(view, "gl_wildpyre"))
+	assert_true(bool(ends["trigger_hero_down"]))
+	assert_true((ends["exits"] as Array).size() >= 1, "the car's open doors are the ways out: %s" % [ends["exits"]])
+
+
+func test_the_sleeper_goes_back_to_sleep_when_the_hero_who_hurt_it_drops_and_can_wake_again() -> void:
+	await _arrive()
+	st.set_flag("wildpyre_woken")
+	assert_true(view.check_flag_encounters())
+	await _frames(6)
+	assert_true(view.in_combat and view.fight_id == "gl_wildpyre")
+	var cv := view.combat_view
+	var e := cv.e
+	var tiger: Combatant = null
+	for c: Combatant in e.combatants:
+		if c.side == &"enemy":
+			tiger = c
+	var hero: Combatant = null
+	for c: Combatant in e.combatants:
+		if c.side == &"party" and hero == null:
+			hero = c
+	assert_true(tiger != null and hero != null)
+	assert_true(not e.ends_when.is_empty(), "the fight carries its ending")
+	e.deal_damage(hero, tiger, [{"amount": 1, "type": "force"}], false, "test")
+	e.deal_damage(tiger, hero, [{"amount": hero.creature.hp + 1, "type": "force"}], false, "test")
+	e._check_over()
+	assert_eq(e.outcome, "ended", "the hero who hurt it is down: over, no winner")
+	cv.finished.emit(e.outcome)
+	await _frames(12)
+	assert_false(view.in_combat, "the fight is over")
+	assert_false(bool(st.get_flag("wildpyre_woken")), "the flag that woke it is cleared")
+	assert_false(bool(st.get_flag("wildpyre_destroyed")), "it is not dead")
+	assert_false((st.loc_state(LOC)["encounters"] as Dictionary).has("gl_wildpyre"), "and the fight is not done")
+	var w := _tiger()
+	assert_true(not w.is_empty(), "the tiger lies in its place again")
+	assert_eq((w["foe"] as Combatant).cell, TIGER)
+	assert_true(LocationStealth.is_asleep(view, w), "asleep: it notices nobody")
+	# A slip at the ring wakes it once more.
+	st.set_flag("wildpyre_woken")
+	assert_true(view.check_flag_encounters(), "it can be woken again")
+
+
+func test_a_fight_that_ended_with_no_winner_plays_no_victory_sting() -> void:
+	assert_eq(GAME.sting_for("ended"), "", "no sting for a sleeper going back to sleep")
+	assert_eq(GAME.sting_for("victory"), "victory")
+	assert_eq(GAME.sting_for("defeat"), "defeat")

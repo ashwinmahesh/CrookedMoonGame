@@ -1,0 +1,37 @@
+# Drafted by Gemini (side quests batch 4: folk), edited.
+
+~ agatha_start
+narrator: Amid the blackened stalls, a stout woman brushes ash from a tray of steaming mutton pies.
+agatha_pell [smile]: Mind the cinders, loves, the crust is flaky enough without 'em. Step up if you want supper, they are hot enough already.
+* Ask about the fire. -> agatha_fire
+* Buy a pie, one gold. -> agatha_pie
+* Leave. -> END
+
+~ agatha_fire
+agatha_pell [neutral]: Saved me a bundle on kindling, I'll tell you that much. The whole square was an oven, so I just set my tins on the cobbles and kept rolling pastry.
+agatha_pell [weary]: Scarecrows don't buy pies, mind, and they trampled my best sage bush. Still, a baker don't shut the shutters for a bit of smoke.
+-> agatha_start
+
+~ agatha_pie
+gold -1
+heal 1d4
+narrator: She wraps a blistering tin in grease-stained paper and presses it into your hands. The gravy smells of rich tallow and black pepper.
+agatha_pell [smile]: Mind your tongue on the filling, dear, it'll take the roof right off your mouth. Nothing puts the marrow back in your bones like hot suet.
+-> agatha_start
+
+~ tom_start
+narrator: Down in the rutted lane, a stooped old man shakes a ledger at a large rook perched on a charred fencepost.
+old_tom_crowley [angry]: Don't you caw at me, Barnaby, you are three weeks behind on the eaves! What are you lot staring at, then, never seen a landlord collect his due?
+* Ask about the crows. -> tom_crows
+* Ask what he knew about Raum. -> tom_raum
+* Leave. -> END
+
+~ tom_crows
+old_tom_crowley [weary]: Ten years they have roosted in my barn rafters, and ten years they have helped themselves to my seed corn. We have an agreement, written in chalk on the hayloft door.
+old_tom_crowley [angry]: Three shiny buttons or a dead fieldmouse every month, that is the tariff. Ever since the fire, this feathered deadbeat thinks the lease is void.
+-> tom_start
+
+~ tom_raum
+old_tom_crowley [neutral]: Oh, they talked of him, sure enough, whenever the wind blew out of the tall stalks. Said he was only ever the crows' king, and a proper gentleman if you kept out of his furrow.
+old_tom_crowley [sly]: The birds were always polite about it, tipped their wings whenever they flew past the maze. You lot made a terrible mess of their monarchy, though.
+-> tom_start

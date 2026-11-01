@@ -1,0 +1,109 @@
+{
+  "id": "wickermoor_studio",
+  "name": "Gaston's Studio",
+  "region": "wickermoor",
+  "summary": "Gaston's Studio, in Wickermoor Village.",
+  "text": "The inside of Gaston's Studio: close, creaking and lived-in.",
+  "map": {
+    "rows": [
+      "################",
+      "#..............#",
+      "#.====.........#",
+      "#..............#",
+      "#..............#",
+      "#..............#",
+      "#.........===..#",
+      "#..............#",
+      "#..............#",
+      "#..............#",
+      "#..............#",
+      "########.#######"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "Gaston's Studio",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          14,
+          10
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      8,
+      10
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        8,
+        11
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_studio",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [
+    {
+      "id": "studio_easel",
+      "cell": [
+        6,
+        5
+      ],
+      "kind": "examine",
+      "label": "The painter's easel",
+      "model": "table_round",
+      "text": "A canvas half-finished, a field of waving grass under a night sky, and in the corner a tiny hare."
+    },
+    {
+      "id": "studio_canvases",
+      "cell": [
+        13,
+        2
+      ],
+      "kind": "examine",
+      "label": "Stacked canvases",
+      "model": "papers",
+      "text": "Finished canvases turned face to the wall, each signed with a smudge of red thumb."
+    },
+    {
+      "id": "studio_palette",
+      "cell": [
+        4,
+        8
+      ],
+      "kind": "examine",
+      "label": "A paint-crusted palette",
+      "model": "case",
+      "text": "Pigment gone hard, and a jar of brushes in water the colour of old wine."
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

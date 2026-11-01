@@ -1,0 +1,57 @@
+# Drafted by Gemini (side quests batch 4: crow), edited.
+
+~ start
+Narrator: A small crow with eyes like drops of warm amber sits on the girl's collar, smelling faintly of cold soot.
+rosemary_langtree [afraid]: Please do not let Mr. Voss throw stones at him. I named him Beak, and he has nowhere else to roost now that the corn is burned.
+* We will help -> accept
+* Ask what it does -> about
+* Not now -> END
+
+~ about
+rosemary_langtree [neutral]: He stole my blue hair ribbon, swallowed a brass button whole, and sat on my bedpost watching me sleep. He never once tried to peck my eyes.
+-> start
+
+~ accept
+rosemary_langtree [smile]: Thank you. I promised him I would keep him safe if he minded his manners.
+quest rosemarys_crow asked
+set crow_asked
+-> END
+
+~ old_tom
+old_tom_crowley [weary]: Look at you, sitting there like you own the porch roof. He is no demon, girl, just a foolish bird that picked the wrong king and lost his flock.
+set crow_tom_heard
+-> END
+
+~ decide
+rosemary_langtree [sad]: Old Tom says Beak is only lost, not wicked. What should I do with him before the neighbors come back with brooms?
+* [Animal Handling DC 11] Show her how to hold it gently -> gentle_ok | gentle_fail
+* Tell her to let it fly free -> free
+* Take it to the ghost of Jericho -> jericho
+
+~ gentle_ok
+Narrator: Under `{name}`'s steady hand, the stiff black feathers smooth down, and the bird tucks its bill against Rosemary's thumb.
+rosemary_langtree [smile]: Look how quiet he is when you cup his wings like that. Take these coins from my tin, and I will keep him indoors until folks forget.
+set crow_outcome = "kept"
+quest rosemarys_crow done
+gold +10
+-> END
+
+~ gentle_fail
+Narrator: The crow gives a sharp, rattling croak, nips at `{name}`'s knuckle, and hops back to the porch rail.
+rosemary_langtree [afraid]: He is still too jittery from the smoke. Maybe we should try something else.
+-> decide
+
+~ free
+Narrator: At the charred edge of the stubble field, the crow lifts into the dark air, circles once over Rosemary's head, and vanishes toward the woods.
+rosemary_langtree [sad]: He touched my shoulder with his wing before he went. Goodbye, Beak.
+set crow_outcome = "freed"
+quest rosemarys_crow done
+-> END
+
+~ jericho
+Narrator: Three pale notes pluck out from the misted strings, and the little crow tilts its head to answer with a single clear whistle.
+jericho_sticks [smile]: Any creature that keeps time to a tune has its own soul, little miss. Let him stay by your window, so long as he sings back.
+set crow_outcome = "music"
+quest rosemarys_crow done
+gold +15
+-> END

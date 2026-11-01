@@ -1,0 +1,216 @@
+# Drafted by Gemini (R11c connections_custom), edited.
+
+~ morgan_start
+morgan [weary]: Hold a moment, friend. You have got that same blank look in your eyes that I see in the water bucket every morning.
+Narrator: A scrap offolded paper rustles between {name}'s fingers, smelling faintly of damp wool and pressed lavender.
+morgan [neutral]: Like you woke up in the heather with your pockets empty and your own name feeling like a borrowed coat.
+* Hum the three notes that keep returning to you -> morgan_song
+* Ask how long they have lived without a past -> morgan_blank
+* Say your past is none of their concern -> morgan_quiet
+
+~ morgan_song
+Player [weary]: It goes low, then catches on the third note. Like a cradle song with the middle torn out.
+morgan [smile]: Wait. Da-dum, then the drop into the minor? Saints above, I have whistled that second half while sweeping the hearth for three winters.
+Narrator: For the space of a breath, the two halves fit together like a cracked plate mended with warm wax.
+-> morgan_pamphlet
+
+~ morgan_blank
+morgan [sad]: Two years come the next tolling, give or take. Folks here are kind enough, provided you pull your weight and do not ask where the road leads.
+Player [neutral]: And you never found a single thread to pull?
+-> morgan_pamphlet
+
+~ morgan_quiet
+morgan [neutral]: Fair enough, I will not pry. When you have nothing in your head but mist, even the mist feels like private property.
+-> morgan_pamphlet
+
+~ morgan_pamphlet
+morgan [sly]: Take a look at this handbill I found tucked in a crate of salt. It speaks of a house called Memory's Rest, out where the forgetful go to sit.
+-> morgan_close
+
+~ morgan_close
+morgan [smile]: Keep your ears open for the rest of that tune, friend. If you find out who we were, save a verse for me.
+set connection_apocalypse
+quest connection_apocalypse met
+attitude morgan friendly
+-> END
+
+~ baltus_start
+baltus_tolliver [smile]: Pardon the intrusion, traveler, but my nose rarely deceives me. That is coal smoke, cold iron, and river fog clinging to your hem.
+Narrator: He tips his hat with a gloved hand, and the faint chime of a brass ticket punch clicks inside his waistcoat pocket.
+baltus_tolliver [sly]: Only one engine in all of Druskenvald burns fuel like that. You have ridden the Ghostlight Express before tonight, have you not?
+* Admit you remember the whistle and the green lamps -> baltus_train
+* Ask what a village merchant knows of that train -> baltus_inquiry
+* Step back and tell him he is mistaken -> baltus_deny
+
+~ baltus_train
+Player [neutral]: I know the sound of those wheels on the trestle. Once you hear it, ordinary iron sounds dead.
+baltus_tolliver [smile]: Quite so, quite so. A passenger of distinction never truly steps off the platform, no matter how far inland they wander.
+-> baltus_river
+
+~ baltus_inquiry
+baltus_tolliver [neutral]: A man of commerce must watch the timetables, my dear friend. Freight moves by rail, by cart, and by darker conveyances when the moon allows.
+-> baltus_river
+
+~ baltus_deny
+baltus_tolliver [smile]: Of course, my mistake entirely. The moorland damp plays curious tricks on velvet and wool alike.
+-> baltus_river
+
+~ baltus_river
+baltus_tolliver [sly]: Still, should you ever long for that particular furnace heat again, look downriver. The Stranger keeps another engine churning inside a paddlewheel hull.
+Narrator: The lantern light catches the rim of his spectacles, turning his eyes into two flat coins of yellow glass.
+-> baltus_close
+
+~ baltus_close
+baltus_tolliver [neutral]: Do call on my counter whenever your purse feels heavy. We understand one another, you and I, and I always favor repeat travelers.
+set connection_deliverance
+quest connection_deliverance met
+attitude baltus_tolliver friendly
+-> END
+
+~ finneas_start
+finneas_trout [afraid]: Do not move your boots. Stand right where the lantern hits the gravel, if you please.
+Narrator: The schoolmaster squints past {name}'s shoulder at the flagstones, where {name}'s shadow stretches a thumb's breadth too late to match the step.
+finneas_trout [weary]: Merciful heaven, there really are two of you. Or rather, there is you, and there is the piece of you that slipped its leash.
+* Ask where he has seen your likeness before -> finneas_double
+* Ask what he means by a piece slipping loose -> finneas_grey
+* Tell him to mind his primers and chalk -> finneas_warn
+
+~ finneas_double
+finneas_trout [afraid]: Three nights before the butcherings down by the sheepfold, someone with your exact stride passed my schoolhouse window. No lantern, no footfall on thefrost, heading north-east.
+Player [neutral]: If it wore my face, it did not ask my leave to borrow it.
+-> finneas_grey
+
+~ finneas_warn
+finneas_trout [neutral]: Scold me if you must, yet a man who teaches children to count knows when one and one make a wrong number.
+-> finneas_grey
+
+~ finneas_grey
+finneas_trout [sly]: I have kept notes on what the old monographs call the Grey. When a soul enters Druskenvald crookedly, the reflection and the meat divide at the threshold.
+Narrator: Chalk dust puffs from his cuff as he traces a split circle in the air between you.
+-> finneas_close
+
+~ finneas_close
+finneas_trout [weary]: Watch the puddles and the dark windowpanes, traveler. Whatever walked north-east toward the hills is already practicing your handwriting.
+set connection_duality
+quest connection_duality met
+attitude finneas_trout friendly
+-> END
+
+~ jean_start
+jean_myriel [neutral]: Turn your wrist over, stranger. No, the left one, where the cuff is frayed.
+Narrator: Heat rolls off the forge behind him, carrying the sharp, coppery tang of quenched steel and old winter sweat.
+jean_myriel [weary]: I thought so. Only a Crimson aspirant holds a blade with the thumb high like a lancet, waiting for the vein to rise.
+* Show him the old scar along your palm -> jean_blood
+* Ask where a village smith learned the Rose's grip -> jean_past
+* Pull your hand back and say nothing -> jean_silent
+
+~ jean_blood
+Player [neutral]: The ink faded when I crossed the mist, but the calluses stayed. We were taught that iron is thirsty until it drinks.
+jean_myriel [sad]: Aye, and the thirst never leaves the metal once you wake it. I folded my share of red steel before I laid the tongs down for good.
+-> jean_monastery
+
+~ jean_past
+jean_myriel [weary]: I wore the briar cord at my waist twenty years back. Tempered three swords in warm basins before I realized what the steel was taking from the smith.
+-> jean_monastery
+
+~ jean_silent
+jean_myriel [neutral]: Keep your secrets if they warm you. An old anvil knows the hammer's weight whether the smith speaks or not.
+-> jean_monastery
+
+~ jean_monastery
+jean_myriel [angry]: Hear me plain: if you go looking for the brothers at Dawn's Gate, turn your heels back to the valley. That monastery is a slaughterhouse dressed in stained glass.
+-> jean_close
+
+~ jean_close
+jean_myriel [neutral]: Here in Wickermoor, I mend plowshares and horse shoes, and nobody bleeds for a hinge. Come by the forge if you want honest iron.
+set connection_immortality
+quest connection_immortality met
+attitude jean_myriel friendly
+-> END
+
+~ solomon_start
+solomon_roderick [angry]: Keep your hands where the torchlight can find them, stranger. You walk with your shoulders crooked, like someone used to bowing under a low lintel.
+Narrator: Stone dust coats the mason's knuckles, and his chisel taps a dry, steady warning against his leather apron.
+solomon_roderick [weary]: I know that stoop. Every night since the frost set in, a crooked man stands at the foot of my bed and bends his neck the exact same way.
+* Tell him you left the circle and broke your oath -> solomon_dream
+* Ask what else he sees in those nightmares -> solomon_coven
+* Say a stiff neck is no crime in a damp country -> solomon_stone
+
+~ solomon_dream
+Player [weary]: I knelt in the ashes once, mason, before I knew what was waiting behind the branches. I am done kneeling.
+solomon_roderick [neutral]: Are you now? That is easy to say in the square with lanterns burning, and harder when the thatch starts whispering at three in the morning.
+-> solomon_coven
+
+~ solomon_stone
+solomon_roderick [sly]: Damp gets in the knees, traveler, not the soul. You know the cadence of the old litany, do not lie to a man who cuts headstones.
+-> solomon_coven
+
+~ solomon_coven
+solomon_roderick [afraid]: In the dream, the Crooked Man counts his servants on long, knotted fingers. Three names belong to the coven out in the timber, and their sign is carved under my eaves.
+Narrator: He rubs his thumb across a scarred groove on his forearm, his breathing slow and gravelly.
+-> solomon_close
+
+~ solomon_close
+solomon_roderick [neutral]: Maybe a runaway hound is best for hunting the pack. Come talk to me by the yard when the square clears, and we will trade names.
+set connection_kindred
+quest connection_kindred met
+attitude solomon_roderick friendly
+-> END
+
+~ eleanor_start
+eleanor_heyling [sly]: Do not rub at your eyes like that, dear, you will only make the bruising darker. Printer's gall and graveyard tallow leave a very specific stain on the lids.
+Narrator: The bookseller smells of dry vellum, cloves, and mouse-chewed linen as she peers over her half-moon spectacles.
+eleanor_heyling [smile]: You have the sickness of the uncut folio. Someone has been reading chapters that were meant to stay sewn shut.
+* Recite the third footnote from the Verdigris Concord -> eleanor_cite
+* Ask if she carries anything worth the headache -> eleanor_places
+* Claim it is only lack of sleep from the road -> eleanor_sickness
+
+~ eleanor_cite
+Player [sly]: "Wherein the seventh bell is cast without a tongue, lest the parish hear the metal confess." Second edition, bound in salted eel-skin.
+eleanor_heyling [smile]: Oh, delightful! Though the third edition corrects "parish" to "abbey" just before the censor's fire took the press.
+-> eleanor_places
+
+~ eleanor_sickness
+eleanor_heyling [neutral]: Road dust washes off with cold water, my friend. A crooked footnote stays behind the brow-bone and ticks like a beetle in the wainscoting.
+-> eleanor_places
+
+~ eleanor_places
+eleanor_heyling [sly]: My shelves here are mostly almanacs and harmless pastorals, for my health's sake. What you crave is split three ways: an island, a sunken library, and a dead bailiff's ledger.
+Narrator: Her fingernail traces the gilt spine of a ledger on her counter, leaving a thin line in the dust.
+-> eleanor_close
+
+~ eleanor_close
+eleanor_heyling [smile]: Come back when you have a quiet hour and a dry candle. It is a rare treat to meet another reader who knows books can bite.
+set connection_malediction
+quest connection_malediction met
+attitude eleanor_heyling friendly
+-> END
+
+~ weston_start
+weston_murdoch [smile]: Well now, bless the road and the mud upon it! Look at the weave of that cloak, neighbors, that is provincial wool if ever I saw a loom.
+Narrator: The preacher's voice rings out warm as spiced cider across the cold cobbles, his hands open and ungloved.
+weston_murdoch [neutral]: You are no stranger to the crooked moon, friend, only new to our little hollow. Which province claimed your prayers before you walked into Wickermoor?
+* Sing him a harvesting round from the outer parishes -> weston_song
+* Tell him your home kept candles for every altar -> weston_faiths
+* Say one dark sky looks much like another -> weston_province
+
+~ weston_song
+Player [smile]: "A sheaf for the rain, a stone for the gate, and a song for the bird that wakes too late." We sang it whenever the wagons came in whole.
+weston_murdoch [smile]: Ha! Hear that cadence! Three faiths braided into four bars of music, and not a sour note among them.
+-> weston_close
+
+~ weston_faiths
+weston_murdoch [smile]: That is the grand old way of the provinces. An oak bough over the barn, a sunflower on the table, and a songbird carved into the cradle.
+Player [neutral]: Folks here in the village seem to prefer choosing a single fence and standing behind it.
+-> weston_close
+
+~ weston_province
+weston_murdoch [neutral]: Ah, the road makes cynics of us all when the boots wear thin. Still, your tongue carries the rhythm of the old parish bells.
+-> weston_close
+
+~ weston_close
+weston_murdoch [smile]: Our choir can always use a voice that knows Druskenvald is wider than one village square. Walk in grace, cousin, and my door is ever unlatched.
+set connection_rapture
+quest connection_rapture met
+attitude weston_murdoch friendly
+-> END

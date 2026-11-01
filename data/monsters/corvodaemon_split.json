@@ -1,0 +1,181 @@
+{
+  "id": "corvodaemon_split",
+  "name": "Corvodaemon (split from Raum)",
+  "source": {
+    "book": "CM2024",
+    "edition": "2024",
+    "page": 493,
+    "note": "The Crooked Moon (Legends of Avantris), appendix A. Numbers are the book's; the words are ours."
+  },
+  "size": "medium",
+  "type": "fiend",
+  "tags": [
+    "demon"
+  ],
+  "alignment": "chaotic evil",
+  "ac": 15,
+  "initiative": 2,
+  "hp": {
+    "average": 20,
+    "dice": "4d8"
+  },
+  "speed": {
+    "walk": 20,
+    "fly": 60
+  },
+  "abilities": {
+    "str": 16,
+    "dex": 15,
+    "con": 19,
+    "int": 12,
+    "wis": 11,
+    "cha": 19
+  },
+  "saves": {
+    "str": 5
+  },
+  "skills": {
+    "deception": 8,
+    "perception": 2,
+    "stealth": 4
+  },
+  "resistances": [
+    "acid",
+    "fire"
+  ],
+  "immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "poisoned"
+  ],
+  "senses": {
+    "darkvision": 120
+  },
+  "passive_perception": 12,
+  "languages": [
+    "Abyssal",
+    "Common"
+  ],
+  "telepathy": 90,
+  "cr": 4,
+  "xp": 1100,
+  "proficiency_bonus": 2,
+  "traits": [
+    {
+      "id": "ashen_forbiddance",
+      "name": "Ashen Forbiddance",
+      "action": "passive",
+      "summary": "Can't cross a line of ash made by burning feathers sprinkled with Holy Water.",
+      "text": "The corvodaemon cannot cross a line of ashes made by burning feathers and sprinkling them with Holy Water.",
+      "implemented": "text"
+    },
+    {
+      "id": "demonic_restoration",
+      "name": "Demonic Restoration",
+      "action": "passive",
+      "summary": "Killed outside the Abyss, it dissolves into ichor and revives at full Hit Points somewhere in the Abyss.",
+      "text": "If it dies anywhere but the Abyss, its body melts into ichor and it gains a new body at once, returning with all its Hit Points to some place in the Abyss.",
+      "implemented": "text"
+    },
+    {
+      "id": "devour_anima",
+      "name": "Devour Anima",
+      "action": "passive",
+      "summary": "A creature it drops to 0 HP is cursed until it regains any HP; its first failed death save then kills it outright.",
+      "text": "A creature the corvodaemon reduces to 0 Hit Points is cursed until it regains any Hit Points. When the cursed creature fails a Death Saving Throw at the start of its turn, it dies, however many failures it had.",
+      "implemented": "text"
+    },
+    {
+      "id": "mimicry",
+      "name": "Mimicry",
+      "action": "passive",
+      "summary": "Imitates any voice it has heard, or one known to a creature in its telepathy range; a DC 14 Wis (Insight) check sees through it.",
+      "text": "The corvodaemon can copy the voice of any creature it has heard, or of one that a creature within its telepathy range knows. A listener who succeeds on a DC 14 Wisdom (Insight) check can tell it is an imitation.",
+      "implemented": "text"
+    }
+  ],
+  "actions": [
+    {
+      "id": "multiattack",
+      "name": "Multiattack",
+      "kind": "multiattack",
+      "multiattack": [
+        {
+          "action": "beak",
+          "count": 1
+        },
+        {
+          "action": "claws",
+          "count": 1
+        }
+      ],
+      "summary": "Feeding Frenzy first if it has recharged, then one Beak and one Claws attack."
+    },
+    {
+      "id": "beak",
+      "name": "Beak",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 6,
+          "dice": "1d6+3",
+          "type": "piercing"
+        },
+        {
+          "average": 7,
+          "dice": "2d6",
+          "type": "psychic"
+        }
+      ],
+      "summary": "+5, 1d6+3 Piercing plus 2d6 Psychic."
+    },
+    {
+      "id": "claws",
+      "name": "Claws",
+      "kind": "melee",
+      "attack": {
+        "bonus": 5,
+        "reach": 5
+      },
+      "damage": [
+        {
+          "average": 8,
+          "dice": "2d4+3",
+          "type": "slashing"
+        }
+      ],
+      "on_hit": [
+        {
+          "do": "condition",
+          "condition": "prone",
+          "max_size": "medium",
+          "until": "permanent"
+        }
+      ],
+      "summary": "+5, 2d4+3 Slashing; a Medium or smaller target falls Prone."
+    },
+    {
+      "id": "feeding_frenzy",
+      "name": "Feeding Frenzy",
+      "kind": "special",
+      "recharge": "5-6",
+      "do": "feeding_frenzy",
+      "summary": "Recharge 5-6. Until its next turn its Speed doubles and it gains Temporary Hit Points equal to half the damage it deals.",
+      "text": "Used as part of its Multiattack. Until the start of its next turn the corvodaemon's Speed is doubled, and whenever it damages a creature it gains Temporary Hit Points equal to half the damage dealt."
+    }
+  ],
+  "ai_profile": "skirmisher",
+  "summary": "A scrap of Raum, shaped like a corvodaemon: weak, fast, and gone when the demon falls.",
+  "art": "vrock",
+  "art_height": 1.4,
+  "minion_of": "harvest_terror",
+  "minions": {
+    "when_it_falls": "vanish",
+    "narration": "The crow comes apart into black feathers."
+  }
+}

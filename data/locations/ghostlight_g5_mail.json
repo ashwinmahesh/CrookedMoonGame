@@ -197,6 +197,18 @@
       "call": "ghostlight_express/vagrant_intercom:router",
       "approach": 12,
       "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed"
+    },
+    {
+      "id": "g5_punched_stub",
+      "cell": [
+        2,
+        4
+      ],
+      "kind": "examine",
+      "label": "A punched ticket stub",
+      "model": "papers",
+      "dialogue": "ghostlight_express/punch:stub_mail",
+      "when": "flag.punch_asked and not flag.punch_found and not flag.stub_mail"
     }
   ],
   "npcs": [

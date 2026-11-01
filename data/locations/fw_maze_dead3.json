@@ -1,0 +1,99 @@
+{
+  "id": "fw_maze_dead3",
+  "name": "A Dead End of Black Stalks",
+  "region": "foxwillow",
+  "summary": "A Dead End of Black Stalks, in Foxwillow.",
+  "text": "The inside of A Dead End of Black Stalks.",
+  "map": {
+    "rows": [
+      "########################",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#....#............#....#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#..........##..........#",
+      "#......................#",
+      "#......................#",
+      "#....#............#....#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "#......................#",
+      "########################"
+    ],
+    "theme": "forest",
+    "light": "dim",
+    "outdoors": true
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "A Dead End of Black Stalks",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          22,
+          16
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      11,
+      14
+    ]
+  },
+  "exits": [
+    {
+      "id": "way_back",
+      "cell": [
+        11,
+        17
+      ],
+      "to": "fw_maze_j3",
+      "spawn": "from_dead",
+      "label": "Back to the clearing"
+    }
+  ],
+  "props": [
+    {
+      "id": "fw_dead3_end",
+      "cell": [
+        11,
+        8
+      ],
+      "kind": "decor",
+      "label": "A dead end of black stalks",
+      "call": "foxwillow/maze:dead_end3",
+      "approach": 5,
+      "call_when": "not flag.fw_dead3_seen"
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "encounters": [
+    {
+      "id": "fw_maze_dead3_fight",
+      "trigger": "dialogue",
+      "flag": "fw_maze_dead3_done",
+      "monsters": [
+        {
+          "monster": "crowstorm",
+          "cell": [
+            11,
+            7
+          ],
+          "name": "A storm of crows"
+        }
+      ]
+    }
+  ]
+}

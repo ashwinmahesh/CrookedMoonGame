@@ -1,0 +1,48 @@
+# Drafted by Gemini (R13 arrival), edited.
+
+~ start
+Narrator: From the ridge above Foxwillow, the smell of scorched thatch and roasted corn rises on a hot wind. Below you, the windmill turns like a wheel of fire while pumpkin-headed scarecrows brawl in the square.
+william_lodge [afraid]: Mercy on us, it is far worse than when I rode out. The whole town has gone mad with the flame.
+quest fields_of_the_crow burning
+set fw_arrived
+set fw_fire_start = now
+* Ask what we are looking at -> look
+* Ride in -> ride_in
+
+~ look
+william_lodge [afraid]: Neighbours set that mill ablaze in their feud, and now the straw folk are tearing each other apart. Mind your blades, though: there is a real neighbour trapped inside every pumpkin head.
+william_lodge [weary]: If a scarecrow body is burned to ash or smashed to pieces, the soul inside dies for good. Put them down gently if they come at us, or we are no better than the crows.
+set body_rule_told
+-> start
+
+~ ride_in
+Narrator: Hooves clatter down the stony lane into a haze of drifting cinders and flying straw. Through the roar of the burning sails, an old woman's shrill cry rings out from the mill yard.
+martha_langtree [afraid]: Help! Somebody help me, before the roof comes down on them!
+-> END
+
+~ martha_plea
+Narrator: Soot streaks Martha Langtree's proud face as she clutches at the mill yard fence, her eyes fixed on the blazing loft above.
+martha_langtree [afraid]: Strangers, please, you have the look of folks who can fight through fire! My son-in-law Jonah is trapped at the top of the windmill with his sister's scarecrow, and the stairs are catching fast.
+quest the_burning_mill burning
+* We will get him out -> martha_go
+* Ask who he is -> martha_who
+* [Persuasion DC 12] Ask what the quarrel was about -> martha_quarrel | martha_quarrel_fail
+
+~ martha_go
+martha_langtree [weary]: Bless you. Mind the smoke, and do not let that stubborn boy burn for an old woman's temper.
+set fw_mill_asked
+quest fields_of_the_crow investigating
+-> END
+
+~ martha_who
+martha_langtree [sad]: Jonah Sawyer, my daughter Adelaide's husband, a hot-headed boy with more pride than sense. He ran up into the loft after poor Liza's straw body when the fire took hold.
+-> martha_plea
+
+~ martha_quarrel
+martha_langtree [sad]: It was my dead husband Isaac's will, and my own stiff neck. Jonah swore I kept back what was owed to them, and I said hard words I would give my life to unsay.
+set secret_martha
+-> martha_plea
+
+~ martha_quarrel_fail
+martha_langtree [angry]: The rafters are falling in and you stand here asking after parish gossip? Save the boy first, and you can judge me when the ashes are cold!
+-> martha_plea

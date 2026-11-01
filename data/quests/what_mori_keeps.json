@@ -1,0 +1,35 @@
+{
+  "id": "what_mori_keeps",
+  "name": "What Mori Keeps",
+  "kind": "side",
+  "region": "wickermoor",
+  "giver": "mori_shade",
+  "summary": "Mori Shade stencils coffin plates for living villagers, at someone's monthly request.",
+  "stages": [
+    {
+      "id": "asked",
+      "journal": "Mori Shade showed us a drawer of coffin plates stencilled with the names of people who are still alive.",
+      "objectives": [
+        "Decide what to do with the list"
+      ],
+      "hint": "Decide what to do with the list, at the funeral home."
+    },
+    {
+      "id": "decided",
+      "journal": "We chose what to do with Mori's list. The next month's note has not come yet.",
+      "objectives": [
+        "See Mori again"
+      ],
+      "hint": "See Mori again once the Crooked House is behind us.",
+      "waits": {
+        "until": "flag.vessla_slain",
+        "text": "Mori's next note comes after the Crooked House is behind us."
+      }
+    },
+    {
+      "id": "done",
+      "journal": "The next note came, and it named someone we know.",
+      "ends": "success"
+    }
+  ]
+}

@@ -72,7 +72,6 @@ func _ready() -> void:
 	add_child(hud)
 	hud.build(st)
 	st.xp_gained.connect(hud.toast)   # XP levelling: a quest finished, a place found, a milestone (story/xp.gd)
-	GhostlightBoons.watch(st, Dice.roller, hud.toast)   # a haint freed heals the party (story/ghostlight_boons.gd)
 	D20Die.warm.call_deferred(hud)   # the big d20's shader and numerals, ready before its first roll
 	hud.leader_picked.connect(func(i: int) -> void:
 		if view != null:
@@ -729,6 +728,7 @@ func start_dialogue(ref: String, _npc_id: String) -> void:
 		if view != null:
 			view.set_speaking(speaker_id)   # a place's lights follow whoever speaks (CampaignLook.refresh)
 			FigureTalk.spoke(view, speaker_id)   # a 3D figure gestures as its line shows
+			TalkCamera.speaker(view, speaker_id)   # ... the camera comes in close on them, and they face it (BG3)
 			_keep_talking.call_deferred(speaker_id))   # ... and keeps nodding and gesturing while it is said
 	dialogue.scene_shown.connect(_scene_music)
 	var runner := DialogueRunner.new(st, Dice.roller, narrator)
@@ -886,19 +886,30 @@ func _open_loot(container_id: String, items: Array, gold: float) -> void:
 	loot.show_loot(st, container_id, items, gold, view)
 
 
+## The sting a fight's end plays: "defeat" for a wipe, nothing for a fight that ended with no winner (`ends_when`: a sleeper going
+## back to sleep, outcome "ended"), "victory" otherwise.
+static func sting_for(outcome: String) -> String:
+	if outcome == "ended":
+		return ""
+	return "defeat" if outcome == "defeat" else "victory"
+
+
 func _after_combat(outcome: String) -> void:
 	LayerFade.fade(self, hud, true, 0.45, 0.2)   # as the combat HUD fades out
-	Audio.sting("defeat" if outcome == "defeat" else "victory")
+	if sting_for(outcome) != "":
+		Audio.sting(sting_for(outcome))
 	Audio.play_music(_place_mood())
 	# A wipe in a final battle is no load screen, and a fight that destroys the villain is the last.
 	if Endings.after_fight(st, view.last_encounter, outcome) != "":
 		show_ending()
 		return
 	if outcome == "defeat":
-		# The Ghostlight Locomotive is retried at once from the clearing's rim (story/ghostlight_retry.gd); any other wipe is a game over.
-		if view != null and GhostlightRetry.applies(view.last_encounter):
-			_retry_fight.call_deferred()
-			return
+		# The fights in data/fight_retries.json (the Ghostlight Locomotive, the Crooked House) begin again at once; any other wipe is a game over.
+		if view != null:
+			var rule := FightRetry.rule_for(view.last_encounter, view.loc_id)
+			if not rule.is_empty():
+				_retry_fight.call_deferred(rule, view.last_encounter)
+				return
 		open_screen("game_over", 0)
 		return
 	if outcome == "victory":
@@ -920,12 +931,29 @@ func _after_combat(outcome: String) -> void:
 		_autosave.call_deferred()   # a won fight is a checkpoint
 
 
-## The party fell to the Ghostlight Locomotive: it gets back up and the fight begins again from the clearing's rim, the Vagrant's line over it.
-func _retry_fight() -> void:
-	GhostlightRetry.restore(st)
+## The party fell in a fight that retries (story/fight_retry.gd): it gets back up, the Narrator speaks, and the fight begins again, from the
+## rule's spawn when it names one (the room's entry), else where the party stands.
+func _retry_fight(rule: Dictionary, spec: Dictionary) -> void:
+	FightRetry.restore(st, rule)
 	_refresh()
-	view._say(GhostlightRetry.NARRATOR_KEY)
-	if not view.start_encounter(GhostlightRetry.RETRY_FIGHT):
+	var spawn := FightRetry.spawn_for(rule, view.loc_id, view.loc)
+	if spawn == "":
+		_begin_retry(rule, spec)
+		return
+	var here := view.loc_id
+	_covered(here, func() -> void:
+		enter_location(here, spawn)
+		_begin_retry.call_deferred(rule, spec))
+
+
+## The Narrator's line over the retry (the first key the Narrator has) and the fight again.
+func _begin_retry(rule: Dictionary, spec: Dictionary) -> void:
+	for key in FightRetry.keys(rule, spec):
+		if view._say(key):
+			break
+	if view.in_combat:
+		return   # arriving began it already
+	if not view.start_encounter(FightRetry.restart_id(rule, spec)):
 		open_screen("game_over", 0)
 
 

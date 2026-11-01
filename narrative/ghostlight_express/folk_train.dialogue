@@ -1,0 +1,25 @@
+# Drafted by Gemini (side quests batch 5: calloway), edited.
+
+~ calloway_start
+Narrator: Tarnished silver clinks against porcelain as the train sways. Across from a pale widow in mourning lace, an empty chair waits beside a cold soup tureen.
+mrs_calloway [weary]: Mind the tablecloth if you are only passing through. The dead have forgotten how to use a napkin, and my Arthur is late again.
+* Ask about her husband -> calloway_husband
+* Ask why she sets a place -> calloway_place
+* Sit and eat with her -> calloway_sit
+* Leave -> END
+
+~ calloway_husband
+mrs_calloway [weary]: Arthur promised to meet me on the eight-fifteen. That was a hundred years ago, give or take a winter, and I have heard every excuse in the book.
+mrs_calloway [sly]: First it was the cholera, then a misplaced headstone, and now he blames the fog. A man will die twice before he asks a porter for directions.
+-> calloway_start
+
+~ calloway_place
+mrs_calloway [neutral]: Because it would be rude not to, and I refuse to give him the satisfaction of catching me unprepared. If he walks in, the spoons will be straight.
+mrs_calloway [sad]: Besides, the dining car is draughty when you only lay a single plate. Two settings make it look like a delay rather than an abandonment.
+-> calloway_start
+
+~ calloway_sit
+Narrator: You lift a spoonful of broth that smells of cellar rain and old rosemary. It tastes of nothing on the tongue, yet warms your ribs like a remembered hearth.
+mrs_calloway [smile]: At least someone at this table still has an appetite and proper posture. Do not tell Arthur you took his chair, or he will sulk until judgment day.
+heal 1d4
+-> calloway_start

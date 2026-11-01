@@ -1,0 +1,125 @@
+{
+  "id": "wickermoor_inn_cellar",
+  "name": "The Inn's Cellar",
+  "region": "wickermoor",
+  "summary": "The Inn's Cellar, a room of Wickermoor Village.",
+  "text": "The inside of The Inn's Cellar: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "##################",
+      "#................#",
+      "#.===..==...===..#",
+      "#................#",
+      "#................#",
+      "#................#",
+      "#.=====..........#",
+      "#................#",
+      "#...........==...#",
+      "#...........==...#",
+      "#................#",
+      "#................#",
+      "#................#",
+      "##################"
+    ],
+    "theme": "tavern",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Inn's Cellar",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          16,
+          12
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      8,
+      11
+    ],
+    "from_stair": [
+      8,
+      12
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        8,
+        13
+      ],
+      "to": "wickermoor_green_queen_inn",
+      "spawn": "from_cellar",
+      "label": "Up to the taproom"
+    }
+  ],
+  "props": [
+    {
+      "id": "inn_cellar_casks",
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "examine",
+      "label": "Casks and kegs",
+      "model": "barrel",
+      "text": "Casks and kegs, their bungs wrapped in wet cloth, and one cask that is lighter than the rest."
+    },
+    {
+      "id": "inn_cellar_hams",
+      "cell": [
+        13,
+        3
+      ],
+      "kind": "examine",
+      "label": "Hung hams",
+      "model": "rope",
+      "text": "Hams hang from the beams in their muslin, and a ledger of what the inn owes is chalked on the wall."
+    },
+    {
+      "id": "inn_cellar_crate",
+      "cell": [
+        4,
+        7
+      ],
+      "kind": "examine",
+      "label": "A crate marked for the Green Queen",
+      "model": "case",
+      "text": "A crate with a Green Queen stamped on it, stuffed with straw, which tells you nothing about what it held."
+    }
+  ],
+  "npcs": [],
+  "rest": "safe",
+  "lights": [
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        13,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

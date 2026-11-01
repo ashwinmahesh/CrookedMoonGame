@@ -140,6 +140,93 @@
         {
           "monster": "wolf",
           "cell": [
+            40,
+            25
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            37,
+            23
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            36,
+            21
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            39,
+            23
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            34,
+            24
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            36,
+            25
+          ],
+          "name": "A hungry wolf",
+          "facing": "west"
+        },
+        {
+          "monster": "dire_wolf",
+          "cell": [
+            39,
+            20
+          ],
+          "name": "The pack leader",
+          "facing": "west"
+        },
+        {
+          "monster": "goat",
+          "cell": [
+            33,
+            27
+          ],
+          "name": "The baby goat",
+          "side": "neutral",
+          "catch": {
+            "flag": "goat_caught"
+          }
+        }
+      ],
+      "when": "flag.goat_fate == freed or flag.goat_fate == freed_eaten"
+    },
+    {
+      "id": "wm_first_sacrifice",
+      "trigger": "dialogue",
+      "flag": "wm_first_sacrifice_done",
+      "quest": {
+        "id": "wickermoor_arrival",
+        "stage": "welcome"
+      },
+      "monsters": [
+        {
+          "monster": "wolf",
+          "cell": [
             47,
             25
           ],
@@ -201,6 +288,87 @@
           "facing": "west"
         }
       ]
+    },
+    {
+      "id": "watch_arrest",
+      "trigger": "dialogue",
+      "text": "The watch closes in, spears levelled.",
+      "monsters": [
+        {
+          "monster": "scout",
+          "cell": [
+            20,
+            20
+          ],
+          "name": "Watchman 1"
+        },
+        {
+          "monster": "scout",
+          "cell": [
+            22,
+            21
+          ],
+          "name": "Watchman 2"
+        }
+      ]
+    },
+    {
+      "id": "wm_oak_wakes",
+      "trigger": "dialogue",
+      "flag": "wm_oak_won",
+      "quest": {
+        "id": "souls_of_the_oak",
+        "stage": "woken"
+      },
+      "monsters": [
+        {
+          "monster": "treant",
+          "cell": [
+            30,
+            31
+          ],
+          "name": "The Oak of Many Faces",
+          "boss": true
+        }
+      ]
+    },
+    {
+      "id": "wm_gus_marta",
+      "trigger": "dialogue",
+      "flag": "gus_marta_down",
+      "quest": {
+        "id": "gory_gus",
+        "stage": "marta"
+      },
+      "monsters": [
+        {
+          "monster": "spy",
+          "cell": [
+            9,
+            30
+          ],
+          "name": "Marta Dunn",
+          "steps_down": {
+            "npc": "marta_dunn"
+          }
+        },
+        {
+          "monster": "bandit",
+          "cell": [
+            4,
+            25
+          ],
+          "name": "Marta's hireling"
+        },
+        {
+          "monster": "bandit",
+          "cell": [
+            11,
+            24
+          ],
+          "name": "Marta's hireling"
+        }
+      ]
     }
   ],
   "exits": [
@@ -212,7 +380,14 @@
       ],
       "to": "wickermoor_green_queen_inn",
       "spawn": "default",
-      "label": "Enter The Green Queen Inn"
+      "label": "Enter The Green Queen Inn",
+      "sets_quest": {
+        "id": "wickermoor_arrival",
+        "stage": "free_roam",
+        "from": [
+          "parting"
+        ]
+      }
     },
     {
       "id": "trading_post",
@@ -315,6 +490,16 @@
       "label": "Enter Shade Funeral Home"
     },
     {
+      "id": "church",
+      "cell": [
+        8,
+        29
+      ],
+      "to": "wickermoor_church",
+      "spawn": "default",
+      "label": "Enter The Abandoned Church"
+    },
+    {
       "id": "shop_bakery",
       "cell": [
         34,
@@ -397,6 +582,7 @@
         "id": "wickermoor_arrival",
         "stage": "dinner",
         "from": [
+          "parting",
           "free_roam"
         ]
       }
@@ -418,6 +604,67 @@
       ],
       "to": "travel",
       "label": "The footbridge south"
+    },
+    {
+      "id": "orchard_path",
+      "cell": [
+        58,
+        4
+      ],
+      "to": "wickermoor_orchard",
+      "spawn": "from_village",
+      "label": "The path to Marl's orchard",
+      "when": "flag.picnic_sick and not flag.seed_done"
+    },
+    {
+      "id": "stable",
+      "cell": [
+        23,
+        38
+      ],
+      "to": "wickermoor_stable",
+      "spawn": "default",
+      "label": "Enter Marianna's Stable"
+    },
+    {
+      "id": "cottage_south_a",
+      "cell": [
+        30,
+        42
+      ],
+      "to": "wickermoor_cottage_south_a",
+      "spawn": "default",
+      "label": "Enter A Cottage on the South Lane"
+    },
+    {
+      "id": "cottage_south_b",
+      "cell": [
+        36,
+        42
+      ],
+      "to": "wickermoor_cottage_south_b",
+      "spawn": "default",
+      "label": "Enter A Cottage on the South Lane"
+    },
+    {
+      "id": "hut",
+      "cell": [
+        51,
+        8
+      ],
+      "to": "wickermoor_hut",
+      "spawn": "default",
+      "label": "Enter A Herder's Hut"
+    },
+    {
+      "id": "studio",
+      "cell": [
+        15,
+        18
+      ],
+      "to": "wickermoor_studio",
+      "spawn": "default",
+      "label": "Enter Gaston's Studio"
     }
   ],
   "id": "wickermoor_village",
@@ -533,6 +780,135 @@
   "name": "Wickermoor Village",
   "npcs": [
     {
+      "npc": "lottery_stranger",
+      "cell": [
+        26,
+        25
+      ],
+      "dialogue": "wickermoor/lottery:start",
+      "when": "flag.wm_lottery_open and not flag.wm_lottery_done"
+    },
+    {
+      "npc": "doris_squire",
+      "cell": [
+        28,
+        33
+      ],
+      "dialogue": "wickermoor/gus:solved",
+      "when": "flag.gus_marta_down and not flag.gus_solved"
+    },
+    {
+      "npc": "doris_squire",
+      "cell": [
+        27,
+        32
+      ],
+      "dialogue": "wickermoor/gus:doris_scene",
+      "when": "flag.gus_body_found and not flag.gus_marta_down and not flag.gus_solved"
+    },
+    {
+      "npc": "marta_dunn",
+      "cell": [
+        9,
+        30
+      ],
+      "dialogue": "wickermoor/gus:marta",
+      "when": "flag.gus_clue_hair and flag.gus_clue_axe and not flag.gus_marta_down"
+    },
+    {
+      "npc": "hilda_brom",
+      "cell": [
+        48,
+        28
+      ],
+      "dialogue": "wickermoor/letter:hilda",
+      "when": "flag.letter_asked and not flag.letter_outcome"
+    },
+    {
+      "npc": "hilda_brom",
+      "cell": [
+        48,
+        28
+      ],
+      "dialogue": "wickermoor/connections:hilda_lucan_start",
+      "when": "name:lucan_houndstooth and flag.vessla_slain and not flag.connection_slaughter"
+    },
+    {
+      "npc": "sister_rain",
+      "cell": [
+        33,
+        23
+      ],
+      "dialogue": "foxwillow/village_after:rain_recruits",
+      "when": "flag.raum_slain and not flag.sister_rain_recruited"
+    },
+    {
+      "npc": "sister_rain",
+      "cell": [
+        33,
+        23
+      ],
+      "dialogue": "wickermoor/connections:rain_tobin_start",
+      "when": "name:tobin_hayward and flag.vessla_slain and not flag.connection_rejuvenation"
+    },
+    {
+      "npc": "weston_murdoch",
+      "cell": [
+        7,
+        30
+      ],
+      "dialogue": "wickermoor/connections_custom:weston_start",
+      "when": "background:druskenvald_dweller and flag.vessla_slain and not flag.connection_rapture"
+    },
+    {
+      "npc": "old_rusty",
+      "cell": [
+        28,
+        24
+      ],
+      "dialogue": "crooked_house/find_my_son:start",
+      "when": "(flag.patrini_asked_find_son or flag.seance_done) and not flag.rusty_told_patrini",
+      "path": [
+        [
+          28,
+          24
+        ],
+        [
+          32,
+          23
+        ],
+        [
+          31,
+          26
+        ]
+      ],
+      "pause": 4
+    },
+    {
+      "npc": "old_rusty",
+      "cell": [
+        28,
+        24
+      ],
+      "dialogue": "wickermoor/fieldtrip:rusty_fact",
+      "when": "flag.field_trip_asked and not flag.field_rusty",
+      "path": [
+        [
+          28,
+          24
+        ],
+        [
+          32,
+          23
+        ],
+        [
+          31,
+          26
+        ]
+      ],
+      "pause": 4
+    },
+    {
       "npc": "old_rusty",
       "cell": [
         28,
@@ -563,6 +939,24 @@
       ],
       "dialogue": "wickermoor/sister_rain:start",
       "facing": "west"
+    },
+    {
+      "npc": "jeremiah_stover",
+      "cell": [
+        37,
+        22
+      ],
+      "dialogue": "foxwillow/village_after:jeremiah_reward",
+      "when": "flag.raum_slain and not flag.foxwillow_paid"
+    },
+    {
+      "npc": "jeremiah_stover",
+      "cell": [
+        37,
+        22
+      ],
+      "dialogue": "foxwillow/hook:jeremiah_start",
+      "when": "flag.wm_welcomed and not flag.foxwillow_asked"
     },
     {
       "npc": "jeremiah_stover",
@@ -626,6 +1020,33 @@
         23,
         37
       ],
+      "dialogue": "wickermoor/mare:return",
+      "when": "flag.mare_caught and not flag.mare_returned"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        23,
+        37
+      ],
+      "dialogue": "wickermoor/mare:start",
+      "when": "flag.wm_welcomed and not flag.mare_asked and not flag.mare_lost"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        23,
+        37
+      ],
+      "dialogue": "wickermoor/mare:progress",
+      "when": "flag.mare_asked and not flag.mare_caught and not flag.mare_lost"
+    },
+    {
+      "npc": "marianna_grey",
+      "cell": [
+        23,
+        37
+      ],
       "dialogue": "wickermoor/marianna_grey:start"
     },
     {
@@ -635,6 +1056,69 @@
         12
       ],
       "dialogue": "wickermoor/children:dani"
+    },
+    {
+      "npc": "sgt_gaunt",
+      "cell": [
+        26,
+        37
+      ],
+      "dialogue": "wickermoor/folk:gaunt_start",
+      "when": "flag.wm_welcomed"
+    },
+    {
+      "npc": "pip_oakum",
+      "cell": [
+        24,
+        20
+      ],
+      "dialogue": "wickermoor/fieldtrip:pip_button",
+      "when": "flag.field_trip_asked and not flag.field_pip"
+    },
+    {
+      "npc": "pip_oakum",
+      "cell": [
+        24,
+        20
+      ],
+      "dialogue": "wickermoor/folk:pip_start",
+      "when": "flag.wm_welcomed"
+    },
+    {
+      "npc": "brother_elias",
+      "cell": [
+        38,
+        3
+      ],
+      "dialogue": "wickermoor/elias:start",
+      "when": "flag.wm_welcomed"
+    },
+    {
+      "npc": "barnaby_pennywhistle",
+      "cell": [
+        33,
+        34
+      ],
+      "dialogue": "wickermoor/quack:settle",
+      "when": "flag.quack_known and not flag.quack_outcome"
+    },
+    {
+      "npc": "barnaby_pennywhistle",
+      "cell": [
+        33,
+        34
+      ],
+      "dialogue": "wickermoor/quack:verdict",
+      "when": "flag.quack_asked and not flag.quack_known"
+    },
+    {
+      "npc": "barnaby_pennywhistle",
+      "cell": [
+        33,
+        34
+      ],
+      "dialogue": "wickermoor/quack:pitch",
+      "when": "flag.act2_done >= 1"
     }
   ],
   "props": [
@@ -660,7 +1144,10 @@
       "span": [
         2,
         2
-      ]
+      ],
+      "call": "wickermoor/oak:start",
+      "approach": 8,
+      "call_when": "flag.wm_oak_ready and flag.old_ways_offended and not flag.wm_oak_woken and not flag.wm_oak_won"
     },
     {
       "id": "wm_oak_roots",
@@ -800,12 +1287,13 @@
     {
       "id": "wm_pyethymer_gate",
       "cell": [
-        55,
+        51,
         41
       ],
       "kind": "examine",
       "label": "The chained gate",
-      "model": "gate"
+      "model": "gate",
+      "dialogue": "wickermoor/pyethymer:gate"
     },
     {
       "id": "wm_sacrifice_doll",
@@ -835,6 +1323,127 @@
       "kind": "examine",
       "label": "A scowling marble knight",
       "model": "statue_headless"
+    },
+    {
+      "id": "wm_gus_body",
+      "cell": [
+        29,
+        33
+      ],
+      "kind": "examine",
+      "label": "A body before the oak",
+      "model": "grave",
+      "when": "flag.gus_body_found and not flag.gus_solved",
+      "dialogue": "wickermoor/gus:body"
+    },
+    {
+      "id": "wm_oak_roots_call",
+      "cell": [
+        27,
+        30
+      ],
+      "kind": "decor",
+      "label": "The oak's bark, faces turning",
+      "model": "tree_marked",
+      "call": "wickermoor/oak:freed",
+      "approach": 8,
+      "call_when": "flag.wm_oak_won and not flag.wm_oak_freed"
+    },
+    {
+      "id": "wm_gaston_easel",
+      "cell": [
+        19,
+        16
+      ],
+      "kind": "examine",
+      "label": "A painter's easel",
+      "model": "table_round",
+      "checks": [
+        {
+          "id": "gaston_paintings",
+          "skill": "perception",
+          "dc": 12,
+          "label": "Look at the paintings",
+          "success": {
+            "flag": "cult_proof_gaston",
+            "text": "Every canvas has a small hare tucked into a corner, in the same hand, as though the painter did not know he was doing it."
+          },
+          "failure": {}
+        }
+      ]
+    },
+    {
+      "id": "wm_mare_tracks",
+      "cell": [
+        20,
+        3
+      ],
+      "kind": "examine",
+      "label": "Hoofprints in the mud",
+      "model": "rocks",
+      "dialogue": "wickermoor/mare:tracks",
+      "when": "flag.mare_asked and not flag.mare_found and not flag.mare_lost"
+    },
+    {
+      "id": "wm_mare",
+      "cell": [
+        36,
+        2
+      ],
+      "kind": "examine",
+      "label": "A grey mare in a thicket",
+      "model": "horse",
+      "dialogue": "wickermoor/mare:mare_there",
+      "when": "flag.mare_found and not flag.mare_caught"
+    },
+    {
+      "id": "wm_goat",
+      "cell": [
+        31,
+        26
+      ],
+      "kind": "examine",
+      "label": "The village goat",
+      "model": "horse",
+      "scale": 0.5,
+      "dialogue": "wickermoor/misdelivered:goat",
+      "when": "flag.misdelivered_asked and not flag.letter_goat"
+    },
+    {
+      "id": "wm_bell_cart",
+      "cell": [
+        30,
+        44
+      ],
+      "kind": "examine",
+      "label": "The bell on its cart",
+      "model": "cart",
+      "dialogue": "wickermoor/bell:cart",
+      "when": "flag.bell_asked and not flag.bell_done and not flag.bell_abandoned"
+    },
+    {
+      "id": "wm_bell_rope",
+      "cell": [
+        44,
+        26
+      ],
+      "kind": "examine",
+      "label": "The clocktower's bell-rope",
+      "model": "rope",
+      "dialogue": "wickermoor/fieldtrip:rope",
+      "when": "flag.field_trip_asked and not flag.field_rope"
+    },
+    {
+      "id": "wm_shared_stove",
+      "cell": [
+        26,
+        20
+      ],
+      "kind": "examine",
+      "label": "The shared stove",
+      "model": "hearth",
+      "dialogue": "wickermoor/soup:stove",
+      "when": "flag.soup_asked and not flag.soup_stove"
     }
   ],
   "region": "wickermoor",
@@ -905,6 +1514,10 @@
       46,
       38
     ],
+    "from_church": [
+      8,
+      30
+    ],
     "from_shop_bakery": [
       34,
       17
@@ -936,8 +1549,37 @@
     "from_inn_yard": [
       24,
       34
+    ],
+    "from_orchard": [
+      57,
+      4
+    ],
+    "from_stable_yard": [
+      23,
+      37
+    ],
+    "from_stable": [
+      23,
+      37
+    ],
+    "from_cottage_south_a": [
+      30,
+      43
+    ],
+    "from_cottage_south_b": [
+      36,
+      43
+    ],
+    "from_hut": [
+      51,
+      9
+    ],
+    "from_studio": [
+      16,
+      18
     ]
   },
   "summary": "The hub: a village round a trodden square, an oak of carved faces, a clocktower, the Silverbell along the south and the crooked estate on its hill.",
-  "text": "Timber-framed houses with steep roofs crowd round a trodden square where a faceless statue stands on one side and a gnarled oak, bark carved all over with faces, on the other. A clocktower rises over the village and the river runs dark along its southern edge."
+  "text": "Timber-framed houses with steep roofs crowd round a trodden square where a faceless statue stands on one side and a gnarled oak, bark carved all over with faces, on the other. A clocktower rises over the village and the river runs dark along its southern edge.",
+  "watch": "doris_squire"
 }

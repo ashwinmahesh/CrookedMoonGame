@@ -68,7 +68,8 @@
       ],
       "kind": "examine",
       "label": "Narrow aisles of books",
-      "model": "bookcase"
+      "model": "bookcase",
+      "text": "Narrow aisles of old paper; the books lean on one another like tired neighbours."
     },
     {
       "id": "bookstore_ladder",
@@ -78,7 +79,8 @@
       ],
       "kind": "examine",
       "label": "A rolling ladder",
-      "model": "bookcase"
+      "model": "bookcase",
+      "text": "A rolling ladder, worn smooth by a reader who climbs it more often than she eats."
     },
     {
       "id": "bookstore_writing",
@@ -88,7 +90,8 @@
       ],
       "kind": "examine",
       "label": "A table of pens and paper",
-      "model": "table_round"
+      "model": "table_round",
+      "text": "A table of pens, ink and thick paper, laid out as if for a letter the writer has not yet decided to send."
     }
   ],
   "npcs": [
@@ -98,7 +101,29 @@
         6,
         5
       ],
-      "dialogue": "wickermoor/eleanor_heyling:start"
+      "dialogue": "wickermoor/fair_price:eleanor_visit",
+      "when": "flag.price_asked and not flag.price_ledger_seen"
+    },
+    {
+      "npc": "eleanor_heyling",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/connections_custom:eleanor_start",
+      "when": "background:scholar_of_the_forbidden and flag.vessla_slain and not flag.connection_malediction"
+    },
+    {
+      "npc": "eleanor_heyling",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/eleanor_heyling:start",
+      "hours": [
+        7,
+        19
+      ]
     },
     {
       "npc": "margery_heyling",

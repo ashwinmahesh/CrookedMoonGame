@@ -57,7 +57,41 @@
       "label": "Out to the village"
     }
   ],
-  "props": [],
+  "props": [
+    {
+      "id": "shop_butcher_block",
+      "cell": [
+        3,
+        2
+      ],
+      "kind": "examine",
+      "label": "The chopping block",
+      "model": "table_round",
+      "text": "The chopping block is scored and scrubbed, and a prayer is carved into its side in a plain hand."
+    },
+    {
+      "id": "shop_butcher_hooks",
+      "cell": [
+        9,
+        2
+      ],
+      "kind": "examine",
+      "label": "Hanging carcasses",
+      "model": "rope",
+      "text": "A carcass swings on its hook in a draught from the pens, and the draught smells of animals."
+    },
+    {
+      "id": "shop_butcher_pens",
+      "cell": [
+        4,
+        9
+      ],
+      "kind": "examine",
+      "label": "The pens' gate",
+      "model": "gate",
+      "text": "The gate to the pens is latched with a bit of green ribbon, as a kindness to whoever waits beyond."
+    }
+  ],
   "npcs": [
     {
       "npc": "siv_harga",
@@ -65,7 +99,29 @@
         6,
         5
       ],
-      "dialogue": "wickermoor/siv_harga:start"
+      "dialogue": "wickermoor/soup:siv_talk",
+      "when": "flag.soup_asked and not flag.soup_siv"
+    },
+    {
+      "npc": "siv_harga",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/feast:siv_visit",
+      "when": "flag.feast_asked and not flag.siv_roll_carried"
+    },
+    {
+      "npc": "siv_harga",
+      "cell": [
+        6,
+        5
+      ],
+      "dialogue": "wickermoor/siv_harga:start",
+      "hours": [
+        7,
+        19
+      ]
     },
     {
       "npc": "mrs_oakum",
@@ -73,7 +129,29 @@
         9,
         5
       ],
-      "dialogue": "wickermoor/mrs_oakum:start"
+      "dialogue": "wickermoor/oakum:choose",
+      "when": "flag.oakum_known and not flag.oakum_outcome"
+    },
+    {
+      "npc": "mrs_oakum",
+      "cell": [
+        9,
+        5
+      ],
+      "dialogue": "wickermoor/oakum:start",
+      "when": "flag.act2_done >= 1 and not flag.oakum_asked"
+    },
+    {
+      "npc": "mrs_oakum",
+      "cell": [
+        9,
+        5
+      ],
+      "dialogue": "wickermoor/mrs_oakum:start",
+      "hours": [
+        7,
+        19
+      ]
     },
     {
       "npc": "ulf_harga",
@@ -81,7 +159,11 @@
         3,
         8
       ],
-      "dialogue": "wickermoor/children:ulf"
+      "dialogue": "wickermoor/children:ulf",
+      "hours": [
+        7,
+        19
+      ]
     }
   ],
   "rest": "risky",

@@ -1,0 +1,54 @@
+# R12: Keziah Endicott's shade in the gallery (H4). Speaker keziah_endicott. Two uses: the dream-paintings on the walls (prop h4_paintings calls keziah:paintings)
+# and the peacock fight (ch_peacock), where her shade shows up every round on initiative 20. The Rapture touchpoint for the custom hero is not here (incitements).
+# FINAL-WORDED: every Narrator and character line below is voiced; no line changes once the voice lane starts (new lines are fine).
+# peacock_round holds FIVE standalone lines, one per round in order: the wiring lifts them as the round event's `text` cycle (combat.md, Round events); this
+# file is the source, so the text must match it exactly. peacock_pull and peacock_return go with the DC 10 Charisma save that draws a hero into a painting
+# and drops them out again; peacock_fall plays when the peacock crumbles (the shade goes with it). None of these nodes sets a flag; none needs a roll except the
+# optional Perception look at the paintings.
+# Drafted by Gemini (gemini_r12_keziah/brief.md, reply_raw.json), edited; see that folder's README.md.
+
+~ paintings
+Narrator: Those canvases show dream-skies and shores that ain't on any map, the oil still glistenin' wet in the gloom.
+Narrator: The longer you stand there, the more the deep violets and greens start to shift and curl.
+keziah_endicott [sly]: My dears, you do have an eye for brushwork. A painter always knows when she is being studied.
+interject class:wizard: The pigment is bound with an illusion, and an unsteady one at that.
+interject class:ranger: Something small just moved behind that painted ridge.
+-> menu
+
+~ menu
+* [Perception DC 12] Look closer at the painted skies. -> paintings_look_ok | paintings_look_miss
+* Step away from the paintings. -> END
+
+~ paintings_look_ok
+Narrator: Tucked inside a storm cloud, then another, then a dozen more, little narrow faces with pink eyes are watchin' you right back.
+keziah_endicott [sly]: They crawl into the varnish after dark, darling, and one can never quite keep the vermin out of one's skies.
+keziah_endicott [sly]: I tolerate the little beasts as one tolerates lodgers, though I do not care to say who sent them.
+-> menu
+
+~ paintings_look_miss
+Narrator: You lean in close to the canvas, reckonin' you saw a twitch, but there is only thick oil paint and brushwork.
+-> menu
+
+# The round lines, in order, one a round (the fifth is the last; after it the wiring may begin again at the first).
+~ peacock_round
+keziah_endicott [smile]: Do mind the tail, my pets. I spent a whole autumn setting those feathers just so.
+keziah_endicott [sly]: Chin up, darling, and square your shoulders. Your stance is ruining the composition of the room.
+keziah_endicott [smile]: Heh heh heh. Marble keeps its poise so much better than warm flesh ever could.
+keziah_endicott [sly]: You are all so deliciously lively, dears. What a pity to waste such bright colour on a cold stone bird.
+keziah_endicott [angry]: Hold still, for heaven's sake. A proper portrait requires patience, and I have all the time there is.
+
+~ peacock_pull
+keziah_endicott [sly]: Oh, that posture will do nicely. Into the frame with you, darling.
+Narrator: Five icy fingers catch your collar from the empty air, and the room tilts until you are fallin' into a sky reeking of wet oil.
+
+~ peacock_return
+keziah_endicott [weary]: Forgive me, dear, the light on your face did not work at all. Out you pop.
+Narrator: The painted clouds peel back like soaked wallpaper and dump you onto the cold floorboards with the bitter taste of linseed on your tongue.
+
+~ peacock_fall
+keziah_endicott [sly]: A fine bit of work, I suppose, for such terribly crude hands.
+keziah_endicott [sad]: Pity about the bird. That peacock was always the best-behaved of all my pets.
+keziah_endicott [smile]: Farewell for a spell, darlings. The paintings will keep, as they always do.
+Narrator: The marble bird gives one last crack and goes to gravel, a rain of grey pebbles ringin' sharp across the floor.
+Narrator: Up near the ceiling, that pale grinning shade thins out like tallow smoke from a snuffed candle until the gallery is empty.
+-> END

@@ -1,0 +1,135 @@
+{
+  "id": "wickermoor_church",
+  "name": "The Abandoned Church",
+  "region": "wickermoor",
+  "summary": "The Abandoned Church, a room of Wickermoor Village.",
+  "text": "The inside of The Abandoned Church: candle-lit, close and creaking.",
+  "map": {
+    "rows": [
+      "####################",
+      "#.......____.......#",
+      "#.......____.......#",
+      "#..................#",
+      "#..................#",
+      "#..====......====..#",
+      "#..................#",
+      "#........==........#",
+      "#..====......====..#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "#..................#",
+      "####################"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false
+  },
+  "areas": [
+    {
+      "id": "room",
+      "name": "The Abandoned Church",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          18,
+          14
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      9,
+      13
+    ]
+  },
+  "exits": [
+    {
+      "id": "door",
+      "cell": [
+        9,
+        15
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_church",
+      "label": "Out to the village"
+    }
+  ],
+  "props": [
+    {
+      "id": "church_altar",
+      "cell": [
+        9,
+        2
+      ],
+      "kind": "examine",
+      "label": "The new altar",
+      "model": "altar",
+      "text": "A plain new altar of oak, and behind it a rough niche where something is meant to stand."
+    },
+    {
+      "id": "church_pews",
+      "cell": [
+        4,
+        6
+      ],
+      "kind": "examine",
+      "label": "Rough new pews",
+      "model": "chairs",
+      "text": "Rough new pews smelling of resin, and a hymnal on every seat with its corners softened by hands."
+    },
+    {
+      "id": "church_birds",
+      "cell": [
+        15,
+        6
+      ],
+      "kind": "examine",
+      "label": "The rafters, full of birds",
+      "model": "crow",
+      "text": "The rafters are full of songbirds that sit and watch you without a sound, as if waiting for the right note."
+    },
+    {
+      "id": "church_hare_mark",
+      "cell": [
+        5,
+        6
+      ],
+      "kind": "examine",
+      "label": "A chalk hare on the wall",
+      "model": "papers",
+      "dialogue": "wickermoor/fieldtrip:chalk",
+      "when": "flag.field_trip_asked and not flag.field_chalk"
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        15,
+        5
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

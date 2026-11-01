@@ -1,0 +1,77 @@
+# Drafted by Gemini (side quests batch 4: curses), edited.
+
+~ start
+jonah_sawyer [weary]: That corn demon is dead and gone, yet the Langtree milk still turns clabber in the pail and the heifers won't stand.
+jonah_sawyer [angry]: Ain't field magic doing this. I seen a red chalk ring behind Malachai Voss's chopping block last week, smelling of tallow and old spite.
+* We will look at it -> accept
+* It is not our trouble -> END
+
+~ accept
+jonah_sawyer [neutral]: Obliged to you. If Martha loses the rest of her stock after losing the fields, it will break what is left of her.
+quest two_curses asked
+set curses_asked
+-> END
+
+~ circle
+Narrator: Behind the salt barrels, a ring of greasy red chalk bites into the floorboards. At its heart sits a twist of cow hair tied with butcher's twine, humming like a trapped hornet.
+* [Arcana DC 13] Unpick the hex -> unpick_ok | unpick_fail
+* [Religion DC 12] Bless the ground over it -> bless_ok | bless_fail
+* Ask Malachai himself -> END
+
+~ unpick_ok
+Narrator: {name} parts the knotted twine with a thumbnail and scrapes the key-mark backward. The grease-chalk goes grey as wood ash, and the sour heat leaves the room.
+set curses_outcome = "unpicked"
+quest two_curses done
+gold +25
+-> END
+
+~ unpick_fail
+Narrator: The red chalk spits a grease-fire spark across {name}'s knuckles. The knot tightens on itself; you will need a prayer to soften it, or the hand that drew it.
+-> END
+
+~ bless_ok
+Narrator: At {name}'s quiet word, the tallow stench thins and the hornet-hum drops to a dull rattle. The spite in the floorboards is slackened, though only Malachai's own hand will rub it clean.
+set curses_blessed
+-> END
+
+~ bless_fail
+Narrator: The words hang flat in the smell of brine and blood. The red ring keeps its heat, stubborn as the man who chalked it.
+-> END
+
+~ malachai
+malachai_voss [angry]: Nosey, aren't you? Old Arthur Langtree laughed at my father's skinny mutton in front of the whole market forty years back, and Martha laughed loudest.
+malachai_voss [sly]: Their fine cattle have had the dry-rot ever since I learned the red chalk. Let them drink sour whey like we did.
+* Ask Martha to apologise -> apology
+* [Intimidation DC 13] Warn him -> warn_ok | warn_fail
+* Tell him the hex hurt more than the Langtrees -> truth
+* Leave -> END
+
+~ apology
+Narrator: Martha comes to the threshold with soot still in her shawl, looking at the floorboards rather than the cleaver.
+martha_langtree [weary]: I was twenty and a fool, Malachai, and my father was a proud man. If my word pays a forty-year debt, you have it.
+malachai_voss [neutral]: Hmph. Took you long enough. He scuffs the red chalk out with the heel of his boot.
+set curses_outcome = "apology"
+quest two_curses done
+gold +20
+standing newcomers +1
+-> END
+
+~ warn_ok
+malachai_voss [afraid]: All right, keep your hands off your iron. The town has had enough graves dug this week without mine.
+Narrator: He drops onto one knee and smears the red ring out with his butcher's sleeve until nothing remains but a greasy streak.
+set curses_outcome = "warned"
+quest two_curses done
+gold +10
+-> END
+
+~ warn_fail
+malachai_voss [sly]: I dress hogs bigger than you before breakfast, stranger. Threaten me again and see if my thumb slips.
+-> malachai
+
+~ truth
+malachai_voss [weary]: What do you mean, the whole street? The Lodge children buy from Martha's pail, and I sell no beef when the herds waste.
+malachai_voss [sad]: A man nurses a grudge so long he forgets what else it eats. Pass me that mop bucket, then, and I will wash the boards.
+set curses_outcome = "truth"
+quest two_curses done
+gold +15
+-> END

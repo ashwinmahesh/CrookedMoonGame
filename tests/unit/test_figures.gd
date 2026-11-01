@@ -23,11 +23,15 @@ func _ids() -> Array:
 	return out
 
 
-## The monsters: entries that carry a sprite fallback or lie over a base body.
+## The monsters: entries that carry a sprite fallback or lie over a base body, other than the bodies made heroes wear
+## (the manifest's "bodies"; test_hero_creator checks those).
 func _monster_ids() -> Array:
+	var bodies: Array = []
+	for by: Variant in (ArtPaths.json(FigureModels.MANIFEST_JSON).get("bodies", {}) as Dictionary).values():
+		bodies.append_array((by as Dictionary).values())
 	var out: Array = []
 	for id: String in _entries():
-		if not id in _ids():
+		if not id in _ids() and not id in bodies:
 			out.append(id)
 	return out
 
@@ -40,7 +44,9 @@ func test_every_figure_opens_with_its_clips() -> void:
 		var fig := DirectionalSprite.create(DirectionalSprite.frames_for(id), height) as ModelFigure
 		assert_true(fig != null, "%s: drawn as a 3D figure" % id)
 		add_child(fig)
-		assert_between(ModelFigure.rest_box(fig.model).size.y * fig.model.scale.y, height - 0.01, height + 0.01, "%s: as tall as it is drawn" % id)
+		# As it was sized: its own body, with a head made apart from it at rest (once a frame has run the head follows
+		# the idle pose, started at a random point), and not a ghost over a shoulder, which stands above it.
+		assert_between(fig._rest_height * fig.model.scale.y, height - 0.01, height + 0.01, "%s: as tall as it is drawn" % id)
 		assert_true(fig.has_role("walk"), "%s: walks" % id)
 		if not id in QUADRUPEDS:
 			for role: String in ["idle", "attack", "talk", "greet", "run", "hurt", "die"]:
@@ -62,7 +68,7 @@ func test_the_companions_and_people_wear_their_figures() -> void:
 
 
 func test_every_monster_entry_has_a_sprite_to_wear_until_its_model_comes() -> void:
-	assert_true(_monster_ids().size() >= 11, "the haint and its six dressings, the trainhopper, stoker, passenger and crawler")
+	assert_true(_monster_ids().size() >= 12, "the six haints and the wayward haint, the trainhopper, stoker, passenger, crawler and the locomotive")
 	for id: String in _monster_ids():
 		var entry := _entries()[id] as Dictionary
 		var sprite := str(entry.get("sprite", ""))
@@ -111,7 +117,8 @@ func test_monsters_stand_at_their_height_and_wear_models_that_are_there() -> voi
 		var fig := DirectionalSprite.create(DirectionalSprite.frames_for(id), height) as ModelFigure
 		assert_true(fig != null, "%s: drawn as a 3D figure" % id)
 		add_child(fig)
-		assert_true(fig.has_role("walk"), "%s: walks" % id)
+		if not bool((_entries()[id] as Dictionary).get("static", false)):
+			assert_true(fig.has_role("walk"), "%s: walks" % id)   # (a `static` one, the locomotive, has no rig: it glides)
 		fig.free()
 
 
@@ -148,3 +155,19 @@ func _collect_foe_arts(node: Variant, out: Dictionary) -> void:
 	elif node is Array:
 		for v: Variant in node:
 			_collect_foe_arts(v, out)
+
+
+## Tripo's greet raises the right hand: a figure holding something there (a sword, a cane, a lantern, a syringe) would
+## seem to aim it, so it greets with the nod instead; the empty-handed wave.
+func test_figures_holding_something_greet_with_a_nod() -> void:
+	for id: String in ["rook_coldwake", "silas_vane", "cordelia_skein", "tobin_hayward", "lucan_houndstooth", "the_vagrant",
+			"phillip_druskenvald"]:
+		var fig := DirectionalSprite.create(DirectionalSprite.frames_for(id), 1.2) as ModelFigure
+		add_child(fig)
+		assert_eq(str((fig._roles["greet"] as Array)[0]["name"]), "agree", "%s nods" % id)
+		fig.free()
+	for id: String in ["delphine_ravelle", "adela_druskenvald"]:
+		var fig := DirectionalSprite.create(DirectionalSprite.frames_for(id), 1.2) as ModelFigure
+		add_child(fig)
+		assert_eq(str((fig._roles["greet"] as Array)[0]["name"]), "greet_01", "%s waves" % id)
+		fig.free()

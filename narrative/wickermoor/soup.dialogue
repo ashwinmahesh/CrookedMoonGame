@@ -1,0 +1,63 @@
+# Drafted by Gemini (side quests act 2 batch 1: soup), edited.
+
+~ holly_start
+Narrator: Flour dust hangs thick in the bakery's hot air, smelling of焦ed crust and boiled turnip water.
+holly_aster [weary]: Half the village is shivering under blankets, and I am boiling turnip skins like a pauper. My bread will fill bellies, sure, but fever needs proper marrow broth.
+holly_aster [angry]: Siv Harga has a barrel of beef shanks sitting in salt, yet the stubborn ox locks his door when he sees my apron.
+* We will talk to Siv -> holly_accept
+* Not now -> END
+
+~ holly_accept
+holly_aster [smile]: Bless your boots. Tell him the kettle is for the sick beds, not a prize ribbon, though he still does not know how to season a crust.
+quest soup_for_the_sick asked
+set soup_asked
+-> END
+
+~ siv_talk
+Narrator: Siv's cleaver thuds into the salted tallow of the chopping block, while a fat black centipede curls dead in the sawdust at your feet.
+siv_harga [angry]: If Holly Aster sent you after my soup bones, you can march right back to her ovens. The Founders' Feast is barely cold, and my pride is not on the clearance hook.
+siv_harga [neutral]: A man's marrow is his craft, strangers, and I do not hand mine over to a woman who measures salt by the pinch.
+* [if flag.feast_winner == siv] Remind him he won, and can afford to be generous -> siv_agrees
+* [if flag.feast_winner == holly] [Persuasion DC 12] Admit Holly won, and ask for charity -> siv_agrees | siv_refuses
+* [if flag.feast_winner == both] Remind him they shared the table -> siv_agrees
+* Pay for the bones (ten gold) -> siv_paid
+* Leave -> END
+
+~ siv_agrees
+siv_harga [weary]: Bah, take the crate by the door before I find a use for it. Tell her to skim the tallow properly, or I will come down to the Round and do it myself.
+set soup_siv
+-> END
+
+~ siv_refuses
+siv_harga [angry]: Charity is for church mice, not bakers who smirk behind their loaves. Put ten gold on the counter for the weight, or try me when my temper cools.
+-> END
+
+~ siv_paid
+siv_harga [sly]: Ten coin is fair weight for prime knuckle and rib, plague or no plague. Haul them out, and tell Holly the best part of her soup walked out of my shop.
+gold -10
+set soup_siv
+-> END
+
+~ stove
+Narrator: Out in the Round, an iron camp stove belches damp oak smoke between two crowded cots.
+holly_aster [angry]: Move your kettle three inches left, Siv, or my loaves will draw damp from your lid.
+siv_harga [angry]: Your tin pans are hogging the grate, woman, and broth takes the centre coal or it never clears.
+* Split the shifts, bread first -> stove_ok
+* Let them argue -> stove_ok
+
+~ stove_ok
+holly_aster [weary]: Fine, so long as nobody touches my damper.
+siv_harga [neutral]: Good enough, now pass the ladle and stop hovering over my shanks.
+set soup_stove
+-> END
+
+~ serve
+Narrator: Rich beef steam curls across the Founder's Round, cutting through the sour damp of fever blankets.
+holly_aster [smile]: Look at old Granny Pike taking a full bowl with a crust dipped in. Siv's bones did the trick, though you will never hear me tell him so before Sundown.
+holly_aster [neutral]: Take this from the parish kitty for your trouble, friends. You kept two stubborn fools from starving their neighbours.
+quest soup_for_the_sick done
+set soup_done
+gold +20
+standing old_ways +1
+standing patient_lady +1
+-> END
