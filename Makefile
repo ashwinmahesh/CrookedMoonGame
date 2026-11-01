@@ -161,6 +161,12 @@ palette:
 capture:
 	$(UNSEEN) res://tools/capture/capture.tscn -- --scene=$(or $(SCENE),res://tools/capture/hillside_capture.tscn) --out=$(CURDIR)/captures/$(or $(NAME),capture) --frames=$(or $(FRAMES),90) $(if $(FOCUS),--focus=$(FOCUS),) $(if $(LOCATION),--location=$(LOCATION),) $(if $(ENCOUNTER),--encounter=$(ENCOUNTER),) $(if $(LOAD),--load=$(LOAD),) $(if $(DIALOGUE),--dialogue=$(DIALOGUE),) $(if $(BEATS),--beats=$(BEATS),) $(if $(MAP),--map,) $(if $(SHOP),--shop=$(SHOP),) $(ARGS) < /dev/null
 
+## The hotbar's, party frames' and lists' icon tiles from the core's art/icons.json (game-icons silhouettes, CC BY 3.0):
+## make icons, or KIND=spells|items|features for one kind. Commit only the tiles you added or changed, with their .import.
+icons:
+	$(G) --headless --script res://addons/dnd_core/tools/art/build_icons.gd $(if $(KIND),-- --kind=$(KIND),) 2>&1 | $(LOGCHK)
+	$(MAKE) import
+
 ## Lays a place painted as land into a location's grid (the engine's world/authoring/sketch_tool.gd, plan E29): HEIGHT= a
 ## height picture (black low, white TOP= feet up, default 30), LAYOUT= the layout in the key's flat colours, SIZE=WxD squares,
 ## LOC=data/locations/<id>.json to write (refuses to close a walked square unless FORCE=1), PREVIEW=captures/<x>.png.
