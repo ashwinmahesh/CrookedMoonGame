@@ -1,0 +1,84 @@
+# Banter in The Crooked House (story/banter.gd plays this file only where a place's region is crooked_house): one exchange between two or three companions about what is in
+# front of them in one place, gated on that place (`at:`) and on the story's state so a remark never runs ahead of the chapter. Played now and then on entering
+# an area, once each; an exchange nobody present can speak comes out empty and is skipped.
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+
+~ druskenvald_estate_01_tobin_silas_lucan
+if name:tobin_hayward and name:silas_vane and name:lucan_houndstooth and at:druskenvald_estate and not flag.vessla_slain
+interject name:tobin_hayward: Look at those kitchen gardens, Silas, the rows are tidy enough, yet that dead tree in the corner has a canker right down to the taproot.
+interject name:silas_vane: Never mind the cabbages, Tobin, the whole manor's lit up like a riverside gaming hall and the front gate's standing wide open in a storm.
+interject name:lucan_houndstooth: Hush now, the dark has teeth by that black pond, friends. Dreadfang has his nose to the wet grass, and the spoor here smells of old pond-weed.
+interject name:tobin_hayward: Lucan, my field mice just bolted down into my waistcoat. Something under this mud does not want to be dug up.
+interject name:silas_vane: When the house leaves the door unlatched and the lamps trimmed on a night like this, friend, the table's marked before you even sit down.
+endif
+-> END
+
+~ crooked_house_first_02_delphine_cordelia
+if name:delphine_ravelle and name:cordelia_skein and at:crooked_house_first and not flag.seance_done
+interject name:delphine_ravelle: Mind the seams, darling, not a single doorframe in this foyer sits on the true bias. Even the chandelier is leaning like a drunk in the cheap seats.
+interject name:cordelia_skein: It is the gallery that intrigues me, Delphine. Every portrait in it is hung with such care, and every face seems to be looking at us.
+interject name:delphine_ravelle: Oh, the brushwork on that one's button eyes is pure slander, and Your Foolishness says the painter couldn't frame a joke, let alone a headliner.
+interject name:cordelia_skein: Fascinating pathology in the parlour as well, darling. The dining room is laid for a banquet, yet the air tastes entirely of cold tallow and rot.
+interject name:delphine_ravelle: Every wall in this crooked box has eyes on it, Cordelia, and I do not care to perform for a house that already knows the curtain call.
+endif
+-> END
+
+~ crooked_house_first_03_rook_silas
+if name:rook_coldwake and name:silas_vane and at:crooked_house_first and flag.seance_done and not flag.vessla_slain
+interject name:rook_coldwake: The spirit board on that parlour table is closed out, Silas, yet the floor slabs are still pitched four inches off level. The docket isn't clear.
+interject name:silas_vane: Tell's in the twitch, friend, and that rocking chair on the porch hasn't stopped moving since the little pointer slid over to goodbye.
+interject name:rook_coldwake: Unruly timber, that is. We had a polite word with the dead, logged the complaint, and the staircase is still groaning like a wet cellar.
+interject name:silas_vane: That's because the parlour ghost was just the shill at the door, Rook, and the real house is still holding all the bone cards upstairs.
+interject name:rook_coldwake: Then we go up and serve the notice properly. Settle down now, and remind me to draw a breath before we hit the landing.
+endif
+-> END
+
+~ crooked_house_second_04_silas_delphine
+if name:silas_vane and name:delphine_ravelle and at:crooked_house_second and not flag.vessla_slain
+interject name:silas_vane: Sloping hall, grandfather clock still ticking on the landing, and a bathroom painted red from tub to tile. I don't like the odds up here, Delphine.
+interject name:delphine_ravelle: Don't look at the bath, darling, look in the children's room. Two little beds, a big toy chest, and a wooden doll staring from the floor.
+interject name:silas_vane: Leave the doll where it sits. My ribs are rattling like dice in a cup, and that closet door is standing an inch ajar.
+interject name:delphine_ravelle: He says you're lying, and he doesn't even have eyes, Silas, you are looking right at that writhing bed in the master room.
+interject name:silas_vane: Nobody sleeps on a mattress that bucks like a landed pike, Delphine. Whatever paid the tab for these rooms didn't leave when the kids grew up.
+endif
+-> END
+
+~ crooked_house_second_05_cordelia_silas
+if name:cordelia_skein and name:silas_vane and at:crooked_house_second and flag.jasper_slain and not flag.vessla_slain
+interject name:cordelia_skein: Well, Filthy Jasper has ceased his twitching on the master bed, Silas, though the linen's residual humours are still remarkably warm.
+interject name:silas_vane: Put a chalk mark inside my ribs for the ugly brute, Cordelia, and don't ask me to touch that mattress while the floorboards are still humming.
+interject name:cordelia_skein: Your pulse would be racing if you had one, and the grandfather clock is ticking half a beat faster.
+interject name:silas_vane: House always wins, unless you burn the house, and we just cleared the big table only to find the walls still sweating cold grease.
+interject name:cordelia_skein: Quite so, the pathology of this floor was merely using him as a vessel. See how the two small beds in the nursery room haven't settled an inch.
+endif
+-> END
+
+~ crooked_house_third_06_lucan_cordelia
+if name:lucan_houndstooth and name:cordelia_skein and at:crooked_house_third and not flag.vessla_slain
+interject name:lucan_houndstooth: Good heavens, Cordelia, observe these sagging shelves. Every spine has lost its posture, and the dust lies a full grade deep.
+interject name:cordelia_skein: Never mind the shelves, Lucan, inspect the mahogany crib and the cradle in the nursery. Both are riddled with tiny, uniform perforations, like a beetle assay.
+interject name:lucan_houndstooth: Prime specimen of a scholarly library gone to seed, too, if you please, with a draft coming straight through walls that ought to be solid stone.
+interject name:cordelia_skein: That wind is descending from the ceiling over the hearth. Notice the stain in the plaster, it has a square seam cut far too neatly.
+interject name:lucan_houndstooth: Dreadfang is growling at the lectern, Cordelia, and my ears are flat back. Whatever nests above that square seam is no gentleman of the hunt.
+endif
+-> END
+
+~ crooked_house_attic_07_rook_delphine
+if name:rook_coldwake and name:delphine_ravelle and at:crooked_house_attic and not flag.vessla_slain
+interject name:rook_coldwake: Mind the turf, Delphine, the floorboards past this warded door are carpeted with loose teeth. Gross violation of parish sanitation, and terrible underfoot.
+interject name:delphine_ravelle: Teeth I can step over, Rook, it is the six empty circles cut into the landing and that cauldron of red soup that ruin the billing.
+interject name:rook_coldwake: Hot copper and wet fur in the rafters, and the beams are scratched raw. My knuckles are going soft just standing in the steam.
+interject name:delphine_ravelle: Look by the cauldron, darling, Phillip and Adela are bound tight to the floor. Keep your shield up, if anything reaches for my threads, we burn the roof.
+endif
+-> END
+
+~ druskenvald_estate_08_rook_lucan
+if name:rook_coldwake and name:lucan_houndstooth and at:druskenvald_estate and flag.vessla_slain
+interject name:rook_coldwake: Well now, Vessla Browntooth is off the shift log, and the manor walls have squared themselves up straight. Decent plumb line on the porch again.
+interject name:lucan_houndstooth: Indeed, Rook, the storm has broken over the hill road, and the air by the well tastes of clean rain rather than sour cellar rot.
+interject name:rook_coldwake: Two barns still leaning a touch, and the drainage round that black pond wants ditching, though at least the front door hangs true on its hinges.
+interject name:lucan_houndstooth: Dreadfang has sat down properly by the porch steps, if you please. A seven out of ten for the estate's recovery, once the mud dries.
+interject name:rook_coldwake: Best chalk a breath in the ledger while the night is quiet, Lucan. One docket cleared, and a whole valley of unsealed stone waiting below.
+endif
+-> END

@@ -1,0 +1,74 @@
+# Banter in The Crimson Monastery (story/banter.gd plays this file only where a place's region is crimson_monastery): one exchange between two or three companions about what is in
+# front of them in one place, gated on that place (`at:`) and on the story's state so a remark never runs ahead of the chapter. Played now and then on entering
+# an area, once each; an exchange nobody present can speak comes out empty and is skipped.
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+
+~ mon_ground_01_silas_cordelia
+if name:silas_vane and name:cordelia_skein and at:mon_ground and not flag.renathyr_slain
+interject name:silas_vane: Spiked black walls, red glass in every window, and the air smells like a butcher's tab gone sour. I'd say the house is marking the deck, friend.
+interject name:cordelia_skein: Look at those courtyard statues, Silas, weeping fresh humours down the stonework without a single visible pump. The viscosity is a bit thin, though the sulfur masks it.
+interject name:silas_vane: And hall doors with the spikes pointed inward, so you know the management really trusts the regulars. Let me get this bitter herb censer swinging before my ribs stain pink.
+interject name:cordelia_skein: Do leave me an unspoiled drop off the stone pulpit first, darling. I have never run an assay on masonry that bleeds on command.
+interject name:silas_vane: Take a whole vial if you want, just don't ask me to double down on anything sitting in that Dead Larder.
+endif
+-> END
+
+~ mon_upper_02_rook_tobin
+if name:rook_coldwake and name:tobin_hayward and at:mon_upper and not flag.renathyr_slain
+interject name:rook_coldwake: This balustrade over the courtyard is set square, Tobin, though the red glass ruins the light for proper ledger work. Too much glare on the docket.
+interject name:tobin_hayward: Never mind the glass, Rook, smell those candles by the lecterns. That is not honest hive-wax, that is tallow rendered from fat, and it is smoking foul.
+interject name:rook_coldwake: Aye, it leaves a greasy soot on the blank books and the masonry alike. Poor ventilation in the upper halls, and two chambers locked tight against inspection.
+interject name:tobin_hayward: Keep two paces between me and those wicks while we pass the scriptorium. I would rather chew fifty-year ink than let a fat-spark catch in my collar.
+interject name:rook_coldwake: Settle down now, I will walk on the candle side and keep the tower shield between the flame and your straw.
+endif
+-> END
+
+~ mon_stables_03_lucan_delphine
+if name:lucan_houndstooth and name:delphine_ravelle and at:mon_stables and not flag.renathyr_slain
+interject name:lucan_houndstooth: Good heavens, Delphine, observe those boxes built into the dead trees beyond the yard. Bat hounds, if my nose has not lost its schooling in the horse-stink.
+interject name:delphine_ravelle: Charming accommodations, Lucan, though a crate of bloody treats is hardly top billing for the talent. Look at those little eyes opening in the bark like cheap seats.
+interject name:lucan_houndstooth: Their kennel posture is terribly cramped, and I must deduct a full point for housing flying specimens above a prisoners' wagon. Barnaby is quite put out by the smell.
+interject name:delphine_ravelle: Your Foolishness just whispered a pun about barking up the wrong tree, and I am half tempted to throw him in the water trough.
+interject name:lucan_houndstooth: Please restrain yourself, the warhorses are nervous enough with all this iron in the air.
+endif
+-> END
+
+~ mon_bell_tower_04_delphine_cordelia
+if name:delphine_ravelle and name:cordelia_skein and at:mon_bell_tower and not flag.renathyr_slain
+interject name:delphine_ravelle: Two floors of cold spiral stone and now a landing carpeted in fouled straw and gnawed bones. Mind the seams, darling, this staircase is a tragedy for velvet.
+interject name:cordelia_skein: My six eyes are dilating just looking at the bacterial culture in those dog beds, Delphine. One could harvest three distinct pathologies before reaching the twenty-foot ladder.
+interject name:delphine_ravelle: Keep your glass vials corked until we are through that trapdoor, because the stink of wet bat is already flattening my voice.
+interject name:cordelia_skein: Notice the draft coming through the slit window over the valley. It keeps the air cool enough that the marrow in those bones has barely begun to sour.
+interject name:delphine_ravelle: You have a crooked idea of a silver lining, Cordelia, now hold the rungs steady so I do not catch my hem.
+endif
+-> END
+
+~ mon_sanctum_05_rook_silas
+if name:rook_coldwake and name:silas_vane and at:mon_sanctum and not flag.renathyr_slain
+interject name:rook_coldwake: A round altar on a stone island, and a moat of open blood with no grating or drainage slope. That is a slip hazard and a gross violation of parish decency.
+interject name:silas_vane: Look at the stake they piled up, Rook, dried roses by the bushel and a chandelier burning like a high-roller's table. Tell's in the twitch, though, this whole room is a rig.
+interject name:rook_coldwake: There is a journal left open on the stone and a painting of an elven woman set right beside the channel. No proper clerk leaves paperwork inches from an unsealed trough.
+interject name:silas_vane: He painted her face like he was holding a winning hand and lost it on the turn of a single card.
+interject name:rook_coldwake: Mind the turf by the edge there, Silas, polished stone takes a slick film when the air is this damp.
+endif
+-> END
+
+~ mon_cathedral_moon_06_cordelia_lucan
+if name:cordelia_skein and name:lucan_houndstooth and at:mon_cathedral_moon and not flag.renathyr_slain
+interject name:cordelia_skein: A fascinating sight in this dome, Lucan, how the blood moon pours through the red and violet glass like a stained slide. Even the spilled humours on the floor look calibrated.
+interject name:lucan_houndstooth: Hush now, the dark has teeth under a roof like this, Cordelia, and the scent of old iron is pressing rather hard behind my eyes. Keep your voice steady, if you please.
+interject name:cordelia_skein: Your pulse is climbing past a hundred, though your diction remains admirably crisp. Shall I stand between you and the weeping statue while you take your notes?
+interject name:lucan_houndstooth: Thank you, yes, I would hate to let a feral snarl ruin my grading of the eastern altar's symmetry. Barnaby is already hiding behind my boots.
+endif
+-> END
+
+~ mon_ground_07_delphine_rook
+if name:delphine_ravelle and name:rook_coldwake and at:mon_ground and flag.renathyr_slain
+interject name:delphine_ravelle: The house lights are still wound-red, Rook, and the roses on the altar haven't wilted an inch, yet the whole octagon feels like a hall after the curtain drops.
+interject name:rook_coldwake: The racket has gone out of the stonework, Delphine. My brass door-knocker hasn't given a single twitch since we came back through the courtyard.
+interject name:delphine_ravelle: Even the gate veteran looks like an usher waiting for someone to sweep up the programmes. I almost miss the tension, darling, it kept my stitching tight.
+interject name:rook_coldwake: Quiet is good for the mortar, even when the walls have spikes on the wrong side. I ought to remember to draw a breath before we clear the gate.
+interject name:delphine_ravelle: Take two, Rook, and I will pluck a dry rose off the stone pulpit for my lining before we leave the cheap seats behind.
+endif
+-> END

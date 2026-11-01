@@ -379,3 +379,120 @@ func test_banter_plays_only_in_its_act_and_only_what_the_party_can_say() -> void
 		for line in lines:
 			assert_true(str(line["speaker_id"]) in ["rook_coldwake", "silas_vane"], str(line))
 	assert_eq(n, 1, "Rook and Silas have one act-one exchange to themselves")
+
+
+# --- Region banter (narrative/banter/<region>.dialogue) ----------------------------------------------------------------------
+
+const REGIONS: Array[String] = ["ghostlight_express", "wickermoor", "crooked_house", "foxwillow", "crimson_monastery", "drowned_crossroads", "skitterdeep_mine",
+	"memorys_rest", "dawns_gate", "hartsblight_forest", "maidenmist_cemetery", "crooked_nightmare"]
+
+
+## {location id: region} for every location in data/locations.
+func _location_regions() -> Dictionary:
+	var out := {}
+	var dir := DirAccess.open("res://data/locations")
+	for f in dir.get_files():
+		if f.ends_with(".json"):
+			var d: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/locations/" + f))
+			if d is Dictionary:
+				out[str((d as Dictionary).get("id", ""))] = str((d as Dictionary).get("region", ""))
+	return out
+
+
+## A state in which `cond`'s story gate holds: every positive flag set (a count for a `>=`), the place named by its first `at:`, the whole company in the party.
+func _state_for(cond: String) -> StoryState:
+	var st := StoryState.new()
+	for id in IDS:
+		st.party.append(TestChars.pregen(id, 5))
+	var at := RegEx.create_from_string("\\bat:([a-z0-9_]+)").search(cond)
+	if at != null:
+		st.location = at.get_string(1)
+	for m in RegEx.create_from_string("(not\\s+)?flag\\.([a-z0-9_]+)(?:\\s*(>=|>|==)\\s*(\\d+))?").search_all(cond):
+		if m.get_string(1) != "":
+			continue
+		st.set_flag(m.get_string(2), maxi(int(m.get_string(4)), 1) if m.get_string(3) != "" else true)
+	return st
+
+
+func test_every_region_has_a_banter_file_of_six_to_eight_exchanges_about_its_own_places() -> void:
+	var where := _location_regions()
+	for region in REGIONS:
+		var df := DialogueFile.load_key("banter/" + region)
+		assert_true(df != null, region)
+		assert_true(df.errors.is_empty(), "%s: %s" % [region, str(df.errors)])
+		var nodes := _raw_nodes("res://narrative/banter/%s.dialogue" % region)
+		assert_true(nodes.size() >= 6 and nodes.size() <= 8, "%s: six to eight exchanges (%d)" % [region, nodes.size()])
+		var heard := {}
+		for node: String in nodes:
+			var lines := nodes[node] as Array
+			assert_true(str(lines[0]).begins_with("if "), "%s:%s opens with an if" % [region, node])
+			var cond := str(lines[0]).substr(3)
+			var places := RegEx.create_from_string("\\bat:([a-z0-9_]+)").search_all(cond)
+			assert_true(places.size() >= 1, "%s:%s names its place: %s" % [region, node, cond])
+			for m in places:
+				assert_eq(str(where.get(m.get_string(1), "(no such place)")), region, "%s:%s: %s is in this region" % [region, node, m.get_string(1)])
+			var said := 0
+			var spoken := {}
+			for l: Variant in lines:
+				var m := RegEx.create_from_string("^interject name:([a-z0-9_]+): ").search(str(l))
+				if m != null:
+					said += 1
+					spoken[m.get_string(1)] = true
+					heard[m.get_string(1)] = true
+			assert_true(spoken.size() >= 2 and spoken.size() <= 3, "%s:%s has two or three speakers" % [region, node])
+			assert_true(said >= 4 and said <= 9, "%s:%s says 4 to 9 lines (%d)" % [region, node, said])
+			for who: String in spoken:
+				assert_true(cond.contains("name:" + who), "%s:%s opens by naming %s" % [region, node, who])
+		for id in IDS:
+			assert_true(heard.has(id), "%s: %s speaks somewhere" % [region, id])
+
+
+func test_a_region_exchange_plays_only_in_its_place_with_its_speakers_and_once_its_story_state_holds() -> void:
+	for region in REGIONS:
+		var nodes := _raw_nodes("res://narrative/banter/%s.dialogue" % region)
+		for node: String in nodes:
+			var cond := str((nodes[node] as Array)[0]).substr(3)
+			var st := _state_for(cond)
+			assert_true(StoryConditions.check(cond, st), "%s:%s holds in its own state: %s" % [region, node, cond])
+			var elsewhere := _state_for(cond)
+			elsewhere.location = "wickermoor_village" if st.location != "wickermoor_village" else "foxwillow"
+			assert_false(StoryConditions.check(cond, elsewhere), "%s:%s holds only in its place" % [region, node])
+			var short := _state_for(cond)
+			short.party.remove_at(short.party.size() - 1 if not StoryState.member_matches(short.party[short.party.size() - 1], "name:rook_coldwake") else 0)
+			var missing := ""
+			for id in IDS:
+				if not short.party.any(func(c: Character) -> bool: return c.id == id):
+					missing = id
+			if cond.contains("name:" + missing):
+				assert_false(StoryConditions.check(cond, short), "%s:%s needs %s" % [region, node, missing])
+			# A remark gated on a flag being unset stops the moment the story moves on.
+			for m in RegEx.create_from_string("not\\s+flag\\.([a-z0-9_]+)").search_all(cond):
+				var later := _state_for(cond)
+				later.set_flag(m.get_string(1), true)
+				assert_false(StoryConditions.check(cond, later), "%s:%s stops once %s" % [region, node, m.get_string(1)])
+
+
+func test_region_banter_plays_through_the_banter_engine_in_its_region_only() -> void:
+	for region in REGIONS:
+		var nodes := _raw_nodes("res://narrative/banter/%s.dialogue" % region)
+		var first := str((nodes[nodes.keys()[0]] as Array)[0]).substr(3)
+		var st := _state_for(first)
+		var b := Banter.new(7)
+		# Banter.next plays this region's files and the party's; ask for another region and this one's stay silent.
+		var other := "dawns_gate" if region != "dawns_gate" else "foxwillow"
+		var got := false
+		for _i in 40:
+			var lines := b.next(st, region)
+			if lines.is_empty():
+				break
+			got = true
+			for line in lines:
+				assert_true(str(line["speaker_id"]) in IDS, "%s: %s" % [region, str(line)])
+		assert_true(got, "%s plays something in its own first state" % region)
+		var st2 := _state_for(first)
+		var b2 := Banter.new(7)
+		for _i in 40:
+			var lines := b2.next(st2, other)
+			if lines.is_empty():
+				break
+			assert_false(str(lines[0]["text"]) in FileAccess.get_file_as_string("res://narrative/banter/%s.dialogue" % region), "%s's lines don't play in %s" % [region, other])
