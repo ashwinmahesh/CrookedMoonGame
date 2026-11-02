@@ -4,34 +4,70 @@
   "region": "wickermoor",
   "summary": "The Mayor's House, a room of Wickermoor Village.",
   "text": "The inside of The Mayor's House: candle-lit, close and creaking.",
+  "rest": "risky",
   "map": {
-    "rows": [
-      "############################",
-      "#..........................#",
-      "#..........................#",
-      "#..==========.....====.....#",
-      "#..........................#",
-      "#..........................#",
-      "#..........................#",
-      "#....==..==...........##.###",
-      "#..........................#",
-      "#..........................#",
-      "#..........................#",
-      "#..........................#",
-      "#############..#############",
-      "#.............#............#",
-      "#..========...#............#",
-      "#.............#..==...==...#",
-      "#..........................#",
-      "#.............#............#",
-      "#..======.....#............#",
-      "#.............#............#",
-      "#..........................#",
-      "############################"
-    ],
     "theme": "manor",
     "light": "dim",
-    "outdoors": false
+    "outdoors": false,
+    "rows": [
+      "############################                 ############",
+      "#..........................#                 #..........#",
+      "#..........................#                 #..........#",
+      "#..==========.....====.....#                 #..........#",
+      "#..........................#                 #..........#",
+      "#..........................#                 #....==....#",
+      "#..........................#                 #....==....#",
+      "#....==..==...........##.###                 #..........#",
+      "#..........................#                 #####......#",
+      "#..........................#                 #..........#",
+      "#..........................#                 #..........#",
+      "#..........................#                 ############",
+      "#############..#############                             ",
+      "#.............#............#                             ",
+      "#..========...#............#                             ",
+      "#.............#..==...==...#                             ",
+      "#..........................#                             ",
+      "#.............#............#                             ",
+      "#..======.....#............#                             ",
+      "#.............#............#                             ",
+      "#..........................#                             ",
+      "############################                             "
+    ],
+    "floors": [
+      {
+        "x0": 0,
+        "width": 28,
+        "height_ft": 0,
+        "id": "wickermoor_mayors_house",
+        "offset": [
+          0,
+          0
+        ]
+      },
+      {
+        "x0": 29,
+        "width": 28,
+        "height_ft": 15,
+        "id": "wickermoor_clock_chamber",
+        "offset": [
+          45,
+          0
+        ],
+        "bed": "clock_chamber"
+      }
+    ],
+    "stairs": [
+      {
+        "from": [
+          24,
+          7
+        ],
+        "to": [
+          53,
+          7
+        ]
+      }
+    ]
   },
   "areas": [
     {
@@ -47,38 +83,20 @@
           20
         ]
       ]
-    }
-  ],
-  "spawns": {
-    "default": [
-      13,
-      19
-    ],
-    "from_clock": [
-      24,
-      7
-    ]
-  },
-  "exits": [
-    {
-      "id": "door",
-      "cell": [
-        13,
-        21
-      ],
-      "to": "wickermoor_village",
-      "spawn": "from_mayors_house",
-      "label": "Out to the village"
     },
     {
-      "id": "clock_stair",
-      "cell": [
-        24,
-        8
-      ],
-      "to": "wickermoor_clock_chamber",
-      "spawn": "from_stair",
-      "label": "The clocktower stair"
+      "id": "room_clock",
+      "name": "The Clock Chamber",
+      "cells": [
+        [
+          46,
+          1
+        ],
+        [
+          55,
+          10
+        ]
+      ]
     }
   ],
   "props": [
@@ -114,6 +132,59 @@
       "label": "A portrait of the founder, face turned to the wall",
       "model": "book",
       "text": "A portrait of the founder hangs with its face turned to the wall, as though someone had been told off."
+    },
+    {
+      "id": "clock_chamber_works",
+      "cell": [
+        50,
+        5
+      ],
+      "kind": "examine",
+      "label": "The clock's works",
+      "model": "case",
+      "text": "Brass wheels and a great slow pendulum; the whole room breathes with it and nothing here is in a hurry."
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        7,
+        7
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        21,
+        7
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        48,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        54,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
     }
   ],
   "npcs": [
@@ -235,27 +306,54 @@
       "when": "flag.wm_welcomed"
     }
   ],
-  "rest": "risky",
-  "lights": [
+  "exits": [
     {
+      "id": "door",
       "cell": [
-        7,
-        7
+        13,
+        21
       ],
-      "kind": "candle",
-      "bright_ft": 15,
-      "dim_ft": 30,
-      "color": "candle"
+      "to": "wickermoor_village",
+      "spawn": "from_mayors_house",
+      "label": "Out to the village"
     },
     {
+      "id": "clock_stair",
       "cell": [
-        21,
-        7
+        24,
+        8
       ],
-      "kind": "candle",
-      "bright_ft": 15,
-      "dim_ft": 30,
-      "color": "candle"
+      "to": "wickermoor_mayors_house",
+      "spawn": "clock_from_stair",
+      "label": "The clocktower stair"
+    },
+    {
+      "id": "door_clock",
+      "cell": [
+        53,
+        8
+      ],
+      "to": "wickermoor_mayors_house",
+      "spawn": "from_clock",
+      "label": "Down the stair"
     }
-  ]
+  ],
+  "spawns": {
+    "default": [
+      13,
+      19
+    ],
+    "from_clock": [
+      24,
+      7
+    ],
+    "clock_default": [
+      50,
+      9
+    ],
+    "clock_from_stair": [
+      53,
+      7
+    ]
+  }
 }
