@@ -1,0 +1,21 @@
+{
+  "about": "The 3D overworld pilot (world/overworld/): one stretch of the travel map (data/travel, Wickermoor Hollow) raised as land on Terrain3D (addons/terrain_3d, MIT). window is the part of the travel map's picture it covers ([x0, y0, x1, y1] in the map's 0-1 positions); size is that window's width in metres (1 world unit = 1 m here, not a 5 ft square: the overworld has no battle grid). Each place's position comes from the travel map; `places` here only says how the land lies round it: lie is hollow (a bowl it sits in), hill (a rise it stands on) or flat, with its radius and depth or rise in metres, and lights (warm lamps a village shows at night). lake is a basin of still water. Roads follow the travel map's roads between places inside the window. trees and plants are the game's own plant models (art/plants) by how many per hectare of woods or open ground. rocks are Poly Haven's scanned rocks (art/sourced/polyhaven_forest).",
+  "window": [0.08, 0.1, 0.6, 0.62],
+  "size": 1024,
+  "relief": {"hills": 42.0, "hill_scale": 260.0, "ridge": 70.0, "ridge_band": [0.0, 0.22], "woods": 0.12, "woods_scale": 180.0},
+  "places": {
+    "ghostlight_wreckage": {"lie": "hollow", "radius": 70, "depth": 14},
+    "wickermoor_village": {"lie": "hollow", "radius": 95, "depth": 8, "lights": 14},
+    "druskenvald_estate": {"lie": "hill", "radius": 120, "rise": 38, "lights": 4},
+    "sk_hills_trail": {"lie": "flat", "radius": 40},
+    "sk_camp": {"lie": "flat", "radius": 50, "lights": 2},
+    "dawns_gate": {"lie": "flat", "radius": 70, "lights": 8},
+    "hartsblight_forest": {"lie": "flat", "radius": 40}
+  },
+  "lake": {"at": [0.2, 0.3], "radius": 85, "depth": 9},
+  "road_width": 4.0,
+  "road_reach": 14.0,
+  "trees": {"woods": [["oak_a", 26], ["oak_b", 22], ["dead_a", 9], ["dead_b", 7], ["spruce_b", 10]], "open": [["oak_a", 0.8], ["dead_c", 0.6]], "height": [11.0, 17.0]},
+  "plants": {"woods": [["fern_a", 120], ["bracken", 90], ["bush_a", 30]], "open": [["grass_dry", 260], ["grass_a", 180], ["heather", 60]], "reach": 260.0},
+  "rocks": {"models": ["rock_moss_a", "rock_moss_b", "boulder"], "per_hectare_slope": 6, "per_hectare_open": 0.6, "size": [1.5, 4.5]}
+}
