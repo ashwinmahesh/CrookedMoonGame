@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Writes Wickermoor Village (R11): the town (its map came from the sketch tool: docs/plans/wickermoor, make sketch), its rooms, its people,
 the arrival quest and the flags. Run from the repo root after `make sketch ... LOC=data/locations/wickermoor_village.json`:
-    python3 tools/content/build_wickermoor.py"""
+    python3 tools/content/build_wickermoor.py
+
+DO NOT run this over data/npcs: it is out of date and would reset the NPCs' sprite ids (and undo Mori Shade's
+raise-dead service and lines). The files in data/npcs are the source now; edit them by hand."""
 import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
