@@ -40,7 +40,8 @@ def _call(method: str, path: str, body: dict | None = None, headers: dict | None
 def submit(kind: str, item_id: str, prompt: str, size: str, seed: int, use_preamble: bool = True, lora: bool = True,
            extra_tags: list[str] | None = None, reference: str | None = None, strength: float = 0.55, immediate: bool = False) -> str:
     """Queues one picture; returns the job id. `size` is WxH, each a multiple of 64 from 256 to 2048. A `reference` (a path on
-    this Mac) makes it a variation of that picture, `strength` how much of it is kept (0 to 1, higher keeps more)."""
+    this Mac) makes it a variation of that picture, `strength` how much of it is kept (0 to 1, higher keeps more). `immediate`
+    False queues it at normal priority behind other work (for a batch queued while the server is paused)."""
     text = prompt.strip() + (" " + preamble() if use_preamble else "")
     request = {"prompt": text, "size": size, "seed": seed, "generate_immediately": immediate,
                "tags": ["crooked-moon", f"look-{kind}", item_id] + (extra_tags or []),

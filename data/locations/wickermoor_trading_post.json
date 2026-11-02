@@ -4,28 +4,74 @@
   "region": "wickermoor",
   "summary": "Tolliver's Trading Post, a room of Wickermoor Village.",
   "text": "The inside of Tolliver's Trading Post: candle-lit, close and creaking.",
+  "rest": "risky",
   "map": {
-    "rows": [
-      "######################",
-      "#....................#",
-      "#....................#",
-      "#...==...==...==.....#",
-      "#....................#",
-      "#..======........==..#",
-      "#................==..#",
-      "#....................#",
-      "##########..##########",
-      "#....................#",
-      "#....................#",
-      "#..========...=====..#",
-      "#....................#",
-      "#....................#",
-      "#....................#",
-      "######################"
-    ],
     "theme": "manor",
     "light": "dim",
-    "outdoors": false
+    "outdoors": false,
+    "rows": [
+      "           ##################                       ",
+      "           #.......#........#                       ",
+      "           #.=====.#........#                       ",
+      "           #.......#..===...#                       ",
+      "           #................#                       ",
+      "           #.......#........#                       ",
+      "           #.......#........#                       ",
+      "           #................#                       ",
+      "           #................#                       ",
+      "           #.=====..........#                       ",
+      "           #...........==...#                       ",
+      "           #................# ######################",
+      "           #................# #....................#",
+      "           ################## #....................#",
+      "                              #...==...==...==.....#",
+      "                              #....................#",
+      "                              #..======........==..#",
+      "                              #................==..#",
+      "                              #....................#",
+      "                              ##########..##########",
+      "                              #....................#",
+      "                              #....................#",
+      "                              #..========...=====..#",
+      "                              #....................#",
+      "                              #....................#",
+      "                              #....................#",
+      "                              ######################"
+    ],
+    "floors": [
+      {
+        "x0": 0,
+        "width": 29,
+        "height_ft": 0,
+        "id": "wickermoor_trading_cellar",
+        "offset": [
+          11,
+          0
+        ]
+      },
+      {
+        "x0": 30,
+        "width": 22,
+        "height_ft": 15,
+        "id": "wickermoor_trading_post",
+        "offset": [
+          30,
+          11
+        ]
+      }
+    ],
+    "stairs": [
+      {
+        "from": [
+          19,
+          12
+        ],
+        "to": [
+          49,
+          12
+        ]
+      }
+    ]
   },
   "areas": [
     {
@@ -33,54 +79,36 @@
       "name": "Tolliver's Trading Post",
       "cells": [
         [
-          1,
+          31,
+          12
+        ],
+        [
+          50,
+          25
+        ]
+      ]
+    },
+    {
+      "id": "room_cellar",
+      "name": "The Trading Post Cellar",
+      "cells": [
+        [
+          12,
           1
         ],
         [
-          20,
-          14
+          27,
+          12
         ]
       ]
-    }
-  ],
-  "spawns": {
-    "default": [
-      10,
-      13
-    ],
-    "from_cellar": [
-      19,
-      1
-    ]
-  },
-  "exits": [
-    {
-      "id": "door",
-      "cell": [
-        10,
-        15
-      ],
-      "to": "wickermoor_village",
-      "spawn": "from_trading_post",
-      "label": "Out to the village"
-    },
-    {
-      "id": "cellar",
-      "cell": [
-        19,
-        2
-      ],
-      "to": "wickermoor_trading_cellar",
-      "spawn": "from_stair",
-      "label": "The stair down"
     }
   ],
   "props": [
     {
       "id": "trading_post_shelves",
       "cell": [
-        4,
-        3
+        34,
+        14
       ],
       "kind": "examine",
       "label": "Shelves of staples",
@@ -90,8 +118,8 @@
     {
       "id": "trading_post_oddities",
       "cell": [
-        14,
-        3
+        44,
+        14
       ],
       "kind": "examine",
       "label": "A cabinet of oddities",
@@ -101,8 +129,8 @@
     {
       "id": "trading_post_counter",
       "cell": [
-        10,
-        11
+        40,
+        22
       ],
       "kind": "examine",
       "label": "The counter",
@@ -121,14 +149,89 @@
           "failure": {}
         }
       ]
+    },
+    {
+      "id": "trading_cellar_crates",
+      "cell": [
+        14,
+        3
+      ],
+      "kind": "examine",
+      "label": "Stacked crates",
+      "model": "case",
+      "text": "Stacked crates with their labels torn off, and lamp oil in the air."
+    },
+    {
+      "id": "trading_cellar_cot",
+      "cell": [
+        23,
+        4
+      ],
+      "kind": "examine",
+      "label": "A guard's cot",
+      "model": "case",
+      "text": "A guard's cot with a child's drawing pinned over it: a house, a stick family, a hare."
+    },
+    {
+      "id": "trading_cellar_ledger",
+      "cell": [
+        14,
+        10
+      ],
+      "kind": "examine",
+      "label": "A second ledger",
+      "model": "ledger",
+      "text": "A second ledger, in a cleaner hand, of what the post has been asked to find and for whom."
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        35,
+        16
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        46,
+        16
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        15,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        24,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
     }
   ],
   "npcs": [
     {
       "npc": "baltus_tolliver",
       "cell": [
-        10,
-        10
+        40,
+        21
       ],
       "dialogue": "wickermoor/fair_price:broker",
       "when": "flag.price_ledger_seen and not flag.price_outcome"
@@ -136,8 +239,8 @@
     {
       "npc": "baltus_tolliver",
       "cell": [
-        10,
-        10
+        40,
+        21
       ],
       "dialogue": "wickermoor/fair_price:baltus_start",
       "when": "flag.wm_welcomed and not flag.price_asked"
@@ -145,8 +248,8 @@
     {
       "npc": "baltus_tolliver",
       "cell": [
-        10,
-        10
+        40,
+        21
       ],
       "dialogue": "wickermoor/connections_custom:baltus_start",
       "when": "background:ghostlight_passenger and flag.vessla_slain and not flag.connection_deliverance"
@@ -154,8 +257,8 @@
     {
       "npc": "baltus_tolliver",
       "cell": [
-        10,
-        10
+        40,
+        21
       ],
       "dialogue": "wickermoor/baltus_tolliver:start",
       "hours": [
@@ -166,65 +269,92 @@
     {
       "npc": "wilma_wainwright",
       "cell": [
-        4,
-        4
+        34,
+        15
       ],
       "dialogue": "wickermoor/wilma_wainwright:start"
     },
     {
       "npc": "ronald_wainwright",
       "cell": [
-        17,
-        4
+        47,
+        15
       ],
       "dialogue": "wickermoor/ronald_wainwright:start"
     },
     {
       "npc": "victoria_wainwright",
       "cell": [
-        7,
-        6
+        37,
+        17
       ],
       "dialogue": "wickermoor/children:victoria"
     },
     {
       "npc": "eddie_wainwright",
       "cell": [
-        8,
-        6
+        38,
+        17
       ],
       "dialogue": "wickermoor/children:eddie"
     },
     {
       "npc": "zachariah_wainwright",
       "cell": [
-        9,
-        6
+        39,
+        17
       ],
       "dialogue": "wickermoor/children:zachariah"
     }
   ],
-  "rest": "risky",
-  "lights": [
+  "exits": [
     {
+      "id": "door_cellar",
       "cell": [
-        5,
-        5
+        19,
+        13
       ],
-      "kind": "candle",
-      "bright_ft": 15,
-      "dim_ft": 30,
-      "color": "candle"
+      "to": "wickermoor_trading_post",
+      "spawn": "from_cellar",
+      "label": "Up to the showroom"
     },
     {
+      "id": "door",
       "cell": [
-        16,
-        5
+        40,
+        26
       ],
-      "kind": "candle",
-      "bright_ft": 15,
-      "dim_ft": 30,
-      "color": "candle"
+      "to": "wickermoor_village",
+      "spawn": "from_trading_post",
+      "label": "Out to the village"
+    },
+    {
+      "id": "cellar",
+      "cell": [
+        49,
+        13
+      ],
+      "to": "wickermoor_trading_post",
+      "spawn": "cellar_from_stair",
+      "label": "The stair down"
     }
-  ]
+  ],
+  "spawns": {
+    "default": [
+      40,
+      24
+    ],
+    "from_cellar": [
+      49,
+      12
+    ],
+    "cellar_default": [
+      19,
+      11
+    ],
+    "cellar_from_stair": [
+      19,
+      12
+    ]
+  }
 }

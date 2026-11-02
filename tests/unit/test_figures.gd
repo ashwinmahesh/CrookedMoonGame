@@ -4,7 +4,8 @@ extends TestCase
 ## a fall too), and its attack window lies inside its swing; the companions wear theirs as their own art, and the Vagrant
 ## and the Druskenvalds wear theirs as people. The monsters' entries (a `sprite` fallback worn until Tripo delivers the model, a
 ## `base` body for the haint dressings, a `ghost` look) are listed before their models exist: the checks on them hold with
-## or without the file, and the model checks run on the ones whose file is in the repo.
+## or without the file, and the model checks run on the ones whose file is in the repo. The background villagers (the village's
+## people with no Tripo figure of their own) stand on the pack bodies in layered parts, never on a Tripo model (the last tests).
 
 const QUADRUPEDS: Array[String] = ["barnaby"]
 
@@ -82,6 +83,7 @@ func test_every_monster_entry_has_a_sprite_to_wear_until_its_model_comes() -> vo
 
 
 func test_a_dressing_lies_over_a_figure_with_its_own_model() -> void:
+	var palette := ArtPaths.json("art/palette/palette.json")
 	for id: String in _monster_ids():
 		var entry := _entries()[id] as Dictionary
 		if not entry.has("base"):
@@ -91,8 +93,13 @@ func test_a_dressing_lies_over_a_figure_with_its_own_model() -> void:
 		assert_false((_entries()[base] as Dictionary).has("base"), "%s: its base %s is a body, not another dressing" % [id, base])
 		assert_true((_entries()[base] as Dictionary).has("file"), "%s: its base %s has a model file" % [id, base])
 		assert_false(entry.has("file"), "%s: a dressing has no model of its own" % id)
-		var dressed := not ((entry.get("layers", []) as Array).is_empty())   # a dressing is paint over the body, or layers worn on it
-		assert_true(dressed or str(entry.get("albedo", "")).begins_with("art/figures/"), "%s: its paint is in art/figures" % id)
+		# A dressing is paint over the body (an albedo in art/figures), layers worn on it, or the body in a colour of its own (a `tint`:
+		# a palette colour or a #rrggbb): never an entry that changes nothing.
+		var dressed := not ((entry.get("layers", []) as Array).is_empty())
+		var tint := str(entry.get("tint", ""))
+		if tint != "":
+			assert_true(tint.is_valid_html_color() if tint.begins_with("#") else palette.has(tint), "%s: its tint %s is a palette colour or a #rrggbb" % [id, tint])
+		assert_true(dressed or tint != "" or str(entry.get("albedo", "")).begins_with("art/figures/"), "%s: its paint is in art/figures" % id)
 
 
 func test_ghost_looks_use_palette_colours_and_sane_amounts() -> void:
@@ -304,3 +311,147 @@ func test_the_villager_is_slimmed_by_bones_that_exist_and_wears_hair() -> void:
 		assert_between(float(_triangles(model)), 1.0, float(TRIANGLE_LIMIT), "%s stays under the triangle limit" % hair)
 		model.free()
 	fig.free()
+
+
+# --- The village's background people on the pack bodies (Ashwin, 2026-11-02: no Tripo model for a background villager). The parts
+# come from tools/art/pack_figures.py (a head, an outfit, hair), the villagers' entries dress them in art/figures/manifest.json -------
+
+const PACK_OUTFITS: Array[String] = ["peasant", "peasant2", "peasant3", "noble", "noble2", "noble3"]
+
+
+## The background villagers: entries that wear the villager sprite over a body (`base`), other than the haints and the Lockwoods'
+## ghosts (over the haint body, drawn as ghosts). The named people with a Tripo figure of their own have a `file`, not a `base`.
+func _villager_ids() -> Array:
+	var out: Array = []
+	for id: String in _entries():
+		var entry := _entries()[id] as Dictionary
+		if str(entry.get("sprite", "")) == "villager" and entry.has("base") and str(entry["base"]) != "haint":
+			out.append(id)
+	return out
+
+
+## Ashwin's rule: a background villager is never a Tripo model. The made heroes' stand-in bodies (hero_body_*) are dressings over
+## the Druskenvalds' Tripo models, so a villager over one lies on a Tripo source too; the body, and every layer worn, are free packs'.
+func test_a_background_villager_never_lies_on_a_tripo_model() -> void:
+	var manifest := ArtPaths.json(FigureModels.MANIFEST_JSON)
+	var parts := manifest.get("parts", {}) as Dictionary
+	var stand_ins: Array = []
+	for by: Variant in (manifest.get("bodies", {}) as Dictionary).values():
+		stand_ins.append_array((by as Dictionary).values())
+	var ids := _villager_ids()
+	assert_true(ids.size() >= 45, "the village's background people: %d" % ids.size())
+	for id: String in ids:
+		var base := str((_entries()[id] as Dictionary)["base"])
+		assert_false(base in stand_ins, "%s: not over %s, the stand-in body made heroes wear (a dressing over a Tripo model)" % [id, base])
+		var info := FigureModels.info(id)   # the entry laid over its body's: the body's source, the layers it wears
+		assert_false(str(info.get("source", "")).begins_with("tripo/"), "%s: its body %s is no Tripo model" % [id, base])
+		for layer: Variant in info.get("layers", []) as Array:
+			var source := str((parts.get(str(layer), {}) as Dictionary).get("source", ""))
+			assert_false(source.begins_with("tripo/"), "%s: its %s is no Tripo model" % [id, layer])
+
+
+## Each villager on a pack body wears one head, one outfit and hair of that body's sex, every part's model in the repo.
+func test_the_villagers_wear_a_pack_head_an_outfit_and_hair_of_their_sex() -> void:
+	var on_pack := 0
+	for id: String in _villager_ids():
+		var base := str((_entries()[id] as Dictionary)["base"])
+		if not base.begins_with("pack_"):
+			continue   # the Superhero pilot (villager_brown, villager_red) is paint over its gray body
+		on_pack += 1
+		var sex := base.trim_prefix("pack_")
+		assert_true(sex in ["male", "female"], "%s: on a pack body (%s)" % [id, base])
+		var heads := 0
+		var outfits := 0
+		var hairs := 0
+		for layer: Variant in FigureModels.info(id).get("layers", []) as Array:
+			var part := str(layer)
+			assert_true(FigureModels.has_part(part), "%s: %s has its model in the repo" % [id, part])
+			if part == "pack_%s_head" % sex:
+				heads += 1
+			elif part.begins_with("pack_%s_hair_" % sex):
+				hairs += 1
+			elif part.trim_prefix("pack_%s_" % sex) in PACK_OUTFITS:
+				outfits += 1
+			else:
+				assert_true(part == "torch", "%s: %s is not a pack part of its sex" % [id, part])   # the mob's torch is the one thing held
+		assert_eq(heads, 1, "%s: one head" % id)
+		assert_eq(outfits, 1, "%s: one outfit" % id)
+		assert_true(hairs >= 1, "%s: hair" % id)
+	assert_true(on_pack >= 45, "the pack bodies' villagers: %d" % on_pack)
+
+
+## Built, a villager stands on the pack's 65-joint skeleton wearing every layer, plays the roles the game asks for, and has the
+## bones its entry grows (a child's head: the Tripo rig's `Head` is the pack's too).
+func test_a_villager_on_a_pack_body_stands_dressed_and_plays_its_clips() -> void:
+	for id: String in _villager_ids():
+		if not str((_entries()[id] as Dictionary)["base"]).begins_with("pack_"):
+			continue
+		var fig := DirectionalSprite.create(DirectionalSprite.frames_for(id), CombatToken.height_for(id)) as ModelFigure
+		assert_true(fig != null, "%s: drawn as a 3D figure" % id)
+		add_child(fig)
+		assert_true(fig._skeleton != null and fig._skeleton.get_bone_count() == 65, "%s: on the pack's 65-joint skeleton" % id)
+		for layer: Variant in FigureModels.info(id).get("layers", []) as Array:
+			assert_true(str(layer) in fig.worn_parts(), "%s wears %s" % [id, layer])
+		for role: String in ["idle", "walk", "run", "attack", "cast", "hurt", "die", "talk", "greet"]:
+			assert_true(fig.has_role(role), "%s: has a clip to %s" % [id, role])
+		for bone: String in (FigureModels.info(id).get("bones", {}) as Dictionary):
+			assert_true(FigureBones.bone_named(fig._skeleton, bone) >= 0, "%s: the rig has the %s bone to scale" % [id, bone])
+		fig.free()
+
+
+## Neighbours differ: no two people in one place wear the same body, clothes and hair at the same size.
+func test_no_two_villagers_in_one_place_look_alike() -> void:
+	var looks: Dictionary = {}
+	for id: String in _villager_ids():
+		var entry := _entries()[id] as Dictionary
+		if str(entry["base"]).begins_with("pack_"):
+			looks[id] = "%s|%s|%s" % [entry["base"], ",".join(PackedStringArray(entry.get("layers", []) as Array)), entry.get("scale", 1.0)]
+	for loc: Dictionary in Compendium.shared().all("locations"):
+		var seen: Dictionary = {}
+		for placed: Variant in loc.get("npcs", []) as Array:
+			var npc := str((placed as Dictionary).get("npc", ""))
+			var art := str(Compendium.shared().get_entry("npcs", npc).get("sprite", npc))
+			if not looks.has(art):
+				continue
+			var look := str(looks[art])
+			assert_true(not seen.has(look) or seen[look] == art, "%s: %s and %s are dressed alike" % [loc["id"], seen.get(look, ""), art])
+			seen[look] = art
+
+
+## The model ids in the catalog's art table: a name, a list of variants, or a {theme: model} dictionary of either.
+func _collect_models(node: Variant, out: Array[String]) -> void:
+	if node is Dictionary:
+		for v: Variant in (node as Dictionary).values():
+			_collect_models(v, out)
+	elif node is Array:
+		for v: Variant in (node as Array):
+			_collect_models(v, out)
+	else:
+		out.append(str(node))
+
+
+## The Fantasy Props MegaKit props (art ids pp_*, tools/art/fantasy_props.py): each is a model in the game's manifest that stands in
+## for an engine model, is kept under the triangle limit, and is what some art id of the props catalog draws.
+func test_the_fantasy_props_are_wired_into_the_props_catalog() -> void:
+	var drawn: Array[String] = []
+	_collect_models(((SetDressing.catalog()["models3d"] as Dictionary)["art"]) as Dictionary, drawn)
+	var ids: Array[String] = []
+	for id: String in ModelPiece.manifest():
+		if id.begins_with("pp_"):
+			ids.append(id)
+	assert_true(ids.size() >= 30, "thirty-odd props: %d" % ids.size())
+	for id in ids:
+		assert_true(ModelPiece.has_model(id), "%s: its model is in the repo" % id)
+		assert_true(ModelPiece.manifest().has(str((ModelPiece.manifest()[id] as Dictionary).get("replaces", ""))), "%s: stands in for an engine model" % id)
+		assert_true(id in drawn, "%s: the catalog draws something with it" % id)
+		var model := ModelPiece.instance(id)
+		var tris := _triangles(model)
+		assert_between(float(tris), 1.0, float(TRIANGLE_LIMIT), "%s: %d triangles" % [id, tris])
+		model.free()
+
+
+## The Warhorse monster is drawn as the free pack's horse (its figure), not as the nightmare's sprite its entry falls back on.
+func test_the_warhorse_is_drawn_as_its_own_figure() -> void:
+	assert_eq(str(Compendium.shared().get_entry("monsters", "warhorse").get("art", "")), "warhorse", "the Warhorse wears its figure")
+	assert_true(FigureModels.has("warhorse"), "which has its model in the repo")
+	assert_eq(FigureModels.stand_in("warhorse"), "", "so the nightmare's sprite is not worn")

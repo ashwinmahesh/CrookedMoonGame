@@ -4,15 +4,23 @@ dilemma whose last stage WAITS until the Crooked House is done), Hair of the Dog
 Dialogue: narrative/wickermoor/{mori,hair,elias}.dialogue. Idempotent; run from the repo root."""
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).parent))
+from heirlooms_kept import kept
+
 ROOT = Path(__file__).resolve().parents[2]
 WM = "wickermoor/"
 
 
 def write(rel, obj):
+    if kept(rel):   # (a floor of a building merged into one place: tools/content/merge_floors.py)
+        return
     (ROOT / rel).write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n")
 
 
 def read(rel):
+    if kept(rel):
+        raise SystemExit("%s is a floor of a building merged into one place (tools/content/merge_floors.py): this one-shot already ran" % rel)
     return json.loads((ROOT / rel).read_text())
 
 

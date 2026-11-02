@@ -346,7 +346,8 @@ def build_flags():
     for f in (ROOT / "narrative/monastery").glob("*.dialogue"):
         text += f.read_text() + "\n"
     for lid in ["dawns_gate", "mon_pass", "dg_briar", "dg_briar_upper", "dg_briar_cellar", "mon_stables", "mon_ground", "mon_upper", "mon_bell_tower", "mon_belfry", "mon_holy_vein", "mon_sanctum", "mon_cathedral_moon"]:
-        text += (ROOT / f"data/locations/{lid}.json").read_text() + "\n"
+        if (ROOT / f"data/locations/{lid}.json").exists():   # (the floors merged into one place have no file of their own)
+            text += (ROOT / f"data/locations/{lid}.json").read_text() + "\n"
     text += (ROOT / "data/travel/wickermoor_hollow.json").read_text()
     wv = (ROOT / "data/locations/wickermoor_village.json").read_text()
     text += "\n".join(l for l in wv.splitlines() if "crimson" in l or "gareth" in l or "quiet" in l or "mon_" in l)

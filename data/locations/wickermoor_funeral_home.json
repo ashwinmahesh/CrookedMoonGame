@@ -4,28 +4,72 @@
   "region": "wickermoor",
   "summary": "Shade Funeral Home, a room of Wickermoor Village.",
   "text": "The inside of Shade Funeral Home: candle-lit, close and creaking.",
+  "rest": "risky",
   "map": {
-    "rows": [
-      "####################",
-      "#..................#",
-      "#...======..=====..#",
-      "#..................#",
-      "#..................#",
-      "#..==..........==..#",
-      "#..................#",
-      "#..................#",
-      "#########..#########",
-      "#..................#",
-      "#..................#",
-      "#..=====....=====..#",
-      "#..................#",
-      "#..................#",
-      "#..................#",
-      "####################"
-    ],
     "theme": "manor",
     "light": "dim",
-    "outdoors": false
+    "outdoors": false,
+    "rows": [
+      "         ##################                     ",
+      "         #................#                     ",
+      "         #................#                     ",
+      "         #..=====..=====..#                     ",
+      "         #................#                     ",
+      "         #................#                     ",
+      "         #................#                     ",
+      "         #..=====..=====..#                     ",
+      "         #................#                     ",
+      "         #................# ####################",
+      "         #................# #..................#",
+      "         ################## #...======..=====..#",
+      "                            #..................#",
+      "                            #..................#",
+      "                            #..==..........==..#",
+      "                            #..................#",
+      "                            #..................#",
+      "                            #########..#########",
+      "                            #..................#",
+      "                            #..................#",
+      "                            #..=====....=====..#",
+      "                            #..................#",
+      "                            #..................#",
+      "                            #..................#",
+      "                            ####################"
+    ],
+    "floors": [
+      {
+        "x0": 0,
+        "width": 27,
+        "height_ft": 0,
+        "id": "wickermoor_funeral_basement",
+        "offset": [
+          9,
+          0
+        ]
+      },
+      {
+        "x0": 28,
+        "width": 20,
+        "height_ft": 15,
+        "id": "wickermoor_funeral_home",
+        "offset": [
+          28,
+          9
+        ]
+      }
+    ],
+    "stairs": [
+      {
+        "from": [
+          17,
+          10
+        ],
+        "to": [
+          45,
+          10
+        ]
+      }
+    ]
   },
   "areas": [
     {
@@ -33,54 +77,36 @@
       "name": "Shade Funeral Home",
       "cells": [
         [
-          1,
+          29,
+          10
+        ],
+        [
+          46,
+          23
+        ]
+      ]
+    },
+    {
+      "id": "room_basement",
+      "name": "The Funeral Home's Basement",
+      "cells": [
+        [
+          10,
           1
         ],
         [
-          18,
-          14
+          25,
+          10
         ]
       ]
-    }
-  ],
-  "spawns": {
-    "default": [
-      9,
-      13
-    ],
-    "from_basement": [
-      17,
-      1
-    ]
-  },
-  "exits": [
-    {
-      "id": "door",
-      "cell": [
-        9,
-        15
-      ],
-      "to": "wickermoor_village",
-      "spawn": "from_funeral_home",
-      "label": "Out to the village"
-    },
-    {
-      "id": "basement_stair",
-      "cell": [
-        17,
-        2
-      ],
-      "to": "wickermoor_funeral_basement",
-      "spawn": "from_stair",
-      "label": "Down to the basement"
     }
   ],
   "props": [
     {
       "id": "funeral_home_coffins",
       "cell": [
-        4,
-        2
+        32,
+        11
       ],
       "kind": "examine",
       "label": "A row of coffins",
@@ -90,8 +116,8 @@
     {
       "id": "funeral_home_lectern",
       "cell": [
-        12,
-        2
+        40,
+        11
       ],
       "kind": "examine",
       "label": "A lectern",
@@ -101,8 +127,8 @@
     {
       "id": "funeral_home_register",
       "cell": [
-        13,
-        2
+        41,
+        11
       ],
       "kind": "examine",
       "label": "The undertaker's register",
@@ -113,22 +139,109 @@
     {
       "id": "funeral_home_effects",
       "cell": [
-        10,
-        3
+        38,
+        12
       ],
       "kind": "examine",
       "label": "A shelf of a dead traveler's effects",
       "model": "shelves",
       "dialogue": "wickermoor/letter:effects",
       "when": "flag.act2_done >= 1 and not flag.letter_asked"
+    },
+    {
+      "id": "funeral_basement_slab",
+      "cell": [
+        13,
+        4
+      ],
+      "kind": "examine",
+      "label": "An embalming slab",
+      "model": "table_round",
+      "text": "An embalming slab scrubbed bright, with a drain at its foot and a small clean brush beside it."
+    },
+    {
+      "id": "funeral_basement_vault",
+      "cell": [
+        21,
+        4
+      ],
+      "kind": "examine",
+      "label": "The cold vault",
+      "model": "case",
+      "text": "The cold vault is a white room with drawers, and a drawer that is labelled with a date and nothing else."
+    },
+    {
+      "id": "funeral_basement_coffins",
+      "cell": [
+        13,
+        8
+      ],
+      "kind": "examine",
+      "label": "Coffins in rows",
+      "model": "case",
+      "text": "Coffins in rows, each stencilled with a name, and the front row's names are all of people who are still alive."
+    },
+    {
+      "id": "funeral_basement_jar",
+      "cell": [
+        17,
+        8
+      ],
+      "kind": "examine",
+      "label": "A stoppered jar of hair",
+      "model": "case",
+      "dialogue": "wickermoor/hair:clue_funeral",
+      "when": "flag.hair_asked and not flag.hair_clue_b"
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        33,
+        14
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        43,
+        14
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        13,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        22,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
     }
   ],
   "npcs": [
     {
       "npc": "mori_shade",
       "cell": [
-        9,
-        6
+        37,
+        15
       ],
       "dialogue": "maidenmist/mori:return",
       "when": "flag.shroud_tear_sealed and not flag.mm_mori_return_told"
@@ -136,8 +249,8 @@
     {
       "npc": "mori_shade",
       "cell": [
-        9,
-        6
+        37,
+        15
       ],
       "dialogue": "maidenmist/mori:request",
       "when": "flag.mm_raid_done and not flag.mm_asked"
@@ -145,8 +258,8 @@
     {
       "npc": "mori_shade",
       "cell": [
-        9,
-        6
+        37,
+        15
       ],
       "dialogue": "maidenmist/mori:hub",
       "when": "flag.mm_asked and not flag.shroud_tear_sealed"
@@ -154,8 +267,8 @@
     {
       "npc": "tobias_dibbs",
       "cell": [
-        12,
-        9
+        40,
+        18
       ],
       "dialogue": "maidenmist/folk:dibbs",
       "when": "flag.mm_raid_done"
@@ -163,8 +276,8 @@
     {
       "npc": "mori_shade",
       "cell": [
-        9,
-        6
+        37,
+        15
       ],
       "dialogue": "wickermoor/mori:later",
       "when": "flag.mori_outcome and flag.vessla_slain and not flag.mori_later"
@@ -172,8 +285,8 @@
     {
       "npc": "mori_shade",
       "cell": [
-        9,
-        6
+        37,
+        15
       ],
       "dialogue": "wickermoor/mori:start",
       "when": "flag.wm_welcomed and not flag.mori_list_seen"
@@ -181,8 +294,8 @@
     {
       "npc": "mori_shade",
       "cell": [
-        9,
-        6
+        37,
+        15
       ],
       "dialogue": "wickermoor/misdelivered:mori_ask",
       "when": "flag.misdelivered_asked and not flag.letter_mori"
@@ -190,8 +303,8 @@
     {
       "npc": "mori_shade",
       "cell": [
-        9,
-        6
+        37,
+        15
       ],
       "dialogue": "wickermoor/connections:mori_rook_start",
       "when": "name:rook_coldwake and flag.vessla_slain and not flag.connection_pilgrimage"
@@ -199,33 +312,60 @@
     {
       "npc": "mori_shade",
       "cell": [
-        9,
-        6
+        37,
+        15
       ],
       "dialogue": "wickermoor/mori_shade:start"
     }
   ],
-  "rest": "risky",
-  "lights": [
+  "exits": [
     {
+      "id": "door_basement",
       "cell": [
-        5,
-        5
+        17,
+        11
       ],
-      "kind": "candle",
-      "bright_ft": 15,
-      "dim_ft": 30,
-      "color": "candle"
+      "to": "wickermoor_funeral_home",
+      "spawn": "from_basement",
+      "label": "Up to the ceremony rooms"
     },
     {
+      "id": "door",
       "cell": [
-        15,
-        5
+        37,
+        24
       ],
-      "kind": "candle",
-      "bright_ft": 15,
-      "dim_ft": 30,
-      "color": "candle"
+      "to": "wickermoor_village",
+      "spawn": "from_funeral_home",
+      "label": "Out to the village"
+    },
+    {
+      "id": "basement_stair",
+      "cell": [
+        45,
+        11
+      ],
+      "to": "wickermoor_funeral_home",
+      "spawn": "basement_from_stair",
+      "label": "Down to the basement"
     }
-  ]
+  ],
+  "spawns": {
+    "default": [
+      37,
+      22
+    ],
+    "from_basement": [
+      45,
+      10
+    ],
+    "basement_default": [
+      17,
+      9
+    ],
+    "basement_from_stair": [
+      17,
+      10
+    ]
+  }
 }

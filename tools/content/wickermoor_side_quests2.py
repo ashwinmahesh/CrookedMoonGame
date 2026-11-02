@@ -4,15 +4,23 @@ the Bell and The Schoolmaster's Field Trip, and the humorous locals Tamsin Ledge
 placements (idempotent); the dialogue is narrative/wickermoor/{fair_price,bell,fieldtrip,folk}.dialogue. Run from the repo root."""
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).parent))
+from heirlooms_kept import kept
+
 ROOT = Path(__file__).resolve().parents[2]
 WM = "wickermoor/"
 
 
 def write(rel, obj):
+    if kept(rel):   # (a floor of a building merged into one place: tools/content/merge_floors.py)
+        return
     (ROOT / rel).write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n")
 
 
 def read(rel):
+    if kept(rel):
+        raise SystemExit("%s is a floor of a building merged into one place (tools/content/merge_floors.py): this one-shot already ran" % rel)
     return json.loads((ROOT / rel).read_text())
 
 

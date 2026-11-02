@@ -545,10 +545,11 @@ def build_hub():
     path.write_text(json.dumps(town, indent=2, ensure_ascii=False) + "\n")
     # Bess works the Green Queen until the letter comes
     ipath = ROOT / "data/locations/wickermoor_green_queen_inn.json"
-    inn = json.loads(ipath.read_text())
-    inn["npcs"] = [n for n in inn["npcs"] if str(n.get("dialogue", "")) != FD + "hook:inn_chat"]
-    inn["npcs"].append(npc("bess_crumley", (12, 12), "hook:inn_chat", when="not flag.golub_dead"))
-    ipath.write_text(json.dumps(inn, indent=2, ensure_ascii=False) + "\n")
+    if not kept("data/locations/wickermoor_green_queen_inn.json"):   # (the inn is one place with its floors now: its squares moved)
+        inn = json.loads(ipath.read_text())
+        inn["npcs"] = [n for n in inn["npcs"] if str(n.get("dialogue", "")) != FD + "hook:inn_chat"]
+        inn["npcs"].append(npc("bess_crumley", (12, 12), "hook:inn_chat", when="not flag.golub_dead"))
+        ipath.write_text(json.dumps(inn, indent=2, ensure_ascii=False) + "\n")
 
 
 # ---- cutscenes --------------------------------------------------------------------------------------------------------------------

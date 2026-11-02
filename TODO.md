@@ -6,11 +6,12 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 | Item | Status | Thread |
 |---|---|---|
+| Portraits for the 144 missing NPCs: 148 photoreal portrait jobs are queued at normal priority (the image server is paused) | In progress (queued, waiting on the server) | [Portraits](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoMVcF4yx8zrzvExbupWQsVL) |
+| Build out Act 2 and the open todos | In progress | [Act 2](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoPPR4UsoGK7bQTEnN8LobsA) |
 | Audit all visual effects: each gets a selection room and its own colour, size and speed settings (melee hit effects are landed; the other effects are next) | In progress | [Melee hit effects](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoHUCbLptUKMrnux7PbW3KTT) |
 | Real 3D multi-floor grid, starting with the Crooked House, built in the DnDGameEngine-3D fork; houses rebuilt at the pack's true size | In progress (Ashwin said go) | [Rebuild the worlds](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoC7g6BsCwnrPHakr5kpoBPD) |
 | Weapons and pack animations (Rook's switch to pack clips waits on Ashwin's verdict) | In progress | [Weapons/pack animations](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoWHuBM7pdpdhmz86LEs2vUs) |
 | Cel cutscene stills (docs-cutscenes-cel 28081e80 queued) | In progress | [Look/title](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoCCPX3moU1VgdtYuw77oSqT) |
-| Portraits for the 144 missing NPCs | In progress | [Portraits](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoMVcF4yx8zrzvExbupWQsVL) |
 
 ## In progress
 
@@ -43,6 +44,12 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **Multi-floor windmill, inns, cellars and monastery** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoRPZu9NaNNbtWXmE9YAURC7)): the windmill, the Green Queen, the Briar, the barber shop, the funeral home, the trading post, the monastery and the inns are one place each with floors over each other, and saves gain an optional `story.merged_places` so old saves are mended. (Engine b8297659, game 276faba1.)
+- **Rest of the free models and the test_figures dressing check** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoQCFNvm6cQtDuSEztHsi468)): 26 more pack parts (Noble outfits, colourings, nine hairstyles), the 47 background villagers moved onto the pack bodies, the warhorse drawn as the pack's horse, and the villager dressing check fixed. (Game 56d629ab to f694fbf2.)
+- **Wickermoor lighting and the playable gate**: a lit window's spotlight no longer errors going into the night lights, and the subclasses and the Veil no longer grant spells that have lost their level, so test_playable_gate passes. (Engine 1a51719d, game 04b5b5c7.)
+- **Spellcasting animations**: every figure's cast is the animation pack's spell (gathered, held, thrown from the left hand, followed through), with a glow gathering in the casting hand, and the pack bodies rebaked with the Enter and Exit clips. (Engine 768b5b42, game f2acd771, 46a964a7.)
+- **Multi-storey camera**: the floor you climb to comes in slightly see-through and holds there, then turns solid. (Engine eceee5a0, game 7c92dce0.)
+- **Dialogue portraits for the six haints**: the daydreamer, harlequin, jailbird, mariner, songstress and sweetheart have faces in dialogue, and tools/art/portrait_gaps.py lists the speakers still missing one. (ff11a92b.)
 - **Trees cost less frame time**: the EZ trees are about 7 times lighter, which cuts the 40% frame-time cost at the wreckage. (595c0686.)
 - **The Crooked Moon's own plants**: 12 Blender-built plant models (corn, wytch trees, fungal stumps, briar, mossy cypress) placed by region in flora.json, with 6 leaf cards repainted photoreal. (6e38d1cd, b8663ef6.)
 - **The title's moon is a thin sickle**: the title picture shows a thin sickle with sharp horns. (63b95c1d.)

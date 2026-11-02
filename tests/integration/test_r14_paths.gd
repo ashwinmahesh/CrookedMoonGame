@@ -287,7 +287,7 @@ func test_the_altar_opens_by_search_or_by_what_we_were_told() -> void:
 
 func test_the_scriptorium_and_the_missal_name_the_altar_without_a_roll() -> void:
 	dice = LowDice.new()
-	st.location = "mon_upper"
+	st.location = "mon_ground"
 	_play("monastery/clues:scriptorium", ["Read slowly"])
 	assert_true(bool(st.get_flag("src_scriptorium")))
 	_play("monastery/clues:missal")
@@ -431,14 +431,14 @@ func test_leading_the_captives_out_in_plain_sight_costs_favor() -> void:
 
 
 func test_cromwell_is_made_to_talk_by_force_or_by_her_past() -> void:
-	st.location = "mon_upper"
+	st.location = "mon_ground"
 	_play("monastery/priors:cromwell_room", ["Make her tell"])
 	assert_true(bool(st.get_flag("src_cromwell")))
 	GameState.reset()
 	st = GameState.story
 	for id: String in GAME.NEW_GAME_PARTY:
 		st.party.append(Pregens.build(id, 3))
-	st.location = "mon_upper"
+	st.location = "mon_ground"
 	_play("monastery/priors:cromwell_start", ["bandit queen"])
 	assert_true(bool(st.get_flag("src_cromwell_leverage")))
 	dice = LowDice.new()
@@ -464,7 +464,7 @@ func test_the_priors_second_form_is_in_the_data() -> void:
 # ---- Dawn's Gate side quests ----------------------------------------------------------------------------------------------------------
 
 func test_kristoffs_cellar_kept_or_betrayed() -> void:
-	st.location = "dg_briar_cellar"
+	st.location = "dg_briar"
 	_play("monastery/cellar:refugees", ["keep your secret"])
 	assert_eq(st.quest_stage("kristoffs_cellar"), "kept")
 	GameState.reset()
@@ -527,7 +527,7 @@ func test_brother_quiets_message_is_carried_or_dropped() -> void:
 
 
 func test_the_silver_bells_name_is_restored_or_left() -> void:
-	st.location = "mon_belfry"
+	st.location = "mon_bell_tower"
 	dice = LowDice.new()
 	_play("monastery/bell:orrin_bell")
 	_play("monastery/bell:inscription", ["Scrape"])

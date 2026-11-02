@@ -26,11 +26,21 @@ func _open(rows: Array, x: int, y: int) -> bool:
 	return y >= 0 and y < rows.size() and x >= 0 and x < (rows[y] as String).length() and ".~1234_=".contains((rows[y] as String)[x])
 
 
-func _reach(rows: Array, start: Vector2i) -> Dictionary:
+## The squares walked to from `start`, up and down a building's stairs (map.stairs join a square of one floor to one of the next).
+func _reach(rows: Array, start: Vector2i, stairs: Array = []) -> Dictionary:
 	var seen := {start: true}
 	var todo: Array[Vector2i] = [start]
+	var linked := {}
+	for s: Variant in stairs:
+		var from := Vector2i(int((s["from"] as Array)[0]), int((s["from"] as Array)[1]))
+		var to := Vector2i(int((s["to"] as Array)[0]), int((s["to"] as Array)[1]))
+		linked[from] = to
+		linked[to] = from
 	while not todo.is_empty():
 		var c: Vector2i = todo.pop_back()
+		if linked.has(c) and not seen.has(linked[c]):
+			seen[linked[c]] = true
+			todo.append(linked[c])
 		for dx: int in [-1, 0, 1]:
 			for dy: int in [-1, 0, 1]:
 				var n := Vector2i(c.x + dx, c.y + dy)
@@ -80,7 +90,8 @@ func test_people_can_be_walked_to_from_the_arrival() -> void:
 	all.append_array(_rooms())
 	for id: String in all:
 		var loc := _loc(id)
-		var reach := _reach((loc["map"] as Dictionary)["rows"] as Array, Vector2i(int((loc["spawns"]["default"] as Array)[0]), int((loc["spawns"]["default"] as Array)[1])))
+		var reach := _reach((loc["map"] as Dictionary)["rows"] as Array, Vector2i(int((loc["spawns"]["default"] as Array)[0]), int((loc["spawns"]["default"] as Array)[1])),
+			(loc["map"] as Dictionary).get("stairs", []) as Array)
 		for n: Dictionary in loc.get("npcs", []):
 			assert_true(_beside(reach, n["cell"] as Array), "%s: %s can be reached" % [id, n["npc"]])
 		for e: Dictionary in loc.get("exits", []):

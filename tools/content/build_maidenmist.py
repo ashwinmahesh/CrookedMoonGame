@@ -185,19 +185,20 @@ def build_village():
     path.write_text(json.dumps(v, indent=2, ensure_ascii=False) + "\n")
 
     # the funeral home: Mori asks, returns, hubs; Tobias lives here
-    fh = ROOT / "data/locations/wickermoor_funeral_home.json"
-    f = json.loads(fh.read_text())
-    mine = {MM + n for n in ("mori:request", "mori:return", "mori:hub", "folk:dibbs")}
-    f["npcs"] = [n for n in f["npcs"] if n.get("dialogue") not in mine]
-    mori = next(n for n in f["npcs"] if n["npc"] == "mori_shade")
-    i = f["npcs"].index(mori)
-    f["npcs"][i:i] = [
-        {"npc": "mori_shade", "cell": mori["cell"], "dialogue": MM + "mori:return", "when": "flag.shroud_tear_sealed and not flag.mm_mori_return_told"},
-        {"npc": "mori_shade", "cell": mori["cell"], "dialogue": MM + "mori:request", "when": "flag.mm_raid_done and not flag.mm_asked"},
-        {"npc": "mori_shade", "cell": mori["cell"], "dialogue": MM + "mori:hub", "when": "flag.mm_asked and not flag.shroud_tear_sealed"},
-        {"npc": "tobias_dibbs", "cell": open_near(f["map"]["rows"], (12, 9)), "dialogue": MM + "folk:dibbs", "when": "flag.mm_raid_done"},
-    ]
-    fh.write_text(json.dumps(f, indent=2, ensure_ascii=False) + "\n")
+    if not kept("data/locations/wickermoor_funeral_home.json"):   # (the funeral home is one place with its basement now: its squares moved)
+        fh = ROOT / "data/locations/wickermoor_funeral_home.json"
+        f = json.loads(fh.read_text())
+        mine = {MM + n for n in ("mori:request", "mori:return", "mori:hub", "folk:dibbs")}
+        f["npcs"] = [n for n in f["npcs"] if n.get("dialogue") not in mine]
+        mori = next(n for n in f["npcs"] if n["npc"] == "mori_shade")
+        i = f["npcs"].index(mori)
+        f["npcs"][i:i] = [
+            {"npc": "mori_shade", "cell": mori["cell"], "dialogue": MM + "mori:return", "when": "flag.shroud_tear_sealed and not flag.mm_mori_return_told"},
+            {"npc": "mori_shade", "cell": mori["cell"], "dialogue": MM + "mori:request", "when": "flag.mm_raid_done and not flag.mm_asked"},
+            {"npc": "mori_shade", "cell": mori["cell"], "dialogue": MM + "mori:hub", "when": "flag.mm_asked and not flag.shroud_tear_sealed"},
+            {"npc": "tobias_dibbs", "cell": open_near(f["map"]["rows"], (12, 9)), "dialogue": MM + "folk:dibbs", "when": "flag.mm_raid_done"},
+        ]
+        fh.write_text(json.dumps(f, indent=2, ensure_ascii=False) + "\n")
 
     # the three names: Holly, Old Rusty and Thomasin are told in their own places
     for loc, who, node, when in (("wickermoor_shop_bakery", "holly_aster", "folk:names_tell_holly", "quest.names_on_stones == asked and flag.mm_names_a and not flag.mm_names_told_a"),

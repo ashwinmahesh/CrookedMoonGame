@@ -9,12 +9,16 @@ from wickermoor_interiors import ROOMS
 from wickermoor_people import ADULTS, CHILDREN, EXTRAS
 import wickermoor_subplots as sub
 
+from heirlooms_kept import kept
+
 ROOT = Path(__file__).resolve().parents[2]
 REGION = "wickermoor"
 WM = "wickermoor/"
 
 
 def write(rel, obj):
+    if kept(rel):   # (a floor of a building merged into one place: tools/content/merge_floors.py)
+        return
     p = ROOT / rel
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n")

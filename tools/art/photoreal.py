@@ -6,6 +6,7 @@ every prompt. Like tools/art/generate_local.py (the cel recipe, kept beside it):
 
   photoreal.py <spec.json> [--wait]
   spec.json: {"kind": "title", "items": {"<id>": {"prompt": "...", "size": "1408x768", "seed": 8801}}}
+  A spec with "immediate": true runs its jobs ahead of the queue; the default queues them at normal priority.
 """
 from __future__ import annotations
 import json, sys
@@ -32,9 +33,10 @@ def main(argv: list[str]) -> None:
     wait = "--wait" in argv
     spec = json.loads(Path([a for a in argv if not a.startswith("--")][0]).read_text())
     jobs = {}
+    immediate = bool(spec.get("immediate", False))
     for item_id, it in spec["items"].items():
         jobs[item_id] = submit(spec["kind"], item_id, it["prompt"], it.get("size", "1408x768"), int(it["seed"]),
-                               words=it.get("words"), **{k: it[k] for k in ("reference", "strength") if k in it})
+                               words=it.get("words"), immediate=immediate, **{k: it[k] for k in ("reference", "strength") if k in it})
         print("queued", spec["kind"], item_id, jobs[item_id], flush=True)
     if wait:
         for item_id, job in jobs.items():
