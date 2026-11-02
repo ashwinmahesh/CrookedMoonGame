@@ -6,6 +6,9 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 | Item | Status | Thread |
 |---|---|---|
+| Fork the engine into DnDGameEngine-3D for Crooked Moon only (no Strahd support), with the submodule switch | In progress | [Fork the engine](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoVaJeDKhUy4UUtLtcYitgai) |
+| Real 3D multi-floor grid, starting with the Crooked House, built in the DnDGameEngine-3D fork; houses rebuilt at the pack's true size | In progress (Ashwin said go) | [Rebuild the worlds](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoC7g6BsCwnrPHakr5kpoBPD) |
+| Audit all visual effects: each gets a selection room and its own colour, size and speed settings | In progress | [Melee hit effects](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoHUCbLptUKMrnux7PbW3KTT) |
 | Weapons and pack animations (Rook's switch to pack clips waits on Ashwin's verdict) | In progress | [Weapons/pack animations](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoWHuBM7pdpdhmz86LEs2vUs) |
 | Cel cutscene stills (docs-cutscenes-cel 28081e80 queued) | In progress | [Look/title](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoCCPX3moU1VgdtYuw77oSqT) |
 | Portraits for the 144 missing NPCs | In progress | [Portraits](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoMVcF4yx8zrzvExbupWQsVL) |
@@ -17,7 +20,6 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 | Game-ready trees | In progress (waiting on Ashwin's approval of an npm install) | [Terrain3D](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo9HDaCnEx5Du9CKzyerk5Dv) |
 | Narrator becomes the Strahd voice on Higgs at full quality (VoiceGen PR #19 merged, local VoiceGen server restarted) | In progress | [Voices](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoCCmcjA1nT898YLNaBWaBba) |
 | Re-record all existing lines, starting with Act 1 | In progress | [Voices](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoCCmcjA1nT898YLNaBWaBba) |
-| Sword re-angle and Rook on the pack clips (ea618d4 and a090013, landing after pack-rig) | Ready, waiting on the batch | [Builder](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo885PDotQZrvX69iv4FXMtz) |
 
 ## Open
 
@@ -43,6 +45,10 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **Cutscene stills rule**: every cutscene still, existing and new, stays cel. (86cb7d71.)
+- **Dice sounds**: the d20 plays die_throw, with the dice recordings. (dc5b7f5d, 1deefeba.)
+- **Pack people and sources**: Ashwin's four source packs and a male and a female Quaternius body in a peasant outfit. (4bc26a2f, 53406635.)
+- **Sword re-angle and Rook on the pack clips**: Rook plays the animation pack's moves, holds his greatsword, and the blade clears his body. (8693a592, 96302554.)
 - **3D overworld replaces the travel map (Wickermoor)**: the Wickermoor stretch is a 3D Terrain3D overworld, with an enabled switch in art/overworld/overworld.json. (5b846a8a.)
 - **Realistic ground and rocks on every wild map**: the 46 wild maps have Poly Haven ground and rocks (8b6704e5, in 5b846a8a).
 - **Terrain3D past the edges of playable maps**: Barrow Hill and five more open maps show Terrain3D land past their edges (80937571, 007dd3f5).
