@@ -144,6 +144,7 @@ validate:
 	python3 tools/data/validate_data.py
 	python3 tools/data/check_implemented.py
 	python3 tools/data/check_rules_docs.py
+	python3 tools/art/rig_facing.py --check
 
 ## Compiles every engine script (addons/dnd_core/rules, combat, story) and the game's own story/ standalone (no autoloads allowed there).
 lint: import
