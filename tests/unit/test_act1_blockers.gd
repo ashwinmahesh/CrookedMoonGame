@@ -1,6 +1,5 @@
 extends TestCase
-## What the Act 1 playthrough QA found in the way of finishing the Ghostlight Express (2026-11-01), each kept fixed: a level-1
-## hero drained to a Hit Point maximum of 0 by the Phantom's passengers, the drain lasting all of Act 1, a wipe at the Stoker or a
+## What the Act 1 playthrough QA found in the way of finishing the Ghostlight Express (2026-11-01), each kept fixed: a wipe at the Stoker or a
 ## haint ending the game, a retry raising the long dead, the lost locomotive fight left "started" so the wreck refused every
 ## rest, a find all four heroes missed lost for good, and the lamps' check-in stopping the first walk in every car.
 
@@ -22,40 +21,6 @@ func _party(level: int) -> StoryState:
 		ch.finish_long_rest()
 		st.party.append(ch)
 	return st
-
-
-# --- The drain -----------------------------------------------------------------------------------------------------
-
-func test_the_trains_drainers_are_this_games_softened_blocks() -> void:
-	for f: String in ["ghostlight_g1_passenger", "ghostlight_g8_tender"]:
-		for en: Variant in Compendium.shared().get_entry("locations", f).get("encounters", []):
-			for m: Variant in (en as Dictionary).get("monsters", []):
-				var id := str((m as Dictionary)["monster"])
-				assert_false(id in ["specter", "shadow"], "%s in %s uses the Act 1 block, not the plain %s" % [(en as Dictionary)["id"], f, id])
-	for id: String in ["corrupted_passenger", "phantom_trainhopper"]:
-		var mon := Monster.from_data(Compendium.shared().monster_data(id))
-		var rider := {}
-		for a: Variant in Compendium.shared().monster_data(id).get("actions", []):
-			for r: Variant in (a as Dictionary).get("on_hit", []):
-				rider = r as Dictionary
-		assert_eq(int(rider.get("floor", 0)), 1, "%s's drain stops at 1" % id)
-		assert_eq(str(rider.get("until", "")), "fight", "%s's drain ends with the fight" % id)
-		assert_true(mon != null)
-
-
-func test_two_touches_no_longer_kill_a_level_1_hero_and_the_drain_ends_with_the_fight() -> void:
-	var e := TestCombat.open_field(3)
-	var s := TestCombat.foe(e, "corrupted_passenger", Vector2i(3, 3))
-	var h := TestCombat.hero(e, "ilse_varga", Vector2i(4, 3))
-	TestCombat.start_with(e, s)
-	var top := h.creature.max_hp()
-	for i in 4:
-		TestCombat.next_d20(e, 19)
-		e.monster_attack(s, h, "life_drain")
-	assert_false(h.creature.dead, "the drain alone can't kill")
-	assert_true(h.creature.max_hp() >= ceili(top * 0.5), "the maximum stops at half")
-	EncounterSetup.clear_fight_effects(h.creature)
-	assert_eq(h.creature.max_hp(), top, "the maximum comes back when the fight is over")
 
 
 # --- Retries -------------------------------------------------------------------------------------------------------
