@@ -64,7 +64,9 @@ func height_at(p: Vector2) -> float:
 
 
 ## Rise over run at a metre, from its neighbours.
-func slope_at(x: int, z: int) -> float:
+func slope_at(x_: int, z_: int) -> float:
+	var x := clampi(x_, 0, size - 1)
+	var z := clampi(z_, 0, size - 1)
 	var x0 := maxi(x - 1, 0)
 	var x1 := mini(x + 1, size - 1)
 	var z0 := maxi(z - 1, 0)

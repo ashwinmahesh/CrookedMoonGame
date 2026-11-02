@@ -40,7 +40,7 @@ func _ready() -> void:
 	add_child(camera)
 	camera.current = true
 	terrain.set_camera(camera)
-	look_from(party_at, 95.0, 120.0)
+	look_from(party_at, 38.0, 70.0)
 
 
 ## Puts the camera `back` metres behind and `up` metres above `at`, looking at it from the south.
@@ -71,12 +71,12 @@ func _sky() -> void:
 	sky.sky_material = mat
 	env.sky = sky
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
-	env.ambient_light_energy = 1.6
+	env.ambient_light_energy = 0.55
 	env.tonemap_mode = Environment.TONE_MAPPER_AGX
-	env.tonemap_exposure = 1.25
+	env.tonemap_exposure = 1.0
 	env.fog_enabled = true
 	env.fog_light_color = Color(0.16, 0.18, 0.26)
-	env.fog_density = 0.0012
+	env.fog_density = 0.0022
 	env.fog_aerial_perspective = 0.6
 	env.glow_enabled = true
 	env.glow_intensity = 0.6
@@ -88,7 +88,7 @@ func _sky() -> void:
 	var moon := DirectionalLight3D.new()
 	moon.name = "Moon"
 	moon.light_color = Color(0.62, 0.72, 0.95)
-	moon.light_energy = 0.9
+	moon.light_energy = 1.5
 	moon.shadow_enabled = true
 	moon.directional_shadow_max_distance = 600.0
 	moon.rotation_degrees = Vector3(-38.0, -35.0, 0.0)
@@ -107,8 +107,8 @@ func _lake() -> void:
 	disc.radial_segments = 96
 	mi.mesh = disc
 	var mat := StandardMaterial3D.new()
-	mat.albedo_color = Color(0.02, 0.04, 0.06)
-	mat.roughness = 0.04
+	mat.albedo_color = Color(0.03, 0.06, 0.08)
+	mat.roughness = 0.08
 	mat.metallic = 0.3
 	mi.material_override = mat
 	mi.position = Vector3(land.lake_at.x, land.lake_level, land.lake_at.y)
