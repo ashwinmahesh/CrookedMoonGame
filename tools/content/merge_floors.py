@@ -94,6 +94,16 @@ BUILDINGS = {
         "edits": [("mon_ground", "spawn", "from_upstairs_a", [19, 22]), ("mon_ground", "exit", "stairs_up_a", [19, 22]),
                   ("mon_upper", "spawn", "from_down_a", [22, 29]), ("mon_upper", "exit", "down_a", [22, 30])],
     },
+    # The clocktower rises out of the mayor's roof (lane B1, 2026-11-02): its clock chamber is the floor over the house, its stair a
+    # link up from the house's clocktower stair.
+    "wickermoor_mayors_house": {
+        "from": "b46abef",
+        "ground": "wickermoor_mayors_house",
+        "floors": [("wickermoor_mayors_house", "ground", 0, 0), ("wickermoor_clock_chamber", "clock", 16, 0)],
+        # The chamber's stair comes up through its floor over the house's clocktower stair, so the chamber stands within the
+        # house's walls and no square of the house moves.
+        "edits": [("wickermoor_clock_chamber", "spawn", "from_stair", [8, 7]), ("wickermoor_clock_chamber", "exit", "door", [8, 8])],
+    },
     # The bell tower is a tower of its own (the book gives it its own map, reached through the Bell Tower Gate), two floors.
     "mon_bell_tower": {
         "ground": "mon_bell_tower",

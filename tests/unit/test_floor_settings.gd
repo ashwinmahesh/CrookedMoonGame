@@ -16,9 +16,11 @@ const OWN := {
 	"wickermoor_trading_cellar": {"steps": "stone", "mood": "wm_cellar"},
 	"mon_belfry": {"bed": "mountain_wind", "outdoors": true},
 	"crooked_house_attic": {"mood": "crooked_attic"},
+	"wickermoor_clock_chamber": {"bed": "clock_chamber"},
 }
 const PLACES := ["crooked_house", "fw_windmill", "wickermoor_green_queen_inn", "dg_briar", "wickermoor_barber_shop",
-	"wickermoor_funeral_home", "wickermoor_trading_post", "mon_ground", "mon_bell_tower"]
+	"wickermoor_funeral_home", "wickermoor_trading_post", "mon_ground", "mon_bell_tower",
+	"wickermoor_mayors_house"]
 
 
 func _floor(place: String, id: String) -> Dictionary:
