@@ -2,18 +2,18 @@ extends TestCase
 ## What the floors of the multi-floor buildings settle for themselves, put back after the merge (their `map.floors` entries,
 ## the engine's PlaceFloors; tools/content/merge_floors.py reads them from the old floor places): the cellars' and upstairs'
 ## sound beds and footsteps, the Briar cellar's risky rest, the windmill cellar's manor theme, the belfry's open air and the
-## Crooked House attic's darker mood.
+## Crooked House attic's darker mood; and the cellars' own moods, a little brighter than the house above.
 
 ## floor id -> what it says for itself.
 const OWN := {
-	"fw_windmill_cellar": {"bed": "windmill_cellar", "steps": "stone", "theme": "manor"},
-	"wickermoor_inn_cellar": {"bed": "tavern_muffled", "steps": "stone"},
+	"fw_windmill_cellar": {"bed": "windmill_cellar", "steps": "stone", "theme": "manor", "mood": "fw_cellar"},
+	"wickermoor_inn_cellar": {"bed": "tavern_muffled", "steps": "stone", "mood": "wm_cellar"},
 	"wickermoor_green_queen_inn_upper": {"bed": "tavern_muffled"},
-	"dg_briar_cellar": {"bed": "tavern_muffled", "rest": "risky"},
+	"dg_briar_cellar": {"bed": "tavern_muffled", "rest": "risky", "mood": "dg_cellar"},
 	"dg_briar_upper": {"bed": "tavern_muffled"},
-	"wickermoor_barber_cellar": {"steps": "stone"},
-	"wickermoor_funeral_basement": {"steps": "stone"},
-	"wickermoor_trading_cellar": {"steps": "stone"},
+	"wickermoor_barber_cellar": {"steps": "stone", "mood": "wm_cellar"},
+	"wickermoor_funeral_basement": {"steps": "stone", "mood": "wm_cellar"},
+	"wickermoor_trading_cellar": {"steps": "stone", "mood": "wm_cellar"},
 	"mon_belfry": {"bed": "mountain_wind", "outdoors": true},
 	"crooked_house_attic": {"mood": "crooked_attic"},
 }
@@ -44,6 +44,30 @@ func test_the_ground_floor_says_nothing_it_is_the_place() -> void:
 			if str((f as Dictionary)["id"]) == place or str((f as Dictionary)["id"]) == "crooked_house_first":
 				for key: String in ["mood", "bed", "steps", "rest", "theme", "outdoors"]:
 					assert_false((f as Dictionary).has(key), "%s's ground floor has no %s of its own" % [place, key])
+
+
+## The cellars: place -> its cellar floor's id.
+const CELLARS := {"fw_windmill": "fw_windmill_cellar", "wickermoor_green_queen_inn": "wickermoor_inn_cellar",
+	"dg_briar": "dg_briar_cellar", "wickermoor_barber_shop": "wickermoor_barber_cellar",
+	"wickermoor_funeral_home": "wickermoor_funeral_basement", "wickermoor_trading_post": "wickermoor_trading_cellar"}
+
+
+## A mood's Modern ambient for any hour.
+func _modern_ambient(mood: String) -> float:
+	var m := Atmosphere.resolve(mood)
+	var modern := m.get("modern", {}) as Dictionary
+	var any := ((modern.get("times", m.get("times", {})) as Dictionary).get("any", {})) as Dictionary
+	return float(any.get("ambient_energy", 0.8))
+
+
+func test_a_cellar_is_a_little_brighter_than_the_house_over_it_but_still_dim() -> void:
+	for place: String in CELLARS:
+		var loc := Compendium.shared().get_entry("locations", place)
+		var mood := str(_floor(place, CELLARS[place]).get("mood", ""))
+		var house := Atmosphere.mood_for(place, loc)
+		assert_eq(str(Atmosphere.moods()["moods"][mood].get("like", "")), house, "%s's cellar is like the house over it" % place)
+		var ratio := _modern_ambient(mood) / _modern_ambient(house)
+		assert_true(ratio > 1.0 and ratio < 2.5, "%s's cellar is brighter, not bright (%.2f)" % [place, ratio])
 
 
 func _story(place: String, at: Vector2i) -> StoryState:
