@@ -235,6 +235,8 @@ func enter_location(location_id: String, spawn: String, sneaking: bool = false) 
 	view.arrive_sneaking = sneaking
 	add_child(view)
 	view.add_child(TalkMarks.create(view))   # a speech bubble over whoever waits to be talked to (data/talk_marks.json)
+	view.rig.free_changed.connect(_free_camera)   # the free camera (the bar's camera button, or its key)
+	hud.show_free_camera(false)   # a new place starts with the camera on the party
 	PlacePreload.keep_foes(view)   # the foes of its fights read on worker threads while the party is here
 	plan_bar.view = view
 	hud.show_location(view)
@@ -446,6 +448,8 @@ func _process(delta: float) -> void:
 			_show_banter(_banter_waiting)
 			_banter_waiting = []
 			_banter_quiet_since = -1
+	if view.rig.free_cam:
+		return   # the walking keys move the free camera instead (CameraRig._fly)
 	var v := Input.get_vector(&"move_left", &"move_right", &"move_forward", &"move_back")
 	if v.length() < 0.3:
 		_move_repeat = 0.0
@@ -532,9 +536,17 @@ func _command(name_: String) -> void:
 			view.search()
 		"map":
 			open_travel(false)
+		"camera":
+			view.rig.toggle_free()
 		_:
 			open_screen(name_, 0)
 	_refresh()
+
+
+## The free camera went on or off: the bar's button says so, and a word on what the keys do now.
+func _free_camera(on: bool) -> void:
+	hud.show_free_camera(on)
+	hud.toast(InputActions.fill("Free camera: {walk} move it, {camera_free} brings it back") if on else "The camera is back with the party")
 
 
 # --- Conversations, loot, fights ------------------------------------------------------------------

@@ -5,6 +5,7 @@ extends Node
 ## --hour=8 shoots the Twilight Hour (the default is 23, the Midnight Hour).
 ## --party=placeholder stands the engine's placeholder party (Ilse, Tamsin, Hedda, Silvain, sprites) in the places; the default is a new
 ## game's party (Rook, Silas, Cordelia, Delphine), the 3D figures the game opens with.
+## --tilts=10,30,60,85 adds a play shot at each of those camera tilts (degrees down): <out>_<place>_tilt_<n>.png.
 ## Shots: <out>_<place>_play.png and <out>_<place>_whole.png.
 
 const GAME := preload("res://world/game_root.gd")
@@ -26,6 +27,7 @@ func capture_shots(tool: Node, out: String) -> void:
 	var flags: PackedStringArray = []
 	var focus := Vector2(-1, -1)
 	var focus_distance := 8.0
+	var tilts: PackedStringArray = []
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--places="):
 			places = a.get_slice("=", 1).split(",")
@@ -33,6 +35,8 @@ func capture_shots(tool: Node, out: String) -> void:
 			flags = a.get_slice("=", 1).split(",")   # story flags to set first, name:value (moon_grin:2,moon_scowl:true)
 		if a == "--party=placeholder":
 			placeholder = true
+		if a.begins_with("--tilts="):
+			tilts = a.get_slice("=", 1).split(",")   # play shots at these tilts (degrees down), as the player tilts the camera
 		if a.begins_with("--hour="):
 			hour = int(a.get_slice("=", 1))   # the hour of the day (23 the Midnight Hour, the default; 8 the Twilight Hour)
 		if a.begins_with("--morph="):
@@ -98,6 +102,14 @@ func capture_shots(tool: Node, out: String) -> void:
 				print("turn frame %d: morph weight %.3f" % [k, BuildingMorph.weight((game.get("view") as LocationView).board)])
 		var view := game.get("view") as LocationView
 		var rig := view.rig
+		for t in tilts:
+			rig.pitch_deg = -float(t)
+			rig.snap_to_target()
+			await tool.call("wait_frames", 30)
+			tool.call("_shot", "%s_%s_tilt_%s.png" % [out, place, t])
+		if not tilts.is_empty():
+			rig.reset_view()
+			rig.snap_to_target()
 		if travel:
 			for p: Variant in Travel.map_data().get("places", []) as Array:
 				st.visited[str((p as Dictionary)["location"]).get_slice(":", 0)] = true
