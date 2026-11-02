@@ -36,7 +36,7 @@ static func dress(view: LocationView) -> Terrain3D:
 	var noise := FastNoiseLite.new()
 	noise.seed = hash(view.loc_id)
 	noise.fractal_octaves = 5
-	var lane := _lane(spec, grid)
+	var lane := _lanes(spec, view.loc, grid)
 	var w := (grid.width + MARGIN * 2) * PER_UNIT
 	var d := (grid.depth + MARGIN * 2) * PER_UNIT
 	var height := Image.create_empty(w, d, false, Image.FORMAT_RF)
@@ -82,18 +82,30 @@ static func dress(view: LocationView) -> Terrain3D:
 	return terrain
 
 
-## The lane out of the map as points (units): from the spec's `lane` square straight off the map's edge in its
-## `heading`, then wandering on downhill.
-static func _lane(spec: Dictionary, grid: CombatGrid) -> PackedVector2Array:
+## The lanes out of the map as points (units): the spec's own `lane` square and `heading`, else every way out on the
+## map's edge (Travel.exit_facing), each running straight off the edge and then wandering on.
+static func _lanes(spec: Dictionary, loc: Dictionary, grid: CombatGrid) -> PackedVector2Array:
 	var out := PackedVector2Array()
-	if not spec.has("lane"):
+	if spec.has("lane"):
+		out.append_array(_lane(Vector2(float((spec["lane"] as Array)[0]), float((spec["lane"] as Array)[1])),
+			Vector2(float((spec["heading"] as Array)[0]), float((spec["heading"] as Array)[1])), grid))
 		return out
-	var at := Vector2(float((spec["lane"] as Array)[0]) + 0.5, float((spec["lane"] as Array)[1]) + 0.5)
-	var dir := Vector2(float((spec["heading"] as Array)[0]), float((spec["heading"] as Array)[1])).normalized()
+	for e: Variant in loc.get("exits", []) as Array:
+		var exit := e as Dictionary
+		var facing := Travel.exit_facing(loc, exit)
+		if facing != Vector2.ZERO:
+			out.append_array(_lane(Vector2(float((exit["cell"] as Array)[0]), float((exit["cell"] as Array)[1])), facing, grid))
+	return out
+
+
+static func _lane(cell: Vector2, heading: Vector2, grid: CombatGrid) -> PackedVector2Array:
+	var out := PackedVector2Array()
+	var at := cell + Vector2(0.5, 0.5)
+	var dir := heading.normalized()
 	for k in 240:
 		out.append(at)
 		var t := float(k) / 240.0
-		dir = dir.rotated(sin(t * 9.0) * 0.03)
+		dir = dir.rotated(sin(t * 9.0 + cell.x) * 0.03)
 		at += dir * 0.35
 		if at.x < -MARGIN or at.y < -MARGIN or at.x > grid.width + MARGIN or at.y > grid.depth + MARGIN:
 			break
