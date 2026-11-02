@@ -13,7 +13,7 @@ make run (the edge build) | run-main | test [ONLY=substr FILES=a.gd,b.gd JOBS=n]
 check [DRY=1] [DEPTH=n] | ci | capture [SCENE=… NAME=… FRAMES=… LOCATION=…] | smoke [SCENE=… FRAMES=n] | arena | import | lfs-quiet |
 palette | hooks | voice-wire [DRY=1 PRUNE=1 LIST=1] | lane / lane-done / lane-seed [NAME= BRANCH= SSD=1] | edge-* | slots-test | tools-test | sketch HEIGHT=… LAYOUT=… SIZE=WxD [LOC=… PREVIEW=…]
 Not copied yet (later lanes retarget them to the local services): the art, voice, wiki, release and iOS tools and blender/.
-The engine is the git submodule addons/dnd_core (public repo DungeonsAndDragonsGameEngine): after a fresh clone or a lane,
+The engine is the git submodule addons/dnd_core (private repo DnDGameEngine-3D, this game's own copy of the engine, split from DungeonsAndDragonsGameEngine on 2026-11-02): after a fresh clone or a lane,
 `git submodule update --init` and `git lfs pull` inside it; to change it, edit and commit inside addons/dnd_core, push the
 engine first, then commit the new submodule commit here (its path shows as the change).
 
@@ -41,8 +41,7 @@ engine first, then commit the new submodule commit here (its path shows as the c
   into `owner`, switch with `/opt/homebrew/bin/python3 ~/Applications/"Daemon Monitor.app"/Contents/Resources/control.py stop|start image|voice`
   (stop the other first), and remove the lock when your batch is done. Never stop a generator that is busy with someone else's job.
 - The look (Ashwin, 2026-11-02, plan 8.1): fully 3D with realistic lighting and textures; no toon, no cel, no HD-2D. The game offers only
-  the Modern finish (data/campaign.json). Curse of Strahd stays HD-2D on the shared engine, so wherever this game diverges the change
-  lives in this repo, never in the engine's defaults.
+  the Modern finish (data/campaign.json). The engine is this game's alone now, so its defaults may follow this game's look.
 - Pictures in the world and menus (loading pictures, title, travel map, vistas, the moon, decals): photorealistic. Z-Image Turbo with
   no style LoRA; append the words in art/prompts/photoreal_preamble.txt to every prompt.
 - ALL cutscene stills, the ones already made and every new one, in every act, are the cartoon style, never photoreal (Ashwin, 2026-11-02
@@ -99,8 +98,8 @@ engine first, then commit the new submodule commit here (its path shows as the c
 - A character is its `build` (keyed choices); `refresh()` derives the rest. The UI never computes rules.
 - Rules source: the 2024 PHB, DMG and 2025 MM as the engine has them, plus the book's own options, bestiary and treasury. Rule deviations go
   in docs/rules/deviations.md; a rule is "done" only when coverage.md says so. `make validate` checks both docs against the data.
-- Data `text` and `summary` are our own words, never copied. Engine changes sit behind keys that default to Curse of Strahd's behaviour
-  and run the engine's tests and both games' quick checks.
+- Data `text` and `summary` are our own words, never copied. Engine changes run the engine's tests and this game's
+  quick check; Curse of Strahd stays on the old engine repo and no longer has to pass.
 
 ## Art
 - Colours only from art/palette/palette.json, plus art/palette/ui_palette.json for menus (via Look); run `make palette` after editing the list in
