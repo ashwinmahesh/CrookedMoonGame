@@ -182,7 +182,7 @@ const FREE_PACKS: Array[String] = ["quaternius_universal_base_characters", "quat
 		"quaternius_medieval_village_megakit", "quaternius_ultimate_animated_animal_pack", "kaykit_medieval_builder_pack",
 		"kaykit_dungeon_pack", "kaykit_adventurers", "kaykit_skeletons", "quaternius_universal_base_characters_source",
 		"quaternius_modular_character_outfits_fantasy_source", "quaternius_medieval_village_megakit_source",
-		"quaternius_fantasy_props_megakit_source"]
+		"quaternius_fantasy_props_megakit_source", "quaternius_universal_animation_library_source"]
 ## The weapons held, by the item that shows them: the engine's item ids, and the part each is drawn as (no mace, scimitar or
 ## sickle: none of the free packs has one).
 const FREE_WEAPONS := {"dagger": "dagger", "spear": "spear", "quarterstaff": "staff", "greataxe": "greataxe", "shortbow": "bow",
