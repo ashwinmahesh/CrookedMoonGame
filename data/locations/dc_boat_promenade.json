@@ -1,31 +1,120 @@
 {
   "id": "dc_boat_promenade",
-  "name": "The Dead Man's Hand: Promenade",
+  "name": "The Dead Man's Hand",
   "region": "drowned_crossroads",
   "summary": "The top decks of a ghostly riverboat casino, crowded with glassy-eyed revellers.",
   "text": "Neon soulfire, green and magenta. The deck circles the ship, crowded with well-dressed revellers whose eyes will not quite meet yours, and holds the balcony over the hall. Catchy jazz comes from everywhere.",
+  "rest": "no",
+  "rest_text": "The jazz does not let anyone rest.",
   "map": {
-    "rows": [
-      "##############################################",
-      "#............................................#",
-      "#.............==......===.......==......==...#",
-      "#............................................#",
-      "#............................................#",
-      "########.....#################.......#########",
-      "#............................................#",
-      "#._____......................................#",
-      ".._____......................................#",
-      "#._____......................................#",
-      "#._____......................................#",
-      "#._____.......==..........==........==.......#",
-      "#._____......................................#",
-      "#............................................#",
-      "#............................................#",
-      "##############################################"
-    ],
     "theme": "tavern",
     "light": "bright",
-    "outdoors": false
+    "outdoors": false,
+    "rows": [
+      "                                                       ####################.#####################                                                                                             ",
+      "                                                       #........................................#                                                                                             ",
+      "                                                       #.___________...=======================..#                                                                                             ",
+      "####################################################   #.___________............................#                                                                                             ",
+      "#...........#........#........#.........#..........#   #.___________............................# ##############################################                                              ",
+      "#...........#........#........#.........#..........#   #.___________.................====.......# #............................................#                      ########################",
+      "#...........#........#........#..====...#..====....#   #........................................# #.............==......===.......==......==...#                      #......................#",
+      "#...........#........#........#.........#..........#   #........................................# #............................................#                      #..===............===..#",
+      "#...........#........#........#..====...#..====....#   #........................................# #............................................#                      #.........====.........#",
+      "#...........#........#........#.........#..........#   #.......===..............................# ########.....#################.......#########                      #......................#",
+      "#...........#........#........#.........#..........#   #................===......===......===...# #............................................#                      #......................#",
+      "#######.#######.########.#########.#########.#######   #........................................# #._____......................................#                      #......................#",
+      "...................................................#   #........................................# .._____......................................#                      #......................#",
+      "#..................................................#   #........................................# #._____......................................#                      #......................#",
+      "#######.#######.########.#########.#########.#######   #.......===..............................# #._____......................................#                      #......................#",
+      "#...........#.................#.........#..........#   #........................................# #._____.......==..........==........==.......#                      #......................#",
+      "#..==.==.==.#.................#.........#..........#   #................===......===......===...# #._____......................................#                      #......................#",
+      "#...........#.===.===.===.....#.........#..........#   #........................................# #............................................#                      #......................#",
+      "#...........#.................#.........#..........#   #........................................# #............................................#                      ###########.############",
+      "#..==.==.==.#.................#.........#..........#   #.......===..............................# ##############################################                                              ",
+      "#...........#.................#.........#..........#   #.....................===.......===......#                                                                                             ",
+      "#...........#.................#.........#..........#   #........................................#                                                                                             ",
+      "####################################################   #........................................#                                                                                             ",
+      "                                                       #####################.####################                                                                                             "
+    ],
+    "floors": [
+      {
+        "x0": 0,
+        "width": 52,
+        "height_ft": 0,
+        "id": "dc_boat_lower",
+        "offset": [
+          0,
+          3
+        ],
+        "bed": "bayou_indoor"
+      },
+      {
+        "x0": 53,
+        "width": 44,
+        "height_ft": 15,
+        "id": "dc_boat_hall",
+        "offset": [
+          55,
+          0
+        ]
+      },
+      {
+        "x0": 98,
+        "width": 46,
+        "height_ft": 30,
+        "id": "dc_boat_promenade",
+        "offset": [
+          98,
+          4
+        ],
+        "kind": "deck",
+        "rail_ft": 3
+      },
+      {
+        "x0": 145,
+        "width": 45,
+        "height_ft": 45,
+        "id": "dc_boat_captain",
+        "offset": [
+          166,
+          5
+        ],
+        "bed": "bayou_indoor",
+        "theme": "manor"
+      }
+    ],
+    "stairs": [
+      {
+        "from": [
+          4,
+          12
+        ],
+        "to": [
+          57,
+          12
+        ]
+      },
+      {
+        "from": [
+          75,
+          16
+        ],
+        "to": [
+          120,
+          16
+        ]
+      },
+      {
+        "from": [
+          140,
+          7
+        ],
+        "to": [
+          187,
+          7
+        ]
+      }
+    ]
   },
   "areas": [
     {
@@ -33,12 +122,12 @@
       "name": "Dead Man's Gangplank",
       "cells": [
         [
-          1,
-          7
+          99,
+          11
         ],
         [
-          6,
-          12
+          104,
+          16
         ]
       ]
     },
@@ -47,12 +136,12 @@
       "name": "The top deck",
       "cells": [
         [
-          2,
-          1
+          100,
+          5
         ],
         [
-          44,
-          4
+          142,
+          8
         ]
       ]
     },
@@ -61,72 +150,187 @@
       "name": "The balcony",
       "cells": [
         [
-          7,
+          105,
+          10
+        ],
+        [
+          142,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "dc_corridor",
+      "name": "The corridor",
+      "cells": [
+        [
+          1,
+          12
+        ],
+        [
+          50,
+          13
+        ]
+      ]
+    },
+    {
+      "id": "dc_boiler",
+      "name": "B4: Boiler Room",
+      "cells": [
+        [
+          41,
+          4
+        ],
+        [
+          50,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "dc_vault",
+      "name": "B5: Coin Vault",
+      "cells": [
+        [
+          31,
+          4
+        ],
+        [
+          39,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "dc_galley",
+      "name": "B6: Galley",
+      "cells": [
+        [
+          13,
+          15
+        ],
+        [
+          29,
+          21
+        ]
+      ]
+    },
+    {
+      "id": "dc_quarters",
+      "name": "B7: Crew and Guest Quarters",
+      "cells": [
+        [
+          1,
+          15
+        ],
+        [
+          11,
+          21
+        ]
+      ]
+    },
+    {
+      "id": "dc_stores",
+      "name": "Storerooms",
+      "cells": [
+        [
+          1,
+          4
+        ],
+        [
+          29,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "dc_gambling_hall",
+      "name": "The Gambling Hall",
+      "cells": [
+        [
+          56,
+          1
+        ],
+        [
+          95,
+          22
+        ]
+      ]
+    },
+    {
+      "id": "dc_band",
+      "name": "The jazz band's stand",
+      "cells": [
+        [
+          57,
+          2
+        ],
+        [
+          67,
+          5
+        ]
+      ]
+    },
+    {
+      "id": "dc_bar",
+      "name": "The bar",
+      "cells": [
+        [
+          71,
+          2
+        ],
+        [
+          93,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "dc_cabin",
+      "name": "The Captain's Quarters",
+      "cells": [
+        [
+          167,
           6
         ],
         [
-          44,
-          14
+          188,
+          17
         ]
       ]
     }
   ],
-  "spawns": {
-    "default": [
-      3,
-      9
-    ],
-    "from_gangplank": [
-      3,
-      9
-    ],
-    "from_hall_up": [
-      22,
-      12
-    ],
-    "from_captain": [
-      42,
-      3
-    ]
-  },
-  "exits": [
+  "doors": [
     {
-      "id": "gangplank",
+      "id": "dc_boiler_door",
       "cell": [
-        0,
-        8
+        44,
+        11
       ],
-      "to": "dc_lagoon",
-      "spawn": "from_boat",
-      "label": "Down the gangplank"
+      "locked": false,
+      "lock_dc": 0,
+      "key": "",
+      "secret_dc": 0
     },
     {
-      "id": "to_hall",
+      "id": "dc_vault_door",
       "cell": [
-        22,
-        13
+        34,
+        11
       ],
-      "to": "dc_boat_hall",
-      "spawn": "from_balcony",
-      "label": "Stairs down to the Gambling Hall"
-    },
-    {
-      "id": "to_captain",
-      "cell": [
-        43,
-        2
-      ],
-      "to": "dc_boat_captain",
-      "spawn": "from_stairs",
-      "label": "Stairs up to the Captain's Quarters"
+      "locked": true,
+      "lock_dc": 15,
+      "key": "coin_keepers_key",
+      "secret_dc": 0,
+      "locked_text": "A soggy hold behind an iron door."
     }
   ],
   "props": [
     {
       "id": "dc_flag_skull",
       "cell": [
-        6,
-        3
+        104,
+        7
       ],
       "kind": "decor",
       "label": "A black flag with a crocodile skull",
@@ -135,20 +339,277 @@
     {
       "id": "dc_paddle",
       "cell": [
-        44,
-        8
+        142,
+        12
       ],
       "kind": "decor",
       "label": "A paddle wheel that never turns",
       "model": "gate"
+    },
+    {
+      "id": "dc_boiler",
+      "cell": [
+        46,
+        7
+      ],
+      "kind": "examine",
+      "label": "A coffin-shaped boiler glowing magenta, stamped Stranger Ferryworks",
+      "model": "case",
+      "dialogue": "drowned_crossroads/boat:boiler_open",
+      "when": "flag.dc_boiler_done and not flag.elias_freed"
+    },
+    {
+      "id": "dc_boiler_cold",
+      "cell": [
+        46,
+        7
+      ],
+      "kind": "decor",
+      "label": "The boiler, gone cold",
+      "model": "case",
+      "when": "flag.elias_freed"
+    },
+    {
+      "id": "dc_boiler_stamp",
+      "cell": [
+        45,
+        6
+      ],
+      "kind": "examine",
+      "label": "Stranger Ferryworks, stamped into the iron",
+      "dialogue": "drowned_crossroads/boat:ferryworks",
+      "when": "not flag.dc_boiler_done"
+    },
+    {
+      "id": "dc_galley_drinks",
+      "cell": [
+        17,
+        18
+      ],
+      "kind": "examine",
+      "label": "Superb food and strong drinks",
+      "model": "table_meal",
+      "dialogue": "drowned_crossroads/boat:galley"
+    },
+    {
+      "id": "dc_galley_chefs",
+      "cell": [
+        22,
+        19
+      ],
+      "kind": "decor",
+      "label": "Dead chefs, working",
+      "model": "table_round"
+    },
+    {
+      "id": "dc_quarters_bunks",
+      "cell": [
+        5,
+        18
+      ],
+      "kind": "decor",
+      "label": "Crew bunks and guest cots",
+      "model": "bed"
+    },
+    {
+      "id": "dc_hand_trail",
+      "cell": [
+        8,
+        13
+      ],
+      "kind": "decor",
+      "label": "A withered hand, tugging toward the stern",
+      "model": "rags",
+      "when": "flag.withered_hand_taken and not flag.dc_boiler_done"
+    },
+    {
+      "id": "dc_hall_table_dice",
+      "cell": [
+        72,
+        10
+      ],
+      "kind": "examine",
+      "label": "A dice table",
+      "model": "table_round",
+      "dialogue": "drowned_crossroads/boat:wager"
+    },
+    {
+      "id": "dc_hall_table_cards",
+      "cell": [
+        81,
+        16
+      ],
+      "kind": "examine",
+      "label": "A half-moon card table",
+      "model": "table_round",
+      "dialogue": "drowned_crossroads/boat:wager"
+    },
+    {
+      "id": "dc_hall_roulette",
+      "cell": [
+        90,
+        10
+      ],
+      "kind": "examine",
+      "label": "A roulette table",
+      "model": "table_round",
+      "dialogue": "drowned_crossroads/boat:wager"
+    },
+    {
+      "id": "dc_hall_window",
+      "cell": [
+        94,
+        12
+      ],
+      "kind": "examine",
+      "label": "The tall mirrored windows",
+      "model": "window",
+      "dialogue": "drowned_crossroads/boat:window"
+    },
+    {
+      "id": "dc_hall_deck",
+      "cell": [
+        63,
+        18
+      ],
+      "kind": "examine",
+      "label": "A table with a hexed deck of cards",
+      "model": "table_round",
+      "dialogue": "drowned_crossroads/boat:hexed_deck"
+    },
+    {
+      "id": "dc_hall_bar",
+      "cell": [
+        83,
+        3
+      ],
+      "kind": "examine",
+      "label": "The bar, and a barman with copper on his eyes",
+      "model": "shelves",
+      "dialogue": "drowned_crossroads/boat:barman"
+    },
+    {
+      "id": "dc_hall_band",
+      "cell": [
+        61,
+        3
+      ],
+      "kind": "decor",
+      "label": "Five skeletons, a trumpet, a trombone, a piano, a clarinet and drums",
+      "model": "bone_scatter"
+    },
+    {
+      "id": "dc_hall_horses",
+      "cell": [
+        87,
+        20
+      ],
+      "kind": "examine",
+      "label": "Enchanted horse figurines, racing",
+      "model": "rocking_horse",
+      "dialogue": "drowned_crossroads/boat:wager"
+    },
+    {
+      "id": "dc_cap_blunderbuss",
+      "cell": [
+        187,
+        8
+      ],
+      "kind": "decor",
+      "label": "A huge sigil-etched blunderbuss on the wall",
+      "model": "stag_head"
+    },
+    {
+      "id": "dc_cap_bottle",
+      "cell": [
+        172,
+        9
+      ],
+      "kind": "examine",
+      "label": "A ship in a bottle",
+      "model": "jars",
+      "dialogue": "drowned_crossroads/sinner:ship_bottle"
+    },
+    {
+      "id": "dc_cap_desk",
+      "cell": [
+        177,
+        8
+      ],
+      "kind": "examine",
+      "label": "A desk etched with jinxcraft",
+      "model": "table_round",
+      "dialogue": "drowned_crossroads/sinner:desk"
+    }
+  ],
+  "containers": [
+    {
+      "id": "dc_vault_cage",
+      "cell": [
+        37,
+        7
+      ],
+      "label": "The iron cage and its coin sacks",
+      "items": [],
+      "gold": 710,
+      "lock_dc": 20,
+      "flag": "coin_vault_looted"
+    },
+    {
+      "id": "dc_keeper_desk",
+      "cell": [
+        47,
+        12
+      ],
+      "label": "A drawer of keys",
+      "items": [
+        {
+          "id": "coin_keepers_key",
+          "qty": 1
+        }
+      ],
+      "gold": 0,
+      "lock_dc": 0
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        120,
+        12
+      ],
+      "kind": "lamp",
+      "bright_ft": 30,
+      "dim_ft": 60,
+      "color": "bile"
+    },
+    {
+      "cell": [
+        65,
+        10
+      ],
+      "kind": "lamp",
+      "bright_ft": 30,
+      "dim_ft": 60,
+      "color": "bile"
+    },
+    {
+      "cell": [
+        85,
+        10
+      ],
+      "kind": "lamp",
+      "bright_ft": 30,
+      "dim_ft": 60,
+      "color": "bile"
     }
   ],
   "npcs": [
     {
       "npc": "bellhop_zombie",
       "cell": [
-        8,
-        8
+        106,
+        12
       ],
       "dialogue": "drowned_crossroads/lagoon:bellhops",
       "when": "not flag.dc_bellhops_ok and not flag.dc_bellhops_done"
@@ -156,8 +617,8 @@
     {
       "npc": "elias_greaves",
       "cell": [
-        30,
-        9
+        128,
+        13
       ],
       "dialogue": "drowned_crossroads/boat:elias_mute",
       "when": "flag.dc_boarded and not flag.elias_freed and not flag.elias_met"
@@ -165,8 +626,8 @@
     {
       "npc": "elias_greaves",
       "cell": [
-        30,
-        9
+        128,
+        13
       ],
       "dialogue": "drowned_crossroads/boat:elias_again",
       "when": "flag.elias_met and not flag.elias_freed"
@@ -174,18 +635,98 @@
     {
       "npc": "boat_reveler",
       "cell": [
-        14,
-        3
+        112,
+        7
       ],
       "dialogue": "drowned_crossroads/boat:reveler"
     },
     {
       "npc": "boat_reveler",
       "cell": [
-        35,
-        11
+        133,
+        15
       ],
       "dialogue": "drowned_crossroads/boat:reveler"
+    },
+    {
+      "npc": "soulfire_engineer",
+      "cell": [
+        47,
+        8
+      ],
+      "dialogue": "drowned_crossroads/boat:engineer",
+      "when": "not flag.dc_boiler_done"
+    },
+    {
+      "npc": "coin_keeper",
+      "cell": [
+        35,
+        9
+      ],
+      "dialogue": "drowned_crossroads/boat:keeper",
+      "when": "not flag.dc_keeper_done"
+    },
+    {
+      "npc": "elias_greaves",
+      "cell": [
+        8,
+        12
+      ],
+      "dialogue": "drowned_crossroads/boat:elias_again",
+      "when": "flag.dc_boiler_lead and not flag.elias_freed"
+    },
+    {
+      "npc": "boat_dealer",
+      "cell": [
+        64,
+        8
+      ],
+      "dialogue": "drowned_crossroads/boat:dealer"
+    },
+    {
+      "npc": "boat_gambler",
+      "cell": [
+        73,
+        12
+      ],
+      "dialogue": "drowned_crossroads/boat:gambler",
+      "when": "not flag.dc_hall_brawl_done"
+    },
+    {
+      "npc": "boat_gambler",
+      "cell": [
+        82,
+        13
+      ],
+      "dialogue": "drowned_crossroads/boat:gambler",
+      "when": "not flag.dc_hall_brawl_done"
+    },
+    {
+      "npc": "elias_greaves",
+      "cell": [
+        76,
+        18
+      ],
+      "dialogue": "drowned_crossroads/boat:elias_again",
+      "when": "flag.dc_hall_help and not flag.elias_freed"
+    },
+    {
+      "npc": "mister_crossroads",
+      "cell": [
+        177,
+        10
+      ],
+      "dialogue": "drowned_crossroads/sinner:invite",
+      "when": "flag.dc_boarded and not flag.dc_sinner_done and not flag.sinner_roll_started"
+    },
+    {
+      "npc": "mister_crossroads",
+      "cell": [
+        177,
+        10
+      ],
+      "dialogue": "drowned_crossroads/sinner:invite_again",
+      "when": "flag.sinner_roll_started and not flag.sinner_dice and not flag.dc_sinner_done"
     }
   ],
   "encounters": [
@@ -197,8 +738,8 @@
         {
           "monster": "ogre_zombie",
           "cell": [
-            10,
-            8
+            108,
+            12
           ],
           "name": "A bellhop",
           "facing": "west"
@@ -214,8 +755,8 @@
         {
           "monster": "ogre_zombie",
           "cell": [
-            10,
-            8
+            108,
+            12
           ],
           "name": "A bellhop",
           "facing": "west"
@@ -223,8 +764,8 @@
         {
           "monster": "ogre_zombie",
           "cell": [
-            10,
-            10
+            108,
+            14
           ],
           "name": "A bellhop",
           "facing": "west"
@@ -240,8 +781,8 @@
         {
           "monster": "ogre_zombie",
           "cell": [
-            10,
-            8
+            108,
+            12
           ],
           "name": "A bellhop",
           "facing": "west"
@@ -249,28 +790,976 @@
         {
           "monster": "ogre_zombie",
           "cell": [
-            10,
-            10
+            108,
+            14
           ],
           "name": "A bellhop",
           "facing": "west"
         }
       ],
       "when": "level >= 7"
+    },
+    {
+      "id": "dc_boiler_fight",
+      "trigger": "dialogue",
+      "flag": "dc_boiler_done",
+      "quest": {
+        "id": "withered_arm",
+        "stage": "elias"
+      },
+      "monsters": [
+        {
+          "monster": "soulfire_engineer",
+          "cell": [
+            47,
+            7
+          ],
+          "name": "The Soulfire Engineer",
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            43,
+            5
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            45,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            49,
+            5
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            49,
+            9
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "soulfire_stoker",
+          "cell": [
+            44,
+            7
+          ],
+          "name": "The Soulfire Stoker",
+          "facing": "west"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "blasting_furnace",
+          "name": "The Blasting Furnace",
+          "summary": "The furnace vents: everyone but the spirits takes fire.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "dex",
+            "dc": 13
+          },
+          "half": true,
+          "damage": {
+            "dice": "2d6",
+            "type": "fire"
+          },
+          "at": 20,
+          "every": 1,
+          "area": {
+            "cells": [
+              [
+                41,
+                4
+              ],
+              [
+                50,
+                10
+              ]
+            ]
+          },
+          "say": "The furnace roars, and the room is fire."
+        }
+      ],
+      "when": "level <= 5"
+    },
+    {
+      "id": "dc_boiler_fight",
+      "trigger": "dialogue",
+      "flag": "dc_boiler_done",
+      "quest": {
+        "id": "withered_arm",
+        "stage": "elias"
+      },
+      "monsters": [
+        {
+          "monster": "soulfire_engineer",
+          "cell": [
+            47,
+            7
+          ],
+          "name": "The Soulfire Engineer",
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            43,
+            5
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            45,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            49,
+            5
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            49,
+            9
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            42,
+            9
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "soulfire_stoker",
+          "cell": [
+            44,
+            7
+          ],
+          "name": "The Soulfire Stoker",
+          "facing": "west"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "blasting_furnace",
+          "name": "The Blasting Furnace",
+          "summary": "The furnace vents: everyone but the spirits takes fire.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "dex",
+            "dc": 13
+          },
+          "half": true,
+          "damage": {
+            "dice": "2d6",
+            "type": "fire"
+          },
+          "at": 20,
+          "every": 1,
+          "area": {
+            "cells": [
+              [
+                41,
+                4
+              ],
+              [
+                50,
+                10
+              ]
+            ]
+          },
+          "say": "The furnace roars, and the room is fire."
+        }
+      ],
+      "when": "level == 6"
+    },
+    {
+      "id": "dc_boiler_fight",
+      "trigger": "dialogue",
+      "flag": "dc_boiler_done",
+      "quest": {
+        "id": "withered_arm",
+        "stage": "elias"
+      },
+      "monsters": [
+        {
+          "monster": "soulfire_engineer",
+          "cell": [
+            47,
+            7
+          ],
+          "name": "The Soulfire Engineer",
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            43,
+            5
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            45,
+            9
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            49,
+            5
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            49,
+            9
+          ],
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            42,
+            9
+          ],
+          "facing": "east"
+        },
+        {
+          "monster": "soulfire_stoker",
+          "cell": [
+            44,
+            7
+          ],
+          "name": "The Soulfire Stoker",
+          "facing": "west"
+        },
+        {
+          "monster": "specter",
+          "cell": [
+            48,
+            7
+          ],
+          "facing": "west"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "blasting_furnace",
+          "name": "The Blasting Furnace",
+          "summary": "The furnace vents: everyone but the spirits takes fire.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "dex",
+            "dc": 13
+          },
+          "half": true,
+          "damage": {
+            "dice": "2d6",
+            "type": "fire"
+          },
+          "at": 20,
+          "every": 1,
+          "area": {
+            "cells": [
+              [
+                41,
+                4
+              ],
+              [
+                50,
+                10
+              ]
+            ]
+          },
+          "say": "The furnace roars, and the room is fire."
+        }
+      ],
+      "when": "level >= 7"
+    },
+    {
+      "id": "dc_vault_fight",
+      "trigger": "dialogue",
+      "flag": "dc_keeper_done",
+      "monsters": [
+        {
+          "monster": "wight",
+          "cell": [
+            35,
+            9
+          ],
+          "name": "The Coin Keeper",
+          "facing": "west"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            32,
+            9
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            38,
+            9
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            39,
+            5
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            31,
+            7
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            35,
+            10
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            39,
+            10
+          ],
+          "facing": "south"
+        }
+      ],
+      "when": "level <= 5"
+    },
+    {
+      "id": "dc_vault_fight",
+      "trigger": "dialogue",
+      "flag": "dc_keeper_done",
+      "monsters": [
+        {
+          "monster": "wight",
+          "cell": [
+            35,
+            9
+          ],
+          "name": "The Coin Keeper",
+          "facing": "west"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            32,
+            6
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            38,
+            6
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            32,
+            9
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            38,
+            9
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            33,
+            5
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            36,
+            5
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            39,
+            5
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            31,
+            7
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            39,
+            7
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            31,
+            10
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            35,
+            10
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            39,
+            10
+          ],
+          "facing": "south"
+        }
+      ],
+      "when": "level == 6"
+    },
+    {
+      "id": "dc_vault_fight",
+      "trigger": "dialogue",
+      "flag": "dc_keeper_done",
+      "monsters": [
+        {
+          "monster": "wight",
+          "cell": [
+            35,
+            9
+          ],
+          "name": "The Coin Keeper",
+          "facing": "west"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            32,
+            6
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            38,
+            6
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            32,
+            9
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            38,
+            9
+          ],
+          "name": "A swamp-covered ghast",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            33,
+            5
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            36,
+            5
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            39,
+            5
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            31,
+            7
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            39,
+            7
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            31,
+            10
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            35,
+            10
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            39,
+            10
+          ],
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            34,
+            4
+          ],
+          "facing": "south"
+        }
+      ],
+      "when": "level >= 7"
+    },
+    {
+      "id": "dc_hall_brawl",
+      "trigger": "dialogue",
+      "flag": "dc_hall_brawl_done",
+      "monsters": [
+        {
+          "monster": "ghoul",
+          "cell": [
+            79,
+            7
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            83,
+            19
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            88,
+            14
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            92,
+            18
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        },
+        {
+          "monster": "ogre_zombie",
+          "cell": [
+            91,
+            8
+          ],
+          "name": "A bellhop",
+          "facing": "south"
+        }
+      ],
+      "when": "level <= 5"
+    },
+    {
+      "id": "dc_hall_brawl",
+      "trigger": "dialogue",
+      "flag": "dc_hall_brawl_done",
+      "monsters": [
+        {
+          "monster": "ghoul",
+          "cell": [
+            65,
+            12
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            69,
+            18
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            79,
+            7
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            83,
+            19
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            88,
+            14
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            92,
+            18
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        },
+        {
+          "monster": "ogre_zombie",
+          "cell": [
+            61,
+            15
+          ],
+          "name": "A bellhop",
+          "facing": "south"
+        },
+        {
+          "monster": "ogre_zombie",
+          "cell": [
+            91,
+            8
+          ],
+          "name": "A bellhop",
+          "facing": "south"
+        }
+      ],
+      "when": "level == 6"
+    },
+    {
+      "id": "dc_hall_brawl",
+      "trigger": "dialogue",
+      "flag": "dc_hall_brawl_done",
+      "monsters": [
+        {
+          "monster": "ghoul",
+          "cell": [
+            65,
+            12
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            69,
+            18
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            79,
+            7
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            83,
+            19
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            88,
+            14
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            92,
+            18
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        },
+        {
+          "monster": "ogre_zombie",
+          "cell": [
+            61,
+            15
+          ],
+          "name": "A bellhop",
+          "facing": "south"
+        },
+        {
+          "monster": "ogre_zombie",
+          "cell": [
+            91,
+            8
+          ],
+          "name": "A bellhop",
+          "facing": "south"
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            85,
+            8
+          ],
+          "name": "A ghoul waiter",
+          "facing": "south"
+        }
+      ],
+      "when": "level >= 7"
     }
   ],
-  "rest": "no",
-  "rest_text": "The jazz does not let anyone rest.",
-  "lights": [
+  "exits": [
     {
+      "id": "stairs_up_lower",
       "cell": [
-        22,
-        8
+        0,
+        12
       ],
-      "kind": "lamp",
-      "bright_ft": 30,
-      "dim_ft": 60,
-      "color": "bile"
+      "to": "dc_boat_promenade",
+      "spawn": "hall_from_below",
+      "label": "Up to the Gambling Hall"
+    },
+    {
+      "id": "stairs_up_hall",
+      "cell": [
+        75,
+        17
+      ],
+      "to": "dc_boat_promenade",
+      "spawn": "from_hall_up",
+      "label": "Up to the promenade"
+    },
+    {
+      "id": "stairs_down",
+      "cell": [
+        56,
+        12
+      ],
+      "to": "dc_boat_promenade",
+      "spawn": "lower_from_hall",
+      "label": "Down to the lower deck"
+    },
+    {
+      "id": "gangplank",
+      "cell": [
+        98,
+        12
+      ],
+      "to": "dc_lagoon",
+      "spawn": "from_boat",
+      "label": "Down the gangplank"
+    },
+    {
+      "id": "to_hall",
+      "cell": [
+        120,
+        17
+      ],
+      "to": "dc_boat_promenade",
+      "spawn": "hall_from_balcony",
+      "label": "Stairs down to the Gambling Hall"
+    },
+    {
+      "id": "to_captain",
+      "cell": [
+        141,
+        6
+      ],
+      "to": "dc_boat_promenade",
+      "spawn": "captain_from_stairs",
+      "label": "Stairs up to the Captain's Quarters"
+    },
+    {
+      "id": "door",
+      "cell": [
+        188,
+        7
+      ],
+      "to": "dc_boat_promenade",
+      "spawn": "from_captain",
+      "label": "Down to the promenade"
     }
-  ]
+  ],
+  "spawns": {
+    "default": [
+      101,
+      13
+    ],
+    "from_gangplank": [
+      101,
+      13
+    ],
+    "from_hall_up": [
+      120,
+      16
+    ],
+    "from_captain": [
+      140,
+      7
+    ],
+    "lower_default": [
+      4,
+      12
+    ],
+    "lower_from_hall": [
+      4,
+      12
+    ],
+    "hall_default": [
+      76,
+      21
+    ],
+    "hall_from_balcony": [
+      75,
+      16
+    ],
+    "hall_from_below": [
+      57,
+      12
+    ],
+    "hall_from_casino": [
+      76,
+      14
+    ],
+    "captain_default": [
+      177,
+      17
+    ],
+    "captain_from_stairs": [
+      187,
+      7
+    ]
+  }
 }

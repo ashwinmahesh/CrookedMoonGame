@@ -98,6 +98,73 @@ BUILDINGS = {
     "mon_bell_tower": {
         "ground": "mon_bell_tower",
         "floors": [("mon_bell_tower", "ground", 0, 12), ("mon_belfry", "belfry", 14, 0)],
+        "stair_kinds": {"ladder_up": "ladder"},
+    },
+    # Act II's layered places (lane B2 of the full 3D grid build, 2026-11-02), merged from main at b46abefc. `kinds`: a floor's kind
+    # ("deck" for an open boat deck; a storey otherwise). `rails`: a floor's railing height (rail_ft). `stair_kinds`: the kind of the stair a way up makes ("ladder"; a stair
+    # otherwise), by the way up's exit id. `stair_when`: a condition the stair takes where the old way was a conversation's
+    # (the crypt opens only once its tithe is paid). `open`: (floor id, x, z) squares of a floor's own map made floor, a door cut for
+    # a ladder's head.
+    # The riverboat Dead Man's Hand: the lower deck at the waterline, the Gambling Hall over it, the promenade deck over the hall and
+    # the captain's quarters on the texas deck over the promenade's east end. The hall's stairs come down where they climb (the
+    # grand stair from the middle of the hall to the balcony, a companionway at its west end down to the lower deck's corridor) and
+    # the captain's stair comes down by the promenade's east rail.
+    "dc_boat_promenade": {
+        "from": "b46abefc",
+        "ground": "dc_boat_promenade",
+        "name": "The Dead Man's Hand",
+        "floors": [("dc_boat_lower", "lower", 0, 3), ("dc_boat_hall", "hall", 2, 0), ("dc_boat_promenade", "promenade", 0, 4),
+                   ("dc_boat_captain", "captain", 21, 5)],
+        "kinds": {"dc_boat_promenade": "deck"},
+        "rails": {"dc_boat_promenade": 3},
+        "edits": [("dc_boat_hall", "spawn", "from_below", [2, 12]), ("dc_boat_hall", "exit", "stairs_down", [1, 12]),
+                  ("dc_boat_hall", "spawn", "from_balcony", [20, 16]), ("dc_boat_hall", "exit", "stairs_up", [20, 17]),
+                  ("dc_boat_captain", "spawn", "from_stairs", [21, 2]), ("dc_boat_captain", "exit", "door", [22, 2])],
+    },
+    # The walking dovecote: the parcel store, and the roost floor over it up the ladder.
+    "rk_dovecote_r1": {
+        "from": "b46abefc",
+        "ground": "rk_dovecote_r1",
+        "name": "The Dovecote",
+        "floors": [("rk_dovecote_r1", "store", 2, 2), ("rk_dovecote_r2", "roost", 0, 0)],
+        "stair_kinds": {"ladder_up": "ladder"},
+        "edits": [("rk_dovecote_r2", "spawn", "from_r1", [12, 4]), ("rk_dovecote_r2", "exit", "ladder_down", [12, 3])],
+    },
+    # Memory's Rest: the ground floor and the second floor over it, the same walls (their elevators are rides, not stairs).
+    "mr_ground": {
+        "from": "b46abefc",
+        "ground": "mr_ground",
+        "name": "Memory's Rest",
+        "floors": [("mr_ground", "ground", 0, 0), ("mr_upper", "upper", 0, 0)],
+    },
+    # Skitterdeep's workings: the Deep Level at the foot of the shaft, the Upper Workings over it; the shaft's foot lies under the
+    # open shaft of the upper drift, and the old rungs and chain climb it.
+    "sk_upper": {
+        "from": "b46abefc",
+        "ground": "sk_upper",
+        "name": "Skitterdeep Mine",
+        "floors": [("sk_deep", "deep", 5, 2), ("sk_upper", "upper", 0, 0)],
+        "stair_kinds": {"chain_up": "ladder"},
+    },
+    # The Marshwinder shack on its stilts over the black water west of the porch, its ladder up from the porch boards to a door
+    # in its east wall.
+    "dc_shack_approach": {
+        "from": "b46abefc",
+        "ground": "dc_shack_approach",
+        "floors": [("dc_shack_approach", "approach", 0, 0), ("dc_shack", "shack", 0, 1)],
+        "stair_kinds": {"ladder": "ladder"},
+        "edits": [("dc_shack", "spawn", "from_ladder", [9, 2]), ("dc_shack", "exit", "ladder", [10, 2]),
+                  ("dc_shack_approach", "spawn", "from_shack", [11, 3])],
+        "open": [("dc_shack", 10, 2)],
+    },
+    # The eastern Highborn Crypt: its stair goes down from the courtyard to the chamber of sarcophagi under the crypts' east row, once
+    # the tithe is paid (sites.dialogue sets mm_crypt_open).
+    "mm_highborn_crypts": {
+        "from": "b46abefc",
+        "ground": "mm_highborn_crypts",
+        "floors": [("mm_crypt_below", "below", 9, 0), ("mm_highborn_crypts", "ground", 0, 0)],
+        "edits": [("mm_highborn_crypts", "spawn", "from_crypt", [15, 10])],
+        "stair_when": {"stair_up": "flag.mm_crypt_open"},
     },
 }
 # Keys whose value is one square [x, z], and keys whose value is a list of squares.
@@ -273,6 +340,9 @@ def merge(bid):
         for z, r in enumerate(loc["map"]["rows"]):
             for x, ch in enumerate(r):
                 rows[z + dz][b["x0"] + dx + x] = ch
+    for pid, ox, oz in spec.get("open", []):
+        i = ids.index(pid)
+        rows[oz + blocks[i]["dz"]][blocks[i]["x0"] + blocks[i]["dx"] + ox] = "."
     for bx, bz in cover:
         # Wall where the cellar's squares lie past the ground floor's own: its walls stand over the whole cellar.
         own_rows = floors[base][4]["map"]["rows"]
@@ -288,7 +358,9 @@ def merge(bid):
     out["map"]["rows"] = ["".join(r) for r in rows]
     settings = floor_settings(spec, floors, base)
     out["map"]["floors"] = [{"x0": b["x0"], "width": b["width"], "height_ft": i * STOREY_FT, "id": f[0],
-                             "offset": [b["x0"] + b["dx"], b["dz"]], **settings[i]} for i, (b, f) in enumerate(zip(blocks, floors))]
+                             "offset": [b["x0"] + b["dx"], b["dz"]],
+                             **({"kind": spec["kinds"][f[0]]} if f[0] in spec.get("kinds", {}) else {}),
+                             **({"rail_ft": spec["rails"][f[0]]} if f[0] in spec.get("rails", {}) else {}), **settings[i]} for i, (b, f) in enumerate(zip(blocks, floors))]
     spawns = {}
     stairs = []
     exits = []
@@ -322,6 +394,10 @@ def merge(bid):
                 for key in ("when", "locked_text"):
                     if key in e or key in back:
                         stair[key] = e.get(key, back.get(key))
+                if e["id"] in spec.get("stair_when", {}):
+                    stair["when"] = spec["stair_when"][e["id"]]
+                if e["id"] in spec.get("stair_kinds", {}):
+                    stair["kind"] = spec["stair_kinds"][e["id"]]
                 stairs.append(stair)
             if e["to"] in ids:
                 # Kept as a way within the place: stepping onto it climbs the stair (the party set down on the other floor).

@@ -4,69 +4,78 @@
   "region": "maidenmist_cemetery",
   "summary": "Crypts of polished dark stone round small iron-fenced courtyards, with a brazier of dull red coals at the heart.",
   "text": "Family names stand over the crypt doors in letters as sharp as the gargoyles' teeth. Bats turn in the grey above, and a brazier of dull red coals waits at the centre.",
+  "rest": "risky",
   "map": {
-    "rows": [
-      "########################",
-      "#......................#",
-      "#......................#",
-      "#.######..####..######.#",
-      "#.######..####..######.#",
-      "#.######..####..######.#",
-      "#.######..####..######.#",
-      "#.######........######.#",
-      "#.######........######.#",
-      "#......................#",
-      "#......................#",
-      "#..............=.......#",
-      "#.=...==...............#",
-      "#.......................",
-      "#=.....................#",
-      "#........=.....=.......#",
-      "#...........=..........#",
-      "#.......#...=.........=#",
-      "#.######........######=#",
-      "#.######........######.#",
-      "#=######..=.....########",
-      "#.######........######.#",
-      "#.######=.......######.#",
-      "#.######.......=######.#",
-      "#................=..=..#",
-      "#.....=#...............#",
-      "#.............#.....=..#",
-      "############.###########"
-    ],
     "theme": "wilderness",
     "light": "dim",
     "outdoors": true,
-    "elevation": [
-      "222222222222222222222222",
-      "222222222222222222222222",
-      "222222222222222222222222",
-      "222222222222222222222222",
-      "222222222222222222222222",
-      "222222222222222222222222",
-      "222222223333333332222222",
-      "222222233333333333222222",
-      "222222333333333333322222",
-      "222223333333333333332222",
-      "222233333333333333333222",
-      "222233333333433333333222",
-      "222233333344444333333222",
-      "222233333344444333333222",
-      "222233333444444433333222",
-      "222233333344444333333222",
-      "222233333344444333333222",
-      "222233333333433333333222",
-      "222233333333333333333222",
-      "222223333333333333332222",
-      "222222333333333333322222",
-      "222222233333333333222222",
-      "222222223333333332222222",
-      "222222222222222222222222",
-      "222222222222222222222222",
-      "222222222222222222222222",
-      "222222222222222222222222",
-      "222222222222222222222222"
+    "rows": [
+      "         ############## ########################",
+      "         #............# #......................#",
+      "         #............# #......................#",
+      "         #............# #.######..####..######.#",
+      "         #..==....==..# #.######..####..######.#",
+      "         #............# #.######..####..######.#",
+      "         #............# #.######..####..######.#",
+      "         #............# #.######........######.#",
+      "         #..==....==..# #.######........######.#",
+      "         #............# #......................#",
+      "         #............# #......................#",
+      "         #............# #..............=.......#",
+      "         #............# #.=...==...............#",
+      "         ######.####### #.......................",
+      "                        #=.....................#",
+      "                        #........=.....=.......#",
+      "                        #...........=..........#",
+      "                        #.......#...=.........=#",
+      "                        #.######........######=#",
+      "                        #.######........######.#",
+      "                        #=######..=.....########",
+      "                        #.######........######.#",
+      "                        #.######=.......######.#",
+      "                        #.######.......=######.#",
+      "                        #................=..=..#",
+      "                        #.....=#...............#",
+      "                        #.............#.....=..#",
+      "                        ############.###########"
+    ],
+    "floors": [
+      {
+        "x0": 0,
+        "width": 23,
+        "height_ft": 0,
+        "id": "mm_crypt_below",
+        "offset": [
+          9,
+          0
+        ],
+        "bed": "cave_drips",
+        "theme": "dungeon",
+        "outdoors": false
+      },
+      {
+        "x0": 24,
+        "width": 24,
+        "height_ft": 15,
+        "id": "mm_highborn_crypts",
+        "offset": [
+          24,
+          0
+        ]
+      }
+    ],
+    "stairs": [
+      {
+        "from": [
+          15,
+          11
+        ],
+        "to": [
+          39,
+          10
+        ],
+        "when": "flag.mm_crypt_open"
+      }
     ]
   },
   "areas": [
@@ -75,11 +84,11 @@
       "name": "The brazier courtyard",
       "cells": [
         [
-          9,
+          33,
           11
         ],
         [
-          15,
+          39,
           17
         ]
       ]
@@ -89,11 +98,11 @@
       "name": "The crypt fronts",
       "cells": [
         [
-          1,
+          25,
           9
         ],
         [
-          22,
+          46,
           10
         ]
       ]
@@ -103,61 +112,35 @@
       "name": "The path in",
       "cells": [
         [
-          8,
+          32,
           18
         ],
         [
-          16,
+          40,
           26
         ]
       ]
-    }
-  ],
-  "spawns": {
-    "default": [
-      12,
-      25
-    ],
-    "from_hub": [
-      12,
-      25
-    ],
-    "from_a": [
-      21,
-      13
-    ],
-    "from_crypt": [
-      18,
-      10
-    ]
-  },
-  "exits": [
-    {
-      "id": "hub_path",
-      "cell": [
-        12,
-        27
-      ],
-      "to": "mm_sepulcher",
-      "spawn": "from_crypts",
-      "label": "The paved path back to the sepulcher"
     },
     {
-      "id": "short_a",
-      "cell": [
-        23,
-        13
-      ],
-      "to": "mm_gravestones_a",
-      "spawn": "from_crypts",
-      "label": "Across the Endless Gravestones to the Cremation Gardens"
+      "id": "chamber",
+      "name": "The sarcophagus chamber",
+      "cells": [
+        [
+          10,
+          1
+        ],
+        [
+          21,
+          12
+        ]
+      ]
     }
   ],
   "props": [
     {
       "id": "mm_brazier_crimson",
       "cell": [
-        12,
+        36,
         14
       ],
       "kind": "decor",
@@ -170,7 +153,7 @@
     {
       "id": "mm_brazier_crimson_lit",
       "cell": [
-        12,
+        36,
         14
       ],
       "kind": "decor",
@@ -182,7 +165,7 @@
     {
       "id": "mm_crimson_stone",
       "cell": [
-        12,
+        36,
         10
       ],
       "kind": "examine",
@@ -194,7 +177,7 @@
     {
       "id": "mm_crypt_a",
       "cell": [
-        5,
+        29,
         9
       ],
       "kind": "examine",
@@ -205,7 +188,7 @@
     {
       "id": "mm_crypt_b",
       "cell": [
-        18,
+        42,
         9
       ],
       "kind": "examine",
@@ -216,7 +199,7 @@
     {
       "id": "mm_crypt_c",
       "cell": [
-        5,
+        29,
         17
       ],
       "kind": "examine",
@@ -227,7 +210,7 @@
     {
       "id": "mm_crypt_d",
       "cell": [
-        18,
+        42,
         17
       ],
       "kind": "decor",
@@ -237,7 +220,7 @@
     {
       "id": "mm_yorgrim_site_crypts",
       "cell": [
-        13,
+        37,
         22
       ],
       "kind": "decor",
@@ -249,7 +232,7 @@
     {
       "id": "mm_gargoyle_0",
       "cell": [
-        3,
+        27,
         10
       ],
       "kind": "decor",
@@ -259,7 +242,7 @@
     {
       "id": "mm_gargoyle_1",
       "cell": [
-        20,
+        44,
         10
       ],
       "kind": "decor",
@@ -269,7 +252,7 @@
     {
       "id": "mm_gargoyle_2",
       "cell": [
-        3,
+        27,
         24
       ],
       "kind": "decor",
@@ -279,7 +262,7 @@
     {
       "id": "mm_gargoyle_3",
       "cell": [
-        20,
+        44,
         24
       ],
       "kind": "decor",
@@ -289,7 +272,7 @@
     {
       "id": "mm_crypts_stone_0",
       "cell": [
-        7,
+        31,
         12
       ],
       "kind": "decor",
@@ -299,7 +282,7 @@
     {
       "id": "mm_crypts_stone_1",
       "cell": [
-        8,
+        32,
         17
       ],
       "kind": "decor",
@@ -309,7 +292,7 @@
     {
       "id": "mm_crypts_stone_2",
       "cell": [
-        15,
+        39,
         11
       ],
       "kind": "decor",
@@ -319,7 +302,7 @@
     {
       "id": "mm_crypts_stone_3",
       "cell": [
-        22,
+        46,
         17
       ],
       "kind": "decor",
@@ -329,7 +312,7 @@
     {
       "id": "mm_crypts_stone_4",
       "cell": [
-        17,
+        41,
         24
       ],
       "kind": "decor",
@@ -339,7 +322,7 @@
     {
       "id": "mm_crypts_stone_5",
       "cell": [
-        1,
+        25,
         14
       ],
       "kind": "decor",
@@ -349,7 +332,7 @@
     {
       "id": "mm_crypts_stone_6",
       "cell": [
-        12,
+        36,
         17
       ],
       "kind": "decor",
@@ -359,7 +342,7 @@
     {
       "id": "mm_crypts_stone_7",
       "cell": [
-        7,
+        31,
         25
       ],
       "kind": "decor",
@@ -369,7 +352,7 @@
     {
       "id": "mm_crypts_stone_8",
       "cell": [
-        1,
+        25,
         20
       ],
       "kind": "decor",
@@ -379,7 +362,7 @@
     {
       "id": "mm_crypts_stone_9",
       "cell": [
-        10,
+        34,
         22
       ],
       "kind": "decor",
@@ -389,7 +372,7 @@
     {
       "id": "mm_crypts_stone_10",
       "cell": [
-        22,
+        46,
         20
       ],
       "kind": "decor",
@@ -399,7 +382,7 @@
     {
       "id": "mm_crypts_stone_11",
       "cell": [
-        14,
+        38,
         26
       ],
       "kind": "decor",
@@ -409,7 +392,7 @@
     {
       "id": "mm_walk_crimson_prop",
       "cell": [
-        13,
+        37,
         14
       ],
       "kind": "decor",
@@ -417,9 +400,71 @@
       "call": "maidenmist/epilogue:walk_crimson",
       "approach": 2,
       "call_when": "flag.mm_isolde_walk_started and not flag.mm_walk_crimson"
+    },
+    {
+      "id": "mm_rose_sarcophagus",
+      "cell": [
+        15,
+        3
+      ],
+      "kind": "examine",
+      "label": "A sarcophagus with a dried red rose on its lid",
+      "model": "coffin",
+      "call": "maidenmist/sites:rose_take",
+      "approach": 3,
+      "call_when": "not flag.mm_rose_taken"
+    },
+    {
+      "id": "mm_sarcophagus_a",
+      "cell": [
+        12,
+        4
+      ],
+      "kind": "decor",
+      "label": "A stone sarcophagus",
+      "model": "coffin"
+    },
+    {
+      "id": "mm_sarcophagus_b",
+      "cell": [
+        19,
+        4
+      ],
+      "kind": "decor",
+      "label": "A stone sarcophagus",
+      "model": "coffin"
+    },
+    {
+      "id": "mm_sarcophagus_c",
+      "cell": [
+        12,
+        8
+      ],
+      "kind": "decor",
+      "label": "A stone sarcophagus",
+      "model": "coffin"
+    },
+    {
+      "id": "mm_sarcophagus_d",
+      "cell": [
+        19,
+        8
+      ],
+      "kind": "decor",
+      "label": "A stone sarcophagus",
+      "model": "coffin"
+    },
+    {
+      "id": "mm_bats_roost",
+      "cell": [
+        15,
+        1
+      ],
+      "kind": "decor",
+      "label": "Roosting bats",
+      "model": "bat_perch"
     }
   ],
-  "npcs": [],
   "encounters": [
     {
       "id": "mm_crimson_rite",
@@ -430,7 +475,7 @@
         {
           "monster": "night_creature",
           "cell": [
-            12,
+            36,
             11
           ],
           "facing": "south"
@@ -438,7 +483,7 @@
         {
           "monster": "night_creature",
           "cell": [
-            9,
+            33,
             14
           ],
           "facing": "south"
@@ -446,7 +491,7 @@
         {
           "monster": "night_creature",
           "cell": [
-            15,
+            39,
             14
           ],
           "facing": "south"
@@ -454,7 +499,7 @@
         {
           "monster": "night_creature",
           "cell": [
-            11,
+            35,
             17
           ],
           "facing": "south"
@@ -462,7 +507,7 @@
         {
           "monster": "night_creature",
           "cell": [
-            13,
+            37,
             17
           ],
           "facing": "south"
@@ -496,7 +541,7 @@
         {
           "monster": "night_creature",
           "cell": [
-            12,
+            36,
             11
           ],
           "facing": "south"
@@ -504,7 +549,7 @@
         {
           "monster": "night_creature",
           "cell": [
-            9,
+            33,
             14
           ],
           "facing": "south"
@@ -512,7 +557,7 @@
         {
           "monster": "night_creature",
           "cell": [
-            15,
+            39,
             14
           ],
           "facing": "south"
@@ -520,7 +565,7 @@
         {
           "monster": "night_creature",
           "cell": [
-            11,
+            35,
             17
           ],
           "facing": "south"
@@ -528,7 +573,7 @@
         {
           "monster": "night_creature",
           "cell": [
-            13,
+            37,
             17
           ],
           "facing": "south"
@@ -536,7 +581,7 @@
         {
           "monster": "ghoul",
           "cell": [
-            10,
+            34,
             11
           ],
           "name": "Roused by the failed search",
@@ -571,7 +616,7 @@
         {
           "monster": "night_creature",
           "cell": [
-            12,
+            36,
             11
           ],
           "facing": "south"
@@ -579,7 +624,7 @@
         {
           "monster": "night_creature",
           "cell": [
-            9,
+            33,
             14
           ],
           "facing": "south"
@@ -587,7 +632,7 @@
         {
           "monster": "night_creature",
           "cell": [
-            15,
+            39,
             14
           ],
           "facing": "south"
@@ -595,7 +640,7 @@
         {
           "monster": "night_creature",
           "cell": [
-            11,
+            35,
             17
           ],
           "facing": "south"
@@ -603,7 +648,7 @@
         {
           "monster": "night_creature",
           "cell": [
-            13,
+            37,
             17
           ],
           "facing": "south"
@@ -611,7 +656,7 @@
         {
           "monster": "ghoul",
           "cell": [
-            10,
+            34,
             11
           ],
           "name": "Roused by the failed search",
@@ -620,7 +665,7 @@
         {
           "monster": "ghoul",
           "cell": [
-            14,
+            38,
             11
           ],
           "name": "Roused by the failed search",
@@ -647,5 +692,62 @@
       ]
     }
   ],
-  "rest": "risky"
+  "exits": [
+    {
+      "id": "stair_up",
+      "cell": [
+        15,
+        13
+      ],
+      "to": "mm_highborn_crypts",
+      "spawn": "from_crypt",
+      "label": "Up the stair, to the courtyard"
+    },
+    {
+      "id": "hub_path",
+      "cell": [
+        36,
+        27
+      ],
+      "to": "mm_sepulcher",
+      "spawn": "from_crypts",
+      "label": "The paved path back to the sepulcher"
+    },
+    {
+      "id": "short_a",
+      "cell": [
+        47,
+        13
+      ],
+      "to": "mm_gravestones_a",
+      "spawn": "from_crypts",
+      "label": "Across the Endless Gravestones to the Cremation Gardens"
+    }
+  ],
+  "spawns": {
+    "default": [
+      36,
+      25
+    ],
+    "from_hub": [
+      36,
+      25
+    ],
+    "from_a": [
+      45,
+      13
+    ],
+    "from_crypt": [
+      39,
+      10
+    ],
+    "below_default": [
+      15,
+      11
+    ],
+    "below_from_stair": [
+      15,
+      11
+    ]
+  }
 }

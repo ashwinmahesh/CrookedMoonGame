@@ -63,12 +63,14 @@ check Dexterity DC 17 -> crypt_right_ok | crypt_right_fail
 
 ~ crypt_right_ok
 Narrator: Bats burst from the unsealed arch as you duck beneath their frantic wings, leaving the stone stair into the dark wide open.
-move mm_crypt_below:from_stair
+set mm_crypt_open
+move mm_highborn_crypts:below_from_stair
 
 ~ crypt_right_fail
 damage 4d4 piercing
 Narrator: A shrieking swarm of bats explodes from the unsealed arch, biting at your bare skin as the stone stair yawns open below.
-move mm_crypt_below:from_stair
+set mm_crypt_open
+move mm_highborn_crypts:below_from_stair
 
 ~ rose_take
 give mm_dried_rose
