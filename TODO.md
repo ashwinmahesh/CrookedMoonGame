@@ -8,7 +8,9 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 |---|---|---|
 | Portraits for the 144 missing NPCs: 148 photoreal portrait jobs are queued at normal priority (the image server is paused) | In progress (queued, waiting on the server) | [Portraits](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoMVcF4yx8zrzvExbupWQsVL) |
 | Audit all visual effects: each gets a selection room and its own colour, size and speed settings (melee hit effects are landed; the other effects are next) | In progress | [Melee hit effects](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoHUCbLptUKMrnux7PbW3KTT) |
-| Real 3D multi-floor grid, starting with the Crooked House, built in the DnDGameEngine-3D fork; houses rebuilt at the pack's true size | In progress (Ashwin said go) | [Rebuild the worlds](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoC7g6BsCwnrPHakr5kpoBPD) |
+| The full 3D grid build (Ashwin's go, 2026-11-02), after a summary of what it means for him | In progress | Build the full 3D grid (thread link to come) |
+| An NPC in Wickermoor Hollow who resurrects dead heroes for a price (Ashwin, 2026-11-02) | In progress | [Make Wickermoor and the Crooked House playable](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoPPR4UsoGK7bQTEnN8LobsA) |
+| Act III playable end to end (Ashwin, 2026-11-02; must not conflict with the full 3D build) | In progress | [Make Act III playable end to end](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoJ6oZfYVoFQJfnjMy151uen) |
 | Weapons and pack animations (Rook's switch to pack clips waits on Ashwin's verdict) | In progress | [Weapons/pack animations](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoWHuBM7pdpdhmz86LEs2vUs) |
 | Cel cutscene stills (docs-cutscenes-cel 28081e80 queued) | In progress | [Look/title](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoCCPX3moU1VgdtYuw77oSqT) |
 
@@ -43,6 +45,7 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **The 12 subclass spell swaps**: Ashwin reviewed and approved the swaps that replace spells which left the game (2026-11-02).
 - **Free camera tilt, WASD camera and the free-camera toggle** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoSzp46E7B1MJ2tH6jYEQUCg)): the camera tilts from 10 to 85 degrees (fights and indoors stay at 25 or more), WASD turns and tilts it while the arrow keys move the party, and the Y key or a bar button toggles a free camera. (Engine 1a8eb54d, game 6a46ed4c.)
 - **The Crooked Moon's plants rebuilt**: the 12 Blender plants read as real up close on a second leaf atlas and Poly Haven CC0 bark (credited), with the engine's textured-bark and `leaf2` paths off by default. (Engine d2d5a171, game 00d52b77.)
 - **Act I plays end to end** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoPPR4UsoGK7bQTEnN8LobsA)): Wickermoor and the Crooked House run from the wreck to Vessla at level 4 under `make qa-act1`, with a playthrough test and the arrival quest reaching its dinner stage. (Game 5080d71c to 94cd5b82.)
