@@ -3,7 +3,7 @@
 ground: <asset root>/vistas/<id>_<take>.png -> art/vistas/<id>.png with a soft alpha, so the mist at a landmark's foot thins out
 rather than stopping at a hard edge. Retargeted from Curse of Strahd's tool (read only) to the local image service.
 
-  /usr/bin/python3 tools/art/build_vistas.py [--generate] [--only id ...] [--places]
+  /usr/bin/python3 tools/art/build_vistas.py [--generate] [--only id ...] [--places] [--photo]
 
 --generate queues the paintings that don't exist yet (one per landmark, look P, art/prompts/vista_preamble.txt) on the image queue and
 waits for them. --places writes art/vistas/vistas.json: every location's place on the travel art (`places`, from data/travel and the
@@ -45,6 +45,40 @@ def cut(src: Path, height: int) -> Image.Image:
                 r = max(0, min(255, int(255 - (255 - r) / a)))
                 g = max(0, min(255, int(255 - (255 - g) / a)))
                 b = max(0, min(255, int(255 - (255 - b) / a)))
+            po[x, y] = (r, g, b, int(a * 255))
+    return out
+
+
+# How far from its sky a landmark's pixels are when they are fully solid (0.16 for a landmark as pale as its sky or paler; a thin black
+# silhouette of twigs, like the oak's, is solid only far from it, and its partly covered pixels are then darkened toward the twig).
+PHOTO_SOLID = {"wickermoor_oak": 0.6}
+
+
+def cut_photo(src: Path, height: int, solid: float = 0.16) -> Image.Image:
+    """The cut-out of a photographed landmark: its pale mist or sky is the ground (a photograph has no flat white to cut), taken from
+    the picture's own left and right edges row by row, so a graded sky goes clear and the landmark and its foot stay solid."""
+    im = Image.open(src).convert("RGB")
+    im = im.resize((round(im.width * height / im.height), height), Image.LANCZOS)
+    w, h = im.size
+    px = im.load()
+    edge = max(3, w // 40)
+    ground = []
+    for y in range(h):
+        cols = [px[x, y] for x in list(range(edge)) + list(range(w - edge, w))]
+        ground.append(tuple(sorted(c[i] for c in cols)[len(cols) // 2] for i in range(3)))
+    out = Image.new("RGBA", (w, h))
+    po = out.load()
+    for y in range(h):
+        gr, gg, gb = ground[y]
+        for x in range(w):
+            r, g, b = px[x, y]
+            d = math.sqrt(((gr - r) ** 2 + (gg - g) ** 2 + (gb - b) ** 2) / 3.0) / 255.0
+            t = min(1.0, max(0.0, (d - 0.06) / max(solid - 0.06, 0.05)))
+            a = t * t * (3 - 2 * t)
+            if 0.0 < a < 1.0:   # take the pale sky out of the colour that's left, so twigs and mist edges don't frost
+                r = max(0, min(255, int(gr + (r - gr) / a)))
+                g = max(0, min(255, int(gg + (g - gg) / a)))
+                b = max(0, min(255, int(gb + (b - gb) / a)))
             po[x, y] = (r, g, b, int(a * 255))
     return out
 
@@ -99,6 +133,7 @@ def main() -> None:
     p.add_argument("--generate", action="store_true")
     p.add_argument("--places", action="store_true")
     p.add_argument("--only", nargs="*", default=[])
+    p.add_argument("--photo", action="store_true", help="the photoreal landmarks (assets/vistas_photo/<id>.png, tools/art/photoreal_fetch.py names them), cut from their own pale sky")
     a = p.parse_args()
     landmarks = {k: v for k, v in json.loads(RECIPES.read_text())["landmarks"].items() if not a.only or k in a.only}
     if a.generate:
@@ -106,9 +141,9 @@ def main() -> None:
     out_dir = ROOT / "art/vistas"
     out_dir.mkdir(parents=True, exist_ok=True)
     for name, r in landmarks.items():
-        src = ASSETS / f"{name}_{r['take']}.png"
+        src = (ASSETS.parent / "vistas_photo" / f"{name}.png") if a.photo else ASSETS / f"{name}_{r['take']}.png"
         if src.exists():
-            img = cut(src, int(r["height"]))
+            img = cut_photo(src, int(r["height"]), PHOTO_SOLID.get(name, 0.16)) if a.photo else cut(src, int(r["height"]))
             img.save(out_dir / (name + ".png"))
             print("backdrop", name, img.size)
     if a.places:
