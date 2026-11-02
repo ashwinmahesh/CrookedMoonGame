@@ -9,7 +9,7 @@ extends RefCounted
 
 const CONFIG := "res://art/overworld/terrain_places.json"
 ## Terrain vertices per world unit (a 5 ft square), and how far past the map the land reaches (units).
-const PER_UNIT := 4
+const PER_UNIT := 2
 const MARGIN := 64
 ## How far above the board's ground the terrain lies inside the map (units), so the old skin never shows through.
 const LIFT := 0.02
@@ -69,6 +69,10 @@ static func dress(view: LocationView) -> Terrain3D:
 	terrain.free_editor_textures = false   # (built in code: there is no saved assets file to free them for)
 	terrain.region_size = Terrain3D.SIZE_1024
 	terrain.vertex_spacing = 1.0 / PER_UNIT
+	# Cheap enough to sit under every frame (a same-sitting A/B on the foothills: 38 ms a frame on the old ground, 204 ms
+	# by day and 441 at night with the terrain at 4 vertices a square casting the lantern's and the moon's shadows): the
+	# ground takes shadows but casts none, and its finest ring is half a square.
+	terrain.cast_shadows = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	board.add_child(terrain)
 	terrain.material.world_background = Terrain3DMaterial.NONE
 	for k in OverworldLand.GROUNDS.size():
