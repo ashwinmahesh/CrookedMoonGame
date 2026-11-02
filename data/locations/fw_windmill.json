@@ -4,26 +4,62 @@
   "region": "foxwillow",
   "summary": "The Windmill, in Foxwillow.",
   "text": "The inside of The Windmill.",
+  "rest": "risky",
   "map": {
-    "rows": [
-      "##############################",
-      "#.............#..............#",
-      "#.=====.......#..............#",
-      "#.............#..............#",
-      "#.............#.....=====....#",
-      "#.............#..............#",
-      "#............................#",
-      "#............................#",
-      "#.............#..............#",
-      "#.............#..............#",
-      "#.............#..............#",
-      "#.............#..............#",
-      "#.............#..............#",
-      "########.#####################"
-    ],
     "theme": "tavern",
     "light": "dim",
-    "outdoors": false
+    "outdoors": false,
+    "rows": [
+      "##################     ##############################",
+      "#................#     #.............#..............#",
+      "#................#     #.=====.......#..............#",
+      "#..==.......==...#     #.............#..............#",
+      "#................#     #.............#.....=====....#",
+      "#................#     #.............#..............#",
+      "#................#     #............................#",
+      "#................#     #............................#",
+      "#................#     #.............#..............#",
+      "#................#     #.............#..............#",
+      "#................#     #.............#..............#",
+      "#................#     #.............#..............#",
+      "#................#     #.............#..............#",
+      "##################     ########.#####################"
+    ],
+    "floors": [
+      {
+        "x0": 0,
+        "width": 18,
+        "height_ft": 0,
+        "id": "fw_windmill_cellar",
+        "offset": [
+          0,
+          0
+        ]
+      },
+      {
+        "x0": 19,
+        "width": 34,
+        "height_ft": 15,
+        "id": "fw_windmill",
+        "offset": [
+          23,
+          0
+        ]
+      }
+    ],
+    "stairs": [
+      {
+        "from": [
+          8,
+          11
+        ],
+        "to": [
+          27,
+          11
+        ],
+        "when": "flag.fw_mill_done"
+      }
+    ]
   },
   "areas": [
     {
@@ -31,54 +67,35 @@
       "name": "The Windmill",
       "cells": [
         [
+          24,
+          1
+        ],
+        [
+          51,
+          12
+        ]
+      ]
+    },
+    {
+      "id": "room_cellar",
+      "name": "The Windmill's Cellar",
+      "cells": [
+        [
           1,
           1
         ],
         [
-          28,
+          16,
           12
         ]
       ]
-    }
-  ],
-  "spawns": {
-    "default": [
-      8,
-      11
-    ],
-    "from_cellar_stair": [
-      4,
-      11
-    ]
-  },
-  "exits": [
-    {
-      "id": "door",
-      "cell": [
-        8,
-        13
-      ],
-      "to": "foxwillow",
-      "spawn": "from_fw_windmill",
-      "label": "Out to the mill yard"
-    },
-    {
-      "id": "cellar_stair",
-      "cell": [
-        3,
-        11
-      ],
-      "to": "fw_windmill_cellar",
-      "spawn": "from_stair",
-      "label": "Down to the cellar",
-      "when": "flag.fw_mill_done"
     }
   ],
   "props": [
     {
       "id": "fw_mill_beam",
       "cell": [
-        22,
+        45,
         4
       ],
       "kind": "decor",
@@ -90,7 +107,7 @@
     {
       "id": "fw_mill_cog",
       "cell": [
-        16,
+        39,
         8
       ],
       "kind": "decor",
@@ -100,7 +117,7 @@
     {
       "id": "fw_mill_start",
       "cell": [
-        8,
+        31,
         8
       ],
       "kind": "decor",
@@ -108,20 +125,44 @@
       "call": "foxwillow/extras:mill_start",
       "approach": 6,
       "call_when": "not flag.fw_mill_done and not flag.jonah_dead"
+    },
+    {
+      "id": "fw_isaac_chest",
+      "cell": [
+        14,
+        8
+      ],
+      "kind": "examine",
+      "label": "A cellar chest, shut",
+      "model": "case",
+      "call": "foxwillow/extras:cellar_chest",
+      "approach": 6,
+      "call_when": "flag.isaac_found and not flag.fw_cellar_done"
+    },
+    {
+      "id": "fw_banjo_hidden",
+      "cell": [
+        3,
+        9
+      ],
+      "kind": "search",
+      "label": "Something under the foundation stone",
+      "search_dc": 12,
+      "item": "jericho_banjo",
+      "when": "treasure_at:foxwillow_windmill_basement"
     }
   ],
   "npcs": [
     {
       "npc": "liza_sawyer",
       "cell": [
-        21,
+        44,
         5
       ],
       "dialogue": "foxwillow/windmill:liza_plea",
       "when": "not flag.fw_mill_done"
     }
   ],
-  "rest": "risky",
   "encounters": [
     {
       "id": "fw_mill",
@@ -135,7 +176,7 @@
         {
           "monster": "pumpkin_head",
           "cell": [
-            21,
+            44,
             6
           ],
           "name": "Liza Sawyer, in the straw",
@@ -154,7 +195,7 @@
         {
           "monster": "pumpkin_head",
           "cell": [
-            24,
+            47,
             8
           ],
           "name": "A burning scarecrow",
@@ -191,11 +232,11 @@
           "area": {
             "cells": [
               [
-                1,
+                24,
                 1
               ],
               [
-                28,
+                51,
                 12
               ]
             ]
@@ -223,11 +264,11 @@
           "area": {
             "cells": [
               [
-                1,
+                24,
                 1
               ],
               [
-                28,
+                51,
                 12
               ]
             ]
@@ -235,6 +276,98 @@
           "say": "The sails tear loose and the tower comes down."
         }
       ]
+    },
+    {
+      "id": "fw_cellar",
+      "trigger": "dialogue",
+      "flag": "fw_cellar_done",
+      "monsters": [
+        {
+          "monster": "corvodaemon_split",
+          "cell": [
+            8,
+            6
+          ],
+          "name": "A crow knotted into a shape"
+        },
+        {
+          "monster": "corvodaemon_split",
+          "cell": [
+            10,
+            7
+          ],
+          "name": "A crow knotted into a shape"
+        },
+        {
+          "monster": "pumpkin_head",
+          "cell": [
+            6,
+            8
+          ],
+          "name": "The man in the straw",
+          "facing": "east",
+          "body": {
+            "ruined_by": [
+              "fire",
+              "bludgeoning"
+            ],
+            "count": "fw_bodies_ruined",
+            "warn": "A villager is inside. Fire or crushing blows would kill them for good.",
+            "flag": "fw_body_fw_cellar"
+          }
+        }
+      ]
     }
-  ]
+  ],
+  "exits": [
+    {
+      "id": "stair_up",
+      "cell": [
+        8,
+        13
+      ],
+      "to": "fw_windmill",
+      "spawn": "from_cellar_stair",
+      "label": "Up to the mill"
+    },
+    {
+      "id": "door",
+      "cell": [
+        31,
+        13
+      ],
+      "to": "foxwillow",
+      "spawn": "from_fw_windmill",
+      "label": "Out to the mill yard"
+    },
+    {
+      "id": "cellar_stair",
+      "cell": [
+        26,
+        11
+      ],
+      "to": "fw_windmill",
+      "spawn": "cellar_from_stair",
+      "label": "Down to the cellar",
+      "when": "flag.fw_mill_done"
+    }
+  ],
+  "spawns": {
+    "default": [
+      31,
+      11
+    ],
+    "from_cellar_stair": [
+      27,
+      11
+    ],
+    "cellar_default": [
+      8,
+      11
+    ],
+    "cellar_from_stair": [
+      8,
+      11
+    ]
+  }
 }

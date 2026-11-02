@@ -4,24 +4,66 @@
   "region": "wickermoor",
   "summary": "Graham's Barber Shop, a room of Wickermoor Village.",
   "text": "The inside of Graham's Barber Shop: candle-lit, close and creaking.",
+  "rest": "risky",
   "map": {
-    "rows": [
-      "##############",
-      "#............#",
-      "#..........=.#",
-      "#..==...==.=.#",
-      "#............#",
-      "#####........#",
-      "#............#",
-      "#.=====.====.#",
-      "#............#",
-      "#............#",
-      "#............#",
-      "##############"
-    ],
     "theme": "manor",
     "light": "dim",
-    "outdoors": false
+    "outdoors": false,
+    "rows": [
+      "      ##############               ",
+      "      #............#               ",
+      "      #.==========.#               ",
+      "      #............#               ",
+      "      #............#               ",
+      "      #..==...==...# ##############",
+      "      #............# #............#",
+      "      #............# #..........=.#",
+      "      #.====.......# #..==...==.=.#",
+      "      #............# #............#",
+      "      #............# #####........#",
+      "      ############## #............#",
+      "                     #.=====.====.#",
+      "                     #............#",
+      "                     #............#",
+      "                     #............#",
+      "                     ##############"
+    ],
+    "floors": [
+      {
+        "x0": 0,
+        "width": 20,
+        "height_ft": 0,
+        "id": "wickermoor_barber_cellar",
+        "offset": [
+          6,
+          0
+        ]
+      },
+      {
+        "x0": 21,
+        "width": 14,
+        "height_ft": 15,
+        "id": "wickermoor_barber_shop",
+        "offset": [
+          21,
+          5
+        ]
+      }
+    ],
+    "stairs": [
+      {
+        "from": [
+          12,
+          10
+        ],
+        "to": [
+          33,
+          10
+        ],
+        "when": "flag.barber_cellar_found",
+        "locked_text": "There is only a wall there."
+      }
+    ]
   },
   "areas": [
     {
@@ -29,56 +71,36 @@
       "name": "Graham's Barber Shop",
       "cells": [
         [
-          1,
+          22,
+          6
+        ],
+        [
+          33,
+          15
+        ]
+      ]
+    },
+    {
+      "id": "room_cellar",
+      "name": "The Barber's Cellar",
+      "cells": [
+        [
+          7,
           1
         ],
         [
-          12,
+          18,
           10
         ]
       ]
-    }
-  ],
-  "spawns": {
-    "default": [
-      6,
-      9
-    ],
-    "from_cellar": [
-      12,
-      5
-    ]
-  },
-  "exits": [
-    {
-      "id": "door",
-      "cell": [
-        6,
-        11
-      ],
-      "to": "wickermoor_village",
-      "spawn": "from_barber_shop",
-      "label": "Out to the village"
-    },
-    {
-      "id": "cellar_door",
-      "cell": [
-        12,
-        6
-      ],
-      "to": "wickermoor_barber_cellar",
-      "spawn": "from_stair",
-      "label": "The hidden stair",
-      "when": "flag.barber_cellar_found",
-      "locked_text": "There is only a wall there."
     }
   ],
   "props": [
     {
       "id": "barber_shop_chair_one",
       "cell": [
-        3,
-        3
+        24,
+        8
       ],
       "kind": "examine",
       "label": "The first barber's chair",
@@ -88,8 +110,8 @@
     {
       "id": "barber_shop_chair_two",
       "cell": [
-        8,
-        3
+        29,
+        8
       ],
       "kind": "examine",
       "label": "The second barber's chair",
@@ -112,8 +134,8 @@
     {
       "id": "barber_shop_still",
       "cell": [
-        11,
-        2
+        32,
+        7
       ],
       "kind": "examine",
       "label": "A still, gurgling",
@@ -123,8 +145,8 @@
     {
       "id": "barber_shop_broom",
       "cell": [
-        2,
-        7
+        23,
+        12
       ],
       "kind": "examine",
       "label": "A broom, carefully leaned",
@@ -143,14 +165,101 @@
           "failure": {}
         }
       ]
+    },
+    {
+      "id": "barber_cellar_jars",
+      "cell": [
+        10,
+        3
+      ],
+      "kind": "examine",
+      "label": "Jars on shelves",
+      "model": "shelves",
+      "text": "Jars of hair sorted by colour, jars of teeth sorted by size, and a row of small stoppered vials of something dark."
+    },
+    {
+      "id": "barber_cellar_table",
+      "cell": [
+        10,
+        6
+      ],
+      "kind": "examine",
+      "label": "A stained table",
+      "model": "table_round",
+      "text": "A stained table with straps, and a lamp swung down low over it."
+    },
+    {
+      "id": "barber_cellar_chair",
+      "cell": [
+        15,
+        6
+      ],
+      "kind": "examine",
+      "label": "A chair with straps",
+      "model": "chair",
+      "text": "A chair with leather straps, worn smooth where wrists have been."
+    },
+    {
+      "id": "barber_cellar_labels",
+      "cell": [
+        12,
+        7
+      ],
+      "kind": "examine",
+      "label": "Jars labelled by customer",
+      "model": "shelves",
+      "dialogue": "wickermoor/hair:clue_barber",
+      "when": "flag.hair_asked and not flag.hair_clue_a"
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        24,
+        9
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        31,
+        9
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        9,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        16,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
     }
   ],
   "npcs": [
     {
       "npc": "randall_graham",
       "cell": [
-        6,
-        5
+        27,
+        10
       ],
       "dialogue": "wickermoor/hair:confront",
       "when": "flag.hair_clue_a and flag.hair_clue_b and not flag.hair_outcome"
@@ -158,8 +267,8 @@
     {
       "npc": "randall_graham",
       "cell": [
-        6,
-        5
+        27,
+        10
       ],
       "dialogue": "wickermoor/hair:start",
       "when": "flag.wm_welcomed and not flag.hair_asked"
@@ -167,8 +276,8 @@
     {
       "npc": "randall_graham",
       "cell": [
-        6,
-        5
+        27,
+        10
       ],
       "dialogue": "wickermoor/randall_graham:start",
       "hours": [
@@ -177,27 +286,56 @@
       ]
     }
   ],
-  "rest": "risky",
-  "lights": [
+  "exits": [
     {
+      "id": "door_cellar",
       "cell": [
-        3,
-        4
+        12,
+        11
       ],
-      "kind": "candle",
-      "bright_ft": 15,
-      "dim_ft": 30,
-      "color": "candle"
+      "to": "wickermoor_barber_shop",
+      "spawn": "from_cellar",
+      "label": "Up to the shop"
     },
     {
+      "id": "door",
       "cell": [
-        10,
-        4
+        27,
+        16
       ],
-      "kind": "candle",
-      "bright_ft": 15,
-      "dim_ft": 30,
-      "color": "candle"
+      "to": "wickermoor_village",
+      "spawn": "from_barber_shop",
+      "label": "Out to the village"
+    },
+    {
+      "id": "cellar_door",
+      "cell": [
+        33,
+        11
+      ],
+      "to": "wickermoor_barber_shop",
+      "spawn": "cellar_from_stair",
+      "label": "The hidden stair",
+      "when": "flag.barber_cellar_found",
+      "locked_text": "There is only a wall there."
     }
-  ]
+  ],
+  "spawns": {
+    "default": [
+      27,
+      14
+    ],
+    "from_cellar": [
+      33,
+      10
+    ],
+    "cellar_default": [
+      12,
+      9
+    ],
+    "cellar_from_stair": [
+      12,
+      10
+    ]
+  }
 }

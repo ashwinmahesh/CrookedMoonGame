@@ -5,16 +5,24 @@ Pennywhistle and Granny Orla Pike. Dialogue: narrative/wickermoor/{quarantine,so
 Idempotent; run from the repo root."""
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).parent))
+from heirlooms_kept import kept
+
 ROOT = Path(__file__).resolve().parents[2]
 WM = "wickermoor/"
 PLAGUE = "flag.act2_done >= 1"
 
 
 def write(rel, obj):
+    if kept(rel):   # (a floor of a building merged into one place: tools/content/merge_floors.py)
+        return
     (ROOT / rel).write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n")
 
 
 def read(rel):
+    if kept(rel):
+        raise SystemExit("%s is a floor of a building merged into one place (tools/content/merge_floors.py): this one-shot already ran" % rel)
     return json.loads((ROOT / rel).read_text())
 
 

@@ -4,34 +4,95 @@
   "region": "wickermoor",
   "summary": "The Green Queen Inn, a room of Wickermoor Village.",
   "text": "The inside of The Green Queen Inn: candle-lit, close and creaking.",
+  "rest": "safe",
   "map": {
-    "rows": [
-      "##############################",
-      "#.........#.......#__________#",
-      "#.=======.#.......#__________#",
-      "#.........#.......#__________#",
-      "#.................#__________#",
-      "#.===.....#........__________#",
-      "#.........#.......#__________#",
-      "#.........#..................#",
-      "#####.#####...............#.##",
-      "#.........................####",
-      "#...........=============....#",
-      "#............................#",
-      "#............................#",
-      "#.=..........==...==...==....#",
-      "#.=..........................#",
-      "#.=..........................#",
-      "#............==...==...==....#",
-      "#....==......................#",
-      "#............................#",
-      "#............................#",
-      "#............................#",
-      "##############################"
-    ],
     "theme": "tavern",
     "light": "dim",
-    "outdoors": false
+    "outdoors": false,
+    "rows": [
+      "##################                                                                                           ",
+      "#................#                                                             ##############################",
+      "#.===..==...===..#                                                             #.....#.....#.....#.....#....#",
+      "#................#                                                             #.==..#.==..#.==..#.==..#.==.#",
+      "#................#                                                             #.....#.....#.....#.....#....#",
+      "#................#                                                             #.....#.....#.....#.....#....#",
+      "#.=====..........#   ##############################                            #.....#.....#.....#.....#....#",
+      "#................#   #.........#.......#__________#                            #######.#####.#####.#####.####",
+      "#...........==...#   #.=======.#.......#__________#                            #..............#.............#",
+      "#...........==...#   #.........#.......#__________#                            #..............#.............#",
+      "#................#   #.................#__________#                            #.==.....==....#....===......#",
+      "#................#   #.===.....#........__________#                            #............................#",
+      "#................#   #.........#.......#__________#                            #..............#.............#",
+      "##################   #.........#..................#                            #..............#.............#",
+      "                     #####.#####...............#.##                            ##############################",
+      "                     #.........................####                                                          ",
+      "                     #...........=============....#                                                          ",
+      "                     #............................#                                                          ",
+      "                     #............................#                                                          ",
+      "                     #.=..........==...==...==....#                                                          ",
+      "                     #.=..........................#                                                          ",
+      "                     #.=..........................#                                                          ",
+      "                     #............==...==...==....#                                                          ",
+      "                     #....==......................#                                                          ",
+      "                     #............................#                                                          ",
+      "                     #............................#                                                          ",
+      "                     #............................#                                                          ",
+      "                     ##############################                                                          "
+    ],
+    "floors": [
+      {
+        "x0": 0,
+        "width": 18,
+        "height_ft": 0,
+        "id": "wickermoor_inn_cellar",
+        "offset": [
+          0,
+          0
+        ]
+      },
+      {
+        "x0": 19,
+        "width": 32,
+        "height_ft": 15,
+        "id": "wickermoor_green_queen_inn",
+        "offset": [
+          21,
+          6
+        ]
+      },
+      {
+        "x0": 52,
+        "width": 57,
+        "height_ft": 30,
+        "id": "wickermoor_green_queen_inn_upper",
+        "offset": [
+          79,
+          1
+        ]
+      }
+    ],
+    "stairs": [
+      {
+        "from": [
+          8,
+          12
+        ],
+        "to": [
+          27,
+          12
+        ]
+      },
+      {
+        "from": [
+          48,
+          13
+        ],
+        "to": [
+          81,
+          13
+        ]
+      }
+    ]
   },
   "areas": [
     {
@@ -39,78 +100,50 @@
       "name": "The Green Queen Inn",
       "cells": [
         [
+          22,
+          7
+        ],
+        [
+          49,
+          26
+        ]
+      ]
+    },
+    {
+      "id": "room_cellar",
+      "name": "The Inn's Cellar",
+      "cells": [
+        [
           1,
           1
         ],
         [
-          28,
-          20
+          16,
+          12
         ]
       ]
-    }
-  ],
-  "spawns": {
-    "default": [
-      14,
-      19
-    ],
-    "from_stairs": [
-      27,
-      7
-    ],
-    "from_cellar": [
-      6,
-      6
-    ]
-  },
-  "exits": [
-    {
-      "id": "door",
-      "cell": [
-        14,
-        21
-      ],
-      "to": "wickermoor_village",
-      "spawn": "from_green_queen_inn",
-      "label": "Out to the village"
     },
     {
-      "id": "cellar_stair",
-      "cell": [
-        6,
-        7
-      ],
-      "to": "wickermoor_inn_cellar",
-      "spawn": "from_stair",
-      "label": "Down to the cellar"
-    },
-    {
-      "id": "stairs_up",
-      "cell": [
-        27,
-        8
-      ],
-      "to": "wickermoor_green_queen_inn_upper",
-      "spawn": "from_stairs",
-      "label": "Stairs up"
-    },
-    {
-      "id": "yard_door",
-      "cell": [
-        29,
-        15
-      ],
-      "to": "wickermoor_village",
-      "spawn": "from_inn_yard",
-      "label": "The stable yard"
+      "id": "room_upper",
+      "name": "The Green Queen Inn, upstairs",
+      "cells": [
+        [
+          80,
+          2
+        ],
+        [
+          107,
+          13
+        ]
+      ]
     }
   ],
   "props": [
     {
       "id": "green_queen_inn_bar",
       "cell": [
-        16,
-        10
+        37,
+        16
       ],
       "kind": "examine",
       "label": "The bar",
@@ -120,8 +153,8 @@
     {
       "id": "green_queen_inn_hearth",
       "cell": [
-        3,
-        10
+        24,
+        16
       ],
       "kind": "examine",
       "label": "The taproom hearth",
@@ -131,8 +164,8 @@
     {
       "id": "green_queen_inn_stage",
       "cell": [
-        23,
-        3
+        44,
+        9
       ],
       "kind": "examine",
       "label": "The little stage",
@@ -142,8 +175,8 @@
     {
       "id": "green_queen_inn_kitchen",
       "cell": [
-        4,
-        3
+        25,
+        9
       ],
       "kind": "examine",
       "label": "The kitchen counters",
@@ -153,8 +186,8 @@
     {
       "id": "green_queen_inn_rumour_board",
       "cell": [
-        12,
-        19
+        33,
+        25
       ],
       "kind": "examine",
       "label": "A board of rumours",
@@ -165,22 +198,152 @@
     {
       "id": "green_queen_inn_dressing_room",
       "cell": [
-        27,
-        3
+        48,
+        9
       ],
       "kind": "examine",
       "label": "The dressing room behind the stage",
       "model": "case",
       "when": "flag.play_victim_dead and not flag.play_done",
       "dialogue": "wickermoor/play:body"
+    },
+    {
+      "id": "inn_cellar_casks",
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "examine",
+      "label": "Casks and kegs",
+      "model": "barrel",
+      "text": "Casks and kegs, their bungs wrapped in wet cloth, and one cask that is lighter than the rest."
+    },
+    {
+      "id": "inn_cellar_hams",
+      "cell": [
+        13,
+        3
+      ],
+      "kind": "examine",
+      "label": "Hung hams",
+      "model": "rope",
+      "text": "Hams hang from the beams in their muslin, and a ledger of what the inn owes is chalked on the wall."
+    },
+    {
+      "id": "inn_cellar_crate",
+      "cell": [
+        4,
+        7
+      ],
+      "kind": "examine",
+      "label": "A crate marked for the Green Queen",
+      "model": "case",
+      "text": "A crate with a Green Queen stamped on it, stuffed with straw, which tells you nothing about what it held."
+    },
+    {
+      "id": "green_queen_inn_upper_ledger",
+      "cell": [
+        101,
+        10
+      ],
+      "kind": "examine",
+      "label": "A ledger of favours",
+      "model": "ledger",
+      "text": "A ledger bound in green cloth, columns of names and favours owed, and beside many of them a small inked hare.",
+      "checks": [
+        {
+          "id": "alda_ledger",
+          "skill": "investigation",
+          "dc": 13,
+          "label": "Read the ledger's margins",
+          "success": {
+            "flag": "cult_proof_alda",
+            "text": "Beside the favours owed, in tiny neat inked hares, are the names of half the village, and one name is a queen's."
+          },
+          "failure": {}
+        }
+      ]
+    },
+    {
+      "id": "green_queen_inn_upper_window",
+      "cell": [
+        107,
+        2
+      ],
+      "kind": "examine",
+      "label": "A window onto the Round",
+      "model": "window",
+      "text": "From the window you see the whole Round, the oak a dark knot in its middle."
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        28,
+        13
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        43,
+        13
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        4,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        13,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        86,
+        5
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        101,
+        5
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
     }
   ],
   "npcs": [
     {
       "npc": "george_hickock",
       "cell": [
-        22,
-        5
+        43,
+        11
       ],
       "dialogue": "wickermoor/play:suspects",
       "when": "flag.play_victim_dead and not flag.play_done"
@@ -188,8 +351,8 @@
     {
       "npc": "george_hickock",
       "cell": [
-        22,
-        5
+        43,
+        11
       ],
       "dialogue": "wickermoor/play:hickock_pitch",
       "when": "flag.play_arrived and not flag.play_victim_dead and not flag.play_done"
@@ -197,8 +360,8 @@
     {
       "npc": "lilian_vale",
       "cell": [
-        25,
-        5
+        46,
+        11
       ],
       "dialogue": "wickermoor/play:lilian",
       "when": "flag.play_victim_dead and not flag.play_done"
@@ -206,8 +369,8 @@
     {
       "npc": "olwen_pike",
       "cell": [
-        20,
-        6
+        41,
+        12
       ],
       "dialogue": "wickermoor/play:olwen",
       "when": "flag.play_victim_dead and not flag.play_done"
@@ -215,8 +378,8 @@
     {
       "npc": "alda_farnum",
       "cell": [
-        15,
-        9
+        36,
+        15
       ],
       "dialogue": "wickermoor/connections:alda_delphine_start",
       "when": "name:delphine_ravelle and flag.incitement_ascendancy and flag.vessla_slain and not flag.connection_ascendancy"
@@ -224,16 +387,16 @@
     {
       "npc": "alda_farnum",
       "cell": [
-        15,
-        9
+        36,
+        15
       ],
       "dialogue": "wickermoor/alda_farnum:start"
     },
     {
       "npc": "ambrose_quill",
       "cell": [
-        16,
-        14
+        37,
+        20
       ],
       "dialogue": "wickermoor/quill:start",
       "when": "flag.wm_welcomed"
@@ -241,8 +404,8 @@
     {
       "npc": "granny_orla_pike",
       "cell": [
-        4,
-        15
+        25,
+        21
       ],
       "dialogue": "wickermoor/folk_plague:orla_start",
       "when": "flag.act2_done >= 1"
@@ -250,35 +413,103 @@
     {
       "npc": "bess_crumley",
       "cell": [
-        12,
-        12
+        33,
+        18
       ],
       "dialogue": "fools_day/hook:inn_chat",
       "when": "not flag.golub_dead"
     }
   ],
-  "rest": "safe",
-  "lights": [
+  "exits": [
     {
+      "id": "door_cellar",
       "cell": [
-        7,
-        7
+        8,
+        13
       ],
-      "kind": "candle",
-      "bright_ft": 15,
-      "dim_ft": 30,
-      "color": "candle"
+      "to": "wickermoor_green_queen_inn",
+      "spawn": "from_cellar",
+      "label": "Up to the taproom"
     },
     {
+      "id": "door",
       "cell": [
-        22,
-        7
+        35,
+        27
       ],
-      "kind": "candle",
-      "bright_ft": 15,
-      "dim_ft": 30,
-      "color": "candle"
+      "to": "wickermoor_village",
+      "spawn": "from_green_queen_inn",
+      "label": "Out to the village"
+    },
+    {
+      "id": "cellar_stair",
+      "cell": [
+        27,
+        13
+      ],
+      "to": "wickermoor_green_queen_inn",
+      "spawn": "cellar_from_stair",
+      "label": "Down to the cellar"
+    },
+    {
+      "id": "stairs_up",
+      "cell": [
+        48,
+        14
+      ],
+      "to": "wickermoor_green_queen_inn",
+      "spawn": "upper_from_stairs",
+      "label": "Stairs up"
+    },
+    {
+      "id": "yard_door",
+      "cell": [
+        50,
+        21
+      ],
+      "to": "wickermoor_village",
+      "spawn": "from_inn_yard",
+      "label": "The stable yard"
+    },
+    {
+      "id": "stairs_down",
+      "cell": [
+        81,
+        14
+      ],
+      "to": "wickermoor_green_queen_inn",
+      "spawn": "from_stairs",
+      "label": "Stairs down"
     }
   ],
-  "encounters": []
+  "spawns": {
+    "default": [
+      35,
+      25
+    ],
+    "from_stairs": [
+      48,
+      13
+    ],
+    "from_cellar": [
+      27,
+      12
+    ],
+    "cellar_default": [
+      8,
+      11
+    ],
+    "cellar_from_stair": [
+      8,
+      12
+    ],
+    "upper_default": [
+      81,
+      8
+    ],
+    "upper_from_stairs": [
+      81,
+      13
+    ]
+  }
 }

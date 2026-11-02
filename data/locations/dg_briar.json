@@ -4,32 +4,93 @@
   "region": "dawns_gate",
   "summary": "Kristoff Gruber's inn: a low taproom of black beams, a kitchen, a cellar stair and rooms above.",
   "text": "A low room of black beams and hunters' coats on pegs. The bar is scarred, the fire is good and nobody sings.",
+  "rest": "safe",
+  "rest_text": "Kristoff's beds are clean and the bar is barred at night.",
   "map": {
-    "rows": [
-      "##############################",
-      "#...................#........#",
-      "#.==========........#........#",
-      "#...................#........#",
-      "#............................#",
-      "#.===...............#........#",
-      "#.............=============..#",
-      "#...................#........#",
-      "#######.#####................#",
-      "#............................#",
-      "#............................#",
-      "#.............==...==...==...#",
-      "#.=..........................#",
-      "#.=..........................#",
-      "#.=...........==...==...==...#",
-      "#.........................#.##",
-      "#.........................####",
-      "#............................#",
-      "#............................#",
-      "##############.###############"
-    ],
     "theme": "tavern",
     "light": "dim",
-    "outdoors": false
+    "outdoors": false,
+    "rows": [
+      "####################                                                                                       ",
+      "#..................#                                                                                       ",
+      "#..................#                                                                                       ",
+      "#..==..........==..#                                                                                       ",
+      "#..................#                                                                                       ",
+      "#..................#    ##############################                                                     ",
+      "#..................#    #...................#........#                                                     ",
+      "#..................#    #.==========........#........#                                                     ",
+      "#..................#    #...................#........#                                                     ",
+      "#..==..........==..#    #............................#                                                     ",
+      "#..................#    #.===...............#........#                                                     ",
+      "#..................#    #.............=============..#                             ########################",
+      "#..................#    #...................#........#                             #......#.....#.....#...#",
+      "####################    #######.#####................#                             #.==...#==...#==...#==.#",
+      "                        #............................#                             #......#.....#.....#...#",
+      "                        #............................#                             #......#.....#.....#...#",
+      "                        #.............==...==...==...#                             ####.#####.#####.#######",
+      "                        #.=..........................#                             #......................#",
+      "                        #.=..........................#                             #......................#",
+      "                        #.=...........==...==...==...#                             #......................#",
+      "                        #.........................#.##                             #......................#",
+      "                        #.........................####                             #......................#",
+      "                        #............................#                             #.######################",
+      "                        #............................#                                                     ",
+      "                        ##############.###############                                                     "
+    ],
+    "floors": [
+      {
+        "x0": 0,
+        "width": 20,
+        "height_ft": 0,
+        "id": "dg_briar_cellar",
+        "offset": [
+          0,
+          0
+        ]
+      },
+      {
+        "x0": 21,
+        "width": 33,
+        "height_ft": 15,
+        "id": "dg_briar",
+        "offset": [
+          24,
+          5
+        ]
+      },
+      {
+        "x0": 55,
+        "width": 52,
+        "height_ft": 30,
+        "id": "dg_briar_upper",
+        "offset": [
+          83,
+          11
+        ]
+      }
+    ],
+    "stairs": [
+      {
+        "from": [
+          9,
+          11
+        ],
+        "to": [
+          30,
+          11
+        ]
+      },
+      {
+        "from": [
+          51,
+          19
+        ],
+        "to": [
+          85,
+          19
+        ]
+      }
+    ]
   },
   "areas": [
     {
@@ -37,12 +98,12 @@
       "name": "The taproom",
       "cells": [
         [
-          1,
-          9
+          25,
+          14
         ],
         [
-          28,
-          18
+          52,
+          23
         ]
       ]
     },
@@ -51,12 +112,12 @@
       "name": "The kitchen",
       "cells": [
         [
-          1,
-          1
+          25,
+          6
         ],
         [
-          11,
-          7
+          35,
+          12
         ]
       ]
     },
@@ -65,12 +126,12 @@
       "name": "The bar",
       "cells": [
         [
-          13,
-          1
+          37,
+          6
         ],
         [
-          28,
-          7
+          52,
+          12
         ]
       ]
     },
@@ -79,72 +140,50 @@
       "name": "The stair",
       "cells": [
         [
-          26,
-          14
+          50,
+          19
         ],
         [
-          28,
-          18
+          52,
+          23
         ]
       ]
-    }
-  ],
-  "spawns": {
-    "default": [
-      14,
-      17
-    ],
-    "from_town": [
-      14,
-      17
-    ],
-    "from_cellar": [
-      6,
-      6
-    ],
-    "from_upstairs": [
-      27,
-      14
-    ]
-  },
-  "exits": [
-    {
-      "id": "door",
-      "cell": [
-        14,
-        19
-      ],
-      "to": "dawns_gate",
-      "spawn": "from_briar",
-      "label": "Out to the square"
     },
     {
-      "id": "cellar_stair",
-      "cell": [
-        6,
-        7
-      ],
-      "to": "dg_briar_cellar",
-      "spawn": "from_stair",
-      "label": "Down to the cellar"
+      "id": "cellar",
+      "name": "The cellar",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          18,
+          12
+        ]
+      ]
     },
     {
-      "id": "stairs_up",
-      "cell": [
-        27,
-        15
-      ],
-      "to": "dg_briar_upper",
-      "spawn": "from_stairs",
-      "label": "Up to the rooms"
+      "id": "rooms",
+      "name": "The rooms",
+      "cells": [
+        [
+          84,
+          12
+        ],
+        [
+          105,
+          21
+        ]
+      ]
     }
   ],
   "props": [
     {
       "id": "dg_briar_noticeboard",
       "cell": [
-        24,
-        2
+        48,
+        7
       ],
       "kind": "examine",
       "label": "A board of Hunt notices",
@@ -154,8 +193,8 @@
     {
       "id": "dg_briar_hearth",
       "cell": [
-        24,
-        9
+        48,
+        14
       ],
       "kind": "decor",
       "label": "The taproom fire",
@@ -164,8 +203,8 @@
     {
       "id": "dg_briar_barrels",
       "cell": [
-        3,
-        14
+        27,
+        19
       ],
       "kind": "decor",
       "label": "Barrels of black beer",
@@ -174,8 +213,8 @@
     {
       "id": "dg_briar_pegs",
       "cell": [
-        2,
-        17
+        26,
+        22
       ],
       "kind": "decor",
       "label": "Hunters' coats on pegs",
@@ -184,8 +223,8 @@
     {
       "id": "dg_briar_roses",
       "cell": [
-        10,
-        16
+        34,
+        21
       ],
       "kind": "decor",
       "label": "A golden rose nailed over the door",
@@ -194,8 +233,8 @@
     {
       "id": "dg_briar_pot",
       "cell": [
-        5,
-        3
+        29,
+        8
       ],
       "kind": "decor",
       "label": "A pot of something that was a goat",
@@ -204,8 +243,8 @@
     {
       "id": "dg_briar_larder",
       "cell": [
-        9,
-        4
+        33,
+        9
       ],
       "kind": "decor",
       "label": "Hanging meat and strings of onions",
@@ -214,8 +253,8 @@
     {
       "id": "dg_briar_stool_1",
       "cell": [
-        16,
-        7
+        40,
+        12
       ],
       "kind": "decor",
       "label": "A bar stool",
@@ -224,8 +263,8 @@
     {
       "id": "dg_briar_stool_2",
       "cell": [
-        18,
-        7
+        42,
+        12
       ],
       "kind": "decor",
       "label": "A bar stool",
@@ -234,8 +273,8 @@
     {
       "id": "dg_briar_stool_3",
       "cell": [
-        22,
-        7
+        46,
+        12
       ],
       "kind": "decor",
       "label": "A bar stool",
@@ -244,8 +283,8 @@
     {
       "id": "dg_briar_stool_4",
       "cell": [
-        25,
-        7
+        49,
+        12
       ],
       "kind": "decor",
       "label": "A bar stool",
@@ -254,8 +293,8 @@
     {
       "id": "dg_briar_table_1",
       "cell": [
-        14,
-        12
+        38,
+        17
       ],
       "kind": "decor",
       "label": "A taproom table",
@@ -264,8 +303,8 @@
     {
       "id": "dg_briar_table_2",
       "cell": [
-        19,
-        12
+        43,
+        17
       ],
       "kind": "decor",
       "label": "A taproom table",
@@ -274,8 +313,8 @@
     {
       "id": "dg_briar_table_3",
       "cell": [
-        24,
-        12
+        48,
+        17
       ],
       "kind": "decor",
       "label": "A taproom table",
@@ -284,8 +323,8 @@
     {
       "id": "dg_briar_table_4",
       "cell": [
-        14,
-        15
+        38,
+        20
       ],
       "kind": "decor",
       "label": "A taproom table",
@@ -294,8 +333,8 @@
     {
       "id": "dg_briar_table_5",
       "cell": [
-        19,
-        15
+        43,
+        20
       ],
       "kind": "decor",
       "label": "A taproom table",
@@ -304,31 +343,89 @@
     {
       "id": "dg_briar_table_6",
       "cell": [
-        24,
-        15
+        48,
+        20
       ],
       "kind": "decor",
       "label": "A taproom table",
       "model": "table_chairs"
-    }
-  ],
-  "npcs": [
+    },
     {
-      "npc": "kristoff_gruber",
+      "id": "dg_cellar_wall",
       "cell": [
-        16,
+        9,
+        3
+      ],
+      "kind": "examine",
+      "label": "A newer wall behind the casks",
+      "model": "wall_low",
+      "dialogue": "monastery/cellar:refugees",
+      "when": "flag.cellar_asked and not flag.cellar_outcome"
+    },
+    {
+      "id": "dg_cellar_casks",
+      "cell": [
+        6,
         5
       ],
-      "dialogue": "monastery/kristoff:start"
+      "kind": "decor",
+      "label": "Casks of black beer",
+      "model": "cask_rack"
+    },
+    {
+      "id": "dg_cellar_crates",
+      "cell": [
+        14,
+        5
+      ],
+      "kind": "decor",
+      "label": "Stacked crates",
+      "model": "crate_stack"
+    },
+    {
+      "id": "dg_cellar_sacks",
+      "cell": [
+        16,
+        10
+      ],
+      "kind": "decor",
+      "label": "Sacks of barley",
+      "model": "sack_pile"
+    },
+    {
+      "id": "dg_briar_window",
+      "cell": [
+        105,
+        18
+      ],
+      "kind": "decor",
+      "label": "A window on the hill",
+      "model": "window_tall"
+    },
+    {
+      "id": "dg_briar_chest",
+      "cell": [
+        104,
+        20
+      ],
+      "kind": "decor",
+      "label": "A traveller's chest",
+      "model": "trunk"
     }
   ],
-  "encounters": [],
-  "rest": "safe",
-  "rest_text": "Kristoff's beds are clean and the bar is barred at night.",
   "lights": [
     {
       "cell": [
-        24,
+        48,
+        13
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30
+    },
+    {
+      "cell": [
+        29,
         8
       ],
       "kind": "candle",
@@ -337,21 +434,135 @@
     },
     {
       "cell": [
-        5,
-        3
-      ],
-      "kind": "candle",
-      "bright_ft": 15,
-      "dim_ft": 30
-    },
-    {
-      "cell": [
-        16,
-        16
+        40,
+        21
       ],
       "kind": "candle",
       "bright_ft": 15,
       "dim_ft": 30
     }
-  ]
+  ],
+  "npcs": [
+    {
+      "npc": "kristoff_gruber",
+      "cell": [
+        40,
+        10
+      ],
+      "dialogue": "monastery/kristoff:start"
+    },
+    {
+      "npc": "dg_refugee_ilse",
+      "cell": [
+        8,
+        2
+      ],
+      "dialogue": "monastery/cellar:ilse",
+      "when": "flag.cellar_outcome == \"kept\""
+    },
+    {
+      "npc": "dg_refugee_otto",
+      "cell": [
+        11,
+        2
+      ],
+      "dialogue": "monastery/cellar:otto",
+      "when": "flag.cellar_outcome == \"kept\""
+    },
+    {
+      "npc": "gareth_creed",
+      "cell": [
+        93,
+        14
+      ],
+      "dialogue": "monastery/gareth:after",
+      "when": "flag.gareth_fate == \"rescued\" and not flag.gareth_home"
+    }
+  ],
+  "exits": [
+    {
+      "id": "stair_up",
+      "cell": [
+        9,
+        13
+      ],
+      "to": "dg_briar",
+      "spawn": "from_cellar",
+      "label": "Up to the taproom"
+    },
+    {
+      "id": "door",
+      "cell": [
+        38,
+        24
+      ],
+      "to": "dawns_gate",
+      "spawn": "from_briar",
+      "label": "Out to the square"
+    },
+    {
+      "id": "cellar_stair",
+      "cell": [
+        30,
+        12
+      ],
+      "to": "dg_briar",
+      "spawn": "cellar_from_stair",
+      "label": "Down to the cellar"
+    },
+    {
+      "id": "stairs_up",
+      "cell": [
+        51,
+        20
+      ],
+      "to": "dg_briar",
+      "spawn": "upper_from_stairs",
+      "label": "Up to the rooms"
+    },
+    {
+      "id": "stairs_down",
+      "cell": [
+        84,
+        22
+      ],
+      "to": "dg_briar",
+      "spawn": "from_upstairs",
+      "label": "Down to the taproom"
+    }
+  ],
+  "spawns": {
+    "default": [
+      38,
+      22
+    ],
+    "from_town": [
+      38,
+      22
+    ],
+    "from_cellar": [
+      30,
+      11
+    ],
+    "from_upstairs": [
+      51,
+      19
+    ],
+    "cellar_default": [
+      9,
+      11
+    ],
+    "cellar_from_stair": [
+      9,
+      11
+    ],
+    "upper_default": [
+      85,
+      19
+    ],
+    "upper_from_stairs": [
+      85,
+      19
+    ]
+  }
 }
