@@ -10,6 +10,15 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 | Cel cutscene stills (docs-cutscenes-cel 28081e80 queued) | In progress | [Look/title](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoCCPX3moU1VgdtYuw77oSqT) |
 | Portraits for the 144 missing NPCs | In progress | [Portraits](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoMVcF4yx8zrzvExbupWQsVL) |
 
+## In progress (Terrain3D, approved by Ashwin)
+
+| Item | Status | Thread |
+|---|---|---|
+| Make the 3D overworld the real one: replaces the travel map for Wickermoor, baked so it opens instantly | In progress (Ashwin approved 07:36Z) | [Terrain3D](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo9HDaCnEx5Du9CKzyerk5Dv) |
+| Realistic ground and rocks on every wild map | In progress | [Terrain3D](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo9HDaCnEx5Du9CKzyerk5Dv) |
+| Game-ready trees | In progress | [Terrain3D](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo9HDaCnEx5Du9CKzyerk5Dv) |
+| Terrain3D only around the edges of playable maps where the player can see past them (Barrow Hill is landed: 80937571) | In progress | [Terrain3D](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo9HDaCnEx5Du9CKzyerk5Dv) |
+
 ## Open
 
 | Item | Status | Thread |
