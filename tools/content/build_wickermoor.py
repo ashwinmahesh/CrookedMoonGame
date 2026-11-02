@@ -443,13 +443,12 @@ SHOPS = {   # npc: what the shop sells (engine item ids); markup 1.0 unless said
     "beatrice_wells": ["ladder", "pole", "chest", "barrel", "bucket", "carpenters_tools", "club", "quarterstaff"],
 }
 # Mori Shade brings back a hero who died in the last ten days (the engine's raise_dead service and its rules: 1 Hit Point and the ordeal
-# of -4 on D20 Tests for ten days), asking the Ferryman to turn his oar for a toll of 100 gp for each level the party has reached (the
-# lowest hero's: `level` in a condition) and no diamond (the sum is the whole price), from the Twilight Hour to the end of the Evening Hour
-# (07:00 to 23:00; the village's shops keep 7 to 19). One entry per level, since the engine prices a service line, not a hero.
+# of -4 on D20 Tests for ten days), asking the Ferryman to turn his oar for a flat toll of 1,000 gp for each hero brought back
+# and no diamond (the sum is the whole price), from the Twilight Hour to the end of the Evening Hour
+# (07:00 to 23:00; the village's shops keep 7 to 19). One entry: the engine prices a service line, not a hero.
 _RAISE_TEXT = ("Mori asks the Ferryman to turn his oar for a hero who died within the last 10 days. They come back with 1 Hit Point and -4 on D20 Tests "
-               "for 10 days. The toll is set at 100 gp for each level the party has reached, then moved by how she feels about the party; Mori keeps no gems and wants nothing else.")
-MORI_RAISING = [{"id": "raise_dead", "price": 100 * lv, "material": 0, "text": _RAISE_TEXT, "if": f"hour >= 7 and hour < 23 and level == {lv}"}
-                for lv in range(1, 21)]
+               "for 10 days. The toll is a flat 1,000 gp for each hero brought back, then moved by how she feels about the party; Mori keeps no gems and wants nothing else.")
+MORI_RAISING = [{"id": "raise_dead", "price": 1000, "material": 0, "text": _RAISE_TEXT, "if": "hour >= 7 and hour < 23"}]
 SERVICES = {
     "alda_farnum": [{"id": "room_modest", "price": 1}, {"id": "room_wealthy", "price": 2}],
     "randall_graham": [{"id": "cure_wounds", "price": 10}],

@@ -1,7 +1,7 @@
 extends TestCase
 ## Mori Shade brings back a hero who has truly died (Ashwin, 2026-11-02): the engine's raise_dead service on her NPC data
-## (data/npcs/mori_shade.json), priced 100 gp for each level the party has reached through the seller's goodwill (Trade.buy_price), with no
-## diamond, from 07:00 to 23:00. Played here: the price follows the level, a hero who died is paid for and comes back with the engine's
+## (data/npcs/mori_shade.json), priced a flat 1000 gp for each hero brought back through the seller's goodwill (Trade.buy_price), with no
+## diamond, from 07:00 to 23:00. Played here: the price is the same at every level, a hero who died is paid for and comes back with the engine's
 ## aftereffects, a purse that falls short is refused and the offer stays, the hours, the ten-day limit, and each of her conversations that
 ## reaches the service (her usual one, the first with the brass plates, Act III's hub). Nothing here fights.
 
@@ -102,35 +102,27 @@ func _spoken(blocks: Array[Dictionary]) -> String:
 	return out
 
 
-func test_the_toll_is_a_hundred_gold_for_each_level_moved_by_her_goodwill_and_no_diamond() -> void:
-	var last := 0.0
-	# The campaign stops a hero at level 13 until Moonfall begins (the cap is a campaign setting), so the party is built up to there; her
-	# entries for 14 to 20 are read from her data below.
+func test_the_toll_is_a_flat_thousand_gold_moved_by_her_goodwill_and_no_diamond() -> void:
+	# The campaign stops a hero at level 13 until Moonfall begins (the cap is a campaign setting), so the party is built up to there.
 	for level in range(1, 14):
 		_party(level)
 		var line := _line()
 		assert_true(not line.is_empty(), "level %d: Mori offers it" % level)
 		assert_eq(Services.offered(st, MORI).filter(func(l: Dictionary) -> bool: return str(l["id"]) == "raise_dead").size(), 1, "level %d: one line, not several" % level)
-		assert_eq(float(line["price"]), Trade.buy_price(st, MORI, 100.0 * level), "level %d: %d gp before her goodwill" % [level, 100 * level])
+		assert_eq(float(line["price"]), Trade.buy_price(st, MORI, 1000.0), "level %d: 1000 gp before her goodwill, whatever the level" % level)
 		assert_eq(float(line["material"]), 0.0, "level %d: no diamond" % level)
 		assert_eq(Services.cost(line), float(line["price"]), "level %d: the price is the whole cost" % level)
-		assert_true(float(line["price"]) > last, "level %d costs more than the one below" % level)
-		last = float(line["price"])
-	var tiers := Compendium.shared().get_entry("npcs", MORI)["services"] as Array
-	assert_eq(tiers.size(), 20, "one entry for each level to 20 (Moonfall's)")
-	for i in tiers.size():
-		var e := tiers[i] as Dictionary
-		assert_eq(float(e["price"]), 100.0 * (i + 1), "entry %d: %d gp" % [i + 1, 100 * (i + 1)])
-		assert_true(str(e["if"]).ends_with("level == %d" % (i + 1)), "entry %d is for level %d" % [i + 1, i + 1])
+	var lines := Compendium.shared().get_entry("npcs", MORI)["services"] as Array
+	assert_eq(lines.size(), 1, "one entry, the same for every level")
+	assert_eq(float((lines[0] as Dictionary)["price"]), 1000.0, "1000 gp")
+	assert_false(str((lines[0] as Dictionary)["if"]).contains("level"), "and no level in its condition")
 	_party(3)
-	assert_eq(float(_line()["price"]), 270.0, "a level 3 party: 300 gp, a tenth off from her goodwill")
-	_party(8)
-	assert_eq(float(_line()["price"]), 720.0, "and a level 8 one: 800 gp, a tenth off")
+	assert_eq(float(_line()["price"]), 900.0, "1000 gp, a tenth off from her goodwill")
 	assert_true(str(_line()["text"]).contains("Ferryman") and not str(_line()["text"]).contains("diamond"), "the screen's words are hers")
 
 
 func test_a_hero_who_died_is_paid_for_and_comes_back_with_the_ordeal() -> void:
-	_party(3, 12, 500.0)
+	_party(3, 12, 2000.0)
 	var tobin := st.party[1]
 	_fall(tobin)
 	var line := _line()
@@ -141,7 +133,7 @@ func test_a_hero_who_died_is_paid_for_and_comes_back_with_the_ordeal() -> void:
 	assert_true(said != "", "it is done")
 	assert_false(tobin.dead, "back among the living")
 	assert_eq(tobin.hp, 1, "with 1 Hit Point")
-	assert_eq(st.gold, 500.0 - price, "the toll was taken and nothing else")
+	assert_eq(st.gold, 2000.0 - price, "the toll was taken and nothing else")
 	var ordeal := tobin.effects.filter(func(fx: Effect) -> bool: return fx.source_id == "raise_dead")
 	assert_eq(ordeal.size(), 1, "the ordeal is on them")
 	assert_eq(int((ordeal[0] as Effect).minutes_left), Services.ORDEAL - 60, "for ten days, from the start of the hour the rite takes")
@@ -163,16 +155,15 @@ func test_a_purse_that_falls_short_is_refused_and_the_offer_stands() -> void:
 	assert_eq(st.gold, 0.0)
 
 
-func test_the_price_follows_the_level_the_party_reaches() -> void:
+func test_the_price_does_not_follow_the_level_the_party_reaches() -> void:
 	_party(3)
 	var three := float(_line()["price"])
 	_party(4)
-	var four := float(_line()["price"])
-	assert_eq(four - three, 90.0, "a level more is a hundred more, less a tenth")
-	# The lowest hero sets the level, whoever fell: a level 4 party with one level 3 hero pays the level 3 toll.
+	assert_eq(float(_line()["price"]), three, "a level more costs the same")
+	# The lowest hero no longer sets anything: a level 4 party with one level 3 hero pays the same toll.
 	_party(4)
 	st.party[3] = Pregens.build("silas_vane", 3)
-	assert_eq(float(_line()["price"]), three, "the lowest level in the party")
+	assert_eq(float(_line()["price"]), three, "the same for every party")
 
 
 func test_the_door_is_shut_from_the_midnight_hour_to_the_twilight_hour() -> void:
@@ -205,7 +196,7 @@ func test_her_usual_conversation_asks_the_ferryman_and_opens_the_services() -> v
 	var blocks := _run("wickermoor/mori_shade:start", ["called back"])
 	assert_eq(_kinds(blocks).back(), "services", "the services screen is opened")
 	var talk := _spoken(blocks)
-	assert_true(talk.contains("turn his oar") and talk.contains("a hundred gold pieces") and talk.contains("ten days"), "she states the terms first")
+	assert_true(talk.contains("turn his oar") and talk.contains("a thousand gold pieces") and talk.contains("ten days"), "she states the terms first")
 
 
 func test_asked_outside_her_hours_she_says_when_to_come_back_and_the_menu_stays() -> void:
