@@ -11,11 +11,17 @@ art/sourced/<pack>/. This script makes the figures' source files from them under
   calls them hand_r and hand_l). Its base-colour picture is clay grey; villager_brown_albedo.png and
   villager_red_albedo.png are two outfits painted on the same UVs, from the skin weights (tunic, sleeves, trousers,
   boots, hair), for manifest entries that lay them over the body (`base` + `albedo_source`).
+- people/<id>.glb: villagers on Ashwin's Source bodies (Universal Base Characters Regular and Teen), each one GLB: the body's
+  head, a modular outfit from the Modular Character Outfits pack (or, for the teen, clothes painted on the body from its
+  skin weights), tinted hair, and ten Universal Animation Library clips. Textures are cut to 1K JPEGs.
+- art/models/sourced/<id>.glb (written straight into the repo): props from Ashwin's Fantasy Props MegaKit Source, collision
+  meshes left out, the base-colour trim sheets cut to 1K JPEGs, scaled from metres to world units (1 unit = 5 ft), and the
+  manifest entries for them (art/models/manifest.json, `art` in art/sprites/props/catalog.json).
 - weapons/<id>.glb: the held weapons, from Quaternius's Modular Weapons Pack (OBJ) and KayKit's Adventurers (glTF).
 - hair/<id>.glb: two of the pack's hairstyles (skinned to the head bone, in the body's own space), worn as skinned layers.
 - warhorse.glb: Quaternius's Horse with its clips listed once (the pack's GLB repeats each with an armature prefix).
 
-  /Users/.../venv/bin/python tools/art/free_figures.py [villager|weapons|hair|warhorse] ...   (Pillow and numpy for the outfits)
+  /Users/.../venv/bin/python tools/art/free_figures.py [people|props|weapons|warhorse] ...   (Pillow and numpy for the outfits)
 """
 import copy, json, math, struct, sys
 from pathlib import Path
@@ -34,6 +40,23 @@ UAL2 = SRC / 'quaternius_universal_animation_library_2/pack/Universal Animation 
 WEAPONS = SRC / 'quaternius_modular_weapons_pack/pack/Medieval Weapons Pack - Sept 2018/OBJ'
 KAYKIT = SRC / 'kaykit_adventurers/pack/KayKit_Adventurers_2.0_FREE/Assets/gltf'
 HORSE = SRC / 'quaternius_ultimate_animated_animal_pack/glb/Horse.glb'
+SRC_UBC = SRC / 'quaternius_universal_base_characters_source/pack'
+SRC_OUT = SRC / 'quaternius_modular_character_outfits_fantasy_source/pack/Modular Character Outfits - Fantasy[Source]'
+HAIR_SRC = SRC_UBC / 'Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)'
+BODIES = SRC_UBC / 'Base Characters/Exports/Godot - UE'
+CLIPS_PEOPLE_1 = ['Idle_Loop', 'Walk_Loop', 'Jog_Fwd_Loop', 'Sword_Attack', 'Spell_Simple_Shoot', 'Hit_Chest', 'Death01',
+                  'Idle_Talking_Loop', 'Interact']
+CLIPS_PEOPLE_2 = ['Yes']
+PROPS_SRC = SRC / 'quaternius_fantasy_props_megakit_source/pack/Exports/glTF (Godot)'
+UNITS_PER_METRE = 1 / 1.524   # 1 world unit is one 5 ft square
+# art id: the pack's model. The first group is for an exterior (a yard, a market), the second for an interior (a room).
+PROPS = {
+    'fp_barrel': 'Barrel', 'fp_crate': 'Crate_Wooden', 'fp_apple_crate': 'FarmCrate_Apple', 'fp_bucket': 'Bucket_Wooden_1',
+    'fp_anvil': 'Anvil', 'fp_veg_stall': 'Stall_Vegetables_Full', 'fp_bench': 'Bench', 'fp_wagon': 'Wagon', 'fp_torch': 'Torch_Metal',
+    'fp_table': 'Table_Large', 'fp_chair': 'Chair_1', 'fp_stool': 'Stool', 'fp_bookcase': 'Bookcase_1', 'fp_bottle_shelf': 'Shelf_Small_Bottles',
+    'fp_potion': 'Potion_1', 'fp_candles': 'CandleStick_Triple', 'fp_chest': 'Chest_Wood', 'fp_bed': 'Bed_Twin1', 'fp_books': 'Book_Stack_1',
+    'fp_rug': 'Rug_Round', 'fp_cauldron': 'Cauldron',
+}
 HAIR_DIR = UBC.parent / 'Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)'
 HAIR = {'hair_parted': 'Hair_SimpleParted', 'hair_buzzed': 'Hair_Buzzed'}
 
@@ -352,6 +375,197 @@ def paint_outfits(body_doc: dict, body_bin: bytes, prim: dict, skin: dict, tex_p
     return out
 
 
+
+# --- People on the Source bodies ---------------------------------------------------------------------------------------------
+
+# One villager each: the body (a Regular head to go under an outfit, or the Teen's whole body, which wears painted clothes),
+# the outfit (file, texture folder, colour suffix) and its parts to leave out, the hair pieces (folder, file, tint).
+PEOPLE = {
+    'villager_man': dict(body='Regular_Male', outfit=('Male_Peasant', 'Peasant', ''), hair=[('Male', 'Hair_SimpleParted', (0.42, 0.28, 0.16))]),
+    'villager_woman': dict(body='Regular_Female', outfit=('Female_Peasant', 'Peasant', '_3'), hair=[('Female', 'Hair_Bob', (0.55, 0.3, 0.14))]),
+    'villager_elder': dict(body='Regular_Male', outfit=('Male_Peasant', 'Peasant', '_2'),
+                           hair=[('Male', 'Hair_Balding', (0.85, 0.85, 0.85)), ('Male', 'Hair_Beard', (0.85, 0.85, 0.85))]),
+    'villager_granny': dict(body='Regular_Female', outfit=('Female_Peasant', 'Peasant', '_2'), hair=[('Female', 'Hair_Buns', (0.9, 0.9, 0.9))]),
+    'villager_merchant': dict(body='Regular_Male', outfit=('Male_Noble', 'Noble', '_2'), leave_out=('Head_Crown', 'Pauldron'),
+                              hair=[('Male', 'Hair_SlickBack', (0.1, 0.09, 0.08)), ('Male', 'Hair_Moustache', (0.1, 0.09, 0.08))]),
+    'villager_teen': dict(body='Teen_Male', painted='green', hair=[('Male', 'Hair_SimpleParted_Teen', (0.75, 0.42, 0.16))]),
+}
+
+
+def jpeg(path: Path, size: int = 1024, tint=None) -> bytes:
+    """A picture cut to size px as a JPEG, multiplied by a colour when asked (the hair textures are white to be tinted)."""
+    import io
+    import numpy as np
+    from PIL import Image
+    im = Image.open(path).convert('RGB')
+    if im.size[0] > size:
+        im = im.resize((size, size), Image.LANCZOS)
+    if tint is not None:
+        a = np.asarray(im).astype(np.float32) / 255.0
+        lum = a.mean(-1, keepdims=True)
+        a = (lum / max(float(lum.mean()), 1e-3)).clip(0, 1.6) * np.array(tint, dtype=np.float32)
+        im = Image.fromarray((a.clip(0, 1) * 255).astype(np.uint8), 'RGB')
+    buf = io.BytesIO()
+    im.save(buf, 'JPEG', quality=90)
+    return buf.getvalue()
+
+
+def add_clips(doc: dict, w: Writer, wanted_by_lib: list) -> None:
+    """Clips from the Universal Animation Libraries onto the doc's skeleton, each channel finding its bone by name."""
+    name_to_node = {n['name']: i for i, n in enumerate(doc['nodes'])}
+    for lib_path, wanted in wanted_by_lib:
+        ual, ual_bin = read_gltf(lib_path)
+        ual_names = [RENAMES.get(n.get('name', ''), n.get('name', '')) for n in ual['nodes']]
+        for clip in ual['animations']:
+            if clip['name'] not in wanted:
+                continue
+            samplers, remap, channels = [], {}, []
+            for ch in clip['channels']:
+                target = name_to_node.get(ual_names[ch['target']['node']])
+                if target is None:
+                    continue
+                s_ = ch['sampler']
+                if s_ not in remap:
+                    src = clip['samplers'][s_]
+                    samplers.append({'input': w.accessor(ual, ual_bin, src['input']), 'output': w.accessor(ual, ual_bin, src['output']),
+                                     'interpolation': src.get('interpolation', 'LINEAR')})
+                    remap[s_] = len(samplers) - 1
+                channels.append({'sampler': remap[s_], 'target': {'node': target, 'path': ch['target']['path']}})
+            doc['animations'].append({'name': clip['name'], 'samplers': samplers, 'channels': channels})
+
+
+def build_people() -> None:
+    for pid, spec in PEOPLE.items():
+        body_doc, body_bin = read_gltf(BODIES / (spec['body'] + ('_FullBody' if 'painted' in spec else '_OnlyHead') + '.gltf'))
+        w = Writer()
+        nodes = copy.deepcopy(body_doc['nodes'])
+        keep_node = next(i for i, n in enumerate(nodes) if 'mesh' in n and body_doc['materials'][body_doc['meshes'][n['mesh']]['primitives'][0]['material']]['name'].startswith(('MI_Regular', 'MI_Teen')))
+        parent = next(i for i, n in enumerate(nodes) if keep_node in n.get('children', []))
+        drop = {i for i, n in enumerate(nodes) if 'mesh' in n and i != keep_node}
+        for i in drop:
+            nodes[i].pop('mesh', None)
+            nodes[i].pop('skin', None)
+        for n in nodes:
+            if 'children' in n:
+                n['children'] = [c for c in n['children'] if c not in drop]
+                if not n['children']:
+                    del n['children']
+            n['name'] = RENAMES.get(n.get('name', ''), n.get('name', ''))
+        skin = body_doc['skins'][0]
+        doc = {'asset': {'version': '2.0', 'generator': 'tools/art/free_figures.py'}, 'scene': 0, 'scenes': body_doc['scenes'],
+               'nodes': nodes, 'meshes': [], 'materials': [], 'textures': [], 'images': [], 'animations': [],
+               'skins': [{'name': skin.get('name', 'Armature'), 'joints': skin['joints'],
+                          'inverseBindMatrices': w.accessor(body_doc, body_bin, skin['inverseBindMatrices'])}]}
+
+        def material(picture: bytes, name: str) -> int:
+            doc['images'].append({'bufferView': w.view(picture), 'mimeType': 'image/jpeg'})
+            doc['textures'].append({'source': len(doc['images']) - 1})
+            doc['materials'].append({'name': name, 'doubleSided': False,
+                                     'pbrMetallicRoughness': {'baseColorTexture': {'index': len(doc['textures']) - 1}, 'metallicFactor': 0.0, 'roughnessFactor': 0.85}})
+            return len(doc['materials']) - 1
+
+        def mesh_from(src_doc: dict, src_bin: bytes, node: dict, mat: int, node_name: str) -> None:
+            prim = src_doc['meshes'][node['mesh']]['primitives'][0]
+            attrs = {k: w.accessor(src_doc, src_bin, prim['attributes'][k], 34962) for k in ('POSITION', 'NORMAL', 'TEXCOORD_0', 'JOINTS_0', 'WEIGHTS_0')}
+            doc['meshes'].append({'name': node_name, 'primitives': [{'attributes': attrs, 'indices': w.accessor(src_doc, src_bin, prim['indices'], 34963), 'material': mat}]})
+            nodes.append({'name': node_name, 'mesh': len(doc['meshes']) - 1, 'skin': 0})
+            nodes[parent].setdefault('children', []).append(len(nodes) - 1)
+
+        gender = 'Female' if 'Female' in spec['body'] else 'Male'
+        tex_dir = SRC_UBC / 'Base Characters/Textures'
+        if 'painted' in spec:
+            prim = body_doc['meshes'][nodes[keep_node]['mesh']]['primitives'][0]
+            skin_tex = tex_dir / f"T_{spec['body']}_Light_BaseColor.png"
+            OUTFITS['green'] = {'torso': (0.25, 0.36, 0.2), 'upper_arm': (0.25, 0.36, 0.2), 'forearm': None, 'hand': None, 'head': None,
+                                'thigh': (0.33, 0.25, 0.17), 'calf': (0.33, 0.25, 0.17), 'foot': (0.15, 0.1, 0.07), 'hair': None, 'belt': (0.12, 0.08, 0.05)}
+            import io
+            from PIL import Image
+            painted = paint_outfits(body_doc, body_bin, prim, skin, skin_tex)['green']
+            im = Image.open(io.BytesIO(painted)).convert('RGB').resize((1024, 1024), Image.LANCZOS)
+            buf = io.BytesIO(); im.save(buf, 'JPEG', quality=90)
+            mesh_from(body_doc, body_bin, nodes[keep_node], material(buf.getvalue(), 'teen'), 'Body')
+        else:
+            mesh_from(body_doc, body_bin, nodes[keep_node], material(jpeg(tex_dir / f"T_{spec['body']}_Light_BaseColor.png"), 'skin'), 'HeadSkin')
+            of, folder, suffix = spec['outfit']
+            out_doc, out_bin = read_gltf(SRC_OUT / 'Exports/glTF (Godot-Unreal)/Outfits' / f'{of}.gltf')
+            mat = material(jpeg(SRC_OUT / 'Textures' / folder / f'T_{folder}{suffix}_BaseColor.png'), 'outfit')
+            for n in out_doc['nodes']:
+                if 'mesh' in n and not any(bad in n['name'] for bad in spec.get('leave_out', ())):
+                    mesh_from(out_doc, out_bin, n, mat, n['name'])
+        for folder, stem, tint in spec['hair']:
+            hair_doc, hair_bin = read_gltf(HAIR_SRC / folder / f'{stem}.gltf')
+            mat = material(jpeg(SRC_UBC / 'Hairstyles/Textures/T_Hair_1_BaseColor.png' if folder == 'Male' else SRC_UBC / 'Hairstyles/Textures/T_Hair_2_BaseColor.png', 1024, tint), 'hair')
+            for n in hair_doc['nodes']:
+                if 'mesh' in n:
+                    mesh_from(hair_doc, hair_bin, n, mat, n['name'])
+        add_clips(doc, w, [(UAL1, CLIPS_PEOPLE_1), (UAL2, CLIPS_PEOPLE_2)])
+        doc['bufferViews'], doc['accessors'] = w.views, w.accessors
+        out = OUT / 'people' / f'{pid}.glb'
+        write_glb(out, doc, bytes(w.binary))
+        print(f'{out}: {triangles(doc)} triangles, {len(doc["animations"])} clips, {out.stat().st_size / 1e6:.1f} MB')
+
+
+
+# --- Props -------------------------------------------------------------------------------------------------------------------
+
+def build_props() -> dict:
+    """Each prop as a GLB in art/models/sourced/ (the model manifest's `file`); returns {art id: manifest entry}."""
+    import io
+    from PIL import Image
+    entries = {}
+    for art, stem in PROPS.items():
+        doc, binary = read_gltf(PROPS_SRC / f'{stem}.gltf')
+        w = Writer()
+        pics: dict = {}
+        out = {'asset': {'version': '2.0', 'generator': 'tools/art/free_figures.py'}, 'scene': 0, 'scenes': [{'nodes': [0]}], 'nodes': [],
+               'meshes': [], 'materials': [], 'textures': [], 'images': []}
+        kept = [i for i, n in enumerate(doc['nodes']) if 'mesh' in n and not n.get('name', '').endswith('convcolonly')]
+        root = {'name': art, 'scale': [UNITS_PER_METRE] * 3, 'children': []}
+        out['nodes'].append(root)
+        lo, hi, tris = [1e9] * 3, [-1e9] * 3, 0
+        for i in kept:
+            n = doc['nodes'][i]
+            prims = []
+            for p in doc['meshes'][n['mesh']]['primitives']:
+                attrs = {k: w.accessor(doc, binary, p['attributes'][k], 34962) for k in ('POSITION', 'NORMAL', 'TEXCOORD_0', 'COLOR_0') if k in p['attributes']}
+                a = doc['accessors'][p['attributes']['POSITION']]
+                tris += doc['accessors'][p['indices']]['count'] // 3
+                m = n.get('translation', [0, 0, 0])
+                lo = [min(lo[k], a['min'][k] + m[k]) for k in range(3)]
+                hi = [max(hi[k], a['max'][k] + m[k]) for k in range(3)]
+                src_mat = doc['materials'][p['material']]
+                mat = {'name': src_mat['name'], 'doubleSided': src_mat.get('doubleSided', False),
+                       'pbrMetallicRoughness': {'metallicFactor': 0.0, 'roughnessFactor': 0.85}}
+                base = src_mat.get('pbrMetallicRoughness', {}).get('baseColorTexture')
+                if 'baseColorFactor' in src_mat.get('pbrMetallicRoughness', {}):
+                    mat['pbrMetallicRoughness']['baseColorFactor'] = src_mat['pbrMetallicRoughness']['baseColorFactor']
+                if base is not None:
+                    uri = doc['textures'][base['index']]['source']
+                    if uri not in pics:
+                        view = doc['bufferViews'][doc['images'][uri]['bufferView']]
+                        im = Image.open(io.BytesIO(binary[view['byteOffset']:view['byteOffset'] + view['byteLength']])).convert('RGB').resize((1024, 1024), Image.LANCZOS)
+                        buf = io.BytesIO(); im.save(buf, 'JPEG', quality=88)
+                        out['images'].append({'bufferView': w.view(buf.getvalue()), 'mimeType': 'image/jpeg'})
+                        out['textures'].append({'source': len(out['images']) - 1})
+                        pics[uri] = len(out['textures']) - 1
+                    mat['pbrMetallicRoughness']['baseColorTexture'] = {'index': pics[uri]}
+                out['materials'].append(mat)
+                prims.append({'attributes': attrs, 'indices': w.accessor(doc, binary, p['indices'], 34963), 'material': len(out['materials']) - 1})
+            out['meshes'].append({'name': n['name'], 'primitives': prims})
+            node = {k: v for k, v in n.items() if k in ('translation', 'rotation', 'scale')}
+            node.update({'name': n['name'], 'mesh': len(out['meshes']) - 1})
+            out['nodes'].append(node)
+            root['children'].append(len(out['nodes']) - 1)
+        out['bufferViews'], out['accessors'] = w.views, w.accessors
+        dst = REPO / 'art/models/sourced' / f'{art}.glb'
+        write_glb(dst, out, bytes(w.binary))
+        size = [round((hi[k] - lo[k]) * UNITS_PER_METRE, 3) for k in range(3)]
+        entries[art] = {'file': f'art/models/sourced/{art}.glb', 'stands_for': [art], 'size': size, 'textured': True,
+                        'sourced': ['quaternius_fantasy_props_megakit_source'], 'mount': 'free', 'triangles': tris}
+        print(f'{dst.relative_to(REPO)}: {tris} triangles, {size} units, {dst.stat().st_size / 1e6:.2f} MB')
+    return entries
+
+
 # --- Weapons ---------------------------------------------------------------------------------------------------------------
 
 # id: source file. Quaternius OBJs are exported Y up with the blade (or shaft) along Y.
@@ -486,12 +700,34 @@ def build_warhorse() -> None:
 
 
 def main(argv: list) -> int:
-    which = argv or ['villager', 'weapons', 'hair', 'warhorse']
+    which = argv or ['people', 'weapons', 'warhorse']
     OUT.mkdir(parents=True, exist_ok=True)
     if 'villager' in which:
         build_villager()
     if 'weapons' in which:
         build_weapons()
+    if 'props' in which:
+        entries = build_props()
+        manifest = REPO / 'art/models/manifest.json'
+        doc = json.loads(manifest.read_text())
+        for art in ('fp_wagon', 'fp_veg_stall'):
+            entries[art]['big'] = True   # building-sized: keeps its size and clears the trees (ModelPiece.big_fit)
+        doc['models'].update(entries)
+        manifest.write_text(json.dumps(doc, indent=1) + '\n')
+        # The props catalog names the model for each art id, and the props manifest keeps a 2D piece to fall back on.
+        cat_path = REPO / 'art/sprites/props/catalog.json'
+        text = cat_path.read_text()
+        cat = json.loads(text)
+        cat['models3d']['art'].update({art: art for art in entries})
+        cat_path.write_text(json.dumps(cat, indent=2) + ('\n' if text.endswith('\n') else ''))
+        pm_path = REPO / 'art/sprites/props/manifest.json'
+        text = pm_path.read_text()
+        pm = json.loads(text)
+        for art in entries:
+            pm['props'][art] = dict(pm['props']['gl_yew'])
+        pm_path.write_text(json.dumps(pm, indent=1) + ('\n' if text.endswith('\n') else ''))
+    if 'people' in which:
+        build_people()
     if 'hair' in which:
         build_hair()
     if 'warhorse' in which:
