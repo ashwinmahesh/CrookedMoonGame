@@ -105,3 +105,64 @@ func test_a_storey_is_not_a_deck() -> void:
 	for i in ((place["map"] as Dictionary)["floors"] as Array).size():
 		assert_false(Decks.is_deck(board, i), "the windmill's floors are storeys")
 	board.free()
+
+
+
+## The box round every piece under `n`, in `n`'s own space.
+func _extent(n: Node3D, at: Transform3D = Transform3D.IDENTITY, box: AABB = AABB()) -> AABB:
+	for c: Node in n.get_children():
+		var t := at * (c as Node3D).transform
+		if c is MeshInstance3D:
+			var b := t * (c as MeshInstance3D).get_aabb()
+			box = b if box.size == Vector3.ZERO else box.merge(b)
+		box = _extent(c as Node3D, t, box)
+	return box
+
+
+func test_the_bridges_ways_up_run_a_whole_square() -> void:
+	# A bridge's way up starts at the lower square's far edge, so it runs the whole square (a real rise gets treads), never
+	# a board tipped up out of the middle of a square (the Mac's captures, 2026-11-02).
+	for id: String in ["wickermoor_village", "dawns_gate"]:
+		var place := _place(id)
+		var board := ArenaBoard.build(LocationView.grid_for(place), str((place["map"] as Dictionary).get("theme", "manor")), id)
+		var ways := 0
+		for n in board.get_children():
+			if not (n.name.begins_with("Ramp_") or n.name.begins_with("Stair_")):
+				continue
+			ways += 1
+			var box := _extent(n as Node3D)
+			var run := maxf(box.size.x, box.size.z)
+			assert_true(run >= 0.95, "%s: %s runs the whole square (%s)" % [id, n.name, box.size])
+			assert_true(box.size.y <= run + 0.2, "%s: %s climbs no steeper than a stair (%s)" % [id, n.name, box.size])
+			if box.size.y >= 0.4:
+				assert_true(n.get_child_count() >= 3, "%s: %s climbs by treads" % [id, n.name])
+		assert_eq(ways, _links(id).size(), "%s: each way onto the bridge is drawn" % id)
+		assert_true(board.place_width() < board.grid.width, "%s: the land round it spans the place, not the bridge's columns" % id)
+		board.free()
+
+
+func test_a_storeys_walls_reach_the_floor_over_them() -> void:
+	# A 15 ft storey over 12 ft walls left open air between the walls' tops and the floor above (Ashwin, 2026-11-02:
+	# "the walls are weirdly short"): the walls run on up to the next storey's floor; the top storey's keep their height.
+	for id: String in ["wickermoor_green_queen_inn", "ghostlight_g1_passenger"]:
+		var place := _place(id)
+		var g := LocationView.grid_for(place)
+		var board := ArenaBoard.build(g, str((place["map"] as Dictionary).get("theme", "manor")), id)
+		var st := InteriorWalls._state(board)
+		var checked := 0
+		for x in int((g.floors[0] as Dictionary)["width"]):
+			for z in g.depth:
+				var c := Vector2i(x, z)
+				if st.is_empty() or not g.has_flag(c, CombatGrid.WALL):
+					continue
+				for j in g.floors.size():
+					var over := g.on_floor(c, j)
+					var up := int((g.floors[j] as Dictionary)["height_ft"])
+					if up > 0 and str((g.floors[j] as Dictionary).get("kind", "storey")) == "storey" and g.in_bounds(over) \
+							and not g.has_flag(over, CombatGrid.VOID) and x < int((g.floors[j] as Dictionary)["width"]):
+						assert_true(InteriorWalls.height_at(board, c, st) >= float(up) / CombatGrid.FEET - 0.01,
+							"%s: the wall at %s reaches the floor %d ft up" % [id, c, up])
+						checked += 1
+						break
+		assert_true(st.is_empty() or checked > 0, "%s: some wall stands under a storey" % id)
+		board.free()
