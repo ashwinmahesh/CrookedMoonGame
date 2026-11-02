@@ -1,21 +1,19 @@
 {
-  "_about": "Fights that a wipe does not end the game for (story/fight_retry.gd). Each rule names the fights it covers: `fights` (ids) and/or `prefix` (an id prefix, limited to `locations` when that is given). On a wipe the party rises with every Hit Point and power back, the Narrator says the first of `keys` that exists ({fight} is the encounter id), and the fight begins again: `restart` names a different entry to begin (default: the same one); `spawns` (location id to spawn names, the first one the map has) puts the party back at that entry first; without it the party stays where it stands. `count_flag` counts the retries. Rules are read in order, so a fight that a later rule's prefix also covers keeps the earlier rule. Whoever was already dead when the fight began stays dead. `rise_after_win`: after a won fight (or one that ended with no winner), whoever fell in it (dead or down at 0 Hit Points) gets up with 1 Hit Point (Act 1's train, where nothing can raise the dead yet).",
+  "_about": "Fights that a wipe does not end the game for (story/fight_retry.gd). Each rule names the fights it covers: `fights` (ids) and/or `prefix` (an id prefix, limited to `locations` when that is given). On a wipe the party rises with every Hit Point and power back, the Narrator says the first of `keys` that exists ({fight} is the encounter id), and the fight begins again: `restart` names a different entry to begin (default: the same one); `spawns` (location id to spawn names, the first one the map has) puts the party back at that entry first; without it the party stays where it stands. `count_flag` counts the retries. Rules are read in order, so a fight that a later rule's prefix also covers keeps the earlier rule. Whoever was already dead when the fight began stays dead.",
   "rules": [
     {
       "id": "ghostlight_locomotive",
       "fights": ["gl_locomotive", "gl_locomotive_edge"],
       "restart": "gl_locomotive_edge",
       "keys": ["defeat:ghostlight_locomotive"],
-      "count_flag": "gl_locomotive_retries",
-      "rise_after_win": true
+      "count_flag": "gl_locomotive_retries"
     },
     {
       "id": "ghostlight_phantom",
       "fights": ["gl_phantom_strikes"],
       "restart": "gl_phantom_strikes",
       "keys": [],
-      "count_flag": "gl_phantom_retries",
-      "rise_after_win": true
+      "count_flag": "gl_phantom_retries"
     },
     {
       "id": "ghostlight_cars",
@@ -23,8 +21,7 @@
       "locations": ["ghostlight_g1_passenger", "ghostlight_g2_sleeper", "ghostlight_g3_lounge", "ghostlight_g4_dining", "ghostlight_g5_mail",
         "ghostlight_g6_baggage", "ghostlight_g7_circus", "ghostlight_g8_tender"],
       "keys": ["defeat:{fight}", "defeat:ghostlight_express"],
-      "count_flag": "gl_car_retries",
-      "rise_after_win": true
+      "count_flag": "gl_car_retries"
     },
     {
       "id": "crooked_house",

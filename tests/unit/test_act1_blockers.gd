@@ -140,31 +140,18 @@ func test_the_lamps_call_only_when_the_vagrant_has_something_to_say() -> void:
 
 # --- Death on the train ---------------------------------------------------------------------------------------------
 
-func test_whoever_falls_in_a_won_fight_on_the_train_gets_up_with_1_hit_point() -> void:
+## Ashwin, 2026-11-02: a hero who dies stays dead until raised; one at 0 Hit Points follows the 2024 rules (Stable: 1 Hit
+## Point after 1d4 hours, `stable_wakes`).
+func test_on_the_train_the_dead_stay_dead_and_the_downed_come_round() -> void:
 	var st := _party(1)
 	st.party[0].dead = true
 	st.party[0].hp = 0
 	st.party[1].hp = 0
 	st.party[1].stable = true
-	var rule := FightRetry.rule_for({"id": "gl_phantom_strikes"}, "ghostlight_g1_passenger")
-	var rose := FightRetry.raise_fallen(st, rule)
-	assert_eq(rose.size(), 2)
-	assert_false(st.party[0].dead, "the dead rise")
-	assert_eq(st.party[0].hp, 1)
-	assert_eq(st.party[1].hp, 1, "the stable get up")
-	assert_eq(st.party[2].hp, st.party[2].max_hp(), "the rest are as they were")
-	for car in CARS:
-		for en: Variant in Compendium.shared().get_entry("locations", car).get("encounters", []):
-			assert_true(bool(FightRetry.rule_for(en as Dictionary, car).get("rise_after_win", false)), "%s in %s" % [(en as Dictionary)["id"], car])
-	assert_true(bool(FightRetry.rule_for({"id": "gl_locomotive"}, "ghostlight_wreckage").get("rise_after_win", false)))
-
-
-func test_off_the_train_the_fallen_stay_fallen() -> void:
-	var st := _party(1)
-	st.party[0].dead = true
-	assert_true(FightRetry.raise_fallen(st, FightRetry.rule_for({"id": "ch_clock"}, "crooked_house_second")).is_empty())
-	assert_true(FightRetry.raise_fallen(st, {}).is_empty())
-	assert_true(st.party[0].dead)
+	for i in 4:
+		st.advance_minutes(60)
+	assert_true(st.party[0].dead, "the dead stay dead")
+	assert_eq(st.party[1].hp, 1, "the downed come round")
 
 
 func test_the_baggage_cars_wildpyre_wakes_smouldering_with_one_rend_a_turn() -> void:

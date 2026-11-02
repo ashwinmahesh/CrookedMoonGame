@@ -90,24 +90,6 @@ static func restore(st: StoryState, rule: Dictionary, dead_before: Array[Charact
 		st.set_flag(flag, int(st.get_flag(flag, 0)) + 1)
 
 
-## After a won fight a rule marks `rise_after_win` (Act 1's train, where nothing can raise the dead yet): whoever fell in it,
-## dead or down at 0 Hit Points, gets up with 1 Hit Point. Returns who rose.
-static func raise_fallen(st: StoryState, rule: Dictionary) -> Array[Character]:
-	var out: Array[Character] = []
-	if not bool(rule.get("rise_after_win", false)):
-		return out
-	for ch in st.party:
-		if ch.dead:
-			Services.bring_back(st, ch, false, false, "the fight's end")
-			out.append(ch)
-		elif ch.hp <= 0:
-			ch.death_successes = 0
-			ch.death_failures = 0
-			ch.heal(1, "the fight's end")
-			out.append(ch)
-	return out
-
-
 ## The party members dead right now (as a fight begins), for `restore`.
 static func dead_now(st: StoryState) -> Array[Character]:
 	var out: Array[Character] = []
