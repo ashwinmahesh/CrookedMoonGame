@@ -16,7 +16,7 @@ extends Node
 ## hill road to the Druskenvald estate (the Jenkins, the Crooked Man), and through the Crooked House on all four floors: the
 ## six keepsakes, the seance, the attic, the ward and Vessla Browntooth, to the Lord's thanks and the level paid at 4.
 ##
-## Args after --: --out=/abs/act1.json [--seed=1] [--book-order=1] [--frames=40000] [--mode=balanced]
+## Args after --: --out=/abs/act1.json [--seed=1] [--book-order=1] [--frames=150000] [--mode=balanced]
 ##   [--checkpoint=/abs/dir/slot] saves the game where the Express ends (the wreck after the farewell, ready to take the road) for --resume
 ##   [--resume=/abs/dir/slot] starts from that save instead of the title: the Express is taken as played
 ##   [--revive=1] brings a fallen hero back between steps and says so in the notes (Services.bring_back): a stand-in, since no one
@@ -134,7 +134,7 @@ const PLAN := {
 var out_path := ""
 var seed_value := 1
 var book_order := true
-var max_frames := 40000
+var max_frames := 150000   ## frames to give the whole run: the Express alone is about 23000, the house up to 40000 more when fights run long
 var mode := "balanced"
 var checkpoint_path := ""    ## --checkpoint: where to save the game as the Express ends (a directory and a slot)
 var resume_path := ""        ## --resume: a save to start from instead of the title
