@@ -9,8 +9,14 @@
   - Base Characters/Godot - UE/Superhero_Male_FullBody.gltf
   - Base Characters/Godot - UE/Superhero_Male_FullBody.bin
   - Base Characters/Textures/T_Superhero_Male_Ligh.png
+  - Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_SimpleParted.gltf
+  - Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_SimpleParted.bin
+  - Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Buzzed.gltf
+  - Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Buzzed.bin
+  - Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/T_Hair_1_BaseColor.png
+  - Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)/T_Hair_1_Normal.png
 - The whole pack, untouched: ~/Documents/ASH-SSD/CrookedMoon/assets/sourced/quaternius_universal_base_characters/
-- For: The villager gray-box body: the Superhero_Male mesh and skeleton. The free Standard version holds only the two Superhero bodies; the Regular and Teen proportions are in the paid Source version.
+- For: The villager gray-box body: the Superhero_Male mesh and skeleton, and two hairstyles (Hair_SimpleParted and Hair_Buzzed, rigged to the head bone) worn as layers. The free Standard version holds only the two Superhero bodies; the Regular and Teen proportions are in the paid Source version.
 - Note: The glTF names a hair normal map (T_Hair_1_Normal_png.png) that the zip does not contain; nothing here uses it.
 
 Kept untouched (CLAUDE.md, Art): changes for the game are made on copies elsewhere (tools/art/free_figures.py), never in this folder.
