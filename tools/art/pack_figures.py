@@ -50,8 +50,8 @@ SEXES = {
 }
 
 # The clips the game uses, by the pack's names (rigs.quaternius.clips in art/figures/manifest.json says which role plays which).
-CLIPS_1 = ['Idle_Loop', 'Walk_Loop', 'Jog_Fwd_Loop', 'Sprint_Loop', 'Sword_Attack', 'Sword_Idle', 'Spell_Simple_Shoot',
-           'Spell_Simple_Idle_Loop', 'Hit_Chest', 'Hit_Head', 'Hit_Stomach', 'Death01', 'Death02', 'Idle_Talking_Loop', 'Interact',
+CLIPS_1 = ['Idle_Loop', 'Walk_Loop', 'Jog_Fwd_Loop', 'Sprint_Loop', 'Sword_Attack', 'Sword_Idle', 'Spell_Simple_Enter', 'Spell_Simple_Shoot',
+           'Spell_Simple_Idle_Loop', 'Spell_Simple_Exit', 'Hit_Chest', 'Hit_Head', 'Hit_Stomach', 'Death01', 'Death02', 'Idle_Talking_Loop', 'Interact',
            'Idle_Torch_Loop', 'Idle_LookAround_Loop', 'Crying', 'Celebration', 'Counter_Angry', 'Sitting_Enter', 'Sitting_Idle_Loop',
            'Sitting_Exit', 'Roll']
 CLIPS_2 = ['Yes', 'Idle_No_Loop', 'Sword_Block', 'Walk_Carry_Loop', 'Idle_FoldArms_Loop', 'Idle_Lantern_Loop']
