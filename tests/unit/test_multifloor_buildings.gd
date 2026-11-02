@@ -97,6 +97,30 @@ func test_the_bell_tower_is_one_place_with_its_belfry() -> void:
 	_check_one_place("mon_bell_tower")
 
 
+## No sunken room shows beside a building: every square of a cellar has a square of the ground floor over it (the old maps' stairs put
+## some cellars partly outside the house, so the ground floor is walled out over them, tools/content/merge_floors.py `cover`).
+func test_every_cellar_lies_under_the_ground_floors_walls() -> void:
+	for id: String in BUILDINGS:
+		var ground := int((BUILDINGS[id] as Dictionary)["ground"])
+		if ground == 0:
+			continue
+		var map := _place(id)["map"] as Dictionary
+		var rows := map["rows"] as Array
+		var floors := map["floors"] as Array
+		var low := floors[0] as Dictionary
+		var top := floors[ground] as Dictionary
+		var outside := 0
+		for r: Variant in rows:
+			var row := str(r)
+			for x in range(int(low["x0"]), mini(int(low["x0"]) + int(low["width"]), row.length())):
+				if row[x] == " ":
+					continue
+				var over := int(top["x0"]) + (x - int(low["x0"]))
+				if over >= row.length() or row[over] == " ":
+					outside += 1
+		assert_eq(outside, 0, "%s: the cellar's squares with no ground floor over them" % id)
+
+
 func test_the_cellar_stair_waits_for_what_opened_it() -> void:
 	for pair: Array in [["fw_windmill", "flag.fw_mill_done"], ["wickermoor_barber_shop", "flag.barber_cellar_found"], ["mon_ground", "not jailed"]]:
 		var stair: Dictionary = (((_place(str(pair[0])))["map"] as Dictionary)["stairs"] as Array)[0]
