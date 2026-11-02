@@ -447,8 +447,8 @@ SHOPS = {   # npc: what the shop sells (engine item ids); markup 1.0 unless said
 # and no diamond (the sum is the whole price), from the Twilight Hour to the end of the Evening Hour
 # (07:00 to 23:00; the village's shops keep 7 to 19). One entry: the engine prices a service line, not a hero.
 _RAISE_TEXT = ("Mori asks the Ferryman to turn his oar for a hero who died within the last 10 days. They come back with 1 Hit Point and -4 on D20 Tests "
-               "for 10 days. The toll is a flat 1,000 gp for each hero brought back, then moved by how she feels about the party; Mori keeps no gems and wants nothing else.")
-MORI_RAISING = [{"id": "raise_dead", "price": 1000, "material": 0, "text": _RAISE_TEXT, "if": "hour >= 7 and hour < 23"}]
+               "for 10 days. The toll is exactly 1,000 gp for each hero brought back, however she feels about the party; Mori keeps no gems and wants nothing else.")
+MORI_RAISING = [{"id": "raise_dead", "price": 1000, "fixed_price": True, "material": 0, "text": _RAISE_TEXT, "if": "hour >= 7 and hour < 23"}]
 SERVICES = {
     "alda_farnum": [{"id": "room_modest", "price": 1}, {"id": "room_wealthy", "price": 2}],
     "randall_graham": [{"id": "cure_wounds", "price": 10}],
