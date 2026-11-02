@@ -169,6 +169,11 @@ palette:
 capture:
 	$(UNSEEN) res://tools/capture/capture.tscn -- --scene=$(or $(SCENE),res://tools/capture/hillside_capture.tscn) --out=$(CURDIR)/captures/$(or $(NAME),capture) --frames=$(or $(FRAMES),90) $(if $(FOCUS),--focus=$(FOCUS),) $(if $(LOCATION),--location=$(LOCATION),) $(if $(ENCOUNTER),--encounter=$(ENCOUNTER),) $(if $(LOAD),--load=$(LOAD),) $(if $(DIALOGUE),--dialogue=$(DIALOGUE),) $(if $(BEATS),--beats=$(BEATS),) $(if $(MAP),--map,) $(if $(SHOP),--shop=$(SHOP),) $(ARGS) < /dev/null
 
+## Works the 3D overworld out once and saves it (world/overworld/overworld_bake.gd), so it opens at once: run it after
+## changing art/overworld/overworld.json or the travel map (a stale bake is ignored and the land worked out afresh).
+overworld-bake:
+	$(G) --headless res://tools/overworld_bake.tscn 2>&1 | grep -v 'Writing region' | $(LOGCHK)
+
 ## Lays a place painted as land into a location's grid (the engine's world/authoring/sketch_tool.gd, plan E29): HEIGHT= a
 ## height picture (black low, white TOP= feet up, default 30), LAYOUT= the layout in the key's flat colours, SIZE=WxD squares,
 ## LOC=data/locations/<id>.json to write (refuses to close a walked square unless FORCE=1), PREVIEW=captures/<x>.png.

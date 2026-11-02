@@ -14,14 +14,7 @@ const TINTS := {"meadow": Color(0.62, 0.6, 0.5), "moor": Color(0.5, 0.42, 0.3), 
 
 
 static func build(parent: Node3D, land: OverworldLand) -> Terrain3D:
-	var terrain := Terrain3D.new()
-	terrain.name = "Terrain3D"
-	terrain.region_size = Terrain3D.SIZE_1024
-	parent.add_child(terrain)
-	terrain.material.world_background = Terrain3DMaterial.NONE
-	terrain.material.auto_shader_enabled = false
-	for i in OverworldLand.GROUNDS.size():
-		terrain.assets.set_texture_asset(i, ground(OverworldLand.GROUNDS[i]))
+	var terrain := _new(parent, "")
 	var n := land.size
 	var height := Image.create_empty(n, n, false, Image.FORMAT_RF)
 	var control := Image.create_empty(n, n, false, Image.FORMAT_RF)
@@ -32,6 +25,26 @@ static func build(parent: Node3D, land: OverworldLand) -> Terrain3D:
 			var bits := Terrain3DUtil.enc_base(g[0]) | Terrain3DUtil.enc_overlay(g[1]) | Terrain3DUtil.enc_blend(g[2])
 			control.set_pixel(x, z, Color(Terrain3DUtil.as_float(bits), 0.0, 0.0, 1.0))
 	terrain.data.import_images([height, control, null], Vector3.ZERO, 0.0, 1.0)
+	return terrain
+
+
+## The land as the bake saved it (OverworldBake.TERRAIN_DIR): Terrain3D reads its regions straight in.
+static func from_bake(parent: Node3D) -> Terrain3D:
+	return _new(parent, OverworldBake.TERRAIN_DIR)
+
+
+static func _new(parent: Node3D, data_dir: String) -> Terrain3D:
+	var terrain := Terrain3D.new()
+	terrain.name = "Terrain3D"
+	terrain.free_editor_textures = false   # (built in code: there is no saved assets file to free them for)
+	terrain.region_size = Terrain3D.SIZE_1024
+	if data_dir != "":
+		terrain.data_directory = data_dir
+	parent.add_child(terrain)
+	terrain.material.world_background = Terrain3DMaterial.NONE
+	terrain.material.auto_shader_enabled = false
+	for i in OverworldLand.GROUNDS.size():
+		terrain.assets.set_texture_asset(i, ground(OverworldLand.GROUNDS[i]))
 	return terrain
 
 
@@ -47,12 +60,7 @@ static func ground(name: String) -> Terrain3DTextureAsset:
 	return ta
 
 
-## A packed ground picture as Terrain3D wants it: uncompressed RGBA with mipmaps, read straight from the PNG so the import
-## step's compression never touches its alpha.
-static func _packed(path: String) -> ImageTexture:
-	var img := Image.load_from_file(ProjectSettings.globalize_path(path)) if not OS.has_feature("template") else (load(path) as Texture2D).get_image()
-	if img.is_compressed():
-		img.decompress()
-	img.convert(Image.FORMAT_RGBA8)
-	img.generate_mipmaps()
-	return ImageTexture.create_from_image(img)
+## A packed ground picture as Terrain3D wants it: imported lossless with mipmaps (the .import files say so), so its height
+## and roughness alpha come through untouched and all twelve share one size and format.
+static func _packed(path: String) -> Texture2D:
+	return load(path) as Texture2D

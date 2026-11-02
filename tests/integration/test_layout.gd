@@ -110,6 +110,33 @@ func _game() -> void:
 	await _frames(8)
 
 
+## The 3D overworld (world/overworld/) opened to set out from the Ghostlight Wreckage, with Wickermoor chosen: its panel
+## of places, the way there and its buttons.
+func test_the_overworld() -> void:
+	GameState.reset()
+	for id: String in GAME.PLACEHOLDER_PARTY:
+		GameState.story.party.append(Pregens.build(id, 3))
+	GameState.story.location = "ghostlight_wreckage"
+	GameState.story.visited["ghostlight_wreckage"] = true
+	GameState.story.set_flag("gl_last_stop", true)
+	root = (load("res://scenes/game.tscn") as PackedScene).instantiate()
+	add_child(root)
+	await _frames(8)
+	await _check("the overworld", func() -> Variant:
+		root.call("open_travel", true)
+		await _frames(2)
+		var screen := root.get("screen") as OverworldScreen
+		if screen == null:
+			return null
+		screen.select("wickermoor_village")
+		await _frames(2)
+		return screen, func() -> void:
+			var screen := root.get("screen") as Node
+			if screen != null:
+				screen.queue_free()
+			root.set("screen", null))
+
+
 func test_what_counts_as_spilling() -> void:
 	var box := Control.new()
 	add_child(box)

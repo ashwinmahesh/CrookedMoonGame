@@ -1036,6 +1036,26 @@ func open_travel(setting_out: bool) -> void:
 	if here == "" and setting_out:
 		hud.toast("No road leads on from here yet.")
 		return
+	if OverworldScreen.covers(here):
+		# The stretch the 3D overworld holds opens as land (world/overworld/); the painted map is a button away.
+		var o := OverworldScreen.new()
+		screen = o
+		add_child(o)
+		o.open(st, here, setting_out)
+		o.travel_chosen.connect(func(to: String) -> void:
+			screen = null
+			travel(here, to))
+		o.closed.connect(func() -> void: screen = null)
+		o.painted_map_wanted.connect(func() -> void:
+			screen = null
+			open_painted_map(setting_out))
+		return
+	open_painted_map(setting_out)
+
+
+## The painted travel map (TravelScreen): every place the 3D overworld doesn't hold, and from it on request.
+func open_painted_map(setting_out: bool) -> void:
+	var here := Travel.place_for_location(st.location)
 	var t := TravelScreen.new()
 	screen = t
 	t.area_view = view   # the map's local area view is of the place the party is in

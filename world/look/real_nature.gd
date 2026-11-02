@@ -59,6 +59,20 @@ static func build(parent: Node3D, id: String, at: Vector3, seed_: int) -> Node3D
 	return piece
 
 
+## One model `id` set down with a transform already worked out (a baked overworld's rocks).
+static func place(parent: Node3D, id: String, xform: Transform3D) -> Node3D:
+	var spec := (config().get("models", {}) as Dictionary).get(id, {}) as Dictionary
+	var scene := _scene(id, spec)
+	if scene == null:
+		return null
+	var piece := scene.instantiate() as Node3D
+	piece.name = "Real_" + id
+	piece.set_meta("nature", true)
+	piece.transform = xform
+	parent.add_child(piece)
+	return piece
+
+
 ## Strews the place's ground with its `places` entry: under the trees along the woods' edge, over the difficult squares
 ## and, sparsely, at the rim of the open ground. Squares a prop, a door, a person or a starting place takes are left alone.
 static func strew(view: LocationView) -> Node3D:

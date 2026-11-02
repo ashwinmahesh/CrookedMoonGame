@@ -26,11 +26,34 @@ var road_dist := PackedFloat32Array() ## metres to the nearest road's middle (a 
 var woods := PackedFloat32Array()     ## 0..1, how deep in the woods each metre is
 var places: Array[Dictionary] = []    ## {id, name, at: Vector2 (metres), spec}
 var roads: Array[PackedVector2Array] = []
+var road_ids: Array[String] = []   ## the travel map's road id of each line in `roads`
 var lake_level := -1000.0
 var lake_at := Vector2.ZERO
 var lake_radius := 0.0
 var _noise := FastNoiseLite.new()
 var _woods_noise := FastNoiseLite.new()
+
+
+## Only the places and the lake (no heights): for a baked overworld, whose heights are Terrain3D's own and whose roads
+## come from the bake.
+static func light() -> OverworldLand:
+	var land := OverworldLand.new()
+	land._read()
+	return land
+
+
+## The road's line from place `a` to place `b` (either way round), as metres; empty when the land has none.
+func road_line(road_id: String, from_place: String) -> PackedVector2Array:
+	var k := road_ids.find(road_id)
+	if k < 0:
+		return PackedVector2Array()
+	var line := roads[k]
+	for pl: Dictionary in places:
+		if str(pl["id"]) == from_place and line[line.size() - 1].distance_to(pl["at"] as Vector2) < line[0].distance_to(pl["at"] as Vector2):
+			var back := line.duplicate()
+			back.reverse()
+			return back
+	return line
 
 
 static func build(seed_: int = 1931) -> OverworldLand:
@@ -194,6 +217,7 @@ func _lay_roads() -> void:
 			continue
 		var line := _wander(by_id[str(d["from"])] as Vector2, by_id[str(d["to"])] as Vector2)
 		roads.append(line)
+		road_ids.append(str(d["id"]))
 		# The line's height, smoothed along it.
 		var raw := PackedFloat32Array()
 		for p: Vector2 in line:

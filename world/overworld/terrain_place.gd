@@ -64,6 +64,7 @@ static func dress(view: LocationView) -> Terrain3D:
 			control.set_pixel(i, j, Color(Terrain3DUtil.as_float(bits), 0.0, 0.0, 1.0))
 	var terrain := Terrain3D.new()
 	terrain.name = "Terrain3D"
+	terrain.free_editor_textures = false   # (built in code: there is no saved assets file to free them for)
 	terrain.region_size = Terrain3D.SIZE_1024
 	terrain.vertex_spacing = 1.0 / PER_UNIT
 	board.add_child(terrain)
