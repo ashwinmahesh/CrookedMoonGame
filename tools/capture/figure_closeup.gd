@@ -3,12 +3,12 @@ extends Node
 ## on a plain stage, to check how a head made apart from its body sits: turned to four sides at rest, then caught in its
 ## clips (talking, swinging, walking, hit).
 ##   make capture SCENE=res://tools/capture/figure_closeup.tscn NAME=heads/x FRAMES=10 ARGS='--ids=old_rook,rook_coldwake'
-## --ids: the figures, left to right; --frame=head|body: head and shoulders (the default) or the whole figure.
+## --ids: the figures, left to right (--panel=400 for four across a 1600 window); --frame=head|body: head and shoulders (the default) or the whole figure.
 ## Shots: <out>_front.png, _left.png, _back.png, _right.png, _talk.png, _swing.png, _walk.png, _hit.png.
 ## --only=talk: instead, the figures talking a frame at a time (their jaws opening with a made-up voice, TalkMotion's
 ## JawOpen, and the head nodding), <out>_talk_<nnnn>.png for a GIF.
 
-const PANEL := 640
+var PANEL := 640   # one figure's square (--panel=n: smaller squares fit more figures in the window)
 
 
 func _arg(key: String, default: String) -> String:
@@ -19,6 +19,7 @@ func _arg(key: String, default: String) -> String:
 
 
 func capture_shots(tool: Node, out: String) -> void:
+	PANEL = int(_arg("panel", str(PANEL)))
 	var ids := _arg("ids", "rook_coldwake").split(",", false)
 	var head := _arg("frame", "head") == "head"
 	var back := ColorRect.new()
@@ -61,8 +62,9 @@ func capture_shots(tool: Node, out: String) -> void:
 		var h := CombatToken.height_for(ids[i])
 		var fig := DirectionalSprite.create(FigureModels.frames(ids[i]), h) as ModelFigure
 		table.add_child(fig)
-		var target := Vector3(0.0, h * (0.86 if head else 0.5), 0.0)
-		var fit := h * (0.42 if head else 1.15)
+		var fh := h * float(FigureModels.info(ids[i]).get("scale", 1.0))   # a child's figure is smaller than its height
+		var target := Vector3(0.0, fh * (0.86 if head else 0.5), 0.0)
+		var fit := fh * (0.42 if head else 1.15)
 		var dist := fit * 0.5 / tan(deg_to_rad(cam.fov * 0.5))
 		var eye := target + Vector3(0.0, dist * sin(deg_to_rad(10.0)), dist * cos(deg_to_rad(10.0)))
 		cam.transform = Transform3D(Basis.looking_at(target - eye), eye)
