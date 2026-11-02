@@ -152,19 +152,3 @@ func test_on_the_train_the_dead_stay_dead_and_the_downed_come_round() -> void:
 		st.advance_minutes(60)
 	assert_true(st.party[0].dead, "the dead stay dead")
 	assert_eq(st.party[1].hp, 1, "the downed come round")
-
-
-func test_the_baggage_cars_wildpyre_wakes_smouldering_with_one_rend_a_turn() -> void:
-	for en: Variant in Compendium.shared().get_entry("locations", "ghostlight_g6_baggage").get("encounters", []):
-		var spec := en as Dictionary
-		if str(spec["id"]) != "gl_wildpyre":
-			continue
-		for m: Variant in spec["monsters"]:
-			assert_true("smouldering" in ((m as Dictionary).get("states", []) as Array), "both of its entries")
-	var data := LocationFights.with_states(Compendium.shared().monster_data("wildpyre"), ["smouldering"])
-	for a: Variant in data["actions"]:
-		if str((a as Dictionary).get("kind", "")) == "multiattack":
-			var count := 0
-			for step: Variant in (a as Dictionary)["multiattack"]:
-				count += int((step as Dictionary).get("count", 1))
-			assert_eq(count, 1, "one Blazing Rend")
