@@ -2,8 +2,9 @@ class_name TalkMotion
 extends Node
 ## The one speaking keeps talking for as long as their line is said (vault Build/Talking Figures.md). Tripo's figures have
 ## no mouth to move (the face is painted on and the Mixamo rig has no jaw), so a line shows on the figure as the head
-## nodding and tilting with the voice, and as gestures (the talk clips: agree, complain) one after another while the line
-## lasts. FigureTalk plays the first gesture as the line shows; this keeps it going.
+## nodding and tilting with the voice, and as the talk gesture (agree) played again and again while the line lasts. The
+## manifest's defaults leave out Tripo's complain clip, a sulk that read as a pout (Ashwin, 2026-11-02). FigureTalk
+## plays the first gesture as the line shows; this keeps it going.
 ##
 ## The head follows the voice's loudness on its bus while a recorded clip plays; a line nobody has voiced yet is given a
 ## speaking time from its length and a made-up rhythm of syllables and pauses between words. GameRoot calls spoke() as
@@ -178,11 +179,19 @@ static func jaw_on(fig: Node, make: bool = true) -> JawOpen:
 
 
 ## Opens the jaw with the voice: wide on a loud syllable, closing between words, shut when the line ends.
+## A jaw only swung on its hinge pulls the chin back as it drops, so the lower lip tucks under the upper and the mouth
+## reads as a pout (Ashwin, 2026-11-02). A real jaw glides forward as it opens, so this one slides forward by as much as
+## the swing pulls it back and the lower lip drops straight down.
 class JawOpen extends SkeletonModifier3D:
 	## Degrees the jaw drops at full voice, and how fast it follows the voice open and shut (per second).
-	const OPEN := 14.0
-	const ATTACK := 28.0
-	const RELEASE := 16.0
+	const OPEN := 10.0
+	const ATTACK := 22.0
+	const RELEASE := 14.0
+	## How far the jaw glides forward at full voice, in the head's own units (blender/head_jaw.py puts the hinge about
+	## 0.2 behind the lips and 0.05 above them, which a 10 degree swing pulls back by about this much).
+	const GLIDE := 0.012
+	## The way the face looks (Tripo's heads face +z), in the skeleton's space.
+	const FORWARD := Vector3(0.0, 0.0, 1.0)
 
 	var jaw := -1
 	var talking := false
@@ -194,6 +203,13 @@ class JawOpen extends SkeletonModifier3D:
 	func openness() -> float:
 		return _env
 
+	## Forward in the space the jaw's position is kept in (its parent bone's).
+	func forward_in_parent(skel: Skeleton3D) -> Vector3:
+		var parent := skel.get_bone_parent(jaw)
+		if parent < 0:
+			return FORWARD
+		return (skel.get_bone_global_rest(parent).basis.inverse() * FORWARD).normalized()
+
 	func _process_modification_with_delta(delta: float) -> void:
 		var want := loudness if talking else 0.0
 		_env = lerpf(_env, want, 1.0 - exp(-(ATTACK if want > _env else RELEASE) * delta))
@@ -201,6 +217,7 @@ class JawOpen extends SkeletonModifier3D:
 		if skel == null or jaw < 0 or _env < 0.002:
 			return
 		skel.set_bone_pose_rotation(jaw, skel.get_bone_pose_rotation(jaw) * Quaternion(Vector3.RIGHT, deg_to_rad(OPEN) * _env))
+		skel.set_bone_pose_position(jaw, skel.get_bone_pose_position(jaw) + forward_in_parent(skel) * GLIDE * _env)
 
 
 ## Turns the head (and a little of the neck) on top of whatever clip the figure plays: small nods on each syllable's
