@@ -45,8 +45,10 @@ engine first, then commit the new submodule commit here (its path shows as the c
   lives in this repo, never in the engine's defaults.
 - Pictures in the world and menus (loading pictures, title, travel map, vistas, the moon, decals): photorealistic. Z-Image Turbo with
   no style LoRA; append the words in art/prompts/photoreal_preamble.txt to every prompt.
-- Cutscene stills keep the cartoon style (Ashwin, 2026-11-02 04:35): look P "Creature Feature Cel", Z-Image Turbo with the Giallo
-  LoRA (`custom-giallo`) at 0.6 and the words in art/prompts/style_preamble.txt.
+- ALL cutscene stills, the ones already made and every new one, in every act, are the cartoon style, never photoreal (Ashwin, 2026-11-02
+  04:35 and again 06:35): look P "Creature Feature Cel", Z-Image Turbo with the Giallo LoRA (`custom-giallo`) at 0.6 and the words in
+  art/prompts/style_preamble.txt appended to every prompt. A cutscene job with no LoRA, or with art/prompts/photoreal_preamble.txt,
+  is wrong: cancel it and queue it again with the cel settings.
 - For a cut-out, ask for a plain flat white background; the pipeline removes it. Fix a finished picture with an edit model
   (FLUX.2 Klein, Qwen-Image 2.1 Turbo) rather than re-rolling.
 - Voices: VoxCPM2 designs voices (always three options per character), Higgs reads the lines. Pinned in audio/voice/casting.json,
