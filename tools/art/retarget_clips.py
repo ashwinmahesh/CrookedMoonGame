@@ -13,9 +13,12 @@ rotations; A lines the target's rest frame up with the pack's). The hips also mo
 Bones with no partner (finger tips, toe ends, the head top) keep their rest pose under their parent.
 
 Works for any figure on the Mixamo names (every Tripo rig): the bone map is rigs.quaternius.bones in
-art/figures/manifest.json read backwards, plus the fingers.
+art/figures/manifest.json read backwards, plus the fingers. A figure moved onto the pack names its Tripo-only entry in
+`retarget_from` (rook_coldwake: "retarget_from": "rook_coldwake_tripo", whose file tools/art/figures.py keeps current), and
+its own `file` is the bake; run this again whenever the Tripo file changes. Godot's import drops a clip name's "_Loop"
+(Idle_Loop plays as Idle), so the manifest names the loops without it.
 
-  python3 tools/art/retarget_clips.py <figure id> [--clips A,B,...] [--out art/figures/<id>_ual.glb] [--fps 30]
+  python3 tools/art/retarget_clips.py <figure id> [--clips A,B,...] [--out <glb>] [--fps 30]
 """
 import argparse, json, math, struct, sys
 from pathlib import Path
@@ -378,13 +381,19 @@ def bake(figure: Path, out: Path, clips: list, fps: float) -> None:
 
 def main(argv):
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    ap.add_argument('figure')
+    ap.add_argument('figure', help="a manifest figure id: one with `retarget_from` is baked from that entry's file into its own")
     ap.add_argument('--clips', default=','.join(DEFAULT_CLIPS))
     ap.add_argument('--out', default='')
     ap.add_argument('--fps', type=float, default=30.0)
     a = ap.parse_args(argv)
-    src = REPO / 'art/figures' / f'{a.figure}.glb'
-    out = Path(a.out) if a.out else REPO / 'art/figures' / f'{a.figure}_ual.glb'
+    figures = json.loads(MANIFEST.read_text())['figures']
+    entry = figures.get(a.figure, {})
+    if entry.get('retarget_from'):
+        src = REPO / figures[entry['retarget_from']]['file']
+        out = Path(a.out) if a.out else REPO / entry['file']
+    else:
+        src = REPO / 'art/figures' / f'{a.figure}.glb'
+        out = Path(a.out) if a.out else REPO / 'art/figures' / f'{a.figure}_ual.glb'
     bake(src, out, [c for c in a.clips.split(',') if c], a.fps)
     return 0
 
