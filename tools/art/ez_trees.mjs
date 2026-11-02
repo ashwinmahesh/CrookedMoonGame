@@ -18,9 +18,9 @@ for (const [id, preset, seed] of [
   ['ez_pine_a', 'Pine Large', 13], ['ez_pine_b', 'Pine Medium', 29],
 ]) { SPECS.push([id, preset, seed, '']); SPECS.push([id + '_far', preset, seed, 'far']); }
 SPECS.push(['ez_dead_a', 'Oak Medium', 31, 'dead'], ['ez_dead_b', 'Ash Large', 41, 'dead'], ['ez_dead_c', 'Oak Large', 53, 'dead']);
-// Bushes for the ground (Flora draws them by the thousand): thinned to under 2k triangles each.
-// [id, preset, seed, "bush", height, width, leaves per twig] in world units, matching the painted bush_a, bush_b and heather they stand in for.
-SPECS.push(['ez_bush_a', 'Bush 1', 7, 'bush', 0.671, 0.841, 6], ['ez_bush_b', 'Bush 2', 19, 'bush', 0.577, 0.704, 3], ['ez_heather', 'Bush 3', 5, 'bush', 0.334, 0.627, 2]);
+// Bushes for the ground (Flora draws them by the thousand): thinned to about 600 triangles each.
+// [id, preset, seed, "bush", height, width, leaves per twig, levels, sections] in world units, matching the painted bush_a, bush_b and heather they stand in for.
+SPECS.push(['ez_bush_a', 'Bush 1', 7, 'bush', 0.671, 0.841, 3, 2, 2], ['ez_bush_b', 'Bush 2', 19, 'bush', 0.577, 0.704, 7, 1, 3], ['ez_heather', 'Bush 3', 5, 'bush', 0.334, 0.627, 2, 1, 2]);
 
 const written = {};
 function saveTexture(tex, name) {
@@ -35,27 +35,45 @@ function saveTexture(tex, name) {
 }
 
 const report = {};
-for (const [id, preset, seed, how, bushHeight, bushWidth, bushLeaves] of SPECS) {
+for (const [id, preset, seed, how, bushHeight, bushWidth, bushLeaves, bushLevels, bushSections] of SPECS) {
   const tree = new Tree();
   tree.loadPreset(preset);
   tree.options.seed = seed;
   const b = tree.options.branch;
+  // Trees are drawn by the hundred, and every one is drawn again in the moon's shadow: the near copy is a lean tree
+  // (two levels of boughs, coarse three-sided limbs, fewer and bigger leaves, about 2.5k triangles) and the far copy
+  // leaner still (one level of boughs, under 1k).
+  if (how === '') {
+    b.levels = Math.min(b.levels, 2);
+    for (const k in b.segments) b.segments[k] = Math.min(b.segments[k], 4);
+    for (const k in b.sections) b.sections[k] = Math.min(b.sections[k], 3);
+    // (A pine's crown is many needle sprays: half as many, bigger.)
+    const pine = preset.startsWith('Pine');
+    tree.options.leaves.count = Math.max(6, Math.floor(tree.options.leaves.count * (pine ? 0.45 : 0.8)));
+    tree.options.leaves.size *= pine ? 1.9 : 1.5;
+    if (pine) for (const k in b.children) b.children[k] = Math.max(2, Math.round(b.children[k] * 0.5));
+  }
   if (how === 'far') {
-    for (const k in b.segments) b.segments[k] = Math.max(3, Math.floor(b.segments[k] / 2));
-    for (const k in b.sections) b.sections[k] = Math.max(1, Math.floor(b.sections[k] / 2));
-    tree.options.leaves.count = Math.max(4, Math.floor(tree.options.leaves.count * 0.45));
-    tree.options.leaves.size *= 1.4;
+    b.levels = Math.min(b.levels, 1);
+    for (const k in b.segments) b.segments[k] = 3;
+    for (const k in b.sections) b.sections[k] = Math.min(b.sections[k], 3);
+    const pine = preset.startsWith('Pine');
+    tree.options.leaves.count = Math.max(6, Math.floor(tree.options.leaves.count * (pine ? 0.25 : 0.6)));
+    tree.options.leaves.size *= pine ? 3.0 : 2.0;
+    if (pine) for (const k in b.children) b.children[k] = Math.max(2, Math.round(b.children[k] * 0.25));
   }
   if (how === 'bush') {
     // Two levels of coarse three-sided boughs and a few leaves: a bush is seen from a few paces and drawn by the thousand.
-    b.levels = Math.min(b.levels, 2);
+    b.levels = Math.min(b.levels, bushLevels);
     for (const k in b.segments) b.segments[k] = 3;
-    for (const k in b.sections) b.sections[k] = 3;
+    for (const k in b.sections) b.sections[k] = bushSections;
     tree.options.leaves.count = bushLeaves;
   }
   if (how === 'dead') {
     tree.options.leaves.count = 0;
-    b.levels = Math.min(b.levels, 3);
+    b.levels = Math.min(b.levels, 2);
+    for (const k in b.segments) b.segments[k] = Math.min(b.segments[k], 4);
+    for (const k in b.sections) b.sections[k] = Math.min(b.sections[k], 3);
   }
   tree.generate();
   const o = tree.options;
