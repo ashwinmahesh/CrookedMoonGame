@@ -448,3 +448,10 @@ func test_the_fantasy_props_are_wired_into_the_props_catalog() -> void:
 		var tris := _triangles(model)
 		assert_between(float(tris), 1.0, float(TRIANGLE_LIMIT), "%s: %d triangles" % [id, tris])
 		model.free()
+
+
+## The Warhorse monster is drawn as the free pack's horse (its figure), not as the nightmare's sprite its entry falls back on.
+func test_the_warhorse_is_drawn_as_its_own_figure() -> void:
+	assert_eq(str(Compendium.shared().get_entry("monsters", "warhorse").get("art", "")), "warhorse", "the Warhorse wears its figure")
+	assert_true(FigureModels.has("warhorse"), "which has its model in the repo")
+	assert_eq(FigureModels.stand_in("warhorse"), "", "so the nightmare's sprite is not worn")
