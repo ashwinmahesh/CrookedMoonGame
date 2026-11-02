@@ -43,6 +43,7 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **Whole travel map as 3D land, with gamepad controls**: the 3D overworld holds the whole travel map, places that share a spot are told apart, and the 12 MB bake is refreshed for the realistic trees. (1e6a518b, 26cad78a, aec3d548.)
 - **Engine forked into DnDGameEngine-3D**: the Crooked Moon engine is its own repo, the submodule URL is switched, and all lanes and your local copy use it. (Game f354a706; engine main b19bc8ea.)
 - **Animation speed 1.5x**: every figure animates 1.5x faster, set in data/campaign.json. (Engine 1ddc44cd, game b4ee3def.)
 - **Weapons and the other six heroes on the pack clips**: fitted hand sockets and re-angled dagger, spear, staff and greataxe. (09937420.)
