@@ -1,5 +1,10 @@
 # Painted faces for the figures that have no head (look lane, branch `look-figure-faces`)
 
+> **Status: superseded, paused at tools and sheets (2026-11-02 03:12Z).** Ashwin made the asset packs in ~/Documents/AssetPacks the
+> base for everything; the 47 reuse villagers move to the base human models plus outfits. This branch is kept so the work is not lost
+> and is **not for the builder**: the generic head sheets and heads were not finished or wired (the manifest still has no generic
+> `face_*` part and no reuse figure wears one). The real Tripo heads for the ten characters are on `look-act1-figures`.
+
 The Act 1 figures with no model of their own (the 47 crowd, child and background people on the hero bodies, and the nine
 finished Tripo bodies made without a head) used to show a blank clay head. They now wear a **head painted in look P**: a rigid
 head part the engine fits to the body's neck (`"fit": "head"`, the same hook the clay head used), with the body's own head shrunk
