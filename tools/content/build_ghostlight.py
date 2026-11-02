@@ -207,18 +207,18 @@ def build_locations():
             {"id": "gl_phantom_strikes", "trigger": "dialogue", "flag": "gl_phantom_done", "quest": {"id": "ghostlight_express", "stage": "phantom_struck"},
              "when": "level >= 3", "monsters": [
                  {"monster": "shadow", "cell": [7, 3], "name": "The Phantom Trainhopper", "facing": "east", "steps_down": {"npc": "phantom_trainhopper"}},
-                 {"monster": "specter", "cell": [11, 2], "name": "Corrupted Passenger", "facing": "west"},
-                 {"monster": "specter", "cell": [14, 4], "name": "Corrupted Passenger", "facing": "west"},
-                 {"monster": "specter", "cell": [17, 3], "name": "Corrupted Passenger", "facing": "west"}]},
+                 {"monster": "corrupted_passenger", "cell": [11, 2], "name": "Corrupted Passenger", "facing": "west"},
+                 {"monster": "corrupted_passenger", "cell": [14, 4], "name": "Corrupted Passenger", "facing": "west"},
+                 {"monster": "corrupted_passenger", "cell": [17, 3], "name": "Corrupted Passenger", "facing": "west"}]},
             {"id": "gl_phantom_strikes", "trigger": "dialogue", "flag": "gl_phantom_done", "quest": {"id": "ghostlight_express", "stage": "phantom_struck"},
              "when": "level == 2", "monsters": [
                  {"monster": "shadow", "cell": [7, 3], "name": "The Phantom Trainhopper", "facing": "east", "steps_down": {"npc": "phantom_trainhopper"}},
-                 {"monster": "specter", "cell": [11, 2], "name": "Corrupted Passenger", "facing": "west"},
-                 {"monster": "specter", "cell": [14, 4], "name": "Corrupted Passenger", "facing": "west"}]},
+                 {"monster": "corrupted_passenger", "cell": [11, 2], "name": "Corrupted Passenger", "facing": "west"},
+                 {"monster": "corrupted_passenger", "cell": [14, 4], "name": "Corrupted Passenger", "facing": "west"}]},
             {"id": "gl_phantom_strikes", "trigger": "dialogue", "flag": "gl_phantom_done", "quest": {"id": "ghostlight_express", "stage": "phantom_struck"},
              "monsters": [
                  {"monster": "shadow", "cell": [7, 3], "name": "The Phantom Trainhopper", "facing": "east", "steps_down": {"npc": "phantom_trainhopper"}},
-                 {"monster": "specter", "cell": [11, 2], "name": "Corrupted Passenger", "facing": "west"}]}],
+                 {"monster": "corrupted_passenger", "cell": [11, 2], "name": "Corrupted Passenger", "facing": "west"}]}],
         lights=lamps([(4, 3), (10, 3), (16, 3)]))
 
     # ----- G2 --------------------------------------------------------------------------------------------------------
