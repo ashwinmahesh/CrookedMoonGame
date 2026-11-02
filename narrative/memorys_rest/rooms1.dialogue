@@ -97,7 +97,9 @@ Narrator: A wire bin by the door holds thick leather ledgers filled with neat no
 Narrator: Every chart records honest care for ordinary ills, yet each ends with the same inked note: patient ready for further treatment upstairs.
 set mr_truth_clues += 1
 if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+if not quest.all_is_well >= the_truth
 quest all_is_well the_truth
+endif
 endif
 -> END
 
@@ -130,7 +132,9 @@ Narrator: The wet carvings coil across the stone slab, waiting for a voice that 
 Narrator: The carvings flare with sickly violet light, and the slab grinds downward to reveal rough, wet steps descending into the grotto.
 set mr_hatch_open
 if not flag.mr_grotto_seen
+if not quest.all_is_well >= the_way_down
 quest all_is_well the_way_down
+endif
 endif
 move mr_grotto:from_hatch
 -> END

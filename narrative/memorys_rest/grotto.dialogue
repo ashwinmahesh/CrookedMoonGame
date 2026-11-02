@@ -5,7 +5,9 @@ cutscene mr_worm
 cutscene mr_worm_2
 cutscene end
 Narrator: Folded grey stone curves above pools of glowing purple and teal water, where a stone bridge spans out to a glyph-ringed platform. High on iron chains hangs a vast pallid grub, its tubes pumping violet fluid into vats while it lets out a thin shriek whenever touched.
+if not quest.all_is_well >= the_weeping_widow
 quest all_is_well the_weeping_widow
+endif
 set mr_grotto_seen
 * Study the worm and the vats -> prep
 * Wait for what comes -> widow_arrives
@@ -77,5 +79,7 @@ lethica_nightborne [sad]: Marius, my love, the night is so very cold, and I reme
 set lethica_slain
 set white_worm_escaped
 give veil_of_the_weeping_widow
+if not quest.all_is_well >= unforgettable
 quest all_is_well unforgettable
+endif
 -> END

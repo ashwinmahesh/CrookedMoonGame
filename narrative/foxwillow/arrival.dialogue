@@ -3,7 +3,9 @@
 ~ start
 Narrator: From the ridge above Foxwillow, the smell of scorched thatch and roasted corn rises on a hot wind. Below you, the windmill turns like a wheel of fire while pumpkin-headed scarecrows brawl in the square.
 william_lodge [afraid]: Mercy on us, it is far worse than when I rode out. The whole town has gone mad with the flame.
+if not quest.fields_of_the_crow >= burning
 quest fields_of_the_crow burning
+endif
 set fw_arrived
 set fw_fire_start = now
 * Ask what we are looking at -> look
@@ -31,7 +33,9 @@ quest the_burning_mill burning
 ~ martha_go
 martha_langtree [weary]: Bless you. Mind the smoke, and do not let that stubborn boy burn for an old woman's temper.
 set fw_mill_asked
+if not quest.fields_of_the_crow >= investigating
 quest fields_of_the_crow investigating
+endif
 -> END
 
 ~ martha_who

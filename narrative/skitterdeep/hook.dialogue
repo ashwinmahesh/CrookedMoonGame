@@ -38,7 +38,9 @@ cutscene sk_tunnels
 cutscene sk_tunnels_2
 cutscene end
 set skitter_trail_known
+if not quest.skitter_plague >= trail_of_corruption
 quest skitter_plague trail_of_corruption
+endif
 Narrator: Whatever foul thing is feeding on Wickermoor, you have its scent now, and the hill road waits.
 -> END
 
@@ -91,7 +93,9 @@ endif
 set skitter_asked
 if not flag.oakum_guiding
 if not flag.oakum_declined
+if not quest.skitter_plague >= trail_of_corruption
 quest skitter_plague trail_of_corruption
+endif
 endif
 endif
 -> END

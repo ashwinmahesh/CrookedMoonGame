@@ -2,7 +2,9 @@
 
 ~ invite
 set sinner_roll_started
+if not quest.withered_arm >= roll_the_bones
 quest withered_arm roll_the_bones
+endif
 cutscene dc_roll_bones
 Narrator: The room stretches out like old taffy, the ceiling lifting while a four-legged coffin carved with a dice-eyed skeleton settles between you.
 cutscene dc_roll_bones_2
@@ -133,7 +135,9 @@ Narrator: All around the hall, his crew drops to its knees and shrivels like dry
 cutscene dc_all_in_2
 Narrator: The tall windows shatter inward in a spray of glass and black swamp water as the bayou rushes into the room.
 cutscene end
+if not quest.withered_arm >= bayou_boogie
 quest withered_arm bayou_boogie
+endif
 move dc_casino:from_hall
 
 ~ ship_bottle
@@ -168,7 +172,12 @@ Narrator: The old thralls let out a long, dusty sigh before crumbling to ash, wh
 endif
 Narrator: The borrowed luck fades from your fingers and the brass band falls silent, leaving only the smell of spilled rum and gunsmoke.
 set act2_done += 1
+# Act II raises the party four levels, 4 to 8, whichever chapters they are (plan 5.1): the fifth chapter done gives none.
+if flag.act2_done <= 4
 xp milestone
+endif
+if not quest.withered_arm >= return
 quest withered_arm return
+endif
 set crossroads_done
 -> END

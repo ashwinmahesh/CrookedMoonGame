@@ -13,7 +13,9 @@ cutscene end
 Narrator: A brisk young woman in a purple coat hung with tin and bone charms waits on the dry planks by the south gate.
 lyla_webb [neutral]: Keep your boots on the timber, strangers, the mud takes what it likes down here. I am Lyla Webb, and I have been watching the reed beds for new faces.
 set lyla_met
+if not quest.withered_arm >= murkwater
 quest withered_arm murkwater
+endif
 -> lyla_menu
 
 ~ lyla_menu

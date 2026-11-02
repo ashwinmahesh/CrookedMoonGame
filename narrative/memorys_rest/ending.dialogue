@@ -4,7 +4,10 @@
 if not flag.mr_farewell_done
 set mr_farewell_done
 set act2_done += 1
+# Act II raises the party four levels, 4 to 8, whichever chapters they are (plan 5.1): the fifth chapter done gives none.
+if flag.act2_done <= 4
 xp milestone
+endif
 cutscene mr_home
 cutscene mr_home_2
 cutscene end

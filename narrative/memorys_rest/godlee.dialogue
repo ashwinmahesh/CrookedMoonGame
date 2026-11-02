@@ -107,7 +107,9 @@ give mr_godlee_diary
 set mr_lab_open_known
 set mr_truth_clues += 1
 if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+if not quest.all_is_well >= the_truth
 quest all_is_well the_truth
+endif
 endif
 -> quarters
 

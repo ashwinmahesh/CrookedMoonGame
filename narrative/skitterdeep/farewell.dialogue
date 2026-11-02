@@ -5,11 +5,16 @@ morgan [weary]: You did it. The fever broke just before the bell, and the colour
 morgan [smile]: Half the cots are already sitting up and asking after broth. I set these vials aside for the four of you, mixed for strong hearts and bad air.
 give potion_of_healing_greater 2
 give potion_of_resistance_poison 1
+if not quest.skitter_plague >= back_in_wickermoor
 quest skitter_plague back_in_wickermoor
+endif
 quest skitter_plague done
 set skitter_farewell
 set act2_done += 1
+# Act II raises the party four levels, 4 to 8, whichever chapters they are (plan 5.1): the fifth chapter done gives none.
+if flag.act2_done <= 4
 xp milestone
+endif
 Narrator: The bitter stink of black bile has gone from the room, replaced by bruised mint, clean linen, and the quiet clink of warm glass.
 -> menu
 

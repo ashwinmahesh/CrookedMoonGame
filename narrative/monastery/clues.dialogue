@@ -19,7 +19,9 @@ Narrator: Your fingers find only damp velvet, bruised petals, and warm wax; if t
 ~ found
 Narrator: Tucked into a niche behind the velvet dossal sits a heavy silver chalice, its bowl ringed with a dry rust that does not smell of wine.
 set chalice_found
+if not quest.crimson_monastery >= the_way_down
 quest crimson_monastery the_way_down
+endif
 -> chalice
 
 ~ chalice
@@ -42,7 +44,9 @@ set crimson_devotions += 1
 ~ open_altar
 Narrator: The brimming cup sinks into the brass cradle with a greased click, and deep within the stone a hidden chain begins to groan.
 set altar_open
+if not quest.crimson_monastery >= holy_vein
 quest crimson_monastery holy_vein
+endif
 cutscene mon_way_down
 cutscene mon_way_down_2
 -> END
@@ -91,7 +95,9 @@ Narrator: Rows of high oak lecterns stand under red-leaded glass, each holding a
 Narrator: Behind the common hymnals sits a treatise penned in a finer hand. It names a chamber beneath the sanctuary altar called the Bloody Sanctum, reached Only when the Holy Vein is opened.
 set src_scriptorium
 set way_down_known
+if not quest.crimson_monastery >= the_way_down
 quest crimson_monastery the_way_down
+endif
 -> scriptorium
 
 ~ scrip_miss
@@ -109,7 +115,9 @@ Narrator: Friar Olaf's personal missal is bound in red velvet worn bald at the c
 give olafs_missal
 set src_missal
 set way_down_known
+if not quest.crimson_monastery >= the_way_down
 quest crimson_monastery the_way_down
+endif
 -> END
 
 ~ trophy_chest
@@ -144,7 +152,9 @@ Narrator: Your boots scrape on the flagstones, and the warded stone does not bud
 ~ door_open
 Narrator: With a low groan of grinding rock, the seal snaps and the slab scrapes open into the dark.
 set sanctum_door_open
+if not quest.crimson_monastery >= holy_vein
 quest crimson_monastery holy_vein
+endif
 -> END
 
 ~ vein_warning

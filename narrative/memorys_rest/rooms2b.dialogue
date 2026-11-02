@@ -10,7 +10,9 @@ Narrator: The script yields its secret to {name}: the Lethic Serum is distilled 
 set mr_antidote_known
 set mr_truth_clues += 1
 if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+if not quest.all_is_well >= the_truth
 quest all_is_well the_truth
+endif
 endif
 quest the_lethic_antidote learned
 -> END
@@ -52,7 +54,7 @@ set unrefined_ichor += 1
 Narrator: Copper pipes and violet-glass conduits converge upon a hissing pressure cylinder beneath heavy iron levers. The whole room hums like a wasp trapped in a jar.
 * [if not flag.mr_engineering_broken and not flag.mr_lockdown] Throw the lever OFF (Lockdown) -> l20_off
 * [if flag.mr_lockdown] Throw the lever ON, ending Lockdown -> l20_on
-* Smash the unit -> l20_smash
+* [if not flag.mr_engineering_broken] Smash the unit -> l20_smash
 * Leave -> END
 
 ~ l20_off
@@ -97,7 +99,7 @@ Narrator: Nothing catches {name}'s eye beneath the coarse weave of the mat.
 ~ l22_chamber
 Narrator: A broad glass chamber fogged with warm breath holds a pacing, fleshy abomination, while shelves of pickled brains float in pale jars along the wall.
 * Collect noetic extract from the jars -> l22_extract
-* Open the chamber's door -> l22_release
+* [if not flag.mr_otyugh_freed] Open the chamber's door -> l22_release
 * Leave -> END
 
 ~ l22_extract

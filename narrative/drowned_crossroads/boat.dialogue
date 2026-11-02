@@ -3,7 +3,9 @@
 ~ elias_mute
 Narrator: A gaunt waiter stands in a damp, ill-fitting suit, his left sleeve pinned flat and empty. His hollow eye pits fix on you beneath peeling grey skin, though his stitched throat makes no sound.
 set elias_met
+if not quest.withered_arm >= elias
 quest withered_arm elias
+endif
 -> elias_menu
 
 ~ elias_again
@@ -52,7 +54,9 @@ soulfire_engineer [sad]: His name was Elias Greaves, a card sharp who rode a col
 ~ eng_down
 set dc_boiler_done
 xp fight dc_boiler_fight
+if not quest.withered_arm >= elias
 quest withered_arm elias
+endif
 soulfire_engineer [weary]: Eight hundred watches I have fed this grate, and my arms are tired of the shovel. Take what is left of him before the pressure builds again.
 Narrator: She lowers her iron rake and drifts back into the coal shadow, and her heavy stoker follows her out without a sound.
 -> END

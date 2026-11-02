@@ -25,7 +25,9 @@ cutscene end
 mrs_oakum [neutral]: Take these two flasks of my pa's boiling-lye. If that thing's still down in the dark, soap and ash will scald her worse than fire.
 give lye_soap_flask 2
 set skitter_trail_known
+if not quest.skitter_plague >= oakums_tale
 quest skitter_plague oakums_tale
+endif
 -> offer_menu
 
 ~ insight_ok
@@ -44,14 +46,18 @@ Narrator: She ties up a oilcloth bag of salted mutton scraps from the shop block
 join mrs_oakum
 set oakum_guiding
 set skitter_trail_known
+if not quest.skitter_plague >= into_the_hills
 quest skitter_plague into_the_hills
+endif
 -> END
 
 ~ alone
 mrs_oakum [neutral]: Suit yourselves, then. Follow the north-west cart ruts past the split pine, and watch for the painted sign at the ridge.
 set oakum_declined
 set skitter_trail_known
+if not quest.skitter_plague >= into_the_hills
 quest skitter_plague into_the_hills
+endif
 -> END
 
 ~ turn

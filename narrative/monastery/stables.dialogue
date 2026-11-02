@@ -46,7 +46,9 @@ stable_hand_cm [afraid]: I swept the Abbot's study while he was at bells and saw
 stable_hand_cm [weary]: The stair goes down right under the high altar, if you have the stomach for it. They keep the silver chalice that works the lock behind the red dossal curtain.
 set src_axel
 set way_down_known
+if not quest.crimson_monastery >= the_way_down
 quest crimson_monastery the_way_down
+endif
 -> hand
 
 ~ armory
