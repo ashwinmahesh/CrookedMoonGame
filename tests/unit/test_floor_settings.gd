@@ -2,7 +2,7 @@ extends TestCase
 ## What the floors of the multi-floor buildings settle for themselves, put back after the merge (their `map.floors` entries,
 ## the engine's PlaceFloors; tools/content/merge_floors.py reads them from the old floor places): the cellars' and upstairs'
 ## sound beds and footsteps, the Briar cellar's risky rest, the windmill cellar's manor theme, the belfry's open air and the
-## Crooked House attic's darker mood; and the cellars' own moods, a little brighter than the house above.
+## Crooked House attic's darker mood; and the cellars' own moods, a little brighter than the house above, with wall lanterns.
 
 ## floor id -> what it says for itself.
 const OWN := {
@@ -68,6 +68,24 @@ func test_a_cellar_is_a_little_brighter_than_the_house_over_it_but_still_dim() -
 		assert_eq(str(Atmosphere.moods()["moods"][mood].get("like", "")), house, "%s's cellar is like the house over it" % place)
 		var ratio := _modern_ambient(mood) / _modern_ambient(house)
 		assert_true(ratio > 1.0 and ratio < 2.5, "%s's cellar is brighter, not bright (%.2f)" % [place, ratio])
+
+
+func test_each_cellar_has_lanterns_on_its_walls_lit() -> void:
+	for place: String in CELLARS:
+		var loc := Compendium.shared().get_entry("locations", place)
+		var fl := _floor(place, CELLARS[place])
+		var x0 := int(fl["x0"])
+		var x1 := x0 + int(fl["width"])
+		var lit := {}
+		for l: Variant in loc.get("lights", []):
+			lit[LocationView._cell((l as Dictionary)["cell"])] = true
+		var hung := 0
+		for p: Variant in loc.get("props", []):
+			var c := LocationView._cell((p as Dictionary)["cell"])
+			if str((p as Dictionary).get("model", "")) == "lantern_bracket" and c.x >= x0 and c.x < x1:
+				hung += 1
+				assert_true(lit.has(c), "%s: the lantern at %s gives light" % [place, c])
+		assert_true(hung >= 3, "%s's cellar has its lanterns (%d)" % [place, hung])
 
 
 func _story(place: String, at: Vector2i) -> StoryState:
