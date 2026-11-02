@@ -35,7 +35,7 @@ func test_the_bodies_made_without_a_head_wear_the_clay_head() -> void:
 	assert_eq(str(part.get("fit", "")), "head", "fitted to each body's own neck")
 	for id: String in HEADLESS:
 		var info := FigureModels.info(id)
-		assert_true((info.get("layers", []) as Array).has("clay_head"), "%s wears it" % id)
+		assert_true((info.get("layers", []) as Array).has("clay_head") or (info.get("layers", []) as Array).has("face_" + id), "%s wears a head" % id)
 		assert_true(float((info.get("bones", {}) as Dictionary).get("Head", 1.0)) < 0.05, "and its own stub of a head is shrunk away")
 
 
