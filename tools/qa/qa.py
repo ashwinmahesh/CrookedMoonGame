@@ -17,6 +17,10 @@ fights  plays tools/qa/fight_series.tscn in --jobs processes (each takes every n
 report  turns what's in DIR into DIR/report.md: the bot's runs, the problems it found, and a win-rate table per fight
         and difficulty, the fights won least first.
 
+NO TUNING RUNS (Ashwin's standing rule): never run `fights` (or any other battle tuning, difficulty or party-performance run:
+autopilot fight series, win and wipe rates, multi-seed fights) unless Ashwin explicitly asks for it. `story` and `act1` are for
+finding bugs, hangs and softlocks, which is fine.
+
 Every Godot process runs headless with its own user data folder (never the owner's saves), and is stopped by its own PID
 when it overruns --timeout. GODOT names the binary (default: the Mac's). DIR defaults to captures/qa (git-ignored).
 """

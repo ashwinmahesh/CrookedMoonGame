@@ -95,6 +95,7 @@ anim-demo:
 ## (DICE=high|seeded SEEDS=1,2 STEPS=n). qa-fights: every fight in the places' data played by the party autopilot at each
 ## difficulty, on SEEDS (1-8), at the level the story bot reached it at (ONLY=loc:id,id REGIONS=a,b MODES=... JOBS=n).
 ## qa-report: both into captures/qa/report.md. qa: all three.
+## Never run qa-fights, or any battle tuning, difficulty or party-performance run, unless Ashwin explicitly asks (CLAUDE.md).
 QA_OUT := $(or $(OUT),captures/qa)
 qa-story:
 	@$(FRESH)

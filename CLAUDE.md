@@ -119,6 +119,12 @@ engine first, then commit the new submodule commit here (its path shows as the c
 - Never ask for, store or echo a key. Tools read keys from his environment. Never touch his saves or settings; tests and captures use
   their own folders. Never write into Curse of Strahd's repo, saves or lane image.
 
+## No battle tuning tests (Ashwin's standing rule)
+- Never run battle tuning, difficulty or party-performance tests unless Ashwin explicitly asks for them. That means autopilot fight
+  series (`make qa-fights`, `tools/qa/fight_series.gd`), win and wipe rates, and multi-seed runs of fights. They waste time and compute.
+  Bug, hang and softlock checks (`make check`, the story bot, the Act 1 and Act II players, the relevant tests) are still fine.
+  A fight added or changed is checked for working, never for how well a party does against it.
+
 ## Done means
 - Hand off with `make check` green and a clean log: lint, a compile of every script, `make validate` when data, dialogue or the rules docs
   changed, and the test files you added or changed, never the whole suite. Run the tests your change is about with `make test FILES=...`
