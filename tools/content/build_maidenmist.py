@@ -397,7 +397,7 @@ def build_travel():
     path = ROOT / "data/travel/wickermoor_hollow.json"
     t = json.loads(path.read_text())
     t["places"] = [x for x in t["places"] if x["id"] != "maidenmist_gate"] + [
-        {"id": "maidenmist_gate", "name": "Maidenmist Cemetery", "location": "mm_gate", "spawn": "from_road", "pos": [0.59, 0.81], "region": "maidenmist_cemetery",
+        {"id": "maidenmist_gate", "name": "Maidenmist Cemetery", "location": "mm_gate", "spawn": "from_road", "pos": [0.55, 0.84], "region": "maidenmist_cemetery",
          "when": "flag.mm_asked or visited:mm_gate", "summary": "A fogbound cemetery behind a bent iron gate, south-east of Wickermoor."}]
     t["roads"] = [x for x in t["roads"] if x["id"] != "wickermoor_to_maidenmist"] + [
         {"id": "wickermoor_to_maidenmist", "from": "wickermoor_village", "to": "maidenmist_gate", "hours": 5, "name": "The cemetery road", "when": "flag.mm_asked or visited:mm_gate"}]

@@ -209,10 +209,10 @@ def build_cutscenes():
 
 # ---- the walking dovecote ---------------------------------------------------------------------------------------------------------
 ROOSTS = [   # key, n, name, pos on the travel map, theme, summary
-    ("prairie", 0, "Rolling Prairie", (0.66, 0.74), "forest", "Gold-grey grass under a big sky, with the dark shape of the dovecote squatting in it."),
-    ("swamp", 1, "Murky Swamp", (0.40, 0.84), "forest", "Green-black water, dead trees and reeds, and a dovecote standing in the shallows."),
-    ("foothills", 2, "Barren Foothills", (0.52, 0.12), "forest", "Bare rock and scree under the Howlers, with the dovecote high on a rise."),
-    ("lakeshore", 3, "Stormy Lakeshore", (0.20, 0.30), "forest", "A rainy shingle beach on Moonsong Lake's north shore, and the dovecote on the stones."),
+    ("prairie", 0, "Rolling Prairie", (0.84, 0.52), "forest", "Gold-grey grass under a big sky, with the dark shape of the dovecote squatting in it."),
+    ("swamp", 1, "Murky Swamp", (0.88, 0.90), "forest", "Green-black water, dead trees and reeds, and a dovecote standing in the shallows."),
+    ("foothills", 2, "Barren Foothills", (0.40, 0.12), "forest", "Bare rock and scree under the Howlers, with the dovecote high on a rise."),
+    ("lakeshore", 3, "Stormy Lakeshore", (0.06, 0.44), "forest", "A rainy shingle beach on Moonsong Lake's north shore, and the dovecote on the stones."),
 ]
 
 
