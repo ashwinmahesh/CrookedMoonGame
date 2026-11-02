@@ -21,10 +21,11 @@ def preamble() -> str:
     return (ROOT / "art/prompts/photoreal_preamble.txt").read_text().strip()
 
 
-def submit(kind: str, item_id: str, prompt: str, size: str, seed: int, **kw) -> str:
-    """Queues one photoreal picture (no LoRA, the photoreal words after the prompt); returns the job id."""
-    return gl.submit(kind, item_id, prompt.strip() + " " + preamble(), size, seed, use_preamble=False, lora=False,
-                     extra_tags=["photoreal"], **kw)
+def submit(kind: str, item_id: str, prompt: str, size: str, seed: int, words: str | None = None, **kw) -> str:
+    """Queues one photoreal picture (no LoRA, the photoreal words after the prompt); returns the job id. `words` replaces the
+    preamble for a picture that is not a night scene (a cut-out on white, where the preamble's lanterns and mist would appear)."""
+    return gl.submit(kind, item_id, prompt.strip() + " " + (words if words else preamble()), size, seed, use_preamble=False,
+                     lora=False, extra_tags=["photoreal"], **kw)
 
 
 def main(argv: list[str]) -> None:
@@ -33,7 +34,7 @@ def main(argv: list[str]) -> None:
     jobs = {}
     for item_id, it in spec["items"].items():
         jobs[item_id] = submit(spec["kind"], item_id, it["prompt"], it.get("size", "1408x768"), int(it["seed"]),
-                               **{k: it[k] for k in ("reference", "strength") if k in it})
+                               words=it.get("words"), **{k: it[k] for k in ("reference", "strength") if k in it})
         print("queued", spec["kind"], item_id, jobs[item_id], flush=True)
     if wait:
         for item_id, job in jobs.items():
