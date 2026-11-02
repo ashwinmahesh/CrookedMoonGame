@@ -185,3 +185,34 @@ overworld-bake:
 ## LOC=data/locations/<id>.json to write (refuses to close a walked square unless FORCE=1), PREVIEW=captures/<x>.png.
 sketch:
 	$(G) --headless --script res://addons/dnd_core/world/authoring/sketch_tool.gd -- $(if $(HEIGHT),--height=$(HEIGHT),) $(if $(LAYOUT),--layout=$(LAYOUT),) --size=$(SIZE) $(if $(TOP),--top=$(TOP),) $(if $(LOC),--loc=$(LOC),) $(if $(PREVIEW),--preview=$(PREVIEW),) $(if $(FORCE),--force,)
+
+.PHONY: gpu-scheduler-install gpu-scheduler-restart gpu-scheduler-status blender-queue blender-run
+
+## The GPU scheduler (tools/gpu): voice first, then images, then headless Blender batches (at most 20 minutes a turn) when both queues
+## are empty or at a voice turn boundary. The daemon lives in ~/.crooked-moon (the art and voice thread's folder); these copy the
+## tools there and manage it. Blender batches are scripts dropped in ~/.crooked-moon/blender_queue/ (NN_name.py, oldest first).
+##   make gpu-scheduler-install      copies blender_batch.sh to ~/.crooked-moon and the new scheduler beside the running one as gpu_scheduler.sh.new
+##                                   (the running script is never overwritten: zsh reads a script as it runs)
+##   make gpu-scheduler-restart      installs, then stops the running scheduler (by its PID, not a pattern), moves gpu_scheduler.sh.new into place
+##                                   (the old one is kept as gpu_scheduler.sh.before_blender) and starts it in the mode the GPU is in
+##   make gpu-scheduler-status       the mode, the queues and the Blender queue
+##   make blender-queue              lists the waiting batches    make blender-run   runs the next one now (takes the GPU lock; use only when the GPU is free)
+gpu-scheduler-install:
+	@mkdir -p $(HOME)/.crooked-moon/blender_queue/done $(HOME)/.crooked-moon/blender_queue/failed
+	@cp tools/gpu/gpu_scheduler.sh $(HOME)/.crooked-moon/gpu_scheduler.sh.new
+	@cp tools/gpu/blender_batch.sh $(HOME)/.crooked-moon/blender_batch.sh
+	@chmod +x $(HOME)/.crooked-moon/gpu_scheduler.sh.new $(HOME)/.crooked-moon/blender_batch.sh
+	@echo "installed to $(HOME)/.crooked-moon"
+
+gpu-scheduler-restart: gpu-scheduler-install
+	@sh tools/gpu/restart.sh
+
+gpu-scheduler-status:
+	@tools/gpu/gpu_scheduler.sh --status
+
+blender-queue:
+	@tools/gpu/blender_batch.sh --list
+	@echo "$$(tools/gpu/blender_batch.sh --pending) waiting"
+
+blender-run:
+	@tools/gpu/blender_batch.sh
