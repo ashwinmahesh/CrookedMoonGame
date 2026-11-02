@@ -23,11 +23,22 @@ func test_the_game_lands_blows_on_the_hit_frame_without_ink() -> void:
 
 
 func test_colours_are_moonlight_unless_the_blow_has_its_own() -> void:
-	var steel := MeleeHitFx.colours({"flavour": "steel", "colours": {"core": Color.RED}})
+	var blade := (MeleeHitFx.config()["kinds"] as Dictionary)["blade"] as Dictionary
+	var steel := MeleeHitFx.colours({"flavour": "steel", "colours": {"core": Color.RED}}, blade)
 	assert_eq(steel["core"], Look.color("frost"), "a steel blow in frost")
 	assert_eq(steel["glow"], Look.color("moonlight"), "and moonlight")
-	var fire := MeleeHitFx.colours({"flavour": "fire", "colours": {"core": Color.RED, "glow": Color.ORANGE}})
+	var fire := MeleeHitFx.colours({"flavour": "fire", "colours": {"core": Color.RED, "glow": Color.ORANGE}}, blade)
 	assert_eq(fire["core"], Color.RED, "a fiery claw keeps its fire")
+
+
+func test_every_kind_keeps_its_own_settings() -> void:
+	var cfg := MeleeHitFx.config()
+	for k: String in ["colours", "size", "length"]:
+		assert_false(cfg.has(k), "no shared %s: each kind has its own" % k)
+	for kind: String in ["blade", "point", "blunt", "unarmed"]:
+		var pick := (cfg["kinds"] as Dictionary)[kind] as Dictionary
+		for k: String in ["style", "angle", "colours", "size", "length"]:
+			assert_true(pick.has(k), "%s has its own %s" % [kind, k])
 
 
 func test_each_kind_draws_and_ends() -> void:

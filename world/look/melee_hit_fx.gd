@@ -3,7 +3,7 @@ extends Node3D
 ## The Crooked Moon's melee hit effects (Ashwin's picks, 2026-11-02, from the melee effects demo page): a clean cut for a
 ## blade, a pierce ring for a point, a shock ring for a club or hammer and a ripple for a fist, in moonlight colours. They
 ## take the place of the engine's crescent (CampaignLook.melee_hit) and land on the swing's hit frame (data/campaign.json's
-## game_feel strike_on_hit_frame). What each kind gets, its angle, the colours, size and length are in data/melee_fx.json.
+## game_feel strike_on_hit_frame). Each kind's style, angle, colours, size and length are its own, in data/melee_fx.json.
 ## Each effect is drawn flat, facing the camera at the struck creature's chest, in the demo's own measures (pixels of
 ## a 150-pixel figure, y down) turned into world units; the shock ring's second ring lies on the ground.
 
@@ -78,9 +78,9 @@ static func play(fx: SpellFx, cue: Dictionary, attacker: CombatToken, target: Co
 	var rel := deg_to_rad(float(pick.get("angle", 0.0)))
 	n.ang = base.angle() + (rel if base.x >= 0.0 else -rel)
 	n.dir = Vector2.from_angle(n.ang)
-	n.cols = colours(cue)
-	n.size = float(cfg.get("size", 1.0))
-	n.length = maxf(float(cfg.get("length", 1.0)), 0.1)
+	n.cols = colours(cue, pick)
+	n.size = float(pick.get("size", cfg.get("size", 1.0)))
+	n.length = maxf(float(pick.get("length", cfg.get("length", 1.0))), 0.1)
 	n.unit = PX * clampf(SpellFx.height_of(target) / FIGURE, 0.8, 2.2)
 	fx.add_child(n)
 	n.global_position = at
@@ -90,12 +90,13 @@ static func play(fx: SpellFx, cue: Dictionary, attacker: CombatToken, target: Co
 	return true
 
 
-## The effect's colours: the picks' (moonlight) for a plain steel blow, else the cue's own (a fiery claw keeps its fire).
-static func colours(cue: Dictionary) -> Dictionary:
+## The effect's colours: its kind's own (`pick`'s colours, else the file's) for a plain steel blow, else the cue's own (a
+## fiery claw keeps its fire).
+static func colours(cue: Dictionary, pick: Dictionary = {}) -> Dictionary:
 	var own := cue.get("colours", {}) as Dictionary
 	if str(cue.get("flavour", "steel")) != "steel" and not own.is_empty():
 		return own
-	var names := config().get("colours", {}) as Dictionary
+	var names := pick.get("colours", config().get("colours", {})) as Dictionary
 	var out := {}
 	for k: String in ["core", "glow", "edge"]:
 		out[k] = Look.color(str(names.get(k, "frost")))
