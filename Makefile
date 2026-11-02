@@ -102,7 +102,8 @@ qa-story:
 		$(if $(ORDER),--order $(ORDER),)
 ## qa-act2: Act II's five chapters played by the story bot from a new game, in two orders (the book's and its reverse);
 ## each run must finish all five at level 8 (ORDERS="r13,r14,r15,r16,r17 r17,r16,r15,r14,r13" to pick others).
-QA_ORDERS := $(or $(ORDERS),r13,r14,r15,r16,r17 r17,r16,r15,r14,r13)
+QA_DEFAULT_ORDERS := r13,r14,r15,r16,r17 r17,r16,r15,r14,r13
+QA_ORDERS := $(or $(ORDERS),$(QA_DEFAULT_ORDERS))
 qa-act2:
 	@$(FRESH)
 	@for o in $(QA_ORDERS); do GODOT=$(GODOT) python3 tools/qa/qa.py story --out $(QA_OUT) --dice $(or $(DICE),high) \

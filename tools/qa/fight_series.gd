@@ -177,6 +177,12 @@ func _play_one(f: Dictionary, mode: String, seed_value: int) -> Dictionary:
 		st.party.append(ch)
 	st.location = str(f["loc"])
 	st.options["difficulty"] = mode
+	# Only this fight: the place's other fights count as won, so one that starts on stepping into the arrival square
+	# (an `enter_area` fight at the spawn, a waiting fight) doesn't take the board first.
+	var won := st.loc_state(st.location)["encounters"] as Dictionary
+	for en: Variant in Compendium.shared().get_entry("locations", st.location).get("encounters", []):
+		if str((en as Dictionary)["id"]) != str(f["id"]):
+			won[str((en as Dictionary)["id"])] = true
 	Dice.reseed(seed_value * 7919 + int(f["version"]))
 	var root := (load("res://scenes/game.tscn") as PackedScene).instantiate()
 	add_child(root)
@@ -184,9 +190,13 @@ func _play_one(f: Dictionary, mode: String, seed_value: int) -> Dictionary:
 	var view := root.get("view") as LocationView
 	if view == null or view.loc_id != str(f["loc"]):
 		row["outcome"] = "no_view"
-	elif not LocationFights.start_encounter(view, str(f["id"]), f["spec"] as Dictionary):
+	elif view.in_combat and view.fight_id != str(f["id"]):
+		row["outcome"] = "not_started"
+		row["busy_with"] = view.fight_id
+	elif not view.in_combat and not LocationFights.start_encounter(view, str(f["id"]), f["spec"] as Dictionary):
 		row["outcome"] = "not_started"
 	else:
+		# Already going when its own area holds the arrival square (it started on arrival, as a player walking in sees it).
 		await _frames(2)
 		var e: Encounter = view.combat_view.e if view.combat_view != null else null
 		if e == null:
@@ -222,6 +232,20 @@ func _play_one(f: Dictionary, mode: String, seed_value: int) -> Dictionary:
 			row["deaths"] = dead
 			row["hp_left"] = snappedf(float(hp_left) / maxf(1.0, float(hp_max)), 0.01)
 			row["foes"] = e.combatants.filter(func(c: Combatant) -> bool: return c.side == &"enemy").size()
+			# Where everyone stands at the end: a fight that runs out its rounds with nobody hurt is read from this.
+			var at: Array[String] = []
+			var closest := 9999
+			for c in e.combatants:
+				if not c.is_alive():
+					continue
+				at.append("%s %s %s" % [c.side, c.creature.name, c.cell])
+				if c.side == &"party":
+					for o in e.combatants:
+						if o.side == &"enemy" and o.is_alive():
+							closest = mini(closest, maxi(absi(o.cell.x - c.cell.x), absi(o.cell.y - c.cell.y)))
+			row["closest"] = closest
+			if int(row.get("rounds", 0)) >= max_rounds:
+				row["standing"] = at
 	row["ms"] = Time.get_ticks_msec() - t0
 	root.queue_free()
 	await _frames(1)
