@@ -26,7 +26,7 @@ FRESH   := if [ ! -f $(STAMP) ] || [ -n "$$(find . \( -path ./.godot -o -path ./
 ## It also brings the engine core up to the commit this checkout names first (tools/core_sync.sh): git pull doesn't.
 PLAYFRESH := export GODOT_SLOTS=off; tools/core_sync.sh; $(FRESH)
 
-.PHONY: run run-main arena anim-demo smoke import test lint validate ci check lfs-quiet palette capture sketch hooks golden-saves tools-test voice-wire
+.PHONY: run run-main arena anim-demo smoke import test lint validate ci check lfs-quiet palette capture sketch hooks golden-saves tools-test voice-wire cheat-codes
 
 ## make run plays the edge build (tools/edge/edge.py): main plus every lane branch that has been handed off but not merged
 ## yet, assembled in a throwaway worktree (CrookedMoonGame-edge, in the SSD lanes' image), so lane work can be tried as soon
@@ -191,6 +191,12 @@ validate:
 	python3 tools/data/check_implemented.py
 	python3 tools/data/check_rules_docs.py
 	python3 tools/art/rig_facing.py --check
+	python3 tools/data/cheat_codes.py --check
+
+## Every playable item's cheat code (Curse of Strahd's list, ported): docs/cheat_codes.md and Cheat Codes.md in the vault,
+## rebuilt from the item data (tools/data/cheat_codes.py). Run it after adding or renaming items.
+cheat-codes:
+	python3 tools/data/cheat_codes.py
 
 ## Compiles every engine script (addons/dnd_core/rules, combat, story) and the game's own story/ standalone (no autoloads allowed there).
 lint: import
