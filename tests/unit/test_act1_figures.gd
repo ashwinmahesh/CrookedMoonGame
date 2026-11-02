@@ -1,6 +1,7 @@
 extends TestCase
 ## Act 1's NPC figures (the look lane): the people who showed the gray-box villager walker now wear a figure, either a finished Tripo model
-## or a shared body in a colour and size of its own (docs: the vault's "Act 1 NPC Figures Map"). The ones still waiting for a model of
+## or a shared body in a dress and size of its own (the villagers: a pack body in an outfit and hair of their own, never a Tripo model;
+## the Lockwoods' ghosts: the haint body in a colour) (docs: the vault's "Act 1 NPC Figures Map"). The ones still waiting for a model of
 ## their own are listed here, so a new gray-box person turns this test red and a finished one just shortens the list.
 
 const FINISHED: Array[String] = ["doris_squire", "wendel_somerton", "mori_shade", "weston_murdoch", "mrs_oakum", "theodora_mayville", "dani_jenkin", "gilly_jenkin", "crooked_man", "sally_lockwood", "conductor_understudy", "mrs_calloway"]
@@ -55,13 +56,18 @@ func test_the_head_models_are_fitted_parts_with_their_pictures() -> void:
 	assert_eq(float(FigureModels.info("sally_lockwood").get("scale", 1.0)), 0.5, "Sally the doll is small")
 
 
-func test_the_reused_people_wear_a_shared_body_in_their_own_colour_and_size() -> void:
+func test_the_reused_people_wear_a_shared_body_in_their_own_dress_and_size() -> void:
 	for id: String in REUSED:
 		assert_eq(_sprite_of(id), id, "%s wears its own dressing" % id)
 		var info := FigureModels.info(id)
 		assert_true(FigureModels.has(id), "%s is drawn as a model" % id)
-		assert_true(str(info.get("base", "")) in ["hero_body_male", "hero_body_female", "haint"], "%s is on a built body (%s)" % [id, info.get("base", "")])
-		assert_ne(FigureModels.tint_of(id), Color.WHITE, "%s has a colour of its own" % id)
+		var base := str(info.get("base", ""))
+		assert_true(base in ["pack_male", "pack_female", "haint"], "%s is on a shared body (%s)" % [id, base])
+		if base == "haint":
+			assert_ne(FigureModels.tint_of(id), Color.WHITE, "%s has a colour of its own" % id)
+		else:
+			# A pack body is dressed in layers: its sex's head, an outfit and hair (the checks on them are in test_figures).
+			assert_true((info.get("layers", []) as Array).size() >= 3, "%s wears a head, an outfit and hair of their own" % id)
 		assert_eq(str(info.get("sprite", "")), "villager", "%s keeps the walker as its stand-in where the model is missing" % id)
 	for id: String in ["pip_oakum", "robin_wells", "sofia_roderick", "rose_somerton", "zachariah_wainwright"]:
 		assert_eq(float(FigureModels.info(id).get("scale", 1.0)), 0.6, "%s is a child's size" % id)
