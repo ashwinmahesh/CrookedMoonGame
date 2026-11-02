@@ -439,10 +439,22 @@ SHOPS = {   # npc: what the shop sells (engine item ids); markup 1.0 unless said
     "hilda_brom": ["ration", "hunting_trap", "net", "shortbow", "arrow", "leather_armor", "hide_armor"],
     "beatrice_wells": ["ladder", "pole", "chest", "barrel", "bucket", "carpenters_tools", "club", "quarterstaff"],
 }
+# Mori Shade brings back a hero who died in the last ten days (the engine's raise_dead service and its rules: 1 Hit Point and the ordeal
+# of -4 on D20 Tests for ten days), asking the Ferryman to turn his oar for a toll of 100 gp for each level the party has reached (the
+# lowest hero's: `level` in a condition) and no diamond (the sum is the whole price), from the Twilight Hour to the end of the Evening Hour
+# (07:00 to 23:00; the village's shops keep 7 to 19). One entry per level, since the engine prices a service line, not a hero.
+_RAISE_TEXT = ("Mori asks the Ferryman to turn his oar for a hero who died within the last 10 days. They come back with 1 Hit Point and -4 on D20 Tests "
+               "for 10 days. The toll is set at 100 gp for each level the party has reached, then moved by how she feels about the party; Mori keeps no gems and wants nothing else.")
+MORI_RAISING = [{"id": "raise_dead", "price": 100 * lv, "material": 0, "text": _RAISE_TEXT, "if": f"hour >= 7 and hour < 23 and level == {lv}"}
+                for lv in range(1, 21)]
 SERVICES = {
     "alda_farnum": [{"id": "room_modest", "price": 1}, {"id": "room_wealthy", "price": 2}],
     "randall_graham": [{"id": "cure_wounds", "price": 10}],
     "weston_murdoch": [{"id": "cure_wounds", "price": 0}],
+    "mori_shade": MORI_RAISING,
+}
+SERVICES_CLOSED = {   # what the services screen says when none of a person's entries is offered (the engine's `services_closed`)
+    "mori_shade": "Mori gives the Midnight and Witching hours to the graves. Come back from the Twilight Hour until the Evening Hour is spent.",
 }
 
 
@@ -459,6 +471,8 @@ def build_people():
                                   "sight_of_sin", "tincture_of_mourning", "wytchwood_sap", "nectar_of_the_green_man", "draught_of_the_red_hunger", "haint_hooch"]
         if nid in SERVICES:
             d["services"] = SERVICES[nid]
+        if nid in SERVICES_CLOSED:
+            d["services_closed"] = SERVICES_CLOSED[nid]
         write(f"data/npcs/{nid}.json", d)
     for (nid, name, who) in CHILDREN:
         write(f"data/npcs/{nid}.json", {"id": nid, "name": name, "title": who[0].upper() + who[1:], "summary": f"{name}, {who}.", "attitude": "friendly", "sprite": "villager",
