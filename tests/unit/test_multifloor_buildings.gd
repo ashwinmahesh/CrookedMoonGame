@@ -17,18 +17,21 @@ const BUILDINGS := {
 	"wickermoor_trading_post": {"floors": ["wickermoor_trading_cellar", "wickermoor_trading_post"], "ground": 1, "lowest_spawn": "cellar_default"},
 	"mon_ground": {"floors": ["mon_ground", "mon_upper"], "ground": 0, "lowest_spawn": "default"},
 	"mon_bell_tower": {"floors": ["mon_bell_tower", "mon_belfry"], "ground": 0, "lowest_spawn": "default"},
+	"wickermoor_mayors_house": {"floors": ["wickermoor_mayors_house", "wickermoor_clock_chamber"], "ground": 0, "lowest_spawn": "default"},
 }
 ## How many stair links each has (the monastery's two spiral stairs both meet: the west one's two landings were 23 squares apart).
 const STAIRS := {"fw_windmill": 1, "wickermoor_green_queen_inn": 2, "dg_briar": 2, "wickermoor_barber_shop": 1, "wickermoor_funeral_home": 1,
-	"wickermoor_trading_post": 1, "mon_ground": 2, "mon_bell_tower": 1}
+	"wickermoor_trading_post": 1, "mon_ground": 2, "mon_bell_tower": 1,
+	"wickermoor_mayors_house": 1}
 
 
 func _place(id: String) -> Dictionary:
 	return Compendium.shared().get_entry("locations", id)
 
 
+## The building's floors that were places of their own (a deck or storey laid since, tools/content/add_decks.py, says its kind).
 func _floors(id: String) -> Array:
-	return (_place(id)["map"] as Dictionary)["floors"] as Array
+	return ((_place(id)["map"] as Dictionary)["floors"] as Array).filter(func(f: Variant) -> bool: return not (f as Dictionary).has("kind"))
 
 
 func _check_one_place(id: String) -> void:
@@ -45,7 +48,7 @@ func _check_one_place(id: String) -> void:
 	if int(spec["ground"]) > 0:
 		assert_true((_place(id)["spawns"] as Dictionary).has(str(spec["lowest_spawn"])), "%s has a way down to its lowest floor" % id)
 	var map := _place(id)["map"] as Dictionary
-	var stairs := map["stairs"] as Array
+	var stairs := (map["stairs"] as Array).filter(func(st: Variant) -> bool: return not (st as Dictionary).has("kind"))
 	assert_eq(stairs.size(), int(STAIRS[id]), "%s: its stairs" % id)
 	var g := LocationView.grid_for(_place(id))
 	for s: Variant in stairs:
@@ -95,6 +98,10 @@ func test_the_monastery_is_one_place_with_its_upper_floor() -> void:
 
 func test_the_bell_tower_is_one_place_with_its_belfry() -> void:
 	_check_one_place("mon_bell_tower")
+
+
+func test_the_mayors_house_is_one_place_with_its_clock_chamber() -> void:
+	_check_one_place("wickermoor_mayors_house")
 
 
 ## No sunken room shows beside a building: every square of a cellar has a square of the ground floor over it (the old maps' stairs put
