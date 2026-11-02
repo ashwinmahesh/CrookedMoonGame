@@ -13,6 +13,10 @@ const PER_UNIT := 2
 const MARGIN := 64
 ## How far above the board's ground the terrain lies inside the map (units), so the old skin never shows through.
 const LIFT := 0.02
+## The land's trees stand no farther than TREE_REACH units past the map, in CHUNK-unit chunks drawn out to DRAW_REACH.
+const TREE_REACH := 36.0
+const CHUNK := 16.0
+const DRAW_REACH := 110.0
 
 static var _config: Dictionary = {}
 ## Set by art QA tools only, to shoot a place as it was before.
@@ -72,7 +76,7 @@ static func dress(view: LocationView) -> Terrain3D:
 	# Cheap enough to sit under every frame (a same-sitting A/B on the foothills: 38 ms a frame on the old ground, 204 ms
 	# by day and 441 at night with the terrain at 4 vertices a square casting the lantern's and the moon's shadows): the
 	# ground takes shadows but casts none, and its finest ring is half a square.
-	terrain.cast_shadows = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	terrain.cast_shadows = RenderingServer.SHADOW_CASTING_SETTING_OFF
 	board.add_child(terrain)
 	terrain.material.world_background = Terrain3DMaterial.NONE
 	for k in OverworldLand.GROUNDS.size():
@@ -213,7 +217,8 @@ static func _plant(view: LocationView, terrain: Terrain3D, roads: PackedFloat32A
 	var rng := RandomNumberGenerator.new()
 	rng.seed = hash(view.loc_id) + 3
 	var items := {}
-	var trees: Array[String] = ["oak_a", "oak_b", "dead_a", "spruce_b", "oak_a", "dead_b"]
+	# The lightest realistic trees (2.4k to 3.7k triangles): the land past the edge is seen from afar, by the thousand.
+	var trees: Array[String] = ["ez_oak_young_far", "ez_aspen_a_far", "ez_dead_a", "ez_oak_young_far", "ez_pine_b_far"]
 	var plants: Array[String] = ["fern_a", "bracken", "grass_dry", "heather"]
 	for z in range(-MARGIN, grid.depth + MARGIN):
 		for x in range(-MARGIN, grid.width + MARGIN):
@@ -222,24 +227,34 @@ static func _plant(view: LocationView, terrain: Terrain3D, roads: PackedFloat32A
 			if out < 1.2 or _road_at(roads, w, p) < 2.2:
 				continue
 			var wd := _woods(p, noise)
-			if rng.randf() < wd * 0.55:
+			if out < TREE_REACH and rng.randf() < wd * 0.3:
 				_add(items, trees[rng.randi() % trees.size()], p, terrain, rng.randf_range(2.6, 4.2), true, rng)
 			if rng.randf() < 0.5 and out < 40.0:
 				_add(items, plants[rng.randi() % plants.size()], p, terrain, rng.randf_range(0.8, 1.3), false, rng)
 	for id: String in items:
-		var mm := MultiMesh.new()
-		mm.transform_format = MultiMesh.TRANSFORM_3D
-		mm.use_colors = true
-		mm.mesh = Flora.mesh(id)
-		var list := items[id] as Array
-		mm.instance_count = list.size()
-		for i in list.size():
-			mm.set_instance_transform(i, list[i] as Transform3D)
-			mm.set_instance_color(i, Color.WHITE)
-		var mmi := MultiMeshInstance3D.new()
-		mmi.name = "TerrainPlants_" + id
-		mmi.multimesh = mm
-		view.board.add_child(mmi)
+		# In chunks the camera culls, drawn no farther than DRAW_REACH, casting no shadows.
+		var chunks := {}
+		for t: Transform3D in items[id] as Array:
+			var key := Vector2i(floori(t.origin.x / CHUNK), floori(t.origin.z / CHUNK))
+			if not chunks.has(key):
+				chunks[key] = []
+			(chunks[key] as Array).append(t)
+		for key: Vector2i in chunks:
+			var list := chunks[key] as Array
+			var mm := MultiMesh.new()
+			mm.transform_format = MultiMesh.TRANSFORM_3D
+			mm.use_colors = true
+			mm.mesh = Flora.mesh(id)
+			mm.instance_count = list.size()
+			for i in list.size():
+				mm.set_instance_transform(i, list[i] as Transform3D)
+				mm.set_instance_color(i, Color.WHITE)
+			var mmi := MultiMeshInstance3D.new()
+			mmi.name = "TerrainPlants_" + id
+			mmi.multimesh = mm
+			mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			mmi.visibility_range_end = DRAW_REACH
+			view.board.add_child(mmi)
 
 
 static func _add(items: Dictionary, id: String, p: Vector2, terrain: Terrain3D, size: float, tree: bool, rng: RandomNumberGenerator) -> void:
