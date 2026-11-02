@@ -272,7 +272,7 @@ func test_the_matron_takes_patients_gives_tours_and_ends_the_meeting_at_the_abbo
 # ---- Godlee's mementos: every ending -------------------------------------------------------------------------------------------------
 
 func test_godlee_destroy() -> void:
-	_arrive("mr_upper")
+	_arrive("mr_ground")
 	_play("memorys_rest/godlee:quarters", ["Win her trust", "Agree to destroy"])
 	assert_true(_flag("godlee_trust"))
 	assert_true(_flag("godlee_mementos_destroyed"))
@@ -280,25 +280,25 @@ func test_godlee_destroy() -> void:
 
 
 func test_godlee_keep_and_lie() -> void:
-	_arrive("mr_upper")
+	_arrive("mr_ground")
 	_play("memorys_rest/godlee:quarters", ["Win her trust", "and keep them"])
 	assert_eq(st.quest_stage("godlees_mementos"), "kept")
 
 
 func test_godlee_caught_and_refused_are_visible_failures_and_trust_has_a_second_way() -> void:
-	_arrive("mr_upper")
+	_arrive("mr_ground")
 	_play("memorys_rest/godlee:quarters", ["Win her trust", "Refuse"])
 	assert_eq(st.quest_stage("godlees_mementos"), "refused")
 	GameState.reset()
 	before_each()
-	_arrive("mr_upper")
+	_arrive("mr_ground")
 	_play("memorys_rest/godlee:quarters", ["Win her trust", "and keep them"])
 	assert_eq(st.quest_stage("godlees_mementos"), "kept")
 	# low dice: no trust by words, but a memento is a second way in, and the diary is under the bed either way
 	GameState.reset()
 	before_each()
 	dice = LowDice.new()
-	st.location = "mr_upper"
+	st.location = "mr_ground"
 	_play("memorys_rest/godlee:quarters", ["Win her trust", "Tell her we share"])
 	assert_true(not _flag("godlee_trust"))
 	st.set_flag("mr_has_memento")
@@ -309,14 +309,14 @@ func test_godlee_caught_and_refused_are_visible_failures_and_trust_has_a_second_
 	GameState.reset()
 	before_each()
 	dice = LowDice.new()
-	st.location = "mr_upper"
+	st.location = "mr_ground"
 	st.set_flag("mr_has_memento")
 	_play("memorys_rest/godlee:quarters", ["Show her a memento", "and keep them", "Confess"])
 	assert_eq(st.quest_stage("godlees_mementos"), "destroyed")
 
 
 func test_the_diary_opens_the_laboratory_knowledge() -> void:
-	st.location = "mr_upper"
+	st.location = "mr_ground"
 	_play("memorys_rest/godlee:quarters", ["Look for her diary", "Search under the bed"])
 	assert_true(_flag("mr_lab_open_known"))
 
@@ -326,7 +326,7 @@ func test_the_diary_opens_the_laboratory_knowledge() -> void:
 func test_belkins_exam_and_his_offer() -> void:
 	_play("memorys_rest/belkin:exam", ["Watch his cap"])
 	assert_true(_flag("mr_belkin_read"))
-	st.location = "mr_upper"
+	st.location = "mr_ground"
 	_play("memorys_rest/belkin:lab_offer", ["Ask what the offer costs", "Refuse politely"])
 	assert_eq(str(st.get_flag("belkin_offer")), "refused")
 	assert_eq(fights, ["mr_amalgam"] as Array[String])
@@ -368,7 +368,7 @@ func test_the_elevators_wait_for_their_codes_and_stop_in_lockdown() -> void:
 	_play("memorys_rest/rooms1:l9_chanter")
 	assert_true(_flag("mr_code_convalescent"))
 	_play("memorys_rest/rooms1:l6_elevator_b", ["9536"])
-	assert_eq(st.location, "mr_upper")
+	assert_eq(st.location, "mr_ground")
 
 
 func test_the_hatch_has_three_ways_to_it() -> void:
@@ -403,7 +403,7 @@ func _stock() -> void:
 
 
 func test_the_bench_brews_a_dose_by_arcana_or_by_kit_and_a_failed_brew_wastes_only_one_ingredient() -> void:
-	_arrive("mr_upper")
+	_arrive("mr_ground")
 	_stock()
 	_play("memorys_rest/workbench:bench", ["Brew one dose", "arcane knowledge"])
 	assert_eq(_n("lethic_antidote_doses"), 1)
@@ -529,13 +529,17 @@ func _walkable(rows: Array, x: int, y: int) -> bool:
 
 ## Flood fill from a spawn over open squares (doors count as open), for the squares beside every prop, person, door and exit.
 func test_every_prop_person_door_and_exit_can_be_reached_from_the_way_in() -> void:
-	var starts := {"mr_shore": "from_road", "mr_isle": "from_boat", "mr_ground": "from_isle", "mr_upper": "from_elevator", "mr_grotto": "from_hatch"}
+	# (the second floor is the upper floor of Memory's Rest, one place with the ground floor: its elevators ride, so it fills from its own way in)
+	var starts := {"mr_shore": ["from_road"], "mr_isle": ["from_boat"], "mr_ground": ["from_isle", "upper_from_elevator"], "mr_grotto": ["from_hatch"]}
 	for loc_id: String in starts:
 		var loc := Compendium.shared().get_entry("locations", loc_id)
 		var rows := (loc["map"] as Dictionary)["rows"] as Array
-		var sp := ((loc["spawns"] as Dictionary)[starts[loc_id]]) as Array
-		var seen := {Vector2i(int(sp[0]), int(sp[1])): true}
-		var q: Array[Vector2i] = [Vector2i(int(sp[0]), int(sp[1]))]
+		var seen := {}
+		var q: Array[Vector2i] = []
+		for s: Variant in starts[loc_id]:
+			var sp := ((loc["spawns"] as Dictionary)[str(s)]) as Array
+			seen[Vector2i(int(sp[0]), int(sp[1]))] = true
+			q.append(Vector2i(int(sp[0]), int(sp[1])))
 		while not q.is_empty():
 			var c: Vector2i = q.pop_back()
 			for d: Vector2i in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
@@ -563,7 +567,7 @@ func test_every_floor_is_joined_to_the_next() -> void:
 	assert_true("travel" in (shore["exits"] as Array).map(func(e: Variant) -> String: return str((e as Dictionary)["to"])))
 	var grotto := Compendium.shared().get_entry("locations", "mr_grotto")
 	var to := (grotto["exits"] as Array).map(func(e: Variant) -> String: return str((e as Dictionary)["to"]))
-	assert_true("mr_ground" in to and "mr_upper" in to)
+	assert_true("mr_ground" in to)
 
 
 func test_the_register_has_twelve_names_and_catherine_is_amos_cousin() -> void:
@@ -577,7 +581,7 @@ func test_the_register_has_twelve_names_and_catherine_is_amos_cousin() -> void:
 # ---- the second floor ----------------------------------------------------------------------------------------------------------------
 
 func test_the_apartments_can_be_passed_by_stealth_or_uniform_or_fought() -> void:
-	_arrive("mr_upper")
+	_arrive("mr_ground")
 	_play("memorys_rest/rooms2a:l14_apartments", ["Slip past"])
 	assert_eq(fights.size(), 0)
 	dice = LowDice.new()
@@ -586,21 +590,21 @@ func test_the_apartments_can_be_passed_by_stealth_or_uniform_or_fought() -> void
 	GameState.reset()
 	before_each()
 	dice = LowDice.new()
-	st.location = "mr_upper"
+	st.location = "mr_ground"
 	st.set_flag("mr_disguised")
 	_play("memorys_rest/rooms2a:l14_apartments", ["Walk through in uniform"])
 	assert_eq(fights.size(), 0)
 
 
 func test_the_restrained_patient_can_be_cured_spared_the_clock_or_lost_to_it() -> void:
-	_arrive("mr_upper")
+	_arrive("mr_ground")
 	st.set_flag("lethic_antidote_doses", 1)
 	_play("memorys_rest/rooms2a:l15_patient", ["Give a dose"])
 	assert_eq(str(st.get_flag("l15_patient_fate")), "cured")
 	assert_eq(_n("lethic_antidote_doses"), 0)
 	GameState.reset()
 	before_each()
-	st.location = "mr_upper"
+	st.location = "mr_ground"
 	_play("memorys_rest/rooms2a:l15_patient", ["Calm them and leave"])
 	assert_true(_flag("mr_l15_left"))
 	assert_true(not _flag("l15_patient_fate"), "walking away does not decide it yet")
@@ -610,7 +614,7 @@ func test_the_restrained_patient_can_be_cured_spared_the_clock_or_lost_to_it() -
 
 
 func test_the_cremator_gives_a_key_and_the_ash_once() -> void:
-	_arrive("mr_upper")
+	_arrive("mr_ground")
 	_play("memorys_rest/rooms2a:l18_ash", ["ward key", "Scoop the ash"])
 	assert_true(_flag("mr_ward_key"))
 	assert_eq(_n("mnemonic_residue"), 3)
@@ -619,7 +623,7 @@ func test_the_cremator_gives_a_key_and_the_ash_once() -> void:
 
 
 func test_the_diagrams_the_log_and_the_register_each_teach_the_truth() -> void:
-	_arrive("mr_upper")
+	_arrive("mr_ground")
 	st.set_quest_stage("all_is_well", "find_the_cousin")
 	_play("memorys_rest/rooms2b:l19_diagrams", ["Study them"])
 	assert_true(_flag("mr_antidote_known"))
@@ -629,7 +633,7 @@ func test_the_diagrams_the_log_and_the_register_each_teach_the_truth() -> void:
 
 
 func test_the_shrine_gives_mementos_once_and_godlees_pyre_empties_it() -> void:
-	_arrive("mr_upper")
+	_arrive("mr_ground")
 	_play("memorys_rest/rooms2b:l19_shrine", ["Take the mementos", "ring and mask", "phial"])
 	assert_true(_flag("lethica_mementos_carried"))
 	assert_eq(_n("unrefined_ichor"), 1)
@@ -640,7 +644,7 @@ func test_the_shrine_gives_mementos_once_and_godlees_pyre_empties_it() -> void:
 
 
 func test_the_engineering_room_throws_lockdown_on_off_or_breaks_into_mouthers() -> void:
-	_arrive("mr_upper")
+	_arrive("mr_ground")
 	_play("memorys_rest/rooms2b:l20_unit", ["lever OFF"])
 	assert_true(_flag("mr_lockdown"))
 	_play("memorys_rest/rooms2b:l20_unit", ["lever ON"])
@@ -651,7 +655,7 @@ func test_the_engineering_room_throws_lockdown_on_off_or_breaks_into_mouthers() 
 
 
 func test_hugos_den_containment_and_belkins_office() -> void:
-	_arrive("mr_upper")
+	_arrive("mr_ground")
 	_play("memorys_rest/rooms2b:l21_file", ["stabilizer", "Look under the mat"])
 	assert_true(_flag("mr_hugo_file_read"))
 	_play("memorys_rest/rooms2b:l22_chamber", ["noetic extract"])
@@ -665,13 +669,13 @@ func test_hugos_den_containment_and_belkins_office() -> void:
 
 
 func test_the_glass_patient_is_saved_by_medicine_or_by_serum_and_the_pods_show_the_grotto() -> void:
-	_arrive("mr_upper")
+	_arrive("mr_ground")
 	_play("memorys_rest/rooms2c:l25_glass", ["Treat them"])
 	assert_eq(str(st.get_flag("l25_patient_fate")), "saved")
 	GameState.reset()
 	before_each()
 	dice = LowDice.new()
-	st.location = "mr_upper"
+	st.location = "mr_ground"
 	st.set_flag("lethic_antidote_doses", 1)
 	_play("memorys_rest/rooms2c:l25_glass", ["Treat them"])
 	assert_eq(str(st.get_flag("l25_patient_fate")), "lost", "a failed treatment loses them, and the serum was a second way")
@@ -680,7 +684,7 @@ func test_the_glass_patient_is_saved_by_medicine_or_by_serum_and_the_pods_show_t
 
 
 func test_the_laboratory_opens_to_serum_and_every_way_down_ends_in_the_grotto() -> void:
-	_arrive("mr_upper")
+	_arrive("mr_ground")
 	st.set_flag("mr_lab_open_known")
 	st.give_item("mr_lethic_serum", 1)
 	_play("memorys_rest/rooms2c:l27_eye", ["Inject the owl"])
@@ -692,14 +696,14 @@ func test_the_laboratory_opens_to_serum_and_every_way_down_ends_in_the_grotto() 
 	assert_eq(st.quest_stage("all_is_well"), "the_way_down")
 	GameState.reset()
 	before_each()
-	st.location = "mr_upper"
+	st.location = "mr_ground"
 	_play("memorys_rest/rooms2c:l27_lab", ["foot lever", "Find the foot lever"])
 	assert_eq(st.location, "mr_grotto")
 	assert_true(_flag("mr_wile_used"))
 
 
 func test_the_owl_eye_has_a_second_way_in_by_search() -> void:
-	_arrive("mr_upper")
+	_arrive("mr_ground")
 	st.give_item("mr_lethic_serum", 1)
 	_play("memorys_rest/rooms2c:l27_eye", ["Search the mural"])
 	assert_true(_flag("mr_eye_found"))

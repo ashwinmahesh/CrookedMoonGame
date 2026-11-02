@@ -320,7 +320,7 @@ func test_staying_to_fight_beside_lyla_is_an_option_not_a_trap() -> void:
 # ---- the shack and the wares -----------------------------------------------------------------------------------------------------------------
 
 func test_taking_a_bargain_and_a_potion_buys_passage() -> void:
-	_arrive("dc_shack")
+	_arrive("dc_shack_approach")
 	_play(DC + "shack:arrive")
 	assert_true(_flag("shack_met"))
 	_play(DC + "shack:parley", ["wares", "bargain", "Bestial Awakening", "potion", "Lilypad", "That is all of us"])
@@ -334,7 +334,7 @@ func test_taking_a_bargain_and_a_potion_buys_passage() -> void:
 
 
 func test_with_the_small_print_read_nothing_is_taken_blind() -> void:
-	_arrive("dc_shack")
+	_arrive("dc_shack_approach")
 	_sink("small_print_read", true)
 	_play(DC + "shack:parley", ["wares", "curio", "The Bag", "That is all of us"])
 	assert_true(not _flag("deal_taken_blind"))
@@ -342,7 +342,7 @@ func test_with_the_small_print_read_nothing_is_taken_blind() -> void:
 
 
 func test_refusing_the_wares_brings_the_stalkers_and_one_idol_can_be_stolen() -> void:
-	_arrive("dc_shack")
+	_arrive("dc_shack_approach")
 	_play(DC + "shack:parley", ["Refuse any deal"])
 	assert_eq(fights, ["dc_shack_stalkers"] as Array[String])
 	assert_true(_flag("crossroads_refused"))
@@ -416,7 +416,7 @@ func test_elias_leads_with_the_hand_and_without_it() -> void:
 	assert_true(_flag("elias_met"))
 	assert_true(_flag("dc_boiler_lead"))
 	assert_eq(st.quest_stage("withered_arm"), "elias")
-	assert_eq(st.location, "dc_boat_lower")
+	assert_eq(st.location, "dc_boat_promenade")
 	GameState.reset()
 	before_each()
 	_arrive("dc_boat_promenade")
@@ -425,7 +425,7 @@ func test_elias_leads_with_the_hand_and_without_it() -> void:
 
 
 func test_the_boiler_room_fight_and_the_freeing_of_elias() -> void:
-	_arrive("dc_boat_lower")
+	_arrive("dc_boat_promenade")
 	_play(DC + "boat:engineer", ["Draw weapons"])
 	assert_eq(fights, ["dc_boiler_fight"] as Array[String])
 	assert_true(_flag("dc_boiler_done"))
@@ -436,14 +436,14 @@ func test_the_boiler_room_fight_and_the_freeing_of_elias() -> void:
 
 
 func test_the_engineer_can_be_talked_down_with_the_xp_for_the_fight() -> void:
-	_arrive("dc_boat_lower")
+	_arrive("dc_boat_promenade")
 	_play(DC + "boat:engineer", ["Ask her to stand down"])
 	assert_true(_flag("dc_boiler_done"))
 	assert_eq(fights.size(), 0)
 
 
 func test_the_coin_keeper_gives_a_key_or_a_fight() -> void:
-	_arrive("dc_boat_lower")
+	_arrive("dc_boat_promenade")
 	_play(DC + "boat:keeper", ["Tell him to open it"])
 	var key_there := false
 	for ch in st.party:
@@ -453,13 +453,13 @@ func test_the_coin_keeper_gives_a_key_or_a_fight() -> void:
 	assert_true(key_there, "the Coin Keeper hands the key over")
 	GameState.reset()
 	before_each()
-	_arrive("dc_boat_lower")
+	_arrive("dc_boat_promenade")
 	_play(DC + "boat:keeper", ["Fight"])
 	assert_eq(fights, ["dc_vault_fight"] as Array[String])
 
 
 func test_the_casino_tables_pay_and_may_charm_and_elias_breaks_it() -> void:
-	_arrive("dc_boat_hall")
+	_arrive("dc_boat_promenade")
 	_play(DC + "boat:wager", ["Ante five gold", "Play the hand"])
 	assert_eq(st.gold, 105.0)
 	dice = LowDice.new()
@@ -472,16 +472,16 @@ func test_the_casino_tables_pay_and_may_charm_and_elias_breaks_it() -> void:
 
 
 func test_the_hall_brawl_and_the_galley() -> void:
-	_arrive("dc_boat_hall")
+	_arrive("dc_boat_promenade")
 	_play(DC + "boat:gambler", ["Overturn the table"])
 	assert_eq(fights, ["dc_hall_brawl"] as Array[String])
-	_arrive("dc_boat_lower")
+	_arrive("dc_boat_promenade")
 	_play(DC + "boat:galley", ["Eat and drink", "Another round"])
 	assert_eq(st.gold, 95.0)
 
 
 func test_the_mirrored_window_and_the_hexed_deck() -> void:
-	_arrive("dc_boat_hall")
+	_arrive("dc_boat_promenade")
 	_play(DC + "boat:window")
 	assert_true(_flag("dc_window_seen"))
 	_play(DC + "boat:hexed_deck", ["Let your shadow cheat"])
@@ -491,7 +491,7 @@ func test_the_mirrored_window_and_the_hexed_deck() -> void:
 # ---- the Sinner ------------------------------------------------------------------------------------------------------------------------------
 
 func test_the_sinners_table_won_gives_jacks_boon_and_leads_to_the_boss() -> void:
-	_arrive("dc_boat_captain")
+	_arrive("dc_boat_promenade")
 	_play(DC + "sinner:invite", ["Take the table", "Hard read", "Hard read", "Hard read"])
 	assert_eq(str(st.get_flag("sinner_dice")), "won")
 	assert_true(bool(int(st.get_flag("jack_boon", 0))))
@@ -500,7 +500,7 @@ func test_the_sinners_table_won_gives_jacks_boon_and_leads_to_the_boss() -> void
 
 
 func test_the_sinners_table_lost_still_ends_in_the_same_fight() -> void:
-	_arrive("dc_boat_captain")
+	_arrive("dc_boat_promenade")
 	dice = LowDice.new()
 	_play(DC + "sinner:invite", ["Take the table", "Bid cautiously", "Bid cautiously", "Bid cautiously"])
 	assert_eq(str(st.get_flag("sinner_dice")), "lost")
@@ -509,7 +509,7 @@ func test_the_sinners_table_lost_still_ends_in_the_same_fight() -> void:
 
 
 func test_not_yet_leaves_the_challenge_standing_and_attacking_skips_the_dice() -> void:
-	_arrive("dc_boat_captain")
+	_arrive("dc_boat_promenade")
 	_play(DC + "sinner:invite", ["Not yet"])
 	assert_true(_flag("sinner_roll_started"))
 	assert_eq(st.quest_stage("withered_arm"), "roll_the_bones")
@@ -747,7 +747,7 @@ func test_the_wedding_with_one_thing_ready_and_the_wedding_called_off() -> void:
 # ---- data ------------------------------------------------------------------------------------------------------------------------------------
 
 func test_every_fight_has_the_three_level_variants() -> void:
-	for id: String in ["dc_trail1", "dc_trail2", "dc_trail3", "dc_fort", "dc_shack_approach", "dc_shack", "dc_boat_promenade", "dc_boat_hall", "dc_boat_lower", "dc_casino"]:
+	for id: String in ["dc_trail1", "dc_trail2", "dc_trail3", "dc_fort", "dc_shack_approach", "dc_boat_promenade", "dc_casino"]:
 		var by_id := {}
 		for e: Variant in Compendium.shared().get_entry("locations", id).get("encounters", []):
 			var eid := str((e as Dictionary)["id"])
@@ -766,7 +766,7 @@ func test_the_road_and_the_places_are_on_the_hollow_travel_map() -> void:
 
 
 func test_each_chapter_map_has_its_exits_to_real_places_and_open_squares() -> void:
-	for id: String in ["dc_trail1", "dc_trail2", "dc_trail3", "dc_murkwater", "dc_fort", "dc_shack_approach", "dc_shack", "dc_lagoon", "dc_boat_promenade", "dc_boat_hall", "dc_boat_lower", "dc_boat_captain", "dc_casino"]:
+	for id: String in ["dc_trail1", "dc_trail2", "dc_trail3", "dc_murkwater", "dc_fort", "dc_shack_approach", "dc_lagoon", "dc_boat_promenade", "dc_casino"]:
 		var loc := Compendium.shared().get_entry("locations", id)
 		assert_true(not loc.is_empty(), id)
 		assert_eq(str(loc["region"]), "drowned_crossroads")

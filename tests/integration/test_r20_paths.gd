@@ -572,7 +572,7 @@ func test_the_dovecote_door_leads_in_and_the_parcel_fight_is_the_first_room() ->
 
 func test_golub_before_the_fight_and_the_fight_itself() -> void:
 	_start_hysteria()
-	_arrive("rk_dovecote_r2")
+	_arrive("rk_dovecote_r1")
 	_play("rookery/dovecote:golub", ["attack"])
 	assert_eq(fights, ["rk_golub"] as Array[String])
 	assert_true(_flag("rk_golub_done"))
@@ -581,13 +581,13 @@ func test_golub_before_the_fight_and_the_fight_itself() -> void:
 
 func test_golubs_vanity_can_be_read_before_the_fight() -> void:
 	_start_hysteria()
-	_arrive("rk_dovecote_r2")
+	_arrive("rk_dovecote_r1")
 	_play("rookery/dovecote:golub", ["vain", "attack"])
 	assert_true(_flag("rk_golub_vain"))
 
 
 func test_reading_her_cubbies_gives_every_villagers_faction() -> void:
-	_arrive("rk_dovecote_r2")
+	_arrive("rk_dovecote_r1")
 	st.set_flag("rk_golub_done")
 	_play("rookery/dovecote:cubbies", ["read"])
 	assert_true(_flag("golub_secrets_read"))
@@ -596,7 +596,7 @@ func test_reading_her_cubbies_gives_every_villagers_faction() -> void:
 
 func test_home_to_roost_ends_the_chapter_without_counting_an_act_two_chapter() -> void:
 	_start_hysteria()
-	_arrive("rk_dovecote_r2")
+	_arrive("rk_dovecote_r1")
 	st.set_flag("rk_golub_done")
 	var before := int(st.get_flag("act2_done", 0))
 	_play("rookery/dovecote:home_to_roost")
@@ -625,7 +625,7 @@ func test_the_new_postmaster_after_route_a_and_geneva_after_route_b() -> void:
 
 
 func test_every_new_place_is_reachable_by_its_exits() -> void:
-	for id: String in ["rk_dovecote_r1", "rk_dovecote_r2", "rk_roost_prairie", "rk_roost_swamp", "rk_roost_foothills", "rk_roost_lakeshore"]:
+	for id: String in ["rk_dovecote_r1", "rk_roost_prairie", "rk_roost_swamp", "rk_roost_foothills", "rk_roost_lakeshore"]:
 		_arrive(id)
 		var spawn := ((_loc()["spawns"] as Dictionary)["default"]) as Array
 		assert_true(spawn.size() == 2)
