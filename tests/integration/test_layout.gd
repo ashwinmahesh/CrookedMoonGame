@@ -126,6 +126,17 @@ func test_the_overworld_covers_the_map() -> void:
 		for pl: Dictionary in land.places:
 			ends += 1 if str(pl["id"]) in [str((r as Dictionary)["from"]), str((r as Dictionary)["to"])] else 0
 		assert_true(ends >= 2, "the land holds both ends of " + str((r as Dictionary)["id"]))
+	# With every place shown, no two labels share a spot (the estate's three states draw one).
+	var view := OverworldView.new()
+	add_child(view)
+	await _frames(2)
+	var ids: Array = view.labels.keys()
+	for a in ids.size():
+		for b in range(a + 1, ids.size()):
+			assert_true(view._place_at(str(ids[a])).distance_to(view._place_at(str(ids[b]))) >= OverworldView.SAME_SPOT,
+				"labels %s and %s coincide" % [ids[a], ids[b]])
+	assert_true(view.labels.has("nm_estate_ruins") and not view.labels.has("druskenvald_estate"), "the latest estate state wins")
+	view.queue_free()
 	var bake := OverworldBake.load_bake()
 	assert_true(bake != null, "the bake is current (make overworld-bake)")
 	if bake != null:

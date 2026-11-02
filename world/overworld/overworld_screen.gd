@@ -326,7 +326,7 @@ func pad_step(f: Control, dir: Vector2i) -> bool:
 	var best_s := INF
 	for p in Travel.known(st):
 		var id := str(p["id"])
-		if id == now or not view.has_place(id):
+		if id == now or not view.labels.has(id):
 			continue
 		var v := view._place_at(id) - from
 		var along := v.dot(Vector2(dir))

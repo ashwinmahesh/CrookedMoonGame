@@ -12,6 +12,8 @@ const CHUNK := 128.0
 const NEAR := 220.0
 ## How far from a place the open ground has its grass and heather (metres).
 const PLANT_REACH := 170.0
+## Places closer than this (metres) are one spot on the map: only one of them is drawn (drawn_places).
+const SAME_SPOT := 30.0
 ## The night's fog (density), thinned as the camera hangs further back so the whole map stays readable from high over it.
 const FOG := 0.0009
 
@@ -428,10 +430,30 @@ func _mist(at: Vector2, spec: Dictionary) -> void:
 		holder.add_child(puff)
 
 
+## The places that get a label and lamps: those shown, except that where several share a spot (within SAME_SPOT metres,
+## like the Druskenvald Estate and its two later states) only the last in the travel map's order stands, so the later story
+## state wins and no two labels coincide. id -> true.
+func drawn_places() -> Dictionary:
+	var list: Array[Dictionary] = []
+	for pl: Dictionary in land.places:
+		if shown.is_empty() or shown.has(str(pl["id"])):
+			list.append(pl)
+	var out := {}
+	for i in list.size():
+		var hidden := false
+		for j in range(i + 1, list.size()):
+			if (list[i]["at"] as Vector2).distance_to(list[j]["at"] as Vector2) < SAME_SPOT:
+				hidden = true
+		if not hidden:
+			out[str(list[i]["id"])] = true
+	return out
+
+
 ## Each place: a clearing (the land already made it), its lamps, and its name over it.
 func _places() -> void:
+	var drawn := drawn_places()
 	for pl: Dictionary in land.places:
-		if not shown.is_empty() and not shown.has(str(pl["id"])):
+		if not drawn.has(str(pl["id"])):
 			continue
 		var at := pl["at"] as Vector2
 		var spec := pl["spec"] as Dictionary
