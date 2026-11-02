@@ -14,6 +14,8 @@ const MORPHING: Array[String] = ["druskenvald_estate"]
 
 
 func dress_place(view: LocationView) -> void:
+	NaturalHouses.rebuild(view.board)   # the village kit's houses at their own size, not one piece a square (2026-11-02)
+	PackMaterials.apply(view.board)   # the village kit's and the pack props' own textures, lit (realistic look, 2026-11-02)
 	if CrookedMoonCampaign.is_car(view.loc_id):
 		ExpressWindows.hang(view.board, view.board)   # the Shroud streams past the cars' windows
 	if view.st.location == CrookedMoonCampaign.limbo_place() and CrookedMoonCampaign.is_car(view.loc_id) \

@@ -157,12 +157,16 @@ func _new_pregen_party() -> void:
 ## sneaking, so it arrives sneaking too, with fresh Stealth rolls (LocationStealth), sneaking when the place first looks at
 ## its areas (a fight waiting there may be slipped into, or be set off by a foe that notices them); any other way in (the
 ## travel map, a cutscene, a load) starts it walking normally.
-func enter_location(location_id: String, spawn: String, sneaking: bool = false) -> void:
+## `storey`: the storeys climbed (negative: gone down) on a stair between floors of one building (Storeys), which is a step
+## inside the building rather than a new place: no black, no loading card or place name, and the camera rises or sinks into
+## the new floor.
+func enter_location(location_id: String, spawn: String, sneaking: bool = false, storey: int = 0) -> void:
 	# A journey that is waiting to go on is only ever on its road: entering any other place ends it (a conversation's
 	# `move`, or a record a save carried over), so a fight won there can't carry the party off to the journey's end.
 	if not st.travel_resume.is_empty() and not Travel.is_road_scene(location_id):
 		st.travel_resume = {}
-	_fade_from_black()
+	if storey == 0:
+		_fade_from_black()
 	glow.clear()
 	if view != null:
 		view.queue_free()
@@ -171,11 +175,12 @@ func enter_location(location_id: String, spawn: String, sneaking: bool = false) 
 	view = LocationView.create(location_id, st, narrator, Dice.roller, spawn)
 	# Arriving in a new region: its loading card (G5, ui/screens/loading_card.gd) while the place settles in behind (a
 	# change made behind a cover put the card up already).
-	if not moving and str(view.loc.get("region", "")) != _card_region:
+	if storey == 0 and not moving and str(view.loc.get("region", "")) != _card_region:
 		_card_region = str(view.loc.get("region", ""))
 		LoadingCard.show_for(self, view.loc)
 	# The place's name as it fades in (Visual Polish Plan 6), unless a loading card is up and names it already.
-	_title = PlaceTitle.show_for(self, view.loc)
+	if storey == 0:
+		_title = PlaceTitle.show_for(self, view.loc)
 	Audio.play_music(_place_mood())
 	place_beds.enter(location_id, st)
 	view.banter_player = banter
@@ -190,7 +195,11 @@ func enter_location(location_id: String, spawn: String, sneaking: bool = false) 
 	var leaving := view
 	view.exit_requested.connect(func(to: String, sp: String) -> void:
 		PlaceBeds.exit_sound(location_id, to)   # the sliding door between two cars (art/audio.json "exit_sfx")
-		_covered.call_deferred(to, enter_location.bind(to, sp, leaving.sneaking)))
+		var climbed := Storeys.climb(location_id, to)
+		if climbed != 0 and not moving:
+			enter_location.call_deferred(to, sp, leaving.sneaking, climbed)   # up or down a stair in the same building
+		else:
+			_covered.call_deferred(to, enter_location.bind(to, sp, leaving.sneaking)))
 	view.travel_requested.connect(func(to: String) -> void: _road_out.call_deferred(to))
 	view.dialogue_requested.connect(start_dialogue)
 	view.gift_requested.connect(give_to_guest)
@@ -230,6 +239,8 @@ func enter_location(location_id: String, spawn: String, sneaking: bool = false) 
 	view.combat_ended.connect(_after_combat)
 	view.arrive_sneaking = sneaking
 	add_child(view)
+	if storey != 0 and view.rig != null:
+		view.rig.global_position -= Vector3(0, storey * Storeys.STOREY, 0)   # it follows the party up (or down) the stair
 	view.add_child(TalkMarks.create(view))   # a speech bubble over whoever waits to be talked to (data/talk_marks.json)
 	PlacePreload.keep_foes(view)   # the foes of its fights read on worker threads while the party is here
 	plan_bar.view = view

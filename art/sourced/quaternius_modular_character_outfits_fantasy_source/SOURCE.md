@@ -9,6 +9,7 @@
 - Kept in the repo (files in use, untouched, plus the licence):
   - Exports/glTF (Godot-Unreal)/Outfits/: Male_Peasant and Female_Peasant (.gltf and .bin) with T_Peasant_BaseColor.png
   - Textures/Peasant/: T_Peasant_BaseColor.png, T_Peasant_2_BaseColor.png, T_Peasant_3_BaseColor.png (the three colourings; the normal and ORM maps stay on the asset root)
+  - none yet (only the licence and this note are kept here)
 - The whole pack, untouched: ~/Documents/ASH-SSD/CrookedMoon/assets/sourced/quaternius_modular_character_outfits_fantasy_source/ (zip in zips/, extracted in pack/). The original zip also stays where Ashwin put it (~/Documents/AssetPacks, or ~/Downloads for the props).
 - For: The villagers' clothes.
 

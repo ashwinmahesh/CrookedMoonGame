@@ -8,6 +8,7 @@
 - What is in it: all the props (the free Standard copy holds a part) in glTF, FBX and OBJ, the textures in Blends/, the .blends and engine projects. Replaces the free Standard copy (quaternius_fantasy_props_megakit), which stays beside it.
 - Kept in the repo (files in use, untouched, plus the licence):
   - none (only the licence and this note are kept here); the held weapons made from it live in art/figures/weapons/ (sword.glb from Sword_Steel, shield_wooden.glb and shield_metal.glb from the shields: tools/art/prop_weapons.py, base colour only, trim sheets cut to 1024 px)
+  - none yet (only the licence and this note are kept here)
 - The whole pack, untouched: ~/Documents/ASH-SSD/CrookedMoon/assets/sourced/quaternius_fantasy_props_megakit_source/ (zip in zips/, extracted in pack/). The original zip also stays where Ashwin put it (~/Documents/AssetPacks, or ~/Downloads for the props).
 - For: Props for exteriors and interiors: barrels, crates, lanterns, tables, shelves, books, potions and the weapons.
 
