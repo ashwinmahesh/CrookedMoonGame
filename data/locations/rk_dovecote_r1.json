@@ -1,29 +1,89 @@
 {
   "id": "rk_dovecote_r1",
-  "name": "The Dovecote: the Parcel Store",
+  "name": "The Dovecote",
   "region": "wickermoor",
   "summary": "The ground floor of the walking dovecote: crates and letters and a constant cooing.",
   "text": "The inside of a round dovecote: straw, seed, feathers, crates piled in drifts of letters, and a ladder going up to the roost.",
+  "rest": "no",
+  "rest_text": "The building lurches too often for a long rest.",
   "map": {
-    "rows": [
-      "####################",
-      "#..................#",
-      "#.~~~~.........===.#",
-      "#.~~~~.............#",
-      "#.~~~~.............#",
-      "#..................#",
-      "#..................#",
-      "#............~~~~~.#",
-      "#............~~~~~.#",
-      "#............~~~~~.#",
-      "#.=====......~~~~~.#",
-      "#..................#",
-      "#..................#",
-      "####################"
-    ],
     "theme": "manor",
     "light": "dim",
-    "outdoors": false
+    "outdoors": false,
+    "rows": [
+      "                       ########################                         ",
+      "                       #......................#  ...................... ",
+      "  #################### #.=====..........=====.#  ...................... ",
+      "  #..................# #.=..................=.#  ..                  .. ",
+      "  #.~~~~.........===.# #.=..................=.#  ..                  .. ",
+      "  #.~~~~.............# #.=..................=.#  ..                  .. ",
+      "  #.~~~~.............# #.=..................=.#  ..                  .. ",
+      "  #..................# #.=..................=.#  ..                  .. ",
+      "  #..................# #.=..................=.#  ..                  .. ",
+      "  #............~~~~~.# #.=..................=.#  ..                  .. ",
+      "  #............~~~~~.# #.=..................=.#  ..                  .. ",
+      "  #............~~~~~.# #.=..................=.#  ..                  .. ",
+      "  #.=====......~~~~~.# #.=..................=.#  ..                  .. ",
+      "  #..................# #.=..................=.#  ..                  .. ",
+      "  #..................# #.=..................=.#  ..                  .. ",
+      "  #################### #......................#  ...................... ",
+      "                       #......................#  ...................... ",
+      "                       ########################                         "
+    ],
+    "floors": [
+      {
+        "x0": 0,
+        "width": 22,
+        "height_ft": 0,
+        "id": "rk_dovecote_r1",
+        "offset": [
+          2,
+          2
+        ]
+      },
+      {
+        "x0": 23,
+        "width": 24,
+        "height_ft": 15,
+        "id": "rk_dovecote_r2",
+        "offset": [
+          23,
+          0
+        ]
+      },
+      {
+        "x0": 48,
+        "width": 24,
+        "height_ft": 25,
+        "id": "rk_dovecote_walkway",
+        "kind": "deck",
+        "rail_ft": 3
+      }
+    ],
+    "stairs": [
+      {
+        "from": [
+          12,
+          4
+        ],
+        "to": [
+          35,
+          4
+        ],
+        "kind": "ladder"
+      },
+      {
+        "from": [
+          29,
+          15
+        ],
+        "to": [
+          54,
+          16
+        ],
+        "kind": "ladder"
+      }
+    ]
   },
   "areas": [
     {
@@ -31,89 +91,50 @@
       "name": "The parcel store",
       "cells": [
         [
-          1,
-          1
+          3,
+          3
         ],
         [
-          18,
-          12
+          20,
+          14
+        ]
+      ]
+    },
+    {
+      "id": "r2_floor",
+      "name": "The roost floor",
+      "cells": [
+        [
+          26,
+          3
+        ],
+        [
+          43,
+          15
+        ]
+      ]
+    },
+    {
+      "id": "r2_rafters",
+      "name": "The rafter roost",
+      "cells": [
+        [
+          31,
+          2
+        ],
+        [
+          38,
+          4
         ]
       ]
     }
   ],
-  "spawns": {
-    "default": [
-      10,
-      11
-    ],
-    "from_r2": [
-      10,
-      2
-    ]
-  },
-  "exits": [
-    {
-      "id": "ladder_up",
-      "cell": [
-        10,
-        0
-      ],
-      "to": "rk_dovecote_r2",
-      "label": "Up the ladder to the roost floor",
-      "spawn": "from_r1"
-    },
-    {
-      "id": "door_prairie",
-      "cell": [
-        10,
-        13
-      ],
-      "to": "rk_roost_prairie",
-      "label": "Out through the door",
-      "spawn": "from_dovecote",
-      "when": "flag.dovecote_roost == 0"
-    },
-    {
-      "id": "door_swamp",
-      "cell": [
-        10,
-        13
-      ],
-      "to": "rk_roost_swamp",
-      "label": "Out through the door",
-      "spawn": "from_dovecote",
-      "when": "flag.dovecote_roost == 1"
-    },
-    {
-      "id": "door_foothills",
-      "cell": [
-        10,
-        13
-      ],
-      "to": "rk_roost_foothills",
-      "label": "Out through the door",
-      "spawn": "from_dovecote",
-      "when": "flag.dovecote_roost == 2"
-    },
-    {
-      "id": "door_lakeshore",
-      "cell": [
-        10,
-        13
-      ],
-      "to": "rk_roost_lakeshore",
-      "label": "Out through the door",
-      "spawn": "from_dovecote",
-      "when": "flag.dovecote_roost == 3"
-    }
-  ],
-  "doors": [],
   "props": [
     {
       "id": "rk_r1_nest",
       "cell": [
-        3,
-        11
+        5,
+        13
       ],
       "kind": "examine",
       "label": "Albert's nest of stolen ribbon",
@@ -123,8 +144,8 @@
     {
       "id": "rk_r1_seed",
       "cell": [
-        16,
-        4
+        18,
+        6
       ],
       "kind": "examine",
       "label": "Sacks of seed",
@@ -133,8 +154,8 @@
     {
       "id": "rk_r1_letters",
       "cell": [
-        8,
-        6
+        10,
+        8
       ],
       "kind": "examine",
       "label": "Drifts of undelivered letters",
@@ -144,8 +165,8 @@
     {
       "id": "rk_r1_cord",
       "cell": [
-        12,
-        11
+        14,
+        13
       ],
       "kind": "examine",
       "label": "Coils of leather cord",
@@ -154,20 +175,183 @@
     {
       "id": "rk_r1_window",
       "cell": [
-        5,
-        6
+        7,
+        8
       ],
       "kind": "decor",
       "label": "A round window, with the moor moving past",
       "model": "window"
+    },
+    {
+      "id": "rk_rafter_platform_w",
+      "cell": [
+        31,
+        2
+      ],
+      "kind": "decor",
+      "label": "The rafter roost, ten feet up",
+      "model": "dais",
+      "span": [
+        4,
+        3
+      ],
+      "stand_ft": 10
+    },
+    {
+      "id": "rk_rafter_platform_e",
+      "cell": [
+        35,
+        2
+      ],
+      "kind": "decor",
+      "label": "The rafter roost, ten feet up",
+      "model": "dais",
+      "span": [
+        4,
+        3
+      ],
+      "stand_ft": 10
+    },
+    {
+      "id": "rk_swivel_ladder",
+      "cell": [
+        29,
+        14
+      ],
+      "kind": "examine",
+      "label": "The swivel ladder, on its track",
+      "model": "ladder",
+      "text": "A ladder on a ring-track round the cubbies. It swings wherever the one who rides it pushes."
+    },
+    {
+      "id": "rk_cubbies",
+      "cell": [
+        29,
+        7
+      ],
+      "kind": "examine",
+      "label": "Cubbies stuffed with letters and sins",
+      "model": "shelves",
+      "dialogue": "rookery/dovecote:cubbies",
+      "when": "flag.rk_golub_done and not flag.golub_secrets_read"
+    },
+    {
+      "id": "rk_cubbies_empty",
+      "cell": [
+        29,
+        7
+      ],
+      "kind": "decor",
+      "label": "Cubbies, emptied",
+      "model": "shelves",
+      "when": "flag.golub_secrets_read"
+    },
+    {
+      "id": "rk_r2_cages",
+      "cell": [
+        41,
+        7
+      ],
+      "kind": "examine",
+      "label": "Rodent cages",
+      "model": "cage",
+      "text": "Cages of rats and a few big, bored mice. All of them look as if they have been listening."
+    },
+    {
+      "id": "rk_r2_window_a",
+      "cell": [
+        27,
+        9
+      ],
+      "kind": "decor",
+      "label": "A tall window, the moor sliding past",
+      "model": "window_tall"
+    },
+    {
+      "id": "rk_r2_window_b",
+      "cell": [
+        42,
+        9
+      ],
+      "kind": "decor",
+      "label": "A tall window, the moor sliding past",
+      "model": "window_tall"
+    },
+    {
+      "id": "rk_r2_window_c",
+      "cell": [
+        27,
+        13
+      ],
+      "kind": "decor",
+      "label": "A tall window, the moor sliding past",
+      "model": "window_tall"
+    },
+    {
+      "id": "rk_r2_window_d",
+      "cell": [
+        42,
+        13
+      ],
+      "kind": "decor",
+      "label": "A tall window, the moor sliding past",
+      "model": "window_tall"
+    },
+    {
+      "id": "rk_diary",
+      "cell": [
+        36,
+        3
+      ],
+      "kind": "search",
+      "label": "Golub's diary, open on a perch",
+      "search_dc": 5,
+      "item": "golubs_diary",
+      "when": "flag.rk_golub_done"
+    },
+    {
+      "id": "rk_crystal_ball",
+      "cell": [
+        33,
+        3
+      ],
+      "kind": "search",
+      "label": "A crystal ball on the platform",
+      "search_dc": 5,
+      "item": "golub_crystal_ball",
+      "when": "flag.rk_golub_done"
+    },
+    {
+      "id": "rk_midnight_tears",
+      "cell": [
+        37,
+        3
+      ],
+      "kind": "search",
+      "label": "A stoppered vial among the feathers",
+      "search_dc": 12,
+      "item": "midnight_tears",
+      "when": "flag.rk_golub_done"
+    },
+    {
+      "id": "rk_golub_farewell",
+      "cell": [
+        34,
+        12
+      ],
+      "kind": "decor",
+      "label": "The roost, settled and still",
+      "call": "rookery/dovecote:home_to_roost",
+      "approach": 10,
+      "call_when": "flag.rk_golub_done and not flag.golub_dead"
     }
   ],
   "containers": [
     {
       "id": "pkg1",
       "cell": [
-        8,
-        2
+        10,
+        4
       ],
       "label": "Package 1",
       "items": [
@@ -181,8 +365,8 @@
     {
       "id": "pkg2",
       "cell": [
-        10,
-        2
+        12,
+        4
       ],
       "label": "Package 2",
       "items": [],
@@ -191,8 +375,8 @@
     {
       "id": "pkg3",
       "cell": [
-        12,
-        2
+        14,
+        4
       ],
       "label": "Package 3",
       "items": [
@@ -206,8 +390,8 @@
     {
       "id": "pkg4",
       "cell": [
-        8,
-        4
+        10,
+        6
       ],
       "label": "Package 4",
       "items": [],
@@ -216,8 +400,8 @@
     {
       "id": "pkg5",
       "cell": [
-        10,
-        4
+        12,
+        6
       ],
       "label": "Package 5",
       "items": [
@@ -243,8 +427,8 @@
     {
       "id": "pkg6",
       "cell": [
-        12,
-        4
+        14,
+        6
       ],
       "label": "Package 6",
       "items": [],
@@ -253,8 +437,8 @@
     {
       "id": "pkg7",
       "cell": [
-        14,
-        4
+        16,
+        6
       ],
       "label": "Package 7",
       "items": [],
@@ -263,8 +447,8 @@
     {
       "id": "pkg8",
       "cell": [
-        16,
-        6
+        18,
+        8
       ],
       "label": "Package 8",
       "items": [
@@ -274,6 +458,90 @@
         }
       ],
       "gold": 0
+    },
+    {
+      "id": "rk_golub_cage",
+      "cell": [
+        27,
+        5
+      ],
+      "label": "A gold birdcage",
+      "items": [
+        {
+          "id": "golub_birdcage",
+          "qty": 1
+        }
+      ],
+      "gold": 0
+    },
+    {
+      "id": "rk_golub_chest",
+      "cell": [
+        42,
+        5
+      ],
+      "label": "A chest of nuggets",
+      "items": [
+        {
+          "id": "skitterdeep_nuggets",
+          "qty": 1
+        }
+      ],
+      "gold": 0
+    }
+  ],
+  "lights": [
+    {
+      "cell": [
+        6,
+        7
+      ],
+      "kind": "candle",
+      "bright_ft": 10,
+      "dim_ft": 25,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        17,
+        14
+      ],
+      "kind": "candle",
+      "bright_ft": 10,
+      "dim_ft": 25,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        27,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 10,
+      "dim_ft": 25,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        42,
+        4
+      ],
+      "kind": "candle",
+      "bright_ft": 10,
+      "dim_ft": 25,
+      "color": "candle"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "golub_graygullet",
+      "cell": [
+        34,
+        3
+      ],
+      "dialogue": "rookery/dovecote:golub",
+      "approach": 9,
+      "when": "not flag.rk_golub_done"
     }
   ],
   "encounters": [
@@ -287,8 +555,8 @@
         {
           "monster": "vermin_familiar_pigeon",
           "cell": [
-            4,
-            6
+            6,
+            8
           ],
           "name": "Peeping Albert",
           "facing": "east"
@@ -296,8 +564,8 @@
         {
           "monster": "squabswarm",
           "cell": [
-            16,
-            3
+            18,
+            5
           ],
           "name": "A squabswarm",
           "facing": "west"
@@ -305,8 +573,8 @@
         {
           "monster": "squabswarm",
           "cell": [
-            4,
-            11
+            6,
+            13
           ],
           "name": "A squabswarm",
           "facing": "east"
@@ -314,8 +582,8 @@
         {
           "monster": "squabswarm",
           "cell": [
-            16,
-            11
+            18,
+            13
           ],
           "name": "A squabswarm",
           "facing": "west"
@@ -332,8 +600,8 @@
         {
           "monster": "squabswarm",
           "cell": [
-            4,
-            6
+            6,
+            8
           ],
           "name": "A squabswarm",
           "facing": "east"
@@ -341,8 +609,8 @@
         {
           "monster": "squabswarm",
           "cell": [
-            16,
-            3
+            18,
+            5
           ],
           "name": "A squabswarm",
           "facing": "west"
@@ -350,8 +618,8 @@
         {
           "monster": "squabswarm",
           "cell": [
-            16,
-            11
+            18,
+            13
           ],
           "name": "A squabswarm",
           "facing": "west"
@@ -367,14 +635,6 @@
         {
           "monster": "skitterswarm",
           "cell": [
-            13,
-            3
-          ],
-          "name": "A swarm of spiders"
-        },
-        {
-          "monster": "skitterswarm",
-          "cell": [
             15,
             5
           ],
@@ -383,37 +643,275 @@
         {
           "monster": "skitterswarm",
           "cell": [
-            11,
-            5
+            17,
+            7
+          ],
+          "name": "A swarm of spiders"
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            13,
+            7
           ],
           "name": "A swarm of spiders"
         }
       ]
-    }
-  ],
-  "npcs": [],
-  "rest": "no",
-  "rest_text": "The building lurches too often for a long rest.",
-  "lights": [
-    {
-      "cell": [
-        4,
-        5
-      ],
-      "kind": "candle",
-      "bright_ft": 10,
-      "dim_ft": 25,
-      "color": "candle"
     },
     {
-      "cell": [
-        15,
-        12
+      "id": "rk_golub",
+      "trigger": "dialogue",
+      "when": "not flag.albert_dead",
+      "flag": "rk_golub_done",
+      "quest": {
+        "id": "roving_rookery",
+        "stage": "dovecote"
+      },
+      "monsters": [
+        {
+          "monster": "pigeon_hag",
+          "cell": [
+            34,
+            3
+          ],
+          "name": "Golub Graygullet",
+          "boss": true,
+          "facing": "south",
+          "steps_down": {
+            "npc": "golub_graygullet"
+          }
+        },
+        {
+          "monster": "squabswarm",
+          "cell": [
+            28,
+            10
+          ],
+          "name": "A squabswarm",
+          "facing": "east"
+        },
+        {
+          "monster": "squabswarm",
+          "cell": [
+            41,
+            10
+          ],
+          "name": "A squabswarm",
+          "facing": "west"
+        },
+        {
+          "monster": "squabswarm",
+          "cell": [
+            34,
+            12
+          ],
+          "name": "A squabswarm",
+          "facing": "north"
+        },
+        {
+          "monster": "vermin_familiar_pigeon",
+          "cell": [
+            39,
+            6
+          ],
+          "name": "Peeping Albert",
+          "facing": "west"
+        }
       ],
-      "kind": "candle",
-      "bright_ft": 10,
-      "dim_ft": 25,
-      "color": "candle"
+      "round_events": [
+        {
+          "id": "rk_lurch",
+          "name": "Violent lurch",
+          "summary": "The dovecote heaves on its pigeon legs; anyone not holding on goes over.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "dex",
+            "dc": 15
+          },
+          "condition": "prone",
+          "at": 20,
+          "every": 1,
+          "area": {
+            "cells": [
+              [
+                24,
+                1
+              ],
+              [
+                45,
+                16
+              ]
+            ]
+          },
+          "say": "The whole roost lurches, and the floor tilts under your boots."
+        }
+      ]
+    },
+    {
+      "id": "rk_golub",
+      "trigger": "dialogue",
+      "when": "flag.albert_dead",
+      "flag": "rk_golub_done",
+      "quest": {
+        "id": "roving_rookery",
+        "stage": "dovecote"
+      },
+      "monsters": [
+        {
+          "monster": "pigeon_hag",
+          "cell": [
+            34,
+            3
+          ],
+          "name": "Golub Graygullet",
+          "boss": true,
+          "facing": "south",
+          "steps_down": {
+            "npc": "golub_graygullet"
+          }
+        },
+        {
+          "monster": "squabswarm",
+          "cell": [
+            28,
+            10
+          ],
+          "name": "A squabswarm",
+          "facing": "east"
+        },
+        {
+          "monster": "squabswarm",
+          "cell": [
+            41,
+            10
+          ],
+          "name": "A squabswarm",
+          "facing": "west"
+        },
+        {
+          "monster": "squabswarm",
+          "cell": [
+            34,
+            12
+          ],
+          "name": "A squabswarm",
+          "facing": "north"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "rk_lurch",
+          "name": "Violent lurch",
+          "summary": "The dovecote heaves on its pigeon legs; anyone not holding on goes over.",
+          "kind": "save",
+          "affects": "party",
+          "save": {
+            "ability": "dex",
+            "dc": 15
+          },
+          "condition": "prone",
+          "at": 20,
+          "every": 1,
+          "area": {
+            "cells": [
+              [
+                24,
+                1
+              ],
+              [
+                45,
+                16
+              ]
+            ]
+          },
+          "say": "The whole roost lurches, and the floor tilts under your boots."
+        }
+      ]
     }
-  ]
+  ],
+  "exits": [
+    {
+      "id": "ladder_up",
+      "cell": [
+        12,
+        2
+      ],
+      "to": "rk_dovecote_r1",
+      "label": "Up the ladder to the roost floor",
+      "spawn": "roost_from_r1"
+    },
+    {
+      "id": "door_prairie",
+      "cell": [
+        12,
+        15
+      ],
+      "to": "rk_roost_prairie",
+      "label": "Out through the door",
+      "spawn": "from_dovecote",
+      "when": "flag.dovecote_roost == 0"
+    },
+    {
+      "id": "door_swamp",
+      "cell": [
+        12,
+        15
+      ],
+      "to": "rk_roost_swamp",
+      "label": "Out through the door",
+      "spawn": "from_dovecote",
+      "when": "flag.dovecote_roost == 1"
+    },
+    {
+      "id": "door_foothills",
+      "cell": [
+        12,
+        15
+      ],
+      "to": "rk_roost_foothills",
+      "label": "Out through the door",
+      "spawn": "from_dovecote",
+      "when": "flag.dovecote_roost == 2"
+    },
+    {
+      "id": "door_lakeshore",
+      "cell": [
+        12,
+        15
+      ],
+      "to": "rk_roost_lakeshore",
+      "label": "Out through the door",
+      "spawn": "from_dovecote",
+      "when": "flag.dovecote_roost == 3"
+    },
+    {
+      "id": "ladder_down",
+      "cell": [
+        35,
+        3
+      ],
+      "to": "rk_dovecote_r1",
+      "label": "Down the ladder to the parcel store",
+      "spawn": "from_r2"
+    }
+  ],
+  "spawns": {
+    "default": [
+      12,
+      13
+    ],
+    "from_r2": [
+      12,
+      4
+    ],
+    "roost_default": [
+      34,
+      15
+    ],
+    "roost_from_r1": [
+      35,
+      4
+    ]
+  }
 }
