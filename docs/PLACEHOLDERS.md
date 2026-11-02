@@ -54,7 +54,7 @@ The engine handbook's list of the host contract is `addons/dnd_core/docs/handboo
 The engine's wave 0 (2026-10-30) made the travel map's painting, the weather file, the reading's deck and card art, the arena's
 fight, the level cap and the calendar campaign settings (`data/campaign.json`, the engine's `docs/reference/contracts/campaign.md`),
 so this game names its own: `art/ui/map/wickermoor_hollow.png` (painted in look P, 2026-11-01, from the layout sketch tools/art/travel_sketch.py, graded to moonlight; the places' `pos` were nudged to the painting), `data/weather/wickermoor_hollow.json`,
-the deck folder `data/tarot/` and `art/tarot/` (neither exists yet: G1 and Lane C), the level cap 13 (20 once `flag.moonfall_begun`, a
+the deck folder `data/tarot/` and its 22 card pictures in `art/tarot/` (`tools/art/tarot_cards.py`), the level cap 13 (20 once `flag.moonfall_begun`, a
 name G1 may change), boons to 24, and the six named hours of an eternal night (recharges at the Dusk Hour). The engine no longer names
 a game class `Tarokka` or `TutorialSession` (the two stubs are gone), `data/schedule/` is optional, `vistas.json` needs no castle or
 lake, and the long-rest visit names are `LongRest.VISIT` and `waits_on_visit`. The arena keeps the id `arena_wolves_and_zombies` for
