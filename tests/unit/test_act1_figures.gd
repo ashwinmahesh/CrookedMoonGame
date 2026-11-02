@@ -3,12 +3,15 @@ extends TestCase
 ## or a shared body in a colour and size of its own (docs: the vault's "Act 1 NPC Figures Map"). The ones still waiting for a model of
 ## their own are listed here, so a new gray-box person turns this test red and a finished one just shortens the list.
 
-const FINISHED: Array[String] = ["doris_squire", "wendel_somerton", "mori_shade", "weston_murdoch", "mrs_oakum", "theodora_mayville", "dani_jenkin", "gilly_jenkin", "crooked_man", "conductor_understudy", "mrs_calloway"]
+const FINISHED: Array[String] = ["doris_squire", "wendel_somerton", "mori_shade", "weston_murdoch", "mrs_oakum", "theodora_mayville", "dani_jenkin", "gilly_jenkin", "crooked_man", "sally_lockwood", "conductor_understudy", "mrs_calloway"]
 const REUSED: Array[String] = ["pip_oakum", "amos_dority", "bess_crumley", "brother_elias", "charlotte_murdoch", "gaston_doray", "george_hickock", "howie_butterman", "peter_murdoch", "sgt_gaunt", "rk_mob_b", "rk_posse_a", "rk_mob_c", "rk_posse_b", "rk_mob_a", "algernon_heyling", "arthur_lockwood", "branden_wells", "brother_spore", "cecil_marl", "eddie_wainwright", "granny_orla_pike", "haldor_vane", "hester_bolton", "jay_wells", "lark_wells", "lavender_aster", "lilian_vale", "margery_heyling", "marta_dunn", "myrtle_somerton", "olwen_pike", "ottilie_reed", "petunia_lockwood", "pim_fenwick", "robin_wells", "ronald_wainwright", "rose_somerton", "sheridan_heyling", "sofia_roderick", "rk_mob_round", "tobias_dibbs", "ulf_harga", "victoria_wainwright", "violet_aster", "wilma_wainwright", "wren_wells", "wynn_carter", "zachariah_wainwright"]
 const STILL_GRAY: Array[String] = ["geneva_fairchild", "morgan", "sister_rain", "old_rusty", "holly_aster", "jeremiah_stover", "marianna_grey", "tamsin_ledger", "baltus_tolliver", "barnaby_pennywhistle", "finneas_trout", "hilda_brom", "ambrose_quill", "eleanor_heyling", "joan_murdoch", "melina", "randall_graham", "siv_harga", "solomon_roderick", "thomasin_ardor", "alda_farnum", "jean_myriel", "peeping_albert", "walter_jenkin", "beatrice_wells", "oswick_frey", "lottery_stranger", "wisp"]
-## The finished models made without a head (their head sheets have not become models yet): each wears the neutral clay head.
+## The finished models made without a head wear a head of their own (a Tripo head model, art/figures/heads/<id>_head.glb) fitted to their
+## own neck; Mrs. Oakum's head model has not come yet, so she wears a head painted from her own head sheet (tools/art/face_heads.py). Sister Rain's head is in, her body is held.
 const HEADLESS: Array[String] = ["doris_squire", "wendel_somerton", "mori_shade", "weston_murdoch", "mrs_oakum", "theodora_mayville",
-	"dani_jenkin", "gilly_jenkin", "crooked_man"]
+	"dani_jenkin", "gilly_jenkin", "crooked_man", "sally_lockwood"]
+const WITH_HEAD_MODEL: Array[String] = ["doris_squire", "wendel_somerton", "mori_shade", "weston_murdoch", "theodora_mayville",
+	"dani_jenkin", "gilly_jenkin", "crooked_man", "sally_lockwood"]
 
 
 func _sprite_of(id: String) -> String:
@@ -29,14 +32,30 @@ func test_each_finished_model_is_in_the_manifest_rigged_and_drawn() -> void:
 		root.free()
 
 
-func test_the_bodies_made_without_a_head_wear_the_clay_head() -> void:
-	var part := FigureModels.part("clay_head")
-	assert_true(ResourceLoader.exists(ArtPaths.of(str(part.get("file", "")))), "the clay head is there")
-	assert_eq(str(part.get("fit", "")), "head", "fitted to each body's own neck")
+func test_the_bodies_made_without_a_head_wear_a_head() -> void:
+	var clay := FigureModels.part("clay_head")
+	assert_true(ResourceLoader.exists(ArtPaths.of(str(clay.get("file", "")))), "the clay head is there")
+	assert_eq(str(clay.get("fit", "")), "head", "fitted to each body's own neck")
 	for id: String in HEADLESS:
-		var info := FigureModels.info(id)
-		assert_true((info.get("layers", []) as Array).has("clay_head") or (info.get("layers", []) as Array).has("face_" + id), "%s wears a head" % id)
-		assert_true(float((info.get("bones", {}) as Dictionary).get("Head", 1.0)) < 0.05, "and its own stub of a head is shrunk away")
+		var layers := FigureModels.info(id).get("layers", []) as Array
+		var wanted := id + "_head" if id in WITH_HEAD_MODEL else "face_" + id
+		assert_true(layers.has(wanted), "%s wears %s" % [id, wanted])
+		assert_true(float((FigureModels.info(id).get("bones", {}) as Dictionary).get("Head", 1.0)) < 0.05, "and its own stub of a head is shrunk away")
+
+
+func test_the_head_models_are_fitted_parts_with_their_pictures() -> void:
+	var ids: Array[String] = WITH_HEAD_MODEL.duplicate()
+	ids.append("sister_rain")
+	for id: String in ids:
+		var part := FigureModels.part(id + "_head")
+		assert_true(ResourceLoader.exists(ArtPaths.of(str(part.get("file", "")))), "%s's head model is there" % id)
+		assert_eq(str(part.get("bone", "")), "Head", "%s's head is held on the head bone" % id)
+		assert_eq(str(part.get("fit", "")), "head", "%s's head is fitted to its body's neck" % id)
+		assert_true(float(part.get("size", 0.0)) > 1.0, "%s's head is sized up to hide the body's neck stub" % id)
+		var pic := str((part.get("close_up", {}) as Dictionary).get("albedo", ""))
+		assert_true(pic != "" and ResourceLoader.exists(ArtPaths.of(pic)), "%s's head has its close-up picture" % id)
+	assert_false(FigureModels.has("sister_rain"), "Sister Rain's body is still held: she keeps the walker with her head waiting")
+	assert_eq(float(FigureModels.info("sally_lockwood").get("scale", 1.0)), 0.5, "Sally the doll is small")
 
 
 func test_the_reused_people_wear_a_shared_body_in_their_own_colour_and_size() -> void:
