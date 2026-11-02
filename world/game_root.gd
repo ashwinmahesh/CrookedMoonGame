@@ -230,6 +230,7 @@ func enter_location(location_id: String, spawn: String, sneaking: bool = false) 
 	view.combat_ended.connect(_after_combat)
 	view.arrive_sneaking = sneaking
 	add_child(view)
+	view.add_child(TalkMarks.create(view))   # a speech bubble over whoever waits to be talked to (data/talk_marks.json)
 	PlacePreload.keep_foes(view)   # the foes of its fights read on worker threads while the party is here
 	plan_bar.view = view
 	hud.show_location(view)
