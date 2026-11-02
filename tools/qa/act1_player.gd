@@ -645,6 +645,7 @@ func _do(step: Array, here: String) -> void:
 	var st := GameState.story
 	var before := _stage_key()
 	var rec := {"place": here, "step": "%s %s" % [kind, target], "frame": frame}
+	printerr("qa: step %s %s in %s at frame %d" % [kind, target, here, frame])   # on stderr, so it lands among the engine's own errors in the log
 	await _until(_idle, 1200)
 	var v: LocationView = root.get("view")
 	_listen(v)
