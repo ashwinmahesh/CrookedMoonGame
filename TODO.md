@@ -12,7 +12,6 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 | The full 3D grid build, lane 2: layered places in Act I | In progress | [Build layered places in Act I](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo9STS4ZhgYZszF24W7LcF77) |
 | The full 3D grid build, lane 3: layered places in Act II | In progress | [Build layered places in Act II](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo4fZ26frPet33HksJfHHDy9) |
 | The full 3D grid build, lane 4: fights work across floors | In progress | [Make fights work across floors](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoHbeq9yV8Dzht48g6u97Fnc) |
-| An NPC in Wickermoor Hollow who resurrects dead heroes for a price (Ashwin, 2026-11-02) | In progress | [Make Wickermoor and the Crooked House playable](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoPPR4UsoGK7bQTEnN8LobsA) |
 | Act III playable end to end (Ashwin, 2026-11-02) | On hold: starts once the full 3D grid build is done (Ashwin's order) | [Make Act III playable end to end](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoJ6oZfYVoFQJfnjMy151uen) |
 | Weapons and pack animations (Rook's switch to pack clips waits on Ashwin's verdict) | In progress | [Weapons/pack animations](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoWHuBM7pdpdhmz86LEs2vUs) |
 | Cel cutscene stills (docs-cutscenes-cel 28081e80 queued) | In progress | [Look/title](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoCCPX3moU1VgdtYuw77oSqT) |
@@ -48,6 +47,7 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **An NPC in Wickermoor Hollow raises dead heroes for a price** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoPPR4UsoGK7bQTEnN8LobsA)): Mori Shade at the funeral home, 100 gp per party level, open 07:00-23:00. (Engine b6ae441d, game fdff89cf to 966d2eef.) Do not rerun `tools/content/build_wickermoor.py` over data/npcs: it is out of date and would reset the sprite ids.
 - **The 12 subclass spell swaps**: Ashwin reviewed and approved the swaps that replace spells which left the game (2026-11-02).
 - **Free camera tilt, WASD camera and the free-camera toggle** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoSzp46E7B1MJ2tH6jYEQUCg)): the camera tilts from 10 to 85 degrees (fights and indoors stay at 25 or more), WASD turns and tilts it while the arrow keys move the party, and the Y key or a bar button toggles a free camera. (Engine 1a8eb54d, game 6a46ed4c.)
 - **The Crooked Moon's plants rebuilt**: the 12 Blender plants read as real up close on a second leaf atlas and Poly Haven CC0 bark (credited), with the engine's textured-bark and `leaf2` paths off by default. (Engine d2d5a171, game 00d52b77.)
