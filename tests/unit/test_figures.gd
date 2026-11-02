@@ -254,3 +254,22 @@ func test_the_free_models_stay_within_fifty_thousand_triangles() -> void:
 		var tris := _triangles(model)
 		assert_between(float(tris), 1.0, float(TRIANGLE_LIMIT), "%s: %d triangles" % [id, tris])
 		model.free()
+
+
+## The villager is slimmed from a Superhero build with `bones` (FigureBones): every bone it names is on the rig, and the hair
+## the outfits wear is a skinned layer that finds its bones.
+func test_the_villager_is_slimmed_by_bones_that_exist_and_wears_hair() -> void:
+	var bones := (_entries()["villager_gray"] as Dictionary).get("bones", {}) as Dictionary
+	assert_true(bones.size() >= 6, "shoulders, chest, forearms and hands are scaled")
+	var fig := DirectionalSprite.create(DirectionalSprite.frames_for("villager_brown"), CombatToken.height_for("villager_brown")) as ModelFigure
+	add_child(fig)
+	var skeleton := fig.model.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
+	for bone: String in bones:
+		assert_true(FigureBones.bone_named(skeleton, bone) >= 0, "the rig has the %s bone to scale" % bone)
+	assert_true("hair_parted" in fig.worn_parts(), "the brown villager wears its hair")
+	for hair: String in ["hair_parted", "hair_buzzed"]:
+		assert_true(FigureModels.has_part(hair), "%s: its model is in the repo" % hair)
+		var model := FigureModels.part_scene(hair).instantiate()
+		assert_between(float(_triangles(model)), 1.0, float(TRIANGLE_LIMIT), "%s stays under the triangle limit" % hair)
+		model.free()
+	fig.free()

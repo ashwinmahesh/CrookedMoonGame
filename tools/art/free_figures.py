@@ -12,9 +12,10 @@ art/sourced/<pack>/. This script makes the figures' source files from them under
   villager_red_albedo.png are two outfits painted on the same UVs, from the skin weights (tunic, sleeves, trousers,
   boots, hair), for manifest entries that lay them over the body (`base` + `albedo_source`).
 - weapons/<id>.glb: the held weapons, from Quaternius's Modular Weapons Pack (OBJ) and KayKit's Adventurers (glTF).
+- hair/<id>.glb: two of the pack's hairstyles (skinned to the head bone, in the body's own space), worn as skinned layers.
 - warhorse.glb: Quaternius's Horse with its clips listed once (the pack's GLB repeats each with an armature prefix).
 
-  /Users/.../venv/bin/python tools/art/free_figures.py [villager|weapons|warhorse] ...   (Pillow and numpy for the outfits)
+  /Users/.../venv/bin/python tools/art/free_figures.py [villager|weapons|hair|warhorse] ...   (Pillow and numpy for the outfits)
 """
 import copy, json, math, struct, sys
 from pathlib import Path
@@ -33,6 +34,8 @@ UAL2 = SRC / 'quaternius_universal_animation_library_2/pack/Universal Animation 
 WEAPONS = SRC / 'quaternius_modular_weapons_pack/pack/Medieval Weapons Pack - Sept 2018/OBJ'
 KAYKIT = SRC / 'kaykit_adventurers/pack/KayKit_Adventurers_2.0_FREE/Assets/gltf'
 HORSE = SRC / 'quaternius_ultimate_animated_animal_pack/glb/Horse.glb'
+HAIR_DIR = UBC.parent / 'Hairstyles/Rigged to Head Bone/glTF (Godot -Unreal)'
+HAIR = {'hair_parted': 'Hair_SimpleParted', 'hair_buzzed': 'Hair_Buzzed'}
 
 # The clips the villager keeps from the two Universal Animation Libraries (each library's 43 would be 11 MB of tracks).
 CLIPS_1 = ['Idle_Loop', 'Walk_Loop', 'Jog_Fwd_Loop', 'Sprint_Loop', 'Sword_Attack', 'Sword_Idle', 'Spell_Simple_Shoot',
@@ -435,6 +438,27 @@ def build_weapons() -> None:
         print(f'{dst}: {triangles(doc)} triangles, size {[round(hi[a] - lo[a], 3) for a in range(3)]}, min {[round(x, 3) for x in lo]}')
 
 
+# --- Hair -------------------------------------------------------------------------------------------------------------------
+
+def build_hair() -> None:
+    """The hairstyles as GLBs with their base-colour picture folded in; the normal map is dropped (the figure shader does
+    not use it, and tools/art/figures.py leaves unused pictures out anyway)."""
+    for pid, stem in HAIR.items():
+        doc, binary = read_gltf(HAIR_DIR / f'{stem}.gltf')
+        for n in doc['nodes']:   # the hands are RightHand and LeftHand on the villager, so the hair's skin binds to those names
+            n['name'] = RENAMES.get(n.get('name', ''), n.get('name', ''))
+        mat = doc['materials'][0]
+        mat.pop('normalTexture', None)
+        tex = doc['textures'][mat['pbrMetallicRoughness']['baseColorTexture']['index']]
+        image = doc['images'][tex['source']]
+        doc['images'], doc['textures'] = [image], [{'source': 0, **({'sampler': tex['sampler']} if 'sampler' in tex else {})}]
+        mat['pbrMetallicRoughness']['baseColorTexture']['index'] = 0
+        out = OUT / 'hair' / f'{pid}.glb'
+        doc.pop('buffers', None)
+        write_glb(out, doc, binary)
+        print(f'{out}: {triangles(doc)} triangles')
+
+
 # --- The warhorse ----------------------------------------------------------------------------------------------------------
 
 def build_warhorse() -> None:
@@ -462,12 +486,14 @@ def build_warhorse() -> None:
 
 
 def main(argv: list) -> int:
-    which = argv or ['villager', 'weapons', 'warhorse']
+    which = argv or ['villager', 'weapons', 'hair', 'warhorse']
     OUT.mkdir(parents=True, exist_ok=True)
     if 'villager' in which:
         build_villager()
     if 'weapons' in which:
         build_weapons()
+    if 'hair' in which:
+        build_hair()
     if 'warhorse' in which:
         build_warhorse()
     return 0
