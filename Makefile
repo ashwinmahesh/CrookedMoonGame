@@ -26,7 +26,7 @@ FRESH   := if [ ! -f $(STAMP) ] || [ -n "$$(find . \( -path ./.godot -o -path ./
 ## It also brings the engine core up to the commit this checkout names first (tools/core_sync.sh): git pull doesn't.
 PLAYFRESH := export GODOT_SLOTS=off; tools/core_sync.sh; $(FRESH)
 
-.PHONY: run run-main arena smoke import test lint validate ci check lfs-quiet palette capture sketch hooks golden-saves tools-test voice-wire
+.PHONY: run run-main arena anim-demo smoke import test lint validate ci check lfs-quiet palette capture sketch hooks golden-saves tools-test voice-wire
 
 ## make run plays the edge build (tools/edge/edge.py): main plus every lane branch that has been handed off but not merged
 ## yet, assembled in a throwaway worktree (CrookedMoonGame-edge, in the SSD lanes' image), so lane work can be tried as soon
@@ -82,6 +82,12 @@ tools-test:
 arena:
 	@$(PLAYFRESH)
 	$(NOFOCUS) res://scenes/combat/arena.tscn < /dev/null
+
+## The animation speed bench: heroes and enemies walking, swinging, casting, flinching and falling, with a slider that sets
+## how fast every figure animates (data/campaign.json `anim_speed`, WalkPace.anim). Skeletons only by default.
+anim-demo:
+	@$(PLAYFRESH)
+	$(NOFOCUS) res://tools/anim_speed/anim_speed_demo.tscn < /dev/null
 
 ## Boots the game, or SCENE=res://..., headless for FRAMES frames (600); fails on errors. Agents check with this.
 smoke:
