@@ -8,7 +8,7 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 |---|---|---|
 | Portraits for the 144 missing NPCs: 148 photoreal portrait jobs are queued at normal priority (the image server is paused) | In progress (queued, waiting on the server) | [Portraits](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoMVcF4yx8zrzvExbupWQsVL) |
 | Audit all visual effects: each gets a selection room and its own colour, size and speed settings (melee hit effects are landed; the other effects are next) | In progress | [Melee hit effects](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoHUCbLptUKMrnux7PbW3KTT) |
-| The full 3D grid build, lane 1: the grid rules (Ashwin's go, 2026-11-02; four parallel lanes, this comes first) | In progress | [Build the full 3D grid](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoEP6W92Q8En8FU5Ua72qWcK) |
+| The full 3D grid build, lane 1: the grid rules (Ashwin's go, 2026-11-02; four parallel lanes, this comes first) | In progress (phase 1, floors and layers in three dimensions, is landed) | [Build the full 3D grid](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoEP6W92Q8En8FU5Ua72qWcK) |
 | The full 3D grid build, lane 2: layered places in Act I | In progress | [Build layered places in Act I](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo9STS4ZhgYZszF24W7LcF77) |
 | The full 3D grid build, lane 3: layered places in Act II | In progress | [Build layered places in Act II](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo4fZ26frPet33HksJfHHDy9) |
 | The full 3D grid build, lane 4: fights work across floors | In progress | [Make fights work across floors](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoHbeq9yV8Dzht48g6u97Fnc) |
@@ -47,6 +47,7 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **Full 3D grid rules, phase 1** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoEP6W92Q8En8FU5Ua72qWcK)): the engine's grid has floors and layers in three dimensions, with deviations for railings, flying and climbing between floors, and areas across floors, giving lanes B1 and C a base. (Engine e7049dad, game 6debb5dd.)
 - **An NPC in Wickermoor Hollow raises dead heroes for a price** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoPPR4UsoGK7bQTEnN8LobsA)): Mori Shade at the funeral home, 100 gp per party level, open 07:00-23:00. (Engine b6ae441d, game fdff89cf to 966d2eef.) Do not rerun `tools/content/build_wickermoor.py` over data/npcs: it is out of date and would reset the sprite ids.
 - **The 12 subclass spell swaps**: Ashwin reviewed and approved the swaps that replace spells which left the game (2026-11-02).
 - **Free camera tilt, WASD camera and the free-camera toggle** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoSzp46E7B1MJ2tH6jYEQUCg)): the camera tilts from 10 to 85 degrees (fights and indoors stay at 25 or more), WASD turns and tilts it while the arrow keys move the party, and the Y key or a bar button toggles a free camera. (Engine 1a8eb54d, game 6a46ed4c.)
