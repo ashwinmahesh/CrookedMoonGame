@@ -7,8 +7,9 @@
 - What was received: Fantasy Props MegaKit[Source].zip (573 MB), found in ~/Downloads
 - What is in it: all the props (the free Standard copy holds a part) in glTF, FBX and OBJ, the textures in Blends/, the .blends and engine projects. Replaces the free Standard copy (quaternius_fantasy_props_megakit), which stays beside it.
 - Kept in the repo (files in use, untouched, plus the licence):
-  - none yet (only the licence and this note are kept here)
+  - none: the pack stays on the SSD (its textures are 2K to 4K); what the game uses is derived from it (see below)
 - The whole pack, untouched: ~/Documents/ASH-SSD/CrookedMoon/assets/sourced/quaternius_fantasy_props_megakit_source/ (zip in zips/, extracted in pack/). The original zip also stays where Ashwin put it (~/Documents/AssetPacks, or ~/Downloads for the props).
+- Derived files the game uses: art/models/sourced/fp_*.glb (21 props: barrel, crates, bucket, anvil, bench, vegetable stall, wagon, torch, table, chair, stool, bookcase, bottle shelf, potion, candles, chest, bed, books, rug, cauldron), listed in art/models/manifest.json and art/sprites/props/catalog.json. No mace, scimitar or sickle in this pack.
 - For: Props for exteriors and interiors: barrels, crates, lanterns, tables, shelves, books, potions and the weapons.
 
 Kept untouched (CLAUDE.md, Art): changes for the game are made on copies elsewhere, never in this folder.

@@ -7,8 +7,9 @@
 - What was received: quaternius_Universal Base Characters[Source].zip (630 MB)
 - What is in it: all six bodies (Superhero, Regular and Teen, male and female) as Full Body, Upper Body and Only Head glTF/FBX, 20 hairstyles (male and female, teen variants), light and dark skin textures, rigged .blends and engine projects. Replaces the free Standard copy (quaternius_universal_base_characters, Superhero only), which stays beside it.
 - Kept in the repo (files in use, untouched, plus the licence):
-  - none yet (only the licence and this note are kept here)
+  - none: the pack stays on the SSD (its textures are 2K to 4K); what the game uses is derived from it (see below)
 - The whole pack, untouched: ~/Documents/ASH-SSD/CrookedMoon/assets/sourced/quaternius_universal_base_characters_source/ (zip in zips/, extracted in pack/). The original zip also stays where Ashwin put it (~/Documents/AssetPacks, or ~/Downloads for the props).
+- Derived files the game uses: art/figures/people/villager_*.glb (six villagers: Regular and Teen heads or body, hair, built by tools/art/free_figures.py), with the Modular Character Outfits and the Universal Animation Libraries
 - For: The villagers' bodies (Regular and Teen), and the heads the modular outfits go over.
 
 Kept untouched (CLAUDE.md, Art): changes for the game are made on copies elsewhere, never in this folder.

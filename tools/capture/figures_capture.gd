@@ -8,7 +8,7 @@ extends Node
 ## (squares toward the camera and to its right); --follow=<art id> and --near=<distance>: the camera close on one
 ## figure; --ids=a,b: only those figures in the row; --each=dagger,spear: figure number n (the ids in order) holds the nth
 ## item in its main hand, round again after the last, - for none (a row of figures, one weapon each), and --off= the same for
-## the off hand; --bands, --ink, --flatten, --vivid, --floor, --rim: the figures' look
+## the off hand; --props=fp_barrel,fp_table: 3D props (art ids) in rows in front of them (--props-width squares a row); --bands, --ink, --flatten, --vivid, --floor, --rim: the figures' look
 ## (Look.figure_settings); --hold=hooded_lantern@off_hand,torch@main_hand: what the row holds (a figure whose entry
 ## shows `gear` wears its part); --only=reel steps the row through idle, walk, run, attack and talk at --fps (12) frames
 ## a second and then orbits it, a frame per shot (<out>_reel_<nnnn>.png, for a GIF); --only=place,lineup,turns,poses picks shots, and --only=clip --clip=slash freezes the row at
@@ -267,7 +267,45 @@ func _lineup(view: LocationView) -> Array:
 		view.add_child(tok)
 		tok.face(Vector2(toward.x, toward.z), false)
 		out.append(tok)
+	_props(view, mid + toward * 1.1, right)
 	return out
+
+
+## --props=fp_barrel,fp_crate: those 3D props (art ids the catalog maps to a model) in a row behind the figures, left to
+## right, each as wide as its model, standing on the board's ground there.
+func _props(view: LocationView, at: Vector3, right: Vector3) -> void:
+	var ids := _arg("props", "").split(",", false)
+	if ids.is_empty():
+		return
+	# Rows no wider than --props-width (7 squares), each one a little further back.
+	var toward := -(view.rig.ground_basis()[0] as Vector3)
+	var limit := float(_arg("props-width", "7"))
+	var rows: Array = [[]]
+	var row_width := 0.0
+	for art: String in ids:
+		var size := (ModelPiece.manifest().get(art, {}) as Dictionary).get("size", [0.6, 0.6, 0.6]) as Array
+		var width := maxf(float(size[0]), float(size[2])) + 0.3
+		if row_width + width > limit and not (rows[-1] as Array).is_empty():
+			rows.append([])
+			row_width = 0.0
+		(rows[-1] as Array).append([art, width])
+		row_width += width
+	for r in rows.size():
+		var total := 0.0
+		for e: Array in rows[r]:
+			total += float(e[1])
+		var x := -total / 2.0
+		for e: Array in rows[r]:
+			var model := str(e[0])
+			if ModelPiece.has_model(model):
+				var piece := ModelPiece.instance(model)
+				var pos := at + toward * (1.5 * r) + right * (x + float(e[1]) / 2.0)
+				var cell := Vector2i(floori(pos.x), floori(pos.z))
+				piece.position = Vector3(pos.x, view.board.cell_center(cell).y, pos.z)
+				view.add_child(piece)
+			else:
+				push_warning("figures_capture: no 3D model for %s" % model)
+			x += float(e[1])
 
 
 ## What each figure's model holds (headless): its clips by role, the walk's stride and footfalls, the attack's fastest

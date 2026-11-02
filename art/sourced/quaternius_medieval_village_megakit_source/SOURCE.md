@@ -7,8 +7,9 @@
 - What was received: quaternius_Medieval Village MegaKit[Source].zip (709 MB)
 - What is in it: the modular walls, roofs, floors, stairs, doors, windows and props in glTF (Godot), glTF, FBX and OBJ, the textures, the .blend and engine projects. Replaces the free Standard copy (quaternius_medieval_village_megakit), which stays beside it.
 - Kept in the repo (files in use, untouched, plus the licence):
-  - none yet (only the licence and this note are kept here)
+  - none: the pack stays on the SSD (its textures are 2K to 4K); what the game uses is derived from it (see below)
 - The whole pack, untouched: ~/Documents/ASH-SSD/CrookedMoon/assets/sourced/quaternius_medieval_village_megakit_source/ (zip in zips/, extracted in pack/). The original zip also stays where Ashwin put it (~/Documents/AssetPacks, or ~/Downloads for the props).
+- Derived files the game uses: none: the village pieces are not used yet (a thread of their own builds the towns on them)
 - For: The base components for towns, cities and buildings, interiors and exteriors (another thread is rebuilding the towns on it).
 
 Kept untouched (CLAUDE.md, Art): changes for the game are made on copies elsewhere, never in this folder.

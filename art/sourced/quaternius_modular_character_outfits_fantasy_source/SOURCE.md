@@ -7,8 +7,9 @@
 - What was received: quaternius_Modular Character Outfits - Fantasy[Source].zip (759 MB)
 - What is in it: 12 outfits (Peasant, Noble, Knight, Ranger, Wizard, male and female) in 62 modular parts, glTF and FBX, three colour textures each, made for the Universal Base Characters (only the head of the body is needed under them).
 - Kept in the repo (files in use, untouched, plus the licence):
-  - none yet (only the licence and this note are kept here)
+  - none: the pack stays on the SSD (its textures are 2K to 4K); what the game uses is derived from it (see below)
 - The whole pack, untouched: ~/Documents/ASH-SSD/CrookedMoon/assets/sourced/quaternius_modular_character_outfits_fantasy_source/ (zip in zips/, extracted in pack/). The original zip also stays where Ashwin put it (~/Documents/AssetPacks, or ~/Downloads for the props).
+- Derived files the game uses: art/figures/people/villager_man, villager_woman, villager_elder, villager_granny, villager_merchant (Peasant and Noble outfits in three colours)
 - For: The villagers' clothes.
 
 Kept untouched (CLAUDE.md, Art): changes for the game are made on copies elsewhere, never in this folder.

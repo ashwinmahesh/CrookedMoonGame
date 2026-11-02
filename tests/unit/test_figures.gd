@@ -225,53 +225,69 @@ func test_the_free_weapons_are_held_on_the_right_hand_and_shown_for_their_items(
 		var ch := Pregens.build("rook_coldwake", 1)
 		ch.add_item(item)
 		ch.equip(item, "main_hand")
-		for art: String in ["villager_gray", "rook_coldwake", "the_vagrant"]:
+		for art: String in ["villager_man", "rook_coldwake", "the_vagrant"]:
 			assert_true(part in FigureModels.gear_for(art, ch), "%s wears the %s for a %s" % [art, part, item])
 
 
-func test_the_villager_rig_has_the_bones_the_parts_and_heads_look_for() -> void:
-	var fig := DirectionalSprite.create(DirectionalSprite.frames_for("villager_gray"), CombatToken.height_for("villager_gray")) as ModelFigure
-	add_child(fig)
-	var skeletons := fig.model.find_children("*", "Skeleton3D", true, false)
-	assert_eq(skeletons.size(), 1, "one skeleton")
-	var skeleton := skeletons[0] as Skeleton3D
-	for bone: String in ["RightHand", "LeftHand", "Head"]:
-		assert_true(FigureModels.bone(skeleton, bone) >= 0, "the rig has a %s bone" % bone)
-	fig.wear(["dagger", "dagger@off"])
-	assert_eq(fig.worn_parts().size(), 2, "a dagger in each hand is worn")
-	fig.free()
+const VILLAGERS: Array[String] = ["villager_man", "villager_woman", "villager_elder", "villager_granny", "villager_merchant", "villager_teen"]
 
 
-func test_the_villager_outfits_lie_over_one_gray_body() -> void:
-	for id: String in ["villager_brown", "villager_red"]:
-		var entry := _entries()[id] as Dictionary
-		assert_eq(str(entry.get("base", "")), "villager_gray", "%s wears the gray body" % id)
-		assert_true(ArtPaths.exists(str(entry.get("albedo", ""))), "%s: its paint is in the repo" % id)
-		assert_true(FigureModels.has(id), "%s: has its model through the base" % id)
+func test_the_villagers_rigs_have_the_bones_the_parts_and_heads_look_for() -> void:
+	for id: String in VILLAGERS:
+		var fig := DirectionalSprite.create(DirectionalSprite.frames_for(id), CombatToken.height_for(id)) as ModelFigure
+		assert_true(fig != null, "%s: drawn as a 3D figure" % id)
+		add_child(fig)
+		var skeletons := fig.model.find_children("*", "Skeleton3D", true, false)
+		assert_eq(skeletons.size(), 1, "%s: one skeleton" % id)
+		for bone: String in ["RightHand", "LeftHand", "Head"]:
+			assert_true(FigureModels.bone(skeletons[0] as Skeleton3D, bone) >= 0, "%s: the rig has a %s bone" % [id, bone])
+		for role: String in ["idle", "walk", "run", "attack", "cast", "hurt", "die", "talk", "greet"]:
+			assert_true(fig.has_role(role), "%s: has a clip to %s" % [id, role])
+		fig.wear(["dagger", "dagger@off"])
+		assert_eq(fig.worn_parts().size(), 2, "%s: a dagger in each hand is worn" % id)
+		fig.free()
+
+
+## Each villager is its own mix of body, outfit, colour and hair, and wears a modular outfit (the teen, painted clothes).
+func test_the_villagers_are_six_different_people_with_clothes_and_hair() -> void:
+	var seen: Array[String] = []
+	for id: String in VILLAGERS:
+		assert_true(_entries().has(id) and FigureModels.has(id), "%s: a figure with its model" % id)
+		var model := (load(ArtPaths.of(str((_entries()[id] as Dictionary)["file"]))) as PackedScene).instantiate()
+		var meshes := model.find_children("*", "MeshInstance3D", true, false)
+		assert_true(meshes.size() >= 2, "%s: a body or head, clothes if any, and hair" % id)
+		var key := ",".join(meshes.map(func(m: Node) -> String: return str(m.name)))
+		assert_false(key in seen, "%s: a mix of its own" % id)
+		seen.append(key)
+		model.free()
 
 
 func test_the_free_models_stay_within_fifty_thousand_triangles() -> void:
-	for id: String in ["villager_gray", "warhorse"]:
+	for id: String in VILLAGERS + ["warhorse"]:
 		var model := (load(ArtPaths.of(str((_entries()[id] as Dictionary)["file"]))) as PackedScene).instantiate()
 		var tris := _triangles(model)
 		assert_between(float(tris), 1.0, float(TRIANGLE_LIMIT), "%s: %d triangles" % [id, tris])
 		model.free()
 
 
-## The villager is slimmed from a Superhero build with `bones` (FigureBones): every bone it names is on the rig, and the hair
-## the outfits wear is a skinned layer that finds its bones.
-func test_the_villager_is_slimmed_by_bones_that_exist_and_wears_hair() -> void:
-	var bones := (_entries()["villager_gray"] as Dictionary).get("bones", {}) as Dictionary
-	assert_true(bones.size() >= 6, "shoulders, chest, forearms and hands are scaled")
-	var fig := DirectionalSprite.create(DirectionalSprite.frames_for("villager_brown"), CombatToken.height_for("villager_brown")) as ModelFigure
-	add_child(fig)
-	var skeleton := fig.model.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
-	for bone: String in bones:
-		assert_true(FigureBones.bone_named(skeleton, bone) >= 0, "the rig has the %s bone to scale" % bone)
-	assert_true("hair_parted" in fig.worn_parts(), "the brown villager wears its hair")
-	for hair: String in ["hair_parted", "hair_buzzed"]:
-		assert_true(FigureModels.has_part(hair), "%s: its model is in the repo" % hair)
-		var model := FigureModels.part_scene(hair).instantiate()
-		assert_between(float(_triangles(model)), 1.0, float(TRIANGLE_LIMIT), "%s stays under the triangle limit" % hair)
+## The Fantasy Props MegaKit props (art ids fp_*, tools/art/free_figures.py): each is a model in the game's manifest, mapped to
+## its art id by the props catalog, kept under the triangle limit, with a 2D piece to fall back on.
+func test_the_fantasy_props_are_wired_into_the_props_catalog() -> void:
+	var catalog := ArtPaths.json("art/sprites/props/catalog.json")
+	var mapped := (catalog.get("models3d", {}) as Dictionary).get("art", {}) as Dictionary
+	var fallbacks := ArtPaths.json("art/sprites/props/manifest.json").get("props", {}) as Dictionary
+	var ids: Array[String] = []
+	for id: String in ModelPiece.manifest():
+		if id.begins_with("fp_"):
+			ids.append(id)
+	assert_true(ids.size() >= 20, "twenty-odd props: %d" % ids.size())
+	for id in ids:
+		assert_true(ModelPiece.has_model(id), "%s: its model is in the repo" % id)
+		assert_eq(str(mapped.get(id, "")), id, "%s: the catalog names its model" % id)
+		assert_true(fallbacks.has(id), "%s: has a 2D piece to fall back on" % id)
+		var model := ModelPiece.instance(id)
+		var tris := _triangles(model)
+		assert_between(float(tris), 1.0, float(TRIANGLE_LIMIT), "%s: %d triangles" % [id, tris])
 		model.free()
-	fig.free()
+	for id: String in ["fp_barrel", "fp_crate", "fp_table", "fp_chair", "fp_bookcase", "fp_candles", "fp_potion", "fp_veg_stall"]:
+		assert_true(id in ids, "%s is among them" % id)
