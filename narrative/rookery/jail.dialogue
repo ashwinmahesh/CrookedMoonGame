@@ -46,7 +46,9 @@ doris_squire [angry]: No. Keep your tongue behind your teeth till the hour comes
 set jail_escape = "spell"
 set jail_free
 jail release
+if not quest.roving_rookery >= hysteria
 quest roving_rookery hysteria
+endif
 Narrator: The lilac gleam fades from her eyes like blown candle smoke. She sniffs the forged letter on her desk, mutters about foul pigeon ink, and turns the heavy iron key in your lock.
 doris_squire [weary]: Get out of here, quick, before that fog settles back in my skull. I'm going to be mighty poor at forgetting I did this.
 -> END
@@ -66,14 +68,18 @@ Narrator: The iron groans under your hands but holds fast in the oak. Down the l
 set jail_escape = "picks"
 set jail_free
 jail release
+if not quest.roving_rookery >= hysteria
 quest roving_rookery hysteria
+endif
 Narrator: The heavy tumblers yield with a greased click, and you tuck the bent iron picks back into your boot.
 -> END
 ~ out_bars
 set jail_escape = "bars"
 set jail_free
 jail release
+if not quest.roving_rookery >= hysteria
 quest roving_rookery hysteria
+endif
 Narrator: Wrought iron shrieks, dry oak splinters like kindling, and the crooked cell door swings wide.
 -> END
 
@@ -90,7 +96,9 @@ Narrator: The iron ring scrapes across the wood with a tinny jingle, then catche
 set jail_escape = "keys"
 set jail_free
 jail release
+if not quest.roving_rookery >= hysteria
 quest roving_rookery hysteria
+endif
 Narrator: The heavy ring whispers across the floorboards into your palm, and the padlock turns as smoothly as any tavern latch.
 -> END
 
@@ -102,7 +110,9 @@ Narrator: High under the eaves sits a narrow barred window, where a small brown 
 set jail_escape = "help"
 set jail_free
 jail release
+if not quest.roving_rookery >= hysteria
 quest roving_rookery hysteria
+endif
 Narrator: A brown sparrow drops a heavy iron key cleanly between the bars, while a score of songbirds trill outside the porch to draw the deputies down the lane.
 -> END
 
@@ -115,7 +125,9 @@ dani_jenkin [smile]: Shuck dug right under the sill for you. Hurry up and crawl 
 set jail_escape = "help"
 set jail_free
 jail release
+if not quest.roving_rookery >= hysteria
 quest roving_rookery hysteria
+endif
 Narrator: Dirt crumbles away from a gap wide enough for a wolfhound, where a small girl presses one muddy finger to her lips as you belly out into the cold night air.
 -> END
 
@@ -126,6 +138,8 @@ Narrator: The crowd surges forward as the mayor drones through the letter, until
 set jail_escape = "march"
 set jail_free
 jail release
+if not quest.roving_rookery >= hysteria
 quest roving_rookery hysteria
+endif
 Narrator: You slip the slack hemp in the crush and shoulder past a knot of shouting neighbours, bolting for the estate road as a hundred grey pigeons clatter up from the roofs.
 move wickermoor_village:from_estate

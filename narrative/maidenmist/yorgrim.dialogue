@@ -1,7 +1,9 @@
 # Drafted by Gemini (R19 yorgrim), edited. Yorgrim the Gravedigger, ally and then the sixth Fallen.
 
 ~ arrive
+if not quest.maidenmist_dead_rise >= gravedigger
 quest maidenmist_dead_rise gravedigger
+endif
 cutscene mm_gravedigger_door
 Narrator: Before the great sepulcher doors, the pale ghost of an orc hunches beneath a gravestone chained across his back, a spectral black hound at his boot. Both hold hooded lanterns close to the stone seam.
 -> meet
@@ -71,7 +73,9 @@ yorgrim [smile]: An extra pair of steady hands with a lantern will serve us well
 ~ accept
 set yorgrim_with_party
 set isolde_alone_since = now
+if not quest.maidenmist_dead_rise >= beacons
 quest maidenmist_dead_rise beacons
+endif
 join yorgrim
 yorgrim [neutral]: Stay inside the pale ring of my lantern and the mist will keep its distance. Any of the seven iron paths leads to a dark beacon.
 -> END
@@ -130,5 +134,7 @@ endif
 
 ~ doors_go
 set yorgrim_descends
+if not quest.maidenmist_dead_rise >= sepulcher
 quest maidenmist_dead_rise sepulcher
+endif
 -> END

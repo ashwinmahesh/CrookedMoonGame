@@ -29,7 +29,9 @@ Narrator: High above the square, a small jester in motley flips off the top of t
 chuckles [smile]: Hip-hip-heroes! How do you do-do, how is the weather in your boots, my, what lovely elbows! Welcome to the festy-val!
 chuckles [sly]: Play the booths, win-win the tickets, and cash them at my Prize Counter for your dear little friends, or find the friends yourselves, hip-hip! Keep smiling, though, because if you stop having fun-fun, your chums lead the big parade!
 set fd_welcomed
+if not quest.fools_day >= welcome
 quest fools_day welcome
+endif
 -> menu
 
 ~ menu
@@ -70,7 +72,9 @@ Narrator: Chuckles throws back his bells and laughs until the net shakes under h
 chuckles [angry]: There it is, good and sour. Strike up the brass, boys, the parade starts now.
 Narrator: High in the dark, a heavy bell rings that no hand rang.
 set told_chuckles_hate
+if not quest.fools_day >= parade
 quest fools_day parade
+endif
 -> END
 
 ~ pity
@@ -85,5 +89,7 @@ set refused_to_hate
 ~ play
 chuckles [smile]: That is the spirit-spirit! Run along and spend your teeth on the pies, my darlings!
 Narrator: He claps his hands once and bursts into a shower of paper confetti ribbons that curl on the wind, leaving the net empty.
+if not quest.fools_day >= revelry
 quest fools_day revelry
+endif
 -> END

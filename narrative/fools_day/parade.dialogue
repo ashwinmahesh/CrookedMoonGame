@@ -9,7 +9,9 @@ if quest.free_the_bell == asked
 quest free_the_bell silenced
 endif
 if quest.fools_day == revelry
+if not quest.fools_day >= parade
 quest fools_day parade
+endif
 endif
 Narrator: A high brass bell tolls without a hand on the rope, and the painted ribbons snap taut overhead. All around the square, the costumed dancers stiffen and fall into a single marching line.
 if flag.told_chuckles_hate
@@ -32,6 +34,8 @@ cutscene fd_unmasking_3
 Narrator: Where the jester's gloved fingertips brush their cheeks, lord and lady pop like paper lanterns into ribbons of red and gold that scatter on the night wind.
 set druskenvalds_unmasked
 set phillip_adela_taken
+if not quest.fools_day >= ring_of_fools
 quest fools_day ring_of_fools
+endif
 Narrator: With a single shuffling step, the masked crowd turns its back on the empty cobbles and marches toward the blazing torches of the Ring of Fools.
 move fd_ring_of_fools:from_parade

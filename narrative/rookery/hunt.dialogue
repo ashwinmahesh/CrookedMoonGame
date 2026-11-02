@@ -2,7 +2,9 @@
 
 ~ sky
 set rk_hunt
+if not quest.roving_rookery >= hunt
 quest roving_rookery hunt
+endif
 Narrator: From the estate road you see every village roof crowded grey with pigeons, and high above the moor a handful of them beat one way into the dark.
 -> sky_menu
 
@@ -65,7 +67,9 @@ hilda_brom [neutral]: Gold spends the same no matter who hands it over. Follow t
 -> END
 
 ~ arrive
+if not quest.roving_rookery >= hunt
 quest roving_rookery hunt
+endif
 Narrator: The roost lies ahead, the tall dovecote squatting on scaly legs with the wind whistling through wet thatch and a wrinkled little shape perched on the ridgepole.
 if at:rk_roost_prairie
 set rk_seen_prairie
@@ -117,7 +121,9 @@ Narrator: The bruised grass under the giant toes is still springing back. It has
 Narrator: The mud is trampled into a cold soup of feathers and mire, telling you nothing of when the house sat down.
 -> dovecote_here
 ~ enter
+if not quest.roving_rookery >= dovecote
 quest roving_rookery dovecote
+endif
 move rk_dovecote_r1
 
 ~ tracks

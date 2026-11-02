@@ -7,7 +7,9 @@ nm_golub [sly]: Class is in session, little mice, and today's lesson is how easi
 nm_wisp [sad]: Leave the bottle be, Walter love, you have done more than enough for this house.
 nm_wisp [neutral]: You can go to sleep now, Da. I am right outside on the porch.
 nm_wisp [angry]: By the old custom, a servant who cannot speak his mind has no business keeping his head above water.
+if not quest.crooked_nightmare >= crooked_bookshelf
 quest crooked_nightmare crooked_bookshelf
+endif
 -> hub
 
 ~ hub
@@ -148,5 +150,7 @@ set voices_outcome = "lost"
 -> toll
 
 ~ pass
+if not quest.crooked_nightmare >= wedding_feast
 quest crooked_nightmare wedding_feast
+endif
 move nm_wedding

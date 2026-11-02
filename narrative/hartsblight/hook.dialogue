@@ -23,7 +23,9 @@ sister_rain [smile]: Bless your boots and your blades, truly. Take these bottles
 give harvest_brew 4
 set hb_asked
 set hb_rain_hook_accepted
+if not quest.q_hartsblight >= hook
 quest q_hartsblight hook
+endif
 Narrator: Outside the palisade, a carpet of green-white spores glows faintly in the wheel ruts, pointing north-west toward the lake. It looks to be four nights on foot.
 -> END
 
@@ -57,6 +59,8 @@ wendel_somerton [smile]: Splendid, truly a weight off the municipal ledger and m
 give harvest_brew 4
 set hb_asked
 set hb_sporefall
+if not quest.q_hartsblight >= hook
 quest q_hartsblight hook
+endif
 Narrator: The spore trail lies thick as lamb's wool along the north-west cart track, smelling faintly of bruised apples and wet bone.
 -> END

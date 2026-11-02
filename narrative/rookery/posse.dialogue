@@ -38,7 +38,9 @@ doris_squire [angry]: No. Take them.
 ~ talk_down
 set posse_outcome = "talked"
 set rk_posse_done
+if not quest.roving_rookery >= hysteria
 quest roving_rookery hysteria
+endif
 doris_squire [weary]: Wait a minute, this hand isn't right. I've seen those grey birds watching the roofs too, so you get one hour, no more.
 Narrator: The crowd shuffles slowly back toward the Round, their boots scraping the cobbles as they keep up a low chant. The fever hasn't broken, only paused.
 -> END
@@ -47,7 +49,9 @@ Narrator: The crowd shuffles slowly back toward the Round, their boots scraping 
 set posse_outcome = "talked"
 set rk_posse_done
 set doris_cleared
+if not quest.roving_rookery >= hysteria
 quest roving_rookery hysteria
+endif
 Narrator: The spell runs over her like a bucket of well water, and the lilac shine drains right out of her eyes. For the next hour, Doris Squire is her own woman.
 doris_squire [neutral]: Bah, this ink reeks of wet pigeon feathers. Get moving, quick now, before that purple fog creeps back into my head.
 -> END
@@ -55,7 +59,9 @@ doris_squire [neutral]: Bah, this ink reeks of wet pigeon feathers. Get moving, 
 ~ flee
 set posse_outcome = "fled"
 set rk_posse_done
+if not quest.roving_rookery >= hysteria
 quest roving_rookery hysteria
+endif
 Narrator: You bolt down the dark alley, vault a splintered rail, and tear straight through somebody's winter cabbages. Their hoarse shouting chases your heels all the way to the estate road.
 move wickermoor_village:from_estate
 
@@ -68,7 +74,9 @@ combat rk_posse
 set posse_outcome = "surrendered"
 set rk_posse_done
 set jail_began = now
+if not quest.roving_rookery >= jailed
 quest roving_rookery jailed
+endif
 doris_squire [neutral]: Gear on the stones, hands where I can see them. You get a cot and a bucket until the Witching Hour.
 Narrator: The cell door is little more than an iron frame, though there's nowhere in Wickermoor left to run. Across the Round, you can already hear the mob chanting in the dark.
 jail wickermoor_constable_station:cells until flag.jail_free

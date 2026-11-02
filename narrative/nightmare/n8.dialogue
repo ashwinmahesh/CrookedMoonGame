@@ -18,7 +18,9 @@ Narrator: Thousands of vermin ripple across the walls in one long shudder.
 cutscene nm_cauldron_births_3
 Narrator: The clawed cauldron takes its first step across the sigils.
 cutscene end
+if not quest.crooked_nightmare >= toil_and_trouble
 quest crooked_nightmare toil_and_trouble
+endif
 -> hub
 
 ~ hub
@@ -54,5 +56,7 @@ combat vermintoll_abomination
 ~ after
 Narrator: The split cauldron topples, and the three-headed horror unravels into a tide of scurrying beasts that pour down the cracks in the floorboards. Beneath your boots, the rafters tremble not with malice, but with the cold, hollow shudder of a house afraid of waking.
 set abomination_dead
+if not quest.crooked_nightmare >= dreaming_no_more
 quest crooked_nightmare dreaming_no_more
+endif
 -> nightmare/ending:collapse

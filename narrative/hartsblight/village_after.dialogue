@@ -25,7 +25,9 @@ sister_rain [neutral]: Those who remain at the forest edge will need clean broth
 -> rain_report
 
 ~ rain_done
+if not quest.q_hartsblight >= reported
 quest q_hartsblight reported
+endif
 set hb_rain_done
 standing patient_lady +2
 sister_rain [smile]: Go and wash the mire from your boots, my friends. The bells of Wickermoor ring for your return tonight.

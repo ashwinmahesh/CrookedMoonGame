@@ -16,7 +16,9 @@ geneva_fairchild [sad]: Please do not be long. I cannot bear to stay in that roo
 
 ~ plea_go
 set rk_started
+if not quest.roving_rookery >= plea
 quest roving_rookery plea
+endif
 geneva_fairchild [afraid]: Thank heavens. Follow me quickly, and keep your heads down.
 Narrator: You hurry after her down the narrow lane to where the post office door gapes open onto a cold, unlit room.
 move wickermoor_post_office
@@ -26,7 +28,9 @@ Narrator: Pine torches sputter in the damp at the lane's end, and Geneva steps o
 geneva_fairchild [angry]: There they are, the butchers who plotted to murder Mayor Somerton and spilled poor Theodora's secrets! We have your letter in hand, and you will answer for every word!
 set hysteria_began = now
 set rk_posse_out
+if not quest.roving_rookery >= posse
 quest roving_rookery posse
+endif
 * [Insight DC 16] Study the lilac glint in her eyes, like someone standing behind them. -> geneva_charmed | geneva_missed
 * We never laid a finger on the mayor. -> geneva_end
 * Say nothing and look for a way out. -> geneva_end
@@ -69,5 +73,7 @@ cutscene end
 set golub_exposed
 set golub_exposed_early
 set geneva_alive
+if not quest.roving_rookery >= exposed
 quest roving_rookery exposed
+endif
 -> END

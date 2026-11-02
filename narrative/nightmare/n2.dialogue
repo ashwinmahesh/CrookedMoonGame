@@ -3,7 +3,9 @@
 ~ wood_start
 set n2_started
 Narrator: Autumn beech and hickory crowd under a swollen full moon, their dark bark stamped with ghost-white handprints every fifteen feet.
+if not quest.crooked_nightmare >= dark_wood
 quest crooked_nightmare dark_wood
+endif
 * [Perception DC 15] Listen for the loudest crying -> found | notfound
 * [Survival DC 15] Read the handprint trail -> found | notfound
 * Follow the handprint trees for ten minutes -> trail
@@ -90,7 +92,9 @@ quest frederick_the_turkey left
 Narrator: Stonoga Blackstinger steps from the tree line in a tall white chef's hat, her hundred little legs pattering under a flour-dusted apron. Before you can reach the child, unseen hands yank the girl in the white dress backward into the dark trees.
 cutscene nm_three_adelas_a
 set nm_wood_done
+if not quest.crooked_nightmare >= crooked_oven
 quest crooked_nightmare crooked_oven
+endif
 nm_stonoga [sly]: Golub prattles over the mind and Vessla fusses with the soul, as if a feast begins anywhere but the butcher's block! A tender vessel must be salted with fright and trussed up tight before the oven door ever opens.
 cutscene nm_three_adelas_a_2
 Narrator: The handprints on the trunks glow a little brighter, and the clearing is empty but for a doll in the leaves.
@@ -131,5 +135,7 @@ Narrator: The door listens with the polite silence of well-seasoned oak and keep
 -> pass
 
 ~ pass
+if not quest.crooked_nightmare >= crooked_oven
 quest crooked_nightmare crooked_oven
+endif
 move nm_oven

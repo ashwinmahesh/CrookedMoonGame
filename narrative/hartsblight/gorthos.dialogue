@@ -101,7 +101,9 @@ Narrator: By the time your hand touches a sleeping shoulder, the shining eyes ha
 
 ~ den_arrive
 Narrator: Bone charms and oozing fungal sacs hang from veins of black root. High on the far wall, the gaunt upper body of a young satyr juts from the pulsing rot.
+if not quest.q_hartsblight >= den
 quest q_hartsblight den
+endif
 gorthos [weary]: You have come to the bottom of the wood. The air is thick here, is it not?
 * Hear her out. -> den_plea
 * [Perception DC 17] Search the torso. -> den_search | den_nothing
@@ -176,6 +178,8 @@ set hb_blight = 0
 set gorthos_slain
 set fallen_farryn_dead
 set mem_farryn_forest_love
+if not quest.q_hartsblight >= gorthos_destroyed
 quest q_hartsblight gorthos_destroyed
+endif
 xp milestone
 -> END
