@@ -20,6 +20,7 @@ func dress_place(view: LocationView) -> void:
 			and not view.st.visited.has(view.loc_id):   # (back out of the mist into the car it left, nothing has changed)
 		view._say("switcheroo:arrive")
 	RealNature.strew(view)   # the realistic rocks, roots and ferns of a wild place (art/nature/real_nature.json)
+	TerrainPlace.dress(view)   # Terrain3D ground and land past the edge (art/overworld/terrain_places.json)
 
 
 ## The catalog's `set_piece` entries, planted over the middle of the squares the prop spans: "oak" is the Oak of Many Faces

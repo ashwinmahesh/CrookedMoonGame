@@ -21,7 +21,7 @@ static func build(parent: Node3D, land: OverworldLand) -> Terrain3D:
 	terrain.material.world_background = Terrain3DMaterial.NONE
 	terrain.material.auto_shader_enabled = false
 	for i in OverworldLand.GROUNDS.size():
-		terrain.assets.set_texture_asset(i, _ground(OverworldLand.GROUNDS[i]))
+		terrain.assets.set_texture_asset(i, ground(OverworldLand.GROUNDS[i]))
 	var n := land.size
 	var height := Image.create_empty(n, n, false, Image.FORMAT_RF)
 	var control := Image.create_empty(n, n, false, Image.FORMAT_RF)
@@ -35,7 +35,7 @@ static func build(parent: Node3D, land: OverworldLand) -> Terrain3D:
 	return terrain
 
 
-static func _ground(name: String) -> Terrain3DTextureAsset:
+static func ground(name: String) -> Terrain3DTextureAsset:
 	var ta := Terrain3DTextureAsset.new()
 	ta.name = name
 	ta.albedo_texture = _packed(GROUND_DIR + name + "_albedo_height.png")
