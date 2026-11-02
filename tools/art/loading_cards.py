@@ -3,13 +3,14 @@
 tools/art/specs/loading_cards.json via tools/art/generate_local.py (kind `loading`), saved as art/cutscenes/load_<region>.jpg at
 1792 x 1024; and load_default.jpg, the title picture without its crooked moon's text (there is none) as the default every other
 region falls back to. PIL only (macOS /usr/bin/python3).
-  /usr/bin/python3 tools/art/loading_cards.py"""
+  /usr/bin/python3 tools/art/loading_cards.py [--photo]   --photo: the photoreal pictures (tools/art/photoreal_fetch.py names them first)"""
 import glob
 from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
-SRC = Path("/Volumes/ASH-SSD/CrookedMoon/assets/loading")
+import sys
+SRC = Path("/Volumes/ASH-SSD/CrookedMoon/assets/loading_photo" if "--photo" in sys.argv else "/Volumes/ASH-SSD/CrookedMoon/assets/loading")
 OUT = ROOT / "art/cutscenes"
 
 
