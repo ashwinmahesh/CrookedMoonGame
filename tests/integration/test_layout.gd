@@ -223,6 +223,31 @@ func test_the_party_screens() -> void:
 			return root.get("screen"), func() -> void: root.call("close_screen"))
 
 
+## The fight's HUD in a place of more than one storey (a building, a bridge): the turn order's corner says which storey shows
+## and the keys that look up and down, and still fits.
+func test_the_fight_hud_on_a_storey() -> void:
+	var rows: Array[String] = ["######## ########", "#......# #......#", "#......# #..  ..#", "######## ########"]
+	var e := TestCombat.encounter(rows)
+	e.grid.apply_floors([{"x0": 0, "width": 8, "height_ft": 0}, {"x0": 9, "width": 8, "height_ft": 15}])
+	TestCombat.hero(e, "ilse_varga", Vector2i(2, 1))
+	TestCombat.foe(e, "wayward_haint", Vector2i(11, 1))
+	e.start()
+	var hud: CombatHud = null
+	await _check("the fight HUD on a storey", func() -> Variant:
+		if hud != null:
+			hud.queue_free()
+			await _frames(1)
+		hud = CombatHud.new()
+		add_child(hud)
+		hud.build(e, ActionCatalog.new(e))
+		hud.refresh()
+		hud.show_floor(1, 2, false)
+		await _frames(2)
+		return hud)
+	if hud != null:
+		hud.queue_free()
+
+
 ## The journal's Bestiary with a few creatures met: its entry leads with the large portrait (their silhouettes until the art lane's
 ## pictures exist) and the words beside it still fit.
 func test_the_bestiary_with_portraits() -> void:
