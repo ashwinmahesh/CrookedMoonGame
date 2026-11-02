@@ -298,6 +298,7 @@ def semantic_checks(data):
     achievement_checks(data, errors)
     xp_checks(data, errors)
     waiting_checks(data, errors)
+    round_event_side_checks(data, errors)
     pending.extend(pending_list)
     pending_list.clear()
     campaign_checks(data, errors, pending)
@@ -309,6 +310,20 @@ def semantic_checks(data):
 # overworld_stealth.md) gives each foe in view a `facing`, so its sight cone points where the room's design wants it.
 LEGACY_WAITING = {"frozen_watch", "cat_sleepers", "cauldron_coven", "ghakis_keepers", "wachter_cellar_cult",
                   "tower_night_visitors", "night_streets_dead", "den_guards", "cellar_dig"}
+
+
+COMBAT_SIDES = {"party", "guest", "enemy", "neutral"}
+
+
+def round_event_side_checks(data, errors):
+    """A round event's `side` (reinforcements) is one of the engine's combat sides (combat/combatant.gd): any other word is
+    a side of its own, hostile to everyone ("enemies" made the Skitterdeep hag's spilled swarms fight her)."""
+    for lid, loc in data["locations"].items():
+        for en in loc.get("encounters", []):
+            for ev in en.get("round_events", []):
+                if "side" in ev and ev["side"] not in COMBAT_SIDES:
+                    errors.append(f"locations/{lid}: encounter {en['id']} round event {ev.get('id', '?')}: side "
+                                  f"'{ev['side']}' isn't one of {sorted(COMBAT_SIDES)}")
 
 
 def waiting_checks(data, errors):
