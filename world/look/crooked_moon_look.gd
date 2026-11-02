@@ -7,6 +7,11 @@ extends CampaignLook
 ## `art` is the picture that stands in where the piece cannot be built.
 
 
+## The realistic trees stand in for the painted ones before the first board plants any (RealTrees).
+func _init() -> void:
+	RealTrees.install()
+
+
 ## Coming out of the mist between the Ghostlight Express's cars into the next one (E23): the Narrator says the car has changed before the
 ## car's own words. The place the party left is still the story's `location` here (LocationView sets the new one just after).
 ## The places whose houses warp (the catalog's building_kit.bend.morph names them too).

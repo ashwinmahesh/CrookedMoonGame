@@ -33,6 +33,7 @@ static func dress(view: LocationView) -> Terrain3D:
 		return null
 	var board := view.board
 	var grid := board.grid
+	RealTrees.install()
 	var noise := FastNoiseLite.new()
 	noise.seed = hash(view.loc_id)
 	noise.fractal_octaves = 5
@@ -62,6 +63,7 @@ static func dress(view: LocationView) -> Terrain3D:
 			var g := _ground(view, p, inside, out, road, noise)
 			var bits := Terrain3DUtil.enc_base(g[0]) | Terrain3DUtil.enc_overlay(g[1]) | Terrain3DUtil.enc_blend(g[2])
 			control.set_pixel(i, j, Color(Terrain3DUtil.as_float(bits), 0.0, 0.0, 1.0))
+	_soften(height, w, d)
 	var terrain := Terrain3D.new()
 	terrain.name = "Terrain3D"
 	terrain.free_editor_textures = false   # (built in code: there is no saved assets file to free them for)
@@ -80,6 +82,20 @@ static func dress(view: LocationView) -> Terrain3D:
 	_hide_old(view)
 	_plant(view, terrain, roads, w, noise)
 	return terrain
+
+
+## Eases the heights over half a square (a 3x3 average, twice), so a level's rise is a bank, not a step; a square's
+## middle moves by a hair at most on a slope and not at all on flat ground.
+static func _soften(height: Image, w: int, d: int) -> void:
+	for pass_ in 2:
+		var src := height.duplicate() as Image
+		for j in range(1, d - 1):
+			for i in range(1, w - 1):
+				var sum := 0.0
+				for dj in range(-1, 2):
+					for di in range(-1, 2):
+						sum += src.get_pixel(i + di, j + dj).r
+				height.set_pixel(i, j, Color(sum / 9.0, 0.0, 0.0, 1.0))
 
 
 ## The lanes out of the map as points (units): the spec's own `lane` square and `heading`, else every way out on the
@@ -178,6 +194,10 @@ static func _hide_old(view: LocationView) -> void:
 	var ground := view.board.get_node_or_null("Ground") as Node3D
 	if ground != null:
 		ground.visible = false
+	# The board's own floor columns (their sides showed as steps where the land rises a level).
+	for n: Variant in view.board._floors.values():
+		if n is Node3D:
+			(n as Node3D).visible = false
 	var surround := view.find_child("Surround", true, false) as Node3D
 	if surround != null:
 		surround.visible = false

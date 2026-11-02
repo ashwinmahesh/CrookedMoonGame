@@ -32,6 +32,7 @@ var _rocks_list: Array = []   ## [model id, Transform3D]
 
 func _ready() -> void:
 	_rng.seed = 1931
+	RealTrees.install()
 	var bake := OverworldBake.load_bake()
 	if bake != null:
 		land = OverworldLand.light()
