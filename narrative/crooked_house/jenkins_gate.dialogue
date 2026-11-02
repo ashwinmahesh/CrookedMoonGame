@@ -1,6 +1,7 @@
 # R12: the Jenkins at the gate of Druskenvald Estate, then the house turns. Speaker gilly_jenkin; Walter has no spoken lines (his notebook is
 # read by the Narrator) and Wisp says nothing here. Region crooked_house. FINAL-WORDED: these lines are to be voiced and must not change.
-# Started by: Gilly at the gate (`start`, until crooked_house_turned is set). `leaving` runs on into `after` (the cat, then the house
+# Started by: Gilly at the gate (`start`, until crooked_house_turned is set). It also moves Wickermoor's arrival quest to `dinner` (the hill road
+# out of the village is a road, and the engine does not apply an exit's `sets_quest` to a road). `leaving` runs on into `after` (the cat, then the house
 # warps behind two pictures); `after` may also be called alone. Both walk off down the hill (vanish) before the cat comes out (appear).
 # Drafted by Gemini (gemini_r12_jenkins_gate), edited; see README.md.
 
@@ -8,6 +9,7 @@
 if flag.crooked_house_turned
 -> END
 endif
+quest wickermoor_arrival dinner
 quest the_crooked_house invited
 quest the_crooked_house arrived
 Narrator: Dusk settles cold over the iron gate, smelling of wet leaves and lamp oil on the hill breeze. Two folks with a cloth-covered basket wait by a brass lantern.
