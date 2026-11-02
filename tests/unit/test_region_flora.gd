@@ -79,11 +79,37 @@ func test_the_crooked_moons_own_plants_are_built_with_their_far_copies_and_stay_
 		assert_true(plants.has(id), "%s is in the manifest" % id)
 		var info := plants[id] as Dictionary
 		assert_true(ResourceLoader.exists(ArtPaths.of(str(info["file"]))), "%s's model is there" % id)
-		assert_true(int(info["triangles"]) <= 1500, "%s stays light (%d triangles)" % [id, int(info["triangles"])])
+		assert_true(int(info["triangles"]) <= 5000, "%s stays light (%d triangles)" % [id, int(info["triangles"])])
 		assert_true(Flora.mesh(id) != null and Flora.mesh(id).get_surface_count() >= 1, "%s makes a mesh" % id)
 		if info.has("far"):
 			assert_true(plants.has(str(info["far"])) and str((plants[str(info["far"])] as Dictionary).get("far_of", "")) == id,
 				"%s has its far copy" % id)
+			assert_true(int((plants[str(info["far"])] as Dictionary)["triangles"]) <= 1500, "%s's far copy stays light" % id)
+
+
+## The own plants' leaves are cut from the game's second atlas (art/plants/cards2.png, the models' `leaf2` material, Flora.CARDS2_PATH), the
+## older plants' from the first; a plant's bark is the same shader as ever.
+func test_the_crooked_moons_leaves_come_from_their_own_atlas() -> void:
+	var cards2 := load(Flora.CARDS2_PATH) as Texture2D
+	assert_true(cards2 != null, "the second atlas is there")
+	var cards1 := Flora.CARDS as Texture2D
+	for id: String in ["corn_a", "cypress_a", "fungal_a", "briar_a", "wytch_a"]:
+		var mesh := Flora.mesh(id)
+		var drawn_from_second := 0
+		for i in mesh.get_surface_count():
+			var mat := mesh.surface_get_material(i) as ShaderMaterial
+			assert_true(mat != null, "%s surface %d has a game material" % [id, i])
+			var cards: Variant = mat.get_shader_parameter("cards")
+			if cards == cards2:
+				drawn_from_second += 1
+			elif cards != null:
+				assert_true(cards == cards1, "%s's other leaves are the first atlas's" % id)
+		assert_true(drawn_from_second >= 1, "%s has leaves from the second atlas" % id)
+	var older := Flora.mesh("oak_a")
+	for i in older.get_surface_count():
+		var m := older.surface_get_material(i) as ShaderMaterial
+		var c: Variant = m.get_shader_parameter("cards")
+		assert_true(c == null or c == cards1, "an older plant keeps the first atlas")
 
 
 func test_each_region_plants_its_own() -> void:

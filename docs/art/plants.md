@@ -37,15 +37,26 @@ and `sets` gains `wickermoor`, `corn`, `willows`, `wytchwood`, `fungal`, `maiden
 Bracken (now fungal) and sedge (now corn) were taken out of every other set, so only their own regions grow them.
 `tests/unit/test_region_flora.gd` checks the sets, the plants they name, their palette colours and that the cards are painted.
 
-## Waiting on Ashwin's "the Mac is idle" word (Blender, `blender/plants_3d.py` is not copied yet; no Blender was run)
+## The Crooked Moon's own plant models (`blender/plants_crooked_moon.py`, branch look-plants-v2)
 
-New models the cards cannot stand in for. Each would be a `.glb` (with a `_far` copy) listed in `art/plants/manifest.json` and then
-named in a set:
+Built in Blender on its hourly turns (`~/.crooked-moon/blender_queue/`, the scheduler's `tools/gpu/blender_batch.sh`), each a `.glb` with a
+`_far` copy where it is a tree, listed in `art/plants/manifest.json` and named in a set. `python3 tools/art/plants_dry_run.py` builds
+them outside Blender first (a stand-in mesh: it catches a bad grid and counts triangles). All stay under 5000 triangles.
 
-- **Corn stalk**: a proper tall stalk with leaves in tiers and an ear (the corn is now crossed cards of sedge and dry blades), 3 variants.
-- **Pumpkin and gourd patch**: vines on the ground with 2 to 3 pumpkins, some carved and glowing (open ground in Wickermoor, Foxwillow, the festival).
-- **Wytch tree**: a stout oak with a face in the bark and drooping hag-hair strands (for `oak_a` and `oak_b` replacements in `wytchwood`).
-- **Fungal growth**: giant bracket fungi up a trunk, a stalked mushroom with a glowing cap, a spore-puff patch (Hartsblight).
-- **Briar hedge**: a thick arching bramble with thorns (the Wytchwood, the Crooked House's grounds).
-- **Bayou cypress with moss**: a buttressed trunk with hanging moss (Murkwater Bend).
-- **More leaf cards** (a Blender UV remap): the atlas to seven rows or a second atlas, so corn, pumpkin vine, fungal cap and briar get cards of their own instead of sharing the old plants'.
+| Model | What it is | Planted by |
+|---|---|---|
+| `corn_a`, `corn_b`, `corn_c` | a clump of three to five corn plants: jointed stalks, ten long arching leaves each, ears in husks, tassels | Foxwillow (set `corn`) |
+| `wytch_a`, `wytch_b` (+ far) | a hunched oak with a heavy crown and long thin hag-hair strands | the Wytchwood |
+| `fungal_a`, `fungal_b` | a rotting stump: root flare, fluted bark, jagged broken top, tiers of shelf fungi | Hartsblight (set `fungal`) |
+| `briar_a` | long curving thorny canes with branchlets and bramble sprigs | the Wytchwood, the Crooked House's grounds |
+| `cypress_a` (+ far) | a buttressed, fluted bald cypress with knees, feathery fronds and long Spanish moss | Murkwater Bend, the bayou (set `willows`) |
+
+**A second leaf atlas.** The first atlas (`cards.png`, six rows) cannot grow without remapping every older model's UVs, so these plants'
+cards live in `art/plants/cards2.png` (2048 x 1536, boxes in `cards2.json`, a model's `leaf2` material; engine `Flora.CARDS2_PATH`). The
+cards are photoreal cut-outs on white (`tools/art/specs/photoreal/plant_cards3.json` through `tools/art/photoreal.py`, named by
+`tools/art/photoreal_fetch.py`) fitted by `tools/art/plant_cards2.py`, which draws a plain stand-in for a card whose picture has not come
+yet: corn blades (2), ear, tassel; moss and hair strands; cypress fronds (2); a bramble sprig; shelf fungus top and side. The wytch crowns
+still use the first atlas's `oak_leaves`. Bark is the engine's procedural bark in each set's colours (`flora.json` `bark`).
+
+Still not built: the pumpkin and gourd patch (jack-o'-lanterns and pumpkins exist as props), a stalked glowing mushroom, textured
+(scanned) bark.
