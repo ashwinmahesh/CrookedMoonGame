@@ -19,13 +19,19 @@ func dress_place(view: LocationView) -> void:
 ## The catalog's `set_piece` entries, planted over the middle of the squares the prop spans: "oak" is the Oak of Many Faces
 ## (OakOfManyFaces) and "crooked_tree" the Wytchwood's Crooked Tree (CrookedTree), each built in code (`handled`); "barrow_glow"
 ## and "wicker_man" only add their light and leave the catalog's own picture (the barrow, the painted Wicker Man) to be drawn, and
-## "clocktower" adds its lit clock faces to the catalog's bell tower (Clocktower).
+## "clocktower" adds its lit clock faces to the catalog's bell tower (Clocktower), and "small:<kind>" builds one of the small things
+## of Act 1's rooms from a few meshes (SmallProps).
 func place_special(_art: String, board: ArenaBoard, root: Node3D, cell: Vector2i, spec: Dictionary, look: Dictionary) -> Dictionary:
 	var piece := str(look.get("set_piece", ""))
 	if piece == "":
 		return {}
 	var centre: Variant = SetDressing.span_centre(board, spec)
 	var at: Vector3 = centre as Vector3 if centre != null else board.cell_center(cell)
+	if piece.begins_with("small:"):
+		var made := SmallProps.build(piece.substr(6), root, at, ModelPiece.hash_cell(cell), ModelPiece.backing_side(board, cell))
+		if made != null:
+			return {"handled": true, "node": root}
+		return {}
 	match piece:
 		"oak":
 			OakOfManyFaces.build(root, at, ModelPiece.hash_cell(cell))

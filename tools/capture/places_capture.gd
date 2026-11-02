@@ -12,6 +12,7 @@ func capture_shots(tool: Node, out: String) -> void:
 	var sky := false
 	var travel := false
 	var later := false
+	var gallery := false
 	var flags: PackedStringArray = []
 	var focus := Vector2(-1, -1)
 	var focus_distance := 8.0
@@ -22,6 +23,8 @@ func capture_shots(tool: Node, out: String) -> void:
 			flags = a.get_slice("=", 1).split(",")   # story flags to set first, name:value (moon_grin:2,moon_scowl:true)
 		if a == "--later":
 			later = true
+		if a == "--gallery":
+			gallery = true   # lays every small prop (SmallProps) out in rows on the ground by the party and shoots them close
 		if a == "--travel":
 			travel = true   # one more shot per place of the travel map, every place known
 		if a.begins_with("--focus="):
@@ -72,6 +75,18 @@ func capture_shots(tool: Node, out: String) -> void:
 			rig.snap_to_target()
 			await tool.call("wait_frames", 40)
 			tool.call("_shot", "%s_%s_focus.png" % [out, place])
+		if gallery:
+			var base := view.leader().cell
+			for k in SmallProps.KINDS.size():
+				var spot := view.board.cell_center(base + Vector2i(2 + k, 0))   # (one row along an open aisle)
+				SmallProps.build(SmallProps.KINDS[k], view.board, spot, 7 + k, Vector2i.ZERO)
+			rig.follow = null
+			rig.horizon = 0.0
+			rig.distance = 8.0
+			rig.global_position = view.board.cell_center(base + Vector2i(7, 0))
+			rig.snap_to_target()
+			await tool.call("wait_frames", 40)
+			tool.call("_shot", "%s_%s_gallery.png" % [out, place])
 		if sky:
 			rig.horizon = 1.0
 			rig.horizon_shown = 1.0

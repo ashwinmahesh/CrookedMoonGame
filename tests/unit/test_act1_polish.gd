@@ -18,7 +18,7 @@ func _act1_places() -> Array[String]:
 	return out
 
 
-func test_every_act1_prop_that_names_a_model_is_drawn_by_something() -> void:
+func test_every_act1_prop_is_drawn_by_something_or_is_a_spot_on_something_drawn() -> void:
 	var bare: Array[String] = []
 	for id in _act1_places():
 		var loc := Compendium.shared().get_entry("locations", id)
@@ -26,11 +26,58 @@ func test_every_act1_prop_that_names_a_model_is_drawn_by_something() -> void:
 		for p: Variant in specs:
 			var spec := p as Dictionary
 			var model := str(spec.get("model", ""))
-			if model == "" or model in BARE_OK:
+			if str(spec.get("kind", "")) == "decor" and model == "":
+				continue   # a spot nothing needs drawn
+			if model in BARE_OK and str(spec.get("kind", "")) != "decor":
 				continue
 			if SetDressing.look_for(spec, (loc.get("containers", []) as Array).has(p)).is_empty():
 				bare.append("%s: %s (%s)" % [id, spec.get("id", ""), model])
-	assert_true(bare.is_empty(), "props whose model draws nothing: %s" % ", ".join(bare.slice(0, 8)))
+	assert_true(bare.is_empty(), "props that draw nothing: %s" % ", ".join(bare.slice(0, 8)))
+
+
+func test_each_small_prop_is_built_from_meshes_and_claims_nothing() -> void:
+	var ids := (SetDressing.catalog()["ids"] as Dictionary)
+	var made: Array[String] = []
+	var b := ArenaBoard.build(CombatGrid.from_rows(["..........", "..........", "..........", "#........."],
+		["1111111111", "1111111111", "1111111111", "1111111111"]), "village", "small_test")
+	add_child(b)
+	var flags_before := []
+	for z in 4:
+		for x in 10:
+			flags_before.append(b.grid.flags(Vector2i(x, z)))
+	var look := CrookedMoonLook.new()
+	for pid: String in ids:
+		var entry: Variant = ids[pid]
+		if not entry is Dictionary or not str((entry as Dictionary).get("set_piece", "")).begins_with("small:"):
+			continue
+		var e := entry as Dictionary
+		assert_true(SetDressing.has_art(str(e["art"])), "%s keeps a picture that always exists" % pid)
+		var root := Node3D.new()
+		b.add_child(root)
+		var out := look.place_special(str(e["art"]), b, root, Vector2i(4, 1), {"id": pid, "cell": [4, 1]}, e)
+		assert_true(bool(out.get("handled", false)), "%s is built" % pid)
+		var meshes := root.find_children("*", "MeshInstance3D", true, false)
+		assert_true(meshes.size() >= 2, "%s is made of meshes (%d)" % [pid, meshes.size()])
+		var span := AABB()
+		for m in meshes:
+			var box := (m as MeshInstance3D).global_transform * (m as MeshInstance3D).get_aabb()
+			span = box if span.size == Vector3.ZERO else span.merge(box)
+		assert_true(span.size.x < 1.7 and span.size.z < 1.7, "%s stays on about its own square (%s)" % [pid, span.size])
+		made.append(pid)
+		root.free()
+	assert_eq(made.size(), SmallProps.KINDS.size(), "every kind has a prop that uses it")
+	var i := 0
+	for z in 4:
+		for x in 10:
+			assert_eq(b.grid.flags(Vector2i(x, z)), flags_before[i], "no square's flags moved")
+			i += 1
+	b.free()
+
+
+func test_the_farmhouse_and_the_church_ruin_are_spots_on_buildings_the_map_draws() -> void:
+	var ids := (SetDressing.catalog()["ids"] as Dictionary)
+	for pid: String in ["orchard_farmhouse", "wm_church_ruin"]:
+		assert_true(ids.has(pid) and ids[pid] == null, "%s is a clickable spot, its building drawn by the map" % pid)
 
 
 func test_the_villages_clocktower_is_a_bell_tower_with_lit_faces() -> void:
