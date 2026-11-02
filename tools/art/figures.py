@@ -35,6 +35,8 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(REPO / 'tools'))
 from asset_root import asset_root  # noqa: E402
+sys.path.insert(0, str(REPO / 'tools/art'))
+import rig_facing  # noqa: E402
 
 MANIFEST = REPO / 'art/figures/manifest.json'
 GLB_MAGIC = 0x46546C67
@@ -215,6 +217,31 @@ def convert(src: Path, dst: Path, max_px: int) -> str:
            f'clips {", ".join(a.get("name", "") for a in doc.get("animations", []))}'
 
 
+def face_forward(fid: str, info: dict, dst: Path) -> None:
+    """A figure rigged facing any way but +z walks sideways or backwards (the engine turns the model to the way it
+    walks, assuming +z is its front: tools/art/rig_facing.py). A figure without a `turn` of its own gets the one its
+    skeleton needs, written into the manifest; one whose `turn` disagrees is reported."""
+    front = rig_facing.facing(dst)
+    if front is None:
+        return
+    need = rig_facing.turn_needed(front)
+    if 'turn' in info:
+        if rig_facing.turned(front, float(info['turn']))[1] < 0.7:
+            print(f'{fid}: its manifest turn {info["turn"]} leaves it facing the wrong way; its skeleton needs {need:g}',
+                  file=sys.stderr)
+        return
+    if need == 0:
+        return
+    text = MANIFEST.read_text()
+    key = f'"{fid}": {{'
+    if text.count(key) != 1:
+        print(f'{fid}: faces the wrong way and needs "turn": {need:g} in the manifest (add it by hand)', file=sys.stderr)
+        return
+    MANIFEST.write_text(text.replace(key, f'{key}"turn": {need:g}, ', 1))
+    info['turn'] = need
+    print(f'{fid}: rigged facing away from +z, so the manifest now turns it {need:g} degrees')
+
+
 def main(argv):
     force = '--force' in argv
     max_px = 2048
@@ -236,6 +263,7 @@ def main(argv):
                 print(f'{fid}: model {info["source"]} is not on the asset root yet, keeping its sprite', file=sys.stderr)
             elif force or not dst.exists() or dst.stat().st_mtime < src.stat().st_mtime:
                 print(convert(src, dst, max_px))
+                face_forward(fid, info, dst)
         if 'source' in info and isinstance(info.get('close_up'), dict) and 'albedo' in info['close_up']:
             src, dst = root / info['source'], REPO / info['close_up']['albedo']
             if src.exists() and (force or not dst.exists() or dst.stat().st_mtime < src.stat().st_mtime):
