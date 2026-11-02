@@ -40,10 +40,13 @@ engine first, then commit the new submodule commit here (its path shows as the c
   read its `owner`, check every 2 minutes, never wait over 45 minutes without telling the plan thread), write your lane and the time
   into `owner`, switch with `/opt/homebrew/bin/python3 ~/Applications/"Daemon Monitor.app"/Contents/Resources/control.py stop|start image|voice`
   (stop the other first), and remove the lock when your batch is done. Never stop a generator that is busy with someone else's job.
-- Images: look P "Creature Feature Cel" (locked 2026-10-30, plan 8.1): Z-Image Turbo with the Darkframe Italian Horror (Giallo) LoRA
-  (`custom-giallo`) at 0.6; append the style words in art/prompts/style_preamble.txt (once it exists; until then plan 8.1) to every
-  prompt. Ask for a plain flat white background; the pipeline removes it. Fix a finished picture with an edit model (FLUX.2 Klein,
-  Qwen-Image 2.1 Turbo) rather than re-rolling.
+- The look (Ashwin, 2026-11-02, plan 8.1): fully 3D with realistic lighting and textures; no toon, no cel, no HD-2D. The game offers only
+  the Modern finish (data/campaign.json). Curse of Strahd stays HD-2D on the shared engine, so wherever this game diverges the change
+  lives in this repo, never in the engine's defaults.
+- Images (cutscene stills, loading pictures, title, travel map, vistas, the moon, decals): photorealistic. Z-Image Turbo with no style
+  LoRA; append the words in art/prompts/photoreal_preamble.txt (the look lane writes it; until then plan 8.1) to every prompt. Never
+  the Giallo LoRA or the old look P cel style. For a cut-out, ask for a plain flat white background; the pipeline removes it. Fix a
+  finished picture with an edit model (FLUX.2 Klein, Qwen-Image 2.1 Turbo) rather than re-rolling.
 - Voices: VoxCPM2 designs voices (always three options per character), Higgs reads the lines. Pinned in audio/voice/casting.json,
   each line's delivery in audio/voice/directions.json. A clip is keyed by its text, so editing a voiced line silences it until re-read.
   Finished takes reach the game through `make voice-wire` (copies them into audio/voice and counts the lines still without a clip).
@@ -97,10 +100,10 @@ engine first, then commit the new submodule commit here (its path shows as the c
 
 ## Art
 - Colours only from art/palette/palette.json, plus art/palette/ui_palette.json for menus (via Look); run `make palette` after editing the list in
-  tools/art/build_palette.py. Look P's night, moon and flame colours are set; the rest still carry the old game's colours.
+  tools/art/build_palette.py. Palette names tint lights, moods and code-built props; textures and pictures keep their own colours.
 - Asset packs from the internet: CC0 or clearly free licences only, kept untouched with their licence in art/sourced/<pack>/, listed in the
   credits (art/credits.json), each download after Ashwin's typed yes. Credit every artist.
-- Every character and monster is a 3D figure (Ashwin, 2026-10-30): a rigged Tripo model from the stylized look P turnaround,
+- Every character and monster is a 3D figure (Ashwin, 2026-10-30): a rigged Tripo model from its turnaround,
   listed in art/figures/manifest.json (its `source` under the asset root's tripo/models) and copied in with 2K textures by
   `python3 tools/art/figures.py`; the engine draws it wherever the art id would be a sprite (docs/reference/art/figures.md in
   the engine). A figure without a model falls back to its 8-direction sprite. Capture them with
