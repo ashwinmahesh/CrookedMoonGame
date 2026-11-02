@@ -43,7 +43,7 @@ func test_region_moods_and_rooms() -> void:
 		assert_eq(str((Audio._data["regions"] as Dictionary).get(region, "")), str(REGIONS[region]), "%s has its own mood" % region)
 	assert_eq(_mood("dg_briar", st), "tavern", "the Briar keeps its tavern music")
 	assert_eq(_mood("dc_casino", st), "train_lounge", "the casino plays the worn gramophone")
-	assert_eq(_mood("dc_shack", st), "drowned_crossroads", "a marsh shack is no inn")
+	assert_eq(_mood("dc_shack_approach", st), "drowned_crossroads", "a marsh shack is no inn")
 	assert_eq(PlaceBeds.bed_for("mon_sanctum", st), "cave_drips", "the blood-soaked sanctum drips")
 	assert_eq(PlaceBeds.bed_for("sk_upper", st), "mine", "the mine's picks and timbers")
 	assert_eq(PlaceBeds.bed_for("dc_lagoon", st), "bayou", "the lagoon's frogs")
@@ -117,7 +117,7 @@ func test_the_nightmare_the_festival_and_the_rookery() -> void:
 	assert_eq(PlaceBeds.bed_for("fd_festival", st), "festival", "and its crowd, not the village's crickets")
 	assert_eq(PlaceBeds.fight_music("fd_ring_of_fools"), "fools_day_combat", "the Ring of Fools fights to the carnival")
 	assert_eq(PlaceBeds.fight_music("wickermoor_village"), "wickermoor_combat", "while the village keeps its own")
-	assert_eq(PlaceBeds.bed_for("rk_dovecote_r2", st), "dovecote", "pigeons in Golub's roost")
+	assert_eq(PlaceBeds.bed_for("rk_dovecote_r1", st), "dovecote", "pigeons in Golub's roost")
 	assert_eq(PlaceBeds.bed_for("rk_roost_swamp", st), "bayou", "a roost in a swamp sounds like one")
 	var crooked: Array[Combatant] = [Combatant.new(Monster.from_data(Compendium.shared().get_entry("monsters", "crooked_man")), &"enemy", Vector2i.ZERO)]
 	assert_eq(Audio.fight_mood(crooked), "crooked_man", "the Crooked Man's own")

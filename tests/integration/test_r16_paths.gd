@@ -384,7 +384,7 @@ func test_overloading_the_lift_drops_the_party_to_the_bottom() -> void:
 	st.set_flag("sk_hoard_taken")
 	_play("skitterdeep/camp:lift", ["ore boxes"])
 	assert_true(bool(st.get_flag("skitterdeep_lift_fell")))
-	assert_eq(st.location, "sk_deep")
+	assert_eq(st.location, "sk_upper")
 	var camp := Compendium.shared().get_entry("locations", "sk_camp")
 	for e: Variant in camp["exits"]:
 		if str((e as Dictionary)["id"]) == "lift_down":
@@ -455,7 +455,7 @@ func test_the_hoard_can_be_taken_quietly_and_a_grab_is_a_fight() -> void:
 # ---- the deep level and Stonoga ------------------------------------------------------------------------------------------------------------
 
 func test_the_bottom_moves_the_quest_and_the_miasma_never_fells_a_hero() -> void:
-	_arrive("sk_deep")
+	_arrive("sk_upper")
 	_play("skitterdeep/deep:arrive")
 	assert_eq(st.quest_stage("skitter_plague"), "the_hags_lair")
 	dice = LowDice.new()
@@ -466,7 +466,7 @@ func test_the_bottom_moves_the_quest_and_the_miasma_never_fells_a_hero() -> void
 
 
 func test_the_sigils_break_by_a_blow_a_working_or_fire_and_a_miss_just_tries_again() -> void:
-	_arrive("sk_deep")
+	_arrive("sk_upper")
 	dice = LowDice.new()
 	_play("skitterdeep/deep:sigils", ["Hack", "Unpick"])
 	assert_false(bool(st.get_flag("skitter_sigils_broken")), "two misses, still standing")
@@ -477,7 +477,7 @@ func test_the_sigils_break_by_a_blow_a_working_or_fire_and_a_miss_just_tries_aga
 
 
 func test_stonoga_falls_the_sigils_break_and_the_plague_lifts() -> void:
-	_arrive("sk_deep")
+	_arrive("sk_upper")
 	_play("skitterdeep/stonoga:enter", ["Talk", "Draw steel"])
 	assert_eq(fights, ["sk_stonoga"] as Array[String])
 	assert_true(bool(st.get_flag("stonoga_slain")))
@@ -491,7 +491,7 @@ func test_stonoga_falls_the_sigils_break_and_the_plague_lifts() -> void:
 
 
 func test_breaking_the_sigils_first_still_ends_the_plague_when_she_falls() -> void:
-	_arrive("sk_deep")
+	_arrive("sk_upper")
 	_play("skitterdeep/deep:sigils", ["Hack"])
 	_play("skitterdeep/stonoga:enter", ["Draw steel"])
 	_play("skitterdeep/stonoga:after")
@@ -500,7 +500,7 @@ func test_breaking_the_sigils_first_still_ends_the_plague_when_she_falls() -> vo
 
 
 func test_the_boss_fight_grows_with_the_level_and_the_alarm() -> void:
-	_arrive("sk_deep")
+	_arrive("sk_upper")
 	var low := _spec("sk_stonoga")
 	assert_eq((low["monsters"] as Array).size(), 4, "level 3: Stonoga, two swarms and Oswald")
 	st.set_flag("oswald_slain")
@@ -518,7 +518,7 @@ func test_the_boss_fight_grows_with_the_level_and_the_alarm() -> void:
 
 
 func test_the_taunt_needs_something_to_taunt_with() -> void:
-	_arrive("sk_deep")
+	_arrive("sk_upper")
 	var r := DialogueRunner.new(st, dice)
 	r.start("skitterdeep/stonoga:enter")
 	var b := r.next()
@@ -538,7 +538,7 @@ func test_the_taunt_needs_something_to_taunt_with() -> void:
 
 
 func test_the_notes_the_cage_and_the_discoveries() -> void:
-	_arrive("sk_deep")
+	_arrive("sk_upper")
 	st.set_flag("stonoga_slain")
 	_play("skitterdeep/stonoga:notes")
 	assert_true(bool(st.get_flag("stonoga_notes_read")))
@@ -670,7 +670,7 @@ func test_putting_thirteen_down_fails_the_quest() -> void:
 # ---- the places themselves -------------------------------------------------------------------------------------------------------------------
 
 func test_every_exit_in_the_mine_leads_somewhere_and_comes_back() -> void:
-	for id: String in ["sk_camp", "sk_hills_trail", "sk_warehouse", "sk_machine_shop", "sk_upper", "sk_deep"]:
+	for id: String in ["sk_camp", "sk_hills_trail", "sk_warehouse", "sk_machine_shop", "sk_upper"]:
 		var loc := Compendium.shared().get_entry("locations", id)
 		assert_true(not loc.is_empty(), id)
 		for e: Variant in loc["exits"]:
@@ -690,7 +690,7 @@ func test_the_deep_level_is_always_reachable_even_if_the_lift_falls() -> void:
 	# the chain and the rungs never wait on the lift: from the surface to the landing, and from the landing to the bottom, and back up
 	var camp := Compendium.shared().get_entry("locations", "sk_camp")
 	var up := Compendium.shared().get_entry("locations", "sk_upper")
-	var deep := Compendium.shared().get_entry("locations", "sk_deep")
+	var deep := up   # (the Deep Level is the lower floor of the mine's workings, one place with the Upper Workings)
 	var chain_down := false
 	for e: Variant in camp["exits"]:
 		if str((e as Dictionary)["id"]) == "chain_down" and str((e as Dictionary).get("when", "")) == "":
@@ -701,6 +701,9 @@ func test_the_deep_level_is_always_reachable_even_if_the_lift_falls() -> void:
 			landing_down = true
 	var deep_up := false
 	for e: Variant in deep["exits"]:
-		if str((e as Dictionary)["id"]) == "chain_up":
+		if str((e as Dictionary)["id"]) == "chain_up_deep" and str((e as Dictionary).get("when", "")) == "":
 			deep_up = true
+	var stairs := (up["map"] as Dictionary)["stairs"] as Array
 	assert_true(chain_down and landing_down and deep_up)
+	assert_eq(stairs.size(), 1, "the rungs and chain join the two levels")
+	assert_false((stairs[0] as Dictionary).has("when"), "the climb never waits on the lift")
