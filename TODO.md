@@ -8,6 +8,7 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 |---|---|---|
 | WASD controls the camera while the arrow keys move the character (Ashwin, 2026-11-02) | In progress | [Camera follows the party](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoSzp46E7B1MJ2tH6jYEQUCg) |
 | The camera gets fully free tilt | In progress | [Camera follows the party](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoSzp46E7B1MJ2tH6jYEQUCg) |
+| A free-camera toggle, with both an on-screen bar button and a keybinding (Ashwin, 2026-11-02) | In progress | [Camera follows the party](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoSzp46E7B1MJ2tH6jYEQUCg) |
 | Portraits for the 144 missing NPCs: 148 photoreal portrait jobs are queued at normal priority (the image server is paused) | In progress (queued, waiting on the server) | [Portraits](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoMVcF4yx8zrzvExbupWQsVL) |
 | Build out Act 2 and the open todos | In progress | [Act 2](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoPPR4UsoGK7bQTEnN8LobsA) |
 | Audit all visual effects: each gets a selection room and its own colour, size and speed settings (melee hit effects are landed; the other effects are next) | In progress | [Melee hit effects](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoHUCbLptUKMrnux7PbW3KTT) |
