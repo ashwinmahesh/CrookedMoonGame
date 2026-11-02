@@ -10,6 +10,7 @@ import json, re, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from wickermoor_interiors import G
+from heirlooms_kept import kept
 
 ROOT = Path(__file__).resolve().parents[2]
 RK = "rookery/"
@@ -24,6 +25,8 @@ KEG2 = "flag.hysteria_began and days_since.hysteria_began >= 14"
 
 
 def write(rel, obj):
+    if kept(rel):   # (a floor of a place merged into one with its floors: merge_floors.py)
+        return
     p = ROOT / rel
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(obj, indent=2, ensure_ascii=False) + "\n")

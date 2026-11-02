@@ -4,42 +4,83 @@
   "region": "drowned_crossroads",
   "summary": "Paired glowing bottles float as buoys along a path of plank boards to a lit shack on stilts.",
   "text": "Mournful strings drift across the water. Pairs of glowing bottles bob on black water, marking a path of boards to a lit shack on stilts. Off the path, the water is four feet of cold mud.",
+  "rest": "risky",
   "map": {
-    "rows": [
-      "##############.###############",
-      "#wwwwwwwwww_______wwwwwwwwwww#",
-      "#wwwwwwwwww_______wwwwwwwwwww#",
-      "#wwwwwwwwww_______wwwwwwwwwww#",
-      "#~wwwwwwwwwwww__wwwwwwwwwwww~#",
-      "#~wwwwwwwwwwww__wwwwwwwwwwww~#",
-      "#~wwwwwwwwwwww__wwwwwwwwwwww~#",
-      "#~wwwwwwwwwwww__wwwwwwwwwwww~#",
-      "#~~~~~~~~~wwww__wwwwwwwwwwww~#",
-      "#~~~~~~~~~wwww__wwwwwwwwwwww~#",
-      "#~~~~~~~~~wwww____wwwwwwwwww~#",
-      "#~~~~~~~~~wwww____wwwwwwwwww~#",
-      "#~~~~~~~~~wwwwww__wwwwwwwwww~#",
-      "#~~~~~~~~~wwwwww__wwwwwwwwww~#",
-      "#~~~~~~~~~~~______wwwwwwwwww~#",
-      "#~~~~~~~~~~~_____wwwwwwwwwww~#",
-      "#~~~~~~~~~ww__wwwwwwwwwwwwww~#",
-      "#~~~~~~~~~ww__wwwwwwwwwwwwww~#",
-      "#~~~~~~~~~ww__wwwwwwwwwwwwww~#",
-      "#~~~~~~~~~ww_______wwwwwwwww~#",
-      "#~~~~~~~~~ww_______wwwwwwwww~#",
-      "#~wwwwwwwwwwwwwww__wwwwwwwww~#",
-      "#~wwwwwwwwwwwwwww__wwwwwwwww~#",
-      "#~wwwwwwwwwwww_____wwwwwwwww~#",
-      "#~wwwwwwwwwwww____wwwwwwwwww~#",
-      "#~wwwwwwwwwwww__wwwwwwwwwwww~#",
-      "#~~~~~~~~~~~~~_~~~~~~~~~~~~~~#",
-      "#~~~~~~~~~~~~~_~~~~~~~~~~~~~~#",
-      "#~~~~~~~~~~~~~_~~~~~~~~~~~~~~#",
-      "##############.###############"
-    ],
     "theme": "forest",
     "light": "dim",
-    "outdoors": true
+    "outdoors": true,
+    "rows": [
+      "##############.###############            ",
+      "#wwwwwwwwww_______wwwwwwwwwww# ###########",
+      "#wwwwwwwwww_______wwwwwwwwwww# #....=....#",
+      "#wwwwwwwwww_______wwwwwwwwwww# #.==...==..",
+      "#~wwwwwwwwwwww__wwwwwwwwwwww~# #.........#",
+      "#~wwwwwwwwwwww__wwwwwwwwwwww~# #.........#",
+      "#~wwwwwwwwwwww__wwwwwwwwwwww~# #.........#",
+      "#~wwwwwwwwwwww__wwwwwwwwwwww~# #.==...==.#",
+      "#~~~~~~~~~wwww__wwwwwwwwwwww~# #.........#",
+      "#~~~~~~~~~wwww__wwwwwwwwwwww~# #####.#####",
+      "#~~~~~~~~~wwww____wwwwwwwwww~#            ",
+      "#~~~~~~~~~wwww____wwwwwwwwww~#            ",
+      "#~~~~~~~~~wwwwww__wwwwwwwwww~#            ",
+      "#~~~~~~~~~wwwwww__wwwwwwwwww~#            ",
+      "#~~~~~~~~~~~______wwwwwwwwww~#            ",
+      "#~~~~~~~~~~~_____wwwwwwwwwww~#            ",
+      "#~~~~~~~~~ww__wwwwwwwwwwwwww~#            ",
+      "#~~~~~~~~~ww__wwwwwwwwwwwwww~#            ",
+      "#~~~~~~~~~ww__wwwwwwwwwwwwww~#            ",
+      "#~~~~~~~~~ww_______wwwwwwwww~#            ",
+      "#~~~~~~~~~ww_______wwwwwwwww~#            ",
+      "#~wwwwwwwwwwwwwww__wwwwwwwww~#            ",
+      "#~wwwwwwwwwwwwwww__wwwwwwwww~#            ",
+      "#~wwwwwwwwwwww_____wwwwwwwww~#            ",
+      "#~wwwwwwwwwwww____wwwwwwwwww~#            ",
+      "#~wwwwwwwwwwww__wwwwwwwwwwww~#            ",
+      "#~~~~~~~~~~~~~_~~~~~~~~~~~~~~#            ",
+      "#~~~~~~~~~~~~~_~~~~~~~~~~~~~~#            ",
+      "#~~~~~~~~~~~~~_~~~~~~~~~~~~~~#            ",
+      "##############.###############            "
+    ],
+    "floors": [
+      {
+        "x0": 0,
+        "width": 30,
+        "height_ft": 0,
+        "id": "dc_shack_approach",
+        "offset": [
+          0,
+          0
+        ]
+      },
+      {
+        "x0": 31,
+        "width": 11,
+        "height_ft": 15,
+        "id": "dc_shack",
+        "offset": [
+          31,
+          1
+        ],
+        "bed": "bayou_indoor",
+        "rest": "no",
+        "theme": "tavern",
+        "outdoors": false,
+        "rest_text": "Not here."
+      }
+    ],
+    "stairs": [
+      {
+        "from": [
+          11,
+          3
+        ],
+        "to": [
+          40,
+          3
+        ],
+        "kind": "ladder"
+      }
+    ]
   },
   "areas": [
     {
@@ -83,57 +124,20 @@
           3
         ]
       ]
-    }
-  ],
-  "spawns": {
-    "default": [
-      14,
-      28
-    ],
-    "from_town": [
-      14,
-      28
-    ],
-    "from_shack": [
-      14,
-      3
-    ],
-    "from_lagoon": [
-      14,
-      2
-    ]
-  },
-  "exits": [
-    {
-      "id": "south",
-      "cell": [
-        14,
-        29
-      ],
-      "to": "dc_murkwater",
-      "spawn": "from_north",
-      "label": "Back toward Murkwater Bend"
     },
     {
-      "id": "ladder",
-      "cell": [
-        14,
-        2
-      ],
-      "to": "dc_shack",
-      "spawn": "from_ladder",
-      "label": "Up the ladder to the shack"
-    },
-    {
-      "id": "north",
-      "cell": [
-        14,
-        0
-      ],
-      "to": "dc_lagoon",
-      "spawn": "from_shack",
-      "label": "The Marshwinder Road, north",
-      "when": "flag.crossroads_passage or flag.crossroads_refused"
+      "id": "dc_shack_room",
+      "name": "The shack",
+      "cells": [
+        [
+          32,
+          2
+        ],
+        [
+          40,
+          8
+        ]
+      ]
     }
   ],
   "props": [
@@ -261,9 +265,93 @@
       "kind": "decor",
       "label": "A pair of glowing bottles",
       "model": "jars"
+    },
+    {
+      "id": "dc_shack_idols",
+      "cell": [
+        34,
+        3
+      ],
+      "kind": "examine",
+      "label": "Idols and dolls, each tagged 3 CP",
+      "model": "doll",
+      "dialogue": "drowned_crossroads/shack:steal_one",
+      "when": "flag.crossroads_refused and not flag.crossroads_passage"
+    },
+    {
+      "id": "dc_shack_stair",
+      "cell": [
+        36,
+        2
+      ],
+      "kind": "decor",
+      "label": "A spiral stair into darkness",
+      "model": "rope"
+    },
+    {
+      "id": "dc_shack_bottles",
+      "cell": [
+        39,
+        3
+      ],
+      "kind": "decor",
+      "label": "Bottles glowing magenta",
+      "model": "jars"
+    },
+    {
+      "id": "dc_shack_tags",
+      "cell": [
+        33,
+        7
+      ],
+      "kind": "decor",
+      "label": "A tag: 3 CP",
+      "model": "papers"
+    },
+    {
+      "id": "dc_shack_doll",
+      "cell": [
+        38,
+        7
+      ],
+      "kind": "decor",
+      "label": "A woven doll with your size of hands",
+      "model": "doll"
     }
   ],
-  "npcs": [],
+  "lights": [
+    {
+      "cell": [
+        14,
+        6
+      ],
+      "kind": "lamp",
+      "bright_ft": 20,
+      "dim_ft": 40,
+      "color": "bile"
+    },
+    {
+      "cell": [
+        36,
+        4
+      ],
+      "kind": "lamp",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "bile"
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "mister_crossroads",
+      "cell": [
+        36,
+        5
+      ],
+      "dialogue": "drowned_crossroads/shack:parley",
+      "when": "flag.shack_met and not flag.crossroads_passage and not flag.crossroads_refused and not flag.sinner_gone"
+    }
+  ],
   "encounters": [
     {
       "id": "dc_beast_bay",
@@ -315,19 +403,279 @@
         }
       ],
       "when": "level >= 7"
+    },
+    {
+      "id": "dc_shack_stalkers",
+      "trigger": "dialogue",
+      "flag": "dc_stalkers_done",
+      "monsters": [
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            36,
+            4
+          ],
+          "name": "The Bayou Beast",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            33,
+            4
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            39,
+            4
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            35,
+            6
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            37,
+            6
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        }
+      ],
+      "when": "level <= 5"
+    },
+    {
+      "id": "dc_shack_stalkers",
+      "trigger": "dialogue",
+      "flag": "dc_stalkers_done",
+      "monsters": [
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            36,
+            4
+          ],
+          "name": "The Bayou Beast",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            33,
+            4
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            39,
+            4
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            35,
+            6
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            37,
+            6
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            33,
+            6
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            39,
+            6
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        }
+      ],
+      "when": "level == 6"
+    },
+    {
+      "id": "dc_shack_stalkers",
+      "trigger": "dialogue",
+      "flag": "dc_stalkers_done",
+      "monsters": [
+        {
+          "monster": "bayou_beast",
+          "cell": [
+            36,
+            4
+          ],
+          "name": "The Bayou Beast",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            33,
+            4
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            39,
+            4
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            35,
+            6
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            37,
+            6
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            33,
+            6
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            39,
+            6
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        },
+        {
+          "monster": "stirge",
+          "cell": [
+            34,
+            5
+          ],
+          "name": "A jinxed mosquito",
+          "facing": "south"
+        }
+      ],
+      "when": "level >= 7"
     }
   ],
-  "rest": "risky",
-  "lights": [
+  "exits": [
     {
+      "id": "south",
       "cell": [
         14,
-        6
+        29
       ],
-      "kind": "lamp",
-      "bright_ft": 20,
-      "dim_ft": 40,
-      "color": "bile"
+      "to": "dc_murkwater",
+      "spawn": "from_north",
+      "label": "Back toward Murkwater Bend"
+    },
+    {
+      "id": "ladder",
+      "cell": [
+        14,
+        2
+      ],
+      "to": "dc_shack_approach",
+      "spawn": "shack_from_ladder",
+      "label": "Up the ladder to the shack"
+    },
+    {
+      "id": "north",
+      "cell": [
+        14,
+        0
+      ],
+      "to": "dc_lagoon",
+      "spawn": "from_shack",
+      "label": "The Marshwinder Road, north",
+      "when": "flag.crossroads_passage or flag.crossroads_refused"
+    },
+    {
+      "id": "ladder_shack",
+      "cell": [
+        41,
+        3
+      ],
+      "to": "dc_shack_approach",
+      "spawn": "from_shack",
+      "label": "Down the ladder"
     }
-  ]
+  ],
+  "spawns": {
+    "default": [
+      14,
+      28
+    ],
+    "from_town": [
+      14,
+      28
+    ],
+    "from_shack": [
+      11,
+      3
+    ],
+    "from_lagoon": [
+      14,
+      2
+    ],
+    "shack_default": [
+      36,
+      8
+    ],
+    "shack_from_ladder": [
+      40,
+      3
+    ]
+  }
 }
