@@ -2,6 +2,7 @@ extends Node
 ## Any places seen from the play camera, as the game shows them: the placeholder party arrives at each location in the list and a shot is
 ## taken of the play view and of the whole place from above.
 ##   make capture SCENE=res://tools/capture/places_capture.tscn NAME=world/places ARGS='--places=ghostlight_boarding,wickermoor_village'
+## --hour=8 shoots the Twilight Hour (the default is 23, the Midnight Hour).
 ## Shots: <out>_<place>_play.png and <out>_<place>_whole.png.
 
 const GAME := preload("res://world/game_root.gd")
@@ -12,6 +13,7 @@ func capture_shots(tool: Node, out: String) -> void:
 	var sky := false
 	var travel := false
 	var later := false
+	var hour := 23
 	var flags: PackedStringArray = []
 	var focus := Vector2(-1, -1)
 	var focus_distance := 8.0
@@ -20,6 +22,8 @@ func capture_shots(tool: Node, out: String) -> void:
 			places = a.get_slice("=", 1).split(",")
 		if a.begins_with("--flags="):
 			flags = a.get_slice("=", 1).split(",")   # story flags to set first, name:value (moon_grin:2,moon_scowl:true)
+		if a.begins_with("--hour="):
+			hour = int(a.get_slice("=", 1))   # the hour of the day (23 the Midnight Hour, the default; 8 the Twilight Hour)
 		if a == "--later":
 			later = true
 		if a == "--travel":
@@ -42,7 +46,7 @@ func capture_shots(tool: Node, out: String) -> void:
 		for f in flags:
 			var v := f.get_slice(":", 1)
 			st.set_flag(f.get_slice(":", 0), true if v == "true" else (int(v) if v.is_valid_int() else v))
-		st.minute_of_day = 23 * 60   # the Midnight Hour
+		st.minute_of_day = hour * 60   # the Midnight Hour unless --hour says otherwise
 		Dice.reseed(7)
 		var game := (load("res://scenes/game.tscn") as PackedScene).instantiate()
 		add_child(game)
