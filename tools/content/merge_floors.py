@@ -33,7 +33,11 @@ STOREY_FT = 15
 
 # merged id -> its name, and its floors from the ground up: (place id, short name, dx, dz) where (dx, dz) is where the floor's
 # own map lies in the building, worked out from its stairs so each stair's top meets the square it comes out on.
-# `ground` is the floor whose id the place keeps and whose spawns keep their names (the first by default).
+# `ground` is the floor whose id the place keeps and whose spawns keep their names (the first by default). `ways_only`: exits that
+# stay a way within the place with no stair joining their squares. `cover`: the ground floor is built over its cellar (the floor
+# below it): wall squares are laid where the cellar's squares lie beyond the ground floor's own, so no sunken room shows beside the
+# building. `edits`: (floor id, "spawn" or "exit", name, [x, z]): a spawn or an exit moved on its own floor's map, the one
+# change the merge makes to a floor's squares.
 FROM = "0605fb0e"   # the commit the later buildings were merged from (main before multifloor-buildings)
 BUILDINGS = {
     "crooked_house": {
@@ -50,36 +54,45 @@ BUILDINGS = {
     # floor one storey over it, and each floor's (dx, dz) from `--solve` so its stairs meet.
     "fw_windmill": {
         "ground": "fw_windmill",
+        "cover": True,
         "floors": [("fw_windmill_cellar", "cellar", 0, 0), ("fw_windmill", "ground", 4, 0)],
     },
     "wickermoor_green_queen_inn": {
         "ground": "wickermoor_green_queen_inn",
+        "cover": True,
         "floors": [("wickermoor_inn_cellar", "cellar", 0, 0), ("wickermoor_green_queen_inn", "ground", 2, 6),
                    ("wickermoor_green_queen_inn_upper", "upper", 27, 1)],
     },
     "dg_briar": {
         "ground": "dg_briar",
+        "cover": True,
         "floors": [("dg_briar_cellar", "cellar", 0, 0), ("dg_briar", "ground", 3, 5), ("dg_briar_upper", "upper", 28, 11)],
     },
     "wickermoor_barber_shop": {
         "ground": "wickermoor_barber_shop",
+        "cover": True,
         "floors": [("wickermoor_barber_cellar", "cellar", 6, 0), ("wickermoor_barber_shop", "ground", 0, 5)],
     },
     "wickermoor_funeral_home": {
         "ground": "wickermoor_funeral_home",
+        "cover": True,
         "floors": [("wickermoor_funeral_basement", "basement", 9, 0), ("wickermoor_funeral_home", "ground", 0, 9)],
     },
     "wickermoor_trading_post": {
         "ground": "wickermoor_trading_post",
+        "cover": True,
         "floors": [("wickermoor_trading_cellar", "cellar", 11, 0), ("wickermoor_trading_post", "ground", 0, 11)],
     },
-    # The monastery has two spiral stairs but its upper floor's two landings do not stand over the ground floor's two stairs
-    # (the east stair's are 3 and 7 squares from meeting, the west stair's 14 and 23), so the floor is laid where the east
-    # stair meets and the west stair stays a way within the place (the exit) with no stair joining its squares.
+    # The monastery has two spiral stairs and its upper floor lies where the east one meets exactly (it sits over the west and middle
+    # of the ground floor). The west stair's old landings were 23 squares apart, so it is moved to meet: on the ground floor from the
+    # top of the corridor down it to the same corridor, ten squares south (19, 22), and on the upper floor its landing and the way
+    # back down from the hall's far west end to the hall's north edge over it (22, 29) and (22, 30). Nothing else on either floor
+    # moves; only what stood on those squares was the stairs themselves.
     "mon_ground": {
         "ground": "mon_ground",
         "floors": [("mon_ground", "ground", 3, 7), ("mon_upper", "upper", 0, 0)],
-        "ways_only": ["stairs_up_a"],
+        "edits": [("mon_ground", "spawn", "from_upstairs_a", [19, 22]), ("mon_ground", "exit", "stairs_up_a", [19, 22]),
+                  ("mon_upper", "spawn", "from_down_a", [22, 29]), ("mon_upper", "exit", "down_a", [22, 30])],
     },
     # The bell tower is a tower of its own (the book gives it its own map, reached through the Bell Tower Gate), two floors.
     "mon_bell_tower": {
@@ -135,7 +148,50 @@ def _is_cell(v):
 
 def _floors_of(spec):
     rev = spec.get("from", FROM)
-    return [(pid, short, dx, dz, _floor_place(pid, rev)) for pid, short, dx, dz in spec["floors"]]
+    floors = [(pid, short, dx, dz, _floor_place(pid, rev)) for pid, short, dx, dz in spec["floors"]]
+    for pid, kind, name, cell in spec.get("edits", []):
+        loc = next(f[4] for f in floors if f[0] == pid)
+        if kind == "spawn":
+            loc["spawns"][name] = list(cell)
+        elif kind == "exit":
+            next(e for e in loc["exits"] if e["id"] == name)["cell"] = list(cell)
+        else:
+            raise ValueError(kind)
+    return floors
+
+
+def _json_at(rev, path):
+    return json.loads(subprocess.run(["git", "show", "%s:%s" % (rev, path)], cwd=ROOT, check=True, capture_output=True, text=True).stdout)
+
+
+def floor_settings(spec, floors, base):
+    """What each floor other than the ground floor settled for itself before its building was one place, where it differs from the
+    ground floor's (the engine's PlaceFloors): its map's theme and outdoors, its rest, and from the game's own files as they were
+    at the commit the floors are read from, its atmosphere mood, ambient bed and footsteps. A floor that doesn't differ says
+    nothing and takes the place's."""
+    rev = spec.get("from", FROM)
+    audio = _json_at(rev, "art/audio.json")
+    moods = _json_at(rev, "art/atmosphere/moods.json")
+
+    def of(floor):
+        pid, loc = floor[0], floor[4]
+        m = loc["map"]
+        return {"mood": moods.get("places", {}).get(pid), "bed": audio.get("place_beds", {}).get(pid),
+                "steps": audio.get("steps", {}).get("places", {}).get(pid), "rest": loc.get("rest"),
+                "rest_text": loc.get("rest_text"), "theme": m.get("theme"), "outdoors": bool(m.get("outdoors", False))}
+    ground = of(floors[base])
+    out = []
+    for i, f in enumerate(floors):
+        mine = of(f)
+        settings = {}
+        if i != base:
+            for key in ("mood", "bed", "steps", "rest", "theme", "outdoors"):
+                if mine[key] is not None and mine[key] != ground[key]:
+                    settings[key] = mine[key]
+            if settings.get("rest") == "no" and mine["rest_text"] != ground["rest_text"] and mine["rest_text"]:
+                settings["rest_text"] = mine["rest_text"]
+        out.append(settings)
+    return out
 
 
 def _stair_ends(floors, i, e):
@@ -195,10 +251,20 @@ def merge(bid):
     ids = [f[0] for f in floors]
     base = ids.index(spec["ground"]) if "ground" in spec else 0
     depth = max(len(f[4]["map"]["rows"]) + f[3] for f in floors)
+    # The squares (in the building's own columns and rows) of the cellar the ground floor is built over, when it is.
+    cover = set()
+    if spec.get("cover") and base > 0:
+        _, _, ldx, ldz, lloc = floors[base - 1]
+        for z, r in enumerate(lloc["map"]["rows"]):
+            for x, ch in enumerate(r):
+                if ch != " ":
+                    cover.add((ldx + x, ldz + z))
     blocks = []
     x0 = 0
-    for pid, short, dx, dz, loc in floors:
+    for i, (pid, short, dx, dz, loc) in enumerate(floors):
         w = max(len(r) for r in loc["map"]["rows"]) + dx
+        if i == base and cover:
+            w = max(w, max(bx for bx, _ in cover) + 1)
         blocks.append({"x0": x0, "width": w, "dx": dx, "dz": dz})
         x0 += w + 1
     width = x0 - 1
@@ -207,14 +273,22 @@ def merge(bid):
         for z, r in enumerate(loc["map"]["rows"]):
             for x, ch in enumerate(r):
                 rows[z + dz][b["x0"] + dx + x] = ch
+    for bx, bz in cover:
+        # Wall where the cellar's squares lie past the ground floor's own: its walls stand over the whole cellar.
+        own_rows = floors[base][4]["map"]["rows"]
+        ox, oz = bx - floors[base][2], bz - floors[base][3]
+        own = own_rows[oz][ox] if 0 <= oz < len(own_rows) and 0 <= ox < len(own_rows[oz]) else " "
+        if own == " ":
+            rows[bz][blocks[base]["x0"] + bx] = "#"
     first = floors[base][4]
     out = {k: copy.deepcopy(v) for k, v in first.items() if k not in LISTS + ["exits", "spawns", "map"]}
     out["id"] = bid
     out["name"] = spec.get("name", first["name"])
     out["map"] = {k: v for k, v in first["map"].items() if k not in ("rows", "elevation")}
     out["map"]["rows"] = ["".join(r) for r in rows]
+    settings = floor_settings(spec, floors, base)
     out["map"]["floors"] = [{"x0": b["x0"], "width": b["width"], "height_ft": i * STOREY_FT, "id": f[0],
-                             "offset": [b["x0"] + b["dx"], b["dz"]]} for i, (b, f) in enumerate(zip(blocks, floors))]
+                             "offset": [b["x0"] + b["dx"], b["dz"]], **settings[i]} for i, (b, f) in enumerate(zip(blocks, floors))]
     spawns = {}
     stairs = []
     exits = []

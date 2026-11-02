@@ -3,6 +3,8 @@ extends Node
 ## taken of the play view and of the whole place from above.
 ##   make capture SCENE=res://tools/capture/places_capture.tscn NAME=world/places ARGS='--places=ghostlight_boarding,wickermoor_village'
 ## --hour=8 shoots the Twilight Hour (the default is 23, the Midnight Hour).
+## --party=placeholder stands the engine's placeholder party (Ilse, Tamsin, Hedda, Silvain, sprites) in the places; the default is a new
+## game's party (Rook, Silas, Cordelia, Delphine), the 3D figures the game opens with.
 ## Shots: <out>_<place>_play.png and <out>_<place>_whole.png.
 
 const GAME := preload("res://world/game_root.gd")
@@ -14,6 +16,7 @@ func capture_shots(tool: Node, out: String) -> void:
 	var travel := false
 	var later := false
 	var hour := 23
+	var placeholder := false
 	var turn := false
 	var morphs: PackedStringArray = []
 	var gallery := false
@@ -28,6 +31,8 @@ func capture_shots(tool: Node, out: String) -> void:
 			places = a.get_slice("=", 1).split(",")
 		if a.begins_with("--flags="):
 			flags = a.get_slice("=", 1).split(",")   # story flags to set first, name:value (moon_grin:2,moon_scowl:true)
+		if a == "--party=placeholder":
+			placeholder = true
 		if a.begins_with("--hour="):
 			hour = int(a.get_slice("=", 1))   # the hour of the day (23 the Midnight Hour, the default; 8 the Twilight Hour)
 		if a.begins_with("--morph="):
@@ -67,7 +72,7 @@ func capture_shots(tool: Node, out: String) -> void:
 	for place in places:
 		GameState.reset()
 		var st := GameState.story
-		for id: String in GAME.PLACEHOLDER_PARTY:
+		for id: String in (GAME.PLACEHOLDER_PARTY if placeholder else GAME.NEW_GAME_PARTY):
 			var ch := Pregens.build(id, 3)
 			ch.finish_long_rest()
 			st.party.append(ch)

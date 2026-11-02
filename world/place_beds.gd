@@ -29,10 +29,11 @@ func _ready() -> void:
 		_players.append(p)
 
 
-## The bed for a place: its own turn or entry, else its region's, else "". A turn (art/audio.json "bed_turns": a place
+## The bed for a place: its own turn or entry, else its region's, else "". A floor of a multi-floor place may have a bed of
+## its own (`floor_bed`, the floor's `bed`: the muffled sound upstairs, a cellar's drip), which stands for the place's entry. A turn (art/audio.json "bed_turns": a place
 ## or region to [{when, bed}]) is the first whose StoryConditions `when` holds and whose bed has a recording; with no
 ## story to ask (`st` null) there is none.
-static func bed_for(location_id: String, st: StoryState = null) -> String:
+static func bed_for(location_id: String, st: StoryState = null, floor_bed: String = "") -> String:
 	var beds := Audio._data.get("place_beds", {}) as Dictionary
 	var region := str(Compendium.shared().get_entry("locations", location_id).get("region", ""))
 	var turns := Audio._data.get("bed_turns", {}) as Dictionary
@@ -43,8 +44,10 @@ static func bed_for(location_id: String, st: StoryState = null) -> String:
 				var bed := str(turn.get("bed", ""))
 				if not Audio.files("loops", bed).is_empty() and StoryConditions.check(str(turn.get("when", "")), st):
 					return bed
-			if beds.has(key):
-				break   # a place's own bed outranks its region's turns
+			if beds.has(key) or (key == location_id and floor_bed != ""):
+				break   # a place's own bed (or its floor's) outranks its region's turns
+	if floor_bed != "":
+		return floor_bed   # the floor the party stands on has a bed of its own (a multi-floor place's `floors`)
 	if beds.has(location_id):
 		return str(beds[location_id])
 	return str(beds.get(region, "")) if region != "" else ""
@@ -52,8 +55,8 @@ static func bed_for(location_id: String, st: StoryState = null) -> String:
 
 ## Crossfades to the bed of `location_id`, or with `camped` to a camp's (art/audio.json loops "camp": its fire and the night
 ## round it); the same bed keeps playing where it is.
-func enter(location_id: String, st: StoryState = null, camped: bool = false) -> void:
-	var next := "camp" if camped and not Audio.files("loops", "camp").is_empty() else bed_for(location_id, st)
+func enter(location_id: String, st: StoryState = null, camped: bool = false, floor_bed: String = "") -> void:
+	var next := "camp" if camped and not Audio.files("loops", "camp").is_empty() else bed_for(location_id, st, floor_bed)
 	if next == bed_id:
 		return
 	bed_id = next

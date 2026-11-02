@@ -18,9 +18,9 @@ const BUILDINGS := {
 	"mon_ground": {"floors": ["mon_ground", "mon_upper"], "ground": 0, "lowest_spawn": "default"},
 	"mon_bell_tower": {"floors": ["mon_bell_tower", "mon_belfry"], "ground": 0, "lowest_spawn": "default"},
 }
-## How many stair links each has: the monastery's west stair stays an exit (its two landings stand 23 squares apart in the old maps).
+## How many stair links each has (the monastery's two spiral stairs both meet: the west one's two landings were 23 squares apart).
 const STAIRS := {"fw_windmill": 1, "wickermoor_green_queen_inn": 2, "dg_briar": 2, "wickermoor_barber_shop": 1, "wickermoor_funeral_home": 1,
-	"wickermoor_trading_post": 1, "mon_ground": 1, "mon_bell_tower": 1}
+	"wickermoor_trading_post": 1, "mon_ground": 2, "mon_bell_tower": 1}
 
 
 func _place(id: String) -> Dictionary:
@@ -95,6 +95,60 @@ func test_the_monastery_is_one_place_with_its_upper_floor() -> void:
 
 func test_the_bell_tower_is_one_place_with_its_belfry() -> void:
 	_check_one_place("mon_bell_tower")
+
+
+## No sunken room shows beside a building: every square of a cellar has a square of the ground floor over it (the old maps' stairs put
+## some cellars partly outside the house, so the ground floor is walled out over them, tools/content/merge_floors.py `cover`).
+func test_every_cellar_lies_under_the_ground_floors_walls() -> void:
+	for id: String in BUILDINGS:
+		var ground := int((BUILDINGS[id] as Dictionary)["ground"])
+		if ground == 0:
+			continue
+		var map := _place(id)["map"] as Dictionary
+		var rows := map["rows"] as Array
+		var floors := map["floors"] as Array
+		var low := floors[0] as Dictionary
+		var top := floors[ground] as Dictionary
+		var outside := 0
+		for r: Variant in rows:
+			var row := str(r)
+			for x in range(int(low["x0"]), mini(int(low["x0"]) + int(low["width"]), row.length())):
+				if row[x] == " ":
+					continue
+				var over := int(top["x0"]) + (x - int(low["x0"]))
+				if over >= row.length() or row[over] == " ":
+					outside += 1
+		assert_eq(outside, 0, "%s: the cellar's squares with no ground floor over them" % id)
+
+
+## The monastery's west stair is a real stair like the east one: its ground landing moved ten squares down its corridor and the
+## upper floor's two squares (the landing and the way back down) to the hall's north edge over it; nothing else was moved.
+func test_the_monasterys_west_stair_meets_like_the_east_one() -> void:
+	var mon := _place("mon_ground")
+	var g := LocationView.grid_for(mon)
+	var spawns := mon["spawns"] as Dictionary
+	var floors := _floors("mon_ground")
+	var ground := floors[0]["offset"] as Array
+	var upper := floors[1]["offset"] as Array
+	assert_eq(LocationView._cell(spawns["from_upstairs_a"]), Vector2i(19 + int(ground[0]), 22 + int(ground[1])), "the way down arrives at the stair's new foot")
+	assert_eq(LocationView._cell(spawns["upper_from_down_a"]), Vector2i(22 + int(upper[0]), 29 + int(upper[1])), "and the way up at its new landing")
+	var seen := 0
+	for s: Variant in (mon["map"] as Dictionary)["stairs"]:
+		var a := LocationView._cell((s as Dictionary)["from"])
+		var b := LocationView._cell((s as Dictionary)["to"])
+		var wa := g.world_center(a)
+		var wb := g.world_center(b)
+		assert_eq(Vector2(wa.x, wa.z), Vector2(wb.x, wb.z), "%s comes out exactly over where it starts" % [s])
+		seen += 1
+	assert_eq(seen, 2, "both stairs")
+	for e: Variant in mon["exits"]:
+		var ex := e as Dictionary
+		if str(ex["id"]) == "stairs_up_a":
+			assert_eq(LocationView._cell(ex["cell"]), LocationView._cell(spawns["from_upstairs_a"]), "the exit stands on the foot of the stair")
+			assert_eq(str(ex["spawn"]), "upper_from_down_a", "and still leads up to its landing")
+		if str(ex["id"]) == "down_a":
+			assert_eq(LocationView._cell(ex["cell"]), Vector2i(22 + int(upper[0]), 30 + int(upper[1])), "the way back down is beside the landing")
+			assert_eq(str(ex["spawn"]), "from_upstairs_a", "and leads to the foot")
 
 
 func test_the_cellar_stair_waits_for_what_opened_it() -> void:

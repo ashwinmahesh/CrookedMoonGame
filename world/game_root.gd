@@ -178,7 +178,10 @@ func enter_location(location_id: String, spawn: String, sneaking: bool = false) 
 	# The place's name as it fades in (Visual Polish Plan 6), unless a loading card is up and names it already.
 	_title = PlaceTitle.show_for(self, view.loc)
 	Audio.play_music(_place_mood())
-	place_beds.enter(location_id, st)
+	place_beds.enter(location_id, st, false, str(view.floor_setting("bed", "")))
+	view.floor_changed.connect(func(_index: int) -> void:   # a floor of a building with a bed of its own
+		if view != null:
+			place_beds.enter(st.location, st, _camped(), str(view.floor_setting("bed", ""))))
 	view.banter_player = banter
 	_banter_waiting = []
 	_banter_quiet_since = -1
@@ -1393,7 +1396,7 @@ func _turn_sound_with_the_hour() -> void:
 	_sound_hour = hour
 	_sound_camped = camped
 	Audio.play_music(_place_mood())
-	place_beds.enter(st.location, st, camped)
+	place_beds.enter(st.location, st, camped, str(view.floor_setting("bed", "")))
 
 
 ## Whether the party has made camp here (LocationCamp, pitched by the rest screen): its fire and quiet music hold until
