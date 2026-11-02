@@ -1,8 +1,8 @@
 #!/usr/bin/env /opt/homebrew/bin/python3
 """Look P pictures from the local ImageGen-Service (CLAUDE.md, plan 8.1 and 9): Z-Image Turbo with the custom-giallo LoRA at 0.6
 and the style preamble (art/prompts/style_preamble.txt) after every prompt. Jobs go to the standalone queue (port 55302, which
-takes work even while the other generator has the GPU) with `generate_immediately`, so they run before the ordinary backlog the
-moment the GPU is on images. Originals are kept under the asset root (cm.assetRoot or /Volumes/ASH-SSD/CrookedMoon/assets) in
+takes work even while the other generator has the GPU) with `generate_immediately` only when a job asks for it (`immediate=True`: such a job runs even while the queue is paused, which Ashwin does
+to free his GPU, so by default a job waits its turn at normal priority). Originals are kept under the asset root (cm.assetRoot or /Volumes/ASH-SSD/CrookedMoon/assets) in
 <kind>/, and every finished picture is appended to art/generation_log.jsonl.
 
 As a tool:   generate_local.py <spec.json> [--wait]
@@ -38,11 +38,11 @@ def _call(method: str, path: str, body: dict | None = None, headers: dict | None
 
 
 def submit(kind: str, item_id: str, prompt: str, size: str, seed: int, use_preamble: bool = True, lora: bool = True,
-           extra_tags: list[str] | None = None, reference: str | None = None, strength: float = 0.55) -> str:
+           extra_tags: list[str] | None = None, reference: str | None = None, strength: float = 0.55, immediate: bool = False) -> str:
     """Queues one picture; returns the job id. `size` is WxH, each a multiple of 64 from 256 to 2048. A `reference` (a path on
     this Mac) makes it a variation of that picture, `strength` how much of it is kept (0 to 1, higher keeps more)."""
     text = prompt.strip() + (" " + preamble() if use_preamble else "")
-    request = {"prompt": text, "size": size, "seed": seed, "generate_immediately": True,
+    request = {"prompt": text, "size": size, "seed": seed, "generate_immediately": immediate,
                "tags": ["crooked-moon", f"look-{kind}", item_id] + (extra_tags or []),
                "output_dir": str(ASSETS / kind)}
     if lora:
