@@ -1,0 +1,93 @@
+{
+  "_note": "Who sells what (Ashwin, 2026-11-02: every item that isn't the story's is for sale somewhere, mundane gear, magic items and spell scrolls alike). tools/content/build_shop_stock.py writes each merchant's `shop.sells` and `shop.magic` in data/npcs from this file and the item data (the engine's and the game's), and tests/unit/test_shop_stock.gd fails when an item that should be for sale isn't. Only Acts I and II have counters: the Wickermoor Hollow hub (open through both acts), Lyla Webb at the Drowned Crossroads, Bo Gaspard there and Kristoff Gruber at Dawn's Gate. A magic item shows once the party's milestone level reaches its rarity (data/treasure/levels.json shop_levels: rare from 5, very rare from 9, legendary from 10); prices are each item's cost_gp (Sane Magical Prices; a Spell Scroll by its level; the book's own prices where it gives one).",
+  "not_for_sale": {
+    "_note": "Never stocked: quest items (category quest); artifacts and the one-of-a-kind legendaries kept off the random tables (treasure.random false); entries not playable yet; and these, listed by id: the book's Fabled Heirlooms and the Cursed Curios the story places (the Fated Tarot and the chapters hand them out; the Sinner sells three curios in his own way), and the story's own finds, keepsakes and gifts. The generic scrolls (spell_scroll_cantrip, spell_scroll_level_1) are stood in for by a scroll of every spell. Goodberries are the spell's own making, kept off the magic counters; Holly sells hers at 1 gp each.",
+    "items": [
+      "adelas_jewellery", "adelas_wedding_ring", "bloody_toy_sword", "cache_coin", "calligraphers_set", "child_shovel_pail", "chunk_of_oozing_fungus",
+      "crocodile_shoes", "devilbone_button", "devils_glove_pod", "druid_rot_garb", "empty_whiskey_bottle", "forbidden_apple", "ghostlight_key_ring",
+      "gold_pocket_watch", "gold_ring_75", "golub_birdcage", "golub_crystal_ball", "grave_salt", "green_ribbon", "human_tooth", "jar_of_clown_glue",
+      "jewel_box_cromwell", "jinx_pistol", "jug_of_water", "lace_porcelain_doll", "marble_jar", "midnight_tears", "mm_iron_chain", "mm_lavender",
+      "mm_lilies", "mm_moth_wing", "mm_nightshade", "necrolisk_slime", "plush_angry_crow", "rk_improvised_picks", "ruby_silver_ring", "sk_miners_lunch",
+      "skitterdeep_nuggets", "tainted_goodberries", "the_bag", "toy_riverboat", "whistle_of_the_vagrant", "yellow_duck_figurine",
+      "spell_scroll_cantrip", "spell_scroll_level_1", "goodberry",
+      "amber_birdcage", "blunderbuss_of_the_grinning_sinner", "cauldron_of_the_vermintoll_coven", "cursed_curio_prize", "cutlass_of_briggsy_kratch", "deck_of_illusions_card",
+      "idol_of_the_beast_of_blight", "jericho_banjo", "lantern_of_the_chained_reaper", "marotte_of_the_lord_of_fools", "marthas_locket", "mask_of_lethica_nightborne",
+      "revelry_suit", "rust_bag_of_tricks", "scroll_of_resurrection", "scythe_of_the_harvest_terror", "shield_of_marius_renathyr", "shovel_of_yorgrim",
+      "staff_of_farryn", "sword_of_the_crimson_abbot", "veil_of_the_weeping_widow", "wild_joker_card", "withered_hand"
+    ]
+  },
+  "merchants": {
+    "_note": "Each merchant's mundane wares in the order the counter lists them (`sells`, each kept as it is in the merchant's file when already there: a qty or price stays; a line written as {id, price, ...} sets its own terms), then the magic they carry. Magic goes to the first merchant whose `magic` rule takes it, in this file's order (a rule takes an item whose category is one of its `categories`, whose `worn` slot is one of its `worn`, or whose id holds one of its `id_words`); a merchant marked `also` stocks its kinds as well as the one that takes them (a second place to buy). `scrolls`: a Spell Scroll of every playable spell on an arcane list (Bard, Sorcerer, Warlock, Wizard) or a divine one (Cleric, Druid, Paladin, Ranger); a spell on both kinds of list is at both counters. Whatever magic no rule takes goes to `fallback`. `shop` keys are set on the merchant's shop as written.",
+    "fallback": "baltus_tolliver",
+    "jean_myriel": {
+      "sells": ["dagger", "handaxe", "mace", "spear", "shortsword", "light_hammer", "sickle", "battleaxe", "flail", "glaive", "greataxe", "greatsword", "halberd",
+        "lance", "longsword", "maul", "morningstar", "pike", "rapier", "scimitar", "trident", "war_pick", "warhammer", "hand_crossbow", "heavy_crossbow",
+        "pistol", "musket", "firearm_bullet", "chain_shirt", "scale_mail", "breastplate", "half_plate_armor", "ring_mail", "chain_mail", "splint_armor",
+        "plate_armor", "shield", "iron_spike", "caltrops", "chain", "smiths_tools"],
+      "magic": {"categories": ["weapon", "armor", "shield", "ammunition"]}
+    },
+    "morgan": {
+      "sells": ["potion_of_healing", "antitoxin", "healers_kit", "herbalism_kit", "vial", "holy_water", "acid", "alchemists_fire", "basic_poison",
+        "lye_soap_flask", "perfume", "flask", "glass_bottle", "alchemists_supplies", "poisoners_kit", "component_pouch", "druidic_focus_mistletoe",
+        "druidic_focus_staff", "druidic_focus_wand", "incense", "jade_dust", "gold_dust", "silver_dust", "diamond_dust", "ruby_dust", "citrine", "onyx",
+        "pearl", "diamond"],
+      "magic": {"categories": ["potion"]}
+    },
+    "thomasin_ardor": {
+      "sells": ["travelers_clothes", "fine_clothes", "costume", "robe", "blanket", "entertainers_pack", "disguise_kit", "weavers_tools", "cobblers_tools"],
+      "magic": {"worn": ["cloak", "robe", "feet", "hands"]}
+    },
+    "eleanor_heyling": {
+      "sells": ["book", "paper", "parchment", "ink", "ink_pen", "map", "map_or_scroll_case", "spellbook", "magnifying_glass", "scholars_pack",
+        "calligraphers_supplies", "cartographers_tools", "forgery_kit", "arcane_focus_crystal", "arcane_focus_orb", "arcane_focus_rod",
+        "arcane_focus_staff", "arcane_focus_wand"],
+      "magic": {"categories": ["wand", "rod", "staff", "scroll", "focus"], "scrolls": "arcane",
+        "id_words": ["manual", "tome", "libram", "book", "bestiary", "lexicon", "quill", "playbill", "pantograph", "missive"]}
+    },
+    "weston_murdoch": {
+      "sells": ["holy_symbol_amulet", "holy_symbol_emblem", "holy_symbol_reliquary", "priests_pack", "holy_water", "candle"],
+      "magic": {"scrolls": "divine"}
+    },
+    "lyla_webb": {
+      "sells": ["thieves_tools", "dice_set", "playing_card_set", "three_dragon_ante_set", "dragonchess_set", "disguise_kit", "forgery_kit", "basic_poison",
+        "poisoners_kit", "manacles", "lock", "ball_bearings", "caltrops", "burglars_pack", "signal_whistle"],
+      "magic": {"categories": ["ring"], "worn": ["neck"], "also": true},
+      "shop": {"closed": "not flag.lyla_met", "hide_closed": true}
+    },
+    "hilda_brom": {
+      "sells": ["ration", "hunting_trap", "net", "shortbow", "longbow", "arrow", "quiver", "sling", "sling_bullet", "blowgun", "blowgun_needle", "dart",
+        "javelin", "whip", "padded_armor", "leather_armor", "studded_leather_armor", "hide_armor", "leatherworkers_tools", "climbers_kit"]
+    },
+    "beatrice_wells": {
+      "sells": ["ladder", "pole", "chest", "barrel", "bucket", "carpenters_tools", "woodcarvers_tools", "club", "quarterstaff", "greatclub",
+        "portable_ram", "block_and_tackle", "lute", "lyre", "viol", "dulcimer", "flute", "pan_flute", "shawm", "bagpipes", "horn", "drum"]
+    },
+    "solomon_roderick": {
+      "sells": ["masons_tools", "potters_tools", "glassblowers_tools", "jewelers_tools", "painters_supplies"]
+    },
+    "oswick_frey": {
+      "sells": ["candle", "lamp", "torch", "hooded_lantern", "bullseye_lantern", "oil", "tinderbox", "bell", "string"]
+    },
+    "siv_harga": {
+      "sells": ["ration", "cooks_utensils", "iron_pot"]
+    },
+    "holly_aster": {
+      "sells": ["ration", {"id": "goodberry", "price": 1}, "brewers_supplies", "jug", "basket"]
+    },
+    "baltus_tolliver": {
+      "sells": ["backpack", "rope", "torch", "ration", "tinderbox", "hooded_lantern", "oil", "waterskin", "bedroll", "tent", "crowbar", "hunting_trap",
+        "shovel", "grappling_hook", "climbers_kit", "mirror", "spyglass", "lock", "manacles", "chain", "ball_bearings", "signal_whistle", "string",
+        "sack", "pouch", "basket", "jug", "flask", "iron_pot", "crossbow_bolt_case", "quiver", "dagger", "handaxe", "spear", "javelin", "dart", "sling",
+        "light_crossbow", "crossbow_bolt", "shortbow", "arrow", "shield", "leather_armor", "explorers_pack", "dungeoneers_pack", "burglars_pack",
+        "diplomats_pack", "priests_pack", "scholars_pack", "entertainers_pack", "tinkers_tools", "navigators_tools", "dice_set", "playing_card_set",
+        "three_dragon_ante_set", "dragonchess_set"],
+      "magic": {}
+    },
+    "bo_gaspard": {
+      "sells": ["ration", "waterskin", "net"]
+    },
+    "kristoff_gruber": {
+      "sells": ["ration", "waterskin", "torch", "oil", "tinderbox", "bedroll"]
+    }
+  }
+}
