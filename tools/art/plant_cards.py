@@ -9,6 +9,7 @@ pixels around it so mipmaps never fringe. The original atlas is kept once under 
   /usr/bin/python3 tools/art/plant_cards.py                 repaints every card whose picture is under <asset root>/plantcards/
   /usr/bin/python3 tools/art/plant_cards.py grass_dry ...   only these
   /usr/bin/python3 tools/art/plant_cards.py --sheet out.png contact sheet of the atlas on grey
+  /usr/bin/python3 tools/art/plant_cards.py --from <dir>     the paintings from another folder (the photoreal ones)
 
 The paintings come from tools/art/specs/plant_cards.json via tools/art/generate_local.py (kind `plantcards`).
 Which model uses which card: bracken `fern_brown`, the grass tufts `grass_a`/`grass_b`/`grass_dry`, `sedge`, willow_a `willow_strand`,
@@ -98,6 +99,10 @@ def main(argv: list[str]) -> None:
         bg.convert("RGB").resize((im.width // 2, im.height // 2)).save(argv[argv.index("--sheet") + 1])
         return
     only = [a for a in argv if not a.startswith("-")]
+    global PAINTINGS
+    if "--from" in argv:   # the photoreal cards: --from /Volumes/ASH-SSD/CrookedMoon/assets/plantcards_photo2 (tools/art/photoreal_fetch.py names them)
+        PAINTINGS = Path(argv[argv.index("--from") + 1])
+        only = [a for a in only if a != str(PAINTINGS)]
     if not BACKUP.exists():
         shutil.copy(ATLAS, BACKUP)
     atlas = Image.open(ATLAS).convert("RGBA")

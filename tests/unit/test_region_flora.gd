@@ -64,3 +64,37 @@ func test_the_leaf_cards_that_carry_a_regions_look_are_painted() -> void:
 				if atlas.get_pixel(x, y).a > 0.5:
 					opaque += 1
 		assert_true(float(opaque) / float(total) > 0.12, "%s has a card drawn (%d of %d samples)" % [name, opaque, total])
+
+
+## The Crooked Moon's own 3D plants (blender/plants_crooked_moon.py): built, each tree with its far copy, small enough for a crowd,
+## and planted by the regions they were made for: corn at Foxwillow, wytch trees and briar in the Wytchwood, fungal stumps at
+## Hartsblight, bald cypress in the bayou.
+const OWN := {"corn": ["corn_a", "corn_b", "corn_c"], "wytchwood": ["wytch_a", "wytch_b", "briar_a"], "fungal": ["fungal_a", "fungal_b"],
+	"willows": ["cypress_a"]}
+
+
+func test_the_crooked_moons_own_plants_are_built_with_their_far_copies_and_stay_light() -> void:
+	var plants := Flora.manifest()
+	for id: String in ["corn_a", "corn_b", "corn_c", "wytch_a", "wytch_b", "fungal_a", "fungal_b", "briar_a", "cypress_a"]:
+		assert_true(plants.has(id), "%s is in the manifest" % id)
+		var info := plants[id] as Dictionary
+		assert_true(ResourceLoader.exists(ArtPaths.of(str(info["file"]))), "%s's model is there" % id)
+		assert_true(int(info["triangles"]) <= 1500, "%s stays light (%d triangles)" % [id, int(info["triangles"])])
+		assert_true(Flora.mesh(id) != null and Flora.mesh(id).get_surface_count() >= 1, "%s makes a mesh" % id)
+		if info.has("far"):
+			assert_true(plants.has(str(info["far"])) and str((plants[str(info["far"])] as Dictionary).get("far_of", "")) == id,
+				"%s has its far copy" % id)
+
+
+func test_each_region_plants_its_own() -> void:
+	for set_id: String in OWN:
+		var spec := Flora.resolve(set_id)
+		var named := {}
+		for key: String in ["land", "under", "open", "edge", "shore"]:
+			for e: Variant in spec.get(key, []) as Array:
+				named[str((e as Array)[0])] = true
+		for kind: String in (spec.get("trees", {}) as Dictionary):
+			for t: Variant in (spec["trees"] as Dictionary)[kind] as Array:
+				named[str(t)] = true
+		for id: String in OWN[set_id]:
+			assert_true(named.has(id), "%s plants %s" % [set_id, id])
