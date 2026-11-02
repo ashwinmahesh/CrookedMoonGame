@@ -6,7 +6,6 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 | Item | Status | Thread |
 |---|---|---|
-| Realistic trees cost about 40% frame time at the wreckage; the plants lane is cutting that and will hand over a new tip | In progress | [Terrain3D](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo9HDaCnEx5Du9CKzyerk5Dv) |
 | Audit all visual effects: each gets a selection room and its own colour, size and speed settings (melee hit effects are landed; the other effects are next) | In progress | [Melee hit effects](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoHUCbLptUKMrnux7PbW3KTT) |
 | Real 3D multi-floor grid, starting with the Crooked House, built in the DnDGameEngine-3D fork; houses rebuilt at the pack's true size | In progress (Ashwin said go) | [Rebuild the worlds](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoC7g6BsCwnrPHakr5kpoBPD) |
 | Weapons and pack animations (Rook's switch to pack clips waits on Ashwin's verdict) | In progress | [Weapons/pack animations](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoWHuBM7pdpdhmz86LEs2vUs) |
@@ -44,6 +43,10 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **Trees cost less frame time**: the EZ trees are about 7 times lighter, which cuts the 40% frame-time cost at the wreckage. (595c0686.)
+- **The Crooked Moon's own plants**: 12 Blender-built plant models (corn, wytch trees, fungal stumps, briar, mossy cypress) placed by region in flora.json, with 6 leaf cards repainted photoreal. (6e38d1cd, b8663ef6.)
+- **The title's moon is a thin sickle**: the title picture shows a thin sickle with sharp horns. (63b95c1d.)
+- **GPU scheduler shares the GPU with headless Blender**: the Blender-aware scheduler scripts are now in tools/gpu. (d147926b.)
 - **Moonlit nights and gnarled set-piece trees**: a realistic moonlit night for the wild regions, gnarled EZ-Tree set pieces with 240 dead_tree props routed to them, and cheaper ground clutter. (4778fdec, 72a7f738.)
 - **Terrain3D speed fixes on the walk maps**: no shadows under the walk maps, and the land past a map's edge is light enough to draw. (547e7f0c, 5c48a7d7.)
 - **Whole travel map as 3D land, with gamepad controls**: the 3D overworld holds the whole travel map, places that share a spot are told apart, and the 12 MB bake is refreshed for the realistic trees. (1e6a518b, 26cad78a, aec3d548.)
