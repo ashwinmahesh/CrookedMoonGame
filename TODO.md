@@ -7,11 +7,9 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 | Item | Status | Thread |
 |---|---|---|
 | Portraits for the 144 missing NPCs: 148 photoreal portrait jobs are queued at normal priority (the image server is paused) | In progress (queued, waiting on the server) | [Portraits](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoMVcF4yx8zrzvExbupWQsVL) |
-| Fix the Wickermoor lighting (the SpotLight3D in the OmniLight3D array) and the failing test_playable_gate | In progress | [Wickermoor lighting](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo9HLhiPgrjKsvmAFaFP6tAn) |
 | Build the windmill, the inns, the cellars and the monastery | In progress | [Windmill, inns, cellars, monastery](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoRPZu9NaNNbtWXmE9YAURC7) |
 | Finish the remaining free models (and the villager dressing check in test_figures) | In progress | [Free models](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoQCFNvm6cQtDuSEztHsi468) |
 | Build out Act 2 and the open todos | In progress | [Act 2](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoPPR4UsoGK7bQTEnN8LobsA) |
-| Multi-storey camera: the floor above stays slightly see-through while you climb, then turns solid (Ashwin 18:25Z) | In progress | [Rebuild the worlds](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoC7g6BsCwnrPHakr5kpoBPD) |
 | Audit all visual effects: each gets a selection room and its own colour, size and speed settings (melee hit effects are landed; the other effects are next) | In progress | [Melee hit effects](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoHUCbLptUKMrnux7PbW3KTT) |
 | Real 3D multi-floor grid, starting with the Crooked House, built in the DnDGameEngine-3D fork; houses rebuilt at the pack's true size | In progress (Ashwin said go) | [Rebuild the worlds](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoC7g6BsCwnrPHakr5kpoBPD) |
 | Weapons and pack animations (Rook's switch to pack clips waits on Ashwin's verdict) | In progress | [Weapons/pack animations](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoWHuBM7pdpdhmz86LEs2vUs) |
@@ -48,6 +46,9 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **Wickermoor lighting and the playable gate**: a lit window's spotlight no longer errors going into the night lights, and the subclasses and the Veil no longer grant spells that have lost their level, so test_playable_gate passes. (Engine 1a51719d, game 04b5b5c7.)
+- **Spellcasting animations**: every figure's cast is the animation pack's spell (gathered, held, thrown from the left hand, followed through), with a glow gathering in the casting hand, and the pack bodies rebaked with the Enter and Exit clips. (Engine 768b5b42, game f2acd771, 46a964a7.)
+- **Multi-storey camera**: the floor you climb to comes in slightly see-through and holds there, then turns solid. (Engine eceee5a0, game 7c92dce0.)
 - **Dialogue portraits for the six haints**: the daydreamer, harlequin, jailbird, mariner, songstress and sweetheart have faces in dialogue, and tools/art/portrait_gaps.py lists the speakers still missing one. (ff11a92b.)
 - **Trees cost less frame time**: the EZ trees are about 7 times lighter, which cuts the 40% frame-time cost at the wreckage. (595c0686.)
 - **The Crooked Moon's own plants**: 12 Blender-built plant models (corn, wytch trees, fungal stumps, briar, mossy cypress) placed by region in flora.json, with 6 leaf cards repainted photoreal. (6e38d1cd, b8663ef6.)
