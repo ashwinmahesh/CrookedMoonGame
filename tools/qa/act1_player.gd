@@ -335,9 +335,10 @@ func _play_from_save(menu: Node) -> String:
 	if err != OK:
 		_block("resume", "the save %s didn't load (error %d)" % [resume_path, err])
 		return "blocked_resume"
+	var menu_id := menu.get_instance_id()   # the menu is freed when the game replaces it: only its id is kept
 	menu.get_tree().change_scene_to_file("res://scenes/game.tscn")
 	var up := await _until(func() -> bool: return get_tree().current_scene != null and get_tree().current_scene.get("view") != null \
-		and get_tree().current_scene != menu, 900)
+		and get_tree().current_scene.get_instance_id() != menu_id, 900)
 	if not up:
 		_block("start", "the game scene never came up after loading %s" % resume_path)
 		return "blocked_start"
@@ -827,9 +828,9 @@ func _save_and_load() -> void:
 	if err != OK:
 		_block("load", "the save %s didn't load (error %d)" % [slot, err])
 		return
-	var old := root
+	var old_id := root.get_instance_id()   # the old game scene is freed by the reload: only its id is kept
 	get_tree().reload_current_scene()
-	var up := await _until(func() -> bool: return get_tree().current_scene != null and get_tree().current_scene != old \
+	var up := await _until(func() -> bool: return get_tree().current_scene != null and get_tree().current_scene.get_instance_id() != old_id \
 		and get_tree().current_scene.get("view") != null, 900)
 	if not up:
 		_block("load", "the game scene never came back after loading %s" % slot)
