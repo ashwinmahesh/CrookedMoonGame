@@ -43,12 +43,12 @@ engine first, then commit the new submodule commit here (its path shows as the c
 - The look (Ashwin, 2026-11-02, plan 8.1): fully 3D with realistic lighting and textures; no toon, no cel, no HD-2D. The game offers only
   the Modern finish (data/campaign.json). Curse of Strahd stays HD-2D on the shared engine, so wherever this game diverges the change
   lives in this repo, never in the engine's defaults.
-- Pictures in the world and menus (loading pictures, title, travel map, vistas, the moon, decals): photorealistic. Z-Image Turbo with
-  no style LoRA; append the words in art/prompts/photoreal_preamble.txt to every prompt.
-- Cutscene stills keep the cartoon style (Ashwin, 2026-11-02 04:35): look P "Creature Feature Cel", Z-Image Turbo with the Giallo
-  LoRA (`custom-giallo`) at 0.6 and the words in art/prompts/style_preamble.txt.
-- For a cut-out, ask for a plain flat white background; the pipeline removes it. Fix a finished picture with an edit model
-  (FLUX.2 Klein, Qwen-Image 2.1 Turbo) rather than re-rolling.
+- Images (cutscene stills, loading pictures, title, travel map, vistas, the moon, decals): photorealistic. Z-Image Turbo with no style
+  LoRA; append the words in art/prompts/photoreal_preamble.txt (the look lane writes it; until then plan 8.1) to every prompt. Never
+  the Giallo LoRA or the old look P cel style. For a cut-out, ask for a plain flat white background; the pipeline removes it. Fix a
+  Existing cutscene stills (made before this rule) keep their cel style: look P "Creature Feature Cel", Giallo LoRA at 0.6 and
+  art/prompts/style_preamble.txt. New cutscenes are photorealistic.
+  finished picture with an edit model (FLUX.2 Klein, Qwen-Image 2.1 Turbo) rather than re-rolling.
 - Voices: VoxCPM2 designs voices (always three options per character), Higgs reads the lines. Pinned in audio/voice/casting.json,
   each line's delivery in audio/voice/directions.json. A clip is keyed by its text, so editing a voiced line silences it until re-read.
   Finished takes reach the game through `make voice-wire` (copies them into audio/voice and counts the lines still without a clip).
