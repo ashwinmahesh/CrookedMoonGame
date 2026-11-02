@@ -237,14 +237,15 @@ func test_a_shield_is_held_in_the_off_hand() -> void:
 	assert_true("shield_wooden@off" in FigureModels.gear_for("tobin_hayward", ch), "and his figure holds it in the left hand")
 
 
-## Rook's trial figure on the Universal Animation Library's clips (tools/art/retarget_clips.py): the pack's sword swing, spell
-## and walk baked onto his Tripo skeleton, beside his own figure, holding his greatsword.
+## Rook moves on the Universal Animation Library's clips (tools/art/retarget_clips.py): the pack's sword swing, spell and walk
+## baked onto his Tripo skeleton (his Tripo-only figure stays as rook_coldwake_tripo, the bake's source), holding his greatsword.
 func test_rook_on_the_pack_clips_holds_his_greatsword_and_swings_it() -> void:
 	var ch := Pregens.build("rook_coldwake", 1)
 	assert_eq(ch.held_id("main_hand"), "greatsword", "Rook starts with his greatsword in hand")
-	for art: String in ["rook_coldwake", "rook_coldwake_ual"]:
+	assert_eq(str(FigureModels.info("rook_coldwake").get("retarget_from", "")), "rook_coldwake_tripo", "baked from his Tripo figure")
+	for art: String in ["rook_coldwake", "rook_coldwake_tripo"]:
 		assert_true("sword_great" in FigureModels.gear_for(art, ch), "%s holds it" % art)
-	var fig := DirectionalSprite.create(DirectionalSprite.frames_for("rook_coldwake_ual"), CombatToken.height_for("rook_coldwake_ual")) as ModelFigure
+	var fig := DirectionalSprite.create(DirectionalSprite.frames_for("rook_coldwake"), CombatToken.height_for("rook_coldwake")) as ModelFigure
 	add_child(fig)
 	var names := fig._player.get_animation_list()
 	for clip: String in ["Sword_Attack", "Sword_Idle", "Spell_Simple_Enter", "Spell_Simple_Idle", "Spell_Simple_Shoot",
@@ -252,7 +253,7 @@ func test_rook_on_the_pack_clips_holds_his_greatsword_and_swings_it() -> void:
 		assert_ne(ModelFigure.clip_named(names, clip), "", "the trial figure has %s" % clip)
 	assert_eq(str(((fig._roles["attack"] as Array)[0] as Dictionary)["name"]), ModelFigure.clip_named(names, "Sword_Attack"),
 		"and attacks with the pack's sword swing")
-	fig.wear(FigureModels.gear_for("rook_coldwake_ual", ch))
+	fig.wear(FigureModels.gear_for("rook_coldwake", ch))
 	assert_true("sword_great" in fig.worn_parts(), "the greatsword is worn")
 	fig.free()
 
