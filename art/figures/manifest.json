@@ -30,6 +30,10 @@
     "spear": {"file": "art/figures/weapons/spear.glb", "source": "free_models/weapons/spear.glb", "bone": "RightHand", "follow": "turn", "size": 1.05, "grip": [0, 1.2, 0], "offset": [-0.01, 0.032, 0], "turn": [90, 0, 0]},
     "staff": {"file": "art/figures/weapons/staff.glb", "source": "free_models/weapons/staff.glb", "bone": "RightHand", "follow": "turn", "size": 0.95, "grip": [0, 0.0, 0], "offset": [-0.01, 0.032, 0], "turn": [90, 0, 0]},
     "greataxe": {"file": "art/figures/weapons/greataxe.glb", "source": "free_models/weapons/greataxe.glb", "bone": "RightHand", "follow": "turn", "size": 0.62, "grip": [0, 0.0, 0], "offset": [-0.01, 0.032, 0], "turn": [90, 0, 0]},
+    "sword_great": {"file": "art/figures/weapons/sword.glb", "source": "free_models/weapons/sword.glb", "bone": "RightHand", "follow": "turn", "size": 0.66, "grip": [0, -0.1, 0], "offset": [-0.01, 0.032, 0], "turn": [90, 0, 0]},
+    "sword_long": {"file": "art/figures/weapons/sword.glb", "source": "free_models/weapons/sword.glb", "bone": "RightHand", "follow": "turn", "size": 0.55, "grip": [0, -0.1, 0], "offset": [-0.01, 0.032, 0], "turn": [90, 0, 0]},
+    "sword_short": {"file": "art/figures/weapons/sword.glb", "source": "free_models/weapons/sword.glb", "bone": "RightHand", "follow": "turn", "size": 0.42, "grip": [0, -0.1, 0], "offset": [-0.01, 0.032, 0], "turn": [90, 0, 0]},
+    "shield_wooden": {"file": "art/figures/weapons/shield_wooden.glb", "source": "free_models/weapons/shield_wooden.glb", "bone": "RightHand", "follow": "turn", "size": 0.36, "offset": [0, 0.03, 0], "turn": [0, 0, 0]},
     "bow": {"file": "art/figures/weapons/bow.glb", "source": "free_models/weapons/bow.glb", "bone": "RightHand", "follow": "turn", "size": 0.6, "grip": [0, 0.0, 0], "offset": [-0.01, 0.032, 0], "turn": [90, 0, 0]},
     "hair_parted": {"file": "art/figures/hair/hair_parted.glb", "source": "free_models/hair/hair_parted.glb"},
     "hair_buzzed": {"file": "art/figures/hair/hair_buzzed.glb", "source": "free_models/hair/hair_buzzed.glb"},
@@ -41,7 +45,7 @@
     "pack_female_hair_buns": {"file": "art/figures/pack/pack_female_hair_buns.glb", "source": "free_models/pack/pack_female_hair_buns.glb"},
     "delphine_ghost": {"file": "art/figures/delphine_ghost.glb", "source": "tripo/models/delphine_ghost_multiview_8k_4k.glb", "bone": "LeftShoulder", "hover": [0.025, 2.6], "size": 0.3, "offset": [0.1, 0.24, -0.08], "ghost": {"see_through": 0.45, "wash": 0.35, "colour": "moon_green", "glow": 0.45, "rim": 0.6, "pulse": 0.2}}
   },
-  "gear": {"hooded_lantern": "lantern", "bullseye_lantern": "lantern", "torch": "torch", "dagger": "dagger", "spear": "spear", "quarterstaff": "staff", "greataxe": "greataxe", "shortbow": "bow", "longbow": "bow"},
+  "gear": {"hooded_lantern": "lantern", "bullseye_lantern": "lantern", "torch": "torch", "dagger": "dagger", "spear": "spear", "quarterstaff": "staff", "greataxe": "greataxe", "shortbow": "bow", "longbow": "bow", "greatsword": "sword_great", "longsword": "sword_long", "shortsword": "sword_short", "shield": "shield_wooden"},
   "bodies": {"*": {"female": "hero_body_female", "male": "hero_body_male"}},
   "rigs": {
     "quaternius": {
@@ -62,6 +66,7 @@
   },
   "figures": {
     "rook_coldwake": {"file": "art/figures/rook_coldwake.glb", "close_up": {"albedo": "art/figures/close_up/rook_coldwake_4k.jpg"}, "source": "tripo/models/rook_body_tpose2_front_side_10k_4k_10clips_combat.glb", "layers": ["rook_head"], "bones": {"Head": 0.01}, "clips": {"greet": "agree"}, "gear": ["main_hand", "off_hand"]},
+    "rook_coldwake_ual": {"file": "art/figures/rook_coldwake_ual.glb", "close_up": {"albedo": "art/figures/close_up/rook_coldwake_4k.jpg"}, "layers": ["rook_head"], "bones": {"Head": 0.01}, "gear": ["main_hand", "off_hand"], "clips": {"idle": "Idle", "walk": "Walk", "run": "Jog_Fwd", "attack": {"clip": "Sword_Attack", "from": 0.0, "to": 1.45, "hit": 0.45, "speed": 1.25}, "hurt": {"clip": "Hit_Chest"}, "die": {"clip": "Death01"}, "talk": ["Idle_Talking"], "greet": ["Interact"]}},
     "silas_vane": {"file": "art/figures/silas_vane.glb", "source": "tripo/models/silas_v2_multiview_10k_4k_10clips_combat.glb", "clips": {"greet": "agree"}, "gear": ["main_hand", "off_hand"]},
     "cordelia_skein": {"file": "art/figures/cordelia_skein.glb", "source": "tripo/models/cordelia_final_multiview_15k_4k_10clips_combat.glb", "clips": {"greet": "agree"}, "gear": ["off_hand"]},
     "delphine_ravelle": {"file": "art/figures/delphine_ravelle.glb", "close_up": {"albedo": "art/figures/close_up/delphine_ravelle_4k.jpg"}, "source": "tripo/models/delphine_body_tpose_multiview_10k_4k_10clips_combat.glb", "layers": ["delphine_head", "delphine_ghost"], "bones": {"Head": 0.01}, "gear": ["main_hand", "off_hand"]},

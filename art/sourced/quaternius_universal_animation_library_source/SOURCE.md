@@ -9,6 +9,6 @@
 - Kept in the repo (files in use, untouched, plus the licence):
   - UAL1.glb (the version without root motion, from Unreal-Godot/)
 - The whole pack, untouched: ~/Documents/ASH-SSD/CrookedMoon/assets/sourced/quaternius_universal_animation_library_source/ (zip in zips/, extracted in pack/). The original zip also stays in ~/Documents/AssetPacks.
-- For: The pack people's clips, baked into their bodies by tools/art/pack_figures.py and named for the game's roles under the manifest's `rigs.quaternius.clips`. The pack has no agree, greet, complain, bow or wave: agree and complain come from Universal Animation Library 2's Yes and Idle_No_Loop, greet is its Interact; a bow is missing (see docs/art/pack_people.md).
+- For: The pack people's clips, baked into their bodies by tools/art/pack_figures.py and named for the game's roles under the manifest's `rigs.quaternius.clips`. The pack has no agree, greet, complain, bow or wave: agree and complain come from Universal Animation Library 2's Yes and Idle_No_Loop, greet is its Interact; a bow is missing (see docs/art/pack_people.md). Also retargeted onto Tripo figures (Mixamo bone names) by tools/art/retarget_clips.py: Rook's trial copy art/figures/rook_coldwake_ual.glb carries the sword, spell, punch, idle, walk, jog, hit, death, talk and interact clips under their pack names.
 
 Kept untouched (CLAUDE.md, Art): changes for the game are made on copies elsewhere (tools/art/pack_figures.py), never in this folder.
