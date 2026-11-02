@@ -90,12 +90,15 @@ func treasures_at(place: String, st: StoryState) -> Array[String]:
 ## The module's exit out of the mist between cars (data/locations/ghostlight_limbo.json): it leads on to the next car the party has not
 ## been in yet.
 const LIMBO_ONWARD := "module_switcheroo_onward"
+## Its way back (Ashwin, 2026-11-02: the mist went only one way): to the car the party stepped out of, the last one before the first
+## car not yet been in, in at its front door with everything there as the party left it.
+const LIMBO_BACK := "module_switcheroo_back"
 
 
 ## The train's cars, rear to Tender: the six middle cars in an order the playthrough's seed fixes (a reload never reshuffles it). An exit
 ## `module_switcheroo_next` or `:previous` leads to the car after or before the one it is in. The first time the party goes forward
-## into a car it has not been in, the way leads through the mist between cars (the Switcheroo's limbo) and out of it into that car;
-## every later crossing is a plain door. A pure query (menus ask it for the door's label too): it only reads which places the party has
+## into a car it has not been in, the way leads through the mist between cars (the Switcheroo's limbo) and out of it into that car, or
+## back out of it into the car it came from; every later crossing is a plain door. A pure query (menus ask it for the door's label too): it only reads which places the party has
 ## visited, which the place itself records on arrival.
 func exit_target(st: StoryState, from_location: String, to: String) -> String:
 	if to.begins_with("module_maze_"):
@@ -108,6 +111,11 @@ func exit_target(st: StoryState, from_location: String, to: String) -> String:
 			if not st.visited.has(car):
 				return car
 		return chain[chain.size() - 1]
+	if to == LIMBO_BACK:
+		for i: int in range(1, chain.size()):
+			if not st.visited.has(chain[i]):
+				return chain[i - 1]
+		return chain[chain.size() - 2]
 	var at := chain.find(from_location)
 	if at < 0:
 		return from_location

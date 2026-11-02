@@ -16,7 +16,8 @@ const MORPHING: Array[String] = ["druskenvald_estate"]
 func dress_place(view: LocationView) -> void:
 	if CrookedMoonCampaign.is_car(view.loc_id):
 		ExpressWindows.hang(view.board, view.board)   # the Shroud streams past the cars' windows
-	if view.st.location == CrookedMoonCampaign.limbo_place() and CrookedMoonCampaign.is_car(view.loc_id):
+	if view.st.location == CrookedMoonCampaign.limbo_place() and CrookedMoonCampaign.is_car(view.loc_id) \
+			and not view.st.visited.has(view.loc_id):   # (back out of the mist into the car it left, nothing has changed)
 		view._say("switcheroo:arrive")
 
 
