@@ -54,7 +54,7 @@ func test_a_head_with_a_jaw_opens_its_mouth_with_the_voice() -> void:
 		assert_between(skel.get_bone_pose_rotation(jaw.jaw).angle_to(rest), deg_to_rad(8.0), deg_to_rad(11.0), "%s: the jaw dropped" % id)
 		# It glides forward as it drops, so the lower lip falls straight down rather than tucking back into a pout.
 		var glide := skel.get_bone_pose_position(jaw.jaw) - rest_at
-		assert_gt(glide.dot(jaw.forward_in_parent(skel)), 0.009, "%s: the jaw glides forward as it opens" % id)
+		assert_true(glide.dot(jaw.forward_in_parent(skel)) > 0.009, "%s: the jaw glides forward as it opens" % id)
 		jaw.talking = false
 		for i in 20:
 			skel.set_bone_pose_rotation(jaw.jaw, rest)
