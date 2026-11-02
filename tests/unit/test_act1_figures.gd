@@ -6,11 +6,9 @@ extends TestCase
 const FINISHED: Array[String] = ["doris_squire", "wendel_somerton", "mori_shade", "weston_murdoch", "mrs_oakum", "theodora_mayville", "dani_jenkin", "gilly_jenkin", "crooked_man", "sally_lockwood", "conductor_understudy", "mrs_calloway"]
 const REUSED: Array[String] = ["pip_oakum", "amos_dority", "bess_crumley", "brother_elias", "charlotte_murdoch", "gaston_doray", "george_hickock", "howie_butterman", "peter_murdoch", "sgt_gaunt", "rk_mob_b", "rk_posse_a", "rk_mob_c", "rk_posse_b", "rk_mob_a", "algernon_heyling", "arthur_lockwood", "branden_wells", "brother_spore", "cecil_marl", "eddie_wainwright", "granny_orla_pike", "haldor_vane", "hester_bolton", "jay_wells", "lark_wells", "lavender_aster", "lilian_vale", "margery_heyling", "marta_dunn", "myrtle_somerton", "olwen_pike", "ottilie_reed", "petunia_lockwood", "pim_fenwick", "robin_wells", "ronald_wainwright", "rose_somerton", "sheridan_heyling", "sofia_roderick", "rk_mob_round", "tobias_dibbs", "ulf_harga", "victoria_wainwright", "violet_aster", "wilma_wainwright", "wren_wells", "wynn_carter", "zachariah_wainwright"]
 const STILL_GRAY: Array[String] = ["geneva_fairchild", "morgan", "sister_rain", "old_rusty", "holly_aster", "jeremiah_stover", "marianna_grey", "tamsin_ledger", "baltus_tolliver", "barnaby_pennywhistle", "finneas_trout", "hilda_brom", "ambrose_quill", "eleanor_heyling", "joan_murdoch", "melina", "randall_graham", "siv_harga", "solomon_roderick", "thomasin_ardor", "alda_farnum", "jean_myriel", "peeping_albert", "walter_jenkin", "beatrice_wells", "oswick_frey", "lottery_stranger", "wisp"]
-## The finished models made without a head wear a head of their own (a Tripo head model, art/figures/heads/<id>_head.glb) fitted to their
-## own neck; Mrs. Oakum's head model has not come yet, so she wears a head painted from her own head sheet (tools/art/face_heads.py). Sister Rain's head is in, her body is held.
+## The finished models made without a head each wear a head of their own (a Tripo head model, art/figures/heads/<id>_head.glb) fitted to
+## their own neck. Sister Rain's head is in too, her body is held (her head is checked with the others, her body is not asserted).
 const HEADLESS: Array[String] = ["doris_squire", "wendel_somerton", "mori_shade", "weston_murdoch", "mrs_oakum", "theodora_mayville",
-	"dani_jenkin", "gilly_jenkin", "crooked_man", "sally_lockwood"]
-const WITH_HEAD_MODEL: Array[String] = ["doris_squire", "wendel_somerton", "mori_shade", "weston_murdoch", "theodora_mayville",
 	"dani_jenkin", "gilly_jenkin", "crooked_man", "sally_lockwood"]
 
 
@@ -34,17 +32,16 @@ func test_each_finished_model_is_in_the_manifest_rigged_and_drawn() -> void:
 
 func test_the_bodies_made_without_a_head_wear_a_head() -> void:
 	var clay := FigureModels.part("clay_head")
-	assert_true(ResourceLoader.exists(ArtPaths.of(str(clay.get("file", "")))), "the clay head is there")
-	assert_eq(str(clay.get("fit", "")), "head", "fitted to each body's own neck")
+	assert_true(ResourceLoader.exists(ArtPaths.of(str(clay.get("file", "")))), "the neutral clay head is still there for a body whose head is not made yet")
 	for id: String in HEADLESS:
 		var layers := FigureModels.info(id).get("layers", []) as Array
-		var wanted := id + "_head" if id in WITH_HEAD_MODEL else "face_" + id
-		assert_true(layers.has(wanted), "%s wears %s" % [id, wanted])
+		assert_true(layers.has(id + "_head"), "%s wears its own head" % id)
+		assert_false(layers.has("clay_head"), "%s has no blank head under it" % id)
 		assert_true(float((FigureModels.info(id).get("bones", {}) as Dictionary).get("Head", 1.0)) < 0.05, "and its own stub of a head is shrunk away")
 
 
 func test_the_head_models_are_fitted_parts_with_their_pictures() -> void:
-	var ids: Array[String] = WITH_HEAD_MODEL.duplicate()
+	var ids: Array[String] = HEADLESS.duplicate()
 	ids.append("sister_rain")
 	for id: String in ids:
 		var part := FigureModels.part(id + "_head")
