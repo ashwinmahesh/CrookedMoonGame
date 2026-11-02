@@ -1,22 +1,430 @@
 {
-  "about": "The 3D overworld (world/overworld/; enabled false brings back the painted map everywhere): one stretch of the travel map (data/travel, Wickermoor Hollow) raised as land on Terrain3D (addons/terrain_3d, MIT). window is the part of the travel map's picture it covers ([x0, y0, x1, y1] in the map's 0-1 positions); size is that window's width in metres (1 world unit = 1 m here, not a 5 ft square: the overworld has no battle grid). Each place's position comes from the travel map; `places` here only says how the land lies round it: lie is hollow (a bowl it sits in), hill (a rise it stands on) or flat, with its radius and depth or rise in metres, and lights (warm lamps a village shows at night). lake is a basin of still water. Roads follow the travel map's roads between places inside the window. trees and plants are the game's own plant models (art/plants) by how many per hectare of woods or open ground. rocks are Poly Haven's scanned rocks (art/sourced/polyhaven_forest).",
+  "about": "The 3D overworld (world/overworld/; enabled false brings back the painted map everywhere): the whole travel map (data/travel, Wickermoor Hollow) raised as land on Terrain3D (addons/terrain_3d, MIT). window is the part of the travel map's picture it covers ([x0, y0, x1, y1] in the map's 0-1 positions; now all of it); size is that window's width in metres (1 world unit = 1 m here, not a 5 ft square: the overworld has no battle grid) and step the metres between two samples of the land (2 keeps the bake small; Terrain3D's vertex_spacing is the same). Each place's position comes from the travel map; `places` here only says how the land lies round it. lie: hollow (a bowl it sits in), hill (a rise it stands on; top is its base height, rise how far above it), flat (height 12, or `height`), fields (open farmland: `radius` the farmyard, `fields` the width of the plough land, stripes of `stripe` metres), isle (dry ground in a swamp, `rise` metres over the water), forest (`radius` the clearing, `forest` the dark woods round it). Extras on any place: lights (warm lamps), crags (`dir` the way the rock rises, `rise`, `reach`), scree (bare stones that far round), prairie (open grass that far round), clear (how far the woods are cleared), mist (drifting low fog: count, radius, height, alpha) and wall (a stone wall round it: half sizes, gate on the south). relief.lowlands flatten and lower the hills round a point (drop 0-1). waters are lakes: a basin (radius, depth) whose surface is a disc; swamps are low flat wet ground (base height, amp the noise in metres) with a flat water plane at `level`, so pools fill the dips. Roads follow the travel map's roads between places. trees and plants are the game's own plant models (art/plants) by how many per hectare of woods, open ground or a named zone (swamp, fields, forest, prairie). rocks are Poly Haven's scanned rocks (art/sourced/polyhaven_forest).",
   "enabled": true,
-  "window": [0.08, 0.1, 0.6, 0.62],
-  "size": 1024,
-  "relief": {"hills": 95.0, "hill_scale": 320.0, "ridge": 80.0, "ridge_band": [0.0, 0.25], "woods": -0.05, "woods_scale": 240.0},
-  "places": {
-    "ghostlight_wreckage": {"lie": "hollow", "radius": 70, "depth": 14},
-    "wickermoor_village": {"lie": "hollow", "radius": 95, "depth": 8, "lights": 14},
-    "druskenvald_estate": {"lie": "hill", "radius": 120, "rise": 38, "lights": 4},
-    "sk_hills_trail": {"lie": "flat", "radius": 40},
-    "sk_camp": {"lie": "flat", "radius": 50, "lights": 2},
-    "dawns_gate": {"lie": "flat", "radius": 70, "lights": 8},
-    "hartsblight_forest": {"lie": "flat", "radius": 40}
+  "window": [
+    0.0,
+    0.0,
+    1.0,
+    1.0
+  ],
+  "size": 2048,
+  "relief": {
+    "hills": 95.0,
+    "hill_scale": 320.0,
+    "ridge": 80.0,
+    "ridge_band": [
+      0.0,
+      0.14
+    ],
+    "woods": -0.05,
+    "woods_scale": 240.0,
+    "lowlands": [
+      {
+        "at": [
+          0.545,
+          0.9
+        ],
+        "radius": 700,
+        "drop": 0.75
+      },
+      {
+        "at": [
+          0.82,
+          0.45
+        ],
+        "radius": 480,
+        "drop": 0.7
+      },
+      {
+        "at": [
+          0.66,
+          0.74
+        ],
+        "radius": 340,
+        "drop": 0.6
+      },
+      {
+        "at": [
+          0.09,
+          0.6
+        ],
+        "radius": 420,
+        "drop": 0.5
+      }
+    ]
   },
-  "lake": {"at": [0.2, 0.3], "radius": 85, "depth": 9},
-  "road_width": 4.0,
+  "places": {
+    "ghostlight_wreckage": {
+      "lie": "hollow",
+      "radius": 70,
+      "depth": 14
+    },
+    "wickermoor_village": {
+      "lie": "hollow",
+      "radius": 95,
+      "depth": 8,
+      "lights": 14
+    },
+    "druskenvald_estate": {
+      "lie": "hill",
+      "radius": 120,
+      "rise": 38,
+      "lights": 4
+    },
+    "nm_estate": {
+      "lie": "hill",
+      "radius": 120,
+      "rise": 38,
+      "lights": 4
+    },
+    "nm_estate_ruins": {
+      "lie": "hill",
+      "radius": 120,
+      "rise": 38,
+      "lights": 1
+    },
+    "sk_hills_trail": {
+      "lie": "flat",
+      "radius": 40
+    },
+    "sk_camp": {
+      "lie": "flat",
+      "radius": 50,
+      "lights": 2
+    },
+    "dawns_gate": {
+      "lie": "flat",
+      "radius": 70,
+      "lights": 8,
+      "crags": {
+        "dir": [
+          -0.55,
+          -0.83
+        ],
+        "rise": 100,
+        "reach": 260
+      }
+    },
+    "hartsblight_forest": {
+      "lie": "forest",
+      "radius": 32,
+      "forest": 340,
+      "lights": 1
+    },
+    "foxwillow": {
+      "lie": "fields",
+      "radius": 110,
+      "fields": 300,
+      "stripe": 34,
+      "lights": 10
+    },
+    "dc_trail1": {
+      "lie": "isle",
+      "radius": 45,
+      "rise": 1.3
+    },
+    "dc_murkwater": {
+      "lie": "isle",
+      "radius": 60,
+      "rise": 1.4,
+      "lights": 7
+    },
+    "memorys_rest": {
+      "lie": "flat",
+      "radius": 55,
+      "height": 11,
+      "lights": 4
+    },
+    "maidenmist_gate": {
+      "lie": "hill",
+      "radius": 85,
+      "top": 10,
+      "rise": 16,
+      "mist": {
+        "count": 28,
+        "radius": 130,
+        "height": 4,
+        "alpha": 0.22
+      },
+      "wall": {
+        "half": [
+          62,
+          46
+        ]
+      },
+      "lights": 1
+    },
+    "rk_roost_prairie": {
+      "lie": "flat",
+      "radius": 40,
+      "prairie": 280
+    },
+    "rk_roost_swamp": {
+      "lie": "isle",
+      "radius": 22,
+      "rise": 0.7
+    },
+    "rk_roost_foothills": {
+      "lie": "hill",
+      "radius": 40,
+      "top": 24,
+      "rise": 24,
+      "scree": 170
+    },
+    "rk_roost_lakeshore": {
+      "lie": "flat",
+      "radius": 30,
+      "height": 4.5,
+      "scree": 70
+    }
+  },
+  "road_width": 5.0,
   "road_reach": 14.0,
-  "trees": {"woods": [["oak_a", 110], ["oak_b", 90], ["dead_a", 30], ["dead_b", 25], ["spruce_b", 45]], "open": [["oak_a", 1.5], ["dead_c", 1.0]], "height": [11.0, 17.0]},
-  "plants": {"woods": [["fern_a", 120], ["bracken", 90], ["bush_a", 30]], "open": [["grass_dry", 260], ["grass_a", 180], ["heather", 60]], "reach": 260.0},
-  "rocks": {"models": ["rock_moss_a", "rock_moss_b", "boulder"], "per_hectare_slope": 6, "per_hectare_open": 0.6, "size": [1.5, 4.5]}
+  "trees": {
+    "woods": [
+      [
+        "oak_a",
+        110
+      ],
+      [
+        "oak_b",
+        90
+      ],
+      [
+        "dead_a",
+        30
+      ],
+      [
+        "dead_b",
+        25
+      ],
+      [
+        "spruce_b",
+        45
+      ]
+    ],
+    "open": [
+      [
+        "oak_a",
+        1.5
+      ],
+      [
+        "dead_c",
+        1.0
+      ]
+    ],
+    "swamp": [
+      [
+        "dead_a",
+        16
+      ],
+      [
+        "dead_b",
+        12
+      ],
+      [
+        "dead_c",
+        14
+      ],
+      [
+        "willow_a",
+        9
+      ]
+    ],
+    "forest": [
+      [
+        "spruce_b",
+        120
+      ],
+      [
+        "spruce_a",
+        70
+      ],
+      [
+        "dead_a",
+        60
+      ],
+      [
+        "dead_b",
+        50
+      ],
+      [
+        "oak_b",
+        50
+      ]
+    ],
+    "prairie": [
+      [
+        "oak_a",
+        0.4
+      ]
+    ],
+    "fields": [
+      [
+        "oak_b",
+        0.5
+      ]
+    ],
+    "hedge": [
+      [
+        "bush_a",
+        1.0
+      ],
+      [
+        "bush_b",
+        1.0
+      ],
+      [
+        "oak_b",
+        0.35
+      ]
+    ],
+    "height": [
+      11.0,
+      17.0
+    ]
+  },
+  "plants": {
+    "woods": [
+      [
+        "fern_a",
+        120
+      ],
+      [
+        "bracken",
+        90
+      ],
+      [
+        "bush_a",
+        30
+      ]
+    ],
+    "open": [
+      [
+        "grass_dry",
+        260
+      ],
+      [
+        "grass_a",
+        180
+      ],
+      [
+        "heather",
+        60
+      ]
+    ],
+    "swamp": [
+      [
+        "reeds",
+        330
+      ],
+      [
+        "cattails",
+        120
+      ],
+      [
+        "sedge",
+        260
+      ],
+      [
+        "fern_b",
+        60
+      ]
+    ],
+    "fields": [
+      [
+        "grass_dry",
+        300
+      ],
+      [
+        "grass_b",
+        160
+      ],
+      [
+        "thistle",
+        14
+      ]
+    ],
+    "prairie": [
+      [
+        "grass_dry",
+        520
+      ],
+      [
+        "grass_a",
+        260
+      ],
+      [
+        "grass_b",
+        160
+      ],
+      [
+        "thistle",
+        18
+      ]
+    ],
+    "forest": [
+      [
+        "fern_a",
+        160
+      ],
+      [
+        "bracken",
+        110
+      ],
+      [
+        "bush_b",
+        40
+      ]
+    ],
+    "reach": 260.0
+  },
+  "rocks": {
+    "models": [
+      "rock_moss_a",
+      "rock_moss_b",
+      "boulder"
+    ],
+    "per_hectare_slope": 6,
+    "per_hectare_open": 0.6,
+    "per_hectare_scree": 30,
+    "size": [
+      1.5,
+      4.5
+    ]
+  },
+  "step": 2,
+  "waters": [
+    {
+      "id": "moonsong",
+      "at": [
+        0.14,
+        0.34
+      ],
+      "radius": 120,
+      "depth": 9
+    },
+    {
+      "id": "west_shore",
+      "at": [
+        -0.03,
+        0.6
+      ],
+      "radius": 300,
+      "depth": 11
+    }
+  ],
+  "swamps": [
+    {
+      "id": "murkwater",
+      "at": [
+        0.49,
+        0.915
+      ],
+      "radius": 370,
+      "level": 2.4,
+      "base": 3.2,
+      "amp": 1.8
+    }
+  ]
 }

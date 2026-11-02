@@ -1,8 +1,8 @@
 class_name OverworldScreen
 extends CanvasLayer
-## The travel map as real land (Ashwin 2026-11-02, "Sure do it": the 3D overworld in place of the painted map for the
-## stretch it covers). The game opens it instead of TravelScreen when the party sets out from, or looks round from, a place
-## the overworld holds (covers); the painted map is a button away and still serves every other place. It keeps the travel
+## The travel map as real land (Ashwin 2026-11-02, "Sure do it": the 3D overworld in place of the painted map). The game
+## opens it instead of TravelScreen when the party sets out from, or looks round from, a place the overworld holds (covers:
+## every place of the travel map now); the painted map is a button away. It keeps the travel
 ## rules exactly: the places shown are the ones the party knows (Travel.known), the way and its hours are Travel.route's,
 ## and Set out hands the destination to the game's own travel() (the hours, the road's encounters and the arrival), after
 ## the party's lantern has walked the road on the land. The land is OverworldView, in a viewport and world of its own.
@@ -19,9 +19,14 @@ const WALK_MIN := 2.5
 const WALK_MAX := 5.0
 ## How far the camera hangs back from what it looks at (metres): closest, farthest and at first.
 const NEAR := 70.0
-const FAR := 650.0
+const FAR := 1500.0
 ## How far right of the middle (a share of the camera's distance) what it frames sits, clear of the panel on the right.
 const PANEL_SHIFT := 0.4
+## The pad: how far the left stick pans the land a second at a full lean (a share of the camera's distance), the right
+## stick's share of a push, and how much a trigger zooms.
+const PAD_PAN := 0.8
+const PAD_SCROLL := 0.0008
+const PAD_ZOOM := 1.25
 
 var st: StoryState
 var here := ""
@@ -34,6 +39,8 @@ var _focus := Vector2.ZERO
 var _distance := 260.0
 var _walking := false
 var _drag_from := Vector2(-1, -1)
+var _holder: SubViewportContainer
+var _hover := ""   ## the place the D-pad has lit (A plans the way to it)
 
 
 ## Whether the overworld holds this travel place (and so opens in place of the painted map from there).
@@ -60,7 +67,12 @@ func open(state: StoryState, from_place: String, can_travel: bool) -> void:
 	holder.stretch = true
 	holder.set_anchors_preset(Control.PRESET_FULL_RECT)
 	holder.gui_input.connect(_on_land_input)
+	# The pad (PadNav): the land is a choice of its own that it opens on, and A plans the way to the place lit.
+	holder.set_meta(&"pad_target", true)
+	holder.set_meta(&"pad_first", true)
+	holder.set_meta(&"pad_accept", _pad_pick)
 	root.add_child(holder)
+	_holder = holder
 	_viewport = SubViewport.new()
 	_viewport.own_world_3d = true
 	_viewport.msaa_3d = Viewport.MSAA_2X
@@ -110,10 +122,12 @@ func select(place_id: String) -> void:
 		_focus = a.lerp(b, 0.5)
 		_distance = clampf(a.distance_to(b) * 1.1 + 120.0, NEAR, FAR)
 		_frame()
+	_hover = place_id
 	_show_info()
 
 
 func _frame() -> void:
+	_focus = _focus.clamp(Vector2.ZERO, Vector2(view.land.size, view.land.size))
 	view.look_from(_focus + Vector2(_distance * PANEL_SHIFT, 0.0), _distance * 0.62, _distance)
 
 
@@ -176,7 +190,10 @@ func _show_info() -> void:
 	var spacer := Control.new()
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_info.add_child(spacer)
-	_info.add_child(UiKit.label("Click a place's name to plan a journey. Wheel: zoom · Drag: pan", 13, "parchment", 300))
+	var how := UiKit.label("", 13, "parchment", 300)
+	PadGlyphs.hint(how, "Click a place's name to plan a journey. Wheel: zoom · Drag: pan",
+		"D-pad: a place · {a} plans a journey · {lt} {rt}: zoom · left stick: pan")
+	_info.add_child(how)
 	var painted := UiKit.button("The painted map", func() -> void:
 		painted_map_wanted.emit()
 		queue_free(), 15)
@@ -271,3 +288,89 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		closed.emit()
 		queue_free()
+
+
+# --- The pad (PadNav, U6) --------------------------------------------------------------------------
+# The same as TravelScreen's: the D-pad goes from place to place, A plans the way, the triggers zoom, the right stick
+# pans; here the left stick pans too (held down it keeps the land moving).
+
+func _process(delta: float) -> void:
+	if _walking or _holder == null or PadNav.current == null or not PadNav.current.pad:
+		return
+	var owner_ := get_viewport().gui_get_focus_owner()
+	if owner_ != null and owner_ != _holder:
+		return   # focus is in the panel: the stick moves it there
+	var lean := Vector2.ZERO
+	for d: int in Input.get_connected_joypads():
+		var v := Vector2(Input.get_joy_axis(d, JOY_AXIS_LEFT_X), Input.get_joy_axis(d, JOY_AXIS_LEFT_Y))
+		if v.length() > lean.length():
+			lean = v
+	if lean.length() < 0.2:
+		return
+	_focus += lean * _distance * PAD_PAN * delta
+	_frame()
+
+
+## On the land, the D-pad goes from place to place: the nearest known one that way (north is up). With none that way it
+## leaves the land for the side panel. A left-stick lean is the land's pan, so it moves no focus.
+func pad_step(f: Control, dir: Vector2i) -> bool:
+	if f != _holder:
+		return false
+	if _walking:
+		return true
+	if PadNav.current != null and PadNav.current.get(&"_dpad_held") == Vector2i.ZERO:
+		return true
+	var now := _hover if _hover != "" else (_target if _target != "" else here)
+	var from := view._place_at(now) if now != "" and view.has_place(now) else _focus
+	var best := ""
+	var best_s := INF
+	for p in Travel.known(st):
+		var id := str(p["id"])
+		if id == now or not view.has_place(id):
+			continue
+		var v := view._place_at(id) - from
+		var along := v.dot(Vector2(dir))
+		var side := absf(v.dot(Vector2(dir.y, dir.x)))
+		if along <= 4.0 or side > along * 2.0:
+			continue   # only within about 60 degrees of the way pressed
+		if along + side * 1.5 < best_s:
+			best_s = along + side * 1.5
+			best = id
+	if best == "":
+		return false
+	_hover = best
+	view.light_place(best)
+	_focus = view._place_at(best)
+	_frame()
+	Audio.sfx("hover", 0.08)
+	return true
+
+
+## A on the land: the way to the place lit, and focus on Set out when the party can.
+func _pad_pick() -> void:
+	if _hover == "" or _walking or _hover == here:
+		return
+	select(_hover)
+	var go := _info.find_child("SetOut", true, false) as Button
+	if go != null and not go.disabled and PadNav.current != null:
+		PadNav.current.focus_on(go)
+
+
+## LT/RT: zoom out or in.
+func pad_trigger(step: int) -> void:
+	if _walking:
+		return
+	_distance = clampf(_distance / PAD_ZOOM if step > 0 else _distance * PAD_ZOOM, NEAR, FAR)
+	_frame()
+
+
+## The right stick pans the land.
+func pad_scroll(by: Vector2) -> void:
+	if _walking:
+		return
+	_focus += by * _distance * PAD_SCROLL
+	_frame()
+
+
+func pad_prompts() -> Array:
+	return [["dpad", "Places"], ["lt+rt", "Zoom"], ["stick_l", "Pan"]]

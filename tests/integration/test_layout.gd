@@ -110,8 +110,31 @@ func _game() -> void:
 	await _frames(8)
 
 
+## The 3D overworld holds the whole travel map: every place and every road of it has land.
+func test_the_overworld_covers_the_map() -> void:
+	var land := OverworldLand.light()
+	var data := Travel.map_data()
+	for p: Variant in data.get("places", []) as Array:
+		var id := str((p as Dictionary)["id"])
+		assert_true(OverworldScreen.covers(id), "the overworld covers " + id)
+		var held := false
+		for pl: Dictionary in land.places:
+			held = held or str(pl["id"]) == id
+		assert_true(held, "the land holds " + id)
+	for r: Variant in data.get("roads", []) as Array:
+		var ends := 0
+		for pl: Dictionary in land.places:
+			ends += 1 if str(pl["id"]) in [str((r as Dictionary)["from"]), str((r as Dictionary)["to"])] else 0
+		assert_true(ends >= 2, "the land holds both ends of " + str((r as Dictionary)["id"]))
+	var bake := OverworldBake.load_bake()
+	assert_true(bake != null, "the bake is current (make overworld-bake)")
+	if bake != null:
+		for r: Variant in data.get("roads", []) as Array:
+			assert_true(bake.road_ids.has(str((r as Dictionary)["id"])), "the bake has the road " + str((r as Dictionary)["id"]))
+
+
 ## The 3D overworld (world/overworld/) opened to set out from the Ghostlight Wreckage, with Wickermoor chosen: its panel
-## of places, the way there and its buttons.
+## of places, the way there and its buttons. The pad's triggers zoom it and a D-pad press lights a place.
 func test_the_overworld() -> void:
 	GameState.reset()
 	for id: String in GAME.PLACEHOLDER_PARTY:
@@ -129,6 +152,10 @@ func test_the_overworld() -> void:
 		if screen == null:
 			return null
 		screen.select("wickermoor_village")
+		var before := screen._distance
+		screen.pad_trigger(1)
+		if screen._distance >= before:
+			return null   # the triggers must zoom in
 		await _frames(2)
 		return screen, func() -> void:
 			var screen := root.get("screen") as Node

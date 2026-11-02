@@ -14,30 +14,31 @@ const TINTS := {"meadow": Color(0.62, 0.6, 0.5), "moor": Color(0.5, 0.42, 0.3), 
 
 
 static func build(parent: Node3D, land: OverworldLand) -> Terrain3D:
-	var terrain := _new(parent, "")
-	var n := land.size
-	var height := Image.create_empty(n, n, false, Image.FORMAT_RF)
-	var control := Image.create_empty(n, n, false, Image.FORMAT_RF)
+	var terrain := _new(parent, "", land.step)
+	var n := land.n
+	var height := Image.create_from_data(n, n, false, Image.FORMAT_RF, land.heights.to_byte_array())
+	var bits := PackedFloat32Array()
+	bits.resize(n * n)
 	for z in n:
 		for x in n:
-			height.set_pixel(x, z, Color(land.heights[z * n + x], 0.0, 0.0, 1.0))
 			var g := land.ground_at(x, z)
-			var bits := Terrain3DUtil.enc_base(g[0]) | Terrain3DUtil.enc_overlay(g[1]) | Terrain3DUtil.enc_blend(g[2])
-			control.set_pixel(x, z, Color(Terrain3DUtil.as_float(bits), 0.0, 0.0, 1.0))
+			bits[z * n + x] = Terrain3DUtil.as_float(Terrain3DUtil.enc_base(g[0]) | Terrain3DUtil.enc_overlay(g[1]) | Terrain3DUtil.enc_blend(g[2]))
+	var control := Image.create_from_data(n, n, false, Image.FORMAT_RF, bits.to_byte_array())
 	terrain.data.import_images([height, control, null], Vector3.ZERO, 0.0, 1.0)
 	return terrain
 
 
 ## The land as the bake saved it (OverworldBake.TERRAIN_DIR): Terrain3D reads its regions straight in.
-static func from_bake(parent: Node3D) -> Terrain3D:
-	return _new(parent, OverworldBake.TERRAIN_DIR)
+static func from_bake(parent: Node3D, step: float) -> Terrain3D:
+	return _new(parent, OverworldBake.TERRAIN_DIR, step)
 
 
-static func _new(parent: Node3D, data_dir: String) -> Terrain3D:
+static func _new(parent: Node3D, data_dir: String, step: float) -> Terrain3D:
 	var terrain := Terrain3D.new()
 	terrain.name = "Terrain3D"
 	terrain.free_editor_textures = false   # (built in code: there is no saved assets file to free them for)
 	terrain.region_size = Terrain3D.SIZE_1024
+	terrain.vertex_spacing = step   # (one sample of the land every `step` metres)
 	if data_dir != "":
 		terrain.data_directory = data_dir
 	parent.add_child(terrain)
