@@ -89,6 +89,41 @@ anim-demo:
 	@$(PLAYFRESH)
 	$(NOFOCUS) res://tools/anim_speed/anim_speed_demo.tscn < /dev/null
 
+.PHONY: qa qa-story qa-fights qa-report qa-act1 qa-act2 qa-perf
+## Headless QA (tools/qa/qa.py; no window, its own user data folder, output in captures/qa or OUT=dir).
+## qa-story: the story bot plays the whole campaign from a new game with no script, and reports where it stuck
+## (DICE=high|seeded SEEDS=1,2 STEPS=n). qa-fights: every fight in the places' data played by the party autopilot at each
+## difficulty, on SEEDS (1-8), at the level the story bot reached it at (ONLY=loc:id,id REGIONS=a,b MODES=... JOBS=n).
+## qa-report: both into captures/qa/report.md. qa: all three.
+QA_OUT := $(or $(OUT),captures/qa)
+qa-story:
+	@$(FRESH)
+	GODOT=$(GODOT) python3 tools/qa/qa.py story --out $(QA_OUT) --dice $(or $(DICE),high) --seeds $(or $(SEEDS),1) $(if $(STEPS),--steps $(STEPS),) \
+		$(if $(ORDER),--order $(ORDER),)
+## qa-act2: Act II's five chapters played by the story bot from a new game, in two orders (the book's and its reverse);
+## each run must finish all five at level 8 (ORDERS="r13,r14,r15,r16,r17 r17,r16,r15,r14,r13" to pick others).
+QA_ORDERS := $(or $(ORDERS),r13,r14,r15,r16,r17 r17,r16,r15,r14,r13)
+qa-act2:
+	@$(FRESH)
+	@for o in $(QA_ORDERS); do GODOT=$(GODOT) python3 tools/qa/qa.py story --out $(QA_OUT) --dice $(or $(DICE),high) \
+		--seeds $(or $(SEEDS),1) --steps $(or $(STEPS),12000) --order $$o || exit 1; done
+qa-fights:
+	@$(FRESH)
+	GODOT=$(GODOT) python3 tools/qa/qa.py fights --out $(QA_OUT) --seeds $(or $(SEEDS),1-8) --jobs $(or $(JOBS),2) \
+		$(if $(MODES),--modes $(MODES),) $(if $(ONLY),--only $(ONLY),) $(if $(REGIONS),--regions $(REGIONS),)
+## qa-act1: Act 1 as a player plays it, from the title to the road out of the Ghostlight wreck (SEEDS=1-4 MODE=balanced
+## SHUFFLED=1 for the Switcheroo's own car order); every run's blockers are printed.
+qa-act1:
+	@$(FRESH)
+	GODOT=$(GODOT) python3 tools/qa/qa.py act1 --out $(QA_OUT) --seeds $(or $(SEEDS),1) --mode $(or $(MODE),balanced) $(if $(SHUFFLED),--shuffled,)
+## qa-perf: each place's build time and per-frame CPU cost, headless (REGIONS=a,b ONLY=loc,loc FRAMES=n); perf.md.
+qa-perf:
+	@$(FRESH)
+	GODOT=$(GODOT) python3 tools/qa/qa.py perf --out $(QA_OUT) --frames $(or $(FRAMES),180) $(if $(REGIONS),--regions $(REGIONS),) $(if $(ONLY),--only $(ONLY),)
+qa-report:
+	python3 tools/qa/qa.py report --out $(QA_OUT)
+qa: qa-story qa-fights qa-report
+
 ## Boots the game, or SCENE=res://..., headless for FRAMES frames (600); fails on errors. Agents check with this.
 smoke:
 	@$(FRESH)
