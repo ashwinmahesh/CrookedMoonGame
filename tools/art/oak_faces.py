@@ -2,13 +2,13 @@
 """Cuts the painted bark faces (<asset root>/oak/face_<n>.png, each on plain black, from tools/art/specs/oak_faces.json) into the
 decal pictures of the Oak of Many Faces (art/props/oak_faces/face_<n>.png, 512 x 512): the black becomes alpha (a soft ramp
 over the darkest values), the face is cropped and centred in a square. PIL only.
-  /usr/bin/python3 tools/art/oak_faces.py"""
+  /usr/bin/python3 tools/art/oak_faces.py [--photo]     --photo: the photoreal faces (tools/art/photoreal_fetch.py names them first)"""
 import glob
 from pathlib import Path
 from PIL import Image, ImageFilter
 
 ROOT = Path(__file__).resolve().parents[2]
-SRC = Path("/Volumes/ASH-SSD/CrookedMoon/assets/oak")
+SRC = Path("/Volumes/ASH-SSD/CrookedMoon/assets/oak_photo" if "--photo" in __import__("sys").argv else "/Volumes/ASH-SSD/CrookedMoon/assets/oak")
 OUT = ROOT / "art/props/oak_faces"
 OUT.mkdir(parents=True, exist_ok=True)
 for f in sorted(glob.glob(str(SRC / "face_*.png"))):

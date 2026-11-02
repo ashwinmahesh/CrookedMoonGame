@@ -5,7 +5,8 @@
   look_finish.py icon <picture.png>              art/ui/app_icon.png at 1024 x 1024
   look_finish.py moon <picture.png> <out.png>    the moon on black as a disc with alpha for the sky (Look painted `moon_face`: the
                                                  square's edge is the moon's edge), at 1024 x 1024
-  look_finish.py window <picture.png>            art/props/express/train_window.png: the Shroud window on alpha (white ground cut out), 1024 high
+  look_finish.py window <picture.png> [--photo]  art/props/express/train_window.png: the Shroud window on alpha (white ground cut out), 1024 high;
+                                                 --photo: the photoreal window (holes in the cut-out filled, its own pane layout for the glass mask)
   look_finish.py map <picture.png> [--night]     art/ui/map/wickermoor_hollow.png at 2528 x 1696 (the painting is made at 2048 x 1408);
                                                  --night grades a daytime painting to moonlight
 """
@@ -71,7 +72,13 @@ def main(a: list[str]) -> None:
         out.parent.mkdir(parents=True, exist_ok=True)
         win = build_vistas.cut(src, 1024)
         r, g, b, al = win.split()
-        al = al.filter(ImageFilter.MinFilter(5)).point(lambda v: 0 if v < 128 else 255).filter(ImageFilter.GaussianBlur(1.0))
+        al = al.filter(ImageFilter.MinFilter(5)).point(lambda v: 0 if v < 128 else 255)
+        photo = "--photo" in a
+        if photo:   # a real lantern or a bright glint can be taken for the white ground: whatever the outside doesn't reach is the window's
+            flood = al.copy()
+            ImageDraw.floodfill(flood, (0, 0), 128)
+            al = flood.point(lambda v: 0 if v == 128 else 255)
+        al = al.filter(ImageFilter.GaussianBlur(1.0))
         # No white fringe: the colour under a thin edge is taken from the dark frame, never the ground.
         dark = Image.new("RGB", win.size, (14, 12, 16))
         rgb = Image.composite(Image.merge("RGB", (r, g, b)), dark, al.point(lambda v: 255 if v > 200 else 0))
@@ -91,9 +98,13 @@ def main(a: list[str]) -> None:
         mask = Image.new("RGBA", rgb.size, (0, 0, 0, 0))
         md = ImageDraw.Draw(mask)
         white = (255, 255, 255, 255)
-        md.polygon([(222, 268), (222, 235), (240, 200), (280, 170), (330, 153), (385, 148), (440, 153), (490, 170), (530, 200), (548, 235), (548, 268)], fill=white)
-        md.rectangle([222, 298, 548, 498], fill=white)
-        md.rectangle([222, 524, 548, 768], fill=white)
+        if photo:   # the photoreal window (768 x 1024): the transom pane above the sash bar, then the big pane
+            md.rectangle([240, 240, 528, 278], fill=white)
+            md.rectangle([240, 292, 528, 654], fill=white)
+        else:
+            md.polygon([(222, 268), (222, 235), (240, 200), (280, 170), (330, 153), (385, 148), (440, 153), (490, 170), (530, 200), (548, 235), (548, 268)], fill=white)
+            md.rectangle([222, 298, 548, 498], fill=white)
+            md.rectangle([222, 524, 548, 768], fill=white)
         mask.save(ROOT / "art/props/express/train_window_glass.png")
     elif cmd == "moon":
         out = Path(a[2])

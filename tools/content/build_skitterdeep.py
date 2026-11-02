@@ -597,9 +597,9 @@ def build_travel():
     path = ROOT / "data/travel/wickermoor_hollow.json"
     t = json.loads(path.read_text())
     t["places"] = [x for x in t["places"] if x["id"] not in ("sk_hills_trail", "sk_camp")] + [
-        {"id": "sk_hills_trail", "name": "The Hill Trail", "location": "sk_hills_trail", "spawn": "default", "pos": [0.31, 0.41], "region": REGION,
+        {"id": "sk_hills_trail", "name": "The Hill Trail", "location": "sk_hills_trail", "spawn": "default", "pos": [0.45, 0.27], "region": REGION,
          "when": "flag.skitter_trail_known or visited:sk_hills_trail", "summary": "A rutted trail through wooded hills north-west of Wickermoor."},
-        {"id": "sk_camp", "name": "Glitterdeep Mine", "location": "sk_camp", "spawn": "from_road", "pos": [0.195, 0.22], "region": REGION,
+        {"id": "sk_camp", "name": "Glitterdeep Mine", "location": "sk_camp", "spawn": "from_road", "pos": [0.52, 0.18], "region": REGION,
          "when": "flag.skitter_trail_known or visited:sk_camp", "summary": "The abandoned mine, eight hours north-west of Wickermoor, with its sign painted over to read Skitterdeep."}]
     t["roads"] = [x for x in t["roads"] if x["id"] not in ("wickermoor_to_sk_trail", "sk_trail_to_camp")] + [
         {"id": "wickermoor_to_sk_trail", "from": "wickermoor_village", "to": "sk_hills_trail", "hours": 6, "name": "The hill road", "when": "flag.skitter_trail_known or visited:sk_hills_trail"},

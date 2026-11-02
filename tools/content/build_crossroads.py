@@ -739,9 +739,9 @@ def build_travel():
     path = ROOT / "data/travel/wickermoor_hollow.json"
     t = json.loads(path.read_text())
     t["places"] = [x for x in t["places"] if x["id"] not in ("dc_trail1", "dc_murkwater")] + [
-        {"id": "dc_trail1", "name": "The Marshwinder Trail", "location": "dc_trail1", "spawn": "from_west", "pos": [0.5, 0.88], "region": REGION,
+        {"id": "dc_trail1", "name": "The Marshwinder Trail", "location": "dc_trail1", "spawn": "from_west", "pos": [0.36, 0.9], "region": REGION,
          "when": "flag.crossroads_asked or visited:dc_trail1", "summary": "The start of three nights' trek south, down to the valley's lowest point."},
-        {"id": "dc_murkwater", "name": "Murkwater Bend", "location": "dc_murkwater", "spawn": "from_trail", "pos": [0.56, 0.96], "region": REGION,
+        {"id": "dc_murkwater", "name": "Murkwater Bend", "location": "dc_murkwater", "spawn": "from_trail", "pos": [0.22, 0.96], "region": REGION,
          "when": "visited:dc_murkwater", "summary": "A stilt town in the bayou, under the Bayou King's flag."}]
     t["roads"] = [x for x in t["roads"] if x["id"] not in ("wickermoor_to_crossroads", "crossroads_to_murkwater")] + [
         {"id": "wickermoor_to_crossroads", "from": "wickermoor_village", "to": "dc_trail1", "hours": 24, "name": "The road to the Drowned Crossroads", "when": "flag.crossroads_asked or visited:dc_trail1"},
