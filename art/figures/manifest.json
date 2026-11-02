@@ -33,10 +33,33 @@
     "bow": {"file": "art/figures/weapons/bow.glb", "source": "free_models/weapons/bow.glb", "bone": "RightHand", "follow": "turn", "size": 0.6, "grip": [0, 0.0, 0], "offset": [-0.01, 0.032, 0], "turn": [90, 0, 0]},
     "hair_parted": {"file": "art/figures/hair/hair_parted.glb", "source": "free_models/hair/hair_parted.glb"},
     "hair_buzzed": {"file": "art/figures/hair/hair_buzzed.glb", "source": "free_models/hair/hair_buzzed.glb"},
+    "pack_male_head": {"file": "art/figures/pack/pack_male_head.glb", "source": "free_models/pack/pack_male_head.glb", "hides": ["*"]},
+    "pack_male_peasant": {"file": "art/figures/pack/pack_male_peasant.glb", "source": "free_models/pack/pack_male_peasant.glb"},
+    "pack_male_hair_parted": {"file": "art/figures/pack/pack_male_hair_parted.glb", "source": "free_models/pack/pack_male_hair_parted.glb"},
+    "pack_female_head": {"file": "art/figures/pack/pack_female_head.glb", "source": "free_models/pack/pack_female_head.glb", "hides": ["*"]},
+    "pack_female_peasant": {"file": "art/figures/pack/pack_female_peasant.glb", "source": "free_models/pack/pack_female_peasant.glb"},
+    "pack_female_hair_buns": {"file": "art/figures/pack/pack_female_hair_buns.glb", "source": "free_models/pack/pack_female_hair_buns.glb"},
     "delphine_ghost": {"file": "art/figures/delphine_ghost.glb", "source": "tripo/models/delphine_ghost_multiview_8k_4k.glb", "bone": "LeftShoulder", "hover": [0.025, 2.6], "size": 0.3, "offset": [0.1, 0.24, -0.08], "ghost": {"see_through": 0.45, "wash": 0.35, "colour": "moon_green", "glow": 0.45, "rim": 0.6, "pulse": 0.2}}
   },
   "gear": {"hooded_lantern": "lantern", "bullseye_lantern": "lantern", "torch": "torch", "dagger": "dagger", "spear": "spear", "quarterstaff": "staff", "greataxe": "greataxe", "shortbow": "bow", "longbow": "bow"},
   "bodies": {"*": {"female": "hero_body_female", "male": "hero_body_male"}},
+  "rigs": {
+    "quaternius": {
+      "bones": {"Hips": "pelvis", "Spine": "spine_01", "Spine1": "spine_02", "Spine2": "spine_03", "Neck": "neck_01", "HeadTop_End": "",
+                "LeftShoulder": "clavicle_l", "LeftArm": "upperarm_l", "LeftForeArm": "lowerarm_l", "LeftHand": "hand_l",
+                "RightShoulder": "clavicle_r", "RightArm": "upperarm_r", "RightForeArm": "lowerarm_r", "RightHand": "hand_r",
+                "LeftUpLeg": "thigh_l", "LeftLeg": "calf_l", "LeftFoot": "foot_l", "LeftToeBase": "ball_l",
+                "RightUpLeg": "thigh_r", "RightLeg": "calf_r", "RightFoot": "foot_r", "RightToeBase": "ball_r"},
+      "head_top": [0, 0.12, 0],
+      "clips": {
+        "idle": "Idle", "walk": "Walk", "run": "Jog_Fwd", "cast": "Spell_Simple_Shoot",
+        "attack": {"clip": "Sword_Attack", "from": 0.0, "to": 1.45, "hit": 0.45, "speed": 1.25},
+        "hurt": {"clip": "Hit_Chest"}, "die": {"clip": "Death01"},
+        "talk": ["Idle_Talking", "Yes", "Idle_No"], "greet": ["Interact", "Yes"],
+        "agree": "Yes", "complain": "Idle_No", "defeat": "Death02", "sit": "Sitting_Idle", "sit_down": "Sitting_Enter", "stand_up": "Sitting_Exit"
+      }
+    }
+  },
   "figures": {
     "rook_coldwake": {"file": "art/figures/rook_coldwake.glb", "close_up": {"albedo": "art/figures/close_up/rook_coldwake_4k.jpg"}, "source": "tripo/models/rook_body_tpose2_front_side_10k_4k_10clips_combat.glb", "layers": ["rook_head"], "bones": {"Head": 0.01}, "clips": {"greet": "agree"}, "gear": ["main_hand", "off_hand"]},
     "silas_vane": {"file": "art/figures/silas_vane.glb", "source": "tripo/models/silas_v2_multiview_10k_4k_10clips_combat.glb", "clips": {"greet": "agree"}, "gear": ["main_hand", "off_hand"]},
@@ -126,6 +149,11 @@
     "wilma_wainwright": {"base": "hero_body_female", "tint": "pewter", "sprite": "villager"},
     "wren_wells": {"base": "hero_body_female", "tint": "deco_gold", "sprite": "villager", "scale": 0.6, "bones": {"Head": 1.12}},
     "wynn_carter": {"base": "hero_body_male", "tint": "tan", "sprite": "villager"},
-    "zachariah_wainwright": {"base": "hero_body_female", "tint": "silver", "sprite": "villager", "scale": 0.6, "bones": {"Head": 1.12}}
+    "zachariah_wainwright": {"base": "hero_body_female", "tint": "silver", "sprite": "villager", "scale": 0.6, "bones": {"Head": 1.12}},
+"pack_male": {"file": "art/figures/pack/pack_male.glb", "source": "free_models/pack/pack_male.glb", "rig": "quaternius", "layers": ["pack_male_head"], "sprite": "villager", "gear": ["main_hand", "off_hand"]},
+    "pack_female": {"file": "art/figures/pack/pack_female.glb", "source": "free_models/pack/pack_female.glb", "rig": "quaternius", "layers": ["pack_female_head"], "sprite": "villager", "gear": ["main_hand", "off_hand"]},
+    "pack_man_peasant": {"base": "pack_male", "layers": ["pack_male_head", "pack_male_peasant", "pack_male_hair_parted"], "sprite": "villager"},
+    "pack_woman_peasant": {"base": "pack_female", "layers": ["pack_female_head", "pack_female_peasant", "pack_female_hair_buns"], "sprite": "villager"},
+    "warhorse": {"file": "art/figures/warhorse.glb", "source": "free_models/warhorse.glb", "sprite": "nightmare", "height": 1.5, "clips": {"idle": "Idle", "walk": "Walk", "run": "Gallop", "attack": {"clip": "Attack_Kick", "hit": 0.45, "speed": 1.0}, "hurt": {"clip": "Idle_HitReact_Left"}, "die": {"clip": "Death"}}}
   }
 }
