@@ -118,33 +118,40 @@ func test_a_first_crossing_goes_through_the_mist_and_later_ones_do_not() -> void
 			assert_eq(st.visited, before, "the query leaves the story alone")
 			st.visited[limbo] = true
 			assert_eq(module.exit_target(st, limbo, CrookedMoonCampaign.LIMBO_ONWARD), chain[i + 1], "the mist leads on to the next car not been in")
+			assert_eq(module.exit_target(st, limbo, CrookedMoonCampaign.LIMBO_BACK), chain[i], "and back to the car it was entered from")
 			st.visited[chain[i + 1]] = true
 			assert_eq(module.exit_target(st, chain[i], "module_switcheroo_next"), chain[i + 1], "a second crossing is a plain door")
 			assert_eq(module.exit_target(st, chain[i + 1], "module_switcheroo_previous"), chain[i], "and so is the way back")
 	GameState.reset()
 
 
-func test_the_mist_is_a_closed_stretch_with_one_way_on() -> void:
+## Ashwin, 2026-11-02: the mist went only one way. It has a way on and a way back, and nothing else.
+func test_the_mist_is_a_closed_stretch_with_a_way_on_and_a_way_back() -> void:
 	var loc := _loc("ghostlight_limbo")
 	assert_true(not loc.is_empty(), "the mist is a place")
 	assert_eq(str(loc.get("region")), "ghostlight_express")
 	var exits := loc.get("exits", []) as Array
-	assert_eq(exits.size(), 1, "one way, and it is on")
-	var out := exits[0] as Dictionary
-	assert_eq(str(out["to"]), CrookedMoonCampaign.LIMBO_ONWARD)
-	assert_eq(str(out.get("when", "")), "", "nothing bars it")
+	assert_eq(exits.size(), 2, "a way on and a way back")
+	var tos: Array[String] = []
+	var doors: Array[Vector2i] = []
+	for e: Variant in exits:
+		var out := e as Dictionary
+		tos.append(str(out["to"]))
+		doors.append(_cell(out["cell"] as Array))
+		assert_eq(str(out.get("when", "")), "", "nothing bars %s" % out["id"])
+	assert_eq(tos, [CrookedMoonCampaign.LIMBO_ONWARD, CrookedMoonCampaign.LIMBO_BACK] as Array[String])
 	var rows := (loc["map"] as Dictionary)["rows"] as Array
 	var start := _cell((loc["spawns"] as Dictionary)["from_rear"] as Array)
 	var reach := _reach(rows, start)
-	var door := _cell(out["cell"] as Array)
-	var near := false
-	for dx: int in [-1, 0, 1]:
-		for dy: int in [-1, 0, 1]:
-			near = near or reach.has(Vector2i(door.x + dx, door.y + dy))
-	assert_true(near, "the way on can be walked to")
+	for door: Vector2i in doors:
+		var near := false
+		for dx: int in [-1, 0, 1]:
+			for dy: int in [-1, 0, 1]:
+				near = near or reach.has(Vector2i(door.x + dx, door.y + dy))
+		assert_true(near, "the door at %s can be walked to" % door)
 	for x: int in (rows[0] as String).length():
 		for y: int in rows.size():
-			if (x == 0 or y == 0 or x == (rows[0] as String).length() - 1 or y == rows.size() - 1) and not (x == door.x and y == door.y):
+			if (x == 0 or y == 0 or x == (rows[0] as String).length() - 1 or y == rows.size() - 1) and not doors.has(Vector2i(x, y)):
 				assert_true(not _walkable(rows, x, y), "the mist's edge is walled at %d,%d" % [x, y])
 	for id: String in CARS.slice(1):
 		assert_true(((_loc(id)["spawns"] as Dictionary)).has("from_rear"), "%s has the spawn the mist lets out at" % id)
