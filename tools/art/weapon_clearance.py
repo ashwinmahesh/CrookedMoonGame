@@ -141,6 +141,43 @@ def blade(part: dict, height: float, longest: float, lo: float, hi: float, turn=
     return (basis @ pts.T).T + np.array(part.get('offset', [0, 0, 0]), float) * height
 
 
+def socketed(local: np.ndarray, entry: dict, bone: str, height: float) -> np.ndarray:
+    """The points as the figure entry's `sockets` frame for `bone` puts them (ModelFigure._hold_at)."""
+    sock = entry.get('sockets', {}).get(bone)
+    if not sock:
+        return local
+    return (euler(sock.get('turn', [0, 0, 0])) @ local.T).T + np.array(sock.get('offset', [0, 0, 0]), float) * height
+
+
+def anatomy(body: 'Body', side: str) -> np.ndarray:
+    """The hand's own frame in its bone's space (columns): y along the middle finger, z from the little finger's knuckle
+    to the index finger's, x across the palm. Rigs roll their hand bones differently; this frame is the hand itself."""
+    T = body.T
+    w = T.pose_world({})
+    hand = w[T.name[side + 'Hand']]
+    rot = hand[:3, :3] / np.linalg.norm(hand[:3, :3], axis=0)
+    at = lambda n: rot.T @ (w[T.name[n]][:3, 3] - hand[:3, 3])
+    y = at(side + 'HandMiddle1')
+    y /= np.linalg.norm(y)
+    z = at(side + 'HandIndex1') - at(side + 'HandPinky1')
+    z -= y * z.dot(y)
+    z /= np.linalg.norm(z)
+    return np.stack([np.cross(y, z), y, z], 1)
+
+
+MIRROR = np.diag([-1.0, 1.0, 1.0])
+
+
+def fit_sockets(body: 'Body', reference: 'Body') -> dict:
+    """Hand sockets that turn a part held as on `reference` (Rook, whose grips the parts' turns were set on) to sit the
+    same way in this figure's hands: the reference's right-hand frame for the right, its mirror for the left."""
+    ref = anatomy(reference, 'Right')
+    out = {}
+    for side, want in (('Right', ref), ('Left', MIRROR @ ref @ MIRROR)):
+        out[side + 'Hand'] = {'turn': to_euler(anatomy(body, side) @ want.T)}
+    return out
+
+
 def cuts(frames: list, local: np.ndarray, height: float, margin: float) -> dict:
     out = {}
     for clip, _t, body, place, turn in frames:
@@ -173,6 +210,9 @@ def main(argv) -> int:
     ap.add_argument('part')
     ap.add_argument('--margin', type=float, default=0.01, help='share of the figure height counted as touching')
     ap.add_argument('--search', action='store_true')
+    ap.add_argument('--fit-sockets', action='store_true', help="print the hand sockets that hold parts as Rook's hands do")
+    ap.add_argument('--fit-hand', action='store_true',
+                    help="with --search: print this figure's RightHand socket turned so the part's own turn becomes the best one found")
     a = ap.parse_args(argv)
     manifest = json.loads(MANIFEST.read_text())
     entry = dict(manifest.get('defaults', {}))
@@ -188,20 +228,29 @@ def main(argv) -> int:
     size = [max(pd['accessors'][p['attributes']['POSITION']]['max'][i] for m in pd['meshes'] for p in m['primitives'])
             - min(pd['accessors'][p['attributes']['POSITION']]['min'][i] for m in pd['meshes'] for p in m['primitives']) for i in range(3)]
     longest = max(size)
+    if a.fit_sockets:
+        ref = Body(REPO / manifest['figures']['rook_coldwake']['file'])
+        print(json.dumps(fit_sockets(body, ref)))
+        return 0
     frames = poses(body, entry)
-    now = cuts(frames, blade(part, body.height, longest, lo, hi), body.height, a.margin)
+    now = cuts(frames, socketed(blade(part, body.height, longest, lo, hi), entry, 'RightHand', body.height), body.height, a.margin)
     total = sum(v[0] for v in now.values())
     print(f'{a.figure} holding {a.part} at turn {part.get("turn")}: cuts through in {total} of {len(frames)} poses',
           {k: v[0] for k, v in now.items() if v[0]})
     if a.search:
         best = []
-        for theta, phi in itertools.product(range(-45, 46, 15), range(-60, 61, 15)):
+        for theta, phi in itertools.product(range(-90, 91, 15), range(-60, 61, 15)):
             turn = to_euler(across_palm(theta, phi))
-            c = cuts(frames, blade(part, body.height, longest, lo, hi, turn), body.height, a.margin)
+            c = cuts(frames, socketed(blade(part, body.height, longest, lo, hi, turn), entry, 'RightHand', body.height), body.height, a.margin)
             best.append((sum(v[0] for v in c.values()), abs(phi) + abs(theta), turn, theta, phi))
         best.sort()
         for n, _, turn, theta, phi in best[:8]:
             print(f'  turn {turn}: {n} poses cut (swung {theta}, tilted {phi})')
+        if a.fit_hand and best[0][0] < total:
+            sock = entry.get('sockets', {}).get('RightHand', {})
+            # socket' . part = socket . best, so every part keeps its grip relative to the others on this hand.
+            fixed = euler(sock.get('turn', [0, 0, 0])) @ euler(best[0][2]) @ euler(part.get('turn', [0, 0, 0])).T
+            print(json.dumps({'RightHand': dict(sock, turn=to_euler(fixed))}))
     return 0
 
 
