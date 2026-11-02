@@ -14,6 +14,8 @@ func capture_shots(tool: Node, out: String) -> void:
 	var travel := false
 	var later := false
 	var hour := 23
+	var turn := false
+	var morphs: PackedStringArray = []
 	var flags: PackedStringArray = []
 	var focus := Vector2(-1, -1)
 	var focus_distance := 8.0
@@ -24,6 +26,10 @@ func capture_shots(tool: Node, out: String) -> void:
 			flags = a.get_slice("=", 1).split(",")   # story flags to set first, name:value (moon_grin:2,moon_scowl:true)
 		if a.begins_with("--hour="):
 			hour = int(a.get_slice("=", 1))   # the hour of the day (23 the Midnight Hour, the default; 8 the Twilight Hour)
+		if a.begins_with("--morph="):
+			morphs = a.get_slice("=", 1).split(",")   # the houses' morph weights to shoot from one fixed camera (with --focus)
+		if a == "--turn":
+			turn = true   # sets crooked_house_turned after the first shot and takes frames of the houses warping
 		if a == "--later":
 			later = true
 		if a == "--travel":
@@ -56,6 +62,12 @@ func capture_shots(tool: Node, out: String) -> void:
 				n.visible = false
 		await tool.call("wait_frames", 20)
 		tool.call("_shot", "%s_%s_play.png" % [out, place])
+		if turn:
+			st.set_flag("crooked_house_turned", true)
+			for k in 8:
+				await tool.call("wait_frames", 14)
+				tool.call("_shot", "%s_%s_turn_%d.png" % [out, place, k])
+				print("turn frame %d: morph weight %.3f" % [k, BuildingMorph.weight((game.get("view") as LocationView).board)])
 		var view := game.get("view") as LocationView
 		var rig := view.rig
 		if travel:
@@ -76,6 +88,10 @@ func capture_shots(tool: Node, out: String) -> void:
 			rig.snap_to_target()
 			await tool.call("wait_frames", 40)
 			tool.call("_shot", "%s_%s_focus.png" % [out, place])
+			for w in morphs:   # the houses at each morph weight from this same close camera
+				BuildingMorph.set_weight(view.board, float(w))
+				await tool.call("wait_frames", 10)
+				tool.call("_shot", "%s_%s_morph_%s.png" % [out, place, w])
 		if sky:
 			rig.horizon = 1.0
 			rig.horizon_shown = 1.0
@@ -98,6 +114,7 @@ func capture_shots(tool: Node, out: String) -> void:
 		rig.snap_to_target()
 		await tool.call("wait_frames", 30)
 		tool.call("_shot", "%s_%s_whole.png" % [out, place])
+
 		if later:
 			await tool.call("wait_frames", 50)
 			tool.call("_shot", "%s_%s_whole_later.png" % [out, place])   # the same view a moment on, to see what moves
