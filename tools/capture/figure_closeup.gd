@@ -4,7 +4,7 @@ extends Node
 ## clips (talking, swinging, walking, hit).
 ##   make capture SCENE=res://tools/capture/figure_closeup.tscn NAME=heads/x FRAMES=10 ARGS='--ids=old_rook,rook_coldwake'
 ## --ids: the figures, left to right; --frame=head|body: head and shoulders (the default) or the whole figure.
-## Shots: <out>_front.png, _left.png, _back.png, _right.png, _talk.png, _swing.png, _walk.png, _hit.png.
+## Shots: <out>_front.png, _left.png, _back.png, _right.png, _talk.png, _greet.png, _swing.png, _walk.png, _hit.png.
 ## --only=talk: instead, the figures talking a frame at a time (their jaws opening with a made-up voice, TalkMotion's
 ## JawOpen, and the head nodding), <out>_talk_<nnnn>.png for a GIF.
 
@@ -87,9 +87,17 @@ func capture_shots(tool: Node, out: String) -> void:
 	await tool.call("wait_frames", 50)
 	tool.call("_shot", "%s_talk.png" % out)
 	for f in figs:
+		f.gesture("greet")
+	await tool.call("wait_frames", 40)
+	tool.call("_shot", "%s_greet.png" % out)
+	await tool.call("wait_frames", 80)
+	for f in figs:
 		f.attack()
+	# The swing is caught where the blow lands: the manifest's `hit` second of the attack (2.05 for the Tripo slash).
+	var attack_specs := figs[0]._roles.get("attack", [{}]) as Array
+	var hit_at := float((attack_specs[0] as Dictionary).get("hit", 2.05))
 	var waited := 0
-	while waited < 600 and figs[0]._player != null and figs[0]._player.current_animation_position < 2.05:
+	while waited < 600 and figs[0]._player != null and figs[0]._player.current_animation_position < hit_at:
 		await tool.call("wait_frames", 1)
 		waited += 1
 	tool.call("_shot", "%s_swing.png" % out)

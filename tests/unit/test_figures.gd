@@ -91,7 +91,8 @@ func test_a_dressing_lies_over_a_figure_with_its_own_model() -> void:
 		assert_false((_entries()[base] as Dictionary).has("base"), "%s: its base %s is a body, not another dressing" % [id, base])
 		assert_true((_entries()[base] as Dictionary).has("file"), "%s: its base %s has a model file" % [id, base])
 		assert_false(entry.has("file"), "%s: a dressing has no model of its own" % id)
-		assert_true(str(entry.get("albedo", "")).begins_with("art/figures/"), "%s: its paint is in art/figures" % id)
+		var dressed := not ((entry.get("layers", []) as Array).is_empty())   # a dressing is paint over the body, or layers worn on it
+		assert_true(dressed or str(entry.get("albedo", "")).begins_with("art/figures/"), "%s: its paint is in art/figures" % id)
 
 
 func test_ghost_looks_use_palette_colours_and_sane_amounts() -> void:
