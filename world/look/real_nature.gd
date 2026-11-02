@@ -17,6 +17,7 @@ const RIM := 0.48
 static var _config: Dictionary = {}
 static var _scenes: Dictionary = {}   ## model id -> PackedScene
 static var _boxes: Dictionary = {}    ## model id -> its AABB as modelled (metres, Poly Haven's own scale)
+static var _shaded: Dictionary = {}   ## "model id|surface" -> the leaf material shaded down for night
 ## Set by art QA tools only, to shoot a place without it.
 static var off := false
 
@@ -52,11 +53,53 @@ static func build(parent: Node3D, id: String, at: Vector3, seed_: int) -> Node3D
 	piece.scale = Vector3.ONE * s
 	piece.rotation.y = rng.randf_range(0.0, TAU)
 	if not bool(spec.get("lie", false)):
-		piece.rotation.x = rng.randf_range(-0.12, 0.12)
-		piece.rotation.z = rng.randf_range(-0.12, 0.12)
+		var tilt := float(spec.get("tilt", 0.12))   # (a set-piece tree stands nearly upright: `tilt`)
+		piece.rotation.x = rng.randf_range(-tilt, tilt)
+		piece.rotation.z = rng.randf_range(-tilt, tilt)
+	if spec.has("leaf_shade"):
+		_shade_leaves(piece, id, spec["leaf_shade"] as Array)
+	_economise(piece, spec)
 	piece.position = at - Vector3(0.0, box.position.y * s + float(spec.get("sink", 0.0)), 0.0)
 	parent.add_child(piece)
 	return piece
+
+
+## What a model costs the GPU: `shadow` false keeps it out of every shadow map (the sun's splits and the party lantern's six
+## cube faces redraw each shadow caster, and the scanned pieces run to 40k-225k triangles), and `range` is the distance past
+## which it is not drawn at all (world units, with a short fade). Ground clutter is small, so neither shows.
+static func _economise(piece: Node3D, spec: Dictionary) -> void:
+	var shadow := bool(spec.get("shadow", true))
+	var reach := float(spec.get("range", 0.0))
+	if shadow and reach <= 0.0:
+		return
+	for n in piece.find_children("*", "GeometryInstance3D", true, false):
+		var g := n as GeometryInstance3D
+		if not shadow:
+			g.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		if reach > 0.0:
+			g.visibility_range_end = reach
+			g.visibility_range_end_margin = 4.0
+			g.visibility_range_fade_mode = GeometryInstance3D.VISIBILITY_RANGE_FADE_SELF
+
+
+## A model's leaves (a glTF material named "leaves...") in a colour of their own: EZ-Tree's leaf tints are made for
+## daylight, and under the cold moon they would read pale. The shaded material is made once per model and surface.
+static func _shade_leaves(piece: Node3D, id: String, shade: Array) -> void:
+	var mult := Color(float(shade[0]), float(shade[1]), float(shade[2]))
+	for n in piece.find_children("*", "MeshInstance3D", true, false):
+		var mi := n as MeshInstance3D
+		if mi.mesh == null:
+			continue
+		for i in mi.mesh.get_surface_count():
+			var m := mi.mesh.surface_get_material(i) as StandardMaterial3D
+			if m == null or not m.resource_name.begins_with("leaves"):
+				continue
+			var key := "%s|%d" % [id, i]
+			if not _shaded.has(key):
+				var d := m.duplicate() as StandardMaterial3D
+				d.albedo_color *= mult
+				_shaded[key] = d
+			mi.set_surface_override_material(i, _shaded[key] as Material)
 
 
 ## One model `id` set down with a transform already worked out (a baked overworld's rocks).

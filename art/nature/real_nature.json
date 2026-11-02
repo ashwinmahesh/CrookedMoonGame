@@ -1,5 +1,5 @@
 {
-  "about": "Realistic nature for the wild places (world/look/real_nature.gd): Poly Haven's scanned models (CC0, art/sourced/polyhaven_forest, kept untouched) drawn in their own PBR materials. models: id -> {file, fit (the widest it may be across, world units; 1 = a 5 ft square), grow ([least, most] times that), sink (how far into the ground it is pushed, units), lie (true: turned only about the up axis, never tipped)}. places: what is strewn over a place's map (else its region's set: regions names a set in sets, for the wild maps, those whose map theme is forest, wilderness, road or riverside), by the kind of square: low (low cover '=': one piece a square, in place of the board's own boulder or woodpile, picked from the list), woods (under the trees of '#' squares that are trees), difficult ('~'), open (walkable ground, kept off the middle of the square where feet and the selection ring are). Each kind lists [model id, how many per square on average]. A catalog prop whose `ids` entry says \"set_piece\": \"real\" is drawn as one of the models its `real` list names.",
+  "about": "Realistic nature for the wild places (world/look/real_nature.gd): Poly Haven's scanned models (CC0, art/sourced/polyhaven_forest, kept untouched) drawn in their own PBR materials. models: id -> {file, fit (the widest it may be across, world units; 1 = a 5 ft square), grow ([least, most] times that), sink (how far into the ground it is pushed, units), lie (true: turned only about the up axis, never tipped)}. places: what is strewn over a place's map (else its region's set: regions names a set in sets, for the wild maps, those whose map theme is forest, wilderness, road or riverside), by the kind of square: low (low cover '=': one piece a square, in place of the board's own boulder or woodpile, picked from the list), woods (under the trees of '#' squares that are trees), difficult ('~'), open (walkable ground, kept off the middle of the square where feet and the selection ring are). Each kind lists [model id, how many per square on average]. A catalog prop whose `ids` entry says \"set_piece\": \"real\" is drawn as one of the models its `real` list names. Set-piece trees (the ez_sp_ models, art/plants/ez_setpiece, made by tools/art/ez_setpieces.mjs) are named by catalog entries with \"set_piece\": \"real_tree\" and never strewn; `tilt` (default 0.12) is how far a standing model may lean, `leaf_shade` the colour its leaves are multiplied by for night. `shadow` (false: casts none) and `range` (units past which it isn't drawn) keep the heavy ground clutter cheap (RealNature._economise).",
   "models": {
     "rock_moss_a": {
       "file": "art/sourced/polyhaven_forest/models/rock_moss_set_01/rock_moss_set_01_1k.gltf",
@@ -45,7 +45,9 @@
         1.2
       ],
       "sink": 0.03,
-      "lie": true
+      "lie": true,
+      "shadow": false,
+      "range": 45.0
     },
     "dead_trunk": {
       "file": "art/sourced/polyhaven_forest/models/dead_tree_trunk/dead_tree_trunk_1k.gltf",
@@ -55,7 +57,9 @@
         1.1
       ],
       "sink": 0.04,
-      "lie": true
+      "lie": true,
+      "shadow": false,
+      "range": 55.0
     },
     "dead_trunk_b": {
       "file": "art/sourced/polyhaven_forest/models/dead_tree_trunk_02/dead_tree_trunk_02_1k.gltf",
@@ -65,7 +69,9 @@
         1.1
       ],
       "sink": 0.06,
-      "lie": true
+      "lie": true,
+      "shadow": false,
+      "range": 55.0
     },
     "stump_a": {
       "file": "art/sourced/polyhaven_forest/models/tree_stump_01/tree_stump_01_1k.gltf",
@@ -75,7 +81,9 @@
         1.15
       ],
       "sink": 0.03,
-      "lie": true
+      "lie": true,
+      "shadow": false,
+      "range": 50.0
     },
     "stump_b": {
       "file": "art/sourced/polyhaven_forest/models/tree_stump_02/tree_stump_02_1k.gltf",
@@ -85,7 +93,9 @@
         1.15
       ],
       "sink": 0.03,
-      "lie": true
+      "lie": true,
+      "shadow": false,
+      "range": 50.0
     },
     "fern": {
       "file": "art/sourced/polyhaven_forest/models/fern_02/fern_02_1k.gltf",
@@ -95,7 +105,9 @@
         1.25
       ],
       "sink": 0.02,
-      "lie": true
+      "lie": true,
+      "shadow": false,
+      "range": 40.0
     },
     "branches": {
       "file": "art/sourced/polyhaven_forest/models/dry_branches_medium_01/dry_branches_medium_01_1k.gltf",
@@ -105,7 +117,9 @@
         1.2
       ],
       "sink": 0.0,
-      "lie": true
+      "lie": true,
+      "shadow": false,
+      "range": 40.0
     },
     "shrub": {
       "file": "art/sourced/polyhaven_forest/models/shrub_02/shrub_02_1k.gltf",
@@ -115,7 +129,79 @@
         1.0
       ],
       "sink": 0.02,
-      "lie": true
+      "lie": true,
+      "shadow": false,
+      "range": 45.0
+    },
+    "ez_sp_raven_oak": {
+      "file": "art/plants/ez_setpiece/ez_sp_raven_oak.gltf",
+      "fit": 5.2,
+      "grow": [
+        0.92,
+        1.12
+      ],
+      "sink": 0.1,
+      "tilt": 0.04,
+      "leaf_shade": [
+        0.62,
+        0.66,
+        0.55
+      ]
+    },
+    "ez_sp_lookout": {
+      "file": "art/plants/ez_setpiece/ez_sp_lookout.gltf",
+      "fit": 3.9,
+      "grow": [
+        0.92,
+        1.12
+      ],
+      "sink": 0.1,
+      "tilt": 0.03,
+      "leaf_shade": [
+        0.62,
+        0.66,
+        0.55
+      ]
+    },
+    "ez_sp_dead_a": {
+      "file": "art/plants/ez_setpiece/ez_sp_dead_a.gltf",
+      "fit": 2.1,
+      "grow": [
+        0.92,
+        1.12
+      ],
+      "sink": 0.05,
+      "tilt": 0.06
+    },
+    "ez_sp_dead_b": {
+      "file": "art/plants/ez_setpiece/ez_sp_dead_b.gltf",
+      "fit": 2.0,
+      "grow": [
+        0.92,
+        1.12
+      ],
+      "sink": 0.05,
+      "tilt": 0.06
+    },
+    "ez_sp_dead_c": {
+      "file": "art/plants/ez_setpiece/ez_sp_dead_c.gltf",
+      "fit": 2.1,
+      "grow": [
+        0.92,
+        1.12
+      ],
+      "sink": 0.05,
+      "tilt": 0.06
+    },
+    "ez_sp_dead_d": {
+      "file": "art/plants/ez_setpiece/ez_sp_dead_d.gltf",
+      "fit": 2.0,
+      "grow": [
+        0.92,
+        1.12
+      ],
+      "sink": 0.05,
+      "tilt": 0.06
     }
   },
   "places": {

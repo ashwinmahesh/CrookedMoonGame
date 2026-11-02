@@ -36,7 +36,8 @@ func dress_place(view: LocationView) -> void:
 ## "clocktower" adds its lit clock faces to the catalog's bell tower (Clocktower), and "small:<kind>" builds one of the small things
 ## of Act 1's rooms from a few meshes (SmallProps).
 ## and "wicker_man" only add their light and leave the catalog's own picture (the barrow, the painted Wicker Man) to be drawn.
-## "real" is one of the scanned rocks and roots of RealNature in the Modern finish (the catalog's art in Classic).
+## "real" is one of the scanned rocks and roots of RealNature in the Modern finish (the catalog's art in Classic); "real_tree"
+## is one of its gnarled EZ-Tree trees the same way.
 func place_special(_art: String, board: ArenaBoard, root: Node3D, cell: Vector2i, spec: Dictionary, look: Dictionary) -> Dictionary:
 	var piece := str(look.get("set_piece", ""))
 	if piece == "":
@@ -56,6 +57,24 @@ func place_special(_art: String, board: ArenaBoard, root: Node3D, cell: Vector2i
 				var seed_ := ModelPiece.hash_cell(cell)
 				RealNature.build(root, str(picks[seed_ % picks.size()]), Vector3(at.x, board.ground_y(Vector2(at.x, at.z)), at.z), seed_)
 				return {"handled": true, "node": root}
+		"real_tree":
+			# A gnarled EZ-Tree tree (art/plants/ez_setpiece, named in real_nature.json) where the catalog's art is only a
+			# tree (the raven oak, the lookout pine, the twisted dead trees): it takes its square from what the board
+			# drew there, and fades where it hides the party.
+			var trees := look.get("real", []) as Array
+			if not trees.is_empty() and Look.modern():
+				var tree_seed := ModelPiece.hash_cell(cell)
+				var flags := board.grid
+				if (flags.has_flag(cell, CombatGrid.WALL) and not board.door_cells.has(cell)) \
+						or flags.has_flag(cell, CombatGrid.LOW) or flags.has_flag(cell, CombatGrid.DIFFICULT):
+					board.clear_cell(cell)
+					root.tree_exiting.connect(func() -> void:
+						if is_instance_valid(board):
+							board.restore_cell(cell))
+				var tree := RealNature.build(root, str(trees[tree_seed % trees.size()]), Vector3(at.x, board.ground_y(Vector2(at.x, at.z)), at.z), tree_seed)
+				if tree != null:
+					SeeThrough.mark(tree)
+					return {"handled": true, "node": root}
 		"oak":
 			OakOfManyFaces.build(root, at, ModelPiece.hash_cell(cell))
 			return {"handled": true, "node": root}
