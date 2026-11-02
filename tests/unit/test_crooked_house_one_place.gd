@@ -83,7 +83,10 @@ func test_the_floors_over_the_party_are_cut_away_and_fade_in_on_the_stairs() -> 
 	for n in upstairs:
 		meshes.append_array(n.find_children("*", "GeometryInstance3D", true, false))
 	assert_true(upstairs.all(func(n: Node3D) -> bool: return n.visible), "climbing, the second floor comes into sight")
-	await get_tree().create_timer(FloorCutaway.FADE + 0.3).timeout
+	await get_tree().create_timer(FloorCutaway.FADE * 0.5 + 0.1).timeout
+	assert_true(meshes.any(func(m: Variant) -> bool: return (m as GeometryInstance3D).transparency > 0.2),
+		"slightly see-through while the party climbs")
+	await get_tree().create_timer(FloorCutaway.FADE + FloorCutaway.CLIMB_HOLD + 0.3).timeout
 	assert_true(meshes.all(func(m: Variant) -> bool: return (m as GeometryInstance3D).transparency == 0.0),
 		"and stands solid once the party is on it")
 	assert_true(bool(st.visited.get("crooked_house_second", false)), "the second floor is visited")
