@@ -546,6 +546,9 @@ if __name__ == "__main__":
     for key, (spec, loc) in rooms.items():
         write(f"data/locations/{key}.json", loc)
     build_people()
+    # The merchants' wares come from data/treasure/shop_stock.json, not from SHOPS above (build_people's shop is only a start).
+    import build_shop_stock
+    build_shop_stock.main()
     build_quests()
     build_flags()
     sub.write_all(write)
