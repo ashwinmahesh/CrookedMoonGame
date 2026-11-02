@@ -3,7 +3,9 @@
 ~ arrive
 Narrator: A thick yellow-green haze pools at the bottom of the shaft, reeking of wet rot. The tunnel walls are soft and slick, squirming whenever your lantern light touches them.
 set sk_deep_seen
+if not quest.skitter_plague >= the_hags_lair
 quest skitter_plague the_hags_lair
+endif
 -> END
 
 ~ miasma_a
@@ -81,7 +83,9 @@ Narrator: The ring slackens and dies upon the stone, and the hissing gas ceases 
 set skitter_sigils_broken
 set skitterdeep_alert = now
 if flag.stonoga_slain
+if not quest.skitter_plague >= exterminated
 quest skitter_plague exterminated
+endif
 set plague_lifted
 cutscene sk_plague_lifts
 cutscene sk_plague_lifts_2

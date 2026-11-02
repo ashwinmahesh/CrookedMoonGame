@@ -1,6 +1,10 @@
 # Drafted by Gemini (R17 rooms2a), edited.
 
 ~ l14_apartments
+if flag.mr_patrol_up_done
+Narrator: The narrow cots stand empty now, and the tall mirrors hold only you and the violet hum of the glass tubes.
+-> END
+endif
 Narrator: Narrow cots and tall mirrors line these barren quarters, reflecting only the violet hum of the glass tubes. In each room, a masked nurse stands motionless, staring into the silvered glass without a blink.
 * [Stealth DC 17] Slip past -> l14_quiet | l14_alert
 * [if flag.mr_disguised] Walk through in uniform -> l14_quiet
@@ -65,7 +69,9 @@ Narrator: Twelve curtained beds stand in a row beneath the humming tubes, three 
 ~ l16_wake
 set mr_truth_clues += 1
 if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+if not quest.all_is_well >= the_truth
 quest all_is_well the_truth
+endif
 endif
 Narrator: One sleeper stirs at your touch, eyelids fluttering open to reveal pupils wide and dark as lake water.
 mr_rocking_patient [weary]: The white worm drinks from the pool below... and the Matron pours it into our cups...
@@ -79,7 +85,9 @@ Narrator: They only smile faintly and turn their faces to the pillows, too deep 
 if not flag.mr_register_read
 set mr_truth_clues += 1
 if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+if not quest.all_is_well >= the_truth
 quest all_is_well the_truth
+endif
 endif
 set mr_register_read
 endif

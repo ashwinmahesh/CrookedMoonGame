@@ -2,7 +2,9 @@
 
 ~ pyre_start
 set night_of_flames_active
+if not quest.crimson_monastery >= night_of_flames
 quest crimson_monastery night_of_flames
+endif
 cutscene mon_flames
 Narrator: Sixty faithful in red robes ring the cold stones round six captives tied to pitch-soaked stakes. Friar Olaf paces below with a guttering torch while Father Renathyr watches from the high stair.
 * Watch in silence. -> pyre_watch
@@ -74,7 +76,9 @@ set night_of_flames_done
 set crimson_in
 set renathyr_invited_cathedral
 standing crimson_faith +5
+if not quest.crimson_monastery >= inside
 quest crimson_monastery inside
+endif
 -> END
 
 ~ pyre_cold

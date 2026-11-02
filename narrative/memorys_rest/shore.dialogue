@@ -7,7 +7,9 @@ cutscene mr_moonsong_2
 Narrator: Across the flat grey lake stands the red brick bulk of the sanatorium, its high windows humming with a cold violet glow.
 cutscene end
 set mr_arrived_shore
+if not quest.all_is_well >= the_crossing
 quest all_is_well the_crossing
+endif
 -> END
 
 ~ boat
@@ -61,7 +63,9 @@ cutscene mr_isle_2
 Narrator: Before the heavy iron double doors stands a dry stone fountain, crowned with a barn owl that stares down through the mist.
 cutscene end
 set mr_arrived_isle
+if not quest.all_is_well >= sign_in
 quest all_is_well sign_in
+endif
 -> END
 
 ~ fountain

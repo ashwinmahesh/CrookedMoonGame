@@ -40,7 +40,9 @@ cutscene end
 set oswald_slain
 set stonoga_after_seen
 if flag.skitter_sigils_broken
+if not quest.skitter_plague >= exterminated
 quest skitter_plague exterminated
+endif
 set plague_lifted
 cutscene sk_plague_lifts
 cutscene sk_plague_lifts_2

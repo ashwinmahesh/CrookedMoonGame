@@ -3,7 +3,7 @@
 ~ l23_journal
 Narrator: Shelves of pale specimens line Doctor Belkin's study, smelling sharply of vinegar and cold brine. Beside a jar of sleeping white grubs lies a thick leather ledger titled the Anatomist's Journal.
 * [Arcana DC 14] Read the journal -> l23_journal_ok | l23_journal_fail
-* Open the larvae jar -> l23_swarm
+* [if not flag.mr_swarm_done] Open the larvae jar -> l23_swarm
 * Leave -> END
 
 ~ l23_journal_ok
@@ -13,7 +13,9 @@ set mr_hatch_words
 set mr_hatch_hint
 set mr_truth_clues += 1
 if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+if not quest.all_is_well >= the_truth
 quest all_is_well the_truth
+endif
 endif
 -> l23_journal
 
@@ -28,7 +30,7 @@ combat mr_swarm
 ~ l24_pods
 Narrator: The unlit room is clammy as a cellar, lined with six tall cradles of weeping grey membrane. Three of the pods hold sleeping surgeons, their chests rising slow and heavy beneath the slime.
 * Touch a pod's gel -> l24_gel
-* Search an empty pod -> l24_search
+* [if not flag.mr_swarm_done] Search an empty pod -> l24_search
 * Leave -> END
 
 ~ l24_gel
@@ -112,13 +114,17 @@ Narrator: Wires trail from the mounted glass orb down into the shadow beneath th
 Narrator: {name}'s boot finds a recessed brass pedal; the glass orb splits the air with purple lightning, and the floor vanishes in a roar of ozone and cold lake water.
 set mr_wile_used
 if not flag.mr_grotto_seen
+if not quest.all_is_well >= the_way_down
 quest all_is_well the_way_down
+endif
 endif
 move mr_grotto:from_wile
 
 ~ l27_platform
 Narrator: Chains clank and the iron platform lurches downward, sinking into the pitch-dark shaft toward the sound of lapping water.
 if not flag.mr_grotto_seen
+if not quest.all_is_well >= the_way_down
 quest all_is_well the_way_down
+endif
 endif
 move mr_grotto:from_lift

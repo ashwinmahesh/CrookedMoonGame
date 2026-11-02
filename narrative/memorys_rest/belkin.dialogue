@@ -33,7 +33,9 @@ doctor_belkin [sly]: You have a keen eye, my friend, though staring too closely 
 set mr_belkin_read
 set mr_truth_clues += 1
 if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+if not quest.all_is_well >= the_truth
 quest all_is_well the_truth
+endif
 endif
 -> exam
 

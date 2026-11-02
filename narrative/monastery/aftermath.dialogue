@@ -42,16 +42,23 @@ endif
 Narrator: An empty chair in a high house never stays cold for long; whatever remains of the abbey's masters will soon enough decide what becomes of the flock.
 quest the_priors settled
 set crimson_aftermath
+if not quest.crimson_monastery >= aftermath
 quest crimson_monastery aftermath
+endif
 -> END
 
 ~ farewell
 cutscene mon_moon_white
 cutscene mon_moon_white_2
+if not quest.crimson_monastery >= return
 quest crimson_monastery return
+endif
 set crimson_farewell
 set act2_done += 1
+# Act II raises the party four levels, 4 to 8, whichever chapters they are (plan 5.1): the fifth chapter done gives none.
+if flag.act2_done <= 4
 xp milestone
+endif
 Narrator: Down in Dawn's Gate, the red stain washes from the clouds, leaving the old crone's moon bone-white above the pines. The smell of wet silver and woodsmoke returns to the lane.
 kristoff_gruber [neutral]: Ale's on the board, and the shutters are unbarred. You best get down the river road before I start charging you rent.
 dg_halka_wren [weary]: The bells are quiet up the hill. That will do for tonight. Safe road to you, strangers.

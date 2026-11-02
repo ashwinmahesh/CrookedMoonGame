@@ -40,7 +40,9 @@ Narrator: The chauffeur poles his long coffin boat quietly against the pilings a
 ~ board
 Narrator: The narrow hull barely dips beneath your weight as the pole takes hold, pushing you out across the glassy black water toward the brass music and magenta glow.
 set dc_boarded
+if not quest.withered_arm >= aboard
 quest withered_arm aboard
+endif
 move dc_boat_promenade:from_gangplank
 
 ~ bellhops

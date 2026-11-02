@@ -137,7 +137,9 @@ leona_cromwell [afraid]: Keep your voices down! The Abbot keeps the Witching Hou
 leona_cromwell [weary]: Below that lies the sanctum, where we priors are anointed and remade. Now get out before she hears my heart beating.
 set src_cromwell
 set way_down_known
+if not quest.crimson_monastery >= the_way_down
 quest crimson_monastery the_way_down
+endif
 -> END
 
 ~ cromwell_fight

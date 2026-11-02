@@ -31,7 +31,9 @@ father_renathyr [weary]: You speak of mercy to a man who traded his soul for a s
 ~ pre_fight
 father_renathyr [angry]: Then kneel at the moat and offer your throats to the Crimson Rose! Sing for them, Duchess!
 set renathyr_fight_started
+if not quest.crimson_monastery >= bloody_tears
 quest crimson_monastery bloody_tears
+endif
 cutscene mon_phase1
 cutscene mon_phase1_2
 combat mon_abbot

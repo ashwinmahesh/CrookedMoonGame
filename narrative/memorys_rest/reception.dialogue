@@ -22,7 +22,9 @@ mr_orderly_a [neutral]: Visiting hours run from Twilight Hour to Nightfall Hour.
 
 ~ visitor_catherine
 set mr_signed_in = "visitor"
+if not quest.all_is_well >= find_the_cousin
 quest all_is_well find_the_cousin
+endif
 mr_orderly_a [neutral]: Ah, Miss Winthrop is doing wonderfully well with us. Step along with my brother to the Visitation Room, and we shall have her brought down with a fresh pot of chamomile.
 -> END
 
@@ -33,13 +35,17 @@ mr_orderly_a [neutral]: We have no soul registered by that name upon our ledgers
 ~ checkin
 set mr_signed_in = "patient"
 set mr_admitted
+if not quest.all_is_well >= find_the_cousin
 quest all_is_well find_the_cousin
+endif
 mr_orderly_a [neutral]: How glad we are that you have chosen rest over burden. Leave your heavy gear with us to be kept safe in your rooms, and Nurse Godlee will see to your examination shortly.
 -> END
 
 ~ matron_ok
 set mr_signed_in = "matron"
+if not quest.all_is_well >= find_the_cousin
 quest all_is_well find_the_cousin
+endif
 Narrator: The two blank masks turn toward one another for a beat, silent as pair of owls on a rafter.
 mr_orderly_a [neutral]: Of course, the Matron is ever generous with her hours for those of note. Follow close behind, and mind the quiet on the stairs.
 -> END
@@ -51,6 +57,10 @@ mr_orderly_a [neutral]: Forgive us, friends, but Matron Lethica receives no one 
 * Leave -> END
 
 ~ strike
+if flag.mr_patrol_done
+Narrator: The patient's eyes slide away from yours, and whatever life they had before this place will not come back to them.
+-> END
+endif
 if flag.mr_conduct_strikes == 0
 mr_orderly_a [angry]: Peace and obedience are the very medicine of this house, and you have disturbed both. Consider this your sole warning before we are forced to correct you.
 set mr_conduct_strikes += 1

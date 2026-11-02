@@ -28,7 +28,9 @@ quest all_is_well the_letter
 cutscene mr_all_is_well
 cutscene mr_all_is_well_2
 cutscene end
+if not quest.all_is_well >= to_moonsong
 quest all_is_well to_moonsong
+endif
 endif
 amos_dority [neutral]: Take this handbill she left behind, and the letter too. It's three nights west down a boggy road to Moonsong Lake, and the paper shows the isle.
 -> END
@@ -57,7 +59,9 @@ morgan [afraid]: Let me see the back leaf... yes, founded by a lady widowed of a
 set mr_hook_open
 give mr_pamphlet
 quest all_is_well the_letter
+if not quest.all_is_well >= to_moonsong
 quest all_is_well to_moonsong
+endif
 cutscene mr_all_is_well
 cutscene mr_all_is_well_2
 cutscene end

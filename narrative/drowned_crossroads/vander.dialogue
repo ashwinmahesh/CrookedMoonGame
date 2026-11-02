@@ -55,7 +55,9 @@ set dc_fort_rested
 
 ~ screams
 Narrator: A high, wet shriek splits the dark outside, answered by the iron clatter of the gatehouse bell.
+if not quest.withered_arm >= fort_falls
 quest withered_arm fort_falls
+endif
 cutscene dc_screams
 Narrator: By the pitch torches on the walk, grey fingers hook over the sharpened cypress stakes of the palisade.
 cutscene dc_screams_2
@@ -71,7 +73,9 @@ vander_boone [weary]: Go on and make the road count. It is the smart play, and I
 lyla_webb [neutral]: Keep your lanterns hooded until you clear the outer boardwalks.
 set screams_done
 set screams_fled
+if not quest.withered_arm >= the_shack
 quest withered_arm the_shack
+endif
 Narrator: You bolt out onto the slick rope walkways as the roar of black water and splintering pine rises behind the fort.
 move dc_murkwater:from_fort
 

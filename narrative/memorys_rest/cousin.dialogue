@@ -24,7 +24,9 @@ catherine_winthrop [afraid]: You must not bring loud names in from the rain, ple
 set mr_catherine_truth
 set mr_truth_clues += 1
 if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+if not quest.all_is_well >= the_truth
 quest all_is_well the_truth
+endif
 endif
 Narrator: Beneath the sleepy smile, her breath comes shallow and quick; she has no memory of her own face, only a cold dread of being noticed.
 catherine_winthrop [afraid]: Keep your voice down, I beg you, because I do not know who I was before the cup. Look inside the picture books on the Moon Porch.
@@ -82,7 +84,9 @@ give mr_porch_note
 set mr_antidote_known
 set mr_truth_clues += 1
 if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
+if not quest.all_is_well >= the_truth
 quest all_is_well the_truth
+endif
 endif
 quest the_lethic_antidote learned
 Narrator: Rain drums against the tall lakeward glass while you leaf through a painted picture book left beside a neatly folded cot blanket.

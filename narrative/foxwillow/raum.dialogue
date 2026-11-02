@@ -23,7 +23,9 @@ combat fw_raum
 -> END
 
 ~ jericho_farewell
+if not quest.fields_of_the_crow >= raum
 quest fields_of_the_crow raum
+endif
 set raum_slain
 Narrator: Black feathers scatter like soot, leaving a pale, lantern-bright figure cradling an old banjo as the red stain fades from the moon above.
 jericho_sticks [smile]: Well now, that is a mighty fine breath of night air after so long in the dark. You folks carried my tune right through the briars.
@@ -52,7 +54,10 @@ jonah_sawyer [sad]: I set the torch to my own neighbors, thinking them monsters.
 william_lodge [weary]: Get your people under a roof, Martha, and tend the living while you can. Come on, friends, let us ride back to Wickermoor before the frost settles.
 quest fields_of_the_crow done
 set act2_done += 1
+# Act II raises the party four levels, 4 to 8, whichever chapters they are (plan 5.1): the fifth chapter done gives none.
+if flag.act2_done <= 4
 xp milestone
+endif
 set sister_rain_invited
 set adela_painting_bats
 -> END
