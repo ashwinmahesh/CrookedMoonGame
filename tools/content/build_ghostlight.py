@@ -127,7 +127,7 @@ def car(lid, n, name, summary, text, areas, props, npcs, encounters=None, contai
     if idx > 0 and not tender:
         spawns["from_front"] = [18, door_row]
     if idx == 0:
-        spawns = {"default": [2, 3], "from_boarding": [2, 3], "from_front": [17, 3]}
+        spawns = {"default": [2, 3], "from_boarding": [2, 3], "from_front": [17, 3], "phantom_fight": [12, 3]}
     loc = {
         "id": lid, "name": name, "region": REGION, "summary": summary, "text": text,
         "map": {"rows": rows, "theme": "manor", "light": "bright", "outdoors": False},
@@ -191,7 +191,8 @@ def build_locations():
         "Two rows of paired red leather seats run the length of the car with a wide lit aisle between them. Pale passengers flicker in and out of the seats, and green smoke streams past every window.",
         [area("g1_rear", "The rear end", (1, 1), (5, 5)), area("g1_aisle", "The aisle", (6, 1), (13, 5)), area("g1_front", "The front end", (14, 1), (18, 5))],
         [prop("g1_seats", (6, 1), "Paired seats", model="chairs"), prop("g1_booths", (1, 1), "The end booths", model="chairs"),
-         prop("g1_windows", (8, 1), "The windows", model="window"), router_lamp(1),
+         prop("g1_windows", (8, 1), "The windows", model="window", call=GL + "car_banter:start", approach=3,
+              call_when="flag.gl_aboard_welcomed and not flag.gl_phantom_done"), router_lamp(1),
          prop("g1_boarding_door", (0, 2), "The boarding door", model="door"), prop("g1_rear_door", (0, 4), "The rear door", model="door"),
          grille(1),
          prop("g1_passengers", (7, 3), "The pale passengers", kind="search", search_dc=15, skill="perception", model="chairs"),
@@ -202,23 +203,23 @@ def build_locations():
               "success": {"text": "Black veins thread through the mist at the front door, and the mist is cold."}, "failure": {}}]),
          ],
         [npc("the_vagrant", (2, 3), GL + "vagrant_boarding:aboard", when="flag.gl_boarded and not flag.gl_aboard_welcomed", approach=6, facing="east"),
-         npc("phantom_trainhopper", (7, 3), GL + "vagrant_intercom:phantom_strikes", when="not flag.gl_phantom_done and flag.gl_aboard_welcomed", approach=6, facing="east")],
+         npc("phantom_trainhopper", (16, 3), GL + "vagrant_intercom:phantom_strikes", when="not flag.gl_phantom_done and flag.gl_aboard_welcomed", approach=3, facing="west")],
         encounters=[
             {"id": "gl_phantom_strikes", "trigger": "dialogue", "flag": "gl_phantom_done", "quest": {"id": "ghostlight_express", "stage": "phantom_struck"},
              "when": "level >= 3", "monsters": [
-                 {"monster": "shadow", "cell": [7, 3], "name": "The Phantom Trainhopper", "facing": "east", "steps_down": {"npc": "phantom_trainhopper"}},
-                 {"monster": "corrupted_passenger", "cell": [11, 2], "name": "Corrupted Passenger", "facing": "west"},
-                 {"monster": "corrupted_passenger", "cell": [14, 4], "name": "Corrupted Passenger", "facing": "west"},
-                 {"monster": "corrupted_passenger", "cell": [17, 3], "name": "Corrupted Passenger", "facing": "west"}]},
+                 {"monster": "shadow", "cell": [16, 3], "name": "The Phantom Trainhopper", "facing": "west", "steps_down": {"npc": "phantom_trainhopper"}},
+                 {"monster": "corrupted_passenger", "cell": [17, 2], "name": "Corrupted Passenger", "facing": "west"},
+                 {"monster": "corrupted_passenger", "cell": [17, 4], "name": "Corrupted Passenger", "facing": "west"},
+                 {"monster": "corrupted_passenger", "cell": [18, 3], "name": "Corrupted Passenger", "facing": "west"}]},
             {"id": "gl_phantom_strikes", "trigger": "dialogue", "flag": "gl_phantom_done", "quest": {"id": "ghostlight_express", "stage": "phantom_struck"},
              "when": "level == 2", "monsters": [
-                 {"monster": "shadow", "cell": [7, 3], "name": "The Phantom Trainhopper", "facing": "east", "steps_down": {"npc": "phantom_trainhopper"}},
-                 {"monster": "corrupted_passenger", "cell": [11, 2], "name": "Corrupted Passenger", "facing": "west"},
-                 {"monster": "corrupted_passenger", "cell": [14, 4], "name": "Corrupted Passenger", "facing": "west"}]},
+                 {"monster": "shadow", "cell": [16, 3], "name": "The Phantom Trainhopper", "facing": "west", "steps_down": {"npc": "phantom_trainhopper"}},
+                 {"monster": "corrupted_passenger", "cell": [17, 2], "name": "Corrupted Passenger", "facing": "west"},
+                 {"monster": "corrupted_passenger", "cell": [17, 4], "name": "Corrupted Passenger", "facing": "west"}]},
             {"id": "gl_phantom_strikes", "trigger": "dialogue", "flag": "gl_phantom_done", "quest": {"id": "ghostlight_express", "stage": "phantom_struck"},
              "monsters": [
-                 {"monster": "shadow", "cell": [7, 3], "name": "The Phantom Trainhopper", "facing": "east", "steps_down": {"npc": "phantom_trainhopper"}},
-                 {"monster": "corrupted_passenger", "cell": [11, 2], "name": "Corrupted Passenger", "facing": "west"}]}],
+                 {"monster": "shadow", "cell": [16, 3], "name": "The Phantom Trainhopper", "facing": "west", "steps_down": {"npc": "phantom_trainhopper"}},
+                 {"monster": "corrupted_passenger", "cell": [17, 4], "name": "Corrupted Passenger", "facing": "west"}]}],
         lights=lamps([(4, 3), (10, 3), (16, 3)]))
 
     # ----- G2 --------------------------------------------------------------------------------------------------------

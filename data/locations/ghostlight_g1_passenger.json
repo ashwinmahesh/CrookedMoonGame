@@ -88,6 +88,10 @@
     "from_front": [
       17,
       3
+    ],
+    "phantom_fight": [
+      12,
+      3
     ]
   },
   "exits": [
@@ -133,7 +137,10 @@
       ],
       "kind": "examine",
       "label": "The windows",
-      "model": "window"
+      "model": "window",
+      "call": "ghostlight_express/car_banter:start",
+      "approach": 3,
+      "call_when": "flag.gl_aboard_welcomed and not flag.gl_phantom_done"
     },
     {
       "id": "g1_lamps",
@@ -247,13 +254,13 @@
     {
       "npc": "phantom_trainhopper",
       "cell": [
-        7,
+        16,
         3
       ],
       "dialogue": "ghostlight_express/vagrant_intercom:phantom_strikes",
       "when": "not flag.gl_phantom_done and flag.gl_aboard_welcomed",
-      "approach": 6,
-      "facing": "east"
+      "approach": 3,
+      "facing": "west"
     },
     {
       "npc": "conductor_understudy",
@@ -290,12 +297,12 @@
         {
           "monster": "shadow",
           "cell": [
-            7,
+            16,
             3
           ],
           "name": "The Phantom Trainhopper",
           "art": "phantom_trainhopper",
-          "facing": "east",
+          "facing": "west",
           "steps_down": {
             "npc": "phantom_trainhopper"
           }
@@ -303,7 +310,7 @@
         {
           "monster": "corrupted_passenger",
           "cell": [
-            11,
+            17,
             2
           ],
           "name": "Corrupted Passenger",
@@ -313,7 +320,7 @@
         {
           "monster": "corrupted_passenger",
           "cell": [
-            14,
+            17,
             4
           ],
           "name": "Corrupted Passenger",
@@ -323,7 +330,7 @@
         {
           "monster": "corrupted_passenger",
           "cell": [
-            17,
+            18,
             3
           ],
           "name": "Corrupted Passenger",
@@ -345,12 +352,12 @@
         {
           "monster": "shadow",
           "cell": [
-            7,
+            16,
             3
           ],
           "name": "The Phantom Trainhopper",
           "art": "phantom_trainhopper",
-          "facing": "east",
+          "facing": "west",
           "steps_down": {
             "npc": "phantom_trainhopper"
           }
@@ -358,7 +365,7 @@
         {
           "monster": "corrupted_passenger",
           "cell": [
-            11,
+            17,
             2
           ],
           "name": "Corrupted Passenger",
@@ -368,7 +375,7 @@
         {
           "monster": "corrupted_passenger",
           "cell": [
-            14,
+            17,
             4
           ],
           "name": "Corrupted Passenger",
@@ -389,12 +396,12 @@
         {
           "monster": "shadow",
           "cell": [
-            7,
+            16,
             3
           ],
           "name": "The Phantom Trainhopper",
           "art": "phantom_trainhopper",
-          "facing": "east",
+          "facing": "west",
           "steps_down": {
             "npc": "phantom_trainhopper"
           }
@@ -402,8 +409,8 @@
         {
           "monster": "corrupted_passenger",
           "cell": [
-            11,
-            2
+            17,
+            4
           ],
           "name": "Corrupted Passenger",
           "art": "corrupted_passenger",
