@@ -76,7 +76,7 @@ static func place(parent: Node3D, id: String, xform: Transform3D) -> Node3D:
 ## Strews the place's ground with its `places` entry: under the trees along the woods' edge, over the difficult squares
 ## and, sparsely, at the rim of the open ground. Squares a prop, a door, a person or a starting place takes are left alone.
 static func strew(view: LocationView) -> Node3D:
-	var plan := (config().get("places", {}) as Dictionary).get(view.loc_id, {}) as Dictionary
+	var plan := plan_for(view.loc_id, view.loc)
 	if off or plan.is_empty() or not Look.modern():
 		return null
 	var board := view.board
@@ -147,6 +147,22 @@ static func _spot(kind: String, c: Vector2i, rng: RandomNumberGenerator) -> Vect
 static func _count(mean: float, rng: RandomNumberGenerator) -> int:
 	var n := floori(mean)
 	return n + (1 if rng.randf() < mean - float(n) else 0)
+
+
+## The map themes that are wild land (not a town, a house or a dungeon): only these take a region's set.
+const WILD_THEMES: Array[String] = ["forest", "wilderness", "road", "riverside"]
+
+
+## What is strewn over place `id`: its own entry in `places`, else the set its region names when its map is wild land.
+static func plan_for(id: String, loc: Dictionary) -> Dictionary:
+	var own := (config().get("places", {}) as Dictionary).get(id, {}) as Dictionary
+	if not own.is_empty():
+		return own
+	var map := loc.get("map", {}) as Dictionary
+	if not bool(map.get("outdoors", false)) or not str(map.get("theme", "")) in WILD_THEMES:
+		return {}
+	var set_id := str((config().get("regions", {}) as Dictionary).get(str(loc.get("region", "")), ""))
+	return (config().get("sets", {}) as Dictionary).get(set_id, {}) as Dictionary
 
 
 ## The squares the place's own things stand on.
