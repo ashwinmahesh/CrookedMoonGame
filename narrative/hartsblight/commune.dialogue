@@ -2,7 +2,9 @@
 
 ~ arrival
 Narrator: A pale frost of spores blankets the clay huts, the collapsed livestock pen, and the eighteen bodies in the yard. Beyond them, the woven door of the longhouse hangs ajar.
+if not quest.q_hartsblight >= commune
 quest q_hartsblight commune
+endif
 set hb_commune_seen
 * Examine the bodies -> bodies
 * Look to the tree line -> circle_glimpse
@@ -56,5 +58,7 @@ combat hb_circle
 Narrator: You leave the chanters to their work and slip under the boughs. Behind you, the drums swell and a thick green cloud rolls south on the wind toward the village.
 set hb_circle_fled
 set hb_cloud_reached_village
+if not quest.q_hartsblight >= circle
 quest q_hartsblight circle
+endif
 -> END

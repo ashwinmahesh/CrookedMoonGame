@@ -2,7 +2,9 @@
 
 ~ leg_altar
 set hb_leg_altar
+if not quest.q_hartsblight >= blighted_wood
 quest q_hartsblight blighted_wood
+endif
 time +60
 Narrator: An hour of dead fern and weeping bark brings you to the forest's edge, where a stone altar sits beneath a haze of yellow dust. The air tastes of cellar damp and turned milk.
 if flag.hb_effigy_burned
@@ -101,7 +103,9 @@ set hb_blight += 1
 
 ~ leg_druids
 set hb_leg_druids
+if not quest.q_hartsblight >= festering_wilds
 quest q_hartsblight festering_wilds
+endif
 time +180
 Narrator: Three hours deeper, the bark gives way to pale fungal rinds and the distant thrum of skin drums. Through the mist, a sideways glance catches a towering bulk of cracked antler and black bone slipping between the trunks, the Lurking Beast.
 if flag.hb_effigy_burned
@@ -201,7 +205,9 @@ set hb_blight += 1
 
 ~ leg_wellspring
 set hb_leg_wellspring
+if not quest.q_hartsblight >= rotten_heart
 quest q_hartsblight rotten_heart
+endif
 time +180
 Narrator: Three hours into the Rotten Heart, where the trees are only hollow chimneys of black sponge and the ground gives beneath your heels like a bruised apple.
 if not flag.hb_vision_heart
@@ -239,7 +245,9 @@ set hb_blight += 1
 
 ~ leg_den
 set hb_leg_den
+if not quest.q_hartsblight >= den
 quest q_hartsblight den
+endif
 time +120
 Narrator: Two hours following a broad smear of black slime and shed antler-velvet bring you to a cave mouth gaping beneath a ridge crusted in shelf-fungus, breathing warm, wet rot into the dark.
 -> END

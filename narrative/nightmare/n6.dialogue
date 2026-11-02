@@ -4,7 +4,9 @@
 set n6_started
 Narrator: Lanterns sway over a moonless spring meadow where twenty guests in painted animal masks caper between two long tables. Up on the dais, a bride crowned in fiery roses beams beside a tethered black goat, and twenty papier-mache snouts pivot toward you at once.
 nm_adela_bride [smile]: Look, look, my dearest guests have arrived at last! Come into the lantern light, darlings, you are just in time for the reel!
+if not quest.crooked_nightmare >= wedding_feast
 quest crooked_nightmare wedding_feast
+endif
 -> hub
 
 ~ hub
@@ -92,7 +94,9 @@ cutscene nm_three_adelas_c_2
 Narrator: Around her the masked guests fly apart like paper, and the moonless dark closes over the meadow.
 cutscene end
 set nm_wedding_done
+if not quest.crooked_nightmare >= crooked_throne
 quest crooked_nightmare crooked_throne
+endif
 -> hub
 
 ~ door
@@ -138,5 +142,7 @@ set forms_refused
 
 ~ pass
 Narrator: You catch the brass handle of the crooked door and pull it wide upon the next nightmare.
+if not quest.crooked_nightmare >= crooked_throne
 quest crooked_nightmare crooked_throne
+endif
 move nm_throne

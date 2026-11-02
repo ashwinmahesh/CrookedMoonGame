@@ -4,7 +4,9 @@
 set n3_started
 Narrator: You step into a brick oven the size of a parlour, where fat drips hissing onto a bed of white-hot coals. On one iron spit turns a plucked turkey with a lizard's tail, and on the other hangs Gilly Jenkin in three heavy chains.
 nm_stonoga [smile]: Mind the basting, darlings, or the meat dries right out! My sisters can fuss with heads and hearts, I know a proper feast starts with tender flesh.
+if not quest.crooked_nightmare >= crooked_oven
 quest crooked_nightmare crooked_oven
+endif
 gilly_jenkin [afraid]: Dani! Somebody keep my little maid from the door, do not let her look in here!
 -> rescue
 
@@ -133,5 +135,7 @@ damage 1d10 fire
 -> pass
 
 ~ pass
+if not quest.crooked_nightmare >= smoking_crater
 quest crooked_nightmare smoking_crater
+endif
 move nm_crater

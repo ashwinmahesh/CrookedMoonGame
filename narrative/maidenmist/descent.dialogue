@@ -46,14 +46,18 @@ Narrator: Choking grey vapour curls through a solid wall of fallen lintels and w
 
 ~ rubble_ok
 set mm_rubble_cleared
+if not quest.maidenmist_dead_rise >= undercroft
 quest maidenmist_dead_rise undercroft
+endif
 time +10
 Narrator: Ten minutes of heaving cold, slick stone opens a narrow gap onto a flight of steps descending into the dark.
 -> END
 
 ~ rubble_slow
 set mm_rubble_cleared
+if not quest.maidenmist_dead_rise >= undercroft
 quest maidenmist_dead_rise undercroft
+endif
 time +60
 Narrator: It takes an hour of aching backs and scraped palms, but the last boulder rolls aside to reveal a downward stair.
 -> END
@@ -150,7 +154,9 @@ yorgrim [weary]: Stay close by me now, if you have the stomach for what waits in
 
 ~ tomb_open
 set mm_tomb_door_open
+if not quest.maidenmist_dead_rise >= harrowing
 quest maidenmist_dead_rise harrowing
+endif
 Narrator: The heavy bronze leaves swing inward with a groan, and the biting frost of the Shroud rolls out across your boots.
 -> END
 
@@ -200,7 +206,9 @@ Narrator: The right words sit cold on the tip of your tongue, just out of reach 
 ~ sealed
 set shroud_tear_sealed
 set fallen_yorgrim_dead
+if not quest.maidenmist_dead_rise >= done
 quest maidenmist_dead_rise done
+endif
 cutscene mm_tear_sealed
 Narrator: The hooded lantern blazes white-blue until the whole stone vault washes out in blinding light. When your sight clears, the cracked ceiling is whole, the tomb rests in calm azure glow, and every shrieking shrouded is gone.
 yorgrim [smile]: Thank you, strangers, for lifting the heavy stone from my back before the quiet takes me.

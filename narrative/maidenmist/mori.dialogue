@@ -21,7 +21,9 @@ mori_shade [smile]: Yorgrim is an old orc spirit who taught me the quiet prayers
 ~ accept
 set mm_asked
 set mm_pyre_lit
+if not quest.maidenmist_dead_rise >= corpse_road
 quest maidenmist_dead_rise corpse_road
+endif
 give grave_salt
 mori_shade [neutral]: Rub this coarse grave salt along your blades before you cross the stile. Keep cold iron between your ribs and the creeping mist. I will stack the fallen out past the ditch and burn them clean.
 -> END

@@ -1,7 +1,9 @@
 # Drafted by Gemini (R20), edited. R20: the crime scene in the post office, the master stroke, and the envelopes.
 
 ~ false_geneva
+if not quest.roving_rookery >= crime_scene
 quest roving_rookery crime_scene
+endif
 Narrator: The post office lamp stands cold and unlit above a scatter of fallen letters. Behind the counter lies what remains of Theodora Mayville, while little Geneva clings to the doorjamb.
 geneva_fairchild [afraid]: Please, you have to look at poor Miss Theodora. I tried to go near the counter, truly I did, but my legs won't carry me another step.
 * Tell us everything you saw, Geneva. -> geneva_story
@@ -46,7 +48,9 @@ cutscene end
 set golub_exposed
 set hysteria_began = now
 set rk_posse_out
+if not quest.roving_rookery >= posse
 quest roving_rookery posse
+endif
 Narrator: From the Founder's Round comes the roar of a dozen angry voices, followed by the heavy, oncoming stamp of boots down the lane.
 move wickermoor_village:from_post_office
 

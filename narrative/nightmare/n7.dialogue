@@ -4,7 +4,9 @@
 set n7_started
 Narrator: Frost cakes the crooked stone of this ancient cellar, where a blizzard of wailing souls whirls round a throne of black roots. Lord Phillip sits bound in a bramble crown, clutching a lit torch and a winter apple, while Vessla Browntooth hisses nearby in mock angel wings.
 phillip_druskenvald [afraid]: Adela was just here, I swear it! She looked right through me, and then the floor gave way and these beastly roots had me by the ankles!
+if not quest.crooked_nightmare >= crooked_throne
 quest crooked_nightmare crooked_throne
+endif
 -> hub
 
 ~ hub
@@ -93,7 +95,9 @@ if not flag.vessla_vision_struck
 Narrator: Vessla's painted halo gutters out like a tallow dip, and her flaming sword clatters onto the frost.
 give flame_tongue
 endif
+if not quest.crooked_nightmare >= toil_and_trouble
 quest crooked_nightmare toil_and_trouble
+endif
 -> END
 
 ~ door
@@ -118,6 +122,8 @@ Narrator: The roots keep their counsel, stiff and winter-mean as ever.
 
 ~ pass
 Narrator: The roots part without asking a toll, letting you up toward the heat of the attic.
+if not quest.crooked_nightmare >= toil_and_trouble
 quest crooked_nightmare toil_and_trouble
+endif
 move nm_attic
 -> END

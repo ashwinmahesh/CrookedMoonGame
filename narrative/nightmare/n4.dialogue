@@ -2,7 +2,9 @@
 
 ~ crater_start
 set n4_started
+if not quest.crooked_nightmare >= smoking_crater
 quest crooked_nightmare smoking_crater
+endif
 Narrator: A cool summer wind smells of scorched grass and salt water, carrying the hum of a distant, glittering city across the bay. Down in the smoking earth, a seven-foot stone pulses with colours that have no proper business existing.
 nm_adela_teen [smile]: Look how it breathes, like a heart made of glass and summer lightning. I knew if I waited long enough, the sky would send a carriage just for me.
 -> hub
@@ -75,7 +77,9 @@ cutscene nm_three_adelas_b_2
 Narrator: Far across the bay, the city's lights go on as if nothing had happened.
 cutscene end
 set nm_crater_done
+if not quest.crooked_nightmare >= crooked_bookshelf
 quest crooked_nightmare crooked_bookshelf
+endif
 -> hub
 
 ~ shard
@@ -114,5 +118,7 @@ damage 2d10 psychic
 -> pass
 
 ~ pass
+if not quest.crooked_nightmare >= crooked_bookshelf
 quest crooked_nightmare crooked_bookshelf
+endif
 move nm_bookshelf

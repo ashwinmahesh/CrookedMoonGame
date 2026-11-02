@@ -4,7 +4,9 @@
 Narrator: The fog in the old groundskeeper's eyes has parted, leaving a dark, startling clarity as he grips his broom with steady hands.
 old_rusty [afraid]: The house on the hill is dreaming again, and the vermin are back inside the walls. I saw the man who killed my mother and father.
 set nm_hook_given
+if not quest.crooked_nightmare >= prodigal_son
 quest crooked_nightmare prodigal_son
+endif
 * Ask what he saw -> saw
 * Ask about the house -> house
 * [if not flag.nm_star_given] Ask if he has anything to keep the vermin off -> star_ask

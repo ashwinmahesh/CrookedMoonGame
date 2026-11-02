@@ -24,7 +24,9 @@ give chuckles_letter
 set fools_letter_given
 set bess_dead
 set festival_active
+if not quest.fools_day >= invitation
 quest fools_day invitation
+endif
 cutscene fd_messenger_2
 Narrator: Her knees fold beneath her on the stones, and the little brass bells along her sleeves go quiet one by one.
 -> after
@@ -53,7 +55,9 @@ Narrator: The timber lanes of Wickermoor pull apart like warm dough, stretching 
 cutscene fd_unfolds_2
 Narrator: Ahead of you, the old cobbled Round has squared its shoulders into a fairground, and high above the rooftops a great painted balloon grins down from a maypole.
 if quest.fools_day == invitation
+if not quest.fools_day >= absurd_streets
 quest fools_day absurd_streets
+endif
 endif
 Narrator: The smell of hot lard and cinnamon hangs thick enough to chew, and the road behind you has already vanished into canvas and bunting.
 move fd_festival:from_hub
