@@ -8,9 +8,9 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 |---|---|---|
 | Portraits for the 144 missing NPCs: 148 photoreal portrait jobs are queued at normal priority (the image server is paused) | In progress (queued, waiting on the server) | [Portraits](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoMVcF4yx8zrzvExbupWQsVL) |
 | Audit all visual effects: each gets a selection room and its own colour, size and speed settings (melee hit effects are landed; the other effects are next) | In progress | [Melee hit effects](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoHUCbLptUKMrnux7PbW3KTT) |
-| The full 3D grid build (Ashwin's go, 2026-11-02), after a summary of what it means for him | In progress | [Build the full 3D grid](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoEP6W92Q8En8FU5Ua72qWcK) |
+| The full 3D grid build (Ashwin's go, 2026-11-02): comes first, split across parallel lanes | In progress | [Build the full 3D grid](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoEP6W92Q8En8FU5Ua72qWcK) |
 | An NPC in Wickermoor Hollow who resurrects dead heroes for a price (Ashwin, 2026-11-02) | In progress | [Make Wickermoor and the Crooked House playable](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoPPR4UsoGK7bQTEnN8LobsA) |
-| Act III playable end to end (Ashwin, 2026-11-02; must not conflict with the full 3D build) | On hold, waiting for Ashwin's go | [Make Act III playable end to end](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoJ6oZfYVoFQJfnjMy151uen) |
+| Act III playable end to end (Ashwin, 2026-11-02) | On hold: starts once the full 3D grid build is done (Ashwin's order) | [Make Act III playable end to end](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoJ6oZfYVoFQJfnjMy151uen) |
 | Weapons and pack animations (Rook's switch to pack clips waits on Ashwin's verdict) | In progress | [Weapons/pack animations](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoWHuBM7pdpdhmz86LEs2vUs) |
 | Cel cutscene stills (docs-cutscenes-cel 28081e80 queued) | In progress | [Look/title](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoCCPX3moU1VgdtYuw77oSqT) |
 
