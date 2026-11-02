@@ -1,0 +1,32 @@
+# Emerald d20 sounds
+
+Generated for Curse of Strahd with ElevenLabs sound effects (`eleven_text_to_sound_v2`, prompt influence 0.5-0.6) on
+2026-10-09, on the owner's paid Creator plan, whose terms let the game use them commercially. Each take was trimmed to
+its first hit, given a short fade-out and levelled to a -1 dBFS peak (16-bit 44.1 kHz WAV). Bounce takes 8-13 on the
+listening page were cut from two longer "four bounces" takes. Used by the big d20 (docs/ui/d20_roll.md) through
+art/audio.json.
+
+The throw, bounces and landing are resin on wood (owner, 2026-10-09: "a typical resin dice bouncing off wood"):
+single bounce takes are cut to a dry 0.3 s clack, and resin_bounce_5 and on are clacks cut from two longer four-bounce
+takes. The first glass takes (die_throw, die_bounce, die_land) were replaced and left the folder.
+
+Prompts (seconds requested):
+
+- `die_throw` (1.0 s): A single small glass gemstone die rattled briefly in a cupped hand and tossed, a soft airy swish with a faint crystalline shimmer, close up, dry, isolated, no music
+- `die_bounce` (0.5 s): One small hard glass gem die striking a wooden tabletop once, a single bright crisp click with a tiny glassy ring, close up, isolated, dry, no reverb
+- `die_land` (1.0 s): A small glass gem die rolling the last few inches across an oak table, rattling and rocking to a stop, then a soft clear crystal ring as it settles, close up, isolated
+- `die_crit` (2.0 s): A triumphant magical shimmer: a bright crystal chime swells into a warm golden bell tone with sparkles, short fantasy game reward sting, no voice, no drums
+- `die_fumble` (1.5 s): An ominous low hollow thud with a dark descending cello tone and a faint crack of glass, short gothic horror game failure sting, no voice
+- `die_success` (1.0 s): A short soft pleasant crystal chime, two rising notes, warm and magical, fantasy game success cue, no voice
+- `die_fail` (1.0 s): A short muted low wooden knock with a dull falling tone, subdued fantasy game failure cue, no voice
+- `die_bounce` takes 5-7 (1.0 s): A single small glass gemstone die dropped onto a hard wooden table: one loud crisp glassy click right at the start, then silence, close up, isolated, dry
+- `resin_bounce` (1.0 s): A plastic resin twenty-sided die striking a wooden tabletop once: one hard dry clack right at the start, short decay, no ring, no echo, close up, isolated
+- `resin_throw` (1.0 s): A few resin dice rattled briefly in a cupped hand then tossed, dry hard plastic clicking and a soft swish, close up, isolated, no music
+- `resin_land` (1.0 s): A resin d20 die rolling the last few inches across a wooden table, a couple of quick dry clacks as it tips onto its face and stops, short, no ring, close up
+- `resin_bounces` (2.5 s): A resin d20 die thrown onto a wooden table, bouncing four times with hard dry clacks, each softer and closer together, then rolling to a stop, close up, no ring
+
+## In The Crooked Moon
+
+Copied unchanged on 2026-11-02 from Curse of Strahd's art/sourced/elevenlabs_dice (the takes its art/audio.json picks,
+with its levels), so the engine's d20 (ui/dice/d20_die.gd, ui/dice/dice_roll.gd) is heard here too: the engine plays
+these effect ids but ships no recording for them, and this game had none, so every check, save and attack die was silent.
