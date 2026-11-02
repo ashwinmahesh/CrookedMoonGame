@@ -43,16 +43,22 @@ func test_a_head_with_a_jaw_opens_its_mouth_with_the_voice() -> void:
 		assert_true(jaw != null, "%s: the head's own skeleton has a Jaw" % id)
 		var skel := jaw.get_skeleton()
 		var rest := skel.get_bone_pose_rotation(jaw.jaw)
+		var rest_at := skel.get_bone_pose_position(jaw.jaw)
 		jaw.talking = true
 		jaw.loudness = 1.0
 		for i in 10:
 			skel.set_bone_pose_rotation(jaw.jaw, rest)
+			skel.set_bone_pose_position(jaw.jaw, rest_at)
 			jaw._process_modification_with_delta(0.05)
 		assert_true(jaw.openness() > 0.9, "%s: open on a loud syllable" % id)
-		assert_between(skel.get_bone_pose_rotation(jaw.jaw).angle_to(rest), deg_to_rad(12.0), deg_to_rad(15.0), "%s: the jaw dropped" % id)
+		assert_between(skel.get_bone_pose_rotation(jaw.jaw).angle_to(rest), deg_to_rad(8.0), deg_to_rad(11.0), "%s: the jaw dropped" % id)
+		# It glides forward as it drops, so the lower lip falls straight down rather than tucking back into a pout.
+		var glide := skel.get_bone_pose_position(jaw.jaw) - rest_at
+		assert_gt(glide.dot(jaw.forward_in_parent(skel)), 0.009, "%s: the jaw glides forward as it opens" % id)
 		jaw.talking = false
 		for i in 20:
 			skel.set_bone_pose_rotation(jaw.jaw, rest)
+			skel.set_bone_pose_position(jaw.jaw, rest_at)
 			jaw._process_modification_with_delta(0.05)
 		assert_true(jaw.openness() < 0.01, "%s: shut once the line ends" % id)
 		tok.free()
