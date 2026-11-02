@@ -177,6 +177,12 @@ func _play_one(f: Dictionary, mode: String, seed_value: int) -> Dictionary:
 		st.party.append(ch)
 	st.location = str(f["loc"])
 	st.options["difficulty"] = mode
+	# A fight a conversation starts begins where its speaker or prop is, which the player walked to: the place's doors
+	# stand open, as they would behind a party that came that way (a door the fight itself must open is the data's job).
+	if str((f["spec"] as Dictionary).get("trigger", "")) == "dialogue":
+		var doors := st.loc_state(st.location)["doors"] as Dictionary
+		for dr: Variant in Compendium.shared().get_entry("locations", st.location).get("doors", []):
+			doors[str((dr as Dictionary)["id"])] = LocationView.DOOR_OPEN
 	# Only this fight: the place's other fights count as won, so one that starts on stepping into the arrival square
 	# (an `enter_area` fight at the spawn, a waiting fight) doesn't take the board first.
 	var won := st.loc_state(st.location)["encounters"] as Dictionary
