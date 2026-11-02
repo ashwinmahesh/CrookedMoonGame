@@ -62,8 +62,8 @@
     "healing": 60
   },
   "_loot_note": "Owner, 2026-10-12: loot felt light. A place with chests now holds 0-2 random magic items (1.4 on average) plus one more half the time with three or more chests, and 0-2 potions besides: a healing potion for the party's tier (healing share in percent) or else any potion of the place's rarity. Story fights leave coins by each foe's Challenge Rating and a find, as road fights do (RoadSpoils).",
-  "theme_full_weight": 8,
-  "_theme_note": "A roll picks a rarity, then a theme (arcana, armaments, implements, relics) evenly, then an item in it by weight. A theme whose pool at that rarity weighs less than theme_full_weight gets a share in proportion, so a theme with one or two items doesn't hand them out in a quarter of all rolls (owner, 2026-10-12).",
+  "theme_full_weight": 10,
+  "_theme_note": "A roll picks a rarity, then a theme (arcana, armaments, implements, relics) evenly, then an item in it by weight. A theme whose pool at that rarity weighs less than theme_full_weight gets a share in proportion, so a theme with one or two items doesn't hand them out in a quarter of all rolls (owner, 2026-10-12). 2026-11-02: 10 (was 8) once the items that do nothing in a fight left the random tables, so the uncommon arms, nine of them now, keep the share each had among twelve (a Sentinel Shield about one roll in thirty, not one in twenty).",
   "group_weights": {
     "spell_scroll": 4,
     "potion": 3
@@ -78,8 +78,8 @@
     "armor_plus",
     "shield_plus"
   ],
-  "_support_note": "Found treasure leans to combat (Ashwin, 2026-10-17: the magic items we find should be combat focused, with a mix for every class). These items do nothing in a fight (travel, carrying, scouting, social and household magic); a random roll weighs each at `support_weight` of an ordinary item's chance, so they still turn up now and then. The audit behind the list: docs/story/magic_item_audit.md.",
-  "support_weight": 0.25,
+  "_support_note": "Found treasure leans to combat (Ashwin, 2026-10-17: the magic items we find should be combat focused, with a mix for every class). These items do nothing in a fight (travel, carrying, scouting, social and household magic); a random roll weighs each at `support_weight` of an ordinary item's chance. Ashwin, 2026-11-02: every magic item found should be usable in combat, so the weight is 0 and these never turn up as random finds; every one of them is for sale instead (shop_stock.json). The audit behind the list: docs/story/magic_item_audit.md.",
+  "support_weight": 0.0,
   "support_items": [
     "adamantine_weapon",
     "alchemy_jug",
