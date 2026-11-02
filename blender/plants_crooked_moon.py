@@ -144,7 +144,7 @@ def corn_stalk(p, base, H, leaves, ears, lean, centre, far=False):
         z = H * (0.12 + 0.7 * f)
         az = offset + k * 2.4 + rng.uniform(-0.3, 0.3)
         out = Vector((math.cos(az), math.sin(az), 0))
-        L = rng.uniform(0.5, 0.68) * (1.0 - 0.3 * f) * (H / 1.5)
+        L = rng.uniform(0.6, 0.82) * (1.0 - 0.3 * f) * (H / 1.5)
         W = L / 6.5
         pitch = math.radians(28 + 34 * f + rng.uniform(-6, 6))
         drop = rng.uniform(1.0, 1.5) * (1.1 - 0.55 * f)
@@ -218,14 +218,14 @@ def corn_c(p):
 
 # --- Hag-hair and moss: long hanging strands ---------------------------------------------------------------------------
 
-def strands(p, cell, anchors, length, normal, shade, far=False, hang_out=0.12, flutter=(1.0, 0.15)):
+def strands(p, cell, anchors, length, normal, shade, far=False, hang_out=0.12, flutter=(1.0, 0.15), thin=1.0):
     """Long thin strands hanging from each of `anchors` (points on branches): two crossed cards of `cell` (a tall thin painting, thick at
     its top) each, so they read from every side. The painting is thick at its root, so it is laid root up: the grid runs from the tip
     (bottom) to the root (top), and the wind moves the tip most."""
     rng = p.rng
     for top in anchors:
         L = length * rng.uniform(0.7, 1.15)
-        W = L * aspect(cell)
+        W = L * aspect(cell) * thin
         az = rng.uniform(0, math.tau)
         out = Vector((math.cos(az), math.sin(az), 0)) * hang_out * rng.uniform(0.3, 1.2)
         segs = 2 if far else 3
@@ -259,17 +259,17 @@ def wytch(p, H, crown, centre_z, cells, sprays, limbs, droop, girth, lean, hairs
         az = rng.uniform(0, math.tau)
         ring = rng.uniform(0.55, 1.0)
         anchors.append(C + Vector((math.cos(az) * rx * ring, math.sin(az) * rx * ring, rz * rng.uniform(-0.35, 0.35))))
-    strands(p, "hair_strand", anchors, hair_len, normal, shade, far=far, hang_out=0.16)
+    strands(p, "hair_strand", anchors, hair_len, normal, shade, far=far, hang_out=0.16, thin=0.55)
 
 
 @plant("wytch_a", "broadleaf", ["pine"], far="wytch_a_far")
 def wytch_a(p):
-    wytch(p, 3.9, (1.65, 1.0), 2.35, ["oak_leaves"], 56, 7, 0.3, 2.1, 0.55, 30, 1.7)
+    wytch(p, 3.9, (1.65, 1.0), 2.35, ["oak_leaves"], 56, 7, 0.3, 2.1, 0.55, 44, 1.7)
 
 
 @plant("wytch_b", "broadleaf", ["pine"], far="wytch_b_far")
 def wytch_b(p):
-    wytch(p, 3.4, (1.45, 0.95), 2.05, ["oak_leaves", "leaves_b"], 48, 6, 0.35, 2.4, -0.6, 26, 1.5)
+    wytch(p, 3.4, (1.45, 0.95), 2.05, ["oak_leaves", "leaves_b"], 48, 6, 0.35, 2.4, -0.6, 38, 1.5)
 
 
 @plant("wytch_a_far", "broadleaf", far_of="wytch_a")
