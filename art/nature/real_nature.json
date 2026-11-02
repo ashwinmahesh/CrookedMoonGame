@@ -1,0 +1,25 @@
+{
+  "about": "Realistic nature for the wild places (world/look/real_nature.gd): Poly Haven's scanned models (CC0, art/sourced/polyhaven_forest, kept untouched) drawn in their own PBR materials. models: id -> {file, fit (the widest it may be across, world units; 1 = a 5 ft square), grow ([least, most] times that), sink (how far into the ground it is pushed, units), lie (true: turned only about the up axis, never tipped)}. places: what is strewn over a place's map, by the kind of square: low (low cover '=': one piece a square, in place of the board's own boulder or woodpile, picked from the list), woods (under the trees of '#' squares that are trees), difficult ('~'), open (walkable ground, kept off the middle of the square where feet and the selection ring are). Each kind lists [model id, how many per square on average]. A catalog prop whose `ids` entry says \"set_piece\": \"real\" is drawn as one of the models its `real` list names.",
+  "models": {
+    "rock_moss_a": {"file": "art/sourced/polyhaven_forest/models/rock_moss_set_01/rock_moss_set_01_1k.gltf", "fit": 1.35, "grow": [0.85, 1.1], "sink": 0.08},
+    "rock_moss_b": {"file": "art/sourced/polyhaven_forest/models/rock_moss_set_02/rock_moss_set_02_1k.gltf", "fit": 1.3, "grow": [0.85, 1.1], "sink": 0.08},
+    "boulder": {"file": "art/sourced/polyhaven_forest/models/boulder_01/boulder_01_1k.gltf", "fit": 0.95, "grow": [0.8, 1.05], "sink": 0.1},
+    "root_cluster": {"file": "art/sourced/polyhaven_forest/models/root_cluster_01/root_cluster_01_1k.gltf", "fit": 2.6, "grow": [0.9, 1.1], "sink": 0.12},
+    "pine_roots": {"file": "art/sourced/polyhaven_forest/models/pine_roots/pine_roots_1k.gltf", "fit": 1.1, "grow": [0.8, 1.2], "sink": 0.03, "lie": true},
+    "dead_trunk": {"file": "art/sourced/polyhaven_forest/models/dead_tree_trunk/dead_tree_trunk_1k.gltf", "fit": 1.7, "grow": [0.8, 1.1], "sink": 0.04, "lie": true},
+    "dead_trunk_b": {"file": "art/sourced/polyhaven_forest/models/dead_tree_trunk_02/dead_tree_trunk_02_1k.gltf", "fit": 2.0, "grow": [0.85, 1.1], "sink": 0.06, "lie": true},
+    "stump_a": {"file": "art/sourced/polyhaven_forest/models/tree_stump_01/tree_stump_01_1k.gltf", "fit": 0.75, "grow": [0.8, 1.15], "sink": 0.03, "lie": true},
+    "stump_b": {"file": "art/sourced/polyhaven_forest/models/tree_stump_02/tree_stump_02_1k.gltf", "fit": 0.75, "grow": [0.8, 1.15], "sink": 0.03, "lie": true},
+    "fern": {"file": "art/sourced/polyhaven_forest/models/fern_02/fern_02_1k.gltf", "fit": 0.6, "grow": [0.7, 1.25], "sink": 0.02, "lie": true},
+    "branches": {"file": "art/sourced/polyhaven_forest/models/dry_branches_medium_01/dry_branches_medium_01_1k.gltf", "fit": 0.7, "grow": [0.7, 1.2], "sink": 0.0, "lie": true},
+    "shrub": {"file": "art/sourced/polyhaven_forest/models/shrub_02/shrub_02_1k.gltf", "fit": 0.9, "grow": [0.7, 1.0], "sink": 0.02, "lie": true}
+  },
+  "places": {
+    "ghostlight_wreckage": {
+      "low": ["rock_moss_a", "rock_moss_b", "boulder", "stump_a", "stump_b", "dead_trunk"],
+      "woods": [["fern", 0.9], ["stump_a", 0.06], ["stump_b", 0.06], ["dead_trunk", 0.05], ["pine_roots", 0.04], ["branches", 0.2], ["shrub", 0.12]],
+      "difficult": [["fern", 1.3], ["branches", 0.5], ["pine_roots", 0.06], ["boulder", 0.06]],
+      "open": [["branches", 0.07], ["fern", 0.05], ["boulder", 0.015]]
+    }
+  }
+}

@@ -19,6 +19,7 @@ func dress_place(view: LocationView) -> void:
 	if view.st.location == CrookedMoonCampaign.limbo_place() and CrookedMoonCampaign.is_car(view.loc_id) \
 			and not view.st.visited.has(view.loc_id):   # (back out of the mist into the car it left, nothing has changed)
 		view._say("switcheroo:arrive")
+	RealNature.strew(view)   # the realistic rocks, roots and ferns of a wild place (art/nature/real_nature.json)
 
 
 ## The catalog's `set_piece` entries, planted over the middle of the squares the prop spans: "oak" is the Oak of Many Faces
@@ -26,6 +27,8 @@ func dress_place(view: LocationView) -> void:
 ## and "wicker_man" only add their light and leave the catalog's own picture (the barrow, the painted Wicker Man) to be drawn, and
 ## "clocktower" adds its lit clock faces to the catalog's bell tower (Clocktower), and "small:<kind>" builds one of the small things
 ## of Act 1's rooms from a few meshes (SmallProps).
+## and "wicker_man" only add their light and leave the catalog's own picture (the barrow, the painted Wicker Man) to be drawn.
+## "real" is one of the scanned rocks and roots of RealNature in the Modern finish (the catalog's art in Classic).
 func place_special(_art: String, board: ArenaBoard, root: Node3D, cell: Vector2i, spec: Dictionary, look: Dictionary) -> Dictionary:
 	var piece := str(look.get("set_piece", ""))
 	if piece == "":
@@ -38,6 +41,13 @@ func place_special(_art: String, board: ArenaBoard, root: Node3D, cell: Vector2i
 			return {"handled": true, "node": root}
 		return {}
 	match piece:
+		"real":
+			# One of Poly Haven's scanned pieces in its own materials (RealNature), picked by square from the entry's `real`.
+			var picks := look.get("real", []) as Array
+			if not picks.is_empty() and Look.modern():
+				var seed_ := ModelPiece.hash_cell(cell)
+				RealNature.build(root, str(picks[seed_ % picks.size()]), Vector3(at.x, board.ground_y(Vector2(at.x, at.z)), at.z), seed_)
+				return {"handled": true, "node": root}
 		"oak":
 			OakOfManyFaces.build(root, at, ModelPiece.hash_cell(cell))
 			return {"handled": true, "node": root}

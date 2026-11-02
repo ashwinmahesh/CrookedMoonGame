@@ -1,5 +1,6 @@
 {
   "about": "PLACEHOLDER (docs/PLACEHOLDERS.md): (each surface also takes the engine's 2K normal and ORM maps for its texture now, so towns have relief and roughness.) This game's surfaces over the engine's art/textures/manifest.json (ArtPaths.json merges them). The engine has no `village`, `dungeon` or `cave` board themes (Curse of Strahd keeps its own village textures in its game folder), and a board theme with no floor is laid as the grid's checker, so every town showed a checkerboard. Until Crooked Moon's own tiles are painted (look P, seamless), each village surface borrows the engine's nearest texture: moss for grass, marsh mud for roads, stone flags for cobbles, plaster for house walls, dressed stone for slate and heath for thatch. A region's mood still swaps and tints the ground (art/atmosphere/moods.json ground_swap and ground_tint).",
+"about": "PLACEHOLDER (docs/PLACEHOLDERS.md): This game's surfaces over the engine's art/textures/manifest.json (ArtPaths.json merges them). The engine has no `village`, `dungeon` or `cave` board themes (Curse of Strahd keeps its own village textures in its game folder), and a board theme with no floor is laid as the grid's checker, so every town showed a checkerboard. Until Crooked Moon's own tiles are painted (look P, seamless), each village surface borrows the engine's nearest texture: moss for grass, marsh mud for roads, stone flags for cobbles, plaster for house walls, dressed stone for slate and heath for thatch. A region's mood still swaps and tints the ground (art/atmosphere/moods.json ground_swap and ground_tint). The `real` surfaces are Poly Haven's scanned ground (CC0, art/sourced/polyhaven_forest) for the realistic wild places (world/look/real_nature.gd), with their own normal and AO-roughness-metal maps. `mountain/cliff` is swapped for the scanned mossy rock, so every cliff face in this game is realistic rock.",
   "arena_themes": {
     "village": {
       "floor": "village/grass",
@@ -75,6 +76,49 @@
         "tile_world_units": 2.0,
         "normal_file": "art/textures/wild/heath_2k_n.webp",
         "orm_file": "art/textures/wild/heath_2k_orm.webp"
+      }
+    },
+    "real": {
+      "forest_leaves": {
+        "file": "art/sourced/polyhaven_forest/textures/forest_leaves_02/forest_leaves_02_diff_2k.jpg",
+        "hd_file": "art/sourced/polyhaven_forest/textures/forest_leaves_02/forest_leaves_02_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_forest/textures/forest_leaves_02/forest_leaves_02_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_forest/textures/forest_leaves_02/forest_leaves_02_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.6,
+        "variants": [
+          {
+            "file": "art/sourced/polyhaven_forest/textures/forest_floor/forest_floor_diff_2k.jpg",
+            "normal_file": "art/sourced/polyhaven_forest/textures/forest_floor/forest_floor_nor_gl_2k.jpg",
+            "orm_file": "art/sourced/polyhaven_forest/textures/forest_floor/forest_floor_arm_2k.jpg"
+          }
+        ]
+      },
+      "mud_leaves": {
+        "file": "art/sourced/polyhaven_forest/textures/brown_mud_leaves_01/brown_mud_leaves_01_diff_2k.jpg",
+        "hd_file": "art/sourced/polyhaven_forest/textures/brown_mud_leaves_01/brown_mud_leaves_01_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_forest/textures/brown_mud_leaves_01/brown_mud_leaves_01_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_forest/textures/brown_mud_leaves_01/brown_mud_leaves_01_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.6
+      },
+      "mossy_rock": {
+        "file": "art/sourced/polyhaven_forest/textures/mossy_rock/mossy_rock_diff_2k.jpg",
+        "hd_file": "art/sourced/polyhaven_forest/textures/mossy_rock/mossy_rock_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_forest/textures/mossy_rock/mossy_rock_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_forest/textures/mossy_rock/mossy_rock_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 2.0
+      }
+    },
+    "mountain": {
+      "cliff": {
+        "file": "art/sourced/polyhaven_forest/textures/mossy_rock/mossy_rock_diff_2k.jpg",
+        "hd_file": "art/sourced/polyhaven_forest/textures/mossy_rock/mossy_rock_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_forest/textures/mossy_rock/mossy_rock_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_forest/textures/mossy_rock/mossy_rock_arm_2k.jpg",
+        "tile_world_units": 2.0,
+        "variants": []
       }
     }
   }
