@@ -471,7 +471,7 @@ def build_travel():
     path = ROOT / "data/travel/wickermoor_hollow.json"
     t = json.loads(path.read_text())
     t["places"] = [x for x in t["places"] if x["id"] != "foxwillow"] + [
-        {"id": "foxwillow", "name": "Foxwillow", "location": "foxwillow", "spawn": "from_road", "pos": [0.86, 0.5], "region": "foxwillow",
+        {"id": "foxwillow", "name": "Foxwillow", "location": "foxwillow", "spawn": "from_road", "pos": [0.82, 0.45], "region": "foxwillow",
          "when": "flag.foxwillow_asked or visited:foxwillow", "summary": "A farming town in flames, east of Wickermoor."}]
     t["roads"] = [x for x in t["roads"] if x["id"] != "wickermoor_to_foxwillow"] + [
         {"id": "wickermoor_to_foxwillow", "from": "wickermoor_village", "to": "foxwillow", "hours": 18, "name": "The Foxwillow road", "when": "flag.foxwillow_asked or visited:foxwillow"}]

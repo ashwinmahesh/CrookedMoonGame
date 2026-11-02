@@ -657,7 +657,7 @@ def build_travel():
     path = ROOT / "data/travel/wickermoor_hollow.json"
     t = json.loads(path.read_text())
     t["places"] = [x for x in t["places"] if x["id"] != "hartsblight_forest"] + [
-        {"id": "hartsblight_forest", "name": "The Hartsblight", "location": "hb_patient_commune", "spawn": "from_road", "pos": [0.2, 0.2], "region": "hartsblight_forest",
+        {"id": "hartsblight_forest", "name": "The Hartsblight", "location": "hb_patient_commune", "spawn": "from_road", "pos": [0.13, 0.14], "region": "hartsblight_forest",
          "when": "flag.hb_asked or visited:hb_patient_commune", "summary": "A dead commune at the edge of a rotting forest, north-west of Moonsong Lake."}]
     t["roads"] = [x for x in t["roads"] if x["id"] != "wickermoor_to_hartsblight"] + [
         {"id": "wickermoor_to_hartsblight", "from": "wickermoor_village", "to": "hartsblight_forest", "hours": 32, "name": "The spore trail", "when": "flag.hb_asked or visited:hb_patient_commune"}]

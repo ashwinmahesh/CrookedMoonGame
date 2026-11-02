@@ -20,4 +20,5 @@ func test_the_locomotive_still_retries() -> void:
 
 
 func test_an_unrelated_fight_is_still_a_game_over() -> void:
-	assert_true(FightRetry.rule_for({"id": "gl_some_other_fight"}, PASSENGER_CAR).is_empty(), "no rule, so a wipe is a game over")
+	assert_true(FightRetry.rule_for({"id": "wm_some_other_fight"}, PASSENGER_CAR).is_empty(), "no rule, so a wipe is a game over")
+	assert_true(FightRetry.rule_for({"id": "gl_some_other_fight"}, "wickermoor_village").is_empty(), "a gl_ fight off the train is not the cars'")

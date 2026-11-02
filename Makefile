@@ -23,7 +23,8 @@ FRESH   := if [ ! -f $(STAMP) ] || [ -n "$$(find . \( -path ./.godot -o -path ./
              case $$s in 75|129|130|137|143) exit $$s ;; esac; touch $(STAMP); fi
 ## The import before a game the owner plays (run-main, arena) never waits for a Godot slot or takes one: he is at the
 ## terminal, so it must not queue behind lane imports and tests (tools/godot_slot.sh).
-PLAYFRESH := export GODOT_SLOTS=off; $(FRESH)
+## It also brings the engine core up to the commit this checkout names first (tools/core_sync.sh): git pull doesn't.
+PLAYFRESH := export GODOT_SLOTS=off; tools/core_sync.sh; $(FRESH)
 
 .PHONY: run run-main arena smoke import test lint validate ci check lfs-quiet palette capture sketch hooks golden-saves tools-test voice-wire
 

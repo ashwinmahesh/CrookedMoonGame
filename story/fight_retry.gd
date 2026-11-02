@@ -75,9 +75,12 @@ static func spawn_for(rule: Dictionary, location_id: String, location: Dictionar
 
 
 ## Puts the party back as they were for the fight: the fallen alive, everyone at full Hit Points with their powers back (as after
-## a Long Rest), no hold or effect of the fight left on them. Bless from a reading and other lasting effects stay.
-static func restore(st: StoryState, rule: Dictionary) -> void:
+## a Long Rest), no hold or effect of the fight left on them. Bless from a reading and other lasting effects stay. Whoever was
+## already dead when the fight began (`dead_before`, from `dead_now` as it started) stays dead: the retry undoes this fight only.
+static func restore(st: StoryState, rule: Dictionary, dead_before: Array[Character] = []) -> void:
 	for ch in st.party:
+		if ch.dead and ch in dead_before:
+			continue
 		if ch.dead:
 			Services.bring_back(st, ch, true, false, "the retry")
 		ch.finish_long_rest()
@@ -85,3 +88,23 @@ static func restore(st: StoryState, rule: Dictionary) -> void:
 	var flag := str(rule.get("count_flag", ""))
 	if flag != "":
 		st.set_flag(flag, int(st.get_flag(flag, 0)) + 1)
+
+
+## The party members dead right now (as a fight begins), for `restore`.
+static func dead_now(st: StoryState) -> Array[Character]:
+	var out: Array[Character] = []
+	for ch in st.party:
+		if ch.dead:
+			out.append(ch)
+	return out
+
+
+## What a retry that began a different entry (`restart`) leaves of the fight that was lost: that one is over, not still
+## "started" (RestRules.unfinished_fights would otherwise refuse every rest there once the retry is won).
+static func close_lost(st: StoryState, location_id: String, rule: Dictionary, spec: Dictionary) -> void:
+	var lost := str(spec.get("id", ""))
+	if lost == "" or restart_id(rule, spec) == lost:
+		return
+	var fights := st.loc_state(location_id).get("encounters", {}) as Dictionary
+	if str(fights.get(lost, "")) == "started":
+		fights[lost] = true

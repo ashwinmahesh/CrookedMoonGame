@@ -16,7 +16,21 @@
     ],
     "theme": "manor",
     "light": "bright",
-    "outdoors": false
+    "outdoors": false,
+    "window_view": {
+      "colours": [
+        "bog_deep",
+        "shroud_teal",
+        "moon_green"
+      ],
+      "streams": [
+        -1,
+        0
+      ],
+      "speed": 1.5,
+      "strength": 0.9,
+      "rise": 0.05
+    }
   },
   "areas": [
     {
@@ -132,7 +146,7 @@
       "model": "lamp",
       "call": "ghostlight_express/vagrant_intercom:router",
       "approach": 12,
-      "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed"
+      "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed and ((flag.haints_destroyed >= 1 and not flag.gl_destroyed_noted) or (flag.haints_resolved >= 3 and not flag.gl_level2_given) or (flag.haints_all_gone and not flag.gl_checkin_all) or (flag.haints_resolved >= 5 and not flag.gl_checkin_fifth) or (flag.haints_resolved >= 1 and not flag.gl_checkin_first))"
     },
     {
       "id": "g1_boarding_door",
@@ -429,6 +443,28 @@
       "bright_ft": 20,
       "dim_ft": 40,
       "color": "candle"
+    },
+    {
+      "cell": [
+        5,
+        1
+      ],
+      "kind": "window",
+      "color": "bile",
+      "bright_ft": 10,
+      "dim_ft": 20,
+      "visual": true
+    },
+    {
+      "cell": [
+        5,
+        5
+      ],
+      "kind": "window",
+      "color": "bile",
+      "bright_ft": 10,
+      "dim_ft": 20,
+      "visual": true
     }
   ]
 }

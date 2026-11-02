@@ -171,3 +171,105 @@ func test_figures_holding_something_greet_with_a_nod() -> void:
 		add_child(fig)
 		assert_eq(str((fig._roles["greet"] as Array)[0]["name"]), "greet_01", "%s waves" % id)
 		fig.free()
+
+
+# --- The free CC0 models (Quaternius and KayKit; tools/art/free_figures.py): the pilot of held weapons, a gray-box villager in
+# two outfits and a warhorse, beside the Tripo figures -----------------------------------------------------------------------
+
+const FREE_PACKS: Array[String] = ["quaternius_universal_base_characters", "quaternius_universal_animation_library",
+		"quaternius_universal_animation_library_2", "quaternius_fantasy_props_megakit", "quaternius_modular_weapons_pack",
+		"quaternius_medieval_village_megakit", "quaternius_ultimate_animated_animal_pack", "kaykit_medieval_builder_pack",
+		"kaykit_dungeon_pack", "kaykit_adventurers", "kaykit_skeletons"]
+## The weapons held, by the item that shows them: the engine's item ids, and the part each is drawn as (no mace, scimitar or
+## sickle: none of the free packs has one).
+const FREE_WEAPONS := {"dagger": "dagger", "spear": "spear", "quarterstaff": "staff", "greataxe": "greataxe", "shortbow": "bow",
+		"longbow": "bow"}
+const TRIANGLE_LIMIT := 50000
+
+
+func _triangles(node: Node) -> int:
+	var total := 0
+	for mi: Node in node.find_children("*", "MeshInstance3D", true, false):
+		var mesh := (mi as MeshInstance3D).mesh
+		if mesh == null:
+			continue
+		for s in mesh.get_surface_count():
+			var arrays := mesh.surface_get_arrays(s)
+			var index := arrays[Mesh.ARRAY_INDEX] as PackedInt32Array
+			total += floori((index.size() if index.size() > 0 else (arrays[Mesh.ARRAY_VERTEX] as PackedVector3Array).size()) / 3.0)
+	return total
+
+
+func test_every_free_pack_keeps_its_licence_and_source_and_is_credited() -> void:
+	var credits := FileAccess.get_file_as_string("res://art/credits.json")
+	for pack: String in FREE_PACKS:
+		assert_true(FileAccess.file_exists("res://art/sourced/%s/License.txt" % pack), "%s: keeps its licence" % pack)
+		assert_true(FileAccess.file_exists("res://art/sourced/%s/SOURCE.md" % pack), "%s: says where it came from" % pack)
+	for credit: String in ["Universal Base Characters", "Universal Animation Library 1 and 2", "Modular Weapons Pack",
+			"Ultimate Animated Animal Pack", "Quaternius", "Kay Lousberg"]:
+		assert_true(credit in credits, "art/credits.json credits %s" % credit)
+
+
+func test_the_free_weapons_are_held_on_the_right_hand_and_shown_for_their_items() -> void:
+	for item: String in FREE_WEAPONS:
+		var part := str(FREE_WEAPONS[item])
+		assert_true(FigureModels.has_part(part), "%s: its model is in the repo" % part)
+		assert_eq(str(FigureModels.part(part).get("bone", "")), "RightHand", "%s: held on the right hand" % part)
+		var packed := FigureModels.part_scene(part)
+		var model := packed.instantiate()
+		var tris := _triangles(model)
+		assert_between(float(tris), 1.0, float(TRIANGLE_LIMIT), "%s: %d triangles" % [part, tris])
+		model.free()
+		var ch := Pregens.build("rook_coldwake", 1)
+		ch.add_item(item)
+		ch.equip(item, "main_hand")
+		for art: String in ["villager_gray", "rook_coldwake", "the_vagrant"]:
+			assert_true(part in FigureModels.gear_for(art, ch), "%s wears the %s for a %s" % [art, part, item])
+
+
+func test_the_villager_rig_has_the_bones_the_parts_and_heads_look_for() -> void:
+	var fig := DirectionalSprite.create(DirectionalSprite.frames_for("villager_gray"), CombatToken.height_for("villager_gray")) as ModelFigure
+	add_child(fig)
+	var skeletons := fig.model.find_children("*", "Skeleton3D", true, false)
+	assert_eq(skeletons.size(), 1, "one skeleton")
+	var skeleton := skeletons[0] as Skeleton3D
+	for bone: String in ["RightHand", "LeftHand", "Head"]:
+		assert_true(FigureModels.bone(skeleton, bone) >= 0, "the rig has a %s bone" % bone)
+	fig.wear(["dagger", "dagger@off"])
+	assert_eq(fig.worn_parts().size(), 2, "a dagger in each hand is worn")
+	fig.free()
+
+
+func test_the_villager_outfits_lie_over_one_gray_body() -> void:
+	for id: String in ["villager_brown", "villager_red"]:
+		var entry := _entries()[id] as Dictionary
+		assert_eq(str(entry.get("base", "")), "villager_gray", "%s wears the gray body" % id)
+		assert_true(ArtPaths.exists(str(entry.get("albedo", ""))), "%s: its paint is in the repo" % id)
+		assert_true(FigureModels.has(id), "%s: has its model through the base" % id)
+
+
+func test_the_free_models_stay_within_fifty_thousand_triangles() -> void:
+	for id: String in ["villager_gray", "warhorse"]:
+		var model := (load(ArtPaths.of(str((_entries()[id] as Dictionary)["file"]))) as PackedScene).instantiate()
+		var tris := _triangles(model)
+		assert_between(float(tris), 1.0, float(TRIANGLE_LIMIT), "%s: %d triangles" % [id, tris])
+		model.free()
+
+
+## The villager is slimmed from a Superhero build with `bones` (FigureBones): every bone it names is on the rig, and the hair
+## the outfits wear is a skinned layer that finds its bones.
+func test_the_villager_is_slimmed_by_bones_that_exist_and_wears_hair() -> void:
+	var bones := (_entries()["villager_gray"] as Dictionary).get("bones", {}) as Dictionary
+	assert_true(bones.size() >= 6, "shoulders, chest, forearms and hands are scaled")
+	var fig := DirectionalSprite.create(DirectionalSprite.frames_for("villager_brown"), CombatToken.height_for("villager_brown")) as ModelFigure
+	add_child(fig)
+	var skeleton := fig.model.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
+	for bone: String in bones:
+		assert_true(FigureBones.bone_named(skeleton, bone) >= 0, "the rig has the %s bone to scale" % bone)
+	assert_true("hair_parted" in fig.worn_parts(), "the brown villager wears its hair")
+	for hair: String in ["hair_parted", "hair_buzzed"]:
+		assert_true(FigureModels.has_part(hair), "%s: its model is in the repo" % hair)
+		var model := FigureModels.part_scene(hair).instantiate()
+		assert_between(float(_triangles(model)), 1.0, float(TRIANGLE_LIMIT), "%s stays under the triangle limit" % hair)
+		model.free()
+	fig.free()

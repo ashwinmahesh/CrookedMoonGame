@@ -6,7 +6,9 @@ extends Node
 ## --hour: the hour (8 the Twilight Hour, 23 the Midnight Hour); --place: a location id; --party=placeholder: the old 2D
 ## four instead of the companions, for sprites beside models; --ahead and --across: where the row stands from the leader
 ## (squares toward the camera and to its right); --follow=<art id> and --near=<distance>: the camera close on one
-## figure; --ids=a,b: only those figures in the row; --bands, --ink, --flatten, --vivid, --floor, --rim: the figures' look
+## figure; --ids=a,b: only those figures in the row; --each=dagger,spear: figure number n (the ids in order) holds the nth
+## item in its main hand, round again after the last, - for none (a row of figures, one weapon each), and --off= the same for
+## the off hand; --bands, --ink, --flatten, --vivid, --floor, --rim: the figures' look
 ## (Look.figure_settings); --hold=hooded_lantern@off_hand,torch@main_hand: what the row holds (a figure whose entry
 ## shows `gear` wears its part); --only=reel steps the row through idle, walk, run, attack and talk at --fps (12) frames
 ## a second and then orbits it, a frame per shot (<out>_reel_<nnnn>.png, for a GIF); --only=place,lineup,turns,poses picks shots, and --only=clip --clip=slash freezes the row at
@@ -252,6 +254,11 @@ func _lineup(view: LocationView) -> Array:
 		for held: String in _arg("hold", "").split(",", false):
 			ch.add_item(held.get_slice("@", 0))
 			ch.equip(held.get_slice("@", 0), held.get_slice("@", 1))
+		for slot: String in ["each", "off"]:
+			var items := _arg(slot, "").split(",", false)
+			if not items.is_empty() and items[i % items.size()] != "-":
+				ch.add_item(items[i % items.size()])
+				ch.equip(items[i % items.size()], "main_hand" if slot == "each" else "off_hand")
 		var at := mid + right * (float(i) - (ids.size() - 1) / 2.0) * 0.95
 		var cell := Vector2i(floori(at.x), floori(at.z))
 		var cb := Combatant.new(ch, &"neutral", cell)
@@ -271,13 +278,20 @@ func _probe() -> void:
 		var fig := DirectionalSprite.create(DirectionalSprite.frames_for(id), CombatToken.height_for(id)) as ModelFigure
 		add_child(fig)
 		await get_tree().process_frame
-		var player := fig.model.find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
-		var sk := fig.model.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
+		var players := fig.model.find_children("*", "AnimationPlayer", true, false)
+		var skeletons := fig.model.find_children("*", "Skeleton3D", true, false)
+		if players.is_empty() or skeletons.is_empty():
+			print("== %s has no clips or skeleton (a static model)" % id)
+			fig.queue_free()
+			continue
+		var player := players[0] as AnimationPlayer
+		var sk := skeletons[0] as Skeleton3D
 		var roles := {}
 		for role: String in FigureModels.CLIPS:
 			if fig.has_role(role):
 				roles[role] = (fig._roles[role] as Array).map(func(c: Dictionary) -> String: return str(c["name"]))
 		print("== %s height %.2f scale %.3f roles %s" % [id, fig._height, fig._scale, roles])
+		print("   clips %s" % [Array(player.get_animation_list())])
 		if fig.has_role("walk"):
 			var walk := player.get_animation(str((fig._roles["walk"] as Array)[0]["name"]))
 			fig.set_step_time(LocationView.STEP_TIME)

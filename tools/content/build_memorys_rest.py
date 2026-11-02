@@ -614,7 +614,7 @@ def build_travel():
     path = ROOT / "data/travel/wickermoor_hollow.json"
     t = json.loads(path.read_text())
     t["places"] = [x for x in t["places"] if x["id"] != "memorys_rest"] + [
-        {"id": "memorys_rest", "name": "The Moonsong Shore", "location": "mr_shore", "spawn": "from_road", "pos": [0.14, 0.52], "region": "memorys_rest",
+        {"id": "memorys_rest", "name": "The Moonsong Shore", "location": "mr_shore", "spawn": "from_road", "pos": [0.105, 0.6], "region": "memorys_rest",
          "when": "flag.mr_hook_open or visited:mr_shore", "summary": "The last of the marsh trail, and the lake that holds Memory's Rest."}]
     t["roads"] = [x for x in t["roads"] if x["id"] != "wickermoor_to_memorys_rest"] + [
         {"id": "wickermoor_to_memorys_rest", "from": "wickermoor_village", "to": "memorys_rest", "hours": 72, "name": "The marsh road west", "when": "flag.mr_hook_open or visited:mr_shore"}]

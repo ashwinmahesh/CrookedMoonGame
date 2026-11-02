@@ -19,6 +19,12 @@ func after_each() -> void:
 	GameState.reset()
 
 
+func test_every_card_has_its_picture() -> void:
+	for c: Dictionary in ReadingDeck.cards():
+		var art := ReadingDeck.art(str(c["id"]))
+		assert_true(art != "" and ResourceLoader.exists(art), "%s has a picture in art/tarot" % c["id"])
+
+
 func test_the_deck_holds_twenty_two_cards_each_with_a_verse_and_a_hint() -> void:
 	assert_eq(ReadingDeck.cards().size(), 22)
 	var module := Campaign.module() as CrookedMoonCampaign
