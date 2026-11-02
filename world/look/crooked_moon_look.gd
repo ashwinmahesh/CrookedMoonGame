@@ -71,3 +71,8 @@ func refresh(view: LocationView) -> void:
 	if view.board != null and view.loc_id in MORPHING:
 		var ruined := StoryConditions.check("flag.crooked_house_turned and not flag.druskenvald_manor_restored", view.st)
 		BuildingMorph.follow(view.board, 0.0 if ruined else 1.0, 2.8)
+
+
+## A melee blow: Ashwin's picks per kind of blow (MeleeHitFx, data/melee_fx.json) in place of the engine's crescent.
+func melee_hit(fx: SpellFx, cue: Dictionary, attacker: CombatToken, target: CombatToken, critical: bool, kind: String) -> bool:
+	return MeleeHitFx.play(fx, cue, attacker, target, critical, kind)
