@@ -2,6 +2,7 @@ extends Node
 ## Any places seen from the play camera, as the game shows them: the placeholder party arrives at each location in the list and a shot is
 ## taken of the play view and of the whole place from above.
 ##   make capture SCENE=res://tools/capture/places_capture.tscn NAME=world/places ARGS='--places=ghostlight_boarding,wickermoor_village'
+## --hour=8 shoots the Twilight Hour (the default is 23, the Midnight Hour).
 ## Shots: <out>_<place>_play.png and <out>_<place>_whole.png.
 
 const GAME := preload("res://world/game_root.gd")
@@ -12,6 +13,13 @@ func capture_shots(tool: Node, out: String) -> void:
 	var sky := false
 	var travel := false
 	var later := false
+	var hour := 23
+	var turn := false
+	var morphs: PackedStringArray = []
+	var gallery := false
+	var before := false
+	var lineup := -1
+	var npcs := 0
 	var flags: PackedStringArray = []
 	var focus := Vector2(-1, -1)
 	var focus_distance := 8.0
@@ -20,8 +28,22 @@ func capture_shots(tool: Node, out: String) -> void:
 			places = a.get_slice("=", 1).split(",")
 		if a.begins_with("--flags="):
 			flags = a.get_slice("=", 1).split(",")   # story flags to set first, name:value (moon_grin:2,moon_scowl:true)
+		if a.begins_with("--hour="):
+			hour = int(a.get_slice("=", 1))   # the hour of the day (23 the Midnight Hour, the default; 8 the Twilight Hour)
+		if a.begins_with("--morph="):
+			morphs = a.get_slice("=", 1).split(",")   # the houses' morph weights to shoot from one fixed camera (with --focus)
+		if a == "--turn":
+			turn = true   # sets crooked_house_turned after the first shot and takes frames of the houses warping
 		if a == "--later":
 			later = true
+		if a.begins_with("--lineup="):
+			lineup = int(a.get_slice("=", 1))   # batch n (16 each) of the figures the manifest dresses as villagers, stood in two rows by the party
+		if a.begins_with("--npcs="):
+			npcs = int(a.get_slice("=", 1))   # a close shot of each of the first n people standing in the place (by id order)
+		if a == "--before":
+			before = true   # draws the NPCs that have a 3D figure as the old gray-box walker (the figures' `sprite` stand-in), for before shots
+		if a == "--gallery":
+			gallery = true   # lays every small prop (SmallProps) out in rows on the ground by the party and shoots them close
 		if a == "--travel":
 			travel = true   # one more shot per place of the travel map, every place known
 		if a.begins_with("--focus="):
@@ -31,6 +53,17 @@ func capture_shots(tool: Node, out: String) -> void:
 				focus_distance = float(f[2])
 		if a == "--sky":
 			sky = true   # one more shot per place with the camera tilted to the horizon: the sky and the moon in it
+	var dressed: Array[String] = []
+	for id: String in FigureModels.manifest().keys():
+		var e := FigureModels.manifest()[id] as Dictionary
+		if str(e.get("sprite", "")) == "villager" and not id.begins_with("haint"):
+			dressed.append(id)
+	if before:
+		for id: String in FigureModels.manifest().keys():
+			var e := FigureModels.manifest()[id] as Dictionary
+			if str(e.get("sprite", "")) == "villager" and not id.begins_with("haint"):
+				FigureModels.manifest()[id] = {"sprite": "villager"}
+		FigureModels._entries.clear()
 	for place in places:
 		GameState.reset()
 		var st := GameState.story
@@ -42,7 +75,7 @@ func capture_shots(tool: Node, out: String) -> void:
 		for f in flags:
 			var v := f.get_slice(":", 1)
 			st.set_flag(f.get_slice(":", 0), true if v == "true" else (int(v) if v.is_valid_int() else v))
-		st.minute_of_day = 23 * 60   # the Midnight Hour
+		st.minute_of_day = hour * 60   # the Midnight Hour unless --hour says otherwise
 		Dice.reseed(7)
 		var game := (load("res://scenes/game.tscn") as PackedScene).instantiate()
 		add_child(game)
@@ -52,6 +85,12 @@ func capture_shots(tool: Node, out: String) -> void:
 				n.visible = false
 		await tool.call("wait_frames", 20)
 		tool.call("_shot", "%s_%s_play.png" % [out, place])
+		if turn:
+			st.set_flag("crooked_house_turned", true)
+			for k in 8:
+				await tool.call("wait_frames", 14)
+				tool.call("_shot", "%s_%s_turn_%d.png" % [out, place, k])
+				print("turn frame %d: morph weight %.3f" % [k, BuildingMorph.weight((game.get("view") as LocationView).board)])
 		var view := game.get("view") as LocationView
 		var rig := view.rig
 		if travel:
@@ -72,6 +111,53 @@ func capture_shots(tool: Node, out: String) -> void:
 			rig.snap_to_target()
 			await tool.call("wait_frames", 40)
 			tool.call("_shot", "%s_%s_focus.png" % [out, place])
+			for w in morphs:   # the houses at each morph weight from this same close camera
+				BuildingMorph.set_weight(view.board, float(w))
+				await tool.call("wait_frames", 10)
+				tool.call("_shot", "%s_%s_morph_%s.png" % [out, place, w])
+		if npcs > 0:
+			var shown := 0
+			var ids_here: Array = view.npc_tokens.keys()
+			ids_here.sort()
+			for nid: Variant in ids_here:
+				if shown >= npcs:
+					break
+				var who := view.npc_tokens[nid] as Node3D
+				rig.follow = null
+				rig.horizon = 0.0
+				rig.distance = 7.0
+				rig.global_position = who.global_position
+				rig.snap_to_target()
+				await tool.call("wait_frames", 45)
+				tool.call("_shot", "%s_%s_npc_%s.png" % [out, place, str(nid)])
+				shown += 1
+		if lineup >= 0:
+			var base_cell := view.leader().cell
+			var from := lineup * 16
+			for k in range(from, mini(from + 16, dressed.size())):
+				var cb := Combatant.new(Monster.from_data(Compendium.shared().monster_data("commoner")), &"neutral", base_cell + Vector2i(2 + (k - from) % 8, -1 + 2 * int((k - from) / 8.0)))
+				var tok := LocationNpcs._npc_token(cb, dressed[k])
+				tok.position = view.board.cell_center(cb.cell)
+				view.add_child(tok)
+			rig.follow = null
+			rig.horizon = 0.0
+			rig.distance = 7.0
+			rig.global_position = view.board.cell_center(base_cell + Vector2i(5, 0))
+			rig.snap_to_target()
+			await tool.call("wait_frames", 60)
+			tool.call("_shot", "%s_%s_lineup%d.png" % [out, place, lineup])
+		if gallery:
+			var base := view.leader().cell
+			for k in SmallProps.KINDS.size():
+				var spot := view.board.cell_center(base + Vector2i(2 + k, 0))   # (one row along an open aisle)
+				SmallProps.build(SmallProps.KINDS[k], view.board, spot, 7 + k, Vector2i.ZERO)
+			rig.follow = null
+			rig.horizon = 0.0
+			rig.distance = 8.0
+			rig.global_position = view.board.cell_center(base + Vector2i(7, 0))
+			rig.snap_to_target()
+			await tool.call("wait_frames", 40)
+			tool.call("_shot", "%s_%s_gallery.png" % [out, place])
 		if sky:
 			rig.horizon = 1.0
 			rig.horizon_shown = 1.0
@@ -94,6 +180,7 @@ func capture_shots(tool: Node, out: String) -> void:
 		rig.snap_to_target()
 		await tool.call("wait_frames", 30)
 		tool.call("_shot", "%s_%s_whole.png" % [out, place])
+
 		if later:
 			await tool.call("wait_frames", 50)
 			tool.call("_shot", "%s_%s_whole_later.png" % [out, place])   # the same view a moment on, to see what moves

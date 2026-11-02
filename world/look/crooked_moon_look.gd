@@ -9,6 +9,10 @@ extends CampaignLook
 
 ## Coming out of the mist between the Ghostlight Express's cars into the next one (E23): the Narrator says the car has changed before the
 ## car's own words. The place the party left is still the story's `location` here (LocationView sets the new one just after).
+## The places whose houses warp (the catalog's building_kit.bend.morph names them too).
+const MORPHING: Array[String] = ["druskenvald_estate"]
+
+
 func dress_place(view: LocationView) -> void:
 	if CrookedMoonCampaign.is_car(view.loc_id):
 		ExpressWindows.hang(view.board, view.board)   # the Shroud streams past the cars' windows
@@ -18,13 +22,20 @@ func dress_place(view: LocationView) -> void:
 
 ## The catalog's `set_piece` entries, planted over the middle of the squares the prop spans: "oak" is the Oak of Many Faces
 ## (OakOfManyFaces) and "crooked_tree" the Wytchwood's Crooked Tree (CrookedTree), each built in code (`handled`); "barrow_glow"
-## and "wicker_man" only add their light and leave the catalog's own picture (the barrow, the painted Wicker Man) to be drawn.
+## and "wicker_man" only add their light and leave the catalog's own picture (the barrow, the painted Wicker Man) to be drawn, and
+## "clocktower" adds its lit clock faces to the catalog's bell tower (Clocktower), and "small:<kind>" builds one of the small things
+## of Act 1's rooms from a few meshes (SmallProps).
 func place_special(_art: String, board: ArenaBoard, root: Node3D, cell: Vector2i, spec: Dictionary, look: Dictionary) -> Dictionary:
 	var piece := str(look.get("set_piece", ""))
 	if piece == "":
 		return {}
 	var centre: Variant = SetDressing.span_centre(board, spec)
 	var at: Vector3 = centre as Vector3 if centre != null else board.cell_center(cell)
+	if piece.begins_with("small:"):
+		var made := SmallProps.build(piece.substr(6), root, at, ModelPiece.hash_cell(cell), ModelPiece.backing_side(board, cell))
+		if made != null:
+			return {"handled": true, "node": root}
+		return {}
 	match piece:
 		"oak":
 			OakOfManyFaces.build(root, at, ModelPiece.hash_cell(cell))
@@ -36,4 +47,15 @@ func place_special(_art: String, board: ArenaBoard, root: Node3D, cell: Vector2i
 			root.add_child(SetPieceLight.make("BarrowGlow", at + Vector3(0.0, 0.9, 0.4), Look.color("moon_green"), 1.1, 6.5, root))
 		"wicker_man":
 			root.add_child(SetPieceLight.make("WickerLantern", at + Vector3(0.0, 5.2, 0.5), Look.color("flame"), 0.9, 9.0, root))
+		"clocktower":
+			Clocktower.dress(root, at)
 	return {}
+
+
+## The Crooked House turning (plan G8; the house's gate talk ends with `set crooked_house_turned`): the estate's houses are built with
+## a tidy shape too (the catalog's building_kit.bend.morph), tidy until the house has turned and again once the manor is restored; the
+## change plays as a warp that overshoots and settles (BuildingMorph). Asked every quarter second.
+func refresh(view: LocationView) -> void:
+	if view.board != null and view.loc_id in MORPHING:
+		var ruined := StoryConditions.check("flag.crooked_house_turned and not flag.druskenvald_manor_restored", view.st)
+		BuildingMorph.follow(view.board, 0.0 if ruined else 1.0, 2.8)

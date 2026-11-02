@@ -94,7 +94,7 @@
         }
       },
       "keep_greys": true,
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "night_deep",
           "amount": 0.55
@@ -137,7 +137,7 @@
           }
         }
       },
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "night_deep",
           "amount": 0.5,
@@ -192,7 +192,7 @@
           }
         }
       },
-      "toon": {
+      "modern": {
         "times": {
           "any": {
             "ambient": "night",
@@ -250,7 +250,7 @@
           }
         }
       },
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "night_deep",
           "amount": 0.55
@@ -297,7 +297,7 @@
           "mist": "slate"
         }
       },
-      "toon": {
+      "modern": {
         "times": {
           "any": {
             "ambient": "night",
@@ -327,8 +327,8 @@
       "like": "svalich_woods",
       "modern": {
         "tone": {
-          "shade": "bog_deep",
-          "amount": 0.5,
+          "shade": "night_deep",
+          "amount": 0.65,
           "shade_saturation": 0.9
         },
         "mist": {
@@ -338,119 +338,9 @@
           "open": 0.5
         },
         "ground_tint": {
-          "village/grass": "#b4cca4",
-          "village/mud_road": "#ffffff"
-        },
-        "weather": [
-          {
-            "kind": "leaves",
-            "amount": 40,
-            "colours": [
-              "rust",
-              "umber",
-              "bone_dark"
-            ]
-          }
-        ],
-        "times": {
-          "day": {
-            "sky": "slate",
-            "fog": "bog",
-            "ambient": "moss",
-            "ambient_energy": 0.65,
-            "key": "vellum",
-            "key_energy": 1.0,
-            "mist": "slate",
-            "mist_strength": 0.6
-          },
-          "dusk": {
-            "fog": "bog",
-            "ambient": "mist_blue",
-            "ambient_energy": 0.65,
-            "key": "flame",
-            "key_energy": 0.9,
-            "mist": "slate",
-            "mist_strength": 0.6
-          },
-          "dawn": {
-            "fog": "bog",
-            "ambient": "mist_blue",
-            "ambient_energy": 0.65,
-            "key_energy": 0.9,
-            "mist": "slate",
-            "mist_strength": 0.6
-          },
-          "night": {
-            "ambient": "bog",
-            "ambient_energy": 0.45,
-            "mist": "mist_blue",
-            "mist_strength": 0.55
-          }
-        },
-        "ground_swap": {
-          "village/grass": "wild/moss"
-        },
-        "surround": {
-          "ground": "wild/moss"
-        }
-      },
-      "toon": {
-        "tone": {
-          "shade": "night_deep",
-          "amount": 0.65
-        },
-        "times": {
-          "dusk": {
-            "sky": "bruise",
-            "fog": "night_deep",
-            "ambient": "moon_blue",
-            "ambient_energy": 0.85,
-            "key": "moonlight",
-            "key_energy": 0.85,
-            "moon_colour": "moon_green",
-            "mist": "mist_blue",
-            "mist_strength": 0.3
-          },
-          "night": {
-            "sky": "night_deep",
-            "fog": "night_deep",
-            "ambient": "moon_blue",
-            "ambient_energy": 0.95,
-            "key": "moonlight",
-            "key_energy": 0.85,
-            "moon_colour": "moon_green",
-            "mist": "mist_blue",
-            "mist_strength": 0.3
-          },
-          "day": {
-            "sky": "mist_blue",
-            "fog": "night",
-            "ambient": "ash_violet",
-            "ambient_energy": 0.9,
-            "key": "parchment",
-            "key_energy": 0.8,
-            "mist": "mist_blue",
-            "mist_strength": 0.4
-          },
-          "dawn": {
-            "sky": "plum",
-            "fog": "night",
-            "ambient": "moon_blue",
-            "ambient_energy": 0.8,
-            "key": "rose",
-            "key_energy": 0.75,
-            "mist": "lilac",
-            "mist_strength": 0.4
-          }
-        },
-        "ground_tint": {
           "village/grass": "#9a9cb4",
+          "village/mud_road": "#ffffff",
           "wild/moss": "#9a9cb4"
-        },
-        "flame_tint": {
-          "colour": "flame",
-          "mix": 0.4,
-          "energy": 1.1
         },
         "weather": [
           {
@@ -474,7 +364,62 @@
             "size": 0.08,
             "night_only": false
           }
-        ]
+        ],
+        "times": {
+          "day": {
+            "sky": "mist_blue",
+            "fog": "night",
+            "ambient": "ash_violet",
+            "ambient_energy": 0.9,
+            "key": "parchment",
+            "key_energy": 0.8,
+            "mist": "mist_blue",
+            "mist_strength": 0.4
+          },
+          "dusk": {
+            "fog": "night_deep",
+            "ambient": "moon_blue",
+            "ambient_energy": 0.85,
+            "key": "moonlight",
+            "key_energy": 0.85,
+            "mist": "mist_blue",
+            "mist_strength": 0.3,
+            "sky": "bruise",
+            "moon_colour": "moon_green"
+          },
+          "dawn": {
+            "fog": "night",
+            "ambient": "moon_blue",
+            "ambient_energy": 0.8,
+            "key_energy": 0.75,
+            "mist": "lilac",
+            "mist_strength": 0.4,
+            "sky": "plum",
+            "key": "rose"
+          },
+          "night": {
+            "ambient": "moon_blue",
+            "ambient_energy": 0.95,
+            "mist": "mist_blue",
+            "mist_strength": 0.3,
+            "sky": "night_deep",
+            "fog": "night_deep",
+            "key": "moonlight",
+            "key_energy": 0.85,
+            "moon_colour": "moon_green"
+          }
+        },
+        "ground_swap": {
+          "village/grass": "wild/moss"
+        },
+        "surround": {
+          "ground": "wild/moss"
+        },
+        "flame_tint": {
+          "colour": "flame",
+          "mix": 0.4,
+          "energy": 1.1
+        }
       }
     },
     "ghost_limbo": {
@@ -494,7 +439,7 @@
           "fog": "pewter"
         }
       },
-      "toon": {
+      "modern": {
         "times": {
           "any": {
             "ambient": "pewter",
@@ -521,8 +466,8 @@
       "modern": {
         "tone": {
           "shade": "peat",
-          "amount": 0.6,
-          "shade_saturation": 0.8
+          "amount": 0.7,
+          "shade_saturation": 0.85
         },
         "mist": {
           "height": 0.9,
@@ -531,123 +476,9 @@
           "open": 0.4
         },
         "ground_tint": {
-          "village/grass": "#a9a578",
-          "village/mud_road": "#c9b48c"
-        },
-        "weather": [
-          {
-            "kind": "rain",
-            "amount": 900,
-            "colour": "mist_blue",
-            "length": 0.7,
-            "splashes": 200
-          },
-          {
-            "kind": "leaves",
-            "amount": 30,
-            "colours": [
-              "rust",
-              "umber",
-              "bone_dark"
-            ]
-          }
-        ],
-        "times": {
-          "day": {
-            "sky": "slate",
-            "fog": "peat",
-            "ambient": "umber",
-            "ambient_energy": 0.6,
-            "key": "parchment",
-            "key_energy": 0.7,
-            "mist": "bone_dark",
-            "mist_strength": 0.7
-          },
-          "dusk": {
-            "sky": "bruise",
-            "fog": "peat",
-            "ambient": "moss",
-            "ambient_energy": 0.55,
-            "key": "bile",
-            "key_energy": 0.6,
-            "mist": "bone_dark",
-            "mist_strength": 0.7
-          },
-          "dawn": {
-            "fog": "peat",
-            "ambient": "umber",
-            "ambient_energy": 0.55,
-            "key": "rose",
-            "key_energy": 0.6,
-            "mist": "bone_dark",
-            "mist_strength": 0.7
-          },
-          "night": {
-            "ambient": "bog",
-            "ambient_energy": 0.4,
-            "mist": "moss",
-            "mist_strength": 0.6
-          }
-        }
-      },
-      "toon": {
-        "tone": {
-          "shade": "peat",
-          "amount": 0.7,
-          "shade_saturation": 0.85
-        },
-        "times": {
-          "day": {
-            "sky": "bone_dark",
-            "fog": "peat",
-            "ambient": "umber",
-            "ambient_energy": 0.8,
-            "key": "parchment",
-            "key_energy": 0.7,
-            "mist": "bone_dark",
-            "mist_strength": 0.55
-          },
-          "dusk": {
-            "sky": "plum",
-            "fog": "peat",
-            "ambient": "moss",
-            "ambient_energy": 0.8,
-            "key": "bile",
-            "key_energy": 0.65,
-            "moon_colour": "moon_green",
-            "mist": "bone_dark",
-            "mist_strength": 0.55
-          },
-          "dawn": {
-            "sky": "bruise",
-            "fog": "peat",
-            "ambient": "umber",
-            "ambient_energy": 0.75,
-            "key": "rose",
-            "key_energy": 0.6,
-            "mist": "bone_dark",
-            "mist_strength": 0.5
-          },
-          "night": {
-            "sky": "bog_deep",
-            "fog": "peat",
-            "ambient": "bog",
-            "ambient_energy": 0.8,
-            "key": "moonlight",
-            "key_energy": 0.6,
-            "moon_colour": "moon_green",
-            "mist": "moss",
-            "mist_strength": 0.5
-          }
-        },
-        "ground_tint": {
           "village/grass": "#8f9070",
+          "village/mud_road": "#c9b48c",
           "wild/moss": "#8f9070"
-        },
-        "flame_tint": {
-          "colour": "candle",
-          "mix": 0.5,
-          "energy": 1.1
         },
         "weather": [
           {
@@ -674,7 +505,56 @@
             "size": 0.08,
             "night_only": false
           }
-        ]
+        ],
+        "times": {
+          "day": {
+            "sky": "bone_dark",
+            "fog": "peat",
+            "ambient": "umber",
+            "ambient_energy": 0.8,
+            "key": "parchment",
+            "key_energy": 0.7,
+            "mist": "bone_dark",
+            "mist_strength": 0.55
+          },
+          "dusk": {
+            "sky": "plum",
+            "fog": "peat",
+            "ambient": "moss",
+            "ambient_energy": 0.8,
+            "key": "bile",
+            "key_energy": 0.65,
+            "mist": "bone_dark",
+            "mist_strength": 0.55,
+            "moon_colour": "moon_green"
+          },
+          "dawn": {
+            "fog": "peat",
+            "ambient": "umber",
+            "ambient_energy": 0.75,
+            "key": "rose",
+            "key_energy": 0.6,
+            "mist": "bone_dark",
+            "mist_strength": 0.5,
+            "sky": "bruise"
+          },
+          "night": {
+            "ambient": "bog",
+            "ambient_energy": 0.8,
+            "mist": "moss",
+            "mist_strength": 0.5,
+            "sky": "bog_deep",
+            "fog": "peat",
+            "key": "moonlight",
+            "key_energy": 0.6,
+            "moon_colour": "moon_green"
+          }
+        },
+        "flame_tint": {
+          "colour": "candle",
+          "mix": 0.5,
+          "energy": 1.1
+        }
       }
     },
     "crooked_house": {
@@ -704,22 +584,30 @@
           }
         }
       },
-      "toon": {
+      "weather": [
+        {
+          "kind": "dust",
+          "indoors": true,
+          "amount": 70,
+          "modern_only": true
+        }
+      ],
+      "modern": {
         "tone": {
           "shade": "bruise_deep",
-          "amount": 0.65,
-          "shade_saturation": 0.85
+          "amount": 0.5,
+          "shade_saturation": 0.7
         },
         "times": {
           "any": {
             "ambient": "rot_violet",
-            "ambient_energy": 1.5,
+            "ambient_energy": 1.35,
             "key": "sickly",
             "key_energy": 0.6,
             "grade": {
               "shadows": "bruise_deep",
               "lights": "bile",
-              "amount": 0.4
+              "amount": 0.28
             }
           }
         },
@@ -736,15 +624,7 @@
             "modern_only": true
           }
         ]
-      },
-      "weather": [
-        {
-          "kind": "dust",
-          "indoors": true,
-          "amount": 70,
-          "modern_only": true
-        }
-      ]
+      }
     },
     "crooked_attic": {
       "like": "crooked_house",
@@ -759,7 +639,7 @@
           }
         }
       },
-      "toon": {
+      "modern": {
         "times": {
           "any": {
             "ambient": "blood_deep",
@@ -786,22 +666,47 @@
         "thickness": 3.0,
         "open": 0.4
       },
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "night_deep",
           "amount": 0.65,
           "shade_saturation": 0.9
         },
+        "mist": {
+          "height": 1.0,
+          "cover": 0.7,
+          "thickness": 3.0,
+          "open": 0.4
+        },
+        "weather": [
+          {
+            "kind": "leaves",
+            "amount": 40,
+            "colours": [
+              "rust",
+              "umber",
+              "bone_dark"
+            ]
+          },
+          {
+            "kind": "wisps",
+            "amount": 18,
+            "core": "shroud_teal",
+            "rim": "moon_green",
+            "size": 0.08,
+            "night_only": false
+          }
+        ],
         "times": {
           "night": {
-            "sky": "night_deep",
-            "fog": "bog_deep",
             "ambient": "moon_blue",
             "ambient_energy": 1.15,
-            "key": "moonlight",
-            "key_energy": 1.05,
             "mist": "shroud_teal",
             "mist_strength": 0.45,
+            "sky": "night_deep",
+            "fog": "bog_deep",
+            "key": "moonlight",
+            "key_energy": 1.05,
             "moon_colour": "moon_green"
           },
           "dusk": {
@@ -831,60 +736,9 @@
           "mix": 0.4,
           "energy": 1.1
         },
-        "weather": [
-          {
-            "kind": "leaves",
-            "amount": 40,
-            "colours": [
-              "rust",
-              "umber",
-              "bone_dark"
-            ]
-          },
-          {
-            "kind": "wisps",
-            "amount": 18,
-            "core": "shroud_teal",
-            "rim": "moon_green",
-            "size": 0.08,
-            "night_only": false
-          }
-        ],
         "ground_tint": {
           "village/grass": "#8e9cb0",
           "wild/moss": "#8e9cb0"
-        }
-      },
-      "modern": {
-        "tone": {
-          "shade": "night_deep",
-          "amount": 0.55,
-          "shade_saturation": 0.9
-        },
-        "mist": {
-          "height": 1.0,
-          "cover": 0.7,
-          "thickness": 3.0,
-          "open": 0.4
-        },
-        "weather": [
-          {
-            "kind": "leaves",
-            "amount": 40,
-            "colours": [
-              "rust",
-              "umber",
-              "bone_dark"
-            ]
-          }
-        ],
-        "times": {
-          "night": {
-            "ambient": "moon_blue",
-            "ambient_energy": 0.45,
-            "mist": "shroud_teal",
-            "mist_strength": 0.45
-          }
         }
       }
     },
@@ -921,22 +775,22 @@
           "indoors": true
         }
       ],
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "burgundy",
-          "amount": 0.55,
-          "shade_saturation": 0.85
+          "amount": 0.4,
+          "shade_saturation": 0.7
         },
         "times": {
           "any": {
             "ambient": "burgundy",
-            "ambient_energy": 1.1,
+            "ambient_energy": 1.25,
             "key": "shroud_teal",
             "key_energy": 0.7,
             "grade": {
               "shadows": "burgundy",
               "lights": "deco_gold",
-              "amount": 0.35
+              "amount": 0.22
             }
           }
         },
@@ -968,82 +822,11 @@
         "thickness": 2.6,
         "open": 0.45
       },
-      "toon": {
-        "tone": {
-          "shade": "peat",
-          "amount": 0.6,
-          "shade_saturation": 0.85
-        },
-        "times": {
-          "night": {
-            "sky": "night_deep",
-            "fog": "night_deep",
-            "ambient": "moss",
-            "ambient_energy": 0.85,
-            "key": "moonlight",
-            "key_energy": 0.8,
-            "mist": "bone_dark",
-            "mist_strength": 0.5,
-            "moon_colour": "moon_green"
-          },
-          "dusk": {
-            "sky": "bruise",
-            "fog": "peat",
-            "ambient": "moss",
-            "ambient_energy": 0.85,
-            "key": "wick",
-            "key_energy": 0.7,
-            "mist": "bone_dark",
-            "mist_strength": 0.45,
-            "moon_colour": "moon_green"
-          },
-          "dawn": {
-            "sky": "plum",
-            "fog": "night",
-            "ambient": "umber",
-            "ambient_energy": 0.8,
-            "key": "rose",
-            "key_energy": 0.7,
-            "mist": "parchment",
-            "mist_strength": 0.4
-          }
-        },
-        "flame_tint": {
-          "colour": "candle",
-          "mix": 0.45,
-          "energy": 1.15
-        },
-        "weather": [
-          {
-            "kind": "leaves",
-            "amount": 35,
-            "colours": [
-              "rust",
-              "umber",
-              "flame"
-            ]
-          },
-          {
-            "kind": "moths",
-            "amount": 5
-          },
-          {
-            "kind": "chimney_smoke"
-          },
-          {
-            "kind": "window_light"
-          }
-        ],
-        "ground_tint": {
-          "village/grass": "#a4a07c",
-          "wild/moss": "#a4a07c"
-        }
-      },
       "modern": {
         "tone": {
-          "shade": "peat",
-          "amount": 0.5,
-          "shade_saturation": 0.85
+          "shade": "night",
+          "amount": 0.4,
+          "shade_saturation": 0.7
         },
         "mist": {
           "height": 0.9,
@@ -1074,11 +857,46 @@
         ],
         "times": {
           "night": {
-            "ambient": "moss",
-            "ambient_energy": 0.42,
+            "ambient": "moon_blue",
+            "ambient_energy": 1.15,
             "mist": "bone_dark",
-            "mist_strength": 0.5
+            "mist_strength": 0.5,
+            "sky": "night_deep",
+            "fog": "night_deep",
+            "key": "moonlight",
+            "key_energy": 0.95,
+            "moon_colour": "moon_green"
+          },
+          "dusk": {
+            "sky": "bruise",
+            "fog": "peat",
+            "ambient": "moon_blue",
+            "ambient_energy": 1.1,
+            "key": "wick",
+            "key_energy": 0.7,
+            "mist": "bone_dark",
+            "mist_strength": 0.45,
+            "moon_colour": "moon_green"
+          },
+          "dawn": {
+            "sky": "plum",
+            "fog": "night",
+            "ambient": "umber",
+            "ambient_energy": 0.8,
+            "key": "rose",
+            "key_energy": 0.7,
+            "mist": "parchment",
+            "mist_strength": 0.4
           }
+        },
+        "flame_tint": {
+          "colour": "candle",
+          "mix": 0.45,
+          "energy": 1.15
+        },
+        "ground_tint": {
+          "village/grass": "#a4a07c",
+          "wild/moss": "#a4a07c"
         }
       }
     },
@@ -1110,29 +928,29 @@
           "indoors": true
         }
       ],
-      "toon": {
+      "modern": {
         "tone": {
-          "shade": "plum",
-          "amount": 0.55,
-          "shade_saturation": 0.8
+          "shade": "night_deep",
+          "amount": 0.15,
+          "shade_saturation": 0.4
         },
         "times": {
           "any": {
-            "ambient": "plum",
-            "ambient_energy": 1.05,
-            "key": "lilac",
+            "ambient": "night",
+            "ambient_energy": 1.25,
+            "key": "candle",
             "key_energy": 0.35,
             "grade": {
-              "shadows": "plum",
-              "lights": "flame",
-              "amount": 0.3
+              "shadows": "night_deep",
+              "lights": "candle",
+              "amount": 0.08
             }
           }
         },
         "flame_tint": {
           "colour": "candle",
-          "mix": 0.45,
-          "energy": 1.15
+          "mix": 0.2,
+          "energy": 1.1
         },
         "weather": [
           {
@@ -1152,22 +970,45 @@
         "thickness": 1.8,
         "open": 0.6
       },
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "bruise_deep",
           "amount": 0.55,
           "shade_saturation": 1.0
         },
+        "mist": {
+          "height": 0.6,
+          "cover": 0.4,
+          "thickness": 1.8,
+          "open": 0.6
+        },
+        "weather": [
+          {
+            "kind": "leaves",
+            "amount": 45,
+            "colours": [
+              "vampire_red",
+              "carnival_yellow",
+              "flame"
+            ]
+          },
+          {
+            "kind": "embers"
+          },
+          {
+            "kind": "window_light"
+          }
+        ],
         "times": {
           "night": {
-            "sky": "bruise_deep",
-            "fog": "night_deep",
             "ambient": "plum",
             "ambient_energy": 0.95,
-            "key": "carnival_yellow",
-            "key_energy": 0.8,
             "mist": "vampire_red",
             "mist_strength": 0.35,
+            "sky": "bruise_deep",
+            "fog": "night_deep",
+            "key": "carnival_yellow",
+            "key_energy": 0.8,
             "moon_colour": "moon_green"
           },
           "dusk": {
@@ -1197,64 +1038,9 @@
           "mix": 0.5,
           "energy": 1.25
         },
-        "weather": [
-          {
-            "kind": "leaves",
-            "amount": 45,
-            "colours": [
-              "vampire_red",
-              "carnival_yellow",
-              "flame"
-            ]
-          },
-          {
-            "kind": "embers"
-          },
-          {
-            "kind": "window_light"
-          }
-        ],
         "ground_tint": {
           "village/grass": "#a8949c",
           "wild/moss": "#a8949c"
-        }
-      },
-      "modern": {
-        "tone": {
-          "shade": "bruise_deep",
-          "amount": 0.45,
-          "shade_saturation": 1.0
-        },
-        "mist": {
-          "height": 0.6,
-          "cover": 0.4,
-          "thickness": 1.8,
-          "open": 0.6
-        },
-        "weather": [
-          {
-            "kind": "leaves",
-            "amount": 45,
-            "colours": [
-              "vampire_red",
-              "carnival_yellow",
-              "flame"
-            ]
-          },
-          {
-            "kind": "embers"
-          },
-          {
-            "kind": "window_light"
-          }
-        ],
-        "times": {
-          "night": {
-            "ambient": "plum",
-            "ambient_energy": 0.47,
-            "mist": "vampire_red",
-            "mist_strength": 0.35
-          }
         }
       }
     },
@@ -1266,81 +1052,10 @@
         "thickness": 2.0,
         "open": 0.55
       },
-      "toon": {
-        "tone": {
-          "shade": "ember_deep",
-          "amount": 0.45,
-          "shade_saturation": 0.95
-        },
-        "times": {
-          "night": {
-            "sky": "night_deep",
-            "fog": "ember_deep",
-            "ambient": "umber",
-            "ambient_energy": 1.2,
-            "key": "harvest_gold",
-            "key_energy": 1.1,
-            "mist": "ember",
-            "mist_strength": 0.4,
-            "moon_colour": "moon_green"
-          },
-          "dusk": {
-            "sky": "ember_deep",
-            "fog": "ember_deep",
-            "ambient": "rust",
-            "ambient_energy": 0.9,
-            "key": "flame",
-            "key_energy": 0.85,
-            "mist": "ember",
-            "mist_strength": 0.4,
-            "moon_colour": "moon_green"
-          },
-          "dawn": {
-            "sky": "plum",
-            "fog": "ember_deep",
-            "ambient": "rust",
-            "ambient_energy": 0.85,
-            "key": "harvest_gold",
-            "key_energy": 0.75,
-            "mist": "parchment",
-            "mist_strength": 0.35
-          }
-        },
-        "flame_tint": {
-          "colour": "flame",
-          "mix": 0.5,
-          "energy": 1.25
-        },
-        "weather": [
-          {
-            "kind": "leaves",
-            "amount": 50,
-            "colours": [
-              "harvest_gold",
-              "rust",
-              "umber"
-            ]
-          },
-          {
-            "kind": "crows",
-            "amount": 10
-          },
-          {
-            "kind": "embers"
-          },
-          {
-            "kind": "chimney_smoke"
-          }
-        ],
-        "ground_tint": {
-          "village/grass": "#b8a070",
-          "wild/moss": "#b8a070"
-        }
-      },
       "modern": {
         "tone": {
           "shade": "ember_deep",
-          "amount": 0.5,
+          "amount": 0.45,
           "shade_saturation": 0.95
         },
         "mist": {
@@ -1373,10 +1088,45 @@
         "times": {
           "night": {
             "ambient": "umber",
-            "ambient_energy": 0.58,
+            "ambient_energy": 1.2,
             "mist": "ember",
-            "mist_strength": 0.4
+            "mist_strength": 0.4,
+            "sky": "night_deep",
+            "fog": "ember_deep",
+            "key": "harvest_gold",
+            "key_energy": 1.1,
+            "moon_colour": "moon_green"
+          },
+          "dusk": {
+            "sky": "ember_deep",
+            "fog": "ember_deep",
+            "ambient": "rust",
+            "ambient_energy": 0.9,
+            "key": "flame",
+            "key_energy": 0.85,
+            "mist": "ember",
+            "mist_strength": 0.4,
+            "moon_colour": "moon_green"
+          },
+          "dawn": {
+            "sky": "plum",
+            "fog": "ember_deep",
+            "ambient": "rust",
+            "ambient_energy": 0.85,
+            "key": "harvest_gold",
+            "key_energy": 0.75,
+            "mist": "parchment",
+            "mist_strength": 0.35
           }
+        },
+        "flame_tint": {
+          "colour": "flame",
+          "mix": 0.5,
+          "energy": 1.25
+        },
+        "ground_tint": {
+          "village/grass": "#b8a070",
+          "wild/moss": "#b8a070"
         }
       }
     },
@@ -1408,7 +1158,7 @@
           "indoors": true
         }
       ],
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "ember_deep",
           "amount": 0.5,
@@ -1450,22 +1200,39 @@
         "thickness": 2.8,
         "open": 0.4
       },
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "stone_deep",
           "amount": 0.6,
           "shade_saturation": 0.7
         },
+        "mist": {
+          "height": 1.0,
+          "cover": 0.6,
+          "thickness": 2.8,
+          "open": 0.4
+        },
+        "weather": [
+          {
+            "kind": "snow",
+            "amount": 320,
+            "wind": 1.4
+          },
+          {
+            "kind": "crows",
+            "amount": 4
+          }
+        ],
         "times": {
           "night": {
-            "sky": "night_deep",
-            "fog": "stone_deep",
             "ambient": "slate",
             "ambient_energy": 0.95,
-            "key": "frost",
-            "key_energy": 0.85,
             "mist": "silver",
             "mist_strength": 0.45,
+            "sky": "night_deep",
+            "fog": "stone_deep",
+            "key": "frost",
+            "key_energy": 0.85,
             "moon_colour": "crimson"
           },
           "dusk": {
@@ -1496,52 +1263,9 @@
           "mix": 0.4,
           "energy": 1.1
         },
-        "weather": [
-          {
-            "kind": "snow",
-            "amount": 320,
-            "wind": 1.4
-          },
-          {
-            "kind": "crows",
-            "amount": 4
-          }
-        ],
         "ground_tint": {
           "village/grass": "#c8ccd4",
           "wild/moss": "#c8ccd4"
-        }
-      },
-      "modern": {
-        "tone": {
-          "shade": "stone_deep",
-          "amount": 0.5,
-          "shade_saturation": 0.7
-        },
-        "mist": {
-          "height": 1.0,
-          "cover": 0.6,
-          "thickness": 2.8,
-          "open": 0.4
-        },
-        "weather": [
-          {
-            "kind": "snow",
-            "amount": 320,
-            "wind": 1.4
-          },
-          {
-            "kind": "crows",
-            "amount": 4
-          }
-        ],
-        "times": {
-          "night": {
-            "ambient": "slate",
-            "ambient_energy": 0.47,
-            "mist": "silver",
-            "mist_strength": 0.45
-          }
         }
       }
     },
@@ -1578,7 +1302,7 @@
           "indoors": true
         }
       ],
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "stone_deep",
           "amount": 0.5,
@@ -1645,7 +1369,7 @@
           "indoors": true
         }
       ],
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "stone_deep",
           "amount": 0.55,
@@ -1687,22 +1411,51 @@
         "thickness": 3.2,
         "open": 0.3
       },
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "bog_deep",
           "amount": 0.5,
           "shade_saturation": 0.9
         },
+        "mist": {
+          "height": 0.7,
+          "cover": 0.85,
+          "thickness": 3.2,
+          "open": 0.3
+        },
+        "weather": [
+          {
+            "kind": "wisps",
+            "amount": 14,
+            "core": "jinx_violet",
+            "rim": "lilac",
+            "size": 0.08,
+            "night_only": false
+          },
+          {
+            "kind": "moths",
+            "amount": 8
+          },
+          {
+            "kind": "leaves",
+            "amount": 20,
+            "colours": [
+              "moss",
+              "bayou",
+              "umber"
+            ]
+          }
+        ],
         "times": {
           "night": {
-            "sky": "night_deep",
-            "fog": "bog_deep",
             "ambient": "bayou",
             "ambient_energy": 1.2,
-            "key": "gaslight",
-            "key_energy": 1.0,
             "mist": "bog",
             "mist_strength": 0.6,
+            "sky": "night_deep",
+            "fog": "bog_deep",
+            "key": "gaslight",
+            "key_energy": 1.0,
             "moon_colour": "moon_green"
           },
           "dusk": {
@@ -1732,68 +1485,9 @@
           "mix": 0.5,
           "energy": 1.15
         },
-        "weather": [
-          {
-            "kind": "wisps",
-            "amount": 14,
-            "core": "jinx_violet",
-            "rim": "lilac",
-            "size": 0.08,
-            "night_only": false
-          },
-          {
-            "kind": "moths",
-            "amount": 8
-          },
-          {
-            "kind": "leaves",
-            "amount": 20,
-            "colours": [
-              "moss",
-              "bayou",
-              "umber"
-            ]
-          }
-        ],
         "ground_tint": {
           "village/grass": "#8c9068",
           "wild/moss": "#8c9068"
-        }
-      },
-      "modern": {
-        "tone": {
-          "shade": "bog_deep",
-          "amount": 0.55,
-          "shade_saturation": 0.9
-        },
-        "mist": {
-          "height": 0.7,
-          "cover": 0.85,
-          "thickness": 3.2,
-          "open": 0.3
-        },
-        "weather": [
-          {
-            "kind": "moths",
-            "amount": 8
-          },
-          {
-            "kind": "leaves",
-            "amount": 20,
-            "colours": [
-              "moss",
-              "bayou",
-              "umber"
-            ]
-          }
-        ],
-        "times": {
-          "night": {
-            "ambient": "bayou",
-            "ambient_energy": 0.6,
-            "mist": "bog",
-            "mist_strength": 0.6
-          }
         }
       }
     },
@@ -1830,7 +1524,7 @@
           "indoors": true
         }
       ],
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "bog_deep",
           "amount": 0.5,
@@ -1897,7 +1591,7 @@
           "indoors": true
         }
       ],
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "peat",
           "amount": 0.6,
@@ -1939,22 +1633,45 @@
         "thickness": 3.0,
         "open": 0.35
       },
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "slate",
           "amount": 0.55,
           "shade_saturation": 0.6
         },
+        "mist": {
+          "height": 0.9,
+          "cover": 0.8,
+          "thickness": 3.0,
+          "open": 0.35
+        },
+        "weather": [
+          {
+            "kind": "rain",
+            "amount": 800,
+            "colour": "mist_blue",
+            "length": 0.7,
+            "splashes": 160
+          },
+          {
+            "kind": "wisps",
+            "amount": 10,
+            "core": "mint",
+            "rim": "frost",
+            "size": 0.1,
+            "night_only": false
+          }
+        ],
         "times": {
           "night": {
-            "sky": "night",
-            "fog": "stone_deep",
             "ambient": "slate",
             "ambient_energy": 0.95,
-            "key": "mint",
-            "key_energy": 0.75,
             "mist": "pewter",
             "mist_strength": 0.55,
+            "sky": "night",
+            "fog": "stone_deep",
+            "key": "mint",
+            "key_energy": 0.75,
             "moon_colour": "mint"
           },
           "dusk": {
@@ -1984,56 +1701,9 @@
           "mix": 0.35,
           "energy": 1.0
         },
-        "weather": [
-          {
-            "kind": "rain",
-            "amount": 800,
-            "colour": "mist_blue",
-            "length": 0.7,
-            "splashes": 160
-          },
-          {
-            "kind": "wisps",
-            "amount": 10,
-            "core": "mint",
-            "rim": "frost",
-            "size": 0.1,
-            "night_only": false
-          }
-        ],
         "ground_tint": {
           "village/grass": "#a8b4b0",
           "wild/moss": "#a8b4b0"
-        }
-      },
-      "modern": {
-        "tone": {
-          "shade": "slate",
-          "amount": 0.45,
-          "shade_saturation": 0.6
-        },
-        "mist": {
-          "height": 0.9,
-          "cover": 0.8,
-          "thickness": 3.0,
-          "open": 0.35
-        },
-        "weather": [
-          {
-            "kind": "rain",
-            "amount": 800,
-            "colour": "mist_blue",
-            "length": 0.7,
-            "splashes": 160
-          }
-        ],
-        "times": {
-          "night": {
-            "ambient": "slate",
-            "ambient_energy": 0.47,
-            "mist": "pewter",
-            "mist_strength": 0.55
-          }
         }
       }
     },
@@ -2065,7 +1735,14 @@
           "indoors": true
         }
       ],
-      "toon": {
+      "lightning": true,
+      "strikes": {
+        "every": [
+          16,
+          34
+        ]
+      },
+      "modern": {
         "tone": {
           "shade": "slate",
           "amount": 0.5,
@@ -2097,13 +1774,6 @@
             "indoors": true
           }
         ]
-      },
-      "lightning": true,
-      "strikes": {
-        "every": [
-          16,
-          34
-        ]
       }
     },
     "hartsblight": {
@@ -2114,22 +1784,50 @@
         "thickness": 2.8,
         "open": 0.35
       },
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "bog_deep",
           "amount": 0.65,
           "shade_saturation": 1.0
         },
+        "mist": {
+          "height": 0.8,
+          "cover": 0.75,
+          "thickness": 2.8,
+          "open": 0.35
+        },
+        "weather": [
+          {
+            "kind": "motes",
+            "amount": 70,
+            "core": "vision_emerald",
+            "rim": "fungal_teal",
+            "size": 0.06,
+            "night_only": false
+          },
+          {
+            "kind": "wisps",
+            "amount": 12,
+            "core": "rot_violet",
+            "rim": "lilac",
+            "size": 0.08,
+            "night_only": false
+          },
+          {
+            "kind": "moths",
+            "amount": 4
+          }
+        ],
         "times": {
           "night": {
-            "sky": "night_deep",
-            "fog": "bog_deep",
             "ambient": "fungal_teal",
             "ambient_energy": 0.95,
-            "key": "vision_emerald",
-            "key_energy": 0.7,
             "mist": "rot_violet",
             "mist_strength": 0.5,
+            "sky": "night_deep",
+            "fog": "bog_deep",
+            "key": "vision_emerald",
+            "key_energy": 0.7,
             "moon_colour": "moon_green"
           },
           "dusk": {
@@ -2159,66 +1857,9 @@
           "mix": 0.4,
           "energy": 1.1
         },
-        "weather": [
-          {
-            "kind": "motes",
-            "amount": 70,
-            "core": "vision_emerald",
-            "rim": "fungal_teal",
-            "size": 0.06,
-            "night_only": false
-          },
-          {
-            "kind": "wisps",
-            "amount": 12,
-            "core": "rot_violet",
-            "rim": "lilac",
-            "size": 0.08,
-            "night_only": false
-          },
-          {
-            "kind": "moths",
-            "amount": 4
-          }
-        ],
         "ground_tint": {
           "village/grass": "#7c9c94",
           "wild/moss": "#7c9c94"
-        }
-      },
-      "modern": {
-        "tone": {
-          "shade": "bog_deep",
-          "amount": 0.55,
-          "shade_saturation": 1.0
-        },
-        "mist": {
-          "height": 0.8,
-          "cover": 0.75,
-          "thickness": 2.8,
-          "open": 0.35
-        },
-        "weather": [
-          {
-            "kind": "motes",
-            "amount": 70,
-            "core": "vision_emerald",
-            "rim": "fungal_teal",
-            "size": 0.06,
-            "night_only": false
-          },
-          {
-            "kind": "moths",
-            "amount": 4
-          }
-        ],
-        "times": {
-          "night": {
-            "ambient": "fungal_teal",
-            "ambient_energy": 0.47,
-            "mist": "rot_violet",
-            "mist_strength": 0.5
-          }
         }
       }
     },
@@ -2250,7 +1891,7 @@
           "indoors": true
         }
       ],
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "bog_deep",
           "amount": 0.5,
@@ -2292,22 +1933,51 @@
         "thickness": 3.6,
         "open": 0.25
       },
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "stone_deep",
           "amount": 0.6,
           "shade_saturation": 0.6
         },
+        "mist": {
+          "height": 0.6,
+          "cover": 0.95,
+          "thickness": 3.6,
+          "open": 0.25
+        },
+        "weather": [
+          {
+            "kind": "wisps",
+            "amount": 14,
+            "core": "flame",
+            "rim": "wick",
+            "size": 0.08,
+            "night_only": false
+          },
+          {
+            "kind": "bats",
+            "amount": 6
+          },
+          {
+            "kind": "leaves",
+            "amount": 20,
+            "colours": [
+              "bone_dark",
+              "slate",
+              "umber"
+            ]
+          }
+        ],
         "times": {
           "night": {
-            "sky": "night_deep",
-            "fog": "stone_deep",
             "ambient": "slate",
             "ambient_energy": 0.9,
-            "key": "moonlight",
-            "key_energy": 0.8,
             "mist": "silver",
             "mist_strength": 0.65,
+            "sky": "night_deep",
+            "fog": "stone_deep",
+            "key": "moonlight",
+            "key_energy": 0.8,
             "moon_colour": "moon_green"
           },
           "dusk": {
@@ -2337,68 +2007,9 @@
           "mix": 0.5,
           "energy": 1.2
         },
-        "weather": [
-          {
-            "kind": "wisps",
-            "amount": 14,
-            "core": "flame",
-            "rim": "wick",
-            "size": 0.08,
-            "night_only": false
-          },
-          {
-            "kind": "bats",
-            "amount": 6
-          },
-          {
-            "kind": "leaves",
-            "amount": 20,
-            "colours": [
-              "bone_dark",
-              "slate",
-              "umber"
-            ]
-          }
-        ],
         "ground_tint": {
           "village/grass": "#9ca0a8",
           "wild/moss": "#9ca0a8"
-        }
-      },
-      "modern": {
-        "tone": {
-          "shade": "stone_deep",
-          "amount": 0.5,
-          "shade_saturation": 0.6
-        },
-        "mist": {
-          "height": 0.6,
-          "cover": 0.95,
-          "thickness": 3.6,
-          "open": 0.25
-        },
-        "weather": [
-          {
-            "kind": "bats",
-            "amount": 6
-          },
-          {
-            "kind": "leaves",
-            "amount": 20,
-            "colours": [
-              "bone_dark",
-              "slate",
-              "umber"
-            ]
-          }
-        ],
-        "times": {
-          "night": {
-            "ambient": "slate",
-            "ambient_energy": 0.45,
-            "mist": "silver",
-            "mist_strength": 0.65
-          }
         }
       }
     },
@@ -2430,7 +2041,7 @@
           "indoors": true
         }
       ],
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "stone_deep",
           "amount": 0.55,
@@ -2472,22 +2083,42 @@
         "thickness": 3.8,
         "open": 0.3
       },
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "ash_violet",
           "amount": 0.6,
           "shade_saturation": 0.5
         },
+        "mist": {
+          "height": 1.2,
+          "cover": 0.9,
+          "thickness": 3.8,
+          "open": 0.3
+        },
+        "weather": [
+          {
+            "kind": "leaves",
+            "amount": 40,
+            "colours": [
+              "silver",
+              "pewter",
+              "ivory"
+            ]
+          },
+          {
+            "kind": "embers"
+          }
+        ],
         "times": {
           "night": {
-            "sky": "ash_violet",
-            "fog": "stone_deep",
             "ambient": "pewter",
             "ambient_energy": 0.9,
-            "key": "ivory",
-            "key_energy": 0.7,
             "mist": "silver",
             "mist_strength": 0.6,
+            "sky": "ash_violet",
+            "fog": "stone_deep",
+            "key": "ivory",
+            "key_energy": 0.7,
             "moon_colour": "frost"
           },
           "dusk": {
@@ -2518,58 +2149,9 @@
           "mix": 0.4,
           "energy": 1.05
         },
-        "weather": [
-          {
-            "kind": "leaves",
-            "amount": 40,
-            "colours": [
-              "silver",
-              "pewter",
-              "ivory"
-            ]
-          },
-          {
-            "kind": "embers"
-          }
-        ],
         "ground_tint": {
           "village/grass": "#a8a4a8",
           "wild/moss": "#a8a4a8"
-        }
-      },
-      "modern": {
-        "tone": {
-          "shade": "ash_violet",
-          "amount": 0.5,
-          "shade_saturation": 0.5
-        },
-        "mist": {
-          "height": 1.2,
-          "cover": 0.9,
-          "thickness": 3.8,
-          "open": 0.3
-        },
-        "weather": [
-          {
-            "kind": "leaves",
-            "amount": 40,
-            "colours": [
-              "silver",
-              "pewter",
-              "ivory"
-            ]
-          },
-          {
-            "kind": "embers"
-          }
-        ],
-        "times": {
-          "night": {
-            "ambient": "pewter",
-            "ambient_energy": 0.45,
-            "mist": "silver",
-            "mist_strength": 0.6
-          }
         }
       },
       "lightning": true,
@@ -2608,7 +2190,14 @@
           "indoors": true
         }
       ],
-      "toon": {
+      "lightning": true,
+      "strikes": {
+        "every": [
+          12,
+          28
+        ]
+      },
+      "modern": {
         "tone": {
           "shade": "ash_violet",
           "amount": 0.55,
@@ -2640,13 +2229,6 @@
             "indoors": true
           }
         ]
-      },
-      "lightning": true,
-      "strikes": {
-        "every": [
-          12,
-          28
-        ]
       }
     },
     "moors": {
@@ -2657,82 +2239,10 @@
         "thickness": 2.6,
         "open": 0.45
       },
-      "toon": {
-        "tone": {
-          "shade": "stone_deep",
-          "amount": 0.6,
-          "shade_saturation": 0.75
-        },
-        "times": {
-          "night": {
-            "sky": "night_deep",
-            "fog": "stone_deep",
-            "ambient": "storm_slate",
-            "ambient_energy": 0.9,
-            "key": "moonlight",
-            "key_energy": 0.8,
-            "mist": "slate",
-            "mist_strength": 0.5,
-            "moon_colour": "moon_green"
-          },
-          "dusk": {
-            "sky": "storm_slate",
-            "fog": "stone_deep",
-            "ambient": "storm_slate",
-            "ambient_energy": 0.85,
-            "key": "moonlight",
-            "key_energy": 0.75,
-            "mist": "slate",
-            "mist_strength": 0.5,
-            "moon_colour": "moon_green"
-          },
-          "dawn": {
-            "sky": "plum",
-            "fog": "stone",
-            "ambient": "slate",
-            "ambient_energy": 0.85,
-            "key": "rose",
-            "key_energy": 0.7,
-            "mist": "slate",
-            "mist_strength": 0.45
-          }
-        },
-        "flame_tint": {
-          "colour": "flame",
-          "mix": 0.4,
-          "energy": 1.1
-        },
-        "weather": [
-          {
-            "kind": "rain",
-            "amount": 500,
-            "colour": "mist_blue",
-            "length": 0.7,
-            "splashes": 160
-          },
-          {
-            "kind": "crows",
-            "amount": 5
-          },
-          {
-            "kind": "leaves",
-            "amount": 25,
-            "colours": [
-              "umber",
-              "bone_dark",
-              "rust"
-            ]
-          }
-        ],
-        "ground_tint": {
-          "village/grass": "#8c9488",
-          "wild/moss": "#8c9488"
-        }
-      },
       "modern": {
         "tone": {
           "shade": "stone_deep",
-          "amount": 0.5,
+          "amount": 0.6,
           "shade_saturation": 0.75
         },
         "mist": {
@@ -2766,10 +2276,45 @@
         "times": {
           "night": {
             "ambient": "storm_slate",
-            "ambient_energy": 0.45,
+            "ambient_energy": 0.9,
             "mist": "slate",
-            "mist_strength": 0.5
+            "mist_strength": 0.5,
+            "sky": "night_deep",
+            "fog": "stone_deep",
+            "key": "moonlight",
+            "key_energy": 0.8,
+            "moon_colour": "moon_green"
+          },
+          "dusk": {
+            "sky": "storm_slate",
+            "fog": "stone_deep",
+            "ambient": "storm_slate",
+            "ambient_energy": 0.85,
+            "key": "moonlight",
+            "key_energy": 0.75,
+            "mist": "slate",
+            "mist_strength": 0.5,
+            "moon_colour": "moon_green"
+          },
+          "dawn": {
+            "sky": "plum",
+            "fog": "stone",
+            "ambient": "slate",
+            "ambient_energy": 0.85,
+            "key": "rose",
+            "key_energy": 0.7,
+            "mist": "slate",
+            "mist_strength": 0.45
           }
+        },
+        "flame_tint": {
+          "colour": "flame",
+          "mix": 0.4,
+          "energy": 1.1
+        },
+        "ground_tint": {
+          "village/grass": "#8c9488",
+          "wild/moss": "#8c9488"
         }
       },
       "lightning": true,
@@ -2788,22 +2333,37 @@
         "thickness": 2.0,
         "open": 0.55
       },
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "ember_deep",
           "amount": 0.6,
           "shade_saturation": 0.9
         },
+        "mist": {
+          "height": 0.7,
+          "cover": 0.5,
+          "thickness": 2.0,
+          "open": 0.55
+        },
+        "weather": [
+          {
+            "kind": "embers"
+          },
+          {
+            "kind": "crows",
+            "amount": 6
+          }
+        ],
         "times": {
           "night": {
-            "sky": "night_deep",
-            "fog": "ember_deep",
             "ambient": "umber",
             "ambient_energy": 0.9,
-            "key": "wicker_gold",
-            "key_energy": 0.9,
             "mist": "ember",
             "mist_strength": 0.4,
+            "sky": "night_deep",
+            "fog": "ember_deep",
+            "key": "wicker_gold",
+            "key_energy": 0.9,
             "moon_colour": "moon_green"
           },
           "dusk": {
@@ -2833,48 +2393,9 @@
           "mix": 0.55,
           "energy": 1.3
         },
-        "weather": [
-          {
-            "kind": "embers"
-          },
-          {
-            "kind": "crows",
-            "amount": 6
-          }
-        ],
         "ground_tint": {
           "village/grass": "#a89470",
           "wild/moss": "#a89470"
-        }
-      },
-      "modern": {
-        "tone": {
-          "shade": "ember_deep",
-          "amount": 0.5,
-          "shade_saturation": 0.9
-        },
-        "mist": {
-          "height": 0.7,
-          "cover": 0.5,
-          "thickness": 2.0,
-          "open": 0.55
-        },
-        "weather": [
-          {
-            "kind": "embers"
-          },
-          {
-            "kind": "crows",
-            "amount": 6
-          }
-        ],
-        "times": {
-          "night": {
-            "ambient": "umber",
-            "ambient_energy": 0.45,
-            "mist": "ember",
-            "mist_strength": 0.4
-          }
         }
       }
     },
@@ -2886,22 +2407,51 @@
         "thickness": 3.4,
         "open": 0.3
       },
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "wytch_green",
           "amount": 0.7,
           "shade_saturation": 0.85
         },
+        "mist": {
+          "height": 0.9,
+          "cover": 0.85,
+          "thickness": 3.4,
+          "open": 0.3
+        },
+        "weather": [
+          {
+            "kind": "wisps",
+            "amount": 12,
+            "core": "ember",
+            "rim": "crimson",
+            "size": 0.08,
+            "night_only": false
+          },
+          {
+            "kind": "leaves",
+            "amount": 30,
+            "colours": [
+              "bone_dark",
+              "umber",
+              "blood"
+            ]
+          },
+          {
+            "kind": "bats",
+            "amount": 5
+          }
+        ],
         "times": {
           "night": {
-            "sky": "night_deep",
-            "fog": "wytch_green",
             "ambient": "wytch_green",
             "ambient_energy": 0.95,
-            "key": "silver",
-            "key_energy": 0.85,
             "mist": "bog",
             "mist_strength": 0.55,
+            "sky": "night_deep",
+            "fog": "wytch_green",
+            "key": "silver",
+            "key_energy": 0.85,
             "moon_colour": "silver"
           },
           "dusk": {
@@ -2932,68 +2482,9 @@
           "mix": 0.45,
           "energy": 1.15
         },
-        "weather": [
-          {
-            "kind": "wisps",
-            "amount": 12,
-            "core": "ember",
-            "rim": "crimson",
-            "size": 0.08,
-            "night_only": false
-          },
-          {
-            "kind": "leaves",
-            "amount": 30,
-            "colours": [
-              "bone_dark",
-              "umber",
-              "blood"
-            ]
-          },
-          {
-            "kind": "bats",
-            "amount": 5
-          }
-        ],
         "ground_tint": {
           "village/grass": "#6c8478",
           "wild/moss": "#6c8478"
-        }
-      },
-      "modern": {
-        "tone": {
-          "shade": "wytch_green",
-          "amount": 0.6,
-          "shade_saturation": 0.85
-        },
-        "mist": {
-          "height": 0.9,
-          "cover": 0.85,
-          "thickness": 3.4,
-          "open": 0.3
-        },
-        "weather": [
-          {
-            "kind": "leaves",
-            "amount": 30,
-            "colours": [
-              "bone_dark",
-              "umber",
-              "blood"
-            ]
-          },
-          {
-            "kind": "bats",
-            "amount": 5
-          }
-        ],
-        "times": {
-          "night": {
-            "ambient": "wytch_green",
-            "ambient_energy": 0.47,
-            "mist": "bog",
-            "mist_strength": 0.55
-          }
         }
       }
     },
@@ -3005,22 +2496,45 @@
         "thickness": 3.0,
         "open": 0.35
       },
-      "toon": {
+      "modern": {
         "tone": {
           "shade": "wytch_green",
           "amount": 0.7,
           "shade_saturation": 0.85
         },
+        "mist": {
+          "height": 1.0,
+          "cover": 0.7,
+          "thickness": 3.0,
+          "open": 0.35
+        },
+        "weather": [
+          {
+            "kind": "wisps",
+            "amount": 18,
+            "core": "ember",
+            "rim": "crimson",
+            "size": 0.08,
+            "night_only": false
+          },
+          {
+            "kind": "embers"
+          },
+          {
+            "kind": "bats",
+            "amount": 8
+          }
+        ],
         "times": {
           "night": {
-            "sky": "night_deep",
-            "fog": "blood_deep",
             "ambient": "wytch_green",
             "ambient_energy": 0.95,
-            "key": "silver",
-            "key_energy": 0.9,
             "mist": "blood",
             "mist_strength": 0.45,
+            "sky": "night_deep",
+            "fog": "blood_deep",
+            "key": "silver",
+            "key_energy": 0.9,
             "moon_colour": "silver"
           },
           "dusk": {
@@ -3051,56 +2565,9 @@
           "mix": 0.55,
           "energy": 1.25
         },
-        "weather": [
-          {
-            "kind": "wisps",
-            "amount": 18,
-            "core": "ember",
-            "rim": "crimson",
-            "size": 0.08,
-            "night_only": false
-          },
-          {
-            "kind": "embers"
-          },
-          {
-            "kind": "bats",
-            "amount": 8
-          }
-        ],
         "ground_tint": {
           "village/grass": "#6c8478",
           "wild/moss": "#6c8478"
-        }
-      },
-      "modern": {
-        "tone": {
-          "shade": "wytch_green",
-          "amount": 0.6,
-          "shade_saturation": 0.85
-        },
-        "mist": {
-          "height": 1.0,
-          "cover": 0.7,
-          "thickness": 3.0,
-          "open": 0.35
-        },
-        "weather": [
-          {
-            "kind": "embers"
-          },
-          {
-            "kind": "bats",
-            "amount": 8
-          }
-        ],
-        "times": {
-          "night": {
-            "ambient": "wytch_green",
-            "ambient_energy": 0.47,
-            "mist": "blood",
-            "mist_strength": 0.45
-          }
         }
       },
       "lightning": true,
