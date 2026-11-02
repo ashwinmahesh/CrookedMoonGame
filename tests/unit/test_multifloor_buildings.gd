@@ -19,9 +19,10 @@ const BUILDINGS := {
 	"mon_bell_tower": {"floors": ["mon_bell_tower", "mon_belfry"], "ground": 0, "lowest_spawn": "default"},
 	"wickermoor_mayors_house": {"floors": ["wickermoor_mayors_house", "wickermoor_clock_chamber"], "ground": 0, "lowest_spawn": "default"},
 }
-## How many stair links each has (the monastery's two spiral stairs both meet: the west one's two landings were 23 squares apart).
+## How many stair links each has (the monastery's two spiral stairs both meet: the west one's two landings were 23 squares apart; the belfry
+## is reached by a ladder now, a link that says its `kind`, so it has none).
 const STAIRS := {"fw_windmill": 1, "wickermoor_green_queen_inn": 2, "dg_briar": 2, "wickermoor_barber_shop": 1, "wickermoor_funeral_home": 1,
-	"wickermoor_trading_post": 1, "mon_ground": 2, "mon_bell_tower": 1,
+	"wickermoor_trading_post": 1, "mon_ground": 2, "mon_bell_tower": 0,
 	"wickermoor_mayors_house": 1}
 
 
@@ -274,7 +275,8 @@ func _in_sight_over(view: LocationView, height: float) -> int:
 		var nn := node as Node3D
 		if not (nn is MeshInstance3D or nn is MultiMeshInstance3D or nn is OmniLight3D or nn is SpotLight3D):
 			continue
-		if nn.global_position.y >= height and nn.is_visible_in_tree() and not _under(nn, "Exit_"):
+		# A ladder is seen from below, rung by rung, up to where it climbs (it is how the player sees the way up).
+		if nn.global_position.y >= height and nn.is_visible_in_tree() and not _under(nn, "Exit_") and not _under(nn, "Ladder_"):
 			n += 1
 	return n
 
