@@ -83,7 +83,9 @@ const PLAN := {
 		["open", "h4_peacock_stone", [], {"if": "flag.memento_gem", "expect": "item:memento_bloodstone"}],
 		["use", "h5_harpsichord", ["Sit at the bench", "Ask the dead servant", "Draw upon the lingering music", "Wait quietly"],
 			{"if": "not flag.memento_key", "expect": "item:memento_black_key"}],
-		["talk", "petunia_lockwood", ["Ask after her children", "Speak gently of Sally", "Set the doll and the bear",
+		# Her gentle way is spent when it fails; the next pick then takes whichever other way the menu still offers (the doll and the bear
+		# when both are held, else the threat).
+		["talk", "petunia_lockwood", ["Ask after her children", "Speak gently of Sally|Set the doll and the bear|Tell her you mean to have that cup",
 			"Tell her you mean to have that cup"], {"if": "not flag.memento_cup", "expect": "flag.petunia_at_peace or flag.petunia_destroyed"}],
 		["use", "h8_cup", ["Pick up the green ribbon"], {"if": "flag.petunia_destroyed and not flag.memento_cup", "expect": "item:memento_porcelain_cup"}],
 		# second floor: the six hiding places until the lurker comes out, then Sally's doll
