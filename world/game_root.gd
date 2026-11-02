@@ -1001,7 +1001,8 @@ func _retry_fight(rule: Dictionary, spec: Dictionary) -> void:
 	FightRetry.restore(st, rule, _dead_at_fight_start)
 	FightRetry.close_lost(st, view.loc_id, rule, spec)
 	_refresh()
-	var spawn := FightRetry.spawn_for(rule, view.loc_id, view.loc)
+	var on_floor := view.grid.floor_index(view.leader().cell) if not view.members.is_empty() else -1   # (a house's floor: its entry)
+	var spawn := FightRetry.spawn_for(rule, view.loc_id, view.loc, on_floor)
 	if spawn == "":
 		_begin_retry(rule, spec)
 		return

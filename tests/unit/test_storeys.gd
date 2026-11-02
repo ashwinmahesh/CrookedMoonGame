@@ -18,10 +18,11 @@ func test_every_floor_is_a_place_and_its_stairs_reach_the_next() -> void:
 
 
 func test_a_stair_is_a_climb_and_a_door_out_is_not() -> void:
-	assert_eq(Storeys.climb("crooked_house_first", "crooked_house_second"), 1, "one storey up")
-	assert_eq(Storeys.climb("crooked_house_attic", "crooked_house_third"), -1, "one down")
+	assert_eq(Storeys.climb("wickermoor_green_queen_inn", "wickermoor_green_queen_inn_upper"), 1, "one storey up")
+	assert_eq(Storeys.climb("wickermoor_green_queen_inn_upper", "wickermoor_green_queen_inn"), -1, "one down")
 	assert_eq(Storeys.climb("fw_windmill", "fw_windmill_cellar"), -1, "the mill's cellar is below it")
-	assert_eq(Storeys.climb("crooked_house_first", "druskenvald_estate"), 0, "out of the house is a change of place")
+	assert_eq(Storeys.climb("wickermoor_green_queen_inn", "wickermoor_village"), 0, "out of the inn is a change of place")
+	assert_eq(Storeys.building_of("crooked_house"), "", "the Crooked House is one place, its floors in it")
 	assert_eq(Storeys.climb("wickermoor_village", "wickermoor_green_queen_inn"), 0, "and so is going in")
 	assert_eq(Storeys.building_of("wickermoor_green_queen_inn_upper"), "green_queen_inn")
 

@@ -1,0 +1,165 @@
+{
+  "id": "test_two_storey",
+  "name": "A Two-Storey House",
+  "region": "test_grounds",
+  "summary": "A test house for multi-floor places.",
+  "text": "A hall with a stair up through a well to a gallery.",
+  "map": {
+    "rows": [
+      "############## ##############",
+      "#............# #............#",
+      "#............# #....    ....#",
+      "#............# #....    ....#",
+      "#............# #....    ....#",
+      "#............# #............#",
+      "#....#.......# #....#.......#",
+      "#....#.......# #....#.......#",
+      "######.####### ##############"
+    ],
+    "theme": "manor",
+    "light": "dim",
+    "outdoors": false,
+    "floors": [
+      {
+        "x0": 0,
+        "width": 14,
+        "height_ft": 0
+      },
+      {
+        "x0": 15,
+        "width": 14,
+        "height_ft": 15
+      }
+    ],
+    "stairs": [
+      {
+        "from": [
+          8,
+          3
+        ],
+        "to": [
+          24,
+          3
+        ],
+        "steps": [
+          [
+            5,
+            3,
+            3
+          ],
+          [
+            6,
+            3,
+            6
+          ],
+          [
+            7,
+            3,
+            9
+          ],
+          [
+            8,
+            3,
+            12
+          ]
+        ]
+      }
+    ]
+  },
+  "areas": [
+    {
+      "id": "hall",
+      "name": "The hall",
+      "cells": [
+        [
+          1,
+          1
+        ],
+        [
+          12,
+          7
+        ]
+      ]
+    },
+    {
+      "id": "gallery",
+      "name": "The gallery",
+      "cells": [
+        [
+          16,
+          1
+        ],
+        [
+          27,
+          7
+        ]
+      ]
+    }
+  ],
+  "spawns": {
+    "default": [
+      6,
+      7
+    ]
+  },
+  "exits": [],
+  "props": [
+    {
+      "id": "t_table",
+      "cell": [
+        10,
+        6
+      ],
+      "kind": "examine",
+      "label": "A table",
+      "model": "table",
+      "text": "A table."
+    },
+    {
+      "id": "t_bed",
+      "cell": [
+        25,
+        6
+      ],
+      "kind": "examine",
+      "label": "A bed",
+      "model": "bed",
+      "text": "A bed upstairs."
+    },
+    {
+      "id": "t_barrel",
+      "cell": [
+        2,
+        2
+      ],
+      "kind": "examine",
+      "label": "A barrel",
+      "model": "barrel",
+      "text": "A barrel."
+    }
+  ],
+  "npcs": [],
+  "rest": "risky",
+  "lights": [
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    },
+    {
+      "cell": [
+        18,
+        6
+      ],
+      "kind": "candle",
+      "bright_ft": 15,
+      "dim_ft": 30,
+      "color": "candle"
+    }
+  ]
+}

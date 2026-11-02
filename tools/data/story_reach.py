@@ -262,6 +262,14 @@ class Story:
         a horse pen's fence with a gap only between two posts is closed)."""
         rows = loc["map"]["rows"]
         doors = {tuple(d["cell"]): d for d in loc.get("doors", [])}
+        # A multi-floor place's stairs (map.stairs) join a square of one floor to one of the next, both ways.
+        stairs = {}
+        for st in loc["map"].get("stairs", []):
+            if st.get("when") and not self.possible(st["when"]):
+                continue
+            a_, b_ = tuple(st["from"]), tuple(st["to"])
+            stairs.setdefault(a_, []).append(b_)
+            stairs.setdefault(b_, []).append(a_)
 
         def open_(c):
             x, z = c
@@ -283,6 +291,9 @@ class Story:
                         continue
                     if dx and dz and not (open_((x + dx, z)) and open_((x, z + dz))):
                         continue   # the diagonal would cut a corner
+                    todo.append(n)
+            for n in stairs.get(c, []):
+                if n not in seen and open_(n):
                     todo.append(n)
         return seen
 
@@ -358,6 +369,10 @@ class Story:
             w = f"data/locations/{lid}.json"
             starts = [c for sp, c in loc.get("spawns", {}).items() if sp == "default" or ("spawn", lid, sp) in self.facts]
             cells = self.cells(loc, starts)
+            # A floor of a multi-floor place keeps the id of the place it was (map.floors): standing on it visits it.
+            for fl in loc["map"].get("floors", []):
+                if fl.get("id") and any(fl["x0"] <= x < fl["x0"] + fl["width"] for x, z in cells):
+                    self.changed |= self.add(("visited", fl["id"]), w)
             for a in loc.get("areas", []):
                 (x0, z0), (x1, z1) = a["cells"][0], a["cells"][-1]
                 if any(x0 <= x <= x1 and z0 <= z <= z1 for x, z in cells):

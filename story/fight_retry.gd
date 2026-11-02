@@ -62,15 +62,23 @@ static func keys(rule: Dictionary, spec: Dictionary) -> Array[String]:
 
 
 ## The spawn the party goes back to in `location`, the first of the rule's list for that place that the map has, "" when the rule
-## names none (the party stays where it stands).
-static func spawn_for(rule: Dictionary, location_id: String, location: Dictionary) -> String:
+## names none (the party stays where it stands). In a multi-floor place (map.floors) with `floor` given, the first of the list on
+## that floor: a wipe on a floor of the Crooked House begins the fight again at that floor's entry.
+static func spawn_for(rule: Dictionary, location_id: String, location: Dictionary, floor: int = -1) -> String:
 	var wanted := (rule.get("spawns", {}) as Dictionary).get(location_id, []) as Array
 	if wanted.is_empty():
 		return ""
 	var have := location.get("spawns", {}) as Dictionary
+	var floors := ((location.get("map", {}) as Dictionary).get("floors", []) as Array)
 	for s: Variant in wanted:
-		if have.has(str(s)):
-			return str(s)
+		if not have.has(str(s)):
+			continue
+		if floor >= 0 and floor < floors.size():
+			var x := int((have[str(s)] as Array)[0])
+			var fl := floors[floor] as Dictionary
+			if x < int(fl["x0"]) or x >= int(fl["x0"]) + int(fl["width"]):
+				continue
+		return str(s)
 	return "default"
 
 

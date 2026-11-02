@@ -48,7 +48,7 @@ func _fresh(place: String, level: int = 3) -> void:
 
 
 func _loc(id: String = "") -> Dictionary:
-	return Compendium.shared().get_entry("locations", id if id != "" else st.location)
+	return HouseFloors.place(id if id != "" else st.location)
 
 
 func _rows(id: String) -> Array:

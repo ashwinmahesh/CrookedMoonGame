@@ -11,7 +11,6 @@ const STOREY := 2.6
 
 ## Each building's floors, from the lowest up.
 const BUILDINGS := {
-	"crooked_house": ["crooked_house_first", "crooked_house_second", "crooked_house_third", "crooked_house_attic"],
 	"fw_windmill": ["fw_windmill_cellar", "fw_windmill"],
 	"green_queen_inn": ["wickermoor_inn_cellar", "wickermoor_green_queen_inn", "wickermoor_green_queen_inn_upper"],
 	"barber_shop": ["wickermoor_barber_cellar", "wickermoor_barber_shop"],

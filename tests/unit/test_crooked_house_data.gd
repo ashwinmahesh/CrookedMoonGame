@@ -209,11 +209,13 @@ func test_the_new_people_are_in_the_house_and_the_ruse_is_a_hag() -> void:
 func test_the_five_places_have_a_crooked_mood() -> void:
 	var palette := (JSON.parse_string(FileAccess.get_file_as_string("res://art/palette/palette.json")) as Dictionary)
 	var moods := {}
-	for id: String in PLACES:
+	# The house is one place now with its four floors in it (HouseFloors), so it has the one look; the attic's own (crooked_attic)
+	# waits on a mood per floor.
+	for id: String in ["druskenvald_estate", HouseFloors.PLACE]:
 		var mood := Atmosphere.mood_for(id, {})
 		assert_true(["crooked_estate", "crooked_house", "crooked_attic"].has(mood), "%s has a mood of the house, not %s" % [id, mood])
 		moods[mood] = true
-	assert_eq(moods.size(), 3, "the grounds, the floors and the attic look different")
+	assert_eq(moods.size(), 2, "the grounds and the house look different")
 	assert_eq(Atmosphere.mood_for("some_new_floor", {"region": REGION, "map": {"outdoors": false}}), "crooked_house", "a new floor takes the house's look")
 	assert_eq(Atmosphere.mood_for("some_new_yard", {"region": REGION, "map": {"outdoors": true}}), "crooked_estate", "and a new yard the grounds'")
 	for mood: String in moods:

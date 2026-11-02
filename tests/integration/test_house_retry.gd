@@ -1,14 +1,13 @@
 extends TestCase
 ## The generalised wipe retry (story/fight_retry.gd, data/fight_retries.json): a wipe in a fight the table lists begins the same fight
 ## again with the party on its feet at the room's entry; a wipe in any other fight is still a game over. The Crooked House's rule
-## (every `ch_` fight in its five places) is read from the real table; the fights run on the test hillside with a stub table, so the
+## (every `ch_` fight on its grounds and in the house, one place with its four floors) is read from the real table; the fights run on the test hillside with a stub table, so the
 ## test needs none of R12's places.
 
 const GAME := preload("res://world/game_root.gd")
 const LOC := "test_hillside"
 const FIGHT := "hillside_scarecrows"
-const HOUSE_PLACES: Array[String] = ["druskenvald_estate", "crooked_house_first", "crooked_house_second", "crooked_house_third",
-	"crooked_house_attic"]
+const HOUSE_PLACES: Array[String] = ["druskenvald_estate", "crooked_house"]
 
 var st: StoryState
 var root: Node
@@ -67,7 +66,7 @@ func _wipe(view: LocationView) -> CombatView:
 
 # --- The table ---------------------------------------------------------------------------------------------------
 
-func test_the_crooked_house_rule_covers_its_fights_in_its_five_places_only() -> void:
+func test_the_crooked_house_rule_covers_its_fights_in_its_places_only() -> void:
 	FightRetry.use_table(null)
 	for place in HOUSE_PLACES:
 		for id: String in ["ch_peacock", "ch_vessla", "ch_roar"]:
@@ -92,17 +91,22 @@ func test_the_locomotive_keeps_its_rule() -> void:
 func test_the_house_says_its_own_defeat_line_first_and_the_general_one_after() -> void:
 	FightRetry.use_table(null)
 	var spec := {"id": "ch_clock"}
-	var rule := FightRetry.rule_for(spec, "crooked_house_second")
+	var rule := FightRetry.rule_for(spec, "crooked_house")
 	assert_eq(FightRetry.keys(rule, spec), ["defeat:ch_clock", "defeat:crooked_house"] as Array[String])
 	assert_eq(FightRetry.restart_id(rule, spec), "ch_clock", "the same fight begins again")
 
 
 func test_the_party_goes_back_to_the_first_spawn_the_map_has() -> void:
 	FightRetry.use_table(null)
-	var rule := FightRetry.rule_for({"id": "ch_clock"}, "crooked_house_second")
-	assert_eq(FightRetry.spawn_for(rule, "crooked_house_second", {"spawns": {"default": [1, 1], "from_below": [2, 2]}}), "from_below")
-	assert_eq(FightRetry.spawn_for(rule, "crooked_house_second", {"spawns": {"default": [1, 1]}}), "default", "else the default")
-	assert_eq(FightRetry.spawn_for(rule, "crooked_house_first", {"spawns": {"from_porch": [1, 1], "default": [3, 3]}}), "from_porch")
+	var rule := FightRetry.rule_for({"id": "ch_clock"}, "crooked_house")
+	assert_eq(FightRetry.spawn_for(rule, "crooked_house", {"spawns": {"default": [1, 1], "second_from_below": [2, 2]}}), "second_from_below")
+	assert_eq(FightRetry.spawn_for(rule, "crooked_house", {"spawns": {"default": [1, 1]}}), "default", "else the default")
+	assert_eq(FightRetry.spawn_for(rule, "crooked_house", {"spawns": {"from_porch": [1, 1], "default": [3, 3]}}), "from_porch")
+	# In the house the first of the list on the floor the party fell on: the floor's own entry.
+	var house := {"spawns": {"from_porch": [1, 1], "second_from_below": [12, 2], "default": [3, 3]},
+		"map": {"floors": [{"x0": 0, "width": 10, "height_ft": 0}, {"x0": 11, "width": 10, "height_ft": 15}]}}
+	assert_eq(FightRetry.spawn_for(rule, "crooked_house", house, 1), "second_from_below", "a wipe upstairs goes back to the stair's top")
+	assert_eq(FightRetry.spawn_for(rule, "crooked_house", house, 0), "from_porch", "and one downstairs to the porch")
 
 
 # --- A wipe ------------------------------------------------------------------------------------------------------

@@ -9,7 +9,7 @@ const SPOTS := ["h10_closet", "h10_bed_left", "h10_bed_right", "h10_chest", "h10
 
 
 func _loc() -> Dictionary:
-	return Compendium.shared().get_entry("locations", PLACE)
+	return HouseFloors.place(PLACE)
 
 
 func _rows() -> Array:
@@ -339,7 +339,7 @@ func _search(st: StoryState, id: String, success: bool) -> void:
 		if str(c["id"]) == id:
 			check = c
 	var who := st.party[0]
-	WorldChecks.record(st, PLACE, check, who, success)
+	WorldChecks.record(st, HouseFloors.PLACE, check, who, success)   # (the house is one place: its world checks are its own)
 
 
 ## What `_trigger_encounter` would start for `trigger` (the first entry of the trigger whose condition holds), or {}.

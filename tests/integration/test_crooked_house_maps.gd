@@ -40,7 +40,7 @@ var root: Node
 
 
 func _loc(id: String) -> Dictionary:
-	return Compendium.shared().get_entry("locations", id)
+	return HouseFloors.place(id)
 
 
 func _rows(id: String) -> Array:
@@ -414,8 +414,10 @@ func test_the_game_starts_every_place() -> void:
 		var st := GameState.story
 		for pid: String in GAME.PLACEHOLDER_PARTY:
 			st.party.append(Pregens.build(pid, 3))
-		st.location = id
-		var view := LocationView.create(id, st, Narrator.new(), Dice.roller, "default")
+		# A floor of the house is entered as the house, at that floor's own spawn.
+		var place := HouseFloors.PLACE if HouseFloors.is_floor(id) else id
+		st.location = place
+		var view := LocationView.create(place, st, Narrator.new(), Dice.roller, HouseFloors.spawn_name(id, "default") if place != id else "default")
 		add_child(view)
 		var spawn := _cell(((_loc(id)["spawns"] as Dictionary)["default"] as Array))
 		assert_eq(view.leader().cell, spawn, "%s: the party arrives on the default spawn" % id)

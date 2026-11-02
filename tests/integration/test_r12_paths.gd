@@ -122,12 +122,21 @@ func _fresh(ids: Array[String] = PARTY, level: int = 3) -> void:
 # --- The helpers (test_r10_paths', with the House's own) ---------------------------------------------------------------------------
 
 
+## The house is one place now (HouseFloors): the floor the party is on, by the place it was.
+var on_floor := FIRST
+
+
 func _loc_of(id: String) -> Dictionary:
-	return Compendium.shared().get_entry("locations", id)
+	return HouseFloors.place(id)
+
+
+## Where the party is: the floor of the house it stands on, else the place.
+func _where() -> String:
+	return on_floor if st.location == HouseFloors.PLACE else st.location
 
 
 func _loc() -> Dictionary:
-	return _loc_of(st.location)
+	return _loc_of(_where())
 
 
 func _holds(expr: Variant) -> bool:
@@ -149,8 +158,15 @@ func _npc_here(npc: String) -> Dictionary:
 	return {}
 
 
-func _arrive(id: String) -> void:
-	st.location = id
+func _arrive(id: String, spawn: String = "") -> void:
+	if id == HouseFloors.PLACE:
+		id = HouseFloors.floor_of_spawn(spawn)
+	if HouseFloors.is_floor(id):
+		st.location = HouseFloors.PLACE
+		st.visited[HouseFloors.PLACE] = true
+		on_floor = id
+	else:
+		st.location = id
 	st.visited[id] = true
 	assert_true(not _loc().is_empty(), "%s is a place" % id)
 
@@ -361,7 +377,7 @@ func _loot(container: String) -> void:
 
 
 func _exit_open(exit: String, place: String = "") -> bool:
-	for e: Variant in _loc_of(place if place != "" else st.location).get("exits", []):
+	for e: Variant in _loc_of(place if place != "" else _where()).get("exits", []):
 		if str((e as Dictionary)["id"]) == exit:
 			return _holds((e as Dictionary).get("when"))
 	fail("%s has no exit %s" % [place if place != "" else st.location, exit])
@@ -377,23 +393,24 @@ func _exit(exit: String) -> void:
 	if str(e["to"]) == "travel":
 		st.location = "travel"
 		return
-	_arrive(Campaign.module().exit_target(st, st.location, str(e["to"])))
+	_arrive(Campaign.module().exit_target(st, st.location, str(e["to"])), str(e.get("spawn", "default")))
 
 
 ## Up or down the stairs to the floor `place` of the house (each stair open), the calls that are due on every floor passed through.
 func _go(place: String) -> void:
 	var guard := 0
-	while st.location != place and guard < 8:
+	while _where() != place and guard < 8:
 		guard += 1
-		var here := HOUSE.find(st.location)
+		var here := HOUSE.find(_where())
 		var there := HOUSE.find(place)
-		assert_true(here >= 0 and there >= 0, "%s to %s is a walk inside the house" % [st.location, place])
+		assert_true(here >= 0 and there >= 0, "%s to %s is a walk inside the house" % [_where(), place])
 		if here < 0 or there < 0:
 			return
+		var suffix := "" if _where() == FIRST else "_" + _where().trim_prefix("crooked_house_")
 		if there > here:
-			_exit("up_to_attic" if st.location == THIRD else "stairs_up")
+			_exit("up_to_attic" if _where() == THIRD else "stairs_up" + suffix)
 		else:
-			_exit("ladder_down" if st.location == ATTIC else "stairs_down")
+			_exit("ladder_down" if _where() == ATTIC else "stairs_down" + suffix)
 		_calls()
 	_calls()
 
@@ -457,7 +474,7 @@ func _gate_to_the_house(strike: bool = false) -> void:
 	assert_eq(_stage(), "trapped", "the storm shuts the party in")
 	assert_true(_npc_here("crooked_man").is_empty(), "he is gone from the porch")
 	_exit("porch_steps")
-	assert_eq(st.location, FIRST, "the steps lead into the house")
+	assert_eq(_where(), FIRST, "the steps lead into the house")
 	assert_true(not _exit_open("to_estate"), "the way back down is shut in the storm")
 
 
@@ -831,7 +848,7 @@ func _expect_gates(note: String) -> void:
 	}
 	var seen := st.loc_state(st.location)["props"] as Dictionary
 	for floor_id: String in [FIRST, SECOND, THIRD]:
-		if st.location != floor_id:
+		if _where() != floor_id:
 			continue
 		var gate := _entry("props", "id", str((APPARITION[floor_id] as Array)[0]))
 		var played := bool(st.get_flag(str((APPARITION[floor_id] as Array)[1])))
@@ -1387,7 +1404,7 @@ func test_the_porch_steps_and_the_porch_exit_in_every_flag_state_and_from_a_save
 	assert_true(not _exit_open("to_estate"), "shut in the storm")
 	_go(SECOND)
 	_reload()
-	assert_eq(st.location, SECOND, "the save is made inside the house")
+	assert_eq(_where(), SECOND, "the save is made inside the house")
 	_go(FIRST)
 	assert_true(not _exit_open("to_estate"), "the load keeps it shut")
 	assert_true(_exit_open("porch_steps", ESTATE), "the steps stay open on the load")
@@ -1592,10 +1609,11 @@ func test_every_house_fight_is_a_retry_from_its_floors_entry_with_a_line_for_the
 				continue
 			done.append(id)
 			count += 1
-			var rule := FightRetry.rule_for(spec, place)
+			var rule := FightRetry.rule_for(spec, HouseFloors.PLACE)
 			assert_true(not rule.is_empty(), "a wipe in %s (%s) is a retry, not a game over" % [id, place])
 			assert_eq(FightRetry.restart_id(rule, spec), id, "%s: the same fight begins again" % id)
-			assert_eq(FightRetry.spawn_for(rule, place, loc), str(ENTRY[place]), "%s: the party goes back to %s" % [id, ENTRY[place]])
+			assert_eq(FightRetry.spawn_for(rule, HouseFloors.PLACE, HouseFloors.house(), HOUSE.find(place)),
+				HouseFloors.spawn_name(place, str(ENTRY[place])), "%s: the party goes back to %s" % [id, ENTRY[place]])
 			var said := ""
 			for key in FightRetry.keys(rule, spec):
 				said = narrator.line(key, st)
@@ -1604,8 +1622,8 @@ func test_every_house_fight_is_a_retry_from_its_floors_entry_with_a_line_for_the
 			assert_true(said != "", "%s: the Narrator speaks over the retry" % id)
 	assert_true(count >= 12, "the house's fights were all seen (%d)" % count)
 	# the count of retries rides a flag, and a fight outside the house is still a game over
-	assert_eq(str(FightRetry.rule_for({"id": "ch_vessla"}, ATTIC)["count_flag"]), "crooked_house_retries")
-	assert_true(not FightRetry.applies({"id": "wm_wolves"}, FIRST))
+	assert_eq(str(FightRetry.rule_for({"id": "ch_vessla"}, HouseFloors.PLACE)["count_flag"]), "crooked_house_retries")
+	assert_true(not FightRetry.applies({"id": "wm_wolves"}, HouseFloors.PLACE))
 	GameState.reset()
 
 
@@ -1626,11 +1644,12 @@ func _wipe_on(place: String, id: String, away: Vector2i) -> void:
 	add_child(root)
 	await _frames(12)
 	var view := root.get("view") as LocationView
-	assert_true(view != null and view.loc_id == place, "%s: the game is on the floor" % place)
+	assert_true(view != null and view.loc_id == HouseFloors.PLACE, "%s: the game is in the house" % place)
 	if view == null:
 		return
+	LocationParty.move_within(view, HouseFloors.spawn_name(place, "default"))   # up the stairs to the floor
 	for m in view.members:
-		m.cell = away   # somewhere else on the floor, so the entry is not where they started
+		m.cell = HouseFloors.to_house(place, away)   # somewhere else on the floor, so the entry is not where they started
 	assert_true(view.start_encounter(id), "%s: the fight starts" % id)
 	await _frames(6)
 	var cv := view.combat_view
@@ -1648,7 +1667,8 @@ func _wipe_on(place: String, id: String, away: Vector2i) -> void:
 	var after := root.get("view") as LocationView
 	assert_true(after != view and after.in_combat, "%s: the floor is entered again and the fight is on" % id)
 	assert_eq(after.fight_id, id, "%s: the same fight" % id)
-	var entry_cell := Vector2i(int((after.loc["spawns"] as Dictionary)[ENTRY[place]][0]), int((after.loc["spawns"] as Dictionary)[ENTRY[place]][1]))
+	var entry := HouseFloors.spawn_name(place, str(ENTRY[place]))
+	var entry_cell := Vector2i(int((after.loc["spawns"] as Dictionary)[entry][0]), int((after.loc["spawns"] as Dictionary)[entry][1]))
 	for m in after.members:
 		assert_true(maxi(absi(m.cell.x - entry_cell.x), absi(m.cell.y - entry_cell.y)) <= 3, "%s: %s stands at %s, the entry (%s)" % [id, m.creature.name, m.cell, entry_cell])
 	for ch in st.party:

@@ -10,7 +10,7 @@ const FIGHTS: Array[String] = ["ch_peacock", "ch_dance", "ch_feast", "ch_petunia
 
 
 func _loc() -> Dictionary:
-	return Compendium.shared().get_entry("locations", PLACE)
+	return HouseFloors.place(PLACE)
 
 
 func _rows() -> Array:

@@ -108,7 +108,7 @@ func test_doors_creak_between_street_and_room_only() -> void:
 	assert_eq(PlaceBeds.exit_sound("wickermoor_village", "wickermoor_green_queen_inn"), "door_creak", "into the inn")
 	assert_eq(PlaceBeds.exit_sound("wickermoor_village", "wickermoor_orchard"), "", "street to orchard passes no door")
 	assert_eq(PlaceBeds.exit_sound("fw_maze_j1", "fw_maze_j2"), "", "nor one turn of the maze to the next")
-	assert_eq(PlaceBeds.exit_sound("crooked_house_first", "crooked_house_second"), "door_creak", "up a floor of the house")
+	assert_eq(PlaceBeds.exit_sound("druskenvald_estate", "crooked_house"), "door_creak", "into the house (its floors are one place: its stairs are climbed, not walked out of)")
 	assert_eq(PlaceBeds.exit_sound("ghostlight_g1_passenger", "ghostlight_g2_sleeper"), "car_door", "the train's doors still slide")
 
 
@@ -148,7 +148,7 @@ func test_scene_entries_name_real_cutscenes() -> void:
 
 
 func test_fights_play_their_regions_music() -> void:
-	assert_eq(PlaceBeds.fight_music("crooked_house_first"), "crooked_house_combat", "a fight in the Crooked House plays its own")
+	assert_eq(PlaceBeds.fight_music("crooked_house"), "crooked_house_combat", "a fight in the Crooked House plays its own")
 	assert_eq(PlaceBeds.fight_music("fw_maze_j1"), "foxwillow_combat", "and in Foxwillow")
 	assert_eq(PlaceBeds.fight_music("wickermoor_village"), "wickermoor_combat", "and in Wickermoor, though its foes are common ones")
 	assert_eq(PlaceBeds.fight_music("ghostlight_g1_passenger"), "combat", "a region with none plays the plain fight music")

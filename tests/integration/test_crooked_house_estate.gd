@@ -76,7 +76,7 @@ func test_the_jenkins_come_back_after_vessla() -> void:
 func test_the_porch_steps_open_only_after_the_crooked_man() -> void:
 	var porch: Dictionary = {}
 	for e: Dictionary in _loc().get("exits", []):
-		if str(e["to"]) == "crooked_house_first":
+		if str(e["to"]) == HouseFloors.PLACE:
 			porch = e
 	assert_true(not porch.is_empty(), "the steps lead into the house")
 	assert_true(str(porch.get("locked_text", "")).length() > 20, "and say why they are shut")

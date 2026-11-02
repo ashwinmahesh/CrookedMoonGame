@@ -157,6 +157,8 @@ static func maze_way_on(seed_value: int, junction: String) -> String:
 ## digest lists them (closet, under the left bed, under the right bed, toy chest, armoire, outside the window); each is the id of
 ## the prop that is searched there and of the world check that searches it.
 const LURKER_PLACE := "crooked_house_second"
+## The place whose world checks hold the hiding places' (the house is one place now; its second floor is still marked visited).
+const LURKER_RECORDS := "crooked_house"
 const LURKER_SPOTS: Array[String] = ["h10_closet", "h10_bed_left", "h10_bed_right", "h10_chest", "h10_armoire", "h10_window"]
 
 
@@ -172,7 +174,7 @@ static func lurker_spot(seed_value: int) -> int:
 static func lurker_places_searched(st: StoryState) -> int:
 	if not st.visited.has(LURKER_PLACE):
 		return 0
-	var records := WorldChecks.records(st, LURKER_PLACE)
+	var records := WorldChecks.records(st, LURKER_RECORDS)
 	var searched := 0
 	for id: String in LURKER_SPOTS:
 		var tried := str(records.get(id, "")) == "done"
