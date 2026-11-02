@@ -112,11 +112,14 @@ qa-fights:
 	@$(FRESH)
 	GODOT=$(GODOT) python3 tools/qa/qa.py fights --out $(QA_OUT) --seeds $(or $(SEEDS),1-8) --jobs $(or $(JOBS),2) \
 		$(if $(MODES),--modes $(MODES),) $(if $(ONLY),--only $(ONLY),) $(if $(REGIONS),--regions $(REGIONS),)
-## qa-act1: Act 1 as a player plays it, from the title to the road out of the Ghostlight wreck (SEEDS=1-4 MODE=balanced
-## SHUFFLED=1 for the Switcheroo's own car order); every run's blockers are printed.
+## qa-act1: Act 1 as a player plays it, from the title through the Ghostlight Express, Wickermoor and the Crooked House to
+## Vessla dead at level 4 (SEEDS=1-4 MODE=balanced SHUFFLED=1 for the Switcheroo's own car order); every run's blockers are
+## printed. CHECKPOINT=/abs/dir/slot saves the game where the Express ends; RESUME=/abs/dir/slot starts from such a save;
+## REVIVE=1 brings fallen heroes back between steps (a stand-in, since nothing in Wickermoor raises the dead).
 qa-act1:
 	@$(FRESH)
-	GODOT=$(GODOT) python3 tools/qa/qa.py act1 --out $(QA_OUT) --seeds $(or $(SEEDS),1) --mode $(or $(MODE),balanced) $(if $(SHUFFLED),--shuffled,)
+	GODOT=$(GODOT) python3 tools/qa/qa.py act1 --out $(QA_OUT) --seeds $(or $(SEEDS),1) --mode $(or $(MODE),balanced) $(if $(SHUFFLED),--shuffled,) \
+		$(if $(CHECKPOINT),--checkpoint $(CHECKPOINT),) $(if $(RESUME),--resume $(RESUME),) $(if $(REVIVE),--revive,)
 ## qa-perf: each place's build time and per-frame CPU cost, headless (REGIONS=a,b ONLY=loc,loc FRAMES=n); perf.md.
 qa-perf:
 	@$(FRESH)

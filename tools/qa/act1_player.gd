@@ -11,14 +11,26 @@ extends Node
 ## a page or button that isn't there, a person, prop or exit the plan needs that isn't on the map or doesn't answer a
 ## click, an option missing, a conversation or a walk that never ends, a fight the party loses for good, a script error.
 ##
+## The run goes on past the Express (QA lane act1-hub, coordinator 2026-11-02): out of the wreck clearing by the road, into
+## Wickermoor (the goat and the wolves, the mayor's welcome, the Green Queen Inn with a save and a load made in it), up the
+## hill road to the Druskenvald estate (the Jenkins, the Crooked Man), and through the Crooked House on all four floors: the
+## six keepsakes, the seance, the attic, the ward and Vessla Browntooth, to the Lord's thanks and the level paid at 4.
+##
 ## Args after --: --out=/abs/act1.json [--seed=1] [--book-order=1] [--frames=40000] [--mode=balanced]
+##   [--checkpoint=/abs/dir/slot] saves the game where the Express ends (the wreck after the farewell, ready to take the road) for --resume
+##   [--resume=/abs/dir/slot] starts from that save instead of the title: the Express is taken as played
+##   [--revive=1] brings a fallen hero back between steps and says so in the notes (Services.bring_back): a stand-in, since no one
+##   in Wickermoor raises the dead yet; without it a party that loses two heroes cannot go on through the house
 
 const GAME := preload("res://world/game_root.gd")
 
-## Each place's plan: steps in order. A step: [kind, target, picks]. kind: talk (an NPC), use (click a prop: a call, a
-## conversation, an examine), search (Search until the prop shows, then click it), exit (walk out by it). picks: at each
-## menu an enabled option containing the first of the "a|b|c" words it offers (a haint's own way first, "Draw a weapon"
-## when the token or bottle it needs wasn't found); the last option once they run out. A pick waits for a menu that has it.
+## Each place's plan: steps in order. A step: [kind, target, picks, opts?]. kind: talk (an NPC), use (click a prop: a call, a
+## conversation, an examine), open (click a container: its loot is taken), check (a skill check on a prop: the check's id is the
+## one pick), search (Search until the prop shows, then click it), exit (walk out by it; a stair to another floor of the same
+## place counts when the party stands on another floor), saveload (a save made and loaded at once), rest (the Rest screen).
+## picks: at each menu an enabled option containing the first of the "a|b|c" words it offers (a haint's own way first, "Draw a
+## weapon" when the token or bottle it needs wasn't found); the last option once they run out. A pick waits for a menu that has
+## it. opts: {"if": a story condition the step needs, else it is skipped}.
 const PLAN := {
 	"ghostlight_boarding": [["talk", "the_vagrant", ["fare", "Tell him something true|Check our pockets", "Check our pockets|ready to board", "ready to board"]]],
 	"ghostlight_g1_passenger": [["talk", "the_vagrant", ["Go on to your cab"]], ["search", "g1_marble_jar", []],
@@ -37,6 +49,84 @@ const PLAN := {
 	"ghostlight_wreckage": [["talk", "phillip_druskenvald", []], ["talk", "the_vagrant", ["hum", "We'll go now"]],
 		["search", "wr_soul_can_1", []], ["search", "wr_soul_can_2", []], ["search", "wr_soul_can_3", []],
 		["talk", "the_vagrant", ["We have the cans", "Ready. Do it."]], ["use", "wr_moon", []], ["exit", "to_wickermoor", []]],
+	# R11: the goat and the wolves at the well, the mayor's welcome at the notice board, the inn, the hill road.
+	"wickermoor_village": [
+		["use", "wm_well", ["Keep back"]],
+		["use", "wm_notice_board", ["Ask about the village", "Thank him", "glad to come"]],
+		["exit", "green_queen_inn", []],
+		["exit", "road_to_estate", [], {"to": "druskenvald_estate"}],
+	],
+	"wickermoor_green_queen_inn": [
+		["talk", "alda_farnum", ["Ask about rooms and the inn", "Take our leave"]],
+		["rest", "", []],
+		["saveload", "", []],
+		["exit", "door", []],
+	],
+	# R12: the Jenkins at the gate, the Crooked Man on the porch, then the house (one place, four floors). After Vessla the way
+	# home: the Jenkins again, and Old Rusty's errand for Joseph Patrini's son when the seance asked after him.
+	"druskenvald_estate": [
+		["talk", "gilly_jenkin", ["Where are the two of you", "Have you seen the Lord", "What is the house like", "Walter seems on edge",
+			"We'll go up to the house"], {"if": "not flag.crooked_house_turned"}],
+		["talk", "crooked_man", ["Who are you?", "Where are Lord Phillip", "What do you want with us?", "Study him closely", "Feel the air",
+			"Go inside"], {"if": "flag.crooked_house_turned and not flag.crooked_man_met"}],
+		["exit", "porch_steps", [], {"if": "flag.crooked_man_met and not flag.vessla_slain"}],
+		["talk", "gilly_jenkin", ["The house looks different", "Lord Phillip and Lady Adela are safe", "How is Dani",
+			"Did you notice anything in the grounds", "That's all for now"], {"if": "flag.vessla_slain"}],
+		["talk", "old_rusty", ["Say the name aloud"], {"if": "flag.patrini_asked_find_son and not flag.rusty_told_patrini"}],
+	],
+	# The Crooked House, one place with four floors: the keepsakes in the spine's order (the peacock's bloodstone, the harpsichord's
+	# key, Petunia's cup, Sally's doll, Arthur's bear, the stuffed bear's pin), each way tried until one lands on the real dice; then
+	# the board (all eight questions), the hatch it names, the six circles and the hag.
+	"crooked_house": [
+		# first floor
+		["use", "h4_peacock", [], {"if": "not flag.memento_gem", "expect": "flag.memento_gem"}],
+		["open", "h4_peacock_stone", [], {"if": "flag.memento_gem", "expect": "item:memento_bloodstone"}],
+		["use", "h5_harpsichord", ["Sit at the bench", "Ask the dead servant", "Draw upon the lingering music", "Wait quietly"],
+			{"if": "not flag.memento_key", "expect": "item:memento_black_key"}],
+		["talk", "petunia_lockwood", ["Ask after her children", "Speak gently of Sally", "Set the doll and the bear",
+			"Tell her you mean to have that cup"], {"if": "not flag.memento_cup", "expect": "flag.petunia_at_peace or flag.petunia_destroyed"}],
+		["use", "h8_cup", ["Pick up the green ribbon"], {"if": "flag.petunia_destroyed and not flag.memento_cup", "expect": "item:memento_porcelain_cup"}],
+		# second floor: the six hiding places until the lurker comes out, then Sally's doll
+		["exit", "stairs_up", []],
+		["check", "h10_closet", ["h10_closet"], {"if": "not quest.sallys_monsters == lurker_dead"}],
+		["check", "h10_bed_left", ["h10_bed_left"], {"if": "not quest.sallys_monsters == lurker_dead"}],
+		["check", "h10_bed_right", ["h10_bed_right"], {"if": "not quest.sallys_monsters == lurker_dead"}],
+		["check", "h10_chest", ["h10_chest"], {"if": "not quest.sallys_monsters == lurker_dead"}],
+		["check", "h10_armoire", ["h10_armoire"], {"if": "not quest.sallys_monsters == lurker_dead"}],
+		["check", "h10_window", ["h10_window"], {"if": "not quest.sallys_monsters == lurker_dead"}],
+		["use", "h10_doll", ["The monster is gone"], {"if": "not flag.memento_doll", "expect": "item:memento_wooden_doll"}],
+		# third floor: the nursery's toys and bear, Arthur, the trophy room's stuffed bear
+		["exit", "stairs_up_second", []],
+		["use", "h13_crib", [], {"if": "not flag.memento_bear", "expect": "flag.memento_bear"}],
+		["open", "h13_crib_bear", [], {"if": "flag.memento_bear", "expect": "item:memento_blue_bear"}],
+		["talk", "arthur_lockwood", ["Speak low and steady", "Sit down with him"], {"if": "not flag.arthur_rested", "expect": "flag.arthur_rested"}],
+		["use", "h15_bear", ["Cut the stitches"], {"if": "not flag.memento_pin", "expect": "item:memento_silver_pin"}],
+		# back down to the parlour for the board, then up again to the hatch
+		["exit", "stairs_down_third", []],
+		["exit", "stairs_down_second", []],
+		["use", "h3_spirit_board", ["Lay our fingertips", "Who are you?", "Who did this to you?", "Where are Phillip", "Who is behind all of this?",
+			"How do we get out of here", "Where is the door to the attic?", "Who is the grey cat?", "What is Shuck", "That is enough", "Let him go"],
+			{"expect": "flag.seance_done"}],
+		["exit", "stairs_up", []],
+		["exit", "stairs_up_second", []],
+		["exit", "up_to_attic", []],
+		# the attic: six circles, the ward, the hag
+		["use", "h16_sockets", ["Look the circles over", "Set the bloodstone"]],
+		["use", "h16_sockets", ["Set the black key"]],
+		["use", "h16_sockets", ["Set the porcelain cup"]],
+		["use", "h16_sockets", ["Set the wooden doll"]],
+		["use", "h16_sockets", ["Set the blue bear"]],
+		["use", "h16_sockets", ["Set the silver pin"]],
+		["talk", "adela_druskenvald_ruse", ["Kneel beside the fallen woman", "Ask what happened to her", "Take her hand"],
+			{"if": "not flag.vessla_slain"}],
+		["talk", "phillip_druskenvald", ["What do the two of you remember", "Look at these two names", "Will you stay on",
+			"What can you tell us about the Ghostlight", "That is all we need"], {"if": "flag.vessla_slain"}],
+		# home: down the ladder and the stairs, out of the porch
+		["exit", "ladder_down", [], {"if": "flag.vessla_slain"}],
+		["exit", "stairs_down_third", [], {"if": "flag.vessla_slain"}],
+		["exit", "stairs_down_second", [], {"if": "flag.vessla_slain"}],
+		["exit", "to_estate", [], {"if": "flag.vessla_slain"}],
+	],
 }
 
 var out_path := ""
@@ -44,6 +134,9 @@ var seed_value := 1
 var book_order := true
 var max_frames := 40000
 var mode := "balanced"
+var checkpoint_path := ""    ## --checkpoint: where to save the game as the Express ends (a directory and a slot)
+var resume_path := ""        ## --resume: a save to start from instead of the title
+var revive := false          ## --revive=1: a fallen hero is brought back between steps (a QA stand-in; nothing in the game raises one yet)
 
 var root: Node = null       ## GameRoot once the game scene is up
 var frame := 0
@@ -59,6 +152,11 @@ var _pilot: PartyAutopilot = null
 var _pilot_e: Encounter = null
 var _fight_rounds := 0
 var _done: Dictionary = {}   ## "loc|i" -> true
+var _rolls := 0              ## skill checks the view has rolled
+var _tries: Dictionary = {}  ## "loc|i" -> how many times a step with an `expect` has been tried
+var _map_busy := false       ## the travel map is showing the party's walk to the place it set out for
+var _want_destination := ""  ## the place to pick if the travel map opens (an exit step's opts "to")
+var _checkpointed := false
 
 
 func _ready() -> void:
@@ -71,6 +169,9 @@ func _ready() -> void:
 	book_order = str(args.get("book-order", "1")) == "1"
 	max_frames = int(args.get("frames", max_frames))
 	mode = str(args.get("mode", mode))
+	checkpoint_path = str(args.get("checkpoint", ""))
+	resume_path = str(args.get("resume", ""))
+	revive = str(args.get("revive", "0")) == "1"
 	SaveSystem.save_dir = "user://qa_saves/%d/" % OS.get_process_id()
 	GameSettings.path = SaveSystem.save_dir.path_join("settings.cfg")
 	Dice.deterministic = true
@@ -83,13 +184,13 @@ func _go() -> void:
 	var end := await _play()
 	var report := {"end": end, "seed": seed_value, "book_order": book_order, "mode": mode, "frames": frame,
 		"ms": Time.get_ticks_msec() - t0, "roster": roster, "blockers": blockers, "notes": notes, "steps": steps,
-		"fights": fights, "toasts": toasts, "stage": GameState.story.quest_stage("ghostlight_express"),
+		"fights": fights, "toasts": toasts, "stage": _stage_key(),
 		"location": GameState.story.location, "quests": _quests(), "party": _party_line(), "choices": choices}
 	var f := FileAccess.open(out_path, FileAccess.WRITE)
 	if f != null:
 		f.store_string(JSON.stringify(report, "  "))
 		f.close()
-	print("qa: act 1 %s, %d blockers, stage %s at %s" % [end, blockers.size(), report["stage"], report["location"]])
+	print("qa: act 1 %s, %d blockers, stage %s at %s, party %s" % [end, blockers.size(), report["stage"], report["location"], report["party"]])
 	get_tree().quit(0)
 
 
@@ -100,9 +201,15 @@ func _quests() -> Dictionary:
 	return out
 
 
+## The three main quests' stages in one line: any change of it is the story moving on.
+func _stage_key() -> String:
+	var st := GameState.story
+	return "%s/%s/%s" % [st.quest_stage("ghostlight_express"), st.quest_stage("wickermoor_arrival"), st.quest_stage("the_crooked_house")]
+
+
 func _block(what: String, detail: String) -> void:
 	var st := GameState.story
-	blockers.append({"what": what, "detail": detail, "location": st.location, "stage": st.quest_stage("ghostlight_express"),
+	blockers.append({"what": what, "detail": detail, "location": st.location, "stage": _stage_key(),
 		"frame": frame, "screen": _screen()})
 	print("qa: BLOCKER %s: %s" % [what, detail])
 
@@ -179,6 +286,8 @@ func _play() -> String:
 	get_tree().root.add_child(menu)
 	get_tree().current_scene = menu
 	await _frames(10)
+	if resume_path != "":
+		return await _play_from_save(menu)
 	if not _press(menu, "New game"):
 		return "blocked_title"
 	await _frames(5)
@@ -215,17 +324,64 @@ func _play() -> String:
 	if not await _until(_idle, 4000):
 		_block("opening", "the opening conversation never ended")
 		return "blocked_opening"
-	# The plan, place by place, until the Express is over and the party is on the road.
+	return await _plan_loop()
+
+
+## Starts from a save (--resume=<dir>/<slot>) the way the title's Load does; the Express is taken as played.
+func _play_from_save(menu: Node) -> String:
+	var slot := resume_path.get_file()
+	var dir := resume_path.get_base_dir()
+	var err := SaveSystem.load_from(dir, slot)
+	if err != OK:
+		_block("resume", "the save %s didn't load (error %d)" % [resume_path, err])
+		return "blocked_resume"
+	menu.get_tree().change_scene_to_file("res://scenes/game.tscn")
+	var up := await _until(func() -> bool: return get_tree().current_scene != null and get_tree().current_scene.get("view") != null \
+		and get_tree().current_scene != menu, 900)
+	if not up:
+		_block("start", "the game scene never came up after loading %s" % resume_path)
+		return "blocked_start"
+	root = get_tree().current_scene
+	Dice.reseed(seed_value)   # the save held the dice where the first run left them: every seed plays its own rolls from here
+	notes.append("Resumed from %s: %s" % [resume_path, _party_line()])
+	_listen(root.get("view") as LocationView)
+	for place: String in PLAN:
+		if place.begins_with("ghostlight_"):
+			var plan := PLAN[place] as Array
+			for i in plan.size():
+				if not (place == "ghostlight_wreckage" and i == plan.size() - 1):
+					_done["%s|%d" % [place, i]] = true
+	await _until(_idle, 1200)
+	return await _plan_loop()
+
+
+## The plan, place by place, until the Crooked House is done (Vessla dead, the Lord thanked, the party home at the estate).
+func _plan_loop() -> String:
 	var guard := 0
-	while frame < max_frames and guard < 200:
+	while frame < max_frames and guard < 400:
 		guard += 1
 		var st := GameState.story
-		if st.quest_ended("ghostlight_express") and st.location != "ghostlight_wreckage" or _travel_open():
-			return "done"
 		if root.get("ending") != null or _game_over():
 			_block("game_over", "the game ended (the party fell where no retry catches it)")
 			return "game_over"
+		if checkpoint_path != "" and not _checkpointed and bool(st.get_flag("gl_last_stop")) and st.location == "ghostlight_wreckage" \
+				and _idle():
+			_checkpointed = true
+			DirAccess.make_dir_recursive_absolute(checkpoint_path.get_base_dir())
+			var err := AtomicJson.write(checkpoint_path.get_base_dir().path_join(checkpoint_path.get_file() + ".json"), GameState.to_dict())
+			notes.append("Checkpoint %s saved (error %d)" % [checkpoint_path, err])
 		var here := st.location
+		if Travel.is_road_scene(here):
+			# A journey stopped on its road by a meeting or a fight; the road goes on by itself once that is dealt with.
+			notes.append("on the road at %s (stage %s)" % [here, _stage_key()])
+			if not await _until(func() -> bool: return not Travel.is_road_scene(st.location) and _idle(), 6000):
+				_block("road", "the journey stopped at %s and never went on (screen: %s)" % [here, _screen()])
+				return "stuck_on_road"
+			continue
+		if st.quest_stage("the_crooked_house") == "done" and bool(st.get_flag("druskenvald_manor_restored")) and here == "druskenvald_estate" \
+				and _next_step(here) < 0:
+			await _level_ups()
+			return "done"
 		var plan := PLAN.get(here, []) as Array
 		if plan.is_empty():
 			if here == CrookedMoonCampaign.limbo_place():
@@ -234,20 +390,51 @@ func _play() -> String:
 			_block("place", "no plan for '%s' (the party arrived somewhere the book's route doesn't go)" % here)
 			return "blocked_place"
 		await _level_ups()
+		_revive_the_fallen()
 		await _rest_if_hurt()
-		var acted := false
-		for i in plan.size():
-			var key := "%s|%d" % [here, i]
-			if _done.has(key):
-				continue
-			_done[key] = true
-			await _do(plan[i] as Array, here)
-			acted = true
-			break
-		if not acted:
-			_block("stuck", "every step of %s's plan is done and the party is still here (stage %s)" % [here, st.quest_stage("ghostlight_express")])
+		var at := _next_step(here)
+		if at < 0:
+			_block("stuck", "every step of %s's plan is done or not due and the party is still here (stages %s)" % [here, _stage_key()])
 			return "stuck"
+		var key := "%s|%d" % [here, at]
+		_done[key] = true
+		var step := plan[at] as Array
+		await _do(step, here)
+		# A step that names what it should have brought (opts "expect") is tried again, up to three times, then reported.
+		if step.size() > 3 and (step[3] as Dictionary).has("expect") and not StoryConditions.check(str((step[3] as Dictionary)["expect"]), st):
+			_tries[key] = int(_tries.get(key, 0)) + 1
+			if int(_tries[key]) < 3:
+				_done.erase(key)
+				notes.append("%s %s did not bring %s; trying again" % [step[0], step[1], (step[3] as Dictionary)["expect"]])
+			else:
+				_block("expect", "%s %s in %s three times and still not %s (stages %s)" % [step[0], step[1], here, (step[3] as Dictionary)["expect"], _stage_key()])
 	return "out_of_frames"
+
+
+## --revive: heroes who are dead come back at full Hit Points, each time noted.
+func _revive_the_fallen() -> void:
+	if not revive:
+		return
+	var st := GameState.story
+	for ch in st.party:
+		if ch.dead:
+			Services.bring_back(st, ch, true, false, "QA stand-in")
+			notes.append("%s: %s was dead and is brought back (the --revive stand-in) at stage %s" % [st.location, ch.name, _stage_key()])
+
+
+## The first step of this place's plan not done yet whose condition (opts "if") holds, or -1.
+func _next_step(here: String) -> int:
+	var plan := PLAN.get(here, []) as Array
+	for i in plan.size():
+		if _done.has("%s|%d" % [here, i]):
+			continue
+		var step := plan[i] as Array
+		if _tries.has("%s|%d" % [here, i]):
+			return i   # a step tried again for what it should have brought, whatever its condition says now
+		if step.size() > 3 and not StoryConditions.check(str((step[3] as Dictionary).get("if", "")), GameState.story):
+			continue
+		return i
+	return -1
 
 
 var _listening: Dictionary = {}
@@ -261,11 +448,36 @@ func _listen(v: LocationView) -> void:
 	_listening[v.get_instance_id()] = true
 	v.toast.connect(func(t: String) -> void: toasts.append("%s: %s" % [v.loc_id, t]))
 	v.narration.connect(func(t: String) -> void: toasts.append("%s (narration): %s" % [v.loc_id, t]))
-	v.check_rolled.connect(func(t: String) -> void: toasts.append("%s (roll): %s" % [v.loc_id, t]))
+	v.check_rolled.connect(func(t: String) -> void:
+		_rolls += 1
+		toasts.append("%s (roll): %s" % [v.loc_id, t]))
 
 
 func _travel_open() -> bool:
-	return root != null and root.get("screen") != null and str((root.get("screen") as Node).get_class()).contains("Travel")
+	var scr: Variant = root.get("screen") if root != null else null
+	return scr is TravelScreen or scr is OverworldScreen
+
+
+## The travel map is up (a road out that leads to a choice of places opens it): picks `to` as a player does, its name on the map and
+## then Set out. False, with a blocker, when the map doesn't offer it or won't let the party set out.
+func _choose_destination(to: String) -> bool:
+	var scr: Node = root.get("screen")
+	var offered: Array[String] = []
+	if scr is OverworldScreen:
+		for p: Dictionary in (scr as OverworldScreen).destinations():
+			offered.append(str(p["id"]))
+	if to == "" or (scr is OverworldScreen and not to in offered):
+		_block("travel", "the travel map doesn't offer %s (it offers: %s)" % [to, ", ".join(offered)])
+		root.call("close_screen")
+		return false
+	scr.call("select", to)
+	await _frames(3)
+	if not _press(scr, "Set out"):
+		root.call("close_screen")
+		return false
+	_map_busy = true
+	notes.append("%s: on the travel map chose %s and set out" % [GameState.story.location, to])
+	return true
 
 
 func _game_over() -> bool:
@@ -322,7 +534,8 @@ func _rest_if_hurt() -> void:
 	if root.get("screen") != null:
 		root.call("close_screen")
 		await _frames(2)
-	notes.append("%s: rested. Before: %s. After: %s" % [st.location, before, _party_line()])
+	if before != _party_line():
+		notes.append("%s: rested. Before: %s. After: %s" % [st.location, before, _party_line()])
 
 
 ## Levels the story allows are taken as the player takes them: the level-up screen for each hero who can, its
@@ -392,22 +605,59 @@ static func _button_named(n: Node, text: String) -> BaseButton:
 func _idle() -> bool:
 	var v: LocationView = root.get("view")
 	return root.get("dialogue") == null and root.get("loot") == null and v != null and not v.busy and not v.in_combat \
-		and not bool(root.get("moving")) and v._queue.is_empty() and not v._on_arrive.is_valid()
+		and not bool(root.get("moving")) and v._queue.is_empty() and not v._on_arrive.is_valid() \
+		and not _prompt_up() and root.get("screen") == null
+
+
+## A question over the place that waits for an answer: Guidance before a check, or an aid to spend on a failed one.
+func _prompt_up() -> bool:
+	var g: Variant = root.get("guidance")
+	var a: Variant = root.get("_prompting")
+	return (g != null and is_instance_valid(g as Object)) or (a != null and is_instance_valid(a as Object))
 
 
 # --- Steps -------------------------------------------------------------------------------------------
+
+## The square of a prop, container, door or exit of this place by its id, or null.
+func _cell_of(v: LocationView, id: String) -> Variant:
+	var c: Variant = v.prop_cell(id)
+	if c != null:
+		return c
+	for key: String in ["containers", "doors"]:
+		for t: Variant in v.loc.get(key, []):
+			if str((t as Dictionary).get("id", "")) == id:
+				return LocationView._cell((t as Dictionary)["cell"])
+	return null
+
+
+## The floor of the place the leader stands on (a multi-floor place's stairs are exits to the place itself).
+func _floor_of(v: LocationView) -> int:
+	return v.grid.floor_index(v.leader().cell)
+
 
 func _do(step: Array, here: String) -> void:
 	var kind := str(step[0])
 	var target := str(step[1])
 	var picks := (step[2] as Array).duplicate()
 	var st := GameState.story
-	var before := st.quest_stage("ghostlight_express")
+	var before := _stage_key()
 	var rec := {"place": here, "step": "%s %s" % [kind, target], "frame": frame}
 	await _until(_idle, 1200)
 	var v: LocationView = root.get("view")
 	_listen(v)
+	if kind == "saveload":
+		await _save_and_load()
+		rec["result"] = "saved and loaded"
+		steps.append(rec)
+		return
+	if kind == "rest":
+		await _take_a_room()
+		rec["result"] = "rested"
+		steps.append(rec)
+		return
 	var cell := Vector2i(-1, -1)
+	var exit_within := false
+	_want_destination = str((step[3] as Dictionary).get("to", "")) if step.size() > 3 else ""
 	match kind:
 		"talk":
 			for e: Dictionary in v._npc_shown:
@@ -416,9 +666,9 @@ func _do(step: Array, here: String) -> void:
 					break
 			if cell.x < 0:
 				# Not a blocker by itself: the story may have moved past them (the Phantom comes at the party on its own).
-				notes.append("%s isn't standing in %s to talk to (stage %s); step skipped" % [target, here, st.quest_stage("ghostlight_express")])
-		"use":
-			var c: Variant = v.prop_cell(target)
+				notes.append("%s isn't standing in %s to talk to (stage %s); step skipped" % [target, here, _stage_key()])
+		"use", "open", "check":
+			var c: Variant = _cell_of(v, target)
 			if c == null:
 				_block("prop", "%s isn't in %s" % [target, here])
 			else:
@@ -459,6 +709,7 @@ func _do(step: Array, here: String) -> void:
 				var e := x as Dictionary
 				if str(e["id"]) == target:
 					cell = Vector2i(int((e["cell"] as Array)[0]), int((e["cell"] as Array)[1]))
+					exit_within = str(e["to"]) == v.loc_id
 					if not StoryConditions.check(str(e.get("when", "")), st):
 						_block("exit", "the way out '%s' of %s is shut: %s" % [target, here, e.get("locked_text", e.get("when", ""))])
 						cell = Vector2i(-1, -1)
@@ -471,6 +722,8 @@ func _do(step: Array, here: String) -> void:
 		steps.append(rec)
 		return
 	var loc_before := st.location
+	var floor_before := _floor_of(v)
+	var rolls_before := _rolls
 	# What the click should bring: the person's or prop's own conversation, else (an examine) anything said or set.
 	var want_refs: Array[String] = []
 	if kind == "talk":
@@ -482,23 +735,40 @@ func _do(step: Array, here: String) -> void:
 			if str((p as Dictionary)["id"]) == target:
 				want_refs.append(str((p as Dictionary).get("dialogue", "")))
 				want_refs.append(str((p as Dictionary).get("call", "")))
+	var check_id := target
+	if kind == "check":
+		check_id = str(picks[0]) if not picks.is_empty() else target
+		picks = []   # the check's id is not a menu pick
 	var heard := [false]
+	var settle := [0]
 	var toasts_before := toasts.size()
 	var reached := func() -> bool:
 		if st.location != loc_before:
 			return true
 		if kind == "exit":
-			return false
+			return exit_within and _floor_of(root.get("view") as LocationView) != floor_before
 		if kind == "search":
 			return bool((st.loc_state(st.location)["props"] as Dictionary).get(target, false))
+		if kind == "open":
+			return bool((st.loc_state(st.location)["looted"] as Dictionary).get(target, false))
+		if kind == "check":
+			return _rolls > rolls_before
 		if str(root.get("_dialogue_ref")) in want_refs and root.get("dialogue") != null:
 			heard[0] = true
-		if heard[0] or st.quest_stage("ghostlight_express") != before:
+		if heard[0] or _stage_key() != before:
 			return true
 		var lv: LocationView = root.get("view")
-		if kind == "use" and want_refs.all(func(r: String) -> bool: return r == "") and toasts.size() > toasts_before:
+		if lv != null and lv.in_combat:
 			return true
-		return lv != null and lv.in_combat
+		if kind == "use" and want_refs.all(func(r: String) -> bool: return r == "") and lv != null and lv.leader() != null:
+			# A prop with no conversation of its own is used by standing beside it with nothing more coming (a fight, a line).
+			var at := lv.leader().cell
+			if maxi(absi(at.x - cell.x), absi(at.y - cell.y)) <= 1 and _idle():
+				settle[0] += 1
+			else:
+				settle[0] = 0
+			return settle[0] >= 8
+		return false
 	var trail: Array[String] = []
 	var ok := false
 	for attempt in 8:
@@ -513,7 +783,10 @@ func _do(step: Array, here: String) -> void:
 			notes.append("%s %s at %s: leader at %s, path %d squares" % [kind, target, cell, lv.leader().cell,
 				lv._path(lv.leader().cell, cell).size()])
 		# A walk cut short (a call, an area's line, a fight) is clicked again, as a player would.
-		lv.click(cell)
+		if kind == "check":
+			root.call("world_action", cell, "check:" + check_id)
+		else:
+			lv.click(cell)
 		await _frames(3)
 		await _until(func() -> bool: return bool(reached.call()) or _idle(), 3000, picks)
 		trail.append(str(lv.leader().cell) if is_instance_valid(lv) and lv.leader() != null else "-")
@@ -529,16 +802,132 @@ func _do(step: Array, here: String) -> void:
 				target, here, " | ".join(toasts.slice(toasts_before).slice(-3))])
 	if not await _until(_idle, 20000, picks):
 		_block("hang", "after %s %s the game never came back to exploring (screen: %s)" % [kind, target, _screen()])
-	rec["stage"] = st.quest_stage("ghostlight_express")
+	rec["stage"] = _stage_key()
 	rec["now_at"] = st.location
 	rec["party"] = _party_line()
 	rec["quests"] = _quests()
 	steps.append(rec)
 
 
+## A save made through the game's own quick save and loaded again as the Continue button does (the scene is rebuilt): nothing the
+## story holds may differ, and the party must stand where it stood.
+func _save_and_load() -> void:
+	var st := GameState.story
+	var v: LocationView = root.get("view")
+	var where := st.location
+	var at := v.leader().cell
+	var before := JSON.stringify(st.to_dict().get("story", {}), "", true)
+	root.call("_quick_save")
+	await _frames(5)
+	var slot := SaveSystem.current_slot
+	if slot == "" or not SaveSystem.has_slot(slot):
+		_block("save", "the quick save wrote no slot (current slot '%s')" % slot)
+		return
+	var err := SaveSystem.load_slot(slot)
+	if err != OK:
+		_block("load", "the save %s didn't load (error %d)" % [slot, err])
+		return
+	var old := root
+	get_tree().reload_current_scene()
+	var up := await _until(func() -> bool: return get_tree().current_scene != null and get_tree().current_scene != old \
+		and get_tree().current_scene.get("view") != null, 900)
+	if not up:
+		_block("load", "the game scene never came back after loading %s" % slot)
+		return
+	root = get_tree().current_scene
+	await _until(_idle, 1200)
+	_listen(root.get("view") as LocationView)
+	st = GameState.story
+	v = root.get("view")
+	var after := JSON.stringify(st.to_dict().get("story", {}), "", true)
+	if st.location != where:
+		_block("load", "the load put the party in %s, not %s" % [st.location, where])
+	elif v.leader().cell != at:
+		notes.append("%s: saved with the leader at %s, loaded at %s" % [where, at, v.leader().cell])
+	var diffs: Array[String] = []
+	_differences(JSON.parse_string(before), JSON.parse_string(after), "", diffs)
+	if not diffs.is_empty():
+		_block("load", "after a save and a load the story differs (%d): %s" % [diffs.size(), "; ".join(diffs.slice(0, 8))])
+	else:
+		notes.append("%s: saved to %s and loaded; the story, the party and the place are as they were" % [where, slot])
+	# The game goes on from the loaded scene: the plan's progress is the driver's own, and the story's flags came back with it.
+
+
+## Where two saved values differ, as paths ("flags.x: true -> <none>").
+func _differences(a: Variant, b: Variant, path: String, out: Array[String]) -> void:
+	if a is Dictionary and b is Dictionary:
+		var keys: Dictionary = {}
+		for k: Variant in (a as Dictionary).keys() + (b as Dictionary).keys():
+			keys[k] = true
+		for k: Variant in keys:
+			_differences((a as Dictionary).get(k, "<none>"), (b as Dictionary).get(k, "<none>"), "%s.%s" % [path, k], out)
+	elif a is Array and b is Array and (a as Array).size() == (b as Array).size():
+		for i in (a as Array).size():
+			_differences((a as Array)[i], (b as Array)[i], "%s[%d]" % [path, i], out)
+	elif typeof(a) != typeof(b) or a != b:
+		out.append("%s: %s -> %s" % [path.trim_prefix("."), str(a).left(60), str(b).left(60)])
+
+
+## The night at the inn: the services screen's room if the keeper lets one, else the Rest screen; what is refused is noted.
+func _take_a_room() -> void:
+	var st := GameState.story
+	root.call("open_screen", "rest", 0)
+	await _frames(4)
+	var scr: Variant = root.get("screen")
+	if not scr is RestScreen:
+		notes.append("%s: the Rest screen didn't open" % st.location)
+		return
+	var rs := scr as RestScreen
+	var long_why := RestRules.long_rest_refusals(st)
+	if long_why.is_empty():
+		var all: Array[Button] = []
+		_buttons(rs, all)
+		var taken := false
+		for b in all:
+			if (b.text.begins_with("Take a Long Rest") or b.text.begins_with("Make camp") or b.text.begins_with("Sleep")) and not b.disabled:
+				b.pressed.emit()
+				taken = true
+				break
+		if taken:
+			await _until(_idle, 3000)
+			notes.append("%s: took a Long Rest from the Rest screen" % st.location)
+		else:
+			var seen: Array[String] = []
+			for b in all:
+				seen.append(b.text + (" (disabled)" if b.disabled else ""))
+			notes.append("%s: the Rest screen offers no Long Rest button (buttons: %s)" % [st.location, ", ".join(seen)])
+	else:
+		notes.append("%s: Long Rest refused: %s" % [st.location, " ".join(long_why)])
+	if root.get("screen") != null:
+		root.call("close_screen")
+		await _frames(2)
+
+
 # --- What comes up: conversations, fights, loot --------------------------------------------------------
 
 func _drive(picks: Array) -> void:
+	if root != null and not _travel_open():
+		_map_busy = false
+	if root != null and _travel_open():
+		if _map_busy:
+			return   # the party is walking the map to the place it set out for; the map hands back when it arrives
+		if _want_destination == "":
+			_block("travel", "a travel map opened where the plan wanted none (stage %s)" % _stage_key())
+			root.call("close_screen")
+		else:
+			var to := _want_destination
+			_want_destination = ""   # one try; a refusal is a blocker
+			await _choose_destination(to)
+		return
+	if root != null:
+		var g: Variant = root.get("guidance")
+		if g != null and is_instance_valid(g as Object):
+			(g as Object).call("_answer", -1)   # no Guidance cast
+			return
+		var a: Variant = root.get("_prompting")
+		if a != null and is_instance_valid(a as Object):
+			(a as Object).call("_answer", "")   # the failure stands
+			return
 	var d: DialogueUI = root.get("dialogue") if root != null else null
 	if d != null and is_instance_valid(d):
 		_talk(d, picks)

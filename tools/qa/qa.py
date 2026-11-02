@@ -5,10 +5,11 @@
   python3 tools/qa/qa.py fights [--out DIR] [--seeds 1-8] [--modes story,balanced,tactician,honour] [--only loc:id,id]
                                 [--regions a,b] [--jobs N] [--play auto|plain|sharp|full] [--levels FILE]
   python3 tools/qa/qa.py report [--out DIR]
-  python3 tools/qa/qa.py act1   [--out DIR] [--seeds 1-4] [--mode balanced] [--shuffled]
+  python3 tools/qa/qa.py act1   [--out DIR] [--seeds 1-4] [--mode balanced] [--shuffled] [--checkpoint DIR/SLOT] [--resume DIR/SLOT]
 
 act1    plays tools/qa/act1_player.tscn: the real title, roster and difficulty pages, then the real game scene driven by
-        clicks, to the end of the Ghostlight Express; prints each run's blockers.
+        clicks, through the Ghostlight Express, Wickermoor and the Crooked House to Vessla dead at level 4; prints each
+        run's blockers. --checkpoint saves the game where the Express ends; --resume starts from such a save.
 
 story   plays tools/qa/story_bot.tscn once per seed and writes story-<dice>-<seed>.json, plus levels.json (the level the
         party reached each fight at, which `fights` then reads).
@@ -167,8 +168,13 @@ def cmd_act1(a: argparse.Namespace) -> int:
         out = os.path.join(a.out, tag + ".json")
         log = os.path.join(a.out, tag + ".log")
         t = time.time()
+        extra = [f"--checkpoint={a.checkpoint}"] if a.checkpoint else []
+        if a.resume:
+            extra.append(f"--resume={a.resume}")
+        if a.revive:
+            extra.append("--revive=1")
         code = godot("res://tools/qa/act1_player.tscn", [f"--out={out}", f"--seed={s}", f"--mode={a.mode}",
-                     f"--book-order={1 if a.book_order else 0}"], a.timeout, log)
+                     f"--book-order={1 if a.book_order else 0}"] + extra, a.timeout, log)
         errs = script_errors(log)
         if code != 0 or not os.path.exists(out):
             print(f"{tag}: Godot exited {code}; see {log}")
@@ -324,6 +330,9 @@ def main() -> int:
             s.add_argument("--mode", default="balanced")
             s.add_argument("--book-order", dest="book_order", action="store_true", default=True)
             s.add_argument("--shuffled", dest="book_order", action="store_false")
+            s.add_argument("--checkpoint", default="", help="save the game as the Express ends: /abs/dir/slot")
+            s.add_argument("--resume", default="", help="start from that save instead of the title: /abs/dir/slot")
+            s.add_argument("--revive", action="store_true", help="bring a fallen hero back between steps (a stand-in; noted in the report)")
         if name == "fights":
             s.add_argument("--seeds", default="1-8")
             s.add_argument("--modes", default=",".join(MODES))
