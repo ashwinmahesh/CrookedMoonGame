@@ -8,10 +8,10 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 |---|---|---|
 | Portraits for the 144 missing NPCs: 148 photoreal portrait jobs are queued at normal priority (the image server is paused) | In progress (queued, waiting on the server) | [Portraits](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoMVcF4yx8zrzvExbupWQsVL) |
 | Audit all visual effects: each gets a selection room and its own colour, size and speed settings (melee hit effects are landed; the other effects are next) | In progress | [Melee hit effects](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoHUCbLptUKMrnux7PbW3KTT) |
-| The full 3D grid build, lane 1: the grid rules (Ashwin's go, 2026-11-02; four parallel lanes, this comes first) | In progress (phase 1, floors and layers in three dimensions, is landed) | [Build the full 3D grid](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoEP6W92Q8En8FU5Ua72qWcK) |
+| The full 3D grid build, lane 1: the grid rules (Ashwin's go, 2026-11-02; four parallel lanes, this comes first) | In progress (phase 1, floors and layers in three dimensions, and the aura fix across floors, are landed) | [Build the full 3D grid](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoEP6W92Q8En8FU5Ua72qWcK) |
 | The full 3D grid build, lane 2: layered places in Act I | In progress | [Build layered places in Act I](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo9STS4ZhgYZszF24W7LcF77) |
 | The full 3D grid build, lane 3: layered places in Act II | In progress | [Build layered places in Act II](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo4fZ26frPet33HksJfHHDy9) |
-| The full 3D grid build, lane 4: fights work across floors | In progress | [Make fights work across floors](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoHbeq9yV8Dzht48g6u97Fnc) |
+| The full 3D grid build, lane 4: fights work across floors | Partly done: picking, previews, the cutaway and enemies on stairs are landed; a controller button for the storey keys and a capture are still to come | [Make fights work across floors](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoHbeq9yV8Dzht48g6u97Fnc) |
 | Act III playable end to end (Ashwin, 2026-11-02) | On hold: starts once the full 3D grid build is done (Ashwin's order) | [Make Act III playable end to end](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoJ6oZfYVoFQJfnjMy151uen) |
 | Weapons and pack animations (Rook's switch to pack clips waits on Ashwin's verdict) | In progress | [Weapons/pack animations](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoWHuBM7pdpdhmz86LEs2vUs) |
 | Cel cutscene stills (docs-cutscenes-cel 28081e80 queued) | In progress | [Look/title](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoCCPX3moU1VgdtYuw77oSqT) |
@@ -47,6 +47,8 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **Fights across floors (part one)** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoHbeq9yV8Dzht48g6u97Fnc)): you pick, aim and preview on every storey, the cutaway follows whoever is acting, the = and - keys move the view a storey, and enemies climb to a hero upstairs and archers shoot down a stairwell. (Engine ed6679c1, game fa4e7789.)
+- **Auras across floors**: each square is measured where it stands in the building, and an aura reaches another floor only with a line of effect (past a bridge's edge, never through the boards). (Engine cf80a98a, game dac1a050.)
 - **Full 3D grid rules, phase 1** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoEP6W92Q8En8FU5Ua72qWcK)): the engine's grid has floors and layers in three dimensions, with deviations for railings, flying and climbing between floors, and areas across floors, giving lanes B1 and C a base. (Engine e7049dad, game 6debb5dd.)
 - **An NPC in Wickermoor Hollow raises dead heroes for a price** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoPPR4UsoGK7bQTEnN8LobsA)): Mori Shade at the funeral home, 100 gp per party level, open 07:00-23:00. (Engine b6ae441d, game fdff89cf to 966d2eef.) Do not rerun `tools/content/build_wickermoor.py` over data/npcs: it is out of date and would reset the sprite ids.
 - **The 12 subclass spell swaps**: Ashwin reviewed and approved the swaps that replace spells which left the game (2026-11-02).
