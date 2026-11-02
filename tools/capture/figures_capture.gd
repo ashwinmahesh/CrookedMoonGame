@@ -10,8 +10,8 @@ extends Node
 ## item in its main hand, round again after the last, - for none (a row of figures, one weapon each), and --off= the same for
 ## the off hand; --bands, --ink, --flatten, --vivid, --floor, --rim: the figures' look
 ## (Look.figure_settings); --hold=hooded_lantern@off_hand,torch@main_hand: what the row holds (a figure whose entry
-## shows `gear` wears its part); --only=reel steps the row through idle, walk, run, attack and talk at --fps (12) frames
-## a second and then orbits it, a frame per shot (<out>_reel_<nnnn>.png, for a GIF); --only=place,lineup,turns,poses picks shots, and --only=clip --clip=slash freezes the row at
+## shows `gear` wears its part); --only=reel steps the row through idle, walk, run, attack, cast and talk at --fps (12) frames
+## a second and then orbits it, a frame per shot (<out>_reel_<nnnn>.png, for a GIF; --turn and --tilt swing the camera first); --only=place,lineup,turns,poses picks shots, and --only=clip --clip=slash freezes the row at
 ## points through one clip instead (to choose a manifest's window). Shots: <out>_<shot>.png.
 ## Headless with --probe it prints what each figure's model holds instead: its clips, the walk's stride and footfalls,
 ## and where its right hand moves fastest in its attack (for a manifest's attack window).
@@ -195,25 +195,51 @@ func _reel(tool: Node, out: String, line: Array, rig: CameraRig) -> void:
 	mid.global_position = centre / float(line.size())
 	rig.follow = mid
 	rig.distance = CameraRig.ZOOM_MIN
+	# --turn and --tilt (degrees): the camera swung round and lowered from the play view, to see a swing from the side.
+	if _arg("turn", "") != "":
+		rig.turn_by(float(_arg("turn", "0")))
+	if _arg("tilt", "") != "":
+		rig.tilt_by(float(_arg("tilt", "0")))
 	rig.snap_to_target()
 	await tool.call("wait_frames", 30)
 	var n := 0
-	# role, clip, from, to (seconds; a looping clip runs on past its end)
-	for seg: Array in [["idle", "idle", 0.0, 2.5], ["walk", "walk", 0.0, 2.4], ["run", "run", 0.0, 2.6],
-			["attack", "slash", 1.25, 2.85], ["talk", "agree", 0.0, 3.0]]:
-		var steps := int(round((float(seg[3]) - float(seg[2])) * fps))
+	# role and seconds: a loop runs in real time (round again past its end); a one-off (each figure's own attack window,
+	# or its cast with its lead-in and follow-through) is spread over the seconds, so figures with different clips keep
+	# in step. A figure with no clip for a role idles through it.
+	for seg: Array in [["idle", 2.5], ["walk", 2.4], ["run", 2.6], ["attack", 1.6], ["cast", 1.6], ["talk", 3.0]]:
+		var steps := int(round(float(seg[1]) * fps))
 		for k in steps:
 			for t: CombatToken in line:
 				var fig := t.sprite as ModelFigure
 				if fig == null or fig._player == null:
 					continue
 				fig.set_process(false)
-				var clip := ModelFigure.clip_named(fig._player.get_animation_list(), str(seg[1]))
-				if clip == "":
+				var chain := _chain(fig, str(seg[0]))
+				var real := str(seg[0]) in ["idle", "walk", "run", "talk"]
+				if chain.is_empty():
+					chain = _chain(fig, "idle")
+					real = true
+				if chain.is_empty():
 					continue
-				var length := fig._player.get_animation(clip).length
-				fig._player.play(clip)
-				fig._player.seek(fmod(float(seg[2]) + float(k) / fps, maxf(length, 0.01)), true)
+				var at := float(k) / fps
+				var total := 0.0
+				for c: Array in chain:
+					total += float(c[2]) - float(c[1])
+				var u := at if real else float(k) / float(maxi(steps - 1, 1)) * total
+				var pick := chain[0] as Array
+				var into := 0.0
+				if real:
+					into = fmod(at, maxf(float(pick[2]) - float(pick[1]), 0.01))
+				else:
+					for c: Array in chain:
+						pick = c
+						into = u
+						if u <= float(c[2]) - float(c[1]):
+							break
+						u -= float(c[2]) - float(c[1])
+					into = minf(into, float(pick[2]) - float(pick[1]))
+				fig._player.play(str(pick[0]))
+				fig._player.seek(float(pick[1]) + into, true)
 				fig._player.pause()
 			await tool.call("wait_frames", 2)
 			tool.call("_shot", "%s_reel_%04d_%s.png" % [out, n, seg[0]])
@@ -233,6 +259,35 @@ func _reel(tool: Node, out: String, line: Array, rig: CameraRig) -> void:
 		await tool.call("wait_frames", 2)
 		tool.call("_shot", "%s_reel_%04d_turn.png" % [out, n])
 		n += 1
+
+
+## The clips `fig` plays for `role`, as [clip, from, to] (seconds): its role's window, with a cast's lead-in, hold and
+## follow-through when its spec names them ("lead", "hold", "after"); a cast on a model with the pack's spell clips and no
+## cast role yet plays those (enter, shoot, exit).
+func _chain(fig: ModelFigure, role: String) -> Array:
+	var names := fig._player.get_animation_list()
+	var out: Array = []
+	var add := func(clip: Variant, from := 0.0, to := -1.0) -> void:
+		var name := ModelFigure.clip_named(names, str((clip as Dictionary).get("clip", "")) if clip is Dictionary else str(clip))
+		if name != "":
+			var length := fig._player.get_animation(name).length
+			out.append([name, from, length if to < 0.0 else minf(to, length)])
+	var specs := fig._roles.get(role, []) as Array
+	if specs.is_empty():
+		if role == "cast":
+			for clip: String in ["Spell_Simple_Enter", "Spell_Simple_Shoot", "Spell_Simple_Exit"]:
+				add.call(clip)
+		return out
+	var spec := specs[0] as Dictionary
+	if spec.has("lead"):
+		add.call(spec["lead"])
+	if spec.has("hold"):
+		add.call(spec["hold"], 0.0, float((spec["hold"] as Dictionary).get("seconds", 0.3)) if spec["hold"] is Dictionary else 0.3)
+	var length := fig._player.get_animation(str(spec["name"])).length
+	out.append([str(spec["name"]), float(spec.get("from", 0.0)), minf(float(spec.get("to", length)), length)])
+	if spec.has("after"):
+		add.call(spec["after"])
+	return out
 
 
 ## Every figure in the manifest in a row across the screen in front of the party, facing the camera; their tokens,

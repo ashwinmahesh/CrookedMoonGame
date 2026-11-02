@@ -184,9 +184,9 @@ const FREE_PACKS: Array[String] = ["quaternius_universal_base_characters", "quat
 		"quaternius_modular_character_outfits_fantasy_source", "quaternius_medieval_village_megakit_source",
 		"quaternius_fantasy_props_megakit_source", "quaternius_universal_animation_library_source"]
 ## The weapons held, by the item that shows them: the engine's item ids, and the part each is drawn as (no mace, scimitar or
-## sickle: none of the free packs has one).
+## sickle: none of the free packs has one). The swords are the Fantasy Props MegaKit's (tools/art/prop_weapons.py).
 const FREE_WEAPONS := {"dagger": "dagger", "spear": "spear", "quarterstaff": "staff", "greataxe": "greataxe", "shortbow": "bow",
-		"longbow": "bow"}
+		"longbow": "bow", "greatsword": "sword_great", "longsword": "sword_long", "shortsword": "sword_short"}
 const TRIANGLE_LIMIT := 50000
 
 
@@ -228,6 +228,33 @@ func test_the_free_weapons_are_held_on_the_right_hand_and_shown_for_their_items(
 		ch.equip(item, "main_hand")
 		for art: String in ["villager_gray", "rook_coldwake", "the_vagrant"]:
 			assert_true(part in FigureModels.gear_for(art, ch), "%s wears the %s for a %s" % [art, part, item])
+
+
+func test_a_shield_is_held_in_the_off_hand() -> void:
+	assert_true(FigureModels.has_part("shield_wooden"), "the wooden shield's model is in the repo")
+	var ch := Pregens.build("tobin_hayward", 1)
+	assert_eq(ch.held_id("off_hand"), "shield", "Tobin carries his shield")
+	assert_true("shield_wooden@off" in FigureModels.gear_for("tobin_hayward", ch), "and his figure holds it in the left hand")
+
+
+## Rook's trial figure on the Universal Animation Library's clips (tools/art/retarget_clips.py): the pack's sword swing, spell
+## and walk baked onto his Tripo skeleton, beside his own figure, holding his greatsword.
+func test_rook_on_the_pack_clips_holds_his_greatsword_and_swings_it() -> void:
+	var ch := Pregens.build("rook_coldwake", 1)
+	assert_eq(ch.held_id("main_hand"), "greatsword", "Rook starts with his greatsword in hand")
+	for art: String in ["rook_coldwake", "rook_coldwake_ual"]:
+		assert_true("sword_great" in FigureModels.gear_for(art, ch), "%s holds it" % art)
+	var fig := DirectionalSprite.create(DirectionalSprite.frames_for("rook_coldwake_ual"), CombatToken.height_for("rook_coldwake_ual")) as ModelFigure
+	add_child(fig)
+	var names := fig._player.get_animation_list()
+	for clip: String in ["Sword_Attack", "Sword_Idle", "Spell_Simple_Enter", "Spell_Simple_Idle", "Spell_Simple_Shoot",
+			"Spell_Simple_Exit", "Walk", "slash"]:
+		assert_ne(ModelFigure.clip_named(names, clip), "", "the trial figure has %s" % clip)
+	assert_eq(str(((fig._roles["attack"] as Array)[0] as Dictionary)["name"]), ModelFigure.clip_named(names, "Sword_Attack"),
+		"and attacks with the pack's sword swing")
+	fig.wear(FigureModels.gear_for("rook_coldwake_ual", ch))
+	assert_true("sword_great" in fig.worn_parts(), "the greatsword is worn")
+	fig.free()
 
 
 func test_the_villager_rig_has_the_bones_the_parts_and_heads_look_for() -> void:
