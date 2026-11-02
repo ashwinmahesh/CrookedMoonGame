@@ -16,6 +16,10 @@ func capture_shots(tool: Node, out: String) -> void:
 	var hour := 23
 	var turn := false
 	var morphs: PackedStringArray = []
+	var gallery := false
+	var before := false
+	var lineup := -1
+	var npcs := 0
 	var flags: PackedStringArray = []
 	var focus := Vector2(-1, -1)
 	var focus_distance := 8.0
@@ -32,6 +36,14 @@ func capture_shots(tool: Node, out: String) -> void:
 			turn = true   # sets crooked_house_turned after the first shot and takes frames of the houses warping
 		if a == "--later":
 			later = true
+		if a.begins_with("--lineup="):
+			lineup = int(a.get_slice("=", 1))   # batch n (16 each) of the figures the manifest dresses as villagers, stood in two rows by the party
+		if a.begins_with("--npcs="):
+			npcs = int(a.get_slice("=", 1))   # a close shot of each of the first n people standing in the place (by id order)
+		if a == "--before":
+			before = true   # draws the NPCs that have a 3D figure as the old gray-box walker (the figures' `sprite` stand-in), for before shots
+		if a == "--gallery":
+			gallery = true   # lays every small prop (SmallProps) out in rows on the ground by the party and shoots them close
 		if a == "--travel":
 			travel = true   # one more shot per place of the travel map, every place known
 		if a.begins_with("--focus="):
@@ -41,6 +53,17 @@ func capture_shots(tool: Node, out: String) -> void:
 				focus_distance = float(f[2])
 		if a == "--sky":
 			sky = true   # one more shot per place with the camera tilted to the horizon: the sky and the moon in it
+	var dressed: Array[String] = []
+	for id: String in FigureModels.manifest().keys():
+		var e := FigureModels.manifest()[id] as Dictionary
+		if str(e.get("sprite", "")) == "villager" and not id.begins_with("haint"):
+			dressed.append(id)
+	if before:
+		for id: String in FigureModels.manifest().keys():
+			var e := FigureModels.manifest()[id] as Dictionary
+			if str(e.get("sprite", "")) == "villager" and not id.begins_with("haint"):
+				FigureModels.manifest()[id] = {"sprite": "villager"}
+		FigureModels._entries.clear()
 	for place in places:
 		GameState.reset()
 		var st := GameState.story
@@ -92,6 +115,49 @@ func capture_shots(tool: Node, out: String) -> void:
 				BuildingMorph.set_weight(view.board, float(w))
 				await tool.call("wait_frames", 10)
 				tool.call("_shot", "%s_%s_morph_%s.png" % [out, place, w])
+		if npcs > 0:
+			var shown := 0
+			var ids_here: Array = view.npc_tokens.keys()
+			ids_here.sort()
+			for nid: Variant in ids_here:
+				if shown >= npcs:
+					break
+				var who := view.npc_tokens[nid] as Node3D
+				rig.follow = null
+				rig.horizon = 0.0
+				rig.distance = 7.0
+				rig.global_position = who.global_position
+				rig.snap_to_target()
+				await tool.call("wait_frames", 45)
+				tool.call("_shot", "%s_%s_npc_%s.png" % [out, place, str(nid)])
+				shown += 1
+		if lineup >= 0:
+			var base_cell := view.leader().cell
+			var from := lineup * 16
+			for k in range(from, mini(from + 16, dressed.size())):
+				var cb := Combatant.new(Monster.from_data(Compendium.shared().monster_data("commoner")), &"neutral", base_cell + Vector2i(2 + (k - from) % 8, -1 + 2 * int((k - from) / 8.0)))
+				var tok := LocationNpcs._npc_token(cb, dressed[k])
+				tok.position = view.board.cell_center(cb.cell)
+				view.add_child(tok)
+			rig.follow = null
+			rig.horizon = 0.0
+			rig.distance = 7.0
+			rig.global_position = view.board.cell_center(base_cell + Vector2i(5, 0))
+			rig.snap_to_target()
+			await tool.call("wait_frames", 60)
+			tool.call("_shot", "%s_%s_lineup%d.png" % [out, place, lineup])
+		if gallery:
+			var base := view.leader().cell
+			for k in SmallProps.KINDS.size():
+				var spot := view.board.cell_center(base + Vector2i(2 + k, 0))   # (one row along an open aisle)
+				SmallProps.build(SmallProps.KINDS[k], view.board, spot, 7 + k, Vector2i.ZERO)
+			rig.follow = null
+			rig.horizon = 0.0
+			rig.distance = 8.0
+			rig.global_position = view.board.cell_center(base + Vector2i(7, 0))
+			rig.snap_to_target()
+			await tool.call("wait_frames", 40)
+			tool.call("_shot", "%s_%s_gallery.png" % [out, place])
 		if sky:
 			rig.horizon = 1.0
 			rig.horizon_shown = 1.0
