@@ -7,8 +7,6 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 | Item | Status | Thread |
 |---|---|---|
 | Portraits for the 144 missing NPCs: 148 photoreal portrait jobs are queued at normal priority (the image server is paused) | In progress (queued, waiting on the server) | [Portraits](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoMVcF4yx8zrzvExbupWQsVL) |
-| Build the windmill, the inns, the cellars and the monastery | In progress | [Windmill, inns, cellars, monastery](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoRPZu9NaNNbtWXmE9YAURC7) |
-| Finish the remaining free models (and the villager dressing check in test_figures) | In progress | [Free models](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoQCFNvm6cQtDuSEztHsi468) |
 | Build out Act 2 and the open todos | In progress | [Act 2](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoPPR4UsoGK7bQTEnN8LobsA) |
 | Audit all visual effects: each gets a selection room and its own colour, size and speed settings (melee hit effects are landed; the other effects are next) | In progress | [Melee hit effects](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoHUCbLptUKMrnux7PbW3KTT) |
 | Real 3D multi-floor grid, starting with the Crooked House, built in the DnDGameEngine-3D fork; houses rebuilt at the pack's true size | In progress (Ashwin said go) | [Rebuild the worlds](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoC7g6BsCwnrPHakr5kpoBPD) |
@@ -46,6 +44,8 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **Multi-floor windmill, inns, cellars and monastery** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoRPZu9NaNNbtWXmE9YAURC7)): the windmill, the Green Queen, the Briar, the barber shop, the funeral home, the trading post, the monastery and the inns are one place each with floors over each other, and saves gain an optional `story.merged_places` so old saves are mended. (Engine b8297659, game 276faba1.)
+- **Rest of the free models and the test_figures dressing check** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoQCFNvm6cQtDuSEztHsi468)): 26 more pack parts (Noble outfits, colourings, nine hairstyles), the 47 background villagers moved onto the pack bodies, the warhorse drawn as the pack's horse, and the villager dressing check fixed. (Game 56d629ab to f694fbf2.)
 - **Wickermoor lighting and the playable gate**: a lit window's spotlight no longer errors going into the night lights, and the subclasses and the Veil no longer grant spells that have lost their level, so test_playable_gate passes. (Engine 1a51719d, game 04b5b5c7.)
 - **Spellcasting animations**: every figure's cast is the animation pack's spell (gathered, held, thrown from the left hand, followed through), with a glow gathering in the casting hand, and the pack bodies rebaked with the Enter and Exit clips. (Engine 768b5b42, game f2acd771, 46a964a7.)
 - **Multi-storey camera**: the floor you climb to comes in slightly see-through and holds there, then turns solid. (Engine eceee5a0, game 7c92dce0.)
