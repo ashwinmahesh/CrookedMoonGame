@@ -440,7 +440,8 @@ func test_the_toys_the_bear_and_arthur() -> void:
 	assert_true(not _holds(bear.get("when")), "the bear is not in reach while the toys stand guard")
 	var app := _entry("props", "id", "h13_apparition")
 	assert_true(not _holds(app.get("call_when")), "the Crooked Man waits")
-	assert_true(not _here("arthur_lockwood").is_empty() and int(_here("arthur_lockwood").get("approach", 0)) > 0, "Arthur wails to whoever comes in")
+	assert_true(not _here("arthur_lockwood").is_empty() and int(_here("arthur_lockwood").get("approach", 0)) == 0, "Arthur is in the nursery and waits to be gone to (Ashwin, 2026-11-03)")
+	assert_true(TalkMarks.waiting("crooked_house", st).has("arthur_lockwood"), "with the talk mark over him")
 	_win("ch_quasits")
 	assert_true(bool(st.get_flag("memento_bear")), "the toys' defeat is the bear")
 	assert_true(_holds(bear.get("when")), "and it shows in the crib")
@@ -515,11 +516,10 @@ func test_the_trapdoor_the_roar_the_ladder_and_gail() -> void:
 	_play("crooked_house/gail:start", ["Cut the stitches"])
 	assert_true(bool(st.get_flag("memento_pin")), "Gail leaves the pin")
 	assert_true(st.party_has_item("memento_silver_pin"), "in the party's hands")
-	# the crow calls only while Lucan's beat is still to play
+	# the crow starts Lucan's beat on a click, never on walking in
 	var crow := _entry("props", "id", "h15_trophy_crow")
-	assert_true(_holds(crow["call_when"]))
-	st.set_flag("incitement_slaughter")
-	assert_true(not _holds(crow["call_when"]))
+	assert_eq(str(crow.get("dialogue", "")), "crooked_house/incitements:slaughter_enter")
+	assert_true(not crow.has("approach"))
 
 
 func test_the_attic_runes_the_three_versions_of_the_boss_and_the_restored_manor() -> void:
@@ -581,9 +581,7 @@ func test_the_scratchings_and_the_cauldron() -> void:
 	_fresh(ATTIC)
 	assert_eq(str(_entry("props", "id", "h17_scratchings")["flag"]), "coven_names_known", "reading the names is knowing them")
 	var cauldron := _entry("props", "id", "h17_cauldron")
-	assert_eq(str(cauldron["call"]), "crooked_house/incitements:immortality_enter")
-	assert_true(_holds(cauldron["call_when"]))
-	st.set_flag("incitement_immortality")
-	assert_true(not _holds(cauldron["call_when"]))
+	assert_eq(str(cauldron.get("dialogue", "")), "crooked_house/incitements:immortality_enter", "a click on the cauldron starts the stub")
+	assert_true(not cauldron.has("approach"), "walking up to it starts nothing")
 	for pid: String in ["h17_phillip", "h17_adela"]:
 		assert_eq(str(_entry("props", "id", pid)["kind"]), "examine", "%s has the Narrator's line" % pid)

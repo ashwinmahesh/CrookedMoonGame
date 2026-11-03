@@ -1,13 +1,13 @@
 # R12: the Fateweaving Incitements that land in the Crooked House (each Thread's first beat; reward Heroic Inspiration; flags Lane F's quests read).
 # Three belong to companions, from Lane F's files in Companions/: Pilgrimage (Rook Coldwake, the Parlour H3: the crystal ball), Rejuvenation (Tobin
 # Hayward, the Conservatory H8: the bergamot tree), Slaughter (Lucan Houndstooth, the Trophy Room H15: the stuffed Pomeranian and the crow).
-# Each plays on the FIRST ENTRY to its room with that companion in the party (an invisible prop with `call` + `approach` + `call_when: not
-# flag.incitement_<thread>`, the pattern of narrative/ghostlight_express/incitements.dialogue). Without the companion the same entry sets
-# `pending_<thread>_incitement` and plays nothing (Lane F's camp echo plays it); the room stays armed, so the home scene still plays in full if the
-# companion is in the party on a later entry (until the house falls in R22).
+# Each plays when the party looks at its object (the prop's `dialogue`) with that companion in the party; nothing starts on walking in (Ashwin,
+# 2026-11-03: in the Crooked House only the most important beats start by themselves). Without the companion the look sets
+# `pending_<thread>_incitement` (Lane F's camp echo plays it) and gives the object's plain `examine:` line; the object stays armed, so the home scene
+# still plays in full if the companion is in the party on a later look (until the house falls in R22).
 # The other five are STUBS for the custom hero's Threads (Phase 5): Duality (H5 mirror), Immortality (H17), Kindred (H12), Malediction (H14),
 # Rapture (H4 bust). They are the custom hero's own `Player:` lines (first person; no Narrator lines, so nothing needs {name}), played from the
-# prop's `call` when the hero has the matching background and the flag is not set; any other visitor gets the prop's plain Narrator `examine:` line.
+# prop's `dialogue` (a click) when the hero has the matching background and the flag is not set; any other visitor gets the prop's plain Narrator `examine:` line.
 # The Narrator and companion lines are FINAL-WORDED (voiced; do not edit after the voice lane starts). The stubs are not voiced yet.
 # Drafted by Gemini (docs/plans/gemini_r12_incitements/), edited; see README.md there.
 # HOOK(F): when Lane F's G2 adds the `thread <thread> <beat>` statement (overview rule 11) it replaces the `set incitement_*` and `inspire` lines below.
@@ -16,6 +16,7 @@
 
 ~ pilgrimage_enter
 if flag.incitement_pilgrimage
+narrate examine:h3_crystal_ball
 -> END
 endif
 if name:rook_coldwake
@@ -24,6 +25,7 @@ endif
 if not flag.pending_pilgrimage_incitement
 set pending_pilgrimage_incitement
 endif
+narrate examine:h3_crystal_ball
 -> END
 
 ~ pilgrimage_start
@@ -63,6 +65,7 @@ inspire name:rook_coldwake: shut the ledger on the frost
 
 ~ rejuvenation_enter
 if flag.incitement_rejuvenation
+narrate examine:h8_bergamot
 -> END
 endif
 if name:tobin_hayward
@@ -71,6 +74,7 @@ endif
 if not flag.pending_rejuvenation_incitement
 set pending_rejuvenation_incitement
 endif
+narrate examine:h8_bergamot
 -> END
 
 ~ rejuvenation_start
@@ -110,6 +114,7 @@ inspire name:tobin_hayward: splinted the bough and moved on
 
 ~ slaughter_enter
 if flag.incitement_slaughter
+narrate examine:h15_trophy_crow
 -> END
 endif
 if name:lucan_houndstooth
@@ -118,6 +123,7 @@ endif
 if not flag.pending_slaughter_incitement
 set pending_slaughter_incitement
 endif
+narrate examine:h15_trophy_crow
 -> END
 
 ~ slaughter_start

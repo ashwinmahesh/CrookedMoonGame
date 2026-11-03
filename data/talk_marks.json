@@ -1,5 +1,5 @@
 {
-  "about": "People who wait to be talked to and wear the talk mark (a speech bubble over their head, world/talk_marks.gd) while their `when` holds, so the party knows who to walk up to. Ashwin (2026-11-02): the opening and the train let the party look round first and talk to the Vagrant when it is ready, so he no longer speaks first on the hill or in the Passenger Car. Ashwin (2026-11-03): nobody in the opening act speaks first, so the haints, the Druskenvalds in the Lounge Car and the Vagrant and the Druskenvalds at the wreck wait to be talked to as well, each wearing the mark until the talk has begun.",
+  "about": "People who wait to be talked to and wear the talk mark (a speech bubble over their head, world/talk_marks.gd) while their `when` holds, so the party knows who to walk up to. Ashwin (2026-11-02): the opening and the train let the party look round first and talk to the Vagrant when it is ready, so he no longer speaks first on the hill or in the Passenger Car. Ashwin (2026-11-03): nobody in the opening act speaks first, so the haints, the Druskenvalds in the Lounge Car and the Vagrant and the Druskenvalds at the wreck wait to be talked to as well, each wearing the mark until the talk has begun. Ashwin (2026-11-03, later): in the Crooked House only the most important beats start by themselves, so Arthur, Wisp, the Jenkins back at the gate after the hag and Old Rusty on the estate road wait to be talked to too.",
   "marks": [
     {
       "location": "ghostlight_boarding",
@@ -55,6 +55,26 @@
       "location": "ghostlight_wreckage",
       "npc": "phillip_druskenvald",
       "when": "not flag.gl_wreck_pair_met and not flag.gl_locomotive_done"
+    },
+    {
+      "location": "crooked_house",
+      "npc": "arthur_lockwood",
+      "when": "not flag.arthur_rested and not (quest.arthurs_bear == wailing or quest.arthurs_bear == bear_taken or quest.arthurs_bear == asleep)"
+    },
+    {
+      "location": "crooked_house",
+      "npc": "wisp",
+      "when": "not (quest.a_tale_for_wisp == asked or quest.a_tale_for_wisp == telling or quest.a_tale_for_wisp == refused or quest.a_tale_for_wisp == thanked or quest.a_tale_for_wisp == fled or quest.a_tale_for_wisp == slain)"
+    },
+    {
+      "location": "druskenvald_estate",
+      "npc": "gilly_jenkin",
+      "when": "flag.vessla_slain and not flag.jenkins_after_met"
+    },
+    {
+      "location": "druskenvald_estate",
+      "npc": "old_rusty",
+      "when": "flag.patrini_asked_find_son and not flag.rusty_told_patrini"
     }
   ]
 }
