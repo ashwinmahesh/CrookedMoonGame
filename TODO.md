@@ -6,7 +6,6 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 | Item | Status | Thread |
 |---|---|---|
-| The Crooked Moon should be visible in the sky when looking up at it (Ashwin, 2026-11-03): in flight with the shader work, the moon 20 degrees up facing the opening camera with the clouds parting round it, together with the Dark fantasy grade; captures pending, not ready to land | In progress | [Redo shaders for dark fantasy look](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo2uFEFcV8BBPYYSfwG4XCje) |
 | Wickermoor's people: 27 townsfolk were on the generic 2D villager sprite and now stand as 3D pack figures (landed); the other places' NPCs still on that sprite (about 110 ids, many of them creatures or visions) wait for their own looks. The silent lines were the same stale import cache, refreshed in Ashwin's copy; 462 Wickermoor lines were never recorded (voices thread) (Ashwin, 2026-11-03) | In progress | — |
 | Capture tool: places_capture's --focus and whole shots were pulled back onto the party (fixed: free_cam is set with every follow = null; the whole shot also raises the zoom limit and far plane); the whole shot of a big map such as the 96 x 80 Wickermoor still shows only fog (a tilt change and turning the fog off did not clear it, the post pass's land fade is the next suspect) (Wickermoor lane, 2026-11-03) | In progress (whole shot open) | — |
 | Fun pass, lane A "Make the companions talk" (Ashwin approved 2026-11-03): banter for every region (Act I first), guest banter, camp talks per companion, companion-to-companion exchanges, `approve` lines across Acts II and III; the lost 11-01 banter branch claude/project-thread-3c8g6x is replayed as fun-companions | In progress (own thread) | — |
@@ -55,6 +54,8 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 - Engine branches waiting on their own pushes: look-full-3d is landed; anim-speed, melee-hit-fx, cast-anim, and engine-land-6 (f6f0fc4f) still need pushing.
 
 ## Done
+
+- **The dark fantasy look lands** (shader lane, Ashwin's yes 2026-11-03): the game's grade (tone mapping, exposure, saturation, haze and a fill from the place's own sky) is the dark one; the Crooked Moon is a crescent that hangs where the camera looks as a place opens and shows when the camera tilts up; what lies well behind a speaker in a close-up softens; thirty CC0 Poly Haven texture sets give the village houses fifty variants of plaster, masonry and roof so no two look alike; and the cartoon leftovers are retired in the Modern finish (plain Lambert light fall-off, worn wood and metal instead of flat colour, no painted ink outline on solid figures). Engine look/dark-grade-3 replayed on engine main; look/dark-grade-2 was not landed.
 
 - **A spell cast from the character sheet has a sound and an effect** (Ashwin, 2026-11-03): it plays the spell's own combat sound as it is cast, and when the sheet closes an effect in the spell's colour plays over the game; Settings, Game, "Spell effect from the sheet" picks Off, Glow, Rings or Sparks and shows each as it is chosen (the demo), Glow by default.
 
