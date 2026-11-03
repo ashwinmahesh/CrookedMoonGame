@@ -199,10 +199,8 @@
       ],
       "kind": "examine",
       "label": "A discarded medical bag",
-      "model": "case",
-      "call": "ghostlight_express/incitements:evolution_enter",
-      "approach": 12,
-      "call_when": "not flag.incitement_evolution and not flag.pending_evolution_incitement"
+      "dialogue": "ghostlight_express/incitements:evolution_enter",
+      "model": "case"
     },
     {
       "id": "g6_tiger",
@@ -281,10 +279,7 @@
       ],
       "kind": "examine",
       "label": "The brass lamps",
-      "model": "lamp",
-      "call": "ghostlight_express/vagrant_intercom:router",
-      "approach": 12,
-      "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed and ((flag.haints_destroyed >= 1 and not flag.gl_destroyed_noted) or (flag.haints_resolved >= 3 and not flag.gl_level2_given) or (flag.haints_all_gone and not flag.gl_checkin_all) or (flag.haints_resolved >= 5 and not flag.gl_checkin_fifth) or (flag.haints_resolved >= 1 and not flag.gl_checkin_first))"
+      "model": "lamp"
     }
   ],
   "npcs": [

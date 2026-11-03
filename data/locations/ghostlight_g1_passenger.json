@@ -178,10 +178,7 @@
       ],
       "kind": "examine",
       "label": "The brass lamps",
-      "model": "lamp",
-      "call": "ghostlight_express/vagrant_intercom:router",
-      "approach": 12,
-      "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed and ((flag.haints_destroyed >= 1 and not flag.gl_destroyed_noted) or (flag.haints_resolved >= 3 and not flag.gl_level2_given) or (flag.haints_all_gone and not flag.gl_checkin_all) or (flag.haints_resolved >= 5 and not flag.gl_checkin_fifth) or (flag.haints_resolved >= 1 and not flag.gl_checkin_first))"
+      "model": "lamp"
     },
     {
       "id": "g1_boarding_door",
@@ -250,10 +247,8 @@
       ],
       "kind": "examine",
       "label": "Black-veined mist",
+      "dialogue": "ghostlight_express/incitements:deliverance_enter",
       "when": "flag.gl_phantom_done",
-      "call": "ghostlight_express/incitements:deliverance_enter",
-      "approach": 12,
-      "call_when": "flag.gl_phantom_done and not flag.incitement_deliverance",
       "checks": [
         {
           "id": "g1_curse_mist",
