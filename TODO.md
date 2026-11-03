@@ -6,6 +6,7 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 | Item | Status | Thread |
 |---|---|---|
+| A distinct floor texture for each train car (circus flooring in the circus car) and metal walls and floor in the Soulfire Stoker's engine room (Ashwin, 2026-11-03); in flight with the props work (lane/props-statues), not ready to land, waiting on Ashwin's OK | In progress | Improve props and fix Barrow Hill train (thread link to come) |
 | The casting room is empty: the visual-effects selection rooms need their choices (Ashwin, 2026-11-03) | In progress | — |
 | Chill Touch gets Disadvantage with a foe within 5 ft (Ashwin, 2026-11-03): could not reproduce on current main (the spell is a melee touch attack and a wizard's and Cordelia's casts, and Shocking Grasp, roll without it; new test_melee_spell_attacks_in_melee.gd); waiting on Ashwin's screenshot or log, or a pull of main | Open | — |
 | Portraits for the 144 missing NPCs: 148 photoreal portrait jobs are queued at normal priority (the image server is paused) | In progress (queued, waiting on the server) | [Portraits](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoMVcF4yx8zrzvExbupWQsVL) |
