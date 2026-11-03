@@ -51,7 +51,7 @@ const PLAN := {
 		["talk", "the_vagrant", ["We have the cans", "Ready. Do it."]], ["use", "wr_moon", []], ["exit", "to_wickermoor", []]],
 	# R11: the goat and the wolves at the well, the mayor's welcome at the notice board, the inn, the hill road.
 	"wickermoor_village": [
-		["use", "wm_well", ["Keep back"]],
+		["use", "wm_sacrifice_doll", ["Keep back"]],
 		["use", "wm_notice_board", ["Ask about the village", "Thank him", "glad to come"]],
 		["exit", "green_queen_inn", []],
 		["exit", "road_to_estate", [], {"to": "druskenvald_estate"}],

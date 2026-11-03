@@ -159,12 +159,12 @@ func test_the_wreck_to_wickermoor_to_the_crooked_house_to_vessla_dead_at_level_f
 	assert_eq(st.location, TOWN, "the wreck road leads to Wickermoor")
 	assert_true(st.total_minutes() > clock, "the road takes time")
 
-	# --- R11: the goat and the wolves at the well, the mayor at the notice board ---
-	r12._called_by("wm_well", ["Keep back"])
+	# --- R11: the goat and the wolves at the stake in the Round, the mayor at the notice board ---
+	r12._called_by("wm_sacrifice_doll", ["Keep back"])
 	assert_eq(str(st.get_flag("goat_fate", "")), "eaten", "holding back leaves the goat to the wolves")
 	assert_true(bool(st.get_flag("wm_first_sacrifice_done")), "the first rite is over")
 	assert_eq(st.quest_stage("wickermoor_arrival"), "welcome")
-	assert_true(not StoryConditions.check(str(r12._entry("props", "id", "wm_well").get("call_when")), st), "the well does not call again")
+	assert_true(not StoryConditions.check(str(r12._entry("props", "id", "wm_sacrifice_doll").get("call_when")), st), "the well does not call again")
 	r12._called_by("wm_notice_board", ["Ask about the village", "Thank him", "glad to come"])
 	assert_true(bool(st.get_flag("wm_welcomed")), "the mayor has welcomed the party")
 	assert_eq(st.quest_stage("wickermoor_arrival"), "parting", "the journal waits at the parting until the inn")
