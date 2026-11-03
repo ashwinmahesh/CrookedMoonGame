@@ -1,0 +1,38 @@
+# Mrs. Oakum guiding the party up the hill trail toward Glitterdeep (story/banter.gd): quest_ on entering an area while her walk
+# is under way, place_ on entering an area, fight_ after a won fight, idle_ on the trail. Each plays once, only while she is along.
+# Drafted by Gemini (docs/plans/gemini_companions/reply_guests.json), edited (README). Unvoiced until the voice lane reads them.
+
+~ quest_trail_start
+if guest:mrs_oakum and flag.oakum_guiding and not region:skitterdeep_mine
+interject guest:mrs_oakum: Up the north-west trail, then. My knees ain't made for ladder rungs, mind.
+interject guest:mrs_oakum: Best we move quick. I need to be home before the hour turns.
+endif
+-> END
+
+~ place_hills_trail
+if guest:mrs_oakum and at:sk_hills_trail
+interject guest:mrs_oakum: Mind the pine roots on this ridge. My pa trapped these woods when I was small.
+endif
+-> END
+
+~ idle_pa
+if guest:mrs_oakum
+interject guest:mrs_oakum: Pa worked the Glitterdeep seams till his lungs went grey, then took to felling pine.
+interject guest:mrs_oakum: Told me never to linger on this ridge once the sun dropped.
+endif
+-> END
+
+~ idle_track
+if guest:mrs_oakum
+interject guest:mrs_oakum: Hold up. Deer track, still warm. I could just about...
+interject guest:mrs_oakum: Listen to me ramble. Here, have a bit of salted mutton.
+interject name:lucan_houndstooth: Nose like that's no butcher's nose.
+endif
+-> END
+
+~ fight_butcher
+if guest:mrs_oakum
+interject guest:mrs_oakum: Blood on the needles. Nothing a sharp cleaver and some salt won't tidy.
+interject guest:mrs_oakum: Clean through the joint. Just like down at the block.
+endif
+-> END

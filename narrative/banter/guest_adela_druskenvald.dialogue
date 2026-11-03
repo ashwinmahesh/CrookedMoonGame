@@ -1,0 +1,43 @@
+# Adela Druskenvald travelling with the party, from the wreck of the Ghostlight Express to Wickermoor's Round (story/banter.gd).
+# The node's name says when it may play: quest_ on entering an area while the story is at that point, place_ on entering an
+# area, fight_ after a won fight, idle_ now and then on the road. Each plays once a playthrough, only while Adela is along;
+# Phillip walks beside her, so most of their scenes are hers and his lines play with them. Drafted by Gemini
+# (docs/plans/gemini_companions/reply_guests.json), edited (README). Unvoiced until the voice lane reads them.
+
+~ place_wreckage
+if guest:adela_druskenvald and at:ghostlight_wreckage
+interject guest:adela_druskenvald: Well, that train is thoroughly ruined, Philly, and my good beads are somewhere in the briars.
+interject guest:phillip_druskenvald: Leave the beads, my dear. We owe these folk a warm hearth and dry boots.
+interject name:delphine_ravelle: Mind your hem in the brambles, darling. A wreck is no excuse for a poor exit.
+endif
+-> END
+
+~ idle_road_tease
+if guest:adela_druskenvald and guest:phillip_druskenvald and not flag.wm_welcomed
+interject guest:adela_druskenvald: Look at Philly, clutching that cane like a field mouse might nip his ankles.
+interject guest:phillip_druskenvald: I am watching the ruts, darling. The mist plays tricks on a tired man.
+endif
+-> END
+
+~ idle_road_cards
+if guest:adela_druskenvald and not flag.wm_welcomed
+interject guest:adela_druskenvald: Let me pull a card for the walk. Just to see who trips first.
+interject guest:adela_druskenvald: Oh, the Tower again. Swell. I do love a lively evening.
+interject name:silas_vane: Keep your cards in the shoe, lady. I only trust a deck I'm dealing.
+endif
+-> END
+
+~ fight_wolves
+if guest:adela_druskenvald and at:wickermoor_village and not flag.wm_welcomed
+interject guest:adela_druskenvald: Wasn't that the bee's knees! They came out of the dark like furies.
+interject guest:phillip_druskenvald: Splendidly done. I shall see your torn coats are paid for twice over.
+interject name:lucan_houndstooth: Starved pack. Hunger made 'em bold, not smart.
+endif
+-> END
+
+~ place_village
+if guest:adela_druskenvald and guest:phillip_druskenvald and at:wickermoor_village and not flag.wm_welcomed
+interject guest:phillip_druskenvald: That oak in the square. The faces in the bark, they're... wait a moment.
+interject guest:adela_druskenvald: Philly's dead on his feet from the wreck, folks. Pay him no mind.
+endif
+-> END

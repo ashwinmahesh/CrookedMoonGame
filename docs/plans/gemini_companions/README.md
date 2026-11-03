@@ -374,3 +374,21 @@ by the cloud thread in 9cd7911, so they are no longer exactly what the converter
 **region_wickermoor** (2 edits)
 - "The storm drives the damp right down from that crooked estate, if you please, and Dreadfang" -> "The storm drives the damp right down from that crooked estate, and Dreadfang": Pet phrases never in two consecutive lines.
 - "the yeast and lavender beats cellar mould" -> "the yeast and warm flour beat cellar mould": 'Lavender' is a baker's daughter's name here.
+
+## Guest banter (fun pass lane A, 2026-11-03)
+
+`narrative/banter/guest_<id>.dialogue` for the five story guests who walk with the party: Adela and Phillip Druskenvald
+(wreck to Wickermoor's Round), William Lodge (Foxwillow), Yorgrim (Maidenmist), Mrs. Oakum (the hill trail). Brief
+`brief_guests.txt` (sent as `sent_guests.txt`, the voice sheets `context_banter-cast-*.txt` as context files), reply
+`reply_guests.json`, sent on the bridge's `ai-bridge` project because the `crooked-moon` project's Antigravity grouping
+fails to resolve. Tests: tests/unit/test_guest_banter.gd.
+
+Edits to the drafts:
+- Every line cut to Curse of Strahd's rhythm (one thought, about 6 to 16 words).
+- Phillip's "we gift you the deed" was backwards (the house is his gift): rewritten as his tiredness about the gift.
+- William's poor-box theft was stated outright: now only a slip ("Seven winters I've owed the chapel a debt").
+- Out-of-voice companion replies rewritten: Lucan's "four out of ten" and "prime specimen, sir" (he is gruff and short),
+  Delphine's lantern line (nonsense), Cordelia's "arterial spray" at the trail (moved to a pulse she wants to count).
+- Rook's sexton reply rewritten without "lad" for Yorgrim; Mrs. Oakum's "mine up ahead" dropped (she leaves before it).
+- Yorgrim's King's Rest line about Marius dropped (his beacon site has its own talk); the gates use the rites' flags so
+  "you gave my friends mercy" waits for a lit beacon.
