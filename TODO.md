@@ -20,8 +20,8 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 | Item | Status | Thread |
 |---|---|---|
-| Narrator becomes the Strahd voice on Higgs at full quality (VoiceGen PR #19 merged, local VoiceGen server restarted) | In progress | [Voices](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoCCmcjA1nT898YLNaBWaBba) |
-| Re-record all existing lines, starting with Act 1 | In progress | [Voices](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoCCmcjA1nT898YLNaBWaBba) |
+| Narrator becomes the Strahd voice on Higgs at full quality: in the game for the 969 narrator lines re-recorded so far; about 2,185 more narrator lines are queued (generation is paused while Ashwin plays) | In progress | [Voices](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoCCmcjA1nT898YLNaBWaBba) |
+| Re-record all existing lines: Act I and Wickermoor's first batches are done and in the game; the rest (about 4,250 lines, narrator and characters) are queued, paused while Ashwin plays | In progress | [Voices](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoCCmcjA1nT898YLNaBWaBba) |
 
 ## Open
 
@@ -47,6 +47,7 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **Act I re-recorded and in the game**: all 1,144 Act I lines (441 narrator in the Strahd voice, 703 characters at full quality) replace the old takes, along with the re-recorded Wickermoor, Foxwillow, banter and names batches; `make voice-wire` now prefers the `-full`, `-fill` and `narrator-gaps` batches. 2,275 old clips replaced (969 narrator, 1,306 character), 54 new lines wired. (Game ed43f2e2.) Still without a clip in Act I: nine of the baby's noises, six car-banter lines and the narrator folder's 147 shared lines.
 - **Upper-floor walls full height, ladders climbable** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo9STS4ZhgYZszF24W7LcF77)): a storey's walls now run up to the floor over it (a band the cutaway hides with that floor, so the party is never shut out), the stable loft stands unfurnished, ladders reach a floor, bridge ramps climb by treads, and the cutaway keeps the party in sight on bridge places. (Engine 54f90d9c, game below.)
 - **Merchants sell items, magic items and spell scrolls**: every non-story item is buyable, with 15 NPC files stocked (5 of them new shops) from data/treasure/shop_stock.json by tools/content/build_shop_stock.py, and Haint Hooch goes from 0 to 400. (Game 26d6ea13.)
 - **More magic items to find in the world, all usable in combat (Acts I and II)**: 15 containers of magic finds in Act I and II places, from data/treasure/world_finds.json by tools/content/place_world_finds.py (rerun it, with `--check`, after a build script rewrites a place; the clock chamber and captain finds sit on their merged floors). (Game 208256f3.)
