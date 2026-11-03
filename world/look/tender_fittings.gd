@@ -2,7 +2,8 @@ class_name TenderFittings
 extends RefCounted
 ## The Tender's iron fittings, built from meshes (the catalog's "porthole" and "pipes" set pieces): a riveted porthole on the
 ## wall, its brass ring round a pane the Shroud's green light comes through, and pipes run along the walls and up across the
-## ceiling, with flanges at their joints. They had been drawn as plain marker boxes (Ashwin, 2026-11-03).
+## ceiling, with flanges at their joints. They had been drawn as plain marker boxes (Ashwin, 2026-11-03). And the fuel tank's
+## mouth, an iron bin heaped with coal ("coal_bin").
 
 ## The porthole's glass across and its ring's thickness (units, 5 ft), and its middle's height over the floor.
 const PORT := 0.32
@@ -102,4 +103,66 @@ static func _on_wall(board: ArenaBoard, root: Node3D, cell: Vector2i, wall: Vect
 	var face := board.cell_center(cell) + Vector3(float(wall.x), 0.0, float(wall.y)) * (0.5 - inset - OFF)
 	holder.position = Vector3(face.x, board.floor_y(cell) + height, face.z)
 	holder.rotation.y = atan2(float(-wall.x), float(-wall.y))
+	return holder
+
+
+## The fuel tank's mouth (the catalog's "coal_bin"): the iron bin (its entry's art) heaped above its rim with lumps of coal, a
+## few soulfire embers glowing faintly among them, and their light. The bin had read as empty (Ashwin, 2026-11-03).
+static func coal_bin(board: ArenaBoard, root: Node3D, cell: Vector2i, spec: Dictionary, look: Dictionary) -> Node3D:
+	var art := str(look.get("art", ""))
+	var model := ModelPiece.for_art(board, art)
+	if model == "":
+		return null
+	var holder := ModelPiece.stand(board, root, model, art, cell, null, 1.0, SetDressing.facing_yaw(spec))
+	if look.has("swap"):
+		ModelPiece.swap_surfaces(holder, look["swap"] as Dictionary)
+	var size := (ModelPiece.manifest()[model] as Dictionary).get("size", [1.5, 1.0, 0.9]) as Array
+	var length := float(size[0]) * 0.86
+	var width := float(size[2]) * 0.8
+	var rim := float(size[1]) * 0.92
+	var coal := ModelPiece.material(str(look.get("coal", "pal_night")))
+	var rng := RandomNumberGenerator.new()
+	rng.seed = ModelPiece.hash_cell(cell) + 77
+	# The heap: a low dome filling the bin, its crown a hand over the rim, and lumps strewn over it.
+	var mound := MeshInstance3D.new()
+	mound.name = "CoalHeap"
+	var dome := SphereMesh.new()
+	dome.radius = 0.5
+	dome.height = 1.0
+	dome.is_hemisphere = true
+	mound.mesh = dome
+	mound.scale = Vector3(length, 0.34, width)
+	mound.position = Vector3(0.0, rim - 0.12, 0.0)
+	mound.material_override = coal
+	holder.add_child(mound)
+	for k in 46:
+		var u := rng.randf_range(-0.5, 0.5)
+		var v := rng.randf_range(-0.5, 0.5)
+		var crown := 1.0 - minf(1.0, (u * u + v * v) * 3.2)   # (higher toward the middle, as a heap is)
+		var lump := MeshInstance3D.new()
+		lump.name = "Lump"
+		var box := BoxMesh.new()
+		var r := rng.randf_range(0.05, 0.11)
+		box.size = Vector3(r * rng.randf_range(0.8, 1.4), r * rng.randf_range(0.6, 1.0), r * rng.randf_range(0.8, 1.3))
+		lump.mesh = box
+		lump.rotation = Vector3(rng.randf() * TAU, rng.randf() * TAU, rng.randf() * TAU)
+		lump.position = Vector3(u * length, rim - 0.06 + crown * 0.18 + rng.randf_range(0.0, 0.03), v * width)
+		lump.material_override = coal
+		holder.add_child(lump)
+	var ember := ModelPiece.material(str(look.get("ember", "glow_ember")))
+	for k in 7:
+		var e := MeshInstance3D.new()
+		e.name = "Ember"
+		var sphere := SphereMesh.new()
+		sphere.radius = rng.randf_range(0.018, 0.03)
+		sphere.height = sphere.radius * 2.0
+		e.mesh = sphere
+		var u := rng.randf_range(-0.35, 0.35)
+		var v := rng.randf_range(-0.35, 0.35)
+		e.position = Vector3(u * length, rim + 0.04 + (1.0 - minf(1.0, (u * u + v * v) * 3.2)) * 0.15, v * width)
+		e.material_override = ember
+		e.set_meta("ember", true)
+		holder.add_child(e)
+	holder.add_child(SetPieceLight.make("Soulfire", Vector3(0.0, rim + 0.35, 0.0), Look.color(str(look.get("ember_light", "ember"))), 0.35, 2.2, holder))
+	holder.set_meta("coal_bin", true)
 	return holder
