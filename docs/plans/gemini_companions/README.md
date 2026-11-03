@@ -387,8 +387,8 @@ Edits to the drafts:
 - Every line cut to Curse of Strahd's rhythm (one thought, about 6 to 16 words).
 - Phillip's "we gift you the deed" was backwards (the house is his gift): rewritten as his tiredness about the gift.
 - William's poor-box theft was stated outright: now only a slip ("Seven winters I've owed the chapel a debt").
-- Out-of-voice companion replies rewritten: Lucan's "four out of ten" and "prime specimen, sir" (he is gruff and short),
-  Delphine's lantern line (nonsense), Cordelia's "arterial spray" at the trail (moved to a pulse she wants to count).
+- Companion replies tightened in their own voices (Lucan grades quarry and says "good heavens"); Delphine's lantern line at
+  Yorgrim's fight swapped for Cordelia hearing the ground breathe; Cordelia's "arterial spray" moved to a pulse she wants to count.
 - Rook's sexton reply rewritten without "lad" for Yorgrim; Mrs. Oakum's "mine up ahead" dropped (she leaves before it).
 - Yorgrim's King's Rest line about Marius dropped (his beacon site has its own talk); the gates use the rites' flags so
   "you gave my friends mercy" waits for a lit beacon.
