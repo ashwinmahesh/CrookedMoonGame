@@ -6,6 +6,12 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 | Item | Status | Thread |
 |---|---|---|
+| Camera: rotation speed configurable in Settings (turn and tilt speed, WASD, mouse and controller; Ashwin, 2026-11-03) | In progress | [Camera follows the party](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoSzp46E7B1MJ2tH6jYEQUCg) |
+| Camera: zoom in a little closer, and tilt all the way to level with the ground (watch for clipping into the terrain; Ashwin, 2026-11-03) | In progress | [Camera follows the party](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoSzp46E7B1MJ2tH6jYEQUCg) |
+| Characters bloom far too much in warm light (the tavern dialogue close-up, Phillip Druskenvald): tone down the bloom on characters, check the close-up camera's lighting (Ashwin, 2026-11-03) | In progress | — |
+| Weapon and spell effects appear after a delay from the swing or cast: cut the delay so each lines up (Ashwin, 2026-11-03) | In progress | — |
+| The casting room is empty: the visual-effects selection rooms need their choices (Ashwin, 2026-11-03) | In progress | — |
+| Dialogue bug: an NPC's lead-in line (text and voice) repeats every time the player returns to their menu; it should play once (Ashwin, 2026-11-03) | In progress | — |
 | Portraits for the 144 missing NPCs: 148 photoreal portrait jobs are queued at normal priority (the image server is paused) | In progress (queued, waiting on the server) | [Portraits](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoMVcF4yx8zrzvExbupWQsVL) |
 | Audit all visual effects: each gets a selection room and its own colour, size and speed settings (melee hit effects are landed; the other effects are next) | In progress | [Melee hit effects](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoHUCbLptUKMrnux7PbW3KTT) |
 | The full 3D grid build, lane 1: the grid rules (Ashwin's go, 2026-11-02; four parallel lanes, this comes first) | In progress (phase 1, floors and layers in three dimensions, and the aura fix across floors, are landed) | [Build the full 3D grid](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoEP6W92Q8En8FU5Ua72qWcK) |
@@ -47,6 +53,7 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **Wider layers, no long narrow decks** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo9STS4ZhgYZszF24W7LcF77)): the village footbridge is nine squares by two, Dawn's Gate's road bridge and the other Act I decks are wide enough to stand and fight on, and Act II's casino balcony, dovecote walkway, grotto bridge and tomb platforms are three squares deep, with a test that no layer is a narrow strip. (Game 661a4bb9 and 9804318d.)
 - **Act I re-recorded and in the game**: all 1,144 Act I lines (441 narrator in the Strahd voice, 703 characters at full quality) replace the old takes, along with the re-recorded Wickermoor, Foxwillow, banter and names batches; `make voice-wire` now prefers the `-full`, `-fill` and `narrator-gaps` batches. 2,275 old clips replaced (969 narrator, 1,306 character), 54 new lines wired. (Game ed43f2e2.) Still without a clip in Act I: nine of the baby's noises, six car-banter lines and the narrator folder's 147 shared lines.
 - **Upper-floor walls full height, ladders climbable** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo9STS4ZhgYZszF24W7LcF77)): a storey's walls now run up to the floor over it (a band the cutaway hides with that floor, so the party is never shut out), the stable loft stands unfurnished, ladders reach a floor, bridge ramps climb by treads, and the cutaway keeps the party in sight on bridge places. (Engine 54f90d9c, game below.)
 - **Merchants sell items, magic items and spell scrolls**: every non-story item is buyable, with 15 NPC files stocked (5 of them new shops) from data/treasure/shop_stock.json by tools/content/build_shop_stock.py, and Haint Hooch goes from 0 to 400. (Game 26d6ea13.)
