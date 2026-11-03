@@ -6,6 +6,8 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 | Item | Status | Thread |
 |---|---|---|
+| The Crooked Moon should be visible in the sky when looking up at it (Ashwin, 2026-11-03): in flight with the shader work, the moon 20 degrees up facing the opening camera with the clouds parting round it, together with the Dark fantasy grade; captures pending, not ready to land | In progress | [Redo shaders for dark fantasy look](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo2uFEFcV8BBPYYSfwG4XCje) |
+| Settings options to swap the camera's directions: Camera turn (A and D) and Camera tilt (W and S) each Normal or Inverted, next to the camera speeds (Ashwin, 2026-11-03) | In progress (code first; Mac testing waits for Ashwin to finish playing) | — |
 | Rook's head still looks too big for his body: make his body a little broader (shoulders and torso) (Ashwin, 2026-11-03) | In progress (needs a capture to judge; waits for the Mac to be free) | — |
 | Overworld pathing: in places like the Ghostlight wreckage the party gets stuck, walks in circles or steers round obstacles that aren't there; movement should look natural (Ashwin, 2026-11-03) | In progress (code first; Mac testing waits for Ashwin to finish playing) | — |
 | Slow the walking speed and its animation to about 0.8 of what they are (Ashwin, 2026-11-03) | In progress (code first; Mac testing waits for Ashwin to finish playing) | — |
