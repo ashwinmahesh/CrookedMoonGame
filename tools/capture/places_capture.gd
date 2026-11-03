@@ -2,6 +2,7 @@ extends Node
 ## Any places seen from the play camera, as the game shows them: the placeholder party arrives at each location in the list and a shot is
 ## taken of the play view and of the whole place from above.
 ##   make capture SCENE=res://tools/capture/places_capture.tscn NAME=world/places ARGS='--places=ghostlight_boarding,wickermoor_village'
+## --found=a,b marks those search spots found first, so what they hide shows (the Lounge Car's seascape).
 ## --hour=8 shoots the Twilight Hour (the default is 23, the Midnight Hour).
 ## --party=placeholder stands the engine's placeholder party (Ilse, Tamsin, Hedda, Silvain, sprites) in the places; the default is a new
 ## game's party (Rook, Silas, Cordelia, Delphine), the 3D figures the game opens with.
@@ -25,12 +26,15 @@ func capture_shots(tool: Node, out: String) -> void:
 	var lineup := -1
 	var npcs := 0
 	var flags: PackedStringArray = []
+	var found: PackedStringArray = []
 	var focus := Vector2(-1, -1)
 	var focus_distance := 8.0
 	var tilts: PackedStringArray = []
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--places="):
 			places = a.get_slice("=", 1).split(",")
+		if a.begins_with("--found="):
+			found = a.get_slice("=", 1).split(",")   # search spots already found, so their things show (g3_seascape)
 		if a.begins_with("--flags="):
 			flags = a.get_slice("=", 1).split(",")   # story flags to set first, name:value (moon_grin:2,moon_scowl:true)
 		if a == "--party=placeholder":
@@ -81,6 +85,8 @@ func capture_shots(tool: Node, out: String) -> void:
 			ch.finish_long_rest()
 			st.party.append(ch)
 		st.location = place
+		for id in found:
+			(st.loc_state(place)["found"] as Dictionary)[id] = true
 		for f in flags:
 			var v := f.get_slice(":", 1)
 			st.set_flag(f.get_slice(":", 0), true if v == "true" else (int(v) if v.is_valid_int() else v))
