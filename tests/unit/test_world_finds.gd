@@ -1,13 +1,13 @@
 extends TestCase
-## The magic laid in the world by hand in Acts I and II (data/treasure/world_finds.json, written into the places by
+## The magic laid in the world by hand in Acts I, II and III (data/treasure/world_finds.json, written into the places by
 ## tools/content/place_world_finds.py; Ashwin, 2026-11-02: more magic items to find, every one usable in a fight). Each find
 ## is in its container in its place, on a floor square the party can stand beside, and does something in a fight; random
 ## finds never roll an item that does nothing in one (levels.json support_weight 0).
 
 const FINDS := "res://data/treasure/world_finds.json"
 const LEVELS := "res://data/treasure/levels.json"
-const ACTS_I_AND_II: Array[String] = ["ghostlight_express", "wickermoor", "crooked_house", "foxwillow", "crimson_monastery", "dawns_gate",
-	"drowned_crossroads", "skitterdeep_mine", "memorys_rest"]
+const ACTS_I_TO_III: Array[String] = ["ghostlight_express", "wickermoor", "crooked_house", "foxwillow", "crimson_monastery", "dawns_gate",
+	"drowned_crossroads", "skitterdeep_mine", "memorys_rest", "hartsblight_forest", "maidenmist_cemetery"]
 
 
 func _json(path: String) -> Dictionary:
@@ -38,13 +38,13 @@ func _works_in_a_fight(data: Dictionary) -> bool:
 	return str(data.get("category", "")) in ["weapon", "armor", "shield", "ammunition"]
 
 
-func test_every_find_is_in_its_place_in_acts_one_and_two() -> void:
-	assert_true(_finds().size() >= 15, "a find in each of the places that had few or none")
+func test_every_find_is_in_its_place_in_acts_one_to_three() -> void:
+	assert_true(_finds().size() >= 23, "a find in each of the places that had few or none")
 	for f: Variant in _finds():
 		var e := f as Dictionary
 		var loc := Compendium.shared().get_entry("locations", str(e["loc"]))
 		assert_false(loc.is_empty(), "%s is a place" % e["loc"])
-		assert_true(str(loc.get("region", "")) in ACTS_I_AND_II, "%s is in Act I or II" % e["loc"])
+		assert_true(str(loc.get("region", "")) in ACTS_I_TO_III, "%s is in Act I, II or III" % e["loc"])
 		var c := _container(loc, str(e.get("container", e.get("id", ""))))
 		assert_false(c.is_empty(), "%s holds its find's container" % e["loc"])
 		var held := {}
