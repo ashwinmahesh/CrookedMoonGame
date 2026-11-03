@@ -166,3 +166,37 @@ func test_a_storeys_walls_reach_the_floor_over_them() -> void:
 						break
 		assert_true(st.is_empty() or checked > 0, "%s: some wall stands under a storey" % id)
 		board.free()
+
+
+func test_no_layer_is_a_narrow_strip() -> void:
+	# Ashwin, 2026-11-03: "make the layers a little wider / thicker ... a lot of long / narrow spaces": every square of a
+	# deck is in a block of deck at least two squares by two, or is where a way up lands (the middle of a bridge over a
+	# narrow channel, its banks either side).
+	for id: String in ["wickermoor_stable", "wickermoor_bookstore", "wickermoor_dovecote", "wickermoor_village", "dawns_gate"]:
+		var place := _place(id)
+		var g := LocationView.grid_for(place)
+		var f := ((place["map"] as Dictionary)["floors"] as Array).find(_deck_of(id))
+		var x0 := int((g.floors[f] as Dictionary)["x0"])
+		var deck := {}
+		for x in int((g.floors[f] as Dictionary)["width"]):
+			for z in g.depth:
+				if not g.has_flag(Vector2i(x0 + x, z), CombatGrid.VOID):
+					deck[Vector2i(x, z)] = true
+		var landings := {}
+		for s: Variant in _links(id):
+			var to := LocationView._cell((s as Dictionary)["to"])
+			landings[Vector2i(to.x - x0, to.y)] = true
+		for c: Vector2i in deck:
+			var in_block := landings.has(c)
+			for o: Vector2i in [Vector2i(0, 0), Vector2i(-1, 0), Vector2i(0, -1), Vector2i(-1, -1)]:
+				var a := c + o
+				if deck.has(a) and deck.has(a + Vector2i(1, 0)) and deck.has(a + Vector2i(0, 1)) and deck.has(a + Vector2i(1, 1)):
+					in_block = true
+			assert_true(in_block, "%s: the deck at %s is at least two squares wide" % [id, c])
+
+
+func _deck_of(id: String) -> Dictionary:
+	for f: Variant in ((_place(id)["map"] as Dictionary)["floors"] as Array):
+		if str((f as Dictionary).get("kind", "")) == "deck":
+			return f as Dictionary
+	return {}

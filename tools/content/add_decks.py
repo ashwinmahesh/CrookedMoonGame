@@ -25,31 +25,36 @@ LOC = ROOT / "data" / "locations"
 PLACES = {
     # The footbridge over the Silverbell (the Narrator's "runs dark and quiet under a footbridge"): the three squares where the
     # path crossed the channel between the two pools are river now, and a plank bridge carries the path over them, level with
-    # the north bank and ramped down to the south one. The way out south and the arrival from it stand where they did.
+    # the north bank and stepped down to the south one. It is nine squares wide and two deep, a broad landing over the lower
+    # pool on each side of the steps down to the south bank, so a fight on it has room (Ashwin, 2026-11-03: wider layers, not long narrow strips). The way out south
+    # and the arrival from it stand where they did.
     "wickermoor_village": {
         "edits": [[29, 46, "w"], [30, 46, "w"], [31, 46, "w"]],
         "elevation_edits": [[29, 46, "0"], [30, 46, "0"], [31, 46, "0"]],
-        "decks": [{"height_ft": 5, "rects": [[29, 46, 31, 46]], "outdoors": True}],
+        "decks": [{"height_ft": 5, "rects": [[26, 46, 34, 46], [26, 47, 28, 47], [32, 47, 34, 47]], "outdoors": True}],
         "links": [{"from": [x, 45], "to": [x, 46, 0], "kind": "ramp"} for x in (29, 30, 31)]
                  + [{"from": [x, 47], "to": [x, 46, 0], "kind": "ramp"} for x in (29, 30, 31)],
     },
     # The river road's bridge over the mill stream: where the road crossed between the stream's bends is water now, under a
-    # humped plank bridge a step over the banks, ramped up from each.
+    # broad plank bridge a step over the banks (four squares along the road, three across), stepped up from each.
     "dawns_gate": {
-        "edits": [[x, z, "w"] for z in (28, 29) for x in (50, 51, 52)],
-        "decks": [{"height_ft": 20, "rects": [[50, 28, 52, 29]], "outdoors": True}],
-        "links": [{"from": [49, z], "to": [50, z, 0], "kind": "ramp"} for z in (28, 29)]
-                 + [{"from": [53, z], "to": [52, z, 0], "kind": "ramp"} for z in (28, 29)],
+        "edits": [[x, z, "w"] for z in (27, 28, 29, 30) for x in (50, 51, 52)],
+        "decks": [{"height_ft": 20, "rects": [[50, 27, 52, 30]], "outdoors": True}],
+        "links": [{"from": [49, z], "to": [50, z, 0], "kind": "ramp"} for z in (27, 28, 29, 30)]
+                 + [{"from": [53, z], "to": [52, z, 0], "kind": "ramp"} for z in (27, 28, 29, 30)],
     },
-    # A gallery over the front room's north shelves, reached by the rolling ladder beside them (bookstore_ladder).
+    # A gallery over the front room's two rows of shelves, four squares deep, reached by the rolling ladder at its edge
+    # (bookstore_ladder); the front of the room under it stays open to the ceiling.
     "wickermoor_bookstore": {
-        "decks": [{"height_ft": 10, "rects": [[1, 1, 12, 2]]}],
-        "links": [{"from": [10, 3], "to": [10, 2, 0], "kind": "ladder"}],
+        "decks": [{"height_ft": 10, "rects": [[1, 1, 12, 4]]}],
+        "links": [{"from": [10, 5], "to": [10, 4, 0], "kind": "ladder"}],
     },
-    # A walkway of perches round the inside of the round stone room, up a ladder on its west side.
+    # A broad walkway of perches round the inside of the round stone room, two squares deep, open to the floor in the
+    # middle, up a ladder from the middle on its west side.
     "wickermoor_dovecote": {
-        "decks": [{"height_ft": 10, "rects": [[3, 2, 8, 2], [3, 9, 8, 9], [2, 3, 2, 8], [9, 3, 9, 8]]}],
-        "links": [{"from": [3, 7], "to": [2, 7, 0], "kind": "ladder"}],
+        "decks": [{"height_ft": 10, "rects": [[3, 2, 8, 2], [2, 3, 9, 3], [2, 8, 9, 8], [3, 9, 8, 9],
+                                                [2, 4, 3, 7], [8, 4, 9, 7]]}],
+        "links": [{"from": [4, 7], "to": [3, 7, 0], "kind": "ladder"}],
     },
     # The stone floor over the mill's east room, where the millstones turn, up a steep ladder from beside the gears.
     "fw_windmill": {
