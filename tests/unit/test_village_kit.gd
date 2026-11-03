@@ -103,6 +103,25 @@ func test_houses_differ_in_their_plaster_tint() -> void:
 		"the same house always takes the same material")
 
 
+func test_variant_texture_sets_all_load() -> void:
+	var vkit := (Look.textures().get("themes", {}) as Dictionary).get("vkit", {}) as Dictionary
+	assert_eq((vkit["plaster"] as Dictionary).get("variants"), (vkit["plaster_core"] as Dictionary).get("variants"),
+		"a house's walls and its core take the same variants, in the same order")
+	var listed := 0
+	for set_name: String in vkit:
+		var variants := (vkit[set_name] as Dictionary).get("variants", []) as Array
+		for n in variants.size():
+			var v := variants[n] as Dictionary
+			assert_true(bool(v.get("triplanar", false)) and float(v.get("tile_world_units", 0.0)) > 0.0,
+				"%s variant %d is mapped by world position at a real size" % [set_name, n])
+			var m := PackMaterials.material("vkit/%s" % set_name, n + 1)
+			assert_true(m.albedo_texture != null and m.normal_texture != null and m.roughness_texture != null,
+				"%s variant %d has its albedo, normal and ARM maps" % [set_name, n])
+			assert_true(m.uv1_triplanar and m.ao_enabled, "%s variant %d is triplanar with occlusion" % [set_name, n])
+			listed += 1
+	assert_true(listed >= 40, "the village sets list their variants (%d)" % listed)
+
+
 func test_pack_surfaces_come_out_lit_on_their_own_uvs() -> void:
 	var b := _board()
 	var swapped := PackMaterials.apply(b)
