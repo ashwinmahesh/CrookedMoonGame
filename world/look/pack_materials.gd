@@ -7,7 +7,8 @@ extends RefCounted
 ## world position in its cel look; once a place is built, `apply` gives every such surface a plain lit material on the
 ## model's own UVs instead, so the trim sheets line up: the set's albedo, normal map and roughness (an ORM map's green, or a
 ## roughness map), its ambient occlusion from an ORM map, its vertex colours where the set says `vertex`. A set with
-## `triplanar` (a house's core and gable ends, built in code without the pack's UVs) is mapped by world position.
+## `triplanar` (a house's core and gable ends, built in code without the pack's UVs) is mapped by world position; a set on the
+## model's own UVs may repeat `uv_scale` times as often as the kit's texture (the roofs' variants, so tiles follow the eaves).
 
 const THEMES: Array[String] = ["vkit", "vpro"]
 
@@ -114,6 +115,11 @@ static func _build(surface: String, info: Dictionary) -> StandardMaterial3D:
 		m.uv1_world_triplanar = true
 		var s := 1.0 / float(info.get("tile_world_units", 2.0))
 		m.uv1_scale = Vector3(s, s, s)
+	elif info.has("uv_scale"):
+		# A variant on the model's own UVs (a roof's tiles run along its eaves as the kit laid them), repeated `uv_scale`
+		# times for each time the kit's own texture repeats, so it shows at its real size.
+		var u := float(info["uv_scale"])
+		m.uv1_scale = Vector3(u, u, 1.0)
 	m.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
 	return m
 
