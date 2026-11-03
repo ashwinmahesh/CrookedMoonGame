@@ -629,6 +629,7 @@
     {
       "id": "rk_mob_fight",
       "trigger": "dialogue",
+      "rearm_minutes": 240,
       "text": "The mob closes in, torches high.",
       "monsters": [
         {
@@ -1392,7 +1393,7 @@
       ],
       "dialogue": "rookery/hook:plea",
       "approach": 10,
-      "when": "flag.gorthos_slain and flag.raum_slain and flag.renathyr_slain and flag.lethica_slain and flag.grinning_sinner_slain and not flag.golub_exposed_early and not flag.rk_started"
+      "when": "flag.gorthos_slain and flag.raum_slain and flag.renathyr_slain and flag.lethica_slain and flag.grinning_sinner_slain and flag.fallen_yorgrim_dead and not flag.golub_exposed_early and not flag.rk_started"
     },
     {
       "npc": "geneva_fairchild",
@@ -1844,7 +1845,7 @@
         14
       ],
       "dialogue": "fools_day/hook:messenger",
-      "when": "flag.golub_dead and not flag.fools_letter_given",
+      "when": "flag.golub_dead and flag.fallen_yorgrim_dead and not flag.fools_letter_given",
       "approach": 12
     },
     {
@@ -2497,6 +2498,18 @@
       "call": "fools_day/hook:takeover",
       "approach": 12,
       "call_when": "flag.festival_active and not flag.shows_over and not flag.fd_away"
+    },
+    {
+      "id": "wm_oakum_lane",
+      "cell": [
+        25,
+        37
+      ],
+      "kind": "decor",
+      "label": "The lane behind the stalls",
+      "call": "rookery/quiet_door:leg1",
+      "approach": 6,
+      "call_when": "flag.rk_oakum_escort and not flag.rk_oakum_gone"
     },
     {
       "id": "wm_fd_takeover_b",

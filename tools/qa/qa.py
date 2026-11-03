@@ -94,11 +94,13 @@ def cmd_story(a: argparse.Namespace) -> int:
     rc = 0
     for s in seeds_of(a.seeds):
         tag = f"-{a.order.replace(',', '')}" if a.order else ""
+        tag += "-act3" if a.act3 else ""
         out = os.path.join(a.out, f"story-{a.dice}-{s}{tag}.json")
         log = os.path.join(a.out, f"story-{a.dice}-{s}{tag}.log")
         t = time.time()
         code = godot("res://tools/qa/story_bot.tscn", [f"--out={out}", f"--dice={a.dice}", f"--seed={s}",
-                     f"--steps={a.steps}", f"--trace={1 if a.trace else 0}"] + ([f"--order={a.order}"] if a.order else []), a.timeout, log)
+                     f"--steps={a.steps}", f"--trace={1 if a.trace else 0}"] + ([f"--order={a.order}"] if a.order else [])
+                     + (["--act3=1"] if a.act3 else []), a.timeout, log)
         if code != 0 or not os.path.exists(out):
             print(f"story {a.dice} seed {s}: Godot exited {code}; see {log}")
             for e in script_errors(log)[:10]:
@@ -329,6 +331,7 @@ def main() -> int:
             s.add_argument("--steps", type=int, default=6000)
             s.add_argument("--trace", action="store_true")
             s.add_argument("--order", default="", help="Act II chapters in order, e.g. r13,r14,r15,r16,r17")
+            s.add_argument("--act3", action="store_true", help="after Act II, play Act III's chain to the Crooked Nightmare's end")
         if name == "act1":
             s.add_argument("--seeds", default="1")
             s.add_argument("--mode", default="balanced")

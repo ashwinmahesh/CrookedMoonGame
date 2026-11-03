@@ -63,11 +63,15 @@ Narrator: A rusted iron jaw-trap lies sprung in the mire, its pan stamped with t
 
 ~ camp
 set hb_camp_seen
+if flag.hb_bottle_taken
+Narrator: Four canvas tents sag over their cold camp logs, where four bloated botanists still sit slumped, and the bare soil around them lies scored with beetle tracks.
+else
 Narrator: Four canvas tents sit within a ring of thick grey smoke pouring from an unstoppered brass bottle, keeping the buzzing flies and clicks of beetles at bay. Inside the circle, four bloated botanists sit slumped across their camp logs.
+endif
 * Read the field journal -> journal
-* Search the tents -> tents
-* Take the Eversmoking Bottle -> bottle
-* Rest in the smoke -> camp_rest
+* [if not flag.hb_tents_searched] Search the tents -> tents
+* [if not flag.hb_bottle_taken] Take the Eversmoking Bottle -> bottle
+* [if not flag.hb_bottle_taken] Rest in the smoke -> camp_rest
 * Leave -> END
 
 ~ journal
