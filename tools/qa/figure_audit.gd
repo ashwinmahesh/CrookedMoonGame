@@ -56,7 +56,9 @@ func _add_monster(into: Dictionary, comp: Compendium, spec: Dictionary, place: S
 
 func _add(into: Dictionary, art: String, id: String, place: String) -> void:
 	if not into.has(art):
-		into[art] = {"id": id, "places": []}
+		into[art] = {"id": id, "ids": [], "places": []}
+	if not id in (into[art]["ids"] as Array):
+		(into[art]["ids"] as Array).append(id)
 	if not place in (into[art]["places"] as Array) and (into[art]["places"] as Array).size() < 6:
 		(into[art]["places"] as Array).append(place)
 
@@ -64,7 +66,7 @@ func _add(into: Dictionary, art: String, id: String, place: String) -> void:
 func _tiers(seen: Dictionary) -> Dictionary:
 	var t := {"model": [], "stand_in": [], "sprite": [], "none": []}
 	for art: String in seen:
-		var row := {"art": art, "id": seen[art]["id"], "places": seen[art]["places"]}
+		var row := {"art": art, "id": seen[art]["id"], "ids": seen[art]["ids"], "places": seen[art]["places"]}
 		if FigureModels.has(art):
 			(t["model"] as Array).append(row)
 		elif FigureModels.stand_in(art) != "":
