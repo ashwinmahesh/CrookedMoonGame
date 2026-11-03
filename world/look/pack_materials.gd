@@ -25,24 +25,48 @@ static func apply(root: Node) -> int:
 			var m := mi.get_active_material(i)
 			if m == null or not m.has_meta("surface"):
 				continue
-			var real := material(str(m.get_meta("surface")))
+			var real := material(str(m.get_meta("surface")), _pick(mi))
 			if real != null:
 				mi.set_surface_override_material(i, real)
 				n += 1
 	return n
 
 
-## The lit material of texture set `surface` ("vkit/plaster"), or null when it isn't one of the packs'.
-static func material(surface: String) -> StandardMaterial3D:
-	if _made.has(surface):
-		return _made[surface] as StandardMaterial3D
+## A number for the building or piece a mesh belongs to, from where it stands (a house is one merged mesh), so each
+## house takes its own variant and tint of a texture set and keeps them every time the place opens.
+static func _pick(mi: MeshInstance3D) -> int:
+	var p := mi.global_position if mi.is_inside_tree() else mi.position
+	var h := int(roundf(p.x * 2.0)) * 73856093 ^ int(roundf(p.z * 2.0)) * 19349663
+	h = h ^ (h >> 13)
+	return absi(h)
+
+
+## The lit material of texture set `surface` ("vkit/plaster"), or null when it isn't one of the packs'. A set may list
+## `variants` (other textures of the same kind, each {file, normal_file, orm_file...}) and `tints` (colours [r, g, b]
+## its albedo is multiplied by): `pick` (PackMaterials._pick, a building's number) chooses one of each, so the houses of
+## a village differ.
+static func material(surface: String, pick: int = 0) -> StandardMaterial3D:
 	var parts := surface.split("/")
-	var m: StandardMaterial3D = null
-	if parts.size() == 2 and parts[0] in THEMES:
-		var info := ((Look.textures().get("themes", {}) as Dictionary).get(parts[0], {}) as Dictionary).get(parts[1], {}) as Dictionary
-		if bool(info.get("pack", false)):
-			m = _build(surface, info)
-	_made[surface] = m
+	if parts.size() != 2 or not parts[0] in THEMES:
+		return null
+	var info := ((Look.textures().get("themes", {}) as Dictionary).get(parts[0], {}) as Dictionary).get(parts[1], {}) as Dictionary
+	if not bool(info.get("pack", false)):
+		return null
+	var variants := info.get("variants", []) as Array
+	var tints := info.get("tints", []) as Array
+	var v := pick % (variants.size() + 1)
+	var t := int(pick / 7.0) % tints.size() if not tints.is_empty() else -1
+	var key := "%s#%d#%d" % [surface, v, t]
+	if _made.has(key):
+		return _made[key] as StandardMaterial3D
+	var spec := info.duplicate()
+	if v > 0:
+		spec.merge(variants[v - 1] as Dictionary, true)
+	var m := _build(surface, spec)
+	if t >= 0:
+		var c := tints[t] as Array
+		m.albedo_color *= Color(float(c[0]), float(c[1]), float(c[2]))
+	_made[key] = m
 	return m
 
 

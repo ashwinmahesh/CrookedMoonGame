@@ -94,6 +94,15 @@ func test_the_houses_still_bend_and_morph() -> void:
 	b.free()
 
 
+func test_houses_differ_in_their_plaster_tint() -> void:
+	var colours := {}
+	for pick in 42:
+		colours[PackMaterials.material("vkit/plaster", pick).albedo_color.to_html()] = true
+	assert_true(colours.size() >= 4, "the houses' plaster comes in several tints (%d)" % colours.size())
+	assert_eq(PackMaterials.material("vkit/plaster", 0), PackMaterials.material("vkit/plaster", 0),
+		"the same house always takes the same material")
+
+
 func test_pack_surfaces_come_out_lit_on_their_own_uvs() -> void:
 	var b := _board()
 	var swapped := PackMaterials.apply(b)
