@@ -55,6 +55,8 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **The Crooked House starts only its key talks by itself** (Ashwin, 2026-11-03): Arthur, Wisp, the Sally doll, the eight incitement objects, the Jenkins after Vessla and Old Rusty now start on a click; the Crooked Man (porch and three floor visits), Gilly at the gate, Vessla before the fight and at her death, and the peacock rubble and the cup after their fights are still forced. The Mac runs of the estate, floor, r12 paths, hub playthrough and explore-before-talk tests pass, including the wipe-on-each-floor check.
+
 - **The dark fantasy look lands** (shader lane, Ashwin's yes 2026-11-03): the game's grade (tone mapping, exposure, saturation, haze and a fill from the place's own sky) is the dark one; the Crooked Moon is a crescent that hangs where the camera looks as a place opens and shows when the camera tilts up; what lies well behind a speaker in a close-up softens; thirty CC0 Poly Haven texture sets give the village houses fifty variants of plaster, masonry and roof so no two look alike; and the cartoon leftovers are retired in the Modern finish (plain Lambert light fall-off, worn wood and metal instead of flat colour, no painted ink outline on solid figures). Engine look/dark-grade-3 replayed on engine main; look/dark-grade-2 was not landed.
 
 - **A spell cast from the character sheet has a sound and an effect** (Ashwin, 2026-11-03): it plays the spell's own combat sound as it is cast, and when the sheet closes an effect in the spell's colour plays over the game; Settings, Game, "Spell effect from the sheet" picks Off, Glow, Rings or Sparks and shows each as it is chosen (the demo), Glow by default.
