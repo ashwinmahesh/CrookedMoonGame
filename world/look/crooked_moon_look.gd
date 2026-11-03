@@ -37,7 +37,7 @@ func dress_place(view: LocationView) -> void:
 ## of Act 1's rooms from a few meshes (SmallProps). "stone_ring" stands the catalog's standing stones with each stone bedded in
 ## the ground under it (SeatedStones); "ghostlight_train" the Express standing on its rails at Barrow Hill (GhostlightTrain);
 ## "train_seats" a railway car's seats with ghost passengers in them (TrainSeats) and "framed_picture" a painting hung on the
-## wall (FramedPicture).
+## wall (FramedPicture); "stone_statue" a statue carved as a person on its plinth (StoneStatue).
 ## "real" is one of the scanned rocks and roots of RealNature in the Modern finish (the catalog's art in Classic); "real_tree"
 ## is one of its gnarled EZ-Tree trees the same way.
 func place_special(_art: String, board: ArenaBoard, root: Node3D, cell: Vector2i, spec: Dictionary, look: Dictionary) -> Dictionary:
@@ -88,6 +88,10 @@ func place_special(_art: String, board: ArenaBoard, root: Node3D, cell: Vector2i
 		"train_seats":
 			# A railway car's seats in facing pairs, pale passengers in some (TrainSeats).
 			if TrainSeats.build(board, root, board.place, look) > 0:
+				return {"handled": true, "node": root}
+		"stone_statue":
+			# A statue carved as a person: a pack figure held in a pose, in stone, on a plinth (StoneStatue).
+			if StoneStatue.build(board, root, cell, spec, look) != null:
 				return {"handled": true, "node": root}
 		"framed_picture":
 			# A painting in its frame on the wall, the picture one of the repo's (FramedPicture).
