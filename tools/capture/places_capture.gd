@@ -2,7 +2,7 @@ extends Node
 ## Any places seen from the play camera, as the game shows them: the placeholder party arrives at each location in the list and a shot is
 ## taken of the play view and of the whole place from above.
 ##   make capture SCENE=res://tools/capture/places_capture.tscn NAME=world/places ARGS='--places=ghostlight_boarding,wickermoor_village'
-## --found=a,b marks those search spots found first, so what they hide shows (the Lounge Car's seascape).
+## --no-text hides the narration box. --found=a,b marks those search spots found first, so what they hide shows (the Lounge Car's seascape).
 ## --hour=8 shoots the Twilight Hour (the default is 23, the Midnight Hour).
 ## --party=placeholder stands the engine's placeholder party (Ilse, Tamsin, Hedda, Silvain, sprites) in the places; the default is a new
 ## game's party (Rook, Silas, Cordelia, Delphine), the 3D figures the game opens with.
@@ -27,12 +27,15 @@ func capture_shots(tool: Node, out: String) -> void:
 	var npcs := 0
 	var flags: PackedStringArray = []
 	var found: PackedStringArray = []
+	var no_text := false
 	var focus := Vector2(-1, -1)
 	var focus_distance := 8.0
 	var tilts: PackedStringArray = []
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--places="):
 			places = a.get_slice("=", 1).split(",")
+		if a == "--no-text":
+			no_text = true   # the narration box hidden, for shots of the place alone
 		if a.begins_with("--found="):
 			found = a.get_slice("=", 1).split(",")   # search spots already found, so their things show (g3_seascape)
 		if a.begins_with("--flags="):
@@ -99,6 +102,9 @@ func capture_shots(tool: Node, out: String) -> void:
 			if n is CanvasLayer and n.name.begins_with("Place"):
 				n.visible = false
 		await tool.call("wait_frames", 20)
+		if no_text:
+			for box in game.find_children("NarratorBox", "Control", true, false):
+				(box as Control).visible = false
 		tool.call("_shot", "%s_%s_play.png" % [out, place])
 		if turn:
 			st.set_flag("crooked_house_turned", true)
