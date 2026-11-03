@@ -69,6 +69,18 @@ PLACES = {
         "links": [{"from": [17, 11], "to": [17, 10, 0], "kind": "ladder"}],
         "edits": [[7, z, "="] for z in range(1, 9) if z != 4] + [[14, z, "="] for z in range(1, 9) if z != 4],
     },
+    # Act III. The Silent Church (R21): the old chapel's choir loft over the back of the nave, ten feet up behind a balustrade, its
+    # stair up the west wall; the doorway and the arrival under it stay clear (the loft stops a row short of the door wall).
+    "fd_silent_church": {
+        "decks": [{"height_ft": 10, "rects": [[1, 15, 12, 17]], "id": "fd_silent_church_loft"}],
+        "links": [{"from": [1, 14], "to": [1, 15, 0], "kind": "stair"}],
+    },
+    # The Crooked Bookshelf (R22): the shelf above, ten feet over the party's shelf along the books' spines, with no rail at its
+    # open edge; the party climbs to it up the stack of books.
+    "nm_bookshelf": {
+        "decks": [{"height_ft": 10, "rects": [[1, 1, 24, 3]], "rail_ft": 0, "id": "nm_bookshelf_upper"}],
+        "links": [{"from": [8, 4], "to": [8, 3, 0], "kind": "ladder"}],
+    },
 }
 
 
