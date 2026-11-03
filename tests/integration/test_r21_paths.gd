@@ -149,11 +149,13 @@ func _stands(npc_id: String) -> Dictionary:
 
 # ---- the hook and the takeover --------------------------------------------------------------------------------------------------
 
-func test_the_letter_comes_only_after_golub_is_dead() -> void:
+func test_the_letter_comes_only_after_golub_and_yorgrim_are_dead() -> void:
 	st.location = "wickermoor_village"
 	st.set_flag("wm_welcomed")
 	assert_true(_stands("bess_crumley").is_empty(), "no messenger while Golub lives")
 	st.set_flag("golub_dead")
+	assert_true(_stands("bess_crumley").is_empty(), "no messenger while Yorgrim's tear is open (Golub may fall first by Route B)")
+	st.set_flag("fallen_yorgrim_dead")
 	var e := _stands("bess_crumley")
 	assert_eq(str(e.get("dialogue", "")), "fools_day/hook:messenger")
 
@@ -161,6 +163,7 @@ func test_the_letter_comes_only_after_golub_is_dead() -> void:
 func test_the_messenger_dies_with_the_letter_and_the_festival_begins() -> void:
 	st.location = "wickermoor_village"
 	st.set_flag("golub_dead")
+	st.set_flag("fallen_yorgrim_dead")
 	_play("fools_day/hook:messenger", ["Search"])
 	assert_true(_flag("fools_letter_given"))
 	assert_true(_flag("festival_active"))
