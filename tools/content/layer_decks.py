@@ -43,6 +43,8 @@ def ring(x0, z0, x1, z1, w):
     return {(x, z) for (x, z) in rect(x0, z0, x1, z1) if x < x0 + w or x > x1 - w or z < z0 + w or z > z1 - w}
 
 
+PRONGS = [5, 6, 7, 9, 10, 11, 12, 14, 15, 16]   # (the columns of the tomb's three prongs, widened)
+
 # place id -> its decks. `on`: the floor the deck stands over (a floor id of the place; the place itself when it has one floor).
 # `cells`: the deck's squares in that floor's own squares (as its own map had them). `height_ft`: how far over that floor the deck
 # stands. `rail_ft`: the height of the railing or parapet along its open edges (none on the tomb's platforms, hung bare on
@@ -52,22 +54,26 @@ DECKS = {
     # at each south corner. The hall's floor stays as it was under it.
     "dc_casino": [{
         "id": "dc_casino_balcony", "on": "dc_casino", "mode": "add", "height_ft": 10, "rail_ft": 3,
-        "cells": ring(1, 1, 16, 24, 2),
+        # (three squares deep down the long sides and four at each end, Ashwin 2026-11-03: wide enough to fight on, not a strip)
+        "cells": ring(1, 1, 16, 24, 3) | rect(1, 1, 16, 4) | rect(1, 21, 16, 24),
         "stairs": [((3, 22), (2, 22), "stair"), ((14, 22), (15, 22), "stair")],
     }],
     # Golub's roost floor in the walking dovecote: the walkway under the thatch along the tops of the roost cubbies, and the swivel
     # ladder up to it from beside its track.
     "rk_dovecote_r1": [{
         "id": "rk_dovecote_walkway", "on": "rk_dovecote_r2", "mode": "add", "height_ft": 10, "rail_ft": 3,
-        "cells": ring(1, 1, 22, 16, 2),
-        "stairs": [((6, 15), (6, 16), "ladder")],
+        # (three squares wide along the walls and four deep over the north end, Ashwin 2026-11-03: room to fight up there; the
+        # ladder rises from the floor just north of the south band)
+        "cells": ring(1, 1, 22, 16, 3) | rect(1, 1, 22, 4),
+        "stairs": [((6, 13), (6, 14), "ladder")],
     }],
     # The Grotto of Tears: the stone bridge from the north tunnel to the platform of glyphs arches over the glowing pools, which
     # now run on under it; a ramp up from the tunnel's mouth and down onto the platform.
     "mr_grotto": [{
         "id": "mr_grotto_bridge", "on": "mr_grotto", "mode": "add", "height_ft": 5, "rail_ft": 3,
-        "cells": rect(15, 5, 17, 11), "under": "~",
-        "stairs": [((16, 4), (16, 5), "ramp"), ((16, 12), (16, 11), "ramp")],
+        # (five squares wide, Ashwin 2026-11-03, with a ramp the bridge's width at each end over the old three-square path)
+        "cells": rect(14, 5, 18, 11), "under": "~",
+        "stairs": [((x, 4), (x, 5), "ramp") for x in (15, 16, 17)] + [((x, 12), (x, 11), "ramp") for x in (15, 16, 17)],
     }],
     # The Tomb of the Shrouded: its three-pronged platforms hang on the giant chains, the first ten feet over the tomb floor and the
     # highest twenty, with the tomb floor running on under both. The steps at the first platform's foot climb onto it, and the
@@ -75,13 +81,17 @@ DECKS = {
     "mm_tomb": [{
         "id": "mm_tomb_first_platform", "on": "mm_tomb", "mode": "lift", "height_ft": 10,
         "cells": {c for c in rect(6, 7, 15, 13)}, "areas": ["first"],
-        "stairs": [((x, 14), (x, 13), "stair") for x in (8, 11, 13)],
+        # (widened past the old raised block, Ashwin 2026-11-03: three prongs three, four and three squares wide over one-square
+        # slots, on a bar three squares deep, where they were two wide over two-square slots on a bar of two)
+        "widen": {(x, z): ("1" if z == 7 else ".") for x in PRONGS for z in range(7, 11)} | {(x, z): "." for x in range(5, 17) for z in (11, 12, 13)},
+        "stairs": [((x, 14), (x, 13), "stair") for x in range(7, 15)],
     }, {
         "id": "mm_tomb_hanging_platform", "on": "mm_tomb", "mode": "lift", "height_ft": 20,
         "cells": {c for c in rect(6, 2, 15, 6)}, "areas": ["second"],
+        "widen": {(x, z): "." for x in PRONGS for z in range(2, 4)} | {(x, z): "." for x in range(5, 17) for z in (4, 5, 6)},
         "stairs": [],
         # (joined to the first platform: its 15 ft step at the back, row 7, climbs to the hanging platform's row 6)
-        "deck_stairs": [("mm_tomb_first_platform", (x, 7), (x, 6), "stair") for x in (6, 10, 14)],
+        "deck_stairs": [("mm_tomb_first_platform", (x, 7), (x, 6), "stair") for x in (6, 10, 11, 15)],
     }],
 }
 # place id -> exit id -> what the exit now says: ways out that lead into a place merged from its floors (merge_floors.py).
@@ -186,6 +196,10 @@ def lay(pid):
                     for key in ("rect", "cells"):
                         if key in a:
                             a[key] = [[c[0] + shift, c[1]] for c in a[key]]
+        for (x, z), ch in d.get("widen", {}).items():
+            # (squares added to a lifted deck past its old raised block: the floor under them stays as it was)
+            if rows[oz + z][ox + x + shift] == " ":
+                rows[oz + z][ox + x + shift] = ch
         entry = {"x0": x0, "width": fw, "height_ft": base_ft + d["height_ft"], "id": d["id"], "kind": "deck"}
         if "rail_ft" in d:
             entry["rail_ft"] = d["rail_ft"]   # (a balustrade or parapet along its open edge: Half Cover over it)
@@ -206,8 +220,27 @@ def lay(pid):
     return loc
 
 
+def _carry_over(loc, pid):
+    """What other lanes added to the place since `from` (a magic find's container, a person): every list entry of the place as the
+    working tree has it whose id the laid place lacks, and every key it lacks."""
+    path = LOC / (pid + ".json")
+    if not path.exists():
+        return loc
+    now = json.loads(path.read_text())
+    for k, v in now.items():
+        if k not in loc:
+            loc[k] = v
+        elif isinstance(v, list) and k in LISTS + ["containers", "encounters", "doors", "areas"]:
+            have = {json.dumps(e.get("id", e.get("npc", "")), sort_keys=True) for e in loc[k] if isinstance(e, dict)}
+            for e in v:
+                if isinstance(e, dict) and json.dumps(e.get("id", e.get("npc", "")), sort_keys=True) not in have:
+                    loc[k].append(e)
+    return loc
+
+
 def write(pid):
     loc = lay(pid)
+    loc = _carry_over(loc, pid)
     (LOC / (pid + ".json")).write_text(json.dumps(loc, indent=2, ensure_ascii=False) + "\n")
     print("wrote data/locations/%s.json" % pid)
 
