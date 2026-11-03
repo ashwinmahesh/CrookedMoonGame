@@ -7,7 +7,8 @@ extends RefCounted
 ## world position in its cel look; once a place is built, `apply` gives every such surface a plain lit material on the
 ## model's own UVs instead, so the trim sheets line up: the set's albedo, normal map and roughness (an ORM map's green, or a
 ## roughness map), its ambient occlusion from an ORM map, its vertex colours where the set says `vertex`. A set with
-## `triplanar` (a house's core and gable ends, built in code without the pack's UVs) is mapped by world position.
+## `triplanar` (a house's core and gable ends, built in code without the pack's UVs) is mapped by world position; a set on the
+## model's own UVs may repeat `uv_scale` times as often as the kit's texture (the roofs' variants, so tiles follow the eaves).
 
 const THEMES: Array[String] = ["vkit", "vpro"]
 
@@ -25,24 +26,62 @@ static func apply(root: Node) -> int:
 			var m := mi.get_active_material(i)
 			if m == null or not m.has_meta("surface"):
 				continue
-			var real := material(str(m.get_meta("surface")))
+			var real := material(str(m.get_meta("surface")), _pick(mi))
 			if real != null:
 				mi.set_surface_override_material(i, real)
 				n += 1
 	return n
 
 
-## The lit material of texture set `surface` ("vkit/plaster"), or null when it isn't one of the packs'.
-static func material(surface: String) -> StandardMaterial3D:
-	if _made.has(surface):
-		return _made[surface] as StandardMaterial3D
+## A number for the building or piece a mesh belongs to, from where it stands, so each house takes its own variant and tint
+## of a texture set and keeps them every time the place opens. A house's meshes all sit at its root's origin with their places
+## baked into the points, so the house is told by the middle of its walls' bounds, which its roof (under Upper) and stub share through
+## the house's root.
+static func _pick(mi: MeshInstance3D) -> int:
+	var anchor := mi
+	var up: Node = mi.get_parent()
+	for level in 3:
+		if up == null:
+			break
+		if up.get_node_or_null("Walls") is MeshInstance3D:
+			anchor = up.get_node("Walls") as MeshInstance3D
+			break
+		up = up.get_parent()
+	var local := anchor.mesh.get_aabb().get_center() if anchor.mesh != null else Vector3.ZERO
+	var p := anchor.global_transform * local if anchor.is_inside_tree() else anchor.transform * local
+	var h := int(roundf(p.x * 2.0)) * 73856093 ^ int(roundf(p.z * 2.0)) * 19349663
+	h = (h ^ (h >> 15)) * 0x2c1b3c6d
+	h = (h ^ (h >> 12)) * 0x297a2d39
+	h = h ^ (h >> 15)
+	return absi(h)
+
+
+## The lit material of texture set `surface` ("vkit/plaster"), or null when it isn't one of the packs'. A set may list
+## `variants` (other textures of the same kind, each {file, normal_file, orm_file...}) and `tints` (colours [r, g, b]
+## its albedo is multiplied by): `pick` (PackMaterials._pick, a building's number) chooses one of each, so the houses of
+## a village differ.
+static func material(surface: String, pick: int = 0) -> StandardMaterial3D:
 	var parts := surface.split("/")
-	var m: StandardMaterial3D = null
-	if parts.size() == 2 and parts[0] in THEMES:
-		var info := ((Look.textures().get("themes", {}) as Dictionary).get(parts[0], {}) as Dictionary).get(parts[1], {}) as Dictionary
-		if bool(info.get("pack", false)):
-			m = _build(surface, info)
-	_made[surface] = m
+	if parts.size() != 2 or not parts[0] in THEMES:
+		return null
+	var info := ((Look.textures().get("themes", {}) as Dictionary).get(parts[0], {}) as Dictionary).get(parts[1], {}) as Dictionary
+	if not bool(info.get("pack", false)):
+		return null
+	var variants := info.get("variants", []) as Array
+	var tints := info.get("tints", []) as Array
+	var v := pick % (variants.size() + 1)
+	var t := int(pick / 7.0) % tints.size() if not tints.is_empty() else -1
+	var key := "%s#%d#%d" % [surface, v, t]
+	if _made.has(key):
+		return _made[key] as StandardMaterial3D
+	var spec := info.duplicate()
+	if v > 0:
+		spec.merge(variants[v - 1] as Dictionary, true)
+	var m := _build(surface, spec)
+	if t >= 0:
+		var c := tints[t] as Array
+		m.albedo_color *= Color(float(c[0]), float(c[1]), float(c[2]))
+	_made[key] = m
 	return m
 
 
@@ -76,6 +115,11 @@ static func _build(surface: String, info: Dictionary) -> StandardMaterial3D:
 		m.uv1_world_triplanar = true
 		var s := 1.0 / float(info.get("tile_world_units", 2.0))
 		m.uv1_scale = Vector3(s, s, s)
+	elif info.has("uv_scale"):
+		# A variant on the model's own UVs (a roof's tiles run along its eaves as the kit laid them), repeated `uv_scale`
+		# times for each time the kit's own texture repeats, so it shows at its real size.
+		var u := float(info["uv_scale"])
+		m.uv1_scale = Vector3(u, u, 1.0)
 	m.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
 	return m
 

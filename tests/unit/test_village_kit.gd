@@ -94,6 +94,64 @@ func test_the_houses_still_bend_and_morph() -> void:
 	b.free()
 
 
+func test_houses_differ_in_their_plaster_tint() -> void:
+	var colours := {}
+	for pick in 42:
+		colours[PackMaterials.material("vkit/plaster", pick).albedo_color.to_html()] = true
+	assert_true(colours.size() >= 4, "the houses' plaster comes in several tints (%d)" % colours.size())
+	assert_eq(PackMaterials.material("vkit/plaster", 0), PackMaterials.material("vkit/plaster", 0),
+		"the same house always takes the same material")
+
+
+func test_each_house_has_its_own_pick_shared_by_its_walls_and_roof() -> void:
+	var rows := ["................", "................", "..####....####..", "..####....####..", "..####....####..", "..####....####..",
+		"................", "................", "................", "................"]
+	var b := ArenaBoard.build(CombatGrid.from_rows(rows, ELEV), "village", PLACE)
+	add_child(b)
+	assert_eq(b.buildings.size(), 2, "two houses")
+	var picks: Array[int] = []
+	for house: Dictionary in b.buildings:
+		var own := {}
+		for mi in (house["root"] as Node3D).find_children("*", "MeshInstance3D", true, false):
+			own[PackMaterials._pick(mi as MeshInstance3D)] = true
+		assert_eq(own.size(), 1, "a house's walls, roof and stub are one pick (%s)" % [own.keys()])
+		picks.append(int(own.keys()[0]))
+	assert_true(picks[0] != picks[1], "and the two houses differ (%s)" % [picks])
+	b.free()
+
+
+func test_variant_texture_sets_all_load() -> void:
+	var vkit := (Look.textures().get("themes", {}) as Dictionary).get("vkit", {}) as Dictionary
+	assert_eq((vkit["plaster"] as Dictionary).get("variants"), (vkit["plaster_core"] as Dictionary).get("variants"),
+		"a house's walls and its core take the same variants, in the same order")
+	var listed := 0
+	for set_name: String in vkit:
+		var variants := (vkit[set_name] as Dictionary).get("variants", []) as Array
+		for n in variants.size():
+			var v := variants[n] as Dictionary
+			# Roofs keep the kit's own UVs (their tiles run along the eaves) at a real-size repeat; the rest are mapped by
+			# world position.
+			var roof := set_name in ["roundtiles", "flattiles"]
+			if roof:
+				assert_true(not bool(v.get("triplanar", false)) and float(v.get("uv_scale", 0.0)) > 0.0,
+					"%s variant %d is on the roof's own UVs at a real size" % [set_name, n])
+			else:
+				assert_true(bool(v.get("triplanar", false)) and float(v.get("tile_world_units", 0.0)) > 0.0,
+					"%s variant %d is mapped by world position at a real size" % [set_name, n])
+			var m := PackMaterials.material("vkit/%s" % set_name, n + 1)
+			assert_true(m.albedo_texture != null and m.normal_texture != null and m.roughness_texture != null,
+				"%s variant %d has its albedo, normal and ARM maps" % [set_name, n])
+			if roof:
+				assert_true(not m.uv1_triplanar and m.ao_enabled and is_equal_approx(m.uv1_scale.x, float(v["uv_scale"])),
+					"%s variant %d repeats on the roof's UVs, with occlusion" % [set_name, n])
+			else:
+				assert_true(m.uv1_triplanar and m.ao_enabled, "%s variant %d is triplanar with occlusion" % [set_name, n])
+			listed += 1
+	assert_false(str((vkit["woodtrim"] as Dictionary).get("variants")).contains("dark_planks"),
+		"the near-black planks are left out (Ashwin's houses went black at the base)")
+	assert_true(listed >= 40, "the village sets list their variants (%d)" % listed)
+
+
 func test_pack_surfaces_come_out_lit_on_their_own_uvs() -> void:
 	var b := _board()
 	var swapped := PackMaterials.apply(b)
