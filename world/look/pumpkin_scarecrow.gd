@@ -1,8 +1,9 @@
 class_name PumpkinScarecrow
 extends RefCounted
 ## A scarecrow put together as a farmer would (the catalog's "pumpkin_scarecrow" set piece; Ashwin, 2026-11-03, picked it of
-## three): a cross post sunk in the ground, an old peasant's jerkin and breeches from the pack the townsfolk wear hung on it
-## arms out, a carved pumpkin for a head, straw sticking out at the cuffs and the collar. Each one leans a little and tips its
+## three): a cross post sunk in the ground, an old peasant's jerkin and breeches from the pack the townsfolk wear stuffed and
+## hung on it by the arms, the crossbar through the sleeves at the shoulders and the body slumping from it, its feet off the
+## ground; a carved pumpkin for a head; straw poking out at the cuffs, the collar, the hem and the ankles. Each one leans a little and tips its
 ## head its own way, the same every visit, so a field of them is not a row of copies.
 
 const HALLOWEEN := "res://art/sourced/kaylousberg_halloween_bits/"
@@ -10,9 +11,13 @@ const HALLOWEEN := "res://art/sourced/kaylousberg_halloween_bits/"
 const OUTFIT := "res://art/figures/pack/pack_male_peasant3.glb"
 const HEAD := HALLOWEEN + "Pumpkin Orange Jacko.glb"
 const STRAW := "res://addons/dnd_core/art/models/straw.glb"
-## A man a little under six feet hung a hand off the ground (units, 5 ft); the pack bodies are 1.8 of their own units tall.
+## A man a little under six feet hung his feet a foot and a half off the ground (units, 5 ft); the pack bodies are 1.8 of their own units tall.
 const BODY_SCALE := 1.12 / 1.8
-const HUNG := 0.28
+const HUNG := 0.3
+## The pack body's arms in its T-pose, its collar and its hem (heights in its own units, of 1.8).
+const ARMS := 1.43
+const NECK := 1.5
+const HEM := 0.95
 ## The post's foot sunk below the lowest ground under it (units).
 const SINK := 0.25
 
@@ -39,29 +44,44 @@ static func build(board: ArenaBoard, root: Node3D, cell: Vector2i, spec: Diction
 		(0.0 if yaw == null else float(yaw)) + deg_to_rad(rng.randf_range(-14.0, 14.0)), deg_to_rad(rng.randf_range(-5.0, 5.0)))
 	holder.scale = Vector3.ONE * scale_
 	var wood := _material(look, "post", "tex_vkit__woodtrim")
-	_beam(holder, wood, Vector3(0.0, (1.34 - SINK) / 2.0, -0.06), Vector3(0.09, 1.34 + SINK, 0.09))   # the post, up into the head
-	_beam(holder, wood, Vector3(0.0, 1.0, -0.06), Vector3(1.05, 0.07, 0.07))   # the crossbar under the arms
+	var shoulder := HUNG + ARMS * BODY_SCALE
+	_beam(holder, wood, Vector3(0.0, (shoulder + 0.34 - SINK) / 2.0, -0.07), Vector3(0.09, shoulder + 0.34 + SINK, 0.09))   # the post, up into the head
+	_beam(holder, wood, Vector3(0.0, shoulder - 0.02, -0.01), Vector3(1.3, 0.07, 0.07), "Crossbar")   # through the sleeves
+	# The body hangs from the bar by its arms: a pivot at the shoulders, the rest slumping forward and a little to one side.
+	var hang := Node3D.new()
+	hang.name = "Hung"
+	hang.position = Vector3(0.0, shoulder, 0.0)
+	hang.rotation = Vector3(deg_to_rad(rng.randf_range(6.0, 11.0)), 0.0, deg_to_rad(rng.randf_range(-4.0, 4.0)))
+	holder.add_child(hang)
 	var outfit := (load(OUTFIT) as PackedScene).instantiate() as Node3D
 	outfit.name = "Clothes"
 	outfit.scale = Vector3.ONE * BODY_SCALE
-	outfit.position.y = HUNG
-	holder.add_child(outfit)
+	outfit.position.y = HUNG - shoulder
+	hang.add_child(outfit)
 	var head := (load(HEAD) as PackedScene).instantiate() as Node3D
 	head.name = "Head"
 	head.scale = Vector3.ONE * 0.19
-	head.position = Vector3(0.0, HUNG + 1.5 * BODY_SCALE - 0.04, 0.0)
-	head.rotation = Vector3(deg_to_rad(rng.randf_range(-6.0, 12.0)), deg_to_rad(rng.randf_range(-20.0, 20.0)),
-		deg_to_rad(rng.randf_range(-14.0, 14.0)))   # a tipped, lolling head
+	head.position = Vector3(0.0, HUNG + 1.5 * BODY_SCALE - 0.06, 0.03)
+	head.rotation = Vector3(deg_to_rad(rng.randf_range(8.0, 18.0)), deg_to_rad(rng.randf_range(-20.0, 20.0)),
+		deg_to_rad(rng.randf_range(-16.0, 16.0)))   # lolling forward and to one side
 	holder.add_child(head)
 	if ResourceLoader.exists(STRAW):
 		var straw := load(STRAW) as PackedScene
-		for p: Vector3 in [Vector3(0.52, 1.0, 0.0), Vector3(-0.52, 1.0, 0.0), Vector3(0.0, HUNG + 1.42 * BODY_SCALE, 0.03)]:
+		var waist := HUNG + HEM * BODY_SCALE - shoulder
+		var tufts: Array = [
+			[Vector3(0.6, 0.0, 0.0), 0.2], [Vector3(-0.6, 0.0, 0.0), 0.2],   # the cuffs
+			[Vector3(0.0, NECK * BODY_SCALE + HUNG - shoulder, 0.03), 0.22],   # the collar
+			[Vector3(0.1, waist, 0.09), 0.16], [Vector3(-0.12, waist, 0.08), 0.15], [Vector3(0.0, waist, -0.09), 0.15],   # the hem
+			[Vector3(0.07, HUNG - shoulder + 0.03, 0.0), 0.13], [Vector3(-0.07, HUNG - shoulder + 0.03, 0.0), 0.13],   # the ankles
+		]
+		for t: Array in tufts:
 			var tuft := straw.instantiate() as Node3D
 			tuft.name = "Straw"
-			tuft.scale = Vector3.ONE * rng.randf_range(0.18, 0.26)
-			tuft.rotation.y = rng.randf() * TAU
-			tuft.position = p
-			holder.add_child(tuft)
+			tuft.set_meta("straw", true)
+			tuft.scale = Vector3.ONE * float(t[1]) * rng.randf_range(0.85, 1.2)
+			tuft.rotation = Vector3(rng.randf_range(-0.4, 0.4), rng.randf() * TAU, rng.randf_range(-0.4, 0.4))
+			tuft.position = t[0] as Vector3
+			hang.add_child(tuft)
 			if (look.get("materials", {}) as Dictionary).has("straw"):
 				for n in tuft.find_children("*", "MeshInstance3D", true, false):
 					(n as MeshInstance3D).material_override = _material(look, "straw", "")
@@ -73,9 +93,9 @@ static func _material(look: Dictionary, part: String, fallback: String) -> Mater
 	return ModelPiece.material(str((look.get("materials", {}) as Dictionary).get(part, fallback)))
 
 
-static func _beam(parent: Node3D, material: Material, at: Vector3, size: Vector3) -> void:
+static func _beam(parent: Node3D, material: Material, at: Vector3, size: Vector3, name := "Post") -> void:
 	var mi := MeshInstance3D.new()
-	mi.name = "Post"
+	mi.name = name
 	var box := BoxMesh.new()
 	box.size = size
 	mi.mesh = box

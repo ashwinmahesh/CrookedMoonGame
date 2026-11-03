@@ -53,10 +53,23 @@ func test_barrow_hills_scarecrow_stands_sunk_and_true_size() -> void:
 		for n in s.find_children("*", "MeshInstance3D", true, false):
 			var mi := n as MeshInstance3D
 			var box := mi.global_transform * mi.get_aabb()
-			if mi.name == "Post":
+			if mi.name == "Post" or mi.name == "Crossbar":
 				foot = minf(foot, box.position.y)
 			tip = maxf(tip, box.end.y)
 		var ground := board.ground_y(Vector2(s.global_position.x, s.global_position.z))
+		# Hung on the cross: its clothes' foot off the ground, the crossbar through the sleeves at the shoulders.
+		var clothes := s.find_child("Clothes", true, false) as Node3D
+		var low := INF
+		var arms := -INF
+		for n in clothes.find_children("*", "MeshInstance3D", true, false):
+			var cb := (n as MeshInstance3D).global_transform * (n as MeshInstance3D).get_aabb()
+			low = minf(low, cb.position.y)
+		var crossbar := s.find_child("Crossbar", false, false) as MeshInstance3D
+		var bar := (crossbar.global_transform * crossbar.get_aabb()).get_center().y if crossbar != null else -INF
+		arms = s.global_position.y + PumpkinScarecrow.HUNG + PumpkinScarecrow.ARMS * PumpkinScarecrow.BODY_SCALE
+		assert_true(low > ground + 0.12, "%s hangs with its feet off the ground (%.2f over it)" % [s.get_parent().name, low - ground])
+		assert_true(absf(bar - arms) < 0.1, "%s's crossbar runs through its sleeves at the shoulders (%.2f off)" % [s.get_parent().name, bar - arms])
+		assert_true(s.find_children("*", "Node3D", true, false).filter(func(n: Node) -> bool: return n.has_meta("straw")).size() >= 7, "%s has straw at its cuffs, collar, hem and ankles" % s.get_parent().name)
 		assert_true(foot < ground - 0.1, "%s's post is sunk in the ground (%.2f under it)" % [s.get_parent().name, ground - foot])
 		var feet := (tip - ground) * CombatGrid.FEET
 		assert_true(feet > 6.0 and feet < 8.5, "%s stands about seven feet (%.1f)" % [s.get_parent().name, feet])

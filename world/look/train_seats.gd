@@ -18,6 +18,9 @@ const SIT_IN := 0.18
 ## is inside the body, a hand above the seat and a little more than that from the back.
 const HIP_ABOVE := 0.07
 const HIP_FROM_BACK := 0.13
+## The passengers' blue (a palette colour, lightened toward frost) and how much of them is solid.
+const GHOST_BLUE := "mist_blue"
+const GHOST_ALPHA := 0.55
 ## How long a passenger is left to take its pose and turn before it is rested on its bench (seconds).
 const SETTLE := 0.35
 
@@ -117,6 +120,7 @@ static func _seat_ghost(root: Node3D, figure: String, seat: Node3D, at: Vector3,
 		await ghost.get_tree().create_timer(SETTLE).timeout
 		if is_instance_valid(ghost) and is_instance_valid(seat):
 			_rest_on(ghost, seat, faces)
+			_in_ghost_blue(ghost)
 	if ghost.is_inside_tree():
 		settle.call()
 	else:
@@ -149,6 +153,32 @@ static func _rest_on(ghost: ModelFigure, seat: Node3D, faces: Vector2i) -> void:
 	ghost.set_meta("seat_top", top)
 	ghost.set_meta("back_face", back)
 	ghost.global_position += Vector3(back + f * HIP_FROM_BACK, top + HIP_ABOVE, mid.z) - hip
+
+
+## A passenger drawn pale blue and half seen through, whatever the car's warm lamps: each surface its own picture (the clothes'
+## and the hair's detail) times the palette's pale blue, unlit, with a little of the blue's own light. (The figures' own ghost
+## look washes toward its colour by the lamps' light, and under these lamps it read white; Ashwin, 2026-11-03.)
+static func _in_ghost_blue(ghost: ModelFigure) -> void:
+	var blue := Look.color(GHOST_BLUE).lerp(Look.color("frost"), 0.35)
+	for n in ghost.find_children("*", "GeometryInstance3D", true, false):
+		var gi := n as GeometryInstance3D
+		var tex: Texture2D = null
+		if gi is MeshInstance3D and (gi as MeshInstance3D).mesh != null:
+			var mat := (gi as MeshInstance3D).get_active_material(0)
+			if mat is ShaderMaterial:
+				tex = (mat as ShaderMaterial).get_shader_parameter("albedo_tex") as Texture2D
+			elif mat is BaseMaterial3D:
+				tex = (mat as BaseMaterial3D).albedo_texture
+		var m := StandardMaterial3D.new()
+		m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		m.albedo_color = Color(blue.r, blue.g, blue.b, GHOST_ALPHA)
+		if tex != null:
+			m.albedo_texture = tex
+		m.cull_mode = BaseMaterial3D.CULL_BACK
+		gi.material_override = m
+		gi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	ghost.set_meta("ghost_blue", blue)
 
 
 ## Where a figure's hips (its pelvis joint) are now, or INF.

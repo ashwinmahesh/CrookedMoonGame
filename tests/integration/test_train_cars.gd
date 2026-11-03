@@ -168,6 +168,11 @@ func test_the_ghost_passengers_sit_on_their_benches() -> void:
 		var ghost := n as ModelFigure
 		seen += 1
 		assert_true(ghost.has_meta("seat_top"), "%s was rested on its bench" % ghost.name)
+		var blue := ghost.get_meta("ghost_blue", Color.WHITE) as Color
+		assert_true(blue.b > blue.r + 0.12 and blue.b > blue.g + 0.06, "%s is pale blue, not white (%s)" % [ghost.name, blue])
+		for g in ghost.find_children("*", "GeometryInstance3D", true, false):
+			var m := (g as GeometryInstance3D).material_override as BaseMaterial3D
+			assert_true(m != null and m.albedo_color.a < 0.9, "%s is seen through" % ghost.name)
 		if not ghost.has_meta("seat_top"):
 			continue
 		var bench := ghost.get_meta("bench") as Node3D
