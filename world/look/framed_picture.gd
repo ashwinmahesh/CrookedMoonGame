@@ -8,6 +8,8 @@ extends RefCounted
 ## The frame's moulding: how wide and how deep (units).
 const FRAME := 0.07
 const FRAME_DEPTH := 0.05
+## How far out from the wall's face a picture hangs (units): in front of the panelling and window frames the wall wears.
+const OFF_WALL := 0.15
 
 
 static func build(board: ArenaBoard, root: Node3D, cell: Vector2i, look: Dictionary) -> Node3D:
@@ -24,9 +26,9 @@ static func build(board: ArenaBoard, root: Node3D, cell: Vector2i, look: Diction
 	holder.name = "Picture"
 	holder.set_meta("picture", path)
 	root.add_child(holder)
-	# On the wall's face (the wall square's edge, and any set-back the board draws it with), facing into the room.
+	# On the wall (the wall square's edge, any set-back the board draws it with, and out past its panelling), facing into the room.
 	var inset := board.wall_inset_at(cell + wall, -wall)
-	var face := board.cell_center(cell) + Vector3(float(wall.x), 0.0, float(wall.y)) * (0.5 - inset)
+	var face := board.cell_center(cell) + Vector3(float(wall.x), 0.0, float(wall.y)) * (0.5 - inset - OFF_WALL)
 	holder.position = Vector3(face.x, board.floor_y(cell) + float(look.get("height", 1.0)), face.z)
 	holder.rotation.y = atan2(float(-wall.x), float(-wall.y))
 	var canvas := MeshInstance3D.new()

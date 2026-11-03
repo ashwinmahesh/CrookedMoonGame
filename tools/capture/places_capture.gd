@@ -103,8 +103,9 @@ func capture_shots(tool: Node, out: String) -> void:
 				n.visible = false
 		await tool.call("wait_frames", 20)
 		if no_text:
-			for box in game.find_children("NarratorBox", "Control", true, false):
-				(box as Control).visible = false
+			for hud in game.find_children("*", "ExploreHud", true, false):
+				hud.call("close_narration")
+			await tool.call("wait_frames", 3)   # (a shot is the frame last drawn)
 		tool.call("_shot", "%s_%s_play.png" % [out, place])
 		if turn:
 			st.set_flag("crooked_house_turned", true)
