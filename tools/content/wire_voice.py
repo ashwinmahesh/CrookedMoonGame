@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Wires recorded voice clips into the game. Each finished take in the asset root's voice batches (<root>/voice/<batch>/jobs.json,
 the clip at <root>/voice/<batch>/<speaker>/<key>.mp3) is copied to audio/voice/<speaker>/<key>.mp3, the path VoiceOver plays,
-committed through Git LFS. A take is copied only while its line is still spoken somewhere under narrative/: the key is the first 16 hex
+committed through Git LFS. When a line has takes in several batches, the re-recorded ones (`-full`, `-fill`, `narrator-gaps`) win over the old
+ones and replace a clip already wired. A take is copied only while its line is still spoken somewhere under narrative/: the key is the first 16 hex
 digits of the SHA-1 of the stripped line (act1_voice_keys.py), so an edited line's old take would never play. Prints what it copied and
 skipped, and how many of the game's spoken lines have a clip, per narrative folder. A line with {name} can't be read for every name, so
 it is wired once per roster hero (data/pregens, roster: true) as the Narrator says it with that hero's first name, and a custom hero's
@@ -61,6 +62,13 @@ def variants(repo: Path) -> dict:
     return out
 
 
+def _batch_order(jobs_file: Path) -> tuple:
+    """The re-recorded batches (`-full` at full quality, `-fill` for the lines it missed, `narrator-gaps`, all in the Strahd narrator's
+    voice) are read before the old ones, so a line that has both keeps the re-recorded take (the first batch to hold a line wins)."""
+    name = jobs_file.parent.name
+    return (0 if name.endswith(("-full", "-fill")) or name == "narrator-gaps" else 1, name)
+
+
 def wire(repo: Path, root: Path, dry_run: bool = False, prune: bool = False) -> dict:
     """Copies every finished, still-spoken take into repo/audio/voice; returns the counts (and the orphans and gaps by name)."""
     lines = game_lines(repo)
@@ -68,7 +76,7 @@ def wire(repo: Path, root: Path, dry_run: bool = False, prune: bool = False) -> 
     audio = repo / "audio/voice"
     n = collections.Counter()
     seen = set()
-    for jobs_file in sorted((root / "voice").glob("*/jobs.json")):
+    for jobs_file in sorted((root / "voice").glob("*/jobs.json"), key=_batch_order):
         batch = jobs_file.parent
         for k, e in json.loads(jobs_file.read_text()).items():
             if e.get("state") != "ok":
@@ -88,7 +96,10 @@ def wire(repo: Path, root: Path, dry_run: bool = False, prune: bool = False) -> 
             if dst.exists() and filecmp.cmp(src, dst, shallow=False):
                 n["already wired"] += 1
                 continue
-            n["wired now" if k in lines else "name and Player variants wired now"] += 1
+            if dst.exists():
+                n["older takes replaced by the re-recorded ones"] += 1
+            else:
+                n["wired now" if k in lines else "name and Player variants wired now"] += 1
             if not dry_run:
                 dst.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(src, dst)

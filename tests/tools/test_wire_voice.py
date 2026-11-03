@@ -48,6 +48,23 @@ class WireVoiceTest(unittest.TestCase):
         self.assertEqual((r["have"]["train"], r["total"]["train"]), (1, 2), "the {name} line is never counted")
         self.assertEqual(wire_voice.wire(self.repo, self.root)["counts"]["already wired"], 1)
 
+    def test_a_re_recorded_take_wins_over_the_old_one_and_replaces_a_wired_clip(self):
+        k = f"narrator/{key(SPOKEN)}"
+        wire_voice.wire(self.repo, self.root)
+        old_clip = (self.repo / f"audio/voice/{k}.mp3").read_bytes()
+        newer = self.root / "voice/act1-full"
+        (newer / "narrator").mkdir(parents=True)
+        (newer / f"{k}.mp3").write_bytes(b"ID3 re-recorded")
+        (newer / "jobs.json").write_text(json.dumps({k: {"speaker": "narrator", "key": key(SPOKEN), "text": SPOKEN, "state": "ok"}}))
+        r = wire_voice.wire(self.repo, self.root)
+        self.assertEqual((self.repo / f"audio/voice/{k}.mp3").read_bytes(), b"ID3 re-recorded", "the -full take is the clip now")
+        self.assertNotEqual(old_clip, b"ID3 re-recorded")
+        self.assertEqual(r["counts"]["older takes replaced by the re-recorded ones"], 1)
+        self.assertEqual(wire_voice.wire(self.repo, self.root)["counts"]["already wired"], 1, "and it stays wired on the next run")
+        # a -fill batch and narrator-gaps count as re-recorded too; a plain batch does not
+        order = [wire_voice._batch_order(Path(f"x/{n}/jobs.json")) for n in ("act1", "act1-full", "act1-fill", "narrator-gaps", "banter")]
+        self.assertEqual([o[0] for o in order], [1, 0, 0, 0, 1])
+
     def test_a_dry_run_copies_nothing(self):
         r = wire_voice.wire(self.repo, self.root, dry_run=True)
         self.assertFalse((self.repo / "audio/voice").exists())
