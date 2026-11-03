@@ -135,9 +135,13 @@ func test_every_conversation_a_prop_starts_or_calls_names_a_real_node() -> void:
 		"h8_cup": "crooked_house/petunia:cup"}
 	for id: String in wanted:
 		assert_eq(str(_prop(id).get("dialogue", "")), wanted[id], "%s starts its talk" % id)
-	var calls := {"h3_crystal_ball": "crooked_house/incitements:pilgrimage_enter", "h8_bergamot": "crooked_house/incitements:rejuvenation_enter",
-		"h5_mirror": "crooked_house/incitements:duality_enter", "h4_bust": "crooked_house/incitements:rapture_enter",
-		"h4_peacock_rubble": "crooked_house/keziah:peacock_fall", "h_d02": "crooked_house/crooked_man:floor1",
+	# The incitements' objects start their scenes on a click (Ashwin, 2026-11-03: in the house only the key beats start by themselves).
+	var looks := {"h3_crystal_ball": "crooked_house/incitements:pilgrimage_enter", "h8_bergamot": "crooked_house/incitements:rejuvenation_enter",
+		"h5_mirror": "crooked_house/incitements:duality_enter", "h4_bust": "crooked_house/incitements:rapture_enter"}
+	for id: String in looks:
+		assert_eq(str(_prop(id).get("dialogue", "")), looks[id], "%s starts its scene on a click" % id)
+		assert_eq(int(_prop(id).get("approach", 0)), 0, "%s starts nothing on walking past" % id)
+	var calls := {"h4_peacock_rubble": "crooked_house/keziah:peacock_fall", "h_d02": "crooked_house/crooked_man:floor1",
 		"h8_cup": "crooked_house/petunia:cup"}
 	for id: String in calls:
 		var p := _prop(id)
@@ -152,15 +156,22 @@ func test_every_conversation_a_prop_starts_or_calls_names_a_real_node() -> void:
 	assert_true(hall.x in [20, 21] and hall.y >= 13 and hall.y <= 33, "the apparition's call hangs in the long hall")
 
 
+## Each incitement's `_enter` node holds its own gate now that a click starts it: a companion's beat plays while only pending (the home scene on a
+## later look), and once played (or for anyone else) the look is the object's plain Narrator line.
 func test_the_incitements_stay_armed_until_their_own_flag_is_set() -> void:
-	var ball := str(_prop("h3_crystal_ball")["call_when"])
-	assert_true(StoryConditions.check(ball, _state({"pending_pilgrimage_incitement": true})), "Rook's beat still plays on a later entry if only pending")
-	assert_true(not StoryConditions.check(ball, _state({"incitement_pilgrimage": true})), "and not once it has played")
-	var tree := str(_prop("h8_bergamot")["call_when"])
-	assert_true(StoryConditions.check(tree, _state({"pending_rejuvenation_incitement": true})), "Tobin's too")
-	assert_true(not StoryConditions.check(tree, _state({"incitement_rejuvenation": true})))
-	assert_true(not StoryConditions.check(str(_prop("h4_bust")["call_when"]), _state({"incitement_rapture": true})), "the Rapture stub plays once")
-	assert_true(not StoryConditions.check(str(_prop("h5_mirror")["call_when"]), _state({"incitement_duality": true})), "and so does the mirror")
+	var file := DialogueFile.load_key("crooked_house/incitements")
+	assert_true(file != null, "the incitements file reads")
+	if file == null:
+		return
+	var text := FileAccess.get_file_as_string("res://narrative/crooked_house/incitements.dialogue")
+	for pair: Array in [["pilgrimage", "h3_crystal_ball"], ["rejuvenation", "h8_bergamot"], ["slaughter", "h15_trophy_crow"], ["rapture", "h4_bust"],
+			["duality", "h5_mirror"], ["immortality", "h17_cauldron"], ["kindred", "h12_scratchings"], ["malediction", "h14_tome"]]:
+		var node := "%s_enter" % pair[0]
+		assert_true(file.nodes.has(node), "%s is there" % node)
+		var body := text.substr(text.find("~ " + node), 400)
+		assert_true(body.contains("if flag.incitement_%s" % pair[0]), "%s: played once" % node)
+		assert_true(body.contains("narrate examine:%s" % pair[1]), "%s: otherwise the plain look" % node)
+		assert_true(not body.contains("pending_%s_incitement\n-> END" % pair[0]), "%s: pending alone does not shut it" % node)
 	GameState.reset()
 
 
