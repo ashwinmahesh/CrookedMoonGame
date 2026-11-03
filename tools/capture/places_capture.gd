@@ -135,6 +135,7 @@ func capture_shots(tool: Node, out: String) -> void:
 			await tool.call("wait_frames", 5)
 		if focus.x >= 0.0:
 			rig.follow = null
+			rig.free_cam = true   # else _keep_camera_on_the_party points it back at the leader
 			rig.horizon = 0.0
 			rig.distance = focus_distance
 			rig.global_position = view.board.cell_center(Vector2i(int(focus.x), int(focus.y)))
@@ -154,6 +155,7 @@ func capture_shots(tool: Node, out: String) -> void:
 					break
 				var who := view.npc_tokens[nid] as Node3D
 				rig.follow = null
+				rig.free_cam = true   # else _keep_camera_on_the_party points it back at the leader
 				rig.horizon = 0.0
 				rig.distance = 7.0
 				rig.global_position = who.global_position
@@ -170,6 +172,7 @@ func capture_shots(tool: Node, out: String) -> void:
 				tok.position = view.board.cell_center(cb.cell)
 				view.add_child(tok)
 			rig.follow = null
+			rig.free_cam = true   # else _keep_camera_on_the_party points it back at the leader
 			rig.horizon = 0.0
 			rig.distance = 7.0
 			rig.global_position = view.board.cell_center(base_cell + Vector2i(5, 0))
@@ -182,6 +185,7 @@ func capture_shots(tool: Node, out: String) -> void:
 				var spot := view.board.cell_center(base + Vector2i(2 + k, 0))   # (one row along an open aisle)
 				SmallProps.build(SmallProps.KINDS[k], view.board, spot, 7 + k, Vector2i.ZERO)
 			rig.follow = null
+			rig.free_cam = true   # else _keep_camera_on_the_party points it back at the leader
 			rig.horizon = 0.0
 			rig.distance = 8.0
 			rig.global_position = view.board.cell_center(base + Vector2i(7, 0))
@@ -205,7 +209,10 @@ func capture_shots(tool: Node, out: String) -> void:
 		rig.horizon = 0.0
 		rig.horizon_shown = 0.0
 		rig.follow = null
+		rig.free_cam = true   # else _keep_camera_on_the_party points it back at the leader
 		rig.distance = maxf(view.grid.width, view.grid.depth) * 1.05
+		rig.zoom_max = maxf(rig.zoom_max, rig.distance)   # a big map is farther than the play zoom's limit
+		rig.camera.far = maxf(rig.camera.far, rig.distance * 3.0)
 		rig.global_position = Vector3(view.grid.width / 2.0, 0, view.grid.depth / 2.0)
 		rig.snap_to_target()
 		await tool.call("wait_frames", 30)
