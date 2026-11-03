@@ -32,12 +32,26 @@ static func apply(root: Node) -> int:
 	return n
 
 
-## A number for the building or piece a mesh belongs to, from where it stands (a house is one merged mesh), so each
-## house takes its own variant and tint of a texture set and keeps them every time the place opens.
+## A number for the building or piece a mesh belongs to, from where it stands, so each house takes its own variant and tint
+## of a texture set and keeps them every time the place opens. A house's meshes all sit at its root's origin with their places
+## baked into the points, so the house is told by the middle of its walls' bounds, which its roof (under Upper) and stub share through
+## the house's root.
 static func _pick(mi: MeshInstance3D) -> int:
-	var p := mi.global_position if mi.is_inside_tree() else mi.position
+	var anchor := mi
+	var up: Node = mi.get_parent()
+	for level in 3:
+		if up == null:
+			break
+		if up.get_node_or_null("Walls") is MeshInstance3D:
+			anchor = up.get_node("Walls") as MeshInstance3D
+			break
+		up = up.get_parent()
+	var local := anchor.mesh.get_aabb().get_center() if anchor.mesh != null else Vector3.ZERO
+	var p := anchor.global_transform * local if anchor.is_inside_tree() else anchor.transform * local
 	var h := int(roundf(p.x * 2.0)) * 73856093 ^ int(roundf(p.z * 2.0)) * 19349663
-	h = h ^ (h >> 13)
+	h = (h ^ (h >> 15)) * 0x2c1b3c6d
+	h = (h ^ (h >> 12)) * 0x297a2d39
+	h = h ^ (h >> 15)
 	return absi(h)
 
 

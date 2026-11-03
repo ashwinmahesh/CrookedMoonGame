@@ -103,6 +103,23 @@ func test_houses_differ_in_their_plaster_tint() -> void:
 		"the same house always takes the same material")
 
 
+func test_each_house_has_its_own_pick_shared_by_its_walls_and_roof() -> void:
+	var rows := ["................", "................", "..####....####..", "..####....####..", "..####....####..", "..####....####..",
+		"................", "................", "................", "................"]
+	var b := ArenaBoard.build(CombatGrid.from_rows(rows, ELEV), "village", PLACE)
+	add_child(b)
+	assert_eq(b.buildings.size(), 2, "two houses")
+	var picks: Array[int] = []
+	for house: Dictionary in b.buildings:
+		var own := {}
+		for mi in (house["root"] as Node3D).find_children("*", "MeshInstance3D", true, false):
+			own[PackMaterials._pick(mi as MeshInstance3D)] = true
+		assert_eq(own.size(), 1, "a house's walls, roof and stub are one pick (%s)" % [own.keys()])
+		picks.append(int(own.keys()[0]))
+	assert_true(picks[0] != picks[1], "and the two houses differ (%s)" % [picks])
+	b.free()
+
+
 func test_variant_texture_sets_all_load() -> void:
 	var vkit := (Look.textures().get("themes", {}) as Dictionary).get("vkit", {}) as Dictionary
 	assert_eq((vkit["plaster"] as Dictionary).get("variants"), (vkit["plaster_core"] as Dictionary).get("variants"),
