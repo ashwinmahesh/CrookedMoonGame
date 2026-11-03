@@ -88,3 +88,26 @@ func test_clicking_a_ladder_from_across_the_car_walks_to_it_and_climbs() -> void
 	view.queue_free()
 	await get_tree().process_frame
 	GameState.reset()
+
+
+func test_a_ladder_is_never_walked_onto_or_across() -> void:
+	var view := _view(CAR)
+	await _frames(3)
+	var ladders := LocationInteraction.ladders_here(view)
+	var foot: Vector2i = ladders[0]["here"]
+	var top: Vector2i = ladders[0]["there"]
+	LocationParty.move_to_cell(view, foot + Vector2i(-2, 0))
+	var start_floor := _floor_of_leader(view)
+	assert_false(view.walk_to(top), "no walk reaches the roof: a ladder is no step in a path")
+	assert_eq(_floor_of_leader(view), start_floor, "the party stays on the floor it was on")
+	# Walking onto the foot itself does not climb it either.
+	assert_true(view.walk_to(foot), "the foot of the ladder is an ordinary square to walk to")
+	for i in 600:
+		await get_tree().process_frame
+		if view.leader().cell == foot:
+			break
+	await _frames(10)
+	assert_eq(_floor_of_leader(view), start_floor, "and standing at the foot of a ladder is not climbing it")
+	view.queue_free()
+	await get_tree().process_frame
+	GameState.reset()

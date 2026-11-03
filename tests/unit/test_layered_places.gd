@@ -1,7 +1,7 @@
 extends TestCase
 ## Act I's layered places (the full 3D grid build, lane B1; tools/content/add_decks.py and the engine's Decks): a hay loft over
 ## the stable's stalls, a gallery over the bookstore's shelves, a walkway of perches round the dovecote and the windmill's stone
-## floor and the train cars' roofs (Ashwin's yes, 2026-11-02). Each is a floor of its place, a deck (open air but for its own squares) or a storey, laid in new columns past the map's
+## floor and the train cars' roofs (Ashwin's yes, 2026-11-02; railed decks since 2026-11-03, "there are no walls"). Each is a floor of its place, a deck (open air but for its own squares) or a storey, laid in new columns past the map's
 ## so no square, arrival point or way out the place had moves; a ladder joins it to the floor below, the party can walk up it,
 ## and the board draws its boards, rails and ladder.
 
@@ -11,13 +11,13 @@ const LAYERS := {
 	"wickermoor_bookstore": [10, "deck"],
 	"wickermoor_dovecote": [10, "deck"],
 	"fw_windmill": [30, "storey"],
-	"ghostlight_g1_passenger": [15, "storey"],
-	"ghostlight_g2_sleeper": [15, "storey"],
-	"ghostlight_g3_lounge": [15, "storey"],
-	"ghostlight_g4_dining": [15, "storey"],
-	"ghostlight_g5_mail": [15, "storey"],
-	"ghostlight_g6_baggage": [15, "storey"],
-	"ghostlight_g7_circus": [15, "storey"],
+	"ghostlight_g1_passenger": [15, "deck"],
+	"ghostlight_g2_sleeper": [15, "deck"],
+	"ghostlight_g3_lounge": [15, "deck"],
+	"ghostlight_g4_dining": [15, "deck"],
+	"ghostlight_g5_mail": [15, "deck"],
+	"ghostlight_g6_baggage": [15, "deck"],
+	"ghostlight_g7_circus": [15, "deck"],
 }
 
 

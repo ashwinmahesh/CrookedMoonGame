@@ -85,12 +85,13 @@ PLACES = {
 
 
 # The Ghostlight Express's cars (Ashwin, 2026-11-02 22:41Z: "Sure let's do it"; ours, not the book's): each car's whole roof is a
-# storey 15 ft up and open to the sky, up a ladder from a free square of its aisle; it is out of sight while the party is in the car.
+# deck 15 ft up with a 4 ft rail round its edge, open to the sky (a storey had no walls: Ashwin, 2026-11-03), up a ladder from a free square of
+# its aisle; it is out of sight while the party is in the car.
 CAR_LADDERS = {"g1_passenger": (18, 2), "g2_sleeper": (16, 2), "g3_lounge": (18, 2), "g4_dining": (2, 4), "g5_mail": (18, 2),
                "g6_baggage": (18, 2), "g7_circus": (16, 2)}
 for _car, (_x, _z) in CAR_LADDERS.items():
     PLACES["ghostlight_" + _car] = {
-        "decks": [{"kind": "storey", "height_ft": 15, "outdoors": True, "id": "ghostlight_%s_roof" % _car, "rows": ["." * 20] * 7}],
+        "decks": [{"kind": "deck", "height_ft": 15, "rail_ft": 4, "id": "ghostlight_%s_roof" % _car, "rows": ["." * 20] * 7}],
         "links": [{"from": [_x, _z], "to": [_x, _z - 1, 0], "kind": "ladder"}],
     }
 
