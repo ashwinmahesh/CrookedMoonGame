@@ -39,7 +39,7 @@ SETS = {
     "circus_wall": ("ph", "blue_painted_planks", 2.0, "the Circus Car's painted plank walls"),
     "circus_iron": ("ph", "rusty_metal_02", 1.0, "the Circus Car's iron cages"),
     "circus_planks": ("ph", "white_planks_clean", 1.6, "the Circus Car's floor boards, painted in red and cream stripes by tools/art/circus_stripes.py"),
-    "tender_wall": ("acg", "MetalPlates013", 1.6, "the Tender's sooty riveted iron walls"),
+    "tender_wall": ("acg", "MetalPlates013", 2.4, "the Tender's sooty riveted iron walls"),
     "tender_floor": ("ph", "metal_grate_rusty", 1.0, "the Tender's rusty tread-plate floor"),
     "track_ballast": ("ph", "rocky_gravel", 1.6, "the Ghostlight Express's ballast"),
     "track_sleeper": ("ph", "weathered_planks", 1.4, "the Ghostlight Express's sleepers and trestle"),
