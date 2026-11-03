@@ -6,6 +6,8 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 | Item | Status | Thread |
 |---|---|---|
+| Overworld pathing: in places like the Ghostlight wreckage the party gets stuck, walks in circles or steers round obstacles that aren't there; movement should look natural (Ashwin, 2026-11-03) | In progress (code first; Mac testing waits for Ashwin to finish playing) | — |
+| Slow the walking speed and its animation to about 0.8 of what they are (Ashwin, 2026-11-03) | In progress (code first; Mac testing waits for Ashwin to finish playing) | — |
 | Casting a spell from the character sheet (out of combat): a casting sound effect, and a visual effect for the spell when the sheet closes back to the game; the visual options are offered in a demo selection room with their own settings (Ashwin, 2026-11-03) | Queued: waits for the Mac to be free to test | — |
 | A distinct floor texture for each train car (circus flooring in the circus car) and metal walls and floor in the Soulfire Stoker's engine room (Ashwin, 2026-11-03); in flight with the props work (lane/props-statues), not ready to land, waiting on Ashwin's OK | In progress | Improve props and fix Barrow Hill train (thread link to come) |
 | The casting room is empty: the visual-effects selection rooms need their choices (Ashwin, 2026-11-03) | In progress | — |
