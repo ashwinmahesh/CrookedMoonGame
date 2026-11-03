@@ -38,7 +38,7 @@ func dress_place(view: LocationView) -> void:
 ## the ground under it (SeatedStones); "ghostlight_train" the Express standing on its rails at Barrow Hill (GhostlightTrain);
 ## "train_seats" a railway car's seats with ghost passengers in them (TrainSeats) and "framed_picture" a painting hung on the
 ## wall (FramedPicture); "stone_statue" a statue carved as a person on its plinth (StoneStatue);
-## "pumpkin_scarecrow" a field scarecrow (PumpkinScarecrow).
+## "pumpkin_scarecrow" a field scarecrow (PumpkinScarecrow); "porthole" and "pipes" the Tender's iron fittings (TenderFittings).
 ## "real" is one of the scanned rocks and roots of RealNature in the Modern finish (the catalog's art in Classic); "real_tree"
 ## is one of its gnarled EZ-Tree trees the same way.
 func place_special(_art: String, board: ArenaBoard, root: Node3D, cell: Vector2i, spec: Dictionary, look: Dictionary) -> Dictionary:
@@ -97,6 +97,14 @@ func place_special(_art: String, board: ArenaBoard, root: Node3D, cell: Vector2i
 		"stone_statue":
 			# A statue carved as a person: a pack figure held in a pose, in stone, on a plinth (StoneStatue).
 			if StoneStatue.build(board, root, cell, spec, look) != null:
+				return {"handled": true, "node": root}
+		"porthole":
+			# The Tender's riveted porthole on the wall (TenderFittings).
+			if TenderFittings.porthole(board, root, cell, look) != null:
+				return {"handled": true, "node": root}
+		"pipes":
+			# Iron pipes along the Tender's walls and over its ceiling (TenderFittings).
+			if TenderFittings.pipes(board, root, cell, look) != null:
 				return {"handled": true, "node": root}
 		"framed_picture":
 			# A painting in its frame on the wall, the picture one of the repo's (FramedPicture).
