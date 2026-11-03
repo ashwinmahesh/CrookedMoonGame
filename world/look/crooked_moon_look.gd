@@ -35,7 +35,7 @@ func dress_place(view: LocationView) -> void:
 ## and "wicker_man" only add their light and leave the catalog's own picture (the barrow, the painted Wicker Man) to be drawn, and
 ## "clocktower" adds its lit clock faces to the catalog's bell tower (Clocktower), and "small:<kind>" builds one of the small things
 ## of Act 1's rooms from a few meshes (SmallProps). "stone_ring" stands the catalog's standing stones with each stone bedded in
-## the ground under it (SeatedStones).
+## the ground under it (SeatedStones); "ghostlight_train" the Express standing on its rails at Barrow Hill (GhostlightTrain).
 ## "real" is one of the scanned rocks and roots of RealNature in the Modern finish (the catalog's art in Classic); "real_tree"
 ## is one of its gnarled EZ-Tree trees the same way.
 func place_special(_art: String, board: ArenaBoard, root: Node3D, cell: Vector2i, spec: Dictionary, look: Dictionary) -> Dictionary:
@@ -78,6 +78,10 @@ func place_special(_art: String, board: ArenaBoard, root: Node3D, cell: Vector2i
 		"stone_ring":
 			# Standing stones each bedded in the ground under their own foot (SeatedStones), not one rigid piece on a slope.
 			if SeatedStones.build(board, root, _art, cell, spec, look) != null:
+				return {"handled": true, "node": root}
+		"ghostlight_train":
+			# The Ghostlight Express on its rails, the boarding car the rear of one long coupled train (GhostlightTrain).
+			if GhostlightTrain.build(board, root, look) != null:
 				return {"handled": true, "node": root}
 		"oak":
 			OakOfManyFaces.build(root, at, ModelPiece.hash_cell(cell))

@@ -49,6 +49,7 @@ static func dress(view: LocationView) -> Terrain3D:
 	var roads := _road_field(lane, w, d)
 	var rise := float(spec.get("rise", 6.0))
 	var edge := _edge_height(board)
+	var rail := _rail(spec, board)
 	for j in d:
 		for i in w:
 			var p := Vector2(float(i) / PER_UNIT - MARGIN, float(j) / PER_UNIT - MARGIN)
@@ -63,8 +64,9 @@ static func dress(view: LocationView) -> Terrain3D:
 				var near := board.ground_y(Vector2(clampf(p.x, 0.0, grid.width - 0.01), clampf(p.y, 0.0, grid.depth - 0.01)))
 				h = lerpf(near, land, smoothstep(0.0, 6.0, out))
 				h = lerpf(h, minf(h, near + out * 0.08), 1.0 - smoothstep(1.5, 5.0, road))   # the lane falls gently away
+				h = _railed(rail, p, h)
 			height.set_pixel(i, j, Color(h, 0.0, 0.0, 1.0))
-			var g := _ground(view, p, inside, out, road, noise)
+			var g := _ground(view, p, inside, out, minf(road, _rail_reach(rail, p)), noise)
 			var bits := Terrain3DUtil.enc_base(g[0]) | Terrain3DUtil.enc_overlay(g[1]) | Terrain3DUtil.enc_blend(g[2])
 			control.set_pixel(i, j, Color(Terrain3DUtil.as_float(bits), 0.0, 0.0, 1.0))
 	_soften(height, w, d)
@@ -88,8 +90,34 @@ static func dress(view: LocationView) -> Terrain3D:
 	if cam != null:
 		terrain.set_camera(cam)
 	_hide_old(view)
-	_plant(view, terrain, roads, w, noise)
+	_plant(view, terrain, roads, w, noise, rail)
 	return terrain
+
+
+## The railway bed past the map (the spec's `rail`: the line's middle `z`, `from_x` where it leaves the map, and `bed`, the
+## square whose ground it is level with), as [z, from x, bed height], or empty.
+static func _rail(spec: Dictionary, board: ArenaBoard) -> Array:
+	if not spec.has("rail"):
+		return []
+	var r := spec["rail"] as Dictionary
+	var at := r.get("bed", [0, 0]) as Array
+	return [float(r.get("z", 0.0)), float(r.get("from_x", 0.0)), board.ground_y(Vector2(float(at[0]) + 0.5, float(at[1]) + 0.5))]
+
+
+## How far (units) point `p` lies from the rail bed's middle line past the map; far off when there is none.
+static func _rail_reach(rail: Array, p: Vector2) -> float:
+	if rail.is_empty() or p.x < float(rail[1]):
+		return 1.0e6
+	return absf(p.y - float(rail[0]))
+
+
+## The land at `p` cut down or banked up to the rail bed: level across the bed's top, its sides falling or rising to the
+## land over a few units.
+static func _railed(rail: Array, p: Vector2, h: float) -> float:
+	var reach := _rail_reach(rail, p)
+	if reach > 8.0:
+		return h
+	return lerpf(float(rail[2]) - 0.03, h, smoothstep(1.4, 5.5, reach))
 
 
 ## Eases the heights over half a square (a 3x3 average, twice), so a level's rise is a bank, not a step; a square's
@@ -211,8 +239,8 @@ static func _hide_old(view: LocationView) -> void:
 		surround.visible = false
 
 
-## Trees over the land's woods past the map, kept off the lane, and ground plants under them.
-static func _plant(view: LocationView, terrain: Terrain3D, roads: PackedFloat32Array, w: int, noise: FastNoiseLite) -> void:
+## Trees over the land's woods past the map, kept off the lane and the rail bed, and ground plants under them.
+static func _plant(view: LocationView, terrain: Terrain3D, roads: PackedFloat32Array, w: int, noise: FastNoiseLite, rail: Array) -> void:
 	var grid := view.grid
 	var rng := RandomNumberGenerator.new()
 	rng.seed = hash(view.loc_id) + 3
@@ -224,7 +252,7 @@ static func _plant(view: LocationView, terrain: Terrain3D, roads: PackedFloat32A
 		for x in range(-MARGIN, grid.width + MARGIN):
 			var p := Vector2(x + rng.randf(), z + rng.randf())
 			var out := _outside(p, grid)
-			if out < 1.2 or _road_at(roads, w, p) < 2.2:
+			if out < 1.2 or _road_at(roads, w, p) < 2.2 or _rail_reach(rail, p) < 3.0:
 				continue
 			var wd := _woods(p, noise)
 			if out < TREE_REACH and rng.randf() < wd * 0.3:

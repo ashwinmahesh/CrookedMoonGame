@@ -178,7 +178,7 @@ def build_locations():
             prop("bd_tumbled_wall", (9, 3), "A tumbled drystone wall", model="rocks"),
             prop("bd_scarecrow", (4, 12), "A scarecrow among the graves", model="scarecrow"),
             prop("bd_mist_rails", (23, 12), "The rails of mist", kind="decor"),
-            prop("bd_engine", (20, 4), "The black engine", span=[2, 2]),
+            prop("bd_engine", (27, 9), "The black engine"),   # (the east edge, looking up the line to the engine)
             prop("bd_passenger_car", (19, 9), "The passenger car", span=[2, 2]),
         ],
         "npcs": [npc("the_vagrant", (22, 11), GL + "vagrant_boarding:boarding", when="not flag.gl_boarded", facing="west", approach=10)],

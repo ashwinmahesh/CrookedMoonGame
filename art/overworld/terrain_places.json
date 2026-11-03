@@ -1,5 +1,5 @@
 {
-  "about": "Walkable maps whose ground and surrounding land Terrain3D draws (world/overworld/terrain_place.gd). The terrain follows the board's own ground inside the map, so nothing about walking or fights changes. lane is the square where the map's way out leaves its edge, heading the way it runs on beyond (without one, every way out on the map's edge runs on as a lane); rise is how high (units, 5 ft) the hills past the map climb.",
+  "about": "Walkable maps whose ground and surrounding land Terrain3D draws (world/overworld/terrain_place.gd). The terrain follows the board's own ground inside the map, so nothing about walking or fights changes. lane is the square where the map's way out leaves its edge, heading the way it runs on beyond (without one, every way out on the map's edge runs on as a lane); rise is how high (units, 5 ft) the hills past the map climb. rail is a railway's bed run on past the map: the line's middle z, from_x (where it leaves the map) and bed (the square whose ground the bed is level with); the land is cut or banked to it, kept clear of trees.",
   "places": {
     "ghostlight_boarding": {
       "lane": [
@@ -10,7 +10,15 @@
         0.15,
         1.0
       ],
-      "rise": 9.0
+      "rise": 9.0,
+      "rail": {
+        "z": 10.0,
+        "from_x": 27.5,
+        "bed": [
+          21,
+          9
+        ]
+      }
     },
     "rk_roost_prairie": {
       "rise": 3.0
