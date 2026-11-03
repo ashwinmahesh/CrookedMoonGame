@@ -5,7 +5,7 @@
       "hurt": {"clip": "hit_to_body_01", "speed": 1.2},
       "die": {"clip": "fall", "from": 0.6, "speed": 1.2},
       "talk": ["talk", "agree"],
-      "cast": {"clip": "Spell_Simple_Shoot", "hit": 0.13, "lead": "Spell_Simple_Enter", "hold": {"clip": "Spell_Simple_Idle", "seconds": 0.3}, "after": "Spell_Simple_Exit"}
+      "cast": {"clip": "Spell_Simple_Shoot", "hit": 0.13, "lead": {"clip": "Spell_Simple_Enter", "to": 0.3}, "hold": {"clip": "Spell_Simple_Idle", "seconds": 0.05}, "after": "Spell_Simple_Exit"}
     },
     "cast_hand": "LeftHand"
   },
@@ -84,7 +84,7 @@
                 "RightUpLeg": "thigh_r", "RightLeg": "calf_r", "RightFoot": "foot_r", "RightToeBase": "ball_r"},
       "head_top": [0, 0.12, 0],
       "clips": {
-        "idle": "Idle", "walk": "Walk", "run": "Jog_Fwd", "cast": {"clip": "Spell_Simple_Shoot", "hit": 0.13, "lead": "Spell_Simple_Enter", "hold": {"clip": "Spell_Simple_Idle", "seconds": 0.3}, "after": "Spell_Simple_Exit"},
+        "idle": "Idle", "walk": "Walk", "run": "Jog_Fwd", "cast": {"clip": "Spell_Simple_Shoot", "hit": 0.13, "lead": {"clip": "Spell_Simple_Enter", "to": 0.3}, "hold": {"clip": "Spell_Simple_Idle", "seconds": 0.05}, "after": "Spell_Simple_Exit"},
         "attack": {"clip": "Sword_Attack", "from": 0.0, "to": 1.45, "hit": 0.45, "speed": 1.25},
         "hurt": {"clip": "Hit_Chest"}, "die": {"clip": "Death01"},
         "talk": ["Idle_Talking", "Yes", "Idle_No"], "greet": ["Interact", "Yes"],
@@ -145,7 +145,7 @@
     "bat_hound": {"turn": 270, "file": "art/figures/bat_hound.glb", "source": "tripo/models/bat_hound_multiview_10k_4k_other_walk.glb", "sprite": "mastiff", "idle_from_walk": true},
     "ghost_crawler": {"turn": 270, "file": "art/figures/ghost_crawler.glb", "source": "tripo/models/ghost_crawler_side_12k_4k_other_walk.glb", "sprite": "giant_spider", "ghost": {"wash": 0.5, "colour": "moon_green", "glow": 0.3, "see_through": 0.45, "rim": 0.6, "pulse": 0.15}},
     "ghostlight_locomotive": {"file": "art/figures/ghostlight_locomotive.glb", "source": "tripo/models/ghostlight_locomotive_ortho_3view_25k_4k.glb", "sprite": "iron_golem", "static": true, "lie": "side"},
-    "villager_gray": {"file": "art/figures/villager_gray.glb", "source": "free_models/villager_gray.glb", "height": 1.15, "bones": {"spine_02": 0.92, "neck_01": 1.09, "clavicle_l": 0.92, "clavicle_r": 0.92, "upperarm_l": 1.2, "upperarm_r": 1.2, "lowerarm_l": 0.9, "lowerarm_r": 0.9, "LeftHand": 0.8, "RightHand": 0.8}, "clips": {"idle": "Idle", "walk": "Walk", "run": "Jog_Fwd", "attack": {"clip": "Sword_Attack", "from": 0.0, "to": 1.45, "hit": 0.45, "speed": 1.25}, "cast": {"clip": "Spell_Simple_Shoot", "hit": 0.13, "lead": "Spell_Simple_Enter", "hold": {"clip": "Spell_Simple_Idle", "seconds": 0.3}, "after": "Spell_Simple_Exit"}, "hurt": {"clip": "Hit_Chest"}, "die": {"clip": "Death01"}, "talk": "Idle_Talking", "greet": "Yes"}, "gear": ["main_hand", "off_hand"]},
+    "villager_gray": {"file": "art/figures/villager_gray.glb", "source": "free_models/villager_gray.glb", "height": 1.15, "bones": {"spine_02": 0.92, "neck_01": 1.09, "clavicle_l": 0.92, "clavicle_r": 0.92, "upperarm_l": 1.2, "upperarm_r": 1.2, "lowerarm_l": 0.9, "lowerarm_r": 0.9, "LeftHand": 0.8, "RightHand": 0.8}, "clips": {"idle": "Idle", "walk": "Walk", "run": "Jog_Fwd", "attack": {"clip": "Sword_Attack", "from": 0.0, "to": 1.45, "hit": 0.45, "speed": 1.25}, "cast": {"clip": "Spell_Simple_Shoot", "hit": 0.13, "lead": {"clip": "Spell_Simple_Enter", "to": 0.3}, "hold": {"clip": "Spell_Simple_Idle", "seconds": 0.05}, "after": "Spell_Simple_Exit"}, "hurt": {"clip": "Hit_Chest"}, "die": {"clip": "Death01"}, "talk": "Idle_Talking", "greet": "Yes"}, "gear": ["main_hand", "off_hand"]},
     "villager_brown": {"base": "villager_gray", "sprite": "villager", "layers": ["hair_parted"], "albedo": "art/figures/villager_brown_albedo.jpg", "albedo_source": "free_models/villager_brown_albedo.png"},
     "villager_red": {"base": "villager_gray", "sprite": "villager", "layers": ["hair_buzzed"], "albedo": "art/figures/villager_red_albedo.jpg", "albedo_source": "free_models/villager_red_albedo.png"},
     "warhorse": {"file": "art/figures/warhorse.glb", "source": "free_models/warhorse.glb", "sprite": "nightmare", "height": 1.5, "clips": {"idle": "Idle", "walk": "Walk", "run": "Gallop", "attack": {"clip": "Attack_Kick", "hit": 0.45, "speed": 1.0}, "hurt": {"clip": "Idle_HitReact_Left"}, "die": {"clip": "Death"}}},
