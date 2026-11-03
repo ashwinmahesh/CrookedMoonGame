@@ -6,7 +6,8 @@ extends TestCase
 
 const GAME := preload("res://world/game_root.gd")
 const VILLAGE := "wickermoor_village"
-const HOOK_FLAGS := ["gorthos_slain", "raum_slain", "renathyr_slain", "lethica_slain", "grinning_sinner_slain"]
+## The other Fallen slain, Yorgrim last (Route A waits for him; Route B, the postmaster exposed early, needs only the first five).
+const HOOK_FLAGS := ["gorthos_slain", "raum_slain", "renathyr_slain", "lethica_slain", "grinning_sinner_slain", "fallen_yorgrim_dead"]
 
 
 ## Dice that always roll the highest face: every check in a conversation lands.
@@ -183,10 +184,10 @@ func test_route_a_the_plea_takes_the_party_to_the_post_office() -> void:
 
 
 func test_the_plea_waits_for_the_last_of_the_fallen() -> void:
-	for f: String in HOOK_FLAGS.slice(0, 4):
+	for f: String in HOOK_FLAGS.slice(0, HOOK_FLAGS.size() - 1):
 		st.set_flag(f)
 	assert_true(_stands("geneva_fairchild").is_empty() or str(_stands("geneva_fairchild")["dialogue"]) != "rookery/hook:plea")
-	st.set_flag(HOOK_FLAGS[4])
+	st.set_flag(HOOK_FLAGS[HOOK_FLAGS.size() - 1])
 	assert_eq(str(_stands("geneva_fairchild")["dialogue"]), "rookery/hook:plea")
 
 
@@ -636,13 +637,23 @@ func test_every_new_place_is_reachable_by_its_exits() -> void:
 
 # ---- side quests: The Quiet Door ----------------------------------------------------------------------------------------------------
 
+## Mrs. Oakum led down from the loft and out of the stable: the escort goes on in the village lane behind it, where the mob is.
+func _lead_out() -> void:
+	_play("rookery/quiet_door:oakum", ["lead_out"])
+	assert_true(_flag("rk_oakum_escort"))
+	assert_eq(st.location, VILLAGE, "out of the stable into the village")
+	var lane := _entry("props", "id", "wm_oakum_lane")
+	assert_eq(str(lane.get("call", "")), "rookery/quiet_door:leg1", "the lane behind the stalls takes up the escort")
+	assert_true(_holds(lane.get("call_when", "")), "while she is with the party")
+
 func test_quiet_door_delivers_mrs_oakum_to_the_estate() -> void:
 	_start_hysteria()
 	_play("rookery/quiet_door:start", ["accept"])
 	assert_eq(st.quest_stage("quiet_door"), "asked")
 	_arrive("wickermoor_stable")
 	assert_eq(str(_stands("mrs_oakum")["dialogue"]), "rookery/quiet_door:oakum")
-	_play("rookery/quiet_door:oakum", ["leg1", "leg2", "leg3", "arrive"])
+	_lead_out()
+	_play("rookery/quiet_door:leg1", ["leg2", "leg3", "arrive"])
 	assert_eq(st.quest_stage("quiet_door"), "delivered")
 	assert_eq(st.location, "druskenvald_estate")
 
@@ -653,7 +664,8 @@ func test_quiet_door_has_a_way_with_no_roll() -> void:
 	st.set_quest_stage("quiet_door", "asked")
 	dice = LowDice.new()
 	_arrive("wickermoor_stable")
-	_play("rookery/quiet_door:oakum", ["leg1", "leg2_long", "leg3_wait", "arrive!"])
+	_lead_out()
+	_play("rookery/quiet_door:leg1", ["leg2_long", "leg3_wait", "arrive!"])
 	assert_eq(st.quest_stage("quiet_door"), "delivered")
 
 
@@ -663,7 +675,8 @@ func test_quiet_door_failing_the_escort_costs_mrs_oakum_her_freedom_in_the_cells
 	st.set_quest_stage("quiet_door", "asked")
 	dice = LowDice.new()
 	_arrive("wickermoor_stable")
-	_play("rookery/quiet_door:oakum", ["leg1", "spotted", "give_up"])
+	_lead_out()
+	_play("rookery/quiet_door:leg1", ["spotted", "give_up"])
 	assert_eq(st.quest_stage("quiet_door"), "taken")
 	_arrive("wickermoor_constable_station")
 	assert_eq(str(_stands("mrs_oakum")["dialogue"]), "rookery/quiet_door:prisoner")
