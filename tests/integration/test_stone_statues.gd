@@ -43,7 +43,8 @@ func test_the_monasterys_statues_stand_seated_in_stone_and_true_size() -> void:
 	Dice.reseed(7)
 	root = (load("res://scenes/game.tscn") as PackedScene).instantiate()
 	add_child(root)
-	await _frames(40)
+	await _frames(12)
+	await get_tree().create_timer(StoneStatue.SETTLE + 0.4).timeout   # (each figure takes its pose, then is held)
 	var board := (root.get("view") as LocationView).board
 	var loc := Compendium.shared().get_entry("locations", "mon_ground")
 	var seen := 0
