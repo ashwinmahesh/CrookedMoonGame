@@ -15,7 +15,10 @@ extends Node
 ## where and why it stuck.
 ##
 ## Args after --: --out=/abs/story.json [--steps=6000] [--dice=high|seeded] [--seed=1] [--goal=crooked_nightmare]
-## [--patience=400] [--trace=1] [--order=r13,r14,r15,r16,r17]
+## [--patience=400] [--trace=1] [--order=r13,r14,r15,r16,r17] [--act3=1]
+##
+## --act3=1 plays Act II in the order (the book's if none), then Act III's chain (R18 Hartsblight to R22 the Crooked
+## Nightmare); the goal is the Crooked Nightmare's end, and each chapter's finish and level go in the report.
 ##
 ## --order plays Act II (plan 5.1, the five open chapters) in the order named: the bot plays from a new game through the
 ## Crooked House, then may only go into a chapter's places once every chapter before it in the order is done (a done
@@ -50,8 +53,21 @@ const ACT2 := {
 	"r17": {"quest": "all_is_well", "regions": ["memorys_rest"]},
 }
 const ACT2_GATE := "the_crooked_house"
+## Act III's chain (plan 5.1): each chapter's main quest and whether it raises the party a level (from 8: Hartsblight 9,
+## Maidenmist 10, the Rookery none, Fool's Day 11, the Crooked Nightmare 12). The Rookery may come before Maidenmist (Route B,
+## the postmaster exposed early), so the level is checked against the chapters done, not a fixed number.
+const ACT3 := {
+	"r18": {"quest": "q_hartsblight", "level": true},
+	"r19": {"quest": "maidenmist_dead_rise", "level": true},
+	"r20": {"quest": "roving_rookery", "level": false},
+	"r21": {"quest": "fools_day", "level": true},
+	"r22": {"quest": "crooked_nightmare", "level": true},
+}
+## The chapters that may finish before the one before them in the chain: the Rookery by Route B.
+const ACT3_EARLY := {"r20": ["r19"]}
 var order: Array[String] = []
 var chapters_done: Array[Dictionary] = []   ## {chapter, quest, step, level}
+var _act3_checks: Array[Dictionary] = []    ## Act III chapters whose level is still to be read: {chapter, at, done}
 
 var step := 0
 var _tried: Dictionary = {}          ## "sig|action" -> true: done since the story last looked like this
@@ -85,6 +101,12 @@ func _ready() -> void:
 			order.append(c.strip_edges())
 	if not order.is_empty():
 		goal = "act2"
+	# --act3=1: Act II in the given order (the book's by default), then Act III's chain to the Crooked Nightmare's end.
+	if str(args.get("act3", "0")) == "1":
+		if order.is_empty():
+			for c: String in ACT2:
+				order.append(c)
+		goal = "act3"
 	# Never the player's saves or settings: a folder of this process's own, removed at the end (as the test runner does).
 	SaveSystem.save_dir = "user://qa_saves/%d/" % OS.get_process_id()
 	GameSettings.path = SaveSystem.save_dir.path_join("settings.cfg")
@@ -238,6 +260,9 @@ func _run() -> String:
 
 
 func _goal_reached() -> bool:
+	if goal == "act3":
+		return st.quest_ended(str((ACT3["r22"] as Dictionary)["quest"])) and \
+			_act3_checks.all(func(c: Dictionary) -> bool: return bool(c.get("done", false)))
 	if goal != "act2":
 		return st.quest_ended(goal)
 	for c: String in ACT2:
@@ -263,6 +288,34 @@ func _note_chapters() -> void:
 			for k in at:
 				if not st.quest_ended(str((ACT2[order[k]] as Dictionary)["quest"])):
 					_problem("order", "%s finished before %s, which comes first in the order" % [c, order[k]])
+	if goal != "act3":
+		return
+	# A chapter's level comes with the conversation its ending plays, which may run a step or two after its quest ends (the
+	# Ring of Fools' fight ends the quest; the prop after it gives the level), so each chapter's level is read a few steps on.
+	for chk: Dictionary in _act3_checks:
+		if bool(chk.get("done", false)) or step < int(chk["at"]):
+			continue
+		chk["done"] = true
+		var want := 8
+		for c2: String in ACT3:
+			if bool((ACT3[c2] as Dictionary)["level"]) and st.quest_ended(str((ACT3[c2] as Dictionary)["quest"])):
+				want += 1
+		if st.target_level() != want:
+			_problem("act3_level", "%s is done and the party's level is %d, not %d" % [chk["chapter"], st.target_level(), want])
+	var chain: Array = ACT3.keys()
+	for i in chain.size():
+		var c := str(chain[i])
+		var q := str((ACT3[c] as Dictionary)["quest"])
+		if st.quest_ended(q) and chapters_done.all(func(d: Dictionary) -> bool: return str(d["chapter"]) != c):
+			chapters_done.append({"chapter": c, "quest": q, "step": step, "level": st.target_level(),
+				"ending": st.quest_ending(q), "milestones": st.milestones})
+			_t("%s done at level %d" % [c, st.target_level()])
+			_act3_checks.append({"chapter": c, "at": step + 3})
+			for k in i:
+				if str(chain[k]) in (ACT3_EARLY.get(c, []) as Array):
+					continue
+				if not st.quest_ended(str((ACT3[chain[k]] as Dictionary)["quest"])):
+					_problem("order", "%s finished before %s, which comes before it in Act III's chain" % [c, chain[k]])
 
 
 ## The Act II chapter a place belongs to, or "".
@@ -439,6 +492,7 @@ func _play(ref: String) -> Dictionary:
 		_problem("dialogue_missing", "conversation '%s' doesn't start" % ref)
 		return {}
 	var here := {}
+	var here_flags := str(st.flags).hash()
 	var b := r.next()
 	for i in 800:
 		if r.file != null:
@@ -451,6 +505,12 @@ func _play(ref: String) -> Dictionary:
 				if opts.is_empty():
 					_problem("empty_menu", "%s: a menu with no options" % ref)
 					return {}
+				# A menu the story has moved on since (a counter went up, a flag was set) is a new menu: what was tried in it
+				# may be tried again (the Maidenmist rites need six good answers across three themes).
+				var flags_now := str(st.flags).hash()
+				if flags_now != here_flags:
+					here_flags = flags_now
+					here.clear()
 				var pick := _pick(r, ref, opts, here)
 				if pick < 0:
 					_problem("dead_menu", "%s at %s: no option is enabled (%s)" % [ref, r.node, _texts(opts)])
@@ -543,7 +603,7 @@ func _win(id: String, trigger: String) -> void:
 		_problem("missing_fight", "a conversation starts the fight '%s', which this place doesn't have" % id)
 		return
 	var won_before: Variant = (st.loc_state(st.location)["encounters"] as Dictionary).get(id, false)
-	if won_before is bool and bool(won_before) and not bool(spec.get("repeat", false)):
+	if won_before is bool and bool(won_before) and int(spec.get("rearm_minutes", 0)) <= 0:
 		_problem("fight_again", "the fight '%s' (%s) was won already and starts again" % [id, trigger])
 	fights.append({"step": step, "loc": st.location, "id": id, "level": _level(), "trigger": trigger,
 		"main": _main_state(), "boss": _has_boss(spec)})

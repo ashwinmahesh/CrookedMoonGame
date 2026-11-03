@@ -89,7 +89,7 @@ anim-demo:
 	@$(PLAYFRESH)
 	$(NOFOCUS) res://tools/anim_speed/anim_speed_demo.tscn < /dev/null
 
-.PHONY: qa qa-story qa-fights qa-report qa-act1 qa-act2 qa-perf
+.PHONY: qa qa-story qa-fights qa-report qa-act1 qa-act2 qa-act3 qa-perf
 ## Headless QA (tools/qa/qa.py; no window, its own user data folder, output in captures/qa or OUT=dir).
 ## qa-story: the story bot plays the whole campaign from a new game with no script, and reports where it stuck
 ## (DICE=high|seeded SEEDS=1,2 STEPS=n). qa-fights: every fight in the places' data played by the party autopilot at each
@@ -109,6 +109,12 @@ qa-act2:
 	@$(FRESH)
 	@for o in $(QA_ORDERS); do GODOT=$(GODOT) python3 tools/qa/qa.py story --out $(QA_OUT) --dice $(or $(DICE),high) \
 		--seeds $(or $(SEEDS),1) --steps $(or $(STEPS),12000) --order $$o || exit 1; done
+## qa-act3: from a new game through Act II (ORDERS as qa-act2, the book's by default), then Act III's chain from Hartsblight
+## to the Crooked Nightmare's end; each chapter must finish at its level (9, 10, 10, 11, 12) with no problems reported.
+qa-act3:
+	@$(FRESH)
+	@for o in $(or $(ORDERS),r13,r14,r15,r16,r17); do GODOT=$(GODOT) python3 tools/qa/qa.py story --out $(QA_OUT) --dice $(or $(DICE),high) \
+		--seeds $(or $(SEEDS),1) --steps $(or $(STEPS),30000) --order $$o --act3 || exit 1; done
 qa-fights:
 	@$(FRESH)
 	GODOT=$(GODOT) python3 tools/qa/qa.py fights --out $(QA_OUT) --seeds $(or $(SEEDS),1-8) --jobs $(or $(JOBS),2) \
