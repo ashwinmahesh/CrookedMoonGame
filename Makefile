@@ -92,7 +92,12 @@ anim-demo:
 .PHONY: qa qa-story qa-fights qa-report qa-act1 qa-act2 qa-act3 qa-perf
 ## Headless QA (tools/qa/qa.py; no window, its own user data folder, output in captures/qa or OUT=dir).
 ## qa-story: the story bot plays the whole campaign from a new game with no script, and reports where it stuck
-## (DICE=high|seeded SEEDS=1,2 STEPS=n). qa-fights: every fight in the places' data played by the party autopilot at each
+## (DICE=high|seeded SEEDS=1,2 STEPS=n). ## Which monsters and NPCs the places spawn have a finished 3D model, and which fall back to a stand-in, an old sprite or the plain
+## placeholder (tools/qa/figure_audit.gd; headless, writes captures/qa/figure_audit.json or OUT=dir).
+figure-audit:
+	@$(FRESH)
+	$(G) res://tools/qa/figure_audit.tscn -- --out=$(CURDIR)/$(or $(OUT),captures/qa)/figure_audit.json 2>&1 | grep -vE "^Godot Engine|WARNING|^ +at:" | $(LOGCHK)
+qa-fights: every fight in the places' data played by the party autopilot at each
 ## difficulty, on SEEDS (1-8), at the level the story bot reached it at (ONLY=loc:id,id REGIONS=a,b MODES=... JOBS=n).
 ## qa-report: both into captures/qa/report.md. qa: all three.
 ## Never run qa-fights, or any battle tuning, difficulty or party-performance run, unless Ashwin explicitly asks (CLAUDE.md).
