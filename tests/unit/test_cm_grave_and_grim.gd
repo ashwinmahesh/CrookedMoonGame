@@ -86,6 +86,35 @@ func test_dark_rider_calls_an_undead_steed_that_carries_its_rider_and_dashes_on_
 	assert_true(bag.is_alive())
 
 
+func test_the_ghost_steed_stands_within_5_ft_even_with_a_foe_beside_the_fighter() -> void:
+	var e := TestCombat.open_field()
+	var f := _fighter(e, 3, Vector2i(4, 4))
+	for cell: Vector2i in [Vector2i(2, 3), Vector2i(2, 4), Vector2i(2, 5), Vector2i(3, 3), Vector2i(3, 5), Vector2i(4, 3), Vector2i(5, 3)]:
+		_bag(e, cell)
+	TestCombat.start_with(e, f)
+	assert_true(_gm(e, f, "dark_rider").ok)
+	var steed := _part(e).steed_of(f)
+	assert_true(steed != null, "the steed answers")
+	assert_true(e.distance(f, steed) <= 5, "it stands within reach of the saddle: %d ft" % e.distance(f, steed))
+	assert_eq(e.mount_why(f, steed), "", "Mount is open to its fighter")
+
+
+func test_mount_shows_in_the_fighters_menu_and_takes_the_saddle_through_it() -> void:
+	var e := TestCombat.open_field()
+	var f := _fighter(e, 3)
+	TestCombat.start_with(e, f)
+	assert_true(_gm(e, f, "dark_rider").ok)
+	var steed := _part(e).steed_of(f)
+	var entry: Dictionary = {}
+	for row in e.feature_actions.list(f):
+		if str((row as Dictionary)["id"]) == "feat:cf:mount:" + steed.id:
+			entry = row as Dictionary
+	assert_false(entry.is_empty(), "a Mount row for the steed")
+	assert_eq(str(entry.get("why", "x")), "", "and it is open")
+	assert_true(e.feature_actions.perform(f, "cf:mount:" + steed.id, null, Vector2.INF, "").ok, "taken through the menu's id")
+	assert_eq(e.mount_of(f), steed)
+
+
 func test_dark_rider_again_costs_a_die_and_the_steed_fades_when_its_rider_is_incapacitated() -> void:
 	var e := TestCombat.open_field()
 	var f := _fighter(e, 3)
