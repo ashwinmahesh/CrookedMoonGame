@@ -8,7 +8,6 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 |---|---|---|
 | The Crooked Moon should be visible in the sky when looking up at it (Ashwin, 2026-11-03): in flight with the shader work, the moon 20 degrees up facing the opening camera with the clouds parting round it, together with the Dark fantasy grade; captures pending, not ready to land | In progress | [Redo shaders for dark fantasy look](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo2uFEFcV8BBPYYSfwG4XCje) |
 | Rook's head still looks too big for his body: make his body a little broader (shoulders and torso) (Ashwin, 2026-11-03) | In progress (needs a capture to judge; waits for the Mac to be free) | — |
-| The held shield faces backwards on the hero (Ashwin, 2026-11-03): flip its attachment so the face points out | In progress (needs a capture to judge) | — |
 | Wickermoor's people: 27 townsfolk were on the generic 2D villager sprite and now stand as 3D pack figures (landed); the other places' NPCs still on that sprite (about 110 ids, many of them creatures or visions) wait for their own looks. The silent lines were the same stale import cache, refreshed in Ashwin's copy; 462 Wickermoor lines were never recorded (voices thread) (Ashwin, 2026-11-03) | In progress | — |
 | Capture tool: places_capture's --focus and whole shots get pulled back onto the party by _keep_camera_on_the_party (set rig.free_cam = true next to each rig.follow = null), and the whole-shot distance (map size x 1.05) shows only sky and fog on big maps like the 96 x 80 Wickermoor (Wickermoor lane, 2026-11-03) | Open (a fix in a later batch) | — |
 | Casting a spell from the character sheet (out of combat): a casting sound effect, and a visual effect for the spell when the sheet closes back to the game; the visual options are offered in a demo selection room with their own settings (Ashwin, 2026-11-03) | Queued: waits for the Mac to be free to test | — |
@@ -54,6 +53,9 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 - Engine branches waiting on their own pushes: look-full-3d is landed; anim-speed, melee-hit-fx, cast-anim, and engine-land-6 (f6f0fc4f) still need pushing.
 
 ## Done
+
+- **The held shield faces out** (Ashwin, 2026-11-03): the shield part's attachment is turned 180 degrees, so its emblem side shows and the strap side is against the body (checked in a side-on capture with Rook).
+- **The opening act talks only when asked** (Act I lane): the haints Sweetheart, Daydreamer and Harlequin, Phillip in the Lounge Car, and the Vagrant and Phillip at the wreck no longer start talks on their own (talk marks in data/talk_marks.json), the four incitement props start on a click, and the lamps' router check-ins are gone; test_explore_before_talk, act1_blockers, ghostlight_express, r10_playthrough and r10_paths pass on the Mac.
 
 - **The 2026-11-03 batch landed** (engine d5635bbe, game 41ec613c): the party walks at 0.8 of its speed with its walk cycle; Settings can swap the camera's turn keys (A and D) and tilt keys (W and S); an exploring walk goes straight over angled ground; the Ghostlight Locomotive keeps fighting instead of running to Soul Cans or idling beside one; the ghost steed wears the Warhorse as a moonlit ghost and is called onto the square nearest Rook (the Mount row is tested through the menu; if it still refuses, I need the line it shows); every spell, item and ability has an icon tile (331 tiles, make icons, an audit in make validate); 27 Wickermoor people are 3D.
 
