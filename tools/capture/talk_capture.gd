@@ -2,6 +2,8 @@ extends Node
 ## Talking figures (vault Build/Talking Figures.md): the Vagrant greeting the party at the boarding, his portrait as the
 ## big bust beside the box, and his figure nodding and gesturing while the line is said, then Rook answering from the left.
 ##   make capture SCENE=res://tools/capture/talk_capture.tscn NAME=talk/x FRAMES=30
+## Another conversation: ARGS='--location=ghostlight_g3_lounge --dialogue=ghostlight_express/druskenvalds_lounge:meet --speaker=phillip_druskenvald'
+## (only the screen shot of the line and the close-up are meaningful for someone else; the Vagrant's head strip follows the speaker).
 ## Shots: <out>_screen_1.png and _screen_2.png (the whole screen on the Vagrant's line), <out>_close.png (on him, the box hidden),
 ## <out>_party.png (Rook's line);
 ## <out>_head_<nn>.png close-ups of the Vagrant's head every few frames, for a strip or a GIF.
@@ -12,23 +14,33 @@ const DIALOGUE := "ghostlight_express/vagrant_boarding:menu"
 
 
 func capture_shots(tool: Node, out: String) -> void:
+	var location := LOCATION
+	var dialogue := DIALOGUE
+	var speaker := "the_vagrant"
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--location="):
+			location = a.get_slice("=", 1)
+		if a.begins_with("--dialogue="):
+			dialogue = a.get_slice("=", 1)
+		if a.begins_with("--speaker="):
+			speaker = a.get_slice("=", 1)
 	GameState.reset()
 	var st := GameState.story
 	for id: String in GAME.NEW_GAME_PARTY:
 		var ch := Pregens.build(id, 3)
 		ch.finish_long_rest()
 		st.party.append(ch)
-	st.location = LOCATION
+	st.location = location
 	st.minute_of_day = 0
 	Dice.reseed(7)
 	var game := (load("res://scenes/game.tscn") as PackedScene).instantiate()
 	add_child(game)
 	await tool.call("wait_frames", 150)
-	game.call("start_dialogue", DIALOGUE, "the_vagrant")
+	game.call("start_dialogue", dialogue, speaker)
 	var dlg := game.get("dialogue") as DialogueUI
 	await tool.call("wait_frames", 40)   # the camera eases in on the two
 	var view := game.get("view") as LocationView
-	var vagrant := FigureTalk.token_of(view, "the_vagrant")
+	var vagrant := FigureTalk.token_of(view, speaker)
 	var cam := get_viewport().get_camera_3d()
 	var talk := game.get("talk_motion") as TalkMotion
 	print("talk: speaking %s, nod %s, vagrant on screen at %s" % [talk.talking(), TalkMotion.nod_of(vagrant, false) != null,
@@ -43,7 +55,7 @@ func capture_shots(tool: Node, out: String) -> void:
 	rig.snap_to_target()
 	dlg.visible = false
 	await tool.call("wait_frames", 10)
-	talk.spoke(view, "the_vagrant", "x".repeat(200))
+	talk.spoke(view, speaker, "x".repeat(200))
 	for i in 24:
 		await tool.call("wait_frames", 4)
 		if vagrant != null and cam != null:

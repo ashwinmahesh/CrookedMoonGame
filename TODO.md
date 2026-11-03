@@ -8,7 +8,6 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 |---|---|---|
 | Camera: rotation speed configurable in Settings (turn and tilt speed, WASD, mouse and controller; Ashwin, 2026-11-03) | In progress | [Camera follows the party](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoSzp46E7B1MJ2tH6jYEQUCg) |
 | Camera: zoom in a little closer, and tilt all the way to level with the ground (watch for clipping into the terrain; Ashwin, 2026-11-03) | In progress | [Camera follows the party](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoSzp46E7B1MJ2tH6jYEQUCg) |
-| Characters bloom far too much in warm light (the tavern dialogue close-up, Phillip Druskenvald): tone down the bloom on characters, check the close-up camera's lighting (Ashwin, 2026-11-03) | In progress | — |
 | Weapon and spell effects appear after a delay from the swing or cast: cut the delay so each lines up (Ashwin, 2026-11-03) | In progress | — |
 | The casting room is empty: the visual-effects selection rooms need their choices (Ashwin, 2026-11-03) | In progress | — |
 | Dialogue bug: an NPC's lead-in line (text and voice) repeats every time the player returns to their menu; it should play once (Ashwin, 2026-11-03) | In progress | — |
@@ -53,6 +52,7 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **Characters no longer bloom** (Ashwin, 2026-11-03: Phillip's face and shirt blown out white-orange in the lounge car close-up): several nearby lights each lit a character up to the per-light cap and the sum crossed the bloom threshold, so figures now cap their lights lower (`figures.light_cap` 0.85 to 0.5) and the bloom is a little softer (intensity 1.4 to 1.2, threshold 0.8 to 1.1); the dialogue capture tool takes `--location`, `--dialogue` and `--speaker` so the shot can be repeated.
 - **Act III plays end to end** ([thread](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoJ6oZfYVoFQJfnjMy151uen)): `make qa-act3` plays Act II then Hartsblight to the Crooked Nightmare, the Act III blockers and journal stages are fixed, the Silent Church's choir loft and the Crooked Bookshelf's upper shelf are decks, and Act III has eight magic finds usable in a fight. (Game 5 commits, the last 979812d5's replay.)
 - **The Wildpyre has its real model** (Ashwin, 2026-11-03: a placeholder was showing in the baggage car): the finished Wildpyre model and its texture, with figure entries for both sizes and their heights, were only on the old `figures-final` branch (commit 7a4fbfcd) and never reached main, so main drew a placeholder. Brought over; the baggage car fight shows it now.
 - **Ladders can be used** (Ashwin, 2026-11-03: he couldn't climb the train cars' ladders): a ladder between floors is now something to point at and click ("Climb up the ladder"); the party walks to its foot, or its top coming down, and climbs it, with the right-click menu offering it too. Before, ladders were only drawn and used by the pathfinding, and the floor above is out of sight from below, so there was nothing to click. It applies to the train cars, the stable loft, the bookstore gallery and every other layered place; a pull of main is needed for it. (Engine f20e65b9, game below.)
