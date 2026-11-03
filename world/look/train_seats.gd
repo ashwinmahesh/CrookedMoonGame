@@ -14,6 +14,12 @@ extends RefCounted
 ## its back (units).
 const PASSENGER_HEIGHT := 1.12
 const SIT_IN := 0.18
+## A seated passenger's pelvis joint over the cushion it sits on and in front of the backrest it leans on (units): the joint
+## is inside the body, a hand above the seat and a little more than that from the back.
+const HIP_ABOVE := 0.07
+const HIP_FROM_BACK := 0.13
+## How long a passenger is left to take its pose and turn before it is rested on its bench (seconds).
+const SETTLE := 0.35
 
 
 ## Seats every furniture square of the car beside a wall under `root`. Returns the number of seats.
@@ -46,7 +52,7 @@ static func build(board: ArenaBoard, root: Node3D, loc_id: String, look: Diction
 		if not ghosts.is_empty() and pick % 100 < filled:
 			var box := _box(board, seat)   # (a seat against a wall stands back in its square, its back away from the seat it faces)
 			var back := box.get_center().x - float(faces.x) * box.size.x / 2.0
-			_seat_ghost(root, str(ghosts[(pick / 100) % ghosts.size()]), Vector3(back + float(faces.x) * SIT_IN, seat.position.y, box.get_center().z), faces)
+			_seat_ghost(root, str(ghosts[(pick / 100) % ghosts.size()]), seat, Vector3(back + float(faces.x) * SIT_IN, seat.position.y, box.get_center().z), faces)
 	return seats
 
 
@@ -95,13 +101,63 @@ static func _box(board: ArenaBoard, seat: Node3D) -> AABB:
 	return box
 
 
-## A ghost passenger sitting at `at`, looking along `faces`.
-static func _seat_ghost(root: Node3D, figure: String, at: Vector3, faces: Vector2i) -> void:
+## A ghost passenger sitting on `seat`, looking along `faces`: stood near the seat at first, then, once it has taken its
+## sitting pose and turned, rested on the bench as the bench is made (_rest_on).
+static func _seat_ghost(root: Node3D, figure: String, seat: Node3D, at: Vector3, faces: Vector2i) -> void:
 	if not FigureModels.has(figure):
 		return
-	var ghost := DirectionalSprite.create(FigureModels.frames(figure), PASSENGER_HEIGHT)
+	var ghost := DirectionalSprite.create(FigureModels.frames(figure), PASSENGER_HEIGHT) as ModelFigure
 	ghost.name = "Passenger_" + figure
 	ghost.set_meta("passenger", figure)
+	ghost.set_meta("bench", seat)
 	ghost.facing = Vector3(float(faces.x), 0.0, 0.0)
 	ghost.position = at
 	root.add_child(ghost)
+	var settle := func() -> void:
+		await ghost.get_tree().create_timer(SETTLE).timeout
+		if is_instance_valid(ghost) and is_instance_valid(seat):
+			_rest_on(ghost, seat, faces)
+	if ghost.is_inside_tree():
+		settle.call()
+	else:
+		ghost.tree_entered.connect(settle, CONNECT_ONE_SHOT)
+
+
+## Rests a seated ghost on its bench as the bench is made: rays find the seat's top and the backrest's face, and the ghost
+## is moved so its hips are on the cushion, its back against the backrest (the pose's own legs then reach for the floor).
+## The seat's top and the backrest's face are kept on the ghost (meta `seat_top`, `back_face`) for the tests.
+static func _rest_on(ghost: ModelFigure, seat: Node3D, faces: Vector2i) -> void:
+	var hip := hip_of(ghost)
+	if hip == Vector3.INF:
+		return
+	var box := AABB()
+	var first := true
+	for n in seat.find_children("*", "MeshInstance3D", true, false):
+		var b := (n as MeshInstance3D).global_transform * (n as MeshInstance3D).get_aabb()
+		box = b if first else box.merge(b)
+		first = false
+	var f := float(faces.x)
+	var mid := box.get_center()
+	# The seat's top: straight down onto the bench a little in front of its middle, below the backrest's top.
+	var from := Vector3(mid.x + f * box.size.x * 0.2, box.end.y + 0.05, mid.z)
+	var down := ModelPiece.hit(seat, from, Vector3.DOWN)
+	var top := from.y - down if down < INF else box.position.y + box.size.y * 0.45
+	# The backrest's face: back along the bench from in front of it, a hand above the seat.
+	var front := Vector3(mid.x + f * (box.size.x / 2.0 + 0.1), top + 0.25, mid.z)
+	var back_hit := ModelPiece.hit(seat, front, Vector3(-f, 0.0, 0.0))
+	var back := front.x - f * back_hit if back_hit < INF else mid.x - f * box.size.x / 2.0
+	ghost.set_meta("seat_top", top)
+	ghost.set_meta("back_face", back)
+	ghost.global_position += Vector3(back + f * HIP_FROM_BACK, top + HIP_ABOVE, mid.z) - hip
+
+
+## Where a figure's hips (its pelvis joint) are now, or INF.
+static func hip_of(ghost: ModelFigure) -> Vector3:
+	var sk := ghost.find_children("*", "Skeleton3D", true, false)
+	if sk.is_empty():
+		return Vector3.INF
+	var skel := sk[0] as Skeleton3D
+	var b := FigureModels.bone(skel, "Hips", FigureModels.rig_bones(ghost.art_id))
+	if b < 0:
+		return Vector3.INF
+	return skel.global_transform * skel.get_bone_global_pose(b).origin

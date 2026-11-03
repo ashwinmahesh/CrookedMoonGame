@@ -156,3 +156,32 @@ func test_the_cars_furniture_squares_stay_furniture() -> void:
 				continue
 			var art := str(SetDressing.look_for(spec).get("art", ""))
 			assert_false(art in LocationBuilder.SMALL_DECOR, "%s on a furniture square is not a small thing (%s)" % [spec["id"], art])
+
+
+func test_the_ghost_passengers_sit_on_their_benches() -> void:
+	var board := await _open("ghostlight_g1_passenger")
+	await get_tree().create_timer(TrainSeats.SETTLE + 0.5).timeout   # (each takes its pose, then is rested on its bench)
+	var seen := 0
+	for n in board.find_children("*", "Node3D", true, false):
+		if not n.has_meta("passenger"):
+			continue
+		var ghost := n as ModelFigure
+		seen += 1
+		assert_true(ghost.has_meta("seat_top"), "%s was rested on its bench" % ghost.name)
+		if not ghost.has_meta("seat_top"):
+			continue
+		var bench := ghost.get_meta("bench") as Node3D
+		var f := signf(ghost.facing.x)
+		var hip := TrainSeats.hip_of(ghost)
+		var above := hip.y - float(ghost.get_meta("seat_top"))
+		assert_true(above > 0.02 and above < 0.14, "%s's hips rest on the cushion (%.3f above it)" % [ghost.name, above])
+		var from_back := (hip.x - float(ghost.get_meta("back_face"))) * f
+		assert_true(from_back > 0.04 and from_back < 0.25, "%s sits back against the backrest, not in it (%.3f)" % [ghost.name, from_back])
+		# The feet: the pose's lowest bones, near the floor the bench stands on.
+		var sk := ghost.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
+		var floor_y := bench.global_position.y
+		for foot: String in ["LeftFoot", "RightFoot"]:
+			var b := FigureModels.bone(sk, foot, FigureModels.rig_bones(ghost.art_id))
+			var at := sk.global_transform * sk.get_bone_global_pose(b).origin
+			assert_true(absf(at.y - floor_y) < 0.16, "%s's %s is near the floor (%.3f off it)" % [ghost.name, foot, at.y - floor_y])
+	assert_true(seen > 0, "there are passengers to check")

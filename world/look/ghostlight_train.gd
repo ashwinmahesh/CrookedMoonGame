@@ -37,7 +37,11 @@ const KINDS := {
 	"engine": {"file": "Locomotive Front.glb", "scale": Vector3(0.9, 0.8, 0.72), "turn": true,
 		"swap": {"Black": "pal_night", "Grey": "pal_pewter"}},
 }
-const TRACK_SWAP := {"Steel": "pal_rust", "Wood": "pal_umber"}
+## The rails, the ties, the ballast and the trestle's timber in their own CC0 textures (art/sourced/polyhaven_*,
+## tools/art/fetch_prop_textures.py).
+const TRACK_SWAP := {"Steel": "tex_props__track_rail", "Wood": "tex_props__track_sleeper"}
+const BALLAST_SURFACE := "tex_props__track_ballast"
+const TIMBER_SURFACE := "tex_props__track_sleeper"
 
 static var _parts: Dictionary = {}
 
@@ -169,7 +173,7 @@ static func _ballast(board: ArenaBoard, from_x: float, to_x: float, z: float, be
 	var mi := MeshInstance3D.new()
 	mi.name = "Ballast"
 	mi.mesh = st.commit()
-	mi.material_override = ModelPiece.material("tex_real__rocky")
+	mi.material_override = ModelPiece.material(BALLAST_SURFACE)
 	return mi
 
 
@@ -186,7 +190,7 @@ static func _drop(board: ArenaBoard, x: float, z: float, bed: float) -> float:
 static func _trestle(board: ArenaBoard, parent: Node3D, bents: Array, z: float, bed: float) -> void:
 	if bents.is_empty():
 		return
-	var wood := ModelPiece.material("tex_vkit__woodtrim")
+	var wood := ModelPiece.material(TIMBER_SURFACE)
 	var cap_top := bed - 0.02
 	var holder := Node3D.new()
 	holder.name = "Trestle"

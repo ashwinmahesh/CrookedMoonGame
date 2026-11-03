@@ -38,7 +38,7 @@
           "pack_female_noble3"
         ],
         "pose": "Idle_FoldArms",
-        "stone": "mountain/cliff",
+        "stone": "props/stone_marble_cream",
         "height": 1.05,
         "plinth": 0.5
       }
@@ -121,7 +121,7 @@
           "pack_female_hair_long"
         ],
         "pose": "Spell_Simple_Idle",
-        "stone": "mountain/cliff",
+        "stone": "props/stone_marble",
         "height": 1.3,
         "plinth": 0.5
       }
@@ -138,7 +138,7 @@
           "pack_male_hair_beard"
         ],
         "pose": "Sword_Idle",
-        "stone": "real/rocky",
+        "stone": "props/stone_granite",
         "height": 1.15,
         "plinth": 0.3,
         "gear": "sword_long"
@@ -155,18 +155,26 @@
           "pack_female_hair_buns"
         ],
         "pose": "Idle_FoldArms",
-        "stone": "real/mossy_rock",
+        "stone": "props/stone_mossy",
         "height": 1.25,
         "plinth": 0.4
       }
     },
     "scarecrow": {
       "art": "scarecrow",
-      "set_piece": "pumpkin_scarecrow"
+      "set_piece": "pumpkin_scarecrow",
+      "materials": {
+        "post": "tex_props__scarecrow_timber",
+        "straw": "tex_props__scarecrow_straw"
+      }
     },
     "scarecrow_stitched": {
       "art": "scarecrow_stitched",
-      "set_piece": "pumpkin_scarecrow"
+      "set_piece": "pumpkin_scarecrow",
+      "materials": {
+        "post": "tex_props__scarecrow_timber",
+        "straw": "tex_props__scarecrow_straw"
+      }
     }
   },
   "ids": {
@@ -202,15 +210,27 @@
     "stitched_sentry": "scarecrow_stitched",
     "scarecrow_west": {
       "art": "scarecrow",
-      "set_piece": "pumpkin_scarecrow"
+      "set_piece": "pumpkin_scarecrow",
+      "materials": {
+        "post": "tex_props__scarecrow_timber",
+        "straw": "tex_props__scarecrow_straw"
+      }
     },
     "scarecrow_mid": {
       "art": "scarecrow",
-      "set_piece": "pumpkin_scarecrow"
+      "set_piece": "pumpkin_scarecrow",
+      "materials": {
+        "post": "tex_props__scarecrow_timber",
+        "straw": "tex_props__scarecrow_straw"
+      }
     },
     "scarecrow_east": {
       "art": "scarecrow",
-      "set_piece": "pumpkin_scarecrow"
+      "set_piece": "pumpkin_scarecrow",
+      "materials": {
+        "post": "tex_props__scarecrow_timber",
+        "straw": "tex_props__scarecrow_straw"
+      }
     },
     "frost_bed": "garden_bed",
     "chapel_sunburst": "sunburst",
@@ -299,7 +319,7 @@
           "pack_female_hair_buns"
         ],
         "pose": "Idle_FoldArms",
-        "stone": "real/mossy_rock",
+        "stone": "props/stone_mossy",
         "height": 1.25,
         "plinth": 0.4
       }
@@ -484,9 +504,9 @@
       "art": "gl_stone_ring",
       "set_piece": "stone_ring",
       "swap": {
-        "Menhir_001": "pal_stone_deep",
-        "Menhir_002": "pal_slate",
-        "Menhir_003": "pal_stone"
+        "Menhir_001": "tex_props__stone_lichen",
+        "Menhir_002": "tex_props__stone_lichen",
+        "Menhir_003": "tex_props__stone_lichen"
       }
     },
     "bd_train_bed_19_4": {
@@ -763,7 +783,9 @@
       "seats": {
         "art": "pew",
         "swap": {
-          "pal_umber": "pal_blood_deep"
+          "tex_interior__wood_planks": "tex_props__passenger_leather",
+          "pal_umber": "tex_props__passenger_panel",
+          "pal_walnut": "tex_props__passenger_panel"
         },
         "filled": 45,
         "ghosts": [
@@ -791,8 +813,18 @@
       "height": 1.05
     },
     "g3_paintings": "painting_row",
-    "g3_banquette": "settee",
-    "g3_banquette_seat": "settee",
+    "g3_banquette": {
+      "art": "settee",
+      "swap": {
+        "pal_leather": "tex_props__lounge_velvet"
+      }
+    },
+    "g3_banquette_seat": {
+      "art": "settee",
+      "swap": {
+        "pal_leather": "tex_props__lounge_velvet"
+      }
+    },
     "g4_booth_n1": "table_set",
     "g4_booth_n2": "table_set",
     "g4_booth_n3": "table_set",
@@ -834,7 +866,7 @@
           "pack_female_hair_buns"
         ],
         "pose": "Idle_Lantern",
-        "stone": "real/mossy_rock",
+        "stone": "props/stone_mossy",
         "height": 1.25,
         "plinth": 0.4,
         "gear": "lantern"
@@ -851,7 +883,7 @@
           "pack_female_hair_buns"
         ],
         "pose": "Idle_Lantern",
-        "stone": "real/mossy_rock",
+        "stone": "props/stone_mossy",
         "height": 1.25,
         "plinth": 0.4,
         "gear": "lantern"
@@ -869,7 +901,7 @@
           "pack_male_hair_beard"
         ],
         "pose": "Sword_Idle",
-        "stone": "mountain/cliff",
+        "stone": "props/stone_marble",
         "height": 1.15,
         "plinth": 0.3,
         "gear": "sword_long"
@@ -924,7 +956,19 @@
     "nm_feast_guest_8": "scarecrow_stitched",
     "nm_feast_guest_9": "scarecrow_stitched",
     "nm_feast_guest_10": "scarecrow_stitched",
-    "nm_feast_guest_11": "scarecrow_stitched"
+    "nm_feast_guest_11": "scarecrow_stitched",
+    "g7_cages": {
+      "art": "cage_covered",
+      "swap": {
+        "pal_stone_deep": "tex_props__circus_iron"
+      }
+    },
+    "g7_open_cage": {
+      "art": "cage_covered",
+      "swap": {
+        "pal_stone_deep": "tex_props__circus_iron"
+      }
+    }
   },
   "low_cover": {
     "wild": [

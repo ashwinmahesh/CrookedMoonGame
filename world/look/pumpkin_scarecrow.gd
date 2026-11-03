@@ -62,6 +62,9 @@ static func build(board: ArenaBoard, root: Node3D, cell: Vector2i, spec: Diction
 			tuft.rotation.y = rng.randf() * TAU
 			tuft.position = p
 			holder.add_child(tuft)
+			if (look.get("materials", {}) as Dictionary).has("straw"):
+				for n in tuft.find_children("*", "MeshInstance3D", true, false):
+					(n as MeshInstance3D).material_override = _material(look, "straw", "")
 	return holder
 
 
