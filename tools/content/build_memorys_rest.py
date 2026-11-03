@@ -489,7 +489,7 @@ def build_items():
         ("veil_of_the_weeping_widow", "Veil of the Weeping Widow", "A Fabled Heirloom, Temperance: the veil lifted from her dead face. Bonus to Wisdom saves (its psychic powers wait on the engine's heirloom rules).",
          [{"stat": "save", "ability": "wis", "value": 1}])]:
         write(f"data/magic_items/{iid}.json", {"id": iid, "name": name, "source": {"book": "CrookedMoon", "note": "Fabled Heirloom from Memory's Rest; the book's numbers, our words."},
-                                               "category": "wondrous", "weight_lb": 0.5, "cost_gp": 0, "magic": {"rarity": "rare", "attunement": True}, "theme": "relics", "icon": "cloak",
+                                               "category": "wondrous", "weight_lb": 0.5, "cost_gp": 0, "magic": {"rarity": "rare", "attunement": True}, "theme": "relics",
                                                "worn": "head" if iid.startswith("mask") else "neck", "modifiers": mods, "summary": summary})
 
 
