@@ -142,7 +142,7 @@ func test_variant_texture_sets_all_load() -> void:
 			assert_true(m.albedo_texture != null and m.normal_texture != null and m.roughness_texture != null,
 				"%s variant %d has its albedo, normal and ARM maps" % [set_name, n])
 			if roof:
-				assert_true(not m.uv1_triplanar and m.ao_enabled and m.uv1_scale.x == float(v["uv_scale"]),
+				assert_true(not m.uv1_triplanar and m.ao_enabled and is_equal_approx(m.uv1_scale.x, float(v["uv_scale"])),
 					"%s variant %d repeats on the roof's UVs, with occlusion" % [set_name, n])
 			else:
 				assert_true(m.uv1_triplanar and m.ao_enabled, "%s variant %d is triplanar with occlusion" % [set_name, n])

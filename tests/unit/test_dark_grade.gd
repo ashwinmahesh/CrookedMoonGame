@@ -35,4 +35,4 @@ func test_a_real_figure_has_no_ink_outline() -> void:
 	src.albedo_color = Color(0.4, 0.3, 0.2)
 	var m := ModelFigure.surface_material(src)
 	assert_eq(m.shader, ModelFigure.REAL_SHADER, "lit as a solid thing")
-	assert_eq(m.next_pass, null, "no ink pass after it")
+	assert_true(m.next_pass == null, "no ink pass after it")
