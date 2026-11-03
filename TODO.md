@@ -6,6 +6,7 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 | Item | Status | Thread |
 |---|---|---|
+| Every game spell, item and ability has an icon tile (331 tiles, `make icons`, an audit in make validate) | Done, waiting to land (engine 08bcfa6, game 42e64f8 on branch claude/project-thread-s3j5hy); lands after Ashwin finishes playing | [Add missing spell and ability icons](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfoWTrgr6CBGLdiSb3NaGriT9) |
 | The Crooked Moon should be visible in the sky when looking up at it (Ashwin, 2026-11-03): in flight with the shader work, the moon 20 degrees up facing the opening camera with the clouds parting round it, together with the Dark fantasy grade; captures pending, not ready to land | In progress | [Redo shaders for dark fantasy look](#cmsg_01F8aEzyaJ5ZJPFSJdcmHFfo2uFEFcV8BBPYYSfwG4XCje) |
 | Settings options to swap the camera's directions: Camera turn (A and D) and Camera tilt (W and S) each Normal or Inverted, next to the camera speeds (Ashwin, 2026-11-03) | In progress (code first; Mac testing waits for Ashwin to finish playing) | — |
 | Rook's head still looks too big for his body: make his body a little broader (shoulders and torso) (Ashwin, 2026-11-03) | In progress (needs a capture to judge; waits for the Mac to be free) | — |
