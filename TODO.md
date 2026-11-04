@@ -58,6 +58,8 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **The finished art is in** (placeholder art lane, 2026-11-04): 222 cutscene pictures replace their placeholders across all chapters (the Crooked House's 24 among them, none left), 146 NPC portraits and busts (data/busts/facing.json updated) and 135 monster portraits; docs/PLACEHOLDERS.md loses three rows. Stored in LFS; the Crooked House cutscene and portrait set tests pass.
+
 - **Wickermoor Village looks like a village** (Wickermoor look lane, 2026-11-04): maps can paint each square's own ground (map ground and grounds; engine b5c63d3b, test_ground_paint); Wickermoor gets a grass base, worn dirt lanes to every door and a cobbled square and high street (a new cobblestone texture from Poly Haven, credited), 35 decor props, 11 visual-only lamp lights, a statue on a mound and an oak knoll; 15 props with no model now map to invisible spots instead of boxes. No square, spawn, exit or trigger moved. Note: lanes made from the SSD seed lack about 1,535 gitignored engine .import files under addons/dnd_core/art, so textures draw as checkerboards there (seed fix still to do).
 
 - **A conversation's close-up keeps the speaker's head above the dialogue box** (dialogue framing lane, 2026-11-04): the close-up frames the head between the letterbox bar and the top of the box, and re-frames when the box grows (engine c3502e8c; test_talk_camera_framing, opening camera and audio-hour tests pass); tools/capture/talk_frame_capture shows it.
