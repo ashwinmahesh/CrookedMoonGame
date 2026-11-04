@@ -419,3 +419,14 @@ short spoken thoughts, keeping each exchange's joke and facts (nothing redrafted
 its second-floor, third-floor and attic exchanges also wait for what the party has seen up there (`crooked_man_seen_2`,
 `crooked_man_seen_3`, `mementos_placed >= 6`), so nobody describes the attic on the way in. Acts II and III's banter is
 still at its drafted length.
+
+## Acts II and III banter cut to length (fun pass lane A, 2026-11-04)
+
+Ashwin said yes to the same cut for the rest (2026-11-04, accepting that the recorded lines are read again): every line of
+the region files for Foxwillow, the Crimson Monastery, the Drowned Crossroads, Skitterdeep, Memory's Rest, Dawn's Gate,
+Hartsblight, Maidenmist and the Crooked Nightmare, and of `party_act2` and `party_act3`, cut by hand to one or two short spoken
+thoughts (all banter now averages about 16 words a line, none over 24), keeping each exchange's joke and facts; nothing
+redrafted. Repeated tics trimmed on the way (Lucan's "the dark has teeth", Silas's "tell's in the twitch", "mind the turf").
+Three exchanges about a building's lower or hidden part, which became one place with its building, now wait for the party
+to have been there: the Briar's cellar wall (`cellar_asked`, before `cellar_outcome`), Skitterdeep's deep level
+(`sk_deep_seen`) and the Marshwinder shack (`shack_met`).
