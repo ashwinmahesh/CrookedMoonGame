@@ -25,11 +25,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 FINDS = ROOT / "data" / "treasure" / "fun_finds.json"
 LOCS = ROOT / "data" / "locations"
-WALK = set(".~_1234=")
+WALK = set(".~_1234")   # what the party walks on (tools/data/story_reach.py); low cover '=' and void are not
 FLOOR = set("._")
 DIRS8 = [(dx, dz) for dx in (-1, 0, 1) for dz in (-1, 0, 1) if (dx, dz) != (0, 0)]
 FACES = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 FAILED = []   # things no cell could be found for: reported, and left out of the place
+EASED = []    # things laid outside the area they asked for
 # What the tool writes for each kind of thing, beyond the fields the config copies over as they are.
 CONTAINER_KEYS = ("label", "model", "lock_dc", "gold", "items", "owner", "no_random_loot", "when", "flag", "text")
 FIND_KEYS = ("label", "model", "search_dc", "skill", "item", "text", "clue", "when", "flag", "say")
@@ -53,6 +54,7 @@ class Place:
         self.loc = loc
         self.rows = loc["map"]["rows"]
         self.managed = managed   # ids this tool writes: they don't count as what was already there
+        self.doors = {cell_of(d.get("cell")): d for d in loc.get("doors", []) or []}
         self.links = {}
         for s in loc["map"].get("stairs", []) or []:
             a, b = cell_of(s.get("from")), cell_of(s.get("to"))
@@ -66,6 +68,9 @@ class Place:
         self._route = None
 
     def walkable(self, c):
+        if c in self.doors:
+            d = self.doors[c]
+            return not d.get("locked") and not d.get("secret_dc") and not d.get("key")
         return at(self.rows, *c) in WALK
 
     def _points(self):
@@ -73,6 +78,11 @@ class Place:
         loc = self.loc
         for key in ("props", "containers", "npcs", "lights", "doors", "exits", "traps", "foe_spots"):
             for t in loc.get(key, []) or []:
+                if not isinstance(t, dict):
+                    c = cell_of(t)
+                    if c:
+                        pts.add(c)
+                    continue
                 if str(t.get("id", "")) in self.managed:
                     continue
                 if key == "lights" or (key == "props" and t.get("kind") == "decor"):
@@ -103,7 +113,10 @@ class Place:
         q = deque([start])
         while q:
             c = q.popleft()
-            nxt = [(c[0] + dx, c[1] + dz) for dx, dz in DIRS8] + self.links.get(c, [])
+            # A diagonal step can't cut a wall's corner (the engine's rule): both squares beside it must be walkable.
+            nxt = [(c[0] + dx, c[1] + dz) for dx, dz in DIRS8
+                   if dx == 0 or dz == 0 or (self.walkable((c[0] + dx, c[1])) and self.walkable((c[0], c[1] + dz)))]
+            nxt += self.links.get(c, [])
             for n in nxt:
                 if n not in dist and self.walkable(n):
                     dist[n] = dist[c] + 1
@@ -173,7 +186,23 @@ class Place:
         return sum(1 for dx, dz in FACES if at(self.rows, c[0] + dx, c[1] + dz) == "#")
 
     def pick(self, spec, trap=False, ring=False):
-        areas = spec.get("area")
+        """The best cell for `spec`; when its area has none, the rules ease one at a time (any floor, not only against a
+        wall; a step closer to the place's people and props), and only then the area goes (said, so its label can be
+        checked)."""
+        for ease in (0, 1, 2):
+            c = self._pick(spec, trap, ring, ease, True)
+            if c is not None:
+                return c
+        c = self._pick(spec, trap, ring, 2, False)
+        if c is not None:
+            if spec.get("area"):
+                EASED.append("%s: %s is outside its area %s, at %s" % (self.loc["id"], spec["id"], spec["area"], list(c)))
+            return c
+        FAILED.append("%s: no quiet floor for %s" % (self.loc["id"], spec["id"]))
+        return None
+
+    def _pick(self, spec, trap, ring, ease, use_area):
+        areas = spec.get("area") if use_area else None
         areas = [areas] if isinstance(areas, str) else (areas or [])
         near = self.anchor(spec["near"]) if spec.get("near") else None
         if spec.get("near") and near is None:
@@ -186,21 +215,18 @@ class Place:
             if not self.in_area(c, areas) or self.near_taken(c, 1):
                 continue
             if trap and not ring:
-                if not self.walkable(c) or at(self.rows, *c) == "=" or not self.aside(c) or self.near_points(c, 2):
+                if not self.walkable(c) or at(self.rows, *c) == "=" or not self.aside(c) or self.near_points(c, 2 if ease < 2 else 1):
                     continue
-            elif at(self.rows, *c) not in FLOOR or self.walls(c) == 0:
+            elif at(self.rows, *c) not in FLOOR or (self.walls(c) == 0 and ease == 0):
                 continue
             if ring:
-                if any(n in route or (n in self.taken) for n in self.ring_of(c)) or not self.ring_of(c) or self.near_points(c, 2):
+                if any(n in route or (n in self.taken) for n in self.ring_of(c)) or not self.ring_of(c) or self.near_points(c, 2 if ease < 2 else 1):
                     continue
             closeness = -max(abs(c[0] - near[0]), abs(c[1] - near[1])) if near else 0
             key = (closeness, min(self.walls(c), 2), dist.get(c, 0), -c[1], -c[0])
             if best is None or key > best[0]:
                 best = (key, c)
-        if best is None:
-            FAILED.append("%s: no quiet floor for %s" % (self.loc["id"], spec["id"]))
-            return None
-        return best[1]
+        return None if best is None else best[1]
 
     def aside(self, c):
         """Whether `c` is off every shortest walk: its walkable neighbours all touch each other, so a walk through it is
@@ -342,7 +368,7 @@ def main():
             stale.append(loc_id)
             if not check:
                 path.write_text(after)
-    for f in FAILED:
+    for f in EASED + FAILED:
         print(f)
     if cfg_changed and not check:
         FINDS.write_text(json.dumps(cfg, indent=2, ensure_ascii=False) + "\n")
