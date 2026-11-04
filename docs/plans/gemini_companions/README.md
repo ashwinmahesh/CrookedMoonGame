@@ -392,3 +392,30 @@ Edits to the drafts:
 - Rook's sexton reply rewritten without "lad" for Yorgrim; Mrs. Oakum's "mine up ahead" dropped (she leaves before it).
 - Yorgrim's King's Rest line about Marius dropped (his beacon site has its own talk); the gates use the rites' flags so
   "you gave my friends mercy" waits for a lit beacon.
+
+## Reactions in Acts II and III (fun pass lane A, 2026-11-03)
+
+Approval on the chapters' real choices and companion asides in their big conversations. Brief `brief_reactions.txt`, one
+send per chapter batch (`sent_reactions_<batch>.txt`; the companions' voice sheets and approval tables, and the chapter's
+dialogue files in parts, went as context files), replies `reply_reactions_<batch>.json`. `tools/content/companion_reactions.py`
+writes them into the chapter files (approve first in the node an option leads to; an aside right after the line it answers)
+and lists what it leaves out; our edits are in `edits_reactions.json` (`replace` by `file:node` or `file:node:companion`,
+`skip`). Tests: tests/unit/test_companion_reactions.gd.
+
+- Gemini's quota ran out (429, resets ~2026-11-07) before Fool's Day's second and third batches, the Nightmare's first and
+  the watch file; those four batches failed and are sent again later.
+- Edits: about 90 asides rewritten to break up the catchphrases Gemini leaned on (Silas's "tell's in the twitch", Lucan's
+  "the dark has teeth" and "posture, if you please", Cordelia's "fascinating pathology", Rook's "settle down now", "docket"
+  and "mind the turf", Tobin's "good soil"), each now used once or twice in the two acts; game words taken out of six; two
+  approve reasons' typos; the fiend's bargain reason no longer says "betrayed the party".
+- Left out by the tool: three Hartsblight trek asides quoting lines that aren't in the file, one approve on a node no option
+  leads to (Maidenmist's names_drop).
+
+## Act I banter cut to length (fun pass lane A, 2026-11-03)
+
+The fun pass brief took Curse of Strahd's banter as the model for length and rhythm: its lines run about 14 words, ours ran
+about 26. Every line of `ghostlight_express`, `wickermoor`, `crooked_house` and `party_act1` was cut by hand to one or two
+short spoken thoughts, keeping each exchange's joke and facts (nothing redrafted). Since the Crooked House is one place now,
+its second-floor, third-floor and attic exchanges also wait for what the party has seen up there (`crooked_man_seen_2`,
+`crooked_man_seen_3`, `mementos_placed >= 6`), so nobody describes the attic on the way in. Acts II and III's banter is
+still at its drafted length.
