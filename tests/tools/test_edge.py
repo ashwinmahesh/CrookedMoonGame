@@ -220,98 +220,115 @@ class DataTests(unittest.TestCase):
         return {str(p.relative_to(folder)): (p.read_bytes(), p.stat().st_mtime_ns)
                 for p in sorted(folder.rglob("*")) if p.is_file()}
 
-    def test_the_copy_matches_the_saves_and_settings_and_the_originals_are_untouched(self):
+    def old_edge(self, files, when):
+        """An edge folder from before the sharing: saves of its own, written at `when`."""
+        (self.edge / "saves" / "errors" / "e1").mkdir(parents=True)
+        (self.edge / "saves" / "errors" / "e1" / "report.txt").write_text("r")
+        for name, text in files.items():
+            f = self.edge / "saves" / name
+            f.write_text(text)
+            os.utime(f, (when, when))
+
+    def test_the_edge_saves_and_settings_lead_to_the_real_ones(self):
         before, fan_before = self.snapshot(self.real), self.snapshot(self.fan)
-        edge.refresh_data(self.real, self.edge, [self.fan])
-        self.assertEqual((self.edge / "saves" / "slot_1.json").read_text(), '{"v": 2}')
-        self.assertEqual((self.edge / "settings.cfg").read_text(), "[game]\nturn_based=false\n")
+        line = edge.prepare_data(self.real, self.edge, [self.fan])
+        self.assertIn("shared with make run-main", line)
+        self.assertTrue((self.edge / "saves").is_symlink())
+        self.assertEqual((self.edge / "saves").resolve(), (self.real / "saves").resolve())
+        self.assertTrue((self.edge / "settings.cfg").is_symlink())
         self.assertFalse((self.edge / "shader_cache").exists())   # caches are the build's own
         self.assertEqual(self.snapshot(self.real), before)
         self.assertEqual(self.snapshot(self.fan), fan_before)
 
-    def test_saves_made_in_the_edge_are_replaced_and_its_caches_stay(self):
-        edge.refresh_data(self.real, self.edge, [self.fan])
+    def test_a_save_or_setting_made_in_the_edge_is_there_for_make_run_main_and_stays(self):
+        edge.prepare_data(self.real, self.edge, [self.fan])
         (self.edge / "saves" / "made_in_edge.json").write_text("{}")
-        (self.edge / "saves" / "slot_1.json").write_text("changed in the edge")
-        (self.edge / "shader_cache").mkdir()
-        (self.edge / "shader_cache" / "mine").write_text("cache")
-        edge.refresh_data(self.real, self.edge, [self.fan])
-        self.assertFalse((self.edge / "saves" / "made_in_edge.json").exists())
-        self.assertEqual((self.edge / "saves" / "slot_1.json").read_text(), '{"v": 2}')
-        self.assertTrue((self.edge / "shader_cache" / "mine").is_file())
+        (self.edge / "settings.cfg").write_text("[audio]\nmusic=0.2\n[game]\nunlimited_attunement=true\n")
+        self.assertTrue((self.real / "saves" / "made_in_edge.json").is_file())
+        edge.prepare_data(self.real, self.edge, [self.fan])   # the next launch
+        self.assertIn("unlimited_attunement=true", (self.real / "settings.cfg").read_text())
+        self.assertIn("unlimited_attunement=true", (self.edge / "settings.cfg").read_text())
+        self.assertTrue((self.edge / "saves" / "made_in_edge.json").is_file())
 
-    def test_the_copy_keeps_the_save_times_the_game_sorts_by(self):
-        old = self.real / "saves" / "slot_1.json"
-        os.utime(old, (1_700_000_000, 1_700_000_000))
-        edge.refresh_data(self.real, self.edge, [self.fan])
-        self.assertEqual(int((self.edge / "saves" / "slot_1.json").stat().st_mtime), 1_700_000_000)
-
-    def test_no_saves_yet_makes_an_empty_folder(self):
+    def test_no_real_folder_yet_makes_one_to_share(self):
         subprocess.run(["rm", "-rf", str(self.real)])
-        edge.refresh_data(self.real, self.edge, [self.fan])
-        self.assertTrue(self.edge.is_dir())
-        self.assertFalse((self.edge / "saves").exists())
+        edge.prepare_data(self.real, self.edge, [self.fan])
+        self.assertTrue((self.real / "saves").is_dir())
+        self.assertTrue((self.edge / "saves").is_symlink())
+        self.assertFalse((self.edge / "settings.cfg").exists())   # a dangling link until the game first saves one
+        (self.edge / "settings.cfg").write_text("[game]\n")
+        self.assertEqual((self.real / "settings.cfg").read_text(), "[game]\n")
 
-    def test_a_destination_that_is_real_game_data_is_refused_and_nothing_is_written(self):
+    def test_old_edge_saves_are_folded_in_newer_slot_wins_and_nothing_is_lost(self):
+        os.utime(self.real / "saves" / "slot_1.json", (1_700_000_000, 1_700_000_000))
+        os.utime(self.real / "saves" / "autosave_1.json", (1_900_000_000, 1_900_000_000))
+        self.old_edge({"slot_1.json": "edge slot 1", "slot_1.webp": "pic", "autosave_1.json": "older edge auto",
+                       "only_edge.json": "mine", "only_edge.json.bak": "mine bak"}, 1_800_000_000)
+        line = edge.prepare_data(self.real, self.edge, [self.fan], stamp="T1")
+        saves = self.real / "saves"
+        self.assertEqual((saves / "slot_1.json").read_text(), "edge slot 1")          # the edge's was newer
+        self.assertEqual((saves / "slot_1.webp").read_text(), "pic")
+        self.assertEqual((saves / "replaced" / "T1" / "slot_1.json").read_text(), '{"v": 2}')
+        self.assertEqual((saves / "autosave_1.json").read_text(), '{"v": 2, "auto": true}')   # the real one was newer
+        self.assertEqual((saves / "only_edge.json").read_text(), "mine")
+        self.assertEqual((saves / "only_edge.json.bak").read_text(), "mine bak")
+        self.assertEqual(int((saves / "only_edge.json").stat().st_mtime), 1_800_000_000)   # the time the game sorts by
+        self.assertEqual((saves / "errors" / "e1" / "report.txt").read_text(), "r")
+        kept = self.edge / "saves (before sharing T1)"
+        self.assertEqual((kept / "autosave_1.json").read_text(), "older edge auto")
+        self.assertTrue((self.edge / "saves").is_symlink())
+        self.assertIn("2 slots copied in", line)
+        self.assertIn("the 1 slot it replaced", line)
+
+    def test_the_fold_happens_once(self):
+        self.old_edge({"only_edge.json": "mine"}, 1_800_000_000)
+        edge.prepare_data(self.real, self.edge, [self.fan], stamp="T1")
+        (self.real / "saves" / "only_edge.json").unlink()   # the player deletes it in make run-main
+        line = edge.prepare_data(self.real, self.edge, [self.fan], stamp="T2")
+        self.assertNotIn("folded", line)
+        self.assertFalse((self.real / "saves" / "only_edge.json").exists())
+        self.assertFalse((self.edge / "saves (before sharing T2)").exists())
+
+    def test_a_saves_symlink_to_somewhere_else_is_pointed_at_the_real_saves(self):
+        self.edge.mkdir(parents=True)
+        other = self.tmp / "other"
+        other.mkdir()
+        (self.edge / "saves").symlink_to(other)
+        edge.prepare_data(self.real, self.edge, [self.fan])
+        self.assertEqual((self.edge / "saves").resolve(), (self.real / "saves").resolve())
+        self.assertTrue(other.is_dir())
+
+    def test_old_edge_settings_move_in_when_the_real_folder_has_none(self):
+        (self.real / "settings.cfg").unlink()
+        self.edge.mkdir(parents=True)
+        (self.edge / "settings.cfg").write_text("[game]\nunlimited_attunement=true\n")
+        line = edge.prepare_data(self.real, self.edge, [self.fan])
+        self.assertEqual((self.real / "settings.cfg").read_text(), "[game]\nunlimited_attunement=true\n")
+        self.assertTrue((self.edge / "settings.cfg").is_symlink())
+        self.assertIn("moved into your folder", line)
+
+    def test_two_different_settings_files_keep_the_newer_and_the_other_beside_it(self):
+        self.edge.mkdir(parents=True)
+        (self.edge / "settings.cfg").write_text("edge's, newer")
+        os.utime(self.real / "settings.cfg", (1_700_000_000, 1_700_000_000))
+        edge.prepare_data(self.real, self.edge, [self.fan], stamp="T1")
+        self.assertEqual((self.real / "settings.cfg").read_text(), "edge's, newer")
+        self.assertEqual((self.real / "settings.cfg.replaced-T1").read_text(), "[game]\nturn_based=false\n")
+        subprocess.run(["rm", "-rf", str(self.edge)])
+        self.edge.mkdir(parents=True)
+        (self.edge / "settings.cfg").write_text("edge's, older")
+        os.utime(self.edge / "settings.cfg", (1_600_000_000, 1_600_000_000))
+        edge.prepare_data(self.real, self.edge, [self.fan], stamp="T2")
+        self.assertEqual((self.real / "settings.cfg").read_text(), "edge's, newer")
+        self.assertEqual((self.real / "settings.cfg.replaced-T2").read_text(), "edge's, older")
+
+    def test_a_real_data_destination_is_refused_and_nothing_is_written(self):
         before = self.snapshot(self.real)
         for bad in (self.real, self.real / "saves", self.fan, self.support / "Godot", self.support):
             with self.assertRaises(edge.EdgeError, msg=str(bad)):
-                edge.refresh_data(self.real, bad, [self.fan])
-        with self.assertRaises(edge.EdgeError):
-            edge.refresh_data(self.real, self.support / "Godot" / "app_userdata" / ".." / "app_userdata" / "The Crooked Moon", [self.fan])
-        self.assertEqual(self.snapshot(self.real), before)
-
-    def test_the_first_launch_seeds_the_edge_saves_and_later_ones_keep_them(self):
-        before = self.snapshot(self.real)
-        line = edge.prepare_data(self.real, self.edge, [self.fan])
-        self.assertIn("seeded from your real saves", line)
-        self.assertEqual((self.edge / "saves" / "slot_1.json").read_text(), '{"v": 2}')
-        (self.edge / "saves" / "made_in_edge.json").write_text("{}")
-        (self.edge / "saves" / "slot_1.json").write_text("changed in the edge")
-        (self.real / "saves" / "newer_real.json").write_text("{}")
-        line = edge.prepare_data(self.real, self.edge, [self.fan])
-        self.assertIn("kept your edge saves (4 entries)", line)
-        self.assertEqual((self.edge / "saves" / "slot_1.json").read_text(), "changed in the edge")
-        self.assertTrue((self.edge / "saves" / "made_in_edge.json").is_file())
-        self.assertFalse((self.edge / "saves" / "newer_real.json").exists())   # no merging of newer real saves
-        (self.real / "saves" / "newer_real.json").unlink()
-        self.assertEqual(self.snapshot(self.real), before)
-
-    def test_an_empty_or_missing_saves_folder_is_seeded_again(self):
-        (self.edge / "saves").mkdir(parents=True)
-        self.assertIn("seeded", edge.prepare_data(self.real, self.edge, [self.fan]))
-        self.assertTrue((self.edge / "saves" / "slot_1.json").is_file())
-
-    def test_a_saves_symlink_is_replaced_by_a_copy_never_followed(self):
-        self.edge.mkdir(parents=True)
-        (self.edge / "saves").symlink_to(self.real / "saves")
-        before = self.snapshot(self.real)
-        self.assertIn("seeded", edge.prepare_data(self.real, self.edge, [self.fan]))
-        self.assertFalse((self.edge / "saves").is_symlink())
-        self.assertEqual(self.snapshot(self.real), before)
-
-    def test_asking_for_fresh_replaces_the_edge_saves(self):
-        edge.prepare_data(self.real, self.edge, [self.fan])
-        (self.edge / "saves" / "made_in_edge.json").write_text("{}")
-        line = edge.prepare_data(self.real, self.edge, [self.fan], fresh=True)
-        self.assertIn("EDGE_FRESH=1", line)
-        self.assertFalse((self.edge / "saves" / "made_in_edge.json").exists())
-
-    def test_settings_follow_the_real_ones_each_launch_unless_kept(self):
-        edge.prepare_data(self.real, self.edge, [self.fan])
-        (self.real / "settings.cfg").write_text("[game]\nturn_based=true\n")
-        edge.prepare_data(self.real, self.edge, [self.fan])
-        self.assertEqual((self.edge / "settings.cfg").read_text(), "[game]\nturn_based=true\n")
-        (self.edge / "settings.cfg").write_text("edge's own")
-        line = edge.prepare_data(self.real, self.edge, [self.fan], keep_settings=True)
-        self.assertIn("edge's own settings", line)
-        self.assertEqual((self.edge / "settings.cfg").read_text(), "edge's own")
-
-    def test_a_real_data_destination_is_still_refused_before_a_launch_keeps_anything(self):
-        before = self.snapshot(self.real)
-        for bad in (self.real, self.real / "saves", self.fan):
-            with self.assertRaises(edge.EdgeError, msg=str(bad)):
                 edge.prepare_data(self.real, bad, [self.fan])
+        with self.assertRaises(edge.EdgeError):
+            edge.prepare_data(self.real, self.support / "Godot" / "app_userdata" / ".." / "app_userdata" / "The Crooked Moon", [self.fan])
         self.assertEqual(self.snapshot(self.real), before)
 
     def test_override_cfg_points_the_game_at_the_edge_folder(self):
@@ -325,7 +342,7 @@ class DataTests(unittest.TestCase):
 class RunTests(unittest.TestCase):
     def test_the_game_starts_as_make_run_starts_it(self):
         cfg = edge.Config(repo=Path("/x"), home=Path("/h"), root=Path("/r"), base="main", godot="/g/Godot",
-                          data_name="d", support=Path("/s"), keep_data=False, no_run=False)
+                          data_name="d", support=Path("/s"), no_run=False)
         argv, env = edge.launch_command(cfg, Path("/r/CrookedMoonGame-edge"))
         self.assertEqual(argv, ["/g/Godot", "--path", "/r/CrookedMoonGame-edge"])
         self.assertEqual(env["__CFBundleIdentifier"], "org.godotengine.godot")
@@ -334,7 +351,7 @@ class RunTests(unittest.TestCase):
         tmp = Path(tempfile.mkdtemp(prefix="edge_slots_")).resolve()
         self.addCleanup(lambda: subprocess.run(["rm", "-rf", str(tmp)]))
         cfg = edge.Config(repo=Path("/x"), home=Path("/h"), root=Path("/r"), base="main", godot="/g/Godot",
-                          data_name="d", support=Path("/s"), keep_data=False, no_run=False)
+                          data_name="d", support=Path("/s"), no_run=False)
         seen = {}
 
         def fake_run(argv, **kwargs):
@@ -419,7 +436,7 @@ class RunFlowTests(unittest.TestCase):
         (self.real / "saves" / "slot_1.json").write_text("{}")
         (self.real / "settings.cfg").write_text("[game]\n")
         self.cfg = edge.Config(repo=self.r.repo, home=self.r.tmp / "home", root=self.root, base="main", godot="/bin/true",
-                               data_name="The Crooked Moon Edge", support=self.support, keep_data=False, no_run=True)
+                               data_name="The Crooked Moon Edge", support=self.support, no_run=True)
         self.args = argparse.Namespace(cmd="build")
 
     def run_edge(self, cfg=None):
@@ -441,7 +458,7 @@ class RunFlowTests(unittest.TestCase):
         status, out = self.run_edge()
         self.assertEqual(status, 0)
         for text in ("walls", "merged in", "other", "LEFT OUT", "gone", "no such branch", "SAVE_VERSION 2",
-                     "The Crooked Moon Edge", "only read, never written"):
+                     "shared with make run-main"):
             self.assertIn(text, out)
         self.assertIn(edge.short(git(self.r.repo, "rev-parse", "walls")), out)
         self.assertTrue((self.wt / "walls.txt").is_file())
@@ -463,27 +480,13 @@ class RunFlowTests(unittest.TestCase):
         self.assertEqual(git(self.wt, "rev-parse", "HEAD"), head)
         self.assertEqual((self.wt / "builds" / "imports.txt").read_text(), "imported\n")
 
-    def test_the_edge_saves_are_kept_by_default_and_fresh_reseeds_them(self):
+    def test_a_save_made_in_the_edge_lands_in_the_real_saves(self):
         status, out = self.run_edge()
-        self.assertIn("seeded from your real saves", out)
-        mine = self.support / "The Crooked Moon Edge" / "saves" / "made_in_edge.json"
-        mine.write_text("{}")
+        self.assertIn("shared with make run-main", out)
+        (self.support / "The Crooked Moon Edge" / "saves" / "made_in_edge.json").write_text("{}")
+        self.assertTrue((self.real / "saves" / "made_in_edge.json").is_file())
         status, out = self.run_edge()
-        self.assertTrue(mine.is_file())
-        self.assertIn("kept your edge saves", out)
-        self.cfg.fresh = True
-        status, out = self.run_edge()
-        self.assertFalse(mine.exists())
-        self.assertIn("EDGE_FRESH=1", out)
-
-    def test_keeping_the_edge_data_also_keeps_its_settings(self):
-        self.run_edge()
-        folder = self.support / "The Crooked Moon Edge"
-        (folder / "settings.cfg").write_text("edge's own")
-        self.cfg.keep_data = True
-        status, out = self.run_edge()
-        self.assertEqual((folder / "settings.cfg").read_text(), "edge's own")
-        self.assertIn("edge's own settings", out)
+        self.assertTrue((self.real / "saves" / "made_in_edge.json").is_file())
 
     def test_a_data_folder_that_is_the_real_one_stops_before_anything_is_touched(self):
         self.cfg.data_name = "Godot/app_userdata/The Crooked Moon"

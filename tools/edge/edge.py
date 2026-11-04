@@ -15,19 +15,24 @@ skipped; one that is missing, conflicts with what is already in or won't merge i
 and the run goes on. Nothing is merged into a branch of the repository: the worktree's HEAD is the only thing that moves.
 When the base and every branch are where the last build left them, the worktree is not touched at all.
 
-Saves and settings (owner: the real ones are never touched). The build runs on its own user data folder, `The Crooked Moon Edge`
-next to the downloaded game's `The Crooked Moon Fan Game` in ~/Library/Application Support: an override.cfg in the
-worktree switches on the project's custom user dir (Godot reads it beside project.godot; the project's own
-`.template` setting only reaches exported builds) and puts "(edge)" in the window title. The edge's saves/ are its own
-and are kept between runs: they are seeded with a copy of the owner's (dev builds keep them in Godot/app_userdata/The Crooked
-Moon) only when that folder is missing or empty, or on request (EDGE_FRESH=1 make run replaces them with a fresh copy).
-Newer real saves are never merged into them. settings.cfg is copied from the owner's on every launch (EDGE_KEEP_DATA=1
-keeps the edge's own settings too). So a branch that migrates or swaps data on load (item-audit's SaveSystem.WITHDRAWN)
-only ever changes the copy; caches the build makes itself (shaders, looks) are kept as well. The owner's folder is only
-read, and this script refuses a destination that is it, the downloaded game's or inside either. The console says which folder is in use, and warns when a merged branch raises
-GameState.SAVE_VERSION.
+Saves and settings (owner, 2026-11-03: make run and make run-main share one set of saves and one settings file). The build runs on its own user data
+folder, `The Crooked Moon Edge` next to the downloaded game's `The Crooked Moon Fan Game` in ~/Library/Application Support:
+an override.cfg in the worktree switches on the project's custom user dir (Godot reads it beside project.godot; the
+project's own `.template` setting only reaches exported builds) and puts "(edge)" in the window title. Its saves/ is a
+symlink to the dev saves folder (Godot/app_userdata/The Crooked Moon/saves, the one make run-main and its Load page use),
+so a game saved in either build is there in the other. Edge saves from before the change (a real saves/ folder in the
+edge folder) are folded into the dev one once, slot by slot: a slot only the edge had is copied in, and where both had it
+the newer one stays and the other is moved to saves/replaced/<time>/ (beside saves/errors/, so nothing is lost); the old
+edge folder itself is kept, renamed `saves (before sharing <time>)`. settings.cfg (volumes, attunement, keys and the rest)
+is a symlink to the dev folder's in the same way, so a change made in either build stays; until 2026-11-03 it was copied
+over the edge's on every launch, which threw away what was set in the edge. An edge settings file from before is moved in
+when the dev folder has none, and otherwise the newer of the two stays and the other is kept beside it as
+settings.cfg.replaced-<time>. Caches the build makes itself (shaders, looks, logs) stay its own.
+A branch that migrates or swaps data on load (item-audit's SaveSystem.WITHDRAWN) now changes the real saves, and one
+that raises GameState.SAVE_VERSION writes saves main can't load: the console warns about the second before the game starts.
+The script refuses an edge folder that is the dev folder, the downloaded game's or inside either.
 
-Environment: EDGE_HOME, EDGE_ROOT, EDGE_BASE, EDGE_DATA (the user folder's name), EDGE_FRESH=1, EDGE_KEEP_DATA=1, EDGE_NO_RUN=1 (assemble
+Environment: EDGE_HOME, EDGE_ROOT, EDGE_BASE, EDGE_DATA (the user folder's name), EDGE_NO_RUN=1 (assemble
 and import, don't start: same as `build`), GODOT (as the Makefile). The first run makes the worktree and imports it,
 which takes minutes on a busy Mac; later runs import only what changed (the Makefile's FRESH rule).
 
@@ -63,7 +68,7 @@ SSD_MOUNT = "/Volumes/CrookedMoonLanes"
 IMPORT_KINDS = ("*.gd", "*.tscn", "*.tres", "*.png", "*.ogg", "*.wav", "*.mp3", "*.glb")
 IMPORT_ERRORS = re.compile(r"SCRIPT ERROR|ERROR:|Parse Error|Failed loading")
 IMPORT_STOPPED = (75, 129, 130, 137, 143)    # a refused or stopped import: no stamp, no game (as the Makefile)
-USER_FILES = ("settings.cfg",)   # copied from the owner's folder beside saves/
+SETTINGS = "settings.cfg"   # the player's settings file (GameSettings.path), shared like saves/
 HEADER = (
     "# Branches the edge build (make run) merges onto main, one per line, in this order. Handed-off lane work stays\n"
     "# here until it is merged: make edge-add BRANCH=<branch> / make edge-remove BRANCH=<branch>.\n"
@@ -137,9 +142,7 @@ class Config:
     godot: str
     data_name: str      # the edge's user data folder, in `support`
     support: Path       # ~/Library/Application Support
-    keep_data: bool
     no_run: bool
-    fresh: bool = False  # EDGE_FRESH=1: replace the edge's saves with a fresh copy of the owner's
 
     @property
     def manifest(self) -> Path:
@@ -180,9 +183,7 @@ class Config:
             godot=env.get("GODOT") or DEFAULT_GODOT,
             data_name=env.get("EDGE_DATA") or "The Crooked Moon Edge",
             support=home / "Library" / "Application Support",
-            keep_data=bool(env.get("EDGE_KEEP_DATA")),
             no_run=bool(env.get("EDGE_NO_RUN")),
-            fresh=bool(env.get("EDGE_FRESH")),
         )
 
 
@@ -368,7 +369,7 @@ def report(build: Build, cfg: Config) -> None:
         say("  no branches are listed in %s, so this is %s alone." % (tilde(cfg.manifest), build.base))
     bumps = [e for e in build.entries if e.status == "merged" and e.save_version not in (None, build.save_version)]
     for e in bumps:
-        say("!! %s changes GameState.SAVE_VERSION from %s to %s: a save made in the edge build won't load in main"
+        say("!! %s changes GameState.SAVE_VERSION from %s to %s: the edge build shares your saves, and one it writes won't load in make run-main"
             % (e.name, build.save_version, e.save_version))
     if not bumps:
         say("save format: SAVE_VERSION %s, the same as %s." % (build.save_version, build.base))
@@ -391,64 +392,118 @@ def check_data_dirs(edge: Path, protected: Sequence[Path]) -> None:
                             % (tilde(edge), tilde(p)))
 
 
-def refresh_data(real: Path, edge: Path, protected: Sequence[Path]) -> str:
-    """Replaces the edge folder's saves/ and settings.cfg with copies of the owner's; theirs are only read.
-    Caches the build made (shader_cache, look_cache, logs) stay. Returns a line for the console."""
+def _slot(name: str) -> str:
+    """The save a file in saves/ belongs to: autosave.json, autosave.json.bak and autosave.webp are all `autosave`."""
+    return name.split(".", 1)[0]
+
+
+def _copy_missing(src: Path, dst: Path) -> None:
+    """Copies what `dst` lacks from `src` (a subfolder such as errors/), never replacing a file."""
+    dst.mkdir(parents=True, exist_ok=True)
+    for p in src.iterdir():
+        if p.is_dir():
+            _copy_missing(p, dst / p.name)
+        elif not (dst / p.name).exists():
+            shutil.copy2(p, dst / p.name)
+
+
+def fold_saves(old: Path, real: Path, stamp: str) -> Tuple[int, int]:
+    """Folds the edge's own saves (`old`) into the real saves folder, slot by slot: a slot only `old` has is copied in;
+    one both have keeps the side whose newest file is newer, and the real files it replaces are moved to
+    real/replaced/<stamp>/. `old` is only read. Returns (slots copied in, real slots replaced)."""
+    real.mkdir(parents=True, exist_ok=True)
+    mine, theirs = {}, {}
+    for folder, slots in ((old, mine), (real, theirs)):
+        for p in folder.iterdir():
+            if p.is_file() and not p.name.startswith("."):
+                slots.setdefault(_slot(p.name), []).append(p)
+    copied = replaced = 0
+    for slot, files in sorted(mine.items()):
+        there = theirs.get(slot, [])
+        if there:
+            if all((real / f.name).is_file() and (real / f.name).read_bytes() == f.read_bytes() for f in files):
+                continue
+            if max(f.stat().st_mtime for f in files) <= max(f.stat().st_mtime for f in there):
+                continue
+            aside = real / "replaced" / stamp
+            aside.mkdir(parents=True, exist_ok=True)
+            for f in there:
+                f.rename(aside / f.name)
+            replaced += 1
+        for f in files:
+            shutil.copy2(f, real / f.name)
+        copied += 1
+    for p in old.iterdir():
+        if p.is_dir():
+            _copy_missing(p, real / p.name)
+    return copied, replaced
+
+
+def _plural(n: int, word: str = "slot") -> str:
+    return "%d %s%s" % (n, word, "" if n == 1 else "s")
+
+
+def share_settings(real: Path, edge: Path, stamp: str) -> str:
+    """Points edge/settings.cfg at the real one (a symlink), moving the edge's own in first when the real folder has
+    none, or keeping the newer of the two and the other beside it as settings.cfg.replaced-<stamp>. A console phrase."""
+    shared, mine = real / SETTINGS, edge / SETTINGS
+    said = "shared"
+    if mine.is_symlink():
+        if mine.resolve() == shared.resolve():
+            return said
+        mine.unlink()
+    elif mine.is_file():
+        if not shared.exists():
+            shutil.move(str(mine), str(shared))
+            said = "the edge's moved into your folder and shared"
+        elif mine.read_bytes() == shared.read_bytes():
+            mine.unlink()
+        else:
+            older, newer = sorted((mine, shared), key=lambda f: f.stat().st_mtime)
+            aside = real / ("%s.replaced-%s" % (SETTINGS, stamp))
+            shutil.copy2(older, aside)
+            if newer is mine:
+                shutil.copy2(mine, shared)
+            mine.unlink()
+            said = "shared (the %s one was newer; the other is kept as %s)" % (
+                "edge's" if newer is mine else "dev folder's", tilde(aside))
+    elif mine.exists():
+        raise EdgeError("%s is a folder, not the settings file: move it and run again" % tilde(mine))
+    mine.symlink_to(shared)
+    return said
+
+
+def prepare_data(real: Path, edge: Path, protected: Sequence[Path], stamp: Optional[str] = None) -> str:
+    """Points the edge folder's saves/ and settings.cfg at the real ones (symlinks), folding in the edge's own saves first
+    if it still has a folder of them (fold_saves; that folder is then kept, renamed) and its own settings
+    (share_settings). Returns a line for the console."""
     check_data_dirs(edge, [real, *protected])
     edge.mkdir(parents=True, exist_ok=True)
-    saves = edge / "saves"
+    shared, saves = real / "saves", edge / "saves"
+    shared.mkdir(parents=True, exist_ok=True)
+    stamp = stamp or dt.datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
+    what = "shared with make run-main"
     if saves.is_symlink():
-        saves.unlink()
+        if saves.resolve() != shared.resolve():
+            saves.unlink()
+    elif saves.is_dir():
+        copied, replaced = fold_saves(saves, shared, stamp)
+        kept = edge / ("saves (before sharing %s)" % stamp)
+        saves.rename(kept)
+        aside = " (the %s it replaced kept in %s)" % (_plural(replaced), tilde(shared / "replaced" / stamp)) if replaced else ""
+        what = "folded the edge's own saves into yours, %s copied in%s, then %s; the old edge folder is kept as %s" \
+               % (_plural(copied), aside, what, tilde(kept))
     elif saves.exists():
-        shutil.rmtree(saves)
-    count = 0
-    if (real / "saves").is_dir():
-        shutil.copytree(real / "saves", saves, copy_function=shutil.copy2)
-        count = sum(1 for p in saves.iterdir())
-    for name in USER_FILES:
-        mine, theirs = real / name, edge / name
-        if mine.is_file():
-            shutil.copy2(mine, theirs)
-        elif theirs.exists():
-            theirs.unlink()
-    return "a fresh copy of your saves/ (%d entr%s) and settings" % (count, "y" if count == 1 else "ies")
-
-
-def _entries(saves: Path) -> int:
-    return sum(1 for _ in saves.iterdir()) if saves.is_dir() else 0
-
-
-def _plural(n: int) -> str:
-    return "%d entr%s" % (n, "y" if n == 1 else "ies")
-
-
-def prepare_data(real: Path, edge: Path, protected: Sequence[Path], fresh: bool = False, keep_settings: bool = False) -> str:
-    """What the edge folder holds at launch. Its saves/ are kept; they are seeded from the owner's (refresh_data) only
-    when missing or empty (a symlink is replaced too: it could lead into the real ones) or when `fresh` asks.
-    settings.cfg is copied on every launch unless keep_settings. Returns a line for the console."""
-    check_data_dirs(edge, [real, *protected])
-    saves = edge / "saves"
-    kept = not saves.is_symlink() and _entries(saves) > 0
-    if kept and not fresh:
-        for name in ([] if keep_settings else USER_FILES):
-            mine, theirs = real / name, edge / name
-            if mine.is_file():
-                shutil.copy2(mine, theirs)
-            elif theirs.exists():
-                theirs.unlink()
-        return "kept your edge saves (%s)%s" % (_plural(_entries(saves)),
-                                               ", and the edge's own settings" if keep_settings else "; settings copied from yours")
-    refresh_data(real, edge, protected)
-    n = _plural(_entries(saves))
-    if kept:
-        return "EDGE_FRESH=1: replaced the edge saves with a fresh copy of your real saves (%s) and settings" % n
-    return "seeded from your real saves (%s) and settings" % n
+        raise EdgeError("%s is a file, not the saves folder: move it and run again" % tilde(saves))
+    if not saves.is_symlink():
+        saves.symlink_to(shared, target_is_directory=True)
+    return "%s; settings %s" % (what, share_settings(real, edge, stamp))
 
 
 def override_text(title: str, data_name: str) -> str:
     return (
         "; Written by tools/edge/edge.py on every launch; not part of the game. Godot reads this beside project.godot.\n"
-        "; The edge build keeps its saves and settings in its own folder, and says so in its window title.\n"
+        "; The edge build has a user folder of its own (its saves/ and settings.cfg lead to the real ones), and says so in its window title.\n"
         "[application]\n\n"
         'config/name="%s (edge)"\n'
         "config/use_custom_user_dir=true\n"
@@ -592,10 +647,8 @@ def cmd_run(cfg: Config, args: argparse.Namespace) -> int:
         build = assemble(wt, cfg.base, base_sha, resolve(cfg.repo, read_manifest(cfg.manifest)))
         report(build, cfg)
         (wt / "override.cfg").write_text(override_text(cfg.project_name, cfg.data_name), encoding="utf-8")
-        what = prepare_data(cfg.real_data, cfg.edge_data, [cfg.fan_game_data], cfg.fresh, cfg.keep_data)
-        say("saves and settings: %s, in %s." % (what, tilde(cfg.edge_data)))
-        say("your own (%s) are only read, never written; EDGE_FRESH=1 make run starts the edge's saves over from them."
-            % tilde(cfg.real_data))
+        what = prepare_data(cfg.real_data, cfg.edge_data, [cfg.fan_game_data])
+        say("saves and settings: %s (%s)." % (what, tilde(cfg.real_data)))
         say("folder: %s" % tilde(wt))
         if first or needs_import(wt):
             status = import_project(cfg, wt)

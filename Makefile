@@ -30,13 +30,11 @@ PLAYFRESH := export GODOT_SLOTS=off; tools/core_sync.sh; $(FRESH)
 
 ## make run plays the edge build (tools/edge/edge.py): main plus every lane branch that has been handed off but not merged
 ## yet, assembled in a throwaway worktree (CrookedMoonGame-edge, in the SSD lanes' image), so lane work can be tried as soon
-## as it is handed off. It runs on its own user data folder, "The Crooked Moon Edge", seeded with a copy of your saves the
-## first time (or when empty) and then keeping its own; settings.cfg is copied from yours each launch. The real ones are only
-## read, never written. The branches are listed in ~/.crooked-moon/edge/branches.txt, kept out of git: make edge-add
+## as it is handed off. It runs on its own user data folder, "The Crooked Moon Edge", but its saves/ and settings.cfg lead to
+## yours (symlinks), so make run and make run-main share one set of saves and settings. The branches are listed in ~/.crooked-moon/edge/branches.txt, kept out of git: make edge-add
 ## BRANCH=<branch> · make edge-remove BRANCH=<branch> · make edge-list · make edge-prune (drops the merged ones) ·
 ## make edge-reset (removes the worktree; the next run makes it again) · make edge (assembles and imports, no window) ·
-## make edge-test (the script's tests). EDGE_BASE=origin/main starts from the last ci-green main instead of main;
-## EDGE_FRESH=1 make run starts the edge's saves over from your real ones; EDGE_KEEP_DATA=1 keeps the edge's own settings too.
+## make edge-test (the script's tests). EDGE_BASE=origin/main starts from the last ci-green main instead of main.
 run:
 	@python3 tools/edge/edge.py run
 
