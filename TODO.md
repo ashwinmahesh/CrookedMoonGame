@@ -57,6 +57,8 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **Crooked House banter waits for its beats** (lane A, hand-off 3): the second-floor, third-floor and attic exchanges are gated behind the Crooked Man's second and third sightings and six mementos placed, so the attic talk no longer plays the first time the party walks in; a banter capture tool (tools/capture/banter_capture) came with it. The shorter Act I banter (fun-companions-tighten) is still held for Ashwin's choice.
+
 - **Fun pass lane B, hand-off 1: each train car plays differently**: every haint has its own state and AI profile and a round event (BestiaryFeatures.state_profile); the Sleeper has a night porter, the Mail car root snares, the Baggage car toppling stacks, the Circus car a lighting rig and powder keg, and the Tender steam vents; a shroud breach fight (gl_shroud_breach) comes in the six middle cars after the third haint; new containers and finds, a keepsake and an approval for each freed haint, two new flags and three deviations rows. 31 Narrator keys and 17 interject lines are unvoiced (the voice thread has them). The fun train, train cars, r10 playthrough and paths, ghostlight express, prologue monsters and ghostlight train tests pass on the Mac (78).
 
 - **Fun pass lane A, hand-off 2: guest banter and Act II and III reactions** (partly landed): guest banter for Adela, Phillip, William Lodge, Yorgrim and Mrs. Oakum (65 lines), and the companions react across Acts II and III (227 `approve` lines on real choices and 272 companion asides). The Locomotive test that expected it to run to a can before striking a hero now expects the new behaviour (it fights a hero beside it, and feeds when no one is in reach).
