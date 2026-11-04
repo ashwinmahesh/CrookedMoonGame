@@ -58,6 +58,8 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **Q and E turn the camera a quarter turn a press** (Ashwin, 2026-11-04): the engine has camera_quarter_left and camera_quarter_right (no default keys), campaign.json binds Q and E to them, the camera eases round; A and D still turn it freely (engine 1b1294ef; free turn camera and camera keys tests pass).
+
 - **The minimap zooms with the camera** (Ashwin, 2026-11-04): it zooms in and out as the camera does (engine 4fa1988f, test_minimap_zoom).
 
 - **make run and make run-main share one set of saves and one settings file** (Ashwin, 2026-11-04): the edge build's saves folder and settings.cfg become links into the dev user folder; the first make run after this folds in the edge's saves, keeping the newer slot when both sides have one and moving the other into saves/replaced; make run no longer overwrites or deletes the edge's settings.cfg; EDGE_FRESH and EDGE_KEEP_DATA are gone. make edge-test passes (37 tests).
