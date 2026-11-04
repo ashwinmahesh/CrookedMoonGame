@@ -551,9 +551,95 @@
       "kind": "decor",
       "label": "A wall of grinning skulls",
       "model": "bone_scatter"
+    },
+    {
+      "id": "mm_undercroft_skull_cache",
+      "label": "Coins in a loose skull",
+      "model": "bone_scatter",
+      "search_dc": 15,
+      "item": "pearl",
+      "text": "Among the thousands of dry grins stacked in the dark wall, one yellowing skull turns loose in your hand. Coins and a smooth pearl rattle inside the bone.",
+      "kind": "search",
+      "cell": [
+        1,
+        5
+      ]
     }
   ],
   "npcs": [],
   "encounters": [],
-  "rest": "risky"
+  "rest": "risky",
+  "containers": [
+    {
+      "id": "mm_undercroft_ossuary_box",
+      "label": "An ossuary box in the wall",
+      "model": "relics",
+      "lock_dc": 14,
+      "gold": 45,
+      "items": [
+        {
+          "id": "gold_dust",
+          "qty": 1
+        },
+        {
+          "id": "holy_water",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        1,
+        1
+      ]
+    }
+  ],
+  "traps": [
+    {
+      "id": "mm_undercroft_ossuary_box_trap",
+      "label": "A skull that spits darts",
+      "model": "blade_slits",
+      "detect_dc": 15,
+      "disarm_dc": 15,
+      "save": {
+        "ability": "dex",
+        "dc": 15
+      },
+      "damage": "3d6",
+      "damage_type": "piercing",
+      "text": "You touch the bone box, and a hollow skull set in the wall beside it clicks and spits a flight of iron darts.",
+      "cells": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ]
+    },
+    {
+      "id": "mm_undercroft_hollow_floor",
+      "label": "A floor that sounds hollow",
+      "model": "spiked_pit",
+      "detect_dc": 16,
+      "disarm_dc": 15,
+      "save": {
+        "ability": "dex",
+        "dc": 15
+      },
+      "damage": "3d10",
+      "damage_type": "piercing",
+      "text": "The hollow stone beneath your step cracks open like an eggshell over a cluster of waiting stakes.",
+      "cells": [
+        [
+          8,
+          4
+        ]
+      ]
+    }
+  ]
 }

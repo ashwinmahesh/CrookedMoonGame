@@ -617,6 +617,19 @@
       "call": "foxwillow/arrival:martha_plea",
       "approach": 10,
       "call_when": "flag.fw_arrived and not flag.fw_mill_asked"
+    },
+    {
+      "id": "fw_pump_stone",
+      "label": "A tin jammed under the pump's stone",
+      "model": "rubble",
+      "search_dc": 13,
+      "item": "potion_of_healing",
+      "text": "You pry the heavy stone from the mud under the pump, while smoke and straw fly across the lane. Jammed down in the mire sits a tin holdin' a stoppered draught.",
+      "kind": "search",
+      "cell": [
+        26,
+        32
+      ]
     }
   ],
   "npcs": [
@@ -880,5 +893,74 @@
   ],
   "rest": "risky",
   "rest_text": "Embers drift across the square, and the scarecrows never quite stop.",
-  "recheck_minutes": 10
+  "recheck_minutes": 10,
+  "containers": [
+    {
+      "id": "fw_square_cart_crate",
+      "label": "A crate fallen off a cart",
+      "model": "crate",
+      "gold": 14,
+      "items": [
+        {
+          "id": "ration",
+          "qty": 1
+        },
+        {
+          "id": "oil",
+          "qty": 1
+        },
+        {
+          "id": "potion_of_healing",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        43,
+        23
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "fw_creek_tackle",
+      "label": "A fisher's box on the creek bank",
+      "model": "footlocker",
+      "gold": 9,
+      "items": [
+        {
+          "id": "net",
+          "qty": 1
+        },
+        {
+          "id": "rope",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        24,
+        55
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "fw_farm_feed_bin",
+      "label": "A feed bin by the farm wall",
+      "model": "barrel",
+      "gold": 0,
+      "items": [
+        {
+          "id": "ration",
+          "qty": 1
+        },
+        {
+          "id": "citrine",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        56,
+        12
+      ],
+      "lock_dc": 0
+    }
+  ]
 }

@@ -1,6 +1,6 @@
 # Cheat codes
 
-Every code the game's Cheat codes page accepts: 912 items, 552 of them magic.
+Every code the game's Cheat codes page accepts: 915 items, 552 of them magic.
 Each code gives that item to the hero you pick, as many times as you like. `make cheat-codes` rewrites this file
 (and the vault's Cheat Codes.md) from the item data, so run it after adding items rather than editing this by
 hand; `make validate` fails while it's behind.
@@ -663,6 +663,7 @@ Codes the two games share (Arrows, +1 Weapon and every other rules item) are the
 | A miner's lunch pail | `33E216` | Gear |
 | A moth's wing | `498615` | Gear |
 | A note about Clover | `F47267` | Quest |
+| A note from the Lantern's till | `407DAF` | Quest |
 | A numbing injector | `E43648` | Quest |
 | A patient's note | `197A24` | Quest |
 | A piece of Adela's jewellery | `516EA1` | Treasure |
@@ -797,6 +798,7 @@ Codes the two games share (Arrows, +1 Weapon and every other rules item) are the
 | Glaive | `93DD76` | Weapon |
 | Glass Bottle | `C8B2C3` | Container |
 | Glassblower's Tools | `586C89` | Tool |
+| Glitterdeep kennel book page | `E74624` | Quest |
 | Godlee's diary | `DCAF3C` | Quest |
 | Gold Dust | `07835D` | Gear |
 | Gold pocket watch | `A095D3` | Treasure |
@@ -986,6 +988,7 @@ Codes the two games share (Arrows, +1 Weapon and every other rules item) are the
 | Walter's voice, in a thimble | `C48309` | Quest |
 | War Pick | `F3FA69` | Weapon |
 | Warhammer | `43173B` | Weapon |
+| Warning from the mooring post | `41BB80` | Quest |
 | Waterskin | `ABFB7C` | Container |
 | Weaver's Tools | `0E8EB3` | Tool |
 | Whip | `2501BF` | Weapon |

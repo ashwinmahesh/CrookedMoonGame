@@ -1304,6 +1304,19 @@
       "kind": "decor",
       "label": "A bare cell",
       "model": "bed_small"
+    },
+    {
+      "id": "mon_nook_loose_stone",
+      "label": "A loose stone in a prayer nook",
+      "model": "rubble",
+      "search_dc": 15,
+      "item": "diamond",
+      "text": "Under the red light of the window and the damp stone faces, one block shifts at your touch. In the cold dust behind it glints a clear diamond.",
+      "kind": "search",
+      "cell": [
+        59,
+        36
+      ]
     }
   ],
   "lights": [
@@ -1918,5 +1931,170 @@
       115,
       35
     ]
-  }
+  },
+  "containers": [
+    {
+      "id": "mon_kitchen_pantry",
+      "label": "The monastery pantry",
+      "model": "crate_stack",
+      "gold": 0,
+      "items": [
+        {
+          "id": "ration",
+          "qty": 1
+        },
+        {
+          "id": "ration",
+          "qty": 1
+        },
+        {
+          "id": "oil",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        64,
+        9
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "mon_scriptorium_chest",
+      "label": "A scribe's chest of inks",
+      "model": "chest",
+      "gold": 10,
+      "items": [
+        {
+          "id": "ink",
+          "qty": 1
+        },
+        {
+          "id": "paper",
+          "qty": 1
+        },
+        {
+          "id": "spell_scroll_level_1",
+          "qty": 1
+        },
+        {
+          "id": "spell_scroll_cantrip",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        74,
+        13
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "mon_cells_footlocker",
+      "label": "A novice's footlocker",
+      "model": "footlocker",
+      "gold": 5,
+      "items": [
+        {
+          "id": "holy_water",
+          "qty": 1
+        },
+        {
+          "id": "candle",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        7,
+        30
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "mon_upper_cells_chest",
+      "label": "A brother's locked chest",
+      "model": "chest_iron",
+      "lock_dc": 14,
+      "gold": 30,
+      "items": [
+        {
+          "id": "potion_of_healing",
+          "qty": 1
+        },
+        {
+          "id": "pearl",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        70,
+        2
+      ]
+    },
+    {
+      "id": "mon_refectory_sideboard",
+      "label": "A silver sideboard",
+      "model": "sideboard",
+      "gold": 18,
+      "items": [
+        {
+          "id": "silver_dust",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        109,
+        2
+      ],
+      "lock_dc": 0
+    }
+  ],
+  "traps": [
+    {
+      "id": "mon_larder_glyph",
+      "label": "A blood glyph on the larder floor",
+      "model": "floor_glyphs",
+      "detect_dc": 15,
+      "disarm_dc": 14,
+      "save": {
+        "ability": "con",
+        "dc": 14
+      },
+      "damage": "3d6",
+      "damage_type": "necrotic",
+      "text": "The dried blood painted on the flagstones flares beneath your sole, sendin' a wave of icy rot straight up through your bones.",
+      "cells": [
+        [
+          51,
+          25
+        ]
+      ]
+    },
+    {
+      "id": "mon_upper_cells_chest_trap",
+      "label": "A poisoned needle in the lock",
+      "model": "blade_slits",
+      "detect_dc": 15,
+      "disarm_dc": 14,
+      "save": {
+        "ability": "con",
+        "dc": 14
+      },
+      "damage": "2d10",
+      "damage_type": "poison",
+      "text": "As you work the heavy iron lock, a slick needle springs from the keyhole straight into your thumb.",
+      "cells": [
+        [
+          70,
+          3
+        ],
+        [
+          71,
+          2
+        ],
+        [
+          71,
+          3
+        ]
+      ]
+    }
+  ]
 }

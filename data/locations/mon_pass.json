@@ -544,5 +544,54 @@
   "summary": "A winding climb through slate-grey mountains and a copse of dead trees, with the monastery's red windows lighting the way.",
   "text": "The path climbs in long bends of loose slate. Dead trees lean over it. Above, bats stream out of a black tower and the red windows throw a lit road to the gates.",
   "rest": "risky",
-  "rest_text": "Cold wind, loose slate, and bats overhead."
+  "rest_text": "Cold wind, loose slate, and bats overhead.",
+  "containers": [
+    {
+      "id": "mon_pass_pilgrim_pack",
+      "label": "A dead pilgrim's pack",
+      "model": "satchel",
+      "gold": 9,
+      "items": [
+        {
+          "id": "ration",
+          "qty": 1
+        },
+        {
+          "id": "holy_water",
+          "qty": 1
+        },
+        {
+          "id": "candle",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        5,
+        23
+      ],
+      "lock_dc": 0
+    }
+  ],
+  "traps": [
+    {
+      "id": "mon_pass_rockfall",
+      "label": "A tripwire to a rockfall",
+      "model": "tripwire",
+      "detect_dc": 14,
+      "disarm_dc": 13,
+      "save": {
+        "ability": "dex",
+        "dc": 14
+      },
+      "damage": "2d10",
+      "damage_type": "bludgeoning",
+      "text": "A taut wire catches your boot, and the mountain answers with a roar of loose grey slate slidin' down from above.",
+      "cells": [
+        [
+          3,
+          29
+        ]
+      ]
+    }
+  ]
 }

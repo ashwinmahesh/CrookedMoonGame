@@ -599,5 +599,50 @@
       ]
     }
   ],
-  "rest": "risky"
+  "rest": "risky",
+  "containers": [
+    {
+      "id": "mm_vault_coffer",
+      "label": "A coffer in a flooded vault",
+      "model": "chest_iron",
+      "lock_dc": 14,
+      "gold": 42,
+      "items": [
+        {
+          "id": "pearl",
+          "qty": 1
+        },
+        {
+          "id": "silver_dust",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        1,
+        4
+      ]
+    }
+  ],
+  "traps": [
+    {
+      "id": "mm_lane_sunk_tile",
+      "label": "A tile over a flooded cellar",
+      "model": "broken_boards",
+      "detect_dc": 15,
+      "disarm_dc": 14,
+      "save": {
+        "ability": "dex",
+        "dc": 15
+      },
+      "damage": "3d6",
+      "damage_type": "bludgeoning",
+      "text": "The flagstones along the drowned lane shift, and one slick tile tips you toward the black cellar water below.",
+      "cells": [
+        [
+          1,
+          32
+        ]
+      ]
+    }
+  ]
 }
