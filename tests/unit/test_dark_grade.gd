@@ -43,3 +43,9 @@ func test_the_twilight_hour_is_lifted_and_the_rest_of_the_night_kept() -> void:
 	assert_true(lift.has("dawn"), "the Twilight Hour (the calendar's dawn) is lifted")
 	assert_true(float((lift["dawn"] as Dictionary).get("exposure", 1.0)) > 1.0, "a little brighter")
 	assert_false(lift.has("night"), "the night hours keep their dark")
+
+
+func test_indoor_places_are_lifted() -> void:
+	var lift := Look.grade_settings()["phase_lift"] as Dictionary
+	assert_true(lift.has("indoors"), "indoor places are lifted (Ashwin: too dark to see anything)")
+	assert_true(float((lift["indoors"] as Dictionary).get("exposure", 1.0)) > 1.0, "brighter")
