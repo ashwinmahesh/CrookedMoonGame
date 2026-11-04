@@ -1,0 +1,158 @@
+{
+  "id": "silverbell_road",
+  "map": "road_foothill_pass",
+  "grounds": [
+    "road_foothill_pass",
+    "road_creek_ford"
+  ],
+  "chance_day": 0.35,
+  "chance_night": 0.35,
+  "summary": "The Silverbell river road up into the Howlers' foothills to Dawn's Gate: death dogs and hell hounds, vultures, and the Crimson Monastery's patrols on the road below it; a pilgrim walking up to be cleansed.",
+  "entries": [
+    {
+      "id": "death_dogs",
+      "weight": 3,
+      "when": "level <= 5",
+      "monsters": [
+        {
+          "monster": "death_dog",
+          "cell": [
+            19,
+            11
+          ]
+        },
+        {
+          "monster": "death_dog",
+          "cell": [
+            22,
+            8
+          ]
+        }
+      ],
+      "text": "Two-headed dogs come lopin' down the loose scree of the foothills, both mouths peeled back in a grin."
+    },
+    {
+      "id": "hounds",
+      "weight": 3,
+      "when": "level >= 6",
+      "monsters": [
+        {
+          "monster": "death_dog",
+          "cell": [
+            17,
+            6
+          ]
+        },
+        {
+          "monster": "death_dog",
+          "cell": [
+            27,
+            10
+          ]
+        },
+        {
+          "monster": "hell_hound",
+          "cell": [
+            20,
+            16
+          ]
+        }
+      ],
+      "text": "The hounds come down the rocks first, and right behind them stalks something smoking at the jaws and smelling sourly of brimstone."
+    },
+    {
+      "id": "vultures",
+      "weight": 2,
+      "when": "level <= 5",
+      "monsters": [
+        {
+          "monster": "giant_vulture",
+          "cell": [
+            13,
+            17
+          ]
+        },
+        {
+          "monster": "giant_vulture",
+          "cell": [
+            5,
+            9
+          ]
+        }
+      ],
+      "text": "Vultures big as grown men drop off the high crags onto the road, wings spread wide and bald heads tucked low."
+    },
+    {
+      "id": "crimson_patrol",
+      "weight": 3,
+      "when": "not flag.renathyr_slain and level <= 5",
+      "monsters": [
+        {
+          "monster": "crimson_clergy",
+          "cell": [
+            28,
+            5
+          ]
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            25,
+            17
+          ]
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            12,
+            7
+          ]
+        },
+        {
+          "monster": "cultist",
+          "cell": [
+            30,
+            12
+          ]
+        }
+      ],
+      "text": "Monks in red robes and their followers block the path ahead, the front brother smiling as he says they've come to help you confess."
+    },
+    {
+      "id": "crimson_patrol_strong",
+      "weight": 3,
+      "when": "not flag.renathyr_slain and level >= 6",
+      "monsters": [
+        {
+          "monster": "crimson_clergy",
+          "cell": [
+            30,
+            12
+          ]
+        },
+        {
+          "monster": "crimson_clergy",
+          "cell": [
+            15,
+            12
+          ]
+        },
+        {
+          "monster": "cultist_fanatic",
+          "cell": [
+            19,
+            11
+          ]
+        }
+      ],
+      "text": "Red-robed brothers stand across the mountain road with their hands folded neat, and their staring eyes ain't quite alive."
+    },
+    {
+      "id": "crimson_pilgrim",
+      "weight": 3,
+      "when": "not flag.road_pilgrim_met and not flag.renathyr_slain",
+      "once": true,
+      "dialogue": "roads/act2:crimson_pilgrim"
+    }
+  ]
+}

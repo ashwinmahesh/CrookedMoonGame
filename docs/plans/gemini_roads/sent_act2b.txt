@@ -1,0 +1,196 @@
+You are drafting DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue, skill checks, a storyteller Narrator). It is folk horror set in Druskenvald, an afterlife realm of endless night under a gargantuan crescent moon with a leering crone's face; an autumn that never ends, pumpkins and bonfires and dead leaves everywhere, but the stakes are real. Humour is deadpan and sits beside the dread. Use only the names given here; invent no new named people, places, monsters or history.
+
+THE PARTY: the player leads four heroes; never name, describe or gender the player's heroes. Some of the party may be these companions, who speak only in the `interject` lines written for them (each line is said only if that companion is present, so it must make sense on its own and never answer another companion's line):
+- rook_coldwake: Rook, a Graveborn (undead) fighter, a graveyard rest warden; dry, level, practical, union-minded, cares that the dead are laid to rest properly; few words.
+- tobin_hayward: Tobin, a Harvestborn (living scarecrow of wicker and straw) druid; brisk, warm, country-wise, talks about rot, roots, harvests and neighbours; kind under the sharp tongue.
+- silas_vane: Silas, a Relicborn (skeleton-folk) monk and card sharp from river landings; fast, cocky, thinks in odds, bets and marks.
+- delphine_ravelle: Delphine, a Threadborn (living patchwork doll) warlock; theatrical vaudeville showwoman, says "darling", treats horror as a third-rate sideshow she means to headline.
+- lucan_houndstooth: Lucan, a Curseborn (wolf-man) ranger and monster hunter; hushed and earnest, narrates danger like a nature broadcaster, notices scents and tracks.
+- cordelia_skein: Cordelia, a Silkborn (spider-folk) sorcerer; cool, cultivated, clinical, delighted by anything morbid as a subject of study.
+
+RULES FOR THE TEXT
+- Spoken lines: 1 to 3 short sentences, about 12 to 30 words, never over 40. Contractions are normal. People talk in their own voice and do not explain the plot to the audience. Accent is word choice and rhythm, never phonetic spelling. Country folk of the Hollow speak with a folksy country drawl in their word choice.
+- Interject lines: one sentence, under 20 words.
+- Option lines (what the player's party says or does): under 12 words, plain, in the party's voice ("We..." or an imperative).
+- Narrator lines (the Vagrant, an old train conductor telling the tale afterwards: warm, folksy, wry, a Southern drawl in word choice such as reckon, ain't, folks, a spell, a piece; drop a final g in at most one line in three): second person, present tense, one or two sentences, only what a hero could perceive, concrete senses (smell, sound, texture, cold), no game words (HP, roll, level, check, DC, save, hit points), never tell the player what to feel, never the word "suddenly", never mention a fiddle, never name the Vagrant.
+- No stage directions, asterisks, italics, brackets, placeholders, emoji or em dashes (use commas, periods, colons). Straight quotes only. Do not use the arrow characters -> or => inside the text.
+- Content is dark but restrained: no gore, no graphic detail.
+- Each brief says what the line must do; keep its facts, write it as the speaker would say it.
+
+THIS SCENE: short meetings on the roads of Wickermoor Hollow later in the story, played while the party travels between places on the map. Wickermoor Village is the hub. East is Foxwillow, a farming town; north-west, up the Silverbell river road in the foothills of the Howlers mountains, is the mining village of Dawn's Gate under the Crimson Monastery, whose monks wear red; south, through a swamp, is the Drowned Crossroads with its gambling riverboat, ruled by a grinning deal-maker called Mister Crossroads; north-west up a hill trail is Glitterdeep Mine, where a plague of centipedes is spreading; far west across a marsh, on Moonsong Lake, is Memory's Rest, a sanatorium run by Matron Lethica; south-east is Maidenmist, a fogbound cemetery.
+
+Speakers (besides the Narrator and the companions above):
+- road_refugee: a Foxwillow farm wife fleeing her burning town with her family and a handcart; hoarse, frightened, decent.
+- road_pilgrim: a barefoot woman pilgrim climbing to the Crimson Monastery to be cleansed of sin; earnest, glowing, naive.
+- road_dice_ghost: a drowned gambler's ghost on a swamp causeway, waistcoat soaked, rattling dice; friendly as a card sharp, sad underneath.
+- road_miner: a Glitterdeep miner sick with the plague, centipedes under his skin; scared, ashamed, kind.
+- road_patient: an escaped sanatorium patient in a hospital gown, serene and smiling, who has lost his name and memories to the Matron's medicine.
+- road_mourner: a woman leading a funeral to Maidenmist with an empty coffin; quiet, worn out, steady.
+
+The meetings (the [[n]] markers in this file are yours; everything else is fixed):
+
+```
+# --- A sick miner on the hill road ---
+
+~ sick_miner
+set road_miner_met
+appear road_miner
+Narrator: [[41]]
+road_miner [afraid]: [[42]]
+interject name:cordelia_skein: [[43]]
+* [[44]] -> sm_water
+* [Medicine DC 13] [[45]] -> sm_look | sm_look_fail
+* [[46]] -> sm_leave
+
+~ sm_water
+road_miner [sad]: [[47]]
+Narrator: [[48]]
+approve tobin_hayward +1 rook_coldwake +1: You gave a sick miner water on the road
+-> END
+
+~ sm_look
+set road_miner_looked
+Narrator: [[49]]
+road_miner [afraid]: [[50]]
+-> END
+
+~ sm_look_fail
+Narrator: [[51]]
+-> END
+
+~ sm_leave
+road_miner [sad]: [[52]]
+-> END
+
+# --- A patient who forgot his name ---
+
+~ escaped_patient
+set road_patient_met
+appear road_patient
+Narrator: [[53]]
+road_patient [smile]: [[54]]
+interject name:lucan_houndstooth: [[55]]
+* [[56]] -> ep_send
+* [if not flag.road_patient_asked] [[57]] -> ep_ask
+* [[58]] -> ep_leave
+
+~ ep_send
+road_patient [smile]: [[59]]
+Narrator: [[60]]
+approve tobin_hayward +1: You pointed a lost patient to Wickermoor
+-> END
+
+~ ep_ask
+set road_patient_asked
+road_patient [smile]: [[61]]
+road_patient [sad]: [[62]]
+* [[56]] -> ep_send
+* [[58]] -> ep_leave
+
+~ ep_leave
+road_patient [smile]: [[63]]
+-> END
+
+# --- A funeral on the cemetery road ---
+
+~ funeral
+set road_funeral_met
+appear road_mourner
+Narrator: [[64]]
+road_mourner [sad]: [[65]]
+interject name:rook_coldwake: [[66]]
+* [[67]] -> fu_join
+* [[68]] -> fu_ask
+* [[69]] -> fu_leave
+
+~ fu_join
+Narrator: [[70]]
+road_mourner [sad]: [[71]]
+bless party 2h
+approve rook_coldwake +2: You walked a stranger's coffin a mile toward Maidenmist
+-> END
+
+~ fu_ask
+road_mourner: [[72]]
+road_mourner [afraid]: [[73]]
+-> END
+
+~ fu_leave
+Narrator: [[74]]
+-> END
+```
+
+Briefs for the markers:
+41. narrator: a miner in a lamp helmet sits on a rock by the hill road, scratching at his arms; under the skin, something small moves when he is still
+42. road_miner: a Glitterdeep miner, ashamed and scared; he asks for water, his throat's on fire, and begs them not to come close, he's not right
+43. interject cordelia_skein: the movement under the skin follows the veins; how utterly extraordinary, and how deeply unfortunate for him
+44. option: leave him water and keep our distance
+45. option: look at what's under his skin
+46. option: walk on
+47. road_miner: he drinks the whole flask in one go; he says thank you, he says they're kinder than his own village, and asks them to stay away from the mine
+48. narrator: he hugs his knees and rocks on the rock, and when you glance back his lamp is still lit by the road, a little yellow eye
+49. narrator: it's centipedes, no longer than a fingernail, dozens of them, swimming under his skin the way fish swim in a pond
+50. road_miner: he says they came up out of the deep tunnels; the mine's sign got painted over in the night to say Skitterdeep, and nobody owned to painting it
+51. narrator: whatever it is, he won't let you near enough to see, and keeps scratching
+52. road_miner: he understands; he would walk on too
+53. narrator: on the marsh road a man in a white hospital gown walks barefoot through the reeds, smiling at the sky; his feet are cut and he doesn't seem to notice
+54. road_patient: a serene escaped patient; good evening, isn't it lovely; he has lost his name somewhere, it doesn't hurt at all anymore
+55. interject lucan_houndstooth: hushed, he smells of carbolic and of something sweet, something chemical; he has walked for days, and he does not know it
+56. option: tell him Wickermoor is east, and there are kind folk there
+57. option: ask where he came from
+58. option: leave him to the reeds
+59. road_patient: east, how lovely; he will go east then; he doesn't remember being anywhere else, so east will be a fine start
+60. narrator: he sets off the way you pointed, humming, and the reeds close behind him without a sound
+61. road_patient: from the house on the lake, he thinks; the Matron is so kind, she gives everybody a little cup of medicine and the sadness just goes
+62. road_patient: the trouble is, everything else goes with it; he had a wife, he thinks, or a dog; he would very much like to remember which
+63. road_patient: he waves goodbye with great cheer and wades off into the marsh, the wrong way
+64. narrator: four mourners in black come down the cemetery road with a coffin on their shoulders, and it's light, you can tell from how they carry it; the woman in front holds a lantern with a black ribbon
+65. road_mourner: they are taking her brother to Maidenmist; the box is empty, the fog took him and never gave him back, but a grave is a grave
+66. interject rook_coldwake: an empty box still wants carrying right; I'll take a corner if they'll let me
+67. option: carry a corner of the coffin a while
+68. option: ask about the fog that took him
+69. option: step aside and let them pass
+70. narrator: you take a corner, and for a mile the coffin is heavier than it ought to be, and nobody says why
+71. road_mourner: at the turn she thanks them; her brother would have liked to be carried by strangers, he never could abide fuss from family
+72. road_mourner: the fog comes up out of the cemetery some nights and walks into the village; whoever it touches walks back into the cemetery with it
+73. road_mourner: she lowers her voice; the dead don't stay down in Maidenmist anymore, and the gate's been bent outward, not in
+74. narrator: they pass you without a word, and the lantern swings, and the ribbon on it stirs though there is no wind
+Also write the narration that starts each road fight (Narrator lines, the same rules):
+75. Foxwillow road: crows in the furrows rise all together; some of them are not crows, they have little horned faces
+76. Foxwillow road: the sky comes down at you as a single dark storm of crows with a hundred amber eyes in it, and smaller things riding inside
+77. Foxwillow road: three scarecrows step off their poles in the field and come across the furrows; a little doll of plaited corn walks behind them
+78. Foxwillow road: a figure with a carved, grinning pumpkin for a head comes out of the corn, lit from inside, and scarecrows follow it like dogs
+79. Foxwillow road: the corn effigies by the lane were not there when you came this way; their stitched faces turn as you pass
+80. Foxwillow road: a whole procession of corn effigies and little woven things stands across the lane, waiting, rustling though nothing blows
+81. the foothill road: two-headed dogs come loping down the scree, both heads grinning
+82. the foothill road: the hounds come first, and behind them something that smokes from the mouth and smells of brimstone
+83. the foothill road: vultures as big as men drop off the crags onto the road, wings wide, heads low
+84. the foothill road: monks in red and their followers block the road; the one in front smiles and says they have come to help you confess
+85. the foothill road: red-robed brothers stand across the road with their hands folded, and their eyes are not quite alive
+86. the swamp: logs in the black water drift closer against the current, and open their eyes
+87. the swamp: something long as a boat slides off the bank toward the causeway with barely a ripple
+88. the swamp: lumps of mud on the causeway sit up, cackling, and start flinging handfuls
+89. the swamp: the swamp bottom rises up in a shape with too many mouths, and little mud things caper round it
+90. the swamp: the reeds hiss and pour snakes, more than you can count, onto the planks
+91. the swamp: a whine like a hundred mosquitoes, then the stirges come out of the moss for your blood
+92. the swamp: the drowned climb up out of the water onto the causeway, the ferryman's husks, still dripping and pale
+93. the hill road to the mine: the ground on the trail moves; then you see the centipedes, big as dogs, pouring out of a culvert
+94. the hill road to the mine: a crawling carpet of centipedes washes over the trail, and in the middle of it something bigger rides like a queen
+95. the hill road to the mine: wolves on the trail, thin and wild-eyed, chewing at something under their own fur
+96. the marsh road: vultures circle low over the reeds, then lower, then they land all round you
+97. the marsh road: two soft lights float over the marsh toward you, friendly as lanterns, and the air goes cold under them
+98. the marsh road: figures in torn hospital gowns lurch out of the reeds, changed, too many joints in their arms
+99. the marsh road: patients from the lake house come out of the fog, swollen and stitched, and they are still wearing their name tags
+100. the spore trail: the purple mushrooms along the path lift up on root legs and lash out
+101. the spore trail: trees step off the trail's edge, bark split and oozing, and something spins rot between them
+102. the spore trail: webs of rot hang between the trees, and the weavers come down them toward you
+103. the cemetery road: ghouls come out of the fog on all fours, sniffing, and one of them is wearing a mourner's hat
+104. the cemetery road: the fog takes shapes, a reaper, a whisperer and a mouth, and they come down the road together
+105. the cemetery road: a dead knight with cold eyes leads the hungry dead out of the mist in good order
+106. the roads to the roosts: grey pigeons come over the hedges in a roaring cloud, and behind them birds with too-human faces
+107. the roads to the roosts: a crow-demon drops onto the road in a burst of black feathers, and magpies laugh from the hedges
+
+## Reply format
+One line per marker, in order, exactly `n => text` (no quotes around the text, no extra lines, no commentary). 67 lines, numbered as above.

@@ -1,0 +1,209 @@
+# Meetings on the roads of Acts II and III (data/random_encounters/foxwillow_road, silverbell_road, bayou_road, skitter_road,
+# marsh_road and cemetery_road): each plays once on its table's map, then the journey goes on. Fun pass lane D.
+# Drafted by Gemini (docs/plans/gemini_roads), edited; flags in data/flags/roads.json.
+
+# --- Refugees from Foxwillow ---
+
+~ foxwillow_refugees
+set road_refugees_met
+appear road_refugee
+Narrator: [[1]]
+road_refugee [afraid]: [[2]]
+interject name:tobin_hayward: [[3]]
+-> fr_menu
+
+~ fr_menu
+* [if gold >= 5] [[4]] -> fr_give
+* [Medicine DC 12] [[5]] -> fr_tend | fr_tend_fail
+* [if not flag.road_refugees_asked] [[6]] -> fr_ask
+* [[7]] -> fr_leave
+
+~ fr_give
+gold -5
+road_refugee [sad]: [[8]]
+approve tobin_hayward +2 rook_coldwake +1: You gave a burnt-out family from Foxwillow coin for the road
+-> END
+
+~ fr_tend
+road_refugee [sad]: [[9]]
+Narrator: [[10]]
+approve tobin_hayward +1 cordelia_skein +1: You dressed a refugee child's burns on the road
+-> END
+
+~ fr_tend_fail
+Narrator: [[11]]
+-> fr_menu
+
+~ fr_ask
+set road_refugees_asked
+road_refugee: [[12]]
+road_refugee [afraid]: [[13]]
+-> fr_menu
+
+~ fr_leave
+road_refugee: [[14]]
+-> END
+
+# --- A pilgrim bound for the Crimson Monastery ---
+
+~ crimson_pilgrim
+set road_pilgrim_met
+appear road_pilgrim
+Narrator: [[15]]
+road_pilgrim [smile]: [[16]]
+interject name:delphine_ravelle: [[17]]
+-> cp_menu
+
+~ cp_menu
+* [Persuasion DC 14] [[18]] -> cp_turn | cp_on
+* [if not flag.road_pilgrim_asked] [[19]] -> cp_ask
+* [[20]] -> cp_let
+
+~ cp_turn
+set road_pilgrim_turned
+road_pilgrim [afraid]: [[21]]
+Narrator: [[22]]
+approve rook_coldwake +1 tobin_hayward +1: You talked a pilgrim out of climbing to the Crimson Monastery
+-> END
+
+~ cp_on
+road_pilgrim [angry]: [[23]]
+Narrator: [[24]]
+-> END
+
+~ cp_ask
+set road_pilgrim_asked
+road_pilgrim: [[25]]
+road_pilgrim [smile]: [[26]]
+-> cp_menu
+
+~ cp_let
+road_pilgrim [smile]: [[27]]
+-> END
+
+# --- A dead gambler wants a game ---
+
+~ dice_ghost
+set road_dice_met
+appear road_dice_ghost
+Narrator: [[28]]
+road_dice_ghost [sly]: [[29]]
+interject name:silas_vane: [[30]]
+-> dg_menu
+
+~ dg_menu
+* [if gold >= 5] [Insight DC 13] [[31]] -> dg_win | dg_lose
+* [if not flag.road_dice_asked] [[32]] -> dg_ask
+* [[33]] -> dg_leave
+
+~ dg_win
+gold +10
+road_dice_ghost [angry]: [[34]]
+Narrator: [[35]]
+approve silas_vane +2: You called a dead man's bluff at Liar's Dice
+-> END
+
+~ dg_lose
+gold -5
+road_dice_ghost [smile]: [[36]]
+Narrator: [[37]]
+-> END
+
+~ dg_ask
+set road_dice_asked
+road_dice_ghost: [[38]]
+road_dice_ghost [sad]: [[39]]
+-> dg_menu
+
+~ dg_leave
+road_dice_ghost [sly]: [[40]]
+-> END
+
+# --- A sick miner on the hill road ---
+
+~ sick_miner
+set road_miner_met
+appear road_miner
+Narrator: [[41]]
+road_miner [afraid]: [[42]]
+interject name:cordelia_skein: [[43]]
+* [[44]] -> sm_water
+* [Medicine DC 13] [[45]] -> sm_look | sm_look_fail
+* [[46]] -> sm_leave
+
+~ sm_water
+road_miner [sad]: [[47]]
+Narrator: [[48]]
+approve tobin_hayward +1 rook_coldwake +1: You gave a sick miner water on the road
+-> END
+
+~ sm_look
+set road_miner_looked
+Narrator: [[49]]
+road_miner [afraid]: [[50]]
+-> END
+
+~ sm_look_fail
+Narrator: [[51]]
+-> END
+
+~ sm_leave
+road_miner [sad]: [[52]]
+-> END
+
+# --- A patient who forgot his name ---
+
+~ escaped_patient
+set road_patient_met
+appear road_patient
+Narrator: [[53]]
+road_patient [smile]: [[54]]
+interject name:lucan_houndstooth: [[55]]
+* [[56]] -> ep_send
+* [if not flag.road_patient_asked] [[57]] -> ep_ask
+* [[58]] -> ep_leave
+
+~ ep_send
+road_patient [smile]: [[59]]
+Narrator: [[60]]
+approve tobin_hayward +1: You pointed a lost patient to Wickermoor
+-> END
+
+~ ep_ask
+set road_patient_asked
+road_patient [smile]: [[61]]
+road_patient [sad]: [[62]]
+* [[56]] -> ep_send
+* [[58]] -> ep_leave
+
+~ ep_leave
+road_patient [smile]: [[63]]
+-> END
+
+# --- A funeral on the cemetery road ---
+
+~ funeral
+set road_funeral_met
+appear road_mourner
+Narrator: [[64]]
+road_mourner [sad]: [[65]]
+interject name:rook_coldwake: [[66]]
+* [[67]] -> fu_join
+* [[68]] -> fu_ask
+* [[69]] -> fu_leave
+
+~ fu_join
+Narrator: [[70]]
+road_mourner [sad]: [[71]]
+bless party 2h
+approve rook_coldwake +2: You walked a stranger's coffin a mile toward Maidenmist
+-> END
+
+~ fu_ask
+road_mourner: [[72]]
+road_mourner [afraid]: [[73]]
+-> END
+
+~ fu_leave
+Narrator: [[74]]
+-> END

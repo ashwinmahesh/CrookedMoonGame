@@ -1,0 +1,196 @@
+# The Crooked Man between the acts (fun pass, lane D): the book has him guide the cult and want the six Fallen dead,
+# and the heroes do Kehlenn's work by their good deeds. So he is felt before the finale: twice at the edge of a road
+# (data/random_encounters/crooked_man_road.json, rolled on any road's quiet leg), once as a note on a signpost, and twice
+# at the party's fire (data/camp/night_events.json). He is never a fight, he hints and never explains, and he never
+# hints at his own weakness. Drafted by Gemini (docs/plans/gemini_roads), edited; flags in data/flags/roads.json.
+
+# --- After the Crooked House: a figure at the edge of the road ---
+
+~ after_house
+if flag.cm_road_house
+-> END
+endif
+set cm_road_house
+Narrator: [[1]]
+appear crooked_man
+Narrator: [[2]]
+crooked_man [smile]: [[3]]
+if flag.road_hair_given
+crooked_man [sly]: [[4]]
+endif
+if flag.road_child_lost
+crooked_man [sad]: [[5]]
+elif flag.road_child_home
+crooked_man [smile]: [[6]]
+endif
+if flag.road_shrine_robbed
+crooked_man [sly]: [[7]]
+endif
+interject name:rook_coldwake: [[8]]
+interject name:delphine_ravelle: [[9]]
+* [[10]] -> ah_want
+* [[11]] -> ah_strike
+* [[12]] -> ah_walk
+
+~ ah_want
+crooked_man [smile]: [[13]]
+crooked_man [sly]: [[14]]
+-> ah_go
+
+~ ah_strike
+Narrator: [[15]]
+crooked_man [smile]: [[16]]
+-> ah_go
+
+~ ah_walk
+crooked_man [smile]: [[17]]
+-> ah_go
+
+~ ah_go
+crooked_man [smile]: [[18]]
+vanish crooked_man
+Narrator: [[19]]
+-> END
+
+# --- The first of the Fallen: applause from a milestone ---
+
+~ first_fallen
+if flag.cm_road_fallen
+-> END
+endif
+set cm_road_fallen
+appear crooked_man
+Narrator: [[20]]
+if flag.raum_slain
+crooked_man [smile]: [[21]]
+elif flag.renathyr_slain
+crooked_man [smile]: [[22]]
+elif flag.grinning_sinner_slain
+crooked_man [smile]: [[23]]
+else
+crooked_man [smile]: [[24]]
+endif
+crooked_man [sly]: [[25]]
+interject name:lucan_houndstooth: [[26]]
+interject name:cordelia_skein: [[27]]
+* [[28]] -> ff_she
+* [[29]] -> ff_why
+* [[30]] -> ff_leave
+
+~ ff_she
+crooked_man [sly]: [[31]]
+-> ff_go
+
+~ ff_why
+crooked_man [smile]: [[32]]
+crooked_man [sly]: [[33]]
+-> ff_go
+
+~ ff_leave
+crooked_man [smile]: [[34]]
+-> ff_go
+
+~ ff_go
+vanish crooked_man
+Narrator: [[35]]
+-> END
+
+# --- Five of six: a note on the signpost ---
+
+~ note
+if flag.cm_note_read
+-> END
+endif
+set cm_note_read
+Narrator: [[36]]
+Narrator: [[37]]
+crooked_man [smile]: [[38]]
+crooked_man [sly]: [[39]]
+interject name:silas_vane: [[40]]
+* [[41]] -> nt_burn
+* [[42]] -> nt_keep
+
+~ nt_burn
+Narrator: [[43]]
+-> END
+
+~ nt_keep
+Narrator: [[44]]
+-> END
+
+# --- Four of six: a guest at the fire (a night event) ---
+
+~ fire
+set cm_fire_met
+appear crooked_man
+Narrator: [[45]]
+crooked_man [smile]: [[46]]
+crooked_man [sly]: [[47]]
+interject name:tobin_hayward: [[48]]
+interject name:delphine_ravelle: [[49]]
+* [[50]] -> cf_six
+* [[51]] -> cf_couple
+* [if flag.road_hair_given] [[52]] -> cf_hair
+* [[53]] -> cf_throw
+* [[54]] -> cf_leave
+
+~ cf_six
+crooked_man [smile]: [[55]]
+crooked_man [sly]: [[56]]
+-> cf_go
+
+~ cf_couple
+crooked_man [sly]: [[57]]
+-> cf_go
+
+~ cf_hair
+crooked_man [smile]: [[58]]
+-> cf_go
+
+~ cf_throw
+Narrator: [[59]]
+crooked_man [smile]: [[60]]
+-> cf_go
+
+~ cf_leave
+crooked_man [smile]: [[61]]
+-> cf_go
+
+~ cf_go
+crooked_man [smile]: [[62]]
+vanish crooked_man
+Narrator: [[63]]
+-> END
+
+# --- Six of six: the last visit before Fool's Day (a night event) ---
+
+~ last_fire
+set cm_last_fire_met
+appear crooked_man
+Narrator: [[64]]
+crooked_man [sad]: [[65]]
+crooked_man [smile]: [[66]]
+interject name:rook_coldwake: [[67]]
+interject name:cordelia_skein: [[68]]
+* [[69]] -> lf_defy
+* [[70]] -> lf_couple
+* [[71]] -> lf_silent
+
+~ lf_defy
+crooked_man [smile]: [[72]]
+approve rook_coldwake +1 tobin_hayward +1 lucan_houndstooth +1: You told the Crooked Man to his face that you would stop him
+-> lf_go
+
+~ lf_couple
+crooked_man [sly]: [[73]]
+-> lf_go
+
+~ lf_silent
+crooked_man [smile]: [[74]]
+-> lf_go
+
+~ lf_go
+crooked_man [smile]: [[75]]
+vanish crooked_man
+Narrator: [[76]]
+-> END

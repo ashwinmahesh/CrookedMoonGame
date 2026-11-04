@@ -1,0 +1,134 @@
+{
+  "id": "hill_road",
+  "map": "road_oakwood",
+  "grounds": [
+    "road_oakwood"
+  ],
+  "chance_day": 0.25,
+  "chance_night": 0.25,
+  "summary": "The hill road from Wickermoor up to the Druskenvald Estate, under oaks: the hag's weasels, hares and magpies, and the Brightsingers' lantern walk.",
+  "entries": [
+    {
+      "id": "weasels",
+      "weight": 3,
+      "when": "not flag.vessla_slain and level <= 2",
+      "monsters": [
+        {
+          "monster": "giant_weasel",
+          "cell": [
+            20,
+            9
+          ]
+        },
+        {
+          "monster": "giant_weasel",
+          "cell": [
+            22,
+            13
+          ]
+        },
+        {
+          "monster": "giant_weasel",
+          "cell": [
+            18,
+            15
+          ]
+        },
+        {
+          "monster": "giant_weasel",
+          "cell": [
+            25,
+            10
+          ]
+        }
+      ],
+      "text": "Weasels pour across the ruts of the hill road like spilt black ink, chittering low, before every wet nose snaps around toward you at once."
+    },
+    {
+      "id": "weasels_led",
+      "weight": 3,
+      "when": "not flag.vessla_slain and level >= 3",
+      "monsters": [
+        {
+          "monster": "vermin_familiar_weasel",
+          "cell": [
+            25,
+            10
+          ]
+        },
+        {
+          "monster": "giant_weasel",
+          "cell": [
+            27,
+            14
+          ]
+        },
+        {
+          "monster": "giant_weasel",
+          "cell": [
+            16,
+            7
+          ]
+        },
+        {
+          "monster": "giant_weasel",
+          "cell": [
+            8,
+            8
+          ]
+        }
+      ],
+      "text": "A weasel big as a hound comes down the hill road at the head of its pack, and the little ones fan out round you, chittering."
+    },
+    {
+      "id": "hares",
+      "weight": 2,
+      "monsters": [
+        {
+          "monster": "crooked_hare",
+          "cell": [
+            8,
+            8
+          ]
+        },
+        {
+          "monster": "crooked_hare",
+          "cell": [
+            6,
+            15
+          ]
+        }
+      ],
+      "text": "Long hares crouch in the wagon ruts ahead, ears pinned flat and mouths stretched in wet grins, and they bound straight at your throats instead of the brush."
+    },
+    {
+      "id": "magpies",
+      "weight": 2,
+      "when": "level >= 2",
+      "monsters": [
+        {
+          "monster": "magpie_of_omens",
+          "cell": [
+            24,
+            17
+          ]
+        },
+        {
+          "monster": "swarm_of_ravens",
+          "cell": [
+            29,
+            8
+          ]
+        }
+      ],
+      "text": "Magpies settle one by one along the oak boughs over the hill road until the heavy wood groans and bows, and then the whole flock drops."
+    },
+    {
+      "id": "lantern_walk",
+      "weight": 3,
+      "when": "not flag.road_lanterns_met",
+      "once": true,
+      "dialogue": "roads/act1:lantern_walk"
+    }
+  ]
+}

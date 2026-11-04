@@ -1,0 +1,225 @@
+# Meetings on the roads of Acts II and III (data/random_encounters/foxwillow_road, silverbell_road, bayou_road, skitter_road,
+# marsh_road and cemetery_road): each plays once on its table's map, then the journey goes on. Fun pass lane D.
+# Drafted by Gemini (docs/plans/gemini_roads), edited; flags in data/flags/roads.json.
+
+# --- Refugees from Foxwillow ---
+
+~ foxwillow_refugees
+if flag.road_refugees_met
+-> END
+endif
+set road_refugees_met
+appear road_refugee
+Narrator: Down the Foxwillow road comes a woman pullin' a handcart piled high with bedding, an old man and two children trailing behind. They smell sharp of woodsmoke, and the sky at their backs is glowing mean and orange.
+road_refugee [afraid]: Please, is it much further to Wickermoor? Whole of Foxwillow is burning down, neighbour turned on neighbour, and we only got out with what the cart could hold.
+interject name:tobin_hayward: Smoke in the quilts and ash in the young ones' hair, that is a whole season's keeping gone to cinder.
+-> fr_menu
+
+~ fr_menu
+* [if gold >= 5] Take these five gold pieces for the road. -> fr_give
+* [Medicine DC 12] Let us look at the children's burns. -> fr_tend | fr_tend_fail
+* [if not flag.road_refugees_asked] What happened back in Foxwillow? -> fr_ask
+* We wish you luck on the road. -> fr_leave
+
+~ fr_give
+gold -5
+road_refugee [sad]: I don't know what to say to that, truly I don't. I will remember the faces of the folk who stopped for us tonight.
+approve tobin_hayward +2 rook_coldwake +1: You gave a burnt-out family from Foxwillow coin for the road
+-> END
+
+~ fr_tend
+road_refugee [sad]: Thank you kindly, that is more than our own doctor in Foxwillow would do. He barred his door tight like all the rest when the shouting started.
+Narrator: You wash the soot from the blisters with cold flask water and bind them up in clean linen. The smaller child quits whimpering, leans into the piled quilts, and goes fast asleep.
+approve tobin_hayward +1 cordelia_skein +1: You dressed a refugee child's burns on the road
+-> END
+
+~ fr_tend_fail
+Narrator: The boy jerks back from the reach of your hands, and his granddaddy hauls him up onto the cart bed without a word.
+-> fr_menu
+
+~ fr_ask
+set road_refugees_asked
+road_refugee: Our families have feuded for years, sure, but never like this. Folks are shouting out dark secrets on their neighbours that they had no earthly way of knowing.
+road_refugee [afraid]: Keep your voice down, because it's the crows doing it. They sit thick on every roof and fence rail, and whatever you whisper near them, the whole town knows by morning.
+-> fr_menu
+
+~ fr_leave
+road_refugee: Just down the road a piece, then. We thank you kindly, friends, and we best keep moving.
+-> END
+
+# --- A pilgrim bound for the Crimson Monastery ---
+
+~ crimson_pilgrim
+if flag.road_pilgrim_met
+-> END
+endif
+set road_pilgrim_met
+appear road_pilgrim
+Narrator: Up where the road climbs into the rocky foothills, a barefoot woman comes walking in a plain grey shift. She carries her worn shoes in one hand, a bright red cord tied neat around her wrist.
+road_pilgrim [smile]: Evening, travellers. I'm climbing to the Crimson Monastery to have my sins washed away, and the brothers promise nothing's left of a sinner afterward but peace.
+interject name:delphine_ravelle: Nothing left of her but peace, darling, I have read that exact notice before and the show was positively ghastly.
+-> cp_menu
+
+~ cp_menu
+* [Persuasion DC 14] Do not go up to that monastery. -> cp_turn | cp_on
+* [if not flag.road_pilgrim_asked] Tell us about the Crimson Monastery. -> cp_ask
+* Go on your way in peace. -> cp_let
+
+~ cp_turn
+road_pilgrim [afraid]: You sound awful sure of that, and I admit I always wondered why the folk who climbed up never wrote home again. Maybe I'll walk back down a spell and think on it.
+Narrator: Her fingers work the knot of the red cord loose from her wrist and let the cold wind carry it down the slope. She turns back the way she came, slow at first, then quickenin' her step.
+approve rook_coldwake +1 tobin_hayward +1: You talked a pilgrim out of climbing to the Crimson Monastery
+-> END
+
+~ cp_on
+road_pilgrim [angry]: The brothers warned me that sin always talks just like you, sweet and reasonable on the tongue. I won't let you turn me from my cleansing now.
+Narrator: She pulls away and climbs higher up the stones without looking back. High above in the dark, a heavy monastery bell tolls once through the cold air.
+-> END
+
+~ cp_ask
+set road_pilgrim_asked
+road_pilgrim: The brothers up there wear red robes and sing hymns through the whole blessed night. Folks say the abbot was a golden knight once, before he gave himself over entirely to his goddess.
+road_pilgrim [smile]: They say his goddess is terrible and lovely to behold, and awful hungry for the good in people. I don't rightly know what that means, yet it sure sounds holy to me.
+-> cp_menu
+
+~ cp_let
+road_pilgrim [smile]: Bless your hearts for stopping to talk. I hope you find someone to wash your own souls clean one day soon.
+-> END
+
+# --- A dead gambler wants a game ---
+
+~ dice_ghost
+if flag.road_dice_met
+-> END
+endif
+set road_dice_met
+appear road_dice_ghost
+Narrator: Out on a rotten stump by the causeway's edge sits a man in a soaked waistcoat gone green with pond scum. Cold swamp water drips steady from his cuffs while he rattles bone dice inside a leather cup.
+road_dice_ghost [sly]: Evening, friends, care to rattle the bones for five gold a throw to help pass the night? Sit yourselves down for a friendly hand of Liar's Dice, I've got nothing left in the world but time.
+interject name:silas_vane: A drowned sharp rattling a cup, watch his left hand close because that's where the sixes live.
+-> dg_menu
+
+~ dg_menu
+* [if gold >= 5] [Insight DC 13] We'll play you for five gold. -> dg_win | dg_lose
+* [if not flag.road_dice_asked] How did you end up on this causeway? -> dg_ask
+* We'll pass on the game tonight. -> dg_leave
+
+~ dg_win
+gold +10
+road_dice_ghost [angry]: Well now, ain't a living soul called me on that bluff in forty wet years. Take your winnings, fair and square, even if the pond weed has turned the gold a touch green.
+Narrator: He tips his leather cup upside down over the wet stump. Three of the bone dice tumble off the bark and drop into the black water without a single splash.
+approve silas_vane +2: You called a dead man's bluff at Liar's Dice
+-> END
+
+~ dg_lose
+gold -5
+road_dice_ghost [smile]: That's the way the river runs, friends, the house always takes its cut even out here in the reeds. Come back whenever your pockets feel too heavy.
+Narrator: Your warm coins sink straight into his wet palm like pebbles dropped in a pond. His pale grin stretches wider by the breadth of a single yellow tooth.
+-> END
+
+~ dg_ask
+set road_dice_asked
+road_dice_ghost: I sat down at the Drowned Crossroads once across from a gentleman with a mighty wide grin. We weren't playing for coin that night, and I've been sitting on this stump working off my marker ever since.
+road_dice_ghost [sad]: Mister Crossroads keeps my soul tucked down in his waistcoat pocket like a brass watch. No matter how many hands I win out here, that debt never gets an inch smaller, it only changes its shape.
+-> dg_menu
+
+~ dg_leave
+road_dice_ghost [sly]: Suit yourselves, travellers, and mind your boots on the slick boards. I'll still be sitting right here when you come back through, I'm always here.
+-> END
+
+# --- A sick miner on the hill road ---
+
+~ sick_miner
+if flag.road_miner_met
+-> END
+endif
+set road_miner_met
+appear road_miner
+Narrator: A miner in a lamp helmet sits on a roadside rock, scratching hard at his arms. Whenever he holds still a spell, something small shifts underneath his skin.
+road_miner [afraid]: Please, you got a drop of water? My throat's on fire, folks, just set it down and keep back. I ain't right, don't come near me.
+interject name:cordelia_skein: The movement beneath the epidermis follows the veins, how utterly extraordinary, and how deeply unfortunate for him.
+* Set down some water and keep our distance. -> sm_water
+* [Medicine DC 13] Let us look at your arms. -> sm_look | sm_look_fail
+* We should keep moving. -> sm_leave
+
+~ sm_water
+road_miner [sad]: Thank you kindly, that's the first cool thing down my throat in days. You're better to me than my own village. Do yourselves a favor and stay clear of Glitterdeep.
+Narrator: He hugs his knees and rocks on the stone. When you glance back a piece down the trail, his lamp still burns like a little yellow eye.
+approve tobin_hayward +1 rook_coldwake +1: You gave a sick miner water on the road
+-> END
+
+~ sm_look
+Narrator: Dozens of centipedes no longer than a fingernail swim beneath his skin like minnows in a murky pond.
+road_miner [afraid]: They boiled up out of the deep tunnels. Somebody painted over the sign in the night to say Skitterdeep, and nobody owned to doing it.
+-> END
+
+~ sm_look_fail
+Narrator: Whatever is under there, he flinches back and keeps scratching, refusing to let you close enough to see.
+-> END
+
+~ sm_leave
+road_miner [sad]: I reckon I understand. I'd walk right on past me too.
+-> END
+
+# --- A patient who forgot his name ---
+
+~ escaped_patient
+if flag.road_patient_met
+-> END
+endif
+set road_patient_met
+appear road_patient
+Narrator: A man in a white hospital gown strolls barefoot through the marsh reeds, smiling up at the sky. His feet are cut and bleeding, though he pays it no mind.
+road_patient [smile]: Good evening to you, isn't the weather lovely? I seem to have misplaced my name somewhere along the way, though it doesn't hurt at all anymore.
+interject name:lucan_houndstooth: He smells of carbolic and a sweet chemical rot, and by his tracks he has walked for days without knowing.
+* Wickermoor is east, and you'll find kind folk there. -> ep_send
+* [if not flag.road_patient_asked] Where did you walk from? -> ep_ask
+* Leave him to the reeds. -> ep_leave
+
+~ ep_send
+road_patient [smile]: East, how lovely, I shall go east then. I don't recall ever being anywhere else, so east sounds like a fine start.
+Narrator: He sets off the way you pointed, humming a tune, and the tall reeds close behind him without a sound.
+approve tobin_hayward +1: You pointed a lost patient to Wickermoor
+-> END
+
+~ ep_ask
+set road_patient_asked
+road_patient [smile]: From the house on the lake, I think. The Matron is terribly kind, she gives everyone a little cup of medicine and the sadness just goes.
+road_patient [sad]: The trouble is, everything else goes right along with it. I had a wife once, I think, or perhaps a dog, and I'd dearly like to remember which.
+* Wickermoor is east, and you'll find kind folk there. -> ep_send
+* Leave him to the reeds. -> ep_leave
+
+~ ep_leave
+Narrator: He waves goodbye with great cheer and wades off into the deep marsh, heading the wrong way entirely.
+-> END
+
+# --- A funeral on the cemetery road ---
+
+~ funeral
+if flag.road_funeral_met
+-> END
+endif
+set road_funeral_met
+appear road_mourner
+Narrator: Four mourners in black come down the road carrying a coffin that sits too light on their shoulders. The woman leading them holds a lantern tied with a black ribbon.
+road_mourner [sad]: We're taking my brother to Maidenmist. The box is empty, since the fog took him and never gave him back, but a grave is still a grave.
+interject name:rook_coldwake: An empty box still wants carrying right, so I'll take a corner if they'll let me.
+* We'll carry a corner of the coffin a while. -> fu_join
+* Tell us about the fog that took him. -> fu_ask
+* Step aside and let the mourners pass. -> fu_leave
+
+~ fu_join
+Narrator: You take a corner of the pine box, and for a solid mile it weighs heavier than an empty coffin ought to, though nobody says a word about it.
+road_mourner [sad]: Thank you kindly for the help up to the turn. My brother would have liked being carried by strangers, he never could abide a fuss from family.
+bless party 2h
+approve rook_coldwake +2: You walked a stranger's coffin a mile toward Maidenmist
+-> END
+
+~ fu_ask
+road_mourner: The fog creeps up out of the cemetery some nights and walks right into the village. Whoever it touches walks back into the graves with it.
+road_mourner [afraid]: Folks don't stay buried down in Maidenmist anymore. Worse yet, the iron gate has been bent outward, not in.
+-> END
+
+~ fu_leave
+Narrator: They pass you without a word, the lantern swinging slow while its black ribbon stirs in the dead, windless air.
+-> END
