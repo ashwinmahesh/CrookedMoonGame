@@ -16,6 +16,7 @@ set honor_lost_known
 
 ~ pre_journal
 father_renathyr [sad]: My own hand wrote those words when the bells still rang silver. That knight died on the mountain, and only the hunger remained.
+interject name:rook_coldwake: Always keep the old ledgers dry, even when the clerk goes bad.
 Narrator: He stands cold and still as a tomb effigy, haunted by the man he used to be.
 set honor_lost_known
 -> prefight
@@ -66,6 +67,7 @@ Narrator: The velvet voice hums in your teeth and warms your blood, leaving only
 -> hellfire
 
 ~ accept1
+approve rook_coldwake -5 tobin_hayward -5 lucan_houndstooth -4: You reached for the fiend's blade at the altar
 viraxys [sly]: Such a hungry hand reaching for the hilt. Are you certain you wish to trade your warm breath for my eternal night?
 * Yes. -> accept2
 * No. -> hellfire
@@ -76,6 +78,7 @@ Narrator: To draw that sword is to leave your companions behind forever, rising 
 * No. -> hellfire
 
 ~ accept
+approve rook_coldwake -10 tobin_hayward -10 silas_vane -10: You took the fiend's bargain
 viraxys [smile]: Then drink deep, my new prior, and let the mountain know its master.
 set viraxys_offer = "accepted"
 cutscene mon_acceptance
@@ -85,10 +88,12 @@ set hellfire_done
 -> END
 
 ~ refuse
+approve rook_coldwake +4 tobin_hayward +4 silas_vane +4: You refused the pit fiend's bargain at the altar
 set viraxys_offer = "refused"
 cutscene mon_refusal
 cutscene mon_refusal_2
 viraxys [angry]: Small souls with smaller stomach, choking on the feast you earned. Keep your cold ashes, then.
+interject name:delphine_ravelle: Terrible exit line, darling. All that green fire and not a single curtain call.
 Narrator: The hellfire gutters out and the red windows shatter inward like falling sleet, leaving only the mountain wind.
 set hellfire_done
 -> END

@@ -20,10 +20,12 @@ adela_druskenvald [afraid]: Forgive the dreadful theatrics, darlings, truly, I a
 ~ adela_deal
 adela_druskenvald [sad]: Gaston Doray filled my head with tales of a gentleman dealmaker down in the Drowned Crossroads. I crept into the swamp and traded my wedding band for a promise that Phillip's old strength would return when we must leave.
 adela_druskenvald [afraid]: Now the road has vanished from my memory altogether, and every morning this dreadful grey creeps another inch up my arm.
+interject name:tobin_hayward: Classic creeping canker. You trade the taproot away and wonder why the bark goes grey.
 -> adela_start
 
 ~ adela_prophecy
 adela_druskenvald [weary]: I had the most ghastly waking dream of the Crooked Moon splitting the sky in a rage. It showed me that my husband and I would only ever leave this valley upon a road of drifting ash.
+interject name:lucan_houndstooth: A road of drifting ash. Good heavens, even my hound's ears went flat at that.
 -> adela_start
 
 ~ adela_pay
@@ -31,11 +33,13 @@ adela_druskenvald [neutral]: I can give you one hundred and fifty gold pieces ea
 -> adela_start
 
 ~ adela_accept
+approve tobin_hayward +2 lucan_houndstooth +2 cordelia_skein +1: You agreed to track Lady Adela's stolen wedding band into the bayou
 adela_druskenvald [afraid]: Oh, bless you. Only promise me one thing before you set out: Phillip carries quite enough sorrow, and he must not know what I have done.
 * We will keep your counsel -> adela_secret
 * We make no promises about Phillip -> adela_open
 
 ~ adela_secret
+approve rook_coldwake +2 delphine_ravelle +1: You gave your word to keep Lady Adela's foolish bargain private
 adela_druskenvald [smile]: You have the gratitude of a very tired lady, my dears. Look for the gentleman in the good coat where the black water pools, and bring my ring home.
 set adela_secret_kept
 set crossroads_asked
@@ -44,6 +48,7 @@ Narrator: She slips back into the mist toward the manor, leaving you with the da
 -> END
 
 ~ adela_open
+approve silas_vane +2 rook_coldwake -1: You refused to promise secrecy before taking Lady Adela's case
 adela_druskenvald [weary]: Fair enough, I suppose a beggar in borrowed wool can hardly dictate terms. Just bring my ring back from those black waters before there is nothing left of me to scold.
 set crossroads_asked
 quest withered_arm asked
@@ -51,6 +56,7 @@ Narrator: She lifts her chin with practiced grace and melts into the fog, leavin
 -> END
 
 ~ adela_later
+approve tobin_hayward -2 lucan_houndstooth -1: You left Lady Adela waiting while the grey rot crept up her arm
 adela_druskenvald [sad]: I see. Do not take too long to find your charity, darlings, or there will be very little of me left to hire you.
 Narrator: She draws the long woollen glove back over the brittle grey bone and retreats into the shadow of the plinth.
 -> END
@@ -64,4 +70,5 @@ set adela_hex_seen
 
 ~ hex_arm
 adela_druskenvald [afraid]: I cannot count the days when there is no sun to measure them by, my dears. All I know is that the ring's absence sits like an icy draught inside my very bones.
+interject name:cordelia_skein: Fascinating pathology! The necrosis is marching toward the collarbone with positively metronomic precision.
 -> END

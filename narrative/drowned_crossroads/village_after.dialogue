@@ -3,6 +3,7 @@
 ~ adela_cure
 Narrator: Adela peels back the long kidskin glove one button at a time, and the hand beneath it is pink, warm, and entirely whole.
 adela_druskenvald [sad]: Oh, mercy. For a month I have smelled river mud every time I unpinned my sleeves, and now it is simply my own hand again.
+interject name:cordelia_skein: Complete cellular restoration upon severing the tether. Almost a pity I could not biopsy the graft.
 adela_druskenvald [neutral]: Forgive me, a lady ought not to go to pieces in the parlour. Here is every coin I promised you for riding down into that dreadful sink.
 set adela_cured
 gold +150 each
@@ -21,6 +22,7 @@ adela_druskenvald [neutral]: Is there anything else before I ring for fresh tea,
 * Take our leave -> END
 
 ~ ring_return
+approve rook_coldwake +3 lucan_houndstooth +2 silas_vane -1: You returned Lady Adela's wedding ring to her
 Narrator: Her fingers tremble so badly that the gold band clicks against her knuckle twice before it settles into its old groove.
 adela_druskenvald [smile]: I told Phillip it was at the jeweller's having the clasp tightened. You have saved more than my arm tonight, and I will not forget it.
 take adelas_wedding_ring
@@ -30,6 +32,7 @@ inspiration party
 -> adela_ring_menu
 
 ~ ring_keep
+approve silas_vane +2 delphine_ravelle +1 rook_coldwake -3: You kept Lady Adela's gold wedding ring for yourselves
 Narrator: Her gaze lingers a beat too long on the familiar band of gold before she folds her bare hands neatly in her lap.
 adela_druskenvald [weary]: Keep it, then, as the price of a foolish woman's vanity. A jeweller in town can copy the filigree before Phillip thinks to ask.
 set adela_ring = "kept"
@@ -37,5 +40,6 @@ set adela_ring = "kept"
 
 ~ adela_told
 adela_druskenvald [afraid]: Please, spare me the particulars of his coffins and his debts. I already see that dreadful scaly smile whenever the hearth fire burns low.
+interject name:silas_vane: Always read the fine print before you shake a cold hand across the counter, friend.
 adela_druskenvald [weary]: Only promise me that Phillip never hears how closely my little bargain brushed against his name. He has burden enough keeping this valley upright.
 -> adela_ring_menu

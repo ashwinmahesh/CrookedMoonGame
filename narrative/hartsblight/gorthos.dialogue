@@ -14,6 +14,7 @@ gorthos [weary]: I was Farryn of the Greenwood, once, when the leaves were clean
 
 ~ p1_why
 gorthos [neutral]: The wood is not dying. It is softening so the old bark can fall away. Everything must rot down to black mould before the world starts green again.
+interject name:tobin_hayward: You don't rot the taproot to save the orchard, you overgrown puffball.
 -> parley1
 
 ~ p1_patience
@@ -36,6 +37,7 @@ gorthos [neutral]: The Crooked Queen keeps this realm in cold bone and terror. I
 
 ~ p2_want
 gorthos [weary]: I want the Green Queen back in the boughs. I want a quiet wood where the wolves do not tear what is gentle, and Gwenna walks beside me.
+interject name:lucan_houndstooth: Grief makes a dreadful huntsman. I would know.
 -> parley2
 
 ~ p2_visions
@@ -62,6 +64,7 @@ gorthos [weary]: You have walked farther than I thought your flesh could bear. S
 
 ~ p3_refuse
 gorthos [neutral]: Refusing is only words. The spores are already in your wool and under your nails. You will carry me whether you wish it or not.
+interject name:cordelia_skein: I do object to uninvited cultures in my chest, darling.
 -> parley3
 
 ~ p3_care
@@ -85,6 +88,7 @@ gorthos [neutral]: Only the rot lasts long enough to mend a broken world. Let th
 * Refuse it. -> shadow_refuse
 
 ~ shadow_take
+approve cordelia_skein +2 tobin_hayward -4 silas_vane -3: You took Gorthos's dark bargain by the campfire
 Narrator: A cold, sweet dampness settles into your chest, steady and heavy as wet earth.
 set hb_shadow_bargain
 set hb_blight += 1
@@ -92,6 +96,7 @@ inspiration
 -> END
 
 ~ shadow_refuse
+approve tobin_hayward +2 silas_vane +2: You refused to let Gorthos's mould into your marrow
 gorthos [weary]: Keep your dry bones a little longer, then. The morning will be no kinder.
 -> END
 
@@ -133,6 +138,7 @@ set mem_farryn_gwenna
 -> den_plea
 
 ~ den_accept
+approve tobin_hayward -5 rook_coldwake -4 silas_vane -4: You offered a living body to carry Gorthos's blight
 Narrator: Farryn's long, grey-barked finger reaches down from the wall, trembling and slick with spore-paste, waiting for one of you to touch it.
 gorthos [neutral]: One touch is all it takes. The pain is shorter than a winter breath.
 * I am sure. -> den_accept2
@@ -152,6 +158,7 @@ endif
 -> den_plea
 
 ~ den_reject
+approve rook_coldwake +3 tobin_hayward +3 lucan_houndstooth +2: You rejected Gorthos's plea and stood to fight
 cutscene hb_beast_revealed
 Narrator: Up on the fungal wall, Farryn closes her eyes, and the wet tendons around her ribs draw tight.
 cutscene hb_beast_revealed_2

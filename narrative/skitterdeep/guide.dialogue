@@ -21,6 +21,7 @@ cutscene sk_cave_in
 mrs_oakum [sad]: Pa said a tall woman came down the ridge with pots of hot soup and sweet drink, fair dazzlin' the boys with her glamour. They feasted every hour till the timbers rotted and the tunnels came thunderin' down.
 cutscene sk_cave_in_2
 mrs_oakum [angry]: Lords sent knights in wine-red coats with torches, and none rode back. It was the miners' wives who drove that stink-witch off the camp, scrubbin' the stones with strong lye soap till she screamed and crawled below.
+interject name:delphine_ravelle: Never underestimate a chorus line with strong soap and a grudge, darlings.
 cutscene end
 mrs_oakum [neutral]: Take these two flasks of my pa's boiling-lye. If that thing's still down in the dark, soap and ash will scald her worse than fire.
 give lye_soap_flask 2
@@ -91,9 +92,11 @@ mrs_oakum [sad]: I told you I shouldn't have come out so late. I won't step a fo
 ~ mine_tips
 mrs_oakum [neutral]: Pa always said nobody watches the old drift cut into the west ridge, and a steady hand can climb the hoist chain on the main shaft head.
 mrs_oakum [weary]: Mind the jars on the shelves, too. The boys kept little blind centipedes in glass to smell out the bad gas before it choked 'em.
+interject name:cordelia_skein: Live bio-indicators in glass! Simply charming field methodology for miners.
 -> ashamed_menu
 
 ~ keep
+approve silas_vane +3 lucan_houndstooth +2: You kept Mrs. Oakum's wolf curse a secret
 mrs_oakum [smile]: Thank the Lady for a kind heart. A woman works hard for an honest roof, and I'd hate to lose the shop.
 standing patient_lady +1
 set oakum_secret_kept
@@ -101,6 +104,7 @@ set oakum_choice_done
 -> END
 
 ~ tell
+approve silas_vane -3 rook_coldwake +1: You decided to report Mrs. Oakum to Siv
 Narrator: She lets out a long, slow breath into the hill mist and nods once.
 mrs_oakum [weary]: Maybe that's fair. Siv's been good to me, and I'd rather she heard it plain from a friend than found blood on the apron.
 set oakum_secret_told
@@ -108,6 +112,7 @@ set oakum_choice_done
 -> END
 
 ~ help
+approve tobin_hayward +3 cordelia_skein +2: You offered to find a cure for Mrs. Oakum
 Narrator: Tears spill down her wind-chapped cheeks, and she sinks onto a mossy sleeper timber.
 mrs_oakum [sad]: I didn't think there was a herb or prayer left for the likes of me. I'll wait right here by the pines till you come back up.
 set oakum_help_offered

@@ -9,6 +9,7 @@ orrin_tolle [weary]: Mind your ears if the hour's near. I ring the Twilight and 
 
 ~ orrin_bell
 orrin_tolle [angry]: Miners poured that bell right here in Dawn's Gate and hauled her up the ridge by rope. Had our own name on her rim before that fat friar chiseled his over top of it.
+interject name:rook_coldwake: Chiselling over a founder's stamp is a textbook boundary offence. Shoddy stone-craft, too.
 quest silver_bells_name asked
 set silver_bell_asked
 -> orrin_start
@@ -23,13 +24,16 @@ orrin_tolle [afraid]: Dawn's Tithe. That's the mark my granddad struck into the 
 * [ends:silver_bells_name] Let it lie. -> orrin_leave
 
 ~ orrin_restore
+approve rook_coldwake +2 tobin_hayward +2 silas_vane +2: You restored the miners' true name to the silver bell
 set bell_outcome = "restored"
 quest silver_bells_name restored
 Narrator: The old man's thumb slips off the bronze lip, and Small Mercy rings out twice in the cold street, clear and stubborn as a pick against stone.
 orrin_tolle [smile]: One for the men who poured her, and one for the mountain that gave the ore. Let the folk hear what hangs over their roofs.
+interject name:delphine_ravelle: Now that is proper billing, darling. Never let a second-rate act steal your marquee.
 -> END
 
 ~ orrin_leave
+approve rook_coldwake -2 silas_vane -2: You let the friar's stolen name stay on the miners' bell
 set bell_outcome = "left"
 quest silver_bells_name left
 Narrator: Orrin wraps his knuckle over the bronze clapper until the hum dies in his palm.

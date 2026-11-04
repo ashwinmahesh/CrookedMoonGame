@@ -3,6 +3,7 @@
 ~ golub
 Narrator: At the north end of the roost sits a platform of matted straw and cloth before four drafty windows. Perched atop it, the pigeon hag preens her slick grey feathers with crooked fingers.
 golub_graygullet [sly]: Coo, what a frightful fuss you made climbing up to my parlor. I do hope the mud on your boots was worth playing the fool for me.
+interject name:delphine_ravelle: Look at that preening, darlings, as if molting in a loft makes a headliner.
 -> menu
 
 ~ menu
@@ -22,6 +23,7 @@ Narrator: The reek of wet feathers and old tallow presses in on your throat. Her
 ~ attack
 set rk_golub_started
 golub_graygullet [angry]: You dare track filth into my nest and bares your teeth at me? Nobody climbs into Golub's roost and walks back down!
+interject name:lucan_houndstooth: Appalling grammar right before the lunge. Truly, two out of ten.
 Narrator: The timbers groan as the whole building heaves up on its scaly legs and the floor pitches beneath your boots. Hundreds of grey pigeons erupt from the cubbies in a blinding, beating storm.
 combat rk_golub
 
@@ -30,6 +32,7 @@ Narrator: Every wooden cubby along the wall is crammed with stolen letters, diar
 * Read through every bundle. -> read
 * Leave the secrets where they lie. -> END
 ~ read
+approve silas_vane +2 delphine_ravelle +2 rook_coldwake -2: You read through the stolen letters in Golub's cubbies
 set golub_secrets_read
 set cult_proof_randall
 set cult_proof_alda
@@ -67,4 +70,5 @@ if quest.powder_keg_ledger == asked
 quest powder_keg_ledger moot
 endif
 Narrator: The charm lifts from the valley like a long held breath finally let go. Up on the gables, the grey birds go back to being only pigeons, and a very long night is nearly done.
+interject name:tobin_hayward: Clean ground under all that bird-lime. The valley can breathe again.
 -> END

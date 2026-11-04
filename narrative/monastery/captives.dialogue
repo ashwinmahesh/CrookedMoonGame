@@ -10,6 +10,7 @@ axel_farley [weary]: Easy there, friends, do not rattle the iron if you want to 
 
 ~ larder_axel
 axel_farley [weary]: The Dead Larder, where the Abbot hangs the meat and keeps the sinners three nights before the courtyard pyre. Check your wall ring, the mortar around that third bolt is rotten.
+interject name:cordelia_skein: Sub-zero tin plating slows cellular decay, though the drainage here is frankly amateur.
 -> larder_wake
 
 ~ pyre_wait
@@ -44,6 +45,7 @@ axel_farley [afraid]: Keep your voice down, the walls carry every breath straigh
 
 ~ axel_saw
 axel_farley [afraid]: Red basins, and a great painting of a smiling woman soaked in wine and marrow. Father Renathyr was on his knees before the canvas, weeping like a scolded boy.
+interject name:delphine_ravelle: Weeping before a painted lady in the cellar? Dreadful staging, even for a tragedy.
 Narrator: His hands begin to tremble so fiercely the chain links chatter against the tin wall.
 -> axel_start
 
@@ -61,6 +63,7 @@ axel_farley [sad]: Three village folk who missed the tithe or spoke out of turn.
 -> group
 
 ~ axel_debts
+approve rook_coldwake +2 tobin_hayward +2: You agreed to carry a captive's debts down to Dawn's Gate
 axel_farley [weary]: If I do not make it down the mountain, take these back to Dawn's Gate for me. A felt hat for Toma Flint, Dagny Voll's braided leash, and a letter for Widow Wren.
 give toma_hat
 give dagny_leash
@@ -70,6 +73,7 @@ set axel_debts_asked
 -> axel_start
 
 ~ axel_debts_skip
+approve rook_coldwake -3 tobin_hayward -2: You refused to carry a prisoner's last debts to his neighbours
 quest axels_debts forgotten
 Narrator: Axel lowers his gaze to the red frost on the floorboards and says nothing more.
 -> END
@@ -122,15 +126,18 @@ friar_olaf [sly]: So the unruly sheep come to the shearer at last. Speak the Ros
 * Refuse, and fight. -> atone_fight
 
 ~ atone_recant
+approve silas_vane -2 lucan_houndstooth -3 delphine_ravelle -3: You bent the knee and spoke the creed before the pyre
 set crimson_recanted
 set larder_out
 jail release
 standing crimson_faith +4
 friar_olaf [sly]: See how quickly iron bends when the hearth grows hot. Walk among us, then, though I shall remember the smell of your pride.
+interject name:silas_vane: Talk is cheap when the kindling is wet, friend. Let him think he won the hand.
 Narrator: The cords fall away and the red-robed crowd parts for you with cold, indifferent eyes.
 -> END
 
 ~ atone_fight
+approve lucan_houndstooth +3 delphine_ravelle +2 rook_coldwake +2: You defied Friar Olaf at the stake and drew steel
 Narrator: An unlatched crate beside the pyre holds your stolen gear, within reach of a quick hand.
 set larder_out
 jail release

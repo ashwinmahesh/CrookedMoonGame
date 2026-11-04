@@ -5,6 +5,7 @@ cutscene mr_moonsong
 Narrator: The marsh trail gives out onto wet slate and black reeds, where a lone rowboat knocks against its stake in the rising mist.
 cutscene mr_moonsong_2
 Narrator: Across the flat grey lake stands the red brick bulk of the sanatorium, its high windows humming with a cold violet glow.
+interject name:lucan_houndstooth: Something large under that water, friends. The reeds lean wrong.
 cutscene end
 set mr_arrived_shore
 if not quest.all_is_well >= the_crossing
@@ -41,10 +42,12 @@ move mr_isle:from_boat
 -> END
 
 ~ row_carving
+approve lucan_houndstooth +2 silas_vane +2: You lashed the fisher's carving to the prow to ward off the beast
 cutscene mr_dredger
 Narrator: A pale bulk rises from the weeds, its crooked maw parting just beneath the driftwood figure lashed to the bow.
 cutscene mr_dredger_2
 Narrator: Taking one look at its own ugly likeness in the wood, the creature flinches away and slides back into the deep.
+interject name:delphine_ravelle: Critics are always hardest on their own faces, darling. What a dreadful profile.
 cutscene end
 set mr_crossed
 move mr_isle:from_boat
@@ -53,6 +56,7 @@ move mr_isle:from_boat
 ~ hut
 Narrator: On a workbench inside the leaning shack sits a driftwood carving of a long-jawed, rotting fish-thing, smelling faintly of old tallow.
 Narrator: Scratched into the plank beneath it is a warning that the lake beast cannot bear the sight of its own face.
+interject name:lucan_houndstooth: Keen fieldcraft from the fisher. Even a lake beast mislikes a mirror.
 set mr_dredger_carving
 -> END
 
@@ -74,6 +78,7 @@ Narrator: The dry basin collects only rainwater and dead leaves, though a single
 * Leave it -> END
 
 ~ fountain_coin
+approve silas_vane +1 rook_coldwake -1: You took the tarnished silver coin from the owl fountain
 gold +1
 set mr_fountain_coin
 Narrator: The coin is cold and slick in your palm, and the carved barn owl above seems to tilt its worn face to watch you pocket it.

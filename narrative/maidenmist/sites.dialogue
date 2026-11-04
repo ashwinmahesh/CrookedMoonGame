@@ -21,6 +21,7 @@ Narrator: A dry stone basin sits at the foot of the sealed crypt door, stained b
 * Leave it -> END
 
 ~ crypt_open_wrong_a
+approve rook_coldwake -2 cordelia_skein +1: You paid a blood tithe to unseal a stranger's crypt
 damage 1d12 necrotic
 check Dexterity DC 17 -> crypt_bats_ok | crypt_bats_fail
 
@@ -30,6 +31,7 @@ Narrator: Another sealed stone door waits behind a dry offering basin at its thr
 * Leave it -> END
 
 ~ crypt_open_wrong_c
+approve rook_coldwake -2 cordelia_skein +1: You bled into an offering basin to force an unmarked tomb
 damage 1d12 necrotic
 check Dexterity DC 17 -> crypt_bats_ok | crypt_bats_fail
 
@@ -58,6 +60,7 @@ endif
 * Leave it -> END
 
 ~ crypt_open_right
+approve cordelia_skein +2 delphine_ravelle +1 rook_coldwake -1: You paid the blood tithe to open Sir Marius's tomb
 damage 1d12 necrotic
 check Dexterity DC 17 -> crypt_right_ok | crypt_right_fail
 
@@ -95,12 +98,14 @@ Narrator: The dark water burbles over the old coins and keeps its secret.
 -> fountain
 
 ~ fountain_toss
+approve delphine_ravelle +2 silas_vane +1 cordelia_skein -2: You tossed a gold coin into the wishing fountain for luck
 gold -1
 bless party 2h
 Narrator: The coin sinks through the black water with a soft plink, and a quiet warmth like hearth-smoke settles on your shoulders.
 -> END
 
 ~ fountain_take
+approve rook_coldwake -3 tobin_hayward -1 silas_vane +2: You scooped the offered coins out of the churchyard fountain
 check Wisdom DC 18 -> fountain_take_ok | fountain_take_cursed
 
 ~ fountain_take_ok
@@ -143,6 +148,7 @@ Narrator: The low drone inside the vessel climbs to a shrill whine as your finge
 * Leave it -> END
 
 ~ urn_wail
+approve rook_coldwake -3 silas_vane -1 cordelia_skein +1: You broke the wax seal on a humming mourning urn
 check Wisdom DC 13 -> urn_wail_ok | urn_wail_fail
 
 ~ urn_wail_ok
@@ -159,6 +165,7 @@ if flag.mm_violet_fails < 2
 set mm_violet_fails += 1
 endif
 yorgrim [neutral]: Leave that clay alone, travelers. The loud ones hold only grey ash and old grief.
+interject name:cordelia_skein: Acoustic resonance in calcified remains is invigorating, darling, if rather hard on the eardrums.
 -> END
 
 ~ urn_right
@@ -210,6 +217,7 @@ Narrator: The rotten sod gives way beneath your boots and drops you into a pit w
 -> END
 
 ~ amber_yorgrim
+approve tobin_hayward +2 rook_coldwake +1 silas_vane -1: You asked Yorgrim to guide you safely past the open graves
 set mm_amber_found
 Narrator: The old orc lifts the hooded lantern high, and the false amber lights scatter like moths to leave the iron brazier plain in the gloom.
 -> END
@@ -255,6 +263,7 @@ if flag.mm_amber_fails < 2
 set mm_amber_fails += 1
 endif
 yorgrim [neutral]: There is no straw under that sod, only cold mud. Keep your blades ready, for something pale is stirring in the mist.
+interject name:tobin_hayward: Sour clay and fifty-year rot. You've grave-mould on your hem.
 -> END
 
 ~ grave_right
@@ -263,6 +272,7 @@ Narrator: The black crows crowd thickest around the head of this sunken mound.
 * Leave it -> END
 
 ~ grave_right_dig
+approve rook_coldwake -2 tobin_hayward +1: You dug into a sunken grave mound to recover dry straw
 give mm_straw_bundle
 set mm_straw_taken
 Narrator: Just beneath the wet roots lies a dry bundle of golden straw, neatly bound with a faded scrap of blue yarn.
@@ -310,6 +320,7 @@ Narrator: Another iron vault door stands shut before you, its corner marked with
 * Leave it -> END
 
 ~ vault_hexed
+approve silas_vane -3 tobin_hayward -2 delphine_ravelle +1: You opened a hexed vault door barehanded and took the curse
 damage 2d10 force
 disadvantage checks 1h: the vault's hex
 -> vault_open_wrong
@@ -320,6 +331,7 @@ if flag.mm_magenta_fails < 2
 set mm_magenta_fails += 1
 endif
 yorgrim [neutral]: Not that berth, friends, those bones are quiet. Something heavy is dragging its chains above the lanes.
+interject name:silas_vane: Busted lock for an empty pot, friend, and now the bailiff's rattling chains.
 -> END
 
 ~ vault_right
@@ -329,6 +341,7 @@ Narrator: Side by side in the damp stone, a carved brigantine and a tight spiral
 * Leave it -> END
 
 ~ vault_right_hex
+approve silas_vane -2 tobin_hayward -2 cordelia_skein +1: You triggered the sorcerer's hex to claim Captain Briggsy's rum
 damage 2d10 force
 disadvantage checks 1h: the vault's hex
 -> vault_right_open
@@ -379,6 +392,7 @@ Narrator: Clouds of bitter toadstool dust sear your lungs and leave you coughing
 -> END
 
 ~ emerald_yorgrim
+approve rook_coldwake +1 lucan_houndstooth +1 silas_vane -1: You let Yorgrim's lantern lead you through the shifting barrows
 set mm_emerald_found
 Narrator: The old orc lifts the hooded lantern high, and the grave-mist curls back like wet wool from the cold green coals of the brazier.
 -> END
@@ -399,6 +413,7 @@ Narrator: The red skins gleam with cold dew and keep their secrets to themselves
 -> apple_tree
 
 ~ apple_pick
+approve silas_vane +2 rook_coldwake -2 tobin_hayward -2: You stole a wax-red apple from the grasping burial tree
 check Dexterity DC 15 -> apple_pick_ok | apple_pick_lash
 
 ~ apple_pick_ok
@@ -413,6 +428,7 @@ Narrator: The moment fingers close around the stem, a heavy branch whips sideway
 -> END
 
 ~ apple_eat
+approve delphine_ravelle +2 cordelia_skein +2 tobin_hayward -3: You bit into a strange apple grown from graveyard soil
 check Constitution DC 10 -> apple_good | apple_bad
 
 ~ apple_good
@@ -453,6 +469,7 @@ if flag.mm_emerald_fails < 2
 set mm_emerald_fails += 1
 endif
 yorgrim [neutral]: Leave that dirt be, Farryn does not rest under those stones. The old roots are waking beneath your boots.
+interject name:rook_coldwake: Unlicensed excavation on an unmarked barrow. Put the sod back neat and square.
 -> END
 
 ~ mound_right
@@ -461,6 +478,7 @@ Narrator: A single crooked oak branch reaches out to shelter the dark mouth of t
 * Leave it -> END
 
 ~ mound_right_dig
+approve rook_coldwake -2 tobin_hayward +1: You dug into the earthen barrow to take the mourner's branch
 give mm_oak_branch
 set mm_oak_taken
 Narrator: Beneath a foot of packed grave-loam lies a brittle oak branch with dried leaves still clinging to the twig, laid flat like a mourner's gift.

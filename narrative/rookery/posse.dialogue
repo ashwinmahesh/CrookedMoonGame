@@ -19,6 +19,7 @@ doris_squire [angry]: This letter names you the postmaster's killers. Hands up, 
 ~ charm
 set rk_charm_seen
 Narrator: A flat lilac glint sits in every single eye, steady and unblinking in the torchlight. This posse isn't angry, friends: it's being walked on a leash.
+interject name:delphine_ravelle: Someone is pulling their strings from the rafters, darling, and the stitching is sloppy.
 -> menu
 ~ charm_missed
 Narrator: All you can make out in the smoky glare is a press of grim, tight-jawed faces that came straight from the supper table.
@@ -57,6 +58,7 @@ doris_squire [neutral]: Bah, this ink reeks of wet pigeon feathers. Get moving, 
 -> END
 
 ~ flee
+approve silas_vane +2 rook_coldwake -2 lucan_houndstooth -1: You bolted down the alley to escape the charmed posse
 set posse_outcome = "fled"
 set rk_posse_done
 if not quest.roving_rookery >= hysteria
@@ -66,11 +68,13 @@ Narrator: You bolt down the dark alley, vault a splintered rail, and tear straig
 move wickermoor_village:from_estate
 
 ~ fight
+approve tobin_hayward -3 lucan_houndstooth -2: You drew weapons against Doris and the charmed deputies
 set posse_outcome = "fought"
 Narrator: Doris plants her heavy boots on the stones, and the deputies surge forward with their clubs raised.
 combat rk_posse
 
 ~ surrender
+approve rook_coldwake +1 silas_vane -3 delphine_ravelle -2: You surrendered your gear and went quietly to the cell
 set posse_outcome = "surrendered"
 set rk_posse_done
 set jail_began = now

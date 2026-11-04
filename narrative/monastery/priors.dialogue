@@ -11,6 +11,7 @@ sigmund_jaeger [smile]: Step in out of the snow, friends. A man knows true seeke
 
 ~ jaeger_hounds
 sigmund_jaeger [smile]: Better company than most folk, my darlings. They never lie, and a fistful of bloody offal keeps them sweet as pie.
+interject name:lucan_houndstooth: Any hound that balks at clean water has had its breeding dreadfully neglected.
 sigmund_jaeger [neutral]: Mind you, they balk at running water. Can't abide a lively stream, the silly beasts, though they'll tear a stag to ribbons.
 -> jaeger_start
 
@@ -31,6 +32,7 @@ sigmund_jaeger [smile]: Go on, ask what you like. An open heart keeps no secrets
 -> jaeger_start
 
 ~ jaeger_turn
+approve lucan_houndstooth +2 rook_coldwake +2: You refused the butcher's bloody faith to his face
 sigmund_jaeger [angry]: Is that how it is? A shame. The hounds have been whining for marrow all evening, and I hate to disappoint them.
 combat mon_jaeger
 
@@ -48,10 +50,12 @@ if flag.olaf_fear_known
 friar_olaf [afraid]: The bell? Why ask me of the bell? It hangs high and silent, as it ought to, and we have better things to discuss.
 else
 friar_olaf [smile]: Cast in the old days, yet the Abbot himself named it in my honour. Olaf of the Silver Bells, they call me across the peaks!
+interject name:delphine_ravelle: Top billing on a stolen bell, darling, and he cannot even carry a tune.
 endif
 -> olaf_start
 
 ~ olaf_praise
+approve silas_vane -2 delphine_ravelle -2: You flattered Friar Olaf's pompous sermon
 friar_olaf [smile]: Bless you, my children, bless your keen ears! It is a heavy burden, carrying such a golden tongue in so wicked a world.
 set crimson_devotions += 1
 -> olaf_start
@@ -67,6 +71,7 @@ friar_olaf [smile]: Do stay for the evening homily. I intend to weep during the 
 -> olaf_start
 
 ~ olaf_mock
+approve delphine_ravelle +3 silas_vane +2 lucan_houndstooth -1: You called Friar Olaf's faith dressed-up butchery
 friar_olaf [angry]: Guard your tongue, wretch! The courtyard pyres are built of greener wood than you, and I remember every face that sneers.
 set crimson_infractions += 1
 standing crimson_faith -1
@@ -119,6 +124,7 @@ leona_cromwell [neutral]: If you have no confession to make, move along.
 -> cromwell_start
 
 ~ cromwell_goad
+approve delphine_ravelle +3 silas_vane +2 rook_coldwake -1: You mocked Inquisitor Cromwell to her face
 Narrator: Steel whispers from her scabbard, the point stopping an inch from {name}'s throat.
 leona_cromwell [angry]: One more word like that and I will open your windpipe right here. Try my patience again, convert.
 standing crimson_faith -2
@@ -133,7 +139,9 @@ leona_cromwell [angry]: So the little mice have crept into the trap. On your kne
 * Attack. -> cromwell_fight
 
 ~ cromwell_talks
+approve silas_vane +3 delphine_ravelle +2: You used Inquisitor Cromwell's outlaw past as leverage
 leona_cromwell [afraid]: Keep your voices down! The Abbot keeps the Witching Hour up in the belfry, and the cathedral altar opens only for a chalice of blood.
+interject name:cordelia_skein: An altar calibrated to arterial volume. Crude engineering, yet undeniably thorough.
 leona_cromwell [weary]: Below that lies the sanctum, where we priors are anointed and remade. Now get out before she hears my heart beating.
 set src_cromwell
 set way_down_known

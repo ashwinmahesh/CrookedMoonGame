@@ -12,9 +12,11 @@ Narrator: Sixty faithful in red robes ring the cold stones round six captives ti
 * Cry out against the burning and push forward. -> force_stop
 
 ~ pyre_watch
+approve tobin_hayward -4 silas_vane -3 lucan_houndstooth -2: You stood silent while Gareth Creed burned at the stake
 friar_olaf [smile]: Hear me, children, for my voice is the last mercy you shall know tonight. Name the Crimson Rose your lady, and these kind hands shall untie your cords.
 Narrator: Five captives weep the words and stumble free as the ropes fall away. Only Gareth remains, shaking his head while Olaf lowers the torch.
 gareth_creed [afraid]: The morning song is mine to keep. I will not give you my voice.
+interject name:tobin_hayward: Keep my burlap three paces back from that torch, or we all go up together.
 friar_olaf [angry]: Ask again, stubborn lamb, while you still have a tongue to spend.
 gareth_creed [angry]: Never.
 cutscene mon_flames_2
@@ -55,12 +57,14 @@ gareth_creed [afraid]: Better the ash than a hollow song. Leave me be.
 ~ recant
 Narrator: A tremor takes Gareth from boot to shoulder as the five beside him stumble free.
 gareth_creed [sad]: The Crimson Rose is my lady. May the birds forgive me.
+interject name:silas_vane: Live to deal another hand, friend. A dead man never broke the house bank.
 Narrator: The novices cut his cords, and as he rubs his raw wrists he catches your eye, whispering that he will slip back to Wickermoor once the roads are quiet.
 set gareth_fate = "rescued"
 set crimson_devotions += 1
 -> pyre_end
 
 ~ force_stop
+approve tobin_hayward +3 lucan_houndstooth +2 cordelia_skein -2: You charged a courtyard of sixty zealots to stop the pyre
 gate_veteran_cm [angry]: Hold them down! Do not let them near the stakes!
 Narrator: Iron hands catch your cloaks, and then the whole red-robed crowd presses in until stone and boot-heels blur into the dark. The captives are hauled back to the wood, and when your head clears, you lie on the frost-rimed flagstones of the Dead Larder.
 set gareth_fate = "burned"
@@ -72,6 +76,7 @@ jail mon_ground:larder keep_gear until flag.larder_out
 
 ~ pyre_end
 father_renathyr [smile]: Come inside from the mountain chill, my new friends, for there is no blame left in the embers. Easy now, Duchess, they are guests. Pray join me in the cathedral after the Twilight bell.
+interject name:delphine_ravelle: Velvet gloves and a warm welcome right after a burning. Watch your seams, darlings.
 set night_of_flames_done
 set crimson_in
 set renathyr_invited_cathedral

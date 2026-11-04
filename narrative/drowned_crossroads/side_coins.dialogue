@@ -10,6 +10,7 @@ ferryman_chauffeur [neutral]: Four coppers. Four corners. No yellow metal. Pay t
 
 ~ fs_what
 ferryman_chauffeur [neutral]: Pits. Boathouses. Traders' Row. Mud Church. One small coin from each. Keep your gold.
+interject name:rook_coldwake: Four districts, four coppers, no gold. Good clean municipal tariff, that.
 -> ferryman_start
 
 ~ fs_accept
@@ -31,6 +32,7 @@ Narrator: He does not speak a word, only lifts one cold hand from his pole and h
 -> ferryman_progress
 
 ~ fs_paid
+approve rook_coldwake +3 tobin_hayward +2: You paid the silent boatman his four honest coppers from the town
 Narrator: He takes the four green-tarnished coppers into his palm, then lifts his lantern pole and touches each of your brows; a damp, leaden weight you scarcely knew you carried slips away into the mud.
 ferryman_chauffeur [neutral]: Toll is met. The road is clear. Step light on the boards.
 set ferryman_paid
@@ -40,6 +42,7 @@ gold +40
 -> END
 
 ~ fs_insult
+approve rook_coldwake -3 silas_vane -2 lucan_houndstooth -2: You insulted the silent ferryman by trying to pay his toll in gold
 Narrator: He stares down at the bright gold through his copper-stopped eyes, looks once at your faces, and steps backward off the piling into the black water without a ripple; when you blink, the coffin-boat is gone.
 set coins_outcome = "insulted"
 quest the_ferrymans_coins lost
@@ -109,6 +112,7 @@ bo_gaspard [weary]: Hold on now, let me count this stack again before I go parti
 
 ~ thibault_coin
 odalys_thibault [weary]: Take one from the pewter plate, child, though you will have to shake the tadpoles off it first. That silent boatman down by the reeds has kept more of my flock out of the mud than the elders ever did.
+interject name:tobin_hayward: Leave the tadpoles in the dish. Good clean pond-fry keep the midges down.
 set coin_church
 set ferry_coins += 1
 -> END

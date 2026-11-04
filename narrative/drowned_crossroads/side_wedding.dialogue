@@ -9,6 +9,7 @@ odalys_thibault [weary]: Mind the second step, the catfish nested under it again
 
 ~ thibault_need
 odalys_thibault [weary]: Luckless Lou pawned the wedding band to cover a wager on a one-legged heron. Beyond that, we have no fiddler for the aisle and no supper for the table.
+interject name:delphine_ravelle: A wedding with no ring, no fiddle, and no supper? Darling, that is just a puddle.
 -> thibault_start
 
 ~ thibault_accept
@@ -39,9 +40,11 @@ endif
 -> thibault_progress
 
 ~ ceremony
+approve delphine_ravelle +3 tobin_hayward +2 rook_coldwake +2: You saw the mud-church wedding through before high tide
 set wedding_outcome = "held"
 quest a_wedding_at_the_mud_church done
 Narrator: Lantern light trembles on the black water between the pews as Marguerite and Ignatius join hands above the flood.
+interject name:lucan_houndstooth: Damp ankles or no, they stand proud at the rail. Lovely.
 if flag.wedding_score >= 3
 odalys_thibault [smile]: With a ring, a tune, and hot gumbo waiting on the dock, I have never seen a finer wedding in six inches of swamp.
 gold +80
@@ -52,6 +55,7 @@ endif
 -> END
 
 ~ call_off
+approve delphine_ravelle -3 tobin_hayward -2 rook_coldwake -2: You called off Marguerite and Ignatius's wedding
 set wedding_outcome = "off"
 quest a_wedding_at_the_mud_church lost
 Narrator: The Reverend sits down on the step, the bride and groom go their separate ways, and the water comes up another inch.

@@ -7,6 +7,7 @@ cutscene mm_dusk_of_the_dead
 Narrator: The iron clock-tower bells clang late into the Dusk Hour across the slick cobbles. Pale ghasts shriek down Wickermoor's narrow streets, tearing into anyone slow enough to be caught in the fog.
 endif
 doris_squire [angry]: Grave dirt is open and the dead are walking the cobbles. My militia is stretched thin across the lanes, so grab a weapon if you mean to help.
+interject name:rook_coldwake: Tenants out past curfew and the gates wide open. Shields up.
 -> alarm_menu
 
 ~ alarm_menu
@@ -19,6 +20,7 @@ doris_squire [angry]: Grave dirt is open and the dead are walking the cobbles. M
 ~ inspect
 set mm_inspected
 doris_squire [neutral]: Some of these corpses have lain under the sod for centuries, and others scarce a fortnight. The freshest rot here is Gregor Bolton, who tumbled off the Mayor's slate roof last month.
+interject name:cordelia_skein: Do hold still while I take its humours. Two centuries of decay should not walk.
 -> alarm_menu
 
 ~ inspect_fail
@@ -27,6 +29,7 @@ Narrator: The torn corpses are too far gone to read by lantern light, and the so
 -> alarm_menu
 
 ~ delay
+approve tobin_hayward -4 rook_coldwake -3 lucan_houndstooth -3: You left the village militia to bleed at the barricades without you
 set mm_nights_delayed += 1
 set mm_raid_delay = now
 set mm_volunteers_lost += 2
@@ -35,6 +38,7 @@ time +600
 -> END
 
 ~ go_fight
+approve rook_coldwake +2 lucan_houndstooth +2: You stood beside the village militia to fight off the risen ghasts
 set mm_raid_started
 if not quest.maidenmist_dead_rise >= dusk_of_the_dead
 quest maidenmist_dead_rise dusk_of_the_dead
@@ -48,11 +52,13 @@ if flag.mm_nights_delayed >= 1
 doris_squire [sad]: Four of my night watch went down in the mud while we waited on the road. Their lanterns are cold on the cobbles now, and I have widows to wake before dawn.
 else
 doris_squire [smile]: Not one villager was dragged into the fog tonight, and every threshold still has its lock. You have my thanks, strangers, and you will not hear me say it twice.
+interject name:silas_vane: House tried to stack the deck with dead men, friend, and we still took the pot.
 endif
 doris_squire [neutral]: That fresh corpse by the pump was Gregor Bolton, the roofer who broke his neck off the Mayor's gables. Mori Shade will want word of this before the undertaker's cart makes its rounds.
 -> END
 
 ~ militia_start
+approve rook_coldwake +2 tobin_hayward +2 lucan_houndstooth +1: You organised the four militia posts before the fog thickened
 quest doris_militia asked
 doris_squire [neutral]: Four posts need holding before the fog thickens, and I have only four volunteers left. We must cover the bell tower, the south bridge, the forge, and the funeral lane. Point them where they belong, quick.
 -> post_bell
@@ -125,6 +131,7 @@ Narrator: The wooden barricades splinter under dead hands, and the pale militia 
 ~ militia_done
 set mm_militia_done
 doris_squire [neutral]: Four posts stood, four posts held. That will do until the kettle boils.
+interject name:lucan_houndstooth: A well-kept line. Not a single post gave ground. Nine out of ten.
 if flag.mm_posts_held >= 3
 quest doris_militia done
 standing old_ways +1
@@ -134,6 +141,7 @@ endif
 -> END
 
 ~ militia_quit
+approve rook_coldwake -2 tobin_hayward -2: You walked away from assigning the militia posts before the raid
 set mm_militia_done
 quest doris_militia lost
 doris_squire [weary]: Fine, I will haul the pikes and bar the gates myself. Folk round here have long memories for idle hands.

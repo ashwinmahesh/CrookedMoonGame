@@ -20,22 +20,27 @@ Narrator: The little bells of glass tremble against your fingertips, waiting for
 
 ~ v1
 Narrator: Warm and rich as kettle-steam, Gilly's voice drifts from the glass, calling Dani in for supper, though the turn of every syllable is polished a touch too smooth.
+interject name:tobin_hayward: Too smooth. Real kettle-steam has a rougher grain to it.
 -> menu
 
 ~ v2
 Narrator: Out puffs the Mayor's round, pompous baritone, declaring that he shall bring the whole affair before the parish committee by Tuesday.
+interject name:rook_coldwake: Pompous enough to be the Mayor. Though he'd want it in writing.
 -> menu
 
 ~ v3
 Narrator: Dani's flat, calm voice recites a neat little tally of things she has noticed round the yard: three black feathers, a cracked boot-scraper, and a dog that is not a dog.
+interject name:cordelia_skein: Scrupulous observation, darling, though the cadence is a fraction too metronomic for a living larynx.
 -> menu
 
 ~ v4
 Narrator: A quiet man's voice stops and starts inside the glass, hunting each word as if feeling for a chair in a dark room before gently thanking someone for a cup of tea.
+interject name:silas_vane: No card sharp talks that slow by choice, friend. That poor sod owns every word.
 -> menu
 
 ~ v5
 Narrator: Nothing comes from the fifth thimble but a kitten's small, pleased mew, the very first voice Wisp traded away so her throat could hold all the rest.
+interject name:lucan_houndstooth: Good heavens, she corked a kitten's breath on the shelf. Appalling manners, friends, truly appalling.
 -> menu
 
 ~ hesitate_ok
@@ -71,7 +76,9 @@ set voices_outcome = "lost"
 -> END
 
 ~ right
+approve delphine_ravelle +2 lucan_houndstooth +2: You picked Walter's true voice out from the stolen ones
 Narrator: The fourth thimble grows warm as a hearth-stone against your palm, holding Walter's halting, kindly voice safe and whole for the giving.
+interject name:delphine_ravelle: Not a single frayed seam on that one, darling. Let us take the gentleman's voice home.
 -> what_next
 
 ~ what_next
@@ -81,6 +88,7 @@ Narrator: Four other thimbles still hum softly on the board, harmless as paper l
 * Give Walter his voice and smash Wisp's last voice -> smash
 
 ~ freed_all
+approve silas_vane +3 tobin_hayward +2 rook_coldwake +2: You returned Walter's voice and let the other trapped breaths go free
 Narrator: You tip the remaining thimbles open, and four small breaths slip out through the rafters toward Wickermoor and the Mayor's parlour, the kitten's mew trailing behind to find some small cat by a hearth.
 give walter_voice_jar
 set voices_outcome = "all"
@@ -88,6 +96,7 @@ quest voices_not_their_own freed
 -> END
 
 ~ keep_rest
+approve cordelia_skein +2 silas_vane -2 tobin_hayward -2: You kept the other stolen voices corked in glass for bargaining
 Narrator: You cork Walter's thimble safe and sweep the others into your pack, where they hum against the leather like sleepy bees in a jar.
 give walter_voice_jar
 set voices_outcome = "walter"
@@ -95,6 +104,7 @@ quest voices_not_their_own returned
 -> END
 
 ~ smash
+approve lucan_houndstooth -3 tobin_hayward -3 cordelia_skein -2: You crushed the fifth thimble and silenced the kitten's small voice
 Narrator: The fifth thimble snaps beneath your heel and the kitten's small mew stops dead, leaving behind a cold little pinch of satisfaction and a quieter shame.
 give walter_voice_jar
 set voices_outcome = "smashed"

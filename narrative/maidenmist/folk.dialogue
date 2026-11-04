@@ -9,12 +9,14 @@ tobias_dibbs [smile]: Tobias Dibbs at your service, apprentice in earth and ash.
 
 ~ dibbs_job
 tobias_dibbs [neutral]: Mostly I drain the bloat, wire the jaws shut so they look polite, and sweep the teeth out of the grate. You work up a grand appetite for mutton pie by noon.
+interject name:cordelia_skein: Wiring the jaw before you study the humours? What a waste of a fine corpse.
 -> dibbs
 
 ~ dibbs_contest
 set mm_epitaph_asked
 quest epitaph_competition asked
 tobias_dibbs [smile]: The folk here write their own epitaphs before they stiffen, and most are far too honest for church. I propped the best three on the bricks in the Cremation Gardens. Go pick me a champion.
+interject name:delphine_ravelle: A graveyard variety show with top billing in brick, darlings; I would never miss the curtain.
 -> END
 
 ~ epitaph_plaque_a
@@ -41,6 +43,7 @@ Narrator: Tobias bounces on his heels by the dry stone fountain, twirling a fade
 * [ends:epitaph_competition] They are all too honest. Call it off -> epitaph_off
 
 ~ epitaph_win_a
+approve tobin_hayward +2 cordelia_skein +2: You gave the epitaph ribbon to the blunt warning about spotted mushrooms
 quest epitaph_competition done
 set mm_epitaph_winner = 1
 gold +25
@@ -48,6 +51,7 @@ tobias_dibbs [smile]: The mushroom man takes the blue ribbon, short and sweet as
 -> END
 
 ~ epitaph_win_b
+approve delphine_ravelle +2 silas_vane +2 rook_coldwake -1: You rewarded a spiteful tombstone jab at the neighbour next door
 quest epitaph_competition done
 set mm_epitaph_winner = 2
 gold +25
@@ -55,6 +59,7 @@ tobias_dibbs [smile]: A prize for neighbourly spite, and well earned too. Old Ba
 -> END
 
 ~ epitaph_win_c
+approve rook_coldwake +2 silas_vane -1: You chose the honest confession about the stolen family spoons
 quest epitaph_competition done
 set mm_epitaph_winner = 3
 gold +25
@@ -68,6 +73,7 @@ tobias_dibbs [neutral]: A three-way split means nobody sulks and everybody gets 
 -> END
 
 ~ epitaph_off
+approve delphine_ravelle -2 silas_vane -2 rook_coldwake +1: You called off the cremation garden epitaph contest for being too honest
 quest epitaph_competition lost
 tobias_dibbs [sad]: Well, I will fold the ribbon away, though the urns take a snub terribly hard. By cockcrow you will find they have scraped their own letters right off the brick.
 -> END
@@ -82,9 +88,11 @@ hester_bolton [angry]: My useless husband Gregor has gone and turned himself int
 
 ~ hester_loss
 hester_bolton [weary]: The man himself I can forgive, he was cold in the feet anyway. It is the six silver crowns for the cellar roof that breaks my heart.
+interject name:silas_vane: Dying twice to dodge a five-gold tab is a bold play, friend, even by dockside rules.
 -> hester
 
 ~ hester_rent
+approve tobin_hayward +3 rook_coldwake +2 silas_vane -1: You paid Hester Bolton's rent out of your own purse
 gold -5
 hester_bolton [smile]: Six honest crowns, warm in the palm and counted twice. When I see Gregor shuffling by the fence, I will tell him a stranger had better manners.
 set mm_hester_paid
@@ -92,6 +100,7 @@ set mm_hester_paid
 
 ~ hester_where
 hester_bolton [neutral]: Look for Gregor wherever the ghasts are thickest and doing the least work. If the Mayor had mended our leaky slate roof, the damp would never have taken him.
+interject name:delphine_ravelle: Even among the risen dead, darlings, there is always someone coasting in the chorus line.
 -> hester
 
 ~ grammar_stone
@@ -105,6 +114,7 @@ Narrator: A dry, papery cough rises from the lichen on the granite slab, and a d
 -> END
 
 ~ grammar_correct
+approve silas_vane +2 delphine_ravelle +2 lucan_houndstooth -2: You misspelled a word on purpose to bait a pedantic headstone
 Narrator: The mossy headstone exhales a long sigh through its chiseled letters, and the crooked spelling shifts in the cold air until it reads true.
 -> END
 
@@ -181,6 +191,7 @@ endif
 if flag.mm_names_told_a and flag.mm_names_told_b and flag.mm_names_told_c
 quest names_on_stones done
 mori_shade [smile]: Those three graves bear their true names in clean slate at last. Even the damp earth of the Potter's Field will remember who rests under the grass.
+interject name:rook_coldwake: Proper slate, clean lettering, all squared away in the shift log.
 else
 mori_shade [neutral]: The names are inked beside my chisel, though some among the bereaved down in Wickermoor still wait to hear the news from your lips.
 endif

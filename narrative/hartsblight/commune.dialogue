@@ -50,15 +50,18 @@ set hb_blight += 1
 -> circle_glimpse
 
 ~ circle_fight
+approve rook_coldwake +2 tobin_hayward +2 lucan_houndstooth +1: You stepped in to break up the blight ritual
 cutscene hb_circle
 Narrator: The drumming halts as one of the tall keepers lowers a withered staff and turns hollow, spore-rimmed eyes your way.
 cutscene hb_circle_2
 cutscene end
 keeper_of_the_blight [neutral]: You only delay the mulch. The forest takes all things back in the end, and a few minutes change nothing.
+interject name:rook_coldwake: Unlicensed composting on common ground. That stops now.
 set mem_farryn_circle
 combat hb_circle
 
 ~ circle_walk
+approve tobin_hayward -3 rook_coldwake -2: You slipped past the chanters and let the spores drift south
 Narrator: You leave the chanters to their work and slip under the boughs. Behind you, the drums swell and a thick green cloud rolls south on the wind toward the village.
 set hb_circle_fled
 set hb_cloud_reached_village

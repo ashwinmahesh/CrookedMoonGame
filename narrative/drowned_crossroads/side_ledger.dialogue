@@ -2,6 +2,7 @@
 
 ~ lyla_start
 lyla_webb [weary]: Keep your voices down. Someone is skimming the town's coin between the docks and the fort, and if Vander hears of it, he will burn three stalls to find one thief.
+interject name:rook_coldwake: Three stalls burned for one bad column is poor municipal arithmetic. Let us see the ledgers.
 set ledger_asked
 quest lylas_ledger asked
 lyla_webb [neutral]: Look over the tallies at the boathouses, the fighting pit, and Traders' Row. Bring me a name when you are certain, and not a breath sooner.
@@ -20,10 +21,12 @@ lyla_webb [angry]: I will not hang a neighbor's name on a guess. Check all three
 -> report
 
 ~ accuse_odell
+approve rook_coldwake +2 tobin_hayward +2 silas_vane -1: You caught the clerk skimming the dock tallies
 set ledger_outcome = "right"
 gold +100
 quest lylas_ledger done
 lyla_webb [sly]: Always the neat ones with the clean cuffs. Odell will work that silver off on the tow-ropes, hauling flatboats through the reeds until his new boots rot right off.
+interject name:silas_vane: Never trust a clerk in dry calfskin when the rest of the dock is wading, friend.
 -> END
 
 ~ accuse_maude
@@ -32,6 +35,7 @@ lyla_webb [weary]: Think carefully before you say that twice. If Maude is steali
 * Look again -> report
 
 ~ lost_maude
+approve tobin_hayward -3 silas_vane -3 rook_coldwake -2: You got Maude's fighting pit padlocked on a wrong accusation
 set ledger_outcome = "wrong"
 set pits_closed
 quest lylas_ledger lost
@@ -45,6 +49,7 @@ lyla_webb [weary]: Be sure of your numbers. If Bo Gaspard has his thumb on the s
 * Look again -> report
 
 ~ lost_bo
+approve tobin_hayward -3 silas_vane -3 rook_coldwake -2: You cost Bo Gaspard his market stall on a wrong accusation
 set ledger_outcome = "wrong"
 quest lylas_ledger lost
 lyla_webb [neutral]: Then my people take his hooks and weights at sunrise. Here is hoping you read the ink right.

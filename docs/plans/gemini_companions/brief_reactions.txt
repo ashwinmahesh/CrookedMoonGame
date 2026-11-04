@@ -1,0 +1,40 @@
+You are a narrative designer adding companion reactions to the dialogue of a single-player, turn-based party RPG on the D&D 2024
+rules (a perpetual-Halloween valley; folks talk with a country drawl). The player leads four of six companions. Today the
+companions almost never react to what happens in the story's big conversations, and they never approve or disapprove of the
+player's choices there. Fix that for the chapter whose dialogue files are attached. Reply with JSON only (no Markdown fence).
+
+Attached context:
+- companions.txt: the six companions' voice sheets, facts and existing lines (use only these facts), then what each one
+  approves and disapproves of, with example sizes and reasons.
+- chapter_<name>_<n>.txt: the chapter's dialogue files, in parts, each file starting with a line "=== FILE: <file name>".
+
+## How the dialogue files work (read, don't change)
+
+`~ name` starts a node. `speaker [mood]: text` is a spoken line, `Narrator: text` is narration. `* option text -> node` is a
+choice the player picks; `-> node` jumps; `if`/`endif` gate lines; `set`, `quest`, `combat` etc. are statements.
+
+## What to add
+
+1. "approve": on REAL choices only (spare or kill, help or refuse, lie or tell the truth, take or leave, mercy or cruelty,
+   respect or mock the dead, a deal with something dark). Name the node an option leads to (the node right after `->` on a `*`
+   line), never a node every path runs through. Move one to three companions who would care, with signs that disagree where it
+   fits (one approves, another disapproves). Sizes: 1 a manner or small kindness; 2 or 3 a clear value choice; 4 to 6 a big moral
+   choice; 8 to 10 only for a betrayal or a climax. Give the reason as the companion would remember it, starting "You", past tense,
+   under 14 words ("You let the frightened hound go free"). Cover every real choice in the files, typically 6 to 15 per chapter.
+   Skip choices that are only "ask about X", "leave", skill checks, or shop and travel menus.
+2. "asides": a companion's one-line remark dropped into a big conversation right after another character's line, which plays
+   only if that companion is in the party. 6 to 16 words, never over 20; spoken, in their voice, reacting to the line just before
+   it (a joke, a worry, a jab, a kindness). Two or three per big conversation, at most one per node, spread across all six
+   companions about evenly (each companion at least twice in the chapter). Never on a line inside a node that opens with options
+   only, never right before a `*` option line (put it before the options' lead-in line instead, or skip). Never reveal a
+   companion's dark secret; never mention a companion's own story scenes; no game words (hit points, level, quest, roll, check).
+   No new named people or places.
+
+## Reply format (exactly this JSON shape)
+
+{"approve": [{"file": "<file name from its === FILE line>", "node": "<node name>", "changes": {"<companion id>": <signed int>, ...},
+  "reason": "You ..."}],
+ "asides": [{"file": "<file name>", "node": "<node name>", "after": "<the first eight words of the line it follows, copied exactly>",
+  "who": "<companion id>", "line": "<the aside>"}]}
+
+Companion ids: rook_coldwake, tobin_hayward, silas_vane, delphine_ravelle, lucan_houndstooth, cordelia_skein.

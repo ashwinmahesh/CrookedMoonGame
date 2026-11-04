@@ -2,12 +2,14 @@
 
 ~ prefight
 Narrator: Black feathers drift through the dry cornstalks, smelling of cold ash and old tallow. At the heart of the circle, the great crow tilts its ragged head.
+interject name:delphine_ravelle: All these feathers and not a shred of stage presence. Let us pluck him, darlings.
 raum [sly]: Look how plump with little shames you came, all ripe for the picking. Pay the toll, children, and let old Raum shuck you clean.
 * [if flag.song_known] Sing the song we learned -> sing
 * Say our secrets are ours -> defy
 * Attack -> fight
 
 ~ sing
+approve delphine_ravelle +3 silas_vane +2: You sang Jericho's stolen tune to rattle the crow king
 Narrator: As the old tune rises, the brass banjo strings inside the beast's gullet hum in answer, and Raum's heavy wings falter out of time.
 raum [angry]: Hush that racket, you tin-eared thieves, that tune is swallowed and mine to keep!
 set raum_song_sung
@@ -28,6 +30,7 @@ quest fields_of_the_crow raum
 endif
 set raum_slain
 Narrator: Black feathers scatter like soot, leaving a pale, lantern-bright figure cradling an old banjo as the red stain fades from the moon above.
+interject name:rook_coldwake: Quiet ledger at last. Man's overdue a proper rest after keeping that watch.
 jericho_sticks [smile]: Well now, that is a mighty fine breath of night air after so long in the dark. You folks carried my tune right through the briars.
 * Ask him to rest -> jericho_rest
 * Ask about the song -> jericho_song
@@ -50,6 +53,7 @@ set jericho_at_rest
 set fw_home
 Narrator: Back in the smoky square of Foxwillow, the surviving scarecrows split at the seams as living folk stumble out blinking, while burned husks lie still in the dirt.
 martha_langtree [weary]: God forgive us for what we let fester behind locked doors. Those poor souls we burned in our madness will never walk out of the straw.
+interject name:tobin_hayward: Spite takes root faster than couch grass, missus, and burns twice as hot.
 jonah_sawyer [sad]: I set the torch to my own neighbors, thinking them monsters. I will spend the rest of my nights mending what I broke.
 william_lodge [weary]: Get your people under a roof, Martha, and tend the living while you can. Come on, friends, let us ride back to Wickermoor before the frost settles.
 quest fields_of_the_crow done

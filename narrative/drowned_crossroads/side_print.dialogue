@@ -9,6 +9,7 @@ cora_beaudry [neutral]: The real price never fits on the little tag. If folk saw
 
 ~ cora_ansel
 cora_beaudry [weary]: He sits out on our back porch in his good Sunday shirt, watching the black water go by. He has not spoken a word to me in a year.
+interject name:tobin_hayward: Tethered his tongue right at the root. That is nasty stitching for three coppers.
 -> cora_start
 
 ~ cora_accept
@@ -30,6 +31,7 @@ cora_beaudry [neutral]: Try Luckless Lou by the tables, Odell Tarrant at the boa
 -> cora_progress
 
 ~ cora_post
+approve silas_vane +3 tobin_hayward +2 rook_coldwake +2: You posted the Sinner's hidden prices to warn the town
 cora_beaudry [neutral]: Thank you. Here is what I set aside for Ansel's winter coat; he has no need of wool in the heat anyway.
 Narrator: She nails the three sheets deep into the cypress board, and before the iron stops ringing, a quiet queue of townsfolk has gathered to read them.
 set print_outcome = "posted"
@@ -38,6 +40,7 @@ quest the_sinners_small_print done
 -> END
 
 ~ cora_keep
+approve cordelia_skein +2 silas_vane +1 tobin_hayward -2: You kept the Sinner's small print to yourselves as a weapon
 cora_beaudry [weary]: I see. You mean to hold the knowledge close until you face him yourselves.
 cora_beaudry [sad]: Well, I cannot fault you for it. Around here, even the small print can be a weapon if you know where to point it.
 set print_outcome = "kept"
@@ -75,6 +78,7 @@ endif
 ~ mama_tale
 mama_pelletier [weary]: My sister's girl bought a green bottle of Haint Hooch to ease her toothache. Took one swallow in the kitchen and stepped clean through the pantry wall.
 mama_pelletier [sad]: Left her apron caught on a nail, and walked right out into some other parish. We have not seen hide nor shadow of her since.
+interject name:cordelia_skein: Trans-planar displacement from a single swallow of spirits. I must have a drop for my vials.
 set print_mama
 set print_tales += 1
 if flag.print_tales >= 3

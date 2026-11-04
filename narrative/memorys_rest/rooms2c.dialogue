@@ -8,6 +8,7 @@ Narrator: Shelves of pale specimens line Doctor Belkin's study, smelling sharply
 
 ~ l23_journal_ok
 Narrator: Beneath Belkin's cramped diagrams of a great chained worm in a flooded grotto, {name} deciphers a phrase in the wet, clicking script of the deep-lake folk: the words that unseal a hidden hatch in the recovery ward.
+interject name:delphine_ravelle: A secret trapdoor under the ward? Now that is proper stagecraft, darlings.
 give mr_belkin_journal
 set mr_hatch_words
 set mr_hatch_hint
@@ -24,6 +25,7 @@ Narrator: The pages are a tangle of cramped anatomical ciphers and strange aquat
 -> l23_journal
 
 ~ l23_swarm
+approve cordelia_skein -2 tobin_hayward +2: You uncorked the jar of sleeping white grubs to clear them out
 Narrator: The glass stopper comes free with a sour hiss, and the pale grubs wake all at once, boiling over the rim in a hungry tide.
 combat mr_swarm
 
@@ -34,7 +36,9 @@ Narrator: The unlit room is clammy as a cellar, lined with six tall cradles of w
 * Leave -> END
 
 ~ l24_gel
+approve cordelia_skein +2 tobin_hayward -2: You pressed your bare fingers into the sleeping pod's cold jelly
 Narrator: The cold jelly numbs {name}'s fingertips, and for ten breathless minutes another sight crowds in: a vast blind worm in chains far below, looking out through a hundred wet eyes in a dark cavern.
+interject name:tobin_hayward: Wipe your fingers clean at once. That slime reeks of deep taproot rot.
 set mr_worm_seen
 -> END
 
@@ -50,8 +54,10 @@ mr_glass_patient [afraid]: Make them be still, please, they are whispering so lo
 * Leave -> END
 
 ~ l25_saved
+approve tobin_hayward +3 cordelia_skein +2 rook_coldwake +2: You purged the pale worms from the patient behind the glass
 Narrator: The parasites shrivel and drop away from the wound, leaving the poor soul blinking in the violet gloom.
 mr_glass_patient [weary]: It is quiet now, thank you. I cannot recall my name, only Doctor Belkin speaking strange words to a secret door in the recovery room...
+interject name:rook_coldwake: Easy now. We'll get your proper name back in the ledger.
 set l25_patient_fate = "saved"
 set mr_patients_saved += 1
 set mr_hatch_hint
@@ -80,6 +86,7 @@ Narrator: The brushwork is fine and cold to the touch, showing nothing more than
 
 ~ l27_open
 Narrator: The needle clicks home into the brass ring; as the serum drains inside, hidden counterweights groan and the painted wall swings open.
+interject name:silas_vane: Pricey toll for a back room, friend, paying the house in its own medicine.
 take mr_lethic_serum
 set mr_lab_open
 move mr_ground:upper_from_lab

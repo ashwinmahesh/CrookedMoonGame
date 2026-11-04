@@ -3,6 +3,7 @@
 ~ kennel
 Narrator: A heavy brass collar stamped with the numeral XIII hangs from a weathered post beside a tin bowl chewed by far too many mouthparts.
 Narrator: Above the empty straw, a faded board painted in a miner's blocky hand reads, "THIRTEEN, GOOD BOY." Whatever slept here took up most of the yard.
+interject name:lucan_houndstooth: A working beast of the deep drifts. Mind how we approach, friends.
 set thirteen_asked
 quest thirteenth_centipede asked
 -> END
@@ -19,6 +20,7 @@ Narrator: It waves two long feelers, lets out a dry, hopeful click, and peers up
 * Leave it be. -> END
 
 ~ fed
+approve lucan_houndstooth +3 tobin_hayward +2: You fed old Thirteen the miner's lunch pail
 Narrator: The great creature takes the dented tin pail from your fingers with surprising delicacy, prying the lid open to rumble happily over seventy-year-old lard and crust.
 take sk_miners_lunch
 set thirteen_fed
@@ -53,12 +55,14 @@ quest thirteenth_centipede done
 -> END
 
 ~ to_woods
+approve silas_vane +2 tobin_hayward +2 lucan_houndstooth +2: You led old Thirteen out to the quiet woods
 Narrator: At the edge of the pines, the old beast pauses to tap your boot once with a feeler, then slips quietly beneath the ferns and rotting logs.
 set thirteen_outcome = "woods"
 quest thirteenth_centipede done
 -> END
 
 ~ kill
+approve lucan_houndstooth -4 tobin_hayward -3 delphine_ravelle -2: You cut down the tame pit-centipede Thirteen
 Narrator: It looks up at your drawn steel with puzzled feelers, waiting for a crust of bread that never comes.
 set thirteen_outcome = "slain"
 quest thirteenth_centipede lost

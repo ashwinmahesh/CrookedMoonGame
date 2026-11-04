@@ -8,6 +8,7 @@ man_in_marble [angry]: Speak your names across the quiet of your minds, stranger
 * Say nothing -> silent
 
 ~ truth
+approve rook_coldwake +2 tobin_hayward +2 silas_vane -1: You told the Man in Marble the plain truth about your friends
 man_in_marble [neutral]: Truth is a rare coin on a night of fools. Stand within these stones, then, and let the silence keep you whole.
 set man_in_marble_met
 -> END
@@ -24,6 +25,7 @@ set man_in_marble_met
 -> END
 
 ~ silent
+approve rook_coldwake +1 lucan_houndstooth +1 delphine_ravelle -1: You met the stone sentinel's challenge with respectful silence
 Narrator: Your silence meets his own, heavy as quarry stone and twice as cold. Slowly, the giant inclines his head a fraction of an inch, granting you the peace of the bare floor.
 set man_in_marble_met
 -> END
@@ -38,6 +40,7 @@ man_in_marble [neutral]: My watch does not waver, travelers. Speak what you requ
 
 ~ about
 man_in_marble [neutral]: The fool's clamor cannot cross this threshold, though I am bound to the flagstones and cannot march against him. I have stood through older madness than his, and I shall stand when his ribbons rot.
+interject name:lucan_houndstooth: Sound stonework, even with the whole festival baying outside.
 -> talk
 
 ~ offer
@@ -46,6 +49,7 @@ man_in_marble [neutral]: The folk of this village dance until their soles bleed,
 * Not now -> talk
 
 ~ accept
+approve tobin_hayward +3 rook_coldwake +2 silas_vane +2: You promised to rescue the villagers trapped in the jester's revelry
 man_in_marble [neutral]: Carry them through the doors by wit or by strength, and I shall guard their slumber.
 quest the_silent_church asked
 set church_quest_asked
@@ -62,6 +66,7 @@ endif
 
 ~ rest
 man_in_marble [neutral]: Lay down your burdens upon the stone. The hours of the carnival do not turn within my shadow.
+interject name:rook_coldwake: Slabs true, mortar dry, and no bells on the docket. Mind the turf.
 Narrator: The quiet here is complete and deep, smelling only of damp mortar and cool dust. You close your eyes, and the ragged edges of your spirit knit back together.
 heal 10d8 party
 hit_dice restore all party
@@ -92,8 +97,10 @@ gold +100
 -> END
 
 ~ bar
+approve tobin_hayward -4 silas_vane -3 lucan_houndstooth -3: You let the church door be barred and left villagers to the parade
 man_in_marble [weary]: Stand aside, then, for I will not lose the souls already gathered under my roof.
 Narrator: The Man in Marble drops the great stone beam into its brackets with a sound like a falling headstone. Those still outside belong to the parade now.
+interject name:silas_vane: We just folded our hand and locked the poor sods out with the house.
 quest the_silent_church barred
 set church_door_done
 -> END

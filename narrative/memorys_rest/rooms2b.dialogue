@@ -7,6 +7,7 @@ Narrator: Parchment sheets cover the desk, inked with alchemical ratios and cros
 
 ~ l19_study_ok
 Narrator: The script yields its secret to {name}: the Lethic Serum is distilled from the White Worm's ichor, and here, tucked in the final margin, is the exact recipe for its antidote.
+interject name:cordelia_skein: Distilled worm ichor and a margin antidote. Scrupulously tidy ratio work, darling.
 set mr_antidote_known
 set mr_truth_clues += 1
 if flag.mr_truth_clues >= 2 and (quest.all_is_well == find_the_cousin or quest.all_is_well == sign_in)
@@ -29,6 +30,7 @@ Narrator: A quiet alcove holds a wedding portrait, a blood-stained knight's taba
 * Leave them -> END
 
 ~ l19_take
+approve delphine_ravelle +2 rook_coldwake -2: You gathered the old wedding mementos from the shrine
 Narrator: You gather the portrait, the stained tabard, and the soft paper of the old sonnet, lifting years of private grief from the shelf.
 give mr_memento_portrait
 give mr_memento_tabard
@@ -38,6 +40,7 @@ set mr_has_memento
 -> l19_shrine
 
 ~ l19_ring
+approve silas_vane +2 rook_coldwake -2: You pocketed the betrothal ring and porcelain mask from the alcove
 Narrator: The silver band and the cold porcelain mask slip into your keeping, light as a held breath.
 give ring_of_protection
 give mask_of_lethica_nightborne
@@ -58,7 +61,9 @@ Narrator: Copper pipes and violet-glass conduits converge upon a hissing pressur
 * Leave -> END
 
 ~ l20_off
+approve rook_coldwake +2 cordelia_skein +1: You threw the pressure lever to lock down the ward cleanly
 Narrator: The iron lever clanks down, the violet glow drains from the glass tubes, and heavy locks thud shut along the corridors.
+interject name:rook_coldwake: Properly latched and sealed. Nothing unruly gets through a bolted parish corridor.
 set mr_lockdown
 -> END
 
@@ -69,6 +74,7 @@ set mr_lockdown = 0
 -> END
 
 ~ l20_smash
+approve cordelia_skein -3 rook_coldwake -2 silas_vane +2: You smashed the ward's pressure unit instead of using the lever
 Narrator: Glass shatters and the memory of years pours out as a gibbering mouther of violet ooze, babbling a thousand bad memories at once.
 set mr_engineering_broken
 combat mr_mouthers
@@ -88,6 +94,7 @@ give mr_stabilizer_stim
 
 ~ l21_file_ok
 Narrator: Beneath the woven rushes, {name} uncovers a leather folder charting Hugo's surgeries, his old curse, and how the treatments keep him dependent.
+interject name:silas_vane: Rigged the poor sod's treatment so he'd never clear his tab, friend.
 give mr_hugo_file
 set mr_hugo_file_read
 -> l21_file
@@ -103,6 +110,7 @@ Narrator: A broad glass chamber fogged with warm breath holds a pacing, fleshy a
 * Leave -> END
 
 ~ l22_extract
+approve cordelia_skein +2 tobin_hayward +2: You drew off the noetic extract rather than letting it go to waste
 Narrator: You draw off the cold, pearlescent fluid from the specimen jars before stoppering them tight.
 if not flag.mr_extract_taken
 set mr_extract_taken
@@ -111,6 +119,7 @@ endif
 -> l22_chamber
 
 ~ l22_release
+approve lucan_houndstooth +2 cordelia_skein -2: You unlatched the glass chamber to face the caged abomination
 Narrator: The heavy latch gives way with a wet hiss, and the hungry thing inside lunges into the room.
 set mr_otyugh_freed
 combat mr_otyugh

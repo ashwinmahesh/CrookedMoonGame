@@ -11,6 +11,7 @@ Narrator: Before the great sepulcher doors, the pale ghost of an orc hunches ben
 ~ meet
 set yorgrim_met
 yorgrim [weary]: Few living boots walk this wet gravel anymore, and the dead beneath the sod have grown restless. Tell me who you are, strangers, and why you come.
+interject name:delphine_ravelle: This graveyard damp is already curling my finest velvet, darling.
 -> meet_menu
 
 ~ meet_menu
@@ -26,6 +27,7 @@ yorgrim [weary]: Few living boots walk this wet gravel anymore, and the dead ben
 
 ~ q_who
 yorgrim [neutral]: My name is Yorgrim, and I keep the iron keys to Maidenmist. I watch over the quiet dead who rest beneath this fog.
+interject name:cordelia_skein: A spectral custodian tethered to iron keys; the ectoplasmic retention is quite fascinating, darling.
 -> meet_menu
 
 ~ q_place
@@ -34,19 +36,23 @@ yorgrim [neutral]: The dead of the hollow have lain under these mossy stones for
 
 ~ q_dead
 yorgrim [weary]: My breath ended long ago, but the chain on my back remains. My watch does not end until every name carved in this stone is answered for.
+interject name:rook_coldwake: Carrying your whole ledger on your back. I know the weight, sexton.
 -> meet_menu
 
 ~ q_dog
 Narrator: The great black hound with milk-white eyes presses her shoulder against Yorgrim's spectral knee, holding a hooded iron lantern in her jaws where a tiny spark still glows.
 yorgrim [smile]: Her name is Isolde, a faithful churchyard grim, and the only soul who still walks beside me in the dark.
+interject name:lucan_houndstooth: A churchyard grim, and a handsome one. Her bearing is impeccable.
 -> meet_menu
 
 ~ q_shroud
 yorgrim [afraid]: The Shroud is raw, unmaking death itself, creeping in like grey rot from the edge of the world. Such cold hunger does not belong here, not even in a realm of the dead.
+interject name:tobin_hayward: Grey rot chewing through the taproot of the grave itself; nasty blighted work, that is.
 -> meet_menu
 
 ~ q_shrouded
 yorgrim [angry]: The shrouded are poor spirits chewed hollow by that grey mist until only spite remains in their husks. They are abominations now, so do not let their cold fingers touch your skin.
+interject name:cordelia_skein: Hollowed spirits running purely on residual spite; I would love to assay that mist.
 -> meet_menu
 
 ~ q_friends
@@ -55,22 +61,26 @@ yorgrim [sad]: Those five you cut down in the dark were my friends once, and the
 
 ~ q_honour
 yorgrim [neutral]: No one in this valley will shed a tear for the Crimson Abbot or the Grinning Sinner. I remember the clear light they held before the rot took them, because there is no other way.
+interject name:silas_vane: Remembering the mark before the house rigged the deck is a rare courtesy, friend.
 -> meet_menu
 
 ~ briefing
 Narrator: Yorgrim raises his iron lantern high, forcing the grey fog back a pace as foul mist leaks from the seam of the sepulcher doors and hisses in his azure light.
 yorgrim [weary]: The tear in the stone below us widens every hour. Five balefires went dark in the mist, one by one. Only my azure flame still burns above the door, bound to my own tattered soul.
 yorgrim [neutral]: The final rites of my fallen friends can wake the five cold braziers. Twisted beasts prowl around the stones to guard them. I will walk with you and hold the fog back with my light.
+interject name:lucan_houndstooth: Five guardian beasts prowling the stones should make for a most instructive evening stalk.
 yorgrim [neutral]: Isolde will stay by the threshold with her spark, though her strength will last only sixteen hours. When all six beacons burn against the sky, these stone doors will open.
 * We will relight them -> accept
 * [if background:acolyte] We know a little of death rites -> accept_acolyte
 * Let us think -> END
 
 ~ accept_acolyte
+approve rook_coldwake +2 delphine_ravelle -1: You offered proper funerary rites to help Yorgrim lay the fallen to rest
 yorgrim [smile]: An extra pair of steady hands with a lantern will serve us well in the deep fog.
 -> accept
 
 ~ accept
+approve rook_coldwake +3 tobin_hayward +2 lucan_houndstooth +2: You agreed to perform the final rites and relight the five graveyard beacons
 set yorgrim_with_party
 set isolde_alone_since = now
 if not quest.maidenmist_dead_rise >= beacons
@@ -78,6 +88,7 @@ quest maidenmist_dead_rise beacons
 endif
 join yorgrim
 yorgrim [neutral]: Stay inside the pale ring of my lantern and the mist will keep its distance. Any of the seven iron paths leads to a dark beacon.
+interject name:delphine_ravelle: A tight little spotlight in the fog, darlings; try not to crowd my mark.
 -> END
 
 ~ at_the_doors
@@ -103,11 +114,13 @@ yorgrim [sad]: Lethica tended her pale fire among these wet yews. She wore a col
 ~ site_potters
 set mm_site_potters_told
 yorgrim [neutral]: Jericho lit his fire here among the nameless clay mounds. It suited a straw man who only wished to make the village children laugh.
+interject name:tobin_hayward: Good straw and honest stitching deserve better than sour clay and a cold burial mound.
 -> END
 
 ~ site_lanes
 set mm_site_lanes_told
 yorgrim [neutral]: Briggsy kept his watch along this crooked lane, a loud pirate with a heart of gold. I will not say how many rum bottles he buried under the sod.
+interject name:silas_vane: Burying good rum under graveyard sod is a crime against the house, friend.
 -> END
 
 ~ site_mounds
@@ -120,6 +133,7 @@ cutscene mm_penitent_pilgrim
 Narrator: Tall standing stones rise from the wet heather, their grey faces chiselled from root to crown with hundreds of orcish names.
 yorgrim [weary]: These are the names of the Shadestone Clan, my blood and my charge. Our chieftain gave me a ritual, and I led them all to the knife. The dark took their souls and left not even ash.
 yorgrim [sad]: The granite slab chained across my shoulders bears every one of those same names. I drag their weight through the fog so the dead know I have not forgotten.
+interject name:rook_coldwake: Every name chiselled deep and properly accounted for; that is a heavy docket to carry.
 set yorgrim_told_story
 set mm_clan_names_learned
 -> END
@@ -133,6 +147,7 @@ endif
 * Wait a moment -> END
 
 ~ doors_go
+approve lucan_houndstooth +2 rook_coldwake +2: You descended into the sepulcher with Yorgrim to face the tear below
 set yorgrim_descends
 if not quest.maidenmist_dead_rise >= sepulcher
 quest maidenmist_dead_rise sepulcher

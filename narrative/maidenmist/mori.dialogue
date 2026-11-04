@@ -4,6 +4,7 @@
 set mm_mori_met_again
 Narrator: Mori Shade stands in the cedar-scented parlour in her mourning black, her white hair loose above an open leather ledger.
 mori_shade [sad]: The freshest ghast at the barricade was Gregor Bolton, still in his burial linen. I carted his pine coffin to Maidenmist just before you arrived. Neither Yorgrim nor his hound Isolde met me at the gate.
+interject name:lucan_houndstooth: A missing hound at a cemetery gate is a dreadful omen, friends.
 mori_shade [weary]: Seven nights ago I found the iron gates chained shut, the fog thick as tallow, and every beacon cold. Walk the hill for me and see why the dead are rising.
 * We will go -> accept
 * [if gold >= 0] What is at Maidenmist? -> about
@@ -19,6 +20,7 @@ mori_shade [smile]: Yorgrim is an old orc spirit who taught me the quiet prayers
 -> request
 
 ~ accept
+approve rook_coldwake +2 lucan_houndstooth +2 tobin_hayward +1: You agreed to walk Maidenmist Cemetery and see why the dead rose
 set mm_asked
 set mm_pyre_lit
 if not quest.maidenmist_dead_rise >= corpse_road
@@ -26,6 +28,7 @@ quest maidenmist_dead_rise corpse_road
 endif
 give grave_salt
 mori_shade [neutral]: Rub this coarse grave salt along your blades before you cross the stile. Keep cold iron between your ribs and the creeping mist. I will stack the fallen out past the ditch and burn them clean.
+interject name:cordelia_skein: Crude sodium and iron filings, darling, yet the alchemical ratio against necrotic mist is quite sound.
 -> END
 
 ~ hub
@@ -48,6 +51,7 @@ mori_shade [neutral]: Take this last linen pouch of consecrated salt from the ce
 ~ return
 set mm_mori_return_told
 mori_shade [sad]: So the heavy chains are finally off his grey shoulders. Maidenmist still needs a quiet hand to trim the wicks and turn the earth. Perhaps it is time I hung my ledger on the iron gate.
+interject name:tobin_hayward: A graveyard needs a steady hand at the spade, or the canker takes the plot.
 if flag.isolde_alive and not flag.isolde_faded
 mori_shade [smile]: Isolde has carried her dark lantern to my back door many a frostbitten night. She will curl by the lichgate until the next sexton takes up the spade.
 endif

@@ -24,12 +24,15 @@ Narrator: When the iron bell up on the crag begins to toll the hour, every soul 
 * Walk on -> END
 
 ~ bells_kneel
+approve silas_vane -2 delphine_ravelle -2 rook_coldwake +1: You knelt in the slush at the tolling of the bell
 Narrator: Shoulders loosen by an inch along the street as you drop a knee to the cold cobbles.
 dg_wren_child [afraid]: Seven, eight, nine. Always nine for the evening, Mam, and none left over.
+interject name:silas_vane: Whole town drops on the chime like loaded dice. Bad odds in this parish, friend.
 set dg_bells_seen
 -> END
 
 ~ bells_stand
+approve silas_vane +2 delphine_ravelle +1 lucan_houndstooth +1: You stayed on your feet when the village knelt in fear
 Narrator: Sideways glances dart toward your boots from under lowered hoods, and when the last stroke fades, the nearest folk edge away to give you the crown of the road.
 set dg_bells_seen
 -> END
@@ -94,6 +97,7 @@ gate_veteran_cm [neutral]: One, two, three, four in the yard, all accounted for.
 
 ~ rules
 gate_veteran_cm [neutral]: Open courts are for guests, closed doors are for the sworn, and anyone poking their nose past a latch gets three warnings before the priors step in. Lay a rough hand on the clergy or pilfer a candle, and the whole house will take it poorly.
+interject name:rook_coldwake: Three warnings before the priors step in. Proper municipal procedure, at least on paper.
 -> gate_guards
 
 ~ abbot
@@ -106,6 +110,7 @@ gate_veteran_cm [weary]: A dark-haired fellow in songbird colours came up the tr
 
 ~ flames_talk
 gate_veteran_cm [neutral]: Three nights pass between one bonfire and the next, regular as the clock. Tomorrow night the Sanguine Hunt rides down the valley to gather more dry wood for the Rose.
+interject name:tobin_hayward: Calling living folk dry wood. This whole crag needs scraping back to the bare stone.
 set hunt_known
 -> gate_guards
 

@@ -43,6 +43,7 @@ Narrator: As you lean in, the violet veins along their wrists flare brighter aga
 -> l15_patient
 
 ~ l15_cure
+approve tobin_hayward +4 cordelia_skein +2 rook_coldwake +2: You spent a dose of antidote to save a restrained patient
 set lethic_antidote_doses -= 1
 set l15_patient_fate = "cured"
 set mr_patients_cured += 1
@@ -52,6 +53,7 @@ mr_restrained_patient [weary]: The fog is lifting. Thank you, stranger, I rememb
 -> END
 
 ~ l15_mercy
+approve rook_coldwake +2 tobin_hayward -2 cordelia_skein -2: You gave a mutating patient a quiet mercy killing
 set l15_patient_fate = "dead"
 Narrator: It is a quiet, heavy thing you do in that grey room, sparing them the hollow fate waiting in the dark.
 -> END

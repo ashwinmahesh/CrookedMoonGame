@@ -12,9 +12,11 @@ wendel_somerton [smile]: It entitles the bearer to walk the village unmolested, 
 -> start
 
 ~ accept
+approve rook_coldwake +3 silas_vane -2 delphine_ravelle -1: You agreed to gather the mayor's three municipal stamps
 set rk_forms_asked
 quest forms_for_the_end asked
 wendel_somerton [smile]: You'll need the clock-chamber stamp, the schoolhouse seal, and the constable's stamp. I trust I need not remind you that forgery is a criminal offence.
+interject name:rook_coldwake: Three seals and a clean docket. Settle down now, this is proper municipal work.
 -> END
 
 ~ progress
@@ -36,6 +38,7 @@ Narrator: Tamsin Ledger cradles the heavy brass clock-chamber stamp in her arms 
 Narrator: She looks over her spectacles, dry as dust. Stamps are not lent in this parish; they are requisitioned.
 -> menu
 ~ stamp_a_receipt
+approve rook_coldwake +2 silas_vane -2: You signed Tamsin's stamp requisition receipt in triplicate
 time +60
 -> stamp_a_ok
 ~ stamp_a_ok
@@ -74,6 +77,7 @@ Narrator: The damp potato crumbles under the blade, violet ink smears across you
 Narrator: The starchy impression is ragged around the crown, yet at a brisk glance it will pass muster with the mayor.
 -> stamp_c_ok
 ~ fee
+approve silas_vane -2 rook_coldwake -2: You paid Mayor Somerton a twenty-gold filing fee
 gold -20
 Narrator: Somerton slides your twenty gold beneath his blotter with the solemn delicacy of a man who has never touched a bribe in his life.
 -> stamp_c_ok
@@ -82,10 +86,12 @@ set rk_stamp_c
 -> menu
 
 ~ forged
+approve silas_vane -3 delphine_ravelle -2 rook_coldwake +1: You surrendered the forged potato stamp and went to the cells
 set rk_forms_forged
 set jail_began = now
 quest forms_for_the_end forged
 Narrator: A deputy plucks the ink-stained potato up between two fingers while Somerton pinches the bridge of his nose, and the iron cell door clangs shut behind you.
+interject name:tobin_hayward: A perfectly good tuber wasted on bad ink, and now we're behind iron.
 jail wickermoor_constable_station:cells until days_since.jailed >= 1
 
 ~ deliver

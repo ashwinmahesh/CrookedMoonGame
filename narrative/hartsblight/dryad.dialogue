@@ -3,6 +3,7 @@
 ~ dryad_arrive
 Narrator: Pale shelf-fungi part along an ancient oak, and a creature of split bark and grey lichen steps into the damp air, smelling faintly of sour sap.
 hb_dryad [weary]: More boots in the mulch. The stag-god promises an endless green tomorrow, yet tonight brings only mud and clattering iron.
+interject name:delphine_ravelle: Careful, darling. The critic in the bark has teeth tonight.
 hb_dryad [neutral]: State your business with the wood, or step off my roots before you bruise the moss.
 * [Performance DC 15] Offer a courtly bow and a verse for the old wood. -> dryad_friend | dryad_cool
 * [Persuasion DC 15] Speak plainly of your respect for what this forest was. -> dryad_friend | dryad_cool
@@ -18,6 +19,7 @@ give tainted_goodberries
 
 ~ dryad_friend
 hb_dryad [sly]: Hmph. A tolerable cadence, and only slightly desperate. Best of all, you did not try to recite a ballad.
+interject name:lucan_houndstooth: Six out of ten for woodland courtesy. Generous of me, I think.
 hb_dryad [neutral]: Take the high root-path past the sinkhole. The rotweavers keep watch down in the hollow, and their drumming gives me a headache.
 set hb_dryad_friendly
 set hb_dryad_shortcut
@@ -42,6 +44,7 @@ hb_dryad [weary]: My name rotted out of me three autumns ago, leaving only my im
 
 ~ review_weapon
 hb_dryad [neutral]: Nicks in the edge, oil gone rancid in the fuller, and all the subtlety of a falling millstone.
+interject name:silas_vane: She's pricing the iron before she calls the bluff. Smart tree.
 hb_dryad [weary]: Three out of ten. Replacing a personality with the ability to stab things is terribly derivative.
 * [Persuasion DC 12] It is ugly, maybe, but it kept us alive. -> weapon_honest | weapon_lie
 * This blade has felled worse horrors than you. -> weapon_lie
@@ -66,12 +69,14 @@ hb_dryad [neutral]: Even before the spores got in, whoever baked this hated your
 * Insist it is fine trail cooking. -> ration_lie
 
 ~ ration_honest
+approve tobin_hayward +1 delphine_ravelle +1: You admitted the plain truth about the trail rations
 hb_dryad [smile]: Wet boot leather has a livelier bouquet, frankly, but I admire a palate that refuses to lie to itself.
 set hb_reviews += 1
 set hb_dryad_warmth += 1
 -> dryad_review_start
 
 ~ ration_lie
+approve tobin_hayward -1 delphine_ravelle -1: You boasted about spoiled rations to a dying tree
 hb_dryad [weary]: Self-deception is a poor seasoning, traveller. Even the maggots are staging a quiet withdrawal.
 set hb_reviews += 1
 -> dryad_review_start
@@ -79,6 +84,7 @@ set hb_reviews += 1
 ~ review_seed
 Narrator: The dryad's wooden fingers hover near the glass, her milky eyes catching the dry rattle of hulls inside.
 hb_dryad [sad]: Dry barley and winter rye, sealed tight against the damp. No fungal dream, no green delusion, just stubborn little lives waiting for honest dirt.
+interject name:tobin_hayward: Keep that stopper tight. A good seed spoils quick out of the jar.
 hb_dryad [neutral]: That old woman in the hollow kept something true. Nine out of ten, though the jar itself is dreadfully plain.
 set hb_reviews += 1
 set hb_dryad_warmth += 1
