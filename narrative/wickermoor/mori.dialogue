@@ -1,42 +1,42 @@
 # Drafted by Gemini (side quests batch 3: mori), edited.
 
 ~ start
-Narrator: The parlor smells of beeswax and cold tin. Mori pulls open a shallow cedar drawer filled with gleaming brass coffin plates.
-mori_shade [sad]: Forgive the clutter, friends. I stencil these for the Order of the Oak, though the folks named on them are still walking the streets.
+Narrator: The parlor smells of beeswax and cold tin. Mori opens a cedar drawer of brass coffin plates.
+mori_shade [sad]: I stencil these for the Order of the Oak, though the folks named on them still walk the streets.
 * Ask who ordered them -> who
 * Look at the list -> list
 * Ask whether one of ours who has fallen can be called back -> wickermoor/mori_shade:raising_gate
 * Leave -> END
 
 ~ who
-mori_shade [weary]: I truly could not say. On the first of each month, a folded slip and a silver piece wait beneath my door.
-mori_shade [sad]: A man must keep his fires lit, so I oil my punches and I do not watch the threshold.
+mori_shade [weary]: On the first of each month, a folded slip and a silver piece wait beneath my door.
+mori_shade [sad]: A man must keep his fires lit, so I oil my punches and do not watch the threshold.
 -> start
 
 ~ list
 Narrator: Five brass plates lie nested in black velvet, each stamped with neat, square letters.
-mori_shade [afraid]: Geneva Fairchild, Howie Butterman, Ambrose Quill, and Finneas Trout. The fifth plate was ordered polished, but left completely blank.
+mori_shade [afraid]: Geneva Fairchild, Howie Butterman, Ambrose Quill, Finneas Trout. The fifth was ordered polished, but left blank.
 set mori_list_seen
 quest what_mori_keeps asked
 -> decide
 
 ~ decide
-mori_shade [weary]: My hands shake more with every letter I strike. You are strangers here, unburdened by our customs: tell me what ought to be done.
+mori_shade [weary]: My hands shake with every letter. You are strangers, unburdened by our customs: tell me what to do.
 * Warn the named villagers -> warn
 * Burn the list -> burn
 * Give the list to Doris Squire -> doris
 * Say nothing, and ask him to keep working -> silent
 
 ~ warn
-Narrator: Word travels the cobbled lanes faster than mist off the moor, leaving shuttered windows and bolted doors behind it.
-mori_shade [sad]: They cross the mud to avoid my shop now, whispering that the undertaker wishes them cold. Perhaps they are right to fear me.
+Narrator: Word travels the lanes faster than moor mist, leaving shuttered windows and bolted doors behind.
+mori_shade [sad]: They cross the mud to avoid my shop, whispering the undertaker wishes them cold. Perhaps they are right.
 set mori_outcome = "warn"
 standing cult -1
 quest what_mori_keeps decided
 -> END
 
 ~ burn
-Narrator: Brass curls and blackens in the belly of the iron stove, filling the small room with a sharp, metallic tang.
+Narrator: Brass curls and blackens in the iron stove, filling the room with a sharp metallic tang.
 mori_shade [smile]: Let them come for their silver if they dare. My lungs feel clear for the first hour in a year.
 set mori_outcome = "burn"
 standing cult -2
@@ -44,8 +44,8 @@ quest what_mori_keeps decided
 -> END
 
 ~ doris
-Narrator: Constable Squire turns the paper over once in her gloved fingers, her face as grey and unreadable as slate.
-doris_squire [neutral]: Keep your shop shuttered after the third bell, Mori. I will copy these into the ledger and walk the Round myself.
+Narrator: Constable Squire turns the paper in her gloved fingers, her face grey as slate.
+doris_squire [neutral]: Keep your shop shuttered after the third bell, Mori. I will copy these into the ledger and walk the Round.
 set mori_outcome = "doris"
 standing old_ways -1
 quest what_mori_keeps decided
@@ -53,14 +53,14 @@ quest what_mori_keeps decided
 
 ~ silent
 Narrator: The drawer slides shut with a soft wooden click, swallowing the faint gleam of brass.
-mori_shade [weary]: Best to let the village sleep easy, I suppose. I will have the oil lamp trimmed before the next slip arrives.
+mori_shade [weary]: Best let the village sleep easy. I will have the lamp trimmed before the next slip arrives.
 set mori_outcome = "silent"
 quest what_mori_keeps decided
 -> END
 
 ~ later
-Narrator: A single brass plate rests upon the workbench, newly struck, the metal filings still clinging to the letters.
-mori_shade [afraid]: The monthly note came while you were at that dreadful house, friends. They finally gave me a name for the blank plate, and I thought you should see it.
+Narrator: A newly struck brass plate rests on the workbench, metal filings still clinging to the letters.
+mori_shade [afraid]: The monthly note came while you were at that dreadful house. They finally gave me a name for the blank plate.
 set mori_later
 quest what_mori_keeps done
 -> END

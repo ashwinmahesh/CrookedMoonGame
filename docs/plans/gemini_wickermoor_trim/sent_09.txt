@@ -1,0 +1,94 @@
+You are an editor tightening DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue). It is folk horror in Wickermoor, a village in an afterlife realm of endless autumn night; deadpan humour beside real dread. These are the village's conversations. Players say the village is a WALL OF TALK: too many words before anything happens. Your job is to make every line shorter and sharper, the way a good film editor cuts a scene, without losing anything that matters.
+
+FOR EACH NUMBERED LINE answer one of:
+- `n => KEEP` when the line is already tight (most lines of 15 words or fewer should be KEEP).
+- `n => new text` with the tightened line. Aim for about half to two thirds of the old length. Cut throat-clearing, repetition of what the line or the line before already said, stacked adjectives, second examples, flavour that leads nowhere, and explanations the listener doesn't need.
+- `n => CUT` only for a line whose content is entirely repeated by another line in the same conversation node (shown in [brackets]); never for a line that is the only one of its node, never for an interject line, never for the first line of a node.
+
+WHAT MUST SURVIVE in every line you tighten: every name, place, item, number, price, time, clue, hint, secret, warning, threat, promise and joke punchline; the speaker's voice and quirks (a mayor's pomposity, a constable's few words, a poet's floweriness, a child's simplicity, a country drawl in word choice); the mood. If a line does two jobs, keep both. Never add new facts. Keep `{name}` exactly as it is wherever it appears. Keep the line in the same person and tense.
+
+NARRATOR lines (speaker Narrator, the Vagrant telling the tale: folksy, warm, wry Southern drawl in word choice) stay second person, present tense, one or two sentences, concrete senses, no game words, never "suddenly".
+
+STYLE: plain punctuation; straight quotes; no em dashes, asterisks, brackets or stage directions; do not use -> or => inside the text.
+
+## The lines
+
+### joan_murdoch.dialogue
+519. [start] joan_murdoch: Oh, fresh faces in the square, praise the song! Take a hymn-sheet, take two, my husband Weston is just inside tuning up the rafters!
+520. [menu] joan_murdoch: Have you a moment to hear how the Morning Choir lifts the spirit?
+521. [work] joan_murdoch: I copy every verse by candlelight while Peter and Charlotte practice their harmonies. If folk only hum the tune while churning butter, the light gets a foothold!
+522. [village] joan_murdoch: People shut their shutters at first, bless them, they are shy as field mice. Give me another month of knocking and we will have every pew packed tight.
+523. [rumour] joan_murdoch: Poor Mrs. Oakum from the butcher's shop bolted like a startled hare when I offered her a pamphlet at dusk. Half this town acts as though a kind word might bite.
+524. [secret_ok] Narrator: For a breath her bright grin softens, and she smooths a crumpled corner of the songbook with ink-stained thumbs.
+525. [secret_ok] joan_murdoch: If we do not fill this town with music, the gloom will swallow my children whole. A mother will knock on every door in the realm before she lets the dark have her family.
+526. [secret_fail] joan_murdoch: Why, because a good song is meant to be shared, dear heart! Keep that sheet dry in your pocket and sing it when the road gets long.
+
+### letter.dialogue
+527. [effects] Narrator: A cedar shelf holds a dead traveler's belongings: a brass button, dry boots, and a folded letter sealed with tallow.
+528. [effects] mori_shade: Walder Pye came in on the rain cart and never rose again. That letter was dry inside his coat, waiting for someone with living feet.
+529. [take] mori_shade: It is addressed to his kin past the border stones. Carry it past the gate yourself, if you please, for our post office cannot leave a dead man's final words untouched.
+530. [counter] Narrator: Ink pots stand in neat brass rows along the counter, smelling of vinegar and damp feathers.
+531. [counter] theodora_mayville: Step up to the grate and declare your parcels. No written matter leaves Wickermoor during the quarantine without my stamp and inspection.
+532. [hand] theodora_mayville: How wise of you to trust the proper channels. Poor Walder's penmanship is dreadful, and his gloom would only upset his folk, so I shall improve it before the bag goes out.
+533. [slip_ok] Narrator: `{name}` slides the tallow-sealed paper beneath a cuff just as the postmaster peers over her spectacles.
+534. [slip_ok] theodora_mayville: Empty hands and loitering boots. If you have no business with the post, clear the counter for those who can read a notice.
+535. [nothing_ok] theodora_mayville: Then do not breathe upon my brasswork. Stand aside and keep your hands where the parish can see them.
+536. [slip_caught] theodora_mayville: Unstamped correspondence concealed in a coat! Constable Squire, take these smugglers to the cells while I correct this wretched letter's tone.
+537. [slip_caught] doris_squire: In the irons till morning, the lot of you. Move your feet.
+538. [hilda] Narrator: Hilda tightens a leather girth strap by the moor road, her oilskin cloak smelling of wet heather and woodsmoke.
+539. [hilda] hilda_brom: Heading past the boundary stones before the fog thickens. Speak quick if you want something.
+540. [hilda_take] hilda_brom: Walder Pye's hand. He paid his tab and kept his dog quiet, so I will ride this out in my dry pack and drop it with the border carrier.
+
+### lottery.dialogue
+541. [start] lottery_stranger: Step right up, friends, and try your hand at the Founder's Round draw. Every folded slip in this hat holds a fair chance at a brighter season.
+542. [start] Narrator: His grey coat is brushed clean of moorland dust, and the paper slips in his upturned hat rustle like dry leaves.
+543. [prize] lottery_stranger: One hundred gold coins in a neat leather purse, paid on the spot. More than that, the winner enjoys a full year of effortless good fortune.
+544. [terms] lottery_stranger: A slip costs ten gold coins to draw from the hat. As for those who do not win, we simply cross their entry from the active roll and move along.
+545. [terms] lottery_stranger: Nobody in Wickermoor complains of a bad draw, I promise you that.
+546. [ledger] lottery_stranger: Ah, an appreciation for tidy bookkeeping. I keep every participant's name in clean black ink so there is never a dispute.
+547. [ledger_read] Narrator: Dozens of local names are struck through with a ruler-straight line of wet black ink. When townsfolk pass by, their eyes slide right over those cottages as if no one ever lived there.
+548. [ledger_fail] lottery_stranger: Forgive me, friend, the damp air smudges the ink if I leave the pages open too long.
+549. [ledger_fail] Narrator: He shuts the leather cover with a soft, polite thump and tucks the brass clasp into place.
+550. [tear] Narrator: The ledger bindings snap in your grip, scattering inked pages across the trodden mud of the square.
+551. [tear] lottery_stranger: Well now, that is one way to balance an account. Enjoy the rest of your evening in Wickermoor, travellers.
+552. [tear] Narrator: He steps back between two lantern-bearers, and by the time the smoke clears, his grey coat is nowhere to be seen.
+553. [draw] lottery_stranger: Ten gold received, and recorded in full. Reach into the hat whenever you are ready.
+554. [win] lottery_stranger: Look at that mark upon the paper. We have ourselves a fortunate soul tonight.
+555. [win] Narrator: The villagers around the square clap and cheer a bit too brightly, their smiles stretched tight in the lantern glow.
+556. [lose] lottery_stranger: A blank slip, I am afraid, though I thank you for playing. Let me just tidy the register before you go.
+557. [lose] Narrator: His nib draws a single, cold black line through one of your names, and the air around your shoulders turns chill and thin.
+558. [refuse] lottery_stranger: Entirely your privilege, travellers. Should you find yourselves feeling luckier on another turn of the clock, you know where I stand.
+559. [refuse] Narrator: He touches the brim of his hat with two gloved fingers and turns back to the crowd.
+
+### mare.dialogue
+560. [start] Narrator: A broken halter dangles from the post, and the damp straw of the third stall is still warm.
+561. [start] marianna_grey: The clocktower tolled and my grey mare Clover bolted straight up the northern moor road. Find her before the wolves do, and you will have my goodwill and three days free horse hire.
+562. [about] marianna_grey: She is gentle as rain, just terribly skittish around flapping cloaks. Hold out a handful of dry oats and she will come right to your palm.
+563. [accept] marianna_grey: Mind the ditches out there. The fog hides the ruts, and she has got only one good shoe on her forelegs.
+564. [progress] marianna_grey: Empty halter in my hand and wind rising off the heather. Have you seen a hide or hair of her yet?
+565. [advice] marianna_grey: Keep your cloaks tucked in and shake a pouch of oats if you get close. If the mud hides her prints, fetch Hilda Brom.
+566. [give_up] marianna_grey: I see. Best I latch the third stall shut then, and save the clean straw for the horses that are left.
+567. [tracks] Narrator: Deep, crescent hoofprints score the wet peat along the northern verge, filling slowly with black moor water.
+568. [tracks_ok] Narrator: Scuffed moss and snapped gorse stems mark a stumbling path toward a dark bramble thicket beside the north wall.
+569. [tracks_fail] Narrator: The hoofprints vanish into a boggy churn of cart ruts and sheep droppings. Hilda Brom could read this mire better than you.
+570. [tracks_hilda] hilda_brom: Thrown left shoe, panicked stride, dragging her halter rope through the gorse. Look in the thicket by the north wall.
+571. [mare_there] Narrator: The dapple-grey mare stands tangled in wet briars by the stones, flanks heaving and ears pinned back at your shadow.
+572. [catch_ok] Narrator: Her trembling eases at your touch, and she lowers her velvet nose enough for {name} to take the frayed halter rope.
+573. [catch_fail] Narrator: She snorts in terror, wrenching free of a briar to bolt a few yards down the wall. A handful of oats might steady her where quick hands failed.
+574. [catch_oats] Narrator: The dry grain rustles in your palm, and the mare steps out of the thorns to lip the oats from {name}'s fingers.
+575. [return] Narrator: Clover presses her damp forehead against the stablemistress's shoulder, blowing a long, warm breath into her apron.
+576. [return] marianna_grey: Look at you, plastered in peat and burs, you foolish old girl. Take this coin for your trouble, friends, and any horse in my yard is yours free for three days.
+
+### marianna_grey.dialogue
+577. [start] Narrator: Warm hay, liniment, and horse-sweat sweeten the dark of the stable, where a broad-shouldered woman braids a mule's mane with steady fingers.
+578. [start] marianna_grey: Mind the grey mare's hind leg, she startles at cloaks. If you need a stall or a mount, say so plain.
+579. [about_work] marianna_grey: Two silver a night for stabling, brushed and fed right. I sleep up the ladder over the stalls, and a horse never lied to me yet.
+580. [about_village] marianna_grey: Too much talk in the square about roots and blood for my liking. I keep a dried sunflower by the hayloft door and ask the Patient Lady for dry straw and quiet nights.
+581. [shop_open] marianna_grey: Tell me what beast or tack you have need of.
+582. [rumour] marianna_grey: The mules come back from the north ditch lathered and shaking, with burrs twisted into knots no bramble ever made. Something out there runs on two legs and smells like winter.
+583. [secret_ok] Narrator: Her calloused thumb rubs the branded tag on a bridle, her shoulders softening with quiet gratitude.
+
+## Reply format
+One line per numbered line above (65 lines, 519 to 583), in order, exactly `n => text`, `n => KEEP` or `n => CUT`. No quotes around the text, no commentary.

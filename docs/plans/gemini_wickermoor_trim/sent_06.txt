@@ -1,0 +1,91 @@
+You are an editor tightening DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue). It is folk horror in Wickermoor, a village in an afterlife realm of endless autumn night; deadpan humour beside real dread. These are the village's conversations. Players say the village is a WALL OF TALK: too many words before anything happens. Your job is to make every line shorter and sharper, the way a good film editor cuts a scene, without losing anything that matters.
+
+FOR EACH NUMBERED LINE answer one of:
+- `n => KEEP` when the line is already tight (most lines of 15 words or fewer should be KEEP).
+- `n => new text` with the tightened line. Aim for about half to two thirds of the old length. Cut throat-clearing, repetition of what the line or the line before already said, stacked adjectives, second examples, flavour that leads nowhere, and explanations the listener doesn't need.
+- `n => CUT` only for a line whose content is entirely repeated by another line in the same conversation node (shown in [brackets]); never for a line that is the only one of its node, never for an interject line, never for the first line of a node.
+
+WHAT MUST SURVIVE in every line you tighten: every name, place, item, number, price, time, clue, hint, secret, warning, threat, promise and joke punchline; the speaker's voice and quirks (a mayor's pomposity, a constable's few words, a poet's floweriness, a child's simplicity, a country drawl in word choice); the mood. If a line does two jobs, keep both. Never add new facts. Keep `{name}` exactly as it is wherever it appears. Keep the line in the same person and tense.
+
+NARRATOR lines (speaker Narrator, the Vagrant telling the tale: folksy, warm, wry Southern drawl in word choice) stay second person, present tense, one or two sentences, concrete senses, no game words, never "suddenly".
+
+STYLE: plain punctuation; straight quotes; no em dashes, asterisks, brackets or stage directions; do not use -> or => inside the text.
+
+## The lines
+
+### fair_price.dialogue
+335. [eleanor_visit] eleanor_heyling: If Baltus sent you to whine about vellum, tell him to scrape the lead out from under his brass scale first. Have you come to read, or just to hover?
+336. [eleanor_side] eleanor_heyling: Every pound of lampblack ink from his counter weighs fourteen ounces by any honest iron. I price my sheets so the schoolhouse does not have to beg him for scraps.
+337. [ledger_ok] Narrator: {name} traces the neat red ink along the margin: the loss on every quire is covered by a quiet newcomer fund signed by Finneas Trout.
+338. [ledger_ok] eleanor_heyling: Sharp eyes. Finneas and I see to it our people have paper without paying a tithe to the Old Ways.
+339. [ledger_fail] Narrator: Her hand drops flat over the page before {name} can make sense of the cramped figures.
+340. [ledger_fail] eleanor_heyling: This book is not for sale, stranger. If you want sums, bother Tamsin Ledger up at the Mayor's House.
+341. [tamsin_audit] tamsin_ledger: Two merchants accusing each other of arithmetic is the dullest sin in Wickermoor. For ten gold to cover my candles, I will audit both books before the sixth bell.
+342. [audit_paid] Narrator: By next candle-mark, Tamsin lays a single sheet of foolscap on the desk, smelling faintly of cold tea.
+343. [audit_paid] tamsin_ledger: Baltus thumbs his brass pan by two drams, and Eleanor covers her cheap paper with a schoolhouse grant from Finneas Trout. Both books balance, if you squint.
+344. [broker] baltus_tolliver: You have the look of folks who have seen the bottom of the inkwell. Come, how do we settle our dear neighbour?
+345. [truce] baltus_tolliver: Let her hear your proposal, then, though I doubt city ears take kindly to country sense.
+346. [truce_ok] baltus_tolliver: Paper to her shelves, ink to mine, and no more bleeding the penny tray. I can live with that.
+347. [truce_ok] eleanor_heyling: So long as your weights stay honest, Mr. Tolliver, we have an accord.
+348. [truce_fail] eleanor_heyling: I will not take lectures on fairness from a man with a heavy thumb.
+349. [truce_fail] baltus_tolliver: You see how she is, friends.
+350. [side_baltus] baltus_tolliver: A schoolhouse grant from poor Finneas? Wait until the Round hears the newcomers need charity just to write a letter.
+351. [side_eleanor] eleanor_heyling: Two drams of lead under the pan, tested in front of the whole Round. Look how red his ears are.
+
+### feast.dialogue
+352. [holly_start] holly_aster: Dust your boots and listen close, newcomers. Tomorrow is the Founders' feast, and Siv Harga thinks her greasy sausage rolls belong at the high table instead of my spiced harvest loaf.
+353. [holly_start] holly_aster: Carry this warm loaf to Mayor Somerton and speak well of my crust. And sneak a bite of Siv's pastry first, then tell me true if her suet beats my cinnamon.
+354. [holly_accept] holly_aster: Bless your honest tongues. Mind you hold the cloth flat so the glaze stays shiny.
+355. [siv_visit] siv_harga: Holly Aster sent you sniffing round my chopping block, did she? That woman bakes dry sawdust and calls it sacred custom.
+356. [siv_visit] siv_harga: Try one of my pork rolls before you judge, fresh from the tin. Better yet, carry a tray up to Mayor Somerton and tell him real meat beats sweet dough.
+357. [taste] Narrator: The pastry flakes at the first bite, rich with sage, black pepper, and clean pork fat. You have to admit it is remarkably good.
+358. [taste] siv_harga: Ha! Your eyes just went wide as saucers, stranger. Tell Holly that when you see her.
+359. [siv_accept] siv_harga: Good on you. Keep the grease paper wrapped tight till you reach Somerton's parlour.
+360. [mayor_judges] wendel_somerton: Come in, come in, my dear friends! Have you brought the contenders for tomorrow's high table?
+361. [mayor_judges] Narrator: The mayor samples a crumb of spiced crust and a corner of warm pastry, wiping his chin with a linen napkin.
+362. [mayor_judges] wendel_somerton: Oh, dear me, both are splendid, yet tradition demands a single crown dish. Which baker claims your vote?
+363. [praise_holly] wendel_somerton: The spiced loaf it is! Sweet grain and dark clove, just as the Old Ways remember.
+364. [praise_siv] wendel_somerton: The sausage rolls take the honour! Hearty fare from the Patient Lady's pasture.
+365. [both_ok] wendel_somerton: By the Oak, what wisdom! Savory meat in the left hand, sweet bread in the right! We shall raise a toast to harmony!
+366. [both_fail] wendel_somerton: Alas, the Founders' charter allows only one dish to lead the grace. You must choose between them.
+367. [sabotage] Narrator: While the mayor turns to fetch his goblet, {name} tips a heavy cellar of coarse salt straight into Siv's gravy seam. Siv will never know whose hand ruined the batch.
+368. [sabotage] wendel_somerton: Merciful heavens, this meat is brined like an old boot! Holly's spiced loaf wins by default!
+369. [ode] Narrator: Lanterns swing above the long trestle tables as Ambrose Quill rises, clearing his throat with terrifying authority.
+370. [ode] ambrose_quill: O blessed feast of Wickermoor, where crumbs fall down to sweep the floor more! May bad meat never make us sicker, nor empty tankards drain the quicker!
+371. [ode] Narrator: Dead silence hangs over the taproom for three heartbeats, followed by polite, bewildered clapping.
+
+### fieldtrip.dialogue
+372. [start] finneas_trout: Welcome to the schoolhouse. I am Finneas Trout, and I am trying to teach these children history without giving them nightmares, which is rather difficult in Wickermoor.
+373. [start] finneas_trout: Could you help me gather five small lessons about the Founder? Things they can hold: Pip Oakum's button, a fact from Old Rusty, a bell-rope thread, and a church chalk mark.
+374. [start] finneas_trout: As for the fifth lesson, come back to me once you have the first four. I will explain it then.
+375. [accept] finneas_trout: Thank you, truly. It is a comfort to have sensible strangers lending a hand.
+376. [pip_button] pip_oakum: You want a Founder's button for Mr. Trout? That is brass from an old coat, mister, and brass costs a true story from before you came here.
+377. [pip_story] pip_oakum: Now that is a proper tale, with teeth in it. Here is your brass button, polished up bright on my sleeve.
+378. [pip_flat] pip_oakum: You muddled the middle bit, and your voice went all squeaky at the end. Take the button anyway, before Mr. Trout frets himself grey.
+379. [rusty_fact] old_rusty: A lesson for the little ones, is it? Tell them the Founder was mortal terrified of Tuesdays, bolted his shutters tight, and nobody living recalls why.
+380. [rope] Narrator: Above the dusty stones, the clocktower bell-rope hangs frayed and heavy with old tallow. Solomon Roderick stands nearby, wiping stone dust from his knuckles.
+381. [rope_ok] solomon_roderick: Just a single hemp strand for the schoolhouse? Help yourself, friend, the bell will toll the hours all the same without it.
+382. [rope_fail] Narrator: Your boot slips on the slick timber, leaving you with a scraped knee and empty hands. Solomon will gladly hand over a thread if you only ask.
+383. [chalk] Narrator: Low on the church stones, half washed away by the moorland damp, someone has sketched a white chalk hare with branching antlers.
+384. [chalk_ok] Narrator: You trace the strange horned creature onto a scrap of slate, catching the gritty dust of the old lime on your fingertips.
+385. [report] finneas_trout: You brought all four, and the children are already passing the button around. Now for the fifth thing, the only one that truly matters to me.
+386. [report] finneas_trout: Please, stand before the class and tell them the Oak of Many Faces is only an ordinary tree. They are too young for what this village worships.
+387. [lie] finneas_trout: Thank you for sparing them a little longer. Let them believe in simple wood and leaves while they still can.
+388. [truth] Narrator: The schoolroom falls dead quiet, save for the ticking slate pencil in the back row. Then a small girl asks why the bark is still thirsty.
+389. [truth] finneas_trout: Perhaps you are right, and soft words will not keep them safe in a place like this. Here is your pay.
+390. [teacher] Narrator: Finneas opens his mouth, looks toward the window where the crooked branches lean, and says nothing at all. The children understand the silence better than words.
+391. [teacher] finneas_trout: They already know, do they not? Take this coin for your trouble, and thank you for not making a fool of me.
+
+### finneas_trout.dialogue
+392. [start] Narrator: Ink, damp paper, and tallow smoke cling to the young man's cuffs as he adjusts his spectacles. He peers at you with the bright, restless posture of a city lecturer.
+393. [start] finneas_trout: Good evening! Strangers from beyond the mist, unless I miss my guess, and wide awake besides. I am Finneas Trout of Baskerton, presently instructing this village in basic reason.
+394. [menu] finneas_trout: Do ask if a question occurs to you. Inquiry is our best lantern against local superstition.
+395. [shop_open] finneas_trout: Gladly! Let us begin with the geography of Druskenvald and the six bells of the night.
+396. [about_self] finneas_trout: I lodge at the inn and spend my hours persuading children that thunder is weather, not an angry spirit. Mayor Somerton means well, though his fondness for old customs tries my patience.
+397. [about_village] finneas_trout: I have been charting a malady called the Grey, where folk lose colour and heart until they fade into stupor. Superstition blames curses, yet every affliction has a mechanism.
+398. [rumour] finneas_trout: Odd that you are here, because I could swear I saw the spitting image of one of your party walk past the inn before the recent murders began. The likeness was uncanny.
+
+## Reply format
+One line per numbered line above (64 lines, 335 to 398), in order, exactly `n => text`, `n => KEEP` or `n => CUT`. No quotes around the text, no commentary.

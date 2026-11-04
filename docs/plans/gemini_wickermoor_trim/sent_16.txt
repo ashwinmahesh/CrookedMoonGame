@@ -1,0 +1,60 @@
+You are an editor tightening DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue). It is folk horror in Wickermoor, a village in an afterlife realm of endless autumn night; deadpan humour beside real dread. These are the village's conversations. Players say the village is a WALL OF TALK: too many words before anything happens. Your job is to make every line shorter and sharper, the way a good film editor cuts a scene, without losing anything that matters.
+
+FOR EACH NUMBERED LINE answer one of:
+- `n => KEEP` when the line is already tight (most lines of 15 words or fewer should be KEEP).
+- `n => new text` with the tightened line. Aim for about half to two thirds of the old length. Cut throat-clearing, repetition of what the line or the line before already said, stacked adjectives, second examples, flavour that leads nowhere, and explanations the listener doesn't need.
+- `n => CUT` only for a line whose content is entirely repeated by another line in the same conversation node (shown in [brackets]); never for a line that is the only one of its node, never for an interject line, never for the first line of a node.
+
+WHAT MUST SURVIVE in every line you tighten: every name, place, item, number, price, time, clue, hint, secret, warning, threat, promise and joke punchline; the speaker's voice and quirks (a mayor's pomposity, a constable's few words, a poet's floweriness, a child's simplicity, a country drawl in word choice); the mood. If a line does two jobs, keep both. Never add new facts. Keep `{name}` exactly as it is wherever it appears. Keep the line in the same person and tense.
+
+NARRATOR lines (speaker Narrator, the Vagrant telling the tale: folksy, warm, wry Southern drawl in word choice) stay second person, present tense, one or two sentences, concrete senses, no game words, never "suddenly".
+
+STYLE: plain punctuation; straight quotes; no em dashes, asterisks, brackets or stage directions; do not use -> or => inside the text.
+
+## The lines
+
+### thomasin_ardor.dialogue
+936. [secret_ok] Narrator: Beneath her high lace collar runs a neat, surgical seam across her throat, pinned with a tiny pewter hare bearing antlers.
+937. [secret_ok] thomasin_ardor: I fell through a greenhouse pane as a girl, and Master Randall stitched my life back together. He says his quiet friends have great need of my needle.
+938. [secret_fail] thomasin_ardor: It is only an old childhood scratch and a trinket from a kind neighbour. Nothing that concerns a passing customer.
+
+### wendel_somerton.dialogue
+939. [start] Narrator: Waxed paper and peppermint hair-oil fill the snug office, where the Mayor taps his emerald-headed cane against a stack of fresh forms.
+940. [start] wendel_somerton: Ah, our distinguished visitors, right on time between Twilight and Nightfall. In here we may dispense with square-side ceremony and attend to proper municipal order.
+941. [start] wendel_somerton: I shall say plainly that the village has not forgotten the goat. My people are slow to forgive a spoiled rite, so do mind your manners about town.
+942. [start] wendel_somerton: And you will recall what I told you in the Round. The fevers, the empty chairs. Ask what you will; I shall answer as I can.
+943. [about_work] wendel_somerton: Every permit stamped, every boundary dispute filed in triplicate, and Lord Phillip shall see a model parish. A village without ledgers is merely a camp in the heather.
+944. [about_village] wendel_somerton: As speaker for the Old Ways, I see that the Green Queen receives her traditional dues and the Oak is respected. The smaller faiths have their little corners, of course, under my benevolent eye.
+945. [shop_open] wendel_somerton: I have the official register of permits, deeds, and municipal rewards right here.
+946. [rumour] wendel_somerton: Three separate complaints of night-singing near the standing stones, and a petition about blighted turnips. People blame ancient curses when they have simply neglected their drainage ditches.
+947. [secret_ok] Narrator: He puffs out his waistcoat, fondling the jewelled oak-leaf pin at his lapel as though reciting someone else's lesson.
+948. [secret_ok] wendel_somerton: Between ourselves, Alda and young Butterman have been marvelous at unearthing the older rites from the parish chests. They assure me the old horned-hare processions will impress the gentry no end.
+949. [secret_fail] Narrator: He straightens his bowler hat on the peg and squares a bundle of parchment with loud taps.
+950. [secret_fail] wendel_somerton: A mayor relies on his own seasoned judgment, my friends, and forty years of sound filing.
+
+### weston_murdoch.dialogue
+951. [start] Narrator: Sawdust and damp mortar scent the half-roofed chapel. A sandy-haired young man lowers his mallet, his smile bright enough to warm the cold stones.
+952. [start] weston_murdoch: Come in, friends, and rest your travel-sore feet! The roof still leaks a bit, but the Brightsingers turn no soul away from the song.
+953. [menu] weston_murdoch: Tell me, brothers and sisters, what weighs upon you tonight?
+954. [service_open] weston_murdoch: Bow your heads and let the Dawn-Bird's grace mend what the dark has bruised. So long as breath remains, no soul is beyond a second verse.
+955. [work] weston_murdoch: My Joan and our little ones, Peter and Charlotte, haul shingles right alongside me. Every nail we drive is a promise that mercy has a home here.
+956. [village] weston_murdoch: Mayor Somerton prefers his old roots and blood-custom, and he looks sideways at our hymns. Still, fearful hearts grow tired of harsh gods.
+957. [secret_ok] Narrator: His fingers tighten on the hammer shaft, his knuckles whitening as he looks toward the square where the great carved oak stands.
+958. [secret_ok] weston_murdoch: I preach redemption because I must believe in it, friend. My own mother and father died on the headsman's block, and I will not let their sin be my children's heritage.
+959. [secret_fail] weston_murdoch: Only a chill draft through the rafters, friend. A man cannot look at that grim tree in the square without wishing for warmer light.
+
+### wilma_wainwright.dialogue
+960. [start] Narrator: Down by the cellar steps smells of boiled cabbage, damp wool, and iron oil. A brisk woman keeps one hand near her club and an ear cocked toward the floorboards.
+961. [start] wilma_wainwright: Wipe your boots before you tread mud across Mr. Tolliver's floorboards. Looking is free, touching is fine, and making trouble answers to Ronald and me.
+962. [menu] wilma_wainwright: Speak plain if you need something, I have three youngsters below and soup on the stove.
+963. [about_self] wilma_wainwright: Mr. Tolliver gives us the basement and an honest wage to mind the post. It keeps a dry roof over Victoria, Eddie, and little Zachariah, Green Queen bless them.
+964. [about_village] wilma_wainwright: We keep to the Old Ways, bar the shutters at the late bells, and mind the Founder's Round. Strangers who respect custom do well enough here.
+965. [rumour] wilma_wainwright: Those three little ones lost their folks to what comes at night out on the moor. That is all I am saying with young ears under the boards.
+966. [secret_ok] Narrator: Her knuckles whiten on her belt, and her eyes flick toward the six quarters of the valley beyond the walls.
+967. [secret_ok] wilma_wainwright: There are six great hungers out in this valley, and they do not leave bones to bury. Keep your lanterns lit if you walk past the stones.
+968. [secret_fail] wilma_wainwright: Do not go prying after grief that is none of your business. The children are fed and warm, and that is what counts.
+
+## Reply format
+One line per numbered line above (33 lines, 936 to 968), in order, exactly `n => text`, `n => KEEP` or `n => CUT`. No quotes around the text, no commentary.

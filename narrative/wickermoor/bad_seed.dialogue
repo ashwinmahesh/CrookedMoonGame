@@ -2,38 +2,38 @@
 
 ~ morgan_apples
 Narrator: A split russet apple sits on the counter, weeping black syrup that smells of burnt sugar and iron.
-morgan [sad]: Half the square is abed since the picnic, burning with fever and coughing up bitter rind. The sickness sits right inside the fruit, and my draughts only slow it.
+morgan [sad]: Half the square is abed since the picnic, feverish and coughing up bitter rind. The sickness is in the fruit, and my draughts only slow it.
 quest bad_seed sick
 * How bad is the sickness? -> morgan_bad
 * Where did these apples come from? -> morgan_marl
 * We will go to the orchard and end this. -> morgan_go
 
 ~ morgan_bad
-morgan [weary]: Folks are withering like frost-bitten clover, dry in the throat and hollow in the eye. If the root of it is not cut before long, the frail ones will not rise.
+morgan [weary]: Folks are withering like frost-bitten clover. If the root is not cut soon, the frail ones will not rise.
 -> morgan_apples
 
 ~ morgan_marl
-morgan [sad]: Cecil Marl brought four barrels down from his orchard, along with comb honey and sweet cream. His trees were barren all last year, yet now they groan with red fruit.
+morgan [sad]: Cecil Marl brought four barrels from his orchard, with comb honey and sweet cream. Barren all last year, his trees now groan with red fruit.
 -> morgan_apples
 
 ~ morgan_go
-morgan [neutral]: Follow the east lane past the hedgerows until you smell overripe cider and sulfur. Watch yourselves in his house, for no honest harvest turns the core to ash.
+morgan [neutral]: Follow the east lane past the hedgerows toward the smell of overripe cider and sulfur. Watch yourselves in his house; no honest harvest turns the core to ash.
 quest bad_seed orchard
 -> END
 
 ~ cecil
-Narrator: Sweat gleams on Cecil's cheeks despite the chill, and something small and leathery scratches inside the wainscoting.
-cecil_marl [smile]: Come in, friends, come in out of the damp and try a dipper of sweet press! A man cannot help it if his boughs are blessed while the moor goes hungry.
+Narrator: Sweat gleams on Cecil's cold cheeks, and something small and leathery scratches inside the wainscoting.
+cecil_marl [smile]: Come in out of the damp, friends, and try a dipper of sweet press! I cannot help it if my boughs are blessed while the moor goes hungry.
 * [Insight DC 14] We know about the pact you made for this harvest. -> cecil_know | cecil_deny
 * Why has your fruit made the whole village sick? -> cecil_deny
 * Draw your weapon. Your orchard is finished. -> cecil_fight
 
 ~ cecil_know
-cecil_marl [afraid]: Wait now, I only signed for golden boughs and a full cellar, I never asked who paid the price! Stay back, or my little helpers will peel you to the bone!
+cecil_marl [afraid]: I only signed for golden boughs and a full cellar, I never asked who paid! Stay back, or my little helpers will peel you to the bone!
 -> cecil_fight
 
 ~ cecil_deny
-cecil_marl [sly]: Sickness? Why, village bellies are just too weak for proper rich cream and cellar cider, that is all it is.
+cecil_marl [sly]: Sickness? Village bellies are just too weak for rich cream and cellar cider.
 -> cecil
 
 ~ cecil_fight
@@ -41,8 +41,8 @@ cecil_marl [angry]: Tear them apart, my beauties, and throw their bones under th
 combat wm_bad_seed
 
 ~ cured
-Narrator: Outside, the heavy red apples shrivel to gray ash on the boughs, and the sour heat in the air breaks like a fever.
-morgan [smile]: The village is breathing easy again, and the children are already asking for broth. Whatever foul bargain fed those roots has gone back to the pit with its master.
+Narrator: Outside, the red apples shrivel to gray ash on the boughs, and the sour heat breaks like a fever.
+morgan [smile]: The village breathes easy again, and the children are asking for broth. Whatever foul bargain fed those roots has gone back to the pit with its master.
 quest bad_seed cured
 set seed_done
 -> END
