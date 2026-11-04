@@ -58,6 +58,8 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **A conversation's close-up keeps the speaker's head above the dialogue box** (dialogue framing lane, 2026-11-04): the close-up frames the head between the letterbox bar and the top of the box, and re-frames when the box grows (engine c3502e8c; test_talk_camera_framing, opening camera and audio-hour tests pass); tools/capture/talk_frame_capture shows it.
+
 - **Q and E turn the camera a quarter turn a press** (Ashwin, 2026-11-04): the engine has camera_quarter_left and camera_quarter_right (no default keys), campaign.json binds Q and E to them, the camera eases round; A and D still turn it freely (engine 1b1294ef; free turn camera and camera keys tests pass).
 
 - **The minimap zooms with the camera** (Ashwin, 2026-11-04): it zooms in and out as the camera does (engine 4fa1988f, test_minimap_zoom).
