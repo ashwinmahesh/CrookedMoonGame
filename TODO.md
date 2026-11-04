@@ -58,6 +58,8 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **make run and make run-main share one set of saves and one settings file** (Ashwin, 2026-11-04): the edge build's saves folder and settings.cfg become links into the dev user folder; the first make run after this folds in the edge's saves, keeping the newer slot when both sides have one and moving the other into saves/replaced; make run no longer overwrites or deletes the edge's settings.cfg; EDGE_FRESH and EDGE_KEEP_DATA are gone. make edge-test passes (37 tests).
+
 - **Ashwin's checkout no longer shows modified .import files** (2026-11-04): a windowed (GPU) import rewrote 14 figure and weapon textures' .import files to GPU texture compression, so git showed them changed; their `detect_3d/compress_to` is now off, so they stay lossless; and the engine's four missing uid files (sheet cast effect, three tests) are committed.
 
 - **Shorter Act II and III banter** (Ashwin approved, 2026-11-04): 409 lines across the nine region files and the Act II and III party banters are cut to Curse of Strahd's length; 269 lose their clips until re-read (the voice thread has the list); the Briar cellar wall, Skitterdeep's deep level and the Marshwinder shack exchanges are now gated behind their beats.
