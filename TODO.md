@@ -13,6 +13,7 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 | Fun pass, lane C "Fill places with things to find": containers, traps, hidden props and loot place by place (Act I first), towards Curse of Strahd's density (now 50 containers, 16 traps, 2 secrets across 135 places) | Acts I, II and III landed (see Done); more places may follow (own thread) | — |
 | Fun pass, lane D "Add road encounters and trim Wickermoor talk": random encounter tables for the roads, Wickermoor dialogue trimmed (voice queue gets the edited lines), the Crooked Man's appearances between acts | Hand-offs 1 and 2 landed (roads, the Crooked Man, and the first Wickermoor trim: 549 lines); four more trim batches and the asides wait for Gemini (own thread) | — |
 | Foxwillow: narrative/foxwillow has `join william_lodge` with no `leave`, so William stays a guest after Foxwillow (found by lane A, 2026-11-03) | Open (for whoever owns Foxwillow) | — |
+| Characters walking in circles in the Ghostlight wreckage and other places (Ashwin, 2026-11-03; asked again 2026-11-04): the slope cost that made the shortest walk swerve round angled ground is fixed (engine 08e18924), but the circling itself was never reproduced and is not confirmed gone by play. If it still happens: the place and where the party was, so the follower steering (PartyGlide) can be checked there | Open (waiting on a repeat) | — |
 | qa-act1 reports Crooked House blockers (h15_bear and vessla:phillip_bound) and "Lambda capture freed" errors; they were there before the train lane (Lane B, 2026-11-03) | Open | — |
 | Fun pass, work order: once the in-flight look lanes land, no new look, shader, icon or figure work starts until Ashwin replays Act I after this pass (this holds the other places' 2D NPCs that still need figures, and the whole-map capture shot) | Standing rule (2026-11-03) | — |
 | The casting room is empty: the visual-effects selection rooms need their choices (Ashwin, 2026-11-03) | In progress | — |
@@ -56,6 +57,24 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 - Engine branches waiting on their own pushes: look-full-3d is landed; anim-speed, melee-hit-fx, cast-anim, and engine-land-6 (f6f0fc4f) still need pushing.
 
 ## Done
+
+- **The game is brighter, and the Twilight Hour and indoor rooms are lifted** (shader thread, Ashwin picked "Brighter still" 2026-11-04): the grade is brightened and a grade's phase_lift can lift one hour of the day out of doors and every indoor place (engine d1a626ea; test_dark_grade passes).
+
+- **The finished art is in** (placeholder art lane, 2026-11-04): 222 cutscene pictures replace their placeholders across all chapters (the Crooked House's 24 among them, none left), 146 NPC portraits and busts (data/busts/facing.json updated) and 135 monster portraits; docs/PLACEHOLDERS.md loses three rows. Stored in LFS; the Crooked House cutscene and portrait set tests pass.
+
+- **Wickermoor Village looks like a village** (Wickermoor look lane, 2026-11-04): maps can paint each square's own ground (map ground and grounds; engine b5c63d3b, test_ground_paint); Wickermoor gets a grass base, worn dirt lanes to every door and a cobbled square and high street (a new cobblestone texture from Poly Haven, credited), 35 decor props, 11 visual-only lamp lights, a statue on a mound and an oak knoll; 15 props with no model now map to invisible spots instead of boxes. No square, spawn, exit or trigger moved. Note: lanes made from the SSD seed lack about 1,535 gitignored engine .import files under addons/dnd_core/art, so textures draw as checkerboards there (seed fix still to do).
+
+- **A conversation's close-up keeps the speaker's head above the dialogue box** (dialogue framing lane, 2026-11-04): the close-up frames the head between the letterbox bar and the top of the box, and re-frames when the box grows (engine c3502e8c; test_talk_camera_framing, opening camera and audio-hour tests pass); tools/capture/talk_frame_capture shows it.
+
+- **Q and E turn the camera a quarter turn a press** (Ashwin, 2026-11-04): the engine has camera_quarter_left and camera_quarter_right (no default keys), campaign.json binds Q and E to them, the camera eases round; A and D still turn it freely (engine 1b1294ef; free turn camera and camera keys tests pass).
+
+- **The minimap zooms with the camera** (Ashwin, 2026-11-04): it zooms in and out as the camera does (engine 4fa1988f, test_minimap_zoom).
+
+- **make run and make run-main share one set of saves and one settings file** (Ashwin, 2026-11-04): the edge build's saves folder and settings.cfg become links into the dev user folder; the first make run after this folds in the edge's saves, keeping the newer slot when both sides have one and moving the other into saves/replaced; make run no longer overwrites or deletes the edge's settings.cfg; EDGE_FRESH and EDGE_KEEP_DATA are gone. make edge-test passes (37 tests).
+
+- **Ashwin's checkout no longer shows modified .import files** (2026-11-04): a windowed (GPU) import rewrote 14 figure and weapon textures' .import files to GPU texture compression, so git showed them changed; their `detect_3d/compress_to` is now off, so they stay lossless; and the engine's four missing uid files (sheet cast effect, three tests) are committed.
+
+- **Shorter Act II and III banter** (Ashwin approved, 2026-11-04): 409 lines across the nine region files and the Act II and III party banters are cut to Curse of Strahd's length; 269 lose their clips until re-read (the voice thread has the list); the Briar cellar wall, Skitterdeep's deep level and the Marshwinder shack exchanges are now gated behind their beats.
 
 - **Shorter Act I banter** (Ashwin chose it, 2026-11-04): the Ghostlight Express, Wickermoor, Crooked House and party Act I banter is cut to Curse of Strahd's length (about 14 words a line), 161 lines. 103 of them had clips, which are silent until re-read (the voice thread has the list). The earlier held branch fun-companions-tighten is dropped.
 

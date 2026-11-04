@@ -6,6 +6,7 @@ extends Node
 ## --hour=8 shoots the Twilight Hour (the default is 23, the Midnight Hour).
 ## --party=placeholder stands the engine's placeholder party (Ilse, Tamsin, Hedda, Silvain, sprites) in the places; the default is a new
 ## game's party (Rook, Silas, Cordelia, Delphine), the 3D figures the game opens with.
+## --focus=x,z[,distance[,pitch]]: a close shot of that square, from that far and that many degrees down.
 ## --tilts=10,30,60,85 adds a play shot at each of those camera tilts (degrees down): <out>_<place>_tilt_<n>.png.
 ## Shots: <out>_<place>_play.png and <out>_<place>_whole.png.
 
@@ -30,6 +31,7 @@ func capture_shots(tool: Node, out: String) -> void:
 	var no_text := false
 	var focus := Vector2(-1, -1)
 	var focus_distance := 8.0
+	var focus_pitch := 0.0
 	var tilts: PackedStringArray = []
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--places="):
@@ -67,6 +69,8 @@ func capture_shots(tool: Node, out: String) -> void:
 			focus = Vector2(float(f[0]), float(f[1]))
 			if f.size() > 2:
 				focus_distance = float(f[2])
+			if f.size() > 3:
+				focus_pitch = float(f[3])   # degrees down (a steep look over the roofs at the ground)
 		if a == "--sky":
 			sky = true   # one more shot per place with the camera tilted to the horizon: the sky and the moon in it
 	var dressed: Array[String] = []
@@ -138,6 +142,8 @@ func capture_shots(tool: Node, out: String) -> void:
 			rig.free_cam = true   # else _keep_camera_on_the_party points it back at the leader
 			rig.horizon = 0.0
 			rig.distance = focus_distance
+			if focus_pitch > 0.0:
+				rig.pitch_deg = -focus_pitch
 			rig.global_position = view.board.cell_center(Vector2i(int(focus.x), int(focus.y)))
 			rig.snap_to_target()
 			await tool.call("wait_frames", 40)
