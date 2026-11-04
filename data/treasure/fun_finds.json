@@ -1,0 +1,1151 @@
+{
+  "_note": "The fun pass's things to find (Ashwin, 2026-11-03, fun pass fix 3: exploring pays; lane C). Per place: `containers` where they would really stand (an `owner` makes taking from it stealing; `no_random_loot` keeps a household's chest out of the place's random magic items, story/treasure.gd, so the hub isn't a magic shop for burglars), `finds` (search props a Search turns up, Perception or, with `skill: investigation`, a hidden compartment), and `traps` (a quiet corner nobody walks through, or a container's `trap` round every square you open it from). tools/content/place_fun_finds.py lays them into data/locations and writes the cells it chose back here; `area` and `near` say where to look for a cell. Hand loot is mundane: coins, gems, potions, scrolls and keepsakes of our own (data/items, not for sale: shop_stock.json); magic items come from the engine's random pool by the place's level (levels.json region_levels). Texts drafted by Gemini, docs/plans/gemini_fun_finds/.",
+  "places": {
+    "wickermoor_apothecary": {
+      "containers": [
+        {
+          "id": "apothecary_cabinet",
+          "label": "Morgan's tincture cabinet",
+          "model": "cabinet_small",
+          "items": [
+            "potion_of_healing",
+            "antitoxin"
+          ],
+          "gold": 6,
+          "lock_dc": 12,
+          "owner": "morgan",
+          "near": "apothecary_jars",
+          "no_random_loot": true,
+          "cell": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "wickermoor_barber_shop": {
+      "containers": [
+        {
+          "id": "barber_tip_drawer",
+          "label": "The barber's drawer of razors and tips",
+          "model": "chest_of_drawers_front",
+          "items": [
+            "perfume"
+          ],
+          "gold": 9,
+          "owner": "randall_graham",
+          "near": "barber_shop_chair_one",
+          "no_random_loot": true,
+          "cell": [
+            22,
+            6
+          ]
+        },
+        {
+          "id": "barber_cellar_crates",
+          "label": "Crates of empty labelled jars",
+          "model": "crate_stack",
+          "items": [
+            "glass_bottle",
+            "glass_bottle",
+            "oil"
+          ],
+          "gold": 0,
+          "owner": "randall_graham",
+          "near": "barber_cellar_labels",
+          "area": "room_cellar",
+          "no_random_loot": true,
+          "cell": [
+            9,
+            10
+          ]
+        }
+      ],
+      "finds": [
+        {
+          "id": "barber_cellar_charm",
+          "label": "A crooked wicker charm behind the jars",
+          "model": "charms",
+          "item": "crooked_wicker_charm",
+          "search_dc": 14,
+          "text": "Behind those rows of hair in labelled jars, you pull out a crooked six-pointed star of twisted wicker. Still smells of fresh lamp smoke, like somebody just tucked it away.",
+          "near": "barber_cellar_jars",
+          "area": "room_cellar",
+          "cell": [
+            8,
+            1
+          ]
+        }
+      ]
+    },
+    "wickermoor_bookstore": {
+      "containers": [
+        {
+          "id": "bookstore_case",
+          "label": "A locked display case of old books",
+          "model": "cabinet_glass",
+          "items": [
+            "spell_scroll_level_1",
+            "ink",
+            "paper"
+          ],
+          "gold": 4,
+          "lock_dc": 12,
+          "owner": "eleanor_heyling",
+          "near": "bookstore_stacks",
+          "no_random_loot": true,
+          "cell": [
+            1,
+            1
+          ]
+        }
+      ],
+      "finds": [
+        {
+          "id": "bookstore_false_drawer",
+          "label": "A false drawer in the writing table",
+          "model": "drawer",
+          "item": "onyx",
+          "search_dc": 13,
+          "text": "That writing table drawer is a mite too shallow, and its false bottom lifts on a page torn from an old catalogue. Unfold the paper, and a polished black onyx rolls into your palm.",
+          "skill": "investigation",
+          "near": "bookstore_writing",
+          "cell": [
+            6,
+            7
+          ]
+        }
+      ]
+    },
+    "wickermoor_church": {
+      "finds": [
+        {
+          "id": "church_flagstone",
+          "label": "A loose flagstone before the altar",
+          "model": "floor_crack",
+          "item": "offering_tin",
+          "search_dc": 12,
+          "text": "One flagstone before the altar rocks under your boot heel. Down in the dirt beneath sits a dented tin of old offering coins, gone green with the years.",
+          "near": "church_altar",
+          "cell": [
+            7,
+            1
+          ]
+        }
+      ]
+    },
+    "wickermoor_constable_station": {
+      "containers": [
+        {
+          "id": "constable_evidence",
+          "label": "The evidence chest",
+          "model": "footlocker",
+          "items": [
+            "manacles",
+            "dagger",
+            "basic_poison"
+          ],
+          "gold": 0,
+          "lock_dc": 14,
+          "owner": "doris_squire",
+          "near": "constable_station_board",
+          "no_random_loot": true,
+          "cell": [
+            1,
+            1
+          ]
+        },
+        {
+          "id": "constable_deputy_desk",
+          "label": "The deputy's desk drawer",
+          "model": "desk",
+          "items": [
+            "ration",
+            "candle"
+          ],
+          "gold": 3,
+          "owner": "howie_butterman",
+          "near": "constable_station_stove",
+          "no_random_loot": true,
+          "cell": [
+            18,
+            1
+          ]
+        }
+      ]
+    },
+    "wickermoor_cottage_south_a": {
+      "containers": [
+        {
+          "id": "cottage_a_blanket_chest",
+          "label": "A blanket chest at the foot of the bed",
+          "model": "chest",
+          "items": [
+            "blanket",
+            "ration",
+            "ration"
+          ],
+          "gold": 4,
+          "near": "cottage_south_a_bed",
+          "no_random_loot": true,
+          "cell": [
+            12,
+            1
+          ]
+        }
+      ],
+      "finds": [
+        {
+          "id": "cottage_a_chimney_sock",
+          "label": "A sock stuffed up the chimney",
+          "model": "soot_patch",
+          "item": "sock_of_coins",
+          "search_dc": 13,
+          "text": "Up inside the cold chimney, you hook a finger round a nail and bring down a wool sock black with soot. It hangs heavy with the clink of coins.",
+          "near": "cottage_south_a_hearth",
+          "cell": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "wickermoor_cottage_south_b": {
+      "containers": [
+        {
+          "id": "cottage_b_sewing_basket",
+          "label": "A sewing basket by the loom",
+          "model": "sewing_basket",
+          "items": [
+            "string",
+            "travelers_clothes"
+          ],
+          "gold": 2,
+          "near": "cottage_south_b_loom",
+          "no_random_loot": true,
+          "cell": [
+            12,
+            1
+          ]
+        }
+      ]
+    },
+    "wickermoor_dovecote": {
+      "containers": [
+        {
+          "id": "dovecote_feed_bin",
+          "label": "A feed bin under the coops",
+          "model": "barrel",
+          "items": [
+            "ration",
+            "silver_dust"
+          ],
+          "gold": 1,
+          "near": "dovecote_coops",
+          "no_random_loot": true,
+          "cell": [
+            5,
+            2
+          ]
+        }
+      ]
+    },
+    "wickermoor_funeral_home": {
+      "containers": [
+        {
+          "id": "funeral_cabinet",
+          "label": "Mori's locked cabinet of burial money",
+          "model": "cabinet_small",
+          "items": [
+            "incense",
+            "oil"
+          ],
+          "gold": 15,
+          "lock_dc": 13,
+          "owner": "mori_shade",
+          "near": "funeral_home_register",
+          "no_random_loot": true,
+          "cell": [
+            43,
+            10
+          ]
+        },
+        {
+          "id": "funeral_shroud_chest",
+          "label": "A chest of shrouds and grave goods",
+          "model": "chest",
+          "items": [
+            "grave_salt",
+            "candle",
+            "candle",
+            "holy_water"
+          ],
+          "gold": 0,
+          "owner": "mori_shade",
+          "near": "funeral_basement_coffins",
+          "area": "room_basement",
+          "no_random_loot": true,
+          "cell": [
+            11,
+            10
+          ]
+        }
+      ]
+    },
+    "wickermoor_green_queen_inn": {
+      "containers": [
+        {
+          "id": "inn_till",
+          "label": "The till under the bar",
+          "model": "strongbox",
+          "items": [],
+          "gold": 22,
+          "lock_dc": 12,
+          "owner": "alda_farnum",
+          "near": "green_queen_inn_bar",
+          "no_random_loot": true,
+          "cell": [
+            39,
+            13
+          ]
+        },
+        {
+          "id": "inn_cellar_bottles",
+          "label": "A rack of dusty bottles",
+          "model": "cask_rack",
+          "items": [
+            "empty_whiskey_bottle",
+            "jinxed_rum"
+          ],
+          "gold": 0,
+          "owner": "alda_farnum",
+          "near": "inn_cellar_casks",
+          "area": "room_cellar",
+          "no_random_loot": true,
+          "cell": [
+            1,
+            1
+          ]
+        },
+        {
+          "id": "inn_upper_trunk",
+          "label": "A traveller's trunk left upstairs",
+          "model": "trunk",
+          "items": [
+            "hickock_playbill",
+            "travelers_clothes",
+            "ink"
+          ],
+          "gold": 7,
+          "near": "green_queen_inn_upper_window",
+          "area": "room_upper",
+          "no_random_loot": true,
+          "cell": [
+            105,
+            2
+          ]
+        }
+      ],
+      "finds": [
+        {
+          "id": "inn_cellar_brick",
+          "label": "A loose brick behind the casks",
+          "model": "rubble",
+          "item": "roll_of_old_coins",
+          "search_dc": 14,
+          "text": "Back behind the casks, one brick sits proud of the cellar wall and slides right into your hand. Tucked in the gap is a heavy roll of old coins wrapped in waxed paper.",
+          "near": "inn_cellar_crate",
+          "area": "room_cellar",
+          "cell": [
+            1,
+            4
+          ]
+        }
+      ]
+    },
+    "wickermoor_mayors_house": {
+      "containers": [
+        {
+          "id": "mayor_strongbox",
+          "label": "The mayor's strongbox",
+          "model": "strongbox",
+          "items": [
+            "paper",
+            "paper",
+            "ink"
+          ],
+          "gold": 40,
+          "lock_dc": 15,
+          "owner": "wendel_somerton",
+          "near": "mayors_house_forms",
+          "area": "room",
+          "no_random_loot": true,
+          "cell": [
+            3,
+            13
+          ]
+        }
+      ],
+      "finds": [
+        {
+          "id": "mayor_desk_back",
+          "label": "A false back in the mayor's desk",
+          "model": "drawer",
+          "item": "somerton_signet",
+          "search_dc": 14,
+          "text": "The back panel of the desk looks a hair too thick, and sure enough, it slides aside under your thumb. Wrapped in a folded handkerchief waits a heavy oak-leaf signet ring.",
+          "skill": "investigation",
+          "near": "mayors_house_desk",
+          "area": "room",
+          "cell": [
+            24,
+            13
+          ]
+        }
+      ]
+    },
+    "wickermoor_orchard": {
+      "containers": [
+        {
+          "id": "orchard_cider_barrel",
+          "label": "A cider barrel by the farmhouse",
+          "model": "barrel",
+          "items": [
+            "harvest_brew",
+            "ration"
+          ],
+          "gold": 0,
+          "owner": "cecil_marl",
+          "near": "orchard_farmhouse",
+          "no_random_loot": true,
+          "cell": [
+            29,
+            9
+          ]
+        }
+      ]
+    },
+    "wickermoor_post_office": {
+      "containers": [
+        {
+          "id": "post_dead_letters",
+          "label": "The dead-letter sack",
+          "model": "sack",
+          "items": [
+            "paper",
+            "string"
+          ],
+          "gold": 2,
+          "owner": "theodora_mayville",
+          "near": "post_office_pigeonholes",
+          "no_random_loot": true,
+          "cell": [
+            2,
+            5
+          ]
+        }
+      ]
+    },
+    "wickermoor_schoolhouse": {
+      "containers": [
+        {
+          "id": "school_teacher_desk",
+          "label": "The teacher's desk",
+          "model": "desk",
+          "items": [
+            "paper",
+            "ink",
+            "ink_pen"
+          ],
+          "gold": 2,
+          "owner": "finneas_trout",
+          "near": "schoolhouse_map",
+          "no_random_loot": true,
+          "cell": [
+            5,
+            1
+          ]
+        },
+        {
+          "id": "school_confiscated_box",
+          "label": "A box of things taken off the pupils",
+          "model": "toy_chest",
+          "items": [
+            "pupils_field_list",
+            "marble_jar",
+            "signal_whistle"
+          ],
+          "gold": 0,
+          "owner": "finneas_trout",
+          "near": "schoolhouse_desks",
+          "no_random_loot": true,
+          "cell": [
+            2,
+            1
+          ]
+        }
+      ]
+    },
+    "wickermoor_shop_bakery": {
+      "containers": [
+        {
+          "id": "bakery_flour_bin",
+          "label": "A flour bin",
+          "model": "barrel",
+          "items": [
+            "holly_recipe_card",
+            "ration",
+            "ration"
+          ],
+          "gold": 3,
+          "owner": "holly_aster",
+          "near": "shop_bakery_flour",
+          "no_random_loot": true,
+          "cell": [
+            2,
+            10
+          ]
+        }
+      ]
+    },
+    "wickermoor_shop_butcher": {
+      "containers": [
+        {
+          "id": "butcher_salt_box",
+          "label": "A salt box under the block",
+          "model": "chest",
+          "items": [
+            "ration",
+            "ration",
+            "ration"
+          ],
+          "gold": 5,
+          "owner": "siv_harga",
+          "near": "shop_butcher_block",
+          "no_random_loot": true,
+          "cell": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "wickermoor_shop_carpentry": {
+      "containers": [
+        {
+          "id": "carpentry_tool_chest",
+          "label": "A carpenter's tool chest",
+          "model": "chest",
+          "items": [
+            "carpenters_tools",
+            "iron_spike"
+          ],
+          "gold": 6,
+          "owner": "beatrice_wells",
+          "near": "carpentry_axe_rack",
+          "no_random_loot": true,
+          "cell": [
+            5,
+            1
+          ]
+        }
+      ]
+    },
+    "wickermoor_shop_masonry": {
+      "containers": [
+        {
+          "id": "masonry_chisel_chest",
+          "label": "A mason's chest of chisels",
+          "model": "footlocker",
+          "items": [
+            "masons_tools",
+            "jade_dust"
+          ],
+          "gold": 4,
+          "owner": "solomon_roderick",
+          "near": "shop_masonry_chisels",
+          "no_random_loot": true,
+          "cell": [
+            7,
+            1
+          ]
+        }
+      ]
+    },
+    "wickermoor_shop_smithy": {
+      "containers": [
+        {
+          "id": "smithy_nail_crate",
+          "label": "A crate of horseshoes and nails",
+          "model": "crate",
+          "items": [
+            "iron_spike",
+            "iron_spike",
+            "iron_spike",
+            "chain"
+          ],
+          "gold": 3,
+          "owner": "jean_myriel",
+          "near": "shop_smithy_anvil",
+          "no_random_loot": true,
+          "cell": [
+            7,
+            1
+          ]
+        }
+      ]
+    },
+    "wickermoor_shop_tailor": {
+      "containers": [
+        {
+          "id": "tailor_orders_wardrobe",
+          "label": "A wardrobe of finished orders",
+          "model": "wardrobe",
+          "items": [
+            "fine_clothes",
+            "costume"
+          ],
+          "gold": 5,
+          "owner": "thomasin_ardor",
+          "near": "shop_tailor_form",
+          "no_random_loot": true,
+          "cell": [
+            7,
+            1
+          ]
+        }
+      ]
+    },
+    "wickermoor_shop_wickery": {
+      "containers": [
+        {
+          "id": "wickery_candle_crate",
+          "label": "A crate of candles",
+          "model": "crate",
+          "items": [
+            "candle",
+            "candle",
+            "candle",
+            "candle",
+            "oil"
+          ],
+          "gold": 2,
+          "owner": "oswick_frey",
+          "near": "shop_wickery_candles",
+          "no_random_loot": true,
+          "cell": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "wickermoor_stable": {
+      "containers": [
+        {
+          "id": "stable_tack_trunk",
+          "label": "A tack trunk",
+          "model": "trunk",
+          "items": [
+            "rope",
+            "ration"
+          ],
+          "gold": 3,
+          "owner": "marianna_grey",
+          "near": "stable_tack",
+          "no_random_loot": true,
+          "cell": [
+            1,
+            12
+          ]
+        }
+      ],
+      "finds": [
+        {
+          "id": "stable_hay_note",
+          "label": "A note pinned under the hay",
+          "model": "notice_papers",
+          "item": "marianna_clover_note",
+          "search_dc": 10,
+          "text": "Under the dry hay, a horseshoe nail pins a folded note to the floorboard. Whoever wrote those big, slow letters took their sweet time doin' it.",
+          "near": "stable_hay",
+          "cell": [
+            19,
+            12
+          ]
+        }
+      ]
+    },
+    "wickermoor_studio": {
+      "containers": [
+        {
+          "id": "studio_paint_chest",
+          "label": "A chest of paints and brushes",
+          "model": "chest_painted",
+          "items": [
+            "calligraphers_set"
+          ],
+          "gold": 8,
+          "owner": "gaston_doray",
+          "near": "studio_palette",
+          "no_random_loot": true,
+          "cell": [
+            2,
+            10
+          ]
+        }
+      ]
+    },
+    "wickermoor_trading_post": {
+      "containers": [
+        {
+          "id": "trading_till",
+          "label": "Tolliver's till",
+          "model": "strongbox",
+          "items": [],
+          "gold": 30,
+          "lock_dc": 13,
+          "owner": "baltus_tolliver",
+          "near": "trading_post_counter",
+          "area": "room",
+          "no_random_loot": true,
+          "cell": [
+            38,
+            20
+          ]
+        },
+        {
+          "id": "trading_cellar_goods",
+          "label": "Crates of trade goods",
+          "model": "crate_stack",
+          "items": [
+            "rope",
+            "oil",
+            "torch",
+            "torch"
+          ],
+          "gold": 0,
+          "owner": "baltus_tolliver",
+          "near": "trading_cellar_crates",
+          "area": "room_cellar",
+          "no_random_loot": true,
+          "cell": [
+            12,
+            1
+          ]
+        }
+      ]
+    },
+    "wickermoor_village": {
+      "containers": [
+        {
+          "id": "village_river_crate",
+          "label": "A crate washed up on the bank",
+          "model": "crate",
+          "items": [
+            "rope",
+            "net"
+          ],
+          "gold": 4,
+          "area": "wm_river",
+          "no_random_loot": true,
+          "cell": [
+            38,
+            78
+          ]
+        },
+        {
+          "id": "village_cart_box",
+          "label": "A toolbox under the cart",
+          "model": "footlocker",
+          "items": [
+            "crowbar",
+            "iron_spike"
+          ],
+          "gold": 2,
+          "near": "wm_cart",
+          "no_random_loot": true,
+          "cell": [
+            57,
+            25
+          ]
+        }
+      ],
+      "finds": [
+        {
+          "id": "village_well_stone",
+          "label": "A loose stone in the well's rim",
+          "model": "rubble",
+          "item": "citrine",
+          "search_dc": 13,
+          "text": "One stone on the well rim shifts loose when you lean your weight against it. Tucked in the damp mortar behind it is a yellow citrine, hidden for a rainy day that never came.",
+          "near": "wm_well",
+          "cell": [
+            38,
+            25
+          ]
+        },
+        {
+          "id": "village_reed_purse",
+          "label": "A purse caught in the reeds",
+          "model": "reeds",
+          "item": "lost_purse",
+          "search_dc": 12,
+          "text": "Down in the river reeds, a little leather purse hangs caught by its drawstring. It is river-cold in your hand, with the coins still waitin' inside.",
+          "area": "wm_river",
+          "cell": [
+            67,
+            73
+          ]
+        }
+      ]
+    },
+    "druskenvald_estate": {
+      "containers": [
+        {
+          "id": "estate_barn_bin",
+          "label": "A feed bin in the barn",
+          "model": "barrel",
+          "items": [
+            "lockwood_wage_page",
+            "ration"
+          ],
+          "gold": 2,
+          "near": "estate_barn_north",
+          "cell": [
+            30,
+            6
+          ]
+        },
+        {
+          "id": "estate_garden_chest",
+          "label": "A gardener's chest",
+          "model": "chest",
+          "items": [
+            "shovel",
+            "healers_kit"
+          ],
+          "gold": 5,
+          "area": "kitchen_gardens",
+          "cell": [
+            9,
+            7
+          ]
+        },
+        {
+          "id": "estate_unpacked_crate",
+          "label": "A crate of the Druskenvalds' unpacked things",
+          "model": "crate",
+          "items": [
+            "fine_clothes",
+            "perfume"
+          ],
+          "gold": 12,
+          "near": "estate_front_door",
+          "cell": [
+            19,
+            4
+          ]
+        }
+      ],
+      "finds": [
+        {
+          "id": "estate_buried_tin",
+          "label": "A tin buried by the dead tree",
+          "model": "rubble",
+          "item": "lockwood_spoons",
+          "search_dc": 14,
+          "text": "By the roots of the dead tree, your fingers scrape through turned earth to a rusted tin. Inside lie tarnished silver spoons, each handle stamped with an old letter L.",
+          "near": "estate_dead_tree",
+          "clue": true,
+          "cell": [
+            2,
+            1
+          ]
+        }
+      ],
+      "traps": [
+        {
+          "id": "estate_snare_grass",
+          "label": "A rusted jaw trap in the long grass",
+          "model": "wolf_trap",
+          "detect_dc": 13,
+          "disarm_dc": 12,
+          "save": {
+            "ability": "dex",
+            "dc": 12
+          },
+          "damage": "1d6",
+          "damage_type": "piercing",
+          "text": "From the long grass, rusted iron jaws clamp shut round your leg with a dull crunch.",
+          "near": "estate_dead_tree",
+          "cell": [
+            38,
+            1
+          ]
+        },
+        {
+          "id": "estate_snare_barns",
+          "label": "A rusted jaw trap by the barn wall",
+          "model": "wolf_trap",
+          "detect_dc": 13,
+          "disarm_dc": 12,
+          "save": {
+            "ability": "dex",
+            "dc": 12
+          },
+          "damage": "1d6",
+          "damage_type": "piercing",
+          "text": "Beside the barn wall, rusted iron springs from the dirt and bites hard into your shin.",
+          "near": "estate_barn_north",
+          "cell": [
+            38,
+            34
+          ]
+        }
+      ]
+    },
+    "crooked_house": {
+      "containers": [
+        {
+          "id": "ch_parlor_curios",
+          "label": "A curio cabinet of dusty knick-knacks",
+          "model": "cabinet_glass",
+          "items": [
+            "candle",
+            "silver_dust"
+          ],
+          "gold": 6,
+          "area": "h3_parlor",
+          "cell": [
+            14,
+            21
+          ]
+        },
+        {
+          "id": "ch_kitchen_pantry",
+          "label": "A pantry crate under the fallen shelf",
+          "model": "crate",
+          "items": [
+            "ration",
+            "oil",
+            "ration"
+          ],
+          "gold": 0,
+          "area": "h7_kitchen",
+          "cell": [
+            20,
+            5
+          ]
+        },
+        {
+          "id": "ch_sitting_sewing",
+          "label": "A lady's sewing box",
+          "model": "sewing_basket",
+          "items": [
+            "string",
+            "potion_of_healing"
+          ],
+          "gold": 3,
+          "area": "h9_sitting_room",
+          "cell": [
+            36,
+            24
+          ]
+        },
+        {
+          "id": "ch_bedroom_wardrobe",
+          "label": "The bent wardrobe",
+          "model": "wardrobe",
+          "items": [
+            "fine_clothes"
+          ],
+          "gold": 9,
+          "area": "h12_master_bedroom",
+          "cell": [
+            49,
+            12
+          ]
+        },
+        {
+          "id": "ch_library_desk",
+          "label": "A desk drawer under the books",
+          "model": "desk",
+          "items": [
+            "ink",
+            "paper",
+            "spell_scroll_level_1"
+          ],
+          "gold": 4,
+          "area": "h14_library",
+          "cell": [
+            100,
+            28
+          ]
+        },
+        {
+          "id": "ch_trophy_footlocker",
+          "label": "A hunter's footlocker",
+          "model": "footlocker",
+          "items": [
+            "arrow",
+            "hunting_trap",
+            "potion_of_healing"
+          ],
+          "gold": 11,
+          "lock_dc": 13,
+          "area": "h15_trophy_room",
+          "cell": [
+            95,
+            4
+          ]
+        },
+        {
+          "id": "ch_attic_hoard",
+          "label": "A weasel's hoard of teeth and buttons",
+          "model": "sack_pile",
+          "items": [
+            "human_tooth",
+            "human_tooth",
+            "human_tooth",
+            "ruby_dust"
+          ],
+          "gold": 18,
+          "area": "h17_cauldron_room",
+          "trap": {
+            "label": "A tooth-jawed snare round the hoard",
+            "model": "wolf_trap",
+            "detect_dc": 14,
+            "disarm_dc": 13,
+            "save": {
+              "ability": "dex",
+              "dc": 13
+            },
+            "damage": "2d6",
+            "damage_type": "piercing",
+            "text": "Right by the scatter of buttons and teeth, iron jaws studded with human molars snap shut on your ankle."
+          },
+          "cell": [
+            133,
+            20
+          ],
+          "trap_cells": [
+            [
+              133,
+              19
+            ],
+            [
+              134,
+              19
+            ],
+            [
+              134,
+              20
+            ]
+          ]
+        },
+        {
+          "id": "ch_nursery_trunk",
+          "label": "A trunk of outgrown baby things",
+          "model": "trunk",
+          "items": [
+            "blanket",
+            "candle"
+          ],
+          "gold": 2,
+          "area": "h13_stair_hall",
+          "cell": [
+            82,
+            12
+          ]
+        }
+      ],
+      "finds": [
+        {
+          "id": "ch_parlor_hearthstone",
+          "label": "A loose hearthstone in the parlour",
+          "model": "floor_crack",
+          "item": "hearthstone_locket",
+          "search_dc": 13,
+          "text": "Under the cobwebbed fireplace, a loose hearthstone lifts out of the ash. Beneath it lies a tarnished silver locket, the tiny portrait inside scratched clean away.",
+          "area": "h3_parlor",
+          "cell": [
+            12,
+            21
+          ]
+        },
+        {
+          "id": "ch_library_hollow_book",
+          "label": "A book with its pages cut hollow",
+          "model": "book_stack",
+          "item": "pearl",
+          "search_dc": 14,
+          "text": "A heavy volume on the saggin' shelf sits wrong in your hands. Its pages are cut hollow round a single large pearl.",
+          "skill": "investigation",
+          "area": "h14_library",
+          "cell": [
+            96,
+            30
+          ]
+        },
+        {
+          "id": "ch_sitting_clock",
+          "label": "Something wedged behind the grandfather clock",
+          "model": "papers",
+          "item": "citrine",
+          "search_dc": 12,
+          "text": "Wedged tight behind the ticking grandfather clock, your fingers brush a scrap of cloth. Inside the rag rests a cold yellow citrine.",
+          "area": "h9_sitting_room",
+          "cell": [
+            39,
+            22
+          ]
+        }
+      ],
+      "traps": [
+        {
+          "id": "ch_upper_hall_tripwire",
+          "label": "A tripwire of braided hair",
+          "model": "tripwire",
+          "detect_dc": 14,
+          "disarm_dc": 12,
+          "save": {
+            "ability": "dex",
+            "dc": 13
+          },
+          "damage": "1d6",
+          "damage_type": "bludgeoning",
+          "text": "Pulled low and tight across the floorboards, a cord of braided hair catches your boot and takes your foot out from under you.",
+          "area": [
+            "h13_long_hall",
+            "h14_library"
+          ],
+          "condition": "prone",
+          "cell": [
+            86,
+            30
+          ]
+        },
+        {
+          "id": "ch_trophy_jaw_trap",
+          "label": "A jaw trap under the trophy room rug",
+          "model": "wolf_trap",
+          "detect_dc": 14,
+          "disarm_dc": 13,
+          "save": {
+            "ability": "dex",
+            "dc": 13
+          },
+          "damage": "2d6",
+          "damage_type": "piercing",
+          "text": "Beneath the rug and the glass eyes of the stuffed beasts, heavy iron jaws slam together through the wool.",
+          "near": "h15_trapdoor",
+          "cell": [
+            79,
+            19
+          ]
+        }
+      ]
+    }
+  }
+}

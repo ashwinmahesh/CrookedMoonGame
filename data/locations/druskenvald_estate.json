@@ -1738,6 +1738,20 @@
       "kind": "decor",
       "model": "pine_a",
       "scale": 1.28
+    },
+    {
+      "id": "estate_buried_tin",
+      "label": "A tin buried by the dead tree",
+      "model": "rubble",
+      "search_dc": 14,
+      "item": "lockwood_spoons",
+      "text": "By the roots of the dead tree, your fingers scrape through turned earth to a rusted tin. Inside lie tarnished silver spoons, each handle stamped with an old letter L.",
+      "clue": true,
+      "kind": "search",
+      "cell": [
+        2,
+        1
+      ]
     }
   ],
   "npcs": [
@@ -1867,5 +1881,112 @@
     }
   ],
   "rest": "no",
-  "rest_text": "The house won't let you sleep. The walls tick and breathe round you, and something small keeps scratching behind the plaster. A short breath, then."
+  "rest_text": "The house won't let you sleep. The walls tick and breathe round you, and something small keeps scratching behind the plaster. A short breath, then.",
+  "containers": [
+    {
+      "id": "estate_barn_bin",
+      "label": "A feed bin in the barn",
+      "model": "barrel",
+      "gold": 2,
+      "items": [
+        {
+          "id": "lockwood_wage_page",
+          "qty": 1
+        },
+        {
+          "id": "ration",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        30,
+        6
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "estate_garden_chest",
+      "label": "A gardener's chest",
+      "model": "chest",
+      "gold": 5,
+      "items": [
+        {
+          "id": "shovel",
+          "qty": 1
+        },
+        {
+          "id": "healers_kit",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        9,
+        7
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "estate_unpacked_crate",
+      "label": "A crate of the Druskenvalds' unpacked things",
+      "model": "crate",
+      "gold": 12,
+      "items": [
+        {
+          "id": "fine_clothes",
+          "qty": 1
+        },
+        {
+          "id": "perfume",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        19,
+        4
+      ],
+      "lock_dc": 0
+    }
+  ],
+  "traps": [
+    {
+      "id": "estate_snare_grass",
+      "label": "A rusted jaw trap in the long grass",
+      "model": "wolf_trap",
+      "detect_dc": 13,
+      "disarm_dc": 12,
+      "save": {
+        "ability": "dex",
+        "dc": 12
+      },
+      "damage": "1d6",
+      "damage_type": "piercing",
+      "text": "From the long grass, rusted iron jaws clamp shut round your leg with a dull crunch.",
+      "cells": [
+        [
+          38,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "estate_snare_barns",
+      "label": "A rusted jaw trap by the barn wall",
+      "model": "wolf_trap",
+      "detect_dc": 13,
+      "disarm_dc": 12,
+      "save": {
+        "ability": "dex",
+        "dc": 12
+      },
+      "damage": "1d6",
+      "damage_type": "piercing",
+      "text": "Beside the barn wall, rusted iron springs from the dirt and bites hard into your shin.",
+      "cells": [
+        [
+          38,
+          34
+        ]
+      ]
+    }
+  ]
 }

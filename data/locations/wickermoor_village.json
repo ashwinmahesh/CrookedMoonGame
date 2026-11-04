@@ -3506,6 +3506,32 @@
       "label": "Pigeons, in rows",
       "model": "crow",
       "when": "flag.hysteria_began and not flag.golub_dead"
+    },
+    {
+      "id": "village_well_stone",
+      "label": "A loose stone in the well's rim",
+      "model": "rubble",
+      "search_dc": 13,
+      "item": "citrine",
+      "text": "One stone on the well rim shifts loose when you lean your weight against it. Tucked in the damp mortar behind it is a yellow citrine, hidden for a rainy day that never came.",
+      "kind": "search",
+      "cell": [
+        38,
+        25
+      ]
+    },
+    {
+      "id": "village_reed_purse",
+      "label": "A purse caught in the reeds",
+      "model": "reeds",
+      "search_dc": 12,
+      "item": "lost_purse",
+      "text": "Down in the river reeds, a little leather purse hangs caught by its drawstring. It is river-cold in your hand, with the coins still waitin' inside.",
+      "kind": "search",
+      "cell": [
+        67,
+        73
+      ]
     }
   ],
   "region": "wickermoor",
@@ -3652,5 +3678,51 @@
   "summary": "The hub: a village round a trodden square, an oak of carved faces, a clocktower, the Silverbell along the south and the crooked estate on its hill.",
   "text": "Timber-framed houses with steep roofs crowd round a trodden square where a faceless statue stands on one side and a gnarled oak, bark carved all over with faces, on the other. A clocktower rises over the village and the river runs dark along its southern edge.",
   "watch": "doris_squire",
-  "recheck_minutes": 30
+  "recheck_minutes": 30,
+  "containers": [
+    {
+      "id": "village_river_crate",
+      "label": "A crate washed up on the bank",
+      "model": "crate",
+      "gold": 4,
+      "items": [
+        {
+          "id": "rope",
+          "qty": 1
+        },
+        {
+          "id": "net",
+          "qty": 1
+        }
+      ],
+      "no_random_loot": true,
+      "cell": [
+        38,
+        78
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "village_cart_box",
+      "label": "A toolbox under the cart",
+      "model": "footlocker",
+      "gold": 2,
+      "items": [
+        {
+          "id": "crowbar",
+          "qty": 1
+        },
+        {
+          "id": "iron_spike",
+          "qty": 1
+        }
+      ],
+      "no_random_loot": true,
+      "cell": [
+        57,
+        25
+      ],
+      "lock_dc": 0
+    }
+  ]
 }
