@@ -3,21 +3,21 @@
 
 ~ start
 appear wendel_somerton
-Narrator: A big timber-framed house on the square opens its door, and a round man in a three-piece suit that strains at every button bustles out across the dirt, a cane in one hand and a bowler in the other.
-wendel_somerton [smile]: Lord Phillip! Lady Adela! And what a way to be greeted. You have caught us in the middle of a very old custom, I'm afraid, and I do beg pardon for the commotion.
+Narrator: A round man in a straining three-piece suit bustles out of a timber-framed house on the square, cane in one hand, bowler in the other.
+wendel_somerton [smile]: Lord Phillip! Lady Adela! Pardon the commotion. You've caught us in the middle of a very old custom, I'm afraid.
 phillip_druskenvald: Mayor. Mr. Somerton, is it? We were told your village was quiet.
-wendel_somerton: Quiet, my lord, quite, but for tonight. The oak drinks from the herds, once a year, so the hunting stays good and the barns stay full. A sacred tradition, nothing more.
+wendel_somerton: Quiet, my lord, save for tonight. Once a year the oak drinks from the herds so the hunting stays good and the barns stay full. A sacred tradition, nothing more.
 if flag.goat_fate == "eaten"
-Narrator: He mops his bald head with a handkerchief and looks, for the first time, at the strangers who stood by and let the thing happen.
-wendel_somerton [smile]: And you, good travelers, were kind enough to let the rite alone. The Green Queen takes note of respect, and I shall see that the village does too.
+Narrator: He mops his bald head and looks at the strangers who stood by and let it happen.
+wendel_somerton [smile]: And you, good travelers, kindly let the rite alone. The Green Queen notes respect, and I'll see the village does too.
 -> welcome_after
 endif
 if flag.goat_fate == "caught"
-wendel_somerton: Saved the little fellow, did you? Well, well. The oak will drink from the beasts of the field whatever you do, and a goat is a goat. We'll say no more of it.
-Narrator: His smile holds, but his handkerchief has gone to his forehead, and he does not stop mopping.
+wendel_somerton: Saved the little fellow, did you? Well, the oak will drink from the beasts whatever you do, and a goat is a goat. We'll say no more of it.
+Narrator: His smile holds, though he doesn't stop mopping his forehead.
 -> welcome_after
 endif
-wendel_somerton: Cut it loose, did you? The rite is the village's, you understand, and the Queen does not forgive a spoiled offering as easily as I do. I shall say a word to the neighbors.
+wendel_somerton: Cut it loose, did you? The Queen does not forgive a spoiled offering as easily as I do. I shall say a word to the neighbors.
 -> welcome_after
 
 ~ welcome_after
@@ -28,43 +28,43 @@ quest wickermoor_arrival welcome
 * Say nothing more -> offer
 
 ~ ask_custom
-wendel_somerton: A blood offering to the Green Queen, who keeps the Hollow's herds and hunts. Tradition, tradition. We've done it since before the clocktower, and the harvests have never once failed us.
+wendel_somerton: A blood offering to the Green Queen, who keeps the Hollow's herds and hunts. We've done it since before the clocktower, and the harvests have never failed.
 -> welcome_after
 
 ~ insight_ok
-Narrator: His eyes slide to the east road and back, and a muscle jumps in his jaw. He is a man hiding something to please a lord.
+Narrator: His eyes slide toward the east road, a muscle jumping in his jaw. He's hiding something to please a lord.
 set mayor_admitted_troubles
-wendel_somerton: Er. Some of our people have been, ah, taking sick lately. And a few have gone off without a word. Nothing to trouble his lordship with.
+wendel_somerton: Er. Some folks have been taking sick lately, and a few have gone off without a word. Nothing to trouble his lordship with.
 -> welcome_after
 
 ~ insight_fail
-Narrator: He looks like exactly what he is, a mayor with a very good suit and a very full evening.
+Narrator: He looks like what he is: a mayor with a good suit and a full evening.
 -> welcome_after
 
 ~ offer
-wendel_somerton: The Druskenvald estate is quite ready for you, my lord. Pristine, staffed, a fine gift from the village. And for your friends, the Green Queen Inn, the one decent lodging in the Hollow. Alda Farnum keeps it.
+wendel_somerton: The Druskenvald estate is ready, my lord. Pristine, staffed, a gift from the village. For your friends, Alda Farnum keeps the Green Queen Inn, the one decent lodging in the Hollow.
 * [Persuasion DC 15] Ask him plainly what is going wrong in the village -> press_ok | press_fail
 * [Intimidation DC 15] Tell him we saw what that thing in the square was, and we want the truth -> press_ok | press_fail
 * Thank him and let it go -> parting
 
 ~ press_ok
-Narrator: The mayor's smile goes thin, and then goes altogether, and under it is a tired man in a tight suit.
-wendel_somerton: More disappearances, more fevers, more funerals than there ought to be. I'd rather not say more in front of the lord. Come to my office when it is open, and I will tell you what I know.
+Narrator: The mayor's smile thins and vanishes, leaving a tired man in a tight suit.
+wendel_somerton: Too many disappearances, fevers, and funerals. Not in front of the lord, though. Come to my office when it's open.
 set mayor_admitted_troubles
 -> parting
 
 ~ press_fail
-wendel_somerton: Oh, I'm sure I don't know what you can mean. A village is a village, good people. It has its seasons.
+wendel_somerton: I'm sure I don't know what you mean. A village has its seasons, good people.
 -> parting
 
 ~ parting
-phillip_druskenvald [weary]: Mayor, I do hope you'll forgive us. It has been a long road, and I find I am dreadfully tired. Darling, shall we go up and see this gift of yours?
-adela_druskenvald: Oh, swell. Philly, don't pout, the house will be darling. Friends, you'll come to dinner tomorrow, won't you, once we've seen the rooms?
+phillip_druskenvald [weary]: Forgive us, Mayor, the long road has left me dreadfully tired. Darling, shall we go up and see this gift of yours?
+adela_druskenvald: Oh, swell. Philly, don't pout, the house will be darling. Friends, come to dinner tomorrow once we've seen the rooms, won't you?
 * [Insight DC 15] Something is wrong with Phillip, and it is not just the road -> uneasy_ok | uneasy_fail
 * Say we'd be glad to come -> accept
 
 ~ uneasy_ok
-Narrator: Phillip's smile has been put on a half-beat late, and the hand on his cane is white at the knuckles. He is looking at the oak.
+Narrator: Phillip's smile comes a half-beat late, his knuckles white on his cane as he stares at the oak.
 set phillip_uneasy_noticed
 -> accept
 
@@ -72,12 +72,12 @@ set phillip_uneasy_noticed
 -> accept
 
 ~ accept
-phillip_druskenvald [smile]: Splendid. Forty gold between you for the inn, on me. The estate, tomorrow evening, and we shall have a grand old time.
+phillip_druskenvald [smile]: Splendid. Forty gold between you for the inn, on me. Tomorrow evening at the estate, we'll have a grand old time.
 gold +40
 quest wickermoor_arrival parting
-Narrator: You watch two small figures, one twirling a cane, walk up the winding path toward the crooked manor on its hill, the windows lit and every line askew.
+Narrator: Two small figures, one twirling a cane, walk the winding path up to the lit, crooked manor on the hill.
 leave phillip_druskenvald
 leave adela_druskenvald
 vanish wendel_somerton
 set wm_welcomed
-Narrator: In the round below, the oak's carved faces lie in the moonlight, and one of them, you would swear, turns to watch them go.
+Narrator: Below, moonlight catches the oak's carved faces, and you'd swear one turns to watch them go.

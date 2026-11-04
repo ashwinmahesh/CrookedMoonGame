@@ -1,0 +1,93 @@
+You are an editor tightening DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue). It is folk horror in Wickermoor, a village in an afterlife realm of endless autumn night; deadpan humour beside real dread. These are the village's conversations. Players say the village is a WALL OF TALK: too many words before anything happens. Your job is to make every line shorter and sharper, the way a good film editor cuts a scene, without losing anything that matters.
+
+FOR EACH NUMBERED LINE answer one of:
+- `n => KEEP` when the line is already tight (most lines of 15 words or fewer should be KEEP).
+- `n => new text` with the tightened line. Aim for about half to two thirds of the old length. Cut throat-clearing, repetition of what the line or the line before already said, stacked adjectives, second examples, flavour that leads nowhere, and explanations the listener doesn't need.
+- `n => CUT` only for a line whose content is entirely repeated by another line in the same conversation node (shown in [brackets]); never for a line that is the only one of its node, never for an interject line, never for the first line of a node.
+
+WHAT MUST SURVIVE in every line you tighten: every name, place, item, number, price, time, clue, hint, secret, warning, threat, promise and joke punchline; the speaker's voice and quirks (a mayor's pomposity, a constable's few words, a poet's floweriness, a child's simplicity, a country drawl in word choice); the mood. If a line does two jobs, keep both. Never add new facts. Keep `{name}` exactly as it is wherever it appears. Keep the line in the same person and tense.
+
+NARRATOR lines (speaker Narrator, the Vagrant telling the tale: folksy, warm, wry Southern drawl in word choice) stay second person, present tense, one or two sentences, concrete senses, no game words, never "suddenly".
+
+STYLE: plain punctuation; straight quotes; no em dashes, asterisks, brackets or stage directions; do not use -> or => inside the text.
+
+## The lines
+
+### alda_farnum.dialogue
+1. [start] Narrator: The hearth smells of spiced cider and wet wool, though the woman behind the polished bar smells of lavender water and brass coin.
+2. [start] alda_farnum: Step in out of the damp, my dears, and mind the mud on the runner. You have the look of guests who can afford a hot bath and a proper bed.
+3. [about_work] alda_farnum: Single room is one gold piece, a triple is two, and both come with a hot bath and breakfast at Twilight. We have a stage for players and four sturdy beasts in the stable if the road calls.
+4. [about_village] alda_farnum: Wickermoor runs on custom and small favors, darlings. Keep on the right side of Mayor Somerton's paperwork, pay your tab before dawnless morning, and the Green Queen will smile on you.
+5. [shop_open] alda_farnum: Let us see what comforts your purse is ready for tonight.
+6. [rumour] alda_farnum: Half the parish has been coughing up marsh-damp, and two lads from the south lane never came home from the heather. Bad for tempers, wonderful for the sale of hot toddies.
+7. [secret_ok] Narrator: Silver hares with tiny branched antlers swing from her ears, and beside her account ledger sits a cracked leather book stained with dried sap.
+8. [secret_ok] alda_farnum: Sharp eyes, sweetheart, though staring does not buy a drink. An innkeeper has to keep track of every debt owed in this hollow, old ones included.
+9. [secret_fail] Narrator: She clicks her brass abacus shut before you can read a single name on her open page.
+10. [secret_fail] alda_farnum: Looking for a discount written in the margins, love? My prices are quite fixed.
+
+### arrival.dialogue
+11. [start] Narrator: The village is all shutters and held breath. In the middle of the trodden square an oak stands bare and gnarled, its bark carved with a hundred faces, and a bound shape is staked in the dirt beside it.
+12. [start] Narrator: The clocktower finishes tolling the hour. Somewhere beyond the east road, something big and shaggy starts to run.
+13. [start] phillip_druskenvald: Heavens. Is that a person? Is someone tied to that post?
+14. [start] adela_druskenvald: Philly, hush. Don't look. Oh, darling, I can feel the wolves from here.
+15. [inspect_ok] Narrator: It is a doll of sacking and straw, person-sized, bound with good rope. Something inside it kicks and bleats.
+16. [inspect_ok] Narrator: A baby goat, then, in a straw man's belly, and a pack of wolves coming for supper.
+17. [inspect_fail] Narrator: In the dark it could be anyone, bound and still, and the wolves are coming too fast for a long look.
+18. [cut] Narrator: {name} slits the sacking with a quick stroke. A baby goat tumbles out, bleats once like an insult, and bolts across the square.
+19. [caught] Narrator: {name} slits the doll and takes the goat in both arms before it finds its feet. It bleats against your collar, warm and furious.
+20. [cut_missed] Narrator: The goat is out of the doll and out of reach, a small white streak toward the east road and the wolves.
+21. [hold] Narrator: You keep back and let the wolves come. They pour into the square, take the bound shape in a roil of fur and teeth, and are gone down the east road, and the square is quiet again.
+22. [hold] phillip_druskenvald: I... I don't understand. We simply let them?
+23. [hold] adela_druskenvald: Darling. Not now.
+24. [watch] Narrator: You stand with hands loose and watch the wolves take the bound shape in a roil of fur and teeth. The pack leaves as it came, down the east road, and nothing in the whole village stirs.
+25. [wolves] Narrator: The wolves come down the east road in a shaggy wave, yellow eyes on the little white shape, and they do not care who is in the way.
+
+### bad_seed.dialogue
+26. [morgan_apples] Narrator: A split russet apple sits on the counter, weeping black syrup that smells of burnt sugar and iron.
+27. [morgan_apples] morgan: Half the square is abed since the picnic, burning with fever and coughing up bitter rind. The sickness sits right inside the fruit, and my draughts only slow it.
+28. [morgan_bad] morgan: Folks are withering like frost-bitten clover, dry in the throat and hollow in the eye. If the root of it is not cut before long, the frail ones will not rise.
+29. [morgan_marl] morgan: Cecil Marl brought four barrels down from his orchard, along with comb honey and sweet cream. His trees were barren all last year, yet now they groan with red fruit.
+30. [morgan_go] morgan: Follow the east lane past the hedgerows until you smell overripe cider and sulfur. Watch yourselves in his house, for no honest harvest turns the core to ash.
+31. [cecil] Narrator: Sweat gleams on Cecil's cheeks despite the chill, and something small and leathery scratches inside the wainscoting.
+32. [cecil] cecil_marl: Come in, friends, come in out of the damp and try a dipper of sweet press! A man cannot help it if his boughs are blessed while the moor goes hungry.
+33. [cecil_know] cecil_marl: Wait now, I only signed for golden boughs and a full cellar, I never asked who paid the price! Stay back, or my little helpers will peel you to the bone!
+34. [cecil_deny] cecil_marl: Sickness? Why, village bellies are just too weak for proper rich cream and cellar cider, that is all it is.
+35. [cecil_fight] cecil_marl: Tear them apart, my beauties, and throw their bones under the roots!
+36. [cured] Narrator: Outside, the heavy red apples shrivel to gray ash on the boughs, and the sour heat in the air breaks like a fever.
+37. [cured] morgan: The village is breathing easy again, and the children are already asking for broth. Whatever foul bargain fed those roots has gone back to the pit with its master.
+
+### baltus_tolliver.dialogue
+38. [start] Narrator: Sweet pipe smoke and oiled leather hang warm in the rafters of the post. Behind the counter, a slender man in spotless grey studies you with dark, practiced eyes.
+39. [start] baltus_tolliver: Step in out of the damp, friends. If it exists in Druskenvald, it passes through Tolliver's Trading Post sooner or later, and if it does not, I know who carries it.
+40. [menu] baltus_tolliver: Take your time, friends. Everything has a price, and I am a reasonable man.
+41. [shop_open] baltus_tolliver: Have a look at the shelves, and tell me if your tastes run rarer.
+42. [about_self] baltus_tolliver: A man goes where he is needed, and the moor had a sharp need for civilised commerce. Besides, the air out here has been waking up lately.
+43. [about_village] baltus_tolliver: Mayor Somerton keeps his flock singing to oaks and stones, and they pay their bills on time. Keep your blades sheathed indoors and we will get along splendidly.
+44. [rumour] baltus_tolliver: If you fancy odd machinery, there is a riverboat engine down on the water built by another Stranger like yourselves. Folks pay good coin for parts from the old world.
+45. [pipe_ok] Narrator: Where his silver ring taps the mahogany bowl, a leaping hare is worked into the dark grain, and tiny antlers are stamped inside the band.
+46. [pipe_ok] baltus_tolliver: You have a sharp eye for small work. An old family token from the deep woods, nothing I keep on the shelves for sale.
+47. [pipe_fail] Narrator: A curl of spiced smoke drifts between you, and he slips the mahogany pipe neatly into his pocket.
+48. [pipe_fail] baltus_tolliver: Careful staring too long at a merchant's hands, friend, or I will think you are pricing my rings.
+
+### beatrice_wells.dialogue
+49. [start] Narrator: The smell of fresh pine shavings and warm linseed oil spills from the open workshop. Beatrice planes a curved beam in time to a bright, three-part tune hummed from the rafters.
+50. [start] beatrice_wells: Mind the sawdust, friends, and come right in! Every joint has a song in it if you cut the mortise true.
+51. [menu] beatrice_wells: Now then, what can the Wells bench build or mend for you tonight?
+52. [shop_open] beatrice_wells: Spokes, handles, chests, or stout ash poles, all seasoned dry and sung over!
+53. [work] beatrice_wells: Branden turns the lathe, the four little ones sweep and fetch the pegs, and I shape the frames. A workshop that sings together never splits the grain.
+54. [village] beatrice_wells: Brother Weston asked us to raise the new Brightsinger chapel with high, clear eaves. Half the Old Ways folk mutter as they pass, but good oak answers to any honest chisel.
+55. [rumour] beatrice_wells: Look up at that old house on the hill when the moon catches the roof. Not a single rafter sits square, yet the whole pitch leans together without a creak.
+56. [secret_ok] Narrator: Beneath the chapel plans lie dozens of frantic charcoal drawings, each repeating the same impossible, crooked dovetail joint.
+57. [secret_ok] beatrice_wells: Look at that angle, it ought to collapse under its own weight, yet it holds like iron. If I could just puzzle out how the builder bent the king-post, my chapel spire would touch the stars.
+58. [secret_fail] beatrice_wells: Only timber tallies and choir sheets under there, friend, nothing half so grand as the finished roof will be.
+
+### bell.dialogue
+59. [start] solomon_roderick: The new bronze bell sits on a handcart down by the south footbridge, and my back has given out. The ruts are deep, and the clocktower has stood dumb for a week.
+60. [why] solomon_roderick: The old bell split clean down the seam the night the Oak last stirred. Folk lose count of the six hours without a chime to steady them.
+61. [accept] solomon_roderick: Bless your strong shoulders. Bring the cart round to the belfry steps before the dusk mist thickens, and mind the axle in the mud.
+62. [cart] Narrator: The heavy bronze bell rests under damp straw on a creaking timber cart. Before you can lift the shafts, a whiskered man in a faded coat marches up.
+
+## Reply format
+One line per numbered line above (62 lines, 1 to 62), in order, exactly `n => text`, `n => KEEP` or `n => CUT`. No quotes around the text, no commentary.

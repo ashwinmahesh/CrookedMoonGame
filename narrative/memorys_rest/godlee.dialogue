@@ -10,6 +10,7 @@ sarah_godlee [neutral]: Take our brother to the dispensary for a second draught,
 
 ~ common_intro
 sarah_godlee [neutral]: You are welcome at Memory's Rest so long as you mind the plaques on the walls. Keep your voices low, do not pester the residents about old times, and stay belowstairs.
+interject name:lucan_houndstooth: Strict house manners. The air smells of fear and cheap starch.
 -> common_room
 
 ~ common_insight_ok
@@ -37,6 +38,7 @@ sarah_godlee [weary]: Close the door behind you. You have the look of people who
 
 ~ trust_ok
 sarah_godlee [sad]: She cures everyone in this house except herself. Upstairs in her private chambers she keeps relics of her late husband, and every glance at them bleeds her dry.
+interject name:delphine_ravelle: Even the headliner weeps backstage, darling, and her nurse looks eager to snip the threads.
 set godlee_trust
 quest godlees_mementos asked
 -> wish
@@ -59,6 +61,7 @@ sarah_godlee [neutral]: Go up to the Matron's quarters and destroy every keepsak
 * We need time to think -> END
 
 ~ destroy
+approve delphine_ravelle -3 tobin_hayward -2 rook_coldwake -2: You agreed to destroy the Matron's keepsakes of her dead husband
 sarah_godlee [smile]: Good. Burn them or break them, so long as nothing remains to wound her. The ward staff will not trouble your steps tonight.
 set godlee_mementos_destroyed
 if item:mr_memento_portrait
@@ -76,6 +79,7 @@ quest godlees_mementos destroyed
 -> END
 
 ~ keep_lie
+approve silas_vane +3 delphine_ravelle +2 rook_coldwake -1: You bluffed Nurse Godlee and kept the Matron's mementos
 sarah_godlee [neutral]: See that it is done swiftly and without a trace. I will keep the orderlies occupied on the lower landing.
 quest godlees_mementos kept
 set godlee_lied_to
@@ -92,6 +96,7 @@ set mr_staff_hostile
 -> END
 
 ~ refuse
+approve rook_coldwake +2 lucan_houndstooth +2 silas_vane -1: You refused Nurse Godlee's demand to destroy the dead knight's relics
 sarah_godlee [neutral]: Then we have nothing further to discuss. Mind the house rules while you remain under our roof.
 quest godlees_mementos refused
 -> END

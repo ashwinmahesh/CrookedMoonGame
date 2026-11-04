@@ -1,0 +1,224 @@
+THE NOTE ON LUCAN HOUNDSTOOTH, part 2: the camp talks already written (voice examples: do not repeat their topics or lines) and a Connection scene.
+
+## Camp talks
+
+Three personal talks, drafted by Gemini (briefs `Gemini/brief_B_lucan.txt`, raw replies `Gemini/reply_B_lucan.json`) and converted by Lane F into the camp-file format: the companion's lines as `interject name:lucan:`, long lines split, approvals and flags added (the edit log is in `Gemini/README.md`). They are offered at a camp or after a Long Rest, each plays once, and each takes one of the companion's two words a day; they come after any Strained or Doubtful talk and before the Warm, Close and Devoted talks.
+
+- **Unlocks.** Talk 1 `flag.connection_slaughter`. Talk 2 `flag.connection_slaughter`, the next word after talk 1; it is where `secret_known_lucan` is set, at Warm approval or better, which is what lets another hero pay Lucan's dark secret at Raum's gate. Talk 3 `flag.slaughter_confronted`.
+- **The talks.**
+  1. The grades: his field journal's marks out of ten; the turn is that numbers steady his hands.
+  2. Dreadfang: the grand lineage that falls apart with the thunder and a crust of cheese.
+  3. Edwardia: Baskerton's chimneys and fog; the turn is Owain's laugh in the present tense.
+- **Rules kept.** No roll or check anywhere; every menu has the kind exit "Not now. Rest easy, Lucan."; the dark secret is never stated in a camp talk, only approached.
+
+```text
+# Lucan's camp talks (narrative/camp/lucan.dialogue). Each plays once; the file offers the first talk whose condition holds.
+# Talk 2 opens on the same condition as talk 1 and plays at the next word, so it is heard before Raum's gate in any Act II order.
+# Approval reasons are notice text written by Lane F (mechanical), not Gemini lines; deltas follow the engine's size guide.
+
+~ talk_lucan_grades
+if name:lucan and flag.connection_slaughter
+-> camp_lucan_1
+endif
+-> END
+
+~ talk_lucan_dreadfang
+if name:lucan and flag.connection_slaughter
+-> camp_lucan_2
+endif
+-> END
+
+~ talk_lucan_edwardia
+if name:lucan and flag.slaughter_confronted
+-> camp_lucan_3
+endif
+-> END
+
+~ camp_lucan_1
+interject name:lucan: If you will pardon the scratching of my nib, friends, today's field journal requires a firm hand.
+interject name:lucan: That last specimen earned a generous four out of ten for lunge velocity, though its posture in the brush was frankly dismal.
+* What's the highest score you've given? -> l1_high
+* Do we get graded too? -> l1_us
+* Not now. Rest easy, Lucan. -> END
+
+~ l1_high
+interject name:lucan: Prime specimen, nine out of ten, awarded to a church-grim that stalked me for three nights without bruising a single fern.
+interject name:lucan: Immaculate spoor, scholarly patience, and a howling cadence that could bring a tear to a bishop's eye.
+interject name:lucan: Sadly, it attempted to chew my left boot before introducing itself, and one cannot reward bad manners.
+-> l1_turn
+
+~ l1_us
+interject name:lucan: Good heavens, I would never presume to grade my companions in ink, though mentally you stand at a respectable eight.
+interject name:lucan: Your stride through the thicket is clean, your lanterns stay steady, and nobody has yet misplaced a preposition under fire.
+interject name:lucan: We might address your posture on the back swing, if you please, as you tend to drop the left shoulder.
+-> l1_turn
+
+~ l1_turn
+interject name:lucan: A gentleman of the hunt keeps ledger and grade so the dark remains a discipline rather than a panic.
+interject name:lucan: Every quarry has a stride, a weight, a habit of the jaw that can be set down on clean paper.
+interject name:lucan: I began the habit in Baskerton, because if you can put a number on a horror, your hands stop shaking long enough to reload.
+* Do your hands shake? -> l1_shake
+* Then we'll keep the count with you. -> l1_count
+* Rest easy, Lucan. -> END
+
+~ l1_shake
+interject name:lucan: Certainly not, I am a certified huntsman of Edwardia and my grip is as steady as a church pillar.
+interject name:lucan: Only between the click of the latch and the seating of the lead, if you please, when the yellow presses close.
+approve lucan +2: You asked "Do your hands shake?"
+-> l1_close
+
+~ l1_count
+interject name:lucan: That is most exceedingly civil of you, friends, and I shall endeavour to keep my calligraphy legible for the company.
+interject name:lucan: Two pairs of eyes on the spoor make for a far tidier margin in the ledger.
+approve lucan +2: You said "Then we'll keep the count with you"
+-> l1_close
+
+~ l1_close
+interject name:lucan: I shall award this fireside an eight out of ten for warmth, with an extra half-mark for present company.
+interject name:lucan: Keep the kettle near the embers, if you please, while I dry the ink.
+approve lucan +1: You sat with me at the fire
+-> END
+
+~ camp_lucan_2
+interject name:lucan: Observe at my heel the dread silhouette of Dreadfang, Harbinger of the Pale Shroud, whelped in the charnel mists of old.
+interject name:lucan: His ribs are cages of cold omen, and his yip foretells that a soul is about to be weighed.
+* Tell us about Dreadfang. -> l2_tell
+* Is that thunder? -> l2_thunder
+* Not now. Rest easy, Lucan. -> END
+
+~ l2_tell
+interject name:lucan: Legend holds that his sire hunted the black barrows until the moon herself bleached his coat to bone and vapour.
+interject name:lucan: When he circles three times and gives that sharp little cry, either death is near or someone has dropped kettle corn.
+interject name:lucan: I assure you it is almost always the former, though he does possess a scholar's palate for cheddar.
+-> l2_turn
+
+~ l2_thunder
+interject name:lucan: Good heavens, no, that is merely the atmospheric resonance of the valley, and my hound is bracing for a phantom quarry.
+interject name:lucan: There now, stay right by my knee while I place my palms over your ears to preserve your dreadful concentration.
+interject name:lucan: A harbinger of the shroud must not have his sinister acoustics rattled by vulgar weather, if you please.
+-> l2_turn
+
+~ l2_turn
+interject name:lucan: See how his tail keeps the measure like a metronome, counting out the mortal seconds of every wicked thing in the brush.
+interject name:lucan: No finer hunting specimen ever walked the grey lanes, nor kept a gentler watch beside a cold bedroll.
+interject name:lucan: There now, Barnaby-boy, take this crust of cheese from my pocket and do not tell the company I spoiled your supper.
+* Barnaby's a good name. -> l2_name
+* [if not (approval.lucan >= warm)] Does he really sense omens? -> l2_omens
+* [if approval.lucan >= warm] Does he really sense omens? -> l2_open
+* Rest easy, Lucan. -> END
+
+~ l2_name
+interject name:lucan: I am sure I said Dreadfang, friends, a most antique and terrifying title if one enunciates the consonants properly.
+interject name:lucan: He was a very small Pomeranian in my grandfather's kennels, and he never once let me sit in the dark alone.
+approve lucan +2: You said "Barnaby's a good name"
+-> l2_close
+
+~ l2_omens
+interject name:lucan: He senses when the air grows heavy and when a gentleman's courage is wearing thin at the cuffs.
+interject name:lucan: And when someone hides a rind of cheese in their knapsack, if you please, which is omen enough for us both.
+approve lucan +2: You asked "Does he really sense omens?"
+-> l2_close
+
+~ l2_open
+set secret_known_lucan
+interject name:lucan: He took this great mastiff shape the very night I most wished for a wall to stand behind.
+interject name:lucan: A friend of mine needed me once in the dark, and I stood stock still while the brush closed in.
+interject name:lucan: A good dog is the only creature in this world or the next that has stood by my boots since.
+approve lucan +3: You asked "Does he really sense omens?"
+-> l2_close
+
+~ l2_close
+interject name:lucan: Take the rind gently, good boy, and mind the fingers, as we are maintaining a fierce reputation.
+interject name:lucan: Ten out of ten for deportment, though I must deduct a fraction for the crumbs on my gaiters.
+approve lucan +1: You sat with me at the fire
+-> END
+
+~ camp_lucan_3
+interject name:lucan: If one visits Baskerton, one must admire the great storm-engines turning above the slate roofs and the soot-darkened chimneys.
+interject name:lucan: The fog rolls in from the channels so thick you can slice it like mutton fat and grade it by smell.
+* Who was Owain? -> l3_owain
+* Tell us about the fog. -> l3_fog
+* Not now. Rest easy, Lucan. -> END
+
+~ l3_owain
+interject name:lucan: Owain Pryce was a former lamplighter who carried a brass hook and knew every alley in Baskerton by its echo.
+interject name:lucan: No matter how foul the spoor, he would prop his ladder against a chimney and whistle a hymn.
+interject name:lucan: He laughs straight from the waistcoat, you see, so loud the rooks lift off the gasworks.
+-> l3_turn
+
+~ l3_fog
+interject name:lucan: When the fog-prowlers crept down between the storm-engines, you could only track the oil they brushed from the brickwork.
+interject name:lucan: Owain Pryce would run ahead with his pole and touch a single lamp to drive our quarry into the lane.
+interject name:lucan: Best hunting partner in Edwardia, and he never once faulted a man for checking his lantern twice.
+-> l3_turn
+
+~ l3_turn
+interject name:lucan: You could follow that whistle through three streets of coal smoke and never lose your bearings in the dark.
+interject name:lucan: He has a way of tapping his brass hook twice on the cobbles before we step into the brush.
+interject name:lucan: Had a way of tapping it, I should say, if we are to keep our grammar tidy.
+* He sounds like a good friend. -> l3_good
+* We can stop if you like. -> l3_stop
+* Rest easy, Lucan. -> END
+
+~ l3_good
+interject name:lucan: He was the very finest of friends, and a most rigorous critic of my tea-brewing under field conditions.
+interject name:lucan: One must be precise with one's tenses, if you please, or the past becomes altogether untidy.
+approve lucan +2: You said "He sounds like a good friend"
+-> l3_close
+
+~ l3_stop
+interject name:lucan: Thank you, friends, that is most considerate, as the smoke from this damp wood is catching my throat.
+interject name:lucan: Nine out of ten for the company tonight, and not a single point deducted.
+approve lucan +2: You said "We can stop if you like"
+-> l3_close
+
+~ l3_close
+interject name:lucan: Look there, my hound's tail just gave a single beat against the turf, tidy as a metronome.
+interject name:lucan: Keep your coat dry against the night air, friends, and sleep well.
+approve lucan +1: You sat with me at the fire
+-> END
+```
+
+## The Connection scene (dialogue draft)
+
+Hilda Brom's meeting with Lucan, drafted the same way and converted the same way. It is a few nodes in Hilda Brom's own conversation file, started by the trigger in beat 2. Bless for a day, the ally and the Heroic Inspiration are rewards the Fateweaving statements will give (listed in the overview); the `set` and `attitude` lines are the ones the grammar has today.
+
+```text
+# Lucan meets Hilda Brom (a node of Hilda Brom's own conversation file; the trigger is in the beat above).
+# Bless for a day and Heroic Inspiration need the Fateweaving statements the overview lists; they are not written here.
+
+~ hilda_lucan_start
+hilda_brom [neutral]: Big wolf. Bigger dog. Both of you jumping at dry sky-rumble.
+hilda_brom [smile]: Ha, look at you holding his ears like a mother hen in the pines.
+hilda_brom [neutral]: Catch this pine-sprig. Smear the crow-grease on your cuffs. Look south-east to Foxwillow corn, where something worse than a fugitive stalks the rows.
+interject name:lucan: Good heavens, madam, I am merely shielding my hound's delicate auditory passages from an unscheduled meteorological report.
+interject name:lucan: Though by the resin and carrion fat on these needles, your tracking preparation is a solid nine out of ten.
+* You two hunt the same way. Hear her out. -> hilda_kin
+* Careful, her spirit bear looks hungry. -> hilda_stare
+* We have our trail. Thanks, Hilda. -> hilda_go
+
+~ hilda_kin
+hilda_brom [smile]: He talks like a book, your tall wolf. Nose works, though.
+hilda_brom [neutral]: Keep the wind in your teeth when you hit the corn, Houndstooth.
+interject name:lucan: I shall endeavour to honour the Old Ways with proper posture, Madam Brom, if you please.
+-> hilda_close
+
+~ hilda_stare
+hilda_brom [sly]: Bear only bites what runs. You do not look like a runner.
+hilda_brom [neutral]: Keep your little ghost dog behind your boots in Foxwillow.
+interject name:lucan: Dreadfang and I shall maintain a respectful distance from your magnificent ursine specimen, madam.
+-> hilda_close
+
+~ hilda_go
+hilda_brom [neutral]: Good. Talk less, walk faster, corn is already moving.
+interject name:lucan: Quite right, friends, let us take the south-east spoor before the scent thins.
+-> hilda_close
+
+~ hilda_close
+hilda_brom [neutral]: May the Green Queen keep your throat whole and your claws sharp, book-wolf.
+hilda_brom [smile]: Ha. Put a hat on that dog if it thunders again.
+set connection_slaughter
+attitude hilda_brom friendly
+set lucan_hilda_kin
+-> END
+```

@@ -73,7 +73,9 @@
           17,
           5
         ]
-      ]
+      ],
+      "floor": "props/mail_floor",
+      "walls": "props/mail_wall"
     },
     {
       "id": "g5_dead_shelf",
@@ -87,7 +89,9 @@
           17,
           1
         ]
-      ]
+      ],
+      "floor": "props/mail_floor",
+      "walls": "props/mail_wall"
     },
     {
       "id": "g5_bench",
@@ -101,7 +105,9 @@
           12,
           4
         ]
-      ]
+      ],
+      "floor": "props/mail_floor",
+      "walls": "props/mail_wall"
     }
   ],
   "spawns": {
@@ -207,10 +213,8 @@
       ],
       "kind": "examine",
       "label": "A letter on the bench",
-      "model": "letter",
-      "call": "ghostlight_express/incitements:liberation_enter",
-      "approach": 12,
-      "call_when": "not flag.incitement_liberation and not flag.pending_liberation_incitement"
+      "dialogue": "ghostlight_express/incitements:liberation_enter",
+      "model": "letter"
     },
     {
       "id": "grille_g5",
@@ -236,10 +240,7 @@
       ],
       "kind": "examine",
       "label": "The brass lamps",
-      "model": "lamp",
-      "call": "ghostlight_express/vagrant_intercom:router",
-      "approach": 12,
-      "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed and ((flag.haints_destroyed >= 1 and not flag.gl_destroyed_noted) or (flag.haints_resolved >= 3 and not flag.gl_level2_given) or (flag.haints_all_gone and not flag.gl_checkin_all) or (flag.haints_resolved >= 5 and not flag.gl_checkin_fifth) or (flag.haints_resolved >= 1 and not flag.gl_checkin_first))"
+      "model": "lamp"
     },
     {
       "id": "g5_punched_stub",
@@ -296,7 +297,82 @@
             4
           ],
           "name": "The Mariner",
-          "facing": "south"
+          "facing": "south",
+          "states": [
+            "heaving_deck"
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "heaving_deck",
+          "name": "Heaving Deck",
+          "summary": "The floor rolls like a ship in a gale.",
+          "kind": "save",
+          "affects": "party",
+          "from_round": 2,
+          "say": "haint:heaving_deck",
+          "every": 2,
+          "save": {
+            "ability": "str",
+            "dc": 12
+          },
+          "condition": "prone",
+          "until": "target_turn_end"
+        }
+      ]
+    },
+    {
+      "id": "gl_shroud_breach",
+      "trigger": "enter_area:g5_bench",
+      "flag": "gl_breach_done",
+      "when": "flag.haints_resolved >= 3 and not flag.gl_breach_done",
+      "monsters": [
+        {
+          "monster": "corrupted_passenger",
+          "cell": [
+            7,
+            4
+          ],
+          "name": "Shroud-Touched Passenger",
+          "art": "corrupted_passenger"
+        },
+        {
+          "monster": "shadow",
+          "cell": [
+            13,
+            2
+          ],
+          "name": "A Sliver of the Phantom",
+          "art": "phantom_trainhopper"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "shroud_spills_in",
+          "name": "The Shroud Spills In",
+          "summary": "Green mist pours through the broken window, and a passenger in it turns.",
+          "kind": "summon",
+          "monster": "corrupted_passenger",
+          "count": 1,
+          "cells": [
+            [
+              10,
+              4
+            ]
+          ],
+          "from_round": 2,
+          "until_round": 3,
+          "say": "breach:spill"
+        },
+        {
+          "id": "vagrants_whistle",
+          "name": "The Vagrant's Whistle",
+          "summary": "The train's whistle screams and the window knits itself whole.",
+          "kind": "text",
+          "from_round": 4,
+          "times": 1,
+          "say": "breach:whistle"
         }
       ]
     }
@@ -310,7 +386,7 @@
       "kind": "lamp",
       "bright_ft": 20,
       "dim_ft": 40,
-      "color": "candle"
+      "color": "gaslight"
     },
     {
       "cell": [
@@ -320,7 +396,7 @@
       "kind": "lamp",
       "bright_ft": 20,
       "dim_ft": 40,
-      "color": "candle"
+      "color": "gaslight"
     },
     {
       "cell": [
@@ -330,7 +406,7 @@
       "kind": "lamp",
       "bright_ft": 20,
       "dim_ft": 40,
-      "color": "candle"
+      "color": "gaslight"
     },
     {
       "cell": [
@@ -353,6 +429,81 @@
       "bright_ft": 10,
       "dim_ft": 20,
       "visual": true
+    }
+  ],
+  "traps": [
+    {
+      "id": "g5_root_snare_west",
+      "cells": [
+        [
+          5,
+          3
+        ]
+      ],
+      "label": "Black roots under the letters",
+      "detect_dc": 12,
+      "disarm_dc": 12,
+      "save": {
+        "ability": "dex",
+        "dc": 12
+      },
+      "damage": "1d6",
+      "damage_type": "necrotic",
+      "condition": "prone",
+      "text": "Black roots whip up out of the spilled letters and snatch at your ankles."
+    },
+    {
+      "id": "g5_root_snare_middle",
+      "cells": [
+        [
+          12,
+          4
+        ]
+      ],
+      "label": "Black roots under the letters",
+      "detect_dc": 12,
+      "disarm_dc": 12,
+      "save": {
+        "ability": "dex",
+        "dc": 12
+      },
+      "damage": "1d6",
+      "damage_type": "necrotic",
+      "condition": "prone",
+      "text": "Black roots whip up out of the spilled letters and snatch at your ankles."
+    },
+    {
+      "id": "g5_root_snare_east",
+      "cells": [
+        [
+          15,
+          3
+        ]
+      ],
+      "label": "Black roots under the letters",
+      "detect_dc": 12,
+      "disarm_dc": 12,
+      "save": {
+        "ability": "dex",
+        "dc": 12
+      },
+      "damage": "1d6",
+      "damage_type": "necrotic",
+      "condition": "prone",
+      "text": "Black roots whip up out of the spilled letters and snatch at your ankles."
+    }
+  ],
+  "containers": [
+    {
+      "id": "g5_strongbox",
+      "cell": [
+        18,
+        2
+      ],
+      "label": "The registered-mail strongbox",
+      "model": "strongbox",
+      "lock_dc": 13,
+      "gold": 25
     }
   ]
 }

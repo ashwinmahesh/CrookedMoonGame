@@ -7,6 +7,7 @@ Narrator: A neighbour catches your eye, hurries across the cobbles, and scrapes 
 ~ shun_charm
 set rk_charm_seen
 Narrator: A faint lilac glint sits in the dark of their eye. These folks are not wicked, only walked like puppets on a string.
+interject name:cordelia_skein: Fascinating ocular pigmentation, darling. The neural tether must sit right behind the optic nerve.
 -> END
 ~ shun_missed
 Narrator: You see only a pinched, shuttered face, and nothing more than that.
@@ -61,6 +62,7 @@ set rk_mob_down = now
 Narrator: A very small boy steps out from behind a rain barrel, gives a single nod, and the angry crowd parts like river water.
 -> END
 ~ mob_fight
+approve tobin_hayward -3 lucan_houndstooth -2: You fought the charmed villagers in the street
 set rk_mob_down = now
 Narrator: A heavy ash cudgel swings through the torchsmoke, and the whole lane erupts.
 combat rk_mob_fight
@@ -77,6 +79,7 @@ peeping_albert [sly]: Mother sees every little step you take, she does. Oh, she 
 * [Animal Handling DC 14] Coax him down off the post. -> albert_talks | albert_flees
 * Leave the creature be. -> albert_flees
 ~ albert_fight
+approve lucan_houndstooth +2 rook_coldwake +1: You struck down the hag's spy on the lamp-post
 Narrator: With a wet, throttled shriek, the heavy bird beats its wings and lurches into the air.
 combat rk_albert_town
 ~ albert_talks
@@ -97,6 +100,7 @@ sgt_gaunt [smile]: Do not mind me, friends, I am merely commanding the vanguard 
 * Leave him behind his cart. -> END
 ~ gaunt_route
 sgt_gaunt [weary]: They walk the lanes in loops: the Round by night, and the south lane at the turn of the hour. Do not ask how I know.
+interject name:silas_vane: Always back the man hiding behind the hay cart to know the house odds, friend.
 -> END
 ~ gaunt_scared
 set rk_mob_calm = now
@@ -110,6 +114,7 @@ pip_oakum [sly]: I know every name in Wickermoor, and every last one of them owe
 * Ask what a button is worth tonight. -> pip_buttons
 * Tell him maybe later. -> END
 ~ pip_pay
+approve silas_vane +2 delphine_ravelle +1 rook_coldwake -1: You bought a button receipt for safe passage from Pip
 gold -3
 give rk_button_ledger
 pip_oakum [smile]: Pleasure doing business with you. Wave that paper at anyone who tries to fit you for a hemp collar, and they'll step right aside.
@@ -123,6 +128,7 @@ Narrator: In the middle of a village gone clean out of its wits, an old billy go
 * Reach out and pet the goat. -> goat_pet
 * Leave it to its thistle. -> END
 ~ goat_pet
+approve lucan_houndstooth +2 tobin_hayward +1: You stopped to pet the calm billy goat amid the riot
 advantage stealth 1h: the goat's calm
 Narrator: The coarse coat smells of dry hay and rain, and as the beast leans into your palm, a little of its quiet composure settles into your bones.
 -> END
@@ -135,6 +141,7 @@ jeremiah_stover [afraid]: They've got my name chalked on their slate for hiding 
 * Head up the hill tonight, we will cover you. -> jeremiah_go
 * Stay low, we will come back for you. -> END
 ~ jeremiah_go
+approve tobin_hayward +2 rook_coldwake +2: You covered Jeremiah Stover so he could reach the hill
 set rk_jeremiah_hidden
 jeremiah_stover [weary]: Obliged to you. The blessed tubers can rot in the dirt for all I care tonight, I'm for the hill.
 -> END

@@ -1,0 +1,97 @@
+You are an editor tightening DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue). It is folk horror in Wickermoor, a village in an afterlife realm of endless autumn night; deadpan humour beside real dread. These are the village's conversations. Players say the village is a WALL OF TALK: too many words before anything happens. Your job is to make every line shorter and sharper, the way a good film editor cuts a scene, without losing anything that matters.
+
+FOR EACH NUMBERED LINE answer one of:
+- `n => KEEP` when the line is already tight (most lines of 15 words or fewer should be KEEP).
+- `n => new text` with the tightened line. Aim for about half to two thirds of the old length. Cut throat-clearing, repetition of what the line or the line before already said, stacked adjectives, second examples, flavour that leads nowhere, and explanations the listener doesn't need.
+- `n => CUT` only for a line whose content is entirely repeated by another line in the same conversation node (shown in [brackets]); never for a line that is the only one of its node, never for an interject line, never for the first line of a node.
+
+WHAT MUST SURVIVE in every line you tighten: every name, place, item, number, price, time, clue, hint, secret, warning, threat, promise and joke punchline; the speaker's voice and quirks (a mayor's pomposity, a constable's few words, a poet's floweriness, a child's simplicity, a country drawl in word choice); the mood. If a line does two jobs, keep both. Never add new facts. Keep `{name}` exactly as it is wherever it appears. Keep the line in the same person and tense.
+
+NARRATOR lines (speaker Narrator, the Vagrant telling the tale: folksy, warm, wry Southern drawl in word choice) stay second person, present tense, one or two sentences, concrete senses, no game words, never "suddenly".
+
+STYLE: plain punctuation; straight quotes; no em dashes, asterisks, brackets or stage directions; do not use -> or => inside the text.
+
+## The lines
+
+### connections_custom.dialogue
+267. [solomon_dream] Player: I knelt in the ashes once, mason, before I knew what was waiting behind the branches. I am done kneeling.
+268. [solomon_dream] solomon_roderick: Are you now? That is easy to say in the square with lanterns burning, and harder when the thatch starts whispering at three in the morning.
+269. [solomon_stone] solomon_roderick: Damp gets in the knees, traveler, not the soul. You know the cadence of the old litany, do not lie to a man who cuts headstones.
+270. [solomon_coven] solomon_roderick: In the dream, the Crooked Man counts his servants on long, knotted fingers. Three names belong to the coven out in the timber, and their sign is carved under my eaves.
+271. [solomon_coven] Narrator: He rubs his thumb across a scarred groove on his forearm, his breathing slow and gravelly.
+272. [solomon_close] solomon_roderick: Maybe a runaway hound is best for hunting the pack. Come talk to me by the yard when the square clears, and we will trade names.
+273. [eleanor_start] eleanor_heyling: Do not rub at your eyes like that, dear, you will only make the bruising darker. Printer's gall and graveyard tallow leave a very specific stain on the lids.
+274. [eleanor_start] Narrator: The bookseller smells of dry vellum, cloves, and mouse-chewed linen as she peers over her half-moon spectacles.
+275. [eleanor_start] eleanor_heyling: You have the sickness of the uncut folio. Someone has been reading chapters that were meant to stay sewn shut.
+276. [eleanor_cite] Player: "Wherein the seventh bell is cast without a tongue, lest the parish hear the metal confess." Second edition, bound in salted eel-skin.
+277. [eleanor_cite] eleanor_heyling: Oh, delightful! Though the third edition corrects "parish" to "abbey" just before the censor's fire took the press.
+278. [eleanor_sickness] eleanor_heyling: Road dust washes off with cold water, my friend. A crooked footnote stays behind the brow-bone and ticks like a beetle in the wainscoting.
+279. [eleanor_places] eleanor_heyling: My shelves here are mostly almanacs and harmless pastorals, for my health's sake. What you crave is split three ways: an island, a sunken library, and a dead bailiff's ledger.
+280. [eleanor_places] Narrator: Her fingernail traces the gilt spine of a ledger on her counter, leaving a thin line in the dust.
+281. [eleanor_close] eleanor_heyling: Come back when you have a quiet hour and a dry candle. It is a rare treat to meet another reader who knows books can bite.
+282. [weston_start] weston_murdoch: Well now, bless the road and the mud upon it! Look at the weave of that cloak, neighbors, that is provincial wool if ever I saw a loom.
+283. [weston_start] Narrator: The preacher's voice rings out warm as spiced cider across the cold cobbles, his hands open and ungloved.
+284. [weston_start] weston_murdoch: You are no stranger to the crooked moon, friend, only new to our little hollow. Which province claimed your prayers before you walked into Wickermoor?
+285. [weston_song] Player: "A sheaf for the rain, a stone for the gate, and a song for the bird that wakes too late." We sang it whenever the wagons came in whole.
+286. [weston_song] weston_murdoch: Ha! Hear that cadence! Three faiths braided into four bars of music, and not a sour note among them.
+287. [weston_faiths] weston_murdoch: That is the grand old way of the provinces. An oak bough over the barn, a sunflower on the table, and a songbird carved into the cradle.
+288. [weston_faiths] Player: Folks here in the village seem to prefer choosing a single fence and standing behind it.
+289. [weston_province] weston_murdoch: Ah, the road makes cynics of us all when the boots wear thin. Still, your tongue carries the rhythm of the old parish bells.
+290. [weston_close] weston_murdoch: Our choir can always use a voice that knows Druskenvald is wider than one village square. Walk in grace, cousin, and my door is ever unlatched.
+
+### doris_squire.dialogue
+291. [start] Narrator: Iron keys clink against her belt, and the smell of cold tallow and scrubbed stone hangs round her like a cloak.
+292. [start] doris_squire: Strangers. Keep your blades sheathed in the Round and we will get on fine.
+293. [about_work] doris_squire: Three barred cells behind me, fines for brawling, banishment for grand theft. Spill blood in murder and the Mayor takes your head before the Oak of Many Faces.
+294. [about_village] doris_squire: Good folk mostly, when they are not spooked by moor-fog or preaching at each other in the mud. Do your business before the late bells and stay on the lantern paths.
+295. [shop_open] doris_squire: If you want honest coin, there is the bounty board.
+296. [rumour] doris_squire: Every face in that bark was a name on the parish roll once. The roots drink deep after a sentence, and the moss stays red for a week.
+297. [secret_ok] Narrator: Beneath a brass sunflower weight lies a scrap of foolscap written in neat verse about rain on quiet wheat.
+298. [secret_ok] doris_squire: Eyes on my face, traveler, not on my desk. A woman is allowed a bit of quiet ink between lockups.
+299. [secret_fail] Narrator: Her broad hand covers the blotter like a slate slab dropping into place.
+300. [secret_fail] doris_squire: Charge sheets are for the watch, not for tourists.
+301. [accuse_start] doris_squire: Name.
+302. [accuse_alda] doris_squire: Hares. A ledger. I will watch her.
+303. [accuse_alda] doris_squire: Not enough. Bring more.
+304. [accuse_randall] doris_squire: A carved hare. Swept hair. I will watch him.
+305. [accuse_randall] doris_squire: Not enough. Bring more.
+306. [accuse_baltus] doris_squire: A ring. A pipe. I will watch him.
+307. [accuse_baltus] doris_squire: Not enough. Bring more.
+308. [accuse_howie] doris_squire: My own. Hmph. I will watch him.
+309. [accuse_howie] doris_squire: Not enough. Bring more.
+310. [accuse_gaston] doris_squire: Hares in every painting. A boy with no past. I will watch him.
+311. [accuse_gaston] doris_squire: Not enough. Bring more.
+312. [accuse_theodora] doris_squire: The postmaster is the post. Without more than that, I do not touch her. Mind what you say of her.
+
+### eleanor_heyling.dialogue
+313. [start] Narrator: Tall stacks of calfskin folios lean like chimneys around a desk cluttered with crusted inkwells. A gaunt woman squints at you over wire-rimmed spectacles, a smudge of gall ink across her chin.
+314. [start] eleanor_heyling: If you are looking for almanacs, third shelf on the left, mind the loose floorboard. And please do not slam the door, Sheridan has just got the kettle to boil.
+315. [about_work] eleanor_heyling: I deal in vellum, iron-gall ink, and verified histories, see Grimshaw's Third Compendium, page forty-two. I refuse to part with a single volume until I have read it cover to cover myself.
+316. [about_work] eleanor_heyling: One must know what teeth a book has before handing it to a stranger.
+317. [about_village] eleanor_heyling: My late sister left me three children to raise in this damp hollow. In truth, Margery and Algernon do most of the minding when I lose track of the clocktower bells.
+318. [shop_open] eleanor_heyling: Wipe your hands on your coat first, if you please. The parchment is dry, and the ink is freshly mixed.
+319. [rumour] eleanor_heyling: The parish records before the seventy-third year have had their bindings cut with a pruning knife. Someone in Wickermoor is very keen that we forget who planted that oak in the Round.
+320. [check_ok] Narrator: The letters on her desk do not merely sit on the page: they squirm toward her ink-stained fingertips like iron filings to a lodestone, leaving faint frost on the blotter.
+321. [check_ok] eleanor_heyling: Close the cover, quickly. Some chapters in Druskenvald read you back once you've given them your candlelight, and they never let you sleep.
+322. [check_fail] Narrator: She snaps a heavy ledger shut over her notes, sending up a small puff of paper dust and dried lavender.
+323. [check_fail] eleanor_heyling: Private correspondence and tallies, nothing for the public shelf. My eyes are simply tired from the small print.
+
+### elias.dialogue
+324. [start] Narrator: Damp heather clings to the hem of an old wool coat. Above the stump, a sleek black crow watches you with one bright, yellow eye.
+325. [start] brother_elias: Keep your tracts and your tithes in your pockets, travelers. I hold fast to the sacred doctrine of Absolutely Nothing, and I pray to it twice before breakfast.
+326. [hermit] brother_elias: A leaky pine lean-to is temple enough for a mind swept clean of superstition. Though if the butcher's wife leaves salted pork by my stone, I am no fanatic to let it spoil.
+327. [crow] crow: Caw.
+328. [crow] brother_elias: Hold your tongue, you feathered deacon! He claims I bowed my head when the thunder cracked last night, when I was merely looking for my spectacles.
+329. [faiths] brother_elias: The Old Ways smell of wet bark, the Patient Lady waters weeds, and those Brightsingers chirp until a man's ears bleed.
+330. [faiths] brother_elias: Worst are the fools carving antlers on hares in the dark, as if a rabbit did not have trouble enough getting down its hole.
+
+### fair_price.dialogue
+331. [baltus_start] Narrator: The Trading Post smells of tallow and damp wool, with a polished brass scale gleaming on the counter.
+332. [baltus_start] baltus_tolliver: A merchant lives by honest measure, friends, yet Eleanor Heyling sells fine rag paper across the Round for less than the mill charges. Glance at her ledger for me, and learn how she keeps her purse full.
+333. [baltus_accept] baltus_tolliver: Boundlessly grateful. A quiet look at her columns is all a fair man asks.
+334. [eleanor_visit] Narrator: Dry parchment and walnut gall scent the narrow shelves, and an open account book rests beside Eleanor's elbow.
+
+## Reply format
+One line per numbered line above (68 lines, 267 to 334), in order, exactly `n => text`, `n => KEEP` or `n => CUT`. No quotes around the text, no commentary.

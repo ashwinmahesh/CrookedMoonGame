@@ -2,6 +2,10 @@
   "about": "PLACEHOLDER (docs/PLACEHOLDERS.md): Which prop art (manifest.json in this folder) dresses each thing in data/locations, read by world/look/set_dressing.gd (docs/art/set_dressing.md). A location prop or container is looked up by its id in `ids` first, then by its `model` in `models`; with neither it uses the art of the same name as its model, else `container_default` for containers. A value is an art id, or {art, mount, scale} to override how it hangs (`big`: it keeps its real size in a tight spot, as a building-sized piece does; the horses), or null for an invisible spot (something already drawn, or a view). `on_wall` is the art used when the thing stands on a wall square (shelves against a wall). Doors take the first `doors.rules` entry whose words are in their id or label. `floors` gives a place its own ground texture; `low_cover.<place>` and `<place>_run` dress its '=' squares. An entry with `building: true` stands in for the whole house on its square (a windmill, a bell tower) and, like the houses, opens a window round the party where it hides it (SeeThrough); `see_through: true` does the same for a tall piece of stone or timber (a colossus, a hut), and `fade: true` fades a tall piece like the trees instead. `scales` sizes a piece wherever it stands (stairs fill their square); `fronts` gives furniture a front view that stands flat against a wall beside it. `rooms` gives a location's areas their own floor and wall by words in the area's name (a bathroom's tiles); `place_looks` overrides a whole place's floor, wall, difficult ground and `rock_walls` (cliffs instead of trees) and, beside it, `tree_walls` (rectangles [[x0, y0], [x1, y1]] of wall squares drawn as trees all the same in the Modern look: a mountain's wooded lower slopes under its bare crags). `feet` is each standing piece's real height (a person is 6 ft; 1 unit = 5 ft): the piece is drawn at that size, and `feet` is the height of its picture at real size (low, deep things such as beds include the top you see from above). A piece wider than `big_width` units at that size (a cottage, a tent, a wagon) keeps its size whatever the room and clears the trees and the board's own scenery around it. `glows` are pieces drawn unshaded, giving light rather than taking it. `double_doors` are exit art drawn once across a doorway two squares wide (outside interiors: the keep's great doors). `rooms` applies to interiors and dungeons only; `outdoor_rooms` are the few rules for outdoor maps (jetties are planks). `runs_along` lists long, thin pieces (a fence) that lie along a run of low cover going up the map instead of facing south. `map_marks` draws a building-sized 3D piece on the minimap over the squares it stands on (fill, rim, stripes of its canvas, round or square, at `scale` of its footprint). `theme_rooms` are a board theme's own room styles, checked first (a farmhouse bedroom is plaster and planks); a place_looks entry with `keep` keeps its look in every room (a cave, the Amber Temple). Room words match an area's name before its id. `low_cover_rooms` dress a room's '=' squares by words in its name (`single`, `run`, `wall_run`), unless the place has its own set. `furnish` fills rooms out with what a room of its kind holds (world/look/furnish.gd).",
   "container_default": "chest",
   "models": {
+    "standing_stones": {
+      "art": "standing_stones",
+      "set_piece": "stone_ring"
+    },
     "light_curtain_call": null,
     "hearth": "fireplace",
     "window": "window_tall",
@@ -25,7 +29,20 @@
       "front": "chest_of_drawers_front"
     },
     "drawer": "desk",
-    "statue_headless": null,
+    "statue_headless": {
+      "art": "statue_saint",
+      "set_piece": "stone_statue",
+      "statue": {
+        "figure": "pack_female",
+        "layers": [
+          "pack_female_noble3"
+        ],
+        "pose": "Idle_FoldArms",
+        "stone": "props/stone_marble_cream",
+        "height": 1.05,
+        "plinth": 0.5
+      }
+    },
     "fog_bank": {
       "art": "fog_bank",
       "scale": 0.7
@@ -76,10 +93,7 @@
     "pine_a": "pine",
     "pine_b": "pine",
     "pine_c": "pine",
-    "dead_tree_a": "dead_tree",
-    "dead_tree_b": "dead_tree",
-    "lamp": "oil_lamp",
-"dead_tree_a": {
+    "dead_tree_a": {
       "art": "dead_tree",
       "set_piece": "real_tree",
       "real": [
@@ -94,6 +108,73 @@
         "ez_sp_dead_b",
         "ez_sp_dead_d"
       ]
+    },
+    "lamp": "oil_lamp",
+    "statue_saint": {
+      "art": "statue_saint",
+      "set_piece": "stone_statue",
+      "statue": {
+        "figure": "pack_female",
+        "layers": [
+          "pack_female_head",
+          "pack_female_noble",
+          "pack_female_hair_long"
+        ],
+        "pose": "Spell_Simple_Idle",
+        "stone": "props/stone_marble",
+        "height": 1.3,
+        "plinth": 0.5
+      }
+    },
+    "statue_knight": {
+      "art": "statue_knight",
+      "set_piece": "stone_statue",
+      "statue": {
+        "figure": "pack_male",
+        "layers": [
+          "pack_male_head",
+          "pack_male_noble2",
+          "pack_male_hair_parted",
+          "pack_male_hair_beard"
+        ],
+        "pose": "Sword_Idle",
+        "stone": "props/stone_granite",
+        "height": 1.15,
+        "plinth": 0.3,
+        "gear": "sword_long"
+      }
+    },
+    "statue_mother_night": {
+      "art": "statue_mother_night",
+      "set_piece": "stone_statue",
+      "statue": {
+        "figure": "pack_female",
+        "layers": [
+          "pack_female_head",
+          "pack_female_noble3",
+          "pack_female_hair_buns"
+        ],
+        "pose": "Idle_FoldArms",
+        "stone": "props/stone_mossy",
+        "height": 1.25,
+        "plinth": 0.4
+      }
+    },
+    "scarecrow": {
+      "art": "scarecrow",
+      "set_piece": "pumpkin_scarecrow",
+      "materials": {
+        "post": "tex_props__scarecrow_timber",
+        "straw": "tex_props__scarecrow_straw"
+      }
+    },
+    "scarecrow_stitched": {
+      "art": "scarecrow_stitched",
+      "set_piece": "pumpkin_scarecrow",
+      "materials": {
+        "post": "tex_props__scarecrow_timber",
+        "straw": "tex_props__scarecrow_straw"
+      }
     }
   },
   "ids": {
@@ -127,9 +208,30 @@
       "building": true
     },
     "stitched_sentry": "scarecrow_stitched",
-    "scarecrow_west": "scarecrow",
-    "scarecrow_mid": "scarecrow",
-    "scarecrow_east": "scarecrow",
+    "scarecrow_west": {
+      "art": "scarecrow",
+      "set_piece": "pumpkin_scarecrow",
+      "materials": {
+        "post": "tex_props__scarecrow_timber",
+        "straw": "tex_props__scarecrow_straw"
+      }
+    },
+    "scarecrow_mid": {
+      "art": "scarecrow",
+      "set_piece": "pumpkin_scarecrow",
+      "materials": {
+        "post": "tex_props__scarecrow_timber",
+        "straw": "tex_props__scarecrow_straw"
+      }
+    },
+    "scarecrow_east": {
+      "art": "scarecrow",
+      "set_piece": "pumpkin_scarecrow",
+      "materials": {
+        "post": "tex_props__scarecrow_timber",
+        "straw": "tex_props__scarecrow_straw"
+      }
+    },
     "frost_bed": "garden_bed",
     "chapel_sunburst": "sunburst",
     "surgery_table": "surgery_table",
@@ -206,7 +308,22 @@
     "prison_skeleton": "skeleton_shackles",
     "initiate_pallets": "straw_pallet",
     "reliquary_niches": "wall_alcoves",
-    "den_mother_night": "statue_mother_night",
+    "den_mother_night": {
+      "art": "statue_mother_night",
+      "set_piece": "stone_statue",
+      "statue": {
+        "figure": "pack_female",
+        "layers": [
+          "pack_female_head",
+          "pack_female_noble3",
+          "pack_female_hair_buns"
+        ],
+        "pose": "Idle_FoldArms",
+        "stone": "props/stone_mossy",
+        "height": 1.25,
+        "plinth": 0.4
+      }
+    },
     "frozen_pilgrim": "frozen_traveller",
     "sanctum_braziers": "brazier_cold",
     "marina_bier": "bier",
@@ -301,12 +418,37 @@
     "pilgrim_candles_5": {
       "art": "offering_candles"
     },
-    "bd_engine": {
-      "art": "gl_hill_engine",
-      "see_through": true
-    },
+    "bd_engine": null,
     "bd_passenger_car": {
       "art": "gl_hill_carriage",
+      "set_piece": "ghostlight_train",
+      "train": {
+        "z": 10.0,
+        "rear": 19.0,
+        "rails": [
+          18.3,
+          96.0
+        ],
+        "bed": [
+          21,
+          9
+        ],
+        "trestle": [
+          24.9,
+          27.6
+        ],
+        "cars": [
+          "carriage",
+          "carriage",
+          "carriage",
+          "carriage",
+          "wagon",
+          "wagon",
+          "wagon",
+          "tender",
+          "engine"
+        ]
+      },
       "swap": {
         "Black": "pal_night",
         "Windows": "glow_candle",
@@ -320,13 +462,7 @@
       },
       "see_through": true
     },
-    "bd_mist_rails": {
-      "art": "gl_mist_rails",
-      "swap": {
-        "Steel": "pal_mist_blue",
-        "Wood": "pal_stone_deep"
-      }
-    },
+    "bd_mist_rails": null,
     "bd_lychgate": {
       "art": "gl_lychgate",
       "swap": {
@@ -366,10 +502,11 @@
     },
     "bd_stone_ring": {
       "art": "gl_stone_ring",
+      "set_piece": "stone_ring",
       "swap": {
-        "Menhir_001": "pal_stone_deep",
-        "Menhir_002": "pal_slate",
-        "Menhir_003": "pal_stone"
+        "Menhir_001": "tex_props__stone_lichen",
+        "Menhir_002": "tex_props__stone_lichen",
+        "Menhir_003": "tex_props__stone_lichen"
       }
     },
     "bd_train_bed_19_4": {
@@ -639,7 +776,216 @@
       "real": [
         "root_cluster"
       ]
-    }
+    },
+    "g1_seats": {
+      "art": "pew",
+      "set_piece": "train_seats",
+      "seats": {
+        "art": "pew",
+        "swap": {
+          "tex_interior__wood_planks": "tex_props__passenger_leather",
+          "pal_umber": "tex_props__passenger_panel",
+          "pal_walnut": "tex_props__passenger_panel"
+        },
+        "filled": 45,
+        "ghosts": [
+          "ghost_passenger_a",
+          "ghost_passenger_b",
+          "ghost_passenger_c",
+          "ghost_passenger_d",
+          "ghost_passenger_e",
+          "ghost_passenger_f",
+          "ghost_passenger_g",
+          "ghost_passenger_h"
+        ]
+      }
+    },
+    "g1_booths": null,
+    "g1_passengers": null,
+    "g2_beds": "bed_small",
+    "g2_phonograph": "jewel_box",
+    "g2_clothes_chest": "chest",
+    "g3_seascape": {
+      "art": "painting",
+      "set_piece": "framed_picture",
+      "picture": "res://art/sourced/wikimedia_commons_paintings/winslow_homer_rocky_coast_maine.jpg",
+      "width": 1.15,
+      "height": 1.05
+    },
+    "g3_paintings": "painting_row",
+    "g3_banquette": {
+      "art": "settee",
+      "swap": {
+        "pal_leather": "tex_props__lounge_velvet"
+      }
+    },
+    "g3_banquette_seat": {
+      "art": "settee",
+      "swap": {
+        "pal_leather": "tex_props__lounge_velvet"
+      }
+    },
+    "g4_booth_n1": "table_set",
+    "g4_booth_n2": "table_set",
+    "g4_booth_n3": "table_set",
+    "g4_booth_s1": "table_set",
+    "g4_booth_s2": "table_set",
+    "g4_booth_s3": "table_set",
+    "g4_big_booth": "table_set",
+    "g4_silverware": "table_set",
+    "g4_menu_cards": "receipt_table",
+    "g5_mailbags": "soul_bags",
+    "g5_sorting_bench": "workbench",
+    "g6_druskenvald_trunks": "trunk",
+    "g6_steamer_trunk": "chest",
+    "g6_abandoned_luggage": "chest_painted",
+    "g6_medical_bag": "sack",
+    "g6_abandoned_cases": "trunk",
+    "g6_iron_ring_loose": {
+      "art": "wall_chains",
+      "set_piece": "small:iron_ring"
+    },
+    "g7_key_ring": "curtain_hooks",
+    "g7_crates": "crate_stack",
+    "g7_marionette_chest": "toy_chest",
+    "g7_punch_chest": "toy_chest",
+    "g7_banners": "banner_regiment",
+    "g7_trapeze": "rope_coils",
+    "g7_strongman_trunk": "trunk",
+    "g8_tank": {
+      "art": "gl_soul_coal_bin",
+      "swap": {
+        "Base": "tex_props__tender_wall",
+        "Container": "tex_props__tender_wall",
+        "Black": "tex_props__track_rail"
+      },
+      "set_piece": "coal_bin"
+    },
+    "wr_trunks": "trunk",
+    "wr_moon": null,
+    "mm_statue_lantern": {
+      "art": "statue_mother_night",
+      "set_piece": "stone_statue",
+      "statue": {
+        "figure": "pack_female",
+        "layers": [
+          "pack_female_head",
+          "pack_female_noble3",
+          "pack_female_hair_buns"
+        ],
+        "pose": "Idle_Lantern",
+        "stone": "props/stone_mossy",
+        "height": 1.25,
+        "plinth": 0.4,
+        "gear": "lantern"
+      }
+    },
+    "mm_statue_lantern_woman": {
+      "art": "statue_mother_night",
+      "set_piece": "stone_statue",
+      "statue": {
+        "figure": "pack_female",
+        "layers": [
+          "pack_female_head",
+          "pack_female_noble3",
+          "pack_female_hair_buns"
+        ],
+        "pose": "Idle_Lantern",
+        "stone": "props/stone_mossy",
+        "height": 1.25,
+        "plinth": 0.4,
+        "gear": "lantern"
+      }
+    },
+    "wm_man_in_marble": {
+      "art": "statue_knight",
+      "set_piece": "stone_statue",
+      "statue": {
+        "figure": "pack_male",
+        "layers": [
+          "pack_male_head",
+          "pack_male_noble2",
+          "pack_male_hair_parted",
+          "pack_male_hair_beard"
+        ],
+        "pose": "Sword_Idle",
+        "stone": "props/stone_marble",
+        "height": 1.15,
+        "plinth": 0.3,
+        "gear": "sword_long"
+      }
+    },
+    "mm_reaper_west": {
+      "art": "statue_knight",
+      "set_piece": "stone_statue",
+      "statue": {
+        "figure": "pack_male",
+        "layers": [
+          "pack_male_head",
+          "pack_male_noble2",
+          "pack_male_hair_parted",
+          "pack_male_hair_beard"
+        ],
+        "pose": "Sword_Idle",
+        "stone": "pal_night",
+        "height": 1.15,
+        "plinth": 0.3,
+        "gear": "sword_long"
+      }
+    },
+    "mm_reaper_east": {
+      "art": "statue_knight",
+      "set_piece": "stone_statue",
+      "statue": {
+        "figure": "pack_male",
+        "layers": [
+          "pack_male_head",
+          "pack_male_noble2",
+          "pack_male_hair_parted",
+          "pack_male_hair_beard"
+        ],
+        "pose": "Sword_Idle",
+        "stone": "pal_night",
+        "height": 1.15,
+        "plinth": 0.3,
+        "gear": "sword_long"
+      }
+    },
+    "fw_magpies": null,
+    "shop_tailor_form": null,
+    "nm_feast_guest_0": "scarecrow_stitched",
+    "nm_feast_guest_1": "scarecrow_stitched",
+    "nm_feast_guest_2": "scarecrow_stitched",
+    "nm_feast_guest_3": "scarecrow_stitched",
+    "nm_feast_guest_4": "scarecrow_stitched",
+    "nm_feast_guest_5": "scarecrow_stitched",
+    "nm_feast_guest_6": "scarecrow_stitched",
+    "nm_feast_guest_7": "scarecrow_stitched",
+    "nm_feast_guest_8": "scarecrow_stitched",
+    "nm_feast_guest_9": "scarecrow_stitched",
+    "nm_feast_guest_10": "scarecrow_stitched",
+    "nm_feast_guest_11": "scarecrow_stitched",
+    "g7_cages": {
+      "art": "cage_covered",
+      "swap": {
+        "pal_stone_deep": "tex_props__circus_iron"
+      }
+    },
+    "g7_open_cage": {
+      "art": "cage_covered",
+      "swap": {
+        "pal_stone_deep": "tex_props__circus_iron"
+      }
+    },
+    "g8_porthole": {
+      "art": "window_lit",
+      "set_piece": "porthole"
+    },
+    "g8_pipes": {
+      "art": "window_lit",
+      "set_piece": "pipes"
+    },
+    "tender_door": null
   },
   "low_cover": {
     "wild": [
@@ -754,6 +1100,66 @@
     ],
     "road_ambush_run": [
       "wall_low"
+    ],
+    "ghostlight_g1_passenger": [
+      "gl_bed"
+    ],
+    "ghostlight_g1_passenger_run": [
+      "gl_bed"
+    ],
+    "ghostlight_g2_sleeper": [
+      "bed_small",
+      "dressing_table",
+      "trunk"
+    ],
+    "ghostlight_g2_sleeper_run": [
+      "bed_small"
+    ],
+    "ghostlight_g3_lounge": [
+      "armchair",
+      "settee",
+      "table_meal",
+      "rocking_chair"
+    ],
+    "ghostlight_g3_lounge_run": [
+      "bar_counter"
+    ],
+    "ghostlight_g3_lounge_wall_run": [
+      "settee"
+    ],
+    "ghostlight_g4_dining": [
+      "table_set"
+    ],
+    "ghostlight_g4_dining_run": [
+      "table_set"
+    ],
+    "ghostlight_g5_mail": [
+      "soul_bags",
+      "letters_table"
+    ],
+    "ghostlight_g5_mail_run": [
+      "receipt_table"
+    ],
+    "ghostlight_g5_mail_wall_run": [
+      "shelves"
+    ],
+    "ghostlight_g6_baggage": [
+      "trunk",
+      "chest",
+      "crate_stack",
+      "chest_painted"
+    ],
+    "ghostlight_g6_baggage_run": [
+      "crate_stack"
+    ],
+    "ghostlight_g7_circus": [
+      "cage_covered",
+      "wicker_cage",
+      "toy_chest",
+      "chest_painted"
+    ],
+    "ghostlight_g7_circus_run": [
+      "cage_covered"
     ]
   },
   "difficult": {
@@ -1977,7 +2383,8 @@
       "gl_tender_wreck": "gl_tender_wreck",
       "gl_oak_car": "gl_oak_car",
       "gl_bed": "gl_bed",
-      "gl_soul_can": "gl_soul_can"
+      "gl_soul_can": "gl_soul_can",
+      "gl_soul_coal_bin": "gl_soul_coal_bin"
     },
     "walls": {
       "interior/wainscot_wall": "wainscot",
@@ -2088,10 +2495,11 @@
       }
     },
     "interiors": {
-      "about": "Interiors: the style a place's rooms are built in, by the start of its id, else by board theme. A lone wall square inside a room is a pillar in that style (kit_pillar_<style>); every open face of a cut-away wall gets the style's coping along its top and, where no panelling does, its face module (kit_<style>_coping, kit_<style>_face). full_walls (W8, Modern look only): rooms get full-height walls, height by style, which open a window round the party where they hide it (SeeThrough); cut_away: they drop to the cut-away height toward the camera instead (off: owner 2026-10-17, \"walls collapse down when looking from certain angles\"); thin_walls (Natural Maps Plan I1, owner 2026-10-19): the side of a wall that faces a room is set back into the wall square by inset (0.35 of a square), so a wall between two rooms stands a foot and a half thick, not a whole square, and the places named in not (starts of ids: the caves, which have their own walls) keep whole squares; ground: what lies outside the building by style, and outside: a place's own (its ground, how many storeys below it lies, its walls' height); a dungeon's outside is rock.",
+      "about": "Interiors: the style a place's rooms are built in, by the start of its id, else by board theme. A lone wall square inside a room is a pillar in that style (kit_pillar_<style>); every open face of a cut-away wall gets the style's coping along its top and, where no panelling does, its face module (kit_<style>_coping, kit_<style>_face). full_walls (W8, Modern look only): rooms get full-height walls, height by style, which open a window round the party where they hide it (SeeThrough); cut_away: they drop to the cut-away height toward the camera instead (off: owner 2026-10-17, \"walls collapse down when looking from certain angles\"); thin_walls (Natural Maps Plan I1, owner 2026-10-19): the side of a wall that faces a room is set back into the wall square by inset (0.35 of a square), so a wall between two rooms stands a foot and a half thick, not a whole square, and the places named in not (starts of ids: the caves, which have their own walls) keep whole squares; ground: what lies outside the building by style, and outside: a place's own (its ground, how many storeys below it lies, its walls' height); a dungeon's outside is rock. An iron style (the Ghostlight Express's Tender) has no face or coping modules: its walls are the plain riveted plate of their own surface.",
       "places": {
         "castle_ravenloft": "castle",
-        "amber_temple": "amber"
+        "amber_temple": "amber",
+        "ghostlight_g8_tender": "iron"
       },
       "themes": {
         "church": "church",

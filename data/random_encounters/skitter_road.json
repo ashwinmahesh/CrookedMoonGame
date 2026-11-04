@@ -1,0 +1,128 @@
+{
+  "id": "skitter_road",
+  "map": "road_oakwood",
+  "grounds": [
+    "road_oakwood",
+    "road_foothill_pass"
+  ],
+  "chance_day": 0.35,
+  "chance_night": 0.35,
+  "summary": "The hill road and trail north-west to Glitterdeep Mine: centipedes everywhere, swarming out of the plague the coven is spreading; a sick miner on the road.",
+  "entries": [
+    {
+      "id": "centipedes",
+      "weight": 4,
+      "when": "level <= 5",
+      "monsters": [
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            20,
+            9
+          ]
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            22,
+            13
+          ]
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            18,
+            15
+          ]
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            25,
+            10
+          ]
+        },
+        {
+          "monster": "giant_centipede",
+          "cell": [
+            27,
+            14
+          ]
+        }
+      ],
+      "text": "The dirt on the trail shifts underfoot, and then centipedes big as dogs come pouring out of a rusted culvert."
+    },
+    {
+      "id": "skitterswarm",
+      "weight": 4,
+      "when": "level >= 6",
+      "monsters": [
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            25,
+            10
+          ]
+        },
+        {
+          "monster": "skitterswarm",
+          "cell": [
+            27,
+            14
+          ]
+        },
+        {
+          "monster": "vermin_familiar_centipede",
+          "cell": [
+            16,
+            7
+          ]
+        }
+      ],
+      "text": "A crawling carpet of centipedes washes across the hill trail, and in the middle of the swarm something much bigger rides like a queen."
+    },
+    {
+      "id": "wolves",
+      "weight": 2,
+      "when": "level <= 5",
+      "monsters": [
+        {
+          "monster": "wolf",
+          "cell": [
+            8,
+            8
+          ]
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            6,
+            15
+          ]
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            10,
+            17
+          ]
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            24,
+            17
+          ]
+        }
+      ],
+      "text": "Thin, wild-eyed wolves block the trail ahead, whining and chewing frantic at something moving under their own fur."
+    },
+    {
+      "id": "sick_miner",
+      "weight": 3,
+      "when": "not flag.road_miner_met",
+      "once": true,
+      "dialogue": "roads/act2:sick_miner"
+    }
+  ]
+}

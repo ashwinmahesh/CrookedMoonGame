@@ -1033,10 +1033,8 @@
       ],
       "kind": "examine",
       "label": "A crystal ball on a shelf",
+      "dialogue": "crooked_house/incitements:pilgrimage_enter",
       "model": "glass_ring",
-      "call": "crooked_house/incitements:pilgrimage_enter",
-      "approach": 4,
-      "call_when": "not flag.incitement_pilgrimage",
       "text": "A crystal ball, clouded from within, sits on a shelf that has been dusted by someone, recently."
     },
     {
@@ -1162,11 +1160,9 @@
       ],
       "kind": "examine",
       "label": "A dour bust",
+      "dialogue": "crooked_house/incitements:rapture_enter",
       "model": "statue_head",
-      "text": "The bust glares from its plinth with the look of a man who has never once enjoyed himself.",
-      "call": "crooked_house/incitements:rapture_enter",
-      "approach": 4,
-      "call_when": "not flag.incitement_rapture"
+      "text": "The bust glares from its plinth with the look of a man who has never once enjoyed himself."
     },
     {
       "id": "h4_paintings",
@@ -1270,10 +1266,8 @@
       ],
       "kind": "examine",
       "label": "A cracked oval mirror",
+      "dialogue": "crooked_house/incitements:duality_enter",
       "model": "mirror",
-      "call": "crooked_house/incitements:duality_enter",
-      "approach": 4,
-      "call_when": "not flag.incitement_duality",
       "text": "An oval mirror, cracked across, shows the room with something dancing in it that is not there when you turn."
     },
     {
@@ -1702,11 +1696,9 @@
       ],
       "kind": "examine",
       "label": "A living bergamot tree",
+      "dialogue": "crooked_house/incitements:rejuvenation_enter",
       "model": "pine_b",
       "scale": 0.9,
-      "call": "crooked_house/incitements:rejuvenation_enter",
-      "approach": 4,
-      "call_when": "not flag.incitement_rejuvenation",
       "text": "One tree among the dead vines is green and heavy with fruit, as if it were fed by the rest."
     },
     {
@@ -2209,10 +2201,7 @@
       "label": "A wooden doll",
       "model": "doll",
       "dialogue": "crooked_house/sally_doll:start",
-      "text": "A small wooden doll sits where it fell, its painted face turned toward you.",
-      "call": "crooked_house/sally_doll:start",
-      "approach": 8,
-      "call_when": "not flag.sally_rested"
+      "text": "A small wooden doll sits where it fell, its painted face turned toward you."
     },
     {
       "id": "h10_d01",
@@ -2439,10 +2428,8 @@
       ],
       "kind": "examine",
       "label": "Scratchings in the plaster",
+      "dialogue": "crooked_house/incitements:kindred_enter",
       "model": "claw_marks",
-      "call": "crooked_house/incitements:kindred_enter",
-      "approach": 4,
-      "call_when": "not flag.incitement_kindred",
       "text": "Fine scratches cover the wall, thousands of them, as if something has been trying to dig its way out for years."
     },
     {
@@ -2828,10 +2815,8 @@
       ],
       "kind": "examine",
       "label": "A tome left on a lectern",
+      "dialogue": "crooked_house/incitements:malediction_enter",
       "model": "lectern",
-      "call": "crooked_house/incitements:malediction_enter",
-      "approach": 4,
-      "call_when": "not flag.incitement_malediction",
       "text": "A heavy book lies open on a lectern, and the words on its page seem to be the ones you would say next."
     },
     {
@@ -3110,11 +3095,9 @@
       ],
       "kind": "examine",
       "label": "A stuffed crow on a perch",
+      "dialogue": "crooked_house/incitements:slaughter_enter",
       "model": "crow",
       "scale": 1.5,
-      "call": "crooked_house/incitements:slaughter_enter",
-      "approach": 4,
-      "call_when": "not flag.incitement_slaughter and not flag.pending_slaughter_incitement",
       "text": "A stuffed crow sits on a perch with its glass eyes fixed on the doorway, and one wing half open."
     },
     {
@@ -3319,12 +3302,10 @@
       ],
       "kind": "examine",
       "label": "A great cauldron of glowing red ichor",
+      "dialogue": "crooked_house/incitements:immortality_enter",
       "model": "cauldron",
       "scale": 1.4,
-      "text": "A cauldron as wide as a cart, bubbling with something red that gives off heat and the smell of old pennies.",
-      "call": "crooked_house/incitements:immortality_enter",
-      "approach": 3,
-      "call_when": "not flag.incitement_immortality"
+      "text": "A cauldron as wide as a cart, bubbling with something red that gives off heat and the smell of old pennies."
     },
     {
       "id": "h17_phillip",
@@ -3558,6 +3539,46 @@
       ],
       "kind": "decor",
       "model": "bone_scatter"
+    },
+    {
+      "id": "ch_parlor_hearthstone",
+      "label": "A loose hearthstone in the parlour",
+      "model": "floor_crack",
+      "search_dc": 13,
+      "item": "hearthstone_locket",
+      "text": "Under the cobwebbed fireplace, a loose hearthstone lifts out of the ash. Beneath it lies a tarnished silver locket, the tiny portrait inside scratched clean away.",
+      "kind": "search",
+      "cell": [
+        12,
+        21
+      ]
+    },
+    {
+      "id": "ch_library_hollow_book",
+      "label": "A book with its pages cut hollow",
+      "model": "book_stack",
+      "search_dc": 14,
+      "skill": "investigation",
+      "item": "pearl",
+      "text": "A heavy volume on the saggin' shelf sits wrong in your hands. Its pages are cut hollow round a single large pearl.",
+      "kind": "search",
+      "cell": [
+        96,
+        30
+      ]
+    },
+    {
+      "id": "ch_sitting_clock",
+      "label": "Something wedged behind the grandfather clock",
+      "model": "papers",
+      "search_dc": 12,
+      "item": "citrine",
+      "text": "Wedged tight behind the ticking grandfather clock, your fingers brush a scrap of cloth. Inside the rag rests a cold yellow citrine.",
+      "kind": "search",
+      "cell": [
+        39,
+        22
+      ]
     }
   ],
   "containers": [
@@ -3657,6 +3678,190 @@
           "qty": 1
         }
       ]
+    },
+    {
+      "id": "ch_parlor_curios",
+      "label": "A curio cabinet of dusty knick-knacks",
+      "model": "cabinet_glass",
+      "gold": 6,
+      "items": [
+        {
+          "id": "candle",
+          "qty": 1
+        },
+        {
+          "id": "silver_dust",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        14,
+        21
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "ch_kitchen_pantry",
+      "label": "A pantry crate under the fallen shelf",
+      "model": "crate",
+      "gold": 0,
+      "items": [
+        {
+          "id": "ration",
+          "qty": 1
+        },
+        {
+          "id": "oil",
+          "qty": 1
+        },
+        {
+          "id": "ration",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        20,
+        5
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "ch_sitting_sewing",
+      "label": "A lady's sewing box",
+      "model": "sewing_basket",
+      "gold": 3,
+      "items": [
+        {
+          "id": "string",
+          "qty": 1
+        },
+        {
+          "id": "potion_of_healing",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        36,
+        24
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "ch_bedroom_wardrobe",
+      "label": "The bent wardrobe",
+      "model": "wardrobe",
+      "gold": 9,
+      "items": [
+        {
+          "id": "fine_clothes",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        49,
+        12
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "ch_library_desk",
+      "label": "A desk drawer under the books",
+      "model": "desk",
+      "gold": 4,
+      "items": [
+        {
+          "id": "ink",
+          "qty": 1
+        },
+        {
+          "id": "paper",
+          "qty": 1
+        },
+        {
+          "id": "spell_scroll_level_1",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        100,
+        28
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "ch_trophy_footlocker",
+      "label": "A hunter's footlocker",
+      "model": "footlocker",
+      "lock_dc": 13,
+      "gold": 11,
+      "items": [
+        {
+          "id": "arrow",
+          "qty": 1
+        },
+        {
+          "id": "hunting_trap",
+          "qty": 1
+        },
+        {
+          "id": "potion_of_healing",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        95,
+        4
+      ]
+    },
+    {
+      "id": "ch_attic_hoard",
+      "label": "A weasel's hoard of teeth and buttons",
+      "model": "sack_pile",
+      "gold": 18,
+      "items": [
+        {
+          "id": "human_tooth",
+          "qty": 1
+        },
+        {
+          "id": "human_tooth",
+          "qty": 1
+        },
+        {
+          "id": "human_tooth",
+          "qty": 1
+        },
+        {
+          "id": "ruby_dust",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        133,
+        20
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "ch_nursery_trunk",
+      "label": "A trunk of outgrown baby things",
+      "model": "trunk",
+      "gold": 2,
+      "items": [
+        {
+          "id": "blanket",
+          "qty": 1
+        },
+        {
+          "id": "candle",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        82,
+        12
+      ],
+      "lock_dc": 0
     }
   ],
   "lights": [
@@ -4443,6 +4648,75 @@
       "damage_type": "thunder",
       "when": "flag.crooked_house_turned and not flag.vessla_slain",
       "text": "The thunder lands like a fist."
+    },
+    {
+      "id": "ch_attic_hoard_trap",
+      "label": "A tooth-jawed snare round the hoard",
+      "model": "wolf_trap",
+      "detect_dc": 14,
+      "disarm_dc": 13,
+      "save": {
+        "ability": "dex",
+        "dc": 13
+      },
+      "damage": "2d6",
+      "damage_type": "piercing",
+      "text": "Right by the scatter of buttons and teeth, iron jaws studded with human molars snap shut on your ankle.",
+      "cells": [
+        [
+          133,
+          19
+        ],
+        [
+          134,
+          19
+        ],
+        [
+          134,
+          20
+        ]
+      ]
+    },
+    {
+      "id": "ch_upper_hall_tripwire",
+      "label": "A tripwire of braided hair",
+      "model": "tripwire",
+      "detect_dc": 14,
+      "disarm_dc": 12,
+      "save": {
+        "ability": "dex",
+        "dc": 13
+      },
+      "damage": "1d6",
+      "damage_type": "bludgeoning",
+      "condition": "prone",
+      "text": "Pulled low and tight across the floorboards, a cord of braided hair catches your boot and takes your foot out from under you.",
+      "cells": [
+        [
+          86,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "ch_trophy_jaw_trap",
+      "label": "A jaw trap in the stair hall's corner",
+      "model": "wolf_trap",
+      "detect_dc": 14,
+      "disarm_dc": 13,
+      "save": {
+        "ability": "dex",
+        "dc": 13
+      },
+      "damage": "2d6",
+      "damage_type": "piercing",
+      "text": "In the dark of the stair hall's corner, heavy iron jaws slam together through the dust.",
+      "cells": [
+        [
+          79,
+          19
+        ]
+      ]
     }
   ],
   "npcs": [
@@ -4475,7 +4749,6 @@
       ],
       "dialogue": "crooked_house/arthur:start",
       "when": "not flag.arthur_rested",
-      "approach": 4,
       "facing": "west",
       "steps_aside": true
     },
@@ -4487,7 +4760,6 @@
       ],
       "dialogue": "crooked_house/wisp:start",
       "when": "not (quest.a_tale_for_wisp == thanked or quest.a_tale_for_wisp == fled or quest.a_tale_for_wisp == slain)",
-      "approach": 6,
       "facing": "west"
     },
     {

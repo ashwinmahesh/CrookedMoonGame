@@ -10,10 +10,12 @@ luckless_lou [smile]: Fresh faces by the fight pits! Pull up a dry crate, friend
 
 ~ lou_system
 luckless_lou [smile]: Every hand you lose clears the bad luck out of the deck, see, storing up pure fortune for the next deal. By my count, I am overdue for a royal flush.
+interject name:silas_vane: A system, he says. Poor sod's a walking charity benefit.
 -> lou_start
 
 ~ lou_accept
 luckless_lou [sly]: You have sharper eyes than mine, and Lyla does not know your faces yet. Find out how she and Vander signal under the planks, then come tell me.
+interject name:lucan_houndstooth: A steady eye on the brush around the table, friends. Let us spot their spoor.
 set king_asked
 quest a_hand_with_the_king asked
 -> END
@@ -44,12 +46,14 @@ luckless_lou [sly]: A cough, a boot, and two fingers on the cup? I knew my syste
 * Keep it, and let Lyla pay us to forget it -> proof_kept
 
 ~ proof_quiet
+approve rook_coldwake +2 lucan_houndstooth +2 delphine_ravelle -1: You settled King Vander's crooked card game quietly for an honest rematch
 vander_boone [smile]: Caught Lyla's little telegraph, did you? Fair enough, friends, tell Lou to bring his empty pockets back tomorrow and we will deal him an honest hand.
 set king_outcome = "rematch"
 quest a_hand_with_the_king done
 -> END
 
 ~ proof_public
+approve delphine_ravelle +3 silas_vane +2: You exposed King Vander's card signals in front of the whole pit
 Narrator: The whole pit goes quieter than cypress water as you lay out every signal. Vander slowly lifts his purple top hat, smooths his bald head, and settles the brim back down.
 vander_boone [weary]: Well now, it seems the house owes the table a clean shuffle. Sit down, Lou, before I change my mind.
 set king_outcome = "exposed"
@@ -57,6 +61,7 @@ quest a_hand_with_the_king done
 -> END
 
 ~ proof_kept
+approve silas_vane -3 rook_coldwake -3 tobin_hayward -2: You took Lyla's hush money and left Luckless Lou to be fleeced
 lyla_webb [sly]: Fifty gold pieces says you have a poor memory for how we hold our cups. Count it elsewhere, and leave Lou to his famous system.
 Narrator: Her charms click softly as she drops the pouch into your palm, while Lou watches from the rails with a long, damp sulk.
 set king_outcome = "kept"

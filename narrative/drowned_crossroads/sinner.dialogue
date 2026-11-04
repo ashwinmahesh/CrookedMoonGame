@@ -11,6 +11,7 @@ cutscene dc_roll_bones_2
 Narrator: Across the green felt, his yellow grin catches the lantern light while his hollow-eyed crew crowds close at his back.
 cutscene end
 mister_crossroads [smile]: Welcome, honoured guests, to my humble parlour. Sit yourselves down, rest your boots, and let a simple sinner propose a friendly wager.
+interject name:silas_vane: Tell's in the tail, friend. This lizard has the whole shoe stacked before we sit.
 -> invite_menu
 
 ~ invite_again
@@ -26,6 +27,7 @@ mister_crossroads [smile]: There is no hurry on the river, friends. The felt is 
 
 ~ invite_adela
 mister_crossroads [sly]: Lady Adela's ring and her recovery are right here on the cloth, beside my boat and every poor soul aboard, against your own bright spirits.
+interject name:delphine_ravelle: He says you are lying, darling, and even without eyes he can read a rigged table.
 mister_crossroads [smile]: Should the stakes feel a touch steep, you are always welcome to take a purse of river gold and walk away happy.
 -> invite_menu
 
@@ -43,6 +45,7 @@ mister_crossroads [smile]: Take all the time you please to enjoy the music and t
 -> END
 
 ~ table_play
+approve delphine_ravelle +3 silas_vane +2 rook_coldwake -2: You sat down to dice with the Grinning Sinner
 set dice_score = 0
 mister_crossroads [smile]: A dry throat and a bold heart, that is what the river likes. For every chair you fill, I shall set another bone under my cup.
 mister_crossroads [sly]: I am a man of large appetites, friends, so do not expect me to bid small.
@@ -130,6 +133,7 @@ Narrator: He rises from his chair and hefts a massive blunderbuss etched with we
 -> sinner_fight
 
 ~ sinner_fight
+approve lucan_houndstooth +3 rook_coldwake +2 delphine_ravelle -1: You drew steel on the Grinning Sinner instead of gambling
 cutscene dc_all_in
 Narrator: All around the hall, his crew drops to its knees and shrivels like dry leaves, their pale light pouring straight into his gun.
 cutscene dc_all_in_2
@@ -159,6 +163,7 @@ cutscene dc_jack_due_2
 Narrator: The lid slams shut with the crack of a pistol shot, leaving a fresh crocodile skull and crossbones gouged deep into the wood.
 cutscene dc_jack_due_3
 Narrator: Shadows settle back over the quiet hall where the Sinner's body slumps in his coat, wide eyes fixed on nothing and the cold gun in his lap.
+interject name:rook_coldwake: Lease expired, debt collected in full. Close the book on him.
 cutscene end
 set grinning_sinner_slain
 set sinner_after_seen

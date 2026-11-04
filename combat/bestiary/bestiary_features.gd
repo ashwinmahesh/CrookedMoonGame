@@ -123,13 +123,26 @@ func turn_start(c: Combatant) -> CombatResult:
 
 
 ## The haint's first turn in a fight is a wail and nothing else (R10 decision 28); an echo out of a Soul Can or a jar
-## fights at once.
+## fights at once. Each of the six fights its own way: the state its fight puts it in names the AI profile it plays
+## (data/monsters/wayward_haint.json `states`, fun pass), set here each turn so a loaded round keeps it too.
 func _haint_turn(c: Combatant) -> Variant:
+	var profile := state_profile(c)
+	if profile != "":
+		c.ai_profile = StringName(profile)
 	if c.has_meta(WAILED_META) or c.has_meta(ObjectFuel.RELEASED_META):
 		return null
 	c.set_meta(WAILED_META, true)
 	_log("info", "%s wails its grief, and the cold of it fills the room" % c.name(), c)
 	return CombatResult.new()
+
+
+## The AI profile a state of this fight gives `c` (a trait with an `ai_profile`), or "".
+static func state_profile(c: Combatant) -> String:
+	for tr: Variant in MonsterActions.data_of(c).get("traits", []):
+		var profile := str((tr as Dictionary).get("ai_profile", ""))
+		if profile != "":
+			return profile
+	return ""
 
 
 ## Corpse Fuel: a Stoker that starts its turn able to see a corpse moves as far into its space as it can and burns it.

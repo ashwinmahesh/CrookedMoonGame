@@ -2,6 +2,7 @@ extends Node
 ## Any places seen from the play camera, as the game shows them: the placeholder party arrives at each location in the list and a shot is
 ## taken of the play view and of the whole place from above.
 ##   make capture SCENE=res://tools/capture/places_capture.tscn NAME=world/places ARGS='--places=ghostlight_boarding,wickermoor_village'
+## --no-text hides the narration box. --found=a,b marks those search spots found first, so what they hide shows (the Lounge Car's seascape).
 ## --hour=8 shoots the Twilight Hour (the default is 23, the Midnight Hour).
 ## --party=placeholder stands the engine's placeholder party (Ilse, Tamsin, Hedda, Silvain, sprites) in the places; the default is a new
 ## game's party (Rook, Silas, Cordelia, Delphine), the 3D figures the game opens with.
@@ -25,12 +26,18 @@ func capture_shots(tool: Node, out: String) -> void:
 	var lineup := -1
 	var npcs := 0
 	var flags: PackedStringArray = []
+	var found: PackedStringArray = []
+	var no_text := false
 	var focus := Vector2(-1, -1)
 	var focus_distance := 8.0
 	var tilts: PackedStringArray = []
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--places="):
 			places = a.get_slice("=", 1).split(",")
+		if a == "--no-text":
+			no_text = true   # the narration box hidden, for shots of the place alone
+		if a.begins_with("--found="):
+			found = a.get_slice("=", 1).split(",")   # search spots already found, so their things show (g3_seascape)
 		if a.begins_with("--flags="):
 			flags = a.get_slice("=", 1).split(",")   # story flags to set first, name:value (moon_grin:2,moon_scowl:true)
 		if a == "--party=placeholder":
@@ -81,6 +88,8 @@ func capture_shots(tool: Node, out: String) -> void:
 			ch.finish_long_rest()
 			st.party.append(ch)
 		st.location = place
+		for id in found:
+			(st.loc_state(place)["found"] as Dictionary)[id] = true
 		for f in flags:
 			var v := f.get_slice(":", 1)
 			st.set_flag(f.get_slice(":", 0), true if v == "true" else (int(v) if v.is_valid_int() else v))
@@ -93,6 +102,10 @@ func capture_shots(tool: Node, out: String) -> void:
 			if n is CanvasLayer and n.name.begins_with("Place"):
 				n.visible = false
 		await tool.call("wait_frames", 20)
+		if no_text:
+			for hud in game.find_children("*", "ExploreHud", true, false):
+				hud.call("close_narration")
+			await tool.call("wait_frames", 3)   # (a shot is the frame last drawn)
 		tool.call("_shot", "%s_%s_play.png" % [out, place])
 		if turn:
 			st.set_flag("crooked_house_turned", true)
@@ -122,6 +135,7 @@ func capture_shots(tool: Node, out: String) -> void:
 			await tool.call("wait_frames", 5)
 		if focus.x >= 0.0:
 			rig.follow = null
+			rig.free_cam = true   # else _keep_camera_on_the_party points it back at the leader
 			rig.horizon = 0.0
 			rig.distance = focus_distance
 			rig.global_position = view.board.cell_center(Vector2i(int(focus.x), int(focus.y)))
@@ -141,6 +155,7 @@ func capture_shots(tool: Node, out: String) -> void:
 					break
 				var who := view.npc_tokens[nid] as Node3D
 				rig.follow = null
+				rig.free_cam = true   # else _keep_camera_on_the_party points it back at the leader
 				rig.horizon = 0.0
 				rig.distance = 7.0
 				rig.global_position = who.global_position
@@ -157,6 +172,7 @@ func capture_shots(tool: Node, out: String) -> void:
 				tok.position = view.board.cell_center(cb.cell)
 				view.add_child(tok)
 			rig.follow = null
+			rig.free_cam = true   # else _keep_camera_on_the_party points it back at the leader
 			rig.horizon = 0.0
 			rig.distance = 7.0
 			rig.global_position = view.board.cell_center(base_cell + Vector2i(5, 0))
@@ -169,6 +185,7 @@ func capture_shots(tool: Node, out: String) -> void:
 				var spot := view.board.cell_center(base + Vector2i(2 + k, 0))   # (one row along an open aisle)
 				SmallProps.build(SmallProps.KINDS[k], view.board, spot, 7 + k, Vector2i.ZERO)
 			rig.follow = null
+			rig.free_cam = true   # else _keep_camera_on_the_party points it back at the leader
 			rig.horizon = 0.0
 			rig.distance = 8.0
 			rig.global_position = view.board.cell_center(base + Vector2i(7, 0))
@@ -192,7 +209,10 @@ func capture_shots(tool: Node, out: String) -> void:
 		rig.horizon = 0.0
 		rig.horizon_shown = 0.0
 		rig.follow = null
+		rig.free_cam = true   # else _keep_camera_on_the_party points it back at the leader
 		rig.distance = maxf(view.grid.width, view.grid.depth) * 1.05
+		rig.zoom_max = maxf(rig.zoom_max, rig.distance)   # a big map is farther than the play zoom's limit
+		rig.camera.far = maxf(rig.camera.far, rig.distance * 3.0)
 		rig.global_position = Vector3(view.grid.width / 2.0, 0, view.grid.depth / 2.0)
 		rig.snap_to_target()
 		await tool.call("wait_frames", 30)

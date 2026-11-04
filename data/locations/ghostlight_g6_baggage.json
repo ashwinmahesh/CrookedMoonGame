@@ -73,7 +73,9 @@
           12,
           5
         ]
-      ]
+      ],
+      "floor": "props/baggage_floor",
+      "walls": "props/baggage_wall"
     },
     {
       "id": "g6_rear_stack",
@@ -87,7 +89,9 @@
           8,
           5
         ]
-      ]
+      ],
+      "floor": "props/baggage_floor",
+      "walls": "props/baggage_wall"
     },
     {
       "id": "g6_den",
@@ -101,7 +105,9 @@
           18,
           5
         ]
-      ]
+      ],
+      "floor": "props/baggage_floor",
+      "walls": "props/baggage_wall"
     },
     {
       "id": "g6_tiger_bed",
@@ -115,7 +121,9 @@
           16,
           3
         ]
-      ]
+      ],
+      "floor": "props/baggage_floor",
+      "walls": "props/baggage_wall"
     }
   ],
   "spawns": {
@@ -199,10 +207,8 @@
       ],
       "kind": "examine",
       "label": "A discarded medical bag",
-      "model": "case",
-      "call": "ghostlight_express/incitements:evolution_enter",
-      "approach": 12,
-      "call_when": "not flag.incitement_evolution and not flag.pending_evolution_incitement"
+      "dialogue": "ghostlight_express/incitements:evolution_enter",
+      "model": "case"
     },
     {
       "id": "g6_tiger",
@@ -281,10 +287,51 @@
       ],
       "kind": "examine",
       "label": "The brass lamps",
-      "model": "lamp",
-      "call": "ghostlight_express/vagrant_intercom:router",
-      "approach": 12,
-      "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed and ((flag.haints_destroyed >= 1 and not flag.gl_destroyed_noted) or (flag.haints_resolved >= 3 and not flag.gl_level2_given) or (flag.haints_all_gone and not flag.gl_checkin_all) or (flag.haints_resolved >= 5 and not flag.gl_checkin_fifth) or (flag.haints_resolved >= 1 and not flag.gl_checkin_first))"
+      "model": "lamp"
+    },
+    {
+      "id": "g6_stack_rear",
+      "cell": [
+        8,
+        1
+      ],
+      "kind": "decor",
+      "label": "A teetering stack of luggage",
+      "model": "crate_stack",
+      "object": "shelves"
+    },
+    {
+      "id": "g6_stack_front",
+      "cell": [
+        12,
+        1
+      ],
+      "kind": "decor",
+      "label": "A teetering stack of luggage",
+      "model": "crate_stack",
+      "object": "shelves"
+    },
+    {
+      "id": "g6_stack_middle",
+      "cell": [
+        9,
+        4
+      ],
+      "kind": "decor",
+      "label": "A teetering stack of luggage",
+      "model": "crate_stack",
+      "object": "shelves"
+    },
+    {
+      "id": "g6_stack_den",
+      "cell": [
+        15,
+        2
+      ],
+      "kind": "decor",
+      "label": "A teetering stack of luggage",
+      "model": "crate_stack",
+      "object": "shelves"
     }
   ],
   "npcs": [
@@ -319,7 +366,30 @@
             3
           ],
           "name": "The Jailbird",
-          "facing": "south"
+          "facing": "south",
+          "states": [
+            "flung_baggage"
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "flung_baggage",
+          "name": "Flung Baggage",
+          "summary": "A case comes hurtling off the stacks.",
+          "kind": "save",
+          "affects": "party",
+          "from_round": 2,
+          "say": "haint:flung_baggage",
+          "one": true,
+          "save": {
+            "ability": "dex",
+            "dc": 12
+          },
+          "damage": {
+            "dice": "1d6",
+            "type": "bludgeoning"
+          }
         }
       ]
     },
@@ -373,6 +443,60 @@
           "lying": true
         }
       ]
+    },
+    {
+      "id": "gl_shroud_breach",
+      "trigger": "enter_area:g6_front_stack",
+      "flag": "gl_breach_done",
+      "when": "flag.haints_resolved >= 3 and not flag.gl_breach_done",
+      "monsters": [
+        {
+          "monster": "corrupted_passenger",
+          "cell": [
+            10,
+            2
+          ],
+          "name": "Shroud-Touched Passenger",
+          "art": "corrupted_passenger"
+        },
+        {
+          "monster": "shadow",
+          "cell": [
+            11,
+            4
+          ],
+          "name": "A Sliver of the Phantom",
+          "art": "phantom_trainhopper"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "shroud_spills_in",
+          "name": "The Shroud Spills In",
+          "summary": "Green mist pours through the broken window, and a passenger in it turns.",
+          "kind": "summon",
+          "monster": "corrupted_passenger",
+          "count": 1,
+          "cells": [
+            [
+              11,
+              3
+            ]
+          ],
+          "from_round": 2,
+          "until_round": 3,
+          "say": "breach:spill"
+        },
+        {
+          "id": "vagrants_whistle",
+          "name": "The Vagrant's Whistle",
+          "summary": "The train's whistle screams and the window knits itself whole.",
+          "kind": "text",
+          "from_round": 4,
+          "times": 1,
+          "say": "breach:whistle"
+        }
+      ]
     }
   ],
   "lights": [
@@ -384,7 +508,7 @@
       "kind": "lamp",
       "bright_ft": 20,
       "dim_ft": 40,
-      "color": "candle"
+      "color": "ember"
     },
     {
       "cell": [
@@ -394,7 +518,7 @@
       "kind": "lamp",
       "bright_ft": 20,
       "dim_ft": 40,
-      "color": "candle"
+      "color": "ember"
     },
     {
       "cell": [
@@ -404,7 +528,7 @@
       "kind": "lamp",
       "bright_ft": 20,
       "dim_ft": 40,
-      "color": "candle"
+      "color": "ember"
     },
     {
       "cell": [
@@ -449,6 +573,16 @@
         }
       ],
       "model": "case"
+    },
+    {
+      "id": "g6_valise",
+      "cell": [
+        1,
+        2
+      ],
+      "label": "A battered valise",
+      "model": "trunk",
+      "gold": 4
     }
   ]
 }

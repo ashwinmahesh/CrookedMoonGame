@@ -1,0 +1,88 @@
+You are an editor tightening DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue). It is folk horror in Wickermoor, a village in an afterlife realm of endless autumn night; deadpan humour beside real dread. These are the village's conversations. Players say the village is a WALL OF TALK: too many words before anything happens. Your job is to make every line shorter and sharper, the way a good film editor cuts a scene, without losing anything that matters.
+
+FOR EACH NUMBERED LINE answer one of:
+- `n => KEEP` when the line is already tight (most lines of 15 words or fewer should be KEEP).
+- `n => new text` with the tightened line. Aim for about half to two thirds of the old length. Cut throat-clearing, repetition of what the line or the line before already said, stacked adjectives, second examples, flavour that leads nowhere, and explanations the listener doesn't need.
+- `n => CUT` only for a line whose content is entirely repeated by another line in the same conversation node (shown in [brackets]); never for a line that is the only one of its node, never for an interject line, never for the first line of a node.
+
+WHAT MUST SURVIVE in every line you tighten: every name, place, item, number, price, time, clue, hint, secret, warning, threat, promise and joke punchline; the speaker's voice and quirks (a mayor's pomposity, a constable's few words, a poet's floweriness, a child's simplicity, a country drawl in word choice); the mood. If a line does two jobs, keep both. Never add new facts. Keep `{name}` exactly as it is wherever it appears. Keep the line in the same person and tense.
+
+NARRATOR lines (speaker Narrator, the Vagrant telling the tale: folksy, warm, wry Southern drawl in word choice) stay second person, present tense, one or two sentences, concrete senses, no game words, never "suddenly".
+
+STYLE: plain punctuation; straight quotes; no em dashes, asterisks, brackets or stage directions; do not use -> or => inside the text.
+
+## The lines
+
+### marianna_grey.dialogue
+584. [secret_ok] marianna_grey: Miss Alda acts sharp with her silver, sure, but she sends hot soup up my ladder when the frost bites and tells me to learn the inn's cellars. I do not know why she bothers with the likes of me.
+585. [secret_fail] Narrator: She turns back to the manger and lifts a heavy sack of oats with one arm.
+586. [secret_fail] marianna_grey: Miss Alda pays on the hour and leaves my beasts be. That is plenty.
+
+### mayor_welcome.dialogue
+587. [start] Narrator: A big timber-framed house on the square opens its door, and a round man in a three-piece suit that strains at every button bustles out across the dirt, a cane in one hand and a bowler in the other.
+588. [start] wendel_somerton: Lord Phillip! Lady Adela! And what a way to be greeted. You have caught us in the middle of a very old custom, I'm afraid, and I do beg pardon for the commotion.
+589. [start] phillip_druskenvald: Mayor. Mr. Somerton, is it? We were told your village was quiet.
+590. [start] wendel_somerton: Quiet, my lord, quite, but for tonight. The oak drinks from the herds, once a year, so the hunting stays good and the barns stay full. A sacred tradition, nothing more.
+591. [start] Narrator: He mops his bald head with a handkerchief and looks, for the first time, at the strangers who stood by and let the thing happen.
+592. [start] wendel_somerton: And you, good travelers, were kind enough to let the rite alone. The Green Queen takes note of respect, and I shall see that the village does too.
+593. [start] wendel_somerton: Saved the little fellow, did you? Well, well. The oak will drink from the beasts of the field whatever you do, and a goat is a goat. We'll say no more of it.
+594. [start] Narrator: His smile holds, but his handkerchief has gone to his forehead, and he does not stop mopping.
+595. [start] wendel_somerton: Cut it loose, did you? The rite is the village's, you understand, and the Queen does not forgive a spoiled offering as easily as I do. I shall say a word to the neighbors.
+596. [ask_custom] wendel_somerton: A blood offering to the Green Queen, who keeps the Hollow's herds and hunts. Tradition, tradition. We've done it since before the clocktower, and the harvests have never once failed us.
+597. [insight_ok] Narrator: His eyes slide to the east road and back, and a muscle jumps in his jaw. He is a man hiding something to please a lord.
+598. [insight_ok] wendel_somerton: Er. Some of our people have been, ah, taking sick lately. And a few have gone off without a word. Nothing to trouble his lordship with.
+599. [insight_fail] Narrator: He looks like exactly what he is, a mayor with a very good suit and a very full evening.
+600. [offer] wendel_somerton: The Druskenvald estate is quite ready for you, my lord. Pristine, staffed, a fine gift from the village. And for your friends, the Green Queen Inn, the one decent lodging in the Hollow. Alda Farnum keeps it.
+601. [press_ok] Narrator: The mayor's smile goes thin, and then goes altogether, and under it is a tired man in a tight suit.
+602. [press_ok] wendel_somerton: More disappearances, more fevers, more funerals than there ought to be. I'd rather not say more in front of the lord. Come to my office when it is open, and I will tell you what I know.
+603. [press_fail] wendel_somerton: Oh, I'm sure I don't know what you can mean. A village is a village, good people. It has its seasons.
+604. [parting] phillip_druskenvald: Mayor, I do hope you'll forgive us. It has been a long road, and I find I am dreadfully tired. Darling, shall we go up and see this gift of yours?
+605. [parting] adela_druskenvald: Oh, swell. Philly, don't pout, the house will be darling. Friends, you'll come to dinner tomorrow, won't you, once we've seen the rooms?
+606. [uneasy_ok] Narrator: Phillip's smile has been put on a half-beat late, and the hand on his cane is white at the knuckles. He is looking at the oak.
+607. [accept] phillip_druskenvald: Splendid. Forty gold between you for the inn, on me. The estate, tomorrow evening, and we shall have a grand old time.
+608. [accept] Narrator: You watch two small figures, one twirling a cane, walk up the winding path toward the crooked manor on its hill, the windows lit and every line askew.
+609. [accept] Narrator: In the round below, the oak's carved faces lie in the moonlight, and one of them, you would swear, turns to watch them go.
+
+### misdelivered.dialogue
+610. [start] geneva_fairchild: Oh, thank the moon you are strangers! I dropped three unsigned letters into the wrong cubbies, and if Miss Theodora sorts the dead-letter sack tonight, I shall die a second time.
+611. [start] geneva_fairchild: They were meant for Deputy Butterman. Now one sits on Constable Squire's desk, one went to the undertaker, and the square goat has the third. Please fetch them back.
+612. [why] geneva_fairchild: Constable Squire has eyes like carpentry nails, and Mr. Shade measures your collarbone whenever you say good evening. If I go near either of them, my knees will turn to suet.
+613. [accept] geneva_fairchild: Bless your boots! Look for lavender paper sealed with a crooked heart, and please do not read the bit about his ears.
+614. [doris_desk] Narrator: A square of lavender paper lies beside the constable's inkwell, smelling faintly of pressed violets and terror.
+615. [doris_ok] Narrator: {name} slides two fingers across the green blotter, and the lavender sheet vanishes into a coat pocket without a rustle.
+616. [doris_caught] Narrator: A boot heel clicks on the floorboards right behind {name}'s shoulder.
+617. [doris_caught] doris_squire: "Thine eyes are like two poached eggs in clouted cream." That is either a threat to the peace or poetry, and I lock up for both.
+618. [doris_caught] doris_squire: Keep the paper. I will sleep on whether to charge you, and you will sleep in the straw.
+619. [doris_ask] doris_squire: Take it. I read it twice to see if it was a cipher from the woods. It is badly spelled. I mean it kindly.
+620. [mori_ask] Narrator: The undertaker's parlor smells of cedar shavings and damp wool. Mori opens a narrow drawer lined with velvet.
+621. [mori_ask] mori_shade: Unclaimed things come to me sooner or later, one way or another. I kept the lilac note in the third drawer, just in case.
+622. [mori_give] mori_shade: Ah, the living and their little urgencies. Take it along, before the damp gets into the ink.
+623. [mori_fee] mori_shade: Paper is light, but keeping secrets takes drawer space. Leave five coins for the ledger and give me a cousin's middle name for my list, and we are square.
+624. [goat] Narrator: The tether chain clinks against the founder's stone as the old billy goat works his jaw sideways. A corner of lavender paper sticks out from his beard.
+625. [goat_ok] Narrator: {name} scratches behind the goat's horned crown until his yellow eyes half-close, then draws the damp last third of the page from his teeth.
+626. [goat_fail] Narrator: The billy goat fixes {name} with a flat yellow stare, gives one final chew, and swallows the last scrap with great dignity.
+627. [deliver] geneva_fairchild: One from the desk, one from the parlor, and one mostly inside the goat. At least Miss Theodora will not pin them to the noticeboard.
+628. [deliver] geneva_fairchild: Only now I am looking at them, and my courage has gone cold. What on earth do I do about Howie?
+629. [truth] howie_butterman: For me? Well now, nobody ever compared my ears to buttercup petals before. I am not sure it is accurate, Miss Geneva, but I am mighty pleased.
+630. [doris_lie] howie_butterman: Ma'am, I never knew you had such tender feelings under your truncheon.
+631. [doris_lie] doris_squire: Get back on your rounds, Butterman, before I fine you for loitering. And stand up straight.
+632. [forge_ok] Narrator: {name} matches the looping clerk-hand at the bottom of the page, signing it simply from a friend in the post office.
+633. [forge_ok] geneva_fairchild: That is neat enough to pass Miss Theodora herself. He will wonder next time he buys a stamp, and that is half the fun.
+634. [forge_fail] geneva_fairchild: Oh dear, the ink has blotted right through the paper. If I send that, he will think a spider died on the page.
+635. [burn] Narrator: The lavender scraps curl into black ash over the post office brazier, smelling briefly of cheap scent and sealing wax.
+636. [burn] geneva_fairchild: There. Better ash than poached eggs in cream, honestly. Tomorrow I shall buy thick cream paper and write him something sensible.
+
+### morgan.dialogue
+637. [start] Narrator: Bundles of dried yarrow and bog-mint brush your shoulders, and glass vials clink softly on crooked shelves. Morgan looks up with faraway green eyes, fingers stained violet with crushed roots.
+638. [start] morgan: Oh, come in, mind the low beam by the door. I was just labelling the willow-water, or perhaps I already finished that an hour ago.
+639. [menu] morgan: Was there another draught you needed, or did we only just begin talking?
+640. [shop_open] morgan: The red bottles mend torn flesh properly, and the herb bundles mostly comfort the locals, though comfort does half the curing.
+641. [about_self] morgan: I have no beds for the sick, only bottles and poultices to carry home. People tell me their aches, and I try to remember which jar eased them last time.
+642. [about_village] morgan: Everyone in the hollow has an old name and an older grave to tend. Sometimes I wonder what sort of name I had before the moor took me in.
+643. [rumour] morgan: Some nights I brew tinctures that let a drinker see through mist or hear what the dead whisper in the thatch. I never quite recall who taught me the measure.
+644. [secret_ok] Narrator: The open ledger on Morgan's counter has whole pages torn short, with ink trails stopping mid-word as if the hand simply froze.
+
+## Reply format
+One line per numbered line above (61 lines, 584 to 644), in order, exactly `n => text`, `n => KEEP` or `n => CUT`. No quotes around the text, no commentary.

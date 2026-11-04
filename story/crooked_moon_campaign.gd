@@ -46,9 +46,14 @@ func reading_finished(st: StoryState) -> void:
 	GhostlightBoons.bless_party(st)
 
 
-## A quest ended: a freed haint heals every hero 1d6 (story/ghostlight_boons.gd); the journal's notice carries what it says.
-func quest_finished(st: StoryState, quest_id: String, _ending: String, dice: DiceRoller) -> String:
-	return GhostlightBoons.haint_freed(st, quest_id, dice)
+## A quest ended: a freed haint heals every hero 1d6 (story/ghostlight_boons.gd), and a Thread of Fate's beat pays its reward
+## (story/fateweaving.gd); the journal's notice carries what they say.
+func quest_finished(st: StoryState, quest_id: String, ending: String, dice: DiceRoller) -> String:
+	var said: Array[String] = []
+	for s: String in [GhostlightBoons.haint_freed(st, quest_id, dice), Fateweaving.quest_finished(st, quest_id, ending)]:
+		if s != "":
+			said.append(s)
+	return " ".join(said)
 
 
 ## The journal's one line for a hero's card, for `{tarokka.hero_1.hint}` in quest text.

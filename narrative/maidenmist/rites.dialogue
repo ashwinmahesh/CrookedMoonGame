@@ -140,6 +140,7 @@ set mm_yorgrim_spent
 yorgrim [weary]: I will feed more of my own marrow into the ash so fewer words are needed next time. My chains feel heavier now, and the stones are growing dim.
 else
 yorgrim [neutral]: Gather your breath and try the rite once more, for no blame rests on your tongues.
+interject name:delphine_ravelle: Dreadful dress rehearsal, darlings. Take it from the top.
 endif
 -> END
 
@@ -156,6 +157,7 @@ set mm_crimson_done
 cutscene mm_beacon_lit
 Narrator: The crimson beacon roars skyward in a pillar of hot blood-red light, driving the clammy shroud back from the Highborn Crypts. Far across the cemetery grounds, a single iron sconce catches fire high above the sepulcher doors.
 yorgrim [smile]: You have given Marius back his morning light and his clean blade. Rest well, old friend, until the dawn returns.
+interject name:rook_coldwake: Properly logged and sealed. Rest now, Sir Marius. Your shift is covered.
 if flag.mm_beacons_lit >= 5
 set sepulcher_open
 if not quest.maidenmist_dead_rise >= sepulcher
@@ -303,6 +305,7 @@ set mm_violet_bright = 0
 if flag.mm_rite_fails >= 2
 set mm_yorgrim_spent
 yorgrim [weary]: I will feed more of my own marrow into the ash so the fire asks fewer words of you next time. My hands look thinner in the lantern light now, but the work remains.
+interject name:cordelia_skein: Tearing out your own ectoplasm will ruin your structure, darling. Don't.
 else
 yorgrim [neutral]: The ember still holds its heat, so draw your breath and try the words again without blame.
 endif
@@ -321,6 +324,7 @@ set mm_violet_done
 cutscene mm_beacon_lit
 Narrator: The violet beacon roars up like a furnace, driving the clammy shroud back from the bone-white urns of the Cremation Gardens. Far across the cemetery, a solitary sconce catches fire above the great sepulcher doors.
 yorgrim [smile]: Lethica walks under quiet feathers once more, gentle as the dusk she kept. You gave her back her true name before the dark took her.
+interject name:tobin_hayward: Hard ground in this yard, but her roots held clean enough.
 if flag.mm_beacons_lit >= 5
 set sepulcher_open
 if not quest.maidenmist_dead_rise >= sepulcher
@@ -351,6 +355,7 @@ take mm_straw_bundle
 set mm_amber_kindled
 Narrator: The dry straw catches in the iron bowl, and a warm amber fire climbs with the smell of autumn harvest. Beyond the light, the wet clay churns as restless dead claw free to throw themselves at the blaze.
 yorgrim [angry]: Keep your boots inside the lantern ring and cut down whatever crawls from the mud. Their husks must fall where the amber fire can see them die.
+interject name:rook_coldwake: Shocking drainage in this clay, and the dead coming up through it.
 combat mm_amber_rite
 
 ~ amber_honor
@@ -486,6 +491,7 @@ set mm_amber_done
 cutscene mm_beacon_lit
 Narrator: The amber beacon roars high, rolling the cold fog back from the sunken trenches of the Potter's Field like dry chaff before a broom. Far away through the iron palings, another sconce flares to life above the sepulcher doors.
 yorgrim [smile]: Old straw and sweet music, that was the whole of him before the rot set in. He rests easy in the dark now because you remembered.
+interject name:tobin_hayward: Dry straw and honest stitching outlasts stone, provided you mind the stray sparks.
 if flag.mm_beacons_lit >= 5
 set sepulcher_open
 if not quest.maidenmist_dead_rise >= sepulcher
@@ -516,6 +522,7 @@ take mm_rum_bottle
 set mm_magenta_kindled
 Narrator: The tarred kindling catches with a hiss of salt spray, sending a fierce magenta flame twisting toward the marble roofs. Out in the lanes, rusted crypt gates shriek open as armored bones march forth to feed the fire.
 yorgrim [angry]: Stand fast within the lantern's circle and break the bones that cross the flagstones. Spill them where the magenta fire can drink their shadow.
+interject name:delphine_ravelle: Good lighting at last, darlings, even if the chorus line is all bone.
 combat mm_magenta_rite
 
 ~ magenta_honor
@@ -651,6 +658,7 @@ set mm_magenta_done
 cutscene mm_beacon_lit
 Narrator: A pillar of magenta flame roars toward the leering moon, burning the shroud back from the wet flagstones of the Mausoleum Lanes. Far across the cemetery, a solitary sconce catches with bright purple fire above the great sepulcher doors.
 yorgrim [smile]: Briggsy always swore he could cheat the devil with a wink and a turned card. You gave him back his good name, and the old pirate would have tipped his hat to you.
+interject name:silas_vane: House always wins, friend, unless you palm the devil's shoe before the deal.
 if flag.mm_beacons_lit >= 5
 set sepulcher_open
 if not quest.maidenmist_dead_rise >= sepulcher
@@ -816,6 +824,7 @@ set mm_emerald_done
 cutscene mm_beacon_lit
 Narrator: Green fire roars up from the brazier, driving the pale mist back from the turf of the burial mounds. Far off through the dark, a fifth sconce catches with emerald flame high above the sepulcher doors.
 yorgrim [smile]: Farryn loved the green wood and his Gwenna more than his own breath. The moss and the roots remember his gentle hand now.
+interject name:lucan_houndstooth: A gentleman of the deep brush. Even my hound lowers his ears.
 if flag.mm_beacons_lit >= 5
 set sepulcher_open
 if not quest.maidenmist_dead_rise >= sepulcher

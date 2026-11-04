@@ -73,7 +73,10 @@
           18,
           5
         ]
-      ]
+      ],
+      "floor": "props/sleeper_corridor",
+      "walls": "props/sleeper_panel",
+      "light": "dim"
     },
     {
       "id": "g2_cabin_1",
@@ -87,7 +90,9 @@
           6,
           2
         ]
-      ]
+      ],
+      "floor": "props/sleeper_carpet",
+      "walls": "props/sleeper_panel"
     },
     {
       "id": "g2_cabin_2",
@@ -101,7 +106,9 @@
           12,
           2
         ]
-      ]
+      ],
+      "floor": "props/sleeper_carpet",
+      "walls": "props/sleeper_panel"
     },
     {
       "id": "g2_cabin_3",
@@ -115,7 +122,26 @@
           18,
           2
         ]
-      ]
+      ],
+      "floor": "props/sleeper_carpet",
+      "walls": "props/sleeper_panel"
+    },
+    {
+      "id": "g2_porters_beat",
+      "name": "The porter's beat",
+      "cells": [
+        [
+          6,
+          4
+        ],
+        [
+          13,
+          5
+        ]
+      ],
+      "floor": "props/sleeper_corridor",
+      "walls": "props/sleeper_panel",
+      "light": "dim"
     }
   ],
   "spawns": {
@@ -222,10 +248,7 @@
       ],
       "kind": "examine",
       "label": "The brass lamps",
-      "model": "lamp",
-      "call": "ghostlight_express/vagrant_intercom:router",
-      "approach": 12,
-      "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed and ((flag.haints_destroyed >= 1 and not flag.gl_destroyed_noted) or (flag.haints_resolved >= 3 and not flag.gl_level2_given) or (flag.haints_all_gone and not flag.gl_checkin_all) or (flag.haints_resolved >= 5 and not flag.gl_checkin_fifth) or (flag.haints_resolved >= 1 and not flag.gl_checkin_first))"
+      "model": "lamp"
     },
     {
       "id": "g2_punched_stub",
@@ -238,6 +261,19 @@
       "model": "papers",
       "dialogue": "ghostlight_express/punch:stub",
       "when": "flag.punch_asked and not flag.punch_found and not flag.stub_sleeper"
+    },
+    {
+      "id": "g2_berth_panel",
+      "cell": [
+        11,
+        1
+      ],
+      "kind": "search",
+      "label": "A loose panel behind the berth",
+      "model": "carved_paneling",
+      "skill": "investigation",
+      "search_dc": 13,
+      "item": "pipes_of_haunting"
     }
   ],
   "npcs": [
@@ -248,7 +284,6 @@
         2
       ],
       "dialogue": "ghostlight_express/haint_sweetheart:start",
-      "approach": 4,
       "facing": "south",
       "when": "not flag.haint_sweetheart_done and not flag.haint_sweetheart_destroyed"
     }
@@ -273,7 +308,102 @@
             2
           ],
           "name": "The Sweetheart",
-          "facing": "south"
+          "facing": "south",
+          "states": [
+            "lovelorn"
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "lovelorn_weeping",
+          "name": "Lovelorn Weeping",
+          "summary": "Her grief reaches for one of you.",
+          "kind": "save",
+          "affects": "party",
+          "from_round": 2,
+          "say": "haint:weeping",
+          "one": true,
+          "save": {
+            "ability": "wis",
+            "dc": 12
+          },
+          "condition": "frightened",
+          "until": "target_turn_end"
+        }
+      ]
+    },
+    {
+      "id": "gl_night_porter",
+      "trigger": "enter_area:g2_porters_beat",
+      "waiting": true,
+      "flag": "gl_night_porter_done",
+      "monsters": [
+        {
+          "monster": "corrupted_passenger",
+          "cell": [
+            9,
+            5
+          ],
+          "name": "The Night Porter",
+          "art": "corrupted_passenger",
+          "facing": "north"
+        }
+      ],
+      "when": "not flag.gl_night_porter_done",
+      "surprise": "enemies"
+    },
+    {
+      "id": "gl_shroud_breach",
+      "trigger": "enter_area:g2_corridor",
+      "flag": "gl_breach_done",
+      "when": "flag.haints_resolved >= 3 and not flag.gl_breach_done",
+      "monsters": [
+        {
+          "monster": "corrupted_passenger",
+          "cell": [
+            4,
+            5
+          ],
+          "name": "Shroud-Touched Passenger",
+          "art": "corrupted_passenger"
+        },
+        {
+          "monster": "shadow",
+          "cell": [
+            14,
+            5
+          ],
+          "name": "A Sliver of the Phantom",
+          "art": "phantom_trainhopper"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "shroud_spills_in",
+          "name": "The Shroud Spills In",
+          "summary": "Green mist pours through the broken window, and a passenger in it turns.",
+          "kind": "summon",
+          "monster": "corrupted_passenger",
+          "count": 1,
+          "cells": [
+            [
+              9,
+              4
+            ]
+          ],
+          "from_round": 2,
+          "until_round": 3,
+          "say": "breach:spill"
+        },
+        {
+          "id": "vagrants_whistle",
+          "name": "The Vagrant's Whistle",
+          "summary": "The train's whistle screams and the window knits itself whole.",
+          "kind": "text",
+          "from_round": 4,
+          "times": 1,
+          "say": "breach:whistle"
         }
       ]
     }
@@ -293,6 +423,26 @@
         }
       ],
       "model": "case"
+    },
+    {
+      "id": "g2_vanity_case",
+      "cell": [
+        8,
+        2
+      ],
+      "label": "A lady's vanity case",
+      "model": "dressing_table",
+      "gold": 12
+    },
+    {
+      "id": "g2_hatbox",
+      "cell": [
+        18,
+        1
+      ],
+      "label": "A hatbox under the berth",
+      "model": "chest_painted",
+      "gold": 5
     }
   ],
   "lights": [
@@ -302,8 +452,8 @@
         4
       ],
       "kind": "lamp",
-      "bright_ft": 20,
-      "dim_ft": 40,
+      "bright_ft": 5,
+      "dim_ft": 15,
       "color": "candle"
     },
     {
@@ -312,8 +462,8 @@
         4
       ],
       "kind": "lamp",
-      "bright_ft": 20,
-      "dim_ft": 40,
+      "bright_ft": 5,
+      "dim_ft": 15,
       "color": "candle"
     },
     {

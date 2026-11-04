@@ -1,6 +1,5 @@
 {
-  "about": "PLACEHOLDER (docs/PLACEHOLDERS.md): (each surface also takes the engine's 2K normal and ORM maps for its texture now, so towns have relief and roughness.) This game's surfaces over the engine's art/textures/manifest.json (ArtPaths.json merges them). The engine has no `village`, `dungeon` or `cave` board themes (Curse of Strahd keeps its own village textures in its game folder), and a board theme with no floor is laid as the grid's checker, so every town showed a checkerboard. Until Crooked Moon's own tiles are painted (look P, seamless), each village surface borrows the engine's nearest texture: moss for grass, marsh mud for roads, stone flags for cobbles, plaster for house walls, dressed stone for slate and heath for thatch. A region's mood still swaps and tints the ground (art/atmosphere/moods.json ground_swap and ground_tint).",
-"about": "PLACEHOLDER (docs/PLACEHOLDERS.md): This game's surfaces over the engine's art/textures/manifest.json (ArtPaths.json merges them). The engine has no `village`, `dungeon` or `cave` board themes (Curse of Strahd keeps its own village textures in its game folder), and a board theme with no floor is laid as the grid's checker, so every town showed a checkerboard. Until Crooked Moon's own tiles are painted (look P, seamless), each village surface borrows the engine's nearest texture: moss for grass, marsh mud for roads, stone flags for cobbles, plaster for house walls, dressed stone for slate and heath for thatch. A region's mood still swaps and tints the ground (art/atmosphere/moods.json ground_swap and ground_tint). The `real` surfaces are Poly Haven's scanned ground (CC0, art/sourced/polyhaven_forest) for the realistic wild places (world/look/real_nature.gd), with their own normal and AO-roughness-metal maps. `mountain/cliff` is swapped for the scanned mossy rock, so every cliff face in this game is realistic rock.",
+  "about": "PLACEHOLDER (docs/PLACEHOLDERS.md): This game's surfaces over the engine's art/textures/manifest.json (ArtPaths.json merges them). The engine has no `village`, `dungeon` or `cave` board themes (Curse of Strahd keeps its own village textures in its game folder), and a board theme with no floor is laid as the grid's checker, so every town showed a checkerboard. Until Crooked Moon's own tiles are painted (look P, seamless), each village surface borrows the engine's nearest texture: moss for grass, marsh mud for roads, stone flags for cobbles, plaster for house walls, dressed stone for slate and heath for thatch. A region's mood still swaps and tints the ground (art/atmosphere/moods.json ground_swap and ground_tint). The `real` surfaces are Poly Haven's scanned ground (CC0, art/sourced/polyhaven_forest) for the realistic wild places (world/look/real_nature.gd), with their own normal and AO-roughness-metal maps. `mountain/cliff` is swapped for the scanned mossy rock, so every cliff face in this game is realistic rock.",
   "arena_themes": {
     "village": {
       "floor": "village/grass",
@@ -401,6 +400,225 @@
         "file": "art/textures/vpro/trim_cloth_basecolor.png",
         "normal_file": "art/textures/vpro/trim_cloth_normal.png",
         "orm_file": "art/textures/vpro/trim_cloth_orm.png"
+      }
+    },
+    "props": {
+      "passenger_panel": {
+        "file": "art/sourced/polyhaven_stained_pine/stained_pine_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_stained_pine/stained_pine_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_stained_pine/stained_pine_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.6
+      },
+      "passenger_carpet": {
+        "file": "art/sourced/ambientcg_carpet012/Carpet012_2K-JPG_Color.jpg",
+        "normal_file": "art/sourced/ambientcg_carpet012/Carpet012_2K-JPG_NormalGL.jpg",
+        "rough_file": "art/sourced/ambientcg_carpet012/Carpet012_2K-JPG_Roughness.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.2
+      },
+      "passenger_leather": {
+        "file": "art/sourced/polyhaven_leather_red_03/leather_red_03_coll1_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_leather_red_03/leather_red_03_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_leather_red_03/leather_red_03_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 0.8
+      },
+      "sleeper_panel": {
+        "file": "art/sourced/polyhaven_oak_veneer_01/oak_veneer_01_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_oak_veneer_01/oak_veneer_01_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_oak_veneer_01/oak_veneer_01_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.6
+      },
+      "sleeper_carpet": {
+        "file": "art/sourced/polyhaven_dirty_carpet/dirty_carpet_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_dirty_carpet/dirty_carpet_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_dirty_carpet/dirty_carpet_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.2
+      },
+      "sleeper_corridor": {
+        "file": "art/sourced/polyhaven_rectangular_parquet/rectangular_parquet_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_rectangular_parquet/rectangular_parquet_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_rectangular_parquet/rectangular_parquet_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.4
+      },
+      "lounge_panel": {
+        "file": "art/sourced/polyhaven_walnut_veneer/walnut_veneer_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_walnut_veneer/walnut_veneer_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_walnut_veneer/walnut_veneer_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.6
+      },
+      "lounge_floor": {
+        "file": "art/sourced/polyhaven_herringbone_parquet/herringbone_parquet_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_herringbone_parquet/herringbone_parquet_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_herringbone_parquet/herringbone_parquet_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.4
+      },
+      "lounge_velvet": {
+        "file": "art/sourced/polyhaven_velour_velvet/velour_velvet_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_velour_velvet/velour_velvet_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_velour_velvet/velour_velvet_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 0.8
+      },
+      "dining_panel": {
+        "file": "art/sourced/polyhaven_mocha_oak_veneer/mocha_oak_veneer_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_mocha_oak_veneer/mocha_oak_veneer_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_mocha_oak_veneer/mocha_oak_veneer_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.6
+      },
+      "dining_floor": {
+        "file": "art/sourced/polyhaven_floor_tiles_06/floor_tiles_06_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_floor_tiles_06/floor_tiles_06_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_floor_tiles_06/floor_tiles_06_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.6
+      },
+      "mail_wall": {
+        "file": "art/sourced/polyhaven_raw_plank_wall/raw_plank_wall_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_raw_plank_wall/raw_plank_wall_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_raw_plank_wall/raw_plank_wall_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 2.0
+      },
+      "mail_floor": {
+        "file": "art/sourced/ambientcg_woodfloor040/WoodFloor040_2K-JPG_Color.jpg",
+        "normal_file": "art/sourced/ambientcg_woodfloor040/WoodFloor040_2K-JPG_NormalGL.jpg",
+        "rough_file": "art/sourced/ambientcg_woodfloor040/WoodFloor040_2K-JPG_Roughness.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.6
+      },
+      "baggage_wall": {
+        "file": "art/sourced/polyhaven_dark_wooden_planks/dark_wooden_planks_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_dark_wooden_planks/dark_wooden_planks_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_dark_wooden_planks/dark_wooden_planks_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 2.0
+      },
+      "baggage_floor": {
+        "file": "art/sourced/polyhaven_old_wood_floor/old_wood_floor_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_old_wood_floor/old_wood_floor_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_old_wood_floor/old_wood_floor_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.6
+      },
+      "circus_wall": {
+        "file": "art/sourced/polyhaven_blue_painted_planks/blue_painted_planks_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_blue_painted_planks/blue_painted_planks_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_blue_painted_planks/blue_painted_planks_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 2.0
+      },
+      "circus_floor": {
+        "file": "art/textures/props/circus_stripes_diff.jpg",
+        "normal_file": "art/sourced/polyhaven_white_planks_clean/white_planks_clean_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_white_planks_clean/white_planks_clean_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.6
+      },
+      "circus_iron": {
+        "file": "art/sourced/polyhaven_rusty_metal_02/rusty_metal_02_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_rusty_metal_02/rusty_metal_02_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_rusty_metal_02/rusty_metal_02_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.0
+      },
+      "circus_planks": {
+        "file": "art/sourced/polyhaven_white_planks_clean/white_planks_clean_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_white_planks_clean/white_planks_clean_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_white_planks_clean/white_planks_clean_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.6
+      },
+      "tender_wall": {
+        "file": "art/sourced/ambientcg_metalplates013/MetalPlates013_2K-JPG_Color.jpg",
+        "normal_file": "art/sourced/ambientcg_metalplates013/MetalPlates013_2K-JPG_NormalGL.jpg",
+        "rough_file": "art/sourced/ambientcg_metalplates013/MetalPlates013_2K-JPG_Roughness.jpg",
+        "wrap": "xy",
+        "tile_world_units": 2.4
+      },
+      "tender_floor": {
+        "file": "art/sourced/polyhaven_metal_grate_rusty/metal_grate_rusty_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_metal_grate_rusty/metal_grate_rusty_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_metal_grate_rusty/metal_grate_rusty_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.0
+      },
+      "track_ballast": {
+        "file": "art/sourced/polyhaven_rocky_gravel/rocky_gravel_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_rocky_gravel/rocky_gravel_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_rocky_gravel/rocky_gravel_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.6
+      },
+      "track_sleeper": {
+        "file": "art/sourced/polyhaven_weathered_planks/weathered_planks_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_weathered_planks/weathered_planks_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_weathered_planks/weathered_planks_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.4
+      },
+      "track_rail": {
+        "file": "art/sourced/polyhaven_rusty_metal/rusty_metal_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_rusty_metal/rusty_metal_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_rusty_metal/rusty_metal_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.0
+      },
+      "stone_marble": {
+        "file": "art/sourced/ambientcg_marble012/Marble012_2K-JPG_Color.jpg",
+        "normal_file": "art/sourced/ambientcg_marble012/Marble012_2K-JPG_NormalGL.jpg",
+        "rough_file": "art/sourced/ambientcg_marble012/Marble012_2K-JPG_Roughness.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.2
+      },
+      "stone_marble_cream": {
+        "file": "art/sourced/ambientcg_marble014/Marble014_2K-JPG_Color.jpg",
+        "normal_file": "art/sourced/ambientcg_marble014/Marble014_2K-JPG_NormalGL.jpg",
+        "rough_file": "art/sourced/ambientcg_marble014/Marble014_2K-JPG_Roughness.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.2
+      },
+      "stone_granite": {
+        "file": "art/sourced/ambientcg_granite002b/Granite002B_2K-JPG_Color.jpg",
+        "normal_file": "art/sourced/ambientcg_granite002b/Granite002B_2K-JPG_NormalGL.jpg",
+        "rough_file": "art/sourced/ambientcg_granite002b/Granite002B_2K-JPG_Roughness.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.2
+      },
+      "stone_mossy": {
+        "file": "art/sourced/polyhaven_mossy_rock/mossy_rock_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_mossy_rock/mossy_rock_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_mossy_rock/mossy_rock_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.6
+      },
+      "stone_lichen": {
+        "file": "art/sourced/polyhaven_lichen_rock/lichen_rock_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_lichen_rock/lichen_rock_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_lichen_rock/lichen_rock_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.8
+      },
+      "scarecrow_timber": {
+        "file": "art/sourced/polyhaven_rough_wood/rough_wood_diff_2k.jpg",
+        "normal_file": "art/sourced/polyhaven_rough_wood/rough_wood_nor_gl_2k.jpg",
+        "orm_file": "art/sourced/polyhaven_rough_wood/rough_wood_arm_2k.jpg",
+        "wrap": "xy",
+        "tile_world_units": 1.0
+      },
+      "scarecrow_straw": {
+        "file": "art/sourced/ambientcg_thatchedroof001a/ThatchedRoof001A_2K-JPG_Color.jpg",
+        "normal_file": "art/sourced/ambientcg_thatchedroof001a/ThatchedRoof001A_2K-JPG_NormalGL.jpg",
+        "rough_file": "art/sourced/ambientcg_thatchedroof001a/ThatchedRoof001A_2K-JPG_Roughness.jpg",
+        "wrap": "xy",
+        "tile_world_units": 0.6
       }
     }
   }

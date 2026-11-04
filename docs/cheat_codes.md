@@ -1,6 +1,6 @@
 # Cheat codes
 
-Every code the game's Cheat codes page accepts: 899 items, 552 of them magic.
+Every code the game's Cheat codes page accepts: 915 items, 552 of them magic.
 Each code gives that item to the hero you pick, as many times as you like. `make cheat-codes` rewrites this file
 (and the vault's Cheat Codes.md) from the item data, so run it after adding items rather than editing this by
 hand; `make validate` fails while it's behind.
@@ -662,12 +662,15 @@ Codes the two games share (Arrows, +1 Weapon and every other rules item) are the
 | A letter for Theodora Mayville | `80A754` | Quest |
 | A miner's lunch pail | `33E216` | Gear |
 | A moth's wing | `498615` | Gear |
+| A note about Clover | `F47267` | Quest |
+| A note from the Lantern's till | `407DAF` | Quest |
 | A numbing injector | `E43648` | Quest |
 | A patient's note | `197A24` | Quest |
 | A piece of Adela's jewellery | `516EA1` | Treasure |
 | A plush angry crow | `416A1E` | Treasure |
 | A porcelain doll in black lace | `E5B112` | Treasure |
 | A pouch of salt | `97468B` | Quest |
+| A pupil's field-trip list | `B53B1B` | Quest |
 | A restorative syringe | `B1A7C1` | Quest |
 | A ring of cage keys | `0D2F1A` | Gear |
 | A set of calligrapher's tools | `9EEEE2` | Treasure |
@@ -747,6 +750,7 @@ Codes the two games share (Arrows, +1 Weapon and every other rules item) are the
 | Costume | `94DE84` | Clothing |
 | Crocodile-skin shoes | `EC923C` | Treasure |
 | Cromwell's jewel box | `D9540C` | Treasure |
+| Crooked wicker charm | `9CE307` | Treasure |
 | Crossbow Bolt | `3AA0A7` | Ammunition |
 | Crossbow Bolt Case | `DD1F08` | Container |
 | Crowbar | `472746` | Gear |
@@ -783,6 +787,7 @@ Codes the two games share (Arrows, +1 Weapon and every other rules item) are the
 | Flail | `016164` | Weapon |
 | Flask | `747576` | Container |
 | Flask of lye water | `1FCB32` | Consumable |
+| Floury broth recipe | `1654A5` | Quest |
 | Flute | `5346D3` | Tool |
 | Forbidden apple | `B31708` | Consumable |
 | Forgery Kit | `B04A4A` | Tool |
@@ -793,6 +798,7 @@ Codes the two games share (Arrows, +1 Weapon and every other rules item) are the
 | Glaive | `93DD76` | Weapon |
 | Glass Bottle | `C8B2C3` | Container |
 | Glassblower's Tools | `586C89` | Tool |
+| Glitterdeep kennel book page | `E74624` | Quest |
 | Godlee's diary | `DCAF3C` | Quest |
 | Gold Dust | `07835D` | Gear |
 | Gold pocket watch | `A095D3` | Treasure |
@@ -804,6 +810,7 @@ Codes the two games share (Arrows, +1 Weapon and every other rules item) are the
 | Greataxe | `5B7DF9` | Weapon |
 | Greatclub | `D24535` | Weapon |
 | Greatsword | `B15E0D` | Weapon |
+| Green Queen playbill | `AA160B` | Quest |
 | Green ribbon | `D36352` | Wondrous |
 | Haint Hooch | `F1B402` | Potion |
 | Halberd | `59BFBF` | Weapon |
@@ -874,8 +881,10 @@ Codes the two games share (Arrows, +1 Weapon and every other rules item) are the
 | Nightshade | `DEE270` | Gear |
 | Nightwatcher Potion | `F67611` | Potion |
 | Oak branch | `94921C` | Quest |
+| Oak-leaf signet ring | `991BF8` | Treasure |
 | Oil | `FD1AE7` | Consumable |
 | Olaf's missal | `EA8D37` | Quest |
+| Old offering tin | `40C134` | Treasure |
 | Onyx | `2AE314` | Gear |
 | Orderly garb and a porcelain mask | `EA88BD` | Quest |
 | Padded Armor | `03E824` | Armor |
@@ -906,7 +915,9 @@ Codes the two games share (Arrows, +1 Weapon and every other rules item) are the
 | Ration | `905FF6` | Consumable |
 | Renathyr's journal | `A5F73B` | Quest |
 | Ring Mail | `456CBA` | Armor |
+| River-soaked purse | `D6A1DA` | Treasure |
 | Robe | `7C5EBF` | Clothing |
+| Roll of old coins | `611D2F` | Treasure |
 | Rope | `CD501C` | Gear |
 | Ruby Dust | `9D4C0D` | Gear |
 | Sack | `94EF92` | Container |
@@ -914,6 +925,7 @@ Codes the two games share (Arrows, +1 Weapon and every other rules item) are the
 | Scale Mail | `46510C` | Armor |
 | Scholar's Pack | `250B00` | Pack |
 | Scimitar | `3D6B3D` | Weapon |
+| Scratched silver locket | `9A43B5` | Treasure |
 | Shawm | `128F16` | Tool |
 | Shield | `36379E` | Shield |
 | Shortbow | `C31AEF` | Weapon |
@@ -927,6 +939,7 @@ Codes the two games share (Arrows, +1 Weapon and every other rules item) are the
 | Sling | `8275F1` | Weapon |
 | Sling Bullet | `E2C1DC` | Ammunition |
 | Smith's Tools | `D5F5BE` | Tool |
+| Sooty sock of coins | `9F6ABE` | Treasure |
 | Soul Can | `48D6C1` | Quest |
 | Spear | `C0DA4C` | Weapon |
 | Spell Scroll (Cantrip) | `DB4D91` | Scroll |
@@ -960,11 +973,13 @@ Codes the two games share (Arrows, +1 Weapon and every other rules item) are the
 | Theodora Mayville's letter | `F71D22` | Quest |
 | Thieves' Tools | `631EA6` | Tool |
 | Three-Dragon Ante Set | `194343` | Tool |
+| Tin of silver spoons | `499604` | Treasure |
 | Tincture of Mourning | `0C552A` | Potion |
 | Tinderbox | `D87796` | Gear |
 | Tinker's Tools | `667596` | Tool |
 | Toma's second-best hat | `D1FDFA` | Quest |
 | Torch | `7E3759` | Light |
+| Torn household wage page | `73D85E` | Quest |
 | Traveler's Clothes | `7D40AB` | Clothing |
 | Trident | `33866D` | Weapon |
 | Vial | `EE58D8` | Container |
@@ -973,6 +988,7 @@ Codes the two games share (Arrows, +1 Weapon and every other rules item) are the
 | Walter's voice, in a thimble | `C48309` | Quest |
 | War Pick | `F3FA69` | Weapon |
 | Warhammer | `43173B` | Weapon |
+| Warning from the mooring post | `41BB80` | Quest |
 | Waterskin | `ABFB7C` | Container |
 | Weaver's Tools | `0E8EB3` | Tool |
 | Whip | `2501BF` | Weapon |

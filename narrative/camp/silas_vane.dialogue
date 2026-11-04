@@ -1,0 +1,302 @@
+# Silas's camp talks (story/camp_talk.gd): offered after a Long Rest or at camp once the opening `if` holds, each once a playthrough, the first that
+# holds in this order: when Silas is Strained or Doubtful (story/approval.gd), the acts' words, then Warm, Close and Devoted.
+# Silas's Thread of Fate beats are in silas_vane_thread.dialogue. Dark secrets are the world lane's (Raum's gate): nothing here states one.
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+~ talk_strained
+if name:silas_vane and approval.silas_vane <= strained
+-> strained
+endif
+-> END
+
+~ strained
+Narrator: Silas squats on a damp root outside the firelight, thumbing the edge of a bone card until his knuckle clicks.
+interject name:silas_vane: I don't mind a hard table, friend, so long as the crew I'm running with knows who the real marks are.
+interject name:silas_vane: Lately the way things have gone, I can't tell who's dealing and who's being dealt, and I don't like the feeling that we're working for the house.
+interject name:silas_vane: I didn't crawl out of Kalero's river silt just to hold the chain while somebody else snaps the lock shut.
+interject name:silas_vane: If we're working for the house now, you might as well tell me straight so I know where my stake sits.
+* You're right. Tell us how to play it straight. -> strained_1
+* We do what works. Deal with it. -> strained_2
+* Say nothing and stay by the fire. -> strained_3
+
+~ strained_1
+interject name:silas_vane: Start by reading the fine print before you shake a hand, and stop working for the house for free.
+interject name:silas_vane: Next time we see a cage or a rigged tab, we look for the loophole first, alright?
+approve silas_vane +8: You owned the mistake and asked how to mend it
+-> END
+
+~ strained_2
+interject name:silas_vane: Right, message received, I'll keep my deck in my waistcoat and my mouth shut till morning.
+approve silas_vane -3: You brushed off my warning at the fire
+-> END
+
+~ strained_3
+Narrator: Silas slides the bone card back into the shoe with a dry snap and turns his brass censer toward the dark.
+interject name:silas_vane: Quiet's an answer too, though it rarely pays out.
+-> END
+
+~ talk_doubt
+if name:silas_vane and approval.silas_vane == doubtful
+-> doubt
+endif
+-> END
+
+~ doubt
+Narrator: Silas leans against a pack near the embers, spinning his brass censer by a single link of its chain.
+interject name:silas_vane: You've got a strange way of calling the plays on this road, friend, and I can't quite read your tell.
+interject name:silas_vane: Half the time we walk right past a clean bluff or a tidy exit just to take the honest beating on the chin.
+interject name:silas_vane: Makes a working hustler wonder if you actually see the angles or if we're just betting blind into a stacked shoe.
+* Fair question. What angle are we missing? -> doubt_1
+* Not everything is a card game. -> doubt_2
+* Say nothing and stay by the fire. -> doubt_3
+
+~ doubt_1
+interject name:silas_vane: Every monster with a price tag leaves a gap in the wording, and we ought to be prying those open instead of paying retail.
+interject name:silas_vane: Let me call the bluff next time a big talker tries to corner us, and watch how fast the odds turn.
+approve silas_vane +5: You took my doubts seriously and asked for my angle
+-> END
+
+~ doubt_2
+interject name:silas_vane: Everything with teeth and a ledger is a game, whether you bother counting the cards or not.
+approve silas_vane -2: You dismissed my warning about the odds
+-> END
+
+~ doubt_3
+Narrator: Silas catches the censer in his bony palm, watching his lagging shadow stretch across the grass.
+interject name:silas_vane: Keep your cards close then, I'll just watch the rim.
+-> END
+
+~ talk_act1
+if name:silas_vane and flag.gl_crashed and not flag.vessla_slain
+-> act1
+endif
+-> END
+
+~ act1
+Narrator: Silas sits close to the blaze, scraping grey river-tar and train soot from his ribs with a thumbnail while his censer swings.
+interject name:silas_vane: Bit of a rough landing on the Ghostlight Express, eh, friend, rattles the whole cage right down to the heel-bones.
+interject name:silas_vane: Back on Kalero's landings, when the sky went dark at least the lamps came on and you knew which alley held the knife.
+interject name:silas_vane: Here we've got endless night and that giant Crooked Moon grinning down like a landlord waiting on a late tab.
+interject name:silas_vane: Packed my brass grate full of bitter wormwood the second we crawled out of the wreck, just to keep the draught out of my teeth.
+interject name:silas_vane: My little shadow's been lagging a half-step behind me ever since we hit Wickermoor Hollow, nervous as a cutpurse in church.
+interject name:silas_vane: Still, the bone deck came through without a scratch, and my fingers work fine.
+interject name:silas_vane: Whatever's running the tables in this valley, they haven't taken our buy-in yet.
+* How are you holding up after the crash? -> act1_1
+* This valley has all of us on edge. -> act1_2
+* Get some rest while the fire's warm. -> act1_3
+
+~ act1_1
+Narrator: He taps two bony fingers against his breastbone, where the green pinpoints in his eye sockets flare bright.
+interject name:silas_vane: Still in one piece, more or less, though my collar-bone's singing a sour note whenever the wind shifts.
+interject name:silas_vane: Give me a dry spot by the ashes and a mark to hustle tomorrow, and I'll be right as rain.
+approve silas_vane +2: You asked how I was holding up after the crash
+-> END
+
+~ act1_2
+interject name:silas_vane: Good to know I'm not the only one hearing footsteps in the fog, because a lone hustler is an easy meal.
+interject name:silas_vane: Stick close to the smoke, and we'll watch each other's blind side till we figure the rules out.
+approve silas_vane +3: You shared your own nerves on our first night
+-> END
+
+~ act1_3
+interject name:silas_vane: Dozing off under that moon is a tall order for a fellow who doesn't sleep, but I'll rest my bones and keep one ear on the brush.
+approve silas_vane -1: You told me to get some rest after the crash
+-> END
+
+~ talk_act2
+if name:silas_vane and flag.act2_done >= 2
+-> act2
+endif
+-> END
+
+~ act2
+Narrator: Silas deals three bone cards face-up onto a flat stone by the fire, whistle-breathing through his teeth as the smoke curls.
+interject name:silas_vane: Been thinking about that wreck on the tracks and the state of us after clearing out the Crooked House.
+interject name:silas_vane: Most crews I ran with in Kalero would've split the loot and bolted for the tall grass the first time the walls bled.
+interject name:silas_vane: We take a beating in this Hollow, spit out the grave-dirt, and walk right back to the table for another draw.
+interject name:silas_vane: Tell's in the twitch, friend, and lately the monsters are the ones twitching when you lot step through the door.
+interject name:silas_vane: Even my lagging shadow's stopped flinching at the tree-line, though it still tries to palm the best seat by the coals.
+interject name:silas_vane: Never put much stake in partners who weren't taking a cut off the top.
+interject name:silas_vane: Turns out having solid backs around the fire beats a sleeve full of shaved aces any night.
+* How are you holding up out here? -> act2_1
+* We've all kept each other alive. -> act2_2
+* Get some rest before the next stretch. -> act2_3
+
+~ act2_1
+interject name:silas_vane: Lighter on bitter herb than I'd like, and the damp in Wickermoor Hollow makes my knuckles click when I shuffle.
+interject name:silas_vane: Better than I've been in four winters, though, and that's no bluff.
+approve silas_vane +2: You checked on me deep in the Hollow
+-> END
+
+~ act2_2
+Narrator: Silas sweeps the bone cards back into one palm with a neat snap, his green eye-lights steadying on yours.
+interject name:silas_vane: Put that in the ledger in clean ink, because it's the only honest tab I've ever been glad to carry.
+interject name:silas_vane: House comes calling for any of us, they'll have to clear the whole bench first.
+approve silas_vane +3: You said we kept each other alive
+-> END
+
+~ act2_3
+interject name:silas_vane: Always the sensible play with you, so I'll be banking the grate and letting the bones warm through.
+approve silas_vane -1: You told me to rest while we had the fire
+-> END
+
+~ talk_act3
+if name:silas_vane and flag.act2_done >= 5
+-> act3
+endif
+-> END
+
+~ act3
+Narrator: Silas sits with his knees drawn up and his brass censer dark in his lap, lettin' the firelight catch the nicks on his ribs.
+interject name:silas_vane: Feel that hush sitting over the Hollow tonight, friend, like the whole room's holding its breath before the last card flips.
+interject name:silas_vane: Spent my whole life hunting the cheap exit, shaving the rims, waiting for the moment to slip out the back with the pot.
+interject name:silas_vane: Funny thing is, we're down to the final draw now and my boots aren't even itching for the door.
+interject name:silas_vane: Look at us, battered as old dockside pilings, and still ready to double down against whatever's waiting in the dark.
+interject name:silas_vane: House always wins, unless you burn the house, and I reckon we've got just enough spark left to try.
+interject name:silas_vane: Whatever my old landlord's got written on my page, he didn't figure on me sitting at a table with you lot.
+interject name:silas_vane: Win or fold tomorrow, it's been a proper privilege running this shoe with you.
+* How are you holding up before the end? -> act3_1
+* No matter the draw, we finish it together. -> act3_2
+* Get some rest while we still have tonight. -> act3_3
+
+~ act3_1
+Narrator: His jaw gives a soft click, and for a second the rapid dockside patter drops right out of him.
+interject name:silas_vane: Rattled down to the marrow, if you want the bare truth, because you can't palm your way out of the last hand.
+interject name:silas_vane: Still, my grip's steady enough to see the turn through with you.
+approve silas_vane +2: You asked how I was holding up before the end
+-> END
+
+~ act3_2
+interject name:silas_vane: There's the stake that breaks the bank, plain and straight on the baize.
+interject name:silas_vane: Let the night bring its whole crooked deck, we'll meet it at the door.
+approve silas_vane +3: You promised we would finish the last hand together
+-> END
+
+~ act3_3
+Narrator: Silas hooks the cool censer back onto his belt and stretches his bony legs toward the coals.
+interject name:silas_vane: Best advice on the road, I'll save my breath for the morning's buy-in.
+approve silas_vane -1: You told me to rest before the final stretch
+-> END
+
+~ talk_warm
+if name:silas_vane and approval.silas_vane >= warm and level >= 3
+-> warm
+endif
+-> END
+
+~ warm
+Narrator: Silas sits cross-legged near the embers, holdin' his glass jar up to the firelight while the sleepy glow-beetle inside crawls across his thumb.
+interject name:silas_vane: Don't go spreading this round the hollow, friend, or you'll ruin a very expensive reputation.
+interject name:silas_vane: Every dockside sharp in Kalero thinks I keep this little beetle in my coat to read the marked backs of bone cards in the dark.
+interject name:silas_vane: Truth is, the lazy bug hasn't spotted a crooked ace in his life.
+interject name:silas_vane: I fished him out of a rain barrel two winters back because I couldn't stand how loud my own ribs clicked when the room went black.
+interject name:silas_vane: You try sitting up in an empty loft when the fog rolls off the river and every shadow looks like a bailiff waiting for the rent.
+interject name:silas_vane: Little fella buzzes twice against the glass whenever the candle gutters out, like he's telling me the house hasn't closed the doors yet.
+interject name:silas_vane: Better company than the river-rats, though I've been sitting at this fire long enough that I hardly need the night-light with your lot around.
+* Does he have a name, or just a tab? -> warm_1
+* Your secret is safe with us. -> warm_2
+* A ruthless street hustler afraid of the dark? -> warm_3
+
+~ warm_1
+Narrator: Silas taps a fingernail against the glass, and the beetle gives a tiny, amber blink.
+interject name:silas_vane: Call him Lucky Seven when he's awake and Dead Weight when I'm buying the leaf-scrapings.
+interject name:silas_vane: Don't tell him he's working for free, or he'll start demanding a cut of the pot.
+approve silas_vane +2: You asked about my glow-beetle at the fire
+-> END
+
+~ warm_2
+interject name:silas_vane: That's why I like walking with this table, nobody reaches for the ledger when a man drops his guard.
+interject name:silas_vane: Keep your voice down anyway, or my shadow'll start mocking me in pantomime.
+approve silas_vane +3: You promised to keep my secret about the dark
+-> END
+
+~ warm_3
+Narrator: The green pinpoints in Silas's eye sockets narrow in a mock glare before his jaw clicks into a grin.
+interject name:silas_vane: Not the dark, just the poor manners of the things that use it to skip the buy-in.
+interject name:silas_vane: Laugh it up while the logs are bright, because you're on beetle-feeding duty tomorrow night.
+approve silas_vane -1: You teased me about needing a night-light
+-> END
+
+~ talk_close
+if name:silas_vane and approval.silas_vane >= close and level >= 5
+-> close
+endif
+-> END
+
+~ close
+Narrator: Silas turns a single bone tarot card over and over across his knuckles, the brass censer at his belt sitting cold and still.
+interject name:silas_vane: Spent four years looking for the fine print on a bad night in Kalero, friend, hunting a crooked clause like it was a loose brick in a cell wall.
+interject name:silas_vane: Told myself if I just learned one more bottom-deal or shaved the bone thin enough, I'd catch the Dealer sleeping and snatch back the stake I lost.
+interject name:silas_vane: Funny how walking this hollow with you lot puts the lie to a cheap hustle.
+interject name:silas_vane: You don't beat a rigged bank by palming another ace up your waistcoat, because the house wrote the cheat before you even sat down.
+interject name:silas_vane: Still got to find the hole in that contract, though, and pull back who was taken when the cards went cold.
+interject name:silas_vane: Only now I'm hoping when the last hand comes down on the baize, I've got the nerve to win it straight instead of looking for the back door.
+interject name:silas_vane: Tell's in the twitch, and for once I'd like the hand that doesn't shake to be mine.
+* When the cards go down, you won't play alone. -> close_1
+* What will it take to break the Dealer's hold? -> close_2
+* Can an honest hand really beat a rigged house? -> close_3
+
+~ close_1
+Narrator: Silas catches the spinning card cleanly between two fingerbones and taps it once against his knee.
+interject name:silas_vane: Careful staking your chips on a man with a marked ledger, the buy-in gets steep near the end.
+interject name:silas_vane: Still, if you're standing behind my chair, I like our odds against the house.
+approve silas_vane +3: You promised I wouldn't face the Dealer alone
+-> END
+
+~ close_2
+interject name:silas_vane: A clean eye to read the thumb on the shoe, and the stomach not to blink when the table tries to collect.
+interject name:silas_vane: Stick close when the smoke clears, and you'll see how a Kalero boy settles an old tab.
+approve silas_vane +2: You asked what it would take to break my contract
+-> END
+
+~ close_3
+Narrator: Silas watches a curl of grey smoke rise from the logs, his hand resting flat over the bone deck.
+interject name:silas_vane: Probably not, if we're going by Kalero odds, and I've never seen a landlord fold out of kindness.
+interject name:silas_vane: Good thing you lot taught me how to turn a table over when the math goes sour.
+approve silas_vane -1: You wondered if a straight hand would be enough
+-> END
+
+~ talk_devoted
+if name:silas_vane and approval.silas_vane >= devoted and level >= 8
+-> devoted
+endif
+-> END
+
+~ devoted
+Narrator: Silas spreads his bone tarot deck out on a flat stone near the fire, his lagging shadow leaning in close beside his elbow.
+interject name:silas_vane: Mags Nickel gave me this bone shoe before the winters caught up to her, and I've carried it through every ditch from Kalero to this hollow.
+interject name:silas_vane: Every shaved edge and thumb-nick on the ivory is five years of keeping my ribs together when the wolves came sniffing for the tab.
+interject name:silas_vane: Always swore if the sky fell down, I'd still walk out of the rubble shuffling these slivers and looking for the next mark.
+interject name:silas_vane: Then we end up stranded under this grinning moon, and I watch you lot step in front of the teeth without even checking the odds first.
+interject name:silas_vane: If this road takes us all the way up that Crooked Tree, friend, I'm going with you to the top branch and back down the trunk.
+interject name:silas_vane: And if keeping your names out of the ledger means I have to toss this whole deck into the embers and never touch a card again, say the word.
+interject name:silas_vane: I'd rather walk out of Druskenvald with empty pockets and your crew breathing than hold a royal flush by myself in the dark.
+* We'd burn our own gear for you too. -> devoted_1
+* Keep your cards, we want you as you are. -> devoted_2
+* Thank you for standing with us. -> devoted_3
+
+~ devoted_1
+Narrator: Silas scoops the bone cards together with a brisk snap, his shadow tippin' an imaginary hat across the dirt.
+interject name:silas_vane: Look at us, a whole table of suckers throwing good stakes after bad in the middle of a haunted woods.
+interject name:silas_vane: Best game I ever bought into, so don't go folding on me before morning.
+approve silas_vane +3: You said you would give up just as much for me
+inspire name:silas_vane: staked everything on the party
+inspiration
+-> END
+
+~ devoted_2
+interject name:silas_vane: Smart call, because without my thumb on the cut, you lot would buy cursed turnips from the first hag on the road.
+interject name:silas_vane: Still, the offer stands on the table whenever the fire gets too hot.
+approve silas_vane +3: You told me not to give up my bone deck
+inspire name:silas_vane: offered the bone deck for the party
+inspiration
+-> END
+
+~ devoted_3
+Narrator: Silas slides the deck back into his waistcoat and warms his bony palms over the coals.
+interject name:silas_vane: Don't go making it sound noble, I'm just protecting my best investment in this rotten valley.
+interject name:silas_vane: Now get your boots near the blaze before the damp gets into the marrow.
+approve silas_vane +2: You thanked me for standing with the party
+inspire name:silas_vane: swore to walk the whole road
+inspiration
+-> END

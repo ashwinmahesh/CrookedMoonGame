@@ -1,14 +1,17 @@
 # R10: the Fateweaving Incitements that land on the train (the Threads' first beat; reward Heroic Inspiration; flags Lane F's quests read).
 # Three belong to companions, drafted to Lane F's files in Companions/: Liberation (Silas Vane, the Mariner's car G5: the letter in the mailbags),
 # Evolution (Cordelia Skein, the Jailbird's car G6: the medical bag), Ascendancy (Delphine Ravelle, the Harlequin's car G7: the handbill).
-# Each plays on the FIRST ENTRY to its car with that companion in the party (an NPC with `approach`, `when: not flag.incitement_<thread>`); the car
-# stays re-enterable until the crash. Without the companion the same entry sets `pending_<thread>_incitement` and plays nothing (Lane F's camp echo plays it).
+# Each plays when the party looks at its object (the prop's `dialogue`: the letter, the medical bag, the handbill, the black mist) with that
+# companion in the party; nothing starts on walking in (Ashwin, 2026-11-03: no talk is forced on the party in the opening act). Without the
+# companion the look sets `pending_<thread>_incitement` (Lane F's camp echo plays it), and once the scene is had or noted the object just shows
+# its examine line.
 # The other two (Apocalypse in G2, Deliverance in G1) and the `_custom` scenes are STUBS for the custom hero's Threads (Phase 5): no companion lines.
 # Silas's shadow lags half a step behind him from his first frame (a visual hook for the art lane; not built here).
 # HOOK(F): when Lane F's G2 adds the `thread <thread> <beat>` statement (overview rule 11) it replaces the `set incitement_*` and `inspire` lines below.
 
 ~ liberation_enter
 if flag.incitement_liberation or flag.pending_liberation_incitement
+narrate examine:g5_gambler_letter
 -> END
 endif
 if name:silas_vane
@@ -18,6 +21,7 @@ if background:crossroads_gambler
 -> liberation_custom
 endif
 set pending_liberation_incitement
+narrate examine:g5_gambler_letter
 -> END
 
 ~ liberation_start
@@ -69,6 +73,7 @@ inspire background:crossroads_gambler: read a dead clerk's warning
 
 ~ evolution_enter
 if flag.incitement_evolution or flag.pending_evolution_incitement
+narrate examine:g6_medical_bag
 -> END
 endif
 if name:cordelia_skein
@@ -78,6 +83,7 @@ if background:experiment
 -> evolution_custom
 endif
 set pending_evolution_incitement
+narrate examine:g6_medical_bag
 -> END
 
 ~ evolution_start
@@ -128,6 +134,7 @@ inspire background:experiment: found a doctor's unfinished notes
 
 ~ ascendancy_enter
 if flag.incitement_ascendancy or flag.pending_ascendancy_incitement
+narrate examine:g7_poster
 -> END
 endif
 if name:delphine_ravelle
@@ -137,6 +144,7 @@ if background:reveler
 -> ascendancy_custom
 endif
 set pending_ascendancy_incitement
+narrate examine:g7_poster
 -> END
 
 ~ ascendancy_start
@@ -238,11 +246,13 @@ inspire background:amnesiac: heard a half-known song
 
 ~ deliverance_enter
 if flag.incitement_deliverance
+narrate examine:g1_curse_mist
 -> END
 endif
 if background:ghostlight_passenger
 -> deliverance_start
 endif
+narrate examine:g1_curse_mist
 -> END
 
 ~ deliverance_start

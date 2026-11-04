@@ -1,0 +1,214 @@
+THE NOTE ON ROOK COLDWAKE, part 2: the camp talks already written (voice examples: do not repeat their topics or lines) and a Connection scene.
+
+## Camp talks
+
+Three personal talks, drafted by Gemini (briefs `Gemini/brief_B_rook.txt`, raw replies `Gemini/reply_B_rook.json`) and converted by Lane F into the camp-file format: the companion's lines as `interject name:rook:`, long lines split, approvals and flags added (the edit log is in `Gemini/README.md`). They are offered at a camp or after a Long Rest, each plays once, and each takes one of the companion's two words a day; they come after any Strained or Doubtful talk and before the Warm, Close and Devoted talks.
+
+- **Unlocks.** Talk 1 `flag.connection_pilgrimage`. Talk 2 `flag.connection_pilgrimage`, the next word after talk 1; it is where `secret_known_rook` is set, at Warm approval or better, which is what lets another hero pay Rook's dark secret at Raum's gate. Talk 3 `flag.pilgrimage_confronted`.
+- **The talks.**
+  1. The ledger: rubbings and headstone lettering; the crack is that he cannot call up his own mother's handwriting.
+  2. The knocker: the code the buried tapped on coffin wood; the turn is the knocks you can answer and the ones you can't dig out.
+  3. The Deep Thaw: do his knuckles look grey; his practical instructions for the cairn if he turns.
+- **Rules kept.** No roll or check anywhere; every menu has the kind exit "Not now. Rest easy, Rook."; the dark secret is never stated in a camp talk, only approached.
+
+```text
+# Rook's camp talks (narrative/camp/rook.dialogue). Each plays once; the file offers the first talk whose condition holds.
+# Talk 2 opens on the same condition as talk 1 and plays at the next word, so it is heard before Raum's gate in any Act II order.
+# Approval reasons are notice text written by Lane F (mechanical), not Gemini lines; deltas follow the engine's size guide.
+
+~ talk_rook_ledger
+if name:rook and flag.connection_pilgrimage
+-> camp_rook_1
+endif
+-> END
+
+~ talk_rook_knocker
+if name:rook and flag.connection_pilgrimage
+-> camp_rook_2
+endif
+-> END
+
+~ talk_rook_deep_thaw
+if name:rook and flag.pilgrimage_confronted
+-> camp_rook_3
+endif
+-> END
+
+~ camp_rook_1
+interject name:rook: Shallow bevels on this parish slate, cut by a lad in a hurry before frost. Give it ten winters of poor drainage and the whole surname slides into the nettles.
+interject name:rook: A proper chisel leaves a square trough that holds the chalk clean. Sloppy masonry is just vandalism with an invoice attached.
+* What do you read on a stone? -> r1_lettering
+* Why keep rubbings at all? -> r1_why
+* Not now. Rest easy, Rook. -> END
+
+~ r1_lettering
+interject name:rook: First you read the chisel, whether the mason had steady wrists or a thirst on him. Then the dates, to see if sickness took the street all in one season.
+interject name:rook: Bottom edge tells you the drainage, because sour water eats the verse from the heels up.
+interject name:rook: Better reading than the local notices, and the authors rarely argue back.
+-> r1_turn
+
+~ r1_why
+interject name:rook: Rain rubs the stone flat in the end, and turf creeps over the kerbs. Someone has to keep the roll once the parish clerk gives up.
+interject name:rook: I have the ledger and the chalk, and I don't need the sleep.
+interject name:rook: Besides, a watchman without paperwork is just a loiterer with a halberd.
+-> r1_turn
+
+~ r1_turn
+interject name:rook: You take enough rubbings, your head fills up with neat square letters. Yard after yard of block capitals, all regulation depth, all cut to the same gauge.
+interject name:rook: Tried to picture my mother's hand on a recipe card the other night.
+interject name:rook: Couldn't call up a single loop of it, only the stencil on a Third Barrow Watch marker.
+* What was she like? -> r1_mother
+* Then the rubbings are worth it. -> r1_close
+* Rest easy, Rook. -> END
+
+~ r1_mother
+interject name:rook: Couldn't tell you. Whatever was in that drawer went damp a long while back.
+interject name:rook: Could tell you the exact fall of the ditch behind her plot, though. One inch in twelve, clean gravel bed, dry as a biscuit.
+approve rook +2: You asked "What was she like?"
+-> r1_close
+
+~ r1_close
+interject name:rook: Best let the wax dry on this page before I shut the calfskin. Fire's helpful, provided I keep my cuffs out of the ash.
+interject name:rook: Obliged for the company. Mind the turf by your boot.
+approve rook +1: You sat with me at the fire
+-> END
+
+~ camp_rook_2
+interject name:rook: Oiled the hinge on this shield-knocker twice since sundown, and it still clacks on the march. Put it on the coffin lid so folk would have fair warning.
+interject name:rook: Common courtesy, really. If the dead are coming round after hours, the least we can do is knock before biting.
+* Why a door-knocker on a shield? -> r2_why
+* Does it ever knock by itself? -> r2_itself
+* Not now. Rest easy, Rook. -> END
+
+~ r2_why
+interject name:rook: Up in Syndramas, frost came down hard enough to drop a roof on a barracks. Used to keep brass knockers or iron bolts handy in the timber.
+interject name:rook: If the snow buried your platoon, you tapped code on the coffin wood for the diggers. One rap meant "dig here", and three raps meant "still breathing".
+interject name:rook: Saved a fair bit of shovel work on the ones who didn't tap.
+-> r2_turn
+
+~ r2_itself
+interject name:rook: Once, in a haunted parlour not a week gone. Timber was warped from rising damp, no proper ventilation under the floorboards, so the brass dropped on its own.
+interject name:rook: Purely a structural matter, weight and moisture acting on a cold pin.
+interject name:rook: All the same, I strapped my gauntlet over it till morning. Don't care for equipment filing reports by itself.
+-> r2_turn
+
+~ r2_turn
+interject name:rook: You spend enough nights on the frost-line, your ears get tuned to wood and brass. Even now I catch myself counting the clacks when I set the shield down.
+interject name:rook: There are knocks you can answer with a spade and a lantern, if the ground lets you in.
+interject name:rook: And there are knocks down under the permafrost that you can't dig out.
+interject name:rook: Never quite settled on the shift log which sort is worse to walk past.
+* [if not (approval.rook >= warm)] Would you tell us the rest? -> r2_rest
+* [if approval.rook >= warm] Would you tell us the rest? -> r2_rest_open
+* You don't have to say more. -> r2_close
+* Rest easy, Rook. -> END
+
+~ r2_rest
+interject name:rook: Nothing to file tonight. A warden keeps his own docket until the parish bounds are squared.
+interject name:rook: When the stones are raised and plumb, they'll say what needs saying.
+approve rook +2: You asked "Would you tell us the rest?"
+-> r2_close
+
+~ r2_rest_open
+set secret_known_rook
+interject name:rook: There was a hard place up north, and a cold bit of ground. I am the one who walked out of it with the ledger.
+interject name:rook: You've been decent company on a bad road, and I'm not dodging the audit.
+interject name:rook: Let me get the last stone raised first, and we'll square the account in full.
+approve rook +3: You asked "Would you tell us the rest?"
+-> r2_close
+
+~ r2_close
+interject name:rook: Listen to that, one soft clack. Just the heat of the fire drawing the damp out of the pin.
+interject name:rook: Settle down now, brass. Nobody's under the floorboards tonight.
+approve rook +1: You sat with me at the fire
+-> END
+
+~ camp_rook_3
+interject name:rook: Hold your lantern up a touch, if your arm isn't tired. Do these knuckles look grey to you, or is that just the tallow smoke?
+interject name:rook: Been rubbing grave-wax into the joints since we pitched camp, and the skin still takes a dent like wet putty.
+* They look grey. Does it hurt? -> r3_grey
+* They look fine to me. -> r3_fine
+* Not now. Rest easy, Rook. -> END
+
+~ r3_grey
+interject name:rook: Not a bit, and that's the whole trouble with the ordinance. Frostbite stings while the blood's fighting, then goes quiet when the rot takes the lease.
+interject name:rook: When the softness sets in, the Deep Thaw isn't far behind.
+interject name:rook: Last thing this parish needs is a watchman forgetting his bylaws and chewing on the ratepayers.
+-> r3_turn
+
+~ r3_fine
+interject name:rook: You're a poor liar, friend, and you'd never pass inspection as a clerk. Good thing to have by the fire, though.
+interject name:rook: Wax keeps the split down, mostly, and stops the draught getting into the bone.
+interject name:rook: Won't stop the Deep Thaw if the meat decides to turn unruly.
+-> r3_turn
+
+~ r3_turn
+interject name:rook: So we'll have the procedure clear in advance, nice and tidy, no fuss on the night.
+interject name:rook: If my eyes go milky and I start snuffling at the rations, don't waste steel on ceremony.
+interject name:rook: Put me down in dry gravel, build a proper fieldstone cairn over the shield, and pack the chinks with lime.
+interject name:rook: Five feet high meets the northern code, and nobody opens it till judgment.
+* We'd never do that to you. -> r3_never
+* Tell us how high. -> r3_how
+* Rest easy, Rook. -> END
+
+~ r3_never
+interject name:rook: You will if you respect the uniform. Everyone, living or dead, deserves a quiet night's sleep, and a ghoul gets none.
+interject name:rook: Follow the docket, sign the ledger, and leave the stone level.
+approve rook +2: You said "We'd never do that to you"
+-> r3_close
+
+~ r3_how
+interject name:rook: Five courses of fieldstone, heavy ones at the base, and a flat lintel across the crown to shed the rain. Keep the moss off the south face if you're passing.
+interject name:rook: Grand feeling, knowing you're travelling with folk who respect sound masonry.
+approve rook +2: You said "Tell us how high"
+-> r3_close
+
+~ r3_close
+interject name:rook: There, that's a loud sigh right on the hour, logged and witnessed. Chest feels lighter already, and the shield-knocker stayed shut.
+interject name:rook: Good night's work, this.
+approve rook +1: You sat with me at the fire
+-> END
+```
+
+## The Connection scene (dialogue draft)
+
+Mori Shade's meeting with Rook, drafted the same way and converted the same way. It is a few nodes in Mori Shade's own conversation file, started by the trigger in beat 2. Bless for a day, the ally and the Heroic Inspiration are rewards the Fateweaving statements will give (listed in the overview); the `set` and `attitude` lines are the ones the grammar has today.
+
+```text
+# Rook meets Mori Shade (a node of Mori Shade's own conversation file; the trigger is in the beat above).
+# Bless for a day and Heroic Inspiration need the Fateweaving statements the overview lists; they are not written here.
+
+~ mori_rook_start
+mori_shade [neutral]: Warden, by the cut of the leather and the chalk under your nails. I have set out grey grave-wax and a stick of mason's chalk on the trestle.
+mori_shade [neutral]: Your ledger is kept to a clean standard, Warden, dry edges and honest dates, the way Yorgrim kept Maidenmist Cemetery before he went quiet.
+mori_shade [neutral]: I have marked one cross at the soured fields of Foxwillow, where the drainage fails and the dead lie uneasy. The other sites will show themselves to a working eye.
+interject name:rook: Proper tools, ma'am, and a clear map. Rare enough to find a parish office with the tallow dry and the records in order.
+interject name:rook: Hold on a second while I take a breath for the shift log. Keeps the ribs from sticking while we go over the zoning.
+* You two talk like the same union. -> mori_union
+* She's seen that badge, Rook. -> mori_badge
+* Take the map and the chalk. Let's go. -> mori_go
+
+~ mori_union
+mori_shade [neutral]: There is only one trade when the candles burn down, stranger. We keep the boundary between those who walk and those who rest.
+mori_shade [neutral]: A yard without a watchman is only a pantry for the dark.
+interject name:rook: Couldn't have phrased the bylaw cleaner myself, ma'am.
+-> mori_close
+
+~ mori_badge
+mori_shade [neutral]: I do not look at brass, nor ask what snow it came through. Brass is only brass.
+mori_shade [neutral]: What counts in this valley is the hand that holds the shovel, and what the pin is fastened to.
+interject name:rook: Noted and appreciated, ma'am.
+-> mori_close
+
+~ mori_go
+mori_shade [neutral]: Walk with a measured step on the Foxwillow clay, for the turf is thin over the old pits.
+interject name:rook: Chalk's pocketed, wax is stowed, docket's open.
+-> mori_close
+
+~ mori_close
+mori_shade [neutral]: May the earth lie level under your boots, Warden, and may your own bones keep the cold that steadies them.
+mori_shade [neutral]: Come back to this room when you have a fresh page filled.
+set connection_pilgrimage
+attitude mori_shade friendly
+set rook_mori_met
+-> END
+```

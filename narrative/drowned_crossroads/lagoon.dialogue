@@ -59,6 +59,7 @@ endif
 ~ bh_ok
 set dc_bellhops_ok
 bellhop_zombie [smile]: Welcome aboard the Dead Man's Hand, honoured guests. Mind your step on the brass, and please enjoy one hundred gold of complimentary play at our tables tonight.
+interject name:delphine_ravelle: Tiny hats on giant corpses, darling. Finally, a house that understands proportion.
 -> END
 
 ~ bh_miss
@@ -66,10 +67,12 @@ bellhop_zombie [smile]: That is a remarkably bold story, friend, and told with a
 -> bellhops
 
 ~ bh_tip
+approve delphine_ravelle +2 lucan_houndstooth +1 tobin_hayward -1: You tipped the dead bellhops twenty-five gold to walk aboard politely
 gold -25
 set dc_bellhops_ok
 Narrator: The heavy coins vanish into a velvet bellhop's bag no bigger than a teacup, and two vast dead men bow until their tiny hats nearly touch.
 -> END
 
 ~ bh_fight
+approve lucan_houndstooth -2 rook_coldwake -1: You started a brawl with the riverboat bellhops at the gangplank
 combat dc_bellhops

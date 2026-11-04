@@ -1,0 +1,80 @@
+# Banter in The Ghostlight Express (story/banter.gd plays this file only where a place's region is ghostlight_express): one exchange between two or three companions about what is in
+# front of them in one place, gated on that place (`at:`) and on the story's state so a remark never runs ahead of the chapter. Played now and then on entering
+# an area, once each; an exchange nobody present can speak comes out empty and is skipped.
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+
+~ ghostlight_boarding_01_rook_tobin_silas
+if name:rook_coldwake and name:tobin_hayward and name:silas_vane and at:ghostlight_boarding and not flag.gl_crashed
+interject name:rook_coldwake: That drystone wall's a textbook subsidence hazard, Tobin. Nobody's reset that standing stone in a century.
+interject name:tobin_hayward: Never mind the masonry. Look at that scarecrow by the yew. Damp hay, gone to mould. Shameful.
+interject name:silas_vane: We're about to board a train parked on rails of fog. Where's the brake on a cloud?
+interject name:rook_coldwake: Schedule's posted at the lychgate, Silas. The track is the ferryman's jurisdiction, not ours.
+interject name:tobin_hayward: At least they carved proper turnip lanterns for the walk up. Warms a man's collarbone.
+endif
+-> END
+
+~ ghostlight_g3_lounge_02_delphine_lucan_cordelia
+if name:delphine_ravelle and name:lucan_houndstooth and name:cordelia_skein and at:ghostlight_g3_lounge and not flag.gl_crashed
+interject name:delphine_ravelle: Ebony panels, burgundy velvet, and a Songstress who knows how to hold a room. Now this is billing.
+interject name:lucan_houndstooth: Admirable upholstery. Though Dreadfang won't stop staring at that jug with three crosses on it.
+interject name:cordelia_skein: Never mind the jug. Look how still the Druskenvalds sit. I'd love to know their preservative.
+interject name:delphine_ravelle: Your Foolishness says the paintings move when we blink. And he doesn't even have eyes.
+interject name:lucan_houndstooth: A corner booth, if you please, before the smoke thickens. It plays havoc with the nose.
+endif
+-> END
+
+~ ghostlight_g4_dining_03_delphine_tobin
+if name:delphine_ravelle and name:tobin_hayward and at:ghostlight_g4_dining and not flag.gl_crashed
+interject name:delphine_ravelle: White linen and orange bunting. Somebody couldn't choose between a banquet and a barn dance.
+interject name:tobin_hayward: That big booth at the front hasn't a crumb on it. Laid for company that never came.
+interject name:delphine_ravelle: A reserved box and no curtain call. Mrs. Calloway's waiting on a cue that missed the train.
+interject name:tobin_hayward: Good linen shouldn't sit idle. Makes my stitches itch to look at it.
+endif
+-> END
+
+~ ghostlight_g5_mail_04_rook_delphine
+if name:rook_coldwake and name:delphine_ravelle and at:ghostlight_g5_mail and not flag.gl_crashed
+interject name:rook_coldwake: Sound filing in here. North pigeonholes for the dead, south for the living. Very tidy.
+interject name:delphine_ravelle: All drab canvas, except one pink envelope in the dead's rack. Who sends perfumed letters from the grave?
+interject name:rook_coldwake: Postage is paid. The colour of the paper isn't the watch's concern.
+interject name:delphine_ravelle: If anyone writes to me from beyond the veil, they'd better use gilt edging.
+interject name:rook_coldwake: Nobody writes to me from either side, lass. Leave the bench clear.
+endif
+-> END
+
+~ ghostlight_g6_baggage_05_rook_lucan
+if name:rook_coldwake and name:lucan_houndstooth and at:ghostlight_g6_baggage and not flag.gl_crashed
+interject name:rook_coldwake: Trunks stacked to the ceiling. One sharp bend and the whole lot comes down, Lucan.
+interject name:lucan_houndstooth: Quietly, Rook. There's a tiger of green flame asleep behind the luggage. A magnificent animal.
+interject name:rook_coldwake: Open flame in a baggage car. Did nobody on this crew read the fire regulations?
+interject name:lucan_houndstooth: Dreadfang's ears are flat. I'd rather not grade a burning cat in a narrow aisle.
+endif
+-> END
+
+~ ghostlight_g7_circus_06_rook_cordelia
+if name:rook_coldwake and name:cordelia_skein and at:ghostlight_g7_circus and not flag.gl_crashed
+interject name:rook_coldwake: Bars bent outward and scorched straw, Cordelia. Something got loose and nobody logged it.
+interject name:cordelia_skein: Look at the scorching on the iron. Whatever lived in there ran remarkably hot.
+interject name:rook_coldwake: Hanging by her knees in a moving carriage. Circus or not, that's unruly behaviour.
+interject name:cordelia_skein: You've no poetry in you, Rook. Though I grant you, those keys on the hook are laughable.
+endif
+-> END
+
+~ ghostlight_g8_tender_07_tobin_lucan
+if name:tobin_hayward and name:lucan_houndstooth and at:ghostlight_g8_tender and not flag.gl_crashed
+interject name:tobin_hayward: Two paces back from that firebox, Lucan. The heat's curling the straw in my cuffs.
+interject name:lucan_houndstooth: Step behind my coat, Tobin. Though I confess that coal behind the glass unsettles me.
+interject name:tobin_hayward: Embers, but cold and grey round the edges. Like rot in a stump. That's no honest fire.
+interject name:lucan_houndstooth: Dreadfang won't look at it at all. Whatever feeds this furnace was never meant to be hunted.
+endif
+-> END
+
+~ ghostlight_wreckage_08_tobin_cordelia
+if name:tobin_hayward and name:cordelia_skein and at:ghostlight_wreckage and flag.gl_crashed
+interject name:tobin_hayward: Black roots pinning the engine on its side. Those didn't grow, Cordelia. They reached up and caught us.
+interject name:cordelia_skein: The wood's clenched round the boiler like a muscle in spasm. Fascinating.
+interject name:tobin_hayward: Not a stitch torn on me, and the carriages scattered like kindling. Look at that mist pooling.
+interject name:cordelia_skein: My vials survived, thank goodness. Hold still, darling. You've bark in your seams.
+endif
+-> END

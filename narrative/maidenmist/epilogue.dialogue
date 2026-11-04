@@ -7,6 +7,7 @@ Narrator: Isolde pauses in the stone doorway of the sepulcher and gently tugs th
 * Not now, old girl -> walk_no
 
 ~ walk_yes
+approve lucan_houndstooth +3 rook_coldwake +2 tobin_hayward +1: You walked the cemetery paths with Isolde on her final watch
 set mm_isolde_walk_started
 Narrator: Isolde trots out along the nearest gravel path with her hooded lantern swinging low, glancing back every few paces to make sure you follow.
 -> END
@@ -17,6 +18,7 @@ Narrator: Isolde lowers her heavy black chest onto the cold stone step and watch
 * [ends:isolde_walk] Leave her -> walk_leave
 
 ~ walk_leave
+approve lucan_houndstooth -3 rook_coldwake -2: You left the loyal hound Isolde waiting alone at the sepulcher step
 set mm_isolde_walk_gone
 quest isolde_walk gone_quiet
 Narrator: Isolde does not follow you past the iron gate, and by the time morning thins the mist her hooded lantern sits dark beside the sepulcher door.
@@ -50,6 +52,7 @@ Narrator: Beneath the leaning Shadestone markers, Isolde noses a flat packet wra
 ~ adela
 set mm_epilogue_adela
 adela_druskenvald [smile]: You have my deepest thanks for settling that dreadful business behind the cemetery iron, darlings. Honestly, I rather thought our little graveyard unpleasantness had been put to bed for good.
+interject name:delphine_ravelle: Another darling in the cheap seats, though her smile is stitched on a fraction too tight.
 adela_druskenvald [sly]: Though I did spot the queerest flock of gray pigeons roosting inside the tower clockwork this evening.
 -> END
 
@@ -61,6 +64,7 @@ Narrator: High on the slate roof of the post office, a hundred gray pigeons shif
 ~ weston
 set mm_epilogue_weston
 weston_murdoch [smile]: The Brightsingers heard the chapel bells ring clear across the valley mist tonight, my friends. We shall gather every lantern on the steps and sing the weary dead home until dawn.
+interject name:tobin_hayward: Sing all you like, just keep those chapel lanterns back from my burlap.
 -> END
 
 ~ doris_after

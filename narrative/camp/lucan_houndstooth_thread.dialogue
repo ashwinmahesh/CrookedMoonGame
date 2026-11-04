@@ -1,0 +1,165 @@
+# Lucan's Thread of Fate at camp (Slaughter): the beats that wait for a rest (story/camp_talk.gd offers the first `talk_` node whose opening `if` holds,
+# once a playthrough). Order matters: the Incitement's echo, the Discovery, the Confrontation (held back while Lucan is Strained until the
+# `talk_confrontation_wait` word has been had, never for good). Rewards come from Fateweaving when each beat's quest ends (story/fateweaving.gd).
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+~ talk_incitement
+if name:lucan_houndstooth and flag.pending_slaughter_incitement and not flag.incitement_slaughter
+-> incitement
+endif
+-> END
+
+~ incitement
+Narrator: Lucan sits close to the coals, rubbin' a smear of cedar dust from his cuff while the spectral hound curls tight around his boots.
+interject name:lucan_houndstooth: I took the liberty of inspecting the Trophy Room in that crooked manor alone, friends, though the arsenic and dry rot merited a dismal grade.
+interject name:lucan_houndstooth: Dreadfang stepped directly into the mount of a boot-sized Pomeranian to point at a stuffed crow high on the shelf.
+interject name:lucan_houndstooth: The bird's feathers reeked of burnt straw, and the hound begged for a crumb of cheddar before I called him off.
+interject name:lucan_houndstooth: We have a quarry in the brush that smells of scorched harvest, and my hound is already shrinking from its shadow.
+* What did you make of the burnt straw on that crow? -> incitement_1
+* Keep your notes dry. We move at first light. -> incitement_2
+
+~ incitement_1
+Narrator: Lucan taps his brass pencil against his leather journal, his ears twitching toward the dark beyond the firelight.
+interject name:lucan_houndstooth: No natural corvid brings field-ash into a parlour, if you please, unless something wicked is wearing the flock like a hunting coat.
+interject name:lucan_houndstooth: I have entered the spoor in my ledger, and we shall follow the smoke when you give the word.
+set incitement_slaughter
+set lucan_inc_choice = "shared"
+inspire name:lucan_houndstooth: shared a hunter's reading of the crow
+-> END
+
+~ incitement_2
+interject name:lucan_houndstooth: Quite right, a huntsman does not clutter the camp with speculation when the trail is already warm.
+interject name:lucan_houndstooth: I shall keep the watch until the embers settle, if you please.
+set incitement_slaughter
+set lucan_inc_choice = "alone"
+inspire name:lucan_houndstooth: logged the burnt-straw crow in silence
+-> END
+
+~ talk_discovery
+if name:lucan_houndstooth and flag.connection_slaughter and flag.raum_slain and not flag.discovery_slaughter
+-> discovery
+endif
+-> END
+
+~ discovery
+Narrator: Lucan stares into the flames with his field journal shut across his knee, while a larger, heavier shadow breathes beside his stool.
+interject name:lucan_houndstooth: Out in the Fields of the Crow, Dreadfang broke from my heel and took a trail through the dry stalks that I had not called.
+interject name:lucan_houndstooth: I followed his spoor to a fresh kill in the dirt that neither my bow nor his spectral jaws had made.
+interject name:lucan_houndstooth: Whatever tore that quarry apart left no honest print in the mud, only a cold wake that made the hair along my spine stand stiff.
+Narrator: He reaches down to lay his gloved palm between the ghost hound's shoulder blades, where the pale fur rises thick and coarse.
+interject name:lucan_houndstooth: Dreadfang stood over those remains and drank the rising dark of it until his ribs swelled to the size of a timber wolf.
+interject name:lucan_houndstooth: He did not look for a crust in my pocket, friends, and I looked at him for a very long time in that corn.
+interject name:lucan_houndstooth: Good heavens, I came into this valley to hunt the worst things in the brush, yet my own tracker is growing into a specimen I scarcely recognise.
+interject name:lucan_houndstooth: It is not the first time I have stood over a kill and felt the dark offer to dress me larger than I am.
+* What do you see when you look at him now? -> discovery_1
+* Whatever he grows into, you are still the huntsman holding the lead. -> discovery_2
+* So long as he tracks true, we use him. Get some sleep. -> discovery_3
+
+~ discovery_1
+Narrator: Lucan clears his throat softly, his thumb tracing the brass clasp of his closed book.
+interject name:lucan_houndstooth: I see a very small dog from my grandfather's kennels trying so terribly hard to look fierce that he is forgetting how to wag.
+interject name:lucan_houndstooth: If we are not careful on the next stalk, I fear neither of us will remember the way back to the hearth.
+approve lucan_houndstooth +2: You asked what I saw in my hound after the Fields of the Crow.
+set discovery_slaughter
+quest discovery_slaughter done
+quest confrontation_slaughter waiting
+-> END
+
+~ discovery_2
+Narrator: The yellow at the rim of Lucan's eyes eases as he gives a slow, grateful bow of his head.
+interject name:lucan_houndstooth: That is most generously spoken, for a gentleman of the hunt is nothing without the discipline of his pack.
+interject name:lucan_houndstooth: Hush now, the dark has teeth in these pastures, so we shall keep our posture clean and our lanterns high.
+approve lucan_houndstooth +3: You reminded me that I still hold the lead after the Fields of the Crow.
+set discovery_slaughter
+quest discovery_slaughter done
+quest confrontation_slaughter waiting
+-> END
+
+~ discovery_3
+interject name:lucan_houndstooth: By your leave, we shall keep the relationship strictly professional and set our boots to the next spoor.
+interject name:lucan_houndstooth: Sleep well by the embers, while Dreadfang and I take the perimeter.
+approve lucan_houndstooth -1: You told me to get some sleep after I spoke of the Fields of the Crow.
+set discovery_slaughter
+quest discovery_slaughter done
+quest confrontation_slaughter waiting
+-> END
+
+~ talk_confrontation_wait
+if name:lucan_houndstooth and flag.discovery_slaughter and flag.gorthos_slain and not flag.confrontation_slaughter and approval.lucan_houndstooth <= strained and not flag.lucan_houndstooth_confrontation_waited
+-> confrontation_wait
+endif
+-> END
+
+~ confrontation_wait
+Narrator: Lucan stands a pace back from the fire's circle, buttonin' his crimson coat to the throat with stiff, neat fingers.
+interject name:lucan_houndstooth: There is a matter from the deep brush of Hartsblight that belongs in the company ledger, friends, though the ink will keep for a fairer evening.
+interject name:lucan_houndstooth: A gentleman of the hunt walks the wood with patience, a quiet heel, and a decent regard for the small creatures under his boots.
+interject name:lucan_houndstooth: Of late our stride has grown noisy and rough, and I cannot lay a delicate specimen on the table while our manners are so badly frayed.
+* You're right. We've been careless in the brush, and we'll mend it. -> confrontation_wait_1
+* Save the lecture on manners. Keep your Hartsblight story to yourself. -> confrontation_wait_2
+* Say nothing. Stay by the fire. -> confrontation_wait_3
+
+~ confrontation_wait_1
+Narrator: Lucan lets his hand fall from his lapel and gives a measured nod toward the kettle.
+interject name:lucan_houndstooth: That is the proper spirit for the field, if you please, and when our pace settles I shall gladly share what met me under those boughs.
+approve lucan_houndstooth +6: You owned our rough stride and promised to mend it.
+set lucan_houndstooth_confrontation_waited
+-> END
+
+~ confrontation_wait_2
+interject name:lucan_houndstooth: As you wish, I shall keep my counsel and my bowstring dry until the company has use for a scholar of the spoor.
+approve lucan_houndstooth -2: You told me to save my lecture and keep Hartsblight to myself.
+set lucan_houndstooth_confrontation_waited
+-> END
+
+~ confrontation_wait_3
+Narrator: Lucan watches the sparks lift into the pines for a moment, then tips his tricorn and steps back to his bedroll.
+interject name:lucan_houndstooth: May the night stay quiet around your blankets.
+set lucan_houndstooth_confrontation_waited
+-> END
+
+~ talk_confrontation
+if name:lucan_houndstooth and flag.discovery_slaughter and flag.gorthos_slain and not flag.confrontation_slaughter and (approval.lucan_houndstooth > strained or flag.lucan_houndstooth_confrontation_waited)
+-> confrontation
+endif
+-> END
+
+~ confrontation
+Narrator: Lucan sits with his tricorn off and his sleeves rolled to the elbow, turnin' a cold cartridge between his thumb and forefinger.
+interject name:lucan_houndstooth: In the rot of Hartsblight, where the moss hangs heavy on the stone, Dreadfang cornered a shadow that smelled of old fog and wet wool.
+interject name:lucan_houndstooth: When the hound lifted his head from the brush, he was standing as tall as my chest and wearing my own wolfen face.
+interject name:lucan_houndstooth: Every yellow terror I ever hid behind a polite grade and a crimson coat was staring back at me through his eyes.
+Narrator: The ghost hound rests his heavy chin across Lucan's boot, and the wolf-man does not pull his foot away.
+interject name:lucan_houndstooth: A beast like that wants you to snarl and bluff, or else bolt into the gorse and let another bear the teeth.
+interject name:lucan_houndstooth: For the first time since I left Edwardia, I did not check my ledger or reach for a grand title to hide the shaking in my knees.
+interject name:lucan_houndstooth: I told the brute in the mirror that he was only a frightened creature in an oversized pelt, and I chose which of us was walking out of the trees.
+interject name:lucan_houndstooth: The hunter walked out, if you please, though without the swagger, I wonder if the company finds me a rather smaller specimen by the fire.
+* Tell us what it took to stand your ground in those trees. -> confrontation_1
+* A hunter who doesn't need to bluff is the one we want beside us. -> confrontation_2
+* You walked out of Hartsblight whole. That's enough for tonight. -> confrontation_3
+
+~ confrontation_1
+Narrator: Lucan sets the cartridge down on his knee, his voice drop-hushed and steady over the crackle of the pine.
+interject name:lucan_houndstooth: It took admitting to the dark that my hands have never been as steady as my calligraphy, and that the dog was only trying to shield me.
+interject name:lucan_houndstooth: Once a man stops lying to his own hound, the brush loses half its teeth.
+approve lucan_houndstooth +4: You asked what it took to stand my ground in Hartsblight.
+set confrontation_slaughter
+quest confrontation_slaughter done
+-> END
+
+~ confrontation_2
+Narrator: Lucan's ears lift, and a genuine, quiet warmth softens the long line of his jaw.
+interject name:lucan_houndstooth: Prime specimen of comradeship, and I would not trade this fireside for the finest hall in Edwardia.
+interject name:lucan_houndstooth: Come what may on the trail ahead, my bow and my hound are yours without reserve.
+approve lucan_houndstooth +6: You said a hunter who does not bluff is who you want beside you.
+set confrontation_slaughter
+quest confrontation_slaughter done
+-> END
+
+~ confrontation_3
+interject name:lucan_houndstooth: Quite so, the wood is behind us and the watch is set in good order.
+interject name:lucan_houndstooth: Take your rest while the coals hold, if you please.
+approve lucan_houndstooth -2: You said walking out of Hartsblight whole was enough for tonight.
+set confrontation_slaughter
+quest confrontation_slaughter done
+-> END

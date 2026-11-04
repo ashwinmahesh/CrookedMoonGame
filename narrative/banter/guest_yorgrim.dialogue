@@ -1,0 +1,87 @@
+# Yorgrim the Gravedigger walking with the party through Maidenmist Cemetery (story/banter.gd): quest_ on entering an area while
+# the rites stand where they say, place_ on entering an area (his words at the five beacon sites are his own talks in
+# narrative/maidenmist/yorgrim.dialogue), fight_ after a won fight, idle_ on the paths. Each plays once, only while he is along.
+# Drafted by Gemini (docs/plans/gemini_companions/reply_guests.json), edited (README). Unvoiced until the voice lane reads them.
+
+~ quest_sepulcher
+if guest:yorgrim and quest.maidenmist_dead_rise == sepulcher
+interject guest:yorgrim: All five fires burn true, and the doors stand open in coloured flame.
+interject guest:yorgrim: Good Isolde may rest her paws now. Our hardest walk lies below.
+endif
+-> END
+
+~ quest_beacons_some
+if guest:yorgrim and quest.maidenmist_dead_rise == beacons and (flag.mm_amber_done or flag.mm_crimson_done or flag.mm_emerald_done or flag.mm_magenta_done or flag.mm_violet_done)
+interject guest:yorgrim: The old fire takes hold again, and the mist draws back from the path.
+interject guest:yorgrim: You gave my friends the mercy my chained hands could not.
+endif
+-> END
+
+~ quest_beacons_first
+if guest:yorgrim and quest.maidenmist_dead_rise == beacons
+interject guest:yorgrim: Five beacons lie cold, and the five who kept them cannot tend them now.
+interject guest:yorgrim: Stay close to my lantern. We will give their ashes the last rites.
+interject name:rook_coldwake: Five plots, five stones, five rites. We'll clear your docket, sexton.
+endif
+-> END
+
+~ place_gravestones
+if guest:yorgrim and (at:mm_gravestones_a or at:mm_gravestones_b)
+interject guest:yorgrim: These rows have no end, and the dead here never stay still.
+interject guest:yorgrim: Forgive my slow step. The names on my back weigh heavy tonight.
+endif
+-> END
+
+~ place_kings_rest
+if guest:yorgrim and at:mm_kings_rest
+interject guest:yorgrim: King's Rest. Old crowns rotting in velvet, and nobody left to bow to them.
+endif
+-> END
+
+~ place_undercroft
+if guest:yorgrim and at:mm_undercroft
+interject guest:yorgrim: Listen. The stone hums under our boots down here.
+interject guest:yorgrim: If you hear voices calling my name from below, do not heed them.
+endif
+-> END
+
+~ fight_peace
+if guest:yorgrim
+interject guest:yorgrim: Peace to their bones, though this earth will not hold them long.
+endif
+-> END
+
+~ fight_no_grudge
+if guest:yorgrim and (flag.mm_amber_done or flag.mm_crimson_done or flag.mm_emerald_done or flag.mm_magenta_done or flag.mm_violet_done)
+interject guest:yorgrim: You strike clean and without malice. As you did when my five fell.
+interject guest:yorgrim: I bear you no grudge for ending their torment. My heart aches all the same.
+endif
+-> END
+
+~ fight_louder
+if guest:yorgrim
+interject guest:yorgrim: Another shade laid down, and the ground only groans the louder.
+interject name:cordelia_skein: It's breathing, under us. Slow, like something asleep.
+endif
+-> END
+
+~ idle_isolde
+if guest:yorgrim and not flag.isolde_faded
+interject guest:yorgrim: Isolde sits faithful by the sepulcher door, waiting on a master chained to stone.
+interject name:lucan_houndstooth: Good heavens, what posture at the threshold. A credit to her breed.
+endif
+-> END
+
+~ idle_whispers
+if guest:yorgrim
+interject guest:yorgrim: Hush. Did you hear weeping, just now, through the ground?
+interject guest:yorgrim: Forgive an old sexton's ears. It is only the wind on my lantern glass.
+endif
+-> END
+
+~ idle_thanks
+if guest:yorgrim and (flag.mm_amber_done or flag.mm_crimson_done or flag.mm_emerald_done or flag.mm_magenta_done or flag.mm_violet_done)
+interject guest:yorgrim: Jericho loved a child's laugh. Briggsy sang louder than any cannon on deck.
+interject guest:yorgrim: Thank you for speaking their rites gently, after what they became.
+endif
+-> END

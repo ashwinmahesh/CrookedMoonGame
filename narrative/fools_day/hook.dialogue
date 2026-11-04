@@ -9,6 +9,7 @@ bess_crumley [smile]: Sit wherever's dry, loves, I'll have warm loaves out in a 
 
 ~ inn_about
 bess_crumley [sly]: Half the parish is drinking spiced cider to keep the damp out, and the other half is arguing over whose turn it is to watch the lane. So long as nobody tracks mud past the hearth, I let them chatter.
+interject name:lucan_houndstooth: Spiced cider and dry floorboards. A capital den, friends.
 bess_crumley [weary]: Just don't ask for the mutton pie tonight, the crust came out hard enough to roof a barn.
 -> inn_chat
 
@@ -20,6 +21,7 @@ bess_crumley [sad]: Only family I've got left here is Uncle Rusty tending the Fo
 cutscene fd_messenger
 Narrator: A hundred tiny brass bells shiver in the damp air as a figure stumbles up the cobbles, trailing torn paper ribbons and a stink of burnt sugar. Under the painted cap is Bess, her face chalk-white and wet with tears.
 bess_crumley [afraid]: Take it, please take it, he made me run the whole way in this dreadful coat! There is a party waiting down the lane, where nobody sleeps and nobody stops, until our shoes wear through to the bone!
+interject name:tobin_hayward: Her pulse is skipping every fourth beat. Sit her down before the stitch gives.
 give chuckles_letter
 set fools_letter_given
 set bess_dead
@@ -43,6 +45,7 @@ chuckles [smile]: Your near-dearest friends are already inside, all dressed in t
 -> after
 
 ~ pockets
+approve rook_coldwake -2 tobin_hayward +2 silas_vane +1: You searched poor Bess's pockets after she collapsed on the cobbles
 Narrator: Tucked deep inside the bell-sewn pocket is a smaller envelope, unstained by wax and addressed in a careful, round hand to Old Rusty at the Founder's Round.
 give bess_second_letter
 set fd_bess_letter_taken
@@ -52,6 +55,7 @@ quest the_storks_letter asked
 ~ takeover
 cutscene fd_unfolds
 Narrator: The timber lanes of Wickermoor pull apart like warm dough, stretching three times their length while silk ribbons sprout from the eaves. A shrill calliope tune comes riding down the wind well ahead of the crowd.
+interject name:rook_coldwake: Gross neglect of parish bounds, that is. Whole street shifted ten yards past zoning.
 cutscene fd_unfolds_2
 Narrator: Ahead of you, the old cobbled Round has squared its shoulders into a fairground, and high above the rooftops a great painted balloon grins down from a maypole.
 if quest.fools_day == invitation

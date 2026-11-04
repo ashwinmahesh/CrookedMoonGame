@@ -14,6 +14,7 @@ quest quarantine_queue asked
 
 ~ haldor
 haldor_vane [weary]: Good evening to you, strangers. Do not mind my shivering, I have stood in worse damp than this, and I will wait my proper turn without a fuss.
+interject name:rook_coldwake: Man knows how to keep a queue. Respect that.
 Narrator: The old cooper grips his ash stave with both hands to stop their trembling, though his knuckles knock against the wood.
 * [Medicine DC 12] Look at his symptoms -> haldor_med | haldor_nomed
 * Take our leave -> haldor_end
@@ -64,6 +65,7 @@ Narrator: He adjusts an immaculate silk cravat with two gloved fingers, smelling
 
 ~ pim_why
 pim_fenwick [sly]: Why, for the sake of civic order, my dear friend. If the cousin of the gavel falls to the sniffles, who will witness the parish ledgers?
+interject name:delphine_ravelle: All that silk for a single pimple, darling? Take a seat in the back.
 -> pim
 
 ~ pim_med
@@ -97,6 +99,7 @@ morgan [weary]: If my own eyes serve, old Haldor is burning through his wick, Ot
 -> order_menu
 
 ~ fair
+approve tobin_hayward +3 rook_coldwake +2 cordelia_skein +2: You treated the quarantine queue by true medical need
 morgan [smile]: That sits right with me. Come in out of the cold, Master Vane, and lean on my shoulder.
 Narrator: Old Haldor drinks the steaming cup first, and before the hour is out his ragged breathing settles into a deep, quiet sleep.
 set queue_outcome = "fair"
@@ -106,6 +109,7 @@ gold +30
 -> END
 
 ~ loud
+approve tobin_hayward -2 rook_coldwake -2: You let the loudest patient jump the apothecary queue
 morgan [sad]: If that is the peace we must keep, then send her in. I only hope the old cooper's heart holds while the second kettle boils.
 Narrator: Ottilie sweeps inside first, while out in the fog Haldor leans harder on his stave, his fever climbing in silence.
 set queue_outcome = "loud"
@@ -115,6 +119,7 @@ quest quarantine_queue done
 -> END
 
 ~ rank
+approve silas_vane -3 tobin_hayward -3 rook_coldwake -2: You put the mayor's healthy cousin first in line
 morgan [weary]: Custom is custom in Wickermoor, I suppose. Send Master Fenwick to the chair, and tell the others to wrap their cloaks tight.
 Narrator: Pim strolls inside to warm his boots and Mayor Somerton will hear of your courtesy, though on the cobbles old Haldor's fever climbs without a word of complaint.
 set queue_outcome = "rank"
@@ -125,6 +130,7 @@ quest quarantine_queue done
 -> END
 
 ~ walk_away
+approve tobin_hayward -3 rook_coldwake -3: You abandoned the sick outside the apothecary door
 morgan [sad]: Ah. I do not have the voice for shouting over them, truth be told.
 Narrator: Morgan lets out a small sigh as the step outside breaks into bitter shouting, and by the next dawn black mourning ribbons hang from a door in the Round.
 set queue_outcome = "lost"

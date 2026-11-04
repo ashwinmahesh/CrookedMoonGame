@@ -7,6 +7,7 @@ endif
 set dc_hand_seen
 cutscene dc_hand_comes
 Narrator: Something dry and leathery scrapes across a mossy cypress root, dragging itself toward the warmth of your campfire. It is a severed hand, inked with faded tattoos and shriveled like smoked meat.
+interject name:cordelia_skein: Motile tissue with no blood supply at all. Come here, little thing.
 cutscene dc_hand_comes_2
 Narrator: At the edge of the firelight it halts with its fingers spread wide, trailing thin magenta threads that twitch back into the dark.
 cutscene end
@@ -19,6 +20,7 @@ Narrator: The dry knuckles tap once against the damp root and wait.
 * Leave it where it lies -> hand_leave
 
 ~ hand_touch
+approve cordelia_skein +2 tobin_hayward -2 rook_coldwake -2: You let the severed tattooed hand bind itself to your warmth
 Narrator: The dead fingers curl at {name}'s touch, sending a river-water chill up the arm as it binds itself to a piece of your own warmth. You have the hand now, though a little of you stays behind inside it.
 set withered_hand_taken
 give withered_hand
@@ -33,11 +35,13 @@ Narrator: The magenta shimmer dances at the corner of your eye like marsh gas, l
 -> hand_menu
 
 ~ hand_leave
+approve rook_coldwake +2 tobin_hayward +2 cordelia_skein -1: You left the severed hand in the mud by the camp
 Narrator: You leave the thing in the mud, though the whole camp can feel it lingering just beyond the lantern light. It will trail behind your heels for a night or two before it gives up and crawls home.
 -> beast_arrives
 
 ~ beast_arrives
 Narrator: An hour later the tall reeds part with a wet crack, and something huge and wooden-faced steps into the firelight, reeking of swamp rot and old rum.
+interject name:lucan_houndstooth: Good heavens. Downwind, everyone, and quickly. That one hunts by scent.
 combat dc_beast_camp
 
 ~ beast_remains

@@ -1,0 +1,123 @@
+{
+  "id": "marsh_road",
+  "map": "road_creek_ford",
+  "grounds": [
+    "road_creek_ford",
+    "road_bayou_causeway",
+    "road_moor_bonfire"
+  ],
+  "chance_day": 0.35,
+  "chance_night": 0.35,
+  "summary": "The long marsh road west to Moonsong Lake and Memory's Rest: vultures, marsh lights, and the sanatorium's escaped and changed patients; one who has forgotten his name.",
+  "entries": [
+    {
+      "id": "vultures",
+      "weight": 3,
+      "when": "level <= 5",
+      "monsters": [
+        {
+          "monster": "giant_vulture",
+          "cell": [
+            22,
+            11
+          ]
+        },
+        {
+          "monster": "giant_vulture",
+          "cell": [
+            24,
+            7
+          ]
+        },
+        {
+          "monster": "giant_vulture",
+          "cell": [
+            25,
+            15
+          ]
+        }
+      ],
+      "text": "Vultures circle low over the marsh reeds, dropping lower with every turn until they land all round you in the mud."
+    },
+    {
+      "id": "wisps",
+      "weight": 3,
+      "when": "level >= 5",
+      "monsters": [
+        {
+          "monster": "will_o_wisp",
+          "cell": [
+            28,
+            9
+          ]
+        },
+        {
+          "monster": "will_o_wisp",
+          "cell": [
+            21,
+            18
+          ]
+        }
+      ],
+      "text": "Two soft lights float over the marsh toward you, friendly as porch lanterns, and the air turns biting cold beneath them."
+    },
+    {
+      "id": "horrors",
+      "weight": 3,
+      "when": "level <= 6",
+      "monsters": [
+        {
+          "monster": "hospital_horror",
+          "cell": [
+            13,
+            6
+          ]
+        },
+        {
+          "monster": "hospital_horror",
+          "cell": [
+            12,
+            18
+          ]
+        }
+      ],
+      "text": "Figures in torn hospital gowns lurch out of the reeds, their arms bent with far too many joints."
+    },
+    {
+      "id": "mutated",
+      "weight": 3,
+      "when": "level >= 7",
+      "monsters": [
+        {
+          "monster": "mutated_patient",
+          "cell": [
+            6,
+            17
+          ]
+        },
+        {
+          "monster": "hospital_horror",
+          "cell": [
+            27,
+            4
+          ]
+        },
+        {
+          "monster": "hospital_horror",
+          "cell": [
+            19,
+            5
+          ]
+        }
+      ],
+      "text": "Patients from the lake house stumble out of the thick fog, swollen and stitched together, still wearing their paper name tags."
+    },
+    {
+      "id": "escaped_patient",
+      "weight": 3,
+      "when": "not flag.road_patient_met and not flag.lethica_slain",
+      "once": true,
+      "dialogue": "roads/act2:escaped_patient"
+    }
+  ]
+}

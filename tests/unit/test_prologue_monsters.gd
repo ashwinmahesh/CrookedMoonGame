@@ -264,14 +264,28 @@ func test_a_smashed_jar_lets_out_its_haints_echo_without_feeding_it() -> void:
 	assert_false(echoes[0].has_meta(BestiaryFeatures.WAILED_META))
 
 
-func test_the_locomotive_goes_for_a_can_before_a_hero() -> void:
+func test_the_locomotive_fights_a_hero_beside_it_instead_of_running_to_a_can() -> void:
+	# Ashwin, 2026-11-03: "Why does ghostlight locomotive keep running away and not attacking?" It walked to a Soul Can ahead of
+	# striking and ended its turn there with nobody in reach; a hero it can strike where it stands now keeps it fighting.
 	var e := _field()
 	var engine := e.add(TestCombat.monster("ghostlight_locomotive"), &"enemy", Vector2i(2, 2))
 	TestCombat.hero(e, "hedda_ironvow", Vector2i(6, 3), 3)
+	e.objects.put(_wreck_object("soul_can_1", Vector2i(15, 12)))
+	TestCombat.start_with(e, engine)
+	var start := engine.cell
+	e.ai.play_turn(engine)
+	assert_ne(str(e.ai.last_plan.get("kind", "")), "fuel", "the hero beside it, not the can")
+	assert_eq(engine.cell, start, "it did not walk off to the can")
+
+
+func test_the_locomotive_goes_for_a_can_when_no_hero_is_in_reach() -> void:
+	var e := _field()
+	var engine := e.add(TestCombat.monster("ghostlight_locomotive"), &"enemy", Vector2i(2, 2))
+	TestCombat.hero(e, "hedda_ironvow", Vector2i(19, 1), 3)
 	var can := e.objects.put(_wreck_object("soul_can_1", Vector2i(15, 12)))
 	TestCombat.start_with(e, engine)
 	e.ai.play_turn(engine)
-	assert_eq(str(e.ai.last_plan.get("kind", "")), "fuel", "the can, not the hero beside it")
+	assert_eq(str(e.ai.last_plan.get("kind", "")), "fuel", "with no one to strike it feeds")
 	assert_true(e.objects.distance_ft(engine, can) <= 10, "it ends its move within 10 ft of the can")
 
 

@@ -1,0 +1,61 @@
+# William Lodge travelling with the party from Wickermoor to Foxwillow and through it (story/banter.gd): quest_ on entering an
+# area while his town's story is at that point, place_ on entering an area, fight_ after a won fight, idle_ on the road.
+# Each plays once, only while he is along. Drafted by Gemini (docs/plans/gemini_companions/reply_guests.json), edited (README).
+# Unvoiced until the voice lane reads them.
+
+~ quest_ride_out
+if guest:william_lodge and not region:foxwillow and not flag.raum_slain
+interject guest:william_lodge: Foxwillow won't last another night on its own. Thank the Lord you came.
+interject guest:william_lodge: And if you hear a banjo out in the dark corn, don't you listen.
+endif
+-> END
+
+~ place_foxwillow
+if guest:william_lodge and at:foxwillow and not flag.raum_slain
+interject guest:william_lodge: Smell that smoke? Neighbours burning each other out, while the pumpkin-heads walk free.
+interject name:tobin_hayward: Keep the fire off the straw folk. Burn one and you burn what's living in it.
+endif
+-> END
+
+~ place_lodge_farmhouse
+if guest:william_lodge and at:fw_lodge_farmhouse
+interject guest:william_lodge: My own porch, still standing. The barley's black and the cattle are gone, but it's standing.
+interject guest:william_lodge: Seven winters I've owed the chapel a debt. Never mind. Not now.
+endif
+-> END
+
+~ place_windmill
+if guest:william_lodge and at:fw_windmill
+interject guest:william_lodge: That's the mill where the fire started. Half the town blames the other half.
+interject guest:william_lodge: Easier to blame a neighbour's torch than what climbed down off the poles.
+interject name:rook_coldwake: No firebreak, no fire watch. I'd have the whole lane cited, lad.
+endif
+-> END
+
+~ place_maze
+if guest:william_lodge and (at:fw_maze_j1 or at:fw_maze_j2 or at:fw_maze_j3) and not flag.raum_slain
+interject guest:william_lodge: There's the banjo. Sweet and low, calling folks into the stalks.
+interject guest:william_lodge: Keep your eyes on my coat. Once the rows close behind you, you're gone.
+endif
+-> END
+
+~ fight_shaking
+if guest:william_lodge
+interject guest:william_lodge: My hands won't stop shaking. I swear that one wore my cousin's coat.
+interject guest:william_lodge: You saved my hide. I won't forget it while I draw breath.
+endif
+-> END
+
+~ fight_grateful
+if guest:william_lodge
+interject guest:william_lodge: Lord above, you cut them down before they reached my boots.
+interject name:cordelia_skein: Hold still a moment. Your pulse is galloping, and I'd like to count it.
+endif
+-> END
+
+~ idle_harvest
+if guest:william_lodge and not flag.raum_slain
+interject guest:william_lodge: Should have been thirty wagons of barley down this lane by the harvest moon.
+interject guest:william_lodge: Now it's sour dirt, black stalks, and empty stalls where the herds stood.
+endif
+-> END

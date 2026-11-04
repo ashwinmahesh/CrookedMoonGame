@@ -105,11 +105,10 @@ func test_the_examine_props_start_their_fights_and_the_gates_are_set() -> void:
 	assert_eq((_encounters("ch_bath")[0]["monsters"] as Array).size(), 7, "seven weasels in the bath")
 
 
-func test_the_doll_speaks_first_and_is_there_from_the_start() -> void:
+func test_the_doll_waits_to_be_picked_up_and_is_there_from_the_start() -> void:
 	var doll := _prop("h10_doll")
 	assert_eq(str(doll.get("dialogue")), "crooked_house/sally_doll:start")
-	assert_eq(str(doll.get("call")), "crooked_house/sally_doll:start")
-	assert_true(int(doll.get("approach", 0)) > 0, "she calls out as the party comes in")
+	assert_true(not doll.has("call") and int(doll.get("approach", 0)) == 0, "she speaks when the party picks her up, not as it comes in (Ashwin, 2026-11-03)")
 	assert_true(not doll.has("when"), "she is not waiting on the doll memento: the conversation is what starts her quest")
 	var lurker := _encounters("ch_lurker")[0]
 	assert_eq(str((lurker["quest"] as Dictionary)["id"]), "sallys_monsters")

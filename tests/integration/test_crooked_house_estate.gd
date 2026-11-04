@@ -70,7 +70,8 @@ func test_the_jenkins_come_back_after_vessla() -> void:
 	assert_true(back.has("gilly_jenkin") and back.has("walter_jenkin"), "they are in the grounds once the hag is dead")
 	assert_eq(str((back["gilly_jenkin"] as Dictionary)["dialogue"]), "crooked_house/jenkins_after:start", "Gilly starts the after talk")
 	assert_eq(str((back["walter_jenkin"] as Dictionary)["dialogue"]), "crooked_house/jenkins_after:start", "Walter the same")
-	assert_true(int((back["gilly_jenkin"] as Dictionary).get("approach", 0)) > 0, "Gilly greets the party first")
+	assert_eq(int((back["gilly_jenkin"] as Dictionary).get("approach", 0)), 0, "Gilly waits to be talked to (Ashwin, 2026-11-03: only the house's key beats start by themselves)")
+	assert_true(TalkMarks.waiting(ESTATE, _state({"crooked_house_turned": true, "crooked_man_met": true, "vessla_slain": true})).has("gilly_jenkin"), "and wears the talk mark")
 
 
 func test_the_porch_steps_open_only_after_the_crooked_man() -> void:

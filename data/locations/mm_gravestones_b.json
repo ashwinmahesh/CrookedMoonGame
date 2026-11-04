@@ -697,6 +697,20 @@
       "kind": "decor",
       "label": "A headstone with a rhyme nobody finished",
       "model": "gravestone"
+    },
+    {
+      "id": "mm_gb_hollow_headstone",
+      "label": "A hollow headstone",
+      "model": "gravestone",
+      "search_dc": 15,
+      "skill": "investigation",
+      "item": "pearl",
+      "text": "Out among the crowded stones, the cap of one mossy marker lifts free with a grating sound. Inside the hollow stone sits a single cool pearl.",
+      "kind": "search",
+      "cell": [
+        48,
+        11
+      ]
     }
   ],
   "npcs": [],
@@ -1052,5 +1066,28 @@
       31,
       22
     ]
+  ],
+  "traps": [
+    {
+      "id": "mm_gb_sunk_grave",
+      "label": "A grave that gives underfoot",
+      "model": "broken_boards",
+      "detect_dc": 15,
+      "disarm_dc": 14,
+      "save": {
+        "ability": "dex",
+        "dc": 15
+      },
+      "damage": "3d6",
+      "damage_type": "bludgeoning",
+      "condition": "prone",
+      "text": "Between the leaning rows of wet stone, the sodden turf caves in beneath your weight.",
+      "cells": [
+        [
+          54,
+          28
+        ]
+      ]
+    }
   ]
 }

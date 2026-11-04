@@ -306,7 +306,9 @@ func test_a_plain_party_hears_the_narrator_at_every_look_and_find() -> void:
 	for place: String in PLACES:
 		for p: Dictionary in _loc(place).get("props", []):
 			var kind := str(p.get("kind", ""))
-			if str(p.get("dialogue", "")) != "" or not kind in ["examine", "decor", "search"]:
+			# A companion's scene on the train starts from its object and, once had, ends in the object's own line (incitements *_enter).
+			var talk := str(p.get("dialogue", ""))
+			if (talk != "" and not talk.begins_with("ghostlight_express/incitements:")) or not kind in ["examine", "decor", "search"]:
 				continue
 			var key := "%s:%s" % ["search" if kind == "search" else "examine", p["id"]]
 			var narrator := Narrator.new()

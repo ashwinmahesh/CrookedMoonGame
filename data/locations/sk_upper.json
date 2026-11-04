@@ -705,6 +705,19 @@
       "call": "skitterdeep/stonoga:after",
       "approach": 5,
       "call_when": "flag.stonoga_slain and not flag.stonoga_after_seen"
+    },
+    {
+      "id": "sk_deep_drift_nugget",
+      "label": "A seam of gold in the drift wall",
+      "model": "rubble",
+      "search_dc": 14,
+      "item": "gold_dust",
+      "text": "A yellow gleam catches your lamp in the cold rock of the deep drift. You pry the chunk loose, and it crumbles into fine gold dust across your palm.",
+      "kind": "search",
+      "cell": [
+        57,
+        13
+      ]
     }
   ],
   "containers": [
@@ -748,6 +761,77 @@
           "id": "periapt_of_proof_against_poison",
           "qty": 1
         }
+      ]
+    },
+    {
+      "id": "sk_drift_ore_cart",
+      "label": "A cart of good ore",
+      "model": "crate",
+      "gold": 0,
+      "items": [
+        {
+          "id": "silver_dust",
+          "qty": 1
+        },
+        {
+          "id": "gold_dust",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        82,
+        18
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "sk_crosscut_supplies",
+      "label": "A crate of mine supplies",
+      "model": "crate_stack",
+      "gold": 6,
+      "items": [
+        {
+          "id": "torch",
+          "qty": 1
+        },
+        {
+          "id": "torch",
+          "qty": 1
+        },
+        {
+          "id": "oil",
+          "qty": 1
+        },
+        {
+          "id": "rope",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        115,
+        14
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "sk_landing_miner_box",
+      "label": "A foreman's lockbox",
+      "model": "strongbox",
+      "lock_dc": 14,
+      "gold": 28,
+      "items": [
+        {
+          "id": "potion_of_healing",
+          "qty": 1
+        },
+        {
+          "id": "onyx",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        127,
+        22
       ]
     }
   ],
@@ -1910,5 +1994,75 @@
       31,
       15
     ]
-  }
+  },
+  "traps": [
+    {
+      "id": "sk_east_shaft",
+      "label": "A covered shaft in the drift floor",
+      "model": "spiked_pit",
+      "detect_dc": 15,
+      "disarm_dc": 14,
+      "save": {
+        "ability": "dex",
+        "dc": 14
+      },
+      "damage": "2d10",
+      "damage_type": "bludgeoning",
+      "text": "The mouldering boards beneath your feet splinter at once, opening onto the black draft of an old drop below.",
+      "cells": [
+        [
+          83,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "sk_landing_miner_box_trap",
+      "label": "A gas bladder rigged to the lid",
+      "model": "floor_crack",
+      "detect_dc": 14,
+      "disarm_dc": 13,
+      "save": {
+        "ability": "con",
+        "dc": 14
+      },
+      "damage": "3d6",
+      "damage_type": "poison",
+      "text": "You crack the foreman's lockbox, and a dry pig's bladder bursts inside, puffin' foul green gas into your face.",
+      "cells": [
+        [
+          126,
+          21
+        ],
+        [
+          126,
+          22
+        ],
+        [
+          127,
+          21
+        ]
+      ]
+    },
+    {
+      "id": "sk_west_cave_in",
+      "label": "Rotten timbering over a side drift",
+      "model": "broken_boards",
+      "detect_dc": 14,
+      "disarm_dc": 13,
+      "save": {
+        "ability": "dex",
+        "dc": 14
+      },
+      "damage": "2d10",
+      "damage_type": "bludgeoning",
+      "text": "The damp, rotten timbers overhead split with a groan, spillin' a heavy rush of cold earth and stone down into the drift.",
+      "cells": [
+        [
+          116,
+          8
+        ]
+      ]
+    }
+  ]
 }

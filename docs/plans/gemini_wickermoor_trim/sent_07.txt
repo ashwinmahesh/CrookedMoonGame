@@ -1,0 +1,91 @@
+You are an editor tightening DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue). It is folk horror in Wickermoor, a village in an afterlife realm of endless autumn night; deadpan humour beside real dread. These are the village's conversations. Players say the village is a WALL OF TALK: too many words before anything happens. Your job is to make every line shorter and sharper, the way a good film editor cuts a scene, without losing anything that matters.
+
+FOR EACH NUMBERED LINE answer one of:
+- `n => KEEP` when the line is already tight (most lines of 15 words or fewer should be KEEP).
+- `n => new text` with the tightened line. Aim for about half to two thirds of the old length. Cut throat-clearing, repetition of what the line or the line before already said, stacked adjectives, second examples, flavour that leads nowhere, and explanations the listener doesn't need.
+- `n => CUT` only for a line whose content is entirely repeated by another line in the same conversation node (shown in [brackets]); never for a line that is the only one of its node, never for an interject line, never for the first line of a node.
+
+WHAT MUST SURVIVE in every line you tighten: every name, place, item, number, price, time, clue, hint, secret, warning, threat, promise and joke punchline; the speaker's voice and quirks (a mayor's pomposity, a constable's few words, a poet's floweriness, a child's simplicity, a country drawl in word choice); the mood. If a line does two jobs, keep both. Never add new facts. Keep `{name}` exactly as it is wherever it appears. Keep the line in the same person and tense.
+
+NARRATOR lines (speaker Narrator, the Vagrant telling the tale: folksy, warm, wry Southern drawl in word choice) stay second person, present tense, one or two sentences, concrete senses, no game words, never "suddenly".
+
+STYLE: plain punctuation; straight quotes; no em dashes, asterisks, brackets or stage directions; do not use -> or => inside the text.
+
+## The lines
+
+### finneas_trout.dialogue
+399. [secret_ok] Narrator: Half a dozen beeswax tapers sit wrapped in neat twine beside his inkwell, far more than one small room requires.
+400. [secret_ok] finneas_trout: Oh, those are from Oswick Frey's chandlery, as I happen to read late and require reliable light. Mr. Frey is a remarkably thoughtful conversationalist for such a rustic parish.
+401. [secret_fail] finneas_trout: A scholar goes through a dreadful number of candles in a realm without a sunrise, I assure you.
+
+### folk.dialogue
+402. [tamsin_start] Narrator: A young woman in ink-stained cuffs taps a brass nib against a tall ledger, her brow furrowed at the wainscoted ceiling.
+403. [tamsin_start] tamsin_ledger: State your names and dates of decease if you are on the parish rolls. I am auditing Wickermoor's municipal assets, and the bookkeeping here is frankly irregular.
+404. [tamsin_audits] tamsin_ledger: Everything from turnip tithes to that screaming timber out on the Round, all in triplicate. They listed six public beheadings under seasonal pruning, which is a clear misallocation of county funds.
+405. [tamsin_oak] tamsin_ledger: The Oak of Many Faces lacks a valid arboricultural permit and refuses to sign a declaration of sap. I have served a polite notice of eviction to its lower branches and asked it to vacate by the third bell.
+406. [gaunt_start] Narrator: By the water trough, a whiskered veteran in a faded tunic polishes a dented breastplate with a clump of dry hay.
+407. [gaunt_start] sgt_gaunt: Stand at ease, travellers, you are looking at the hero of the Bramble Ford skirmish. When the bog-hounds breached the dyke, I executed a brisk tactical retreat of four miles to preserve my strategic judgement.
+408. [gaunt_battles] sgt_gaunt: At Hollow Pike I outran three phantom riders to warn the rear guard, and at Crooked Fen I held a turnip cellar from the inside for forty hours. I was always three steps from making a glorious stand, had the ground not been so damp.
+409. [gaunt_help] sgt_gaunt: Say the word and old Gaunt will march at the very front of the rear column. Wait, did that hay-wain just creak, step ahead of me and draw your steel while I guard your backs from behind the trough.
+410. [pip_start] Narrator: A knee-high boy sits on the cold well-curb, rattling a tin cup full of horn, bone, and brass buttons like a miser's purse.
+411. [pip_start] pip_oakum: Mind the puddle, strangers, you will splash the stock. You can keep your soft silver, because nothing holds a coat or a bargain together like a proper four-hole bone button.
+412. [pip_buttons] pip_oakum: This pearl one fell off Postmaster Mayville's cuff, and the pewter hare is from Mayor Somerton's Sunday waistcoat. Constable Squire still owes me two brass anchors from her greatcoat, and I aim to collect.
+413. [pip_deal] Narrator: He bites your copper to test the metal, then solemnly presses a chipped wooden toggle into your palm.
+414. [pip_deal] pip_oakum: That is genuine ash-wood off Undertaker Shade's third-best gaiters, slightly chewed by a stoat. Spend it wisely, friend, you are holding prime Wickermoor currency now.
+
+### folk_plague.dialogue
+415. [orla_start] Narrator: Propped among the cots in the taproom, a tiny old woman taps a knuckle against her knee in strict time.
+416. [orla_start] granny_orla_pike: Keep your boots still if you mean to hover by my blankets. The fevered ones need a straight tune to sleep by, and this room is already full of folks who breathe off-key.
+417. [orla_sing] granny_orla_pike: Am I a clockwork lark to pipe up whenever a stranger rattles the latch? Give me a verse of your own first, and let me hear whether you have a throat or a rusted hinge.
+418. [orla_judge] Narrator: You clear your throat and offer a low moorland air while the sickroom grows quiet.
+419. [orla_judge] granny_orla_pike: Flat on the turn, rushed at the cadence, and you swallowed the third word whole. Listen here, you hopeless magpie, it goes like this.
+420. [orla_judge] Narrator: Almost against her will, she hums the same verse back through toothless gums, turning it rich and steady as hearth smoke.
+
+### gaston_doray.dialogue
+421. [start] Narrator: Turpentine and wet linen hang sharp in the air around a young man whose sparse beard is flecked with dry ochre.
+422. [start] gaston_doray: Hold still, your faces still have the grey rind of the river on them. Tell me, what is the colour of a sound when a bell drowns in fog?
+423. [paintings] gaston_doray: I walked out of the mist three years back with an empty head and a full brush. Look too long at a face and it lies, so I paint what sleeps behind the ribs.
+424. [village] gaston_doray: Provincial theater, all of it. They carve wooden mouths into an old oak and call it holiness, though the red mud beneath its roots has a lovely, greedy sheen.
+425. [rumour] gaston_doray: Something scratches inside the woods past the lantern-line, older than the Mayor's Green Queen. When the wind drops, you can hear branches growing in the dark like antlers.
+426. [hare_ok] Narrator: Deep in the indigo brushwork of every single canvas, a long-eared hare stares back from the thicket, crowned with bone-white prongs.
+427. [hare_ok] gaston_doray: Strange, is it not? My wrist puts that little beast in the brambles before I even wake, and I dare not scrape it out.
+428. [hare_fail] Narrator: The thick oil paint gleams in the lantern-light, a dizzying smear of moorland bog and crooked moons.
+429. [hare_fail] gaston_doray: You squint like a magistrate counting tax. Step back before your breath clouds the varnish.
+
+### geneva_fairchild.dialogue
+430. [start] Narrator: A breathless young woman sorts stacks of tied letters with ink-stained fingers, her leather satchel still damp from the moorland mist.
+431. [start] geneva_fairchild: Oh, good evening! You caught me right between runs. Miss Theodora lets me mind the counter whenever I'm not out walking the valley roads.
+432. [about_self] geneva_fairchild: Look at my eyes, lilac as spring heather. The village grandmothers used to cross their fingers at me and mutter about bad luck.
+433. [about_self] geneva_fairchild: Miss Theodora took me in and told me a rare colour is a gift, not a curse. I owe her my whole living.
+434. [about_village] geneva_fairchild: Wickermoor is safe enough inside the lanterns, though Mayor Somerton's folk can be stern about the old customs. Once you pass the Founder's Round, though, the mist plays tricks on the footpaths.
+435. [rumour] geneva_fairchild: Whatever you do, don't whistle after the clocktower strikes the third hour. The birds in the rafters get terribly restless when folks whistle out of tune.
+436. [check_ok] Narrator: Her thumb worries the corner of an opened envelope addressed in her own neat hand, though the ink inside has been scraped and rewritten.
+437. [check_ok] geneva_fairchild: It's nothing, truly, only I wrote to my cousin in the low valley last month, and the reply speaks of a quarrel we never had. Even the seal feels cold, like tallow.
+438. [check_fail] Narrator: She sweeps the stray envelopes into her canvas sack and buckles it tight with a brisk nod.
+439. [check_fail] geneva_fairchild: Just making sure the post marks are dry before the wagon leaves. Miss Theodora hates a smeared address.
+
+### gus.dialogue
+440. [body] Narrator: Ned Cooper the woodcutter lies among the roots of the Oak of Many Faces, his head set neatly beside his boots. The carved faces in the bark glisten dark and wet where the soil has drunk its fill.
+441. [doris_scene] doris_squire: Ned Cooper. Taken the old way, just like Gus Strong used to do.
+442. [doris_scene] Narrator: The constable's pale eyes fix on your travel-stained cloaks.
+443. [doris_scene] doris_squire: No killers left in this village. Only four strangers.
+444. [cleared_ok] doris_squire: Hmph. Barmaid's word holds weight. Stay out of trouble, or find me a better suspect.
+445. [cleared_fail] doris_squire: Inn doors have latches that lift both ways. I am watching you four.
+446. [help] doris_squire: Do what you like. Check the undertaker's table, or the carpentry shop. Just bring me truth.
+447. [doris_found] doris_squire: Heavy woodman's axe. One clean stroke through the neck. Neat work, no struggle.
+448. [mori] mori_shade: The dead speak only once, travelers. I have shown you all poor Ned brought to my table.
+449. [mori] mori_shade: Poor Ned held tight to the end. When I pried his cold fingers open, I found this coarse grey hair, long as a widow's shawl.
+450. [mori] mori_shade: And look here upon his palm. Two tiny crossed axes, seared into the flesh with hot iron. The old mark of Gus Strong's apprentice.
+451. [beatrice] beatrice_wells: Oh, a clean single stroke? That sounds like my heavy felling iron, fresh off the grindstone!
+452. [beatrice] beatrice_wells: Sold one two nights past to Marta Dunn, a quiet widow in black. Said her hearthwood was terribly knotted, poor dear.
+453. [marta] Narrator: The damp air of the churchyard smells of turned earth and cold iron. Marta Dunn rests her hands upon the haft of a broad, gleaming felling axe.
+454. [marta] marta_dunn: Do not fret for Ned, my dears. Gus taught me how to make the stroke swift and kind, so the old oak never has to thirst.
+455. [marta_know] marta_dunn: You have sharp eyes, youngsters. Yes, I kept Gus's brand, and I keep his duty. Wickermoor has forgotten its debts to the roots, so someone must pay the tally.
+456. [marta_flat] marta_dunn: An old woman has many chores in a cold season, my dears. Pay no mind to an old widow's hands.
+457. [marta_quiet] marta_dunn: Bless you for asking kindly, truly. Give yourself to Doris's rope when the roots are still dry? No, my dears, the work is not half done.
+458. [marta_fight_prompt] Narrator: She lifts the heavy axe with practiced grace, her eyes steady and full of quiet pity.
+
+## Reply format
+One line per numbered line above (60 lines, 399 to 458), in order, exactly `n => text`, `n => KEEP` or `n => CUT`. No quotes around the text, no commentary.

@@ -1,0 +1,230 @@
+You are drafting DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue, skill checks, a storyteller Narrator). It is folk horror set in Druskenvald, an afterlife realm of endless night under a gargantuan crescent moon with a leering crone's face; an autumn that never ends, pumpkins and bonfires and dead leaves everywhere, but the stakes are real. Humour is deadpan and sits beside the dread. Use only the names given here; invent no new named people, places, monsters or history.
+
+THE PARTY: the player leads four heroes; never name, describe or gender the player's heroes. Some of the party may be these companions, who speak only in the `interject` lines written for them (each line is said only if that companion is present, so it must make sense on its own and never answer another companion's line):
+- rook_coldwake: Rook, a Graveborn (undead) fighter, a graveyard rest warden; dry, level, practical, union-minded, cares that the dead are laid to rest properly; few words.
+- tobin_hayward: Tobin, a Harvestborn (living scarecrow of wicker and straw) druid; brisk, warm, country-wise, talks about rot, roots, harvests and neighbours; kind under the sharp tongue.
+- silas_vane: Silas, a Relicborn (skeleton-folk) monk and card sharp from river landings; fast, cocky, thinks in odds, bets and marks.
+- delphine_ravelle: Delphine, a Threadborn (living patchwork doll) warlock; theatrical vaudeville showwoman, says "darling", treats horror as a third-rate sideshow she means to headline.
+- lucan_houndstooth: Lucan, a Curseborn (wolf-man) ranger and monster hunter; hushed and earnest, narrates danger like a nature broadcaster, notices scents and tracks.
+- cordelia_skein: Cordelia, a Silkborn (spider-folk) sorcerer; cool, cultivated, clinical, delighted by anything morbid as a subject of study.
+
+RULES FOR THE TEXT
+- Spoken lines: 1 to 3 short sentences, about 12 to 30 words, never over 40. Contractions are normal. People talk in their own voice and do not explain the plot to the audience. Accent is word choice and rhythm, never phonetic spelling. Country folk of the Hollow speak with a folksy country drawl in their word choice.
+- Interject lines: one sentence, under 20 words.
+- Option lines (what the player's party says or does): under 12 words, plain, in the party's voice ("We..." or an imperative).
+- Narrator lines (the Vagrant, an old train conductor telling the tale afterwards: warm, folksy, wry, a Southern drawl in word choice such as reckon, ain't, folks, a spell, a piece; drop a final g in at most one line in three): second person, present tense, one or two sentences, only what a hero could perceive, concrete senses (smell, sound, texture, cold), no game words (HP, roll, level, check, DC, save, hit points), never tell the player what to feel, never the word "suddenly", never mention a fiddle, never name the Vagrant.
+- No stage directions, asterisks, italics, brackets, placeholders, emoji or em dashes (use commas, periods, colons). Straight quotes only. Do not use the arrow characters -> or => inside the text.
+- Content is dark but restrained: no gore, no graphic detail.
+- Each brief says what the line must do; keep its facts, write it as the speaker would say it.
+
+THIS SCENE: short meetings on the roads of Wickermoor Hollow in Act I, played while the party travels between places on the map. The party arrived by the Ghostlight Express, a ghost train that carries the dead; tonight a shade sabotaged it and it came down in an oak wood, and its dead passengers are scattered, some lost, some turned grey and hostile by the Shroud (a devouring white mist). The nearest town is Wickermoor Village, a timber-framed village round a square with an oak of carved faces. Most villagers follow the Old Ways and worship the Green Queen (a leafy woman's face on their shrines; once a kindly mother of the wood; something has gone wrong with her that nobody says aloud, and a few whisper about "the crooked one"). The Brightsingers are newer settlers who dress bright, carry lanterns, sing hymns to the sun and are building a church. On the hill above the village stands the Druskenvald Estate, a pretty manor where Lord Phillip and Lady Adela Druskenvald have invited the party to dinner; its windows sometimes light on the wrong floors.
+
+Speakers (besides the Narrator and the companions above):
+- road_passenger: a dead woman passenger from the Ghostlight Express, in a travelling coat and hat, a ticket in her hand, see-through at the edges; polite, anxious, from somewhere far away; she does not know she is dead and that the train crashed.
+- road_bonfire_keeper: an old Old Ways farmer who tends a bonfire of animal bones where two tracks cross on the moor, to keep the Shroud off the road; friendly, slow, a little too interested in what travellers give the fire.
+- joan_murdoch: Joan Murdoch, a Brightsinger missionary, the preacher's wife; beaming, warm, relentlessly hopeful; she walks the hill road with lanterns and hymns.
+
+The meetings (the [[n]] markers in this file are yours; everything else is fixed):
+
+```
+# Meetings on Act I's roads (data/random_encounters/wreck_road.json and hill_road.json): each plays on its table's map
+# (road_moor_bonfire for the wreck road, road_oakwood for the hill road) once, then the journey goes on. Fun pass lane D.
+# Drafted by Gemini (docs/plans/gemini_roads), edited; flags in data/flags/roads.json.
+
+# --- A passenger who missed her stop ---
+
+~ lost_passenger
+set road_passenger_met
+appear road_passenger
+Narrator: [[1]]
+road_passenger [afraid]: [[2]]
+interject name:tobin_hayward: [[3]]
+interject name:delphine_ravelle: [[4]]
+* [[5]] -> lp_truth
+* [[6]] -> lp_lie
+* [Religion DC 12] [[7]] -> lp_rest | lp_fail
+* [[8]] -> lp_leave
+
+~ lp_truth
+road_passenger [sad]: [[9]]
+Narrator: [[10]]
+inspiration
+approve rook_coldwake +2 tobin_hayward +1: You told a lost passenger the truth about the train
+-> END
+
+~ lp_lie
+road_passenger [smile]: [[11]]
+Narrator: [[12]]
+interject name:rook_coldwake: [[13]]
+approve delphine_ravelle +1 silas_vane +1 rook_coldwake -1: You told a dead passenger her stop was just ahead
+-> END
+
+~ lp_rest
+Narrator: [[14]]
+road_passenger [smile]: [[15]]
+Narrator: [[16]]
+bless party 2h
+approve rook_coldwake +2 tobin_hayward +1: You sent a lost passenger on her way
+-> END
+
+~ lp_fail
+road_passenger [angry]: [[17]]
+Narrator: [[18]]
+damage 1d4 psychic party
+-> END
+
+~ lp_leave
+road_passenger [afraid]: [[19]]
+Narrator: [[20]]
+-> END
+
+# --- The bone bonfire at the crossing ---
+
+~ bone_bonfire
+set road_bonfire_met
+appear road_bonfire_keeper at moor_bonfire
+Narrator: [[21]]
+road_bonfire_keeper [smile]: [[22]]
+interject name:lucan_houndstooth: [[23]]
+interject name:cordelia_skein: [[24]]
+-> bb_menu
+
+~ bb_menu
+* [if gold >= 1] [[25]] -> bb_coin
+* [[26]] -> bb_hair
+* [if not flag.road_bonfire_asked] [[27]] -> bb_ask
+* [[28]] -> bb_kick
+* [[29]] -> bb_leave
+
+~ bb_ask
+set road_bonfire_asked
+road_bonfire_keeper: [[30]]
+road_bonfire_keeper [sly]: [[31]]
+-> bb_menu
+
+~ bb_coin
+gold -1
+Narrator: [[32]]
+road_bonfire_keeper [smile]: [[33]]
+temp_hp 1d4+2 party
+-> END
+
+~ bb_hair
+set road_hair_given
+Narrator: [[34]]
+road_bonfire_keeper [smile]: [[35]]
+Narrator: [[36]]
+standing old_ways +1
+approve lucan_houndstooth -1 cordelia_skein -1: You gave a lock of hair to a stranger's fire
+-> END
+
+~ bb_kick
+road_bonfire_keeper [angry]: [[37]]
+Narrator: [[38]]
+standing old_ways -1
+approve silas_vane +1 tobin_hayward -2 rook_coldwake -1: You kicked an old man's bonfire apart
+-> END
+
+~ bb_leave
+road_bonfire_keeper: [[39]]
+-> END
+
+# --- A child on the road ---
+
+~ lost_child
+set road_child_met
+Narrator: [[40]]
+Narrator: [[41]]
+interject name:tobin_hayward: [[42]]
+interject name:lucan_houndstooth: [[43]]
+* [[44]] -> lc_walk
+* [Survival DC 12] [[45]] -> lc_point | lc_point_fail
+* [[46]] -> lc_leave
+
+~ lc_walk
+set road_child_home
+time +60
+Narrator: [[47]]
+Narrator: [[48]]
+gold +5
+approve tobin_hayward +2 rook_coldwake +1 lucan_houndstooth +1: You walked a lost child home to Wickermoor
+-> END
+
+~ lc_point
+set road_child_home
+Narrator: [[49]]
+approve tobin_hayward +1: You showed a lost child the way home
+-> END
+
+~ lc_point_fail
+set road_child_lost
+Narrator: [[50]]
+interject name:tobin_hayward: [[51]]
+-> END
+
+~ lc_leave
+set road_child_lost
+Narrator: [[52]]
+approve tobin_hayward -2 rook_coldwake -1: You left a child alone on the road
+-> END
+
+```
+
+Briefs for the markers:
+1. narrator: on the moor road a woman in a travelling coat stands looking up and down the track, ticket in hand; the heather shows through the hem of her coat
+2. road_passenger: excuse me, which way is the platform; she cannot miss the Ghostlight, her stop is coming and the conductor promised to call it
+3. interject tobin_hayward: quietly, she has the look of somebody still waiting on a harvest that already came in
+4. interject delphine_ravelle: darling, nobody has told her the show closed; somebody ought to
+5. option: tell her the train came down in the wood
+6. option: tell her the next stop is just ahead
+7. option: speak the conductor's last call over her, so she can get off
+8. option: walk on without a word
+9. road_passenger: she looks at her ticket a long while; so that was the jolt; she thanks them for not lying, she had wondered why her hands were cold
+10. narrator: she tucks the ticket into the hedge like a bookmark and is not there; the cold she leaves behind smells of coal smoke
+11. road_passenger: oh, thank heavens, just ahead; she will tell the conductor they were kind
+12. narrator: she sets off briskly along the road and the fog takes her a step at a time; far off a whistle blows that no engine is under
+13. interject rook_coldwake: she'll walk that road till it wears through; that's no kindness to the dead
+14. narrator: the old words come to the speaker's mouth easy as a hymn; "all stops, end of the line"; she straightens her hat as if she heard a bell
+15. road_passenger: so this is mine; she says she has been holding this ticket a very long time
+16. narrator: she steps off the road the way folks step off a train, and the fog where she stood warms like a carriage with the stove lit
+17. road_passenger: she is not getting off here, this isn't her stop, they cannot make her; her voice goes thin and high
+18. narrator: she comes apart into cold mist that goes through every one of you like a January draught, and the road is empty
+19. road_passenger: she calls after them, please, which way, she cannot miss it
+20. narrator: you hear her asking the empty road for a good while after; then only the wind in the heather
+21. narrator: where the two tracks cross, an old man feeds bones to a bonfire; the smoke is greenish and smells of burnt hair and wet leaves
+22. road_bonfire_keeper: evening, travellers; the fire keeps the white mist off the crossing; every soul who passes gives it a little something, a coin, a hair, a bone, whatever they can spare
+23. interject lucan_houndstooth: hushed, a fire of bones, and an old fellow who sniffs the wind when we come near; curious, very curious
+24. interject cordelia_skein: rabbit, sheep, and one that I would rather not name; a fascinating fuel
+25. option: drop a coin in the fire
+26. option: give the fire a lock of hair
+27. option: ask who the fire is for
+28. option: kick the bones apart
+29. option: warm our hands and go
+30. road_bonfire_keeper: for the Green Queen, mother of the wood, who feeds every root and takes back every leaf
+31. road_bonfire_keeper: lowering his voice, she has been poorly a long while; the crooked one tends her now, and he is ever so grateful for gifts
+32. narrator: the coin goes in with a hiss and the smoke turns from green to gold for a breath; warmth settles into your bones like a second coat
+33. road_bonfire_keeper: that'll see you to the next crossing; she remembers a generous traveller
+34. narrator: the hair curls and catches, and the old man watches it burn with his whole attention, the way a man reads a letter
+35. road_bonfire_keeper: oh, that's a fine gift, a personal one; she will know you now, wherever you go
+36. narrator: the smoke leans away from the wind, uphill, toward the dark manor on the rise, and the old man smiles at it
+37. road_bonfire_keeper: horrified, not the bones, the mist will have the crossing by morning; he curses them in the old way and scrabbles for the scattered bones
+38. narrator: the bones roll smoking into the heather; behind you, the old man's voice keeps calling the Queen's name till it sounds like weeping
+39. road_bonfire_keeper: suit yourselves; the fire will be here, and so will he
+40. narrator: a small girl in a pumpkin-orange shawl stands in the middle of the road with a basket of mushrooms, staring at you and not saying anything
+41. narrator: she points back the way you came toward the far lights of Wickermoor, then at herself, then at the dark woods, and her chin wobbles
+42. interject tobin_hayward: some farmer's little one, strayed after mushrooms; somebody's out of their mind looking for her
+43. interject lucan_houndstooth: hushed, small footprints, and larger ones following at a distance, then turning back; she is lucky, for now
+44. option: walk her home to Wickermoor
+45. option: show her the safe way home
+46. option: walk on
+47. narrator: it's an hour's walk with her small cold hand in yours; at the edge of the village a farm woman runs out of a gate in her nightdress and scoops her up
+48. narrator: the woman presses a few coins on you and won't hear no, and the girl looks back over her mother's shoulder at you the whole way in
+49. narrator: you show her the line of the road and the lights to keep in front of her; she nods hard, and you watch the orange shawl all the way to the first fence
+50. narrator: she listens and nods, then trots off on the wrong fork into the trees, and by the time you call out the shawl is gone
+51. interject tobin_hayward: we ought to have walked her; I'll be thinking about that orange shawl a while
+52. narrator: you leave her standing in the road; when you look back she is still there, still pointing, and then the fog is there instead
+
+## Reply format
+One line per marker, in order, exactly `n => text` (no quotes around the text, no extra lines, no commentary). 52 lines, numbered as above.

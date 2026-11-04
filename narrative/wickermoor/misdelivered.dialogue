@@ -1,18 +1,18 @@
 # Drafted by Gemini (side quests batch 1: misdelivered), edited.
 
 ~ start
-geneva_fairchild [afraid]: Oh, thank the moon you are strangers! I dropped three unsigned letters into the wrong cubbies, and if Miss Theodora sorts the dead-letter sack tonight, I shall die a second time.
-geneva_fairchild [weary]: They were meant for Deputy Butterman. Now one sits on Constable Squire's desk, one went to the undertaker, and the square goat has the third. Please fetch them back.
+geneva_fairchild [afraid]: Thank the moon you're strangers! I put three unsigned letters in the wrong cubbies. If Miss Theodora sorts the dead-letter sack tonight, I'll die a second time.
+geneva_fairchild [weary]: They're for Deputy Butterman. Now one's on Constable Squire's desk, one's with the undertaker, and the square goat has the third. Please fetch them back.
 * We will help -> accept
 * Why not ask yourself? -> why
 * Not now -> END
 
 ~ why
-geneva_fairchild [afraid]: Constable Squire has eyes like carpentry nails, and Mr. Shade measures your collarbone whenever you say good evening. If I go near either of them, my knees will turn to suet.
+geneva_fairchild [afraid]: Constable Squire has eyes like carpentry nails, and Mr. Shade measures your collarbone whenever you say good evening. Near either of them, my knees turn to suet.
 -> start
 
 ~ accept
-geneva_fairchild [smile]: Bless your boots! Look for lavender paper sealed with a crooked heart, and please do not read the bit about his ears.
+geneva_fairchild [smile]: Bless your boots! Look for lavender paper sealed with a crooked heart, and please don't read the bit about his ears.
 quest misdelivered asked
 set misdelivered_asked
 -> END
@@ -24,7 +24,7 @@ Narrator: A square of lavender paper lies beside the constable's inkwell, smelli
 * Leave -> END
 
 ~ doris_ok
-Narrator: {name} slides two fingers across the green blotter, and the lavender sheet vanishes into a coat pocket without a rustle.
+Narrator: {name} slides two fingers across the green blotter, pocketing the lavender sheet without a rustle.
 set letter_doris
 give geneva_letter_a
 -> END
@@ -38,14 +38,14 @@ give geneva_letter_a
 jail wickermoor_constable_station:cells until days_since.jailed >= 1
 
 ~ doris_ask
-doris_squire [neutral]: Take it. I read it twice to see if it was a cipher from the woods. It is badly spelled. I mean it kindly.
+doris_squire [neutral]: Take it. I read it twice checking for a woods cipher. Badly spelled, I mean that kindly.
 set letter_doris
 give geneva_letter_a
 -> END
 
 ~ mori_ask
 Narrator: The undertaker's parlor smells of cedar shavings and damp wool. Mori opens a narrow drawer lined with velvet.
-mori_shade [smile]: Unclaimed things come to me sooner or later, one way or another. I kept the lilac note in the third drawer, just in case.
+mori_shade [smile]: Unclaimed things come to me sooner or later. I kept the lilac note in the third drawer, just in case.
 * Ask for the letter -> mori_give
 * [Persuasion DC 11] Tell him it matters to a girl -> mori_give | mori_fee
 * Leave -> END
@@ -57,38 +57,38 @@ give geneva_letter_b
 -> END
 
 ~ mori_fee
-mori_shade [sly]: Paper is light, but keeping secrets takes drawer space. Leave five coins for the ledger and give me a cousin's middle name for my list, and we are square.
+mori_shade [sly]: Keeping secrets takes drawer space. Leave five coins for the ledger and a cousin's middle name for my list, and we're square.
 gold -5
 set letter_mori
 give geneva_letter_b
 -> END
 
 ~ goat
-Narrator: The tether chain clinks against the founder's stone as the old billy goat works his jaw sideways. A corner of lavender paper sticks out from his beard.
+Narrator: The old billy goat's tether clinks against the founder's stone as he chews, a corner of lavender paper sticking from his beard.
 * [Animal Handling DC 10] Coax the rest out -> goat_ok | goat_fail
 * Leave -> END
 
 ~ goat_ok
-Narrator: {name} scratches behind the goat's horned crown until his yellow eyes half-close, then draws the damp last third of the page from his teeth.
+Narrator: {name} scratches behind the goat's horns until his yellow eyes half-close, then pulls the damp last third of the page from his teeth.
 set letter_goat
 give geneva_letter_c
 -> END
 
 ~ goat_fail
-Narrator: The billy goat fixes {name} with a flat yellow stare, gives one final chew, and swallows the last scrap with great dignity.
+Narrator: The billy goat fixes {name} with a flat yellow stare, chews once, and swallows the last scrap with great dignity.
 set letter_goat
 -> END
 
 ~ deliver
-geneva_fairchild [weary]: One from the desk, one from the parlor, and one mostly inside the goat. At least Miss Theodora will not pin them to the noticeboard.
-geneva_fairchild [sad]: Only now I am looking at them, and my courage has gone cold. What on earth do I do about Howie?
+geneva_fairchild [weary]: One from the desk, one from the parlor, one mostly inside the goat. At least Miss Theodora won't pin them to the noticeboard.
+geneva_fairchild [sad]: Now my courage has gone cold. What on earth do I do about Howie?
 * Tell Howie the truth yourself -> truth
 * Let Howie think they were from Doris -> doris_lie
 * [Deception DC 12] Forge a signature as 'a friend' -> forge_ok | forge_fail
 * Burn the letters -> burn
 
 ~ truth
-howie_butterman [smile]: For me? Well now, nobody ever compared my ears to buttercup petals before. I am not sure it is accurate, Miss Geneva, but I am mighty pleased.
+howie_butterman [smile]: For me? Nobody ever compared my ears to buttercup petals before. Not sure it's accurate, Miss Geneva, but I'm mighty pleased.
 set misdelivered_outcome = "truth"
 quest misdelivered done
 gold +20
@@ -104,20 +104,20 @@ gold +10
 -> END
 
 ~ forge_ok
-Narrator: {name} matches the looping clerk-hand at the bottom of the page, signing it simply from a friend in the post office.
-geneva_fairchild [smile]: That is neat enough to pass Miss Theodora herself. He will wonder next time he buys a stamp, and that is half the fun.
+Narrator: {name} matches the looping clerk-hand at the bottom, signing it from a friend in the post office.
+geneva_fairchild [smile]: Neat enough to pass Miss Theodora herself. He'll wonder next time he buys a stamp, and that's half the fun.
 set misdelivered_outcome = "friend"
 quest misdelivered done
 gold +15
 -> END
 
 ~ forge_fail
-geneva_fairchild [weary]: Oh dear, the ink has blotted right through the paper. If I send that, he will think a spider died on the page.
+geneva_fairchild [weary]: Oh dear, the ink blotted right through. He'll think a spider died on the page.
 -> deliver
 
 ~ burn
-Narrator: The lavender scraps curl into black ash over the post office brazier, smelling briefly of cheap scent and sealing wax.
-geneva_fairchild [smile]: There. Better ash than poached eggs in cream, honestly. Tomorrow I shall buy thick cream paper and write him something sensible.
+Narrator: The lavender scraps curl into black ash over the brazier, smelling briefly of cheap scent and wax.
+geneva_fairchild [smile]: Better ash than poached eggs in cream. Tomorrow I'll buy thick cream paper and write him something sensible.
 set misdelivered_outcome = "burned"
 quest misdelivered done
 -> END

@@ -321,7 +321,7 @@ def build_items():
         write(f"data/items/{iid}.json", d)
     write("data/magic_items/shovel_of_yorgrim.json", {
         "id": "shovel_of_yorgrim", "name": "Shovel of Yorgrim", "source": {"book": "CrookedMoon", "note": "Fabled Heirloom from Maidenmist Cemetery; the book's numbers, our words."},
-        "category": "weapon", "weight_lb": 10, "cost_gp": 0, "magic": {"rarity": "rare", "attunement": True}, "theme": "armaments", "icon": "club",
+        "category": "weapon", "weight_lb": 10, "cost_gp": 0, "magic": {"rarity": "rare", "attunement": True}, "theme": "armaments",
         "modifiers": [{"stat": "attack", "value": "tier", "when": {"item": "@self"}}, {"stat": "damage", "value": "tier", "when": {"item": "@self"}}],
         "powers": [{"id": "rest_the_dead", "name": "Gentle Repose", "spell": "gentle_repose", "min_level": 7, "uses": {"count": 1, "per": "dusk"}},
                    {"id": "ask_the_dead", "name": "Speak with Dead", "spell": "speak_with_dead", "min_level": 7, "uses": {"count": 1, "per": "dusk"}}],

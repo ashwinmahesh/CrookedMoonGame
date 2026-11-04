@@ -1,0 +1,90 @@
+You are an editor tightening DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue). It is folk horror in Wickermoor, a village in an afterlife realm of endless autumn night; deadpan humour beside real dread. These are the village's conversations. Players say the village is a WALL OF TALK: too many words before anything happens. Your job is to make every line shorter and sharper, the way a good film editor cuts a scene, without losing anything that matters.
+
+FOR EACH NUMBERED LINE answer one of:
+- `n => KEEP` when the line is already tight (most lines of 15 words or fewer should be KEEP).
+- `n => new text` with the tightened line. Aim for about half to two thirds of the old length. Cut throat-clearing, repetition of what the line or the line before already said, stacked adjectives, second examples, flavour that leads nowhere, and explanations the listener doesn't need.
+- `n => CUT` only for a line whose content is entirely repeated by another line in the same conversation node (shown in [brackets]); never for a line that is the only one of its node, never for an interject line, never for the first line of a node.
+
+WHAT MUST SURVIVE in every line you tighten: every name, place, item, number, price, time, clue, hint, secret, warning, threat, promise and joke punchline; the speaker's voice and quirks (a mayor's pomposity, a constable's few words, a poet's floweriness, a child's simplicity, a country drawl in word choice); the mood. If a line does two jobs, keep both. Never add new facts. Keep `{name}` exactly as it is wherever it appears. Keep the line in the same person and tense.
+
+NARRATOR lines (speaker Narrator, the Vagrant telling the tale: folksy, warm, wry Southern drawl in word choice) stay second person, present tense, one or two sentences, concrete senses, no game words, never "suddenly".
+
+STYLE: plain punctuation; straight quotes; no em dashes, asterisks, brackets or stage directions; do not use -> or => inside the text.
+
+## The lines
+
+### oak.dialogue
+707. [names] Narrator: Highest of the three, the broad, scarred likeness of Gory Gus groans through a split lip, begging you to hack him free of the sap before the tree drinks the last of his name.
+708. [fight] Narrator: The great boughs groan like a gallows under weight, and the roots wrench themselves from the soil of the Round in a shower of cold dirt and sour blood.
+709. [quiet] Narrator: You step back onto the cobblestones, and one by one the wooden eyelids pinch shut until only blind bark remains under the leering moon.
+710. [freed] Narrator: A long, warm sigh passes through the shattered trunk as the carved mouths slacken, smoothing back into plain timber one by one until the bark is blind and still.
+
+### oakum.dialogue
+711. [start] Narrator: She wraps a parcel of cold mutton fat in butcher's paper with raw, trembling knuckles, keeping her eyes fixed on the sawdust floor.
+712. [start] mrs_oakum: Pardon me, strangers, only I saw you looking by the alley gate. When the bell strikes Evening and I take my basket out to the moor road, please do not follow me, and ask no questions.
+713. [respect] mrs_oakum: Bless you for that, truly. A body needs her own quiet hours when the sickness is so thick in the lanes, and I won't forget your kindness.
+714. [ask_siv] siv_harga: Martha does ten hours of honest boning and scrubbing without a complaint, and what she carries home in her bucket at night is her own affair. Leave the woman be.
+715. [follow_ok] Narrator: From the gorse bushes down-wind, you watch her drop the basket of bloody trimmings at the treeline, where her spine lengthens with a wet crack and coarse grey fur swallows her shawl.
+716. [follow_fail] Narrator: A twig snaps underfoot in the damp heather, and the half-changed thing by the stone wall lifts a long, wet muzzle to the wind.
+717. [follow_fail] mrs_oakum: Don't look at me, I begged you not to look! The butcher's offal keeps the worst of the hunger down, I swear I never touched a soul!
+718. [follow_fail] Narrator: She scrambles over the turf dike on all fours, her torn apron catching on the briars as she vanishes into the dark.
+719. [choose] Narrator: She stands behind the chopping block with her sleeves pinned neat to the wrist, though the scent of wet moorland fur still clings to her woollen skirt.
+720. [choose] mrs_oakum: You know what I am now, and one word to the constable puts my head by the Oak. Tell me plain what you mean to do with me.
+721. [keep] mrs_oakum: May the Patient Lady shade your steps. As long as I have the trough scraps before the moon climbs, the beast stays fed and the village stays safe.
+722. [tell] Narrator: Siv listens with his cleaver resting flat on the oak block, wipes his hands on his apron, and slides a double bucket of marrow bones toward her feet.
+723. [tell] siv_harga: Thought it was a stray hound I heard by the smokehouse all winter. Take the beef shins too, Martha, and see you're back before the morning cart.
+724. [help] Narrator: Tears spill down her cheeks onto the salted boards as she presses a knotted handkerchief of silver coins into your palm.
+725. [help] mrs_oakum: I had given up praying to wake from a night without blood in my teeth. Take what little I've saved, and Godspeed to you.
+
+### old_rusty.dialogue
+726. [start] Narrator: Birch twigs scrape across cold cobbles in a slow, steady rhythm. Old Rusty peers out from a tangle of red-grey hair, smelling of damp leaves and hearth smoke.
+727. [start] old_rusty: Step on a crack, break the moon's back. Wipe your boots before you tread the Round, strangers.
+728. [menu] old_rusty: Leaves fall down, faces look down. What do you want with an old broom?
+729. [work] old_rusty: Sweep the stone, keep the bone. The village feeds the belly, the broom feeds the square, and the dirt never sleeps.
+730. [village] old_rusty: The stone man has no face to lie with. The old oak has too many, and every one of them is thirsty when the axe comes down.
+731. [rumour] old_rusty: Six chimes from the tower, one for each hour. When the antlers grow on the little brown hare, lock your shutter and say your prayer.
+732. [secret_ok] Narrator: His knuckles whiten on the ash handle whenever his gaze drifts toward the crooked gable high on the ridge. An old white scar splits his scalp beneath the wild hair.
+733. [secret_ok] old_rusty: Crooked beam, crooked stair, nobody left to sit in the chair. Don't go up the hill, don't knock on the door.
+734. [secret_fail] old_rusty: Wind in the gorse, nothing worse. Mind where you put your heels, I just swept there.
+
+### oswick_frey.dialogue
+735. [start] Narrator: Warm beeswax and dried lavender sweeten the cramped shop. A red-haired man wheels his chair smoothly down a pegged timber ramp, grinning from ear to ear.
+736. [start] oswick_frey: Mind your shins on the tallow-vats and welcome! I am Wick Frey, and if it burns on a string, I dip it.
+737. [menu] oswick_frey: Now then, what brings fresh faces under my rafters?
+738. [shop_open] oswick_frey: Ritual tapers are free to the Old Ways faithful, mind, though strangers pay in coin for good mutton-fat and beeswax.
+739. [work] oswick_frey: Built the chair with the wheelwright and rigged the pulley to the roof myself. From up top, you can watch every lantern round the Founder's Round.
+740. [village] oswick_frey: Everyone needs light in a land without dawn. Even Master F-Finneas from the schoolhouse stops by for reading candles, when his ink runs low.
+741. [secret_ok] Narrator: A dozen spare tapers on his workbench are wrapped in neat paper tied with twine, each marked with the schoolmaster's initial.
+742. [secret_ok] oswick_frey: You saw those, did you? Finneas reads till his eyes ache, so I pour him the smokeless clover-wax, though my tongue knots up whenever he thanks me.
+743. [secret_fail] oswick_frey: A man likes to keep an eye on the square, that is all. Best seat in Wickermoor for catching the gossip.
+
+### peeping_albert.dialogue
+744. [start] Narrator: High in the dusty rafters above the sorting tables, something heavy shifts among the cobwebs. Pink, hairless human fingers curl tightly round the timber beam where claws ought to be, and a pair of jug-handle ears twitch on either side of a feathered skull.
+745. [watch_bird] Narrator: The grotesque pigeon leans down into the lantern glow, its greasy feathers smelling of wet wool and attic dust. A wet, throaty coo rumbles from its crop before a splat of white lime drops onto {name}'s shoulder, folded neatly like a tiny note.
+746. [check_ok] Narrator: The fleshy ears flatten against the grey plumage, and its knuckles drum a slow, knowing tap against the oak beam. It points one stubby forefinger toward the postmaster's locked drawer, then shrinks back into the shadow.
+747. [check_fail] Narrator: The bird snaps its beak with a dry clack, scratches one human ear with a calloused thumb, and turns its tail to you.
+
+### play.dialogue
+748. [hickock_pitch] george_hickock: Good folk, take a bench before the greasepaint dries! Tonight Hickock and Company present The Prince in Gold, a tragedy of crowns and treachery, right here on the inn stage.
+749. [body] Narrator: Behind the painted canvas, Barnaby Quill slumps cold in his chair, a tin goblet rolled beside his boot and a bitter almond scent rising from his velvet collar.
+750. [body] alda_farnum: Saints preserve us, he was supposed to go on at the bell, not lie there stiff in my back room!
+751. [suspects] george_hickock: Dead, our finest villain dead before the curtain rises! Some fiend has poisoned poor Barnaby, and the whole taproom is waiting for their tragedy!
+752. [lilian] lilian_vale: Why are you staring at me as if I brewed the stuff? Yes, the scoundrel fleeced me of six silver crowns at cards an hour ago, and now I will never see a penny of it!
+753. [olwen] olwen_pike: Mind where you tread, the hem of this royal cloak is fray enough without heavy boots on it. Barnaby liked his drink, and nobody kept count of what he poured.
+754. [olwen_tell] Narrator: At the mention of the cup, her thumb slips against the needle and she draws the thread tight with rapid, jerky stitches.
+755. [olwen_tell] olwen_pike: A prop is just a prop until an actor makes a mess of it.
+756. [olwen_calm] Narrator: Her needle dips and rises through the gold braid in a steady, unbroken rhythm, never missing a stitch.
+757. [cup] Narrator: The battered tin goblet bears a dab of yellow paint on its base to mark it for the prop table, and its rim is still tacky with sweet, dark dregs.
+758. [note] Narrator: Tucked inside his waistcoat is a torn scrap of paper, demanding payment of an old debt to a woman named Mara before the company leaves the moor.
+759. [accuse_menu] george_hickock: Speak plainly, friends, if you know whose hand brought ruin to our stage.
+760. [accuse_lilian] george_hickock: Lilian, my star, tell me you did not trade our leading villain for a handful of card money!
+761. [accuse_lilian] lilian_vale: Oh, spare me your grand speeches, George, you cannot pin a murder on me without a shred of proof!
+762. [accuse_olwen] Narrator: Olwen sets her needle neatly into the pincushion and folds the heavy cloak across her lap.
+763. [accuse_olwen] olwen_pike: Mara was the sweetest voice we ever had, until Barnaby took her savings and left her to rot in a debtor's ditch. I set the banquet cup by his elbow, and he drank it greedy as ever.
+764. [finale_offer] george_hickock: A dark deed, yet the lanterns are lit and the benches are full! Take up Barnaby's cloak and read his lines, I beg you, or Hickock and Company is finished!
+765. [finale_play] Narrator: You stumble over a verse or two with the script hidden in your sleeve, though the tavern crowd claps heartily enough when the cardboard crown hits the boards.
+
+## Reply format
+One line per numbered line above (59 lines, 707 to 765), in order, exactly `n => text`, `n => KEEP` or `n => CUT`. No quotes around the text, no commentary.

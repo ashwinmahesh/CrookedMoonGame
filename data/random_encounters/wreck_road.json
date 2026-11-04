@@ -1,0 +1,286 @@
+{
+  "id": "wreck_road",
+  "map": "road_moor_bonfire",
+  "grounds": [
+    "road_moor_bonfire",
+    "road_oakwood",
+    "road_creek_ford"
+  ],
+  "chance_day": 0.35,
+  "chance_night": 0.35,
+  "summary": "The wreck road from the Ghostlight's oak wood to Wickermoor, over moor and through old oaks: the restless dead from the wreck, the hag's weasels hunting teeth, crooked hares and magpies; and, now and then, a meeting.",
+  "entries": [
+    {
+      "id": "haints",
+      "weight": 3,
+      "when": "level <= 3",
+      "monsters": [
+        {
+          "monster": "wayward_haint",
+          "cell": [
+            21,
+            12
+          ]
+        },
+        {
+          "monster": "wayward_haint",
+          "cell": [
+            19,
+            8
+          ]
+        }
+      ],
+      "text": "Two pale haints from the train wreck drift out of the cold fog toward the warmth of your breath, their mouths open wide and silent."
+    },
+    {
+      "id": "haints_many",
+      "weight": 3,
+      "when": "level >= 4",
+      "monsters": [
+        {
+          "monster": "wayward_haint",
+          "cell": [
+            26,
+            10
+          ]
+        },
+        {
+          "monster": "wayward_haint",
+          "cell": [
+            17,
+            4
+          ]
+        },
+        {
+          "monster": "wayward_haint",
+          "cell": [
+            17,
+            19
+          ]
+        },
+        {
+          "monster": "corrupted_passenger",
+          "cell": [
+            28,
+            14
+          ]
+        }
+      ],
+      "text": "Three restless haints rise out of the frostbitten heather, and behind them shambles a dead passenger gone grey with the mist, still draggin' a leather suitcase."
+    },
+    {
+      "id": "weasels",
+      "weight": 3,
+      "when": "not flag.vessla_slain and level <= 2",
+      "monsters": [
+        {
+          "monster": "giant_weasel",
+          "cell": [
+            28,
+            14
+          ]
+        },
+        {
+          "monster": "giant_weasel",
+          "cell": [
+            7,
+            6
+          ]
+        },
+        {
+          "monster": "giant_weasel",
+          "cell": [
+            6,
+            17
+          ]
+        },
+        {
+          "monster": "giant_weasel",
+          "cell": [
+            10,
+            4
+          ]
+        },
+        {
+          "monster": "giant_weasel",
+          "cell": [
+            24,
+            5
+          ]
+        }
+      ],
+      "text": "A dozen wet, dark eyes glitter low in the bracken. Weasels creep out onto the track, chittering sharp and sniffing upward like they can smell the teeth in your head."
+    },
+    {
+      "id": "weasels_led",
+      "weight": 3,
+      "when": "not flag.vessla_slain and level >= 3",
+      "monsters": [
+        {
+          "monster": "vermin_familiar_weasel",
+          "cell": [
+            10,
+            4
+          ]
+        },
+        {
+          "monster": "giant_weasel",
+          "cell": [
+            24,
+            5
+          ]
+        },
+        {
+          "monster": "giant_weasel",
+          "cell": [
+            29,
+            19
+          ]
+        },
+        {
+          "monster": "giant_weasel",
+          "cell": [
+            3,
+            9
+          ]
+        },
+        {
+          "monster": "giant_weasel",
+          "cell": [
+            15,
+            16
+          ]
+        }
+      ],
+      "text": "A weasel big as a hound parts the dry heather at the head of its pack, fixing you with dark eyes far too knowing for any beast."
+    },
+    {
+      "id": "passengers",
+      "weight": 2,
+      "when": "level <= 3",
+      "monsters": [
+        {
+          "monster": "corrupted_passenger",
+          "cell": [
+            3,
+            9
+          ]
+        },
+        {
+          "monster": "corrupted_passenger",
+          "cell": [
+            15,
+            16
+          ]
+        }
+      ],
+      "text": "Lost souls from the wreck come shuffling down the ruts with their coats torn and their luggage in hand, their faces grey as the mist curling out of their collars."
+    },
+    {
+      "id": "hares",
+      "weight": 2,
+      "monsters": [
+        {
+          "monster": "crooked_hare",
+          "cell": [
+            19,
+            8
+          ]
+        },
+        {
+          "monster": "crooked_hare",
+          "cell": [
+            23,
+            16
+          ]
+        }
+      ],
+      "text": "Three long-legged hares sit upright in the middle of the road, showing way too many teeth in their grins, and they ain't runnin' from you."
+    },
+    {
+      "id": "magpies",
+      "weight": 2,
+      "when": "level >= 2",
+      "monsters": [
+        {
+          "monster": "magpie_of_omens",
+          "cell": [
+            17,
+            4
+          ]
+        },
+        {
+          "monster": "swarm_of_ravens",
+          "cell": [
+            17,
+            19
+          ]
+        },
+        {
+          "monster": "swarm_of_ravens",
+          "cell": [
+            28,
+            14
+          ]
+        }
+      ],
+      "text": "A lone magpie on a fencepost counts your party, caws once like it don't care for the number, and the sky over the road goes black with wings."
+    },
+    {
+      "id": "wolves",
+      "weight": 2,
+      "monsters": [
+        {
+          "monster": "wolf",
+          "cell": [
+            7,
+            6
+          ]
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            6,
+            17
+          ]
+        },
+        {
+          "monster": "wolf",
+          "cell": [
+            10,
+            4
+          ]
+        }
+      ],
+      "text": "Grey wolves have been pacing you behind the blackthorn hedge for a quiet mile. Now they step out into the road and quit pretending."
+    },
+    {
+      "id": "lost_passenger",
+      "weight": 2,
+      "when": "not flag.road_passenger_met",
+      "once": true,
+      "dialogue": "roads/act1:lost_passenger"
+    },
+    {
+      "id": "bone_bonfire",
+      "weight": 2,
+      "when": "not flag.road_bonfire_met",
+      "once": true,
+      "dialogue": "roads/act1:bone_bonfire"
+    },
+    {
+      "id": "lost_child",
+      "weight": 2,
+      "when": "not flag.road_child_met",
+      "once": true,
+      "dialogue": "roads/act1:lost_child"
+    },
+    {
+      "id": "wayside_shrine",
+      "weight": 2,
+      "when": "not flag.road_shrine_met",
+      "once": true,
+      "dialogue": "roads/act1:wayside_shrine"
+    }
+  ]
+}

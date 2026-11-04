@@ -694,7 +694,7 @@ def build_items():
         "id": "withered_hand", "name": "The Withered Hand", "source": {"book": "CrookedMoon", "note": "Cursed curio from the Drowned Crossroads; the book's numbers, our words."},
         "category": "wondrous", "weight_lb": 0, "cost_gp": 0, "magic": {"rarity": "rare", "attunement": True, "cursed": True,
         "curse": "Each Long Rest in which you used it, your Hit Point maximum drops by 1 for good. (Reference only; the game does not roll it yet.)"},
-        "theme": "implements", "icon": "ring",
+        "theme": "implements",
         "summary": "A tattooed, desiccated hand that attunes on touch. +1 to spell attacks and spell save DCs; its Withering Grasp reaches 30 ft on magenta threads. Cursed: each Long Rest after use costs 1 maximum Hit Point for good (reference only)."})
     write("data/magic_items/cutlass_of_briggsy_kratch.json", {
         "id": "cutlass_of_briggsy_kratch", "name": "Cutlass of Briggsy Kratch", "source": {"book": "CrookedMoon", "note": "Fabled Heirloom (Wheel of Fortune)."},
@@ -704,7 +704,7 @@ def build_items():
         "weapon": {"kind": "martial_melee", "damage": "1d6", "damage_type": "slashing", "properties": ["finesse", "light"], "mastery": "nick"}})
     write("data/magic_items/blunderbuss_of_the_grinning_sinner.json", {
         "id": "blunderbuss_of_the_grinning_sinner", "name": "Blunderbuss of the Grinning Sinner", "source": {"book": "CrookedMoon", "note": "Fabled Heirloom (The Emperor)."},
-        "category": "weapon", "weight_lb": 10, "cost_gp": 0, "magic": {"rarity": "rare", "attunement": True}, "theme": "armaments", "icon": "crossbow",
+        "category": "weapon", "weight_lb": 10, "cost_gp": 0, "magic": {"rarity": "rare", "attunement": True}, "theme": "armaments", "icon": "musket",
         "modifiers": [{"stat": "attack", "value": "tier", "when": {"item": "@self"}}, {"stat": "damage", "value": "tier", "when": {"item": "@self"}}],
         "summary": "A musket that ignores Loading and makes its own Necrotic ammunition, +1 (+2 at level 7, +3 at 13). Jinxshot and the curse rider wait on the engine's heirloom rules.",
         "weapon": {"kind": "martial_ranged", "damage": "2d8", "damage_type": "necrotic", "properties": ["ammunition", "two_handed", "range"], "range": [30, 90], "mastery": "slow"}})

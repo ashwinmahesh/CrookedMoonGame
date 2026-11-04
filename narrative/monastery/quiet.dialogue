@@ -18,10 +18,12 @@ quest friar_quiet asked
 
 ~ quiet_what
 Narrator: The chalk squeaks fast against the dark stone, and he glances toward the red glass of the chapel windows before turning the board to you.
+interject name:rook_coldwake: Good square lettering on that slate. A man keeps his vows even when the parish sours.
 Narrator: The slate reads: "THE TALL ONE SANG AS THEY TOOK HIM. I MUST SAY IT. I TOOK A VOW."
 -> quiet_start
 
 ~ quiet_carry
+approve tobin_hayward +2 rook_coldwake +2 silas_vane +2: You agreed to carry the silent friar's slate
 give quiet_slate
 set quiet_carrying
 Narrator: He scrubs the slate clean, writes one last time with careful, upright letters, and presses the cold stone into your palm before bowing his head.
@@ -29,6 +31,7 @@ Narrator: The slate reads: "THANK YOU. TELL HER I HEARD IT, THE TUNE."
 -> END
 
 ~ quiet_give_up
+approve tobin_hayward -2 rook_coldwake -2: You refused to carry the silent friar's message
 quest friar_quiet lost
 Narrator: The slate reads: "AH."
 Narrator: He rubs the grey stone bare with his thumb, slips the bit of chalk back into his wide sleeve, and turns his face to the wall.
@@ -36,6 +39,7 @@ Narrator: He rubs the grey stone bare with his thumb, slips the bit of chalk bac
 
 ~ melina_message
 Narrator: Melina takes the chalk-smudged stone from your hand, her thumb tracing the stiff block letters and the few halting notes scratched along the bottom edge.
+interject name:tobin_hayward: A clean stitch over an old tear. That will hold her seams together till winter.
 melina [sad]: That is the little round I carved into his wooden bird before we left the mire. Gareth sang it while they dragged him off, and a silent man in that awful place listened.
 if flag.gareth_fate == "rescued"
 melina [smile]: Look at me crying when he is safe and breathing, the stubborn fool. God bless that quiet friar for keeping the tune alive for me.

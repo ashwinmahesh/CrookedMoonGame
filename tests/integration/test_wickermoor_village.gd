@@ -63,8 +63,9 @@ func test_the_town_and_its_rooms_exist() -> void:
 	var rooms := _rooms()
 	assert_true(rooms.size() >= 19, "nineteen rooms or more (found %d)" % rooms.size())
 	var map := _loc(TOWN)["map"] as Dictionary
-	assert_eq((map["rows"] as Array).size(), 50)
-	assert_eq(((map["rows"] as Array)[0] as String).length(), 60)
+	# Spaced out on 2026-11-03 (Ashwin: "so cramped"): the land is 96 x 80, with the bridge deck laid beside it.
+	assert_eq((map["rows"] as Array).size(), 80)
+	assert_eq(int(((map["floors"] as Array)[0] as Dictionary)["width"]), 96)
 	assert_true(bool(map.get("outdoors", false)))
 
 

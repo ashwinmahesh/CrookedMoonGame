@@ -1,8 +1,8 @@
 # Drafted by Gemini (R11c lottery), edited.
 
 ~ start
-lottery_stranger [smile]: Step right up, friends, and try your hand at the Founder's Round draw. Every folded slip in this hat holds a fair chance at a brighter season.
-Narrator: His grey coat is brushed clean of moorland dust, and the paper slips in his upturned hat rustle like dry leaves.
+lottery_stranger [smile]: Step right up and try the Founder's Round draw. Every slip in this hat holds a fair chance at a brighter season.
+Narrator: His grey coat is brushed clean, and the paper slips in his upturned hat rustle like dry leaves.
 * What is the grand prize? -> prize
 * What are the terms of the draw? -> terms
 * Buy a slip for ten gold -> draw
@@ -10,22 +10,22 @@ Narrator: His grey coat is brushed clean of moorland dust, and the paper slips i
 * Decline the offer and walk on -> refuse
 
 ~ prize
-lottery_stranger [smile]: One hundred gold coins in a neat leather purse, paid on the spot. More than that, the winner enjoys a full year of effortless good fortune.
+lottery_stranger [smile]: One hundred gold coins in a leather purse, paid on the spot, plus a full year of effortless good fortune.
 -> start
 
 ~ terms
-lottery_stranger [neutral]: A slip costs ten gold coins to draw from the hat. As for those who do not win, we simply cross their entry from the active roll and move along.
+lottery_stranger [neutral]: Ten gold coins a draw. If you do not win, we simply cross your name from the active roll.
 lottery_stranger [sly]: Nobody in Wickermoor complains of a bad draw, I promise you that.
 -> start
 
 ~ ledger
-lottery_stranger [neutral]: Ah, an appreciation for tidy bookkeeping. I keep every participant's name in clean black ink so there is never a dispute.
+lottery_stranger [neutral]: Ah, a love for tidy bookkeeping. I record every name in clean black ink to prevent disputes.
 * [Insight DC 14] Read the names in the ledger -> ledger_read | ledger_fail
 * [Intimidation DC 15] Tear the ledger out of his hands -> tear | ledger_fail
 * Step away -> start
 
 ~ ledger_read
-Narrator: Dozens of local names are struck through with a ruler-straight line of wet black ink. When townsfolk pass by, their eyes slide right over those cottages as if no one ever lived there.
+Narrator: Dozens of local names are struck through in wet black ink. Passing townsfolk look right past those cottages as if no one ever lived there.
 -> start
 
 ~ ledger_fail
@@ -34,9 +34,9 @@ Narrator: He shuts the leather cover with a soft, polite thump and tucks the bra
 -> start
 
 ~ tear
-Narrator: The ledger bindings snap in your grip, scattering inked pages across the trodden mud of the square.
-lottery_stranger [smile]: Well now, that is one way to balance an account. Enjoy the rest of your evening in Wickermoor, travellers.
-Narrator: He steps back between two lantern-bearers, and by the time the smoke clears, his grey coat is nowhere to be seen.
+Narrator: The ledger bindings snap in your grip, scattering inked pages across the mud.
+lottery_stranger [smile]: That is one way to balance an account. Enjoy your evening in Wickermoor, travellers.
+Narrator: He steps back between two lantern-bearers, and when the smoke clears, his grey coat is gone.
 set wm_lottery_done
 set wm_lottery_broken
 -> END
@@ -48,19 +48,19 @@ check Charisma DC 12 -> win | lose
 
 ~ win
 lottery_stranger [smile]: Look at that mark upon the paper. We have ourselves a fortunate soul tonight.
-Narrator: The villagers around the square clap and cheer a bit too brightly, their smiles stretched tight in the lantern glow.
+Narrator: Villagers clap and cheer too brightly, smiles stretched tight in the lantern glow.
 gold +100
 set wm_lottery_done
 -> END
 
 ~ lose
-lottery_stranger [neutral]: A blank slip, I am afraid, though I thank you for playing. Let me just tidy the register before you go.
-Narrator: His nib draws a single, cold black line through one of your names, and the air around your shoulders turns chill and thin.
+lottery_stranger [neutral]: A blank slip, I am afraid. Let me tidy the register before you go.
+Narrator: His nib draws a cold black line through your name, and the air turns chill and thin.
 set wm_lottery_done
 -> END
 
 ~ refuse
-lottery_stranger [smile]: Entirely your privilege, travellers. Should you find yourselves feeling luckier on another turn of the clock, you know where I stand.
+lottery_stranger [smile]: Your privilege, travellers. Should you feel luckier on another turn of the clock, you know where I stand.
 Narrator: He touches the brim of his hat with two gloved fingers and turns back to the crowd.
 set wm_lottery_done
 -> END

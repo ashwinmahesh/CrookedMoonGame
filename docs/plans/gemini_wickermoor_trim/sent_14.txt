@@ -1,0 +1,75 @@
+You are an editor tightening DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue). It is folk horror in Wickermoor, a village in an afterlife realm of endless autumn night; deadpan humour beside real dread. These are the village's conversations. Players say the village is a WALL OF TALK: too many words before anything happens. Your job is to make every line shorter and sharper, the way a good film editor cuts a scene, without losing anything that matters.
+
+FOR EACH NUMBERED LINE answer one of:
+- `n => KEEP` when the line is already tight (most lines of 15 words or fewer should be KEEP).
+- `n => new text` with the tightened line. Aim for about half to two thirds of the old length. Cut throat-clearing, repetition of what the line or the line before already said, stacked adjectives, second examples, flavour that leads nowhere, and explanations the listener doesn't need.
+- `n => CUT` only for a line whose content is entirely repeated by another line in the same conversation node (shown in [brackets]); never for a line that is the only one of its node, never for an interject line, never for the first line of a node.
+
+WHAT MUST SURVIVE in every line you tighten: every name, place, item, number, price, time, clue, hint, secret, warning, threat, promise and joke punchline; the speaker's voice and quirks (a mayor's pomposity, a constable's few words, a poet's floweriness, a child's simplicity, a country drawl in word choice); the mood. If a line does two jobs, keep both. Never add new facts. Keep `{name}` exactly as it is wherever it appears. Keep the line in the same person and tense.
+
+NARRATOR lines (speaker Narrator, the Vagrant telling the tale: folksy, warm, wry Southern drawl in word choice) stay second person, present tense, one or two sentences, concrete senses, no game words, never "suddenly".
+
+STYLE: plain punctuation; straight quotes; no em dashes, asterisks, brackets or stage directions; do not use -> or => inside the text.
+
+## The lines
+
+### quill.dialogue
+828. [ode_ask] Narrator: You rack your brains around the table, and the best anyone can offer is 'floor more'.
+829. [ode_ask] ambrose_quill: Floor more! Inspired! A double-barrelled chime of domestic abundance! Consider it immortalised.
+
+### randall_graham.dialogue
+830. [start] Narrator: Sharp white spirit, bay rum, and warm soap mingle in the little parlour. A burly sandy-bearded man strops a razor with an easy, neighbourly grin.
+831. [start] randall_graham: Well now, fresh faces in the hollow! Sit yourselves down for a trim, a stitch, or a splash of my own clear shine to chase the damp out.
+832. [menu] randall_graham: Take a weight off your boots, friends. Randall's chair is always open.
+833. [shop_open] randall_graham: Hold still and breathe easy, my hand is the steadiest in Wickermoor and the jug is right beside the basin.
+834. [about_self] randall_graham: A village this size needs one fellow to trim beards, pull bad molars, and sew up a split brow. Folks talk freer with a warm towel round their chin.
+835. [about_village] randall_graham: You should look in on young Thomasin the tailor, a bright soul who listens well to old wisdom. This hollow remembers its roots deeper than the city folk think.
+836. [rumour] randall_graham: They say the old powers in the woods are stirring under the crone's moon, hungry for what was stolen from them. Best keep on the right side of the forest.
+837. [secret_ok] Narrator: Nicked into the wood under the second chair's arm is a tiny hare crowned with antlers, and Randall nudges a lock of clipped hair away from your boot.
+838. [secret_ok] randall_graham: Ah, step clear of the clippings, friend, it brings sour luck to let a customer's hair blow out the door. Everything trimmed under my roof stays safe downstairs.
+839. [secret_fail] Narrator: Randall sweeps the floorboards into a lidded pail with a single brisk stroke of his broom.
+840. [secret_fail] randall_graham: Nothing to see on the floor but split ends and moor dust, friend.
+
+### ronald_wainwright.dialogue
+841. [start] Narrator: He stands by the heavy timber post like part of the framing, smelling of pipe tallow and wet wool.
+842. [start] ronald_wainwright: Evening to you. Mind the step by the barrels, the wood stays slick.
+843. [menu] ronald_wainwright: I am right here if you need pointing somewhere.
+844. [about_self] ronald_wainwright: Wilma tells me where to stand, and I stand there until the bell changes. Most folks behave once they see the pair of us.
+845. [about_village] ronald_wainwright: It is a quiet hollow if you leave the old trees be and honour the Green Queen. The Oak in the Round has watched over worse nights than this.
+846. [rumour] ronald_wainwright: Zachariah whittled a wooden hare yesterday and Eddie tried to trade it to Mr. Tolliver for peppermints. Good lads, and Victoria keeps them in line.
+847. [charm_ok] Narrator: Braided oak twine and three small wooden tokens hang inside his cuff, polished smooth by his thumb.
+848. [charm_ok] ronald_wainwright: One knot for each child down in the cellar, prayed over at the Founder's Round. A man cannot watch every shadow, so he asks the Queen to watch too.
+849. [charm_fail] ronald_wainwright: Just an old wool coat, friend. Keeps the moor chill off my shoulders.
+
+### rumours.dialogue
+850. [r01] Narrator: You catch the low murmur of a drover warming his chapped hands over a brazier of damp peat. He swears a cooper's lad up the lane opened his mouth to say grace and spoke instead in the rusted, grating baritone of a long-dead magistrate.
+851. [r02] Narrator: Two women in woollen shawls trade sharp whispers over a basket of bruised turnips, their breath misting in the cold. One vows her neighbour put the evil eye on her dairy, turning a whole wheel of sweet cream cheese green and weeping with maggots.
+852. [r03] Narrator: A tinker nursing a mug of sour cider leans toward the hearth, lowering his voice so the barkeep will not hear. He claims three toddlers in the outer cottages have grown coarse grey bristles along their spines and taken to gnawing raw marrow bones under the beds.
+853. [r04] Narrator: By the well, a watchman rubs his aching knees and grumbles about a series of peculiar break-ins across the parish. The thief leaves silver spoons and coin purses untouched, taking only family Bibles, baby teeth from keepsake boxes, and locks of hair clipped from sleeping folk.
+854. [r05] Narrator: You overhear a woodcutter telling his trembling apprentice to stay clear of the high bracken after the third bell. They found a shepherd standing upright in the gorse with his eyes wide open and cold as river stones, his chest empty of breath while something pale loped into the fog.
+855. [r06] Narrator: Behind the stables, two carters pass a clay pipe back and forth, speaking of strangers with gold-leaf rings and oiled blades. Folks say a secret brotherhood of misers in the valley pays those quiet knives to slit the throats of debtors and weigh their hearts against brass scales.
+856. [r07] Narrator: An old woman shelling peas on her stoop mutters to her cat about the barefoot penitents gathering up on the tors. They smear their faces with mutton tallow and ash, howling prayers to hurry the end of the world before the moon can shut her watchful eye.
+857. [r08] Narrator: A gravedigger scraping mud from his spade tells the sexton about the corpse they carried in from the crossroad ditch. The dead man's hair had turned snow-white from terror, and they had to crack his stiff knuckles with a mallet to pry a cold marble finger from his fist.
+858. [r09] Narrator: Two washerwomen wringing out linen sheets gossip about a wealthy widow who bolted her shutters at the start of the month. The milkman smelled brimstone and burnt sugar through her keyhole, and saw a tall suitor in velvet cuffs whose shadow wore a pair of curled horns.
+859. [r10] Narrator: Near the lychgate, a choirboy whispers to his sister while tossing dry crusts onto the frost. He says the bluebirds nesting in the rafters never sing during hymns anymore, only cock their bright heads to listen when sinners confess and tap the windowpanes in three-beat riddles.
+860. [r11] Narrator: A drover leaning on the paddock rail points a scarred thumb toward the black ridge beyond the moor. Every night the wind carries the reek of pine tar and scorching wool from distant bonfires, keeping time with skin drums that thud like a giant's slow heartbeat.
+861. [r12] Narrator: Over the clatter of pewter plates, a seamstress tells the chandler about the teenagers who wandered back from the hazel copse. They sit in the mud braiding dead nettles into crowns, speaking only in crooked nursery rhymes that make the village hounds whine and crawl under the porch.
+862. [r13] Narrator: A trapper smells of wet hound and woodsmoke as he warns the ostler away from the northern marsh. His own brother came back from the reeds without his rifle or his tongue's old cunning, only whistling four wet, reed-thin notes whenever someone speaks his name.
+863. [r14] Narrator: Two weavers waiting by the fuller's vats compare the sour taste in their mouths after waking from the very same nightmare. Half the lane dreamed of climbing a ladder of braided silver frost into the black sky, where cold stars sang to them like choirs of glass.
+864. [r15] Narrator: A dockhand spits into the gutter and warns a passing peddler never to buy meat pasties from the cellar bakehouse after dark. He swears he found a long, scaly tail baked into the lard crust, though the pepper gravy was rich enough to make him eat a second.
+865. [r16] Narrator: Down by the weir, an angler mending his hemp net swears the river is growing crowded with things that are not trout. He saw pale, webbed hands gripping the slick stones below the millwheel, and wide yellow eyes blinking up through the brown foam.
+866. [r17] Narrator: A ploughman nursing a bandaged thumb tells the smith what his iron share struck in the south fallow field. They dug up a bronze vessel green with verdigris and sealed with human teeth, and since that hour every crow in the parish has circled their chimney.
+867. [r18] Narrator: Two girls stringing dried apples by the lantern light speak in hushed voices about last season's harvest queen. Her wreath of wheat and ribbons was found floating in the horse trough at dawn, and nobody has seen hide nor hair of the lass since the feast.
+868. [r19] Narrator: An apothecary measuring dried rue tells his customer to cross the street before passing the crooked gable at the end of the lane. The little girl looking out that dusty casement has worn the same pinafore and held the same china doll since his grandfather was a boy.
+869. [r20] Narrator: A sweep brushing soot from his sleeves nods up toward the dark belfry above the square. Last week the iron bell struck a seventh, nameless hour in the dead of night, and the old watchmaker and his wife walked hand in hand right off the parapet.
+
+### sister_rain.dialogue
+870. [start] Narrator: The silver sunflower on the preacher's chest catches the bonfire light as she turns, her red hair whipping around her shoulders like autumn leaves.
+871. [start] sister_rain: Blessings of the gentle rain upon your boots, strangers! Come warm your hands and hear how the Patient Lady keeps the seed safe beneath the frost!
+872. [about_work] sister_rain: The earth doesn't ask for heads on an oak or cages of iron, friends, it only asks for patience and clean rain.
+873. [about_work] sister_rain: Yet folk here meet every shadow with an axe and a torch, fighting fire with fire until the whole blessed meadow is ash!
+
+## Reply format
+One line per numbered line above (46 lines, 828 to 873), in order, exactly `n => text`, `n => KEEP` or `n => CUT`. No quotes around the text, no commentary.

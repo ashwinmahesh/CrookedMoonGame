@@ -503,7 +503,7 @@ def build_items():
     for iid, (name, cat, rarity, worn, mods, summary) in MAGIC.items():
         d = {"id": iid, "name": name, "source": {"book": "CrookedMoon", "note": "Fool's Day prize or heirloom; the book's numbers, our words."}, "category": cat, "weight_lb": 2, "cost_gp": 0,
              "magic": {"rarity": rarity, "attunement": iid in ("revelry_suit", "marotte_of_the_lord_of_fools")}, "theme": "implements",
-             "icon": "instrument" if iid != "revelry_suit" else "cloak", "modifiers": mods, "summary": summary}
+             "modifiers": mods, "summary": summary}
         if worn:
             d["worn"] = worn
         if cat == "rod":

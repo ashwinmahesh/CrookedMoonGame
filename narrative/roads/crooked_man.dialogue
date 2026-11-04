@@ -1,0 +1,202 @@
+# The Crooked Man between the acts (fun pass, lane D): the book has him guide the cult and want the six Fallen dead,
+# and the heroes do Kehlenn's work by their good deeds. So he is felt before the finale: twice at the edge of a road
+# (data/random_encounters/crooked_man_road.json, rolled on any road's quiet leg), once as a note on a signpost, and twice
+# at the party's fire (data/camp/night_events.json). He is never a fight, he hints and never explains, and he never
+# hints at his own weakness. Drafted by Gemini (docs/plans/gemini_roads), edited; flags in data/flags/roads.json.
+
+# --- After the Crooked House: a figure at the edge of the road ---
+
+~ after_house
+if flag.cm_road_house
+-> END
+endif
+set cm_road_house
+Narrator: Way off across the heather where the road bends, a tall, thin figure in a bent top hat stands among the dead bracken, much too still to be a man.
+appear crooked_man
+Narrator: You look down at the muddy ruts for a single step, and when you look up he's standin' a few paces off, tipping his hat with a grin the color of old piano keys.
+crooked_man [smile]: Congratulations on the house, my dears. The lady upstairs has left the stage for good, and the old place has never been so grateful for its guests.
+if flag.road_hair_given
+crooked_man [sly]: And thank you for that lovely lock of hair at the crossing. It has been passed along to someone who will keep it somewhere very warm indeed.
+endif
+if flag.road_child_lost
+crooked_man [sad]: Alas, the little one in the orange shawl took the wrong fork in the dark. Do not fret, my dears, for the wood always looks after its own.
+elif flag.road_child_home
+crooked_man [smile]: The little one in the orange shawl made it home safe and sound, what a credit to you. Children never do forget a kindly face, you know.
+endif
+if flag.road_shrine_robbed
+crooked_man [sly]: Oh, and the Queen did notice her coins went missing from the hollow oak. She keeps accounts too, my dears, very old and careful ones.
+endif
+interject name:rook_coldwake: Him again, though I'd sooner see that one laid under six feet of good clay.
+interject name:delphine_ravelle: A hat like that and such a grin, darling, he is really milking the entrance.
+* What do you want with us? -> ah_want
+* Draw weapons and strike him down. -> ah_strike
+* Say nothing and walk on past him. -> ah_walk
+
+~ ah_want
+crooked_man [smile]: Want, my dears, why I want nothing at all. I merely delight in watching good folk go about their good works, for every kind deed is a seed, and I am a patient gardener.
+crooked_man [sly]: There are six candles in this valley that must be blown out before our celebration can begin. I would never ask you to snuff them, of course, because good hearts will do it anyway.
+-> ah_go
+
+~ ah_strike
+Narrator: Cold steel passes clean through him like woodsmoke, and you hear his low laugh driftin' out of the dry heather behind your backs instead.
+crooked_man [smile]: Such admirable vigor, my dears. Do save some of that strength, though, for the road is long and I should hate for you to arrive exhausted.
+-> ah_go
+
+~ ah_walk
+crooked_man [smile]: Walk wherever you please, my dears. You will find the road goes just where I like it to.
+-> ah_go
+
+~ ah_go
+crooked_man [smile]: Until the next curtain rises, then, I remain your humble admirer.
+vanish crooked_man
+Narrator: Where he stood, the dry bracken is pressed flat in the shape of something long lying down in the dirt, and it stays flat as you pass.
+-> END
+
+# --- The first of the Fallen: applause from a milestone ---
+
+~ first_fallen
+if flag.cm_road_fallen
+-> END
+endif
+set cm_road_fallen
+appear crooked_man
+Narrator: Up on a mossy milestone by the ditch sits the tall man in the top hat, his legs crossed at too many joints, clappin' his hands slow: one, two, three.
+if flag.raum_slain
+crooked_man [smile]: Bravo, my dears, bravo. The scarecrow terror of Foxwillow is put out like a tallow candle, and with such exquisite feeling.
+elif flag.renathyr_slain
+crooked_man [smile]: Bravo, my dears, bravo. The red abbot up the mountain has gone to his goddess at last, and he did so dearly want to meet her.
+elif flag.grinning_sinner_slain
+crooked_man [smile]: Bravo, my dears, bravo. Mister Crossroads has finally lost a wager, and the poor fellow never could abide losing.
+else
+crooked_man [smile]: Bravo, my dears, bravo. The weeping Matron by the lake is wept out at last, which is a quiet mercy, really.
+endif
+crooked_man [sly]: That is one of six, my dears. She is counting every single one of them, and each fallen wicked thing is another candle lit upon her cake.
+interject name:lucan_houndstooth: Keep low, there is no scent on him at all, and nothing sitting on a roadside stone should smell of nothing.
+interject name:cordelia_skein: Fascinating, his joints bend both ways at once, and I would give a great deal to examine the bones beneath.
+* Who is this Queen you speak of? -> ff_she
+* Why are you thanking us for this? -> ff_why
+* Leave him sitting on his milestone. -> ff_leave
+
+~ ff_she
+crooked_man [sly]: The Queen, my dears, the true one sleeping under all these dead leaves. She has waited so very long in the dark, and she is nearly hungry enough to wake.
+-> ff_go
+
+~ ff_why
+crooked_man [smile]: Because you are doing her work far better than any of her servants ever managed, and all for nothing more than the goodness of your hearts.
+crooked_man [sly]: And you will keep right on doing it, my dears, because the only other choice is to let wicked things live, and good folk never can abide that.
+-> ff_go
+
+~ ff_leave
+crooked_man [smile]: Do keep up the splendid work, my dears. I shall be following your progress along the road with the greatest interest.
+-> ff_go
+
+~ ff_go
+vanish crooked_man
+Narrator: The milestone sits empty in the cold wind, and right over its carved number somebody has scratched a single crooked smile, the stone dust still pale and fresh.
+-> END
+
+# --- Five of six: a note on the signpost ---
+
+~ note
+if flag.cm_note_read
+-> END
+endif
+set cm_note_read
+Narrator: Somebody's gone and nailed a scrap of parchment to the busted signpost with a rusted iron spike. It's addressed to "the heroes of the Hollow" in a tall, looping hand.
+Narrator: Soon as you unfold the paper, the ink starts talkin' right behind your left ear, warm and slow like an old friend leaning in.
+crooked_man [smile]: Five of six, my dears, and only one little candle left burning beneath the fog at Maidenmist. I have every confidence you shall snuff it out before long.
+crooked_man [sly]: Once the dark is complete, Wickermoor shall hold its grand Fool's Day festival. I have taken the liberty of reserving you the very finest seats in the front row.
+interject name:silas_vane: Any man who saves you the front row just wants your face where he can watch it, trust me.
+* Burn the note in the road. -> nt_burn
+* Fold the note and keep it. -> nt_keep
+
+~ nt_burn
+Narrator: The paper catches in a quick green flare that reeks of scorched bone from the crossing, and the grey ash drifts uphill against the wind.
+-> END
+
+~ nt_keep
+Narrator: You tuck the parchment into your coat, and for a good long piece down the road it stays warm against your ribs like a sleeping hound.
+-> END
+
+# --- Four of six: a guest at the fire (a night event) ---
+
+~ fire
+if flag.cm_fire_met
+-> END
+endif
+set cm_fire_met
+appear crooked_man
+Narrator: Whoever's keeping watch looks up through the smoke to find him perched across the embers, long knees drawn up by his ears and pale hands casting no shadow on the dirt.
+crooked_man [smile]: Do forgive the late hour, my dears. A proper host must look in on his guests now and again, and your fire looked so terribly inviting from the road.
+crooked_man [sly]: Four of six are done, which brings us neatly to the interval, does it not? Do stretch your legs and catch your breath before the second act begins.
+interject name:tobin_hayward: The fire's gone dead cold on his side of the ring, and there's white frost creeping up the logs.
+interject name:delphine_ravelle: An interval without a bar is a crime, darling, so tell me what sort of third-rate theatre you are running.
+* What happens when all six candles are out? -> cf_six
+* Tell us how Lord Phillip and Lady Adela are faring. -> cf_couple
+* [if flag.road_hair_given] Give us back the hair we traded on the road. -> cf_hair
+* Hurl a burning branch straight at his grin. -> cf_throw
+* Get away from our camp and leave us be. -> cf_leave
+
+~ cf_six
+crooked_man [smile]: Why, a celebration, naturally. The entire valley is invited to the gala, and our guest of honour has been waiting in the dark for a very long time.
+crooked_man [sly]: I would never dream of spoiling the surprise before the curtain rises, my dears. That would be unforgivably rude of me.
+-> cf_go
+
+~ cf_couple
+crooked_man [sly]: The good Lord and Lady are quite well, for the moment. Dear Lady Adela dreams such exquisite things, and I have been reading every vision right over her shoulder.
+-> cf_go
+
+~ cf_hair
+crooked_man [smile]: Oh, your little keepsake is quite safe, I assure you. It has been woven into something truly lovely, and you shall admire the craftsmanship when the hour arrives.
+-> cf_go
+
+~ cf_throw
+Narrator: The blazing branch sails clean through his coat without catching, lands in the white frost behind him, and dies with a wet hiss.
+crooked_man [smile]: Oh, well struck, my dears! Such marvellous spirit is precisely why you remain my very favourite company.
+-> cf_go
+
+~ cf_leave
+crooked_man [smile]: Of course, forgive my imposition. A polite guest knows better than to overstay his welcome, and so does a host.
+-> cf_go
+
+~ cf_go
+crooked_man [smile]: Goodnight to you, my dears. Rest easy while you may, for the road ahead is long and the second act is by far the finer one.
+vanish crooked_man
+Narrator: The flames snap blue for the space of a breath before settlin' back to orange, though the frost in the dirt takes a good hour to thaw.
+-> END
+
+# --- Six of six: the last visit before Fool's Day (a night event) ---
+
+~ last_fire
+if flag.cm_last_fire_met
+-> END
+endif
+set cm_last_fire_met
+appear crooked_man
+Narrator: In the small, dead hours before dawn, he's standing right behind the night watch, holding his bent top hat against his ribs like a mourner by an open grave.
+crooked_man [sad]: All six are out at last, my dears, every single candle. She is awake in the dark now, and she asked me to thank you from the very bottom of her heart.
+crooked_man [smile]: Fool's Day comes to Wickermoor very soon now. There will be music and a grand parade, and the good Lord and Lady shall have the finest seats in the house.
+interject name:rook_coldwake: He talks just like an undertaker measuring a box before the body's even cold, and I know the breed.
+interject name:cordelia_skein: Being thanked so politely by a shade is fascinating, though I believe I would much rather have been cursed.
+* We will stop whatever you and your Queen have planned. -> lf_defy
+* What does your Queen want with Phillip and Adela? -> lf_couple
+* Say nothing and let him speak. -> lf_silent
+
+~ lf_defy
+crooked_man [smile]: Bravo, my dears, bravo. That fierce resolve is precisely what I am counting on, and you have never once disappointed me.
+approve rook_coldwake +1 tobin_hayward +1 lucan_houndstooth +1: You told the Crooked Man to his face that you would stop him
+-> lf_go
+
+~ lf_couple
+crooked_man [sly]: Every truly memorable tale concludes with either a wedding or a roaring fire, my dears. I have always preferred to arrange for both.
+-> lf_go
+
+~ lf_silent
+crooked_man [smile]: How wonderfully poised you are tonight. A hushed audience is always the most attentive kind, my dears.
+-> lf_go
+
+~ lf_go
+crooked_man [smile]: The curtain rises on Wickermoor very soon now, my dears. Do make sure you are not late for your cue.
+vanish crooked_man
+Narrator: Come morning, the cold ash is ringed with long, narrow footprints pressed deep into the frost, and every last one of them points backwards.
+-> END

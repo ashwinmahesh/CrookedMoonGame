@@ -100,7 +100,7 @@ static func _flagged(c: Combatant, flag: String) -> bool:
 func _call(c: Combatant, m: Monster, near: Vector2i) -> Combatant:
 	var e := enc()
 	var size := CombatGrid.size_cells_for(m.size)
-	var spot := e.spells._free_cell_near(near, size)
+	var spot := _spot_beside(near, size)
 	var sc := e.add(m, &"guest" if c.side == &"party" else c.side, spot)
 	sc.controller = c.controller
 	sc.set_meta("summoner", c.id)
@@ -112,6 +112,24 @@ func _call(c: Combatant, m: Monster, near: Vector2i) -> Combatant:
 		e.insert_after(c, sc)
 	e.events.append({"type": "summon_creature", "id": sc.id, "cell": spot, "caster": c.id})
 	return sc
+
+
+## The free square for a creature `size` across that sits closest to `near`: a steed called beside its rider is within the
+## 5 ft Mount needs, not the first free corner in a scan that may leave a gap.
+func _spot_beside(near: Vector2i, size: int) -> Vector2i:
+	var e := enc()
+	var best := e.spells._free_cell_near(near, size)
+	var best_gap := e.grid.distance_ft(near, 1, best, size) if e.spells._room_for(best, size) else 1 << 30
+	for dx in range(-4, 5):
+		for dy in range(-4, 5):
+			var cand := near + Vector2i(dx, dy)
+			if not e.spells._room_for(cand, size):
+				continue
+			var gap := e.grid.distance_ft(near, 1, cand, size)
+			if gap < best_gap:
+				best_gap = gap
+				best = cand
+	return best
 
 
 ## Sends `s` away (its rider, if any, steps down beside it first).

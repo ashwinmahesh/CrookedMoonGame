@@ -18,6 +18,7 @@ Narrator: Rain patters on four warped skiffs moored beside your boat, enough tim
 * [ends:amos_cousin] [ends:the_lethic_antidote if quest.the_lethic_antidote == learned] Row home without Catherine -> farewell_leave
 
 ~ farewell_go
+approve tobin_hayward +3 rook_coldwake +3 silas_vane +2: You rowed Catherine and the rescued patients safely home
 Narrator: Oars bite the grey lake water, and the rescued patients sit huddled in damp wool, watching the red brick island shrink into mist.
 if not flag.godlee_fate
 set godlee_fate = "fled"
@@ -31,6 +32,7 @@ move wickermoor_village
 -> END
 
 ~ farewell_leave
+approve rook_coldwake -5 tobin_hayward -4 lucan_houndstooth -3: You abandoned Catherine Winthrop behind on the island
 Narrator: The oars bite the grey water, and one seat in the stern stays empty. Behind you the isle keeps its violet windows, and somewhere in them a woman holds her left arm.
 if not flag.godlee_fate
 set godlee_fate = "fled"
@@ -49,6 +51,7 @@ gold +50
 if flag.amos_cousin_cured
 catherine_winthrop [weary]: I know the smell of wet hay and our old porch, though this left arm still feels borrowed from a stranger. You gave me back my name.
 amos_dority [smile]: She knows me, and she knows the farm, even if the island left its mark on her. The village families pooled fifty gold pieces for the folk you brought home.
+interject name:rook_coldwake: Properly signed out and returned to her family. That's a clean entry.
 quest amos_cousin home_cured
 endif
 if not flag.amos_cousin_cured
@@ -67,6 +70,7 @@ quest all_is_well back_in_wickermoor
 
 ~ mayor_amulet
 wendel_somerton [smile]: Word has reached the Council that you broke that dreadful sanatorium's hold and recovered a working remedy. Sign this receipt in triplicate, and take this emerald oak leaf, our parish's heirloom Amulet of Health.
+interject name:rook_coldwake: Receipts in triplicate and a stamped ledger. Finally, a magistrate who respects regulation.
 give amulet_of_health
 set mayor_amulet_given
 -> END

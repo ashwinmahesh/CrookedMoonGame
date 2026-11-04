@@ -1,0 +1,94 @@
+# Party banter, act 2 (story/banter.gd): one exchange between two or three companions, played now and then on entering an area, once each. Every node opens
+# with its act's gate and both speakers, so an exchange that can't be heard comes out empty and is skipped; any file named party_* plays anywhere.
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+
+~ act2_01_silas_delphine
+if name:silas_vane and name:delphine_ravelle and flag.vessla_slain and flag.act2_done < 5
+interject name:silas_vane: Three-card monte is all in the wrist, friend, though your floating chap over your shoulder keeps mouthing where the queen went.
+interject name:delphine_ravelle: Your Foolishness has no lips to mouth with, and he only cheats the house when the billing is dull.
+interject name:silas_vane: Tell's in the twitch, and we both signed our names in the fine print before the Express ever hit the valley.
+interject name:delphine_ravelle: At least your creditor stays out of sight, Silas, while mine critiques my needlework from the cheap seats.
+interject name:silas_vane: Keep your stitches tight, Delphine. When the tab comes due, we'll burn the whole casino down together.
+endif
+-> END
+
+~ act2_02_tobin_cordelia
+if name:tobin_hayward and name:cordelia_skein and flag.vessla_slain and flag.act2_done < 5
+interject name:tobin_hayward: Leave off the crimson thread, Cordelia, I am binding this scrape with damp bog-moss before the night air sours it.
+interject name:cordelia_skein: Do hold still, this will only tingle, and I cannot let prime arterial viscosity clot under a clump of wet peat.
+interject name:tobin_hayward: You treat your friends like prize turnips at a county fair, always prodding the rind to see what oozes.
+interject name:cordelia_skein: Be reasonable, darling, I offered you two vials of distilled reagent for a single thimble of your heart-sap.
+interject name:tobin_hayward: My sap stays inside my seams where it belongs. Now tuck your extra sleeves in before you snag a bramble.
+endif
+-> END
+
+~ act2_03_delphine_rook
+if name:delphine_ravelle and name:rook_coldwake and flag.vessla_slain and flag.act2_done < 5
+interject name:delphine_ravelle: Mind the seams, darling, this road past the Crooked House is all slick clay, and my hem is taking on mud.
+interject name:rook_coldwake: Culvert's blocked three yards back, big surprise. Watch the ditch, the verge has no proper retaining wall.
+interject name:delphine_ravelle: In Picco we laid red velvet down when the ground misbehaved, Rook, we did not issue the puddles a summons.
+interject name:rook_coldwake: Velvet's poor for drainage, Delphine, holds the damp right against the masonry. Keep by my shield till the gravel starts.
+interject name:delphine_ravelle: A gentleman with a brass door-knocker on his arm. If it clacks by itself again, I am bowing to the ditch.
+endif
+-> END
+
+~ act2_04_lucan_tobin
+if name:lucan_houndstooth and name:tobin_hayward and flag.vessla_slain and flag.act2_done < 5
+interject name:lucan_houndstooth: Forgive the liberty, Tobin, yet your burlap carries a most distinguished bouquet today. Nine out of ten for rustic comfort.
+interject name:tobin_hayward: That is dried yarrow, three field mice in the lapel, and a trace of sour turnip from the ditch.
+interject name:lucan_houndstooth: A subtle vintage, if you please, and you will notice Barnaby never once attempts to chew your hem.
+interject name:tobin_hayward: He knows if he pulls a single thread loose, I'll weave a little straw hound and flick its ears.
+interject name:lucan_houndstooth: Good heavens, do not tell him that. He already suspects the thunder of personal malice.
+endif
+-> END
+
+~ act2_05_cordelia_rook
+if name:cordelia_skein and name:rook_coldwake and flag.vessla_slain and flag.act2_done < 5
+interject name:cordelia_skein: Rook, darling, my six eyes are quite certain your chest has not risen since we passed the last milestone.
+interject name:rook_coldwake: Aye, well, the shift log was full and it slipped my mind. Give me a second to draw a proper draught.
+interject name:cordelia_skein: Fascinating pathology! If you have no pulse to chart, perhaps you would let me assay that grave-wax on your knuckles?
+interject name:rook_coldwake: That wax is regulation issue for frostbite and soft joints, Cordelia, not a specimen for your glass vials.
+interject name:cordelia_skein: A pity, though if your fingers ever do thaw too far, I promise to calibrate the antidote before locking the gate.
+endif
+-> END
+
+~ act2_06_lucan_cordelia
+if name:lucan_houndstooth and name:cordelia_skein and flag.vessla_slain and flag.act2_done < 5
+interject name:lucan_houndstooth: Your silk notes vanish into blood-mist within the hour, Cordelia, whereas a leather journal preserves a specimen's grade for posterity.
+interject name:cordelia_skein: Grading a horror seven out of ten for posture is hardly peer-reviewed anatomy, darling, even in foggy Edwardia.
+interject name:lucan_houndstooth: Posture reveals the whole temperament of the quarry. Wait, why are all six of your eyes clicking at Barnaby?
+interject name:cordelia_skein: Spectral canine ectoplasm has a delightful sheen, Lucan, and he just yipped at a patch of wild mushrooms.
+interject name:lucan_houndstooth: Hush now, the dark has teeth, or possibly someone dropped a piece of cheese along the cart track.
+endif
+-> END
+
+~ act2_07_tobin_silas
+if name:tobin_hayward and name:silas_vane and flag.vessla_slain and flag.act2_done < 5
+interject name:tobin_hayward: Hold still, you're fraying, or rather that brass censer of yours is throwing sparks two inches from my dry collar.
+interject name:silas_vane: Easy, I shortened the chain three links and hauled a full bucket from the ditch just in case I sneeze.
+interject name:tobin_hayward: Your bitter herbs smell like the fake gout tonics they peddle off the back of a painted wagon.
+interject name:silas_vane: Best dockside cure in Kalero, Tobin, guaranteed to clear the lungs, assuming the customer still has a pair.
+interject name:tobin_hayward: Stick to bone cards, Silas. Leave the curing to folk who know a taproot from a tinderbox.
+endif
+-> END
+
+~ act2_08_tobin_cordelia_lucan
+if name:tobin_hayward and name:cordelia_skein and name:lucan_houndstooth and flag.vessla_slain and flag.act2_done < 5
+interject name:tobin_hayward: This primrose on my left cuff opened another petal since the Crooked House, though the valley soil shouldn't feed a weed.
+interject name:cordelia_skein: A thrilling botanical anomaly, Tobin! Let me clip a single stamen to test the humours against my ruby vials.
+interject name:lucan_houndstooth: Put the lancet away, if you please, Cordelia. One does not prune a gentleman's sleeve while he is on the march.
+interject name:tobin_hayward: Listen to the wolf, girl, or I'll pack your tea-cup with bog-burrs the next time you hang from a branch.
+interject name:cordelia_skein: You are both dreadfully protective of a little chlorophyll, though it does suit the burlap rather well.
+endif
+-> END
+
+~ act2_09_silas_rook_delphine
+if name:silas_vane and name:rook_coldwake and name:delphine_ravelle and flag.vessla_slain and flag.act2_done < 5
+interject name:silas_vane: Rook, friend, I've got twelve chalk tallies inside my ribs since the Express crashed, and your ledger's still on page four.
+interject name:rook_coldwake: Chalk on bone isn't municipal record, Silas, it smudges in the damp and fails audit.
+interject name:delphine_ravelle: And neither of you leaves room for artistic merit, darlings, which is why I collect a shiny button from every monster.
+interject name:rook_coldwake: Unlogged salvage, that is. Though if you're short on thread for them, there's waxed twine in my shield strap.
+interject name:silas_vane: Hear that, Delphine? Keep walking with the Third Barrow Watch and he'll have us both filing receipts by supper.
+endif
+-> END

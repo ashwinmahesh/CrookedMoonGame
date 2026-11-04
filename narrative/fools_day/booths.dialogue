@@ -21,7 +21,9 @@ set found_hive
 -> a_start
 
 ~ a_fight
+approve lucan_houndstooth -2 delphine_ravelle -2: You picked a brawl with a booth keeper instead of playing
 fd_host_apiary [smile]: Oh, sting the keeper if you must, my honeys. The swarm always has another mask waiting in the straw.
+interject name:tobin_hayward: Wading into wet honey ruins good burlap. Ask me how I know.
 Narrator: Even as the keeper raises their hands, you know another smiling worker will step into the spilled honey before the dust settles.
 combat booth_a
 
@@ -184,6 +186,7 @@ fd_host_bell [sly]: Empty velvet, sad and bare! The little silver pea was sleepi
 
 ~ b_caught
 Narrator: Every tiny bell sewn to the host's velvet suit stops ringing at once, leaving a dead, tinny silence across the table.
+interject name:silas_vane: Saw that velvet cuff from across the lane. Rigged from the start.
 fd_host_bell [neutral]: Greedy fingers under the brass. Our Lord up on the pole likes a cheat, though he gives no tickets for it.
 set fd_chuckles_amused
 -> b_start
@@ -205,6 +208,7 @@ fd_host_riddles [neutral]: Choose a riddle from my saddle-scroll and speak the t
 
 ~ c_notice
 Narrator: Loitering near the horse's flank is a figure buckled into cardboard armor, clutching a hymnbook that sings in a strained, papery falsetto.
+interject name:rook_coldwake: Cardboard plate, five degrees past regulation. I'm writing him up.
 set found_knight
 -> c_start
 
@@ -255,6 +259,7 @@ fd_host_riddles [smile]: "I have a face and two hands, but no arms and I cannot 
 * [History DC 15] Recall where the riddle comes from -> c_r1_ok | c_r1_no
 
 ~ c_r1_ok
+approve delphine_ravelle +2 cordelia_skein +1: You solved the carnival knight's first riddle cleanly by wit alone
 set fool_tickets += 2
 fd_host_riddles [smile]: The clock upon the tower, counting out the endless night! Take two tickets from my lance.
 -> c_play
@@ -271,6 +276,7 @@ fd_host_riddles [smile]: "The more of me you take, the more of me you leave behi
 * [History DC 18] Recall the answer -> c_r2_ok | c_r2_no
 
 ~ c_r2_ok
+approve delphine_ravelle +2 cordelia_skein +2: You answered the riddle of footsteps without resorting to brute force
 set fool_tickets += 5
 fd_host_riddles [smile]: Footsteps in the mire, marching round and round the square! Five whole tickets for a scholar of the road.
 -> c_play
@@ -370,6 +376,7 @@ fd_host_rhythm [weary]: The rhythm breaks and tumbles in the dirt. Shake out you
 -> d_start
 
 ~ d_clap
+approve delphine_ravelle -2 silas_vane -1: You clapped safely from the cheap seats instead of testing the drums
 set fool_tickets += 1
 fd_host_rhythm [sly]: Polite little patty-cake from the cheap seats. Take one ticket for keeping your palms warm.
 -> d_start

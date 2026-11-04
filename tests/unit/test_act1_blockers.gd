@@ -1,7 +1,7 @@
 extends TestCase
 ## What the Act 1 playthrough QA found in the way of finishing the Ghostlight Express (2026-11-01), each kept fixed: a wipe at the Stoker or a
 ## haint ending the game, a retry raising the long dead, the lost locomotive fight left "started" so the wreck refused every
-## rest, a find all four heroes missed lost for good, and the lamps' check-in stopping the first walk in every car.
+## rest, a find all four heroes missed lost for good, and the lamps' check-in stopping the first walk in every car (now gone: they never call).
 
 const CARS: Array[String] = ["ghostlight_g1_passenger", "ghostlight_g2_sleeper", "ghostlight_g3_lounge", "ghostlight_g4_dining",
 	"ghostlight_g5_mail", "ghostlight_g6_baggage", "ghostlight_g7_circus", "ghostlight_g8_tender"]
@@ -85,22 +85,13 @@ func test_a_missed_find_can_be_searched_for_again_after_a_rest() -> void:
 	assert_true(bool(found.get("g1_other_find", false)), "what was found stays found")
 
 
-func test_the_lamps_call_only_when_the_vagrant_has_something_to_say() -> void:
-	var st := _party(1)
-	st.set_flag("gl_vagrant_briefed")
+## Ashwin, 2026-11-03: nothing in the opening act talks unasked. The lamps no longer bring the Vagrant's check-ins at all (each
+## haint's own talk ends in them, and the grille gives them on a click), so they never stop a walk.
+func test_the_lamps_never_call() -> void:
 	for car in CARS:
 		for p: Variant in Compendium.shared().get_entry("locations", car).get("props", []):
 			var prop := p as Dictionary
-			if str(prop.get("call", "")) != "ghostlight_express/vagrant_intercom:router":
-				continue
-			var when := str(prop.get("call_when", ""))
-			assert_false(StoryConditions.check(when, st), "%s: nothing to say yet, so no call" % prop["id"])
-			st.set_flag("haints_resolved", 1)
-			assert_true(StoryConditions.check(when, st), "%s: the first haint's check-in" % prop["id"])
-			st.set_flag("gl_checkin_first")
-			assert_false(StoryConditions.check(when, st), "%s: said already" % prop["id"])
-			st.flags.erase("haints_resolved")
-			st.flags.erase("gl_checkin_first")
+			assert_true(str(prop.get("call", "")) != "ghostlight_express/vagrant_intercom:router", "%s: no check-in on walking past" % prop["id"])
 
 
 # --- Death on the train ---------------------------------------------------------------------------------------------

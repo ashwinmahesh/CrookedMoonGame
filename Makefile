@@ -26,7 +26,7 @@ FRESH   := if [ ! -f $(STAMP) ] || [ -n "$$(find . \( -path ./.godot -o -path ./
 ## It also brings the engine core up to the commit this checkout names first (tools/core_sync.sh): git pull doesn't.
 PLAYFRESH := export GODOT_SLOTS=off; tools/core_sync.sh; $(FRESH)
 
-.PHONY: run run-main arena anim-demo smoke import test lint validate ci check lfs-quiet palette capture sketch hooks golden-saves tools-test voice-wire cheat-codes
+.PHONY: run run-main arena anim-demo smoke import test lint validate ci check lfs-quiet palette capture sketch hooks golden-saves tools-test voice-wire cheat-codes icons
 
 ## make run plays the edge build (tools/edge/edge.py): main plus every lane branch that has been handed off but not merged
 ## yet, assembled in a throwaway worktree (CrookedMoonGame-edge, in the SSD lanes' image), so lane work can be tried as soon
@@ -203,6 +203,7 @@ validate:
 	python3 tools/data/check_rules_docs.py
 	python3 tools/art/rig_facing.py --check
 	python3 tools/data/cheat_codes.py --check
+	python3 tools/art/audit_icons.py
 
 ## Every playable item's cheat code (Curse of Strahd's list, ported): docs/cheat_codes.md and Cheat Codes.md in the vault,
 ## rebuilt from the item data (tools/data/cheat_codes.py). Run it after adding or renaming items.
@@ -225,6 +226,13 @@ check:
 ## The palette files from the list in tools/art/build_palette.py (art/palette/*.json, .gpl and the strip the screen pass reads).
 palette:
 	python3 tools/art/build_palette.py
+
+## Our spell, item and ability tiles (art/icons/<kind>/<key>.png) from art/icons.json, a game-icons.net silhouette and a
+## tint per key, framed in the menu palette by the core's tools/art/build_icons.gd; the core's own tiles are left alone.
+## Then make import. tools/art/audit_icons.py (in make validate) lists any spell, item or ability of ours without a tile.
+icons:
+	$(G) --headless --script res://addons/dnd_core/tools/art/build_icons.gd -- --game 2>&1 | grep -E '^icons:'
+	python3 tools/art/audit_icons.py
 
 ## Writes screenshots to captures/ from a window that never takes focus or shows: it opens 1 px wide in a corner, moves off
 ## screen and is drawn by tools/capture (silent, 60 fps). LOCATION=<id> starts the story game there. The default scene is the

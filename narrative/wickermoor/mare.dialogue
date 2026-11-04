@@ -2,86 +2,86 @@
 
 ~ start
 Narrator: A broken halter dangles from the post, and the damp straw of the third stall is still warm.
-marianna_grey [afraid]: The clocktower tolled and my grey mare Clover bolted straight up the northern moor road. Find her before the wolves do, and you will have my goodwill and three days free horse hire.
+marianna_grey [afraid]: The clocktower tolled and my grey mare Clover bolted up the northern moor road. Find her before the wolves do for my goodwill and three days free horse hire.
 * We will find her -> accept
 * Ask what Clover is like -> about
 * Not now -> END
 
 ~ about
-marianna_grey [neutral]: She is gentle as rain, just terribly skittish around flapping cloaks. Hold out a handful of dry oats and she will come right to your palm.
+marianna_grey [neutral]: She is gentle, just skittish around flapping cloaks. Offer a handful of dry oats and she will come to your palm.
 -> start
 
 ~ accept
-marianna_grey [weary]: Mind the ditches out there. The fog hides the ruts, and she has got only one good shoe on her forelegs.
+marianna_grey [weary]: Mind the ditches. Fog hides the ruts, and she has only one good front shoe.
 quest the_grey_mare asked
 set mare_asked
 -> END
 
 ~ progress
-marianna_grey [weary]: Empty halter in my hand and wind rising off the heather. Have you seen a hide or hair of her yet?
+marianna_grey [weary]: Empty halter in hand and wind rising. Seen hide or hair of her yet?
 * Any advice? -> advice
 * [ends:the_grey_mare] We could not find her -> give_up
 * Leave -> END
 
 ~ advice
-marianna_grey [neutral]: Keep your cloaks tucked in and shake a pouch of oats if you get close. If the mud hides her prints, fetch Hilda Brom.
+marianna_grey [neutral]: Tuck in your cloaks and shake a pouch of oats when close. If mud hides her prints, fetch Hilda Brom.
 -> progress
 
 ~ give_up
-marianna_grey [sad]: I see. Best I latch the third stall shut then, and save the clean straw for the horses that are left.
+marianna_grey [sad]: I see. Best I latch the third stall shut and save the straw for the horses left.
 quest the_grey_mare lost
 set mare_lost
 standing patient_lady -1
 -> END
 
 ~ tracks
-Narrator: Deep, crescent hoofprints score the wet peat along the northern verge, filling slowly with black moor water.
+Narrator: Crescent hoofprints score the wet peat along the northern verge, filling with black moor water.
 * [Survival DC 12] Follow them -> tracks_ok | tracks_fail
 * Ask Hilda Brom to track her instead -> tracks_hilda
 * Leave -> END
 
 ~ tracks_ok
-Narrator: Scuffed moss and snapped gorse stems mark a stumbling path toward a dark bramble thicket beside the north wall.
+Narrator: Scuffed moss and snapped gorse mark a stumbling path toward a bramble thicket by the north wall.
 set mare_found
 quest the_grey_mare found
 -> END
 
 ~ tracks_fail
-Narrator: The hoofprints vanish into a boggy churn of cart ruts and sheep droppings. Hilda Brom could read this mire better than you.
+Narrator: The hoofprints vanish into boggy cart ruts and sheep droppings. Hilda Brom could read this mire better.
 -> END
 
 ~ tracks_hilda
-hilda_brom [neutral]: Thrown left shoe, panicked stride, dragging her halter rope through the gorse. Look in the thicket by the north wall.
+hilda_brom [neutral]: Thrown left shoe, panicked stride, dragging her halter through the gorse. Check the thicket by the north wall.
 set mare_found
 quest the_grey_mare found
 -> END
 
 ~ mare_there
-Narrator: The dapple-grey mare stands tangled in wet briars by the stones, flanks heaving and ears pinned back at your shadow.
+Narrator: The dapple-grey mare stands tangled in wet briars by the stones, flanks heaving and ears pinned at your shadow.
 * [Animal Handling DC 12] Talk her down -> catch_ok | catch_fail
 * Offer oats from the pack -> catch_oats
 * [Athletics DC 14] Rope her -> catch_ok | catch_fail
 * Leave her -> END
 
 ~ catch_ok
-Narrator: Her trembling eases at your touch, and she lowers her velvet nose enough for {name} to take the frayed halter rope.
+Narrator: Her trembling eases at your touch, and she lowers her nose for {name} to take the frayed rope.
 set mare_caught
 quest the_grey_mare caught
 -> END
 
 ~ catch_fail
-Narrator: She snorts in terror, wrenching free of a briar to bolt a few yards down the wall. A handful of oats might steady her where quick hands failed.
+Narrator: She snorts in terror, wrenching free to bolt down the wall. A handful of oats might steady her where quick hands failed.
 -> END
 
 ~ catch_oats
-Narrator: The dry grain rustles in your palm, and the mare steps out of the thorns to lip the oats from {name}'s fingers.
+Narrator: Dry grain rustles in your palm, and the mare steps from the thorns to lip oats from {name}'s fingers.
 set mare_caught
 quest the_grey_mare caught
 -> END
 
 ~ return
-Narrator: Clover presses her damp forehead against the stablemistress's shoulder, blowing a long, warm breath into her apron.
-marianna_grey [smile]: Look at you, plastered in peat and burs, you foolish old girl. Take this coin for your trouble, friends, and any horse in my yard is yours free for three days.
+Narrator: Clover presses her damp forehead to the stablemistress's shoulder, blowing a warm breath into her apron.
+marianna_grey [smile]: Plastered in peat and burs, you foolish old girl. Take this coin, friends, and any horse in my yard is yours free for three days.
 set mare_returned
 quest the_grey_mare done
 gold +25

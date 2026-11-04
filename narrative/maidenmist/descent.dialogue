@@ -112,6 +112,7 @@ Narrator: A minute of careful scraping coaxes a rope of pale, stinking necrolisk
 -> END
 
 ~ herb_mix
+approve cordelia_skein +2 tobin_hayward +2: You brewed a herbal tincture to sicken the necrolisk before fighting it
 take mm_lavender
 take mm_lilies
 take mm_nightshade
@@ -134,6 +135,7 @@ cutscene mm_stygian_descent
 Narrator: A spiral stair drops into the earth, its walls carved with thousands of open-mouthed faces that seem to breathe a low, endless moan. Iron cressets burn with the sickly blue-green tallow of the Shroud.
 if flag.yorgrim_with_party
 yorgrim [afraid]: My lantern gutters in this air, friends. The dead know my voice, and they curse me in two tongues.
+interject name:silas_vane: Those faces in the wall are rattling my ribs right out of rhythm.
 endif
 check Wisdom DC 15 -> stygian_ok | stygian_fail
 
@@ -165,6 +167,7 @@ set mm_harrowing_begun
 cutscene mm_harrowing
 Narrator: Above the iron-chained platform, the jagged tear in the world churns like a bruised storm cloud. Yorgrim, thin as smoke, lifts his iron lantern toward its roaring throat.
 yorgrim [afraid]: That is my clan crying out from the mist, and every mouth has my name in it.
+interject name:rook_coldwake: Steady. Whatever he's become, we see this shift through.
 Narrator: The lantern gutters out as a shrieking rope of blue-green fog lashes around his throat. Where the old sexton stood rises a towering hooded reaper, a scythe of cold bale-fire in its fists and the chained headstone grinding against its spine.
 set yorgrim_fallen
 leave yorgrim
@@ -182,6 +185,7 @@ set mm_azure_succ = 0
 set mm_azure_miss = 0
 Narrator: Where the giant reaper came apart, only a heavy, soot-blackened lantern rests upon the cold stone. From inside its dark glass comes Yorgrim's faint, tired breath, begging you to read his last rites and let him rest.
 yorgrim [weary]: Speak the last rites over this cold iron lantern, strangers. Lay my spirit down so the ragged tear above us can finally close.
+interject name:lucan_houndstooth: Let us give the old watchman a proper send-off, friends.
 endif
 -> azure_rite
 
@@ -212,6 +216,7 @@ endif
 cutscene mm_tear_sealed
 Narrator: The hooded lantern blazes white-blue until the whole stone vault washes out in blinding light. When your sight clears, the cracked ceiling is whole, the tomb rests in calm azure glow, and every shrieking shrouded is gone.
 yorgrim [smile]: Thank you, strangers, for lifting the heavy stone from my back before the quiet takes me.
+interject name:tobin_hayward: A clean seam overhead at last. Rest easy in the rows, old man.
 xp milestone
 -> END
 

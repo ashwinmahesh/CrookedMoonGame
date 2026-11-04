@@ -1,0 +1,200 @@
+THE NOTE ON SILAS VANE, part 2: the camp talks already written (voice examples: do not repeat their topics or lines) and a Connection scene.
+
+## Camp talks
+
+Three personal talks, drafted by Gemini (briefs `Gemini/brief_B_silas.txt`, raw replies `Gemini/reply_B_silas.json`) and converted by Lane F into the camp-file format: the companion's lines as `interject name:silas:`, long lines split, approvals and flags added (the edit log is in `Gemini/README.md`). They are offered at a camp or after a Long Rest, each plays once, and each takes one of the companion's two words a day; they come after any Strained or Doubtful talk and before the Warm, Close and Devoted talks.
+
+- **Unlocks.** Talk 1 `flag.connection_liberation`. Talk 2 `flag.connection_liberation`, the next word after talk 1; it is where `secret_known_silas` is set, at Warm approval or better, which is what lets another hero pay Silas's dark secret at Raum's gate. Talk 3 `flag.liberation_wild_joker`.
+- **The talks.**
+  1. The tally: a brag over the chalk marks on the inside of his ribs; the turn is the one mark he redraws every night on his breastbone.
+  2. The rattle: hearing a lie in the camp the way bones hear wind; the turn is why a good ear is the one stake nobody can take on account.
+  3. The deck and the censer: a one-handed flourish; the turn is the herbs that keep his creditor blind through his four hours of revelry.
+- **Rules kept.** No roll or check anywhere; every menu has the kind exit "Not now. Rest easy, Silas."; the dark secret is never stated in a camp talk, only approached.
+
+```text
+# Silas's camp talks (narrative/camp/silas.dialogue). Each plays once; the file offers the first talk whose condition holds.
+# Talk 2 opens on the same condition as talk 1 and plays at the next word, so it is heard before Raum's gate in any Act II order.
+# Approval reasons are notice text written by Lane F (mechanical), not Gemini lines; deltas follow the engine's size guide.
+
+~ talk_silas_tally
+if name:silas and flag.connection_liberation
+-> camp_silas_1
+endif
+-> END
+
+~ talk_silas_nose
+if name:silas and flag.connection_liberation
+-> camp_silas_2
+endif
+-> END
+
+~ talk_silas_deck_and_censer
+if name:silas and flag.liberation_wild_joker
+-> camp_silas_3
+endif
+-> END
+
+~ camp_silas_1
+interject name:silas: Mind the ribs, friend, that's a live ledger you're leaning near.
+interject name:silas: Every little chalk stripe down the length is a con pulled, a favour owed, or a sucker who folded early.
+* What's your best mark? -> t1_best
+* How many marks are there? -> t1_count
+* Not now. Rest easy, Silas. -> END
+
+~ t1_best
+interject name:silas: Third rib from the top, sold a Kalero guild chief his own brass censer twice in one afternoon.
+interject name:silas: Plucked it off his belt while he was sniffing my palm for plague-vinegar. Walked out the front gate jingling his own coin before the lock even clicked.
+-> t1_turn
+
+~ t1_count
+interject name:silas: Stopped counting at forty, friend, because a good hustler only tracks the tabs that pay out.
+interject name:silas: Ten favours for every stiff in the ditch, since a corpse never covers your stake when the house collects. Call it creative book-keeping on a moving page.
+-> t1_turn
+
+~ t1_turn
+interject name:silas: Most of this chalk rubs off in the hollow's damp anyway, and good riddance to old scores.
+interject name:silas: Only got one mark I bother keeping bright, right here on the breastbone where the chalk wears thin.
+interject name:silas: Redraw that stripe fresh every night before I shut my eyes so the rain never takes it.
+* Whose is that one? -> t1_whose
+* Then it's worth the chalk. -> t1_close
+* Rest easy, Silas. -> END
+
+~ t1_whose
+interject name:silas: Nobody who's buying us dinner tonight, friend, so keep your eyes out of the fine print. That's one tab inside the ribs that isn't mine to wipe.
+approve silas +2: You asked "Whose is that one?"
+-> t1_close
+
+~ t1_close
+interject name:silas: Look at that, bone cards already shuffling themselves and the night's barely dealt a hand. Keep your pockets buttoned by the fire, friend, or I'll chalk you up for practice.
+approve silas +1: You sat with me at the fire
+-> END
+
+~ camp_silas_2
+interject name:silas: One rattle through the ribs and I can tell you this hollow's dealing a crooked hand tonight, friend. Even my little shadow's clicking its teeth a half-step behind me.
+* Grade this camp for us. -> t2_grade
+* How'd you learn to hear a lie like that? -> t2_learn
+* Not now. Rest easy, Silas. -> END
+
+~ t2_grade
+interject name:silas: Call it a late-autumn Wickermoor reserve, bold and utterly unfit for the table. Heavy top-note of sour swamp-water, middle palate of wet grave-mould clinging to the boots.
+interject name:silas: Lingers on a dry woodsmoke finish that says the firewood died angry.
+-> t2_turn
+
+~ t2_learn
+interject name:silas: Learned it before I could reach the top of a card table, back in Kalero.
+interject name:silas: Up there the clean wind always blew over somebody else's roofs, where the guild bosses kept their shutters tight.
+interject name:silas: Down in our lanes, you learned to read the wind that blew over yours or you didn't see winter.
+-> t2_turn
+
+~ t2_turn
+interject name:silas: Tell's in the twitch, friend, and the air always twitches before the knife comes out.
+interject name:silas: Cards can be marked, shadows can cheat your blind side, and any tab can double overnight. A good ear is the one stake nobody can take on account.
+* [if not (approval.silas >= warm)] Who'd you learn it with? -> t2_who
+* [if approval.silas >= warm] Who'd you learn it with? -> t2_who_open
+* That's a good ear to have. -> t2_close
+* Rest easy, Silas. -> END
+
+~ t2_who
+interject name:silas: Just the river-rats and the street dogs, and the dogs always folded first. Don't go digging through the ash-heap for old history, friend, the chill's bad enough right here.
+approve silas +2: You asked "Who'd you learn it with?"
+-> t2_close
+
+~ t2_who_open
+set secret_known_silas
+interject name:silas: Had a little brother who could read the Kalero river three bends off, better than I ever did.
+interject name:silas: Kid could name the rot on a guild collector's coat before the man even turned the corner. I did something that cost him, friend, and that's where the story stops.
+approve silas +3: You asked "Who'd you learn it with?"
+-> t2_close
+
+~ t2_close
+interject name:silas: Now watch my shadow's fingers if you're sitting close, because the little double's been palming kindling all evening.
+interject name:silas: Get some rest before I start charging rent on the clean side of the smoke.
+approve silas +1: You sat with me at the fire
+-> END
+
+~ camp_silas_3
+interject name:silas: Step right up, friend, I'm giving my shadow a free lesson in the one-handed bone-card cut. Even the ghost train's old tracks haven't seen a shuffle this clean.
+* Teach us the flourish. -> t3_flourish
+* Why does the censer rattle on its own? -> t3_censer
+* Not now. Rest easy, Silas. -> END
+
+~ t3_flourish
+interject name:silas: Pinch the bone deck by the corners, hook the bottom half with your pinky, and let the trump snap over the knuckle.
+interject name:silas: Do it fast enough and the mark watches your thumb while your shadow palms the stake off the table.
+interject name:silas: Only catch is if you drop a card, the house takes a finger for the trouble.
+-> t3_turn
+
+~ t3_censer
+interject name:silas: Brass always chatters when the Dealer leans too close to the chain, friend, checking up on his open accounts.
+interject name:silas: That little censer's his eye, and he doesn't blink unless I pack the grate tight with bitter herb.
+interject name:silas: Keep the smoke thick enough and the old swindler stays blind to which way we're walking.
+-> t3_turn
+
+~ t3_turn
+interject name:silas: Funny thing about that Wild Joker's wager is it makes the brass burn twice as hot after midnight.
+interject name:silas: Takes a full fistful of bitter herb to keep the Dealer blind through four straight hours of revelry.
+interject name:silas: Cheaper on the pouch to take my rest in twenty-minute shifts and feed the chain between hands.
+* We'll keep watch while you revel. -> t3_watch
+* How long have you done that? -> t3_long
+* Rest easy, Silas. -> END
+
+~ t3_watch
+interject name:silas: Careful offering free favours around a hustler, friend, or I'll have you feeding the brass till dawn.
+interject name:silas: Still, if you push a pinch of herb into the grate when the chain rattles, I won't argue the odds.
+approve silas +2: You said "We'll keep watch while you revel"
+-> t3_close
+
+~ t3_long
+interject name:silas: Long enough that I don't remember what a full night's hand feels like. Nothing a fast shuffle and a fresh coal won't cover, though, so don't look so grim.
+approve silas +2: You asked "How long have you done that?"
+-> t3_close
+
+~ t3_close
+interject name:silas: Listen to those bone slivers click into the shoe, smooth as river-ice. Keep your eyes on the fire, friend, and I'll catch twenty winks with one ear cocked.
+approve silas +1: You sat with me at the fire
+-> END
+```
+
+## The Connection scene (dialogue draft)
+
+Holly Aster's meeting with Silas, drafted the same way and converted the same way. It is a few nodes in Holly Aster's own conversation file, started by the trigger in beat 2. Bless for a day, the ally and the Heroic Inspiration are rewards the Fateweaving statements will give (listed in the overview); the `set` and `attitude` lines are the ones the grammar has today.
+
+```text
+# Silas meets Holly Aster (a node of Holly Aster's own conversation file; the trigger is in the beat above).
+# Bless for a day and Heroic Inspiration need the Fateweaving statements the overview lists; they are not written here.
+
+~ holly_silas_start
+holly_aster [smile]: Take this loaf while the crust is still singing, before Violet and Lavender turn my cooling racks into a fort.
+holly_aster [smile]: Don't mind your little shadow tapping at my wrist, it's only a grey spade-mark I've carried since the cradle.
+holly_aster [smile]: An unseen creditor holds the deed to my thirty-fifth birthday, and the only ledger office floats on that neon riverboat at the Drowned Crossroads.
+interject name:silas: One taste on the draught says toasted caraway, woodsmoke, and a very familiar landlord writing in the margins, friend.
+interject name:silas: My shadow only taps a mark when it recognizes the house ink on the skin.
+* We'll tear your page out too. -> holly_oath
+* What did the creditor take for it? -> holly_price
+* Take the loaf. Leave her in peace. -> holly_loaf
+
+~ holly_oath
+holly_aster [afraid]: Keep your voice down over the oven's roar, or my girls will think we're telling ghost stories before supper.
+holly_aster [afraid]: If you're truly boarding that riverboat, don't let him deal you from the bottom of the shoe.
+interject name:silas: House always wins, unless you burn the house, and I brought plenty of dry kindling, friend.
+-> holly_close
+
+~ holly_price
+holly_aster [sad]: Every woman in my line gets thirty-five bright years to bake the bread and raise the girls, and then the tab comes due.
+holly_aster [sad]: My mother paid it, her mother paid it, and my birthday falls in just a few weeks.
+interject name:silas: Sounds like a rigged game passed down the table, and I never could stand a crooked shoe.
+-> holly_close
+
+~ holly_loaf
+holly_aster [smile]: That's sensible talk, because a warm rye loaf is a much safer thing to carry than a baker's bad luck.
+interject name:silas: Never walked away from a marked table yet, friend, even when I'm just buying the bread.
+-> holly_close
+
+~ holly_close
+holly_aster [smile]: Hold out your palm and take this pinch of blessed hearth-salt, the Old Ways say it keeps a creditor's ink from drying.
+holly_aster [smile]: Now eat that crust before it cools, or I'll charge you double just for standing in my flour.
+set connection_liberation
+attitude holly_aster friendly
+set liberation_holly_page_seen
+-> END
+```

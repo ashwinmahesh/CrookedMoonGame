@@ -1,0 +1,151 @@
+You are drafting DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue, skill checks, a storyteller Narrator). It is folk horror set in Druskenvald, an afterlife realm of endless night under a gargantuan crescent moon with a leering crone's face; an autumn that never ends, pumpkins and bonfires and dead leaves everywhere, but the stakes are real. Humour is deadpan and sits beside the dread. Use only the names given here; invent no new named people, places, monsters or history.
+
+THE PARTY: the player leads four heroes; never name, describe or gender the player's heroes. Some of the party may be these companions, who speak only in the `interject` lines written for them (each line is said only if that companion is present, so it must make sense on its own and never answer another companion's line):
+- rook_coldwake: Rook, a Graveborn (undead) fighter, a graveyard rest warden; dry, level, practical, union-minded, cares that the dead are laid to rest properly; few words.
+- tobin_hayward: Tobin, a Harvestborn (living scarecrow of wicker and straw) druid; brisk, warm, country-wise, talks about rot, roots, harvests and neighbours; kind under the sharp tongue.
+- silas_vane: Silas, a Relicborn (skeleton-folk) monk and card sharp from river landings; fast, cocky, thinks in odds, bets and marks.
+- delphine_ravelle: Delphine, a Threadborn (living patchwork doll) warlock; theatrical vaudeville showwoman, says "darling", treats horror as a third-rate sideshow she means to headline.
+- lucan_houndstooth: Lucan, a Curseborn (wolf-man) ranger and monster hunter; hushed and earnest, narrates danger like a nature broadcaster, notices scents and tracks.
+- cordelia_skein: Cordelia, a Silkborn (spider-folk) sorcerer; cool, cultivated, clinical, delighted by anything morbid as a subject of study.
+
+RULES FOR THE TEXT
+- Spoken lines: 1 to 3 short sentences, about 12 to 30 words, never over 40. Contractions are normal. People talk in their own voice and do not explain the plot to the audience. Accent is word choice and rhythm, never phonetic spelling. Country folk of the Hollow speak with a folksy country drawl in their word choice.
+- Interject lines: one sentence, under 20 words.
+- Option lines (what the player's party says or does): under 12 words, plain, in the party's voice ("We..." or an imperative).
+- Narrator lines (the Vagrant, an old train conductor telling the tale afterwards: warm, folksy, wry, a Southern drawl in word choice such as reckon, ain't, folks, a spell, a piece; drop a final g in at most one line in three): second person, present tense, one or two sentences, only what a hero could perceive, concrete senses (smell, sound, texture, cold), no game words (HP, roll, level, check, DC, save, hit points), never tell the player what to feel, never the word "suddenly", never mention a fiddle, never name the Vagrant.
+- No stage directions, asterisks, italics, brackets, placeholders, emoji or em dashes (use commas, periods, colons). Straight quotes only. Do not use the arrow characters -> or => inside the text.
+- Content is dark but restrained: no gore, no graphic detail.
+- Each brief says what the line must do; keep its facts, write it as the speaker would say it.
+
+THIS SCENE: short meetings on the roads of Wickermoor Hollow in Act I, played while the party travels between places on the map. The party arrived by the Ghostlight Express, a ghost train that carries the dead; tonight a shade sabotaged it and it came down in an oak wood, and its dead passengers are scattered, some lost, some turned grey and hostile by the Shroud (a devouring white mist). The nearest town is Wickermoor Village, a timber-framed village round a square with an oak of carved faces. Most villagers follow the Old Ways and worship the Green Queen (a leafy woman's face on their shrines; once a kindly mother of the wood; something has gone wrong with her that nobody says aloud, and a few whisper about "the crooked one"). The Brightsingers are newer settlers who dress bright, carry lanterns, sing hymns to the sun and are building a church. On the hill above the village stands the Druskenvald Estate, a pretty manor where Lord Phillip and Lady Adela Druskenvald have invited the party to dinner; its windows sometimes light on the wrong floors.
+
+Speakers (besides the Narrator and the companions above):
+- road_passenger: a dead woman passenger from the Ghostlight Express, in a travelling coat and hat, a ticket in her hand, see-through at the edges; polite, anxious, from somewhere far away; she does not know she is dead and that the train crashed.
+- road_bonfire_keeper: an old Old Ways farmer who tends a bonfire of animal bones where two tracks cross on the moor, to keep the Shroud off the road; friendly, slow, a little too interested in what travellers give the fire.
+- joan_murdoch: Joan Murdoch, a Brightsinger missionary, the preacher's wife; beaming, warm, relentlessly hopeful; she walks the hill road with lanterns and hymns.
+
+The meetings (the [[n]] markers in this file are yours; everything else is fixed):
+
+```
+# --- The Green Queen's shrine ---
+
+~ wayside_shrine
+set road_shrine_met
+Narrator: [[53]]
+interject name:tobin_hayward: [[54]]
+interject name:silas_vane: [[55]]
+-> ws_menu
+
+~ ws_menu
+* [if gold >= 2] [[56]] -> ws_offer
+* [[57]] -> ws_take
+* [if not flag.road_shrine_read] [Religion DC 13] [[58]] -> ws_read | ws_read_fail
+* [[59]] -> END
+
+~ ws_offer
+gold -2
+Narrator: [[60]]
+hit_dice restore 1 party
+-> END
+
+~ ws_take
+set road_shrine_robbed
+gold +6
+Narrator: [[61]]
+disadvantage checks 1h: [[62]]
+approve tobin_hayward -2 silas_vane +1: You emptied the Green Queen's offering bowl
+-> END
+
+~ ws_read
+set road_shrine_read
+Narrator: [[63]]
+Narrator: [[64]]
+-> ws_menu
+
+~ ws_read_fail
+set road_shrine_read
+Narrator: [[65]]
+-> ws_menu
+
+# --- The Brightsingers' lantern walk (the hill road) ---
+
+~ lantern_walk
+set road_lanterns_met
+appear joan_murdoch
+Narrator: [[66]]
+joan_murdoch [smile]: [[67]]
+interject name:delphine_ravelle: [[68]]
+-> lw_menu
+
+~ lw_menu
+* [Performance DC 12] [[69]] -> lw_sing | lw_sing_flat
+* [if not flag.road_lanterns_asked] [[70]] -> lw_ask
+* [[71]] -> lw_leave
+
+~ lw_sing
+Narrator: [[72]]
+joan_murdoch [smile]: [[73]]
+bless party 2h
+approve delphine_ravelle +1 tobin_hayward +1: You sang with the Brightsingers on the hill road
+-> END
+
+~ lw_sing_flat
+Narrator: [[74]]
+joan_murdoch [smile]: [[75]]
+-> END
+
+~ lw_ask
+set road_lanterns_asked
+joan_murdoch: [[76]]
+joan_murdoch [afraid]: [[77]]
+-> lw_menu
+
+~ lw_leave
+joan_murdoch [smile]: [[78]]
+-> END
+```
+
+Briefs for the markers:
+53. narrator: in the hollow of an old oak by the road sits a little shrine: a carved woman's face crowned with leaves, a bowl of coins, a rotten apple and a rag doll
+54. interject tobin_hayward: the Green Queen's face; my mother kept one by the door, though she never would say what it was for
+55. interject silas_vane: there's a bowl of honest money there with nobody minding it; I'm only saying
+56. option: leave two gold pieces in the bowl
+57. option: take the coins
+58. option: study the carving
+59. option: leave it be
+60. narrator: the coins clink in among the others and a breath of warm air comes out of the oak, smelling of cut hay; the ache of the road eases out of your legs
+61. narrator: the coins are cold, colder than they ought to be; when you straighten up the carved face seems to have turned a fraction to watch you
+62. the reason shown for a penalty on the party's checks for an hour, three to six words, about the shrine's eyes on them
+63. narrator: under the moss the face is older than the leaves around it; the leaves were cut later, by a different hand, over something like a crown of twigs, bent and crooked
+64. narrator: someone has scratched a line under the face more recently, deep and careful: a crooked smile
+65. narrator: it's an old carving of a woman in leaves and that's all it'll tell you tonight
+66. narrator: lanterns come bobbing up the hill road in a line, three women and a boy in bright yellow and sky blue, singing a hymn about the sun coming back
+67. joan_murdoch: friends, join us! they walk the hill road every night to keep the dark honest; one more voice and the sun hears them better
+68. interject delphine_ravelle: a choir in the dark with lanterns; darling, that's practically my first booking
+69. option: sing along with them
+70. option: ask about the manor on the hill
+71. option: wish them well and go on
+72. narrator: your voices go up with theirs, and for a verse the lanterns burn brighter and the hill doesn't feel so tall
+73. joan_murdoch: oh, beautiful! she says they carry a little of the sun with them now, she promises
+74. narrator: the tune gets away from you halfway through and never comes back; the boy giggles behind his lantern
+75. joan_murdoch: kindly, the sun doesn't mind a flat note, friend, only a silent one
+76. joan_murdoch: the Lord and Lady are lovely people, generous to the church; it's only the house; Brightsingers don't sing past the gate
+77. joan_murdoch: her smile slips; she has seen candles lit in rooms on floors the house doesn't have; then she laughs it off
+78. joan_murdoch: go with the light, friends, and keep to the road
+Also write the narration that starts each road fight (Narrator lines, the same rules):
+79. two pale haints, the restless dead from the wreck, drift out of the fog toward your warmth, mouths open
+80. three haints come out of the heather, and behind them a dead passenger gone grey and wrong, still dragging a suitcase
+81. eyes in the bracken, a dozen of them, low to the ground: weasels, chittering and sniffing at your mouths as if they smell your teeth
+82. a weasel big as a hound leads the pack out of the heather, with eyes too knowing for any animal
+83. passengers from the wreck come shambling down the road with their luggage, faces grey as the mist that got into them
+84. hares sit up in the road ahead, too long in the leg, too many teeth in their grins, and they do not run
+85. a magpie on a fencepost counts you, one for sorrow, two for joy, and does not like the number; the sky fills with wings
+86. wolves have been pacing you on the far side of the hedge for a mile; now they stop pretending
+87. weasels pour across the hill road like spilt ink, sniffing and chittering, and turn their noses toward you all at once
+88. hares in the ruts of the hill road, grinning, ears laid back, and they come at you instead of running
+89. magpies settle on the oak branches over the hill road one by one until the branches bow; then they drop
+
+## Reply format
+One line per marker, in order, exactly `n => text` (no quotes around the text, no extra lines, no commentary). 37 lines, numbered as above.

@@ -1,0 +1,170 @@
+You are drafting DIALOGUE TEXT for a video game. Reply in plain text only, in exactly the format asked at the end.
+
+"The Crooked Moon" is a single-player, turn-based tactical party RPG (think Baldur's Gate 3: fully voiced, branching dialogue, skill checks, a storyteller Narrator). It is folk horror set in Druskenvald, an afterlife realm of endless night under a gargantuan crescent moon with a leering crone's face; an autumn that never ends, pumpkins and bonfires and dead leaves everywhere, but the stakes are real. Humour is deadpan and sits beside the dread. Use only the names given here; invent no new named people, places, monsters or history.
+
+THE PARTY: the player leads four heroes; never name, describe or gender the player's heroes. Some of the party may be these companions, who speak only in the `interject` lines written for them (each line is said only if that companion is present, so it must make sense on its own and never answer another companion's line):
+- rook_coldwake: Rook, a Graveborn (undead) fighter, a graveyard rest warden; dry, level, practical, union-minded, cares that the dead are laid to rest properly; few words.
+- tobin_hayward: Tobin, a Harvestborn (living scarecrow of wicker and straw) druid; brisk, warm, country-wise, talks about rot, roots, harvests and neighbours; kind under the sharp tongue.
+- silas_vane: Silas, a Relicborn (skeleton-folk) monk and card sharp from river landings; fast, cocky, thinks in odds, bets and marks.
+- delphine_ravelle: Delphine, a Threadborn (living patchwork doll) warlock; theatrical vaudeville showwoman, says "darling", treats horror as a third-rate sideshow she means to headline.
+- lucan_houndstooth: Lucan, a Curseborn (wolf-man) ranger and monster hunter; hushed and earnest, narrates danger like a nature broadcaster, notices scents and tracks.
+- cordelia_skein: Cordelia, a Silkborn (spider-folk) sorcerer; cool, cultivated, clinical, delighted by anything morbid as a subject of study.
+
+RULES FOR THE TEXT
+- Spoken lines: 1 to 3 short sentences, about 12 to 30 words, never over 40. Contractions are normal. People talk in their own voice and do not explain the plot to the audience. Accent is word choice and rhythm, never phonetic spelling. Country folk of the Hollow speak with a folksy country drawl in their word choice.
+- Interject lines: one sentence, under 20 words.
+- Option lines (what the player's party says or does): under 12 words, plain, in the party's voice ("We..." or an imperative).
+- Narrator lines (the Vagrant, an old train conductor telling the tale afterwards: warm, folksy, wry, a Southern drawl in word choice such as reckon, ain't, folks, a spell, a piece; drop a final g in at most one line in three): second person, present tense, one or two sentences, only what a hero could perceive, concrete senses (smell, sound, texture, cold), no game words (HP, roll, level, check, DC, save, hit points), never tell the player what to feel, never the word "suddenly", never mention a fiddle, never name the Vagrant.
+- No stage directions, asterisks, italics, brackets, placeholders, emoji or em dashes (use commas, periods, colons). Straight quotes only. Do not use the arrow characters -> or => inside the text.
+- Content is dark but restrained: no gore, no graphic detail.
+- Each brief says what the line must do; keep its facts, write it as the speaker would say it.
+
+THIS SCENE: the villain's appearances between the chapters, on the roads of Wickermoor Hollow and at the party's campfire.
+
+THE CROOKED MAN (speaker id crooked_man): the shade of the old master of a haunted manor, long dead; tall, lanky, limbs at wrong angles, a hanged man's neck, a tattered suit, a bent top hat low over his eyes, a huge yellow grin. He is the chief servant of the Crooked Queen (call her "the Queen" or "she"; never any other name), who is imprisoned and wants to wake. He is a SHOWMAN: warm, unhurried, theatrical, courteous to the point of menace, delighted with "my dears". He HINTS and NEVER EXPLAINS: every answer is a compliment, a riddle or a promise that sounds like a threat. He never raises his voice. He is never a fight: a blade passes through him. He speaks in complete, elegant sentences. Do NOT hint at any weakness of his.
+
+What the story allows him to know and say (and nothing more): six powerful villains called the Fallen must die for the Queen's ritual (he calls them candles); the heroes have been killing them one by one out of goodness, which is exactly what the Queen wants; the party has cleared his old manor, the Crooked House, where a hag he calls "the lady upstairs" lived; the village of Wickermoor will hold a festival called Fool's Day; Lord Phillip and Lady Adela Druskenvald, the party's hosts at the manor, are part of the Queen's plan; Lady Adela has prophetic dreams. The Fallen, in the order the lines name them: a scarecrow terror at Foxwillow, a red abbot at a mountain monastery, Mister Crossroads the gambler at the Drowned Crossroads, a weeping Matron at a sanatorium by a lake, and a sixth under the fog at Maidenmist cemetery.
+
+The lines marked "(the note)" are the words of a letter he left, which read themselves aloud in his voice: write them as his written words, in his voice.
+
+The scenes (the [[n]] markers in this file are yours; everything else is fixed):
+
+```
+# The Crooked Man between the acts (fun pass, lane D): the book has him guide the cult and want the six Fallen dead,
+# and the heroes do Kehlenn's work by their good deeds. So he is felt before the finale: twice at the edge of a road
+# (data/random_encounters/crooked_man_road.json, rolled on any road's quiet leg), once as a note on a signpost, and twice
+# at the party's fire (data/camp/night_events.json). He is never a fight, he hints and never explains, and he never
+# hints at his own weakness. Drafted by Gemini (docs/plans/gemini_roads), edited; flags in data/flags/roads.json.
+
+# --- After the Crooked House: a figure at the edge of the road ---
+
+~ after_house
+if flag.cm_road_house
+-> END
+endif
+set cm_road_house
+Narrator: [[1]]
+appear crooked_man
+Narrator: [[2]]
+crooked_man [smile]: [[3]]
+if flag.road_hair_given
+crooked_man [sly]: [[4]]
+endif
+if flag.road_child_lost
+crooked_man [sad]: [[5]]
+elif flag.road_child_home
+crooked_man [smile]: [[6]]
+endif
+if flag.road_shrine_robbed
+crooked_man [sly]: [[7]]
+endif
+interject name:rook_coldwake: [[8]]
+interject name:delphine_ravelle: [[9]]
+* [[10]] -> ah_want
+* [[11]] -> ah_strike
+* [[12]] -> ah_walk
+
+~ ah_want
+crooked_man [smile]: [[13]]
+crooked_man [sly]: [[14]]
+-> ah_go
+
+~ ah_strike
+Narrator: [[15]]
+crooked_man [smile]: [[16]]
+-> ah_go
+
+~ ah_walk
+crooked_man [smile]: [[17]]
+-> ah_go
+
+~ ah_go
+crooked_man [smile]: [[18]]
+vanish crooked_man
+Narrator: [[19]]
+-> END
+
+# --- The first of the Fallen: applause from a milestone ---
+
+~ first_fallen
+if flag.cm_road_fallen
+-> END
+endif
+set cm_road_fallen
+appear crooked_man
+Narrator: [[20]]
+if flag.raum_slain
+crooked_man [smile]: [[21]]
+elif flag.renathyr_slain
+crooked_man [smile]: [[22]]
+elif flag.grinning_sinner_slain
+crooked_man [smile]: [[23]]
+else
+crooked_man [smile]: [[24]]
+endif
+crooked_man [sly]: [[25]]
+interject name:lucan_houndstooth: [[26]]
+interject name:cordelia_skein: [[27]]
+* [[28]] -> ff_she
+* [[29]] -> ff_why
+* [[30]] -> ff_leave
+
+~ ff_she
+crooked_man [sly]: [[31]]
+-> ff_go
+
+~ ff_why
+crooked_man [smile]: [[32]]
+crooked_man [sly]: [[33]]
+-> ff_go
+
+~ ff_leave
+crooked_man [smile]: [[34]]
+-> ff_go
+
+~ ff_go
+vanish crooked_man
+Narrator: [[35]]
+-> END
+
+```
+
+Briefs for the markers:
+1. narrator: far off across the heather, where the road bends, a tall thin figure in a bent top hat stands among the dead bracken, too still to be a man
+2. narrator: you look down at the ruts for one step, and when you look up he is standing at the roadside a few paces off, tipping his hat, his grin the colour of old piano keys
+3. crooked_man: congratulations on the house, my dears; the lady upstairs has left the stage for good, and the house has never been so grateful for its guests
+4. crooked_man: and thank you for the lock of hair at the crossing; it was passed along to someone who will keep it somewhere very warm
+5. crooked_man: the little one in the orange shawl took the wrong fork, alas; do not fret, the wood looks after its own
+6. crooked_man: the little one in the orange shawl got home safe; what a credit to you; children never forget a face, you know
+7. crooked_man: oh, and the Queen did notice her coins went missing from the oak; she keeps accounts too, my dears, very old ones
+8. interject rook_coldwake: him again; I'd sooner see that one under six feet of good clay
+9. interject delphine_ravelle: a hat like that and that grin; darling, he is milking the entrance
+10. option: ask what he wants with us
+11. option: draw on him
+12. option: say nothing and walk on
+13. crooked_man: want? nothing at all; he only likes to watch good folk go about their good works; every good deed is a seed, and he is a patient gardener
+14. crooked_man: there are six candles in this valley that must be blown out before the party can begin; he would never ask the party to do it; they will do it anyway, because they are good
+15. narrator: steel goes through him like through woodsmoke, and you hear his laugh from the heather behind you instead
+16. crooked_man: such vigour; do save some, my dears, there is a long road yet and he would hate for them to arrive tired
+17. crooked_man: he calls after them pleasantly that walk where they like, the road goes where he likes it to
+18. crooked_man: until the next curtain, then; he bows low, too low, the hat never leaving his head
+19. narrator: where he stood the bracken is pressed flat in the shape of something long lying down, and it stays flat as you pass
+20. narrator: on a milestone at the side of the road sits the tall man in the top hat, legs crossed at too many joints, clapping slowly, one, two, three
+21. crooked_man: bravo; the scarecrow terror of Foxwillow, put out like a candle; and with such feeling
+22. crooked_man: bravo; the red abbot up the mountain, gone to his goddess at last; he did so want to meet her
+23. crooked_man: bravo; Mister Crossroads has finally lost a wager; he never could abide losing
+24. crooked_man: bravo; the weeping Matron by the lake, wept out at last; such a mercy, really
+25. crooked_man: that's one of six, my dears; she is counting each of them, and each one is a candle lit on her cake
+26. interject lucan_houndstooth: hushed, no scent on him at all; nothing that sits on a stone like that should smell of nothing
+27. interject cordelia_skein: his joints bend both ways at once; I would give a great deal to see the bones
+28. option: ask who "she" is
+29. option: ask why he is thanking us
+30. option: leave him on his milestone
+31. crooked_man: the Queen, the true one, under all those leaves; she has waited so very long, and she is nearly hungry enough to wake
+32. crooked_man: because they are doing her work better than any of her servants ever did, and for nothing but the goodness of their hearts
+33. crooked_man: and they will keep doing it, because the other choice is to let wicked things live, and good folk never can
+34. crooked_man: do keep up the good work, my dears; he will be following their progress with great interest
+35. narrator: the milestone is empty; where its number was carved somebody has scratched a single crooked smile, fresh, the stone dust still pale
+
+## Reply format
+One line per marker, in order, exactly `n => text` (no quotes around the text, no extra lines, no commentary). 35 lines, numbered as above.

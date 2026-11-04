@@ -1801,6 +1801,19 @@
       "kind": "decor",
       "label": "A Lockdown panel with a ward-key slot",
       "model": "case"
+    },
+    {
+      "id": "mr_loose_tile",
+      "label": "A loose tile in the ward floor",
+      "model": "floor_crack",
+      "search_dc": 14,
+      "item": "citrine",
+      "text": "One scrubbed floor tile clicks loose under your fingers in the quiet ward. Tucked in the cold mortar underneath waits a pale citrine.",
+      "kind": "search",
+      "cell": [
+        37,
+        9
+      ]
     }
   ],
   "containers": [
@@ -1886,6 +1899,98 @@
           "id": "ring_of_water_walking",
           "qty": 1
         }
+      ]
+    },
+    {
+      "id": "mr_ward_linen",
+      "label": "A ward's linen cupboard",
+      "model": "cabinet_small",
+      "gold": 4,
+      "items": [
+        {
+          "id": "blanket",
+          "qty": 1
+        },
+        {
+          "id": "healers_kit",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        20,
+        1
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "mr_office_desk",
+      "label": "A doctor's desk drawer",
+      "model": "desk",
+      "lock_dc": 13,
+      "gold": 22,
+      "items": [
+        {
+          "id": "ink",
+          "qty": 1
+        },
+        {
+          "id": "paper",
+          "qty": 1
+        },
+        {
+          "id": "potion_of_healing",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        11,
+        6
+      ]
+    },
+    {
+      "id": "mr_ring_trunk",
+      "label": "A patient's trunk of belongings",
+      "model": "trunk",
+      "gold": 9,
+      "items": [
+        {
+          "id": "fine_clothes",
+          "qty": 1
+        },
+        {
+          "id": "pearl",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        11,
+        34
+      ],
+      "lock_dc": 0
+    },
+    {
+      "id": "mr_dispensary",
+      "label": "A dispensary cabinet",
+      "model": "cabinet_glass",
+      "lock_dc": 14,
+      "gold": 0,
+      "items": [
+        {
+          "id": "antitoxin",
+          "qty": 1
+        },
+        {
+          "id": "potion_of_healing",
+          "qty": 1
+        },
+        {
+          "id": "basic_poison",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        1,
+        24
       ]
     }
   ],
@@ -2143,8 +2248,7 @@
             5
           ],
           "name": "A watching surgeon",
-          "facing": "east",
-          "art": "zombie"
+          "facing": "east"
         },
         {
           "monster": "wormhost_surgeon",
@@ -2153,8 +2257,7 @@
             5
           ],
           "name": "A watching surgeon",
-          "facing": "west",
-          "art": "zombie"
+          "facing": "west"
         }
       ]
     },
@@ -2302,8 +2405,7 @@
             31
           ],
           "name": "A waking surgeon",
-          "facing": "east",
-          "art": "zombie"
+          "facing": "east"
         },
         {
           "monster": "wormhost_surgeon",
@@ -2312,8 +2414,7 @@
             33
           ],
           "name": "A waking surgeon",
-          "facing": "east",
-          "art": "zombie"
+          "facing": "east"
         },
         {
           "monster": "wormhost_surgeon",
@@ -2322,8 +2423,7 @@
             33
           ],
           "name": "A waking surgeon",
-          "facing": "east",
-          "art": "zombie"
+          "facing": "east"
         }
       ]
     },
@@ -2349,8 +2449,7 @@
             6
           ],
           "name": "Doctor Belkin",
-          "facing": "west",
-          "art": "zombie"
+          "facing": "west"
         }
       ]
     }
@@ -2432,5 +2531,31 @@
       58,
       30
     ]
-  }
+  },
+  "traps": [
+    {
+      "id": "mr_dispensary_trap",
+      "label": "A needle spring in the cabinet door",
+      "model": "blade_slits",
+      "detect_dc": 15,
+      "disarm_dc": 14,
+      "save": {
+        "ability": "con",
+        "dc": 14
+      },
+      "damage": "2d8",
+      "damage_type": "poison",
+      "text": "With the low hum of the halls in your ears, a coiled spring in the cabinet door drives a cold needle into your hand.",
+      "cells": [
+        [
+          1,
+          25
+        ],
+        [
+          2,
+          24
+        ]
+      ]
+    }
+  ]
 }

@@ -1,0 +1,232 @@
+# Meetings on Act I's roads (data/random_encounters/wreck_road.json and hill_road.json): each plays on its table's map
+# (road_moor_bonfire for the wreck road, road_oakwood for the hill road) once, then the journey goes on. Fun pass lane D.
+# Drafted by Gemini (docs/plans/gemini_roads), edited; flags in data/flags/roads.json.
+
+# --- A passenger who missed her stop ---
+
+~ lost_passenger
+if flag.road_passenger_met
+-> END
+endif
+set road_passenger_met
+appear road_passenger
+Narrator: A woman in a travellin' coat stands up ahead, clutching a ticket and peering both ways down the moor road. Purple heather shows clean through the hem of her skirt.
+road_passenger [afraid]: Pardon me, which way is the platform? I really mustn't miss the Ghostlight, my stop is coming right up and the conductor promised he would call it.
+interject name:tobin_hayward: Poor soul's got the look of somebody still waiting on a harvest that already came in.
+interject name:delphine_ravelle: Darling, nobody has told the poor thing the show closed, and somebody really ought to.
+* Tell her the train came down in the oak wood. -> lp_truth
+* Tell her the next stop is just ahead. -> lp_lie
+* [Religion DC 12] Speak the conductor's last call over her. -> lp_rest | lp_fail
+* Walk on without a word. -> lp_leave
+
+~ lp_truth
+road_passenger [sad]: So that was the terrible jolt I felt. Thank you for not lying to me, I had wondered why my hands were so dreadfully cold.
+Narrator: She tucks her ticket into the briar hedge like a bookmark, and then she just ain't there no more. The chill left behind smells sharp of coal smoke.
+inspiration
+approve rook_coldwake +2 tobin_hayward +1: You told a lost passenger the truth about the train
+-> END
+
+~ lp_lie
+road_passenger [smile]: Oh, thank heavens, just up ahead then! You have been most kind, and I shall certainly tell the conductor so when I board.
+Narrator: She steps out brisk along the rutted track, and the white fog takes her a pace at a time. Way off yonder, a whistle blows where no engine runs.
+interject name:rook_coldwake: She'll walk that road till her shoes wear through, and that's no kindness to the dead.
+approve delphine_ravelle +1 silas_vane +1 rook_coldwake -1: You told a dead passenger her stop was just ahead
+-> END
+
+~ lp_rest
+Narrator: The old words come to your tongue easy as a Sunday hymn: "All stops, end of the line." She straightens her hat like she just heard a station bell ring.
+road_passenger [smile]: So this stop is mine after all. Goodness, I reckon I have been holding onto this ticket for a very long time.
+Narrator: She steps off the road the way folks step down off a train platform, and the fog where she stood warms up like a coach with the stove lit.
+bless party 2h
+approve rook_coldwake +2 tobin_hayward +1: You sent a lost passenger on her way
+-> END
+
+~ lp_fail
+road_passenger [angry]: I am not getting off here, this is not my stop! You cannot make me stay in a place like this!
+Narrator: Her shape comes undone into a bitter mist that cuts right through your coats like a January draught, and then the track is empty.
+damage 1d4 psychic party
+-> END
+
+~ lp_leave
+road_passenger [afraid]: Please wait, which way is the station? Don't leave me here, I simply cannot miss my train!
+Narrator: You hear her callin' out to the empty road for a good spell behind you, until there's only the wind hissing through the dry heather.
+-> END
+
+# --- The bone bonfire at the crossing ---
+
+~ bone_bonfire
+if flag.road_bonfire_met
+-> END
+endif
+set road_bonfire_met
+appear road_bonfire_keeper at moor_bonfire
+Narrator: Where two tracks cross on the moor, an old fellow feeds bleached bones into a crackling fire. The smoke curls up greenish, smelling of scorched hair and wet leaves.
+road_bonfire_keeper [smile]: Evening to you, travellers. This fire keeps the white mist off the crossing, so folks passing by give it a little something: a coin, a hair, a bone, whatever you can spare.
+interject name:lucan_houndstooth: A fire of old bones, and a keeper who sniffs the wind as we draw near: curious, very curious.
+interject name:cordelia_skein: Rabbit, sheep, and one specimen I would rather not name aloud: a fascinating choice of fuel.
+-> bb_menu
+
+~ bb_menu
+* [if gold >= 1] Drop a coin into the fire. -> bb_coin
+* Give the fire a lock of hair. -> bb_hair
+* [if not flag.road_bonfire_asked] Ask who the fire is for. -> bb_ask
+* Kick the burning bones apart. -> bb_kick
+* Warm our hands and move on. -> bb_leave
+
+~ bb_ask
+set road_bonfire_asked
+road_bonfire_keeper: Why, it burns for the Green Queen, the mother of the wood. She feeds every deep root in the Hollow and takes back every fallen leaf.
+road_bonfire_keeper [sly]: Truth be told, she's been poorly a long while now. The crooked one tends to her instead, and he is ever so grateful for a warm gift.
+-> bb_menu
+
+~ bb_coin
+gold -1
+Narrator: Your coin drops in with a sharp hiss, and the green smoke flares bright gold for a breath. A steady warmth settles deep into your bones like a heavy wool coat.
+road_bonfire_keeper [smile]: That'll see you safe to the next crossing, friends. She always remembers a generous traveller on the dark roads.
+temp_hp 1d4+2 party
+-> END
+
+~ bb_hair
+set road_hair_given
+Narrator: The lock of hair curls and catches in the embers, and the old man watches it burn the way a man reads a long letter from home.
+road_bonfire_keeper [smile]: Oh, now that is a fine gift, a proper personal one. She'll know your scent now, wherever you walk in this valley.
+Narrator: The oily smoke leans clean against the wind, reachin' uphill toward the dark manor house on the rise, and the old man smiles into the glow.
+standing old_ways +1
+approve lucan_houndstooth -1 cordelia_skein -1: You gave a lock of hair to a stranger's fire
+-> END
+
+~ bb_kick
+road_bonfire_keeper [angry]: Not the bones, you fools, the white mist will have the crossing before morning! May the roots trip your heels and the brambles take your eyes!
+Narrator: Charred bones roll smoking into the damp heather. Behind you, the old man scrabbles in the dirt, calling the Queen's name till it sounds mighty like weeping.
+standing old_ways -1
+approve silas_vane +1 tobin_hayward -2 rook_coldwake -1: You kicked an old man's bonfire apart
+-> END
+
+~ bb_leave
+road_bonfire_keeper: Suit yourselves then, travellers. The fire will still be waiting here later, and so will he.
+-> END
+
+# --- A child on the road ---
+
+~ lost_child
+if flag.road_child_met
+-> END
+endif
+set road_child_met
+Narrator: A little girl in a pumpkin-orange shawl stands square in the middle of the road, huggin' a basket of pale mushrooms and staring at you without a word.
+Narrator: She points a tiny finger back toward the far lamps of Wickermoor Village, then taps her chest, then points into the black trees while her chin wobbles.
+interject name:tobin_hayward: Some farmer's little sprout strayed after mushrooms, and her folks'll be out of their minds looking for her.
+interject name:lucan_houndstooth: Small footprints in the mud, and larger pads trailing them before turning back: she is lucky, for now.
+* Walk her home to Wickermoor Village. -> lc_walk
+* [Survival DC 12] Point out the safe way home. -> lc_point | lc_point_fail
+* Leave her and walk on. -> lc_leave
+
+~ lc_walk
+set road_child_home
+time +60
+Narrator: It's an hour's walk back with her small, cold hand tucked in yours. Right by the village gate, a farm woman comes running out in her nightdress and scoops the child up.
+Narrator: The mother presses a few coins into your palm and won't hear a word of no, while the little girl watches you over her shoulder the whole way inside.
+gold +5
+approve tobin_hayward +2 rook_coldwake +1 lucan_houndstooth +1: You walked a lost child home to Wickermoor
+-> END
+
+~ lc_point
+set road_child_home
+Narrator: You kneel down and point out the line of the road and the village lamps to keep ahead. She nods hard, and you watch that orange shawl bob all the way to the first fence.
+approve tobin_hayward +1: You showed a lost child the way home
+-> END
+
+~ lc_point_fail
+set road_child_lost
+Narrator: She listens close and gives a solemn nod, then trots right off down the wrong fork into the dark oaks. By the time you holler after her, the orange shawl is gone.
+interject name:tobin_hayward: We ought to have walked the poor thing home, I'll be thinking on that orange shawl a good while.
+-> END
+
+~ lc_leave
+set road_child_lost
+Narrator: You leave her standin' alone in the ruts. When you look back a piece down the road, she's still pointing, and then the white fog rolls over the spot instead.
+approve tobin_hayward -2 rook_coldwake -1: You left a child alone on the road
+-> END
+
+# --- The Green Queen's shrine ---
+
+~ wayside_shrine
+if flag.road_shrine_met
+-> END
+endif
+set road_shrine_met
+Narrator: Tucked in the hollow of an old roadside oak sits a little shrine: a woman's face carved in leaves, a bowl of coins, a soft brown apple, and a limp rag doll.
+interject name:tobin_hayward: That's the Green Queen's face, sure enough, though Mother never would say why we kept one by the door.
+interject name:silas_vane: That's a bowl of honest coin sitting there with nobody minding it, if you catch my drift.
+-> ws_menu
+
+~ ws_menu
+* [if gold >= 2] Drop two gold pieces into the offering bowl. -> ws_offer
+* Pocket the coins from the bowl. -> ws_take
+* [if not flag.road_shrine_read] [Religion DC 13] Look closer at the carved wooden face. -> ws_read | ws_read_fail
+* Leave the shrine be and move on. -> END
+
+~ ws_offer
+gold -2
+Narrator: Your coins clink into the bowl, and a warm breath of fresh-cut hay sighs out of the hollow trunk. The road-ache eases right out of your legs.
+hit_dice restore 1 party
+-> END
+
+~ ws_take
+set road_shrine_robbed
+gold +6
+Narrator: Those coins bite your palm like river ice. When you straighten up, you could swear that wooden face has turned a fraction to watch you go.
+disadvantage checks 1h: The carved eyes follow your steps
+approve tobin_hayward -2 silas_vane +1: You emptied the Green Queen's offering bowl
+-> END
+
+~ ws_read
+set road_shrine_read
+Narrator: Under the damp moss, the face is older than the leaves around it. A second hand carved that foliage later to cover a bent, crooked crown of twigs.
+Narrator: Someone took a sharp blade to the wood not long ago, cutting a deep, careful line beneath the chin: a crooked smile.
+-> ws_menu
+
+~ ws_read_fail
+set road_shrine_read
+Narrator: It's just an old carving of a woman crowned in leaves, and reckon that's all it's tellin' you tonight.
+-> ws_menu
+
+# --- The Brightsingers' lantern walk (the hill road) ---
+
+~ lantern_walk
+if flag.road_lanterns_met
+-> END
+endif
+set road_lanterns_met
+appear joan_murdoch
+Narrator: Warm lanterns come bobbing up the hill road in a neat line. Three women and a boy in bright yellow and sky blue are singing a hymn for the sun's return.
+joan_murdoch [smile]: Friends, come walk with us a spell! We sing the hill road every night to keep the dark honest, and one more voice helps the sun hear us plain.
+interject name:delphine_ravelle: A lantern choir in the dead of night, darling, that's practically my first booking in this dreary province.
+-> lw_menu
+
+~ lw_menu
+* [Performance DC 12] Join in and sing the hymn with them. -> lw_sing | lw_sing_flat
+* [if not flag.road_lanterns_asked] Ask them about the manor up on the hill. -> lw_ask
+* Wish them well and keep walking. -> lw_leave
+
+~ lw_sing
+Narrator: Your voices rise with theirs into the cold air, and for a verse or two the lantern flames burn taller and the steep hill don't seem half so long.
+joan_murdoch [smile]: Oh, now wasn't that lovely! You carry a little piece of the sun with you down the road tonight, I promise you that.
+bless party 2h
+approve delphine_ravelle +1 tobin_hayward +1: You sang with the Brightsingers on the hill road
+-> END
+
+~ lw_sing_flat
+Narrator: The tune slips away from you halfway through the verse and never comes back. Behind his brass lantern, the boy hides a giggle in his sleeve.
+joan_murdoch [smile]: Bless your hearts, the sun doesn't mind a flat note, friend. It only minds a silent one.
+-> END
+
+~ lw_ask
+set road_lanterns_asked
+joan_murdoch: Lord Phillip and Lady Adela are fine, generous souls who gave good timber for our church. It's only the house itself: we Brightsingers don't sing past the iron gate.
+joan_murdoch [afraid]: I've looked up from this road and seen candles burning in windows on floors that house doesn't even have. Mind me, jumping at lamplight like a silly goose!
+-> lw_menu
+
+~ lw_leave
+joan_murdoch [smile]: Go with the light, friends, and keep your boots to the road.
+-> END

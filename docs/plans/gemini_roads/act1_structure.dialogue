@@ -1,0 +1,217 @@
+# Meetings on Act I's roads (data/random_encounters/wreck_road.json and hill_road.json): each plays on its table's map
+# (road_moor_bonfire for the wreck road, road_oakwood for the hill road) once, then the journey goes on. Fun pass lane D.
+# Drafted by Gemini (docs/plans/gemini_roads), edited; flags in data/flags/roads.json.
+
+# --- A passenger who missed her stop ---
+
+~ lost_passenger
+set road_passenger_met
+appear road_passenger
+Narrator: [[1]]
+road_passenger [afraid]: [[2]]
+interject name:tobin_hayward: [[3]]
+interject name:delphine_ravelle: [[4]]
+* [[5]] -> lp_truth
+* [[6]] -> lp_lie
+* [Religion DC 12] [[7]] -> lp_rest | lp_fail
+* [[8]] -> lp_leave
+
+~ lp_truth
+road_passenger [sad]: [[9]]
+Narrator: [[10]]
+inspiration
+approve rook_coldwake +2 tobin_hayward +1: You told a lost passenger the truth about the train
+-> END
+
+~ lp_lie
+road_passenger [smile]: [[11]]
+Narrator: [[12]]
+interject name:rook_coldwake: [[13]]
+approve delphine_ravelle +1 silas_vane +1 rook_coldwake -1: You told a dead passenger her stop was just ahead
+-> END
+
+~ lp_rest
+Narrator: [[14]]
+road_passenger [smile]: [[15]]
+Narrator: [[16]]
+bless party 2h
+approve rook_coldwake +2 tobin_hayward +1: You sent a lost passenger on her way
+-> END
+
+~ lp_fail
+road_passenger [angry]: [[17]]
+Narrator: [[18]]
+damage 1d4 psychic party
+-> END
+
+~ lp_leave
+road_passenger [afraid]: [[19]]
+Narrator: [[20]]
+-> END
+
+# --- The bone bonfire at the crossing ---
+
+~ bone_bonfire
+set road_bonfire_met
+appear road_bonfire_keeper at moor_bonfire
+Narrator: [[21]]
+road_bonfire_keeper [smile]: [[22]]
+interject name:lucan_houndstooth: [[23]]
+interject name:cordelia_skein: [[24]]
+-> bb_menu
+
+~ bb_menu
+* [if gold >= 1] [[25]] -> bb_coin
+* [[26]] -> bb_hair
+* [if not flag.road_bonfire_asked] [[27]] -> bb_ask
+* [[28]] -> bb_kick
+* [[29]] -> bb_leave
+
+~ bb_ask
+set road_bonfire_asked
+road_bonfire_keeper: [[30]]
+road_bonfire_keeper [sly]: [[31]]
+-> bb_menu
+
+~ bb_coin
+gold -1
+Narrator: [[32]]
+road_bonfire_keeper [smile]: [[33]]
+temp_hp 1d4+2 party
+-> END
+
+~ bb_hair
+set road_hair_given
+Narrator: [[34]]
+road_bonfire_keeper [smile]: [[35]]
+Narrator: [[36]]
+standing old_ways +1
+approve lucan_houndstooth -1 cordelia_skein -1: You gave a lock of hair to a stranger's fire
+-> END
+
+~ bb_kick
+road_bonfire_keeper [angry]: [[37]]
+Narrator: [[38]]
+standing old_ways -1
+approve silas_vane +1 tobin_hayward -2 rook_coldwake -1: You kicked an old man's bonfire apart
+-> END
+
+~ bb_leave
+road_bonfire_keeper: [[39]]
+-> END
+
+# --- A child on the road ---
+
+~ lost_child
+set road_child_met
+Narrator: [[40]]
+Narrator: [[41]]
+interject name:tobin_hayward: [[42]]
+interject name:lucan_houndstooth: [[43]]
+* [[44]] -> lc_walk
+* [Survival DC 12] [[45]] -> lc_point | lc_point_fail
+* [[46]] -> lc_leave
+
+~ lc_walk
+set road_child_home
+time +60
+Narrator: [[47]]
+Narrator: [[48]]
+gold +5
+approve tobin_hayward +2 rook_coldwake +1 lucan_houndstooth +1: You walked a lost child home to Wickermoor
+-> END
+
+~ lc_point
+set road_child_home
+Narrator: [[49]]
+approve tobin_hayward +1: You showed a lost child the way home
+-> END
+
+~ lc_point_fail
+set road_child_lost
+Narrator: [[50]]
+interject name:tobin_hayward: [[51]]
+-> END
+
+~ lc_leave
+set road_child_lost
+Narrator: [[52]]
+approve tobin_hayward -2 rook_coldwake -1: You left a child alone on the road
+-> END
+
+# --- The Green Queen's shrine ---
+
+~ wayside_shrine
+set road_shrine_met
+Narrator: [[53]]
+interject name:tobin_hayward: [[54]]
+interject name:silas_vane: [[55]]
+-> ws_menu
+
+~ ws_menu
+* [if gold >= 2] [[56]] -> ws_offer
+* [[57]] -> ws_take
+* [if not flag.road_shrine_read] [Religion DC 13] [[58]] -> ws_read | ws_read_fail
+* [[59]] -> END
+
+~ ws_offer
+gold -2
+Narrator: [[60]]
+hit_dice restore 1 party
+-> END
+
+~ ws_take
+set road_shrine_robbed
+gold +6
+Narrator: [[61]]
+disadvantage checks 1h: [[62]]
+approve tobin_hayward -2 silas_vane +1: You emptied the Green Queen's offering bowl
+-> END
+
+~ ws_read
+set road_shrine_read
+Narrator: [[63]]
+Narrator: [[64]]
+-> ws_menu
+
+~ ws_read_fail
+set road_shrine_read
+Narrator: [[65]]
+-> ws_menu
+
+# --- The Brightsingers' lantern walk (the hill road) ---
+
+~ lantern_walk
+set road_lanterns_met
+appear joan_murdoch
+Narrator: [[66]]
+joan_murdoch [smile]: [[67]]
+interject name:delphine_ravelle: [[68]]
+-> lw_menu
+
+~ lw_menu
+* [Performance DC 12] [[69]] -> lw_sing | lw_sing_flat
+* [if not flag.road_lanterns_asked] [[70]] -> lw_ask
+* [[71]] -> lw_leave
+
+~ lw_sing
+Narrator: [[72]]
+joan_murdoch [smile]: [[73]]
+bless party 2h
+approve delphine_ravelle +1 tobin_hayward +1: You sang with the Brightsingers on the hill road
+-> END
+
+~ lw_sing_flat
+Narrator: [[74]]
+joan_murdoch [smile]: [[75]]
+-> END
+
+~ lw_ask
+set road_lanterns_asked
+joan_murdoch: [[76]]
+joan_murdoch [afraid]: [[77]]
+-> lw_menu
+
+~ lw_leave
+joan_murdoch [smile]: [[78]]
+-> END

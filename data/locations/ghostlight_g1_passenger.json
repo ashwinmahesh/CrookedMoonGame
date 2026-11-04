@@ -73,7 +73,10 @@
           5,
           5
         ]
-      ]
+      ],
+      "floor": "props/passenger_carpet",
+      "walls": "props/passenger_panel",
+      "furnish": false
     },
     {
       "id": "g1_aisle",
@@ -87,7 +90,10 @@
           13,
           5
         ]
-      ]
+      ],
+      "floor": "props/passenger_carpet",
+      "walls": "props/passenger_panel",
+      "furnish": false
     },
     {
       "id": "g1_front",
@@ -101,7 +107,10 @@
           18,
           5
         ]
-      ]
+      ],
+      "floor": "props/passenger_carpet",
+      "walls": "props/passenger_panel",
+      "furnish": false
     }
   ],
   "spawns": {
@@ -178,10 +187,7 @@
       ],
       "kind": "examine",
       "label": "The brass lamps",
-      "model": "lamp",
-      "call": "ghostlight_express/vagrant_intercom:router",
-      "approach": 12,
-      "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed and ((flag.haints_destroyed >= 1 and not flag.gl_destroyed_noted) or (flag.haints_resolved >= 3 and not flag.gl_level2_given) or (flag.haints_all_gone and not flag.gl_checkin_all) or (flag.haints_resolved >= 5 and not flag.gl_checkin_fifth) or (flag.haints_resolved >= 1 and not flag.gl_checkin_first))"
+      "model": "lamp"
     },
     {
       "id": "g1_boarding_door",
@@ -250,10 +256,8 @@
       ],
       "kind": "examine",
       "label": "Black-veined mist",
+      "dialogue": "ghostlight_express/incitements:deliverance_enter",
       "when": "flag.gl_phantom_done",
-      "call": "ghostlight_express/incitements:deliverance_enter",
-      "approach": 12,
-      "call_when": "flag.gl_phantom_done and not flag.incitement_deliverance",
       "checks": [
         {
           "id": "g1_curse_mist",
@@ -499,6 +503,24 @@
       "bright_ft": 10,
       "dim_ft": 20,
       "visual": true
+    }
+  ],
+  "containers": [
+    {
+      "id": "g1_carpetbag",
+      "cell": [
+        18,
+        2
+      ],
+      "label": "A carpetbag left on the rack",
+      "model": "satchel",
+      "gold": 3,
+      "items": [
+        {
+          "id": "potion_of_healing",
+          "qty": 1
+        }
+      ]
     }
   ]
 }

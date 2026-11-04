@@ -1521,7 +1521,8 @@ func test_wisp_every_tale_every_miss_the_threat_the_fight_and_the_refusal() -> v
 
 
 func test_the_companions_beats_and_the_custom_heros_stubs() -> void:
-	# each companion's beat, with each of its three answers; every prop's call plays once and the room is then done
+	# each companion's beat, with each of its three answers, from a click on its object (Ashwin, 2026-11-03: nothing starts on walking in);
+	# once played, the object only gives its plain look
 	var beats: Array = [
 		["h3_crystal_ball", FIRST, "incitement_pilgrimage", ["What are the spirits telling you", "Hand on the glass", "Leave it. We need a way out"]],
 		["h8_bergamot", FIRST, "incitement_rejuvenation", ["What did that tree just show you", "Your hand shook", "Leave the tree"]],
@@ -1530,14 +1531,15 @@ func test_the_companions_beats_and_the_custom_heros_stubs() -> void:
 	for b: Array in beats:
 		for pick: String in b[3]:
 			_inside(str(b[1]))
-			var out := _called_by(str(b[0]), [pick] as Array[String])
+			var out := _use_prop(str(b[0]), [pick] as Array[String])
 			assert_true(out.has("kind"), "%s: %s ends" % [b[0], pick])
 			assert_true(bool(st.get_flag(str(b[2]))), "%s: %s sets %s" % [b[0], pick, b[2]])
-			assert_true(not _holds(_entry("props", "id", str(b[0])).get("call_when")), "and the beat is done")
+			_use_prop(str(b[0]))
+			assert_true(bool(st.get_flag(str(b[2]))) and not _entry("props", "id", str(b[0])).has("approach"), "and the beat is done: a second look is the plain line")
 	# without the companion the beat is only noted for the camp, and the flag the home scene reads stays down
 	for b: Array in beats:
 		_inside(str(b[1]), ["silas_vane", "hedda_ironvow", "ilse_varga", "tamsin_tealeaf"] as Array[String])
-		_called_by(str(b[0]))
+		_use_prop(str(b[0]))
 		assert_true(not bool(st.get_flag(str(b[2]))), "%s: no companion, no beat" % b[0])
 		assert_true(bool(st.get_flag(str(b[2]).replace("incitement_", "pending_") + "_incitement")), "%s: noted for the camp" % b[0])
 	# the custom hero's stubs: the right background gets its own lines, anyone else the prop's plain look
@@ -1552,10 +1554,10 @@ func test_the_companions_beats_and_the_custom_heros_stubs() -> void:
 		for pick: String in b[4]:
 			_inside(str(b[1]))
 			st.party[3].build["background"] = str(b[3])
-			_called_by(str(b[0]), [pick] as Array[String])
+			_use_prop(str(b[0]), [pick] as Array[String])
 			assert_true(bool(st.get_flag(str(b[2]))), "%s: %s" % [b[0], pick])
 		_inside(str(b[1]))
-		_called_by(str(b[0]))
+		_use_prop(str(b[0]))
 		assert_true(not bool(st.get_flag(str(b[2]))), "%s: another hero gets the plain look" % b[0])
 
 

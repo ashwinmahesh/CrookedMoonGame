@@ -797,5 +797,65 @@
   },
   "summary": "A rock outcrop in a ring of soft, upturned soil, with a dead botanists' camp on top.",
   "text": "A rock outcrop in a ring of soft, upturned soil, with a dead botanists' camp on top. Flies and beetles buzz everywhere except inside the smoke.",
-  "traps": []
+  "traps": [
+    {
+      "id": "hb_botanist_trunk_trap",
+      "label": "A beetle nest under the lid",
+      "model": "floor_crack",
+      "detect_dc": 15,
+      "disarm_dc": 14,
+      "save": {
+        "ability": "con",
+        "dc": 15
+      },
+      "damage": "3d6",
+      "damage_type": "poison",
+      "text": "You lift the heavy trunk lid, and a dry, chitterin' mass of dark beetles boils up over your wrists.",
+      "cells": [
+        [
+          16,
+          14
+        ],
+        [
+          17,
+          14
+        ],
+        [
+          18,
+          13
+        ],
+        [
+          18,
+          14
+        ]
+      ]
+    }
+  ],
+  "containers": [
+    {
+      "id": "hb_botanist_trunk",
+      "label": "The dead botanists' trunk",
+      "model": "trunk",
+      "gold": 30,
+      "items": [
+        {
+          "id": "healers_kit",
+          "qty": 1
+        },
+        {
+          "id": "antitoxin",
+          "qty": 1
+        },
+        {
+          "id": "spell_scroll_level_1",
+          "qty": 1
+        }
+      ],
+      "cell": [
+        17,
+        13
+      ],
+      "lock_dc": 0
+    }
+  ]
 }

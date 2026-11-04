@@ -1,0 +1,119 @@
+{
+  "id": "cemetery_road",
+  "map": "road_moor_bonfire",
+  "grounds": [
+    "road_moor_bonfire",
+    "road_creek_ford"
+  ],
+  "chance_day": 0.35,
+  "chance_night": 0.35,
+  "summary": "The cemetery road south-east to Maidenmist: the hungry dead out of the fog, ghouls and the Shroud's reapers; a funeral walking the other way.",
+  "entries": [
+    {
+      "id": "ghouls",
+      "weight": 3,
+      "monsters": [
+        {
+          "monster": "ghast",
+          "cell": [
+            21,
+            12
+          ]
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            19,
+            8
+          ]
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            23,
+            16
+          ]
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            26,
+            10
+          ]
+        }
+      ],
+      "text": "Ghouls crawl out of the cemetery fog on all fours, sniffing the damp air, and one wears a crushed mourner's hat."
+    },
+    {
+      "id": "shrouded",
+      "weight": 3,
+      "monsters": [
+        {
+          "monster": "shrouded_reaper",
+          "cell": [
+            26,
+            10
+          ]
+        },
+        {
+          "monster": "shrouded_whisperer",
+          "cell": [
+            17,
+            4
+          ]
+        },
+        {
+          "monster": "shrouded_devourer",
+          "cell": [
+            17,
+            19
+          ]
+        }
+      ],
+      "text": "The cold fog gathers into three distinct shapes, a reaper, a whisperer, and a gaping mouth, coming down the road together."
+    },
+    {
+      "id": "wight",
+      "weight": 2,
+      "when": "level >= 9",
+      "monsters": [
+        {
+          "monster": "wight",
+          "cell": [
+            28,
+            14
+          ]
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            7,
+            6
+          ]
+        },
+        {
+          "monster": "ghast",
+          "cell": [
+            6,
+            17
+          ]
+        },
+        {
+          "monster": "ghoul",
+          "cell": [
+            10,
+            4
+          ]
+        }
+      ],
+      "text": "A dead knight with frost-cold eyes marches the hungry dead out of the mist in neat, silent ranks."
+    },
+    {
+      "id": "funeral",
+      "weight": 3,
+      "when": "not flag.road_funeral_met",
+      "once": true,
+      "dialogue": "roads/act2:funeral"
+    }
+  ]
+}

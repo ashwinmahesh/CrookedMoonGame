@@ -1,0 +1,84 @@
+# Banter in The Crooked House (story/banter.gd plays this file only where a place's region is crooked_house): one exchange between two or three companions about what is in
+# front of them in one place, gated on that place (`at:`) and on the story's state so a remark never runs ahead of the chapter. Played now and then on entering
+# an area, once each; an exchange nobody present can speak comes out empty and is skipped.
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+
+~ druskenvald_estate_01_tobin_silas_lucan
+if name:tobin_hayward and name:silas_vane and name:lucan_houndstooth and at:druskenvald_estate and not flag.vessla_slain
+interject name:tobin_hayward: Tidy kitchen rows, Silas, but that dead tree in the corner is cankered to the root.
+interject name:silas_vane: Never mind the cabbages. The manor's lit up like a gaming hall, and the gate's wide open in a storm.
+interject name:lucan_houndstooth: Dreadfang has his nose to the grass by that black pond. The scent is old and wet.
+interject name:tobin_hayward: My field mice just bolted into my waistcoat. Something under this mud doesn't want digging up.
+interject name:silas_vane: Door unlatched and lamps trimmed on a night like this? The table's marked before you sit down.
+endif
+-> END
+
+~ crooked_house_first_02_delphine_cordelia
+if name:delphine_ravelle and name:cordelia_skein and at:crooked_house and not flag.seance_done
+interject name:delphine_ravelle: Not one doorframe in this foyer is true, darling. Even the chandelier's leaning like a drunk.
+interject name:cordelia_skein: It's the gallery I like. Every portrait hung with such care, and every face looking at us.
+interject name:delphine_ravelle: The brushwork on those eyes is pure slander. Your Foolishness says the painter couldn't frame a joke.
+interject name:cordelia_skein: The dining room's laid for a banquet, and the air tastes of cold tallow and rot. Delicious.
+interject name:delphine_ravelle: Every wall in this crooked box has eyes, Cordelia. I don't perform for a house that knows the ending.
+endif
+-> END
+
+~ crooked_house_first_03_rook_silas
+if name:rook_coldwake and name:silas_vane and at:crooked_house and flag.seance_done and not flag.vessla_slain
+interject name:rook_coldwake: The spirit board's closed out, Silas, and the floor's still four inches off level. Not finished here.
+interject name:silas_vane: And that rocking chair hasn't stopped since the pointer slid over to goodbye.
+interject name:rook_coldwake: We had a polite word with the dead, logged the complaint, and the stairs are still groaning.
+interject name:silas_vane: The parlour ghost was the shill at the door, Rook. The real house is holding its cards upstairs.
+interject name:rook_coldwake: Then we go up and serve notice properly. Remind me to draw a breath before the landing.
+endif
+-> END
+
+~ crooked_house_second_04_silas_delphine
+if name:silas_vane and name:delphine_ravelle and at:crooked_house and flag.crooked_man_seen_2 and not flag.vessla_slain
+interject name:silas_vane: Sloping hall, a clock still ticking, a bathroom red from tub to tile. I don't like the odds, Delphine.
+interject name:delphine_ravelle: Don't look at the bath, darling. Look at the children's room. Two little beds and a doll on the floor.
+interject name:silas_vane: Leave the doll where it sits. My ribs are rattling like dice in a cup.
+interject name:delphine_ravelle: Your Foolishness says you're lying, Silas. You're staring right at that bed that moves.
+interject name:silas_vane: Nobody sleeps on a mattress that bucks like a landed pike. Whatever lived here never left.
+endif
+-> END
+
+~ crooked_house_second_05_cordelia_silas
+if name:cordelia_skein and name:silas_vane and at:crooked_house and flag.jasper_slain and not flag.vessla_slain
+interject name:cordelia_skein: Filthy Jasper has stopped twitching, Silas. The bedding is still remarkably warm, though.
+interject name:silas_vane: Chalk him up in my ribs, and don't ask me to touch that mattress while the floor's still humming.
+interject name:cordelia_skein: Your pulse would be racing, if you had one. The clock's ticking half a beat faster now.
+interject name:silas_vane: We cleared the big table and the walls are still sweating cold grease. House isn't done dealing.
+interject name:cordelia_skein: He was only a vessel. Look, those two little beds in the nursery haven't settled an inch.
+endif
+-> END
+
+~ crooked_house_third_06_lucan_cordelia
+if name:lucan_houndstooth and name:cordelia_skein and at:crooked_house and flag.crooked_man_seen_3 and not flag.vessla_slain
+interject name:lucan_houndstooth: Good heavens, Cordelia. Every shelf sagging, and the dust lies a full grade deep.
+interject name:cordelia_skein: Never mind the books. The crib in the nursery is riddled with tiny, perfect holes.
+interject name:lucan_houndstooth: And a draught coming straight through walls that ought to be solid stone.
+interject name:cordelia_skein: It's coming down from the ceiling over the hearth. That square seam in the plaster is cut too neatly.
+interject name:lucan_houndstooth: Dreadfang is growling at it, and my ears are flat back. Whatever nests up there is no gentleman.
+endif
+-> END
+
+~ crooked_house_attic_07_rook_delphine
+if name:rook_coldwake and name:delphine_ravelle and at:crooked_house and flag.mementos_placed >= 6 and not flag.vessla_slain
+interject name:rook_coldwake: Floor past that warded door is carpeted with loose teeth, Delphine. Mind your step.
+interject name:delphine_ravelle: Teeth I can step over. It's the six circles on the landing and that cauldron of red soup I mind.
+interject name:rook_coldwake: Hot copper and wet fur in the rafters. My knuckles go soft just standing in this steam.
+interject name:delphine_ravelle: By the cauldron, darling. Phillip and Adela, bound to the floor. Shield up, Rook.
+endif
+-> END
+
+~ druskenvald_estate_08_rook_lucan
+if name:rook_coldwake and name:lucan_houndstooth and at:druskenvald_estate and flag.vessla_slain
+interject name:rook_coldwake: Vessla Browntooth is off the books, and the manor's walls have squared themselves. Decent plumb line again.
+interject name:lucan_houndstooth: The storm has broken, Rook. The air by the well tastes of clean rain, not cellar rot.
+interject name:rook_coldwake: Two barns still leaning, and that black pond wants ditching. But the front door hangs true.
+interject name:lucan_houndstooth: Dreadfang has sat down properly on the steps. Seven out of ten for the recovery, once the mud dries.
+interject name:rook_coldwake: Best draw a breath while the night's quiet, Lucan. One house cleared, a whole valley to go.
+endif
+-> END

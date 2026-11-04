@@ -1,0 +1,100 @@
+# Party banter, act 1 (story/banter.gd): one exchange between two or three companions, played now and then on entering an area, once each. Every node opens
+# with its act's gate and both speakers, so an exchange that can't be heard comes out empty and is skipped; any file named party_* plays anywhere.
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+
+~ act1_01_rook_tobin
+if name:rook_coldwake and name:tobin_hayward and flag.gl_crashed and not flag.act2_done
+interject name:rook_coldwake: Live cinder blowing off that wreckage, Tobin. I'll stand the coffin-lid here till the wind drops.
+interject name:tobin_hayward: Why would a grave-guard care if a bundle of straw catches a spark?
+interject name:rook_coldwake: A watchman counts every soul on the roll, bone or burlap. Fire on a public verge is my business.
+interject name:tobin_hayward: Fair enough. Keep that plank between me and the ash. The mice would never forgive us.
+endif
+-> END
+
+~ act1_02_silas_rook
+if name:silas_vane and name:rook_coldwake and flag.gl_crashed and not flag.act2_done
+interject name:silas_vane: Soggy old ledger you're nursing, friend. Thought I was the only one keeping score in this valley.
+interject name:rook_coldwake: Shift log and headstone rubbings, indexed by parish. What are you keeping in that coat?
+interject name:silas_vane: Chalk tallies, inside my ribs. Favours owed, tabs left open. Close to the chest.
+interject name:rook_coldwake: Chalk on bare bone rubs off in the damp. If you want an audit to stand, use wax and slate.
+interject name:silas_vane: The day I let an auditor look under my shirt is the day I fold for good.
+endif
+-> END
+
+~ act1_03_tobin_delphine
+if name:tobin_hayward and name:delphine_ravelle and flag.gl_crashed and not flag.act2_done
+interject name:tobin_hayward: Hold still, you're fraying at the wrist. That running stitch is too loose for wet weather.
+interject name:delphine_ravelle: I do my own needlework. A stage cuff is cut for flair, not for digging turnips.
+interject name:tobin_hayward: Flair won't keep the damp out of your stuffing.
+interject name:tobin_hayward: And tell that floating head to stop grinning at my straw.
+interject name:delphine_ravelle: Your Foolishness says a man stuffed with hay shouldn't lecture a headliner on tailoring.
+endif
+-> END
+
+~ act1_04_silas_lucan
+if name:silas_vane and name:lucan_houndstooth and flag.gl_crashed and not flag.act2_done
+interject name:silas_vane: Ten to one the next thing out of the brush has more teeth than manners. Care to wager?
+interject name:lucan_houndstooth: A gentleman does not wager on the field, Silas. He grades the quarry out of ten.
+interject name:lucan_houndstooth: And it is "fewer manners".
+interject name:silas_vane: Grade my grammar when that mutt of yours stops eyeing my shadow like a soup bone.
+interject name:lucan_houndstooth: Dreadfang merely notes your shadow lags half a pace behind you. Two points off for footwork.
+interject name:silas_vane: Nerve of a high roller, that dog. Manners of a bouncer.
+endif
+-> END
+
+~ act1_05_cordelia_lucan
+if name:cordelia_skein and name:lucan_houndstooth and flag.gl_crashed and not flag.act2_done
+interject name:cordelia_skein: Your little companion, Lucan. How does something that size produce that much yipping? May I take a sample?
+interject name:lucan_houndstooth: Good heavens, madam, keep your needles away from Dreadfang. He is a harbinger of dread omen.
+interject name:cordelia_skein: And yet you grade road beasts like prize marrows at a county fair.
+interject name:lucan_houndstooth: A proper naturalist keeps his observations in permanent ink, Cordelia.
+interject name:lucan_houndstooth: And your six eyes are clicking loud enough to wake the brush.
+endif
+-> END
+
+~ act1_06_rook_lucan
+if name:rook_coldwake and name:lucan_houndstooth and flag.gl_crashed and not flag.act2_done
+interject name:rook_coldwake: Your hound is sitting on my boot, Lucan, and he just yipped twice. That's three leash statutes.
+interject name:lucan_houndstooth: When Dreadfang gives voice like that, Rook, he has scented a doom-laden draught. A solemn omen.
+interject name:rook_coldwake: He's sniffing the salt cheese in my ration bag.
+interject name:lucan_houndstooth: Aged cheese smells remarkably like barrow-rot, to be fair. Come along, good boy.
+endif
+-> END
+
+~ act1_07_silas_delphine
+if name:silas_vane and name:delphine_ravelle and flag.gl_crashed and not flag.act2_done
+interject name:silas_vane: Watch the queen of bones, friend. Three cards on the knee, not a mark on the backs.
+interject name:silas_vane: Pick the lady and you keep that shiny button.
+interject name:delphine_ravelle: I grew up in Picco, where barkers palm aces in their sleep. You flashed the corner on the second shuffle.
+interject name:delphine_ravelle: House always wins, unless you rigged the shoe yourself.
+interject name:silas_vane: Sharp eyes, even if one of them's glass. Your floating pal looks like he wants in on the cut.
+interject name:delphine_ravelle: He says you're lying. But he respects a hustler who reads the fine print.
+interject name:silas_vane: Nobody reads the fine print in time. We just keep shuffling till the dealer looks away.
+endif
+-> END
+
+~ act1_08_lucan_tobin_rook
+if name:lucan_houndstooth and name:tobin_hayward and name:rook_coldwake and flag.gl_crashed and not flag.act2_done
+interject name:lucan_houndstooth: Forgive the liberty, Tobin, but the bouquet of dry straw about you earns a generous nine out of ten.
+interject name:lucan_houndstooth: Like an autumn harvest.
+interject name:tobin_hayward: That's damp soil and old rot you're smelling. Stop sniffing my collar.
+interject name:tobin_hayward: Rook, tell him to take a pace back.
+interject name:rook_coldwake: The mist down here carries every cellar damp in the district. Can't blame the man.
+interject name:rook_coldwake: Remind me to take a breath before I judge the air myself.
+interject name:tobin_hayward: Take it now, Rook, and let it out slow so you don't rattle.
+interject name:tobin_hayward: At least the dog has the sense not to chew my hem.
+interject name:lucan_houndstooth: Dreadfang respects a well-tended seam. And I maintain the bouquet has a crisp finish.
+endif
+-> END
+
+~ act1_09_delphine_cordelia_silas
+if name:delphine_ravelle and name:cordelia_skein and name:silas_vane and flag.gl_crashed and not flag.act2_done
+interject name:delphine_ravelle: Eight sleeves in charcoal silk, every armhole set true. Your tailor deserves top billing, Cordelia.
+interject name:cordelia_skein: Thank you, darling. Your own patchwork holds remarkable tension across the chest.
+interject name:silas_vane: Wonderful. A haunted valley, a pair of haberdashers, and my ribs telling me the road's rigged.
+interject name:cordelia_skein: Your ribs are whistling in a minor key, Silas. That's damp weather, not an ambush.
+interject name:cordelia_skein: Hold still. This only tingles.
+interject name:delphine_ravelle: Leave him his rattle, Cordelia. It's the only percussion our troupe has left.
+endif
+-> END

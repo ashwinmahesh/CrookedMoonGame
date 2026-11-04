@@ -1200,13 +1200,19 @@ func _boss_music(cv: CombatView) -> void:
 
 # --- The villain's presence (a marked stub: plan G1 builds it) ------------------------------------
 
-## A visit from the villain at `on` (arrive, rest) if one is due here and now. None are written yet, so none is ever due; what
-## a visit that broke a Long Rest leaves behind (LongRest.waits_on_visit) still lets the party
-## sleep on. The campaign lane replaces this with the Crooked Moon's gaze and the Crooked Man's visits.
+## A visit from the villain at `on` (arrive, rest) if one is due here and now. A named night event (NightEvents, data/camp/
+## night_events.json: the Crooked Man at the party's fire) that broke a Long Rest plays its conversation now, and the party
+## sleeps on when it closes (_dialogue_ended); no other visits are written yet, so what any other broken rest leaves behind
+## (LongRest.waits_on_visit) still lets the party sleep on. The campaign lane replaces the rest with the Crooked Moon's gaze.
 func _visit(on: String, _ctx: Dictionary = {}) -> bool:
 	if view == null or view.in_combat or (dialogue != null and on != "rest"):
 		return false
-	if on == "rest" and LongRest.waits_on_visit(st):
+	if on == "rest" and dialogue == null and LongRest.event_waiting(st):
+		close_screen()   # the rest screen: the watch's word broke the night, and the visitor is at the fire now
+		LongRest.event_played(st)
+		start_dialogue(str(LongRest.night_event(st)["dialogue"]), "")
+		return true
+	if on == "rest" and LongRest.waits_on_visit(st) and not LongRest.event_waiting(st):
 		_sleep_again()   # the visit that broke the rest isn't due after all: the party sleeps on
 	return false
 
@@ -1252,10 +1258,10 @@ func _sleep_again() -> void:
 		visit_after_rest.call_deferred(int(res["minutes"]))
 
 
-## A save made while the night's rest was broken and no fight was under way: the visit that broke it comes now,
-## or the party sleeps on.
+## A save made while the night's rest was broken and no fight was under way: the visit that broke it comes now (a night
+## event whose conversation hadn't started), or the party sleeps on.
 func _night_after_load() -> void:
-	if LongRest.waits_on_visit(st) and not _night_visit_over():
+	if LongRest.event_waiting(st) or (LongRest.waits_on_visit(st) and not _night_visit_over()):
 		visit_after_rest(0)
 	else:
 		_sleep_again()

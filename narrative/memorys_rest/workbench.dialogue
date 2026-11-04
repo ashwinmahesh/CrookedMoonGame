@@ -17,6 +17,7 @@ Narrator: The spirit lamp catches with a low blue hiss, warming the heavy glass 
 
 ~ brew_ok
 Narrator: The cloudy ichor turns clear as rain and settles into a single warm, amber draught that smells faintly of bruised sage.
+interject name:cordelia_skein: Look at that clarity. A triumph of proper calibration over cellar filth.
 set mnemonic_residue -= 1
 set noetic_extract -= 1
 set unrefined_ichor -= 1
@@ -38,20 +39,24 @@ Narrator: The quiet wards smell of rain and old linen now. You hold fewer stoppe
 * Morgan's slow cure will reach the rest -> triage_done
 
 ~ triage_catherine
+approve rook_coldwake +3 tobin_hayward +2: You gave a dose of the antidote to restore Catherine first
 Narrator: Catherine drinks the warm draught, shivers once, and looks down at her mended left arm as her true name comes rushing back.
 catherine_winthrop [weary]: Tell Amos I am sorry for that foolish letter. Tell him I am coming home.
+interject name:tobin_hayward: There now, girl. Pulse is steady and the rot is out.
 set lethic_antidote_doses -= 1
 set amos_cousin_cured
 set mr_patients_cured += 1
 -> triage
 
 ~ triage_patients
+approve tobin_hayward +3 lucan_houndstooth +2: You spent your brewed antidote tending the helpless ward patients
 Narrator: You tip a vial between a patient's parted lips; colour creeps back into grey cheeks, and a whispered name breaks the long silence of the ward.
 set lethic_antidote_doses -= 1
 set mr_patients_cured += 1
 -> triage
 
 ~ triage_orderly
+approve tobin_hayward +3 delphine_ravelle +2 cordelia_skein +2: You gave a dose of antidote to cure a twisted orderly
 Narrator: The trembling orderly unfastens the porcelain mask and drinks; the twisted stiffness in the jaw loosens, and a pair of tired human eyes blinks up at you.
 set lethic_antidote_doses -= 1
 set mr_orderly_cured += 1

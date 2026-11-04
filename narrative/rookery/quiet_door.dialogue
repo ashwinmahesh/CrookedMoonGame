@@ -2,6 +2,7 @@
 
 ~ start
 Narrator: Marianna Grey stands pressed against the rough timber at the corner of the stable yard, her face pale in the gloom. She beckons to you with a cold, trembling hand, not making a sound.
+interject name:silas_vane: Someone's about to ask for a very pricey favour. I can smell it.
 marianna_grey [afraid]: I have Mrs. Oakum hidden up in the loft above the stalls. The mob has her name now. I need to get her out of Wickermoor, and I didn't know who else to ask.
 * We will take her up to the estate. -> accept
 * Why does the mob want Mrs. Oakum? -> why
@@ -9,14 +10,19 @@ marianna_grey [afraid]: I have Mrs. Oakum hidden up in the loft above the stalls
 
 ~ why
 marianna_grey [sad]: She is a good woman, truly, though she walks out alone when the moon is high. Tonight, with the village in this fever, the mob won't need more reason than that.
+interject name:cordelia_skein: Nocturnal wandering is hardly a pathology worth bringing out the pitchforks, darling.
 -> start
 ~ refuse
+approve tobin_hayward -2 silas_vane -2 lucan_houndstooth -1: You refused to help Marianna hide Mrs. Oakum from the mob
 marianna_grey [sad]: Oh. Yes, I understand. It is a terrible night to ask so much of anyone.
+interject name:tobin_hayward: Leaving good stock to the fire when a hand could save it. Shameful.
 -> END
 ~ accept
+approve tobin_hayward +2 silas_vane +2 rook_coldwake +2: You agreed to smuggle Mrs. Oakum away from the mob
 set rk_quiet_asked
 quest quiet_door asked
 marianna_grey [smile]: Thank you, truly. She is up in the hayloft right now. Go in by the side door and keep low.
+interject name:tobin_hayward: Up in the dry straw, then. Keep your lanterns shuttered on the ladder.
 -> END
 
 ~ progress
@@ -25,18 +31,22 @@ marianna_grey [weary]: The stable is quiet again now. Thank you for what you did
 -> END
 endif
 Narrator: Marianna's wide eyes flick toward the latched stable door and right back to you, the smell of damp straw and nervous horses thick in the air.
+interject name:lucan_houndstooth: The horses have caught the crowd's scent on the wind. Quietly now.
 marianna_grey [afraid]: Mrs. Oakum is still waiting up in the loft. Please, you must hurry before the torches come back down this lane.
 -> END
 
 ~ oakum
 Narrator: Mrs. Oakum sits among the scratchy hay bales, a big woman folded small in the dark. She holds an iron pitchfork across her knees that you can tell she has no intention of using.
+interject name:lucan_houndstooth: Observe her grip on the iron, friends; she fears her own teeth.
 mrs_oakum [afraid]: I don't want to hurt a living soul, truly I don't. But if that crowd corners me in the dark, I might lose hold of myself, and I'd never forgive that.
 * Come on, we are leading you out now. -> lead_out
 * Stay quiet and wait here a little longer. -> END
 
 ~ lead_out
+approve rook_coldwake +2 tobin_hayward +2 lucan_houndstooth +1: You led Mrs. Oakum out of the stable to safety
 set rk_oakum_escort
 Narrator: Mrs. Oakum props the pitchfork against a bale and follows you down the loft ladder, out through the back of the stable.
+interject name:rook_coldwake: Single file by the timber. Keep your boots quiet.
 move wickermoor_village:from_stable
 
 ~ leg1
@@ -46,8 +56,10 @@ Narrator: The lane behind the stalls offers forty yards of deep shadow before th
 * Take Marianna's mare and cart the long way by the river. -> leg2_long
 
 ~ leg2_long
+approve tobin_hayward +2 rook_coldwake +1 delphine_ravelle -1: You took the slow, safe river road with Marianna's mare
 time +120
 Narrator: The old mare plods slow and steady beside the wet, rushing hush of the river. Nobody looks twice at a heavy woman riding a cart of sweet hay.
+interject name:delphine_ravelle: Hay-cart billing in the dark, darlings. Wait till my public hears of this.
 -> leg2
 
 ~ leg2
@@ -57,8 +69,10 @@ Narrator: You reach the edge of the Founder's Round, where the press of bodies i
 * Hide in the dark and wait an hour for them to scatter. -> leg3_wait
 
 ~ leg3_wait
+approve lucan_houndstooth +2 rook_coldwake +1 delphine_ravelle -2: You waited in the dark until the angry torches scattered
 time +60
 Narrator: The torches finally bob away down a crooked side lane, taking their angry muttering with them. For a brief, breathless stretch, the cobblestones of the Round lie empty.
+interject name:silas_vane: House cleared the table for us, friend. Best move before they deal again.
 -> leg3
 
 ~ leg3
@@ -68,25 +82,30 @@ Narrator: Ahead lies the open moor road and the long, steep climb through the mi
 
 ~ spotted
 Narrator: A blazing pitch torch swings round, throwing harsh light across your faces. A hundred lilac-tinted eyes lock onto you, and a hundred throats take up the chant for Mrs. Oakum's blood.
+interject name:delphine_ravelle: Well, the house lights are up, darlings, and the cheap seats want blood.
 mrs_oakum [afraid]: Leave me here, please. I can hold them off long enough for the rest of you to run.
 * Draw steel and fight the mob off. -> fight_for_her
 * [ends:quiet_door] Hand her over, we cannot win this. -> give_up
 
 ~ fight_for_her
+approve rook_coldwake +3 lucan_houndstooth +3 silas_vane +2: You stood your ground and defended Mrs. Oakum from the mob
 set rk_mob_down = now
 combat rk_mob_fight
 
 ~ give_up
+approve silas_vane -5 rook_coldwake -4 tobin_hayward -4: You handed Mrs. Oakum over to the waiting village mob
 set rk_oakum_gone
 set rk_oakum_taken
 quest quiet_door taken
 Narrator: The villagers take her arms with a strange, almost gentle care, and she does not look back as they lead her away. A heavy cell door clangs shut, and the whole lane goes quiet.
+interject name:cordelia_skein: Look at their eyes, darling; so remarkably docile once the quarry yields.
 -> END
 
 ~ arrive
 set rk_oakum_gone
 quest quiet_door delivered
 Narrator: The crooked iron gates of the estate swing shut and swallow you in cool shadow. Beside you, Mrs. Oakum lets out a long, shaky breath she has been holding since supper.
+interject name:rook_coldwake: Iron's latched and the road is clear. You're through, missus.
 mrs_oakum [smile]: I reckon I owe you my life, and maybe theirs too. It is a mighty peculiar house up here, though it feels warm enough.
 move druskenvald_estate:from_village
 

@@ -1,10 +1,10 @@
 # R11: the first night in Wickermoor. The party walks the Druskenvalds in from the wreck, the Round is empty, and something is staked beside the oak.
-# Started by the call on the well (wm_well) as the leader comes into the west of the Round. The wolves are the fight wm_first_sacrifice; every way
+# Started by the call on the staked doll (wm_sacrifice_doll) as the leader walks into the Round, the one talk here that starts itself. The wolves are the fight wm_first_sacrifice; every way
 # through sets wm_first_sacrifice_done and moves wickermoor_arrival on, then the notice board's call (mayor_welcome:start) takes over.
 
 ~ start
 quest wickermoor_arrival first_sacrifice
-Narrator: The village is all shutters and held breath. In the middle of the trodden square an oak stands bare and gnarled, its bark carved with a hundred faces, and a bound shape is staked in the dirt beside it.
+Narrator: The square is all shutters and held breath. Beside a bare oak carved with a hundred faces, a bound shape is staked in the dirt.
 Narrator: The clocktower finishes tolling the hour. Somewhere beyond the east road, something big and shaggy starts to run.
 interject name:rook_coldwake: Staked in a public square. Whoever did this did not file for a permit.
 interject name:delphine_ravelle: Oh, darling, someone has dressed the whole village for a funeral and forgotten to invite the guest of honour.
@@ -28,7 +28,7 @@ Narrator: A baby goat, then, in a straw man's belly, and a pack of wolves coming
 -> choices_known
 
 ~ inspect_fail
-Narrator: In the dark it could be anyone, bound and still, and the wolves are coming too fast for a long look.
+Narrator: In the dark it could be anyone, and the wolves are coming too fast for a long look.
 -> choices
 
 ~ choices_known
@@ -38,7 +38,7 @@ Narrator: In the dark it could be anyone, bound and still, and the wolves are co
 
 ~ cut
 quest wickermoor_arrival first_sacrifice
-Narrator: {name} slits the sacking with a quick stroke. A baby goat tumbles out, bleats once like an insult, and bolts across the square.
+Narrator: {name} slits the sacking. A baby goat tumbles out, bleats like an insult, and bolts across the square.
 set goat_fate = "freed"
 set old_ways_offended
 standing old_ways -2
@@ -55,7 +55,7 @@ attitude myrtle_somerton indifferent
 check Athletics DC 10 -> caught | cut_missed
 
 ~ caught
-Narrator: {name} slits the doll and takes the goat in both arms before it finds its feet. It bleats against your collar, warm and furious.
+Narrator: {name} slits the doll and catches the goat in both arms. It bleats against your collar, warm and furious.
 set goat_fate = "caught"
 set old_ways_offended
 standing old_ways -2
@@ -83,7 +83,7 @@ attitude myrtle_somerton indifferent
 -> wolves
 
 ~ hold
-Narrator: You keep back and let the wolves come. They pour into the square, take the bound shape in a roil of fur and teeth, and are gone down the east road, and the square is quiet again.
+Narrator: You hold back as the wolves take the bound shape in a roil of fur and teeth, then vanish down the east road.
 set goat_fate = "eaten"
 standing old_ways +1
 set wm_first_sacrifice_done
@@ -93,7 +93,7 @@ adela_druskenvald [sad]: Darling. Not now.
 -> END
 
 ~ watch
-Narrator: You stand with hands loose and watch the wolves take the bound shape in a roil of fur and teeth. The pack leaves as it came, down the east road, and nothing in the whole village stirs.
+Narrator: You stand idle as the wolves take the bound shape and leave down the east road. Nothing in the village stirs.
 set goat_fate = "eaten"
 standing old_ways +1
 set wm_first_sacrifice_done
@@ -101,5 +101,5 @@ quest wickermoor_arrival welcome
 -> END
 
 ~ wolves
-Narrator: The wolves come down the east road in a shaggy wave, yellow eyes on the little white shape, and they do not care who is in the way.
+Narrator: The wolves pour down the east road, yellow eyes on the little white shape, caring nothing for who stands in the way.
 combat wm_first_sacrifice

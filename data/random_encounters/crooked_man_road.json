@@ -1,0 +1,32 @@
+{
+  "id": "crooked_man_road",
+  "map": "road_moor_bonfire",
+  "every_road": true,
+  "when": "flag.vessla_slain",
+  "chance_day": 0.5,
+  "chance_night": 0.5,
+  "summary": "The Crooked Man at the edge of the road between the acts: after the Crooked House, after the first of the Fallen, and his note when only one candle is left.",
+  "entries": [
+    {
+      "id": "after_house",
+      "weight": 1,
+      "when": "flag.vessla_slain and not flag.cm_road_house",
+      "once": true,
+      "dialogue": "roads/crooked_man:after_house"
+    },
+    {
+      "id": "first_fallen",
+      "weight": 1,
+      "when": "(flag.raum_slain or flag.renathyr_slain or flag.grinning_sinner_slain or flag.lethica_slain) and not flag.cm_road_fallen",
+      "once": true,
+      "dialogue": "roads/crooked_man:first_fallen"
+    },
+    {
+      "id": "note",
+      "weight": 1,
+      "when": "flag.fallen_farryn_dead and not flag.fallen_yorgrim_dead and not flag.cm_note_read",
+      "once": true,
+      "dialogue": "roads/crooked_man:note"
+    }
+  ]
+}

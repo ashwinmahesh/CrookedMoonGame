@@ -73,7 +73,9 @@
           9,
           2
         ]
-      ]
+      ],
+      "floor": "props/circus_floor",
+      "walls": "props/circus_wall"
     },
     {
       "id": "g7_stage",
@@ -87,7 +89,9 @@
           18,
           5
         ]
-      ]
+      ],
+      "floor": "props/circus_floor",
+      "walls": "props/circus_wall"
     }
   ],
   "spawns": {
@@ -188,10 +192,8 @@
       ],
       "kind": "examine",
       "label": "A poster for the Festival of Fools",
-      "model": "notice_board",
-      "call": "ghostlight_express/incitements:ascendancy_enter",
-      "approach": 12,
-      "call_when": "not flag.incitement_ascendancy and not flag.pending_ascendancy_incitement"
+      "dialogue": "ghostlight_express/incitements:ascendancy_enter",
+      "model": "notice_board"
     },
     {
       "id": "g7_marionette_chest",
@@ -241,10 +243,7 @@
       ],
       "kind": "examine",
       "label": "The brass lamps",
-      "model": "lamp",
-      "call": "ghostlight_express/vagrant_intercom:router",
-      "approach": 12,
-      "call_when": "flag.gl_vagrant_briefed and not flag.gl_crashed and ((flag.haints_destroyed >= 1 and not flag.gl_destroyed_noted) or (flag.haints_resolved >= 3 and not flag.gl_level2_given) or (flag.haints_all_gone and not flag.gl_checkin_all) or (flag.haints_resolved >= 5 and not flag.gl_checkin_fifth) or (flag.haints_resolved >= 1 and not flag.gl_checkin_first))"
+      "model": "lamp"
     },
     {
       "id": "g7_punch_chest",
@@ -257,6 +256,40 @@
       "model": "case",
       "dialogue": "ghostlight_express/punch:chest",
       "when": "flag.punch_asked and not flag.punch_found"
+    },
+    {
+      "id": "g7_lighting_rig",
+      "cell": [
+        13,
+        3
+      ],
+      "kind": "decor",
+      "label": "The lighting rig over the ring",
+      "hangs": {
+        "cells": [
+          [
+            13,
+            3
+          ],
+          [
+            14,
+            3
+          ]
+        ],
+        "kind": "chandelier",
+        "lit": true
+      }
+    },
+    {
+      "id": "g7_powder_keg",
+      "cell": [
+        17,
+        3
+      ],
+      "kind": "decor",
+      "label": "A keg of cannon powder",
+      "model": "barrel",
+      "object": "oil_barrel"
     }
   ],
   "npcs": [
@@ -267,7 +300,6 @@
         3
       ],
       "dialogue": "ghostlight_express/haint_harlequin:start",
-      "approach": 5,
       "when": "not flag.haint_harlequin_done and not flag.haint_harlequin_destroyed"
     }
   ],
@@ -291,7 +323,82 @@
             3
           ],
           "name": "The Harlequin",
-          "facing": "south"
+          "facing": "south",
+          "states": [
+            "pratfall_panic"
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "pratfall_panic",
+          "name": "Pratfall Panic",
+          "summary": "Her painted grin swings close.",
+          "kind": "save",
+          "affects": "party",
+          "from_round": 2,
+          "say": "haint:pratfall",
+          "one": true,
+          "save": {
+            "ability": "wis",
+            "dc": 12
+          },
+          "condition": "frightened",
+          "until": "target_turn_end"
+        }
+      ]
+    },
+    {
+      "id": "gl_shroud_breach",
+      "trigger": "enter_area:g7_stage",
+      "flag": "gl_breach_done",
+      "when": "flag.haints_resolved >= 3 and not flag.gl_breach_done",
+      "monsters": [
+        {
+          "monster": "corrupted_passenger",
+          "cell": [
+            12,
+            2
+          ],
+          "name": "Shroud-Touched Passenger",
+          "art": "corrupted_passenger"
+        },
+        {
+          "monster": "shadow",
+          "cell": [
+            16,
+            5
+          ],
+          "name": "A Sliver of the Phantom",
+          "art": "phantom_trainhopper"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "shroud_spills_in",
+          "name": "The Shroud Spills In",
+          "summary": "Green mist pours through the broken window, and a passenger in it turns.",
+          "kind": "summon",
+          "monster": "corrupted_passenger",
+          "count": 1,
+          "cells": [
+            [
+              15,
+              4
+            ]
+          ],
+          "from_round": 2,
+          "until_round": 3,
+          "say": "breach:spill"
+        },
+        {
+          "id": "vagrants_whistle",
+          "name": "The Vagrant's Whistle",
+          "summary": "The train's whistle screams and the window knits itself whole.",
+          "kind": "text",
+          "from_round": 4,
+          "times": 1,
+          "say": "breach:whistle"
         }
       ]
     }
@@ -305,7 +412,7 @@
       "kind": "lamp",
       "bright_ft": 20,
       "dim_ft": 40,
-      "color": "candle"
+      "color": "carnival_yellow"
     },
     {
       "cell": [
@@ -315,7 +422,7 @@
       "kind": "lamp",
       "bright_ft": 20,
       "dim_ft": 40,
-      "color": "candle"
+      "color": "carnival_yellow"
     },
     {
       "cell": [
@@ -325,7 +432,7 @@
       "kind": "lamp",
       "bright_ft": 20,
       "dim_ft": 40,
-      "color": "candle"
+      "color": "carnival_yellow"
     },
     {
       "cell": [
@@ -367,6 +474,33 @@
           "qty": 1
         }
       ]
+    },
+    {
+      "id": "g7_padlocked_cage",
+      "cell": [
+        2,
+        1
+      ],
+      "label": "A padlocked cage",
+      "model": "cage_covered",
+      "lock_dc": 15,
+      "key": "ghostlight_key_ring",
+      "gold": 10,
+      "items": [
+        {
+          "id": "bag_of_tricks_rust",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "g7_prop_crates",
+      "cell": [
+        8,
+        4
+      ],
+      "label": "Red-and-white prop crates",
+      "model": "crate_stack"
     }
   ]
 }

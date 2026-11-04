@@ -1,8 +1,8 @@
 # Drafted by Gemini (side quests batch 1: feast), edited.
 
 ~ holly_start
-holly_aster [angry]: Dust your boots and listen close, newcomers. Tomorrow is the Founders' feast, and Siv Harga thinks her greasy sausage rolls belong at the high table instead of my spiced harvest loaf.
-holly_aster [sly]: Carry this warm loaf to Mayor Somerton and speak well of my crust. And sneak a bite of Siv's pastry first, then tell me true if her suet beats my cinnamon.
+holly_aster [angry]: Listen close, newcomers. Tomorrow is the Founders' feast, and Siv Harga thinks her greasy sausage rolls belong at the high table over my spiced harvest loaf.
+holly_aster [sly]: Take this warm loaf to Mayor Somerton and praise my crust. Sneak a bite of Siv's pastry first, and tell me if her suet beats my cinnamon.
 * We will help -> holly_accept
 * Not now -> END
 
@@ -13,14 +13,14 @@ set feast_asked
 -> END
 
 ~ siv_visit
-siv_harga [angry]: Holly Aster sent you sniffing round my chopping block, did she? That woman bakes dry sawdust and calls it sacred custom.
-siv_harga [neutral]: Try one of my pork rolls before you judge, fresh from the tin. Better yet, carry a tray up to Mayor Somerton and tell him real meat beats sweet dough.
+siv_harga [angry]: Holly Aster sent you sniffing round my block? That woman bakes dry sawdust and calls it sacred custom.
+siv_harga [neutral]: Try a pork roll first, fresh from the tin. Better yet, take a tray to Mayor Somerton and tell him real meat beats sweet dough.
 * Taste a sausage roll -> taste
 * Carry a roll to the mayor too -> siv_accept
 * Leave -> END
 
 ~ taste
-Narrator: The pastry flakes at the first bite, rich with sage, black pepper, and clean pork fat. You have to admit it is remarkably good.
+Narrator: The pastry flakes at first bite, rich with sage, black pepper, and clean pork fat. It is remarkably good.
 siv_harga [smile]: Ha! Your eyes just went wide as saucers, stranger. Tell Holly that when you see her.
 set siv_tasted
 -> siv_visit
@@ -32,8 +32,8 @@ set siv_roll_carried
 
 ~ mayor_judges
 wendel_somerton [smile]: Come in, come in, my dear friends! Have you brought the contenders for tomorrow's high table?
-Narrator: The mayor samples a crumb of spiced crust and a corner of warm pastry, wiping his chin with a linen napkin.
-wendel_somerton [weary]: Oh, dear me, both are splendid, yet tradition demands a single crown dish. Which baker claims your vote?
+Narrator: The mayor samples the spiced crust and warm pastry, wiping his chin with a linen napkin.
+wendel_somerton [weary]: Both are splendid, yet tradition demands a single crown dish. Which baker claims your vote?
 * Praise Holly's loaf -> praise_holly
 * Praise Siv's rolls -> praise_siv
 * [Persuasion DC 13] Suggest both be served -> both_ok | both_fail
@@ -52,7 +52,7 @@ standing patient_lady +1
 -> ode
 
 ~ both_ok
-wendel_somerton [smile]: By the Oak, what wisdom! Savory meat in the left hand, sweet bread in the right! We shall raise a toast to harmony!
+wendel_somerton [smile]: By the Oak, what wisdom! Savory meat in the left hand, sweet bread in the right! A toast to harmony!
 set feast_winner = "both"
 standing old_ways +1
 standing patient_lady +1
@@ -63,7 +63,7 @@ wendel_somerton [sad]: Alas, the Founders' charter allows only one dish to lead 
 -> mayor_judges
 
 ~ sabotage
-Narrator: While the mayor turns to fetch his goblet, {name} tips a heavy cellar of coarse salt straight into Siv's gravy seam. Siv will never know whose hand ruined the batch.
+Narrator: While the mayor fetches his goblet, {name} tips coarse salt straight into Siv's gravy seam. She will never know who ruined the batch.
 wendel_somerton [afraid]: Merciful heavens, this meat is brined like an old boot! Holly's spiced loaf wins by default!
 set feast_winner = "holly"
 set feast_sabotaged
@@ -71,8 +71,8 @@ standing patient_lady -1
 -> ode
 
 ~ ode
-Narrator: Lanterns swing above the long trestle tables as Ambrose Quill rises, clearing his throat with terrifying authority.
-ambrose_quill [smile]: O blessed feast of Wickermoor, where crumbs fall down to sweep the floor more! May bad meat never make us sicker, nor empty tankards drain the quicker!
+Narrator: Lanterns swing above the trestle tables as Ambrose Quill rises and clears his throat.
+ambrose_quill [smile]: O blessed feast of Wickermoor, where crumbs fall down to sweep the floor! May bad meat never make us sicker, nor empty tankards drain the quicker!
 Narrator: Dead silence hangs over the taproom for three heartbeats, followed by polite, bewildered clapping.
 quest bread_and_circuses done
 set feast_done

@@ -1,0 +1,237 @@
+{
+  "id": "foxwillow_road",
+  "map": "road_cornfield_lane",
+  "grounds": [
+    "road_cornfield_lane",
+    "road_moor_bonfire",
+    "road_oakwood"
+  ],
+  "chance_day": 0.4,
+  "chance_night": 0.4,
+  "summary": "The Foxwillow road east through farmland: Raum's crows and the things that walk the fields, scarecrows and corn effigies; refugees from the burning town.",
+  "entries": [
+    {
+      "id": "crows",
+      "weight": 3,
+      "when": "level <= 5",
+      "monsters": [
+        {
+          "monster": "quasit_crow",
+          "cell": [
+            20,
+            12
+          ]
+        },
+        {
+          "monster": "quasit_crow",
+          "cell": [
+            23,
+            10
+          ]
+        },
+        {
+          "monster": "swarm_of_ravens",
+          "cell": [
+            25,
+            14
+          ]
+        },
+        {
+          "monster": "swarm_of_ravens",
+          "cell": [
+            18,
+            9
+          ]
+        }
+      ],
+      "text": "The crows in the furrows rise all at once in a clatter of wings, and you see some ain't crows at all, wearing little horned faces."
+    },
+    {
+      "id": "crowstorm",
+      "weight": 3,
+      "when": "level >= 6",
+      "monsters": [
+        {
+          "monster": "crowstorm",
+          "cell": [
+            18,
+            9
+          ]
+        },
+        {
+          "monster": "quasit_crow",
+          "cell": [
+            28,
+            12
+          ]
+        },
+        {
+          "monster": "quasit_crow",
+          "cell": [
+            8,
+            9
+          ]
+        },
+        {
+          "monster": "swarm_of_ravens",
+          "cell": [
+            7,
+            15
+          ]
+        }
+      ],
+      "text": "The sky drops down at you as a single dark storm of crows, gleaming with a hundred amber eyes and smaller things riding inside."
+    },
+    {
+      "id": "scarecrows",
+      "weight": 3,
+      "when": "level <= 5",
+      "monsters": [
+        {
+          "monster": "scarecrow",
+          "cell": [
+            7,
+            15
+          ]
+        },
+        {
+          "monster": "scarecrow",
+          "cell": [
+            21,
+            17
+          ]
+        },
+        {
+          "monster": "scarecrow",
+          "cell": [
+            26,
+            6
+          ]
+        },
+        {
+          "monster": "corn_dolly",
+          "cell": [
+            13,
+            7
+          ]
+        }
+      ],
+      "text": "Three scarecrows step down off their poles in the field and tramp across the furrows, a little doll of plaited corn walking behind them."
+    },
+    {
+      "id": "pumpkin_head",
+      "weight": 3,
+      "when": "level >= 6",
+      "monsters": [
+        {
+          "monster": "pumpkin_head",
+          "cell": [
+            13,
+            7
+          ]
+        },
+        {
+          "monster": "scarecrow",
+          "cell": [
+            30,
+            15
+          ]
+        },
+        {
+          "monster": "scarecrow",
+          "cell": [
+            4,
+            13
+          ]
+        },
+        {
+          "monster": "scarecrow",
+          "cell": [
+            17,
+            14
+          ]
+        }
+      ],
+      "text": "A tall figure with a carved, grinning pumpkin head lit from within steps out of the corn, and scarecrows trail behind it like hounds."
+    },
+    {
+      "id": "effigies",
+      "weight": 2,
+      "when": "level <= 6",
+      "monsters": [
+        {
+          "monster": "crooked_effigy",
+          "cell": [
+            17,
+            14
+          ]
+        },
+        {
+          "monster": "crooked_effigy",
+          "cell": [
+            20,
+            12
+          ]
+        },
+        {
+          "monster": "witchwoven",
+          "cell": [
+            23,
+            10
+          ]
+        }
+      ],
+      "text": "Those corn effigies along the lane weren't standing there when you came this way, and their stitched faces turn to watch as you pass."
+    },
+    {
+      "id": "effigies_many",
+      "weight": 2,
+      "when": "level >= 7",
+      "monsters": [
+        {
+          "monster": "crooked_effigy",
+          "cell": [
+            25,
+            14
+          ]
+        },
+        {
+          "monster": "crooked_effigy",
+          "cell": [
+            18,
+            9
+          ]
+        },
+        {
+          "monster": "crooked_effigy",
+          "cell": [
+            28,
+            12
+          ]
+        },
+        {
+          "monster": "witchwoven",
+          "cell": [
+            8,
+            9
+          ]
+        },
+        {
+          "monster": "witchwoven",
+          "cell": [
+            7,
+            15
+          ]
+        }
+      ],
+      "text": "A whole procession of corn effigies and little woven things blocks the lane ahead, rustling dryly though no wind blows."
+    },
+    {
+      "id": "foxwillow_refugees",
+      "weight": 3,
+      "when": "not flag.road_refugees_met and not flag.raum_slain",
+      "once": true,
+      "dialogue": "roads/act2:foxwillow_refugees"
+    }
+  ]
+}

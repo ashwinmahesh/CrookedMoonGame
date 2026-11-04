@@ -1,0 +1,173 @@
+# Tobin's Thread of Fate at camp (Rejuvenation): the beats that wait for a rest (story/camp_talk.gd offers the first `talk_` node whose opening `if` holds,
+# once a playthrough). Order matters: the Incitement's echo, the Discovery, the Confrontation (held back while Tobin is Strained until the
+# `talk_confrontation_wait` word has been had, never for good). Rewards come from Fateweaving when each beat's quest ends (story/fateweaving.gd).
+# Drafted by Gemini (docs/plans/gemini_companions/), edited; every edit is listed in the README there. Lines are unvoiced until the voice lane reads them.
+
+~ talk_incitement
+if name:tobin_hayward and flag.pending_rejuvenation_incitement and not flag.incitement_rejuvenation
+-> incitement
+endif
+-> END
+
+~ incitement
+Narrator: Tobin sits three paces back from the fire, wipin' green sap from his pruning knife with a twist of dry straw.
+interject name:tobin_hayward: I stepped back into that broken glasshouse while the rain came down, just to take the measure of the bergamot tree.
+interject name:tobin_hayward: One thumb on the weeping bark and my whole arm went cold, because a sour black canker is eating straight through the heartwood.
+interject name:tobin_hayward: Worse, the sap carried a phantom reek of scorching apple-wood that had the mice diving for my pockets.
+interject name:tobin_hayward: I splinted the cracked twig with three straws from my ribs, though it left my fingers shaking in my cuffs.
+* Where does that rot run to, and why did the smoke shake you? -> incitement_1
+* The splint will hold for tonight. Get some rest. -> incitement_2
+
+~ incitement_1
+Narrator: He clicks the pruning knife shut and presses two burlap fingers against his pocket until the rustling inside settles.
+interject name:tobin_hayward: The seam runs down the taproot toward the hills, and we can track it and cut it clean.
+interject name:tobin_hayward: As for the smoke, a straw man has no business near an orchard fire, and old ash is best left in the ground.
+set incitement_rejuvenation
+set tobin_inc_choice = "asked"
+inspire name:tobin_hayward: vowed to trace the valley's blight
+-> END
+
+~ incitement_2
+Narrator: Tobin slides the folded knife into his duster and brushes a flake of damp bark from his knee.
+interject name:tobin_hayward: Right, the binding is tight enough to see the bough through till morning.
+interject name:tobin_hayward: Keep your boots off the surface roots when we march, and I will keep my eye on the soil.
+set incitement_rejuvenation
+set tobin_inc_choice = "moved_on"
+inspire name:tobin_hayward: splinted the bough and moved on
+-> END
+
+~ talk_discovery
+if name:tobin_hayward and flag.connection_rejuvenation and flag.stonoga_slain and not flag.discovery_rejuvenation
+-> discovery
+endif
+-> END
+
+~ discovery
+Narrator: Tobin squats on an upturned crate well clear of the sparks, scraping grey webbing off his boot heel with a dry twig.
+interject name:tobin_hayward: Down under Skitterdeep, where the stone sweats, I pinched a flake of peeling birch bark onto my tongue to read the vintage.
+interject name:tobin_hayward: That mine wasn't the beginning of the parish sickness, only a cellar where the rot pooled and fed.
+interject name:tobin_hayward: I tasted the cold vein where the Hollow's blight drinks from, running under the rock like a poisoned ditch.
+Narrator: He spits into the dark grass beside his boot and wipes his stitched mouth with the back of his wrist.
+interject name:tobin_hayward: A deep taproot, sour as dead turnip, and it reaches all the way into the timber up the ridge.
+interject name:tobin_hayward: Still, any root that drinks can be severed if the surgeon has a steady blade.
+interject name:tobin_hayward: Sister Rain gave me a clean seed in Wickermoor for nothing, and I mean to find it an honest row.
+interject name:tobin_hayward: Only, tasting that black water brought back a dry summer I thought I had stitched shut for good.
+* What kind of summer leaves a taste like that behind? -> discovery_1
+* If the root can be cut, we'll bring a blade. -> discovery_2
+* Keep the map in your head. We move at first light. -> discovery_3
+
+~ discovery_1
+Narrator: Tobin pulls his hat low over his stitched brow and touches the front seam of his coat with a flat thumb.
+interject name:tobin_hayward: A season where the blight moved faster than the pruning hook, and a man made choices he doesn't care to count.
+interject name:tobin_hayward: That account is closed, and I will not balance this valley's books with a torch.
+approve tobin_hayward +2: You asked what kind of summer left that taste behind.
+set discovery_rejuvenation
+quest discovery_rejuvenation done
+quest confrontation_rejuvenation waiting
+-> END
+
+~ discovery_2
+Narrator: A faint papery rustle comes from his chest as he straightens his lapels and nods once.
+interject name:tobin_hayward: Now that is sound husbandry, plain and brisk.
+interject name:tobin_hayward: Good soil, bad seed, and a clean cut at the taproot before the whole acre goes sour.
+approve tobin_hayward +3: You agreed to cut the root clean and clear the row.
+set discovery_rejuvenation
+quest discovery_rejuvenation done
+quest confrontation_rejuvenation waiting
+-> END
+
+~ discovery_3
+Narrator: He tucks the scrap of twig into his herb satchel and buckles the flap down tight.
+interject name:tobin_hayward: The seam is marked in my ledger, never fret.
+interject name:tobin_hayward: Give me ten minutes to check the mice for mine-damp and I am ready for the road.
+approve tobin_hayward -1: You told me to keep the map in my head and get ready to march.
+set discovery_rejuvenation
+quest discovery_rejuvenation done
+quest confrontation_rejuvenation waiting
+-> END
+
+~ talk_confrontation_wait
+if name:tobin_hayward and flag.discovery_rejuvenation and flag.gorthos_slain and not flag.confrontation_rejuvenation and approval.tobin_hayward <= strained and not flag.tobin_hayward_confrontation_waited
+-> confrontation_wait
+endif
+-> END
+
+~ confrontation_wait
+Narrator: Tobin stands at the edge of the firelight with his arms crossed, his turnip-lantern hanging cold against his wooden collarbone.
+interject name:tobin_hayward: There is an account from Hartsblight sitting in my chest, and it will stay there until our seams are straighter.
+interject name:tobin_hayward: We are meant to be surgeons in this valley, scraping out the canker and saving what can still grow.
+interject name:tobin_hayward: Lately your boots have been heavy on the living roots and careless with the sparks.
+interject name:tobin_hayward: I do not open my private ledger to folk who treat a sick parish like kindling.
+* You're right. We've been careless, and we'll mind the living ground. -> confrontation_wait_1
+* Keep your stories to yourself, then, so long as you do your work. -> confrontation_wait_2
+* Say nothing. Stay by the fire. -> confrontation_wait_3
+
+~ confrontation_wait_1
+Narrator: He lets out a dry, reedy breath and adjusts the pale primrose sproutin' from his left cuff.
+interject name:tobin_hayward: Words are cheap twine, friend, so let me see how you walk the rows tomorrow.
+interject name:tobin_hayward: Keep the sparks off the good timber and we will speak of the forest when the camp is quiet.
+approve tobin_hayward +6: You owned your careless steps and promised to mind the living ground.
+set tobin_hayward_confrontation_waited
+-> END
+
+~ confrontation_wait_2
+Narrator: Tobin's stitched mouth pulls into a flat line, and he turns his shoulder toward the dark trees.
+interject name:tobin_hayward: My blade is sharp and my bindings hold, you will have no complaint on that score.
+interject name:tobin_hayward: Just keep your lantern three paces off my back while we march.
+approve tobin_hayward -2: You told me to keep my stories to myself and just do the work.
+set tobin_hayward_confrontation_waited
+-> END
+
+~ confrontation_wait_3
+Narrator: Tobin watches the coals settle for a long two-beat count, then taps the brim of his hat and steps back into the dark.
+interject name:tobin_hayward: Mind the damp in your bedroll.
+set tobin_hayward_confrontation_waited
+-> END
+
+~ talk_confrontation
+if name:tobin_hayward and flag.discovery_rejuvenation and flag.gorthos_slain and not flag.confrontation_rejuvenation and (approval.tobin_hayward > strained or flag.tobin_hayward_confrontation_waited)
+-> confrontation
+endif
+-> END
+
+~ confrontation
+Narrator: Tobin sits on a dry log with his elbows on his knees, turnin' a clean bit of ash bark over in his burlap hands.
+interject name:tobin_hayward: Up in Hartsblight, when the grey dust settled, the ancient timber answered my thumb without a drop of poison in the sap.
+interject name:tobin_hayward: Only the wood did not show me mushroom or stag-rot.
+interject name:tobin_hayward: It caught the memory right out of my own ribs, hot cinder-smoke and a blazing roof I never speak of.
+interject name:tobin_hayward: In my mortal seasons, when a black canker took the rows, something burned that I'll not describe, and I woke in this valley made of dry straw.
+Narrator: His breath shortens, crowding the words together, and he presses a flat palm hard against the middle of his chest.
+interject name:tobin_hayward: Every spark since has had me stepping three paces back, terrified a curable blight would turn into an ash-heap twice.
+interject name:tobin_hayward: In Hartsblight I stood my ground against that heat and tied the split bark instead of running or striking a match.
+interject name:tobin_hayward: Clean green shoots broke straight through the char before we left the trees.
+interject name:tobin_hayward: Do you reckon one clean row pays a speck toward an acre lost?
+* Tell me what happened when you stood your ground in the smoke. -> confrontation_1
+* It doesn't erase the old ledger, Tobin, but the new green is real. -> confrontation_2
+* The forest is growing back. Leave the old ash behind. -> confrontation_3
+
+~ confrontation_1
+Narrator: Tobin steadies his breathing and lets his hand drop from his chest.
+interject name:tobin_hayward: My wrists smoked in the memory of it, and every mouse in my coat went still as stone.
+interject name:tobin_hayward: I kept my thumb on the living grain until the phantom fire starved for fuel, and the sap ran sweet again.
+approve tobin_hayward +4: You asked what it took to stand my ground in the smoke.
+set confrontation_rejuvenation
+quest confrontation_rejuvenation done
+-> END
+
+~ confrontation_2
+Narrator: Tobin looks down at the pale primrose on his cuff, then gives a crisp, single nod.
+interject name:tobin_hayward: Right, a surgeon does not un-scar the bark, he only sees the next season gets its water.
+interject name:tobin_hayward: Hold still a second, you're fraying at the hem and I have a spare length of good twine.
+approve tobin_hayward +6: You told me the old ledger stays, but the new green is real.
+set confrontation_rejuvenation
+quest confrontation_rejuvenation done
+-> END
+
+~ confrontation_3
+Narrator: Tobin tucks the flake of clean ash bark into his waistcoat pocket and dusts his palms together.
+interject name:tobin_hayward: Plain enough, and no sense letting the dew rust the shears while we stare at yesterday.
+interject name:tobin_hayward: The timber in Hartsblight will hold its own rows now, and so will I.
+approve tobin_hayward -2: You told me the forest is growing back and to leave the old ash behind.
+set confrontation_rejuvenation
+quest confrontation_rejuvenation done
+-> END

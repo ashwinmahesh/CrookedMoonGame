@@ -10,6 +10,7 @@ dg_toma_flint [weary]: Hush now, little vein, I hear you. Keep your boots quiet,
 
 ~ toma_mine
 dg_toma_flint [afraid]: The lode's running thin as a winter soup. Worse than that, the ore sounds frightened when you strike it, humming like a trapped bee.
+interject name:cordelia_skein: Silver that rings when you strike it. I'd love a sample for the vials.
 dg_toma_flint [weary]: Stone shouldn't shiver like flesh does, friend. It knows where we're sending it.
 -> toma
 
@@ -19,6 +20,7 @@ dg_toma_flint [weary]: They come out smiling, or they come out as smoke.
 -> toma
 
 ~ toma_hat
+approve rook_coldwake +2 tobin_hayward +2: You returned Toma's hat and settled Axel's debt
 take toma_hat
 set toma_paid
 gold +10
@@ -51,6 +53,7 @@ set stable_hand_clue
 -> halka
 
 ~ halka_letter
+approve tobin_hayward +3 rook_coldwake +2: You brought Halka her lost son's letter
 take halka_letter
 set halka_paid
 Narrator: A small, dry cry catches in her throat as her thumb traces the crooked ink.
@@ -84,15 +87,18 @@ Narrator: The Twilight bell fades into the snow as three armored riders tighten 
 * [if flag.maric_loosened] Watch the knight with the loose saddle. -> watch
 
 ~ ambush
+approve lucan_houndstooth +3 rook_coldwake +3 tobin_hayward +2: You ambushed the Sanguine Hunt to protect the village
 combat dg_hunt
 
 ~ watch
 Narrator: As the third knight vaults into his stirrup, the loosened leather gives way and dumps him flat into the icy mud.
 ser_maric_dunmore [afraid]: Back, beast! The girth was sabotaged, I tell you, watch its hooves!
+interject name:lucan_houndstooth: A hunter who never inspects his own tack deserves a mouthful of slush.
 landers_knight [angry]: Shut your mouth and draw steel, Maric, we have company!
 -> ambush
 
 ~ ride
+approve rook_coldwake -4 tobin_hayward -4 lucan_houndstooth -3: You let the Sanguine Hunt drag a villager away
 quest sanguine_hunt rode_out
 set hunt_gone
 Narrator: Iron hooves thunder up the lane, a cottage door splinters in the dark, and the riders drag a weeping miner out by his collar. When the hoofbeats fade toward the mountain, the village is quieter than a grave.

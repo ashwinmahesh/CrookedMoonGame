@@ -2,13 +2,13 @@
 
 ~ start
 Narrator: The shop smells of bay rum and hot iron, though a sour sweat clings to the barber's collar.
-randall_graham [smile]: Trim or a bloodletting, friends? Only, I am in a strange pinch. Swept-up locks from my floor keep turning up in the undertaker's cellar, and I cannot fathom how.
+randall_graham [smile]: Trim or a bloodletting, friends? Swept-up locks from my floor keep turning up in the undertaker's cellar, and I cannot fathom how.
 * We will look into it. -> accept
 * Why does it matter? -> why
 * Not now. -> END
 
 ~ why
-randall_graham [afraid]: Every lock down there belongs to a fellow who took a sudden, rattling chill the week after his trim. Folk are starting to eye my scissors crooked.
+randall_graham [afraid]: Every lock down there belongs to a fellow who took a rattling chill the week after his trim. Folk are eyeing my scissors crooked.
 -> start
 
 ~ accept
@@ -18,32 +18,32 @@ set hair_asked
 -> END
 
 ~ clue_barber
-Narrator: Behind a crate of tonic bottles sits a tall glass jar, stuffed with ribboned locks of hair and paper slips.
+Narrator: Behind a crate of tonic bottles sits a glass jar stuffed with ribboned hair and paper slips.
 * [Investigation DC 12] Read the labels and the dates. -> clue_barber_ok | clue_barber_fail
 
 ~ clue_barber_ok
-Narrator: Each slip bears a customer's name and a date falling on the dark of the moon, matching the Order's monthly tithe to the letter.
+Narrator: Each slip bears a customer's name and a dark-moon date, matching the Order's monthly tithe.
 set hair_clue_a
 -> END
 
 ~ clue_barber_fail
-Narrator: Damp cellar rot and a broad thumbprint of tallow ink have blurred the dates beyond reading. Whatever the pattern is, it may show clearer at the funeral home.
+Narrator: Cellar rot and tallow ink have blurred the dates. The pattern may show clearer at the funeral home.
 -> END
 
 ~ clue_funeral
-Narrator: On a cold stone shelf beside an unchiseled coffin plate rests a stoppered jar of hair, tied with the very same barber's twine.
+Narrator: Beside an unchiseled coffin plate rests a jar of hair, tied with the same barber's twine.
 set hair_clue_b
 -> END
 
 ~ confront
 Narrator: Randall's razor clatters into the porcelain basin, his round face gone the colour of mutton fat.
-randall_graham [afraid]: Do not say it aloud! I owed the Order a steep sum from a bad winter, and they took payment in clippings. I never knew why they wanted them, I swear it.
+randall_graham [afraid]: Do not say it aloud! I owed the Order a steep sum from a bad winter, and they took payment in clippings. I swear I never knew why.
 * Offer to pay the debt (fifty gold). -> pay_debt
 * [Persuasion DC 12] Tell him to confess to Doris. -> confess_ok | confess_fail
 * Keep his secret. -> keep
 
 ~ pay_debt
-randall_graham [weary]: Fifty coin, just like that? You have lifted a millstone off my windpipe, friends. I will sweep my floor straight into the stove from this hour on.
+randall_graham [weary]: Fifty coin, just like that? You have lifted a millstone off my windpipe. I will sweep my floor straight into the stove from now on.
 gold -50
 set hair_outcome = "paid"
 quest hair_of_the_dog done
@@ -52,7 +52,7 @@ standing cult +1
 
 ~ confess_ok
 randall_graham [sad]: You are right. Better Doris Squire's iron look than waking up in a cold sweat every bell.
-Narrator: When he tells her at the barracks door, Doris only sighs through her nose and sets the kettle on, gentle as forged steel can be.
+Narrator: At the barracks door, Doris only sighs and sets the kettle on, gentle as forged steel.
 set hair_outcome = "confessed"
 quest hair_of_the_dog done
 standing old_ways +1
@@ -63,7 +63,7 @@ randall_graham [afraid]: To Doris? Have you seen the woman's eyes? My knees woul
 -> confront
 
 ~ keep
-randall_graham [sly]: Mum's the word, then. Take these few coins, and here, a curl from my own crown, so we are bound fair and square.
+randall_graham [sly]: Mum's the word, then. Take these coins and a curl from my own crown, so we are bound fair and square.
 set hair_outcome = "kept"
 quest hair_of_the_dog done
 gold +15

@@ -9,6 +9,7 @@ Narrator: Sixty feet of sluggish black water crawls between stony banks and ratt
 
 ~ toll_ok
 Narrator: An old ferryman knows a greedy crossing when he sees one: this water bites healthy flesh, though it lets the blighted pass like kin. Drink its rot or bleed for the privilege.
+interject name:silas_vane: Bleed or swallow the rot. That's a rigged table if I ever saw one, friend.
 -> river
 
 ~ toll_plain
@@ -16,12 +17,14 @@ Narrator: The dark current slides past the dead reeds, keeping its terms to itse
 -> river
 
 ~ pay_hp
+approve rook_coldwake +2 tobin_hayward +2 cordelia_skein -2: You paid the river's toll in blood rather than drink the rot
 Narrator: You step into the waist-deep chill, and the black water latches onto your shins like a hundred freezing leeches. By the far bank your boots are full of blood.
 damage 3d8 necrotic party
 set hb_river_paid
 -> END
 
 ~ pay_blight
+approve cordelia_skein +2 tobin_hayward -3 rook_coldwake -1: You drank the blighted river water to cross without bleeding
 Narrator: You cup the bitter, mossy water to your lips and swallow the river's sickness down. When you wade across, the current parts around your knees like an old friend.
 set hb_blight += 1
 set hb_river_paid
@@ -37,6 +40,7 @@ Narrator: Leaning standing stones, furred in shelf-fungus, ring a sixty-foot cle
 
 ~ stones_ok
 Narrator: These monoliths were raised long before the rot, drinking deep from the earth to feed whatever sleeps in the basin. Toppling them now would only spill the soup, not cool the pot.
+interject name:rook_coldwake: Good solid foundation work, that. Shame the drainage in the basin went so badly sour.
 -> stones
 
 ~ stones_plain
@@ -52,8 +56,10 @@ Narrator: The glowing spores sting your eyes, leaving only your own pale reflect
 -> stones
 
 ~ rises
+approve lucan_houndstooth +2 delphine_ravelle +2: You stepped straight up to the festering pool to face what slept within
 cutscene hb_gwenna_rises
 Narrator: Five paces from the rim, the yellow water boils over the stones and a mountain of weeping moss and bone heaves itself upright.
+interject name:lucan_houndstooth: Mind the splash and hold your ground, friends. Here it comes.
 cutscene hb_gwenna_rises_2
 cutscene end
 set hb_festerhulk_started
@@ -65,6 +71,7 @@ cutscene hb_pool_memory
 Narrator: Clear spring water shines inside a ring of clean grey stone, and antlered arms cradle a dead woman's weight.
 cutscene hb_pool_memory_2
 Narrator: Gently as a prayer, the corpse is lowered into the wellspring, and the clear water curdles into erupting yellow rot.
+interject name:cordelia_skein: Accelerated fungal necrosis from a single submerged cadaver. The concentration is astonishing.
 cutscene end
 Narrator: When your own eyes clear, you know that dead woman's face: you saw it woven in dry branches at the forest's edge, Gwenna herself.
 set hb_pool_memory_seen

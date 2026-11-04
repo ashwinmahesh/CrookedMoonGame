@@ -1,8 +1,8 @@
 # Drafted by Gemini (side quests batch 2: fair_price), edited.
 
 ~ baltus_start
-Narrator: The Trading Post smells of tallow and damp wool, with a polished brass scale gleaming on the counter.
-baltus_tolliver [weary]: A merchant lives by honest measure, friends, yet Eleanor Heyling sells fine rag paper across the Round for less than the mill charges. Glance at her ledger for me, and learn how she keeps her purse full.
+Narrator: The Trading Post smells of tallow and damp wool, a brass scale gleaming on the counter.
+baltus_tolliver [weary]: Eleanor Heyling sells fine rag paper across the Round for less than the mill charges. Glance at her ledger and see how she keeps her purse full.
 * We will look -> baltus_accept
 * Not our business -> END
 
@@ -13,41 +13,41 @@ set price_asked
 -> END
 
 ~ eleanor_visit
-Narrator: Dry parchment and walnut gall scent the narrow shelves, and an open account book rests beside Eleanor's elbow.
-eleanor_heyling [neutral]: If Baltus sent you to whine about vellum, tell him to scrape the lead out from under his brass scale first. Have you come to read, or just to hover?
+Narrator: Dry parchment and walnut gall scent the shelves, an open account book beside Eleanor's elbow.
+eleanor_heyling [neutral]: If Baltus sent you to whine about vellum, tell him to scrape the lead from under his brass scale first. Come to read, or just to hover?
 * [Investigation DC 12] Study her ledger over her shoulder -> ledger_ok | ledger_fail
 * Ask her side of it -> eleanor_side
 * Leave -> END
 
 ~ eleanor_side
-eleanor_heyling [angry]: Every pound of lampblack ink from his counter weighs fourteen ounces by any honest iron. I price my sheets so the schoolhouse does not have to beg him for scraps.
+eleanor_heyling [angry]: A pound of his lampblack ink weighs fourteen ounces by honest iron. I price my sheets so the schoolhouse needn't beg him for scraps.
 -> eleanor_visit
 
 ~ ledger_ok
-Narrator: {name} traces the neat red ink along the margin: the loss on every quire is covered by a quiet newcomer fund signed by Finneas Trout.
+Narrator: {name} traces the red margin ink: a newcomer fund signed by Finneas Trout covers the loss on every quire.
 eleanor_heyling [sly]: Sharp eyes. Finneas and I see to it our people have paper without paying a tithe to the Old Ways.
 set price_ledger_seen
 -> END
 
 ~ ledger_fail
 Narrator: Her hand drops flat over the page before {name} can make sense of the cramped figures.
-eleanor_heyling [neutral]: This book is not for sale, stranger. If you want sums, bother Tamsin Ledger up at the Mayor's House.
+eleanor_heyling [neutral]: This book is not for sale. If you want sums, bother Tamsin Ledger at the Mayor's House.
 -> END
 
 ~ tamsin_audit
-tamsin_ledger [neutral]: Two merchants accusing each other of arithmetic is the dullest sin in Wickermoor. For ten gold to cover my candles, I will audit both books before the sixth bell.
+tamsin_ledger [neutral]: Two merchants arguing arithmetic is Wickermoor's dullest sin. For ten gold in candles, I will audit both books before the sixth bell.
 * Pay ten gold -> audit_paid
 * Another way -> END
 
 ~ audit_paid
 gold -10
-Narrator: By next candle-mark, Tamsin lays a single sheet of foolscap on the desk, smelling faintly of cold tea.
-tamsin_ledger [neutral]: Baltus thumbs his brass pan by two drams, and Eleanor covers her cheap paper with a schoolhouse grant from Finneas Trout. Both books balance, if you squint.
+Narrator: By next candle-mark, Tamsin lays down a single sheet of foolscap, smelling of cold tea.
+tamsin_ledger [neutral]: Baltus thumbs his brass pan by two drams; Eleanor covers her cheap paper with a schoolhouse grant from Finneas Trout. Both books balance, if you squint.
 set price_ledger_seen
 -> END
 
 ~ broker
-baltus_tolliver [sly]: You have the look of folks who have seen the bottom of the inkwell. Come, how do we settle our dear neighbour?
+baltus_tolliver [sly]: You look like folks who have seen the bottom of the inkwell. How do we settle our dear neighbour?
 * Broker a truce -> truce
 * Tell Baltus where her money comes from -> side_baltus
 * Tell Eleanor his scale is rigged -> side_eleanor
@@ -72,7 +72,7 @@ baltus_tolliver [weary]: You see how she is, friends.
 -> broker
 
 ~ side_baltus
-baltus_tolliver [sly]: A schoolhouse grant from poor Finneas? Wait until the Round hears the newcomers need charity just to write a letter.
+baltus_tolliver [sly]: A schoolhouse grant from Finneas? Wait till the Round hears the newcomers need charity just to write a letter.
 set price_outcome = "baltus"
 quest a_fair_price done
 gold +25

@@ -455,3 +455,19 @@ func test_the_warhorse_is_drawn_as_its_own_figure() -> void:
 	assert_eq(str(Compendium.shared().get_entry("monsters", "warhorse").get("art", "")), "warhorse", "the Warhorse wears its figure")
 	assert_true(FigureModels.has("warhorse"), "which has its model in the repo")
 	assert_eq(FigureModels.stand_in("warhorse"), "", "so the nightmare's sprite is not worn")
+
+
+## Wickermoor's people stand as 3D figures, none on the generic 2D villager sprite (Ashwin, 2026-11-03: the whole hollow showed
+## sprites). The pigeon that listens at windows has no body to dress, so it is left out until its model comes.
+func test_wickermoor_people_wear_3d_figures() -> void:
+	var comp := Compendium.shared()
+	var bare: Array[String] = []
+	for loc: Dictionary in comp.all("locations"):
+		if str(loc.get("region", "")) != "wickermoor" or not str(loc["id"]).begins_with("wickermoor_"):
+			continue
+		for n: Variant in loc.get("npcs", []):
+			var nid := str((n as Dictionary).get("npc", ""))
+			var art := str(comp.get_entry("npcs", nid).get("sprite", nid))
+			if nid != "peeping_albert" and not FigureModels.has(art) and not bare.has(nid):
+				bare.append(nid)
+	assert_eq(bare, [] as Array[String], "people of Wickermoor with no 3D figure: %s" % ", ".join(bare))

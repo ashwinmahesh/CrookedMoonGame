@@ -2,6 +2,7 @@
 
 ~ start
 Narrator: From the ridge above Foxwillow, the smell of scorched thatch and roasted corn rises on a hot wind. Below you, the windmill turns like a wheel of fire while pumpkin-headed scarecrows brawl in the square.
+interject name:tobin_hayward: Keep me three paces down-wind of that mill, or I'm tinder before supper.
 william_lodge [afraid]: Mercy on us, it is far worse than when I rode out. The whole town has gone mad with the flame.
 if not quest.fields_of_the_crow >= burning
 quest fields_of_the_crow burning
@@ -13,6 +14,7 @@ set fw_fire_start = now
 
 ~ look
 william_lodge [afraid]: Neighbours set that mill ablaze in their feud, and now the straw folk are tearing each other apart. Mind your blades, though: there is a real neighbour trapped inside every pumpkin head.
+interject name:delphine_ravelle: Careful with the stitching, darlings, nobody looks their best with the stuffing knocked out.
 william_lodge [weary]: If a scarecrow body is burned to ash or smashed to pieces, the soul inside dies for good. Put them down gently if they come at us, or we are no better than the crows.
 set body_rule_told
 -> start
@@ -31,6 +33,7 @@ quest the_burning_mill burning
 * [Persuasion DC 12] Ask what the quarrel was about -> martha_quarrel | martha_quarrel_fail
 
 ~ martha_go
+approve tobin_hayward +2 rook_coldwake +2: You ran into the burning mill to save Jonah
 martha_langtree [weary]: Bless you. Mind the smoke, and do not let that stubborn boy burn for an old woman's temper.
 set fw_mill_asked
 if not quest.fields_of_the_crow >= investigating

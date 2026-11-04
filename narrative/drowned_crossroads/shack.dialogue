@@ -23,6 +23,7 @@ Narrator: A lone bottle glows pale green in the weeds off the boards. Where one 
 ~ parley
 Narrator: Claws click down the iron spiral stair into the warm clutter of neon signs and bottled curios.
 mister_crossroads [smile]: Step right in out of the damp, my friends. A humble sinner rarely gets the pleasure of the folks who rode the Ghostlight Express down the hill.
+interject name:delphine_ravelle: Neon in a swamp, darlings. Cheap staging, though I admire the commitment to the coat.
 -> parley_menu
 
 ~ parley_menu
@@ -36,6 +37,7 @@ mister_crossroads [smile]: Step right in out of the damp, my friends. A humble s
 
 ~ parley_adela
 mister_crossroads [sly]: Ah, a lady of her breeding really ought to read the small print before signing. Still, she got her wish, and I keep her little gold band safe.
+interject name:cordelia_skein: Notice how his claws twitch when he says safe. Pure predator, darling.
 -> parley_menu
 
 ~ parley_keen
@@ -48,6 +50,7 @@ Narrator: He stands with his hands folded over his waistcoat, nothing more than 
 
 ~ parley_passage
 mister_crossroads [smile]: Take any one thing from my shelves, a bargain or a simple curio tagged at three copper, and you are honoured guests aboard my boat. No catch at all.
+interject name:silas_vane: Three copper and no catch? Friend, when the house says no catch, count your ribs.
 -> parley_menu
 
 ~ parley_threat
@@ -59,6 +62,7 @@ mister_crossroads [smile]: Oh, splendid, it is always a genuine pleasure to be t
 -> parley_menu
 
 ~ done_trading
+approve silas_vane -3 tobin_hayward -2 cordelia_skein +2: You struck a three-copper bargain in the Sinner's shack
 mister_crossroads [smile]: Sold and sealed, my dear friends, as tidy as if you had bought the whole shop.
 set crossroads_passage
 give sinners_tag
@@ -68,6 +72,7 @@ Narrator: He snaps his clawed fingers and vanishes in a gout of sweet-smelling m
 -> END
 
 ~ refuse
+approve silas_vane +3 rook_coldwake +2 lucan_houndstooth +2: You refused Mister Crossroads and his crooked three-copper bargains
 mister_crossroads [weary]: Now look at the hour on my watch. You must excuse a busy man, friends, though I hate to leave you to the night air.
 Narrator: He snaps his fingers and vanishes in a flash of magenta flame.
 set crossroads_refused
@@ -81,6 +86,7 @@ Narrator: The shack stands quiet in the lingering smoke, its shelves crowded wit
 * Take nothing. -> END
 
 ~ steal_take
+approve silas_vane +2 rook_coldwake -2: You lifted a tagged idol from the empty shack to board the boat
 set crossroads_passage
 give sinners_tag
 Narrator: Three copper coins vanish from your purse to settle the price. You have your pass, though the riverboat will know you came as intruders.

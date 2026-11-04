@@ -35,7 +35,7 @@ FOLDERS = {
     "schedule": "schedule",
     "objects": {"kinds": "object_kinds"},
     "weather": "weather",
-    "camp": {"night_visitors": "night_visitors"},
+    "camp": {"night_visitors": "night_visitors", "night_events": "night_events"},
     "progression": {"xp": "xp", "chapters": "chapters"},
     "achievements": "achievements",
     "ai": {"profiles": "ai_profiles"},
