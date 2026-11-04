@@ -157,6 +157,7 @@ class Story:
         self.locs, self.npcs, self.quests = t("locations"), t("npcs"), t("quests")
         self.random, self.schedule, self.strahd = t("random_encounters"), t("schedule"), t("strahd")
         self.ally_visits = t("visits")
+        self.night_events = t("camp").get("night_events", {}).get("events", [])   # what comes at a Long Rest (story/night_events.gd)
         self.endings, self.monsters = t("endings"), t("monsters")
         self.places, self.roads = [], []
         for k, v in sorted(t("travel").items()):
@@ -532,6 +533,10 @@ class Story:
                 self.changed |= self.add(("table", r["table"]), f"the road {r['id']}")
                 for g in r.get("grounds", []) if self.chance_maps else []:
                     self.changed |= self.add(("loc", g), f"a random fight on the road {r['id']}")
+        if reached:   # a table rolled on every road's quiet leg (a hunted villain's minions, the Crooked Man at its edge)
+            for tid, tb in self.random.items():
+                if tb.get("every_road") and self.possible(tb.get("when", "")):
+                    self.changed |= self.add(("table", tid), "a table rolled on every road")
         for tid, tb in self.random.items():
             if ("table", tid) not in self.facts:
                 continue
@@ -558,6 +563,9 @@ class Story:
                     for f, v in (e.get("set") or {}).items():
                         self.changed |= self.add(("flag", f, v), f"data/schedule/{sid}.json {e['id']}")
                     self.walk_ref(e.get("dialogue"), f"data/schedule/{sid}.json {e['id']}")
+        for ev in self.night_events:   # a Long Rest anywhere: the game plays its conversation (visit_after_rest)
+            if self.possible(ev.get("when", "")):
+                self.walk_ref(ev.get("dialogue"), f"the night event {ev['id']}")
         visits = [("the villain's visit", v) for v in self.strahd.get("visits", {}).get("visits", [])]
         for npc, f in sorted(self.ally_visits.items()):   # a friend's letter or road meeting (data/visits/)
             visits += [(f"{npc}'s visit", v) for v in f.get("visits", [])]

@@ -1,0 +1,19 @@
+{
+  "id": "night_events",
+  "summary": "What comes for a party that takes a real Long Rest while a story condition holds (story/night_events.gd; docs/story/camp.md in the engine). The Crooked Man calls at the party's fire twice between the acts (fun pass, lane D): at the interval, once the four Fallen of Act II are dead, and on the night after the sixth, before Fool's Day. Never a fight.",
+  "events": [
+    {
+      "id": "crooked_man_fire",
+      "when": "flag.raum_slain and flag.renathyr_slain and flag.grinning_sinner_slain and flag.lethica_slain and not flag.fallen_farryn_dead",
+      "chance": 0.5,
+      "dialogue": "roads/crooked_man:fire",
+      "text": "In the small hours the one on watch goes very still. Someone is sitting across the fire."
+    },
+    {
+      "id": "crooked_man_last_fire",
+      "when": "flag.fallen_yorgrim_dead and not flag.chuckles_dead",
+      "dialogue": "roads/crooked_man:last_fire",
+      "text": "The fire burns low and blue. The one on watch wakes everyone without a word."
+    }
+  ]
+}
