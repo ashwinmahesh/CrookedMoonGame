@@ -5,8 +5,7 @@ extends TestCase
 ## and every keyed monster sound names a real action.
 
 const REGIONS: Array[String] = ["wickermoor", "crooked_house", "foxwillow"]
-## The Crooked Moon's sky is always night, so its night music turns on the hour: 09:00 is the Twilight Hour, 20:00 the
-## Evening Hour.
+## The music turns with the sun: 09:00 is the Sunlit Hour, 20:00 the Evening Hour.
 const DAY_MINUTE := 9 * 60
 const NIGHT_MINUTE := 20 * 60
 

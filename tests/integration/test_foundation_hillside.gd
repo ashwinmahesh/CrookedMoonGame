@@ -127,13 +127,19 @@ func test_the_party_walks_up_the_hill_under_the_night_clock() -> void:
 	assert_true(hud_text.contains("22:00"), "the explore bar shows the clock: %s" % hud_text)
 
 
-## Druskenvald's eternal night (data/campaign.json `calendar`): no sun, six named hours, each with its own look.
+## Druskenvald's hours (data/campaign.json `calendar`): seven named hours, each with its own look; the sun is up from the
+## Twilight Hour until Nightfall, high in the Sunlit Hour (Ashwin, 2026-11-04: real daytime hours).
 func test_the_clock_takes_the_place_through_the_named_hours() -> void:
 	var view := _view()
+	st.minute_of_day = 9 * 60
+	view.update_daylight()
+	assert_false(st.is_night(), "the sun is up")
+	assert_eq(view.time_phase(), "day", "nine in the morning is the Sunlit Hour")
+	assert_eq(Calendar.hour_name(st.minute_of_day), "the Sunlit Hour")
 	st.minute_of_day = 12 * 60
 	view.update_daylight()
-	assert_true(st.is_night(), "the sun never rises")
-	assert_eq(view.time_phase(), "dusk", "noon is the Dusk Hour, the brightest the world gets")
+	assert_false(st.is_night(), "still light")
+	assert_eq(view.time_phase(), "dusk", "noon is the Dusk Hour")
 	assert_eq(Calendar.hour_name(st.minute_of_day), "the Dusk Hour")
 	assert_false(view.lantern.visible, "no lantern in the Dusk Hour's glow")
 	st.advance_minutes(10 * 60)
