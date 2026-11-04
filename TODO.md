@@ -57,6 +57,8 @@ Ashwin's requests and the merge queue. Each item shows its status. Items in prog
 
 ## Done
 
+- **Ashwin's checkout no longer shows modified .import files** (2026-11-04): a windowed (GPU) import rewrote 14 figure and weapon textures' .import files to GPU texture compression, so git showed them changed; their `detect_3d/compress_to` is now off, so they stay lossless; and the engine's four missing uid files (sheet cast effect, three tests) are committed.
+
 - **Shorter Act II and III banter** (Ashwin approved, 2026-11-04): 409 lines across the nine region files and the Act II and III party banters are cut to Curse of Strahd's length; 269 lose their clips until re-read (the voice thread has the list); the Briar cellar wall, Skitterdeep's deep level and the Marshwinder shack exchanges are now gated behind their beats.
 
 - **Shorter Act I banter** (Ashwin chose it, 2026-11-04): the Ghostlight Express, Wickermoor, Crooked House and party Act I banter is cut to Curse of Strahd's length (about 14 words a line), 161 lines. 103 of them had clips, which are silent until re-read (the voice thread has the list). The earlier held branch fun-companions-tighten is dropped.
