@@ -316,7 +316,82 @@
             5
           ],
           "name": "The Songstress",
-          "facing": "south"
+          "facing": "south",
+          "states": [
+            "last_song"
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "last_song",
+          "name": "Last Song",
+          "summary": "Her song holds whoever hears it.",
+          "kind": "save",
+          "affects": "party",
+          "from_round": 2,
+          "say": "haint:last_song",
+          "every": 2,
+          "save": {
+            "ability": "wis",
+            "dc": 12
+          },
+          "condition": "incapacitated",
+          "until": "target_turn_end"
+        }
+      ]
+    },
+    {
+      "id": "gl_shroud_breach",
+      "trigger": "enter_area:g3_seating",
+      "flag": "gl_breach_done",
+      "when": "flag.haints_resolved >= 3 and not flag.gl_breach_done",
+      "monsters": [
+        {
+          "monster": "corrupted_passenger",
+          "cell": [
+            3,
+            3
+          ],
+          "name": "Shroud-Touched Passenger",
+          "art": "corrupted_passenger"
+        },
+        {
+          "monster": "shadow",
+          "cell": [
+            16,
+            4
+          ],
+          "name": "A Sliver of the Phantom",
+          "art": "phantom_trainhopper"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "shroud_spills_in",
+          "name": "The Shroud Spills In",
+          "summary": "Green mist pours through the broken window, and a passenger in it turns.",
+          "kind": "summon",
+          "monster": "corrupted_passenger",
+          "count": 1,
+          "cells": [
+            [
+              8,
+              4
+            ]
+          ],
+          "from_round": 2,
+          "until_round": 3,
+          "say": "breach:spill"
+        },
+        {
+          "id": "vagrants_whistle",
+          "name": "The Vagrant's Whistle",
+          "summary": "The train's whistle screams and the window knits itself whole.",
+          "kind": "text",
+          "from_round": 4,
+          "times": 1,
+          "say": "breach:whistle"
         }
       ]
     }
@@ -373,6 +448,27 @@
       "bright_ft": 10,
       "dim_ft": 20,
       "visual": true
+    }
+  ],
+  "containers": [
+    {
+      "id": "g3_bar_till",
+      "cell": [
+        14,
+        2
+      ],
+      "label": "The bar's brass till",
+      "model": "strongbox",
+      "gold": 18
+    },
+    {
+      "id": "g3_liquor_cabinet",
+      "cell": [
+        18,
+        4
+      ],
+      "label": "A liquor cabinet",
+      "model": "cabinet_small"
     }
   ]
 }

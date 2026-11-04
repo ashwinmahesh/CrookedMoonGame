@@ -251,6 +251,18 @@
       "approach": 12,
       "call_when": "flag.gl_phantom_done and not flag.gl_vagrant_briefed",
       "facing": "south"
+    },
+    {
+      "id": "g4_dumbwaiter",
+      "cell": [
+        18,
+        3
+      ],
+      "kind": "search",
+      "label": "A dumbwaiter hatch",
+      "model": "dumbwaiter",
+      "search_dc": 13,
+      "item": "potion_of_healing_greater"
     }
   ],
   "npcs": [
@@ -293,7 +305,84 @@
             2
           ],
           "name": "The Daydreamer",
-          "facing": "south"
+          "facing": "south",
+          "states": [
+            "food_fight"
+          ]
+        }
+      ],
+      "round_events": [
+        {
+          "id": "food_fight",
+          "name": "Food Fight",
+          "summary": "A phantom supper flies across the car.",
+          "kind": "save",
+          "affects": "party",
+          "from_round": 2,
+          "say": "haint:food_fight",
+          "one": true,
+          "save": {
+            "ability": "dex",
+            "dc": 12
+          },
+          "damage": {
+            "dice": "1d6",
+            "type": "bludgeoning"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gl_shroud_breach",
+      "trigger": "enter_area:g4_booths",
+      "flag": "gl_breach_done",
+      "when": "flag.haints_resolved >= 3 and not flag.gl_breach_done",
+      "monsters": [
+        {
+          "monster": "corrupted_passenger",
+          "cell": [
+            5,
+            3
+          ],
+          "name": "Shroud-Touched Passenger",
+          "art": "corrupted_passenger"
+        },
+        {
+          "monster": "shadow",
+          "cell": [
+            13,
+            3
+          ],
+          "name": "A Sliver of the Phantom",
+          "art": "phantom_trainhopper"
+        }
+      ],
+      "round_events": [
+        {
+          "id": "shroud_spills_in",
+          "name": "The Shroud Spills In",
+          "summary": "Green mist pours through the broken window, and a passenger in it turns.",
+          "kind": "summon",
+          "monster": "corrupted_passenger",
+          "count": 1,
+          "cells": [
+            [
+              9,
+              4
+            ]
+          ],
+          "from_round": 2,
+          "until_round": 3,
+          "say": "breach:spill"
+        },
+        {
+          "id": "vagrants_whistle",
+          "name": "The Vagrant's Whistle",
+          "summary": "The train's whistle screams and the window knits itself whole.",
+          "kind": "text",
+          "from_round": 4,
+          "times": 1,
+          "say": "breach:whistle"
         }
       ]
     }
@@ -350,6 +439,18 @@
       "bright_ft": 10,
       "dim_ft": 20,
       "visual": true
+    }
+  ],
+  "containers": [
+    {
+      "id": "g4_waiters_station",
+      "cell": [
+        14,
+        2
+      ],
+      "label": "The waiter's station",
+      "model": "sideboard",
+      "gold": 6
     }
   ]
 }
